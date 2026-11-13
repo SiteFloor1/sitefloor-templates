@@ -153,7 +153,7 @@ test("menswear demo is valid and the look orders every home section", () => {
 test("wear validation: demo-only numbers, links and forms never reach a client", () => {
   const c = clone(demo);
   Object.assign(c, { mode: "client", indexable: true });
-  c.contact = { whatsapp: "447911123456", phone: "+44 7911 123456", email: "hello@isotach.co.uk" };
+  c.contact = { whatsapp: "442079460456", phone: "+44 20 7946 0456", email: "hello@isotach.example" };
   c.reviews.source = "google";
   const e = errorsOf(c).join("\n");
   assert.match(e, /stock\.source: fixed numbers/);

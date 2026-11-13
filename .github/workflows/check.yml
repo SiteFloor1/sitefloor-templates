@@ -51,6 +51,8 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
+      # The fonts check (npm run rules) also reads every open branch's fonts.md, so parallel trades can't pick one family.
+      - run: git fetch -q --no-tags --depth=1 origin '+refs/heads/*:refs/remotes/origin/*'
       - run: npm run lint
       - run: npm run rules
       - run: npm run typecheck

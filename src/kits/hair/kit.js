@@ -45,7 +45,7 @@ export const features = [
     summary: "The journal: the salon's own dated articles (balayage or highlights, caring for colour, growing out a cut), each on its own page with its sources." },
   { id: "stylist-match", section: "match", dir: `${D}/stylist-match`, minPlan: "signature", kits: ["hair"], requires: ["stylists", "match"], needs: ["stylists-page"], js: true,
     summary: "Stylist match: three answers (what we're doing, the hair, the first free chair or the most experience) lead to the one stylist whose work fits, shown with their work, level and next free day, and a WhatsApp message to book them." },
-  { id: "consent-pairs", section: "pairs", dir: `${D}/consent-pairs`, minPlan: "signature", kits: ["hair"], requires: ["pairs", "stylists"], clientOnly: true, js: true,
+  { id: "consent-pairs", section: "pairs", dir: `${D}/consent-pairs`, minPlan: "signature", kits: ["hair"], requires: ["pairs", "stylists"], js: true,
     summary: "Before and after, with consent only: each pair is one client in one session, compared with a slider, naming the stylist and the date the client agreed in writing." },
   { id: "chairs-today", section: "chairs", dir: `${D}/chairs-today`, minPlan: "signature", kits: ["hair"], requires: ["chairs", "stylists", "menu"], needs: ["stylists"], js: true,
     summary: "Chairs free today: the blow-dry and walk-in slots the salon puts on its sheet through the day, soonest first, with the stylist, the price from and \"Ask for 14:30\" on WhatsApp. Fails closed: an old row, a slot already started or outside today's hours shows nothing." },
@@ -57,6 +57,8 @@ export const features = [
     summary: "The wedding hair planner: from the wedding date, the consultation, trial, colour and final trim on the salon's own timings, past steps marked, to the calendar in one file and to the salon on WhatsApp." },
 ];
 
+/** Features offered on client sites only (they need the client's own material), so no demo shows them. */
+export const clientOnly = ["consent-pairs"];
 /** Shared features this trade doesn't offer: the stylists replace the team page; looks replace the work page. */
 export const refuses = ["seasonal", "work", "photo-band", "page-links", "team"];
 

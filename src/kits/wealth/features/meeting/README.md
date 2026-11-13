@@ -6,5 +6,5 @@ and it refuses to send anything that looks like an account, card or sort-code nu
 scripts it shows the phone number and email instead. The "What to bring" list sits beside it when `bring` is on.
 
 ```json
-"meeting": { "title", "intro", "email": "meetings@firm.co.uk", "where": ["At our office", "At your home", "By video"], "note" }
+"meeting": { "title", "intro", "email": "meetings@firm.example", "where": ["At our office", "At your home", "By video"], "note" }
 ```

@@ -64,7 +64,7 @@ booking links by where they go, not by their words, so each look can word its ow
 
 ## Plans
 `starter < plus < signature`. Each feature declares `minPlan`. Validation rejects a feature above the site's plan.
-Between them, a kit's demos must show every feature of the kit (`npm run rules`); each demo shows its own set so shops can compare. The plan switcher hides parts marked `data-tier`.
+Between them, a kit's demos must show every feature of the kit except its `clientOnly` ones, which only its client fixtures show (`npm run rules`); each demo shows its own set so shops can compare. The plan switcher hides parts marked `data-tier`.
 
 ## A kit registers itself
 Each kit has one entry file, `src/kits/<kit>/kit.js`. The shared build finds every `src/kits/*/kit.js` at build time,
@@ -76,6 +76,7 @@ and `npm run rules` fails if `scripts/lib/bundle.js`, `scripts/lib/render.js`, `
 |---|---|---|
 | `features` | registry → validation, bundling, pages, plan switcher | the kit's own features, in load order; a string (a shared feature's id) places that shared feature among them |
 | `uses` / `refuses` | registry | shared features only some trades offer (`kits: []` in registry.js), and ones this trade never offers |
+| `clientOnly` | registry → `npm run rules` | features (its own or shared ones it offers) that need the client's own material, e.g. a real before/after pair of one place: no demo of the kit may turn them on, its demos needn't show them, and a client test fixture of the kit must (the only client-only mechanism; a name the trade doesn't offer fails the build) |
 | `check` | `config.js` | the kit's site.json checks (`src/kits/<kit>/config.js`); runs for every site, returns early for other kits |
 | `pageData` | `render.js` → `clientData` | what the kit's browser scripts read from the page |
 | `buildData` | `render.js` → `build` | values the kit's templates read before the first paint |
@@ -84,6 +85,10 @@ and `npm run rules` fails if `scripts/lib/bundle.js`, `scripts/lib/render.js`, `
 | `csp` | `seo.js` → `_headers` | what the kit adds to the security policy: `sheets` (reads a published Google Sheet; allowed once), other `connect`, `img`, `script` and `frame` sources |
 | `settings` | `config.js` | top-level site.json keys the trade's sites may carry that no feature lists in `requires` or `optional` (any other key is refused) |
 | `savingsItem` | `config-extras.js` | what the loyalty card's savings example compares against when the trade sells something other than services (a café's dish) |
+
+Feature ids are one flat list, so a kit's own ids must be unique across the shared features and every kit, on main and on
+every other open branch (`scripts/lib/feature-ids.js`, part of `npm run rules`; CI fetches every branch). New kit features
+start with the kit's name (`<kit>-services`); older ids keep theirs.
 
 Shared features stay in `registry.js`. A shared feature open to every trade has `kits: ["*"]`; one only some trades
 offer has `kits: []` and each of those trades lists it in `uses`. `bundle.js` keeps the providers that existed when
@@ -118,7 +123,9 @@ trade (`docs/trades/<trade>/`: `trade.json`, `speed.md`, `fonts.md`, `demo-map.m
 case study (`case-studies/<slug>/README.md` and `fonts.md`) and the shared parts in `docs/platform/`. Generated:
 `docs/SPEED-LOG.md`, `docs/CLAIMED-FONTS.md`, `docs/DEMO-MAP.md`, `docs/trades/README.md`, `case-studies/README.md`
 and the trade link lists in `docs/CUSTOMER-QUESTIONS.md` and `docs/TRADE-PLAYBOOK.md`. `npm run rules` fails if any is
-stale or if two trades or case studies claim the same font family (other cuts count as the same family). A case
+stale or if two trades or case studies claim the same font family (other cuts count as the same family), including a
+claim in `fonts.md` on any other open branch (`origin/*`: agents `git fetch --all --prune` first, CI fetches every branch;
+skipped on main, so an open branch never fails main). A case
 study may use its own demo's fonts (the `Trade` column of its `fonts.md`); the few older pages that share a font with
 another trade are named as historical exceptions in `docs/platform/fonts.md`, and nothing new may be added there. Two parallel
 pull requests then only meet in generated files: after merging `main`, run `npm run docs` and commit; never resolve a

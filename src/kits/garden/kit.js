@@ -35,8 +35,6 @@ export const features = [
   { id: "garden-journal", dir: `${D}/garden-journal`, minPlan: "plus", kits: ["garden"], requires: ["journal"], page: "journal", morePages: ["article"], js: false,
     summary: "The journal: the studio's own dated articles (what to plant each season, designing a small garden, caring for a new lawn), each on its own page with its sources." },
   { id: "through-the-year", section: "throughYear", dir: `${D}/through-the-year`, minPlan: "signature", kits: ["garden"], requires: ["throughYear", "gardens"], optional: ["palette"], js: true,
-    // needs one real garden photographed from the same spot all year, so only a client's site can show it honestly
-    clientOnly: true,
     summary: "A garden through the year: one of the studio's gardens photographed from the same spot month after month; a month scale under it moves between them (tap or arrow keys), and names what is at its best from the planting palette." },
   { id: "sun-study", dir: `${D}/sun-study`, minPlan: "signature", kits: ["garden"], requires: ["sun"], optional: ["palette"], page: "where-the-sun-falls", js: true,
     summary: "Where the sun falls: the visitor's garden size, which way it faces and the house and fence heights; the plan shows hours of sun across the garden on the 21st of any month and the shadows at any hour, in plan or in 3D, with a plain answer and the plants from the palette for the spot they tap." },
@@ -50,8 +48,11 @@ export const features = [
 
 /** Shared features only some trades offer, that this one does. */
 export const uses = ["before-after"];
-/** Shared features offered on client sites only: before/after needs the client's own pair of one place. */
-export const clientOnly = ["before-after"];
+/**
+ * Features offered on client sites only, so no demo shows them: through-the-year needs one real garden photographed from
+ * the same spot all year; before/after needs the client's own pair of one place.
+ */
+export const clientOnly = ["through-the-year", "before-after"];
 /** Shared features this trade doesn't offer. */
 export const refuses = ["seasonal", "work", "photo-band", "page-links", "gallery", "vouchers"];
 

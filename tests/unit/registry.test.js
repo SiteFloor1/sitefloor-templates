@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { existsSync } from "node:fs";
 import path from "node:path";
-import { FEATURES, forKit } from "../../src/features/registry.js";
+import { FEATURES, forKit, clientOnlyFor, featuresFor, KITS as KIT_MODULES } from "../../src/features/registry.js";
 import { loadCatalog } from "../../scripts/lib/catalog.js";
 
 const { kits: KITS, looks: LOOKS } = loadCatalog(process.cwd());
@@ -48,4 +48,12 @@ test("every feature id is used once: two kits can't register the same id", () =>
     assert.ok(!seen.has(f.id), `"${f.id}" is registered twice (${seen.get(f.id)} and ${f.dir})`);
     seen.set(f.id, f.dir);
   }
+});
+
+test("client-only features are one kit.js list, of features the trade offers (own or shared)", () => {
+  assert.deepEqual([...clientOnlyFor("garden")].sort(), ["before-after", "through-the-year"]);
+  assert.deepEqual([...clientOnlyFor("detailing")], ["inspection-light"]);
+  assert.equal(clientOnlyFor("barber").size, 0);
+  assert.deepEqual(FEATURES.filter((f) => "clientOnly" in f).map((f) => f.id), [], "no per-feature flag any more");
+  for (const k of KIT_MODULES) for (const id of k.clientOnly ?? []) assert.ok(featuresFor(k.id).some((f) => f.id === id && forKit(f, k.id)), `${k.id}: ${id}`);
 });

@@ -74,7 +74,7 @@ test.describe("will I make it?", () => {
     await expect(page.locator("[data-fc-verdict]")).toHaveText("Yes. You'll be done by 11:17am.");
     await expect(page.locator("[data-fc-sub]")).toHaveText("11 min to spare once you're back. Leave by 10:41am at the latest.");
     await expect(page.locator("[data-fc-steps] li")).toHaveCount(5);
-    await expect(page.locator("[data-fc-go]")).toHaveAttribute("href", /wa\.me\/447911654321\?text=.*on%20my%20way/);
+    await expect(page.locator("[data-fc-go]")).toHaveAttribute("href", /wa\.me\/442079460321\?text=.*on%20my%20way/);
     await expect(remind).toBeHidden();
     await srv.close();
   });
@@ -150,7 +150,7 @@ test.describe("offers", () => {
     await expect(page.locator("[data-mb-payg]")).toHaveText("£69.33");
     await expect(page.locator(".mb-plan.best h3")).toHaveText("Sharp");
     await expect(page.locator('[data-mb-plan="1"] [data-mb-save]')).toHaveText("You'd save £19 a month");
-    await expect(page.locator('[data-mb-plan="1"] .btn')).toHaveAttribute("href", /wa\.me\/447911654321\?text=.*Sharp/);
+    await expect(page.locator('[data-mb-plan="1"] .btn')).toHaveAttribute("href", /wa\.me\/442079460321\?text=.*Sharp/);
   });
 
   test("loyalty: free cuts a year from the shop's own price", async ({ page }) => {

@@ -11,7 +11,7 @@ named the approver and dated it, and never if it promises a return (COBS 4.2):
 |---|---|---|---|---|---|---|---|---|---|---|
 
 ```json
-"events": { "title", "intro", "reply": "events@firm.co.uk", "source": "sheet", "csvUrl": "https://docs.google.com/spreadsheets/d/e/…/pub?output=csv", "items": [] }
+"events": { "title", "intro", "reply": "events@firm.example", "source": "sheet", "csvUrl": "https://docs.google.com/spreadsheets/d/e/…/pub?output=csv", "items": [] }
 ```
 
 `source: "site"` writes events into `items` (each with `approvedBy` and `approvedOn`); a demo uses `"simulated"` with

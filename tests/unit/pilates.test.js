@@ -153,7 +153,7 @@ test("the class passport reads one member's row and fails closed", () => {
   assert.deepEqual(passportFromCsv(csv, "OLD12345", now, TZ, 48), { ok: false, reason: "stale" });
   assert.deepEqual(passportFromCsv(csv, "NOPE9999", now, TZ, 48), { ok: false, reason: "unknown" });
   for (const code of ["BAD11111", "FEB30XXX", "MONTH999", "TWICE123"]) assert.deepEqual(passportFromCsv(csv, code, now, TZ, 48), { ok: false, reason: "unreadable" }, code);
-  assert.deepEqual(passportFromCsv(csv.replace("updated_at", "updated_at,email").replace("09:00\n", "09:00,a@b.uk\n"), "K7M2QX4P", now, TZ, 48), { ok: false, reason: "unreadable" }, "anything in an extra column refuses the sheet");
+  assert.deepEqual(passportFromCsv(csv.replace("updated_at", "updated_at,email").replace("09:00\n", "09:00,a@b.example\n"), "K7M2QX4P", now, TZ, 48), { ok: false, reason: "unreadable" }, "anything in an extra column refuses the sheet");
   assert.deepEqual(passportFromCsv("a,b\n1,2", "K7M2QX4P", now, TZ, 48), { ok: false, reason: "unreadable" });
   assert.equal(cleanCode("ab"), "");
   assert.equal(cleanCode("ABC1234"), "", "codes are at least 8 characters");
