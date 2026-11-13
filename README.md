@@ -35,3 +35,4 @@ Requires Node 22 (see `.nvmrc`). End-to-end tests need Playwright's Chromium (`n
 | smile | Marlie, Shoreditch | Booth | Home, Whitening, Treatments (and one per treatment), Visit by visit, Consultation, Aftercare, Clinicians, Smiles, Weddings, Journal, The studio, Patient information | Booth-strip hero, "tell me what you'd change", wedding countdown, arriving re-timed |
 
 See `docs/SPEED-LOG.md` for measured page weights.
+
