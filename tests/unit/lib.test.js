@@ -9,19 +9,19 @@ const client = JSON.parse(readFileSync(new URL("../fixtures/sites/test-barber-cl
 const demo = JSON.parse(readFileSync(new URL("../../sites/demos/barber/site.json", import.meta.url), "utf8"));
 
 test("WhatsApp links encode the message and reject bad numbers", () => {
-  assert.equal(waUrl("447911123456"), "https://wa.me/447911123456");
-  assert.equal(waUrl("447911123456", "Hi & bye?\n• £20"), "https://wa.me/447911123456?text=Hi%20%26%20bye%3F%0A%E2%80%A2%20%C2%A320");
-  assert.throws(() => waUrl("07911 123456"));
-  assert.throws(() => waUrl("+447911123456"));
+  assert.equal(waUrl("442079460456"), "https://wa.me/442079460456");
+  assert.equal(waUrl("442079460456", "Hi & bye?\n• £20"), "https://wa.me/442079460456?text=Hi%20%26%20bye%3F%0A%E2%80%A2%20%C2%A320");
+  assert.throws(() => waUrl("020 7946 0456"));
+  assert.throws(() => waUrl("+442079460456"));
 });
 
 test("UK numbers normalise to E.164 digits", () => {
-  assert.equal(normaliseUkNumber("07911 123456"), "447911123456");
-  assert.equal(normaliseUkNumber("+44 (0)7911 123456".replace("(0)", "")), "447911123456");
-  assert.equal(normaliseUkNumber("0044 7911 123456"), "447911123456");
+  assert.equal(normaliseUkNumber("020 7946 0456"), "442079460456");
+  assert.equal(normaliseUkNumber("+44 (0)20 7946 0456".replace("(0)", "")), "442079460456");
+  assert.equal(normaliseUkNumber("0044 20 7946 0456"), "442079460456");
   assert.equal(normaliseUkNumber("hello"), null);
   assert.equal(isFictionalUkNumber("447700900123"), true);
-  assert.equal(isFictionalUkNumber("447911123456"), false);
+  assert.equal(isFictionalUkNumber("442079460456"), false);
 });
 
 test("headline markup escapes HTML and only allows *em* and | line breaks", () => {
@@ -37,7 +37,7 @@ test("LocalBusiness JSON-LD comes from the site's own config and has no self-ser
   const data = localBusinessJsonLd(client);
   assert.equal(data["@type"], "BarberShop");
   assert.equal(data.name, "Northgate Barbers");
-  assert.equal(data.telephone, "+447911123456");
+  assert.equal(data.telephone, "+442079460456");
   assert.equal(data.url, "https://northgate-barbers.example.co.uk/");
   assert.equal(data.address.postalCode, "TE1 1ST");
   assert.equal(data.openingHoursSpecification.length, 6); // Sunday closed

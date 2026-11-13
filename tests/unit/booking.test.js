@@ -2,10 +2,10 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { bookingHref, bookingLabel, checkBooking } from "../../src/core/lib/booking.js";
 
-const contact = { whatsapp: "447911123456", phone: "+44 7911 123456" };
+const contact = { whatsapp: "442079460456", phone: "+44 20 7946 0456" };
 
 test("book buttons go to WhatsApp by default, with the message", () => {
-  assert.equal(bookingHref(undefined, contact, "Hi there"), "https://wa.me/447911123456?text=Hi%20there");
+  assert.equal(bookingHref(undefined, contact, "Hi there"), "https://wa.me/442079460456?text=Hi%20there");
   assert.equal(bookingLabel(undefined), "Book on WhatsApp");
 });
 
@@ -15,7 +15,7 @@ test("Booksy, Fresha, other and phone go where the shop takes bookings", () => {
   assert.equal(bookingLabel(booksy), "Book on Booksy");
   assert.equal(bookingLabel({ provider: "fresha", url: "https://www.fresha.com/a/x" }), "Book on Fresha");
   assert.equal(bookingLabel({ provider: "other", url: "https://www.treatwell.co.uk/x", name: "Treatwell" }), "Book on Treatwell");
-  assert.equal(bookingHref({ provider: "phone" }, contact, "x"), "tel:+447911123456");
+  assert.equal(bookingHref({ provider: "phone" }, contact, "x"), "tel:+442079460456");
   assert.equal(bookingLabel({ provider: "phone" }), "Call to book");
 });
 

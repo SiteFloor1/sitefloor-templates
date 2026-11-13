@@ -230,7 +230,7 @@ test("a client whose sheets can't be read shows no dates and no stages, and What
   await page.goto(srv.base + "/book");
   await expect(page.locator("[data-av-note]")).toContainText("Ask us for the next free date");
   await expect(page.locator('[data-av-for="correct"] [data-av-when]')).toHaveText("Ask for a date");
-  expect(await page.locator('[data-av-for="correct"] [data-av-go]').getAttribute("href")).toMatch(/^https:\/\/wa\.me\/447911123459/);
+  expect(await page.locator('[data-av-for="correct"] [data-av-go]').getAttribute("href")).toMatch(/^https:\/\/wa\.me\/442079460459/);
   await page.goto(srv.base + "/book");
   await page.locator("[data-cl-pc]").fill("KT13");
   await page.locator("#collection button[type=submit]").click();

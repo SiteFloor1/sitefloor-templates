@@ -19,7 +19,7 @@ each `delivered`, the expected date, or blank.
 
 **The sheet is public.** It is published as CSV and its address is in the page, so anyone can download every row.
 That's why it holds codes, dates and stages only: never names, and never links. A sheet with a link in any cell
-(`://`, `www.` or a web address; an email address such as hello@studio.co.uk counts too) is refused as unreadable, for every couple until it's removed, so a film or gallery link can't leak by mistake. The studio
+(`://`, `www.` or a web address; an email address such as hello@studio.example counts too) is refused as unreadable, for every couple until it's removed, so a film or gallery link can't leak by mistake. The studio
 sends the film and gallery to the couple directly (WhatsApp or email); the page says so. Keep notes general
 ("Your album proofs are with you"), never personal.
 
