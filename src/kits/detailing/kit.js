@@ -35,7 +35,7 @@ export const features = [
     summary: "Paint correction on a 3D car: a photograph first, then on tap your size of car (SUV, saloon or hatch) under the studio's strip light, swirled on one side of a tape line and corrected on the other; drag the light along it. Labelled as an illustration." },
   { id: "protection-3d", section: "protection3d", dir: `${D}/protection-3d`, minPlan: "signature", kits: ["detailing"], requires: ["protection", "filmPrices"], js: true,
     summary: "The film-coverage builder: your size of car in 3D (SUV, saloon or hatch) and a film package (front end, full front, track pack, full body); the covered panels light up, the price and days come from the studio's own price sheet, and the choice goes to the studio on WhatsApp." },
-  { id: "inspection-light", dir: `${D}/inspection-light`, minPlan: "signature", kits: ["detailing"], requires: ["inspection"], clientOnly: true, js: true,
+  { id: "inspection-light", dir: `${D}/inspection-light`, minPlan: "signature", kits: ["detailing"], requires: ["inspection"], js: true,
     summary: "The inspection light, as the hero: drag a strip light across the studio's own matched pair (one panel, the same light and framing, before and after) and the corrected paint shows under it. Only with a real pair." },
   { id: "paint-chart", dir: `${D}/paint-chart`, minPlan: "signature", kits: ["detailing"], requires: ["paintChart"], js: false,
     summary: "Your colour on the 3D car: the studio's paint chart (names, colours and finishes from its sheet) as swatches under each 3D stage; the car repaints in the chosen one, labelled approximate on screen." },
@@ -72,6 +72,8 @@ export const features = [
 /** Shared features only some trades offer. */
 export const uses = ["before-after"];
 
+/** Features offered on client sites only (they need the client's own material), so no demo shows them. */
+export const clientOnly = ["inspection-light"];
 /** The studio page (a general page) introduces the people, so the shared team page isn't offered. */
 export const refuses = ["team"];
 

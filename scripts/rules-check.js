@@ -21,8 +21,7 @@
 import { readFile, readdir } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import path from "node:path";
-import { FEATURES, forKit } from "../src/features/registry.js";
-import { KITS } from "../src/features/registry.js";
+import { FEATURES, forKit, clientOnlyFor } from "../src/features/registry.js";
 import { docsProblems } from "./docs-index.js";
 import { pathToFileURL } from "node:url";
 
@@ -169,13 +168,24 @@ async function demoCoverage(root) {
     for (const id of site.features ?? []) (shown[site.kit] ??= new Set()).add(id);
   }
   for (const [kit, ids] of Object.entries(shown)) {
-    const missing = FEATURES.filter((f) => forKit(f, kit) && !ids.has(f.id)).map((f) => f.id);
-    // A feature that only works with the client's own material (e.g. a matched before/after photo pair) can't be shown
-    // honestly on a demo; it is covered by the kit's client test fixture instead.
-    for (let i = missing.length - 1; i >= 0; i--) if (FEATURES.find((f) => f.id === missing[i])?.clientOnly) missing.splice(i, 1);
-    // The same for a shared feature one trade offers only to clients (kit.js `clientOnly`).
-    for (let i = missing.length - 1; i >= 0; i--) if ((KITS.find((k) => k.id === kit)?.clientOnly ?? []).includes(missing[i])) missing.splice(i, 1);
+    // A feature that only works with the client's own material (kit.js `clientOnly`, e.g. a matched before/after pair)
+    // can't be shown honestly on a demo: no demo may turn it on, and the kit's client test fixture covers it instead.
+    const clientOnly = clientOnlyFor(kit);
+    const shownAnyway = [...ids].filter((id) => clientOnly.has(id));
+    if (shownAnyway.length) problems.push(`sites/demos: a ${kit} demo turns on ${shownAnyway.join(", ")}, which kit.js lists as clientOnly`);
+    const missing = FEATURES.filter((f) => forKit(f, kit) && !ids.has(f.id) && !clientOnly.has(f.id)).map((f) => f.id);
     if (missing.length) problems.push(`sites/demos: no ${kit} demo shows ${missing.join(", ")}; every kit feature needs a demo`);
+  }
+  // …and the kit's client test fixtures turn each clientOnly feature on, so it is still built and tested.
+  /** @type {Record<string, Set<string>>} */
+  const fixtures = {};
+  for (const f of await walk(path.join(root, "tests/fixtures/sites"), (f) => f.endsWith("site.json"))) {
+    const site = JSON.parse(await readFile(f, "utf8"));
+    for (const id of site.features ?? []) (fixtures[site.kit] ??= new Set()).add(id);
+  }
+  for (const kit of Object.keys(shown)) {
+    const untested = [...clientOnlyFor(kit)].filter((id) => !fixtures[kit]?.has(id));
+    if (untested.length) problems.push(`tests/fixtures/sites: no ${kit} client fixture turns on ${untested.join(", ")} (clientOnly, so no demo covers it)`);
   }
   return problems;
 }

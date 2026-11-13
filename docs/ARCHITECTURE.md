@@ -64,7 +64,7 @@ booking links by where they go, not by their words, so each look can word its ow
 
 ## Plans
 `starter < plus < signature`. Each feature declares `minPlan`. Validation rejects a feature above the site's plan.
-Between them, a kit's demos must show every feature of the kit (`npm run rules`); each demo shows its own set so shops can compare. The plan switcher hides parts marked `data-tier`.
+Between them, a kit's demos must show every feature of the kit except its `clientOnly` ones, which only its client fixtures show (`npm run rules`); each demo shows its own set so shops can compare. The plan switcher hides parts marked `data-tier`.
 
 ## A kit registers itself
 Each kit has one entry file, `src/kits/<kit>/kit.js`. The shared build finds every `src/kits/*/kit.js` at build time,
@@ -76,6 +76,7 @@ and `npm run rules` fails if `scripts/lib/bundle.js`, `scripts/lib/render.js`, `
 |---|---|---|
 | `features` | registry → validation, bundling, pages, plan switcher | the kit's own features, in load order; a string (a shared feature's id) places that shared feature among them |
 | `uses` / `refuses` | registry | shared features only some trades offer (`kits: []` in registry.js), and ones this trade never offers |
+| `clientOnly` | registry → `npm run rules` | features (its own or shared ones it offers) that need the client's own material, e.g. a real before/after pair of one place: no demo of the kit may turn them on, its demos needn't show them, and a client test fixture of the kit must (the only client-only mechanism; a name the trade doesn't offer fails the build) |
 | `check` | `config.js` | the kit's site.json checks (`src/kits/<kit>/config.js`); runs for every site, returns early for other kits |
 | `pageData` | `render.js` → `clientData` | what the kit's browser scripts read from the page |
 | `buildData` | `render.js` → `build` | values the kit's templates read before the first paint |

@@ -21,7 +21,7 @@ export const features = [
     summary: "Darkest on the day: under the date check, the wedding date names the evening to have the mehndi, from the artist's own number of days." },
   { id: "natural-henna", section: "natural", dir: `${K}/natural-henna`, minPlan: "starter", kits: ["mehndi"], requires: ["natural"], js: false,
     summary: "Natural henna only: what the artist's paste is made of and how the stain develops, with the NHS line on \"black henna\" (PPD), linked, and the day it was checked." },
-  { id: "stain-days", section: "stain", dir: `${K}/stain-days`, minPlan: "signature", kits: ["mehndi"], requires: ["stainDays"], needs: ["mehndi-dates", "darkest-day"], clientOnly: true, js: true,
+  { id: "stain-days", section: "stain", dir: `${K}/stain-days`, minPlan: "signature", kits: ["mehndi"], requires: ["stainDays"], needs: ["mehndi-dates", "darkest-day"], js: true,
     summary: "Your stain, day by day: one stain photographed on the mehndi evening and each day after, dated from her wedding, with the darkest day named." },
   { id: "guest-quote", section: "guests", dir: `${K}/guest-quote`, minPlan: "signature", kits: ["mehndi"], requires: ["guests"], js: true,
     summary: "The guest mehndi sum: how many guests and which design size, out come the artists and the hours for the night and a from price, from the artist's own minutes and rates, sent on WhatsApp for a quote." },
@@ -37,6 +37,8 @@ export const features = [
     summary: "Personal details in your design: what to hide (names, initials, a date, a place, a symbol) and where, gathered into one WhatsApp message, beside a real finished hand where the name can be found." },
 ];
 
+/** Features offered on client sites only (they need the client's own material), so no demo shows them. */
+export const clientOnly = ["stain-days"];
 /** Shared features a henna artist never offers (an Instagram feed, a team page, vouchers and the rest belong to shops). */
 export const refuses = ["gallery", "work", "seasonal", "photo-band", "page-links", "team", "vouchers"];
 
