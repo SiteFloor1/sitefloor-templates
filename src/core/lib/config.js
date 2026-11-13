@@ -157,7 +157,7 @@ function checkFeatures(site, err) {
   if (site.addons !== undefined && !Array.isArray(site.addons)) err("addons", "a list of feature ids bought on top of the plan");
   checkAddonsAndPages(site, addons, err);
   for (const id of site.features) {
-    const f = getFeature(id);
+    const f = getFeature(id, site.kit);
     if (!f) { err("features", `unknown feature "${id}"`); continue; }
     if (!forKit(f, site.kit)) err("features", `"${id}" is not available for kit "${site.kit}"`);
     if (PLANS.includes(site.plan) && planRank(f.minPlan) > planRank(site.plan) && !addons.includes(id)) {
@@ -175,14 +175,14 @@ function checkFeatures(site, err) {
  */
 function checkAddonsAndPages(site, addons, err) {
   for (const id of addons) {
-    const f = getFeature(id);
+    const f = getFeature(id, site.kit);
     if (!site.features.includes(id)) err("addons", `"${id}" is an add-on but isn't in "features"`);
     else if (f && PLANS.includes(site.plan) && planRank(f.minPlan) <= planRank(site.plan)) err("addons", `"${id}" is already included in the ${site.plan} plan`);
   }
   if (!PLANS.includes(site.plan)) return;
   // A generated collection (a page with a page per item) is one feature, so it counts once; unlisted pages
   // (reached only by a link the business sends) are utilities and count like Plan your visit: not at all.
-  const pages = 1 + site.features.filter((/** @type {string} */ id) => getFeature(id)?.page && !getFeature(id)?.freePage && !getFeature(id)?.unlisted && !addons.includes(id) && id !== "custom-pages").length
+  const pages = 1 + site.features.filter((/** @type {string} */ id) => getFeature(id, site.kit)?.page && !getFeature(id, site.kit)?.freePage && !getFeature(id, site.kit)?.unlisted && !addons.includes(id) && id !== "custom-pages").length
     + (site.features.includes("custom-pages") && Array.isArray(site.pages) ? site.pages.length : 0); // general pages always count, one by one
   const extra = site.addonPages ?? 0;
   if (!Number.isInteger(extra) || extra < 0) err("addonPages", "the number of extra pages sold on top of the plan, a whole number");
@@ -294,11 +294,11 @@ function checkHeroLines(site, max, err) {
 /** Menu links to pages must point at a page this site builds. @param {any} site @param {Report} err */
 function checkNavPages(site, err) {
   if (!Array.isArray(site.nav) || !Array.isArray(site.features)) return;
-  const built = new Set(["index", "privacy", ...site.features.map((/** @type {string} */ id) => getFeature(id)?.page).filter(Boolean)]);
+  const built = new Set(["index", "privacy", ...site.features.map((/** @type {string} */ id) => getFeature(id, site.kit)?.page).filter(Boolean)]);
   if (site.features.includes("custom-pages")) for (const p of site.pages ?? []) built.add(p?.slug);
   site.nav.forEach((/** @type {any} */ n, /** @type {number} */ i) => {
     if (!n?.page) return;
-    const own = getFeature(n.feature ?? "")?.page === n.page || site.pages?.some((/** @type {any} */ p) => p?.slug === n.page);
+    const own = getFeature(n.feature ?? "", site.kit)?.page === n.page || site.pages?.some((/** @type {any} */ p) => p?.slug === n.page);
     // A link tied to a feature is hidden (or swapped for its fallback) when that feature is off.
     if (!own && !built.has(n.page)) err(`nav[${i}].page`, `"${n.page}" isn't a page on this site; check the spelling, or add "feature" so it hides when that feature is off`);
   });

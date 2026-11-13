@@ -3,7 +3,10 @@
  * Every feature the kit can put on a page. The build, the config validator,
  * the demo plan-switcher and the docs all read from this one list.
  *
- *   id        folder name; CSS/JS/template files are named after it
+ *   id        folder name; CSS/JS/template files are named after it. A kit's own feature is namespaced automatically:
+ *             its `key` is "<kit>:<id>" (e.g. "<kit>:services"), so two kits can never clash; sites, templates and
+ *             kit.js keep writing the short id, resolved in the site's own kit first, then the shared features
+ *   key       unique across every kit: the id for a shared feature, "<kit>:<id>" for a kit's own (set here)
  *   dir       where it lives (generic features vs trade-specific kit features)
  *   minPlan   cheapest plan that includes it
  *   kits      trades it can be used with ("*" = any)
@@ -20,6 +23,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 /**
  * @typedef {object} Feature
  * @property {string} id
+ * @property {string} [key] "<kit>:<id>" for a kit's own feature, the id for a shared one (set by the registry)
  * @property {string} dir
  * @property {Plan} minPlan
  * @property {string[]} kits
@@ -160,6 +164,30 @@ for (const k of KITS) {
   for (const id of k.refuses ?? []) { const f = SHARED.find((x) => x.id === id); if (f) f.notKits = [...(f.notKits ?? []), k.id]; }
 }
 
+/**
+ * Namespace every kit's own features: key "<kit>:<id>". A kit's short id may not repeat within the kit or match a
+ * shared feature's id (a site names features by short id, resolved in its own kit first), and a kit's own feature
+ * belongs to that kit only. Throws on the first problem. @param {Feature[]} shared @param {Kit[]} kits
+ */
+export function namespaceKits(shared, kits) {
+  for (const f of shared) f.key = f.id;
+  for (const k of kits) {
+    /** @type {Set<string>} */
+    const seen = new Set();
+    for (const f of k.features) {
+      if (typeof f === "string") continue;
+      const where = `src/kits/${k.id}/kit.js: feature "${f.id}"`;
+      if (f.id.includes(":")) throw new Error(`${where}: write the short id; the registry adds "${k.id}:" itself`);
+      if (seen.has(f.id)) throw new Error(`${where} is listed twice`);
+      if (shared.some((x) => x.id === f.id)) throw new Error(`${where} has the id of a shared feature; choose another`);
+      if (f.kits.length !== 1 || f.kits[0] !== k.id) throw new Error(`${where}: a kit's own feature lists only its kit (kits: ["${k.id}"])`);
+      seen.add(f.id);
+      f.key = `${k.id}:${f.id}`;
+    }
+  }
+}
+namespaceKits(SHARED, KITS);
+
 /** Every feature: the shared ones, then each kit's own. @type {Feature[]} */
 export const FEATURES = [...SHARED, ...KITS.flatMap((k) => k.features.filter((f) => typeof f !== "string"))];
 
@@ -172,7 +200,7 @@ export const FEATURES = [...SHARED, ...KITS.flatMap((k) => k.features.filter((f)
 export function featuresFor(kit) {
   const own = KITS.find((k) => k.id === kit)?.features ?? [];
   const placed = new Set(own.filter((f) => typeof f === "string"));
-  return [...SHARED.filter((f) => !placed.has(f.id)), ...own.map((f) => (typeof f === "string" ? /** @type {Feature} */ (getFeature(f)) : f))];
+  return [...SHARED.filter((f) => !placed.has(f.id)), ...own.map((f) => (typeof f === "string" ? /** @type {Feature} */ (SHARED.find((x) => x.id === f)) : f))];
 }
 
 /** Whether a trade can use a feature. @param {Feature} f @param {string} kit */
@@ -184,12 +212,23 @@ export const clientOnlyFor = (kit) => new Set(KITS.find((k) => k.id === kit)?.cl
 // A clientOnly entry must be a feature the trade offers: a typo would otherwise silently let a demo skip a feature.
 for (const k of KITS) {
   for (const id of k.clientOnly ?? []) {
-    const f = FEATURES.find((x) => x.id === id);
+    const f = getFeature(id, k.id);
     if (!f || !forKit(f, k.id)) throw new Error(`src/kits/${k.id}/kit.js: clientOnly lists "${id}", which this trade doesn't offer`);
   }
 }
 
-/** @param {string} id */
-export function getFeature(id) {
-  return FEATURES.find((f) => f.id === id);
+/**
+ * A feature by its key ("<kit>:<id>", or a shared id such as "gallery"), or by its short id within a kit: the kit's own first, then a
+ * shared one. Without a kit a short id must name a shared feature or exactly one kit's feature (else it throws, so a
+ * clash can never pick the wrong kit's feature silently).
+ * @param {string} id @param {string} [kit]
+ */
+export function getFeature(id, kit) {
+  if (id.includes(":")) return FEATURES.find((f) => f.key === id);
+  if (kit) return FEATURES.find((f) => f.key === `${kit}:${id}`) ?? SHARED.find((f) => f.id === id);
+  const shared = SHARED.find((f) => f.id === id);
+  if (shared) return shared;
+  const own = FEATURES.filter((f) => f.id === id);
+  if (own.length > 1) throw new Error(`feature "${id}" is in ${own.length} kits (${own.map((f) => f.key).join(", ")}); pass the site's kit`);
+  return own[0];
 }

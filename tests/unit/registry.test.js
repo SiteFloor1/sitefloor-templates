@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { existsSync } from "node:fs";
 import path from "node:path";
-import { FEATURES, forKit, clientOnlyFor, featuresFor, KITS as KIT_MODULES } from "../../src/features/registry.js";
+import { FEATURES, forKit, clientOnlyFor, featuresFor, getFeature, namespaceKits, KITS as KIT_MODULES } from "../../src/features/registry.js";
 import { loadCatalog } from "../../scripts/lib/catalog.js";
 
 const { kits: KITS, looks: LOOKS } = loadCatalog(process.cwd());
@@ -56,4 +56,25 @@ test("client-only features are one kit.js list, of features the trade offers (ow
   assert.equal(clientOnlyFor("barber").size, 0);
   assert.deepEqual(FEATURES.filter((f) => "clientOnly" in f).map((f) => f.id), [], "no per-feature flag any more");
   for (const k of KIT_MODULES) for (const id of k.clientOnly ?? []) assert.ok(featuresFor(k.id).some((f) => f.id === id && forKit(f, k.id)), `${k.id}: ${id}`);
+});
+
+test("kit features are namespaced automatically; short ids resolve in the site's kit first", () => {
+  for (const k of KIT_MODULES) for (const f of k.features) if (typeof f !== "string") assert.equal(f.key, `${k.id}:${f.id}`);
+  assert.equal(new Set(FEATURES.map((f) => f.key)).size, FEATURES.length, "every key is unique");
+  assert.equal(getFeature("gallery")?.key, "gallery");
+  assert.equal(getFeature("chair-board", "barber")?.key, "barber:chair-board");
+  assert.equal(getFeature("barber:chair-board")?.id, "chair-board");
+  assert.equal(getFeature("chair-board", "florist"), undefined, "another kit's feature is never found through a site's kit");
+  assert.equal(getFeature("gallery", "florist")?.key, "gallery");
+  const f = (id, kit) => ({ id, dir: `src/kits/${kit}/features/${id}`, minPlan: "starter", kits: [kit], requires: [], js: false, summary: "" });
+  const shared = [{ id: "visit", dir: "src/features/visit", minPlan: "starter", kits: ["*"], requires: [], js: false, summary: "" }];
+  // Two kits may now use the same short id…
+  const a = f("services", "a"), b = f("services", "b");
+  namespaceKits(structuredClone(shared), [{ id: "a", features: [a] }, { id: "b", features: [b] }]);
+  assert.deepEqual([a.key, b.key], ["a:services", "b:services"]);
+  // …but not a shared id, a repeat within one kit, a written prefix or another kit's name in `kits`.
+  assert.throws(() => namespaceKits(structuredClone(shared), [{ id: "a", features: [f("visit", "a")] }]), /id of a shared feature/);
+  assert.throws(() => namespaceKits(structuredClone(shared), [{ id: "a", features: [f("x", "a"), f("x", "a")] }]), /listed twice/);
+  assert.throws(() => namespaceKits(structuredClone(shared), [{ id: "a", features: [f("a:x", "a")] }]), /write the short id/);
+  assert.throws(() => namespaceKits(structuredClone(shared), [{ id: "a", features: [f("x", "b")] }]), /lists only its kit/);
 });

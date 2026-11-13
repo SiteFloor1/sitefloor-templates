@@ -8,7 +8,7 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import Eleventy from "@11ty/eleventy";
-import { FEATURES, KITS, forKit, getFeature, planRank } from "../../src/features/registry.js";
+import { FEATURES, KITS, forKit, getFeature, featuresFor, planRank } from "../../src/features/registry.js";
 import { localBusinessJsonLd, safeJson } from "../../src/core/lib/seo.js";
 import { waUrl } from "../../src/core/lib/whatsapp.js";
 import { bookingHref, bookingLabel, bookingOf } from "../../src/core/lib/booking.js";
@@ -52,7 +52,8 @@ export async function renderPages(site, o) {
   // Templates are included from a copy of src/ with the look's own header, footer, phone bar, section heads and
   // feature markup laid over the shared ones (scripts/lib/look-layout.js).
   const includes = path.join(o.work, "includes");
-  await buildIncludes({ root: o.root, out: includes, look: site.look, features: FEATURES });
+  // The site's kit's features first, so a look's override names its own kit's feature when two kits share a short id.
+  await buildIncludes({ root: o.root, out: includes, look: site.look, features: [...featuresFor(site.kit), ...FEATURES] });
 
   const elev = new Eleventy(path.relative(o.root, pagesIn), path.relative(o.root, o.outDir), {
     quietMode: true,
@@ -63,7 +64,7 @@ export async function renderPages(site, o) {
       const enabled = new Set(site.features);
       // A page belonging to a feature is built only when a feature that brings it is on. Two kits may use the same
       // page name (two trades' /aftercare): the enabled one wins.
-      const wanted = new Set(FEATURES.filter((f) => enabled.has(f.id)).flatMap((f) => [f.page, ...(f.morePages ?? [])]));
+      const wanted = new Set(featuresFor(site.kit).filter((f) => enabled.has(f.id)).flatMap((f) => [f.page, ...(f.morePages ?? [])]));
       for (const f of FEATURES) for (const pg of [f.page, ...(f.morePages ?? [])]) if (pg && !wanted.has(pg)) cfg.ignores.add(path.join(path.relative(o.root, pagesIn), `${pg}.njk`));
       addData(cfg, site, o);
       addFilters(cfg, site, o, enabled);
@@ -142,11 +143,17 @@ function addFilters(cfg, site, o, enabled) {
   cfg.addFilter("slug", (/** @type {string} */ s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""));
 
   // Demo sites mark plan-gated parts so the plan switcher can hide them.
+  // A template naming a feature this kit doesn't have is a typo, never another kit's feature: fail the build.
+  const ownFeature = (/** @type {string} */ id) => {
+    const f = getFeature(id, site.kit);
+    if (!f) throw new Error(`a template names feature "${id}", which the ${site.kit} kit doesn't have (src/features/registry.js, src/kits/${site.kit}/kit.js)`);
+    return f;
+  };
   cfg.addFilter("tierAttr", (/** @type {string|undefined} */ id) => {
-    const f = id && site.mode === "demo" ? getFeature(id) : undefined;
+    const f = id && site.mode === "demo" ? ownFeature(id) : undefined;
     return f && planRank(f.minPlan) > 1 ? ` data-tier="${f.minPlan}"` : "";
   });
-  cfg.addFilter("minPlan", (/** @type {string} */ id) => getFeature(id)?.minPlan ?? "starter");
+  cfg.addFilter("minPlan", (/** @type {string} */ id) => ownFeature(id).minPlan);
 
   // A nav item whose feature is off disappears, or falls back to a home-page anchor
   // ("Prices" → "#prices" on a one-page site) when it gives a "fallback".

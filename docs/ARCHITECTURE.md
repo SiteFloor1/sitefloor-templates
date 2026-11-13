@@ -86,6 +86,14 @@ and `npm run rules` fails if `scripts/lib/bundle.js`, `scripts/lib/render.js`, `
 | `settings` | `config.js` | top-level site.json keys the trade's sites may carry that no feature lists in `requires` or `optional` (any other key is refused) |
 | `savingsItem` | `config-extras.js` | what the loyalty card's savings example compares against when the trade sells something other than services (a café's dish) |
 
+**Feature ids are namespaced per kit, automatically.** A kit's own features are written with short ids in its `kit.js`,
+and the registry gives each a unique key `<kit>:<id>`, so two kits may both have a `services` feature and never clash.
+Sites (`site.json` `features`), templates (`"services" | enabled`, a page's `feature:` front matter) and `needs` keep the
+short id; it is resolved in the site's own kit first, then among the shared features (`getFeature(id, kit)`), so one
+kit's lookup never finds another kit's feature. The registry refuses a kit feature whose short id is a shared feature's
+id, repeats within the kit, carries a written prefix or names another kit in `kits`; a template naming a feature its kit
+doesn't have fails the build. Built pages use the short ids.
+
 Shared features stay in `registry.js`. A shared feature open to every trade has `kits: ["*"]`; one only some trades
 offer has `kits: []` and each of those trades lists it in `uses`. `bundle.js` keeps the providers that existed when
 kits started registering themselves in their old order (so every bundle stayed byte-identical); new ones follow,

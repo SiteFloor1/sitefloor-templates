@@ -30,7 +30,7 @@ import { shouldIndex, robotsTxt, sitemapXml, headersFile, unlistedPages } from "
 import { bundleAssets } from "./lib/bundle.js";
 import { renderPages } from "./lib/render.js";
 import { verifyOutput } from "./lib/verify.js";
-import { FEATURES, KITS } from "../src/features/registry.js";
+import { featuresFor, KITS } from "../src/features/registry.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SITES_DIR = path.join(ROOT, "sites");
@@ -87,7 +87,7 @@ export async function buildSite(siteDir, o) {
     .filter((f) => f.endsWith(".html") && f !== "404.html" && !f.startsWith("assets/") && !f.startsWith("img/")).map((f) => f.replace(/\.html$/, "")).sort();
   await writeFile(path.join(o.outDir, "robots.txt"), robotsTxt(site, o.env));
   // The site's own unlisted pages, and their collections (named "<page>-<id>"), stay out of the sitemap and search.
-  const unlisted = unlistedPages(pages, FEATURES, site.features ?? []);
+  const unlisted = unlistedPages(pages, featuresFor(site.kit), site.features ?? []);
   if (indexable) await writeFile(path.join(o.outDir, "sitemap.xml"), sitemapXml(site, pages.filter((p) => !unlisted.includes(p)).map((p) => (p === "index" ? "/" : `/${p}`)), today));
   await writeFile(path.join(o.outDir, "_headers"), headersFile(site, o.env));
 

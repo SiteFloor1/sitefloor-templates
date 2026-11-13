@@ -34,7 +34,7 @@ export function checkCopy(site, err) {
   checkNav(site.nav, err);
   if (!isStr(site.messages?.general)) err("messages.general", "the pre-filled WhatsApp message for Book buttons");
   for (const id of Array.isArray(site.features) ? site.features : []) {
-    const key = getFeature(id)?.section;
+    const key = getFeature(id, site.kit)?.section;
     if (key && !isStr(site.sections?.[key]?.title)) err(`sections.${key}.title`, `heading for "${id}" is missing`);
   }
   if (site.team !== undefined && !isStr(site.team?.title)) err("team.title", "heading for the team page is missing");
