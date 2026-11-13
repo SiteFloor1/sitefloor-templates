@@ -102,7 +102,7 @@ test("the meeting's calendar file is in UTC, an hour long", () => {
 });
 
 test("the first message carries only who is involved and how to reply", () => {
-  const people = [{ id: "a", name: "Ann", role: "Partner", email: "ann@x.co.uk" }];
+  const people = [{ id: "a", name: "Ann", role: "Partner", email: "ann@x.example" }];
   assert.equal(leadFor("wills", [{ id: "wills", name: "Wills", lead: "a" }], people)?.name, "Ann");
   assert.equal(leadFor("nope", [], people), null);
   assert.deepEqual(partiesFrom(" Smith Ltd,\n\nJo Bloggs; smith ltd \n"), ["Smith Ltd", "Jo Bloggs"]);
@@ -110,7 +110,7 @@ test("the first message carries only who is involved and how to reply", () => {
   assert.match(body, /please check you can act for me/);
   assert.match(body, /- Jo Bloggs/);
   assert.equal(body.split("\n").length, 9);
-  assert.equal(mailHref("a@b.co", "Hi there", "x&y"), "mailto:a@b.co?subject=Hi%20there&body=x%26y");
+  assert.equal(mailHref("a@b.example", "Hi there", "x&y"), "mailto:a@b.example?subject=Hi%20there&body=x%26y");
 });
 
 test("the succession map is drawn down the generations and refuses figures and promises", () => {

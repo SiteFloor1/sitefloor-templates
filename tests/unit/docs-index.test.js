@@ -3,7 +3,8 @@ import assert from "node:assert/strict";
 import { mkdtempSync, mkdirSync, writeFileSync, cpSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
-import { family, fontProblems, staleDocs, generate } from "../../scripts/docs-index.js";
+import { execFileSync } from "node:child_process";
+import { family, fontProblems, branchFontClaims, staleDocs, generate } from "../../scripts/docs-index.js";
 
 /** A copy of the docs sources in a temporary folder, to change without touching the repo. */
 function copy() {
@@ -59,4 +60,29 @@ test("a named exception covers only that case study and that family", () => {
   const problems = fontProblems(root);
   assert.equal(problems.length, 1, problems.join("\n")); // Red Hat Text is excepted for Marese; Gilda Display is not
   assert.match(problems[0], /"Gilda Display".*trade bridal/);
+});
+
+test("a font family claimed on another open branch counts; main and the branch's own older claims don't fail", () => {
+  const root = copy();
+  const git = (...a) => execFileSync("git", ["-C", root, ...a], { encoding: "utf8" });
+  git("init", "-q", "-b", "work");
+  git("-c", "user.name=t", "-c", "user.email=t@t.example", "add", "-A");
+  git("-c", "user.name=t", "-c", "user.email=t@t.example", "commit", "-qm", "base");
+  // Another branch adds a trade claiming Quillon Display.
+  mkdirSync(path.join(root, "docs/trades/topiary"), { recursive: true });
+  writeFileSync(path.join(root, "docs/trades/topiary/trade.json"), '{"name":"Topiarists","kit":null}\n');
+  writeFileSync(path.join(root, "docs/trades/topiary/fonts.md"), "| Look or design | Status | Branch | Display | Body |\n|---|---|---|---|---|\n| Hedge | approved | trade/topiary | Quillon Display | Quillon Text |\n");
+  git("-c", "user.name=t", "-c", "user.email=t@t.example", "add", "-A");
+  git("-c", "user.name=t", "-c", "user.email=t@t.example", "commit", "-qm", "topiary");
+  git("update-ref", "refs/remotes/origin/trade/topiary", "HEAD");
+  git("reset", "-q", "--hard", "HEAD~1");
+  assert.deepEqual(fontProblems(root, branchFontClaims(root, "work")), []);
+  // This branch's new trade picks the same family: reported against this tree, naming the branch.
+  mkdirSync(path.join(root, "docs/trades/hedging"), { recursive: true });
+  writeFileSync(path.join(root, "docs/trades/hedging/trade.json"), '{"name":"Hedgers","kit":null}\n');
+  writeFileSync(path.join(root, "docs/trades/hedging/fonts.md"), "| Look or design | Status | Branch | Display | Body |\n|---|---|---|---|---|\n| Privet | approved | trade/hedging | Quillon Display Italic | Brisk Grotesk |\n");
+  const problems = fontProblems(root, branchFontClaims(root, "work"));
+  assert.ok(problems.some((p) => p.startsWith("docs/trades/hedging/fonts.md:") && p.includes("trade topiary") && p.includes("on origin/trade/topiary")), problems.join("\n"));
+  // Checked on main, open branches never fail it.
+  assert.deepEqual(branchFontClaims(root, "main"), []);
 });

@@ -36,8 +36,6 @@ import { fileURLToPath, pathToFileURL } from "node:url";
  * @property {boolean} [unlisted] a private page (reached by a link the studio sends): kept out of the sitemap and search,
  *   with any pages of its collection, named "<page>-<id>";
  *   and free like Plan your visit: an unlisted utility page doesn't count towards the plan's page limit
- * @property {boolean} [clientOnly] needs the client's own material (e.g. a matched photo pair), so no demo shows it;
- *   the kit's client test fixture covers it (npm run rules)
  * @property {boolean} js
  * @property {string} summary
  */
@@ -120,8 +118,9 @@ const SHARED = [
  * @property {(Feature|string)[]} features its own features in load order; a string places a shared feature among them
  * @property {string[]} [uses] opt-in shared features (`kits: []`) this trade offers
  * @property {string[]} [refuses] shared features this trade never offers
- * @property {string[]} [clientOnly] shared features this trade offers only on client sites (it needs the client's own
- *   material, e.g. a real before/after pair), so its demos needn't show them; the client fixture covers them
+ * @property {string[]} [clientOnly] features (its own or shared ones it offers) this trade offers only on client sites,
+ *   because they need the client's own material (a real before/after pair, one place photographed all year): no demo of the kit may
+ *   turn them on, its demos needn't show them, and the kit's client test fixture covers them (npm run rules)
  * @property {(site: any, err: (path: string, msg: string) => void, fileExists?: (rel: string) => boolean) => void} [check] its site.json checks
  * @property {(site: any) => Record<string, unknown>} [pageData] what its browser scripts read from the page
  * @property {(site: any) => Record<string, unknown>} [buildData] values its templates read from `build`
@@ -178,6 +177,17 @@ export function featuresFor(kit) {
 
 /** Whether a trade can use a feature. @param {Feature} f @param {string} kit */
 export const forKit = (f, kit) => f.kits.includes(kit) || (f.kits.includes("*") && !(f.notKits ?? []).includes(kit));
+
+/** The features a trade offers on client sites only (kit.js `clientOnly`). @param {string} kit @returns {Set<string>} */
+export const clientOnlyFor = (kit) => new Set(KITS.find((k) => k.id === kit)?.clientOnly ?? []);
+
+// A clientOnly entry must be a feature the trade offers: a typo would otherwise silently let a demo skip a feature.
+for (const k of KITS) {
+  for (const id of k.clientOnly ?? []) {
+    const f = FEATURES.find((x) => x.id === id);
+    if (!f || !forKit(f, k.id)) throw new Error(`src/kits/${k.id}/kit.js: clientOnly lists "${id}", which this trade doesn't offer`);
+  }
+}
 
 /** @param {string} id */
 export function getFeature(id) {

@@ -47,7 +47,9 @@ demos; demos stay fictional. For each trade:
 
 A NEW KIT, STEP BY STEP (it never edits a shared file; `npm run rules` fails if a shared build file names a kit)
 1. `src/kits/<kit>/kit.js`, the kit's one entry file. Copy the shape of an existing one and export:
-   - `features`: the kit's own registry entries (`kits: ["<kit>"]`, `dir: "src/kits/<kit>/features/<id>"`);
+   - `features`: the kit's own registry entries (`kits: ["<kit>"]`, `dir: "src/kits/<kit>/features/<id>"`). Each new id
+     starts with the kit's name (`<kit>-services`, never a bare `services`); `npm run rules` fails if a shared feature,
+     another kit, or another kit on an open branch already has the id;
    - `uses` (optional): shared features open only to the trades that ask (price list, loyalty, pay link, date range…);
      `refuses` (optional): shared features the trade never offers;
    - `settings` (optional): top-level site.json keys no feature lists (a feature's own keys go in its `requires` or

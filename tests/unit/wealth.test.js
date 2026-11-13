@@ -107,14 +107,14 @@ test("insight addresses are whole words, 40 characters at most, and the demo's s
 
 test("a meeting request asks nothing about money and refuses account, card or sort-code numbers", () => {
   assert.ok(looksSensitive("Account 12345678") && looksSensitive("sort code 20-00-00") && !looksSensitive("Tuesday after 4pm"));
-  const ok = meetingMessage({ name: "Ann", reach: "+44 7911 123456", about: "selling a business", where: "By video", when: "Mornings", adviser: "Tom Ashworth" }, "Lyall Harrow");
+  const ok = meetingMessage({ name: "Ann", reach: "+44 20 7946 0456", about: "selling a business", where: "By video", when: "Mornings", adviser: "Tom Ashworth" }, "Lyall Harrow");
   assert.ok(ok.ok);
   if (ok.ok) {
     assert.match(ok.body, /about selling a business/);
-    assert.match(mailHref("a@b.co", ok), /^mailto:a@b\.co\?subject=First%20meeting/);
+    assert.match(mailHref("a@b.example", ok), /^mailto:a@b\.example\?subject=First%20meeting/);
   }
   assert.deepEqual(meetingMessage({ name: "", reach: "x", about: "", where: "", when: "" }, "F"), { ok: false, field: "name", why: "Please give your name." });
-  const bad = meetingMessage({ name: "Ann", reach: "ann@x.co", about: "", where: "", when: "my account is 12345678" }, "F");
+  const bad = meetingMessage({ name: "Ann", reach: "ann@x.example", about: "", where: "", when: "my account is 12345678" }, "F");
   assert.equal(bad.ok, false);
 });
 

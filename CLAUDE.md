@@ -105,10 +105,10 @@ Not a template shop: each trade gets its own kit, each design looks unrecognisab
      gives the **accent and the photo grade**, not a tinted page. Never pick an odd mid-tone ground (mustard,
      sage, peach, duck egg, kraft) just because no other demo uses it: two looks may share a neutral ground.
      Looks differ through layout, type, photography and the hero idea, not page tint.
-   - Fonts: before mocking up, run `git fetch --all` and read `docs/CLAIMED-FONTS.md`. Never use a font (or
+   - Fonts: before mocking up, run `git fetch --all --prune` and read `docs/CLAIMED-FONTS.md`. Never use a font (or
      a cut of the same family, e.g. Castoro and Castoro Titling) already listed there. Add your chosen
      fonts to `docs/trades/<trade>/fonts.md` in your first mockup commit, run `npm run docs` and push straight
-     away, so parallel agents see them (`npm run rules` fails if another trade has the family).
+     away, so parallel agents see them (`npm run rules` fails if another trade has the family, on main or on any fetched open branch).
      Avoid the default pairing "elegant serif headline + plain sans body" unless the idea needs it.
    - Wow: every new design has one moment on the first screen that the owner would show a client (a
      useful interaction or a striking real image), not only a tasteful layout. Avoiding AI habits is not
@@ -129,7 +129,7 @@ Not a template shop: each trade gets its own kit, each design looks unrecognisab
 |---|---|
 | Logic with no DOM (time, prices, parsing) | `src/core/lib/` (shared) or `src/kits/<kit>/lib/` (trade-specific), with unit tests |
 | A feature any trade can use | `src/features/<id>/` (`<id>.njk`, `<id>.css`, optional `<id>.js`, `README.md`) + register in `src/features/registry.js` |
-| A feature for one trade | `src/kits/<kit>/features/<id>/` + an entry in `features` in `src/kits/<kit>/kit.js` |
+| A feature for one trade | `src/kits/<kit>/features/<id>/` + an entry in `features` in `src/kits/<kit>/kit.js`. A NEW kit feature's id starts with the kit's name (`hair-services`, not `services`; existing ids stay as they are). Ids must be unique across the shared features and every kit, on main and every open branch: `npm run rules` fails naming the other kit (run `git fetch --all --prune` first) |
 | A trade's settings checks, page data, live data | `src/kits/<kit>/config.js` and the kit's `kit.js` (never a shared file: `npm run rules` checks) |
 | Page layout for a trade | `src/kits/<kit>/pages/*.njk` |
 | A page every site gets (privacy) | `src/core/pages/*.njk` |

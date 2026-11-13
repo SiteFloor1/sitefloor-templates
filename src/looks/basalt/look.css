@@ -313,6 +313,8 @@ body[data-page="index"] .bs-nav { position: absolute; top: auto; left: 0; right:
 @media (min-width: 900px) { .bs-foot-row { grid-template-columns: 1fr 2fr auto; } }
 .bs-foot address { font-style: normal; color: var(--muted); }
 .bs-foot a { text-decoration: none; }
+/* The phone and email sit on their own lines: each at least 24px tall, so they meet WCAG 2.2 target size whatever their length. */
+.bs-foot address a { display: inline-block; min-height: 24px; line-height: 24px; }
 .bs-foot-links { display: flex; flex-wrap: wrap; gap: 8px 22px; align-content: start; }
 .bs-foot-links a { color: var(--muted); }
 .bs-foot-links a:hover { color: var(--text); }
