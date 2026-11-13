@@ -1,0 +1,167 @@
+/* =========================================================================
+   Look: Counter — the counter at 8 a.m., in a grand hotel's morning café. Daylight oat walls, espresso ink,
+   tiled teal-green, brass hairlines, steamed-milk white panels and a butter tag for a fresh tray. Gloock for
+   headings (upright; emphasis in teal, never italic) with a hand-drawn brass underline; Onest for everything
+   else. Order-ticket buttons: an ink outline, a fine brass line inside, pressed in on tap. The hero is the
+   café's counter photo in a tall arch with its bakes tagged live. Light only.
+   ========================================================================= */
+:root {
+  --bg: #F3ECDF; --surface: #FBF8F2; --surface-2: #EAE0CE;
+  --text: #1C1714; --muted: #574C43; --dim: #6B5F55;
+  --accent: #1E6B5C; --accent-2: #175548; --on-accent: #FBF8F2;
+  --line: rgba(28,23,20,.12); --line-2: rgba(28,23,20,.24);
+  --ok: #2E7D5B; --busy: #B7791F; --closed: #8A8178;
+  --font-display: "Gloock", "Gloock Fallback", Georgia, serif;
+  --font-body: "Onest", "Onest Fallback", Arial, sans-serif;
+  --brass: #A88A4C; --brass-hi: #D6BE88; --tile: #1E6B5C; --tile-2: #24786A; --grout: #E9E0CF;
+  --fresh: #F2D88A; --on-fresh: #1C1714;
+  --card: var(--surface); --card-ink: var(--text); --leader: rgba(28,23,20,.32);
+  --book-cover: #1E6B5C; --book-foil: #D6BE88; --paper: #FBF8F2; --paper-ink: #1C1714; --paper-dim: #EFE6D6;
+  --on-photo: #FBF8F2; --photo-scrim: rgba(28,23,20,.62); --shadow: rgba(60,40,20,.45);
+  --nav-h: 70px;
+  color-scheme: light;
+}
+:root { --season-bg: #1E6B5C; --season-fg: #FBF8F2; }
+:root[data-season="festive"] { --season-bg: #7A2335; }
+:root[data-season="winter"] { --season-bg: #1F3A5F; }
+:root[data-season="spring"] { --season-bg: #46592A; }
+:root[data-season="summer"] { --season-bg: #F2D88A; --season-fg: #1C1714; }
+:root[data-season="autumn"] { --season-bg: #7E4320; }
+:root[data-season="gold"] { --season-bg: #D6BE88; --season-fg: #1C1714; }
+
+body { font-size: 16.5px; line-height: 1.6; background: var(--bg); }
+h1, h2, h3 { text-wrap: balance; }
+::selection { background: var(--fresh); color: var(--text); }
+em, i, .rs-all, .shot-cap p, .tc-ia, .bb-pall, .rev blockquote p { font-style: normal; }
+
+/* buttons: an order ticket — ink outline, a fine brass line inside, a hard ink shadow that presses in */
+.btn { border-radius: 14px; min-height: 52px; padding: 0 24px; font-weight: 600; font-size: 15px; letter-spacing: .01em;
+  box-shadow: inset 0 0 0 2px var(--text), inset 0 0 0 4.5px var(--accent), inset 0 0 0 5.5px var(--brass-hi), 0 4px 0 0 var(--text);
+  transition: transform .12s, box-shadow .12s, background .25s; }
+.btn:hover { background: var(--accent-2); box-shadow: inset 0 0 0 2px var(--text), inset 0 0 0 4.5px var(--accent-2), inset 0 0 0 5.5px var(--brass-hi), 0 4px 0 0 var(--text); }
+.btn:active { transform: translateY(3px); box-shadow: inset 0 0 0 2px var(--text), inset 0 0 0 4.5px var(--accent), inset 0 0 0 5.5px var(--brass-hi), 0 1px 0 0 var(--text); }
+.btn.ghost { background: var(--surface); color: var(--text); box-shadow: inset 0 0 0 2px var(--text), inset 0 0 0 4.5px var(--surface), inset 0 0 0 5.5px var(--brass), 0 4px 0 0 var(--text); }
+.btn.ghost:hover { background: #FFFDF8; box-shadow: inset 0 0 0 2px var(--text), inset 0 0 0 4.5px #FFFDF8, inset 0 0 0 5.5px var(--brass), 0 4px 0 0 var(--text); }
+.btn.ghost:active { box-shadow: inset 0 0 0 2px var(--text), inset 0 0 0 4.5px var(--surface), inset 0 0 0 5.5px var(--brass), 0 1px 0 0 var(--text); }
+@media (prefers-reduced-motion: reduce) { .btn:active { transform: none; } }
+.kick { font-weight: 600; font-size: 12px; letter-spacing: .2em; color: var(--accent); display: inline-flex; align-items: center; gap: 10px; }
+.kick::before { content: ""; width: 7px; height: 7px; background: var(--brass); transform: rotate(45deg); }
+
+/* header: the name in Gloock, small spaced capitals for links, a brass hairline */
+.nav { background: color-mix(in srgb, var(--surface) 86%, transparent); border-bottom: 1px solid color-mix(in srgb, var(--brass) 55%, transparent); }
+.logo { font-family: var(--font-display); font-weight: 400; font-size: 26px; letter-spacing: .01em; }
+.logo i { display: none; }
+.links { font-size: 12.5px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+.nstat { font-size: 13px; font-weight: 500; }
+.nav .btn { min-height: 42px; padding: 0 16px; font-size: 14px; border-radius: 12px; box-shadow: inset 0 0 0 2px var(--text), inset 0 0 0 4px var(--accent), inset 0 0 0 5px var(--brass-hi), 0 3px 0 0 var(--text); }
+.mnav a { font-family: var(--font-display); font-weight: 400; font-size: 34px; }
+
+/* section heads: left, compact; Gloock with a hand-drawn brass underline */
+.sh { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); align-items: end; gap: 18px 56px; margin-bottom: clamp(30px, 4vw, 52px); }
+.sh h2 { font-weight: 400; font-size: clamp(40px, 5.8vw, 82px); line-height: .98; letter-spacing: -.012em; margin-top: 14px; }
+.sh h2::after { content: ""; display: block; width: min(190px, 46%); height: 14px; margin-top: 14px; background: var(--brass);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 14' preserveAspectRatio='none'%3E%3Cpath d='M2 9.5C30 4 58 3.2 86 6.4c22 2.6 40 4.4 62 2.2 18-1.8 34-5.2 50-4.6' fill='none' stroke='%23000' stroke-width='3.2' stroke-linecap='round'/%3E%3Cpath d='M18 12c34-3.4 66-3.6 104-1.4' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' opacity='.7'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 14' preserveAspectRatio='none'%3E%3Cpath d='M2 9.5C30 4 58 3.2 86 6.4c22 2.6 40 4.4 62 2.2 18-1.8 34-5.2 50-4.6' fill='none' stroke='%23000' stroke-width='3.2' stroke-linecap='round'/%3E%3Cpath d='M18 12c34-3.4 66-3.6 104-1.4' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' opacity='.7'/%3E%3C/svg%3E") center / 100% 100% no-repeat; }
+.sh h2 em, .phero h1 em, .cn h1 em { color: var(--accent); }
+.sh p { font-size: 16.5px; line-height: 1.65; justify-self: start; }
+main section { padding-block: clamp(64px, 8vw, 116px); }
+.phero h1 { font-weight: 400; letter-spacing: -.015em; }
+@media (max-width: 800px) { .sh { grid-template-columns: minmax(0, 1fr); } }
+
+/* the tile frieze: two rows of glazed teal tiles, the lower one offset, under the hero and above the footer */
+.cn-tiles, .foot::before { display: block; height: 23px; background:
+  linear-gradient(var(--grout), var(--grout)) 0 11px / 100% 1px no-repeat,
+  repeating-linear-gradient(90deg, var(--tile) 0 37px, color-mix(in srgb, var(--tile) 70%, #fff) 37px 38px, var(--grout) 38px 40px) 0 0 / 100% 11px no-repeat,
+  repeating-linear-gradient(90deg, var(--tile-2) 0 37px, color-mix(in srgb, var(--tile-2) 70%, #fff) 37px 38px, var(--grout) 38px 40px) 20px 12px / 100% 11px no-repeat,
+  var(--grout); }
+
+/* ---------- the hero: the counter ---------- */
+main section.hero.cn { padding-block: clamp(24px, 3.6vw, 52px) clamp(40px, 5vw, 70px); background: radial-gradient(60% 80% at 22% 30%, #FBF6EC 0%, transparent 70%); }
+.cn-in { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); grid-template-areas: "arch main"; gap: clamp(28px, 5vw, 80px); align-items: center; }
+.cn:not(.cn-withphoto) .cn-in { grid-template-columns: minmax(0, 1fr); grid-template-areas: "main"; }
+.cn-arch { grid-area: arch; margin: 0; position: relative; width: min(100%, 470px); justify-self: center; }
+.cn-frame { --ch: 1.3; --oy: .5; position: relative; aspect-ratio: 1 / var(--ch); border-radius: 50% 50% 16px 16px / calc(50% / var(--ch)) calc(50% / var(--ch)) 16px 16px; overflow: hidden; background: var(--surface-2);
+  box-shadow: 0 0 0 1px var(--brass), 0 0 0 8px var(--bg), 0 0 0 9px var(--brass), 0 0 0 10px color-mix(in srgb, var(--brass) 30%, transparent), 0 50px 70px -40px var(--shadow); }
+.cn-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% calc(var(--oy) * 100%); }
+.cn-frame::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(255,250,240,.08), transparent 40%, rgba(28,23,20,.2)); }
+.cn-cap { position: absolute; left: 50%; bottom: -13px; translate: -50% 0; z-index: 2; padding: 3px 14px; border-radius: 999px; background: var(--bg); box-shadow: inset 0 0 0 1px var(--brass); font-size: 11px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+/* a bake on the counter: a brass-ringed dot and its card; positions are the photo's, kept true when it's cropped */
+.cn-spot { position: absolute; z-index: 1; left: calc(var(--x) * 100%); top: calc((var(--y) * var(--ih) - (var(--ih) - var(--ch)) * var(--oy)) / var(--ch) * 100%); display: grid; justify-items: center; gap: 6px; translate: -50% -7px; pointer-events: none; }
+.cn-spot i { width: 14px; height: 14px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 2.5px var(--surface), 0 0 0 4px var(--brass), 0 4px 10px rgba(0,0,0,.35); }
+.cn-label { display: grid; justify-items: center; gap: 3px; max-width: 150px; padding: 5px 10px 6px; border-radius: 10px; background: color-mix(in srgb, var(--surface) 94%, transparent); box-shadow: 0 8px 18px -8px rgba(0,0,0,.45), inset 0 0 0 1px color-mix(in srgb, var(--brass) 60%, transparent); text-align: center; }
+.cn-label b { font-family: var(--font-display); font-weight: 400; font-size: 13.5px; line-height: 1.15; }
+.cn-label span { font-size: 10.5px; font-weight: 700; letter-spacing: .03em; padding: 1px 7px; border-radius: 999px; background: var(--surface-2); color: var(--muted); }
+.cn-label span:empty { display: none; }
+.cn-spot[data-state="fresh"] .cn-label span { background: var(--fresh); color: var(--on-fresh); }
+.cn-spot[data-state="out"] .cn-label span { background: var(--text); color: var(--surface); }
+.cn-spot[data-state="out"] i { background: var(--closed); }
+.cn-spot[data-state="fresh"] i { background: var(--fresh); }
+@media (prefers-reduced-motion: no-preference) {
+  .cn-spot[data-state="fresh"] i { animation: cn-warm 1.6s ease-out 3; }
+  @keyframes cn-warm { 0% { box-shadow: 0 0 0 2.5px var(--surface), 0 0 0 4px var(--brass), 0 0 0 0 rgba(242,216,138,.9); } 100% { box-shadow: 0 0 0 2.5px var(--surface), 0 0 0 4px var(--brass), 0 0 0 18px rgba(242,216,138,0); } }
+}
+.cn-main { grid-area: main; }
+.cn-kick { margin: 0; display: inline-flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--accent); }
+.cn-kick::before { content: ""; width: 7px; height: 7px; background: var(--brass); transform: rotate(45deg); }
+.cn h1 { margin: 18px 0 20px; font-family: var(--font-display); font-weight: 400; font-size: clamp(54px, 7.4vw, 118px); line-height: .92; letter-spacing: -.022em; }
+.cn-intro { margin: 0; max-width: 40ch; font-size: clamp(16.5px, 1.3vw, 18.5px); line-height: 1.62; color: var(--muted); }
+.cn .h-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.cn-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-top: 30px; padding-top: 22px; border-top: 1px solid color-mix(in srgb, var(--brass) 45%, transparent); }
+.cn-now { display: flex; align-items: center; gap: 9px; margin: 0; font-size: 14px; font-weight: 500; min-height: 1.6em; }
+/* the visitor's usual, on a paper order ticket */
+.cn-usual { position: relative; display: grid; grid-template-columns: auto auto; column-gap: 12px; align-items: baseline; padding: 9px 16px 10px 20px; border-radius: 6px 12px 12px 6px; text-decoration: none; background: var(--surface);
+  box-shadow: inset 4px 0 0 var(--accent), 0 10px 20px -16px var(--shadow), inset 0 0 0 1px var(--line-2); max-width: 100%; }
+.cn-usual::before { content: ""; position: absolute; left: 9px; top: 6px; bottom: 6px; border-left: 1.5px dashed var(--line-2); }
+.cn-usual-k { grid-column: 1 / -1; font-size: 10.5px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); }
+.cn-usual b { font-family: var(--font-display); font-weight: 400; font-size: 18px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 14em; }
+.cn-usual[data-saved="no"] b { color: var(--muted); }
+.cn-usual-p { font-variant-numeric: tabular-nums; font-weight: 600; }
+.cn-usual:hover { box-shadow: inset 4px 0 0 var(--accent), 0 14px 24px -16px var(--shadow), inset 0 0 0 1px var(--brass); }
+@media (max-width: 899px) {
+  .cn-in { grid-template-columns: minmax(0, 1fr); grid-template-areas: "arch" "main"; gap: 28px; }
+  .cn-arch { width: 100%; }
+  .cn-frame { --ch: 1.08; --oy: .55; }
+  .cn h1 { font-size: clamp(48px, 14vw, 66px); margin: 12px 0 14px; }
+  .cn .h-cta { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; margin-top: 22px; }
+  .cn .h-cta .btn { justify-content: center; padding-inline: 10px; white-space: nowrap; }
+  .cn-foot { margin-top: 24px; padding-top: 18px; }
+  .cn-label { max-width: 128px; padding: 4px 8px 5px; }
+  .cn-label b { font-size: 12.5px; }
+}
+
+/* what's on the counter, straight under the hero: the slip and the coffee board on a marble counter top with a brass rail */
+.today-band { position: relative; padding-block: clamp(30px, 4vw, 54px); background:
+  linear-gradient(115deg, transparent 0 30%, rgba(160,150,135,.10) 31%, transparent 33% 58%, rgba(160,150,135,.08) 59.5%, transparent 61%),
+  linear-gradient(72deg, transparent 0 44%, rgba(160,150,135,.07) 45%, transparent 47% 80%, rgba(160,150,135,.09) 81%, transparent 83%),
+  radial-gradient(120% 140% at 20% 0%, #FBF8F2 0%, #EEE7DA 100%);
+  box-shadow: inset 0 2px 0 var(--brass), inset 0 3px 0 rgba(255,255,255,.6), inset 0 -1px 0 var(--line); }
+.today-band .sp { border-radius: 16px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line-2), 0 22px 34px -28px var(--shadow); padding: 22px 22px 18px; }
+.today-band .sp .rs-k { color: var(--accent); font-weight: 700; letter-spacing: .2em; }
+.today-band .sp-h { font-size: 30px; }
+.sp-bakes li { grid-template-columns: minmax(0, 1fr) auto auto; }
+.today-band .sp-board { --board-bg: #1C1714; --board-ink: #F3ECDF; --board-rule: rgba(214,190,136,.5); border-radius: 16px; box-shadow: inset 0 0 0 1px rgba(214,190,136,.5), inset 0 0 0 6px #1C1714, inset 0 0 0 7px rgba(214,190,136,.28), 0 26px 40px -26px var(--shadow); }
+.today-band .sp-board-k { color: var(--brass-hi); }
+
+/* ---------- the rest of the page ---------- */
+/* panels: steamed-milk cards, a soft shadow, generous corners */
+:is(.rev, .hours, .where, .qs, .tile, .tz, .vc-form, .mn-card, .tn) { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 22px 40px -34px var(--shadow); }
+.rev blockquote p { font-family: var(--font-display); font-size: 1.22em; line-height: 1.4; }
+.rs-name { font-weight: 400; }
+.rs-price { font-family: var(--font-body); font-weight: 600; }
+.rs-tab { font-weight: 600; font-size: 14px; }
+.rs-k { color: var(--accent); font-weight: 700; letter-spacing: .18em; }
+.rs-chip { border-radius: 12px; border-width: 1.5px; }
+.rs-field select, .rs-field input, .rs-field textarea { border-radius: 12px; border-width: 1.5px; background: var(--surface); }
+.mn-card { padding: clamp(20px, 3vw, 40px); }
+/* the glass case and the cup in this look's brass and porcelain */
+.tc { --case-frame: var(--brass); --case-glass: #FBF8F2; --case-shelf: rgba(168,138,76,.45); --case-base: #EFE6D6; }
+.tc-base { background: linear-gradient(180deg, #CDB98C, #A88A4C 45%, #8B703A); }
+.yu-stage { background: radial-gradient(70% 60% at 50% 40%, #FFFDF8 0%, #EFE6D6 100%); box-shadow: inset 0 0 0 1px rgba(168,138,76,.45); }
+.yu-price { color: var(--accent); }
+.foot { position: relative; margin-top: 23px; background: #1C1714; border-top: 0; --text: #FBF8F2; --muted: #CFC3B1; --dim: #B4A795; --line: rgba(251,248,242,.14); --line-2: rgba(251,248,242,.3); color: var(--muted); }
+.foot::before { content: ""; position: absolute; left: 0; right: 0; top: -23px; }
+.fbig { font-family: var(--font-display); font-weight: 400; letter-spacing: -.02em; color: #F3ECDF; }
+.crumb a, .prose a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+.prose h2 { font-family: var(--font-display); font-weight: 400; font-size: 2em; }
+.mbar { background: color-mix(in srgb, var(--surface) 94%, transparent); border-top: 1px solid color-mix(in srgb, var(--brass) 50%, transparent); }
+.mbar .btn { min-height: 48px; font-size: 14.5px; }

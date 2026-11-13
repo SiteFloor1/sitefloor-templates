@@ -1,0 +1,29 @@
+{#- The films: each wedding's film with its venue and season, the still first and the film on tap. Venue chips find
+    films by venue; without JavaScript every film shows. -#}
+{%- set F = site.films %}
+<section class="wf-films" data-feature="films-page" aria-label="Films"><div class="wrap">
+  {%- set V = site.venues.items %}
+  {%- if V.length > 1 %}
+  <div class="wf-venues" role="group" aria-label="Films by venue" data-fp-venues>
+    <button type="button" class="wf-chip" aria-pressed="true" data-venue="">Every venue</button>
+    {%- for v in V %}<button type="button" class="wf-chip" aria-pressed="false" data-venue="{{ v.id }}">{{ v.name }}</button>{% endfor %}
+  </div>
+  {%- endif %}
+  <ol class="wf-film-list">
+    {%- for f in F.items %}{% set v = site | venueOf(f.venue) %}
+    <li class="wf-fl" id="film-{{ f.id }}" data-venue="{{ f.venue }}">
+      <div class="wf-fl-media">
+        <img src="{{ f.poster.src | img }}" alt="{{ f.poster.alt }}" width="{{ f.poster.width }}" height="{{ f.poster.height }}"{% if not loop.first %} loading="lazy"{% endif %} decoding="async">
+        <video playsinline muted controls preload="none" width="{{ f.clip.width }}" height="{{ f.clip.height }}" data-src="{{ f.clip.src | img }}" aria-label="{{ f.title }}, a film from {{ v.name }}" hidden></video>
+        <button type="button" class="wf-play" data-fp-play>Play the film<span class="wf-vh"> {{ f.title }}</span></button>
+      </div>
+      <div class="wf-fl-t">
+        <h2 class="wf-fl-h"><a href="{{ ('film-' ~ f.id) | href }}">{{ f.title }}</a></h2>
+        <p class="wf-fl-m">{{ v.name }}, {{ v.area }} · {{ f.season }}</p>
+        <p class="wf-fl-x">{{ f.text }}</p>
+        <p class="wf-fl-a"><a class="wf-go" href="{{ ('film-' ~ f.id) | href }}">The film and the day<span class="wf-vh">: {{ f.title }}</span></a> {% if f.watch %}<a class="wf-quiet" href="{{ f.watch }}" target="_blank" rel="noopener">The whole film</a> {% endif %}<a class="wf-go" href="{{ (F.message ~ ' ' ~ f.title) | book }}" target="_blank" rel="noopener">Ask about a film like this</a></p>
+      </div>
+    </li>
+    {%- endfor %}
+  </ol>
+</div></section>

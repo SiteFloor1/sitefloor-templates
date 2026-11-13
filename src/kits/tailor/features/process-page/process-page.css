@@ -1,0 +1,12 @@
+/* the process page: each step a photograph and its words, alternating sides on wide screens. */
+.tl-pp { padding-block: 24px 96px; }
+.tl-pp-list { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(48px, 7vw, 96px); }
+.tl-pp-step { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(24px, 4vw, 64px); align-items: end; }
+.tl-pp-step:nth-child(even) .tl-pp-ph { order: 2; }
+.tl-pp-step:not(:has(.tl-pp-ph)) { grid-template-columns: minmax(0, 1fr); }
+.tl-pp-ph { margin: 0; }
+.tl-pp-ph img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; }
+.tl-pp-l { font-size: 18px; margin: 0 0 12px; }
+.tl-pp-m { color: var(--muted); margin: 0; max-width: 34em; }
+.tl-pp-go { margin-top: 64px; }
+@media (max-width: 760px) { .tl-pp-step { grid-template-columns: 1fr; } .tl-pp-step:nth-child(even) .tl-pp-ph { order: 0; } }

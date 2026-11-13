@@ -1,0 +1,30 @@
+{#- What's worth checking: pick the house's age and see what is worth looking at before planning work on it. General
+    guidance, labelled as such; facts carry their official source and the date checked. Without script every age shows. -#}
+{%- set sv = site.surveyPage %}
+{%- set ph = { title: sv.title, intro: sv.intro } %}
+{% include "kits/construction/partials/page-head.njk" %}
+<div class="wrap bd-sv" data-feature="survey-page" data-age="{{ sv.start }}">
+  <div class="bd-sv-pick" role="group" aria-label="How old is the house?" data-js-only><div class="bd-seg">
+    {%- for id, a in surveyFacts.ages %}<button type="button" data-sv-age="{{ id }}" aria-pressed="{{ 'true' if id == sv.start else 'false' }}">{{ a.label }}<small>{{ a.years }}</small></button>{% endfor %}
+  </div></div>
+  {%- for id, a in surveyFacts.ages %}
+  <section class="bd-sv-age" data-sv-list="{{ id }}" aria-labelledby="sv-{{ id }}-h">
+    <h2 id="sv-{{ id }}-h" class="bd-sv-h">{{ a.label }} <span>{{ a.years }}</span></h2>
+    <ol class="bd-sv-list">
+      {%- for c in id | surveyChecklist %}<li><b>{{ c.name }}</b><p>{{ c.line }}{% if c.source %} <a href="{{ surveyFacts.sources[c.source].url }}" rel="noopener" target="_blank">{{ surveyFacts.sources[c.source].label }}</a>{% endif %}</p></li>{% endfor %}
+    </ol>
+  </section>
+  {%- endfor %}
+  <div class="bd-sv-end">
+    <p class="bd-pg-not"><b>{{ surveyFacts.notASurvey }}</b></p>
+    <p class="bd-pg-src">Sources checked {{ surveyFacts.checked | ukDate }}.</p>
+    {%- if sv.message %}
+    <form class="bd-sv-ask" data-sv-form data-js-only>
+      <label class="bd-field"><span>Postcode district</span><input name="where" maxlength="5" autocomplete="off" placeholder="e.g. N5"></label>
+      <button class="bd-btn" type="submit">Ask us to look at your house</button>
+      <p class="bd-brief-err" data-sv-err role="alert" hidden></p>
+    </form>
+    <p data-no-js><a class="bd-btn" href="{{ sv.message | wa }}" data-wa-text="{{ sv.message }}" target="_blank" rel="noopener">Ask us to look at your house</a></p>
+    {%- endif %}
+  </div>
+</div>

@@ -1,0 +1,11 @@
+{#- Discreet arrival: which door, where to leave the car and who will open it, beside a photograph of the house. -#}
+{%- set ar = site.arrival %}{% set ph = ar.photo %}
+<section id="arrival" class="lw-arr" aria-label="{{ ar.title | plain }}"{{ "arrival" | tierAttr | safe }}>
+  <div class="lw-arr-say">
+    <h2 class="lw-arr-t">{{ ar.title | markup | safe }}</h2>
+    <p class="lw-arr-i">{{ ar.text }}</p>
+    <dl class="lw-arr-ways">{% for w in ar.ways %}<div><dt>{{ w.label }}</dt><dd>{{ w.text }}</dd></div>{% endfor %}</dl>
+    <a class="go" href="{{ ('contact' | href) if ('first-contact' | enabled) else '#enquiry' }}">Arrange a first meeting</a>
+  </div>
+  <figure class="lw-arr-fig"><img src="{{ ph.src | img }}" alt="{{ ph.alt }}" width="{{ ph.width }}" height="{{ ph.height }}" loading="lazy" decoding="async"{% if ph.position %} style="object-position:{{ ph.position }}"{% endif %}></figure>
+</section>

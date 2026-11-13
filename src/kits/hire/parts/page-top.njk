@@ -1,0 +1,19 @@
+{#- An inner page's opening. With a photograph (`pt.photo`, `pt.photoTall`): full bleed at night, the header over it, the
+    title light and large at its foot. Without: the title on the ground, under the header. `pt` = { title, intro?, photo?,
+    photoTall?, kicker? }. -#}
+{%- if pt.photo %}{% set tall = pt.photoTall or pt.photo %}
+<section class="dt-top has-photo">
+  <picture><source media="(max-width: 820px)" srcset="{{ tall.src | img }}" width="{{ tall.width }}" height="{{ tall.height }}"><img src="{{ pt.photo.src | img }}" alt="{{ pt.photo.alt }}" width="{{ pt.photo.width }}" height="{{ pt.photo.height }}" fetchpriority="high" decoding="async"></picture>
+  <div class="dt-top-copy"><div class="wrap">
+    {%- if pt.kicker %}<p class="dt-top-k">{{ pt.kicker }}</p>{% endif %}
+    <h1 class="dt-top-h">{{ pt.title | markup | safe }}</h1>
+    {%- if pt.intro %}<p class="dt-top-i">{{ pt.intro }}</p>{% endif %}
+  </div></div>
+</section>
+{%- else %}
+<section class="dt-top"><div class="wrap">
+  {%- if pt.kicker %}<p class="dt-top-k">{{ pt.kicker }}</p>{% endif %}
+  <h1 class="dt-top-h">{{ pt.title | markup | safe }}</h1>
+  {%- if pt.intro %}<p class="dt-top-i">{{ pt.intro }}</p>{% endif %}
+</div></section>
+{%- endif %}

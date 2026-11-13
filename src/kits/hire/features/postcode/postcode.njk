@@ -1,0 +1,29 @@
+{#- Delivery and collection: type a postcode and see whether it's inside the client's delivery zones, and the fee. Without
+    JavaScript the zones are listed, so the answer is still on the page. -#}
+{%- set sec = site.sections.postcode %}{% set zones = site.hire.delivery.zones %}
+<section id="delivery" class="hr-pc" data-feature="postcode" aria-labelledby="hr-pc-h">
+  <div class="wrap hr-pc-grid">
+    <div class="dt-head is-stacked"><h2 class="dt-h" id="hr-pc-h">{{ sec.title | markup | safe }}</h2>{% if sec.intro %}<p class="dt-hr">{{ sec.intro }}</p>{% endif %}</div>
+    <div class="hr-pc-tool">
+      {%- if zones.length %}
+      <form class="hr-pc-form" data-js-only data-pc-form>
+        <label for="hr-pc-in">Your postcode</label>
+        <span class="hr-pc-row"><input id="hr-pc-in" name="postcode" autocomplete="postal-code" inputmode="text" spellcheck="false" maxlength="9" placeholder="SW11 4NQ" data-pc-in><button type="submit" class="dt-go">Check</button></span>
+        <p class="hr-pc-out" role="status" aria-live="polite" data-pc-out></p>
+      </form>
+      <table class="hr-zones">
+        <caption>Delivery and collection, by postcode</caption>
+        <thead><tr><th scope="col">Zone</th><th scope="col">Postcodes</th><th scope="col">Fee</th></tr></thead>
+        <tbody>{% for z in zones %}<tr><th scope="row">{{ z.name }}</th><td>{{ z.districts | join(", ") }}</td><td>{{ (z.fee | money) if z.fee else "Free" }}</td></tr>{% endfor %}</tbody>
+      </table>
+      {%- endif %}
+      <p class="hr-pc-collect"><span>Collection</span> {{ site.hire.delivery.collect }}</p>
+      {%- if site.hire.delivery.note %}<p class="hr-pc-note">{{ site.hire.delivery.note }}</p>{% endif %}
+      {%- if ("meet-greet" | enabled) and site.hire.airports %}
+      <ul class="hr-airports"{{ "meet-greet" | tierAttr | safe }} aria-label="Airport meet and greet">
+        {%- for a in site.hire.airports %}<li><span>{{ a.name }}</span> {{ a.fee | money }}{% if a.note %} · {{ a.note }}{% endif %}</li>{% endfor %}
+      </ul>
+      {%- endif %}
+    </div>
+  </div>
+</section>

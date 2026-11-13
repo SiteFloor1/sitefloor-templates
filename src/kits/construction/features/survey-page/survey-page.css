@@ -1,0 +1,29 @@
+/* What's worth checking: the ages as one segmented row, the list numbered and set wide, the guidance note under it.
+   Tokens only. */
+.bd-sv { display: grid; gap: clamp(20px, 3vw, 32px); padding-bottom: clamp(64px, 9vw, 112px); }
+.bd-sv-pick .bd-seg { flex-wrap: wrap; width: fit-content; max-width: 100%; }
+.bd-sv-pick button { display: grid; text-align: left; gap: 2px; padding: 10px 16px; }
+.bd-sv-pick small { font-weight: 400; font-size: 12px; color: var(--muted); }
+.bd-sv-pick button[aria-pressed="true"] small { color: var(--text); }
+.bd-sv-h { margin: 0 0 6px; font-family: var(--font-display); font-weight: 400; font-size: clamp(24px, 2.6vw, 32px); }
+.bd-sv-h span { font-family: var(--font-body, inherit); font-size: 14px; color: var(--muted); margin-left: 10px; }
+.bd-sv-list { margin: 0; padding: 0; list-style: none; counter-reset: sv; border-top: 1px solid var(--line); max-width: 78ch; }
+.bd-sv-list li { counter-increment: sv; display: grid; grid-template-columns: 3em minmax(10em, 15em) 1fr; gap: 6px 18px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.bd-sv-list li::before { content: counter(sv, decimal-leading-zero); font-variant-numeric: tabular-nums; color: var(--muted); font-size: 13px; padding-top: 2px; }
+.bd-sv-list b { font-weight: 600; }
+.bd-sv-list p { margin: 0; }
+.bd-sv-list a { font-size: 13px; color: var(--accent-2, var(--text)); }
+.bd-sv[data-ready] .bd-sv-age { display: none; }
+.bd-sv[data-ready][data-age="victorian"] [data-sv-list="victorian"], .bd-sv[data-ready][data-age="interwar"] [data-sv-list="interwar"],
+.bd-sv[data-ready][data-age="postwar"] [data-sv-list="postwar"], .bd-sv[data-ready][data-age="modern"] [data-sv-list="modern"] { display: block; }
+.bd-sv-end { display: grid; gap: 12px; max-width: 78ch; }
+.bd-sv-ask { display: flex; flex-wrap: wrap; align-items: end; gap: 12px; margin-top: 8px; }
+@media (max-width: 640px) {
+  .bd-sv-list li { grid-template-columns: 2.4em 1fr; }
+  .bd-sv-list p { grid-column: 2; }
+  .bd-sv-pick .bd-seg { display: grid; grid-template-columns: 1fr 1fr; width: 100%; }
+  .bd-sv-pick .bd-seg button + button { border-left: 0; }
+  .bd-sv-pick .bd-seg button:nth-child(even) { border-left: 1px solid var(--line-2); }
+  .bd-sv-pick .bd-seg button:nth-child(n+3) { border-top: 1px solid var(--line-2); }
+  .bd-sv-ask .bd-btn { width: 100%; }
+}

@@ -1,0 +1,8 @@
+/* The flavour calendar: the month picker, then the flavours in season as a two-column list. */
+.ck-cal-f { display: grid; gap: 6px; max-width: 280px; margin-bottom: 22px; }
+.ck-cal-f label { color: var(--muted); }
+.ck-cal-f select { font: inherit; font-size: 24px; font-family: var(--font-display); color: var(--text); background: transparent; border: 0; border-bottom: 2px solid var(--text); padding: 4px 0; min-height: 44px; }
+.ck-cal-l { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 0 clamp(20px, 3vw, 40px); }
+.ck-cal-l li { display: grid; gap: 2px; padding-block: 12px; border-top: 1px solid var(--line); }
+.ck-cal-l b { font-family: var(--font-display); font-size: 22px; line-height: 1.1; }
+.ck-cal-l span { color: var(--muted); }

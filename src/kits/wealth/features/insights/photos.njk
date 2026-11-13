@@ -1,0 +1,2 @@
+{#- The site's own insight photographs, ready for the script to place beside an insight from the firm's sheet. -#}
+{%- for key, p in site.insights.photos %}<template data-ins-photo="{{ key }}"><img src="{{ p.src | img }}" alt="{{ p.alt }}" width="{{ p.width }}" height="{{ p.height }}" loading="lazy" decoding="async"></template>{% endfor %}

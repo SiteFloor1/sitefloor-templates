@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: photography
+permalink: photography.html
+feature: photographs-page
+eleventyComputed:
+  title: "{{ site.photographsPage.title | plain }}"
+  description: "Wedding photographs by {{ site.business.name }}."
+---
+{%- set ph = site.photographsPage %}{% include "kits/weddingfilm/partials/page-head.njk" %}
+{% include "kits/weddingfilm/features/photographs-page/photographs-page.njk" %}
+{%- set hostPage = "photographs-page" %}{% include "kits/weddingfilm/partials/hosted.njk" %}

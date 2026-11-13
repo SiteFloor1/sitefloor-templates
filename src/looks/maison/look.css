@@ -1,0 +1,131 @@
+/* =========================================================================
+   Look: Maison — the restaurant after dark. A full-screen film of the restaurant's own photos behind a very
+   large Cormorant Garamond headline; deep bottle-green night, ivory type, one saffron accent. Jost in light,
+   wide-spaced capitals for labels. Hairline pill buttons, hairline-framed panels, no shadows, lots of dark
+   space; section heads are left-aligned and editorial with a short saffron rule. Always dark.
+   ========================================================================= */
+:root {
+  --bg: #0C1311; --surface: #121C19; --surface-2: #1A2622;
+  --text: #EDE6D8; --muted: #B9B2A3; --dim: #A29C8E;
+  --accent: #E0A03A; --accent-2: #EDB65A; --on-accent: #0C1311;
+  --line: rgba(237,230,216,.12); --line-2: rgba(237,230,216,.28);
+  --ok: #8CC9A0; --busy: #E0A03A; --closed: #9C978B;
+  --font-display: "Cormorant Garamond", "Cormorant Fallback", Garamond, Georgia, serif;
+  --font-body: "Jost", "Jost Fallback", Arial, sans-serif;
+  --card: var(--surface); --card-ink: var(--text); --leader: rgba(237,230,216,.3);
+  --book-cover: #173327; --book-foil: #E0A03A; --paper: #F6F0E4; --paper-ink: #13201B; --paper-dim: #E8DFCC;
+  --on-photo: #F2EADB; --photo-scrim: rgba(6,10,9,.72); --veil: rgba(6,10,9,.5);
+  --nav-h: 72px;
+  color-scheme: dark;
+}
+:root { --season-bg: #1A2622; --season-fg: #EDE6D8; }
+:root[data-season="festive"] { --season-bg: #6E1F25; }
+:root[data-season="winter"] { --season-bg: #1D3348; }
+:root[data-season="spring"] { --season-bg: #2F5A3A; }
+:root[data-season="summer"] { --season-bg: #E0A03A; --season-fg: #0C1311; }
+:root[data-season="autumn"] { --season-bg: #6A3415; }
+:root[data-season="gold"] { --season-bg: #E0A03A; --season-fg: #0C1311; }
+
+body { font-size: 16.5px; font-weight: 400; letter-spacing: .005em; }
+h1, h2, h3 { text-wrap: balance; }
+::selection { background: var(--accent); color: var(--on-accent); }
+
+/* buttons: hairline pills, wide capitals */
+.btn { border-radius: 999px; min-height: 52px; padding: 0 28px; font-weight: 500; font-size: 12.5px; letter-spacing: .22em; text-transform: uppercase; }
+.btn.ghost { color: var(--text); box-shadow: inset 0 0 0 1px var(--line-2); }
+.btn.ghost:hover { box-shadow: inset 0 0 0 1px var(--accent); color: var(--accent); }
+.kick { font-weight: 500; font-size: 11.5px; letter-spacing: .32em; color: var(--accent); display: inline-flex; align-items: center; gap: 14px; }
+.kick::before { content: ""; width: 34px; height: 1px; background: currentColor; }
+
+/* header: the name in wide capitals */
+.nav { background: color-mix(in srgb, var(--bg) 78%, transparent); border-bottom: 1px solid var(--line); }
+.logo { font-family: var(--font-body); font-weight: 400; font-size: 14px; letter-spacing: .34em; text-transform: uppercase; }
+.logo i { display: none; }
+.links { font-size: 12.5px; letter-spacing: .16em; text-transform: uppercase; }
+.nstat { font-size: 12.5px; font-weight: 400; letter-spacing: .04em; }
+.nav .btn { min-height: 40px; padding: 0 20px; font-size: 11.5px; }
+.mnav a { font-family: var(--font-display); font-size: 30px; }
+
+/* sections: left-aligned, editorial, a hairline above */
+main section { border-top: 1px solid var(--line); }
+.sh { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); align-items: end; gap: 22px 60px; margin-bottom: clamp(36px, 5vw, 70px); }
+.sh h2 { font-weight: 400; font-size: clamp(46px, 7vw, 104px); line-height: .92; letter-spacing: -.015em; margin-top: 18px; }
+.sh h2 em, .phero h1 em, .mx h1 em { font-style: italic; color: var(--accent); }
+.sh p { font-size: 16.5px; line-height: 1.7; }
+.phero { border-bottom: 1px solid var(--line); }
+.phero h1 { font-weight: 400; font-size: clamp(56px, 9vw, 130px); line-height: .9; letter-spacing: -.015em; }
+
+/* the hero: full screen; the film under a deep veil; the words low on the left, the Menu Book on the table to the right */
+main section.hero.mx { position: relative; display: grid; align-items: end; min-height: calc(100svh - var(--nav-h)); padding-block: 0; border-top: 0; overflow: hidden; isolation: isolate; color: var(--on-photo); }
+.mx .hf { z-index: -2; --hf-focus: 34% 55%; }
+.mx-veil { position: absolute; inset: 0; z-index: -1; background:
+  radial-gradient(60% 70% at 72% 55%, transparent 0%, var(--veil) 70%),
+  linear-gradient(180deg, var(--veil) 0%, transparent 30%, var(--photo-scrim) 80%, var(--bg) 100%),
+  linear-gradient(90deg, var(--photo-scrim) 0%, transparent 65%); }
+.mx-in { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); align-items: center; gap: 40px; padding-block: 110px clamp(56px, 8vh, 96px); }
+.mx-main { align-self: end; }
+.mx-kick { margin: 0; font-size: 12px; letter-spacing: .38em; text-transform: uppercase; color: var(--accent); }
+.mx h1 { white-space: nowrap; font-family: var(--font-display); font-weight: 400; font-size: clamp(58px, 9vw, 150px); line-height: .86; letter-spacing: -.02em; margin: 22px 0 26px; }
+.mx h1, .mx-intro { text-shadow: 0 2px 24px rgba(6,10,9,.6); }
+.mx-intro { margin: 0; max-width: 44ch; font-size: clamp(16.5px, 1.3vw, 19px); line-height: 1.65; font-weight: 300; }
+.mx .h-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.mx .btn.ghost { color: var(--on-photo); box-shadow: inset 0 0 0 1px rgba(242,234,219,.55); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.mx-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px; margin-top: 26px; }
+.mx-now { display: flex; align-items: center; gap: 10px; margin: 0; min-height: 1.6em; font-size: 13px; letter-spacing: .06em; }
+.mx .mpdf { min-height: 0; padding: 0; border: 0; color: var(--on-photo); font-size: 13px; letter-spacing: .04em; text-decoration: underline; text-decoration-color: rgba(242,234,219,.4); text-underline-offset: 4px; }
+.mx .mpdf small { color: inherit; opacity: .7; }
+/* the book on the table: a pool of warm light under it, a long soft shadow */
+.mx-table { position: relative; display: grid; place-items: center; }
+.mx-glow { position: absolute; left: 50%; top: 58%; width: 150%; aspect-ratio: 1.6; translate: -50% -50%; z-index: -1; pointer-events: none;
+  background: radial-gradient(closest-side, rgba(255,190,110,.32), rgba(255,150,70,.12) 45%, transparent 75%); }
+.mx-table .mb-closed { width: min(30vw, 360px); transform: rotate(-7deg); filter: drop-shadow(-26px 38px 34px rgba(0,0,0,.7)); }
+.mx-table .mb-closed:hover, .mx-table .mb-closed:focus-visible { transform: rotate(-4deg) translateY(-8px); }
+@media (prefers-reduced-motion: no-preference) {
+  .mx-glow { animation: mx-candle 5s ease-in-out infinite alternate; }
+  @keyframes mx-candle { 0% { opacity: .85; } 40% { opacity: 1; } 55% { opacity: .9; } 100% { opacity: 1; } }
+}
+/* without the book: the sittings down the right */
+.mx-sits { list-style: none; margin: 0; padding: 0 0 0 26px; border-left: 1px solid rgba(242,234,219,.3); display: grid; gap: 14px; align-self: end; }
+.mx-sits li { display: grid; grid-template-columns: auto 1fr; column-gap: 12px; }
+.mx-sits span { font-family: var(--font-display); font-style: italic; font-size: 24px; line-height: 1.1; }
+.mx-sits b { justify-self: end; align-self: center; font-weight: 400; font-size: 13px; letter-spacing: .06em; font-variant-numeric: tabular-nums; }
+.mx-sits small { grid-column: 1 / -1; font-size: 11.5px; letter-spacing: .16em; text-transform: uppercase; opacity: .75; }
+@media (max-width: 800px) { .sh { grid-template-columns: minmax(0, 1fr); } }
+.mbar .btn { letter-spacing: .12em; font-size: 12px; padding-inline: 16px; }
+@media (max-width: 900px) {
+  .mx-veil { background: radial-gradient(70% 40% at 50% 26%, transparent 0%, var(--veil) 80%), linear-gradient(180deg, var(--veil) 0%, transparent 18%, var(--photo-scrim) 52%, var(--bg) 100%); }
+  .mx .hf { --hf-focus: 30% 40%; }
+  .mx-in { grid-template-columns: minmax(0, 1fr); gap: 14px; padding-block: 26px 70px; }
+  .mx-table { order: -1; }
+  .mx-table .mb-closed { width: min(38vw, 170px); }
+  .mx h1 { margin: 16px 0 18px; }
+  .mx-kick { font-size: 11px; letter-spacing: .24em; }
+  .mx .h-cta { display: grid; grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); gap: 10px; margin-top: 24px; }
+  .mx .h-cta .btn { justify-content: center; padding-inline: 10px; letter-spacing: .14em; white-space: nowrap; }
+  .mx-sits { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; padding: 18px 0 0; border-left: 0; border-top: 1px solid rgba(242,234,219,.3); }
+  .mx-sits li { grid-template-columns: minmax(0, 1fr); }
+  .mx-sits span { font-size: 20px; }
+  .mx-sits b { justify-self: start; font-size: 12px; }
+  .mx-sits small { display: none; }
+}
+
+/* the Menu Book's cover for the season (the head script sets data-season before the first paint) */
+:root[data-season="festive"] { --book-cover: #5E1620; --book-foil: #E3C27A; }
+:root[data-season="winter"] { --book-cover: #18283D; --book-foil: #D9DEE6; }
+:root[data-season="spring"] { --book-cover: #2C4A33; --book-foil: #F0D3DC; }
+:root[data-season="summer"] { --book-cover: #E9DCC2; --book-foil: #8A5A12; }
+:root[data-season="autumn"] { --book-cover: #4A2414; --book-foil: #E8A25A; }
+:root[data-season="gold"] { --book-cover: #12241D; --book-foil: #F0CF7A; }
+
+/* dish names and prices in the display face */
+.rs-name { font-weight: 500; }
+.rs-price { font-family: var(--font-display); font-size: 1.2em; font-weight: 500; }
+.rs-tab { letter-spacing: .14em; text-transform: uppercase; font-size: 12.5px; }
+
+/* panels: hairline frames, no shadows */
+:is(.rev, .hours, .where, .qs, .tile, .tz, .vc-form, .mn-card, .sp, .tn) { background: var(--surface); border: 1px solid var(--line); border-radius: 2px; box-shadow: none; }
+.rev blockquote p { font-family: var(--font-display); font-style: italic; font-size: 1.3em; line-height: 1.4; }
+.foot { border-top: 1px solid var(--line); }
+.crumb a, .prose a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+.prose h2 { font-family: var(--font-display); font-weight: 400; font-size: 2.2em; }
+.fbig { font-family: var(--font-display); font-style: italic; font-weight: 400; }

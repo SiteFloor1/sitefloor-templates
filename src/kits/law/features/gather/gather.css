@@ -1,0 +1,16 @@
+/* What to gather: tabs of checklists, generous tick rows. */
+.lw-ga { padding-block: 0 var(--s4, 96px); }
+.lw-ga > * { max-width: 820px; }
+.lw-ga-tabs { display: flex; flex-wrap: wrap; gap: 8px 28px; margin-bottom: 24px; border-bottom: 1px solid var(--line-2); }
+.lw-ga-tabs button { font: inherit; background: none; border: 0; border-bottom: 1px solid transparent; margin-bottom: -1px; padding: 10px 0; min-height: 44px; color: var(--muted); cursor: pointer; }
+.lw-ga-tabs button[aria-selected="true"] { color: var(--text); border-bottom-color: var(--accent); }
+[data-ready] .lw-ga-list[hidden] { display: none; }
+.lw-ga-list { padding-bottom: 24px; }
+.lw-ga-list h2 { margin: 0 0 12px; font-size: clamp(24px, 2.4vw, 32px); }
+.lw-ga-list ul { list-style: none; margin: 0; padding: 0; }
+.lw-ga-list li { border-top: 1px solid var(--line-2); }
+.lw-ga-list label { display: flex; gap: 14px; align-items: flex-start; padding-block: 14px; cursor: pointer; }
+.lw-ga-list input { width: 20px; height: 20px; margin-top: 3px; accent-color: var(--accent); flex: none; }
+.lw-ga-list input:checked + span { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--line-2); }
+.lw-ga-act { display: flex; flex-wrap: wrap; gap: 8px 28px; margin-top: 20px; }
+.lw-ga-who, .lw-ga-note { font-size: 14px; color: var(--muted); }

@@ -1,0 +1,28 @@
+{#- The pieces, large and worn, as a carousel: each with its price and what's left in each size (from the brand's sheet;
+    quiet when the sheet is old). Sold-out pieces ask to be told when they're back. -#}
+{%- import "kits/wear/partials/macros.njk" as m with context %}
+{%- set sec = site.sections.pieces %}
+<section id="pieces" class="wr-pieces" data-feature="pieces"{{ "pieces" | tierAttr | safe }}>
+<script type="application/json" data-wear-stock>{{ site | wearStockJson(build.today) | safe }}</script>
+<div class="wrap">
+  <div class="wr-row-head">
+    {% include "core/partials/section-head.njk" %}
+    <div class="wr-arrows" data-js-only hidden><button type="button" data-dir="-1" aria-label="Previous piece">←</button><button type="button" data-dir="1" aria-label="Next piece">→</button></div>
+  </div>
+  <ul class="wr-track" tabindex="0" aria-label="The pieces, scroll sideways" data-track>
+    {%- for p in site.pieces %}
+    {%- set st = site | wearStockWords(p, build.today) %}
+    <li class="wr-piece" id="piece-{{ p.id }}" data-stock="{{ p.id }}" data-state="{{ st.state }}">
+      <a class="wr-piece-ph" href="{{ m.pieceHref(p) }}" aria-label="{{ p.name }} {{ p.colour }}">
+        <img src="{{ p.photos[0].src | img }}" alt="{{ p.photos[0].alt }}" width="{{ p.photos[0].width }}" height="{{ p.photos[0].height }}" loading="{{ 'eager' if loop.first else 'lazy' }}" decoding="async">
+      </a>
+      <div class="wr-piece-cap">
+        <h3>{{ p.name }} <span>{{ p.colour }}</span></h3>
+        <span class="wr-price">{{ p.price | gbpWhole }}</span>
+        <p class="wr-stock"><b data-stock-lead>{{ st.lead }}</b> <span data-stock-rest>{{ st.rest }}</span></p>
+        {%- if site.drop and site.drop.restockForm %}<div class="wr-restock">{{ m.formLink(site.drop.restockForm, "Tell me when it's back", "Opens the brand's Google Form for this piece: it messages you first if it's made again.", "wr-link") }}</div>{% endif %}
+      </div>
+    </li>
+    {%- endfor %}
+  </ul>
+</div></section>

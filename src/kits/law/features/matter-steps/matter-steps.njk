@@ -1,0 +1,18 @@
+{#- Your matter, step by step, for one practice area (set `stepsArea` to the area id first). The firm's own stages as a
+    timeline: tap a stage to read it; without scripts every stage shows. -#}
+{%- for m in site.matterSteps.matters | byArea(stepsArea) %}
+<div class="lw-ms" data-feature="matter-steps" id="steps-{{ m.id }}"{{ "matter-steps" | tierAttr | safe }}>
+  <p class="lw-ms-k">Step by step</p>
+  <h3 class="lw-ms-t">{{ m.name }}</h3>
+  <div class="lw-ms-line" role="tablist" aria-label="{{ m.name }}" data-js-only>
+    {%- for st in m.steps %}<button type="button" role="tab" id="ms-{{ m.id }}-{{ loop.index0 }}" aria-controls="msp-{{ m.id }}-{{ loop.index0 }}" aria-selected="{{ 'true' if loop.first else 'false' }}" data-ms="{{ loop.index0 }}"><span class="lw-ms-n">{{ loop.index }}</span><span class="lw-ms-l">{{ st.title }}</span></button>{% endfor %}
+  </div>
+  {%- for st in m.steps %}
+  <div class="lw-ms-p" id="msp-{{ m.id }}-{{ loop.index0 }}" role="tabpanel" aria-labelledby="ms-{{ m.id }}-{{ loop.index0 }}" data-msp="{{ loop.index0 }}">
+    <p class="lw-ms-when">{{ loop.index }}. {{ st.title }} · {{ st.when }}</p>
+    <p>{{ st.text }}</p>
+    {%- if st.you %}<p class="lw-ms-you"><b>You:</b> {{ st.you }}</p>{% endif %}
+  </div>
+  {%- endfor %}
+</div>
+{%- endfor %}

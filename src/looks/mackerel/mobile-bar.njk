@@ -1,0 +1,7 @@
+{#- Mackerel phone bar: the bay, a lit tube along its top edge, three words: Call, WhatsApp and Book (lit). The page
+    reserves the bar's height, so it never covers anything. -#}
+<div class="mbar mk-bar">
+  <a href="tel:{{ site.contact.phone | replace(' ', '') }}">Call</a>
+  <a href="{{ site.messages.general | wa }}" target="_blank" rel="noopener">WhatsApp</a>
+  <a class="mk-bar-book" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">Book</a>
+</div>

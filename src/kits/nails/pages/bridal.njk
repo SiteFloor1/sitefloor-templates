@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: bridal
+permalink: bridal.html
+feature: nail-bridal
+eleventyComputed:
+  title: "{{ site.bridalPage.title | plain }}"
+  description: "Bridal nails at {{ site.business.name }}, {{ site.location.locality }}: the trial, the final set and parties."
+---
+{% include "kits/nails/features/nail-bridal/nail-bridal.njk" %}
+{%- set hostPage = "nail-bridal" %}{% include "kits/nails/partials/hosted.njk" %}

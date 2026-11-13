@@ -1,0 +1,46 @@
+{#- DELIVERED TONIGHT (Signature showpiece): inside the handover. Choose the car, the dates and your postcode: that car
+    arrives at a door at night in a real photograph, and beneath it the delivery window, the key passed over (the bloom
+    moment) and the total assemble, every part shown. Request and deposit from there. After sending, the same scene
+    with the request's details is the confirmation: request sent, not booked. Needs JavaScript; without it the still
+    handover above stands on its own. -#}
+{%- set cars = site.fleet.cars | tonightCars %}{% set ho = site.hire.handover %}
+<div class="hr-dt" data-feature="delivered-tonight"{{ "delivered-tonight" | tierAttr | safe }} aria-labelledby="hr-dt-h">
+  <div class="wrap">
+    <div class="hr-dt-head"><h3 class="hr-dt-h" id="hr-dt-h">Delivered tonight</h3><p class="dt-hr">Choose the car, the dates and where. Watch it arrive.</p></div>
+    <div class="hr-dt-grid">
+      <div class="hr-dt-controls">
+        <label class="hr-field" for="dt-car"><span>The car</span>
+          <select id="dt-car" data-dt-car><option value="">Choose a car</option>{% for c in cars %}<option value="{{ c.id }}">{{ c.name }}</option>{% endfor %}</select></label>
+        <label class="hr-field" for="dt-pc"><span>Your postcode</span><input id="dt-pc" autocomplete="postal-code" maxlength="9" spellcheck="false" placeholder="SW11 4NQ" data-dt-pc></label>
+        {%- set dr = { id: "tonight", region: site.location.region or "england-wales", rules: site.hire.dates, from: "Delivered", to: "Collected", legend: "Your dates" } %}
+        {% include "features/date-range/date-range.njk" %}
+      </div>
+      <div class="hr-dt-stage" data-dt-stage>
+        <figure class="hr-dt-scene" data-dt-scene>
+          <img src="{{ ho.door.src | img }}" alt="{{ ho.door.alt }}" width="{{ ho.door.width }}" height="{{ ho.door.height }}" loading="lazy" decoding="async" data-dt-photo>
+          <figcaption class="hr-dt-cap" data-dt-cap>Your door, tonight.</figcaption>
+        </figure>
+        <div class="hr-dt-sent" data-dt-sent hidden tabindex="-1">
+          <p class="hr-dt-sent-k">Request sent, not booked</p>
+          <p class="hr-dt-sent-h" data-dt-sent-h></p>
+          <p class="hr-dt-sent-t">We confirm the car, the dates and the driver with you on WhatsApp. Nothing is booked until we do.</p>
+          <button type="button" class="dt-quiet" data-dt-again>Change something</button>
+        </div>
+        <ol class="hr-dt-build" data-dt-build aria-live="polite">
+          <li data-dt-step="window"><span>Delivery</span><b>{{ ho.window }}</b></li>
+          <li data-dt-step="when"><span>When</span><b data-dt-when>Choose your dates</b></li>
+          <li data-dt-step="key" class="is-key"><span>The key</span><b>Handed to you at the door</b></li>
+          <li data-dt-step="parts"><span>The hire</span><b data-dt-parts>Choose a car</b></li>
+          <li data-dt-step="total" class="is-total"><span>Total</span><b data-dt-total>—</b></li>
+          <li data-dt-step="deposit"><span>Deposit, returned</span><b data-dt-deposit>—</b></li>
+        </ol>
+        <p class="hr-dt-warn" data-dt-warn></p>
+        <p class="hr-dt-go">
+          <a class="dt-go" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener" data-dt-send>Request on WhatsApp</a><span class="hr-rq-note" data-no-js>Tell us the car, the dates and where, and we reply with the total.</span>
+        </p>
+        <div class="hr-dt-pay">{% for pid in site.fleet.cars | uniquePayLinks %}<span data-dt-pay="{{ pid }}" hidden>{% set pay = pid %}{% include "features/pay-link/button.njk" %}</span>{% endfor %}</div>
+      </div>
+    </div>
+  </div>
+  <script type="application/json" data-dt-cars>{{ cars | dump | safe }}</script>
+</div>

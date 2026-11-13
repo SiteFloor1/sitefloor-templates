@@ -1,0 +1,26 @@
+/* Swatch library: a large sample beside a book of small ones. The samples themselves (.sw-tile) are in kit.css. */
+.sw { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(280px, 1fr); gap: clamp(18px, 3vw, 48px); align-items: start; }
+.sw-big { margin: 0; position: sticky; top: calc(var(--nav-h) + 16px); }
+.sw-big .sw-tile { box-shadow: 0 30px 60px -36px color-mix(in srgb, var(--text) 50%, transparent); }
+.sw-big figcaption { display: grid; gap: 4px; margin-top: 16px; }
+.sw-now { font: 300 clamp(22px, 2.4vw, 32px)/1.1 var(--font-display); }
+.sw-now b { font-weight: 300; color: var(--muted); }
+.sw-note { font-size: 14px; color: var(--muted); }
+.sw-pick { display: grid; gap: 22px; }
+.sw-set { border: 0; margin: 0; padding: 0; min-width: 0; }
+.sw-set legend { font-weight: 600; font-size: 14px; padding: 0; margin-bottom: 12px; }
+.sw-set legend small { font-weight: 400; color: var(--dim); margin-left: 6px; }
+.sw-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 14px 10px; }
+.sw-opt { display: grid; gap: 6px; cursor: pointer; font-size: 12.5px; }
+.sw-opt input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.sw-opt .sw-tile { outline: 1px solid var(--line-2); outline-offset: -1px; transition: transform .2s ease; }
+.sw-opt:hover .sw-tile { transform: translateY(-2px); }
+.sw-opt input:checked + .sw-tile { outline: 2px solid var(--text); outline-offset: 2px; }
+.sw-opt input:focus-visible + .sw-tile { outline: 3px solid var(--accent); outline-offset: 2px; }
+.sw-label { color: var(--muted); }
+.sw-opt input:checked ~ .sw-label { color: var(--text); font-weight: 600; }
+.sw-list { margin: 0; padding-left: 18px; font-size: 14px; color: var(--muted); display: grid; gap: 4px; }
+.sw-try { margin: 0; }
+.sw-small { margin: 0; font-size: 12.5px; color: var(--dim); }
+@media (max-width: 860px) { .sw { grid-template-columns: minmax(0, 1fr); } .sw-big { position: relative; top: 0; } }
+@media (prefers-reduced-motion: reduce) { .sw-opt .sw-tile { transition: none; } }

@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: consultation
+permalink: consultation.html
+feature: smile-consultation-page
+eleventyComputed:
+  title: "{{ site.consultation.title | plain }}"
+  description: "A consultation at {{ site.business.name }}: how long, the fee and what to bring."
+---
+{% include "kits/smile/features/smile-consultation-page/smile-consultation-page.njk" %}

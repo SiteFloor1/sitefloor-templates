@@ -1,0 +1,25 @@
+{#- The gelato wall: the shop's flavours as a row of tubs (its own photos), each with a ticket, and the scoop prices.
+    From the sheet, a flavour that's off today stays on the wall and says "Back tomorrow"; without the sheet the wall
+    shows as usual with nothing marked. -#}
+{%- set sec = site.sections.gelato %}
+{%- set g = site.gelato %}
+<section id="gelato" class="sec-gelato" data-feature="gelato-wall"{{ "gelato-wall" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  {%- if "kitchen-line" | enabled %}{% include "kits/bakery/features/kitchen-line/kitchen-line.njk" %}{% endif %}
+  <div class="shelf">
+    <div class="shelf-head">
+      <h3>Gelato</h3>
+      <p class="shelf-price">{% for p in g.prices %}{{ ["One scoop", "Two", "Three", "Four"][loop.index0] }} {{ p | pounds }}{{ " · " if not loop.last }}{% endfor %}</p>
+      {%- if g.note %}<p class="shelf-note">{{ g.note }}</p>{% endif %}
+    </div>
+    <ul class="shelf-row gw-row" style="--n:{{ g.flavours.length }}">
+      {%- for f in g.flavours %}
+      <li class="piece" data-flavour="{{ f.id }}" data-name="{{ f.name }}">
+        <div class="piece-ph"><img src="{{ f.photo.src | img }}" alt="{{ f.photo.alt }}" width="{{ f.photo.width }}" height="{{ f.photo.height }}" loading="lazy" decoding="async"><span class="piece-state" data-gw-state hidden></span></div>
+        <p class="ticket"><b>{{ f.name }}</b><span>{{ f.note or "" }}{% if f | hasDiet("vegan") %}{{ " · " if f.note }}Vegan{% endif %}</span></p>
+        <p class="piece-all">{% set names = f | allergenNames %}{{ ("Contains " + names | join(", ")) if names.length else "No listed allergens" }}</p>
+      </li>
+      {%- endfor %}
+    </ul>
+  </div>
+</div></section>

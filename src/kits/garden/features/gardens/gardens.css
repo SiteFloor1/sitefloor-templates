@@ -1,0 +1,29 @@
+/* Gardens by kind: a quiet choice of kinds, then the gardens in an offset grid. */
+/* A choice that only works with the script keeps its place before the script starts (so nothing moves) and is shown
+   once it works: data-wait is removed by the feature's script. Shared by every garden feature with a choice row. */
+[data-wait] { visibility: hidden; }
+.gd-small { font-size: 14px; color: var(--muted); margin: 16px 0 0; }
+.gd-pick-row { display: flex; flex-wrap: wrap; gap: 4px 24px; margin: 0 0 28px; }
+.gd-pick { min-height: 44px; padding: 0; border: 0; background: none; color: var(--muted); font: inherit; font-size: 17px; cursor: pointer; }
+.gd-pick:hover { color: var(--text); }
+.gd-pick[aria-pressed="true"] { color: var(--text); font-style: italic; text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 1.5px; text-underline-offset: 8px; }
+.gd-gs-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px 24px; }
+.gd-gc:nth-child(3n + 2) { margin-top: 64px; }
+.gd-gc[hidden] { display: none; }
+.gd-gc-a { display: block; text-decoration: none; }
+.gd-gc img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+.gd-gc-n { display: block; margin-top: 14px; font-size: 19px; }
+.gd-gc-a:hover .gd-gc-n { text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 6px; }
+.gd-gc-m { display: block; font-size: 15px; color: var(--muted); font-style: italic; }
+.gd-gs-none { color: var(--muted); }
+.gd-gs-all { margin: 40px 0 0; }
+@media (max-width: 860px) {
+  .gd-gs-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 12px; }
+  .gd-gc:nth-child(3n + 2) { margin-top: 0; }
+  .gd-gc:nth-child(2n) { margin-top: 40px; }
+}
+/* Home with a gardens page: four in a row, the second and fourth set lower. */
+.gd-gs-four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.gd-gs-four .gd-gc:nth-child(n) { margin-top: 0; }
+.gd-gs-four .gd-gc:nth-child(even) { margin-top: 48px; }
+@media (max-width: 860px) { .gd-gs-four { grid-template-columns: repeat(2, minmax(0, 1fr)); } .gd-gs-four .gd-gc:nth-child(even) { margin-top: 32px; } }

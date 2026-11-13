@@ -1,0 +1,14 @@
+/* Before you come in: questions as an accordion beside the heading. */
+.qs-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(24px, 5vw, 72px); align-items: start; }
+@media (max-width: 900px) { .qs-grid { grid-template-columns: minmax(0, 1fr); } }
+.qs-grid .sh { display: block; margin-bottom: 0; }
+.qs-grid .sh p { margin-top: 16px; justify-self: start; }
+.qs-more { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.qs { border-top: 1px solid var(--line-2); }
+.qa { border-bottom: 1px solid var(--line-2); }
+.qa summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; gap: 18px; padding: 20px 0; font-size: 18px; font-weight: 700; }
+.qa summary::-webkit-details-marker { display: none; }
+.qa summary::after { content: "+"; color: var(--accent); font-size: 24px; line-height: 1; transition: transform .3s; }
+.qa[open] summary::after { transform: rotate(45deg); }
+.qa summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.qa p { margin: -6px 0 20px; color: var(--muted); font-size: 16px; line-height: 1.6; max-width: 60ch; }

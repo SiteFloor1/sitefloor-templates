@@ -1,0 +1,9 @@
+.ls-drop { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); padding: 0; }
+.dr-ph { margin: 0; }
+.dr-ph img { display: block; width: 100%; height: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.dr-t { padding: var(--s3) var(--pad); display: flex; flex-direction: column; justify-content: center; min-width: 0; }
+.dr-clock { display: flex; align-items: baseline; gap: 4px 6px; flex-wrap: wrap; font-variant-numeric: tabular-nums; }
+.dr-u { display: inline-flex; align-items: baseline; gap: 6px; white-space: nowrap; }
+.dr-clock small { margin-right: 12px; }
+.dr-acts { display: flex; flex-wrap: wrap; gap: 12px 24px; }
+@media (max-width: 760px) { .ls-drop { grid-template-columns: 1fr; } .dr-clock small { margin-right: 8px; } }

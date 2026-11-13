@@ -1,0 +1,28 @@
+{#- Tissue, the drop page: the countdown or what's left, large, on blush beside the drop's bouquets in the feed's grid;
+    how the drop works as questions. Same hooks as the kit's. -#}
+{%- set Dr = site.drop %}
+{%- set ph = { title: Dr.name, intro: Dr.intro } %}
+{% include "looks/tissue/parts/page-head.njk" %}
+<section class="ts-drop" data-feature="the-drop" data-drop-page><div class="wrap ts-drop-in">
+  <div class="ts-drop-state">
+    <p class="ts-drop-when" data-drop-line>Every {{ Dr.when.day | dayName }} at {{ Dr.when.time | timeLabel }}, open for {{ Dr.when.hours }} hours or until they've gone. {{ Dr.made }} made.</p>
+    <p class="ts-clock" data-drop-clock aria-live="off" hidden><span><b data-d="d">00</b><small>days</small></span><span><b data-d="h">00</b><small>hours</small></span><span><b data-d="m">00</b><small>min</small></span><span><b data-d="s">00</b><small>sec</small></span></p>
+    <p class="ts-drop-now" data-drop-now aria-live="polite" hidden></p>
+    <p class="ts-drop-go">
+      <a class="ts-btn" href="{{ (site.bouquets.message + ' the drop: ' + Dr.name) | book }}" target="_blank" rel="noopener" data-drop-order hidden>Order from the drop</a>
+      <button class="ts-linkbtn" type="button" data-drop-cal data-js-only>Remind me</button>
+    </p>
+  </div>
+  <ul class="ts-grid ts-grid-2" role="list">
+    {%- for x in Dr.items %}
+    <li class="ts-post"><span class="ts-ph"><img src="{{ x.photo.src | img }}" alt="{{ x.photo.alt }}" width="{{ x.photo.width }}" height="{{ x.photo.height }}"{% if loop.index > 2 %} loading="lazy"{% endif %} decoding="async"></span>
+      <span class="ts-cap"><b>{{ x.name }}</b><span>{{ x.price | pounds }}</span></span>{% if x.line %}<span class="ts-line">{{ x.line }}</span>{% endif %}</li>
+    {%- endfor %}
+  </ul>
+</div></section>
+{%- if Dr.how %}
+<section class="ts-qa-sec" aria-labelledby="dr-how-h"><div class="wrap ts-qa-in">
+  <h2 id="dr-how-h" class="ts-h2">How the drop works</h2>
+  <div class="ts-qa">{% for h in Dr.how %}<details><summary>{{ h.q }}</summary><p>{{ h.a }}</p></details>{% endfor %}</div>
+</div></section>
+{%- endif %}

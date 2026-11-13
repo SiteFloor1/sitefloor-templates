@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: people
+permalink: people.html
+feature: advisers-page
+eleventyComputed:
+  title: "{{ site.sections.advisers.title }}"
+  description: "{{ site.sections.advisers.intro or ('The advisers at ' + site.business.name + '.') }}"
+---
+{% include "kits/wealth/features/advisers-page/advisers-page.njk" %}

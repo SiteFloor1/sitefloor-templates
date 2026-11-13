@@ -1,0 +1,19 @@
+{#- The weave, full screen: the cloth's photograph edge to edge, its name, cloth, weight and season on a strip of the
+    page's colour, previous and next, and "Ask for a swatch" on WhatsApp. Filled by cloth-book.js. -#}
+<dialog class="tl-weave" data-cb-weave aria-labelledby="wv-name">
+  <picture><source data-cb-tall media="(max-width: 760px)"><img class="tl-weave-img" data-cb-img alt=""></picture>
+  <button type="button" class="tl-weave-x" data-cb-close aria-label="Close">×</button>
+  <div class="tl-weave-card">
+    <div class="tl-weave-t">
+      <p class="tl-weave-n" id="wv-name" data-cb-name></p>
+      <dl class="tl-weave-dl"><div><dt>Cloth</dt><dd data-cb-cloth></dd></div><div data-cb-weight-row><dt>Weight</dt><dd data-cb-weight></dd></div><div><dt>Season</dt><dd data-cb-season></dd></div></dl>
+    </div>
+    <div class="tl-weave-acts">
+      <span class="tl-weave-count" data-cb-count></span>
+      <button type="button" class="tl-weave-nav" data-cb-prev aria-label="Previous cloth">←</button>
+      <button type="button" class="tl-weave-nav" data-cb-next aria-label="Next cloth">→</button>
+      <button type="button" class="tl-quiet tl-weave-add" data-cb-add aria-pressed="false" data-js-only>Add to my swatch set</button>
+      <a class="tl-btn" data-cb-ask href="{{ site.cloths.message | book }}" target="_blank" rel="noopener">Ask for a swatch</a>
+    </div>
+  </div>
+</dialog>

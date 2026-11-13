@@ -1,0 +1,14 @@
+{#- Music and licensing, explained: the studio's words in short sections, each fact numbered to its source, then the
+    sources with the month each was checked. -#}
+{%- set M = site.musicPage %}
+<section class="wf-art" aria-label="{{ M.title | plain }}"><div class="wrap wf-art-in">
+  {%- if M.photo %}<figure class="wf-art-ph"><img src="{{ M.photo.src | img }}" alt="{{ M.photo.alt }}" width="{{ M.photo.width }}" height="{{ M.photo.height }}" decoding="async">{% if M.photo.caption %}<figcaption>{{ M.photo.caption }}</figcaption>{% endif %}</figure>{% endif %}
+  <div class="wf-art-t">
+    {%- for s in M.sections %}
+    <h2 class="wf-art-h">{{ s.heading }}</h2>
+    {%- for para in s.body.split("\n\n") %}<p>{{ para }}{% if loop.last and s.sources %}{% for n in s.sources %} <a class="wf-ref" href="#src-{{ n }}" aria-label="Source {{ n }}">[{{ n }}]</a>{% endfor %}{% endif %}</p>{% endfor %}
+    {%- endfor %}
+    <p class="wf-small">This is general information about how we work, not legal advice.</p>
+  </div>
+</div></section>
+{%- set srcs = M.sources %}{% include "kits/weddingfilm/partials/sources.njk" %}

@@ -1,0 +1,6 @@
+{#- Kit card: today's weather and the kit for it, drawn as a 9:16 picture with the brand's mark, saved for stories. -#}
+<div class="wr-kitcard" data-feature="kit-card" data-name="{{ site.business.name }}" data-js-only hidden>
+  <ul hidden>{% for p in site.pieces %}<li data-kc-piece="{{ p.id }}" data-src="{{ p.photos[0].src | img }}" data-label="{{ p.name }} {{ p.colour }}"></li>{% endfor %}</ul>
+  <canvas width="1080" height="1920" data-kc-canvas aria-hidden="true"></canvas>
+  <p><button type="button" class="wr-buy" data-kc-save>Save today's kit card</button> <span class="wr-fine" data-kc-note role="status"></span></p>
+</div>

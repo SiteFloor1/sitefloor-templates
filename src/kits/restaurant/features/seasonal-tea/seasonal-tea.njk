@@ -1,0 +1,19 @@
+{#- Seasonal stands: every one of the year's, with dates, price and a photograph; the one being served (or the next)
+    leads. Ordered at build time and again in the browser on the day. -#}
+{%- set sec = site.sections.seasonalTea %}
+{%- set ss = site.tea.seasons | sort(false, false, "from") %}
+<section id="seasons" class="st" data-feature="seasonal-tea"{{ "seasonal-tea" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <ul class="st-list">
+    {%- for s in ss %}
+    <li class="st-item" data-st="{{ s.id }}" data-from="{{ s.from }}" data-to="{{ s.to }}">
+      {%- if s.photo %}<img src="{{ s.photo.src | img }}" width="{{ s.photo.width }}" height="{{ s.photo.height }}" alt="{{ s.photo.alt }}" loading="lazy">{% endif %}
+      <p class="st-state" data-st-state></p>
+      <h3>{{ s.name }}</h3>
+      <p class="st-when">{{ s.from | dayMonth }} to {{ s.to | dayMonth }} · {{ s.price | gbp }} a guest</p>
+      <p>{{ s.text }}</p>
+      <a class="st-ask" href="{{ ('Good afternoon, I would like to book ' + s.name + '.') | wa }}" target="_blank" rel="noopener">Ask for a table</a>
+    </li>
+    {%- endfor %}
+  </ul>
+</div></section>

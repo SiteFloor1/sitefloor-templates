@@ -1,0 +1,45 @@
+{#- The fleet: every car, filtered by class, seats, power and budget with plain radio buttons (CSS does the filtering, so
+    it works without JavaScript); with JavaScript also search by make and model, "free on my dates" from the Sheet, sort
+    by price and the count. Signature adds the spec dial above the list. -#}
+{%- set fp = site.fleetPage %}{% set cars = site.fleet.cars | fleetSorted %}
+{%- set pt = { title: fp.title, intro: fp.intro } %}{% include "kits/hire/parts/page-top.njk" %}
+<section class="hr-fl" data-feature="fleet-page" aria-label="Every car">
+  {%- if "spec-dial" | enabled %}{% include "kits/hire/features/spec-dial/spec-dial.njk" %}{% endif %}
+  <div class="wrap">
+    <form class="hr-filters" data-fl-form aria-label="Filter the fleet">
+      <fieldset class="hr-seg"><legend>Class</legend>
+        <input type="radio" name="cls" id="fl-cls-any" value="" checked><label for="fl-cls-any">All</label>
+        {%- for k in site.fleet | fleetClasses %}<input type="radio" name="cls" id="fl-cls-{{ k.id }}" value="{{ k.id }}"><label for="fl-cls-{{ k.id }}">{{ k.name }}</label>{% endfor %}
+      </fieldset>
+      <fieldset class="hr-seg"><legend>Seats</legend>
+        <input type="radio" name="seats" id="fl-seats-any" value="" checked><label for="fl-seats-any">Any</label>
+        {%- for n in fleetSteps.seats %}<input type="radio" name="seats" id="fl-seats-{{ n }}" value="{{ n }}"><label for="fl-seats-{{ n }}">{{ n }}+</label>{% endfor %}
+      </fieldset>
+      <fieldset class="hr-seg"><legend>Power</legend>
+        <input type="radio" name="power" id="fl-power-any" value="" checked><label for="fl-power-any">Any</label>
+        {%- for n in fleetSteps.power %}<input type="radio" name="power" id="fl-power-{{ n }}" value="{{ n }}"><label for="fl-power-{{ n }}">{{ n }}+ bhp</label>{% endfor %}
+      </fieldset>
+      <fieldset class="hr-seg"><legend>From, a day</legend>
+        <input type="radio" name="budget" id="fl-budget-any" value="" checked><label for="fl-budget-any">Any</label>
+        {%- for n in fleetSteps.budget %}<input type="radio" name="budget" id="fl-budget-{{ n }}" value="{{ n }}"><label for="fl-budget-{{ n }}">up to {{ n | money }}</label>{% endfor %}
+      </fieldset>
+      <div class="hr-fl-js" data-js-only>
+        <label class="hr-field" for="fl-q"><span>Make or model</span><input id="fl-q" type="search" autocomplete="off" spellcheck="false" placeholder="Porsche, G63, Cullinan" data-fl-q></label>
+        <label class="hr-field" for="fl-sort"><span>Sort</span><select id="fl-sort" data-fl-sort><option value="">By class</option><option value="low">Price, low to high</option><option value="high">Price, high to low</option></select></label>
+        {%- if "date-range" | enabled %}
+        <details class="hr-fl-dates" data-fl-dates><summary>Free on my dates</summary>
+          {%- set dr = { id: "fleet", region: site.location.region or "england-wales", rules: site.hire.dates, from: "Pick-up", to: "Return", legend: "Free on my dates" } %}
+          {% include "features/date-range/date-range.njk" %}
+        </details>
+        {%- endif %}
+      </div>
+    </form>
+    <p class="hr-fl-count" role="status" aria-live="polite" data-fl-count>{{ cars.length }} cars</p>
+    <ul class="hr-fl-list" data-fl-list>
+      {%- for car in cars %}{% include "kits/hire/parts/fleet-card.njk" %}{% endfor %}
+    </ul>
+    <p class="hr-fl-none" data-fl-none hidden>No car fits all of those. Loosen one, or <a href="{{ site.messages.general | book }}" data-wa-text="{{ site.messages.general }}" target="_blank" rel="noopener">ask us</a>: the fleet changes.</p>
+    {%- if "fleet-calendar" | enabled %}{% include "kits/hire/features/fleet-calendar/fleet-calendar.njk" %}{% endif %}
+    {%- if "compare" | enabled %}<p class="hr-fl-tip"{{ "compare" | tierAttr | safe }}>Open any car to compare it with another, line by line.</p>{% endif %}
+  </div>
+</section>

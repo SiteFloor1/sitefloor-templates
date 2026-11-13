@@ -1,0 +1,5 @@
+/* Noir type option "Modern sans": Manrope for headlines as well as text. No extra font download.
+ * Chosen with site.json → brand.type = "modern". */
+:root[data-type="modern"] { --font-display: "Manrope", "Manrope Fallback", Arial, sans-serif; }
+:root[data-type="modern"] :is(h1, h2, h3, .logo) { font-weight: 800; letter-spacing: -.045em; }
+:root[data-type="modern"] :is(h1, h2) em { font-style: normal; font-weight: 800; }

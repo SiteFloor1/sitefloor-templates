@@ -1,0 +1,14 @@
+/* in-the-box: one full-width band of the signature colour (--brand); the box photographed in it. Tokens only. */
+.jw-brand { background: var(--brand); color: var(--on-brand); padding-block: clamp(56px, 8vw, 120px); }
+.jw-brand-in { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(32px, 7vw, 120px); align-items: center; }
+.jw-brand-ph { margin: 0; box-shadow: 0 40px 70px -40px color-mix(in oklab, var(--brand) 40%, var(--text)); }
+.jw-brand-ph img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+.jw-brand-t { display: grid; justify-items: start; gap: 8px; }
+.jw-brand .jw-brand-mark { width: 120px; height: auto; margin-bottom: 18px; }
+.jw-brand .jw-brand-mark ellipse { stroke: var(--on-brand); stroke-width: .7; }
+.jw-brand .jw-brand-mark text { fill: var(--on-brand); }
+.jw-brand-t .jw-say { max-width: 24ch; }
+@media (max-width: 700px) {
+  .jw-brand-in { grid-template-columns: 1fr; gap: 32px; }
+  .jw-brand .jw-brand-mark { width: 88px; }
+}

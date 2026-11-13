@@ -1,0 +1,45 @@
+{#- The dates and the quote on a car's page. The calendar is the shared date-range picker (days taken on the client's
+    Sheet; an unreadable Sheet blocks nothing and says "ask us"). The quote shows every part from the client's own table;
+    the deposit stands apart because it's returned. Without JavaScript the rate table is the price. `car` set. -#}
+{%- set qcar = { id: car.id, name: car | carName, rates: car.rates, deposit: car.deposit, miles: car.miles, delivery: car.delivery, payLink: car.payLink } %}
+<section class="hr-q" id="dates" data-feature="hire-quote" data-q-car="{{ qcar | dump }}"{{ "hire-quote" | tierAttr | safe }} aria-label="Dates and quote">
+  <div class="wrap hr-q-grid">
+    <div class="hr-q-cal">
+      {%- set dr = { id: "hire", region: site.location.region or "england-wales", rules: site.hire.dates, from: "Pick-up", to: "Return", legend: "Your dates" } %}
+      {% include "features/date-range/date-range.njk" %}
+    </div>
+    <div class="hr-q-side">
+      <table class="hr-rates">
+        <caption>Our rates for this car</caption>
+        <tbody>
+          {%- if car.rates.day %}<tr><th scope="row">A day</th><td>{{ car.rates.day | money }}</td></tr>{% endif %}
+          {%- if car.rates.weekend %}<tr><th scope="row">A weekend</th><td>{{ car.rates.weekend | money }}</td></tr>{% endif %}
+          {%- if car.rates.week %}<tr><th scope="row">A week</th><td>{{ car.rates.week | money }}</td></tr>{% endif %}
+          {%- if car.rates.month %}<tr><th scope="row">A month</th><td>{{ car.rates.month | money }}</td></tr>{% endif %}
+        </tbody>
+      </table>
+      <fieldset class="hr-q-how" data-js-only><legend>How it reaches you</legend>
+        <label><input type="radio" name="q-how" value="collect" checked data-q-how> Collect from us</label>
+        {%- if car.delivery and site.hire.delivery.zones.length %}<label><input type="radio" name="q-how" value="deliver" data-q-how> Deliver to my door</label>
+        <label class="hr-field hr-q-pc" for="q-pc"><span>Postcode</span><input id="q-pc" autocomplete="postal-code" maxlength="9" data-q-pc></label>{% endif %}
+        {%- if ("meet-greet" | enabled) and site.hire.airports %}<label{{ "meet-greet" | tierAttr | safe }}><input type="radio" name="q-how" value="airport" data-q-how> Meet me at the airport</label>
+        <label class="hr-field hr-q-air" for="q-air"{{ "meet-greet" | tierAttr | safe }}><span>Airport</span><select id="q-air" data-q-air>{% for a in site.hire.airports %}<option value="{{ a.id }}">{{ a.name }}, {{ a.fee | money }}</option>{% endfor %}</select></label>{% endif %}
+      </fieldset>
+      {%- if site.hire.extras.length %}
+      <fieldset class="hr-q-extras" data-js-only><legend>Extras</legend>
+        {%- for x in site.hire.extras %}<label><input type="checkbox" value="{{ x.id }}" data-q-extra> {{ x.label }} <span>{{ x.price | money }} {{ "a day" if x.per == "day" else "a hire" }}</span></label>{% endfor %}
+      </fieldset>
+      {%- endif %}
+      {%- if car.miles.perDay != "unlimited" %}
+      <label class="hr-field hr-q-miles" for="q-miles" data-js-only><span>Miles you expect to drive, if you know</span><input id="q-miles" type="number" min="0" max="20000" step="10" inputmode="numeric" data-q-miles></label>
+      {%- endif %}
+      <div class="hr-quote" data-js-only aria-live="polite" data-q-out><p class="hr-q-wait">Choose your dates for the price.</p></div>
+      <p class="hr-q-go">
+        {%- set waText = (site.messages.carRequest or "I'd like to request the {car}.") | replace("{car}", car | carName) %}
+        <a class="dt-go" href="{{ waText | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ waText }}"{% endif %} target="_blank" rel="noopener" data-q-send>Request on WhatsApp</a>
+      </p>
+      {%- if car.payLink %}{% set pay = car.payLink %}{% include "features/pay-link/button.njk" %}{% endif %}
+      <p class="hr-q-note">Prices from our own table. A request, not a booking: we confirm the car, the dates and the driver with you.</p>
+    </div>
+  </div>
+</section>

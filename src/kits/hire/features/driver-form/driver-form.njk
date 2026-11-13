@@ -1,0 +1,10 @@
+{#- Driver details in advance: a link to the client's OWN Google Form (licence, age, DVLA check code) and the check code
+    rule from gov.uk with the date we checked it. The site never stores, checks or decides anything. -#}
+{%- if "driver-form" | enabled %}{% set df = site.hire.driverForm %}
+<div class="hr-df"{{ "driver-form" | tierAttr | safe }}>
+  <h3 class="hr-df-h">Send your driver details before the day</h3>
+  <p>Your licence, date of birth and a DVLA check code, on our own form. We check them before the handover; this site doesn't keep or check anything.</p>
+  <p class="hr-df-code">A check code lasts {{ df.checkCode.validDays | words }} days, so make it close to your hire: <a href="{{ df.checkCode.source }}" target="_blank" rel="noopener">get one on gov.uk</a> <small>(checked {{ df.checkCode.checked | longDate }})</small>.</p>
+  <a class="dt-go" href="{{ df.url }}" target="_blank" rel="noopener">Open the driver details form</a>
+</div>
+{%- endif %}

@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: from-your-pattern
+permalink: from-your-pattern.html
+feature: reorder
+eleventyComputed:
+  title: "{{ site.reorder.title | plain }}"
+  description: "Order again from the pattern {{ site.business.name }} keeps for you: your order code, the garment and the cloth, sent on WhatsApp."
+---
+{% include "kits/tailor/features/reorder/reorder.njk" %}

@@ -1,0 +1,10 @@
+.ud-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: var(--s3); }
+.ud-chip { min-height: 44px; font: inherit; cursor: pointer; }
+[data-ready] .ud-ans:not(.on) { display: none; }
+.ud-ans + .ud-ans { margin-top: var(--s4); }
+[data-ready] .ud-ans + .ud-ans { margin-top: 0; }
+.ud-head { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 6fr); gap: var(--s3); align-items: end; margin-bottom: var(--s3); }
+.ud-ph { margin: 0; }
+.ud-ph img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+.ud-ans .pc-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gap); }
+@media (max-width: 760px) { .ud-head { grid-template-columns: 1fr; } .ud-ans .pc-row { grid-template-columns: 1fr 1fr; } }

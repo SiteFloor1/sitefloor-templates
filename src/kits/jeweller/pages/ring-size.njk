@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: ring-size
+permalink: ring-size.html
+feature: ring-sizer
+eleventyComputed:
+  title: "{{ site.ringSizer.title | plain }}"
+  description: "{{ site.ringSizer.description or ('Find your UK ring size with ' + site.business.name + ': measure at home, match a ring you own, or ask for a free sizer by post.') }}"
+---
+{% include "kits/jeweller/features/ring-sizer/ring-sizer.njk" %}

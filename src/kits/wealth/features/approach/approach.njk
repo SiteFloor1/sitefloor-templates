@@ -1,0 +1,19 @@
+{#- How we work: the firm's own steps, then its fees in pounds, plainly. The services link here by #id. -#}
+{%- set a = site.approach %}
+{%- set ph = { title: a.title, intro: a.intro } %}
+{% include "kits/wealth/partials/page-head.njk" %}
+{%- include "kits/wealth/partials/meet-href.njk" %}
+<section class="wm-ap" data-feature="approach"><div class="wrap">
+  <ol class="wm-ap-steps">
+    {%- for s in a.steps %}<li{% if s.id %} id="{{ s.id }}"{% endif %}><h2>{{ s.title }}</h2><p>{{ s.text }}</p></li>{% endfor %}
+  </ol>
+  <div class="wm-ap-fees" id="fees">
+    <h2>Our fees</h2>
+    <p class="wm-ap-fi">{{ a.fees.intro }}</p>
+    <table class="wm-ap-t"><caption class="sr-only">Our fees</caption><tbody>
+      {%- for r in a.fees.rows %}<tr><th scope="row">{{ r.label }}</th><td>{{ r.how }}</td></tr>{% endfor %}
+    </tbody></table>
+    {%- if a.fees.note %}<p class="wm-ap-note">{{ a.fees.note }}</p>{% endif %}
+  </div>
+  <p class="wm-ap-go"><a class="wm-go" href="{{ meetHref }}">Arrange a first meeting</a></p>
+</div></section>

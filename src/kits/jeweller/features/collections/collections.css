@@ -1,0 +1,12 @@
+/* collections: four doors. Layout in tokens only; the look sets type and colour. */
+.jw-doors-k { margin: 0 0 40px; text-align: center; font: 400 clamp(22px, 2vw, 28px)/1.2 var(--font-display); letter-spacing: .14em; text-transform: uppercase; }
+.jw-doors-l { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 2vw, 32px); }
+.jw-door { display: grid; gap: 18px; justify-items: center; }
+.jw-door img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; background: var(--surface); transition: opacity .6s; }
+.jw-door:hover img { opacity: .92; }
+.jw-door-n { font: 400 clamp(20px, 1.9vw, 26px)/1.15 var(--font-display); letter-spacing: .08em; text-transform: uppercase; text-align: center; border-bottom: 1px solid transparent; padding-bottom: 4px; transition: border-color .4s; }
+.jw-door:hover .jw-door-n { border-color: var(--brand); }
+@media (max-width: 700px) {
+  .jw-doors-l { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 12px; }
+  .jw-doors-k { margin-bottom: 28px; }
+}

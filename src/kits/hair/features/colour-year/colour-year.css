@@ -1,0 +1,22 @@
+/* The colour year: a photograph, the two choices, then twelve months in a row. Tokens only. */
+.hr-cy-in { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 40px clamp(32px, 6vw, 96px); align-items: start; }
+.hr-cy-in:not(:has(.hr-cy-fig)) { grid-template-columns: minmax(0, 1fr); }
+.hr-cy-fig { margin: 0; aspect-ratio: 4 / 5; overflow: hidden; background: var(--surface); }
+.hr-cy-fig img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hr-cy-ctl { display: flex; flex-wrap: wrap; gap: 20px 36px; align-items: end; margin-top: 32px; }
+.hr-cy-kind { display: grid; gap: 6px; }
+.hr-cy-year { list-style: none; margin: 40px 0 12px; padding: 0; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); border-top: 1px solid var(--text); }
+.hr-cy-year li { position: relative; min-height: 128px; padding: 10px 0 0 8px; border-right: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+.hr-cy-year li:last-child { border-right: 0; }
+.hr-cy-year .hr-cy-now { color: var(--text); font-weight: 500; }
+.hr-cy-year b { position: absolute; left: 0; right: 4px; bottom: 12px; padding-left: 8px; color: var(--text); font-size: 13px; font-weight: 500; line-height: 1.25; }
+.hr-cy-year b::before { content: ""; display: block; height: 6px; margin: 0 0 8px -8px; background: var(--accent); }
+.hr-cy-go { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; margin-top: 20px; }
+@media (max-width: 860px) {
+  .hr-cy-in { grid-template-columns: minmax(0, 1fr); }
+  .hr-cy-fig { display: none; }
+  .hr-cy-year { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .hr-cy-year { margin-top: 28px; }
+  .hr-cy-year li { min-height: 64px; border-bottom: 1px solid var(--line); }
+  .hr-cy-year li:nth-child(6) { border-right: 0; }
+}

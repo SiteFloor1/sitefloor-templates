@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: deposit
+permalink: deposit.html
+feature: deposit-status
+noindex: true
+eleventyComputed:
+  title: "{{ site.depositPage.title | plain }}"
+  description: "{{ site.depositPage.description or (site.depositPage.title | plain) + ' at ' + site.business.name + ', ' + site.location.locality + '.' }}"
+---
+{% include "kits/hire/features/deposit-status/deposit-status.njk" %}

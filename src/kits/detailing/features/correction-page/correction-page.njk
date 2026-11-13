@@ -1,0 +1,7 @@
+{#- The paint-correction page: its opening, then correction on the 3D car, and before and after (each only when its feature is on), then any home sections the
+    look moves here. -#}
+{%- set pg = site.correctionPage %}
+{% include "kits/detailing/partials/page-head.njk" %}
+{%- set shown = ["correction-3d", "before-after"] %}
+{% include "kits/detailing/partials/sections.njk" %}
+{%- set hostPage = "correction-page" %}{% include "kits/detailing/partials/hosted.njk" %}

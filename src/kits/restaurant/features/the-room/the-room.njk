@@ -1,0 +1,46 @@
+{#- The Room: the dining room drawn from the restaurant's own layout. Pick an area or a table; it goes into
+    the table request as a preference, never a promise. Drawn at build time, so it shows without JavaScript. -#}
+{%- set sec = site.sections.theRoom %}
+{%- set rm = site.room %}
+<section id="room" class="rm" data-feature="the-room" aria-labelledby="rm-h"{{ "the-room" | tierAttr | safe }}><div class="wrap">
+  <div class="sh rv"><div>{% if sec.kicker %}<span class="kick">{{ sec.kicker }}</span>{% endif %}<h2 id="rm-h">{{ sec.title | markup | safe }}</h2></div>{% if sec.intro %}<p>{{ sec.intro }}</p>{% endif %}</div>
+  <details class="rs-drawer" data-drawer>
+  <summary class="rs-drawer-sum"><span class="rs-drawer-t">See the room</span><span class="rs-drawer-n">Pick where you'd like to sit</span><span class="rs-drawer-i" aria-hidden="true"></span></summary>
+  <div class="rm-grid">
+    <div class="rm-plan">
+      <svg class="rm-svg" viewBox="-6 -6 {{ rm.width + 12 }} {{ rm.height + 12 }}" role="group" aria-label="Plan of the dining room">
+        <rect class="rm-floor" x="0" y="0" width="{{ rm.width }}" height="{{ rm.height }}"/>
+        {%- for mk in rm.marks %}
+        <g class="rm-mark rm-{{ mk.kind }}"><rect x="{{ mk.x }}" y="{{ mk.y }}" width="{{ mk.w }}" height="{{ mk.h }}"/>
+          {%- if mk.label %}{% if mk.kind == "window" %}<text x="{{ mk.x + 1 }}" y="{{ mk.y - 1.2 }}">{{ mk.label }}</text>
+          {%- elif mk.kind == "terrace" or mk.kind == "kitchen" %}<text x="{{ mk.x + 1.5 }}" y="{{ mk.y + 3.6 }}">{{ mk.label }}</text>
+          {%- else %}<text x="{{ mk.x + mk.w / 2 }}" y="{{ mk.y + mk.h / 2 + 0.9 }}" text-anchor="middle">{{ mk.label }}</text>{% endif %}{% endif %}</g>
+        {%- endfor %}
+        {%- for t in rm.tables %}{% set area = null %}{% for a in rm.areas %}{% if a.id == t.area %}{% set area = a %}{% endif %}{% endfor %}
+        <g class="rm-table rm-{{ t.shape }}" data-table="{{ t.id }}" data-area="{{ t.area }}" data-seats="{{ t.seats }}" data-label="{{ t.label }}" data-area-name="{{ area.name }}" tabindex="0" role="button" aria-pressed="false" aria-label="{{ t.label }}, seats {{ t.seats }}, {{ area.name | lower }}">
+          {%- for c in t | chairs %}<circle class="rm-chair" cx="{{ c.cx }}" cy="{{ c.cy }}" r="1.3"/>{% endfor %}
+          {%- if t.shape == "round" %}<ellipse class="rm-top" cx="{{ t.x + t.w / 2 }}" cy="{{ t.y + t.h / 2 }}" rx="{{ t.w / 2 }}" ry="{{ t.h / 2 }}"/>
+          {%- elif t.shape == "booth" %}<path class="rm-bench" d="M{{ t.x }} {{ t.y }}h{{ t.w }}v{{ t.h }}h-2.2v-{{ t.h - 2.2 }}h-{{ t.w - 4.4 }}v{{ t.h - 2.2 }}h-2.2z"/><rect class="rm-top" x="{{ t.x + 3.4 }}" y="{{ t.y + 3.4 }}" width="{{ t.w - 6.8 }}" height="{{ t.h - 5 }}" rx=".8"/>
+          {%- else %}<rect class="rm-top" x="{{ t.x }}" y="{{ t.y }}" width="{{ t.w }}" height="{{ t.h }}" rx=".8"/>{% endif %}
+          <text class="rm-label" x="{{ t.x + t.w / 2 }}" y="{{ t.y + t.h / 2 + 1.1 }}" text-anchor="middle">{{ t.label | replace("Table ", "") | replace("Booth ", "B") }}</text>
+        </g>
+        {%- endfor %}
+      </svg>
+    </div>
+    <div class="rm-side">
+      <div class="rs-chips" role="group" aria-label="Where would you like to sit?" data-js-only>
+        <button type="button" class="rs-chip" aria-pressed="true" data-rm-area="">No preference</button>
+        {%- for a in rm.areas %}<button type="button" class="rs-chip" aria-pressed="false" data-rm-area="{{ a.id }}">{{ a.name }}</button>{% endfor %}
+      </div>
+      <div class="rm-pick" aria-live="polite">
+        <p class="rs-k">Your preference</p>
+        <p class="rm-choice" data-rm-choice>Anywhere is fine</p>
+        <p class="rm-fit rs-small" data-rm-fit></p>
+      </div>
+      <a class="btn ghost" href="#book" data-js-only>Use this in my request</a>
+      <ul class="rm-key">{% for a in rm.areas %}{% set n = rm | roomTables(a.id) | length %}<li><b>{{ a.name }}</b> {{ n }} table{% if n != 1 %}s{% endif %}</li>{% endfor %}</ul>
+      <p class="rs-small">{{ rm.note or "Where you sit is a preference we pass to the team, not a booking for that table." }}</p>
+    </div>
+  </div>
+  </details>
+</div></section>

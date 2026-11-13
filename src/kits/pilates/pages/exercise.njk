@@ -1,0 +1,14 @@
+---
+layout: core/layouts/base.njk
+feature: method-library
+pagination:
+  data: site.method.items
+  size: 1
+  alias: x
+permalink: "exercise-{{ x.id }}.html"
+eleventyComputed:
+  pageId: "exercise-{{ x.id }}"
+  title: "{{ x.name }}"
+  description: "{{ x.name }} on the reformer at {{ site.business.name }}: {{ x.line }}"
+---
+{% include "kits/pilates/features/method-library/exercise.njk" %}

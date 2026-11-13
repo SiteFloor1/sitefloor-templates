@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: corporate
+permalink: corporate.html
+feature: corporate-page
+eleventyComputed:
+  title: "{{ site.ranges.corporate.title | plain }}"
+  description: "Corporate and brand cakes by {{ site.business.name }}, {{ site.location.locality }}: prices, cakes and questions."
+---
+{% include "kits/cakes/features/range-pages/corporate-page.njk" %}

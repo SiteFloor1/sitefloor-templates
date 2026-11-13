@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: bridal-and-occasion
+permalink: bridal-and-occasion.html
+feature: wedding-hair
+eleventyComputed:
+  title: "{{ site.wedding.title | plain }}"
+  description: "{{ site.wedding.description or site.wedding.intro }}"
+---
+{% include "kits/hair/features/wedding-hair/wedding-hair.njk" %}

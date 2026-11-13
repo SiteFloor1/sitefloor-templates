@@ -1,0 +1,9 @@
+{#- Tissue inner-page opening: a quiet way back to the feed, the page's name in Tenor and its line in Spectral italic
+    beside it on a wide screen. Set `ph` to { back, backHref, title, intro } first. -#}
+<header class="ts-head"><div class="wrap">
+  <p class="ts-head-back"><a href="{{ ph.backHref or ('index' | href) }}">{{ ph.back or site.business.name }}</a></p>
+  <div class="ts-head-in">
+    <h1>{{ ph.title | markup | safe }}</h1>
+    {%- if ph.intro %}<p>{{ ph.intro }}</p>{% endif %}
+  </div>
+</div></header>

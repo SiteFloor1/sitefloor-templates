@@ -1,0 +1,7 @@
+{#- The maintenance page: its opening, then the maintenance plans and reminders (each only when its feature is on), then any home sections the
+    look moves here. -#}
+{%- set pg = site.maintenancePage %}
+{% include "kits/detailing/partials/page-head.njk" %}
+{%- set shown = ["maintenance"] %}
+{% include "kits/detailing/partials/sections.njk" %}
+{%- set hostPage = "maintenance-page" %}{% include "kits/detailing/partials/hosted.njk" %}

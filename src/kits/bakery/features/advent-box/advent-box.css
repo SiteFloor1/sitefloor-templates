@@ -1,0 +1,19 @@
+/* The advent box: a 6 × 4 lid of windows (4 × 6 on phones); a window turns open on its left edge. Structure only;
+   tokens only. Without motion it simply shows what's inside. */
+.av { display: grid; gap: var(--s3, 32px); }
+.av-lid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); perspective: 1400px; }
+.av-w { aspect-ratio: 1; }
+/* Without the script the windows are plain items, shown open. */
+span.av-door .av-front { display: none; }
+.av-door { position: relative; display: block; width: 100%; height: 100%; padding: 0; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; }
+.av-door[aria-disabled] { cursor: default; }
+.av-in, .av-front { position: absolute; inset: 0; display: grid; place-items: center; }
+.av-in img { width: 78%; height: auto; }
+.av-front { transform-origin: left center; transition: transform .7s cubic-bezier(.3,.7,.2,1); backface-visibility: hidden; }
+.av-door.is-open .av-front { transform: rotateY(-108deg); }
+@media (prefers-reduced-motion: reduce) { .av-front { transition: none; } .av-door.is-open .av-front { transform: none; opacity: 0; } }
+.av-side { display: grid; gap: 12px; align-content: start; }
+.av-state, .av-picked, .av-price { margin: 0; }
+.av-picked { min-height: 1.5em; }
+@media (max-width: 640px) { .av-lid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (min-width: 1000px) { .av { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); align-items: start; } }

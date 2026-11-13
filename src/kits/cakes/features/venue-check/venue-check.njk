@@ -1,0 +1,20 @@
+{#- Will you bring it to us? A venue's postcode gives the studio's own answer. The areas are listed underneath, so it
+    reads without the script too. Anywhere not listed asks for the venue. -#}
+{%- set sec = site.sections.delivery %}
+{%- set d = site.delivery %}
+<section id="delivery" class="ck-venue" data-feature="venue-check" aria-label="{{ sec.title | plain }}"{{ 'venue-check' | tierAttr | safe }}><div class="wrap ck-venue-in">
+  <div>
+    <h2 class="ck-venue-h">{{ sec.title | markup | safe }}</h2>
+    {%- if sec.intro %}<p class="ck-venue-i">{{ sec.intro }}</p>{% endif %}
+  </div>
+  <div>
+    <form class="ck-venue-f" data-vc-form>
+      <label for="vc-postcode">Venue postcode</label>
+      <span class="ck-venue-row"><input id="vc-postcode" name="postcode" type="text" autocomplete="postal-code" placeholder="e.g. RG9 or SW3" maxlength="8" data-vc-input><button class="btn" type="submit">Check</button></span>
+    </form>
+    <p class="ck-venue-r" aria-live="polite" data-vc-result></p>
+    <ul class="ck-venue-l">
+      {%- for a in d.areas %}<li><b>{{ a.name }}</b><span>from {{ a.from | gbp }} · we arrive {{ a.arrive }}</span></li>{% endfor %}
+    </ul>
+  </div>
+</div></section>

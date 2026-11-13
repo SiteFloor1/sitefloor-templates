@@ -1,0 +1,7 @@
+{#- The aftercare page: its opening, then the first wash and care (each only when its feature is on), then any home sections the
+    look moves here. -#}
+{%- set pg = site.aftercarePage %}
+{% include "kits/detailing/partials/page-head.njk" %}
+{%- set shown = ["first-wash"] %}
+{% include "kits/detailing/partials/sections.njk" %}
+{%- set hostPage = "aftercare-page" %}{% include "kits/detailing/partials/hosted.njk" %}

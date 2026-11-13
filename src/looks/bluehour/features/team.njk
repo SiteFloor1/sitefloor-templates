@@ -1,0 +1,43 @@
+{#- Blue hour team: a register, not portrait cards. Each person is one long row: a small square photograph of their
+    work, the name large and light, what they do and when they're on site in engraved capitals, their line, what
+    they're known for as a plain list. Filters (when set) are square keys with a light. -#}
+{%- set ph = { kicker: site.team.kicker, title: site.team.title, intro: site.team.intro } %}
+{% include "kits/electrician/partials/page-head.njk" %}
+<div class="wrap bh-reg" data-feature="team">
+  {%- if site.team.filters %}
+  <div class="bh-keys" role="group" aria-label="{{ site.team.filtersLabel or 'Best for' }}" data-team-chips>
+    <button type="button" aria-pressed="true" data-tag=""><span class="bh-led" aria-hidden="true"></span>Everyone</button>
+    {%- for f in site.team.filters %}<button type="button" aria-pressed="false" data-tag="{{ f.tag }}"><span class="bh-led" aria-hidden="true"></span>{{ f.label }}</button>{% endfor %}
+    <p class="bh-keys-n" data-team-count role="status"></p>
+  </div>
+  {%- endif %}
+  {%- for s in site.staff %}
+  <article class="bh-person" id="{{ s.name | slug }}" data-tags="{{ (s.tags or []) | join(' ') }}">
+    {%- if s.photo %}<img src="{{ s.photo | img }}" alt="Work by {{ s.name }}" loading="{{ 'eager' if loop.first else 'lazy' }}" decoding="async" width="720" height="900">{% endif %}
+    <div class="bh-person-n">
+      <h2>{{ s.name }}</h2>
+      <p class="bh-eng">{{ s.role }}{% if s.days %} · {{ s.days }}{% endif %}{% if s.years %} · {{ s.years }} {{ site.team.yearsLabel or "years" }}{% endif %}</p>
+    </div>
+    <div class="bh-person-b">
+      {%- if s.bio %}<p>{{ s.bio }}</p>{% endif %}
+      {%- if s.quote %}<blockquote>“{{ s.quote }}”</blockquote>{% endif %}
+      {%- if s.knownFor %}<p class="bh-person-k">{{ s.knownFor | join(", ") }}</p>{% endif %}
+      {%- if not site.team.showcase %}
+      {%- set msg = "Hello, could " + s.name + " come and look at a job?" %}
+      <a class="bh-under" href="{{ msg | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ msg }}"{% endif %} target="_blank" rel="noopener">Ask for {{ s.name }}</a>
+      {%- endif %}
+    </div>
+  </article>
+  {%- endfor %}
+  {%- if site.team.showcase %}
+  <p class="bh-reg-go"><a class="go" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{{ site.team.bookLine or build.booking.label }}</a></p>
+  {%- endif %}
+</div>
+{%- if site.team.hiring %}
+<section class="bh-hiring"><div class="wrap">
+  <p class="bh-eng">{{ site.team.hiring.kicker }}</p>
+  <h2>{{ site.team.hiring.title }}</h2>
+  <p>{{ site.team.hiring.text }}</p>
+  <a class="bh-under" href="{{ site.team.hiring.message | wa }}" data-wa-text="{{ site.team.hiring.message }}" target="_blank" rel="noopener">Ask about the job</a>
+</div></section>
+{%- endif %}

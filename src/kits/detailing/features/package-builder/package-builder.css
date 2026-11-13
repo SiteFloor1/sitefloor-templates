@@ -1,0 +1,12 @@
+/* The builder: the choices on the left as ruled options, the total on the right under a lit line, sticky on wide
+   screens so it stays beside the choices. */
+.dt-bd-in { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: clamp(28px, 5vw, 96px); align-items: start; }
+.dt-bd-f { display: grid; gap: clamp(22px, 3vw, 34px); margin-top: 8px; }
+.dt-bd-sum { position: sticky; top: calc(var(--nav-h, 72px) + 24px); display: grid; gap: 12px; justify-items: start; }
+.dt-bd-sum .tube { width: 100%; }
+.dt-bd-total { margin: 8px 0 0; display: flex; align-items: baseline; gap: 10px; }
+.dt-bd-total span { font-size: 14px; color: var(--muted); }
+.dt-bd-total b { font-family: var(--font-display); font-weight: 300; font-size: clamp(48px, 5vw, 76px); line-height: 1; letter-spacing: -.03em; font-variant-numeric: tabular-nums lining-nums; }
+.dt-bd-days { margin: 0; color: var(--muted); }
+.dt-bd-go { margin-top: 8px; }
+@media (max-width: 900px) { .dt-bd-in { grid-template-columns: 1fr; } .dt-bd-sum { position: static; } }

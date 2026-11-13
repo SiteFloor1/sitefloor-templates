@@ -1,0 +1,13 @@
+/* What it costs: ruled sections, the heading beside the words; the builder's rates as a small table. */
+.bd-cost { display: grid; padding-bottom: clamp(72px, 10vw, 112px); }
+.bd-cost-sec { display: grid; gap: 14px; padding-block: 28px; border-top: 1px solid var(--line); }
+.bd-cost-sec p { margin: 0 0 .9em; max-width: 62ch; }
+.bd-cost-list { margin: 0; display: grid; }
+.bd-cost-list div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.bd-cost-list dt { font-weight: 500; }
+.bd-cost-list dd { margin: 0; color: var(--muted); }
+.bd-cost-rates { border-collapse: collapse; margin-bottom: 14px; font-variant-numeric: tabular-nums; min-width: min(100%, 420px); }
+.bd-cost-rates caption { text-align: left; font-size: 13px; color: var(--muted); padding-bottom: 8px; }
+.bd-cost-rates th, .bd-cost-rates td { text-align: left; padding: 9px 18px 9px 0; border-bottom: 1px solid var(--line); }
+@media (min-width: 900px) { .bd-cost-sec { grid-template-columns: 4fr 8fr; gap: 40px; } }
+@media (max-width: 560px) { .bd-cost-list div { grid-template-columns: 1fr; gap: 2px; } }

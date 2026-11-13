@@ -1,0 +1,24 @@
+{#- Mackerel hero: the headlight photograph at full height (cut separately for the phone), and the line lit in the dark
+    of the paint, with one action under a lit tube. With the client's own matched pair (the inspection-light feature)
+    the photograph becomes the inspection light. A tube strikes once on load; never with reduced motion. -#}
+{%- set hp = site.hero.photo %}
+<section class="hero mk-hero" aria-labelledby="mk-h1">
+  {%- if 'inspection-light' | enabled %}
+  {% include "kits/detailing/features/inspection-light/inspection-light.njk" %}
+  {%- else %}
+  <picture class="mk-hero-ph">
+    {%- if site.hero.phonePhoto %}<source media="(max-width: 860px)" srcset="{{ site.hero.phonePhoto.src | img }}" width="{{ site.hero.phonePhoto.width }}" height="{{ site.hero.phonePhoto.height }}">{% endif %}
+    <img src="{{ hp.src | img }}" alt="{{ hp.alt }}" width="{{ hp.width }}" height="{{ hp.height }}" fetchpriority="high" decoding="async">
+  </picture>
+  {%- endif %}
+  <div class="mk-lit">
+    <span class="tube mk-strike" aria-hidden="true"></span>
+    <h1 class="mk-h1" id="mk-h1">{{ site.hero.title | markup | safe }}</h1>
+    <p class="mk-hero-i">{{ site.hero.intro }}</p>
+    {%- if 'paint-request' | enabled %}
+    <a class="mk-cta" href="{{ ('book' | href) + '#send-your-paint' if ('book-page' | enabled) else '#send-your-paint' }}">{{ site.sections.paintRequest.title | plain | replace(".", "") }}<span class="tube" aria-hidden="true"></span></a>
+    {%- else %}
+    <a class="mk-cta" href="{{ site.messages.general | book }}" target="_blank" rel="noopener">Book<span class="tube" aria-hidden="true"></span></a>
+    {%- endif %}
+  </div>
+</section>

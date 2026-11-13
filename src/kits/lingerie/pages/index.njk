@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: index
+permalink: index.html
+---
+{% if "gift-takeover" | enabled %}{% include "kits/lingerie/features/gift-takeover/gift-takeover.njk" %}{% endif %}
+{% include "looks/" + site.look + "/hero.njk" %}
+{%- for id in (build.homeOrder or homeParts.order) %}{% if (id | enabled) and not (homeParts.onPages[id] and (homeParts.onPages[id] | enabled)) %}
+{%- if "chapters" | enabled %}{% for ch in site.chapters %}{% if ch.before == id %}{% include "kits/lingerie/features/chapters/chapters.njk" %}{% endif %}{% endfor %}{% endif %}
+{%- include homeParts.paths[id] %}{% endif %}{% endfor %}

@@ -1,0 +1,14 @@
+{#- Nacre page links: the other rooms of the house, as two tall photographs; the name beneath in hairline capitals. -#}
+{%- set links = site.pageLinks | enabledLinks %}
+{%- if links.length %}
+<section class="nc-sec nc-pl" data-feature="page-links"{{ "page-links" | tierAttr | safe }}><div class="wrap">
+  <ul class="nc-pl-row">
+    {%- for l in links %}
+    <li class="rv"><a class="nc-pl-a" href="{{ l.page | href }}">
+      <img src="{{ l.image | img }}" alt="" loading="lazy" decoding="async" width="1200" height="1600">
+      <span class="nc-pl-n">{{ l.title | plain }}</span><span class="nc-label nc-muted">{{ l.cta }}</span>
+    </a></li>
+    {%- endfor %}
+  </ul>
+</div></section>
+{%- endif %}

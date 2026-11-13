@@ -1,0 +1,10 @@
+/* The shortlist: a slim bar along the foot of the gowns page once a gown is kept. */
+.bd-list { position: sticky; bottom: 0; z-index: 20; background: var(--surface); border-top: 1px solid var(--line-2); padding-block: 14px calc(14px + env(safe-area-inset-bottom, 0px)); }
+.bd-list-in { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 8px 24px; align-items: center; }
+.bd-list p { margin: 0; }
+.bd-list-n { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.bd-list-names { color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.bd-list-acts { display: flex; gap: 6px 20px; flex-wrap: wrap; align-items: center; }
+.bd-list-link { grid-column: 1 / -1; overflow-wrap: anywhere; user-select: all; }
+.bd-keep[aria-pressed="true"] .bd-keep-off, .bd-keep[aria-pressed="false"] .bd-keep-on { display: none; }
+@media (max-width: 760px) { .bd-list { bottom: calc(64px + env(safe-area-inset-bottom, 0px)); padding-block: 12px; } .bd-list-in { grid-template-columns: minmax(0, 1fr); } .bd-list-names { display: none; } }

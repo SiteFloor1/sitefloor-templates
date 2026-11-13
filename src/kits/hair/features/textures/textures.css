@@ -1,0 +1,18 @@
+/* The texture strip: five tall photographs; the chosen one widens. Tokens only. */
+.hr-tx-strip { display: flex; gap: 6px; height: clamp(320px, 42vw, 580px); margin-top: 44px; }
+.hr-tx-slice { position: relative; flex: 1 1 0; min-width: 0; padding: 0; border: 0; overflow: hidden; background: var(--surface); cursor: pointer; text-align: left; transition: flex-grow 1.1s cubic-bezier(.2, .7, .2, 1); }
+.hr-tx-slice[aria-pressed="true"] { flex-grow: 2.6; }
+.hr-tx-slice img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.hr-tx-n { position: absolute; left: 0; bottom: 0; padding: 8px 12px 9px; background: var(--bg); color: var(--muted); font-size: 15px; line-height: 1.2; }
+.hr-tx-slice[aria-pressed="true"] .hr-tx-n { color: var(--text); }
+.hr-tx-details { margin-top: 22px; border-top: 1px solid var(--line); }
+.hr-tx-d { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 32px; padding: 16px 0 0; }
+.hr-tx-d p { margin: 0; max-width: 72ch; }
+[data-tx-ready] .hr-tx-d[data-off] { display: none; }
+@media (max-width: 760px) {
+  .hr-tx-strip { gap: 4px; height: 250px; margin-top: 24px; }
+  .hr-tx-slice[aria-pressed="true"] { flex-grow: 3.4; }
+  .hr-tx-n { padding: 6px 8px; font-size: 13px; writing-mode: vertical-rl; transform: rotate(180deg); left: 0; bottom: 0; }
+  .hr-tx-slice[aria-pressed="true"] .hr-tx-n { writing-mode: horizontal-tb; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) { .hr-tx-slice { transition: none; } }

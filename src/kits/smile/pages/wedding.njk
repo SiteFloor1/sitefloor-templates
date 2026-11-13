@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: wedding
+permalink: wedding.html
+feature: smile-wedding
+eleventyComputed:
+  title: "{{ site.wedding.title | plain }}"
+  description: "Planning teeth whitening for a wedding at {{ site.business.name }}: the dates to book."
+---
+{%- set ph = { kicker: "Weddings", title: site.wedding.title, intro: site.wedding.intro } %}{% include "kits/smile/partials/page-head.njk" %}{%- set weddingPage = true %}{% include "kits/smile/features/smile-wedding/smile-wedding.njk" %}

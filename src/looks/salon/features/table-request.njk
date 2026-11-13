@@ -1,0 +1,32 @@
+{#- Salon: the table request is afternoon tea's spread. A photograph, the hour in large type, a few words and the
+    prices, then the concierge card: one sentence with the choices in it, and "Send to the concierge". Keeps every hook
+    the shared script uses ([data-tr-guests], [data-tr-day], [data-tr-times] as a <select>, [data-tr-notes], …). -#}
+{%- set sec = site.sections.tableRequest %}
+{%- set tr = site.tableRequest %}
+<section id="book" class="tr sa-tea" data-feature="table-request" aria-labelledby="tr-h"><div class="wrap sa-grid">
+  {%- if sec.photo %}<figure class="sa-tea-ph"><img src="{{ sec.photo.src | img }}" width="{{ sec.photo.width }}" height="{{ sec.photo.height }}" alt="{{ sec.photo.alt }}" loading="lazy"></figure>{% endif %}
+  <div class="sa-tea-head">
+    {%- if sec.kicker %}<p class="sa-over">{{ sec.kicker }}</p>{% endif %}
+    <h2 id="tr-h">{{ sec.title | markup | safe }}</h2>
+  </div>
+  <div class="sa-tea-copy">
+    {%- if sec.intro %}<p>{{ sec.intro }}</p>{% endif %}
+    {%- if site.tea %}<p class="sa-price">{% for sv in site.tea.services %}{{ sv.name }}, {{ sv.price | gbp }}{% if not loop.last %}. {% else %}.{% endif %}{% endfor %}</p>{% endif %}
+    <form class="sa-card" data-tr-form data-js-only aria-label="Ask for a table">
+      <svg class="sa-seal" aria-hidden="true"><use href="#brand-mark"/></svg>
+      <p class="sa-sentence">A table for <span class="sa-nw"><select name="guests" aria-label="Guests" data-tr-guests>{% for n in range(1, tr.maxGuests + 1) %}<option value="{{ n }}"{% if n == 2 %} selected{% endif %}>{{ n | words }}</option>{% endfor %}</select>,</span>
+        <span class="sa-nw"><select name="day" aria-label="Day" data-tr-day></select></span>
+        <span class="sa-nw">at <select name="time" aria-label="Time" data-tr-times></select>.</span></p>
+      <label class="sa-note">A note for the concierge<textarea name="notes" rows="1" maxlength="300" data-tr-notes placeholder="a birthday, a quiet corner"></textarea></label>
+      <p class="sa-from" data-tr-seat hidden></p>
+      <p class="sa-from" data-tr-group hidden></p>
+      <p class="sa-from" data-tr-brunch hidden></p>
+      <a class="sa-send" data-tr-send href="{{ tr.message | wa }}" target="_blank" rel="noopener">Send to the concierge</a>
+      <p class="sa-small">We reply on WhatsApp to confirm.</p>
+    </form>
+    <p class="sa-nojs" data-no-js><a class="sa-send" href="{{ tr.message | wa }}" target="_blank" rel="noopener">Ask the concierge on WhatsApp</a></p>
+    {%- if tr.walkIns %}<p class="sa-small">{{ tr.walkIns }}</p>{% endif %}
+    {%- if "tea-page" | enabled and pageId != "afternoon-tea" %}<p><a class="sa-link" href="{{ 'afternoon-tea' | href }}">Afternoon tea, in full</a></p>{% endif %}
+  </div>
+  {%- if sec.detail %}<figure class="sa-tea-detail"><img src="{{ sec.detail.src | img }}" width="{{ sec.detail.width }}" height="{{ sec.detail.height }}" alt="{{ sec.detail.alt }}" loading="lazy">{% if sec.detail.caption %}<figcaption>{{ sec.detail.caption }}</figcaption>{% endif %}</figure>{% endif %}
+</div></section>

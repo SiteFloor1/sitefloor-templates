@@ -1,0 +1,13 @@
+{#- Salon footer: the monogram, the address in italic, the sittings, then a band of the pomegranate crown and the
+    credit. -#}
+<footer class="sa-foot"><div class="wrap">
+  <a class="sa-foot-mark" href="{{ 'index' | href }}" aria-label="{{ site.business.name }}, home"><svg aria-hidden="true"><use href="#brand-mark"/></svg></a>
+  <address class="sa-foot-ad">{{ site.business.name }}<br>{{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}<br><a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a>{% if site.contact.email %} · <a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>{% endif %}</address>
+  {%- if site.menu %}<ul class="sa-foot-sit">{% for s in site.menu.sittings %}<li><span>{{ s.name }}</span> {{ s.from | t12 }}–{{ s.to | t12 }}</li>{% endfor %}</ul>{% endif %}
+  <nav class="sa-foot-nav" aria-label="Footer">
+    {%- for item in site.nav | navItems(pageId) %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}>{{ item.label }}</a>{% endfor %}
+    <a href="{{ 'privacy' | href }}">Privacy</a>
+  </nav>
+  <div class="sa-crowns" aria-hidden="true"></div>
+  <a class="by" href="https://sitefloor.com" rel="noopener">Website by <b>Sitefloor</b></a>
+</div></footer>

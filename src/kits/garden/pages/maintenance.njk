@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: maintenance
+permalink: maintenance.html
+feature: maintenance-plans
+eleventyComputed:
+  title: "{{ site.maintenance.title | plain }}"
+  description: "Garden maintenance plans from {{ site.business.name }}: which months we visit and what we do each time."
+---
+{% include "kits/garden/features/maintenance-plans/maintenance-plans.njk" %}

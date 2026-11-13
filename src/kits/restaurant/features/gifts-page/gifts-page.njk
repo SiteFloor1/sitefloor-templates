@@ -1,0 +1,10 @@
+{#- The gifts page: Give a sitting, gift vouchers and the house box, as the plan allows. -#}
+{%- set gp = site.giftsPage %}
+<section class="phero gp-head"><div class="wrap">
+  <span class="kick">{{ gp.kicker }}</span>
+  <h1>{{ gp.title | markup | safe }}</h1>
+  {%- if gp.intro %}<p>{{ gp.intro }}</p>{% endif %}
+</div></section>
+{%- if "give-a-sitting" | enabled %}{% include "kits/restaurant/features/give-a-sitting/give-a-sitting.njk" %}{% endif %}
+{%- if "vouchers" | enabled %}{% include "features/vouchers/vouchers.njk" %}{% endif %}
+{%- if "the-window" | enabled %}<p class="gp-box wrap"><a href="{{ 'index' | href }}#window">The box from the pâtisserie window</a></p>{% endif %}

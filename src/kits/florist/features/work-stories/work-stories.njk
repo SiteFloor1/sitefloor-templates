@@ -1,0 +1,15 @@
+{#- Our work, as stories (Signature): each wedding or event as its first photograph, its name, the venue and month. -#}
+{%- set Ss = site.stories %}
+{%- set ph = { kicker: Ss.kicker or "Our work", title: Ss.title, intro: Ss.intro } %}
+{% include "kits/florist/partials/page-head.njk" %}
+<section class="fl-sts" aria-label="Stories"><div class="wrap">
+  <ul class="fl-sts-l" role="list">
+    {%- for st in Ss.items %}
+    {%- set p = st.photos[0] %}
+    <li class="fl-sts-i"><a class="fl-sts-a" href="{{ ('story-' + st.id) | href }}">
+      <span class="fl-sts-ph"><img src="{{ p.src | img }}" alt="{{ p.alt }}" width="{{ p.width }}" height="{{ p.height }}"{% if loop.index > 2 %} loading="lazy"{% endif %} decoding="async"></span>
+      <span class="fl-sts-k">{{ st.kind }} · {{ st.venue }} · {{ (st.when + "-01") | monthYear }}</span>
+      <b class="fl-sts-t">{{ st.title }}</b><span class="fl-sts-l2">{{ st.line }}</span></a></li>
+    {%- endfor %}
+  </ul>
+</div></section>

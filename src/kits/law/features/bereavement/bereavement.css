@@ -1,0 +1,17 @@
+/* When someone has died: the steps on the left, numbered quietly; reminders and help in a column on the right. */
+.lw-bv { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: clamp(24px, 6vw, 104px); padding-block: 0 var(--s4, 96px); align-items: start; }
+.lw-bv-steps { margin: 0; padding: 0; list-style: none; counter-reset: bv; }
+.lw-bv-step { position: relative; padding: 20px 0 22px 3.2em; border-top: 1px solid var(--line-2); }
+.lw-bv-step::before { counter-increment: bv; content: counter(bv); position: absolute; left: 0; top: 18px; font-family: var(--font-display); font-size: 26px; color: var(--accent-2); }
+.lw-bv-step h2 { margin: 0 0 6px; font-size: clamp(20px, 2vw, 26px); line-height: 1.2; }
+.lw-bv-step p { margin: 0 0 6px; max-width: 62ch; }
+.lw-bv-when { font-size: 14px; color: var(--accent-2); }
+.lw-bv-side { border-top: 1px solid var(--text); padding-top: 18px; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 96px); display: grid; gap: 16px; }
+.lw-bv-rem { display: grid; gap: 8px; }
+.lw-bv-rem h2 { margin: 0; font-size: 22px; }
+.lw-bv-rem label { font-size: 14px; }
+.lw-bv-rem input { font: inherit; color: var(--text); background: var(--bg); border: 1px solid var(--line-2); border-radius: 0; padding: 10px; min-height: 44px; max-width: 220px; }
+.lw-bv-rem p { margin: 0; font-size: 14px; color: var(--muted); }
+.lw-bv-help { margin: 0; }
+.lw-bv-checked { font-size: 13px; color: var(--muted); margin: 0; }
+@media (max-width: 860px) { .lw-bv { grid-template-columns: 1fr; } .lw-bv-side { position: static; } }

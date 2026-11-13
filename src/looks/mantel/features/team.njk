@@ -1,0 +1,33 @@
+{#- Mantel "the bench": each person as one ruled row: the name large, what they do, a sentence in the serif, a
+    photograph of their work. Filters (if any) as plain words. Same hooks as the shared page. -#}
+{%- set T = site.team %}
+{%- set ph = { kicker: T.kicker, title: T.title, intro: T.intro } %}
+{% include "kits/florist/partials/page-head.njk" %}
+<section class="mt-bench" data-feature="team"><div class="wrap">
+  {%- if T.filters %}
+  <div class="mt-filter"><span id="tf-label">{{ T.filtersLabel or "Who's best for" }}</span>
+    <div role="group" aria-labelledby="tf-label" data-team-chips>
+      <button type="button" aria-pressed="true" data-tag="">Everyone</button>
+      {%- for f in T.filters %}<button type="button" aria-pressed="false" data-tag="{{ f.tag }}">{{ f.label }}</button>{% endfor %}
+    </div>
+    <p data-team-count role="status"></p>
+  </div>
+  {%- endif %}
+  {%- for s in site.staff %}
+  <article class="mt-person" id="{{ s.name | slug }}" data-tags="{{ (s.tags or []) | join(' ') }}">
+    <h2 class="mt-person-n">{{ s.name }}</h2>
+    <p class="mt-person-r">{{ s.role }}{% if s.days %}, {{ s.days }}{% endif %}{% if s.years %}. {{ s.years }} {{ T.yearsLabel or "years" }}{% endif %}</p>
+    <div class="mt-person-t">
+      {%- if s.bio %}<p class="mt-person-b">{{ s.bio }}</p>{% endif %}
+      {%- if s.quote %}<blockquote>“{{ s.quote }}”</blockquote>{% endif %}
+      {%- if s.knownFor %}<p class="mt-fine">Most often: {{ s.knownFor | join(", ") }}</p>{% endif %}
+      {%- if not T.showcase %}{% set msg = "Hello, could " + s.name + " help with an order?" %}<a class="fl-link" href="{{ msg | book }}" target="_blank" rel="noopener">Ask {{ s.name }}</a>{% endif %}
+    </div>
+    {%- if s.photo %}<img class="mt-person-ph" src="{{ s.photo | img }}" alt="Recent work by {{ s.name }}" loading="{{ 'eager' if loop.first else 'lazy' }}" decoding="async" width="720" height="900">{% endif %}
+  </article>
+  {%- endfor %}
+  {%- if T.showcase %}<p class="mt-bench-go"><a class="fl-btn" href="{{ site.messages.order | book }}" target="_blank" rel="noopener">{{ T.bookLine or "Order flowers" }}</a></p>{% endif %}
+</div></section>
+{%- if T.hiring %}
+<section class="mt-hire"><div class="wrap"><h2>{{ T.hiring.title }}</h2><p>{{ T.hiring.text }}</p><a class="fl-link" href="{{ T.hiring.message | wa }}" target="_blank" rel="noopener">Ask about the job</a></div></section>
+{%- endif %}

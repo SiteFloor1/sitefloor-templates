@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: projects
+permalink: projects.html
+feature: jobs-page
+eleventyComputed:
+  title: '{{ (site.projects.title or "Projects") | plain }}'
+  description: "Finished projects by {{ site.business.name }}: {% for x in site.projects.items %}{{ x.place }}{% if not loop.last %}, {% endif %}{% endfor %}."
+---
+{% include "kits/construction/features/jobs-page/jobs-page.njk" %}
+{%- if "projects-map" | enabled %}{% include "kits/construction/features/projects-map/projects-map.njk" %}{% endif %}
+{%- set hostPage = "jobs-page" %}{% include "kits/construction/partials/hosted.njk" %}

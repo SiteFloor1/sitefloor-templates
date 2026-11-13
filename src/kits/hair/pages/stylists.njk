@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: stylists
+permalink: stylists.html
+feature: stylists-page
+eleventyComputed:
+  title: "{{ site.stylistsPage.title | plain }}"
+  description: "{{ site.stylistsPage.description or site.stylistsPage.intro }}"
+---
+{% include "kits/hair/features/stylists-page/stylists-page.njk" %}

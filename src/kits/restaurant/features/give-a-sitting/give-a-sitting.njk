@@ -1,0 +1,33 @@
+{#- Give a sitting: choose what to give, write the names and a line for the card, see the card set in the house
+    style, pay by the shop's own Stripe Payment Link, then send the names on WhatsApp so the card can be written.
+    Without JavaScript: each gift with its pay link and a plain WhatsApp message. -#}
+{%- set sec = site.sections.giveSitting %}
+{%- set gv = site.giveSitting %}
+<section id="give" class="gs" data-feature="give-a-sitting" aria-labelledby="gs-h"{{ "give-a-sitting" | tierAttr | safe }}><div class="wrap">
+  <div class="gs-body">
+    <h2 id="gs-h" class="gs-h">{{ sec.title | markup | safe }}</h2>
+    {%- if sec.intro %}<p class="gs-intro">{{ sec.intro }}</p>{% endif %}
+    <form class="gs-form" data-gs-form data-js-only>
+      <fieldset class="gs-gifts"><legend class="sr-only">The gift</legend>
+        {%- for g in gv.gifts %}<label class="gs-gift"><input type="radio" name="gs-gift" value="{{ g.id }}"{% if loop.first %} checked{% endif %}><span>{{ g.name }}</span><b>{{ g.price | gbp }}</b></label>{% endfor %}
+      </fieldset>
+      <label class="gs-l" for="gs-to">For<input id="gs-to" type="text" maxlength="40" autocomplete="off" data-gs-to></label>
+      <label class="gs-l" for="gs-from">From<input id="gs-from" type="text" maxlength="40" autocomplete="name" data-gs-from></label>
+      <label class="gs-l" for="gs-note">A line for the card<input id="gs-note" type="text" maxlength="90" autocomplete="off" data-gs-note></label>
+    </form>
+    <ol class="gs-steps" data-js-only>
+      <li><a class="gs-pay" data-gs-pay href="{{ gv.gifts[0].link }}" target="_blank" rel="noopener">Pay {{ gv.gifts[0].price | gbp }} by card</a><span>A secure page from Stripe, in the café’s name.</span></li>
+      <li><a class="gs-send" data-gs-send href="{{ gv.message | wa }}" target="_blank" rel="noopener">Send us the names</a><span>On WhatsApp, so we can write the card.</span></li>
+    </ol>
+    <ul class="gs-plain" data-no-js>{% for g in gv.gifts %}<li><a href="{{ g.link }}" target="_blank" rel="noopener">{{ g.name }}, {{ g.price | gbp }}</a></li>{% endfor %}<li><a href="{{ gv.message | wa }}" target="_blank" rel="noopener">Then send us the names</a></li></ul>
+    <p class="gs-terms">Valid for {{ gv.validMonths }} months. {{ gv.terms }}{% if gv.note %} {{ gv.note }}{% endif %}</p>
+  </div>
+  <figure class="gs-card" aria-label="The card" data-js-only>
+    <svg class="gs-seal" aria-hidden="true"><use href="#brand-mark"/></svg>
+    <p class="gs-what" data-gs-what>{{ gv.gifts[0].name }}</p>
+    <p class="gs-to"><span>for</span> <b data-gs-cto>&nbsp;</b></p>
+    <p class="gs-line" data-gs-cnote></p>
+    <p class="gs-from"><span>from</span> <b data-gs-cfrom>&nbsp;</b></p>
+    <p class="gs-house">{{ site.business.name }}</p>
+  </figure>
+</div></section>

@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: interior
+permalink: interior.html
+feature: interior-page
+eleventyComputed:
+  title: "{{ site.interiorPage.title | plain }}"
+  description: "Interior detailing at {{ site.business.name }}, {{ site.location.locality }}: what's included and prices by car size."
+---
+{% include "kits/detailing/features/interior-page/interior-page.njk" %}

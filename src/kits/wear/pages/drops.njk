@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: drops
+permalink: drops.html
+feature: drops-page
+eleventyComputed:
+  title: "{{ site.dropsPage.title | plain }}"
+  description: "{{ site.dropsPage.description or (site.dropsPage.kicker + ' at ' + site.business.name) }}"
+---
+{% include "kits/wear/features/drops-page/drops-page.njk" %}

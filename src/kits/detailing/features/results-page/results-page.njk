@@ -1,0 +1,7 @@
+{#- The before-and-after page: its opening, then the studio's before-and-after pairs (each only when its feature is on), then any home sections the
+    look moves here. -#}
+{%- set pg = site.resultsPage %}
+{% include "kits/detailing/partials/page-head.njk" %}
+{%- set shown = ["before-after"] %}
+{% include "kits/detailing/partials/sections.njk" %}
+{%- set hostPage = "results-page" %}{% include "kits/detailing/partials/hosted.njk" %}

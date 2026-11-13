@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: planner
+permalink: planner.html
+feature: mehndi-week
+eleventyComputed:
+  title: "{{ site.plannerPage.title | plain }}"
+  description: "Plan your mehndi week with {{ site.business.name }}: your wedding date in, every step on its day, in your calendar."
+---
+{% include "kits/mehndi/features/mehndi-week/mehndi-week.njk" %}

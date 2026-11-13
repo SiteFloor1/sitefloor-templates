@@ -1,0 +1,31 @@
+{#- The garden calendar: the studio's whole year, month by month, and "ready by": the month the client wants the garden
+    finished, worked back through the studio's own weeks to the day to get in touch, sent on WhatsApp. -#}
+{%- set cp = site.calendarPage %}
+{%- set ph = cp %}
+{% include "kits/garden/partials/page-head.njk" %}
+{%- set labels = { design: "Design", build: "Build", planting: "Planting", care: "Care" } %}
+{%- if cp.startBy %}
+{%- set sb = cp.startBy %}
+<section class="wrap gd-sb" data-feature="calendar-page" aria-labelledby="sb-h">
+  <h2 class="gd-sb-h" id="sb-h">Ready by</h2>
+  <form class="gd-sb-f" data-sb-form>
+    <label class="gd-label" for="sb-month">I'd like the garden finished by</label>
+    <select id="sb-month" class="gd-select" data-sb-month>{% for m in build.today | readyMonths %}<option value="{{ loop.index0 }}"{% if loop.index0 == 5 %} selected{% endif %}>{{ m.label }}</option>{% endfor %}</select>
+  </form>
+  <p class="gd-sb-out" data-sb-out aria-live="polite">Our design takes about {{ sb.design }} weeks, builds start about {{ sb.lead }} weeks after, and a build takes about {{ sb.build }}. Choose a month to see when to get in touch.</p>
+  <p class="gd-sb-go"><a class="btn" data-sb-send href="{{ sb.message | book }}" target="_blank" rel="noopener">Send on WhatsApp</a></p>
+  {%- if sb.note %}<p class="gd-small">{{ sb.note }}</p>{% endif %}
+</section>
+{%- endif %}
+<section class="wrap gd-yr" aria-label="Month by month">
+  <ol class="gd-yr-list">
+    {%- for m in site.calendar.months %}
+    <li class="gd-yr-m" id="{{ gardenWords.months[loop.index0] | lower }}">
+      <h2 class="gd-yr-n">{{ gardenWords.months[loop.index0] }}</h2>
+      <dl class="gd-yr-dl">
+        {%- for k in ["design", "build", "planting", "care"] %}{% if m[k] %}<div><dt>{{ labels[k] }}</dt><dd>{{ m[k] }}</dd></div>{% endif %}{% endfor %}
+      </dl>
+    </li>
+    {%- endfor %}
+  </ol>
+</section>

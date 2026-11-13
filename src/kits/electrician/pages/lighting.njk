@@ -1,0 +1,13 @@
+---
+layout: core/layouts/base.njk
+pageId: lighting
+permalink: lighting.html
+feature: room-designer
+eleventyComputed:
+  title: "{{ site.lightingPage.title | plain }}"
+  description: "Lighting design by {{ site.business.name }}, {{ site.location.locality }}: choose the layers of light for a room and see the price."
+---
+{%- set ph = site.lightingPage %}
+{% include "kits/electrician/partials/page-head.njk" %}
+{% include "kits/electrician/features/room-designer/room-designer.njk" %}
+{%- set hostPage = "room-designer" %}{% include "kits/electrician/partials/hosted.njk" %}

@@ -1,0 +1,17 @@
+{#- In season now: what's in the studio this week, from the florist's Google Sheet (or the list here). Each stem's
+    word is the florist's own: just in, plenty, last week. -#}
+{%- set S = site.inSeason %}
+{%- set sec = site.sections.season %}
+{%- set WORDS = { "just-in": "Just in", "plenty": "Plenty", "last-week": "Last week" } %}
+<section id="season" class="fl-season" data-feature="in-season" aria-labelledby="season-h"><div class="wrap fl-season-in">
+  <figure class="fl-season-ph rv"><img src="{{ S.photo.src | img }}" alt="{{ S.photo.alt }}" width="{{ S.photo.width }}" height="{{ S.photo.height }}" loading="lazy" decoding="async"></figure>
+  <div class="fl-season-t rv">
+    <h2 id="season-h">{{ sec.title | markup | safe }}</h2>
+    <p class="fl-season-note">{{ S.note }}</p>
+    <ul class="fl-season-list" role="list">
+      {%- for x in S.items %}
+      <li data-stem="{{ x.id }}"><span class="fl-stem">{{ x.name }}</span><span class="fl-stem-s" data-status="{{ x.status }}">{{ WORDS[x.status] }}</span></li>
+      {%- endfor %}
+    </ul>
+  </div>
+</div></section>

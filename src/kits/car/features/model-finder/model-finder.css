@@ -1,0 +1,21 @@
+/* Model finder: make and model chips, then the studio's matching jobs and prices for that size. */
+.mf { display: grid; gap: 22px; }
+.mf-set { border: 0; margin: 0 0 12px; padding: 0; min-width: 0; }
+.mf-set legend { font-weight: 600; font-size: 14px; margin-bottom: 10px; padding: 0; }
+.mf-out { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(240px, 1fr); gap: 10px 28px; align-items: start; }
+.mf-verdict { grid-column: 1 / -1; margin: 0; font-family: var(--font-display); font-weight: 300; font-size: clamp(22px, 2.4vw, 32px); letter-spacing: -.02em; line-height: 1.2; min-height: 1.2em; }
+.mf-posts { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; align-content: start; }
+.mf-posts li { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--surface-2); }
+.mf-posts img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s ease; }
+.mf-posts li:hover img { transform: scale(1.04); }
+.mf-posts small { position: absolute; left: 0; right: 0; bottom: 0; padding: 18px 8px 6px; font-size: 12px; color: var(--on-photo); background: linear-gradient(180deg, transparent, var(--photo-scrim)); }
+.mf-posts .mf-other { opacity: .72; }
+.mf-k { margin: 0 0 6px; font: 500 12px var(--font-mono, monospace); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.mf-prices { margin: 0 0 16px; border-top: 1px solid var(--text); }
+.mf-prices div { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--line-2); font-size: 14.5px; }
+.mf-prices dd { margin: 0; font: 500 13.5px var(--font-mono, monospace); white-space: nowrap; text-align: right; }
+.mf-prices small { display: block; color: var(--dim); }
+.mf-nojs a { color: var(--accent); }
+@media (max-width: 860px) { .mf-out { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 480px) { .mf-posts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.mf-all { display: inline-block; margin: 0 0 14px; font-weight: 500; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--text); text-decoration: none; border-bottom: 1px solid var(--accent); padding-bottom: 3px; }

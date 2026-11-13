@@ -1,0 +1,13 @@
+/* Arriving: the times as choices, the route as a line of stops with the time in the accent. */
+.sm-ar { padding-block: 40px 96px; border-top: 1px solid var(--line); }
+.sm-ar-in { display: grid; gap: 28px; }
+.sm-ar-ph { margin: 0; aspect-ratio: 4 / 5; max-width: 420px; overflow: hidden; background: var(--surface); }
+.sm-ar-ph img { width: 100%; height: 100%; object-fit: cover; }
+.sm-ar-t { margin: 0 0 8px; }
+.sm-ar-i { margin: 0 0 18px; }
+.sm-ar-route { list-style: none; margin: 18px 0 0; padding: 0 0 0 20px; border-left: 1px solid var(--accent); display: grid; gap: 20px; }
+.sm-ar-route li { position: relative; display: grid; grid-template-columns: 4.5em 1fr; gap: 12px; align-items: baseline; }
+.sm-ar-route li::before { content: ""; position: absolute; left: -24px; top: .7em; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+.sm-ar-time { font-size: 1.6rem; font-weight: 300; font-variant-numeric: tabular-nums; color: var(--accent); }
+.sm-ar-s small { display: block; font-size: inherit; color: var(--muted); }
+@media (min-width: 900px) { .sm-ar-in { grid-template-columns: 4fr 7fr; gap: 72px; align-items: center; } }

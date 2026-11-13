@@ -1,0 +1,27 @@
+{#- Start a project: what, the postcode district (never the address), when and, if the builder lists them, a budget
+    band; sent as one WhatsApp message in the visitor's own words. Without scripts, a plain WhatsApp link. -#}
+{%- set b = site.brief %}
+<section class="bd-brief{% if briefPage %} bd-brief-page{% endif %}" id="start"{% if not briefPage %} aria-labelledby="brief-h"{% else %} aria-label="Your project"{% endif %} data-feature="brief"><div class="wrap bd-brief-in">
+  <div class="bd-brief-side">
+    {%- if not briefPage %}
+    <h2 id="brief-h" class="bd-h2">{{ b.title | markup | safe }}</h2>
+    {%- if b.intro %}<p>{{ b.intro }}</p>{% endif %}
+    {%- endif %}
+    <p class="bd-brief-tel">Or call <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone | replace('+44 ', '0') }}</a></p>
+  </div>
+  <form class="bd-brief-form" data-js-only novalidate>
+    <fieldset><legend>What</legend><div class="bd-chips">
+      {%- for t in (site.buildTypes.items if site.buildTypes else []) %}<label><input type="radio" name="what" value="{{ t.name }}"{% if loop.first %} checked{% endif %}><span>{{ t.name }}</span></label>{% endfor %}
+      <label><input type="radio" name="what" value="Something else"{% if not site.buildTypes %} checked{% endif %}><span>Something else</span></label>
+    </div></fieldset>
+    <div class="bd-brief-row">
+      <label class="bd-field"><span>Postcode district</span><input name="where" autocomplete="off" inputmode="text" maxlength="5" placeholder="e.g. N5" aria-describedby="brief-where-h"><small id="brief-where-h">The first half only. We never need your address here.</small></label>
+      <label class="bd-field"><span>When</span><select name="when">{% for w in b.whens %}<option>{{ w }}</option>{% endfor %}</select></label>
+      {%- if b.budgets %}<label class="bd-field"><span>Budget</span><select name="budget"><option value="">Rather not say</option>{% for w in b.budgets %}<option>{{ w }}</option>{% endfor %}</select></label>{% endif %}
+    </div>
+    <label class="bd-field"><span>In your own words <i>(optional)</i></span><textarea name="words" rows="3" maxlength="600" placeholder="The house, what you'd like, anything we should know."></textarea></label>
+    <div class="bd-brief-go"><button class="bd-btn" type="submit">Send on WhatsApp</button>{% if b.note %}<p>{{ b.note }}</p>{% endif %}</div>
+    <p class="bd-brief-err" data-brief-err role="alert" hidden></p>
+  </form>
+  <p class="bd-brief-plain" data-no-js><a class="bd-btn" href="{{ b.opening | wa }}" data-wa-text="{{ b.opening }}" target="_blank" rel="noopener">Message us on WhatsApp</a></p>
+</div></section>

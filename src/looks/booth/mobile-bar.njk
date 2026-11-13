@@ -1,0 +1,7 @@
+{#- Booth phone bar: always there on a phone, so Book is never more than a thumb away: where the studio is on the
+    left, "Book a consultation" filled in the studio's ink on the right. -#}
+{%- set bookText = site.consultation.message if site.consultation else site.messages.general %}
+<div class="mbar bt-bar">
+  <a class="bt-bar-where" href="{{ ('visit' | href) if ('plan-visit' | enabled) else '#visit' }}">{{ site.location.streetAddress }}</a>
+  <a class="bt-bar-go" href="{{ bookText | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ bookText }}"{% endif %} target="_blank" rel="noopener">Book a consultation</a>
+</div>

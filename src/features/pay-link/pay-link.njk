@@ -1,0 +1,19 @@
+{#- Pay online: the shop's own Stripe Payment Links (deposits and full payments), one card each. No checkout of ours:
+    each button opens Stripe's page for that link. On a demo the links are fake and say so instead of leaving the site. -#}
+{%- set sec = site.sections.payLinks %}
+<section id="pay" class="sec-pay" data-feature="pay-link"{{ "pay-link" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <ul class="pl-list">
+    {%- for p in site.payLinks.items %}
+    <li class="pl-card rv">
+      <p class="pl-kind">{{ "Deposit" if p.kind == "deposit" else ("Monthly" if p.kind == "monthly" else "Pay in full") }}</p>
+      <h3 class="pl-label">{{ p.label }}</h3>
+      <p class="pl-amount">{{ p.amount | pounds }}</p>
+      {%- if p.holds == "request" %}<p class="pl-for">Holds your request; {{ site.business.name }} confirms with you. It isn't a booking until they do.</p>{% endif %}
+      {%- if p.for %}<p class="pl-for">{{ p.for }}</p>{% endif %}
+      <a class="btn pl-btn" href="{{ p.url }}" target="_blank" rel="noopener" data-pay="{{ p.id }}"{% if p.holds == "request" %} data-pay-url="{{ p.url }}"{% endif %} aria-label="{{ ('Pay the ' + (p.amount | pounds) + ' deposit' + (' to hold your request' if p.holds == 'request' else '') + ': ' + p.label) if p.kind == 'deposit' else ('Pay ' + (p.amount | pounds) + (' a month' if p.kind == 'monthly' else '') + ': ' + p.label) }}">{{ "Pay deposit" if p.kind == "deposit" else "Pay now" }}</a>
+    </li>
+    {%- endfor %}
+  </ul>
+  <p class="pl-note">{{ site.payLinks.note }}</p>
+</div></section>

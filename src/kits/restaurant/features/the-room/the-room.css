@@ -1,0 +1,36 @@
+/* The Room: the plan is drawn in the plan's own units; colours from tokens. */
+.rm-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, .8fr); gap: clamp(22px, 4vw, 56px); align-items: start; }
+@media (max-width: 960px) { .rm-grid { grid-template-columns: minmax(0, 1fr); } }
+.rm-plan { padding: clamp(10px, 2vw, 22px); background: var(--card); }
+.rm-svg { display: block; width: 100%; height: auto; }
+.rm-floor { fill: var(--card); stroke: var(--text); stroke-width: 1; }
+.rm-mark rect { fill: var(--surface-2); stroke: none; }
+.rm-mark text { font: 600 2.1px var(--font-body); letter-spacing: .3px; fill: var(--muted); text-transform: uppercase; }
+.rm-window rect { fill: var(--accent); opacity: .55; }
+.rm-window text { fill: var(--accent); }
+.rm-kitchen rect { fill: var(--surface-2); stroke: var(--line-2); stroke-width: .3; stroke-dasharray: 1 1; }
+.rm-pass rect { fill: var(--text); opacity: .12; }
+.rm-door rect { fill: var(--card); stroke: var(--text); stroke-width: .3; stroke-dasharray: .8 .6; }
+.rm-terrace rect { fill: none; stroke: var(--muted); stroke-width: .35; stroke-dasharray: 1.4 1; }
+.rm-bar rect { fill: var(--text); opacity: .85; }
+.rm-bar text { fill: var(--bg); }
+.rm-wall rect { fill: var(--text); }
+.rm-table { cursor: pointer; outline: none; }
+.rm-top { fill: var(--bg); stroke: var(--text); stroke-width: .45; transition: fill .2s; }
+.rm-bench { fill: var(--surface-2); stroke: var(--text); stroke-width: .35; }
+.rm-chair { fill: var(--muted); }
+.rm-label { font: 600 2.6px var(--font-body); fill: var(--text); pointer-events: none; }
+.rm-table:hover .rm-top, .rm-table.lit .rm-top { fill: var(--surface-2); stroke: var(--accent); stroke-width: .8; }
+.rm-table.sel .rm-top { fill: var(--accent); stroke: var(--accent); }
+.rm-table.sel .rm-label { fill: var(--on-accent); }
+.rm-table.sel .rm-chair { fill: var(--accent); }
+.rm-table:focus-visible .rm-top { stroke: var(--accent); stroke-width: 1.2; }
+.rm-table.small { opacity: .5; }
+.rm-side { display: grid; gap: 20px; }
+.rm-pick { padding: 18px; border: 1px solid var(--line); }
+.rm-pick .rs-k { margin: 0 0 6px; }
+.rm-choice { margin: 0; font-family: var(--font-display); font-size: 26px; line-height: 1.1; min-height: 1.1em; }
+.rm-fit { margin: 8px 0 0; min-height: 1.4em; }
+.rm-side .btn { justify-self: start; }
+.rm-key { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 14px; color: var(--muted); }
+.rm-key b { color: var(--text); font-weight: 600; margin-right: 6px; }

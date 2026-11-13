@@ -1,0 +1,45 @@
+{#- Marese header: the oxblood strip (the shop's line; on a demo with previewModes, the boutique/online switch, CSS
+    only), then services left, the logotype large and centred, the salon or the shop right; the categories beneath. -#}
+{%- import "kits/lingerie/partials/mode.njk" as mode with context %}
+{%- if site.shop.previewModes %}<input class="mr-mode-in" type="radio" name="mr-mode" id="mr-boutique" checked><input class="mr-mode-in" type="radio" name="mr-mode" id="mr-online">
+{%- if "gift-takeover" | enabled %}<input class="mr-mode-in" type="radio" name="mr-to" id="mr-to-today" checked>{% for t in site.takeovers %}<input class="mr-mode-in" type="radio" name="mr-to" id="mr-to-{{ t.id }}">{% endfor %}{% endif %}{% endif %}
+<div class="mr-strip">
+  <p class="mr-strip-t">{{ mode.say(site.shop.strip.boutique, site.shop.strip.online) }}</p>
+  {%- if site.shop.previewModes %}
+  <p class="mr-mode" aria-label="Preview the words for"><label for="mr-boutique">Boutique</label><label for="mr-online">Online brand</label></p>
+  {%- if "gift-takeover" | enabled %}<p class="mr-mode" aria-label="Preview the season"><label for="mr-to-today">Today</label>{% for t in site.takeovers %}<label for="mr-to-{{ t.id }}">{{ t.name }}</label>{% endfor %}</p>{% endif %}
+  {%- endif %}
+</div>
+<header class="nav mr-head"><div class="wrap mr-head-in">
+  <nav class="mr-util" aria-label="Services">
+    {%- if "fitting-page" | enabled %}<a href="{{ 'fitting' | href }}">{{ mode.say("Private fitting", "Fit by video") }}</a>{% elif "private-fitting" | enabled %}<a href="{{ 'index' | href }}#fitting">{{ mode.say("Private fitting", "Fit by video") }}</a>{% endif %}
+    {%- if "bridal-page" | enabled %}<a href="{{ 'bridal' | href }}">Bridal</a>{% endif %}
+  </nav>
+  {%- if site.brand and site.brand.logo %}
+  <a class="mr-logo has-img" href="{{ 'index' | href }}"><img src="{{ site.brand.logo | img }}" alt="{{ site.business.name }}" height="48"></a>
+  {%- else %}
+  <a class="mr-logo" href="{{ 'index' | href }}">{{ site.business.name }}</a>
+  {%- endif %}
+  <nav class="mr-util mr-util-r" aria-label="Visit">
+    {%- if mode.shows("boutique") == "true" %}<a href="{{ ('visit' | href) if ('plan-visit' | enabled) else '#visit' }}"{{ mode.attr("boutique") }}>The salon</a>{% endif %}
+    {%- if site.shop.shopUrl and mode.shows("online") == "true" %}<a href="{{ site.shop.shopUrl }}" target="_blank" rel="noopener"{{ mode.attr("online") }}>Shop</a>{% endif %}
+    <a class="mr-ask" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">Ask {{ site.business.name }}</a>
+  </nav>
+  <button class="burger mr-burger" type="button" aria-expanded="false" aria-controls="mnav"><span class="mr-open">Menu</span><span class="mr-close">Close</span></button>
+</div>
+<nav class="mr-cats" aria-label="Main">
+  {%- for item in site.nav | navItems(pageId) %}
+  <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+  {%- endfor %}
+</nav>
+</header>
+<div class="mnav mr-sheet" id="mnav" hidden>
+  <nav aria-label="Pages">
+    <a href="{{ 'index' | href }}"{% if pageId == "index" %} aria-current="page"{% endif %}>{{ site.business.name }}</a>
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+  </nav>
+  <p class="mr-sheet-now" data-live-status><span class="dot" aria-hidden="true"></span> <span data-status-text>Opening hours</span></p>
+  <p class="mr-sheet-addr">{{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}</p>
+</div>

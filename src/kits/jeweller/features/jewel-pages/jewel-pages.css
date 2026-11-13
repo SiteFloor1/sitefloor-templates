@@ -1,0 +1,27 @@
+/* jewel-pages: layout in tokens only; the look sets type and colour. */
+.jw-pp-top { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(24px, 5vw, 80px); padding-top: clamp(32px, 5vw, 72px); align-items: start; }
+.jw-pp-ph { margin: 0; background: var(--surface); }
+.jw-pp-ph img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+.jw-pp-t { display: grid; gap: 14px; padding-top: clamp(0px, 4vw, 64px); }
+.jw-pp-t > .nc-label a { border-bottom: 1px solid var(--rose); }
+.jw-tale { font: 300 16px/1.75 var(--font-body); max-width: 52ch; }
+.jw-tale p { margin: 0 0 14px; }
+.jw-pp-box-in { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 7fr); gap: clamp(20px, 4vw, 64px); align-items: center; }
+.jw-pp-box-in img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+@media (max-width: 700px) {
+  .jw-pp-top, .jw-pp-box-in { grid-template-columns: 1fr; }
+  .jw-pp-t { padding-top: 0; }
+}
+.jw-more .jw-cat-3 { gap: clamp(20px, 4vw, 64px); }
+.jw-col-in { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(24px, 5vw, 80px); align-items: start; }
+.jw-col-in:not(:has(.jw-col-ph)) { grid-template-columns: 1fr; }
+.jw-col-ph { margin: 0; position: sticky; top: 24px; }
+.jw-col-ph img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; }
+.jw-col-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 56px clamp(16px, 3vw, 40px); }
+@media (max-width: 700px) {
+  .jw-col-in { grid-template-columns: 1fr; }
+  .jw-col-ph { position: static; }
+  .jw-col-grid { gap: 40px 12px; }
+}
+.jw-pp-phs { display: grid; gap: clamp(16px, 3vw, 40px); }
+.jw-pp-worn figcaption { margin-top: 10px; }

@@ -1,0 +1,27 @@
+{#- Carte hero: the top of a printed menu card on the café wall (the restaurant's line, a headline in
+    Bodoni, the booking buttons), then the menu itself with today's slip clipped beside it. -#}
+<section class="hero ct"><div class="wrap">
+  <div class="ct-mast">
+    <p class="ct-kick"><span>{{ site.hero.kicker }}</span></p>
+    <h1>{{ site.hero.title | markup | safe }}</h1>
+    <p class="ct-intro">{{ site.hero.intro }}</p>
+    <div class="h-cta">
+      {%- if "table-request" | enabled %}
+      <a class="btn" href="#book">Book a table</a>
+      {%- else %}
+      <a class="btn" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{% if build.booking.whatsapp %}{% include "core/partials/icon-whatsapp.njk" %}{% endif %}{{ build.booking.label }}</a>
+      {%- endif %}
+      {%- set cta = site.hero.secondaryCta %}
+      {%- if cta and (not cta.feature or (cta.feature | enabled)) %}<a class="btn ghost" href="{{ cta.href }}"{{ cta.feature | tierAttr | safe }}>{{ cta.label }}</a>{% endif %}
+    </div>
+  </div>
+  <div class="ct-board">
+    {%- if "menu" | enabled %}{% include "kits/restaurant/features/menu/menu.njk" %}{% endif %}
+    {%- if ("specials" | enabled) or ("tonight" | enabled) %}
+    <aside class="ct-today" aria-label="Today">
+      {%- if "specials" | enabled %}{% include "kits/restaurant/features/specials/specials.njk" %}{% endif %}
+      {%- if "tonight" | enabled %}{% include "kits/restaurant/features/tonight/tonight.njk" %}{% endif %}
+    </aside>
+    {%- endif %}
+  </div>
+</div></section>

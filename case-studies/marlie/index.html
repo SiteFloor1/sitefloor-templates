@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Marlie Case Study</title>
+<meta name="description" content="How a Sitefloor site sells a teeth whitening studio, read the way a cosmetic dentist reads a smile: the six front teeth, each measured.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Reddit+Sans:wght@200;300;400&family=Reddit+Mono:wght@400;500&family=Brygada+1918:ital,wght@1,400&family=Manrope:wght@600;700&display=swap">
+<style>
+/* Layout: the social six. A cosmetic dentist plans a smile on a screen: a midline down the face, the smile arc along
+   the lower lip, each of the six front teeth (13 12 11 | 21 22 23) measured against the others. The page is planned
+   the same way. The first screen is that planning screen over a real smile; the midline then runs down the whole page
+   and every chapter is one of the six, numbered as a dentist numbers it (FDI), opening on its tooth and sitting on its
+   own side of the line (the patient's right is the viewer's left). The plans are the golden proportion, 1.618 : 1 :
+   0.618; the speed is read off a rule. Ground: the planning screen's black, then white. Colour: the photographs' warm
+   silver and one lavender guide. Type: Reddit Sans 200 for display, 300 for reading; Reddit Mono for every measurement;
+   Brygada 1918 italic only for the dentist's own words. Grid: 12 columns about the midline. Scale: 14 / 17 / 22 /
+   40–64 / 96–200 (the tooth numbers). Motion: the guides draw once on load; clips play when on screen; nothing
+   follows the scroll. */
+:root {
+  --screen: #0C0B0B; --screen-2: #161414; --on: #EEEBE7; --on-soft: rgba(238,235,231,.66); --on-line: rgba(238,235,231,.16);
+  --bone: #FFFFFF; --bone-2: #F3F1EE; --ink: #171413; --soft: #5E5852; --line: rgba(23,20,19,.14);
+  --guide: #B9ACE0; --guide-ink: #54449A;
+  --display: "Reddit Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "Reddit Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --voice: "Brygada 1918", Georgia, "Times New Roman", serif;
+  --brand: "Manrope", Arial, sans-serif;
+  --sf-paper: #FBFAF7; --sf-ink: #0E0F11; --sf-tomato: #E8613C; --sf-line: rgba(14,15,17,.12);
+  --gut: clamp(16px, 3vw, 48px);
+  color-scheme: light;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--screen); -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bone); color: var(--ink); font: 300 17px/1.6 var(--display); }
+img, video { display: block; max-width: 100%; }
+a { color: inherit; }
+b, strong { font-weight: 400; }
+:focus-visible { outline: 2px solid var(--guide-ink); outline-offset: 3px; }
+.gut { padding-inline: max(var(--gut), env(safe-area-inset-left, 0px)) max(var(--gut), env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 1440px; margin-inline: auto; }
+.m { font-family: var(--mono); font-weight: 400; font-size: 14px; letter-spacing: 0; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Sitefloor's bar, as on every case study */
+.sfbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--sf-paper); color: var(--sf-ink); border-bottom: 1px solid var(--sf-line); }
+.sfbar .wrap { display: flex; justify-content: space-between; align-items: center; height: 66px; gap: 16px; }
+.wm { display: inline-flex; align-items: center; font: 700 22px/1 var(--brand); letter-spacing: -.04em; color: var(--sf-ink); text-decoration: none; }
+.wm svg { margin: 0 1px; }
+.sfbar nav { display: flex; gap: 28px; font-family: var(--brand); font-size: 14px; font-weight: 600; }
+.sfbar nav a { text-decoration: none; color: var(--sf-ink); }
+.sfbar nav a[aria-current] { box-shadow: inset 0 -1.5px 0 var(--sf-ink); }
+.sfbtn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 20px; background: var(--sf-ink); color: var(--sf-paper); font: 700 12px var(--brand); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; }
+.sfbtn:hover { background: var(--sf-tomato); }
+@media (max-width: 760px) { .sfbar nav { display: none; } }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 31; background: var(--sf-paper); }
+
+/* ---------------------------------------------------------------- the planning screen */
+.plan { position: relative; background: var(--screen); color: var(--on); overflow: hidden; }
+.plan-in { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; padding-block: 36px 56px; }
+.plan h1 { margin: 0; font: 200 clamp(56px, 9vw, 150px)/.9 var(--display); letter-spacing: -.045em; }
+.plan-lede { margin: 18px 0 0; max-width: 30rem; color: var(--on-soft); font-size: 18px; }
+.plan-lede b { color: var(--on); }
+.photo { position: relative; width: min(100%, 78vh, 760px); aspect-ratio: 1; margin-inline: auto; }
+.photo img { width: 100%; height: 100%; object-fit: cover; }
+.guides { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.guides .g { fill: none; stroke: var(--guide); stroke-width: .22; vector-effect: non-scaling-stroke; }
+.guides .g { stroke-width: 1.6px; }
+.guides .halo { fill: none; stroke: rgba(12,11,11,.55); stroke-width: 3px; vector-effect: non-scaling-stroke; }
+.guides .g.thin { stroke-width: 1px; stroke-dasharray: 4 5; opacity: .8; }
+.guides .tick { stroke: var(--on); stroke-width: 1px; vector-effect: non-scaling-stroke; opacity: .9; }
+.guides text { fill: var(--on); font: 400 2.1px var(--mono); }
+.guides .lab { fill: var(--guide); }
+.draw { stroke-dasharray: var(--len) var(--len); stroke-dashoffset: var(--len); animation: draw 1.6s cubic-bezier(.6,0,.2,1) forwards; animation-delay: var(--d, 0s); }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+.fade { opacity: 0; animation: fade .8s ease forwards; animation-delay: var(--d, 0s); }
+@keyframes fade { to { opacity: 1; } }
+/* the six, as buttons over the photograph */
+.tooth { position: absolute; top: 40.5%; height: 13%; display: block; border: 0; padding: 0; background: transparent; cursor: pointer; text-decoration: none; }
+.tooth::after { content: ""; position: absolute; inset: 0; border: 1px solid transparent; background: transparent; transition: background .25s, border-color .25s; }
+.tooth:hover::after, .tooth:focus-visible::after, .tooth[aria-current="true"]::after { background: rgba(185,172,224,.22); border-color: var(--guide); }
+.tooth span { position: absolute; left: 50%; top: calc(100% + 34%); transform: translateX(-50%); font: 500 clamp(12px, 1.5vw, 17px)/1 var(--mono); color: var(--on); }
+.tooth:hover span, .tooth:focus-visible span, .tooth[aria-current="true"] span { color: var(--guide); }
+/* the midline: from the planning screen to the foot of the page */
+.midline { position: absolute; z-index: 2; pointer-events: none; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--guide); opacity: .9; transform-origin: top; animation: drop 1.4s cubic-bezier(.6,0,.2,1) both; }
+@keyframes drop { from { transform: scaleY(0); } }
+.readout { display: grid; gap: 4px 18px; grid-template-columns: auto 1fr; align-content: start; margin: 0; padding-top: 14px; border-top: 1px solid var(--on-line); max-width: 30rem; }
+.readout dt { color: var(--on-soft); }
+.readout dd { margin: 0; color: var(--on); }
+.readout dd a { color: var(--guide); text-underline-offset: 4px; }
+.readout .now { color: var(--guide); }
+.plan-note { margin: 0; color: var(--on-soft); font-size: 15px; }
+@media (min-width: 1100px) {
+  .plan-in { grid-template-columns: minmax(0, 1fr) minmax(0, 760px) minmax(0, 1fr); align-items: start; gap: 0 32px; padding-block: 44px 72px; }
+  .plan-head { grid-column: 1; grid-row: 1; }
+  .plan h1 { font-size: clamp(64px, 6.6vw, 112px); }
+  .photo { grid-column: 2; grid-row: 1 / span 2; width: 100%; }
+  .plan-side { grid-column: 3; grid-row: 1; padding-top: 6px; }
+  .plan-foot { grid-column: 1; grid-row: 2; align-self: end; }
+}
+@media (max-width: 640px) { .guides text { display: none; } }
+@media (prefers-reduced-motion: reduce) { .draw, .fade, .midline { animation: none; stroke-dashoffset: 0; opacity: 1; transform: none; } }
+
+/* ---------------------------------------------------------------- the six chapters, about the midline */
+.arch { position: relative; }
+.arch::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--guide); }
+.ch { position: relative; padding-block: clamp(72px, 11vh, 140px); }
+.ch + .ch { border-top: 1px solid var(--line); }
+.ch-in { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(12px, 2vw, 32px); align-items: start; }
+.ch-head { grid-column: 1 / span 6; grid-row: 1; padding-right: clamp(20px, 3vw, 56px); text-align: right; }
+.ch-num { margin: 0; font: 200 clamp(110px, 15vw, 220px)/.8 var(--display); letter-spacing: -.05em; font-variant-numeric: tabular-nums; }
+.ch-tooth { margin: 14px 0 0; color: var(--soft); }
+.ch-crop { position: relative; display: inline-block; margin-top: 20px; width: min(300px, 100%); aspect-ratio: 3 / 1; background: url(media/smile.webp) no-repeat; background-size: 166%; background-position: 46% 47%; }
+.ch-crop i { position: absolute; border: 1.5px solid var(--guide); background: rgba(185,172,224,.25); }
+.ch-body { grid-column: 7 / span 5; grid-row: 1 / span 2; padding-left: clamp(20px, 3vw, 56px); padding-top: clamp(8px, 2vw, 40px); }
+.ch h2 { margin: 0; font: 200 clamp(40px, 4.6vw, 72px)/1 var(--display); letter-spacing: -.035em; text-wrap: balance; }
+.ch-body > p { margin: 18px 0 0; max-width: 34rem; }
+.ch-media { grid-column: 1 / span 6; grid-row: 2; padding-right: clamp(20px, 3vw, 56px); margin-top: 48px; display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start; justify-content: flex-end; }
+/* the patient's left: mirrored */
+.ch.l .ch-head { grid-column: 7 / span 6; padding: 0 0 0 clamp(20px, 3vw, 56px); text-align: left; }
+.ch.l .ch-body { grid-column: 2 / span 5; padding: clamp(8px, 2vw, 40px) clamp(20px, 3vw, 56px) 0 0; text-align: right; justify-self: end; }
+.ch.l .ch-body > p { margin-left: auto; }
+.ch.l .ch-media { grid-column: 7 / span 6; padding: 0 0 0 clamp(20px, 3vw, 56px); justify-content: flex-start; }
+.ch.l .ch-head .live, .ch.r .ch-head .live { text-align: left; }
+
+.phone { margin: 0; width: min(300px, 100%); }
+.phone video, .phone img { width: 100%; height: auto; aspect-ratio: 780 / 1688; object-fit: cover; object-position: top; border-radius: 30px; box-shadow: 0 0 0 1px var(--line), 0 30px 60px -36px rgba(23,20,19,.5); background: var(--bone-2); }
+.phone figcaption { margin-top: 12px; color: var(--soft); text-align: left; }
+.clip-btn { min-height: 44px; margin-left: 12px; padding: 0 2px; background: none; border: 0; color: inherit; font: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.clip-btn:hover { color: var(--ink); }
+.phone.small { width: min(240px, 100%); margin-top: 72px; }
+.voice { margin: 22px 0 0; font: italic 400 clamp(26px, 2.6vw, 38px)/1.18 var(--voice); letter-spacing: -.01em; max-width: 30rem; }
+.ch.l .voice { margin-left: auto; }
+.sig { margin: 10px 0 0; color: var(--soft); }
+
+/* live pieces, on the page */
+.live { margin-top: 28px; padding: 22px; background: var(--bone-2); text-align: left; max-width: 34rem; }
+.ch.l .live { margin-left: auto; }
+.live-k { margin: 0 0 12px; color: var(--guide-ink); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { min-height: 44px; padding: 8px 14px; border: 1px solid rgba(23,20,19,.28); border-radius: 3px; background: var(--bone); color: var(--ink); font: 300 16px var(--display); cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--guide); border-color: var(--guide); }
+.bubble { margin: 14px 0 0; padding: 14px 16px; border-radius: 14px 14px 14px 3px; background: var(--bone); min-height: 4.6em; }
+.field { display: grid; gap: 8px; }
+.field label { color: var(--soft); }
+.field input, .field textarea { width: 100%; min-height: 48px; padding: 10px 12px; border: 1px solid rgba(23,20,19,.28); border-radius: 3px; background: var(--bone); color: var(--ink); font: 300 18px/1.4 var(--display); resize: vertical; }
+.verdict { display: flex; gap: 12px; align-items: baseline; margin: 14px 0 0; min-height: 3.2em; }
+.verdict .mark { flex: none; width: 1.6em; text-align: center; font: 500 16px var(--mono); }
+.verdict[data-ok="true"] .mark { color: var(--guide-ink); }
+.verdict[data-ok="false"] .mark { color: #9A2B2B; }
+.try { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 12px 0 0; }
+.try button { padding: 4px 0; border: 0; background: none; color: var(--guide-ink); font: 400 14px var(--mono); text-decoration: underline; text-underline-offset: 4px; cursor: pointer; min-height: 32px; }
+.dates { list-style: none; margin: 16px 0 0; padding: 0; border-top: 1px solid var(--line); }
+.dates li { display: grid; grid-template-columns: 7.5em 1fr; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+.dates .d { font: 400 18px var(--mono); color: var(--guide-ink); }
+.away { margin: 10px 0 0; min-height: 1.6em; }
+
+/* the rest of the arch */
+.rest { padding-block: 72px; border-top: 1px solid var(--line); background: var(--bone); position: relative; }
+.rest-in { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(12px, 2vw, 32px); }
+.rest-in > p { grid-column: 1 / span 6; margin: 0; padding-right: clamp(20px, 3vw, 56px); text-align: right; font: 200 clamp(30px, 3vw, 44px)/1.1 var(--display); letter-spacing: -.02em; }
+.rest-in ul { grid-column: 7 / span 6; list-style: none; margin: 0; padding: 0 0 0 clamp(20px, 3vw, 56px); display: grid; gap: 6px; }
+.rest-in li { display: grid; grid-template-columns: 3.2em 1fr; gap: 8px; }
+.rest-in li .m { color: var(--guide-ink); }
+
+/* ---------------------------------------------------------------- the plans: the golden proportion */
+.prop { background: var(--screen); color: var(--on); position: relative; }
+.prop-in { padding-block: clamp(80px, 12vh, 150px) clamp(64px, 9vh, 110px); }
+.prop-head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(12px, 2vw, 32px); }
+.prop-head h2 { grid-column: 1 / span 6; margin: 0; padding-right: clamp(20px, 3vw, 56px); text-align: right; font: 200 clamp(44px, 5vw, 80px)/1 var(--display); letter-spacing: -.04em; }
+.prop-head p { grid-column: 7 / span 5; margin: 0; padding-left: clamp(20px, 3vw, 56px); color: var(--on-soft); max-width: 32rem; }
+.ratio { display: flex; margin-top: 64px; margin-left: 50%; border-left: 1px solid var(--guide); }
+.pl { flex: var(--r) 1 0; min-width: 0; padding: 0 clamp(14px, 1.6vw, 26px) 8px; border-right: 1px solid var(--on-line); }
+.pl-bar { height: 3px; background: var(--guide); margin: 0 calc(-1 * clamp(14px, 1.6vw, 26px)) 22px; }
+.pl .m { color: var(--guide); }
+.pl h3 { margin: 10px 0 0; font: 200 clamp(30px, 2.8vw, 44px)/1 var(--display); letter-spacing: -.03em; }
+.pl .price { margin: 10px 0 0; font: 400 18px var(--mono); }
+.pl .price span { display: block; font-size: 14px; color: var(--on-soft); }
+.pl ul { margin: 18px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; color: var(--on-soft); }
+.pl li { padding-top: 8px; border-top: 1px solid var(--on-line); }
+.prop-note { margin: 36px 0 0 calc(50% + clamp(14px, 1.6vw, 26px)); color: var(--on-soft); max-width: 40rem; }
+/* the rule */
+.rule { margin-top: clamp(72px, 10vh, 120px); padding-top: 56px; border-top: 1px solid var(--on-line); display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(12px, 2vw, 32px); }
+.rule h2 { grid-column: 1 / span 6; margin: 0; padding-right: clamp(20px, 3vw, 56px); text-align: right; font: 200 clamp(36px, 3.8vw, 60px)/1.05 var(--display); letter-spacing: -.03em; }
+.rule-body { grid-column: 7 / span 6; padding-left: clamp(20px, 3vw, 56px); }
+.scale { position: relative; height: 92px; margin-top: 8px; }
+.scale svg { width: 100%; height: 100%; overflow: visible; }
+.scale line { stroke: var(--on); vector-effect: non-scaling-stroke; }
+.scale .mk { stroke: var(--guide); stroke-width: 2px; }
+.scale text { fill: var(--on-soft); font: 400 13px var(--mono); }
+.scale .mt { fill: var(--guide); font-size: 14px; }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 18px; margin: 32px 0 0; }
+.facts div { border-top: 1px solid var(--on-line); padding-top: 10px; }
+.facts dt { font: 400 28px var(--mono); color: var(--on); }
+.facts dd { margin: 4px 0 0; color: var(--on-soft); font-size: 15px; }
+.rule-note { margin: 22px 0 0; color: var(--on-soft); font-size: 15px; }
+
+/* ---------------------------------------------------------------- close */
+.close { background: var(--bone); position: relative; }
+.close-in { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(12px, 2vw, 32px); padding-block: clamp(80px, 12vh, 150px); align-items: center; }
+.close-in > div { grid-column: 1 / span 6; padding-right: clamp(20px, 3vw, 56px); text-align: right; }
+.close h2 { margin: 0; font: 200 clamp(48px, 6vw, 104px)/.95 var(--display); letter-spacing: -.045em; }
+.close p { margin: 18px 0 0 auto; max-width: 30rem; }
+.acts { display: flex; flex-wrap: wrap; gap: 12px; justify-content: flex-end; margin-top: 28px; }
+.btn { display: inline-flex; align-items: center; min-height: 48px; padding: 0 22px; background: var(--ink); color: var(--bone); font: 400 16px var(--display); text-decoration: none; border-radius: 3px; }
+.btn:hover { background: var(--guide-ink); }
+.btn.line { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1px rgba(23,20,19,.35); }
+.mail { display: block; margin-top: 16px; color: var(--soft); }
+.close figure { grid-column: 7 / span 5; margin: 0; padding-left: clamp(20px, 3vw, 56px); }
+.close figure .crop6 { aspect-ratio: 3 / 1; background: url(media/smile.webp) no-repeat; background-size: 166%; background-position: 46% 47%; }
+.close figcaption { margin-top: 12px; color: var(--soft); }
+footer { background: var(--screen); color: var(--on-soft); padding-block: 40px; font-size: 15px; }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px 40px; }
+footer p { margin: 0; max-width: 60rem; }
+
+/* ---------------------------------------------------------------- phones and tablets: the midline moves to the left edge */
+@media (max-width: 899px) {
+  .arch::before, .rest::before { left: max(var(--gut), env(safe-area-inset-left, 0px)); }
+  .ch-in, .rest-in, .prop-head, .rule, .close-in { grid-template-columns: minmax(0, 1fr); }
+  .ch-head, .ch.l .ch-head, .ch-body, .ch.l .ch-body, .ch-media, .ch.l .ch-media, .rest-in > p, .rest-in ul, .prop-head h2, .prop-head p, .rule h2, .rule-body, .close-in > div, .close figure {
+    grid-column: 1; grid-row: auto; padding: 0 0 0 22px; text-align: left; justify-self: stretch; }
+  .ch.l .ch-body > p, .ch.l .voice, .ch.l .live, .close p { margin-left: 0; }
+  .ch-media, .ch.l .ch-media, .acts { justify-content: flex-start; }
+  .ch-num { font-size: clamp(96px, 30vw, 150px); }
+  .ch-body { margin-top: 22px; }
+  .ch-media { margin-top: 32px; }
+  .phone.small { margin-top: 0; }
+  .prop-head p, .rule-body, .close figure { margin-top: 22px; }
+  .ratio { margin-left: 0; flex-direction: column; border-left: 0; gap: 30px; }
+  .pl { border-right: 0; padding: 0; }
+  .pl-bar { width: calc(var(--r) / 1.618 * 100%); margin: 0 0 16px; }
+  .prop-note { margin-left: 0; }
+  .midline { left: max(var(--gut), env(safe-area-inset-left, 0px)); display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="sfbar gut"><div class="wrap">
+  <a class="wm" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su" aria-label="Sitefloor home">sitefl<svg width="28" height="14" viewBox="0 0 42 21" aria-hidden="true"><rect x="1.9" y="1.9" width="38.2" height="17.2" rx="8.6" fill="none" stroke="#0E0F11" stroke-width="3.8"/><circle cx="31.5" cy="10.5" r="5.2" fill="#E8613C"/></svg>r</a>
+  <nav aria-label="Main"><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#live">Features</a><a href="#top" aria-current="page">Work</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#pricing">Pricing</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#guides">Guides</a></nav>
+  <a class="sfbtn" href="#mockup"><span>Free mockup</span><span aria-hidden="true">→</span></a>
+</div></div>
+
+<main id="top">
+<section class="plan gut" aria-labelledby="h1">
+  <div class="midline" aria-hidden="true"></div>
+  <div class="wrap plan-in">
+    <div class="plan-head">
+      <p class="m" style="margin:0 0 18px;color:var(--guide)">Marlie · teeth whitening, Shoreditch</p>
+      <h1 id="h1">The social six.</h1>
+      <p class="plan-lede">The six front teeth are the ones that show when you smile. A cosmetic dentist plans each one against the others. <b>Marlie's website is read the same way: six things a patient sees first.</b></p>
+    </div>
+
+    <div class="photo">
+      <img src="media/smile.webp" width="1400" height="1400" alt="A close smile in black and white, the nose above it, the six front teeth showing" fetchpriority="high">
+      <svg class="guides" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <!-- commissure line, through the corners of the mouth -->
+        <line class="g thin draw" x1="6.7" y1="38.1" x2="85.6" y2="34.5" style="--len:120;--d:.6s"/>
+        <text class="lab fade" x="86.5" y="34" style="--d:2s">2.6°</text>
+        <!-- the top of the six, under the lip -->
+        <line class="g thin draw" x1="14" y1="43.4" x2="84" y2="43.4" style="--len:120;--d:.9s"/>
+        <!-- the smile arc, along the edges of the six -->
+        <polyline class="halo draw" points="20.8,48.3 29.1,49.8 37.6,51.0 50,51.3 62.2,50.4 70.6,49.6 77.5,48.6" style="--len:120;--d:1.1s"/>
+        <polyline class="g draw" points="20.8,48.3 29.1,49.8 37.6,51.0 50,51.3 62.2,50.4 70.6,49.6 77.5,48.6" style="--len:120;--d:1.1s"/>
+        <text class="lab fade" x="78.8" y="51.6" style="--d:2.4s">smile arc</text>
+        <!-- the six, edge to edge -->
+        <g class="fade" style="--d:1.7s">
+          <line class="tick" x1="20.8" y1="41.5" x2="20.8" y2="55"/><line class="tick" x1="29.1" y1="41.5" x2="29.1" y2="55"/><line class="tick" x1="37.6" y1="41.5" x2="37.6" y2="55"/>
+          <line class="tick" x1="62.2" y1="41.5" x2="62.2" y2="55"/><line class="tick" x1="70.6" y1="41.5" x2="70.6" y2="55"/><line class="tick" x1="77.5" y1="41.5" x2="77.5" y2="55"/>
+          <text x="22.9" y="39.6">0.67</text><text x="31.2" y="39.6">0.69</text><text x="42" y="39.6">1.00</text><text x="54.2" y="39.6">0.98</text><text x="64.5" y="39.6">0.68</text><text x="72" y="39.6">0.56</text>
+        </g>
+      </svg>
+      <a class="tooth" href="#t13" data-t="13" style="left:20.8%;width:8.3%"><span>13</span></a>
+      <a class="tooth" href="#t12" data-t="12" style="left:29.1%;width:8.5%"><span>12</span></a>
+      <a class="tooth" href="#t11" data-t="11" style="left:37.6%;width:12.4%"><span>11</span></a>
+      <a class="tooth" href="#t21" data-t="21" style="left:50%;width:12.2%"><span>21</span></a>
+      <a class="tooth" href="#t22" data-t="22" style="left:62.2%;width:8.4%"><span>22</span></a>
+      <a class="tooth" href="#t23" data-t="23" style="left:70.6%;width:6.9%"><span>23</span></a>
+    </div>
+
+    <div class="plan-side">
+      <dl class="readout m" aria-live="polite">
+        <dt>Tooth</dt><dd class="now" data-r="t">11</dd>
+        <dt>Is</dt><dd data-r="n">Upper right central incisor</dd>
+        <dt>Width</dt><dd data-r="w">1.00 of the front tooth</dd>
+        <dt>On the site</dt><dd><a data-r="c" href="#t11">The first thing they see</a></dd>
+      </dl>
+    </div>
+    <div class="plan-foot">
+      <p class="plan-note m">A model, not a patient. Touch a tooth. Widths are measured on this photograph, against the front tooth beside the midline.</p>
+    </div>
+  </div>
+</section>
+
+<div class="arch">
+
+<section class="ch r gut" id="t11" aria-labelledby="h11">
+  <div class="wrap ch-in">
+    <div class="ch-head"><p class="ch-num" aria-hidden="true">11</p><p class="ch-tooth m">Upper right central incisor</p><span class="ch-crop" data-crop="37.6,50" aria-hidden="true"></span></div>
+    <div class="ch-body">
+      <h2 id="h11">The first thing they see.</h2>
+      <p>A photo-booth strip of four smiles, developing frame by frame as the page opens. On a phone the strip never runs taller than the screen, and Book a consultation stays in the bar at the foot of it.</p>
+      <p>Over the strip, one plain line: teeth whitening, by a dentist, with the dentist's GDC number at the size of everything else.</p>
+    </div>
+    <div class="ch-media">
+      <figure class="phone"><video class="clip" muted loop playsinline preload="none" poster="media/strip-poster.webp" data-src="media/strip.mp4" width="780" height="1688" aria-label="The home page on a phone: four smiles in a photo-booth strip develop one after another"></video><figcaption class="m">/ on a phone · models, not patients</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="ch l gut" id="t21" aria-labelledby="h21">
+  <div class="wrap ch-in">
+    <div class="ch-head"><p class="ch-num" aria-hidden="true">21</p><p class="ch-tooth m">Upper left central incisor</p><span class="ch-crop" data-crop="50,62.2" aria-hidden="true"></span></div>
+    <div class="ch-body">
+      <h2 id="h21">Tell me what you'd change.</h2>
+      <p class="voice">I'll tell you honestly what's possible.</p>
+      <p class="sig m">Dr Marlie Okon, dentist · GDC 000000 (demo)</p>
+      <p>Patients tap what they'd like, and the message to the studio writes itself, ready to send on WhatsApp. Nothing clinical is asked, and no one is asked for photos of their teeth.</p>
+      <div class="live" data-chooser>
+        <p class="live-k m">Live, with the demo's own words</p>
+        <div class="chips" role="group" aria-label="What would you like?"></div>
+        <p class="bubble" aria-live="polite"></p>
+      </div>
+    </div>
+    <div class="ch-media">
+      <figure class="phone"><video class="clip" muted loop playsinline preload="none" poster="media/chooser-poster.webp" data-src="media/chooser.mp4" width="780" height="1688" aria-label="On a phone, a visitor taps A chipped tooth, then Just prices, and the message changes each time"></video><figcaption class="m">/#chooser on a phone</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="ch r gut" id="t12" aria-labelledby="h12">
+  <div class="wrap ch-in">
+    <div class="ch-head"><p class="ch-num" aria-hidden="true">12</p><p class="ch-tooth m">Upper right lateral incisor</p><span class="ch-crop" data-crop="29.1,37.6" aria-hidden="true"></span></div>
+    <div class="ch-body">
+      <h2 id="h12">Nothing it can't keep.</h2>
+      <p>Every clinician is named as the GDC asks: role, qualification, country and GDC number, linked to the register. The complaints procedure is on every site, on every plan, at full size, with the Dental Complaints Service wherever there's private treatment.</p>
+      <p>And the site reads every word before it goes up. A promised shade, "permanent", a guarantee, a laser, "painless" or "specialist" for someone on no GDC list: it won't publish them.</p>
+      <div class="live">
+        <p class="live-k m">Live: write a line for your website</p>
+        <div class="field"><label for="claim" class="m">Your line</label><textarea id="claim" rows="2">Three shades whiter in an hour.</textarea></div>
+        <p class="verdict" data-verdict aria-live="polite"><span class="mark" aria-hidden="true"></span><span class="why"></span></p>
+        <div class="try" aria-label="Try another line">
+          <button type="button">Lifetime results, guaranteed.</button>
+          <button type="button">Our whitening specialists.</button>
+          <button type="button">We won't promise a shade.</button>
+        </div>
+      </div>
+    </div>
+    <div class="ch-media">
+      <figure class="phone"><img src="media/patient.webp" width="780" height="1688" loading="lazy" alt="The patient information page on a phone: who treats you, a private practice, each clinician with a GDC number"><figcaption class="m">/patient-information</figcaption></figure>
+      <figure class="phone small"><img src="media/treatments.webp" width="780" height="1688" loading="lazy" alt="Treatments and prices on a phone, each with the clinician and their GDC number"><figcaption class="m">/#treatments</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="ch l gut" id="t22" aria-labelledby="h22">
+  <div class="wrap ch-in">
+    <div class="ch-head"><p class="ch-num" aria-hidden="true">22</p><p class="ch-tooth m">Upper left lateral incisor</p><span class="ch-crop" data-crop="62.2,70.6" aria-hidden="true"></span></div>
+    <div class="ch-body">
+      <h2 id="h22">When's the big day?</h2>
+      <p>One date in, the dates to book out, worked back from the studio's own timings. Into the calendar, or to the studio in one message.</p>
+      <div class="live" data-wedding>
+        <p class="live-k m">Live, with the demo's own timings</p>
+        <div class="field"><label for="wd" class="m">The day</label><input id="wd" type="date"></div>
+        <p class="away m" aria-live="polite"></p>
+        <ol class="dates"></ol>
+      </div>
+    </div>
+    <div class="ch-media">
+      <figure class="phone"><video class="clip" muted loop playsinline preload="none" poster="media/wedding-poster.webp" data-src="media/wedding.mp4" width="780" height="1688" aria-label="On a phone, a bride types 5 June 2027 and four dates appear, from 13 March to 29 May"></video><figcaption class="m">/wedding</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="ch r gut" id="t13" aria-labelledby="h13">
+  <div class="wrap ch-in">
+    <div class="ch-head"><p class="ch-num" aria-hidden="true">13</p><p class="ch-tooth m">Upper right canine</p><span class="ch-crop" data-crop="20.8,29.1" aria-hidden="true"></span></div>
+    <div class="ch-body">
+      <h2 id="h13">Visit by visit.</h2>
+      <p>Choose a treatment and every visit is laid out: how long it takes, the weeks in between. Give the first date and each visit is dated, ready for the calendar.</p>
+      <p>Afterwards, the dentist's own aftercare, and reminders for the top-up and the hygiene visit, set from the day of treatment.</p>
+    </div>
+    <div class="ch-media">
+      <figure class="phone"><img src="media/journey.webp" width="780" height="1688" loading="lazy" alt="Whitening at home on a phone: three visits, dated Monday 23 November, 7 December and 28 December 2026"><figcaption class="m">/journey</figcaption></figure>
+      <figure class="phone small"><img src="media/aftercare.webp" width="780" height="1688" loading="lazy" alt="Aftercare reminders on a phone: a hygiene visit at six months, top-up gel at twelve"><figcaption class="m">/aftercare</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="ch l gut" id="t23" aria-labelledby="h23">
+  <div class="wrap ch-in">
+    <div class="ch-head"><p class="ch-num" aria-hidden="true">23</p><p class="ch-tooth m">Upper left canine</p><span class="ch-crop" data-crop="70.6,77.5" aria-hidden="true"></span></div>
+    <div class="ch-body">
+      <h2 id="h23">Smiles, with consent. And a way in.</h2>
+      <p>The gallery shows only the studio's own patients, with the consent the studio has recorded, and never a retouched photograph. A before is only ever of the same person.</p>
+      <p>Arriving: choose the appointment time and the walk from the door to the chair re-times itself.</p>
+    </div>
+    <div class="ch-media">
+      <figure class="phone small"><img src="media/smiles.webp" width="780" height="1688" loading="lazy" alt="The smiles page on a phone: black-and-white photographs labelled as models, not patients"><figcaption class="m">/smiles</figcaption></figure>
+      <figure class="phone"><img src="media/arriving.webp" width="780" height="1688" loading="lazy" alt="Arriving on a phone: for 18.00, the black door at 17.58, your room at 18.00, out at 18.45"><figcaption class="m">/studio#arriving</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="rest gut" aria-label="The rest of the site">
+  <div class="wrap rest-in">
+    <p>And the rest of the arch.</p>
+    <ul>
+      <li><span class="m">14</span> Treatments and prices, one page per treatment</li>
+      <li><span class="m">15</span> Whitening, with the UK rule dated and linked</li>
+      <li><span class="m">16</span> The consultation: how long, the fee, what to bring</li>
+      <li><span class="m">24</span> The clinicians, in their own words</li>
+      <li><span class="m">25</span> The journal, signed by the dentist</li>
+      <li><span class="m">26</span> The studio, room by room, and Plan your visit</li>
+    </ul>
+  </div>
+</section>
+
+</div>
+
+<section class="prop gut" aria-labelledby="hplans">
+  <div class="wrap prop-in">
+    <div class="prop-head">
+      <h2 id="hplans">The golden proportion.</h2>
+      <p>One proportion some cosmetic dentists plan to: each tooth about 0.618 the width of the one nearer the midline. The plans are drawn to it. Every one has the booth strip, every GDC line and the complaints page, and no running costs beyond hosting and the domain. Twelve months to start.</p>
+    </div>
+    <div class="ratio">
+      <article class="pl" style="--r:1.618"><div class="pl-bar" aria-hidden="true"></div><p class="m">11 · 1.618</p><h3>Signature</h3><p class="price">£349 <span>then £35 a month</span></p>
+        <ul><li>Up to 20 pages</li><li>When's the big day, from one date</li><li>Smiles, with recorded consent</li><li>A page for each treatment</li><li>The journal; the studio and arriving</li></ul></article>
+      <article class="pl" style="--r:1"><div class="pl-bar" aria-hidden="true"></div><p class="m">12 · 1</p><h3>Plus</h3><p class="price">£199 <span>then £30 a month</span></p>
+        <ul><li>Up to 5 pages</li><li>Tell me what you'd change</li><li>Whitening, with the UK rule</li><li>Visit by visit, dated</li><li>Aftercare with reminders</li></ul></article>
+      <article class="pl" style="--r:.618"><div class="pl-bar" aria-hidden="true"></div><p class="m">13 · 0.618</p><h3>Starter</h3><p class="price">£99 <span>then £25 a month</span></p>
+        <ul><li>Home and Plan your visit</li><li>Prices, with GDC numbers</li><li>Patient information</li><li>Before you book</li></ul></article>
+    </div>
+    <p class="prop-note">Read outward from the midline: the widest is the most. Any feature can be added to any plan on its own.</p>
+
+    <div class="rule">
+      <h2>Measured to a tenth of a second.</h2>
+      <div class="rule-body">
+        <div class="scale" aria-hidden="true">
+          <svg viewBox="0 0 300 92" preserveAspectRatio="none">
+            <g id="ticks"></g>
+            <line class="mk" x1="140" y1="6" x2="140" y2="56"/><text class="mt" x="140" y="0" text-anchor="middle">1.4 s</text>
+            <line class="mk" x1="230" y1="6" x2="230" y2="56"/><text class="mt" x="230" y="0" text-anchor="middle">2.3 s</text>
+          </svg>
+        </div>
+        <dl class="facts">
+          <div><dt>1.4 s</dt><dd>until the page paints, on a phone</dd></div>
+          <div><dt>2.3 s</dt><dd>until the strip shows</dd></div>
+          <div><dt>97–98</dt><dd>Lighthouse, home page, on a phone</dd></div>
+          <div><dt>100</dt><dd>accessibility</dd></div>
+          <div><dt>0</dt><dd>layout shift</dd></div>
+        </dl>
+        <p class="rule-note">Lighthouse 12, mobile, three runs on the Marlie demo's home page.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="close gut" id="mockup" aria-labelledby="hclose">
+  <div class="wrap close-in">
+    <div>
+      <h2 id="hclose">Your smile, on their phone.</h2>
+      <p>Send us your treatments, your prices and a few of your own photographs, and we'll make a free mockup of your home page.</p>
+      <div class="acts">
+        <a class="btn line" href="https://claude.ai/artifact/JN8honZCcWaKkGjChPySSG">Try the demo first</a>
+        <a class="btn" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#free">Get a free mockup</a>
+      </div>
+      <span class="mail m">hello@sitefloor.com</span>
+    </div>
+    <figure><div class="crop6" role="img" aria-label="The six front teeth, close"></div><figcaption class="m">13 12 11 | 21 22 23</figcaption></figure>
+  </div>
+</section>
+</main>
+
+<footer class="gut"><div class="wrap">
+  <p>Marlie is a fictional teeth whitening studio made to show the Sitefloor smile kit. Its dentist, prices and GDC numbers (000000, a number that belongs to no one) are demo data. Its photographs are free stock from Pexels, of models, not patients, each credited in our records.</p>
+  <span>© 2026 Sitefloor</span>
+</div></footer>
+
+<script>
+(() => {
+  const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+
+  // The six: what each tooth is, how wide it shows against the front tooth, and its chapter.
+  const SIX = {
+    13: ["Upper right canine", "0.67", "Visit by visit"], 12: ["Upper right lateral incisor", "0.69", "Nothing it can't keep"],
+    11: ["Upper right central incisor", "1.00", "The first thing they see"], 21: ["Upper left central incisor", "0.98", "Tell me what you'd change"],
+    22: ["Upper left lateral incisor", "0.68", "When's the big day?"], 23: ["Upper left canine", "0.56", "Smiles, with consent"],
+  };
+  const show = (t) => {
+    const [n, w, c] = SIX[t];
+    $('[data-r="t"]').textContent = t; $('[data-r="n"]').textContent = n; $('[data-r="w"]').textContent = `${w} of the front tooth`;
+    const a = $('[data-r="c"]'); a.textContent = c; a.href = `#t${t}`;
+    $$(".tooth").forEach((b) => b.setAttribute("aria-current", String(b.dataset.t === String(t))));
+  };
+  $$(".tooth").forEach((b) => {
+    b.setAttribute("aria-label", `Tooth ${b.dataset.t}: ${SIX[b.dataset.t][2]}`);
+    for (const ev of ["pointerenter", "focus"]) b.addEventListener(ev, () => show(b.dataset.t));
+  });
+  show(11);
+
+  // Each chapter opens on the six, its own tooth marked (x from, x to, in % of the photograph). The crop shows the
+  // photograph at 166% of its width, from 46% across and 47% down, so a point in the photograph lands here:
+  $$("[data-crop]").forEach((el) => {
+    const [a, b] = el.dataset.crop.split(",").map(Number), W = 1.66, ox = (1 - W) * 0.46, oy = (1 / 3 - W) * 0.47;
+    const i = document.createElement("i");
+    i.style.left = `${(ox + (W * a) / 100) * 100}%`; i.style.width = `${W * (b - a)}%`;
+    i.style.top = `${((oy + W * 0.405) * 3) * 100}%`; i.style.height = `${W * 0.13 * 3 * 100}%`;
+    el.append(i);
+  });
+
+  // Tell me what you'd change: the demo's own choices and messages.
+  const OPTIONS = [
+    ["Whiter for my wedding", "Hi Marlie, I'm getting married next year and I'd love whiter teeth for it. Could I book a consultation?"],
+    ["A chipped tooth", "Hi Marlie, I've chipped a front tooth. Could bonding help? I'd like to book a consultation."],
+    ["Gaps or uneven edges", "Hi Marlie, I'd like to talk about the gaps and uneven edges on my front teeth. Could I book a consultation?"],
+    ["Sensitive teeth", "Hi Marlie, my teeth are quite sensitive. Is whitening still possible for me?"],
+    ["Just prices", "Hi Marlie, could you send me your prices for whitening and bonding? Thank you."],
+  ];
+  const ch = $("[data-chooser]"), chips = $(".chips", ch), bubble = $(".bubble", ch);
+  chips.innerHTML = OPTIONS.map((o, i) => `<button type="button" class="chip" aria-pressed="${i === 0}">${o[0]}</button>`).join("");
+  bubble.textContent = OPTIONS[0][1];
+  $$(".chip", chips).forEach((b, i) => b.addEventListener("click", () => {
+    $$(".chip", chips).forEach((x, j) => x.setAttribute("aria-pressed", String(i === j))); bubble.textContent = OPTIONS[i][1];
+  }));
+
+  // The claims check, as the smile kit runs it on every word of a client's site (CAP advice on whitening; GDC on advertising).
+  const claimProblem = (text) => {
+    const n = "(?:\\d+|a|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)";
+    if (new RegExp(`\\b${n}\\s*(?:(?:to|or|-|–)\\s*${n}\\s*)?shades?\\s+(?:lighter|whiter|brighter)\\b|\\b(?:\\d+|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)\\s*(?:(?:to|or|-|–)\\s*${n}\\s*)?shades?\\b|\\ba shade or (?:two|more)\\b`, "i").test(text)) return "Won't publish: it promises a number of shades. The dentist shows what's realistic at consultation instead (CAP).";
+    if (/\bpermanent(?:ly)?\b|\blasts? (?:for ever|forever)\b|\blifetime\b|\blife-long\b|\blifelong\b/i.test(text)) return "Won't publish: it says the result lasts. Whitening fades (CAP).";
+    if (/\bguarant/i.test(text)) return "Won't publish: it guarantees a result (CAP).";
+    if (/\bpain(?:less|-free| free)\b/i.test(text)) return "Won't publish: it promises no pain. Say what the dentist does about sensitivity instead.";
+    if (/\blasers?\b|\blight[- ](?:activated|accelerated|assisted|powered)\b|\bblue light\b|\bUV light\b/i.test(text) || /\bLED\b/.test(text)) return "Won't publish: it implies a laser or light does the whitening (CAP).";
+    if (/\bspeciali[sz](?:t|ts|e|es|ing|ed)\b/i.test(text)) return "Won't publish: \"specialist\" is only for someone on a GDC specialist list. \"Special interest in\" is fine.";
+    return null;
+  };
+  const claim = $("#claim"), verdict = $("[data-verdict]");
+  const judge = () => {
+    const t = claim.value.trim(), why = t ? claimProblem(t) : null;
+    verdict.dataset.ok = String(!why);
+    $(".mark", verdict).textContent = !t ? "" : why ? "×" : "✓";
+    $(".why", verdict).textContent = !t ? "" : why ?? "Publishes. Nothing in it the studio can't stand behind.";
+  };
+  claim.addEventListener("input", judge);
+  $$(".try button").forEach((b) => b.addEventListener("click", () => { claim.value = b.textContent; judge(); claim.focus(); }));
+  judge();
+
+  // When's the big day: the demo's own steps, in weeks before the day.
+  const STEPS = [[12, "Consultation", "Book by this week"], [9, "Whitening starts", "Trays fitted, three weeks of evenings"], [5, "Check-in", "Fifteen minutes"], [1, "Final polish", "The week before"]];
+  const wd = $("#wd"), away = $(".away"), dates = $(".dates");
+  const ymd = (d) => d.toISOString().slice(0, 10);
+  const uk = (d, o) => d.toLocaleDateString("en-GB", { timeZone: "UTC", ...o });
+  const today = new Date(); const t0 = new Date(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()));
+  let day = new Date(t0.getTime() + 210 * 864e5); day = new Date(day.getTime() + ((6 - day.getUTCDay() + 7) % 7) * 864e5);
+  wd.min = ymd(new Date(t0.getTime() + 864e5)); wd.value = ymd(day);
+  const plan = () => {
+    if (!wd.value) { away.textContent = ""; dates.innerHTML = ""; return; }
+    const d = new Date(wd.value + "T00:00:00Z"), days = Math.round((d - t0) / 864e5);
+    if (days < 1) { away.textContent = "Choose a day still to come."; dates.innerHTML = ""; return; }
+    away.textContent = `${uk(d, { weekday: "long", day: "numeric", month: "long", year: "numeric" })} · ${days >= 7 ? `${Math.floor(days / 7)} weeks away` : `${days} days away`}`;
+    dates.innerHTML = STEPS.map(([w, l, n]) => { const s = new Date(d.getTime() - w * 7 * 864e5), past = s < t0;
+      return `<li><span class="d">${past ? "Now" : uk(s, { day: "numeric", month: "short" })}</span><span>${l}<br><span style="color:var(--soft)">${n}</span></span></li>`; }).join("");
+  };
+  wd.addEventListener("change", plan); wd.addEventListener("input", plan); plan();
+
+  // The rule: 0 to 3 seconds, a tick every tenth.
+  const g = $("#ticks"); let s = "";
+  for (let i = 0; i <= 30; i++) { const x = i * 10, long = i % 10 === 0, mid = i % 5 === 0;
+    s += `<line x1="${x}" y1="${long ? 18 : mid ? 26 : 32}" x2="${x}" y2="44" style="opacity:${long ? 1 : .55}"/>`;
+    if (long) s += `<text x="${x}" y="64" text-anchor="${i === 0 ? "start" : i === 30 ? "end" : "middle"}">${i / 10} s</text>`; }
+  g.innerHTML = `<line x1="0" y1="44" x2="300" y2="44"/>` + s;
+
+  // Clips play while they're on screen, never for visitors who ask for less motion.
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const io = new IntersectionObserver((es) => es.forEach((e) => {
+    const v = e.target;
+    if (e.isIntersecting && !v.getAttribute("src")) v.src = v.dataset.src;
+    if (e.isIntersecting && !still && !v.dataset.held) v.play().catch(() => {}); else if (!v.paused) v.pause();
+  }), { rootMargin: "200px 0px" });
+  const names = { "media/strip.mp4": "the booth strip clip", "media/chooser.mp4": "the chooser clip", "media/wedding.mp4": "the wedding dates clip" };
+  $$(".clip").forEach((v) => {
+    if (still) { v.controls = true; io.observe(v); return; }
+    const b = document.createElement("button"), name = names[v.dataset.src];
+    const say = (w) => { b.textContent = w; b.setAttribute("aria-label", `${w} ${name}`); };
+    b.type = "button"; b.className = "clip-btn m"; say("Pause");
+    b.addEventListener("click", () => { if (v.paused) { delete v.dataset.held; v.play().catch(() => {}); say("Pause"); } else { v.dataset.held = "1"; v.pause(); say("Play"); } });
+    v.parentElement.querySelector("figcaption").append(b);
+    io.observe(v);
+  });
+})();
+</script>
+</body>
+</html>

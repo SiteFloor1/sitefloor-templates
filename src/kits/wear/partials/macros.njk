@@ -1,0 +1,14 @@
+{#- Where a piece links to: its own page (Signature), else the shop page (Plus), else the brand's shop. -#}
+{%- macro pieceHref(p) -%}
+{%- if "piece-pages" | enabled %}{{ p.id | href }}{% elif "shop-page" | enabled %}{{ 'shells' | href }}#{{ p.id }}{% elif site.mode == "demo" %}#pieces{% else %}{{ p.buy or site.shop.url }}{% endif -%}
+{%- endmacro %}
+{#- Where Buy goes: the piece on the brand's shop. A demo has no shop, so Buy says so instead of leaving the site. -#}
+{%- macro buyLink(p, cls) -%}
+{%- if site.mode == "demo" %}<span class="{{ cls }} is-demo" title="{{ site.shop.note }}">{{ site.shop.name }}</span>
+{%- else %}<a class="{{ cls }}" href="{{ p.buy or site.shop.url }}" target="_blank" rel="noopener">{{ site.shop.name }}</a>{% endif -%}
+{%- endmacro %}
+{#- A Google Form link. On a demo the Form is fictional, so the link opens a note saying what it would do instead. -#}
+{%- macro formLink(url, label, what, cls) -%}
+{%- if site.mode == "demo" %}<details class="wr-form {{ cls }}"><summary>{{ label }}</summary><p>{{ what }} On this demo the form is fictional.</p></details>
+{%- else %}<a class="{{ cls }}" href="{{ url }}" target="_blank" rel="noopener">{{ label }}</a>{% endif -%}
+{%- endmacro %}

@@ -1,0 +1,26 @@
+{#- The sample table: the materials the studio builds with as photographs on one board, each tagged; touch one and it
+    becomes the garden it was laid in. Tick samples to ask for them on WhatsApp. Without JavaScript the tags and the
+    gardens' names show, and the button opens WhatsApp with the opening line. -#}
+{%- set mt = site.materials %}
+{%- set ph = mt %}
+{% include "kits/garden/partials/page-head.njk" %}
+<section class="wrap gd-mt" data-feature="materials" aria-label="{{ mt.title | plain }}">
+  <ul class="gd-mt-board">
+    {%- for m in mt.items %}
+    {%- set g = site.gardens.items | byId(m.garden) if m.garden else null %}
+    <li class="gd-mt-s gd-mt-s{{ loop.index0 % 6 }}">
+      <button class="gd-mt-b" type="button" aria-pressed="false" data-mt-id="{{ m.id }}"{% if g %} aria-describedby="mt-u-{{ m.id }}"{% endif %}>
+        <img class="gd-mt-img" src="{{ m.photo.src | img }}" alt="{{ m.photo.alt }}" width="{{ m.photo.width }}" height="{{ m.photo.height }}" loading="{{ 'eager' if loop.index <= 2 else 'lazy' }}" decoding="async">
+        {%- if g %}<img class="gd-mt-g" data-src="{{ g.photo.src | img }}" alt="" width="{{ g.photo.width }}" height="{{ g.photo.height }}" decoding="async">{% endif %}
+        <span class="gd-mt-tag"><b>{{ m.name }}</b>{% if m.detail %}<span>{{ m.detail }}</span>{% endif %}{% if g %}<span class="gd-mt-used" id="mt-u-{{ m.id }}">{{ g.name }}, {{ g.place }}</span>{% endif %}</span>
+      </button>
+      <label class="gd-mt-want"><input type="checkbox" value="{{ m.name }}" data-mt-want> Ask for a sample</label>
+    </li>
+    {%- endfor %}
+  </ul>
+  <div class="gd-mt-go">
+    <a class="btn" data-mt-send href="{{ mt.message | book }}" target="_blank" rel="noopener">Ask for samples on WhatsApp</a>
+    <p class="gd-small" data-mt-count aria-live="polite">Touch a sample to see where we laid it.</p>
+  </div>
+  {%- if mt.note %}<p class="gd-small">{{ mt.note }}</p>{% endif %}
+</section>

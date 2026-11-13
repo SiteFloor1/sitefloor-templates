@@ -1,0 +1,26 @@
+/* The year in twelve plants. Strips share the row; the open one takes most of it. The look sets the height. */
+.gd-year { display: flex; gap: 4px; height: var(--year-h, min(68vh, 640px)); min-height: 420px; }
+.gd-m { all: unset; position: relative; flex: 1 1 0; min-width: 0; overflow: hidden; cursor: pointer; background: var(--surface-2); transition: flex-grow 1.1s cubic-bezier(.2, .7, .2, 1); }
+.gd-m[aria-pressed="true"] { flex-grow: 9; cursor: default; }
+.gd-m-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: filter .9s ease; }
+.gd-m:not([aria-pressed="true"]) .gd-m-img { filter: saturate(.6) brightness(.74); }
+.gd-m:not([aria-pressed="true"]):hover .gd-m-img { filter: saturate(.85) brightness(.92); }
+.gd-m-l { position: absolute; left: 0; right: 0; bottom: 12px; text-align: center; color: var(--on-photo); font-size: 17px; transition: opacity .6s; }
+.gd-m[aria-pressed="true"] .gd-m-l { opacity: 0; }
+.gd-m-open { position: absolute; left: clamp(16px, 2vw, 28px); right: clamp(16px, 2vw, 28px); bottom: clamp(18px, 2vw, 26px); color: var(--on-photo); opacity: 0; transition: opacity .8s .35s; }
+.gd-m[aria-pressed="true"] .gd-m-open { opacity: 1; }
+.gd-m-name { display: block; font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: clamp(44px, 8vw, 128px); line-height: .9; letter-spacing: -.02em; }
+.gd-m-line { display: block; font-size: 17px; margin-top: 10px; max-width: 34ch; text-shadow: 0 1px 12px var(--photo-scrim); }
+.gd-m:focus-visible { outline: 2px solid var(--accent); outline-offset: -4px; }
+@media (max-width: 760px) {
+  /* five strips, in order from two months before the open one, each at least 24px wide to tap */
+  .gd-year { gap: 3px; height: var(--year-h-phone, 62vh); min-height: 430px; }
+  .gd-m { min-width: 28px; }
+  .gd-m[data-pos="5"], .gd-m[data-pos="6"], .gd-m[data-pos="7"], .gd-m[data-pos="8"], .gd-m[data-pos="9"], .gd-m[data-pos="10"], .gd-m[data-pos="11"] { display: none; }
+  .gd-m[data-pos="0"] { order: 0; } .gd-m[data-pos="1"] { order: 1; } .gd-m[data-pos="2"] { order: 2; } .gd-m[data-pos="3"] { order: 3; } .gd-m[data-pos="4"] { order: 4; }
+  .gd-m[aria-pressed="true"] { flex-grow: 8; }
+  .gd-m-l { font-size: 14px; bottom: 10px; }
+  .gd-m-name { font-size: 40px; }
+  .gd-m-line { font-size: 15px; }
+}
+@media (prefers-reduced-motion: reduce) { .gd-m, .gd-m-img, .gd-m-l, .gd-m-open { transition: none; } }

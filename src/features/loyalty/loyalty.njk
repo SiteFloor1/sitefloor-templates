@@ -1,0 +1,34 @@
+{#- Loyalty card. Barbers compare against a service ("a skin fade every 3 weeks"); cafés and restaurants against a menu
+    item and how many times a week ("a flat white 5 times a week"). The item's name and price travel as data attributes. -#}
+{%- set sec = site.sections.loyalty %}
+{%- set l = site.loyalty %}
+{%- set cafe = site.kit == "restaurant" %}
+{%- set svc = (site.menu | dish(l.compareService)) if cafe else (l.compareService | service) %}
+{%- set yr = 3 | loyaltyYear(l, svc.price) %}
+{%- set perYear = 5 * 52 %}
+<section id="loyalty" class="sec-loyalty" data-feature="loyalty" data-ly-mode="{{ 'week' if cafe else 'weeks' }}" data-ly-name="{{ svc.name }}" data-ly-price="{{ svc.price }}"{{ "loyalty" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="ly">
+    <div class="ly-card rv" role="img" aria-label="Loyalty card with {{ l.stamps }} stamps; {{ l.reward }}">
+      <div class="ly-top"><b>{{ site.business.name }}</b><span>Loyalty card</span></div>
+      <ol class="ly-stamps" data-ly-stamps>
+        {%- for i in range(1, l.stamps + 1) %}<li{% if loop.last %} class="free"{% endif %}>{% if loop.last %}Free{% else %}{{ i }}{% endif %}</li>{% endfor %}
+      </ol>
+      <p class="ly-reward">{{ l.reward }}</p>
+    </div>
+    <div class="ly-calc rv">
+      {%- if cafe %}
+      <label class="ly-q" for="ly-weeks">I come in <output data-ly-weeks for="ly-weeks">5</output> <span data-ly-unit>times a week</span></label>
+      <input id="ly-weeks" data-js-only type="range" min="1" max="7" step="1" value="5" data-ly-range>
+      {%- set freeYr = (perYear / l.stamps) | int %}
+      <p class="ly-out" data-ly-out>A {{ svc.name | lower }} 5 times a week is {{ perYear }} a year: <b>{{ freeYr }} free</b>, worth {{ (freeYr * svc.price) | pounds }}.</p>
+      {%- else %}
+      <label class="ly-q" for="ly-weeks">I come in every <output data-ly-weeks for="ly-weeks">3</output> <span data-ly-unit>weeks</span></label>
+      <input id="ly-weeks" data-js-only type="range" min="1" max="8" step="1" value="3" data-ly-range>
+      <p class="ly-out" data-ly-out>A {{ svc.name | lower }} every 3 weeks is {{ yr.cuts }} cuts a year: <b>{{ yr.free }} free</b>{% if yr.free %}, worth {{ yr.value | pounds }}{% endif %}.</p>
+      {%- endif %}
+      <p class="ly-note">Worked out from our price for a {{ svc.name | lower }} ({{ svc.price | pounds }}).</p>
+      <ul class="ly-rules">{% for r in l.rules %}<li>{{ r }}</li>{% endfor %}</ul>
+    </div>
+  </div>
+</div></section>

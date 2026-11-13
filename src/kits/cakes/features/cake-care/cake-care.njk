@@ -1,0 +1,9 @@
+{#- Looking after the cake: carrying, storing, cutting, keeping the top tier, in the studio's words. -#}
+{%- set sec = site.sections.care %}
+<section id="care" class="ck-care" data-feature="cake-care" aria-label="{{ sec.title | plain }}"{{ 'cake-care' | tierAttr | safe }}><div class="wrap">
+  {%- include "core/partials/section-head.njk" %}
+  <ol class="ck-steps">
+    {%- for s in site.care.steps %}<li><b>{{ s.title }}</b><p>{{ s.text }}</p></li>{% endfor %}
+  </ol>
+  {%- if site.care.keep %}<p class="ck-care-k">{{ site.care.keep }}</p>{% endif %}
+</div></section>

@@ -1,0 +1,24 @@
+{#- Length header: the salon's name on the left in the display face; beside it whether it's open now; on the right
+    three pages, "Menu" (every page) and an ink "Book". -#}
+<header class="nav ln-nav"><div class="wrap ln-nav-in">
+  <a class="ln-name" href="{{ 'index' | href }}" aria-label="{{ site.business.name }}, home">
+    {%- if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="{{ site.business.name }}" height="26">{% else %}{{ site.business.name }}{% endif %}</a>
+  <p class="ln-now" data-live-status><span class="dot" aria-hidden="true"></span><span data-status-text>Opening hours</span></p>
+  <nav class="ln-links" aria-label="Main">
+    {%- for item in site.nav | navItems(pageId) %}{% if loop.index <= 3 %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endif %}{% endfor %}
+  </nav>
+  <button class="burger ln-menu" type="button" aria-expanded="false" aria-controls="mnav"><span class="ln-open">Menu</span><span class="ln-close">Close</span></button>
+  <a class="ln-book" href="{{ (site.menu.message if site.menu else site.messages.general) | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.menu.message if site.menu else site.messages.general }}"{% endif %} target="_blank" rel="noopener">Book</a>
+</div></header>
+<div class="mnav ln-sheet" id="mnav" hidden>
+  <nav aria-label="Pages">
+    <a href="{{ 'index' | href }}"{% if pageId == "index" %} aria-current="page"{% endif %}>Home</a>
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+    {%- if "group-pages" | enabled %}{% for g in site.groupPages.items %}<a href="{{ g.slug | href }}"{{ "group-pages" | tierAttr | safe }}{% if g.slug == pageId %} aria-current="page"{% endif %}>{{ g.title }}</a>{% endfor %}{% endif %}
+  </nav>
+  <p class="ln-sheet-addr">{{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}</p>
+</div>

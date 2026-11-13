@@ -1,0 +1,13 @@
+{#- Salon: candlelight tonight. One engraved line: the walk-in tables from the café's sheet and how long the kitchen
+    is open, then "On our way" for a walk-in. Keeps the tonight hooks. -#}
+{%- set sec = site.sections.tonight %}
+<section id="tonight" class="sa-tn" data-feature="tonight" aria-labelledby="sa-tn-h"{{ "tonight" | tierAttr | safe }}>
+  <h2 id="sa-tn-h">{{ sec.title | markup | safe }}</h2>
+  <p class="sa-tn-line" data-js-only><span data-tn-tables aria-live="polite">Checking…</span> <span class="sa-tn-k" data-tn-kitchen>&nbsp;</span></p>
+  <p class="sa-small" data-tn-note data-js-only>&nbsp;</p>
+  <p class="sa-tn-walk" data-js-only>
+    <label>A table for <select data-tn-size aria-label="How many">{% for n in range(1, 9) %}<option value="{{ n }}"{% if n == 2 %} selected{% endif %}>{{ n | words }}{% if n == 8 %} or more{% endif %}</option>{% endfor %}</select></label>
+    <a class="sa-send" data-tn-go href="{{ 'Good evening, are you able to seat us without a booking?' | wa }}" target="_blank" rel="noopener">On our way</a>
+  </p>
+  <p class="sa-small" data-tn-off>For a table this evening, telephone us and we will tell you how the room looks.</p>
+</section>

@@ -1,0 +1,65 @@
+{#- Price by length: the salon's own photograph fills the first screen, and the client's hair in it is cut at the
+    length you tap. The hair below the line fades in place to a faint trace (only the hair: it is its own layer, cut from
+    the same photograph); the price and time ride the cut line on a tag; the choices, the headline and the WhatsApp link sit on
+    the photograph. With chairs free today in the look's heroParts, it sits on the photograph too. Every position is
+    worked out in CSS from the photograph's size and the marks, so without JavaScript it shows the default length and
+    price; every price is on the services page. -#}
+{%- set m = site.menu %}
+{%- set c = site.hero.cut %}
+{%- set d = m.defaults or {} %}
+{%- set dLen = d.length or m.lengths[m.lengths.length - 1].id %}
+{%- set dLvl = d.level or m.levels[0].id %}
+{%- set heroIds = m.hero or [m.services[0].id] %}
+{%- set dSvc = d.service or heroIds[0] %}
+{%- set svc = m.services | idOf(dSvc) %}
+{%- set li = 0 %}{% for l in m.lengths %}{% if l.id == dLen %}{% set li = loop.index0 %}{% endif %}{% endfor %}
+{%- set lenName = (m.lengths | idOf(dLen)).name %}
+{%- set p0 = svc | priceAt(dLvl, li) %}
+{%- set ar = c.plate.width / c.plate.height %}
+{%- set hairH = (c.hair.height * c.plate.width / c.hair.width) / c.plate.height %}
+{%- set chIn = ("chairs-today" | enabled) and ("chairs-today" in (build.heroParts or [])) %}
+<section id="prices" class="hero hr-lp" data-feature="length-price" aria-labelledby="lp-h">
+  <div class="hr-lp-stage" data-lp-stage style="--ar:{{ ar }};--high:{{ c.marks[m.lengths[0].id] - 0.06 }};--low:{{ c.marks[m.lengths[m.lengths.length - 1].id] + 0.03 }};--fx:{{ c.focus if c.focus !== undefined else 0.5 }};--y:{{ c.marks[dLen] }};--top:{{ c.hair.top }};--h:{{ hairH }}">
+    <div class="hr-lp-frame" data-lp-frame>
+      <picture>
+        <source media="(max-width: 760px)" srcset="{{ (c.plate.phone or c.plate.src) | img }}" width="{{ c.plate.width }}" height="{{ c.plate.height }}">
+        <img class="hr-lp-plate" src="{{ c.plate.src | img }}" alt="{{ c.plate.alt }}" width="{{ c.plate.width }}" height="{{ c.plate.height }}" fetchpriority="high" decoding="async">
+      </picture>
+      <div class="hr-lp-hair hr-lp-rest" aria-hidden="true"><picture><source media="(max-width: 760px)" srcset="{{ (c.hair.phone or c.hair.src) | img }}"><img src="{{ c.hair.src | img }}" alt="" width="{{ c.hair.width }}" height="{{ c.hair.height }}" decoding="async"></picture></div>
+      <div class="hr-lp-hair hr-lp-keep" aria-hidden="true"><picture><source media="(max-width: 760px)" srcset="{{ (c.hair.phone or c.hair.src) | img }}"><img src="{{ c.hair.src | img }}" alt="" width="{{ c.hair.width }}" height="{{ c.hair.height }}" decoding="async"></picture></div>
+      <div class="hr-lp-hair hr-lp-fall" data-lp-fall aria-hidden="true"><picture><source media="(max-width: 760px)" srcset="{{ (c.hair.phone or c.hair.src) | img }}"><img src="{{ c.hair.src | img }}" alt="" width="{{ c.hair.width }}" height="{{ c.hair.height }}" decoding="async"></picture></div>
+    </div>
+    <div class="hr-lp-veil" aria-hidden="true"></div>
+    <div class="hr-lp-tape" aria-hidden="true"></div>
+    <span class="hr-lp-line" aria-hidden="true"></span>
+    <p class="hr-lp-tag" aria-live="polite"><strong data-lp-price>{{ (p0 | money) if p0 else "Ask us" }}</strong><span data-lp-time>{{ lenName }}, about {{ (svc | minutesAt(li)) | hm }}</span></p>
+    <div class="hr-lp-marks" role="group" aria-label="Where your hair falls">
+      {%- for l in m.lengths %}
+      <button type="button" class="hr-lp-mark" data-lp-len="{{ l.id }}" data-y="{{ c.marks[l.id] }}" style="--m:{{ c.marks[l.id] }}" aria-pressed="{{ 'true' if l.id == dLen else 'false' }}">{{ l.name }}</button>
+      {%- endfor %}
+    </div>
+    <div class="hr-lp-copy">
+      {%- if site.hero.kicker %}<p class="hr-lp-k">{{ site.hero.kicker }}</p>{% endif %}
+      <h1 class="hr-lp-h" id="lp-h">{{ site.hero.title | plain }}</h1>
+      <div class="hr-lp-pick">
+        {%- if heroIds.length > 1 %}
+        <div class="hr-lp-opts" role="group" aria-label="Service">
+          {%- for id in heroIds %}{% set s = m.services | idOf(id) %}<button type="button" class="hr-opt" data-lp-svc="{{ s.id }}" aria-pressed="{{ 'true' if s.id == dSvc else 'false' }}">{{ s.name }}</button>{% endfor %}
+        </div>
+        {%- endif %}
+        <div class="hr-lp-opts" role="group" aria-label="With"><span class="hr-lp-with" aria-hidden="true">with</span>
+          {%- for l in m.levels %}<button type="button" class="hr-opt" data-lp-lvl="{{ l.id }}" aria-pressed="{{ 'true' if l.id == dLvl else 'false' }}">{{ l.name }}</button>{% endfor %}
+        </div>
+      </div>
+      <div class="hr-lp-go">
+        <a class="hr-btn" data-lp-ask href="{{ m.message | book }}" target="_blank" rel="noopener">{{ build.booking.label if not build.booking.whatsapp else "Ask on WhatsApp" }}</a>
+        {%- if "hair-services" | enabled %}<a class="hr-go" href="{{ 'services' | href }}"{{ "hair-services" | tierAttr | safe }}>Every price</a>{% endif %}
+        {%- if "my-usual" | enabled %}
+        <button type="button" class="hr-quiet" data-lp-usual hidden{{ "my-usual" | tierAttr | safe }}>Keep as my usual</button>
+        {%- endif %}
+      </div>
+      <p class="hr-small hr-lp-note" data-lp-note>{% if svc.skinTest %}A skin test at least {{ site.skinTest.hoursBefore if site.skinTest else 48 }} hours before.{% endif %}</p>
+    </div>
+    {%- if chIn %}{% include "kits/hair/features/chairs-today/chairs-today.njk" %}{% endif %}
+  </div>
+</section>

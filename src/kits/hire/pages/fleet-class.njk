@@ -1,0 +1,14 @@
+---
+layout: core/layouts/base.njk
+pagination:
+  data: site.fleet.classes
+  size: 1
+  alias: cls
+feature: fleet-page
+eleventyComputed:
+  pageId: "fleet/{{ cls.id }}"
+  permalink: "{{ cls.id | classFile(build.links) }}"
+  title: "{{ cls.name }}"
+  description: "{{ cls.name }} at {{ site.business.name }}, {{ site.location.locality }}: every car with its price, deposit and rules."
+---
+{% include "kits/hire/features/fleet-page/class.njk" %}

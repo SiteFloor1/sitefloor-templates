@@ -1,0 +1,33 @@
+{#- The studio's month: what it is designing, building, planting and caring for, one month at a time. All twelve are in
+    the page; the one open in the year above shows (the build month without JavaScript). The next design and build start
+    shows only while it was checked within its days (checked again in the browser), so it is never shown out of date. -#}
+{%- set c = site.calendar %}
+{%- set now = build.today | monthOf %}
+{%- set n = c.nextStart %}
+{%- set labels = { design: "Design", build: "Build", planting: "Planting", care: "Care" } %}
+<section id="month" class="gd-cal" data-feature="garden-calendar" aria-label="At the studio this month"><div class="wrap gd-cal-in">
+  {%- for m in c.months %}
+  <div class="gd-cal-m{% if not m.photo %} gd-cal-m-nophoto{% endif %}" data-cal-month="{{ loop.index }}"{% if loop.index != now %} hidden{% endif %}>
+    {%- if m.photo %}
+    <figure class="gd-cal-ph"><img src="{{ m.photo.src | img }}" alt="{{ m.photo.alt }}" width="{{ m.photo.width }}" height="{{ m.photo.height }}" loading="lazy" decoding="async"></figure>
+    {%- endif %}
+    <div class="gd-cal-tx">
+      <h2 class="gd-cal-h">{{ m.headline | markup | safe }}</h2>
+      {%- if m.intro %}<p class="gd-cal-i">{{ m.intro }}</p>{% endif %}
+      <dl class="gd-cal-dl">
+        {%- for k in ["design", "build", "planting", "care"] %}{% if m[k] %}
+        <div><dt>{{ labels[k] }}</dt><dd>{{ m[k] }}</dd></div>
+        {%- endif %}{% endfor %}
+      </dl>
+    </div>
+  </div>
+  {%- endfor %}
+  <div class="gd-cal-go">
+    <a class="btn" href="{{ site.messages.general | book }}" target="_blank" rel="noopener">Start your garden</a>
+    {%- if n %}
+    <p class="gd-cal-next" data-cal-next{% if not (n.updated | isFresh(build.today, n.staleAfterDays or 45)) %} hidden{% endif %}>
+      {%- if n.design %}Next design start <b>{{ n.design }}</b>{% endif %}{% if n.design and n.build %} · {% endif %}{% if n.build %}next build <b>{{ n.build }}</b>{% endif %}</p>
+    {%- endif %}
+    {%- if "calendar-page" | enabled %}<a class="go" href="{{ 'calendar' | href }}"{{ 'calendar-page' | tierAttr | safe }}>The whole year</a>{% endif %}
+  </div>
+</div></section>

@@ -1,0 +1,26 @@
+{#- The flavour vote: the shop asks a question on its own Google Form; each flavour links to the Form with that answer
+    filled in. The running count comes from the Form's results sheet. Choosing one shows a "my vote" card to keep or
+    send on. Without JavaScript the links still go to the Form. -#}
+{%- set sec = site.sections.vote %}
+{%- set v = site.vote %}
+<section id="vote" class="sec-vote" data-feature="flavour-vote"{{ "flavour-vote" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <p class="fv-q">{{ v.question }} <span>Voting closes {{ v.closes | longDate }}.</span></p>
+  <ul class="fv-list">
+    {%- for c in v.candidates %}
+    <li class="fv-c" data-fv="{{ c.id }}" data-name="{{ c.name }}">
+      <div class="fv-ph"><img src="{{ c.photo.src | img }}" alt="{{ c.photo.alt }}" width="{{ c.photo.width }}" height="{{ c.photo.height }}" loading="lazy" decoding="async"></div>
+      <p class="fv-n">{{ c.name }}</p>
+      <p class="fv-share" data-fv-share hidden><span class="fv-bar"><i data-fv-bar></i></span><b data-fv-pc></b></p>
+      <a class="fv-go" href="{{ v.formUrl | voteLink(v.field, c.name) }}" target="_blank" rel="noopener" data-fv-go>Vote {{ c.name }}</a>
+    </li>
+    {%- endfor %}
+  </ul>
+  <p class="fv-total" data-fv-total aria-live="polite"></p>
+  <div class="fv-card" data-fv-card hidden>
+    <p class="fv-card-k">My vote · {{ v.question }}</p>
+    <p class="fv-card-n" data-fv-mine></p>
+    <p class="fv-card-s">{{ site.business.name }}, {{ site.location.streetAddress }}</p>
+    <a class="fv-send" href="#" target="_blank" rel="noopener" data-fv-send>Send it to a friend</a>
+  </div>
+</div></section>

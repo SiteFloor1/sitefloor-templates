@@ -1,0 +1,16 @@
+---
+layout: core/layouts/base.njk
+pageId: fitting
+permalink: fitting.html
+feature: fitting-page
+eleventyComputed:
+  title: "{{ site.guides['fitting'].title | plain }}"
+  description: "{{ site.guides['fitting'].description }}"
+---
+{%- set g = site.guides["fitting"] %}
+{% include "kits/lingerie/partials/page-head.njk" %}
+
+{% include "kits/lingerie/partials/guide.njk" %}
+{% include "kits/lingerie/features/size-guide/size-guide.njk" %}
+{% if "fit-finder" | enabled %}{% include "kits/lingerie/features/fit-finder/fit-finder.njk" %}{% endif %}
+{% include "kits/lingerie/features/private-fitting/private-fitting.njk" %}

@@ -1,0 +1,6 @@
+{#- Dove section opening: the section's name in Gilda on the left, its line small on the right, a hairline above both.
+    `sec` = { kicker, title, intro }; the kicker is not shown (the name says it). -#}
+<div class="dv-sh rv">
+  <h2 class="dv-sh-t">{{ sec.title | markup | safe }}</h2>
+  {%- if sec.intro %}<p class="dv-sh-i">{{ sec.intro }}</p>{% endif %}
+</div>

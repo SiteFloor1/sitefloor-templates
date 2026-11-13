@@ -1,0 +1,64 @@
+{#- Where the sun falls. The visitor sets which way the garden faces, its size and the house and fence heights; the
+    drawing shows hours of direct sun across the garden on the 21st of the chosen month and the shadows at the chosen
+    hour, from above or in 3D. A plain answer sits under it; tapping the garden gives that spot's hours and the plants in
+    the palette for its light. Without JavaScript the studio's example garden in June is drawn at build time. -#}
+{%- set ss = site.sun %}
+{%- set ph = ss %}
+{% include "kits/garden/partials/page-head.njk" %}
+{%- set pic = ss | sunPicture(site.hours.timezone, build.today) %}
+{%- set g = ss.garden %}
+{%- set now = build.today | monthOf %}
+<section class="wrap gd-ss" data-feature="sun-study" aria-label="{{ ss.title | plain }}">
+  <div class="gd-ss-pic">
+    <div class="gd-ss-views" role="group" aria-label="View" data-ss-views data-wait>
+      <button class="gd-pick" type="button" data-ss-view="plan" aria-pressed="true">From above</button>
+      <button class="gd-pick" type="button" data-ss-view="3d" aria-pressed="false">In 3D</button>
+    </div>
+    <svg class="gd-ss-svg" data-ss-svg viewBox="{{ pic.viewBox }}" role="img" aria-labelledby="ss-day" preserveAspectRatio="xMidYMid meet">{{ pic.svg | safe }}</svg>
+    <ol class="gd-ss-key" aria-label="Hours of direct sun">
+      {%- for t in ["Under 1", "1–2", "2–3", "3–4½", "4½–6", "6–8", "8 or more"] %}<li><i class="gd-ss-sw gd-ss-h{{ loop.index0 }}" aria-hidden="true"></i>{{ t }}</li>{% endfor %}
+      <li class="gd-ss-key-u">hours of sun</li>
+    </ol>
+  </div>
+  <div class="gd-ss-side">
+    <p class="gd-ss-day" id="ss-day" data-ss-day aria-live="polite">{{ pic.words }}</p>
+    <p class="gd-ss-moment" data-ss-moment aria-live="polite"></p>
+    <form class="gd-ss-form" data-ss-form hidden>
+      <fieldset class="gd-ss-fs">
+        <legend class="gd-label">Your garden faces</legend>
+        <div class="gd-ss-dial">
+          {%- for id, name in { N: "North", NE: "North-east", E: "East", SE: "South-east", S: "South", SW: "South-west", W: "West", NW: "North-west" } %}
+          <label class="gd-ss-pt gd-ss-pt-{{ id | lower }}"><input type="radio" name="ss-facing" value="{{ id }}"{% if id == g.facing %} checked{% endif %}><span>{{ id }}</span><span class="sr-only">{{ name }}</span></label>
+          {%- endfor %}
+          <span class="gd-ss-dial-c" aria-hidden="true">looking out<br>from the house</span>
+        </div>
+      </fieldset>
+      <fieldset class="gd-ss-fs">
+        <legend class="gd-label">Month</legend>
+        <div class="gd-ss-months">
+          {%- for name in gardenWords.months %}<label class="gd-ss-mo"><input type="radio" name="ss-month" value="{{ loop.index }}"{% if loop.index == now %} checked{% endif %}><span aria-hidden="true">{{ name | first }}</span><span class="sr-only">{{ name }}</span></label>{% endfor %}
+        </div>
+      </fieldset>
+      <label class="gd-ss-range"><span class="gd-label">Time of day <output data-ss-time-out>1 pm</output></span><input type="range" id="ss-time" data-ss-time min="300" max="1320" step="15" value="780"></label>
+      <div class="gd-ss-two">
+        <label class="gd-ss-range"><span class="gd-label">Width <output data-ss-w-out>{{ g.width }} m</output></span><input type="range" id="ss-width" data-ss-w min="3" max="30" step="1" value="{{ g.width }}"></label>
+        <label class="gd-ss-range"><span class="gd-label">Length <output data-ss-l-out>{{ g.length }} m</output></span><input type="range" id="ss-length" data-ss-l min="4" max="50" step="1" value="{{ g.length }}"></label>
+      </div>
+      <div class="gd-ss-two">
+        <label><span class="gd-label">House</span><select class="gd-select" id="ss-house" data-ss-house>
+          {%- for h in [[4, "Single storey"], [5.5, "Bungalow with loft"], [8, "Two storeys"], [11, "Three storeys"]] %}<option value="{{ h[0] }}"{% if h[0] == g.house %} selected{% endif %}>{{ h[1] }}</option>{% endfor %}
+        </select></label>
+        <label><span class="gd-label">Fence or wall</span><select class="gd-select" id="ss-fence" data-ss-fence>
+          {%- for h in [[0, "None"], [1.2, "1.2 m"], [1.8, "1.8 m"], [2, "2 m"], [2.5, "2.5 m wall"]] %}<option value="{{ h[0] }}"{% if h[0] == g.fence %} selected{% endif %}>{{ h[1] }}</option>{% endfor %}
+        </select></label>
+      </div>
+    </form>
+    <div class="gd-ss-spot" data-ss-spot hidden>
+      <p class="gd-ss-spot-h" data-ss-spot-words aria-live="polite"></p>
+      <ul class="gd-ss-plants" data-ss-plants></ul>
+    </div>
+    <p class="gd-ss-tap" data-ss-tap hidden>Tap the garden to choose a spot.</p>
+    <p class="gd-ss-go"><a class="btn" data-ss-send href="{{ ss.message | book }}" target="_blank" rel="noopener">Ask us about your garden</a></p>
+  </div>
+  <p class="gd-small gd-ss-note">{{ ss.note or "Calculated for " + ss.place + " on the 21st of each month. Only the house and the boundaries cast shade here: trees, extensions and next door's buildings will change it, which is why we visit." }}</p>
+</section>

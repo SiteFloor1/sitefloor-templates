@@ -1,0 +1,190 @@
+/* =========================================================================
+   Look: Dove. A Mayfair or Chelsea bridal salon in daylight. The palette is a white dove: white plumage for the page,
+   the warm ivory of its breast for the card and the bands, its grey wing coverts for hairlines and the footer, the
+   primaries for text, and the violet sheen on its neck as the one colour (Request, one hairline, a checked choice).
+   White gowns glow on white. Gilda Display for names, Mulish for everything else. One hero idea: the salon's
+   three-way mirror. Motion is slow and never tied to the scroll. Design system: sitefloor-internal/docs/design/wexley.md.
+   ========================================================================= */
+:root {
+  --bg: #FFFFFF; --surface: #F7F3EC; --surface-2: #CCC8C3; --dove: #CCC8C3;
+  --text: #29292D; --muted: #55545A; --dim: #616066;
+  --accent: #5B4A75; --accent-2: #463859; --on-accent: #FFFFFF; --accent-soft: #A99CC0;
+  --line: rgba(41,41,45,.12); --line-2: rgba(41,41,45,.24);
+  --ok: #3F6B4F; --busy: #8A5A1E; --closed: #616066;
+  --font-display: "Gilda Display", "Gilda Fallback", "Times New Roman", serif;
+  --font-body: "Mulish", "Mulish Fallback", Arial, sans-serif;
+  --on-photo: #FFFFFF; --photo-scrim: rgba(41,41,45,.55); --shadow: rgba(20,20,24,.45);
+  --season-bg: #29292D; --season-fg: #F7F3EC;
+  --pad: clamp(16px, 4vw, 64px);
+  --s4: clamp(88px, 10vw, 160px);
+  --nav-h: 76px;
+  color-scheme: light;
+}
+html { background: var(--bg); }
+body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-weight: 300; font-size: 16px; line-height: 1.65; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 400; letter-spacing: 0; text-wrap: balance; }
+b, strong { font-weight: 600; }
+::selection { background: var(--accent); color: var(--on-accent); }
+.wrap { width: min(1440px, 100% - 2 * var(--pad)); }
+main section { padding-block: var(--s4); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.kick, .bd-k, .dv-foot-what, .bd-show-kind, .bd-veil-l, .ph-k, .crumb { font-size: 11px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+.bd-k { display: block; }
+
+/* actions: words with a line under them; Request's line is the dove's violet. One filled button nowhere. */
+.bd-go, .dv-cta, .go, .btn, .vc-form .btn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; color: var(--text); font-family: var(--font-body); font-size: 14px; font-weight: 600; letter-spacing: .04em; text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 8px; cursor: pointer; }
+.bd-go:hover, .dv-cta:hover, .go:hover, .btn:hover { background: none; color: var(--accent); }
+.btn.ghost { box-shadow: none; text-decoration-color: var(--line-2); }
+.btn .ico, .bd-go .ico { display: none; }
+.bd-quiet { display: inline-flex; align-items: center; min-height: 44px; padding: 0; border: 0; background: none; color: var(--muted); font: inherit; font-size: 14px; text-decoration: none; cursor: pointer; }
+.bd-quiet:hover { color: var(--text); text-decoration: underline; text-underline-offset: 6px; }
+button.bd-go:disabled { color: var(--dim); text-decoration-color: var(--line-2); cursor: default; }
+
+/* ---------------------------------------------------------------- header */
+.nav.dv-nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: color-mix(in srgb, var(--bg) 94%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 31; background: var(--bg); }
+.dv-nav-in { display: flex; align-items: center; gap: clamp(18px, 2.4vw, 40px); height: var(--nav-h); }
+.dv-mark { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+.dv-mark img { display: block; height: 26px; width: auto; }
+.dv-emblem { width: 20px; height: 28px; flex: none; }
+.dv-em-o { fill: none; stroke: var(--accent); stroke-width: 1.2; }
+.dv-em-w { fill: none; stroke: var(--text); stroke-width: 1; stroke-linejoin: round; }
+.dv-word { font-family: var(--font-display); font-size: 22px; letter-spacing: .32em; text-transform: uppercase; white-space: nowrap; }
+.dv-links { display: flex; gap: clamp(16px, 2vw, 30px); margin-left: auto; font-size: 13px; letter-spacing: .05em; }
+.dv-links a { text-decoration: none; padding-block: 6px; }
+.dv-links a:hover, .dv-links a[aria-current="page"] { text-decoration: underline; text-decoration-color: var(--line-2); text-underline-offset: 8px; }
+.dv-req { font-size: 13px; font-weight: 600; letter-spacing: .05em; text-decoration: none; padding-bottom: 4px; border-bottom: 1px solid var(--accent); white-space: nowrap; }
+.dv-menu { display: none; width: auto; height: 44px; padding: 0; font-size: 13px; letter-spacing: .08em; }
+.dv-menu span { position: static; height: auto; background: none; transition: none; }
+.dv-menu .dv-close, .dv-menu[aria-expanded="true"] .dv-open { display: none; }
+.dv-menu[aria-expanded="true"] .dv-close { display: inline; }
+@media (max-width: 960px) { .dv-links { display: none; } .dv-req { margin-left: auto; } .dv-menu { display: block; } }
+@media (max-width: 420px) { .dv-word { font-size: 18px; letter-spacing: .24em; } .dv-req { display: none; } .dv-menu { margin-left: auto; } }
+.mnav.dv-sheet { top: calc(var(--nav-h) + env(safe-area-inset-top, 0px)); background: var(--bg); }
+.dv-sheet a { font-family: var(--font-display); font-weight: 400; font-size: 34px; border-bottom-color: var(--line); }
+.dv-sheet p { font-weight: 400; }
+
+/* ---------------------------------------------------------------- the hero: the three-way mirror */
+main section.dv-hero { padding-block: clamp(20px, 3vw, 44px) clamp(72px, 8vw, 120px); }
+.dv-hero-in { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: clamp(32px, 4.5vw, 72px); align-items: end; }
+.dv-mirror { display: grid; grid-template-columns: 1fr 2.1fr 1fr; gap: clamp(6px, .8vw, 12px); perspective: 1800px; align-items: stretch; }
+.dv-pane { margin: 0; display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: 10px; }
+.dv-pane img { display: block; width: 100%; height: 100%; min-height: 0; aspect-ratio: auto; object-fit: cover; padding: clamp(6px, .7vw, 10px); background: var(--surface); box-shadow: 0 0 0 1px var(--dove), 0 30px 60px -40px var(--shadow); }
+.dv-pane-c img { aspect-ratio: 11 / 16; height: auto; }
+.dv-pane figcaption { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); text-align: center; }
+.dv-pane-l { transform: rotateY(20deg); transform-origin: right center; }
+.dv-pane-r { transform: rotateY(-20deg); transform-origin: left center; }
+.dv-pane-l img, .dv-pane-r img { filter: brightness(.97); }
+@media (prefers-reduced-motion: no-preference) {
+  .dv-pane-l, .dv-pane-r { animation: dv-open 1.6s cubic-bezier(.2,.7,.2,1) .2s both; }
+  @keyframes dv-open { from { transform: rotateY(0); } }
+}
+.dv-side { display: grid; gap: 0; align-content: end; padding-bottom: 34px; }
+.dv-h1 { margin: 0 0 26px; font-size: clamp(42px, 4.6vw, 76px); line-height: 1.02; }
+.dv-intro { margin: 0 0 30px; color: var(--muted); max-width: 34ch; }
+.dv-now { display: flex; align-items: center; gap: 10px; margin: 40px 0 6px; font-size: 13px; }
+.dv-where { margin: 0; font-size: 13px; color: var(--muted); max-width: 36ch; }
+@media (max-width: 960px) {
+  .dv-hero-in { grid-template-columns: minmax(0, 1fr); align-items: start; gap: 28px; }
+  .dv-mirror { gap: 5px; }
+  .dv-pane-l { transform: rotateY(14deg); } .dv-pane-r { transform: rotateY(-14deg); }
+  .dv-side { padding-bottom: 0; }
+  .dv-h1 { font-size: clamp(36px, 9.6vw, 52px); }
+  .dv-now { margin-top: 24px; }
+}
+
+/* ---------------------------------------------------------------- section openings and inner pages */
+.dv-sh { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: 24px 48px; align-items: end; padding-top: 22px; border-top: 1px solid var(--line-2); margin-bottom: clamp(36px, 5vw, 72px); position: relative; }
+.dv-sh::before { content: ""; position: absolute; top: -1px; left: 0; width: 56px; height: 1px; background: var(--accent); }
+.dv-sh-t { margin: 0; font-size: clamp(34px, 3.8vw, 58px); line-height: 1.05; }
+.dv-sh-t em { font-style: italic; }
+.dv-sh-i { margin: 0; color: var(--muted); max-width: 40ch; }
+@media (max-width: 760px) { .dv-sh { grid-template-columns: minmax(0, 1fr); } }
+.ph { padding-block: clamp(48px, 7vw, 110px) clamp(32px, 4vw, 56px); }
+.ph-in { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: 16px 48px; align-items: end; }
+.ph-k { grid-column: 1 / -1; margin: 0; }
+.ph-k a { text-decoration: none; }
+.ph-t { margin: 0; font-size: clamp(44px, 6.4vw, 104px); line-height: 1; }
+.ph-i { margin: 0; color: var(--muted); max-width: 40ch; }
+@media (max-width: 760px) { .ph-in { grid-template-columns: minmax(0, 1fr); } }
+.nf-back { padding-bottom: var(--s4); }
+.phero { border-bottom: 0; }
+.phero h1 { font-weight: 400; letter-spacing: 0; line-height: 1; }
+.phero .kick { color: var(--muted); }
+
+/* ---------------------------------------------------------------- the salon and the appointment */
+.bd-salon-h { font-size: clamp(34px, 3.8vw, 58px); line-height: 1.05; }
+.bd-ticket { background: var(--surface); }
+.bd-ticket::before { content: ""; position: absolute; top: 22px; right: 24px; width: 12px; height: 12px; border-radius: 50%; background: var(--bg); box-shadow: inset 0 0 0 1px var(--dove); }
+.bd-facts dt { font-size: 11px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); padding-top: 3px; }
+.bd-salon-room img { box-shadow: 0 40px 80px -60px var(--shadow); }
+.bd-sheet .bd-chip { background: var(--surface); border-color: transparent; }
+.bd-sheet .bd-chip:has(input:checked) { border-color: var(--accent); }
+.bd-sheet select, .bd-sheet textarea { background: var(--surface); }
+.bd-small { color: var(--muted); }
+
+/* ---------------------------------------------------------------- gowns, houses, diary, shows */
+.bd-gown-img { padding: 0; background: var(--surface); }
+.bd-gown-h { color: var(--accent); font-size: 14px; letter-spacing: .04em; }
+.bd-house-n { font-size: clamp(26px, 2.6vw, 38px); }
+.bd-house-a { text-decoration-color: var(--accent); text-underline-offset: 6px; }
+main section.bd-diary { background: var(--surface); }
+.bd-step-when { font-size: 14px; }
+main section.bd-orderby { padding-block: clamp(64px, 7vw, 110px); border-top: 1px solid var(--line); }
+.bd-list { background: var(--text); color: var(--surface); border-top: 0; }
+.bd-list .bd-go { color: var(--surface); text-decoration-color: var(--accent-soft); }
+.bd-list .bd-quiet, .bd-list-names, .bd-list .bd-small { color: var(--dove); }
+.bd-mirror { background: var(--bg); }
+.bd-pane img { padding: 8px; background: var(--surface); box-shadow: 0 0 0 1px var(--dove); }
+
+/* ---------------------------------------------------------------- shared features in the salon's hand */
+.shot { position: relative; }
+.shot img { display: block; width: 100%; height: auto; }
+.shot-cap { color: var(--muted); }
+.revs { gap: clamp(20px, 3vw, 40px); }
+.dv-quotes { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(48px, 7vw, 110px); }
+.dv-quote { margin: 0; display: grid; gap: 18px; max-width: 24em; }
+.dv-quote:nth-child(even) { justify-self: end; text-align: right; }
+.dv-quote blockquote { margin: 0; font-family: var(--font-display); font-size: clamp(28px, 3.4vw, 48px); line-height: 1.2; }
+.dv-quote blockquote p { margin: 0; }
+.dv-quote figcaption { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.dv-quotes-note { margin: clamp(40px, 5vw, 64px) 0 0; font-size: 13px; color: var(--muted); }
+.qa { border-color: var(--line-2); }
+.qa summary, .qa h3 { font-family: var(--font-display); font-weight: 400; font-size: clamp(20px, 1.8vw, 24px); }
+.vc-card { color: var(--text); }
+.vc-card, .tz, .pv-card, .pv-panel, .pv-board { background: var(--surface); border-color: transparent; border-radius: 0; box-shadow: none; }
+.vc-amount, .vc-other { border-radius: 0; }
+.tz img { border-radius: 0; }
+.hours, .where { border-radius: 0; }
+.barber { border-color: var(--line-2); }
+.b-img { background: var(--surface); }
+.b-name { font-weight: 400; }
+.mono { font-family: var(--font-display); }
+.season { background: var(--season-bg); color: var(--season-fg); font-size: 13px; letter-spacing: .03em; }
+.season a { color: inherit; text-decoration-color: var(--accent-soft); }
+.prose h2 { font-weight: 400; }
+.prose p { color: var(--muted); }
+
+/* ---------------------------------------------------------------- footer and phone bar */
+.foot.dv-foot { background: var(--dove); border-top: 0; color: var(--text); padding: clamp(56px, 7vw, 96px) 0 calc(120px + env(safe-area-inset-bottom, 0px)); }
+.dv-foot-in { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 3fr) minmax(0, 3fr) minmax(0, 2fr); gap: 32px; align-items: start; }
+.dv-foot-name { display: grid; gap: 10px; justify-items: start; }
+.dv-emblem-lg { width: 30px; height: 42px; }
+.dv-foot-word { margin: 0; font-family: var(--font-display); font-size: clamp(30px, 3vw, 44px); letter-spacing: .28em; text-transform: uppercase; }
+.dv-foot-what { margin: 0; }
+.dv-foot-a { font-style: normal; line-height: 1.8; }
+.dv-foot-a a { text-decoration-color: var(--line-2); }
+.dv-foot-hours { list-style: none; margin: 0; padding: 0; font-size: 14px; font-variant-numeric: tabular-nums; }
+.dv-foot-hours li { display: grid; grid-template-columns: 6.5em auto; }
+.dv-foot-hours span { color: var(--muted); }
+.dv-foot-links { display: grid; gap: 6px; font-size: 14px; }
+.dv-foot-links a { text-decoration: none; }
+.dv-foot-links a:hover { text-decoration: underline; }
+.dv-foot-by { grid-column: 1 / -1; margin: 24px 0 0; padding-top: 18px; border-top: 1px solid var(--line-2); font-size: 13px; }
+.dv-foot .by, .dv-foot .by b { color: var(--text); }
+@media (max-width: 860px) { .dv-foot-in { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .dv-foot-name { grid-column: 1 / -1; } }
+@media (max-width: 560px) { .dv-foot-in { grid-template-columns: minmax(0, 1fr); } }
+.mbar.dv-bar { background: var(--text); color: var(--surface); border-top: 0; backdrop-filter: none; justify-content: space-between; align-items: center; gap: 12px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.dv-bar a { color: var(--surface); text-decoration: none; font-size: 13px; min-height: 44px; display: inline-flex; align-items: center; }
+.dv-bar-where { color: var(--dove) !important; }
+.dv-bar-go { font-weight: 600; text-decoration: underline !important; text-decoration-color: var(--accent-soft) !important; text-underline-offset: 7px; }

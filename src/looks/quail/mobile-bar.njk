@@ -1,0 +1,7 @@
+{#- Quail phone bar: stone; Call outlined, and Book in the shade on the hand. -#}
+{%- set worn = site.shades | shade(site.hero.hands[0].wearing) %}
+{%- set open = site.menu.message if site.menu else site.messages.general %}
+<div class="mbar ql-bar">
+  <a class="ql-call" href="tel:{{ site.contact.phone | replace(' ', '') }}">Call</a>
+  <a class="ql-chip{% if worn.hex | darkShade %} is-dark{% endif %}" style="--shade: {{ worn.hex }}" data-sh-book href="{{ open | shadeText(worn) | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ open | shadeText(worn) }}"{% endif %} target="_blank" rel="noopener">Book <span data-sh-word>{{ worn.name }}</span></a>
+</div>

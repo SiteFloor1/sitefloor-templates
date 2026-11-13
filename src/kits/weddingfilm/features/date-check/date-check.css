@@ -1,0 +1,8 @@
+/* Is our date free: three fields in a row (stacked on phones), the answer in a line, one link. The look styles it. */
+.wf-date-f { display: flex; flex-wrap: wrap; gap: 18px 32px; align-items: end; }
+.wf-field { display: grid; gap: 6px; min-width: 0; }
+.wf-field-wide { flex: 1 1 240px; }
+.wf-field input, .wf-field select { font: inherit; color: var(--text); background: transparent; border: 0; border-bottom: 1px solid var(--line-2); border-radius: 0; padding: 8px 0 6px; min-height: 44px; min-width: 0; }
+.wf-field input:focus-visible, .wf-field select:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.wf-date-a { margin: 0; }
+.wf-date-a[data-answer="free"] { color: var(--ok); }

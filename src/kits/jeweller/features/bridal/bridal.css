@@ -1,0 +1,11 @@
+/* bridal: layout in tokens only; the look sets type and colour. */
+.jw-bridal-ph { margin: clamp(32px, 5vw, 72px) 0 0; }
+.jw-bridal-ph img { display: block; width: 100%; height: auto; max-height: 86svh; object-fit: cover; }
+.jw-words-l { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 4vw, 64px); }
+.jw-words-l li { display: grid; gap: 14px; padding-top: 22px; border-top: 1px solid var(--line); align-content: start; }
+.jw-next-in { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); border-top: 1px solid var(--line); }
+.jw-next-a { display: grid; gap: 10px; padding: 32px 24px 32px 0; border-bottom: 1px solid var(--line); }
+.jw-next-a:hover .jw-name-l { color: var(--accent); }
+@media (max-width: 700px) {
+  .jw-words-l { grid-template-columns: 1fr; }
+}

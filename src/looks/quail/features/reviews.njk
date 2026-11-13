@@ -1,0 +1,20 @@
+{#- Quail reviews: the first one large, in italic, as if printed on the card; the rest as a short ruled list. Every
+    review is a figure with its own rating (.st) so the shared review checks hold. -#}
+{%- set sec = site.sections.reviews %}
+{%- set items = site.reviews.items %}
+<section id="reviews" class="ql-rev" data-feature="reviews"{{ "reviews" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  {%- for r in items %}
+  {%- if loop.first %}
+  <figure class="ql-rev-lead rv">
+    <blockquote><p>{{ r.text }}</p></blockquote>
+    <figcaption><span class="st"><span aria-hidden="true">{{ r.rating | stars }}</span><span class="sr-only">Rated {{ r.rating }} out of 5</span></span> {{ r.author }}, {{ r.date | monthYear }}</figcaption>
+  </figure>
+  {%- if items.length > 1 %}<ul class="ql-rev-list">{% endif %}
+  {%- else %}
+    <li class="rv"><figure><blockquote><q>{{ r.text }}</q></blockquote><figcaption><span class="st"><span aria-hidden="true">{{ r.rating | stars }}</span><span class="sr-only">Rated {{ r.rating }} out of 5</span></span> {{ r.author }}, {{ r.date | monthYear }}</figcaption></figure></li>
+  {%- endif %}
+  {%- if loop.last and items.length > 1 %}</ul>{% endif %}
+  {%- endfor %}
+  {%- if site.reviews.source == "sample" %}<p class="ql-fine">Sample reviews for the demo. On a live site these are the salon's real Google reviews.</p>{% endif %}
+</div></section>

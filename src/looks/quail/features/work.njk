@@ -1,0 +1,30 @@
+{#- Quail work: a contact sheet. Four across, every frame numbered like a shade (No. 01…), tabs as plain words with
+    the chosen one underlined, the count on the right; the enlarged view is a cream card on umber. -#}
+{%- set g = site.gallery %}
+{%- set ph = { kicker: site.work.kicker, title: site.work.title, intro: site.work.intro } %}
+{% include "kits/nails/partials/page-head.njk" %}
+<section class="ql-sheet-sec" data-feature="gallery" data-gallery-page><div class="wrap">
+  <div class="ql-tabs">
+    <div role="group" aria-label="Show work by" data-gallery-chips hidden>
+      <button type="button" aria-pressed="true" data-tag="">All of it</button>
+      {%- for f in g.filters or [] %}<button type="button" aria-pressed="false" data-tag="{{ f.tag }}">{{ f.label }}</button>{% endfor %}
+    </div>
+    <p class="ql-tabs-n" data-gallery-count role="status"></p>
+  </div>
+  <div class="ql-contact">{% set galleryPage = true %}{% include "features/gallery/gallery-list.njk" %}</div>
+  <p class="ql-acts">
+    <button type="button" class="ql-v-go ql-linkbtn" data-gallery-more hidden>More frames</button>
+    {%- if g.profile %}<a class="ql-v-go" href="{{ g.profile }}" target="_blank" rel="noopener" data-gallery-end hidden>The rest are on Instagram</a>{% endif %}
+  </p>
+  <span class="work-sentinel" data-gallery-sentinel aria-hidden="true"></span>
+</div></section>
+<dialog class="ql-lb" data-gallery-dialog aria-label="Photo">
+  <figure><img data-lb-img alt=""><figcaption data-lb-cap></figcaption></figure>
+  <div class="ql-lb-bar">
+    <button type="button" class="ql-linkbtn" data-lb-prev aria-label="Previous photo">Previous</button>
+    <button type="button" class="ql-linkbtn" data-lb-next aria-label="Next photo">Next</button>
+    <a class="ql-led-book" data-lb-book target="_blank" rel="noopener">{{ "Ask for this set" if build.booking.whatsapp else build.booking.label }}</a>
+    <a class="ql-linkbtn" data-lb-link target="_blank" rel="noopener" hidden>On Instagram</a>
+    <button type="button" class="ql-linkbtn" data-lb-close aria-label="Close">Close</button>
+  </div>
+</dialog>

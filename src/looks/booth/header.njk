@@ -1,0 +1,25 @@
+{#- Booth header: the studio's name in the clinician's italic on the left; the pages in light type; "Book a
+    consultation" underlined in lavender. On phones, "Menu" opens the pages and the phone bar keeps Book in reach. -#}
+{%- set bookText = site.consultation.message if site.consultation else site.messages.general %}
+<header class="nav bt-nav"><div class="wrap bt-nav-in">
+  <a class="bt-mark" href="{{ 'index' | href }}" aria-label="{{ site.business.name }}, home">
+    {%- if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="{{ site.business.name }}" height="28">{% else %}<span class="bt-word">{{ site.business.name }}</span>{% endif %}
+  </a>
+  <nav class="bt-links" aria-label="Main">
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+  </nav>
+  <a class="bt-book" href="{{ bookText | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ bookText }}"{% endif %} target="_blank" rel="noopener">Book a consultation</a>
+  <button class="burger bt-menu" type="button" aria-expanded="false" aria-controls="mnav"><span class="bt-open">Menu</span><span class="bt-close">Close</span></button>
+</div></header>
+<div class="mnav bt-sheet" id="mnav" hidden>
+  <nav aria-label="Pages">
+    <a href="{{ 'index' | href }}"{% if pageId == "index" %} aria-current="page"{% endif %}>Home</a>
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+  </nav>
+  <p class="bt-sheet-now" data-live-status><span class="dot" aria-hidden="true"></span> <span data-status-text>Opening hours</span></p>
+  <p class="bt-sheet-addr">{{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}</p>
+</div>

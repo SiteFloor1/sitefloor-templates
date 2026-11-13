@@ -1,0 +1,9 @@
+{#- Compare this car with another: the client's figures and rules, line by line. The other cars' lines travel as a small
+    list in the page; nothing is fetched. `car` set. -#}
+<section class="wrap hr-cmp" data-feature="compare" data-cmp-this="{{ car.id }}"{{ "compare" | tierAttr | safe }} aria-labelledby="hr-cmp-h">
+  <h2 class="hr-cp-sh" id="hr-cmp-h">Compare</h2>
+  <label class="hr-field" for="cmp-with" data-js-only><span>With</span>
+    <select id="cmp-with" data-cmp-with><option value="">Choose a car</option>{% for c in site.fleet.cars %}{% if c.id != car.id %}<option value="{{ c.id }}">{{ c | carName }}</option>{% endif %}{% endfor %}</select></label>
+  <div class="hr-cmp-out" aria-live="polite" data-cmp-out></div>
+  <script type="application/json" data-cmp-data>{{ site.fleet.cars | compareRows | dump | safe }}</script>
+</section>

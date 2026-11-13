@@ -1,0 +1,33 @@
+{#- A range page (weddings, celebrations, corporate, dessert tables): the studio's words, its prices for the range,
+    its cakes of that kind, notes, the questions on that topic, and the way to order. Set `r` to the range first. -#}
+{%- set ph = { title: r.title, intro: r.intro } %}{% include "kits/cakes/partials/page-head.njk" %}
+<section class="ck-range" data-feature="{{ rangeFeature }}" aria-label="{{ r.title | plain }}"><div class="wrap ck-range-in">
+  <div class="ck-range-p">
+    <h2 class="ck-range-h">Prices</h2>
+    <dl class="ck-rows">{% for x in r.prices %}<div><dt>{{ x.label }}</dt><dd>from {{ x.from | gbp }}</dd></div>{% endfor %}</dl>
+    {%- if r.notes %}<ul class="ck-range-n">{% for n in r.notes %}<li>{{ n }}</li>{% endfor %}</ul>{% endif %}
+    <p class="ck-range-go">{% if 'brief-builder' | enabled %}<a class="btn" href="{{ 'order' | href }}">Order a cake</a>{% else %}<a class="btn" href="{{ site.messages.general | book }}" target="_blank" rel="noopener">Ask us</a>{% endif %}</p>
+  </div>
+  {%- if r.photo %}<figure class="ck-range-f"><img src="{{ r.photo.src | img }}" alt="{{ r.photo.alt }}" width="{{ r.photo.width }}" height="{{ r.photo.height }}" decoding="async"></figure>{% endif %}
+</div></section>
+{%- set pieceList = site | piecesOf(r.kinds) %}
+{%- if pieceList.length %}{% set sec = { title: "Commissions" } %}
+<section class="ck-pieces" aria-label="Commissions"><div class="wrap">
+  {%- include "core/partials/section-head.njk" %}
+  <ul class="ck-pieces-l">
+    {%- for p in pieceList %}
+    <li class="ck-piece">{% if 'commission-pages' | enabled %}<a class="ck-piece-a" href="{{ ('commission-' + p.id) | href }}">{% else %}<div class="ck-piece-a">{% endif %}
+      <img src="{{ p.photo.src | img }}" alt="{{ p.photo.alt }}" width="{{ p.photo.width }}" height="{{ p.photo.height }}" loading="lazy" decoding="async">
+      <span class="ck-piece-t">{% if p.no %}<span class="ck-no">No. {{ p.no }}</span>{% endif %}<b>{{ p.name }}</b></span>
+      <span class="ck-piece-s">{{ p.sizes.length | tiersWords }}, serves {{ p.serves }} · from {{ p.from | gbp }}</span>
+    {% if 'commission-pages' | enabled %}</a>{% else %}</div>{% endif %}</li>
+    {%- endfor %}
+  </ul>
+</div></section>
+{%- endif %}
+{%- if r.topic %}{% set qs = site.questions | selectattr("topic", "equalto", r.topic) %}{% if qs.length %}
+<section class="ck-range-q" aria-label="Questions"><div class="wrap">
+  {%- set sec = { title: "Questions" } %}{% include "core/partials/section-head.njk" %}
+  <dl class="ck-qa">{% for q in qs %}<div><dt>{{ q.q }}</dt><dd>{{ q.a }}</dd></div>{% endfor %}</dl>
+</div></section>
+{%- endif %}{% endif %}

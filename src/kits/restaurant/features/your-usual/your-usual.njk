@@ -1,0 +1,148 @@
+{#- Your usual: a glass that fills as you build your coffee from the café's own price list. The price, each milk's
+    allergens and the ready time all come from the café's own numbers. The phone remembers it as "your usual";
+    the order goes on WhatsApp with any bakes from the counter. Without JavaScript: the price list and a plain
+    WhatsApp link. -#}
+{%- set sec = site.sections.usual %}
+{%- set u = site.usual %}
+{%- set first = u.drinks[0] %}
+<section id="usual" class="yu" data-feature="your-usual" aria-labelledby="yu-h"{{ "your-usual" | tierAttr | safe }}><div class="wrap">
+  <div class="sh rv"><div>{% if sec.kicker %}<span class="kick">{{ sec.kicker }}</span>{% endif %}<h2 id="yu-h">{{ sec.title | markup | safe }}</h2></div>{% if sec.intro %}<p>{{ sec.intro }}</p>{% endif %}</div>
+
+  <div class="yu-back" data-yu-back data-js-only hidden>
+    <p><span class="rs-k">Welcome back</span><span class="yu-back-name">Your usual: <b data-yu-back-name></b> · <span data-yu-back-price></span></span></p>
+    <button type="button" class="btn" data-yu-again>Order my usual</button>
+  </div>
+
+  <div class="yu-grid">
+    <div class="yu-stage">
+      <svg class="yu-svg" viewBox="0 0 300 400" focusable="false" aria-hidden="true">
+        <defs>
+          <clipPath id="yu-in"><path d="M80 96 L95 328 A55 15 0 0 0 205 328 L220 96 Z"/></clipPath>
+          <filter id="yu-soft" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="1.8"/></filter>
+          <filter id="yu-haze" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5"/></filter>
+          <linearGradient id="yu-mix" x1="0" x2="0" y1="0" y2="1"><stop offset="0" class="yu-s-mix-top"/><stop offset=".55" class="yu-s-mix-mid"/><stop offset="1" class="yu-s-mix-low"/></linearGradient>
+          <linearGradient id="yu-esp" x1="0" x2="0" y1="0" y2="1"><stop offset="0" class="yu-s-crema"/><stop offset=".12" class="yu-s-esp"/><stop offset="1" class="yu-s-esp-dk"/></linearGradient>
+          <linearGradient id="yu-foam" x1="0" x2="0" y1="0" y2="1"><stop offset="0" class="yu-s-foam"/><stop offset="1" class="yu-s-foam-lo"/></linearGradient>
+          <linearGradient id="yu-side" x1="0" x2="1" y1="0" y2="0"><stop offset="0" class="yu-s-shade"/><stop offset=".22" class="yu-s-clear"/><stop offset=".78" class="yu-s-clear"/><stop offset="1" class="yu-s-shade"/></linearGradient>
+          <radialGradient id="yu-crema" cx=".5" cy=".45" r=".6"><stop offset="0" class="yu-s-crema-hi"/><stop offset=".7" class="yu-s-crema"/><stop offset="1" class="yu-s-crema-dk"/></radialGradient>
+          <radialGradient id="yu-pool" cx=".5" cy=".5" r=".5"><stop offset="0" class="yu-s-pool"/><stop offset="1" class="yu-s-none"/></radialGradient>
+          <linearGradient id="yu-steel" x1="0" x2="1" y1="0" y2="1"><stop offset="0" class="yu-s-steel-hi"/><stop offset=".5" class="yu-s-steel"/><stop offset="1" class="yu-s-steel-dk"/></linearGradient>
+        </defs>
+        <ellipse class="yu-shadow" cx="160" cy="352" rx="96" ry="20" filter="url(#yu-haze)"/>
+        <g class="yu-saucer">
+          <ellipse class="yu-saucer-b" cx="150" cy="352" rx="124" ry="36"/>
+          <ellipse class="yu-saucer-t" cx="150" cy="346" rx="120" ry="33"/>
+          <ellipse class="yu-saucer-w" cx="150" cy="345" rx="80" ry="21"/>
+          <g class="yu-spoon"><path d="M214 362 L286 330" class="yu-spoon-h"/><ellipse cx="206" cy="366" rx="13" ry="7" transform="rotate(-22 206 366)" class="yu-spoon-b"/></g>
+        </g>
+        <g data-yu-glass>
+          <ellipse class="yu-pool" cx="150" cy="342" rx="70" ry="16" data-yu-pool/>
+          <g clip-path="url(#yu-in)">
+            <g filter="url(#yu-soft)">
+              <path class="yu-l-foam" data-yu-layer="foam" fill="url(#yu-foam)"/>
+              <path class="yu-l-mix" data-yu-layer="mix" fill="url(#yu-mix)"/>
+              <path class="yu-l-esp" data-yu-layer="esp" fill="url(#yu-esp)"/>
+              <path class="yu-l-syrup" data-yu-layer="syrup"/>
+            </g>
+            <path class="yu-streak" data-yu-streak d=""/>
+          </g>
+          <g data-yu-top>
+            <ellipse class="yu-surface" data-yu-surface cx="0" cy="0" rx="50" ry="15" fill="url(#yu-crema)"/>
+            <g class="yu-art" data-yu-art><path d="M-33.0 22.0A33.0 21.8 0 0 0 33.0 22.0L27.4 22.0A27.4 15.6 0 0 1-27.4 22.0ZM-28.4 11.0A28.4 18.7 0 0 0 28.4 11.0L23.3 11.0A23.3 13.0 0 0 1-23.3 11.0ZM-23.8 0.0A23.8 15.7 0 0 0 23.8 0.0L19.1 0.0A19.1 10.5 0 0 1-19.1 0.0ZM-19.2-11.0A19.2 12.7 0 0 0 19.2-11.0L15.0-11.0A15.0 8.0 0 0 1-15.0-11.0ZM-14.6-22.0A14.6 9.6 0 0 0 14.6-22.0L10.8-22.0A10.8 5.4 0 0 1-10.8-22.0ZM0-28c-5-8-14-7-14 1 0 6 8 10 14 15 6-5 14-9 14-15 0-8-9-9-14-1z"/><path class="yu-art-pull" d="M0 36V-20"/></g>
+          </g>
+          <path class="yu-base" d="M95 328 A55 15 0 0 0 205 328 L208 340 A58 17 0 0 1 92 340 Z"/>
+          <path class="yu-wall" d="M76 96 L92 340 A58 17 0 0 0 208 340 L224 96" fill="url(#yu-side)"/>
+          <path class="yu-edge" d="M76 96 L92 340 A58 17 0 0 0 208 340 L224 96"/>
+          <path class="yu-hi" d="M90 118 L102 318"/><path class="yu-hi2" d="M206 124 L198 300"/>
+          <ellipse class="yu-rim" cx="150" cy="96" rx="74" ry="22"/>
+          <ellipse class="yu-rim-in" cx="150" cy="97" rx="70" ry="20"/>
+        </g>
+        <g class="yu-steam" filter="url(#yu-soft)"><path d="M126 60c-12-14 10-22-2-38s10-22 2-34"/><path d="M152 52c-12-16 12-24 0-40s12-22 2-36"/><path d="M178 60c-12-14 10-22-2-38s10-22 2-34"/></g>
+        <g class="yu-tag"><path class="yu-tag-s" d="M216 92 Q232 104 238 128"/><path class="yu-tag-p" d="M226 126 l22 -6 l12 26 l-22 6z"/><text x="242" y="142" transform="rotate(-15 242 142)">DECAF</text></g>
+      </svg>
+      <p class="yu-cap" data-yu-cap aria-hidden="true"></p>
+      <div class="yu-now" aria-live="polite">
+        <p class="yu-name" data-yu-name>{{ first.name }}</p>
+        <p class="yu-price" data-yu-price>{{ (first.prices | dictsort | first)[1] | gbp }}</p>
+        <p class="yu-all rs-small" data-yu-all></p>
+      </div>
+    </div>
+
+    <div class="yu-side">
+      <form class="yu-form" data-yu-form data-js-only>
+        <fieldset class="yu-f"><legend class="rs-k">Drink</legend>
+          <div class="yu-chips">{% for d in u.drinks %}<label class="yu-chip"><input type="radio" name="drink" value="{{ d.id }}"{% if loop.first %} checked{% endif %}>{{ d.name }}</label>{% endfor %}</div>
+        </fieldset>
+        <fieldset class="yu-f"><legend class="rs-k">Size</legend>
+          <div class="yu-chips">{% for s in u.sizes %}<label class="yu-chip" data-yu-size="{{ s.id }}"><input type="radio" name="size" value="{{ s.id }}"{% if loop.index == 2 or u.sizes | length == 1 %} checked{% endif %}>{{ s.name }}<small>{{ s.ml }}ml</small></label>{% endfor %}</div>
+        </fieldset>
+        <fieldset class="yu-f" data-yu-milks><legend class="rs-k">Milk</legend>
+          <div class="yu-chips">{% for m in u.milks %}<label class="yu-chip"><input type="radio" name="milk" value="{{ m.id }}"{% if m.id == u.defaultMilk %} checked{% endif %}>{{ m.name }}{% if m.price %}<small>+{{ m.price | gbp }}</small>{% endif %}</label>{% endfor %}</div>
+        </fieldset>
+        <div class="yu-row">
+          {%- if u.maxShots %}
+          <div class="yu-f yu-shots" role="group" aria-labelledby="yu-shots-l"><span class="rs-k" id="yu-shots-l">Extra shots <small>+{{ u.extraShot | gbp }} each</small></span>
+            <div class="yu-step"><button type="button" data-yu-shot="-1" aria-label="One fewer extra shot">−</button><output data-yu-shots aria-live="polite">0</output><button type="button" data-yu-shot="1" aria-label="One more extra shot">+</button></div>
+          </div>
+          {%- endif %}
+          {%- if u.syrups %}
+          <label class="yu-f rs-field yu-syr"><span class="rs-k">Syrup</span><select name="syrup"><option value="">None</option>{% for s in u.syrups %}<option value="{{ s.id }}">{{ s.name }} (+{{ s.price | gbp }})</option>{% endfor %}</select></label>
+          {%- endif %}
+        </div>
+        <div class="yu-toggles">
+          {%- if u.decaf is defined %}<label class="yu-chip yu-tog"><input type="checkbox" name="decaf">Decaf{% if u.decaf %}<small>+{{ u.decaf | gbp }}</small>{% endif %}</label>{% endif %}
+          <label class="yu-chip yu-tog"><input type="checkbox" name="hot">Extra hot</label>
+        </div>
+        <fieldset class="yu-f"><legend class="rs-k">Cup</legend>
+          <div class="yu-chips">
+            <label class="yu-chip"><input type="radio" name="cup" value="takeaway" checked>To take away</label>
+            <label class="yu-chip"><input type="radio" name="cup" value="here">To drink here</label>
+            {%- if u.ownCup is defined %}<label class="yu-chip"><input type="radio" name="cup" value="own">My own cup<small>−{{ u.ownCup | gbp }}</small></label>{% endif %}
+          </div>
+        </fieldset>
+        <div class="yu-acts">
+          <button type="button" class="btn" data-yu-add>Add to my order</button>
+          <button type="button" class="btn ghost" data-yu-save aria-describedby="yu-save-n">Save as my usual</button>
+        </div>
+        <p class="rs-small" id="yu-save-n" data-yu-saved aria-live="polite">Saved on this phone only, never sent anywhere.</p>
+      </form>
+    </div>
+  </div>
+
+  <div class="yu-order" data-yu-order data-js-only hidden>
+    <div class="yu-order-in">
+      <h3 class="yu-oh">Your order</h3>
+      <ul class="yu-lines" data-yu-lines></ul>
+      {%- if site.counter and ("specials" | enabled) %}
+      <div class="yu-f"><p class="rs-k">Something from the counter?</p>
+        <div class="yu-chips" data-yu-bakes>{% for sc in site.menu.sections %}{% if sc.id in site.counter.sections %}{% for d in sc.dishes %}<label class="yu-chip" data-bake="{{ d.id }}"><input type="checkbox" name="bake" value="{{ d.id }}">{{ d.name }}<small>{{ d.price | gbp }}</small></label>{% endfor %}{% endif %}{% endfor %}</div>
+      </div>
+      {%- endif %}
+      <div class="yu-f"><p class="rs-k" id="yu-when-l">Ready for</p><div class="yu-chips" data-yu-times role="radiogroup" aria-labelledby="yu-when-l"></div><p class="rs-small" data-yu-closed hidden></p></div>
+      <label class="rs-field">Name for the cup <span class="rs-small">(optional)</span><input name="name" autocomplete="given-name" maxlength="40" data-yu-who></label>
+      <p class="tr-from" data-yu-seat hidden></p>
+      <div class="yu-total"><span>Total</span><b data-yu-total>£0</b></div>
+      <p class="yu-oall rs-small" data-yu-oall></p>
+      <a class="btn yu-send" data-yu-send href="{{ u.message | wa }}" target="_blank" rel="noopener">{% include "core/partials/icon-whatsapp.njk" %}Send my order</a>
+      <p class="rs-small">This sends your order to us on WhatsApp. We reply to confirm the time; pay when you collect.{% if u.note %} {{ u.note }}{% endif %}</p>
+    </div>
+  </div>
+
+  <details class="yu-list">
+    <summary>The full price list</summary>
+    <div class="yu-table-wrap"><table class="yu-table">
+      <caption class="sr-only">Drink prices by size</caption>
+      <thead><tr><th scope="col">Drink</th>{% for s in u.sizes %}<th scope="col">{{ s.name }} <small>{{ s.ml }}ml</small></th>{% endfor %}</tr></thead>
+      <tbody>{% for d in u.drinks %}<tr><th scope="row">{{ d.name }}{% if d.allergens.length %}<small>Contains: {{ d | allergenNames | join(", ") | lower }}</small>{% endif %}</th>{% for s in u.sizes %}<td>{% if d.prices[s.id] is defined %}{{ d.prices[s.id] | gbp }}{% else %}–{% endif %}</td>{% endfor %}</tr>{% endfor %}</tbody>
+    </table></div>
+    <ul class="yu-extras">
+      {%- for m in u.milks %}<li><b>{{ m.name }}</b> {% if m.price %}+{{ m.price | gbp }}{% else %}no extra{% endif %} · {% set an = m | allergenNames %}{% if an.length %}contains {{ an | join(", ") | lower }}{% else %}none of the 14 allergens{% endif %}{% if m.note %} · {{ m.note }}{% endif %}</li>{% endfor %}
+      {%- if u.maxShots %}<li><b>Extra shot</b> +{{ u.extraShot | gbp }}</li>{% endif %}
+      {%- for s in u.syrups %}<li><b>{{ s.name }}</b> +{{ s.price | gbp }}{% set an = s | allergenNames %}{% if an.length %} · contains {{ an | join(", ") | lower }}{% endif %}</li>{% endfor %}
+      {%- if u.decaf is defined %}<li><b>Decaf</b> {% if u.decaf %}+{{ u.decaf | gbp }}{% else %}no extra{% endif %}</li>{% endif %}
+      {%- if u.ownCup is defined %}<li><b>Your own cup</b> −{{ u.ownCup | gbp }}</li>{% endif %}
+    </ul>
+    <p class="rs-small">Allergens are from our allergen chart, last checked {{ site.menu.chartChecked | longDate }}. Please tell us about any allergy when you order.</p>
+  </details>
+  <p class="yu-nojs" data-no-js><a class="btn" href="{{ u.message | wa }}" target="_blank" rel="noopener">Order ahead on WhatsApp</a></p>
+</div></section>

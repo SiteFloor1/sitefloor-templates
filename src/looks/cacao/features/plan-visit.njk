@@ -1,0 +1,83 @@
+{#- Cacao "find us": the way here set like a shop's card, the live status as one sentence, journeys as a short
+    itinerary, parking and access as plain notes. Same logic as the shared page; every hook kept. -#}
+{%- set v = site.visitInfo %}
+{%- set journeys = v.journeys or [] %}
+{%- set parking = v.parking or [] %}
+{%- set ph = { kicker: v.kicker, title: v.title, intro: v.intro } %}
+{% include "kits/bakery/partials/page-head.njk" %}
+
+<div data-feature="plan-visit">
+<section class="cc-arrive"><div class="wrap">
+  <p class="cc-arrive-now" data-live-status><span data-status-text>Hours below</span></p>
+  <dl class="cc-arrive-dl">
+    <div><dt>Address</dt><dd>{{ site.location.streetAddress }}, {{ site.location.postcode }}</dd></div>
+    {%- for j in journeys %}<div><dt>{{ j.from }}</dt><dd>{{ j | boardTime }}</dd></div>{% endfor %}
+    {%- for c in parking %}<div><dt>{{ c.name }}</dt><dd data-parking="{{ loop.index0 }}">{% if c.walk is defined %}{{ c.walk }} min walk{% endif %}</dd></div>{% endfor %}
+  </dl>
+  {%- if site.mode == "demo" %}<p class="cc-arrive-n">Example journeys and parking for a fictional shop.</p>
+  {%- elif v.checked %}<p class="cc-arrive-n">Checked with {{ site.business.name }} in {{ v.checked | checkedText }}. Driving times are outside rush hour.</p>{% endif %}
+</div></section>
+
+{%- if journeys.length %}
+<section class="cc-ways" aria-labelledby="pv-j-h"><div class="wrap">
+  <h2 class="cc-pt" id="pv-j-h">The way here</h2>
+  <div class="cc-ways-tabs" role="tablist" aria-label="Ways to get here" data-pv-tabs hidden>
+    {%- for j in journeys %}
+    <button type="button" role="tab" id="pv-tab-{{ loop.index0 }}" aria-controls="pv-panel-{{ loop.index0 }}" aria-selected="{{ 'true' if loop.first else 'false' }}" tabindex="{{ '0' if loop.first else '-1' }}">{{ (j.mode | modeWords).tab }}</button>
+    {%- endfor %}
+  </div>
+  {%- for j in journeys %}
+  <div class="cc-way rv" id="pv-panel-{{ loop.index0 }}" data-pv-panel>
+    <p class="cc-way-h"><b>{{ j.from }}</b>{% if j.stop %}, get off at {{ j.stop }}{% endif %} <span>{% if (j.mode | modeWords).about %}about {% endif %}{{ j.minutes }} min {{ (j.mode | modeWords).verb }}</span></p>
+    <ol>
+      {%- for step in j.steps %}<li>{{ step }}</li>{% endfor %}
+      <li><b>{{ site.business.name }}</b>, {{ site.location.streetAddress }}</li>
+    </ol>
+    <a href="{{ j | directionsFor }}" target="_blank" rel="noopener">Directions in Google Maps</a>
+  </div>
+  {%- endfor %}
+  <div class="cc-leave" data-pv-leave hidden>
+    <label for="pv-appt">Collecting at a set time? We'll say when to leave.</label>
+    <input type="time" id="pv-appt" step="900" data-pv-appt>
+    <ul data-pv-leave-list aria-live="polite"></ul>
+  </div>
+</div></section>
+{%- endif %}
+
+{%- if parking.length or v.access or v.payment %}
+<section class="cc-notes"><div class="wrap">
+  {%- if parking.length %}
+  <div><h2 class="cc-pt">Parking</h2>
+    {%- for c in parking %}
+    <div class="cc-note rv">
+      <h3>{{ c.name }}</h3>
+      <p class="cc-note-live" data-parking-card="{{ loop.index0 }}" hidden></p>
+      <p>{{ c | parkingSummary }}</p>
+      <p class="cc-note-m">{% if c.walk is defined %}{{ c.walk }} min walk{% endif %}{% if c.walk is defined and c.price %} · {% endif %}{{ c.price }}</p>
+      {%- if c.note %}<p class="cc-note-m">{{ c.note }}</p>{% endif %}
+    </div>
+    {%- endfor %}
+  </div>
+  {%- endif %}
+  <div>
+    {%- if v.access %}<h2 class="cc-pt">Access</h2>
+    <ul class="cc-access">{% for a in v.access %}<li class="{{ 'yes' if a.yes else 'no' }}"><span class="sr-only">{{ "Yes:" if a.yes else "No:" }}</span>{{ a.label }}</li>{% endfor %}</ul>
+    {%- if v.accessNote %}<p class="cc-note-m">{{ v.accessNote }}</p>{% endif %}{% endif %}
+    {%- if v.payment %}<h2 class="cc-pt">Paying</h2><p>{{ v.payment }}</p>{% endif %}
+  </div>
+</div></section>
+{%- endif %}
+</div>
+
+{%- set visitHeading = false %}
+{% include "features/visit/visit.njk" %}
+{%- set groups = site | questionTopics %}
+{%- if groups.length %}
+<section class="cc-qa" id="questions"><div class="wrap">
+  <h2 class="cc-pt">Questions</h2>
+  {%- for g in groups %}
+  <h3 class="cc-qa-topic">{{ g.topic }}</h3>
+  <dl class="cc-dl">{% for item in g.items %}<div><dt>{{ item.q }}</dt><dd>{{ item.a }}</dd></div>{% endfor %}</dl>
+  {%- endfor %}
+</div></section>
+{%- endif %}

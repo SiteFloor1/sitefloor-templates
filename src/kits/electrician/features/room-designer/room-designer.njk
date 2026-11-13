@@ -1,0 +1,24 @@
+{#- The room lighting designer: a room, its size and the layers of light; the fittings and the quote come from the
+    client's own prices (lightingQuote in lib/quotes.js), sent on WhatsApp. Without JavaScript the layers and their
+    prices are listed with the WhatsApp link. -#}
+{%- set d = site.designer %}
+<section id="designer" class="el-design" data-feature="room-designer" aria-label="Design a room's light"><div class="wrap el-design-in">
+  <form class="el-design-form" data-design-form>
+    <fieldset><legend>The room</legend><div class="el-seg">
+      {%- for r in d.rooms %}<label><input type="radio" name="dz-room" value="{{ r.id }}"{% if loop.first %} checked{% endif %}><span>{{ r.name }}</span></label>{% endfor %}
+    </div></fieldset>
+    <fieldset><legend>Its size</legend><div class="el-seg">
+      {%- for s in d.sizes %}<label><input type="radio" name="dz-size" value="{{ s.id }}"{% if loop.index == 2 or d.sizes.length == 1 %} checked{% endif %}><span>{{ s.label }}</span></label>{% endfor %}
+    </div></fieldset>
+    <fieldset><legend>The layers of light</legend><div class="el-layers">
+      {%- for l in d.layers %}<label class="el-layer"><input type="checkbox" name="dz-layer" value="{{ l.id }}"{% if loop.index <= 2 %} checked{% endif %}><span class="el-layer-t"><b>{{ l.name }}</b><span>{{ l.about }}</span><span class="el-layer-p">{{ l.price | pounds }} each, fitted</span></span></label>{% endfor %}
+    </div></fieldset>
+  </form>
+  <div class="el-design-out" aria-live="polite">
+    <p class="el-design-k">Your room</p>
+    <ul class="el-design-lines" data-design-lines><li data-no-js>Choose the layers to see the fittings and the price.</li></ul>
+    <p class="el-design-total"><span>Fitted, with {{ d.control.name | lower }} when there's more than one layer</span><b data-design-total>—</b></p>
+    <a class="go" data-design-send href="{{ d.message | wa }}" target="_blank" rel="noopener">Send this room on WhatsApp</a>
+    <p class="el-design-note">Our prices for fittings we supply and fit. The design visit confirms the numbers for your room.</p>
+  </div>
+</div></section>

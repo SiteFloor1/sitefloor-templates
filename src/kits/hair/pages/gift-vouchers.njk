@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: gift-vouchers
+permalink: gift-vouchers.html
+feature: hair-vouchers
+eleventyComputed:
+  title: "{{ site.voucherPage.title | plain }}"
+  description: "{{ site.voucherPage.description or site.voucherPage.intro }}"
+---
+{% include "kits/hair/features/hair-vouchers/hair-vouchers.njk" %}

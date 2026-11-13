@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Isotach Case Study</title>
+<meta name="description" content="How a Sitefloor site works for a clothing brand: the drop to the second, a size from height and weight, stock in every size, the lookbook, the run club and drop day.">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@300;400;500&family=Rethink+Sans:wght@400;500&family=Manrope:wght@600;700&display=swap">
+<style>
+/* Layout: the case study is a wind chart. Lines of moving air run across a basalt ground and bend around the site
+   itself, the way wind bends around a runner. Each feature is a numbered station on the chart; its plan is marked
+   with a wind barb (Starter one feather, Plus two, Signature the pennant). Isotach's own colours and type. */
+:root {
+  --ground: #17191C; --ground-2: #1F2226; --deep: #121416; --text: #E7E8E3; --muted: #9A9E9A; --dim: #8A8E8B;
+  --rock: #A9B8C3; --line: rgba(169,184,195,.16); --line-2: rgba(169,184,195,.34);
+  --display: "Host Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --body: "Rethink Sans", "Helvetica Neue", Arial, sans-serif;
+  --brand: "Manrope", "Helvetica Neue", Arial, sans-serif;
+  --sf-paper: #FBFAF7; --sf-ink: #0E0F11; --sf-tomato: #E8613C; --sf-line: rgba(14,15,17,.12);
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--ground); color: var(--text); font: 400 17px/1.6 var(--body); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 40; background: var(--sf-paper); }
+a { color: inherit; }
+img, video { display: block; max-width: 100%; height: auto; }
+p { margin: 0; }
+h1, h2, h3 { margin: 0; font-family: var(--display); font-weight: 300; text-wrap: balance; }
+.gut { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { width: min(1360px, 100%); margin-inline: auto; }
+:focus-visible { outline: 2px solid var(--rock); outline-offset: 3px; }
+
+/* Sitefloor's own bar, as on the Sitefloor site and the other case studies */
+.sfbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--sf-paper); color: var(--sf-ink); border-bottom: 1px solid var(--sf-line); }
+.sfbar .wrap { display: flex; justify-content: space-between; align-items: center; height: 66px; gap: 16px; }
+.wm { display: flex; align-items: baseline; font-family: var(--brand); font-weight: 600; font-size: 24px; letter-spacing: -.045em; text-decoration: none; color: var(--sf-ink); }
+.wm svg { margin: 0 1px; overflow: visible; }
+.sfbar nav { display: flex; gap: 28px; font-family: var(--brand); font-size: 14px; font-weight: 600; }
+.sfbar nav a { text-decoration: none; color: var(--sf-ink); }
+.sfbar nav a[aria-current] { box-shadow: inset 0 -1.5px 0 var(--sf-ink); }
+.sfbtn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 20px; background: var(--sf-ink); color: var(--sf-paper); font: 700 12px var(--brand); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; }
+.sfbtn:hover { background: var(--sf-tomato); }
+@media (max-width: 760px) { .sfbar nav { display: none; } }
+@media (max-width: 420px) { .sfbar .sfbtn { display: none; } }
+
+/* the chart */
+.chart { position: relative; overflow: hidden; isolation: isolate; }
+.chart svg.wind { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;
+  -webkit-mask-image: radial-gradient(ellipse var(--mw, 62%) 90% at var(--mx, 70%) var(--my, 50%), #000 38%, rgba(0,0,0,.12) 100%);
+          mask-image: radial-gradient(ellipse var(--mw, 62%) 90% at var(--mx, 70%) var(--my, 50%), #000 38%, rgba(0,0,0,.12) 100%); }
+.wind .base { fill: none; stroke: var(--line); stroke-width: 1; }
+.wind .base.k { stroke: var(--line-2); }
+.wind .flow { fill: none; stroke: var(--rock); stroke-width: 1.4; stroke-linecap: round; stroke-dasharray: 1.5 210; animation: flow var(--t, 24s) linear infinite; opacity: .75; }
+.wind text { font: 400 10.5px var(--body); fill: var(--dim); letter-spacing: .04em; paint-order: stroke; stroke: var(--ground); stroke-width: 6px; }
+@keyframes flow { to { stroke-dashoffset: -211.5; } }
+.still .wind .flow { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) { .wind .flow { animation: none; opacity: 0; } }
+
+/* hero */
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: center; gap: 40px; min-height: calc(100svh - 66px); padding-block: 56px 40px; }
+.hero-t { align-self: stretch; display: flex; flex-direction: column; justify-content: space-between; gap: 48px; padding-top: 4vh; }
+.eyebrow { color: var(--muted); font-size: 14px; }
+.eyebrow b { color: var(--text); font-weight: 500; }
+h1 { font-size: clamp(52px, 7.6vw, 128px); line-height: .94; letter-spacing: -.035em; margin-top: 22px; }
+h1 em, h2 em { font-style: normal; color: var(--rock); }
+.lede { max-width: 33em; margin-top: 30px; color: var(--muted); font-size: 18px; line-height: 1.55; }
+.lede b { color: var(--text); font-weight: 400; }
+.acts { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; margin-top: 34px; }
+.btn { display: inline-flex; align-items: center; min-height: 48px; padding: 0 26px; border-radius: 24px; font: 500 15px var(--body); text-decoration: none; }
+.btn.fill { background: var(--text); color: var(--ground); }
+.btn.fill:hover { background: var(--rock); }
+.link { text-decoration: underline; text-decoration-color: var(--line-2); text-underline-offset: 5px; font-size: 15px; }
+.link:hover { text-decoration-color: var(--rock); }
+.mail { color: var(--dim); font-size: 14px; }
+.key { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 26px; color: var(--muted); font-size: 13px; }
+.key span { display: inline-flex; align-items: center; gap: 9px; }
+.barb { width: 34px; height: 18px; flex: none; stroke: var(--text); stroke-width: 1.3; fill: none; stroke-linecap: round; }
+.barb .pen { fill: var(--text); stroke: none; }
+.tbtn { background: none; border: 0; padding: 0; min-height: 44px; color: var(--muted); font: 400 13px var(--body); text-decoration: underline; text-decoration-color: var(--line-2); text-underline-offset: 4px; cursor: pointer; }
+.tbtn:hover { color: var(--text); }
+@media (max-width: 900px) {
+  .hero .wrap { grid-template-columns: minmax(0, 1fr); min-height: 0; padding-block: 40px 56px; gap: 56px; }
+  .hero-t { padding-top: 0; gap: 36px; }
+  .lede { font-size: 17px; }
+}
+
+/* the site itself: a phone recording, borderless, never in a phone frame */
+.scr { margin: 0; }
+.scr video, .scr img { width: 100%; aspect-ratio: 390 / 844; object-fit: cover; border: 1px solid var(--line-2); background: var(--ground-2); }
+.scr figcaption { display: flex; justify-content: space-between; align-items: start; gap: 16px; margin-top: 12px; font-size: 13px; color: var(--muted); }
+.scr figcaption b { color: var(--text); font-weight: 500; }
+.scr .tbtn { min-height: 0; padding-block: 2px; white-space: nowrap; }
+.station { justify-self: center; width: min(318px, 76vw); }
+.station figcaption { display: grid; grid-template-columns: minmax(0, 1fr) auto; }
+.station figcaption .say { grid-column: 1 / -1; color: var(--dim); }
+
+/* stations */
+.st { position: relative; padding-block: clamp(72px, 9vw, 140px); }
+.st + .st { border-top: 1px solid var(--line); }
+.st-rule { display: flex; align-items: center; gap: 16px; color: var(--muted); font-size: 13px; margin-bottom: clamp(40px, 5vw, 72px); }
+.st-rule::after { content: ""; flex: 1; height: 1px; background: var(--line-2); }
+.st-rule b { color: var(--text); font-weight: 500; }
+.st h2 { font-size: clamp(36px, 4.2vw, 68px); line-height: 1; letter-spacing: -.025em; }
+.words { color: var(--muted); max-width: 30em; }
+.words p + p { margin-top: 16px; }
+.words b { color: var(--text); font-weight: 400; }
+.plan { display: flex; align-items: center; gap: 12px; padding-block: 12px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+.plan b { color: var(--text); font-weight: 500; }
+.plans-of { margin-top: 28px; }
+.plans-of .plan:last-child { border-bottom: 1px solid var(--line); }
+.ph { margin: 0; }
+.ph img { width: 100%; object-fit: cover; }
+.ph figcaption { margin-top: 12px; font-size: 13px; color: var(--muted); }
+
+/* 02 fit: words and a working finder, the recording, the shell itself */
+.fit-in { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 3.4fr) minmax(0, 4.6fr); gap: clamp(28px, 4vw, 64px); align-items: stretch; }
+.fit-t { display: flex; flex-direction: column; justify-content: space-between; gap: 40px; }
+.fit-in .scr { align-self: center; }
+.fit-in .ph { display: flex; flex-direction: column; }
+.fit-in .ph img { flex: 1; min-height: 0; aspect-ratio: 4 / 5; }
+.try { margin-top: 28px; padding: 20px 0 0; border-top: 1px solid var(--line); }
+.try legend { padding: 0; font-size: 13px; color: var(--dim); }
+.try-row { display: flex; flex-wrap: wrap; align-items: end; gap: 12px 14px; margin-top: 12px; }
+.try label { display: grid; gap: 6px; font-size: 13px; color: var(--muted); }
+.try input { width: 104px; height: 44px; border-radius: 22px; border: 1px solid rgba(169,184,195,.55); background: var(--ground-2); color: var(--text); text-align: center; font: 400 16px var(--body); }
+.try output { display: block; margin-top: 16px; min-height: 2.4em; font-size: 15px; color: var(--muted); }
+.try output b { display: block; font: 300 34px/1.05 var(--display); color: var(--text); }
+@media (max-width: 1000px) { .fit-in { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .fit-t { grid-column: 1 / -1; } }
+@media (max-width: 640px) { .fit-in { grid-template-columns: minmax(0, 1fr); } .fit-in .scr { width: min(318px, 100%); justify-self: center; } }
+
+/* 03 stock: the close-up wide, the recording standing in it */
+.stock-in { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(28px, 4vw, 64px); align-items: end; }
+.stock-pic { position: relative; }
+.stock-pic .ph img { aspect-ratio: 5 / 4; object-position: 50% 40%; }
+.stock-pic .scr { position: absolute; right: clamp(16px, 4vw, 48px); bottom: clamp(-40px, -3vw, -20px); width: clamp(200px, 22vw, 290px); }
+.stock-pic .scr video { box-shadow: 0 30px 80px rgba(0,0,0,.5); }
+.stock-t { display: grid; gap: 28px; padding-bottom: 8px; }
+@media (max-width: 900px) {
+  .stock-in { grid-template-columns: minmax(0, 1fr); }
+  .stock-pic .scr { position: static; width: min(318px, 100%); margin: -120px auto 0; }
+}
+
+/* 04 lookbook: an open book across the width, the recording in the gutter */
+.book { display: grid; grid-template-columns: minmax(0, 1fr) clamp(220px, 24vw, 318px) minmax(0, 1fr); gap: clamp(16px, 2.5vw, 36px); align-items: center; }
+.book .ph img { aspect-ratio: 3 / 4; }
+.book-t { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 4fr); gap: 24px clamp(28px, 4vw, 64px); margin-top: clamp(40px, 5vw, 72px); align-items: start; }
+@media (max-width: 760px) {
+  .book { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .book .scr { grid-column: 1 / -1; grid-row: 1; width: min(318px, 100%); justify-self: center; }
+  .book-t { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* 05 club: the photograph as a band, words and recording under it, offset */
+.club-band img { width: 100%; aspect-ratio: 21 / 9; object-fit: cover; }
+.club-in { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 6fr) minmax(0, 3fr); gap: clamp(28px, 4vw, 64px); margin-top: clamp(-160px, -10vw, -60px); position: relative; align-items: end; }
+.club-in .scr { grid-column: 1; }
+.club-in .club-t { grid-column: 2 / 4; padding-bottom: 8px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px clamp(28px, 4vw, 56px); align-items: end; }
+@media (max-width: 900px) {
+  .club-band img { aspect-ratio: 4 / 3; }
+  .club-in { grid-template-columns: minmax(0, 1fr); margin-top: -90px; }
+  .club-in .scr { width: min(260px, 70%); }
+  .club-in .club-t { grid-column: 1; grid-template-columns: minmax(0, 1fr); }
+}
+
+/* 06–08: three Signature showpieces side by side, each its own short column */
+.trio { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(28px, 4vw, 64px); }
+.trio h3 { font-size: clamp(26px, 2.4vw, 36px); line-height: 1.05; letter-spacing: -.015em; margin: 24px 0 14px; }
+.trio .words { font-size: 16px; }
+.trio .plan { margin-top: 20px; }
+.trio .scr, .trio .kc { max-width: 318px; }
+.kc { margin: 0; }
+.kc img { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; border: 1px solid var(--line-2); }
+.kc figcaption { margin-top: 12px; font-size: 13px; color: var(--muted); }
+.paid { margin-top: 10px; font-size: 13px; color: var(--dim); }
+@media (max-width: 900px) { .trio { grid-template-columns: minmax(0, 1fr); gap: 72px; } .trio .scr, .trio .kc { width: min(318px, 100%); } }
+
+/* measured: a legend, not a dashboard */
+.meas { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(28px, 4vw, 64px); }
+.meas dl { margin: 0; border-top: 1px solid var(--line-2); }
+.meas dl div { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 20px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.meas dt { color: var(--muted); font-size: 15px; }
+.meas dd { margin: 0; font-size: 17px; }
+.meas dd span { color: var(--dim); font-size: 14px; }
+@media (max-width: 760px) { .meas, .meas dl div { grid-template-columns: minmax(0, 1fr); gap: 4px; } .meas { gap: 32px; } }
+
+/* plans */
+.plans { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line-2); }
+.pl { padding: 28px clamp(16px, 2.4vw, 36px) 32px 0; }
+.pl + .pl { padding-left: clamp(16px, 2.4vw, 36px); border-left: 1px solid var(--line); }
+.pl .barb { width: 44px; height: 22px; }
+.pl h3 { font-size: 30px; margin-top: 18px; }
+.pl .price { margin-top: 6px; font-size: 17px; }
+.pl .price span { color: var(--dim); }
+.pl ul { margin: 22px 0 0; padding: 0; list-style: none; color: var(--muted); font-size: 15px; }
+.pl li { padding: 9px 0; border-top: 1px solid var(--line); }
+.pl li b { color: var(--text); font-weight: 400; }
+.fine { margin-top: 24px; color: var(--dim); font-size: 13px; max-width: 80ch; }
+@media (max-width: 900px) { .plans { grid-template-columns: minmax(0, 1fr); } .pl, .pl + .pl { padding: 28px 0; border-left: 0; border-top: 1px solid var(--line); } }
+
+/* close */
+.close { padding-block: clamp(96px, 12vw, 180px); }
+.close h2 { font-size: clamp(44px, 6.4vw, 104px); line-height: .96; letter-spacing: -.03em; max-width: 12em; }
+.close .acts { margin-top: 40px; }
+
+footer { background: var(--deep); color: var(--dim); font-size: 13px; line-height: 1.6; border-top: 1px solid var(--line); }
+footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px 32px; padding-block: 28px; }
+footer p { max-width: 96ch; }
+@media (max-width: 700px) { footer .wrap { grid-template-columns: minmax(0, 1fr); } }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="b1" viewBox="0 0 34 18"><path d="M2 15H32M32 15L26 3"/></symbol>
+  <symbol id="b2" viewBox="0 0 34 18"><path d="M2 15H32M32 15L26 3M26 15L20 3"/></symbol>
+  <symbol id="b3" viewBox="0 0 34 18"><path d="M2 15H32"/><path class="pen" d="M32 15L26 2L24 15Z"/></symbol>
+</svg>
+
+<div class="sfbar gut"><div class="wrap">
+  <a class="wm" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su" aria-label="Sitefloor home">sitefl<svg width="28" height="14" viewBox="0 0 42 21" aria-hidden="true"><rect x="1.9" y="1.9" width="38.2" height="17.2" rx="8.6" fill="none" stroke="#0E0F11" stroke-width="3.8"/><circle cx="31.5" cy="10.5" r="5.2" fill="#E8613C"/></svg>r</a>
+  <nav aria-label="Main"><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#live">Features</a><a href="#top" aria-current="page">Work</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#pricing">Pricing</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#guides">Guides</a></nav>
+  <a class="sfbtn" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#free"><span>Free mockup</span><span aria-hidden="true">→</span></a>
+</div></div>
+
+<main id="top">
+<section class="chart hero gut" id="hero" aria-labelledby="h1">
+  <svg class="wind" aria-hidden="true" focusable="false"></svg>
+  <div class="wrap">
+    <div class="hero-t">
+      <div>
+        <p class="eyebrow"><b>Isotach</b> · Case study · Clothing brands</p>
+        <h1 id="h1">A running brand, <em>drawn in wind.</em></h1>
+        <p class="lede">Isotach is a fictional London maker of running shells. Its site does what a flagship store does, on a phone: <b>the next drop to the second</b>, a size from your height and weight, the run club in your calendar, and what to wear in today's rain.</p>
+        <div class="acts">
+          <a class="btn fill" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#free">Get a free mockup</a>
+          <a class="link" href="https://claude.ai/artifact/R1nSCMpoKargZwJphvGoCY">Try the demo first</a>
+          <span class="mail">hello@sitefloor.com</span>
+        </div>
+      </div>
+      <div class="key">
+        <span><svg class="barb"><use href="#b1"/></svg>Starter</span>
+        <span><svg class="barb"><use href="#b2"/></svg>Plus</span>
+        <span><svg class="barb"><use href="#b3"/></svg>Signature</span>
+        <button class="tbtn" type="button" data-wind>Pause the wind</button>
+      </div>
+    </div>
+    <figure class="scr station" data-obstacle>
+      <video muted loop playsinline preload="metadata" poster="media/drop-poster.webp" width="390" height="844" aria-label="Isotach's home page on a phone: a black-and-white photograph of a runner in Shell 04, and the drop line, Drop 04, Saturday 10:00, its clock counting down"><source src="media/drop.mp4" type="video/mp4"><source src="media/drop.webm" type="video/webm"></video>
+      <figcaption><span><b>01</b> The drop line</span><button class="tbtn" type="button" data-clip>Pause the drop line clip</button><span class="say">Counts down to Saturday 10:00 on the brand's London clock, wherever you are. Starter.</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="st gut" aria-labelledby="st-fit">
+  <div class="wrap">
+    <p class="st-rule"><b>02</b> Fit and fabric</p>
+    <div class="fit-in">
+      <div class="fit-t">
+        <h2 id="st-fit">A size from what you <em>already know.</em></h2>
+        <div class="words">
+          <p>Height, weight, and the size you wear in brands that run small or large. <b>It answers with one size and why,</b> read only from the brand's own chart. Then every shell on the page turns to that size, its flat measurements beside it.</p>
+          <form class="try" data-try>
+            <fieldset style="border:0;margin:0;padding:0;min-width:0">
+              <legend>Try it on the demo's example chart</legend>
+              <div class="try-row">
+                <label>Height, cm<input type="number" inputmode="numeric" min="120" max="230" data-h></label>
+                <label>Weight, kg<input type="number" inputmode="numeric" min="35" max="200" data-w></label>
+              </div>
+            </fieldset>
+            <output aria-live="polite" data-out>Your size and why, from the chart.</output>
+          </form>
+          <div class="plans-of"><p class="plan"><svg class="barb"><use href="#b2"/></svg><span>On <b>Plus</b> and Signature</span></p></div>
+        </div>
+      </div>
+      <figure class="scr">
+        <video muted loop playsinline preload="none" poster="media/finder-poster.webp" width="390" height="844" aria-label="The size finder on a phone: height 181, weight 79, L in brands that run small; it answers Try M with its reasons, then Shell 04 shows its measurements in M"><source src="media/finder.mp4" type="video/mp4"><source src="media/finder.webm" type="video/webm"></video>
+        <figcaption><span>The fit page</span><button class="tbtn" type="button" data-clip>Pause the size finder clip</button></figcaption>
+      </figure>
+      <figure class="ph"><img src="media/p04-a.webp" alt="A man in a black hooded shell leaping across a wet road in the rain" width="1100" height="1375" loading="lazy" decoding="async"><figcaption>Shell 04 in M: 58 cm across the chest, measured flat.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="st gut" aria-labelledby="st-stock">
+  <div class="wrap">
+    <p class="st-rule"><b>03</b> What's left</p>
+    <div class="stock-in">
+      <div class="stock-pic">
+        <figure class="ph"><img src="media/d-zip.webp" alt="A black coil zip, very close" width="1400" height="1750" loading="lazy" decoding="async"></figure>
+        <figure class="scr">
+          <video muted loop playsinline preload="none" poster="media/sizes-poster.webp" width="390" height="844" aria-label="The shells on a phone: each with its price and what's left, 12 left in M and L only, sold out, opens Saturday 10:00; then the size run, every size of every piece"><source src="media/sizes.mp4" type="video/mp4"><source src="media/sizes.webm" type="video/webm"></video>
+          <figcaption><span>Home, then the size run</span><button class="tbtn" type="button" data-clip>Pause the stock clip</button></figcaption>
+        </figure>
+      </div>
+      <div class="stock-t">
+        <h2 id="st-stock">Every size, <em>as the stockroom counts it.</em></h2>
+        <div class="words">
+          <p>Each shell says what's left in every size, from a Google Sheet the brand edits on its phone. <b>Sold out, a few left in M and L, opens Saturday at ten.</b></p>
+          <p>If the sheet hasn't been touched for longer than the brand sets, the numbers go quiet rather than show old stock. Sold out? "Tell me when it's back" goes to the brand's own Google Form.</p>
+        </div>
+        <div class="plans-of">
+          <p class="plan"><svg class="barb"><use href="#b1"/></svg><span>Stock on every piece: <b>Starter</b></span></p>
+          <p class="plan"><svg class="barb"><use href="#b3"/></svg><span>The size run, emptying on drop day: <b>Signature</b></span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="st gut" aria-labelledby="st-book">
+  <div class="wrap">
+    <p class="st-rule"><b>04</b> The lookbook</p>
+    <div class="book">
+      <figure class="ph"><img src="media/l-hood.webp" alt="A dark hooded shell from behind in autumn woods" width="1300" height="1734" loading="lazy" decoding="async"></figure>
+      <figure class="scr">
+        <video muted loop playsinline preload="none" poster="media/lookbook-poster.webp" width="390" height="844" aria-label="The lookbook on a phone: the cover, In weather, then spread by spread; a tap on a look shows Shell 04, £180, opens Saturday"><source src="media/lookbook.mp4" type="video/mp4"><source src="media/lookbook.webm" type="video/webm"></video>
+        <figcaption><span>Spread by spread</span><button class="tbtn" type="button" data-clip>Pause the lookbook clip</button></figcaption>
+      </figure>
+      <figure class="ph"><img src="media/l-coat.webp" alt="A man in a long dark coat in the woods" width="1300" height="1733" loading="lazy" decoding="async"></figure>
+    </div>
+    <div class="book-t">
+      <h2 id="st-book">The season, <em>set as a book.</em></h2>
+      <div class="words">
+        <p>The campaign turns spread by spread, with a contact sheet to jump between looks. <b>Tap a look to see each piece worn in it,</b> its price and what's left.</p>
+        <div class="plans-of"><p class="plan"><svg class="barb"><use href="#b3"/></svg><span><b>Signature</b>, with a page for every piece</span></p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="st gut" aria-labelledby="st-club">
+  <div class="wrap">
+    <p class="st-rule"><b>05</b> Run club</p>
+    <figure class="ph club-band"><img src="media/club.webp" alt="A run club group crossing cobbles" width="1800" height="771" loading="lazy" decoding="async"></figure>
+    <div class="club-in">
+      <figure class="scr">
+        <video muted loop playsinline preload="none" poster="media/club-poster.webp" width="390" height="844" aria-label="The run club page on a phone: Park laps, Thursday 7pm, with its next date, and its route drawn with the distance"><source src="media/club.mp4" type="video/mp4"><source src="media/club.webm" type="video/webm"></video>
+        <figcaption><span>The club page</span><button class="tbtn" type="button" data-clip>Pause the run club clip</button></figcaption>
+      </figure>
+      <div class="club-t">
+        <h2 id="st-club">Three runs a week, <em>in your calendar.</em></h2>
+        <div class="words">
+          <p>Each run with its next date and where to meet. "I'm in" says so on WhatsApp; one tap puts the next run in your calendar. <b>Routes are drawn from the club's own GPS points,</b> with the real distance, as a picture to share.</p>
+          <div class="plans-of">
+            <p class="plan"><svg class="barb"><use href="#b1"/></svg><span>The week's runs on the home page: <b>Starter</b></span></p>
+            <p class="plan"><svg class="barb"><use href="#b2"/></svg><span>The club page and calendar: <b>Plus</b></span></p>
+            <p class="plan"><svg class="barb"><use href="#b3"/></svg><span>Route cards: <b>Signature</b></span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="st gut" aria-labelledby="st-sig">
+  <div class="wrap">
+    <p class="st-rule"><b>06 · 07 · 08</b> <span id="st-sig">Drop day, the weather, the story</span></p>
+    <div class="trio">
+      <div>
+        <figure class="scr">
+          <video muted loop playsinline preload="none" poster="media/queue-poster.webp" width="390" height="844" aria-label="The drop-day line on a phone: now serving 18; ticket 30 typed in; 12 ahead of you, about 24 minutes"><source src="media/queue.mp4" type="video/mp4"><source src="media/queue.webm" type="video/webm"></video>
+          <figcaption><span>Drop day, 9:20am</span><button class="tbtn" type="button" data-clip>Pause the queue clip</button></figcaption>
+        </figure>
+        <h3>The line at the door.</h3>
+        <div class="words"><p>The number being served, from a sheet the staff update at the door. Type your ticket to see how many are ahead. <b>Only on drop day, and never an old number.</b></p></div>
+        <p class="plan"><svg class="barb"><use href="#b3"/></svg><span><b>Signature</b></span></p>
+      </div>
+      <div>
+        <figure class="scr">
+          <video muted loop playsinline preload="none" poster="media/today-poster.webp" width="390" height="844" aria-label="What to wear today on a phone: London is 11° with rain from 6pm. Wear the shell, hood up. Shell 04 and Shell 02 beneath"><source src="media/today.mp4" type="video/mp4"><source src="media/today.webm" type="video/webm"></video>
+          <figcaption><span>Example forecast</span><button class="tbtn" type="button" data-clip>Pause the weather clip</button></figcaption>
+        </figure>
+        <h3>What to wear today.</h3>
+        <div class="words"><p>The brand's city right now in one sentence, answered with its own pieces for rain, wind, cold or a mild day.</p></div>
+        <p class="plan"><svg class="barb"><use href="#b3"/></svg><span><b>Signature</b> add-on</span></p>
+        <p class="paid">The live forecast needs the brand's own paid weather plan, so it costs extra each month.</p>
+      </div>
+      <div>
+        <figure class="kc"><img src="media/kitcard.webp" alt="A kit card: a runner in a black shell in the rain, Thursday 29 October, London is 11° with rain from 6pm, Wear the shell, hood up, Shell 04 Black, Shell 02 Fog" width="540" height="960" loading="lazy" decoding="async"><figcaption>The picture it saves, 1080 × 1920.</figcaption></figure>
+        <h3>Today's kit, for stories.</h3>
+        <div class="words"><p>The weather and the kit for it, drawn as a 9:16 picture with the brand's mark and saved to the phone, <b>ready for a story.</b></p></div>
+        <p class="plan"><svg class="barb"><use href="#b3"/></svg><span><b>Signature</b>, with what to wear today</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="st gut" aria-labelledby="st-meas">
+  <div class="wrap meas">
+    <h2 id="st-meas">Light enough <em>for a wet platform.</em></h2>
+    <dl>
+      <div><dt>Script</dt><dd>17.9 KB <span>compressed, the whole site</span></dd></div>
+      <div><dt>Styles</dt><dd>14.7 KB <span>compressed</span></dd></div>
+      <div><dt>First screen on a phone</dt><dd>159 KB of photographs <span>the rest load as you reach them</span></dd></div>
+      <div><dt>Lighthouse, phone</dt><dd>Accessibility 100 · performance 88 to 98 <span>across runs</span></dd></div>
+      <div><dt>Layout shift</dt><dd>0.001 <span>the clock ticks without moving the page</span></dd></div>
+      <div><dt>Without JavaScript</dt><dd>Every piece, its price and its size table are still there</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="st gut" aria-labelledby="st-plans" id="plans">
+  <div class="wrap">
+    <p class="st-rule"><b>Plans</b> <span id="st-plans">For a clothing brand</span></p>
+    <div class="plans">
+      <div class="pl">
+        <svg class="barb"><use href="#b1"/></svg>
+        <h3>Starter</h3>
+        <p class="price">£99 <span>then £25 a month</span></p>
+        <ul>
+          <li><b>Home</b> and Plan your visit</li>
+          <li>The drop line, its clock and the reminder list</li>
+          <li>Every piece large, with stock in each size</li>
+          <li>The close-ups, the club's week, questions</li>
+        </ul>
+      </div>
+      <div class="pl">
+        <svg class="barb"><use href="#b2"/></svg>
+        <h3>Plus</h3>
+        <p class="price">£199 <span>then £30 a month</span></p>
+        <ul>
+          <li><b>Up to five pages</b></li>
+          <li>The shop page, stock in every size</li>
+          <li>Fit and fabric with the size finder</li>
+          <li>The run club page and calendar</li>
+          <li>Drops, the restock list and past campaigns</li>
+        </ul>
+      </div>
+      <div class="pl">
+        <svg class="barb"><use href="#b3"/></svg>
+        <h3>Signature</h3>
+        <p class="price">£349 <span>then £35 a month</span></p>
+        <ul>
+          <li><b>Up to 20 pages</b>, and something made for your brand alone</li>
+          <li>The lookbook and a page for every piece</li>
+          <li>The size run and the line at the door</li>
+          <li>Route cards and today's kit card</li>
+          <li>What to wear today, as a paid add-on</li>
+        </ul>
+      </div>
+    </div>
+    <p class="fine">Twelve-month minimum. Any feature can be added to any plan on its own, and extra pages singly. Stock, the line and the reminder lists run on the brand's own Google Sheets and Forms, at no extra cost.</p>
+  </div>
+</section>
+
+<section class="close gut" aria-labelledby="st-close">
+  <div class="wrap">
+    <h2 id="st-close">Your drop, <em>to the second.</em></h2>
+    <div class="acts">
+      <a class="btn fill" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#free">Get a free mockup</a>
+      <a class="link" href="https://claude.ai/artifact/R1nSCMpoKargZwJphvGoCY">Try the demo first</a>
+      <span class="mail">hello@sitefloor.com</span>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="gut"><div class="wrap">
+  <p>Isotach is a fictional brand made to show the Sitefloor kit for clothing brands. Its pieces, prices, stock, drops, reviews, size chart and forecast are demo data, and the clips are recorded from the demo. Its photographs are from Unsplash, of other people's clothes, credited in the demo. Client sites use the brand's own photographs.</p>
+  <span>© 2026 Sitefloor</span>
+</div></footer>
+
+<script>
+(() => {
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const hero = document.getElementById("hero");
+  const svg = hero.querySelector("svg.wind");
+  const fig = hero.querySelector("[data-obstacle]");
+  const NS = "http://www.w3.org/2000/svg";
+  const el = (n, a) => { const e = document.createElementNS(NS, n); for (const k in a) e.setAttribute(k, a[k]); return e; };
+
+  // Streamlines of air flowing left to right past an elliptical obstacle (the phone): psi = Y (1 - 1 / (X² + Y²)),
+  // in coordinates where the obstacle is the unit circle. Each line is one level of psi, solved for Y at each x.
+  function draw() {
+    const W = hero.clientWidth, H = hero.clientHeight;
+    const r = fig.querySelector("video").getBoundingClientRect(), h = hero.getBoundingClientRect();
+    const cx = r.left - h.left + r.width / 2, cy = r.top - h.top + r.height / 2 + 24;
+    const a = r.width / 2 + 34, b = r.height / 2 + 54;
+    hero.style.setProperty("--mx", (cx / W * 100).toFixed(1) + "%");
+    hero.style.setProperty("--my", (cy / H * 100).toFixed(1) + "%");
+    hero.style.setProperty("--mw", W < 900 ? "120%" : "58%");
+    svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+    svg.replaceChildren();
+    const gap = W < 700 ? 26 : 30, d = gap / b, step = 6;
+    const above = Math.ceil(cy / gap) + 2, below = Math.ceil((H - cy) / gap) + 2;
+    const levels = [];
+    for (let k = 1; k <= above; k++) levels.push(k * d);
+    for (let k = 1; k <= below; k++) levels.push(-k * d);
+    levels.forEach((c, i) => {
+      const s = Math.sign(c), cc = Math.abs(c);
+      let p = "";
+      for (let x = -step; x <= W + step; x += step) {
+        const X = (x - cx) / a;
+        let lo = Math.sqrt(Math.max(1 - X * X, 0)) + 1e-6, hi = cc + 1;
+        for (let n = 0; n < 40; n++) { const m = (lo + hi) / 2, f = m - m / (X * X + m * m); if (f < cc) lo = m; else hi = m; }
+        p += (p ? "L" : "M") + x.toFixed(1) + " " + (cy - s * ((lo + hi) / 2) * b).toFixed(1);
+      }
+      const k = Math.round(cc / d);
+      svg.append(el("path", { d: p, class: k % 4 === 0 ? "base k" : "base" }));
+      if (k <= 9) {
+        const f = el("path", { d: p, class: "flow" });
+        f.style.setProperty("--t", (16 + k * 2.6 + (s < 0 ? 1.3 : 0)) + "s");
+        f.style.animationDelay = (-(i * 3.7) % 20) + "s";
+        svg.append(f);
+      }
+      if (k % 4 === 0 && W > 900) {
+        const t = el("text", { x: W - 26, y: (cy - s * cc * b + 3.5).toFixed(1), "text-anchor": "end" });
+        t.textContent = (10 + k * 2.5) + " kt";
+        svg.append(t);
+      }
+    });
+  }
+  let raf = 0;
+  const redraw = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(draw); };
+  draw();
+  new ResizeObserver(redraw).observe(hero);
+  if (document.fonts) document.fonts.ready.then(redraw);
+
+  const wind = hero.querySelector("[data-wind]");
+  if (reduce) wind.hidden = true;
+  wind.addEventListener("click", () => {
+    const on = hero.classList.toggle("still");
+    wind.textContent = on ? "Play the wind" : "Pause the wind";
+  });
+
+  // Clips play while on screen and pause when they leave. With reduced motion they wait for a press.
+  for (const btn of document.querySelectorAll("[data-clip]")) {
+    const v = btn.closest("figure").querySelector("video");
+    const name = btn.textContent.replace(/^Pause /, "");
+    let held = reduce;
+    const show = () => { btn.textContent = (v.paused ? "Play " : "Pause ") + name; };
+    if (reduce) show();
+    btn.addEventListener("click", () => { if (v.paused) { held = false; v.play().catch(() => {}); } else { held = true; v.pause(); } });
+    v.addEventListener("play", show); v.addEventListener("pause", show);
+    new IntersectionObserver(([e]) => { if (e.isIntersecting && !held) v.play().catch(() => {}); else if (!e.isIntersecting) v.pause(); }, { threshold: .35 }).observe(v);
+  }
+
+  // The size finder, reduced to height and weight, reading the demo's example chart (the same logic as the kit).
+  const CHART = [["S", [165, 174], [55, 67]], ["M", [173, 181], [66, 78]], ["L", [180, 188], [77, 90]], ["XL", [187, 196], [89, 104]]];
+  const pos = (v, ranges) => {
+    const n = ranges.length;
+    if (v < ranges[0][0] - (ranges[0][1] - ranges[0][0]) / 2) return -1;
+    if (v > ranges[n - 1][1] + (ranges[n - 1][1] - ranges[n - 1][0]) / 2) return n;
+    for (let i = 0; i < n; i++) { const [lo, hi] = ranges[i]; if (v <= hi) return Math.max(i - .5, Math.min(i + (i === n - 1 ? .49 : .5), i + (v - lo) / (hi - lo) - .5)); if (i === n - 1) return i + .5; }
+    return n;
+  };
+  const words = (p) => p < 0 ? "below S" : p >= 3.5 ? "above XL" : (p % 1 > .35 && p % 1 < .65 && p < 3) ? `between ${CHART[Math.floor(p)][0]} and ${CHART[Math.floor(p) + 1][0]}` : CHART[Math.round(p)][0];
+  const form = document.querySelector("[data-try]");
+  const out = form.querySelector("[data-out]");
+  form.addEventListener("submit", (e) => e.preventDefault());
+  form.addEventListener("input", () => {
+    const h = Number(form.querySelector("[data-h]").value), w = Number(form.querySelector("[data-w]").value);
+    const sig = [];
+    if (h >= 120 && h <= 230) sig.push([pos(h, CHART.map((r) => r[1])), `height ${h} cm: ${words(pos(h, CHART.map((r) => r[1])))}`]);
+    if (w >= 35 && w <= 200) sig.push([pos(w, CHART.map((r) => r[2])), `weight ${w} kg: ${words(pos(w, CHART.map((r) => r[2])))}`]);
+    if (!sig.length) { out.textContent = "Your size and why, from the chart."; return; }
+    const x = Math.round(sig.reduce((t, s) => t + s[0], 0) / sig.length);
+    const size = x < 0 ? "Smaller than S: ask us" : x > 3 ? "Larger than XL: ask us" : `Try ${CHART[x][0]}`;
+    out.innerHTML = "";
+    const b = document.createElement("b"); b.textContent = size;
+    out.append(b, sig.map((s) => s[1]).join(" · ").replace(/^./, (c) => c.toUpperCase()));
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: ceramic-coating
+permalink: ceramic-coating.html
+feature: coating-page
+eleventyComputed:
+  title: "{{ site.coatingPage.title | plain }}"
+  description: "Ceramic coating at {{ site.business.name }}, {{ site.location.locality }}: what it does and what it doesn't."
+---
+{% include "kits/detailing/features/coating-page/coating-page.njk" %}

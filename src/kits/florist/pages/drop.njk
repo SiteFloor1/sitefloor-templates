@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: drop
+permalink: drop.html
+feature: the-drop
+eleventyComputed:
+  title: "{{ site.drop.name | plain }}"
+  description: "{{ site.business.name }}'s weekly drop: {{ site.drop.made }} bouquets every {{ site.drop.when.day | dayName }} at {{ site.drop.when.time | timeLabel }}, delivered in {{ site.location.locality }}."
+---
+{% include "kits/florist/features/the-drop/the-drop.njk" %}

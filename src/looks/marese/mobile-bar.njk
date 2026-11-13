@@ -1,0 +1,6 @@
+{#- Marese phone bar: an oxblood strip, a fitting on the left, Ask on the right. -#}
+{%- import "kits/lingerie/partials/mode.njk" as mode with context %}
+<div class="mbar mr-bar">
+  <a href="{{ ('fitting' | href) if ('fitting-page' | enabled) else ('#fitting' if ('private-fitting' | enabled) else ('visit' | href)) }}">{{ mode.say("Book a fitting", "Fit by video") }}</a>
+  <a class="mr-bar-ask" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">Ask {{ site.business.name }}</a>
+</div>

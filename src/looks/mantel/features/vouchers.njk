@@ -1,0 +1,32 @@
+{#- Mantel voucher: the card first and large, as it's tucked into the wrap (the week's wash, a fine ring), then the
+    choices beneath it in one ruled row each. Same hooks as the shared feature. -#}
+{%- set sec = site.sections.vouchers %}
+{%- set v = site.vouchers %}
+<section id="vouchers" class="mt-vc" data-feature="vouchers"{{ "vouchers" | tierAttr | safe }}><div class="wrap mt-vc-in">
+  <div class="mt-vc-t">
+    {% include "core/partials/section-head.njk" %}
+    <div class="vc-card" aria-live="polite">
+      <p class="vc-shop">{{ site.business.name }}</p>
+      <p class="vc-amount" data-vc-show-amount>{{ (v.amounts[1] or v.amounts[0]) | pounds }}</p>
+      <p class="vc-to" data-vc-show-to>Gift voucher</p>
+      <p class="vc-note" data-vc-show-note></p>
+      <p class="vc-small">Valid {{ v.validMonths }} months · {{ site.location.streetAddress }}, {{ site.location.locality }}</p>
+    </div>
+  </div>
+  <form class="mt-vc-f" data-vc-form>
+    <div data-js-only>
+      <fieldset class="mt-vc-a"><legend>Amount</legend>
+        {%- for a in v.amounts %}<label class="fl-chip"><input type="radio" name="vc-amount" value="{{ a }}"{% if loop.index0 == 1 or v.amounts.length == 1 and loop.first %} checked{% endif %}>{{ a | pounds }}</label>{% endfor %}
+        {%- if v.custom %}<label class="fl-chip"><input type="radio" name="vc-amount" value="custom">Other</label>
+        <input class="mt-vc-x" type="number" inputmode="numeric" min="{{ v.custom.min }}" max="{{ v.custom.max }}" step="1" placeholder="£{{ v.custom.min }}–{{ v.custom.max }}" aria-label="Other amount in pounds" data-vc-custom hidden>{% endif %}
+      </fieldset>
+      <label class="fl-field"><span>For</span><input type="text" maxlength="40" autocomplete="off" data-vc-to></label>
+      <label class="fl-field"><span>From</span><input type="text" maxlength="40" autocomplete="name" data-vc-from></label>
+      <label class="fl-field"><span>On the card</span><input type="text" maxlength="90" autocomplete="off" data-vc-note></label>
+      <p class="mt-fine" data-vc-err role="alert" hidden></p>
+    </div>
+    <p class="mt-fine" data-no-js>Message us the amount, who it's for and the words for the card.</p>
+    <a class="fl-btn" href="{{ 'Hello, I would like a gift voucher.' | wa }}" target="_blank" rel="noopener" data-vc-order>Ask for the voucher</a>
+    <p class="mt-fine">{{ v.howToBuy }} {{ v.terms }}</p>
+  </form>
+</div></section>

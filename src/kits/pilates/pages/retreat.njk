@@ -1,0 +1,14 @@
+---
+layout: core/layouts/base.njk
+feature: retreats-page
+pagination:
+  data: site.retreats.items
+  size: 1
+  alias: r
+permalink: "retreat-{{ r.id }}.html"
+eleventyComputed:
+  pageId: "retreat-{{ r.id }}"
+  title: "{{ r.name }}"
+  description: "A Pilates retreat with {{ site.business.name }}: {{ r.place }}, {{ r | retreatDates }}."
+---
+{% include "kits/pilates/features/retreats-page/retreat.njk" %}

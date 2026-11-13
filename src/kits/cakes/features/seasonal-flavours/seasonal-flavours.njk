@@ -1,0 +1,13 @@
+{#- The flavour calendar: your month in, the studio's flavours in season then out. Rendered for June before the
+    script runs (the script starts from the visitor's own month). -#}
+{%- set sec = site.sections.seasonal %}
+<section id="seasonal" class="ck-cal" data-feature="seasonal-flavours" aria-label="{{ sec.title | plain }}"{{ 'seasonal-flavours' | tierAttr | safe }}><div class="wrap ck-cal-in">
+  {%- include "core/partials/section-head.njk" %}
+  <div class="ck-cal-f">
+    <label for="sf-month">Your month</label>
+    <select id="sf-month" data-sf-month>{% for m in cakeAllergens.months %}<option value="{{ loop.index }}"{% if loop.index == 6 %} selected{% endif %}>{{ m }}</option>{% endfor %}</select>
+  </div>
+  <ul class="ck-cal-l" aria-live="polite" data-sf-list>
+    {%- for f in site.flavours.items %}{% if not f.months or (6 in f.months) %}<li><b>{{ f.name }}</b><span>{{ f.what }}</span></li>{% endif %}{% endfor %}
+  </ul>
+</div></section>

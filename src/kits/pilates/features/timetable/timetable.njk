@@ -1,0 +1,30 @@
+{#- The week: seven days from today as tabs, the chosen day's classes as rows (time, class, length, teacher, places
+    when the studio's sheet says, Book). Rendered for the build date; the script redraws it from the visitor's own
+    today and moves on as classes start. Your week and the waitlist add to these rows when they're on. -#}
+{%- set sec = site.sections.timetable %}
+{%- set tt = site.timetable %}
+{%- set week = site | weekFrom(build.today) %}
+<section id="timetable" class="pl-week" data-feature="timetable" data-tt="week" aria-label="{{ sec.title | plain }}"><div class="wrap">
+  {%- include "core/partials/section-head.njk" %}
+  <div class="pl-days" role="tablist" aria-label="Day" data-tt-days>
+    {%- for d in week %}<button class="pl-day" type="button" role="tab" id="pl-day-{{ loop.index0 }}" aria-selected="{{ 'true' if loop.first else 'false' }}" data-day="{{ d.date }}">{{ "Today" if loop.first else (d.date | shortDay) }}</button>{% endfor %}
+  </div>
+  {%- for d in week %}
+  <ol class="pl-rows" data-tt-rows="{{ d.date }}" aria-label="{{ d.date | dayName }}"{% if not loop.first %} hidden{% endif %}>
+    {%- for c in d.classes %}
+    {%- set ct = site | classOf(c.class) %}
+    <li class="pl-row" data-key="{{ c.key }}">
+      <time class="pl-row-t" datetime="{{ c.date }}T{{ c.time }}">{{ c.time | said }}</time>
+      <span class="pl-row-c"><b>{{ ct.name }}</b><span>{{ ct.minutes }} min{% if ct.level %} · {{ ct.level }}{% endif %}{% if c.teacher %} · {{ c.teacher }}{% endif %}</span></span>
+      <span class="pl-six" data-tt-marks hidden></span>
+      <a class="pl-row-go" href="{{ site | bookText(ct.name, c.date, c.time) | book }}" target="_blank" rel="noopener" data-tt-go>Book</a>
+    </li>
+    {%- else %}
+    <li class="pl-row pl-row-none">No classes this day.</li>
+    {%- endfor %}
+  </ol>
+  {%- endfor %}
+  {%- if 'spaces-left' | enabled %}{% include "kits/pilates/features/spaces-left/spaces-left.njk" %}{% endif %}
+  {%- if 'waitlist' | enabled %}{% include "kits/pilates/features/waitlist/waitlist.njk" %}{% endif %}
+  {%- if 'your-week' | enabled %}{% include "kits/pilates/features/your-week/your-week.njk" %}{% endif %}
+</div></section>

@@ -1,0 +1,944 @@
+{
+  "schemaVersion": 4,
+  "id": "florist-social",
+  "mode": "demo",
+  "plan": "signature",
+  "kit": "florist",
+  "look": "tissue",
+  "url": "https://florist-social.demo.sitefloor.com",
+  "indexable": false,
+  "lang": "en-GB",
+  "business": {
+    "name": "Laleh",
+    "schemaType": "Florist",
+    "description": "Bouquets made to order in Birmingham: fresh flowers delivered the same day, and satin, preserved and dried bouquets posted anywhere in the UK.",
+    "priceRange": "££",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "447700900618",
+    "phone": "+44 7700 900618",
+    "email": "hello@laleh.example"
+  },
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "location": {
+    "streetAddress": "Unit 3, Lavender Yard",
+    "locality": "Birmingham",
+    "postcode": "B5 6DY",
+    "country": "GB",
+    "area": "A small studio in Digbeth, Birmingham. Collection by arrangement.",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=Digbeth%2C%20Birmingham"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [],
+      "tue": [
+        [
+          "10:00",
+          "17:00"
+        ]
+      ],
+      "wed": [
+        [
+          "10:00",
+          "17:00"
+        ]
+      ],
+      "thu": [
+        [
+          "10:00",
+          "17:00"
+        ]
+      ],
+      "fri": [
+        [
+          "10:00",
+          "19:00"
+        ]
+      ],
+      "sat": [
+        [
+          "10:00",
+          "15:00"
+        ]
+      ],
+      "sun": []
+    },
+    "exceptions": [
+      {
+        "date": "2026-12-25",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2026-12-26",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2027-01-01",
+        "ranges": [],
+        "note": "Closed for New Year's Day"
+      }
+    ]
+  },
+  "nav": [
+    {
+      "label": "Fresh",
+      "href": "#bouquets",
+      "feature": "todays-bouquets"
+    },
+    {
+      "label": "The drop",
+      "page": "drop",
+      "feature": "the-drop"
+    },
+    {
+      "label": "Build your bouquet",
+      "page": "build",
+      "feature": "bouquet-builder"
+    },
+    {
+      "label": "Occasions",
+      "page": "occasions",
+      "feature": "occasion-pages"
+    },
+    {
+      "label": "Send a link",
+      "href": "#make-this",
+      "feature": "make-this"
+    },
+    {
+      "label": "Delivery",
+      "page": "delivery",
+      "feature": "delivery-areas"
+    }
+  ],
+  "features": [
+    "todays-bouquets",
+    "same-day",
+    "make-this",
+    "plan-visit",
+    "questions",
+    "visit",
+    "live-dates",
+    "occasion-pages",
+    "delivery-areas",
+    "care-card",
+    "custom-pages",
+    "the-drop",
+    "bouquet-builder",
+    "follow-order"
+  ],
+  "hero": {
+    "kicker": "Bouquets, Birmingham",
+    "title": "Today's bouquets",
+    "intro": "Fresh flowers delivered in Birmingham the same day, and forever bouquets posted UK-wide."
+  },
+  "messages": {
+    "general": "Hi Laleh, I have a question.",
+    "order": "Hi Laleh, I'd like to order a bouquet."
+  },
+  "studioSheet": {
+    "source": "site"
+  },
+  "sections": {
+    "bouquets": {
+      "title": "Our bouquets"
+    },
+    "questions": {
+      "title": "Before you order"
+    },
+    "visit": {
+      "title": "The studio"
+    },
+    "live": {
+      "title": "Come to a LIVE"
+    },
+    "makeThis": {
+      "title": "Seen it somewhere? Send the link."
+    }
+  },
+  "bouquets": {
+    "message": "Hi Laleh, I'd like",
+    "instagram": "laleh.demo",
+    "ranges": [
+      {
+        "id": "fresh",
+        "label": "Fresh",
+        "line": "Delivered in Birmingham today"
+      },
+      {
+        "id": "forever",
+        "label": "Forever",
+        "line": "Satin, preserved and dried, posted UK-wide"
+      }
+    ],
+    "pinned": {
+      "name": "Tied by hand, wrapped to order",
+      "priceFrom": 35,
+      "photo": {
+        "src": "img/pinned.webp",
+        "width": 1100,
+        "height": 1375,
+        "alt": "Hands tying a ribbon round a bouquet's stems at the wrapping table"
+      }
+    },
+    "items": [
+      {
+        "id": "just-peonies",
+        "range": "fresh",
+        "name": "Just peonies",
+        "price": 55,
+        "photo": {
+          "src": "img/peony-hand.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "A hand holding pink peonies against a white wall"
+        },
+        "status": "few",
+        "left": 2
+      },
+      {
+        "id": "blush-sage",
+        "range": "fresh",
+        "name": "Blush and sage",
+        "price": 48,
+        "photo": {
+          "src": "img/blush-sage.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "Blush roses and sage greenery tied with a pale blue ribbon"
+        }
+      },
+      {
+        "id": "peonies-white",
+        "range": "fresh",
+        "name": "Peonies in white",
+        "price": 42,
+        "photo": {
+          "src": "img/peonies-white.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "Pink peonies wrapped in white paper"
+        }
+      },
+      {
+        "id": "one-peony",
+        "range": "fresh",
+        "name": "One peony",
+        "price": 12,
+        "photo": {
+          "src": "img/one-peony.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "Hands holding a single pink peony"
+        },
+        "status": "sold"
+      },
+      {
+        "id": "ivory-to-keep",
+        "range": "forever",
+        "name": "Ivory, to keep",
+        "price": 65,
+        "photo": {
+          "src": "img/ivory-dome.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "A dome of ivory roses"
+        }
+      },
+      {
+        "id": "dusty-rose",
+        "range": "forever",
+        "name": "Dusty rose, dried",
+        "price": 52,
+        "photo": {
+          "src": "img/dusty-rose.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "Dusty blush roses with dried grasses in a glass vase"
+        }
+      },
+      {
+        "id": "kraft-organza",
+        "range": "forever",
+        "name": "Kraft and organza",
+        "price": 40,
+        "photo": {
+          "src": "img/kraft-organza.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "Pale roses in kraft paper tied with an organza bow"
+        }
+      },
+      {
+        "id": "forever-rose",
+        "range": "forever",
+        "name": "One forever rose",
+        "price": 18,
+        "photo": {
+          "src": "img/forever-rose.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "Hands holding one pink rose with a ribbon"
+        }
+      }
+    ],
+    "addOns": [
+      {
+        "id": "card",
+        "name": "A handwritten card",
+        "price": 3
+      },
+      {
+        "id": "chocolates",
+        "name": "A box of chocolates",
+        "price": 12
+      },
+      {
+        "id": "candle",
+        "name": "A soy candle",
+        "price": 16
+      }
+    ],
+    "card": {
+      "max": 160
+    }
+  },
+  "delivery": {
+    "zones": [
+      "B1",
+      "B5",
+      "B9",
+      "B12",
+      "B15",
+      "B16",
+      "B17",
+      "B29"
+    ],
+    "cutoffs": {
+      "mon": null,
+      "tue": "14:00",
+      "wed": "14:00",
+      "thu": "14:00",
+      "fri": "16:00",
+      "sat": "12:00",
+      "sun": null
+    },
+    "closed": [
+      "2026-12-25",
+      "2026-12-26",
+      "2027-01-01"
+    ],
+    "dates": {
+      "2026-12-24": "11:00"
+    },
+    "bankHolidays": "closed",
+    "fee": 8,
+    "collect": "Collect from the studio in Digbeth, by arrangement: we'll message you a time."
+  },
+  "makeThis": {
+    "title": "Seen it somewhere? Send the link.",
+    "intro": "TikTok, Instagram or Pinterest. We'll reply with what we can make for your budget and day.",
+    "message": "Hi Laleh, can you do this one?",
+    "budgets": [
+      "£30",
+      "£45",
+      "£60",
+      "£80+"
+    ],
+    "photo": {
+      "src": "img/card.webp",
+      "width": 800,
+      "height": 1000,
+      "alt": "Blush roses and lisianthus with a card tucked in"
+    }
+  },
+  "live": {
+    "title": "Come to a LIVE",
+    "intro": "We take pre-orders live and show each drop first.",
+    "sessions": [
+      {
+        "date": "2026-11-12",
+        "time": "19:00",
+        "minutes": 60,
+        "where": "TikTok",
+        "what": "Christmas pre-orders, live"
+      },
+      {
+        "date": "2026-11-19",
+        "time": "20:00",
+        "minutes": 45,
+        "where": "Instagram",
+        "what": "Wrapping the first Christmas drop"
+      },
+      {
+        "date": "2026-11-26",
+        "time": "19:00",
+        "minutes": 60,
+        "where": "TikTok",
+        "what": "Christmas pre-orders, the last week"
+      },
+      {
+        "date": "2026-12-10",
+        "time": "19:00",
+        "minutes": 60,
+        "where": "TikTok",
+        "what": "Forever bouquets for posting before Christmas"
+      }
+    ],
+    "links": {
+      "tiktok": "https://www.tiktok.com/@laleh.demo",
+      "instagram": "https://www.instagram.com/laleh.demo/"
+    }
+  },
+  "drop": {
+    "name": "The Friday drop",
+    "intro": "Twenty bouquets, made once, every Friday evening. When they've gone, the next ones come the week after.",
+    "when": {
+      "day": "fri",
+      "time": "19:00",
+      "hours": 48
+    },
+    "made": 20,
+    "left": 12,
+    "staleMinutes": 10,
+    "items": [
+      {
+        "name": "Rose and blush",
+        "price": 48,
+        "photo": {
+          "src": "img/drop-rose.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "Pink roses wrapped in pink tissue"
+        },
+        "line": "Pink roses in two shades of tissue, satin bow"
+      },
+      {
+        "name": "Winter white",
+        "price": 45,
+        "photo": {
+          "src": "img/drop-white.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "White chrysanthemums and wax flower held out against a white wall"
+        },
+        "line": "White chrysanthemums and wax flower, ivory wrap"
+      }
+    ],
+    "how": [
+      {
+        "q": "When does it open?",
+        "a": "Every Friday at 7pm. It stays open until Sunday at 7pm, or until all twenty have gone."
+      },
+      {
+        "q": "When do drop bouquets arrive?",
+        "a": "Saturday, delivered by hand in our Birmingham areas, or collected from the studio. We message you a time."
+      },
+      {
+        "q": "How do I order?",
+        "a": "Tap Order from the drop and send the message on WhatsApp. We reply to confirm and send a payment link."
+      },
+      {
+        "q": "Can I keep one aside?",
+        "a": "We can't hold drop bouquets, but we take pre-orders for the next drop on our LIVE sessions."
+      }
+    ]
+  },
+  "occasionPages": {
+    "title": "Flowers for the day",
+    "intro": "What we'd make for each of them, with the price, and a few words for the card if you need them.",
+    "pages": [
+      {
+        "id": "birthday",
+        "title": "Birthday",
+        "line": "Generous, pink and a little loud",
+        "intro": "Birthdays get the fullest bouquets we make: peonies when we have them, roses and carnations when we don't, in two shades of tissue.",
+        "photo": {
+          "src": "img/occ-birthday.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "A full bouquet of pink and lilac flowers held in two hands"
+        },
+        "message": "Hi Laleh, birthday flowers:",
+        "items": [
+          {
+            "name": "The birthday bouquet",
+            "price": 45,
+            "line": "Wrapped in tissue, with a satin bow and a card"
+          },
+          {
+            "name": "The big one",
+            "price": 75,
+            "line": "For a birthday with a nought on the end"
+          },
+          {
+            "name": "With balloons",
+            "price": 60,
+            "line": "The birthday bouquet and two balloons, delivered together"
+          }
+        ],
+        "words": [
+          "Happy birthday, gorgeous",
+          "Another year more wonderful",
+          "Have the loveliest day"
+        ]
+      },
+      {
+        "id": "anniversary",
+        "title": "Anniversary",
+        "line": "White and blush, made to keep",
+        "intro": "Ivory roses, calla lilies and a little blush. Ask for a forever version if you'd like them to last past the week.",
+        "photo": {
+          "src": "img/occ-wedding.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "White calla lilies and roses held in a hand wearing a ring"
+        },
+        "message": "Hi Laleh, anniversary flowers:",
+        "items": [
+          {
+            "name": "White and blush",
+            "price": 55,
+            "line": "Fresh, wrapped in ivory tissue"
+          },
+          {
+            "name": "The forever version",
+            "price": 75,
+            "line": "Preserved roses that last for months"
+          }
+        ],
+        "words": [
+          "Happy anniversary, my love",
+          "Still my favourite person",
+          "Here's to the next one"
+        ]
+      },
+      {
+        "id": "new-baby",
+        "title": "New baby",
+        "line": "Soft, white and light",
+        "intro": "Soft white flowers in ivory tissue, nothing heavily scented. We'll deliver to the hospital if they allow flowers on the ward; ask us first.",
+        "photo": {
+          "src": "img/kraft-ivory.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "White flowers wrapped in kraft paper and white tissue"
+        },
+        "message": "Hi Laleh, new baby flowers:",
+        "items": [
+          {
+            "name": "Hello, little one",
+            "price": 40,
+            "line": "White and green, wrapped in ivory"
+          },
+          {
+            "name": "With a soft toy",
+            "price": 55,
+            "line": "The bouquet and a small soft toy"
+          }
+        ],
+        "words": [
+          "Welcome to the world, little one",
+          "Congratulations to all three of you",
+          "So happy for you"
+        ]
+      },
+      {
+        "id": "thank-you",
+        "title": "Thank you",
+        "line": "Small, pretty and quick",
+        "intro": "A smaller bouquet that still looks like we took our time. Good for teachers, neighbours and anyone who saved the day.",
+        "photo": {
+          "src": "img/occ-thanks.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "Hands holding a small bunch of pink sweet william"
+        },
+        "message": "Hi Laleh, thank-you flowers:",
+        "items": [
+          {
+            "name": "The little thank you",
+            "price": 30,
+            "line": "Hand-tied, wrapped, with a card"
+          },
+          {
+            "name": "The proper thank you",
+            "price": 45,
+            "line": "A full bouquet in two shades of tissue"
+          }
+        ],
+        "words": [
+          "Thank you, truly",
+          "You're a star",
+          "We couldn't have done it without you"
+        ]
+      },
+      {
+        "id": "love",
+        "title": "Love",
+        "line": "Roses, the way we do them",
+        "intro": "Red if you ask; pink and blush if you don't say. Every rose is checked and opened by hand before it's wrapped.",
+        "photo": {
+          "src": "img/occ-anniversary.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "A bouquet of red and pink roses lying on a pale floor"
+        },
+        "message": "Hi Laleh, love flowers:",
+        "items": [
+          {
+            "name": "Twelve roses",
+            "price": 50,
+            "line": "Wrapped in tissue, satin bow"
+          },
+          {
+            "name": "Twenty-four roses",
+            "price": 85,
+            "line": "Full, round and heavy"
+          },
+          {
+            "name": "One forever rose",
+            "price": 18,
+            "line": "Preserved, in a small box"
+          }
+        ],
+        "words": [
+          "Thinking of you",
+          "You have my whole heart",
+          "Just because"
+        ]
+      }
+    ]
+  },
+  "deliveryAreas": {
+    "title": "Where we deliver",
+    "intro": "By hand from the studio in Digbeth. Each area has its own cut-off for same-day delivery. Forever bouquets are posted anywhere in the UK.",
+    "how": [
+      {
+        "q": "Who delivers?",
+        "a": "We do, in our own car. Never a courier for fresh flowers."
+      },
+      {
+        "q": "What if nobody's in?",
+        "a": "We ring the number you give us. With your say-so we leave them with a neighbour; otherwise we bring them back and try again the same day."
+      },
+      {
+        "q": "Can you deliver at a set time?",
+        "a": "We deliver between 11am and 7pm. For a set time, message us first and we'll say honestly whether we can."
+      },
+      {
+        "q": "How are forever bouquets sent?",
+        "a": "Boxed and posted by Royal Mail Tracked 48 the next working day, anywhere in the UK, for £6."
+      }
+    ],
+    "areas": [
+      {
+        "district": "B5",
+        "name": "Digbeth and the Bull Ring",
+        "line": "Round the corner from the studio: same-day until our usual cut-off.",
+        "streets": "Digbeth High Street, Bradford Street, Gibb Street, Floodgate Street"
+      },
+      {
+        "district": "B1",
+        "name": "City centre and the Jewellery Quarter",
+        "line": "Ten minutes from the studio; easy to park for a quick handover.",
+        "streets": "Brindleyplace, Colmore Row, Vyse Street, St Paul's Square"
+      },
+      {
+        "district": "B15",
+        "name": "Edgbaston",
+        "line": "The university, the hospitals and the streets round them.",
+        "streets": "Harborne Road, Calthorpe Road, Edgbaston Park Road",
+        "cutoffs": {
+          "sat": "11:00"
+        }
+      },
+      {
+        "district": "B17",
+        "name": "Harborne",
+        "line": "A little further out, so our Saturday cut-off comes earlier.",
+        "streets": "Harborne High Street, War Lane, Lordswood Road",
+        "fee": 10,
+        "cutoffs": {
+          "sat": "11:00"
+        }
+      }
+    ]
+  },
+  "care": {
+    "title": "Your flowers",
+    "intro": "Two minutes now keeps them for a week.",
+    "steps": [
+      "Cut each stem at an angle, about two centimetres, with clean scissors.",
+      "Fill a clean vase with cool water and the flower food in the sachet.",
+      "Take off any leaves that would sit under the water.",
+      "Keep them away from radiators, sunny windowsills and the fruit bowl.",
+      "Change the water and trim the stems every two days."
+    ],
+    "lasts": "Fresh bouquets last about a week, peonies a little less. Forever bouquets need no water: keep them out of direct sun and away from damp."
+  },
+  "builder": {
+    "title": "Build your bouquet",
+    "intro": "Choose a colour and a size. Each one is a bouquet we've made and photographed, so what you see is what arrives.",
+    "message": "Hi Laleh, I'd like this bouquet:",
+    "palettes": [
+      {
+        "id": "blush",
+        "label": "Blush",
+        "colour": "#E9BFC4"
+      },
+      {
+        "id": "ivory",
+        "label": "Ivory",
+        "colour": "#F3EEE4"
+      },
+      {
+        "id": "green",
+        "label": "White and green",
+        "colour": "#A9B99A"
+      }
+    ],
+    "sizes": [
+      {
+        "id": "medium",
+        "label": "Medium",
+        "price": 45
+      },
+      {
+        "id": "large",
+        "label": "Large",
+        "price": 70
+      }
+    ],
+    "bouquets": [
+      {
+        "id": "blush-m",
+        "palette": "blush",
+        "size": "medium",
+        "photo": {
+          "src": "img/peonies-white.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "Pink peonies wrapped in white paper"
+        }
+      },
+      {
+        "id": "blush-l",
+        "palette": "blush",
+        "size": "large",
+        "photo": {
+          "src": "img/drop-rose.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "Pink roses wrapped in pink tissue"
+        }
+      },
+      {
+        "id": "ivory-m",
+        "palette": "ivory",
+        "size": "medium",
+        "photo": {
+          "src": "img/kraft-ivory.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "White flowers wrapped in kraft paper and white tissue"
+        }
+      },
+      {
+        "id": "ivory-l",
+        "palette": "ivory",
+        "size": "large",
+        "photo": {
+          "src": "img/ivory-dome.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "A dome of ivory roses"
+        }
+      },
+      {
+        "id": "green-m",
+        "palette": "green",
+        "size": "medium",
+        "photo": {
+          "src": "img/green-buttons.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "Green button chrysanthemums in brown paper"
+        }
+      }
+    ]
+  },
+  "orderTracker": {
+    "source": "simulated",
+    "example": "LAL7Q2",
+    "kicker": "Your order",
+    "title": "Where your flowers are",
+    "intro": "From the reference in our message. We update it as your bouquet is made, leaves the studio and arrives.",
+    "staleAfterHours": 24,
+    "stages": [
+      {
+        "id": "making",
+        "name": "Being made",
+        "about": "On the wrapping table at the studio."
+      },
+      {
+        "id": "out",
+        "name": "On its way",
+        "about": "Wrapped, photographed and in the car."
+      },
+      {
+        "id": "delivered",
+        "name": "Delivered",
+        "about": "Handed over at the door."
+      }
+    ],
+    "demo": {
+      "notes": [
+        "Your bouquet is on the table now: pink gerberas and roses, kraft and blush tissue, as you asked.",
+        "Wrapped, card tucked in. Here it is before it left.",
+        "Delivered and handed over at the door."
+      ],
+      "photo": "img/market-bunch.webp"
+    }
+  },
+  "visitInfo": {
+    "kicker": "Collect",
+    "title": "Collect from the studio",
+    "intro": "A small studio in Digbeth. Collection by arrangement: tell us when and we'll have your bouquet ready.",
+    "checked": "2026-11",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "Moor Street station",
+        "origin": "Birmingham Moor Street station",
+        "minutes": 9,
+        "steps": [
+          "Leave by the main entrance onto Moor Street Queensway",
+          "Walk down Digbeth High Street",
+          "Lavender Yard is the second opening on the left after the coach station"
+        ]
+      },
+      {
+        "mode": "bus",
+        "from": "Buses 50 and 60",
+        "stop": "Digbeth High Street",
+        "minutes": 3,
+        "steps": [
+          "Get off at the Digbeth High Street stop",
+          "Walk back a hundred metres to the yard"
+        ]
+      }
+    ],
+    "parking": [
+      {
+        "name": "Two short-stay bays in the yard",
+        "paid": "never",
+        "note": "For collections: message us when you arrive and we'll bring your bouquet out."
+      }
+    ],
+    "access": [
+      {
+        "label": "Step-free entrance",
+        "yes": true
+      },
+      {
+        "label": "Studio on the ground floor",
+        "yes": true
+      }
+    ],
+    "payment": "Card, Apple Pay or bank transfer, before collection."
+  },
+  "questions": [
+    {
+      "topic": "Delivery",
+      "q": "Can you deliver today?",
+      "a": "Yes, in our Birmingham areas, if you order by 2pm Tuesday to Thursday, 4pm on Friday or noon on Saturday. The line above the bouquets says how long is left.",
+      "home": true
+    },
+    {
+      "topic": "Delivery",
+      "q": "How much is delivery?",
+      "a": "£8 in our areas (£10 to Harborne). Forever bouquets are posted anywhere in the UK for £6.",
+      "home": true
+    },
+    {
+      "topic": "Ordering",
+      "q": "How do I pay?",
+      "a": "Message us your order. We reply to confirm and send a secure payment link.",
+      "home": true
+    },
+    {
+      "topic": "Ordering",
+      "q": "Can you make something I saw on TikTok?",
+      "a": "Usually, yes. Send us the link with your budget and the day, and we'll tell you what we can do with what we have in.",
+      "home": false
+    },
+    {
+      "topic": "Ordering",
+      "q": "Can I choose the wrap colour?",
+      "a": "Yes: blush, ivory, white or sage tissue, and satin ribbon to match. Tell us in your message.",
+      "home": false
+    },
+    {
+      "topic": "Forever bouquets",
+      "q": "What are forever bouquets made of?",
+      "a": "Satin flowers we make by hand, preserved roses, and dried flowers. Each one says which in its message to you.",
+      "home": false
+    },
+    {
+      "topic": "Forever bouquets",
+      "q": "How long do they last?",
+      "a": "Satin flowers don't fade. Preserved and dried flowers last months, longer out of direct sun.",
+      "home": false
+    },
+    {
+      "topic": "The studio",
+      "q": "Can I come and choose?",
+      "a": "The studio is small and we're often out delivering, so collection is by arrangement. Message us a time.",
+      "home": false
+    }
+  ],
+  "pages": [
+    {
+      "slug": "our-story",
+      "kicker": "Our story",
+      "title": "Made at one table",
+      "description": "About Laleh, a small flower studio in Digbeth, Birmingham.",
+      "intro": "Laleh is a small studio in Digbeth. We make every bouquet to order and post the forever ones across the UK.",
+      "blocks": [
+        {
+          "type": "text",
+          "heading": "Why we make to order",
+          "body": "We buy for the week and make each bouquet when it's ordered, so nothing waits in a fridge.\n\nIf you'd like something you've seen somewhere, send us the link."
+        },
+        {
+          "type": "photo",
+          "src": "img/studio-hands.webp",
+          "alt": "Hands arranging pink roses and white lilies at the studio table",
+          "caption": "The table, on a Friday before the drop."
+        },
+        {
+          "type": "list",
+          "heading": "What we use",
+          "items": [
+            "Fresh flowers bought each week",
+            "Satin flowers we make by hand",
+            "Preserved roses and dried flowers",
+            "Tissue paper and satin ribbon"
+          ]
+        },
+        {
+          "type": "book",
+          "text": "Want something made?",
+          "label": "Message us"
+        }
+      ]
+    }
+  ]
+}

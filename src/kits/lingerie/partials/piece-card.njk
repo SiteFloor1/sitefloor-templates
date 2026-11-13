@@ -1,0 +1,17 @@
+{#- A piece on a model: photograph, Collection · Style · Colour, swatches, price; links to its page on Signature, and the
+    quiet actions the plan includes (the tray, a hint). Set `p`. -#}
+{%- set pname = p | pieceName(site) %}
+<article class="pc" data-piece="{{ p.id }}" data-name="{{ pname }}" data-price="{{ p.price }}">
+  {%- if "piece-detail" | enabled %}<a class="pc-ph" href="{{ ('piece-' + p.id) | href }}">{% else %}<div class="pc-ph">{% endif %}
+    {%- set ph = p.photo %}{% include "kits/lingerie/partials/photo.njk" %}
+  {%- if "piece-detail" | enabled %}</a>{% else %}</div>{% endif %}
+  <p class="pc-n"><b>{{ (site | collectionOf(p.collection)).name }}</b> · {{ p.style }} · {{ (p | colourOf(site)).name }}</p>
+  <p class="pc-p"><span class="sw" aria-label="Colours">{% for c in p | swatches(site) %}<i style="--sw:{{ c.hex }}" title="{{ c.name }}"></i>{% endfor %}</span><span class="pc-price">{{ p.price | pounds }}</span></p>
+  {%- if p.preorder %}<p class="pc-pre">Pre-order · ships {{ p.preorder.ships }}</p>{% endif %}
+  {%- if ("the-tray" | enabled) or ("hint-sheet" | enabled) %}
+  <p class="pc-acts" data-js-only>
+    {%- if "the-tray" | enabled %}<button type="button" class="pc-act" data-tray-add="{{ p.id }}" aria-pressed="false"{{ "the-tray" | tierAttr | safe }}>Have it at my fitting</button>{% endif %}
+    {%- if "hint-sheet" | enabled %}<button type="button" class="pc-act" data-hint="{{ p.id }}"{{ "hint-sheet" | tierAttr | safe }}>Drop a hint</button>{% endif %}
+  </p>
+  {%- endif %}
+</article>

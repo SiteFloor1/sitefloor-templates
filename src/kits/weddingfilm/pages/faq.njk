@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: faq
+permalink: faq.html
+feature: faq-page
+eleventyComputed:
+  title: "{{ site.faqPage.title | plain }}"
+  description: "Questions couples ask {{ site.business.name }} before they book."
+---
+{%- set ph = site.faqPage %}{% include "kits/weddingfilm/partials/page-head.njk" %}
+{% include "kits/weddingfilm/features/faq-page/faq-page.njk" %}

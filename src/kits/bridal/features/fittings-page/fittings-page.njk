@@ -1,0 +1,25 @@
+{#- Fittings, alterations and veils: what happens after the order, in the salon's words. -#}
+{%- set fp = site.fittingsPage %}
+{%- set ph = fp %}
+{% include "kits/bridal/partials/page-head.njk" %}
+<section class="bd-fit" aria-label="Fittings"><div class="wrap bd-fit-in">
+  <ol class="bd-fit-list">
+    {%- for f in fp.fittings %}
+    <li class="bd-fit-item rv"><p class="bd-fit-when">{{ f.when }}</p><h2 class="bd-fit-t">{{ f.title }}</h2><p class="bd-fit-x">{{ f.text }}</p></li>
+    {%- endfor %}
+  </ol>
+  {%- if fp.photo %}<figure class="bd-fit-photo"><img src="{{ fp.photo.src | img }}" alt="{{ fp.photo.alt }}" width="{{ fp.photo.width }}" height="{{ fp.photo.height }}" loading="lazy" decoding="async">{% if fp.photo.caption %}<figcaption>{{ fp.photo.caption }}</figcaption>{% endif %}</figure>{% endif %}
+</div></section>
+<section class="bd-alter" aria-label="Alterations"><div class="wrap bd-alter-in">
+  <h2 class="bd-alter-h">Alterations</h2>
+  <p class="bd-alter-x">{{ fp.alterations }}</p>
+</div></section>
+{%- if fp.veils and fp.veils.length %}
+<section class="bd-veils" aria-label="Veils"><div class="wrap">
+  <h2 class="bd-alter-h">Veils</h2>
+  <ul class="bd-veil-list">
+    {%- for v in fp.veils %}<li class="bd-veil"><p class="bd-veil-l">{{ v.length }}</p><h3 class="bd-veil-n">{{ v.name }}</h3><p class="bd-veil-x">{{ v.text }}</p>{% if v.price %}<p class="bd-veil-p">{{ v.price }}</p>{% endif %}</li>{% endfor %}
+  </ul>
+</div></section>
+{%- endif %}
+<section class="bd-fit-cta" aria-label="Request an appointment"><div class="wrap"><a class="bd-go" href="{{ site.messages.general | book }}" target="_blank" rel="noopener">Ask us about fittings</a></div></section>

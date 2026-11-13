@@ -1,0 +1,46 @@
+{#- Your loft in 3D: the same model house with a rear dormer, a hip-to-gable or both, the volume they add worked out on
+    the model, and where that sits against GOV.UK's permitted-development allowance for the house, with the source and
+    the date checked. The guide works as words and a meter without the 3D; the model loads on tap. -#}
+{%- set lp = site.loftPage %}
+{%- set start = (site.visualiser | extensionStart).house %}
+{%- set n = start | loftNow %}
+{%- set ph = { title: lp.title, intro: lp.intro } %}
+{% include "kits/construction/partials/page-head.njk" %}
+<div class="wrap bd-lf" data-feature="loft-page" data-show="after">
+  <div class="bd-lf-stage" data-lf-stage>
+    <img class="bd-lf-photo" src="{{ lp.photo.src | img }}" alt="{{ lp.photo.alt }}" width="{{ lp.photo.width }}" height="{{ lp.photo.height }}" decoding="async">
+    <button class="bd-lf-try" type="button" data-lf-try data-js-only>
+      <span>See it on the roof<small>Tap to load it in 3D, about {{ build.model3dKb }} KB</small></span>
+    </button>
+    <canvas class="bd-lf-canvas" data-lf-canvas tabindex="0" hidden aria-label="A 3D model of a house's roof with the loft conversion you chose. Drag, or use the arrow keys, to turn it."></canvas>
+    <p class="bd-lf-status" data-lf-status role="status" hidden></p>
+  </div>
+  <div class="bd-lf-panel">
+    <form class="bd-lf-controls" data-lf-controls data-js-only>
+      <div class="bd-vz-ctl" role="group" aria-labelledby="lf-house"><span id="lf-house">House</span><div class="bd-seg">
+        {%- for id, h in extensionOptions.houses %}<button type="button" data-lf-set="house" data-v="{{ id }}" aria-pressed="{{ 'true' if id == n.house else 'false' }}">{{ h.label }}</button>{% endfor %}
+      </div></div>
+      <div class="bd-vz-ctl" role="group" aria-labelledby="lf-kind"><span id="lf-kind">Loft</span><div class="bd-seg">
+        {%- for id, l in loftFacts.lofts %}<button type="button" data-lf-set="loft" data-v="{{ id }}" aria-pressed="{{ 'true' if id == n.loft else 'false' }}"{% if id not in n.can %} disabled{% endif %}>{{ l.label }}</button>{% endfor %}
+      </div></div>
+      <div class="bd-vz-ctl" data-lf-width-row{% if not n.range %} hidden{% endif %}><label for="lf-width">Dormer width</label><input id="lf-width" type="range" data-lf-width min="{{ n.range.min if n.range else 1.2 }}" max="{{ n.range.max if n.range else 1.2 }}" step="0.1" value="{{ n.width }}"><output data-lf-width-out for="lf-width">{{ n.width | round(1) }} m</output></div>
+      <div class="bd-vz-ctl"><label for="lf-before">Already added to this roof</label><span class="bd-lf-num"><input id="lf-before" type="number" data-lf-before min="0" max="60" step="1" value="0" inputmode="numeric"> m³</span></div>
+      <div class="bd-vz-ctl" role="group" aria-label="Before or after"><div class="bd-seg">
+        <button type="button" data-lf-set="show" data-v="before" aria-pressed="false">Before</button><button type="button" data-lf-set="show" data-v="after" aria-pressed="true">After</button>
+      </div></div>
+    </form>
+    <div class="bd-lf-meter" aria-hidden="true" data-lf-meter data-zone="{{ n.zone.zone }}">
+      <span class="bd-lf-fill" data-lf-fill style="width:{{ n.mark }}%"></span>
+      <span class="bd-lf-line" style="left:{{ n.line }}%"><i data-lf-allow>{{ n.zone.allowance }} m³</i></span>
+    </div>
+    <p class="bd-lf-now" data-lf-now aria-live="polite">{{ n.zone.words }}</p>
+    <p class="bd-lf-model">Worked out on our model house, {{ loftFacts.model.depth }} m deep with the ridge {{ loftFacts.model.rise }} m above the eaves. Your own roof's measurements decide; we measure it at the survey.</p>
+    {%- if lp.message %}<a class="bd-vz-send" data-lf-send href="{{ lp.message | wa }}" data-wa-text="{{ lp.message }}" target="_blank" rel="noopener">Send this loft on WhatsApp</a>{% endif %}
+  </div>
+</div>
+<section class="wrap bd-pg bd-lf-rules" aria-labelledby="lf-rules-h">
+  <h2 id="lf-rules-h" class="bd-h2">{{ lp.rulesTitle | markup | safe }}</h2>
+  <ul class="bd-pg-rules">{% for r in loftFacts.rules %}<li>{{ r }}</li>{% endfor %}</ul>
+  <p class="bd-pg-not"><b>{{ planningFacts.notADecision }}</b></p>
+  <p class="bd-pg-src">The rules for England, from <a href="{{ planningFacts.sources.pdLoft.url }}" rel="noopener" target="_blank">{{ planningFacts.sources.pdLoft.label }}</a> and <a href="{{ planningFacts.sources.ldc.url }}" rel="noopener" target="_blank">{{ planningFacts.sources.ldc.label }}</a> on GOV.UK, checked {{ loftFacts.checked | ukDate }}.{% if "planning-page" | enabled %} <a href="{{ 'planning' | href }}"{{ 'planning-page' | tierAttr | safe }}>Planning and party walls, in full</a>{% endif %}</p>
+</section>

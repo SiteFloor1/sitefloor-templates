@@ -1,0 +1,3 @@
+{#- Foreshore phone bar: white, "Call us" and a small navy "Arrange a meeting". The page keeps room for it. -#}
+{%- include "kits/wealth/partials/meet-href.njk" %}
+<div class="mbar fs-bar"><a class="fs-bar-n" href="tel:{{ site.contact.phone | replace(' ', '') }}">Call us</a><a class="fs-bar-go" href="{{ meetHref }}">Arrange a meeting</a></div>

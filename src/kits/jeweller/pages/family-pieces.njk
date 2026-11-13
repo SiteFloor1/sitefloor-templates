@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: family-pieces
+permalink: family-pieces.html
+feature: family-pieces
+eleventyComputed:
+  title: "{{ site.family.title | plain }}"
+  description: "{{ site.family.description or ('Remodelling a family piece at ' + site.business.name + ': what can be kept, how it begins.') }}"
+---
+{% include "kits/jeweller/features/family-pieces/family-pieces.njk" %}

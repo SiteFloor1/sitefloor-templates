@@ -1,0 +1,6 @@
+{#- Loupe section opening: one light line, large; its intro beneath in the reading face. No label above it.
+    `sec` = { kicker, title, intro }; the kicker is not shown. -#}
+<div class="lp-sh rv">
+  <h2 class="lp-sh-t">{{ sec.title | markup | safe }}</h2>
+  {%- if sec.intro %}<p class="lp-sh-i">{{ sec.intro }}</p>{% endif %}
+</div>

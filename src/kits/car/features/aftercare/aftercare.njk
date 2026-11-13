@@ -1,0 +1,28 @@
+{#- Aftercare page: a timeline for each kind of work, grouped by stage, each with calendar reminders. -#}
+{%- set p = site.aftercarePage %}
+<header class="phero"><div class="wrap">
+  <nav class="crumb" aria-label="Breadcrumb"><a href="{{ 'index' | href }}">Home</a> / {{ p.title | plain }}</nav>
+  <span class="kick">{{ p.kicker }}</span>
+  <h1>{{ p.title | markup | safe }}</h1>
+  {%- if p.intro %}<p>{{ p.intro }}</p>{% endif %}
+</div></header>
+<section class="sec-aftercare-page" data-feature="aftercare"><div class="wrap">
+  <nav class="acp-jump" aria-label="Aftercare by work">{% for s in site.aftercare.services %}<a href="#{{ s.id }}">{{ s.name }}</a>{% endfor %}</nav>
+  {%- for s in site.aftercare.services %}
+  <article class="acp rv" id="{{ s.id }}" data-acp="{{ s.id }}">
+    <h2>{{ s.name }}</h2>
+    <div class="acp-grid">
+      {%- for g in s.steps | aftercareStages %}
+      <div class="acp-stage"><h3>{{ g.stage }}</h3>
+        <ol class="ac-steps">{% for st in g.steps %}<li data-day="{{ st.day }}"><span class="ac-when">{{ st.day | dayLabel }} <i data-ac-date></i></span><b>{{ st.title }}</b><p>{{ st.body }}</p></li>{% endfor %}</ol>
+      </div>
+      {%- endfor %}
+    </div>
+    <div class="ac-go acp-go" data-js-only>
+      <label class="ac-f">Fitted on<input type="date" name="fitted"></label>
+      <button class="btn" type="button" data-ac-add>Add reminders to my calendar</button>
+    </div>
+  </article>
+  {%- endfor %}
+  <p class="ac-note">Reminders at 9am on each day. The calendar file is made on your phone; nothing is sent to us.</p>
+</div></section>

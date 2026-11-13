@@ -1,0 +1,2 @@
+{#- This page's own sections, each only when its feature is on. Set `shown` to their ids, in order. -#}
+{%- for id in shown %}{% if id | enabled %}{% include homeParts.paths[id] %}{% endif %}{% endfor %}

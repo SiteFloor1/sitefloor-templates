@@ -1,0 +1,12 @@
+{#- Salon: one dish. The name in Caslon, the price beside it as a plain number, the description in italic, the diet
+    marks and allergens in small capitals. Keeps the data attributes the filters, Your table and the order use. -#}
+<li class="sa-dish" data-dish="{{ d.id }}" data-name="{{ d.name }}" data-price="{{ d.price }}" data-diets="{{ (d.diets or []) | join(' ') }}" data-allergens="{{ d.allergens | join(' ') }}">
+  <p class="sa-dn"><span>{{ d.name }}</span>{% if d.price %}<span class="sa-dp"><span class="sr-only">£</span>{{ d.price | menuPrice }}</span>{% endif %}</p>
+  {%- if d.desc %}<p class="sa-dd">{{ d.desc }}</p>{% endif %}
+  <p class="sa-dm">
+    {%- for mk in d | dietMarks %}<abbr title="{{ mk.name }}">{{ mk.mark }}</abbr>{% endfor %}
+    {%- set an = d | allergenNames %}
+    <span>{% if an.length %}Contains {{ an | join(", ") | lower }}{% else %}None of the 14 allergens{% endif %}</span>
+    <span class="sa-out" data-out hidden>Sold out today</span>
+  </p>
+</li>

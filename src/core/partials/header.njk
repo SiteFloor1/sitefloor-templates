@@ -1,0 +1,25 @@
+{#- Site header: logo, main navigation, live open status, booking button, mobile menu. -#}
+<header class="nav"><div class="wrap nav-in">
+  {%- if site.brand and site.brand.logo %}
+  <a class="logo has-img" href="{{ 'index' | href }}"><img src="{{ site.brand.logo | img }}" alt="{{ site.business.name }}" height="40"></a>
+  {%- else %}
+  <a class="logo" href="{{ 'index' | href }}"><i aria-hidden="true"></i><span>{{ site.business.name }}</span></a>
+  {%- endif %}
+  <nav class="links" aria-label="Main">
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+  </nav>
+  <span class="nstat" data-live-status><span class="dot" aria-hidden="true"></span><span data-status-text>Opening hours</span></span>
+  <a class="btn" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">Book</a>
+  <button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mnav"><span></span><span></span></button>
+</div></header>
+<div class="mnav" id="mnav" hidden>
+  <nav aria-label="Mobile">
+    <a href="{{ 'index' | href }}">Home</a>
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}>{{ item.label }}</a>
+    {%- endfor %}
+  </nav>
+  <p data-live-status><span class="dot" aria-hidden="true"></span> <span data-status-text>Opening hours</span></p>
+</div>

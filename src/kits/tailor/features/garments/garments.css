@@ -1,0 +1,8 @@
+/* garments: what the house makes as a ruled list, name left, price right; the request in a quiet sheet. Tokens only. */
+.tl-gm-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line-2); }
+.tl-gm { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 24px; align-items: baseline; padding-block: 18px; border-bottom: 1px solid var(--line); }
+.tl-gm-n { font-size: 17px; font-weight: 500; }
+.tl-gm-t { grid-column: 1; color: var(--muted); font-size: 15px; }
+.tl-gm-p { grid-column: 2; grid-row: 1; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.tl-gm-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px; margin-top: 32px; }
+@media (max-width: 560px) { .tl-gm { gap: 2px 16px; padding-block: 12px; } .tl-gm-n { font-size: 16px; } .tl-gm-t { font-size: 14px; } .tl-gm-p { font-size: 15px; } .tl-gm-foot { margin-top: 24px; } }

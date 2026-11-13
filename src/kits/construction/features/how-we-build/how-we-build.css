@@ -1,0 +1,18 @@
+/* How we build: numbered stages, the number set small beside each name because the order is the point; then the terms. */
+.bd-hw { padding-bottom: 24px; }
+.bd-hw-stages { list-style: none; margin: 0; padding: 0; }
+.bd-hw-stage { display: grid; gap: 16px; padding-block: 32px; border-top: 1px solid var(--line); }
+.bd-hw-head { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; align-items: baseline; }
+.bd-hw-n { font-family: var(--font-display); font-style: italic; color: var(--accent); font-size: 18px; font-variant-numeric: tabular-nums; }
+.bd-hw-weeks { grid-column: 2; margin: 0; font-size: 13px; color: var(--muted); }
+.bd-hw-body { max-width: 60ch; }
+.bd-hw-body p { margin: 0 0 .9em; }
+.bd-hw-img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; display: block; }
+.bd-hw-total { margin: 0; padding-top: 18px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+.bd-hw-terms { display: grid; gap: 0; padding-bottom: clamp(72px, 10vw, 112px); }
+.bd-hw-term { display: grid; gap: 12px; padding-block: 28px; border-top: 1px solid var(--line); }
+.bd-hw-term p { margin: 0 0 .9em; max-width: 62ch; }
+@media (min-width: 900px) {
+  .bd-hw-stage { grid-template-columns: 3fr 5fr 4fr; gap: 40px; align-items: start; }
+  .bd-hw-term { grid-template-columns: 4fr 8fr; gap: 40px; }
+}

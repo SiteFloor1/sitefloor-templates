@@ -1,0 +1,15 @@
+---
+layout: core/layouts/base.njk
+feature: films-page
+pagination:
+  data: site.films.items
+  size: 1
+  alias: f
+permalink: "film-{{ f.id }}.html"
+eleventyComputed:
+  pageId: "film-{{ f.id }}"
+  title: "{{ f.title }}"
+  description: "{{ f.title }}: a wedding film by {{ site.business.name }}. {{ f.text }}"
+---
+{%- set ph = { kicker: "Films", title: f.title, intro: f.text } %}{% include "kits/weddingfilm/partials/page-head.njk" %}
+{% include "kits/weddingfilm/features/films-page/film-page.njk" %}

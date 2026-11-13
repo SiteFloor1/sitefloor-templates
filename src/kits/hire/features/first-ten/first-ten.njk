@@ -1,0 +1,5 @@
+{#- The first ten minutes: the client's notes on this car's controls and fuel. `car` set. -#}
+<section class="hr-ten"{{ "first-ten" | tierAttr | safe }} aria-labelledby="hr-ten-h">
+  <h2 class="hr-cp-sh" id="hr-ten-h">The first ten minutes</h2>
+  <ol>{% for n in car.firstTen %}<li>{{ n }}</li>{% endfor %}</ol>
+</section>

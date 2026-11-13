@@ -1,0 +1,6 @@
+{#- An inner page's opening: where it sits, the page's name in the light display weight, one line. Set `ph` first. -#}
+<header class="wm-ph"><div class="wrap">
+  <p class="wm-crumb"><a href="{{ 'index' | href }}">{{ site.business.name }}</a>{% if ph.crumbHref %} <span aria-hidden="true">/</span> <a href="{{ ph.crumbHref }}">{{ ph.crumbLabel }}</a>{% endif %}</p>
+  <h1 class="wm-ph-t">{{ ph.title }}</h1>
+  {%- if ph.intro %}<p class="wm-ph-i">{{ ph.intro }}</p>{% endif %}
+</div></header>

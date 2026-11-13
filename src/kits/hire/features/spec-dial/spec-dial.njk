@@ -1,0 +1,31 @@
+{#- THE SPEC DIAL (Signature showpiece, fleet page): one precise control. Choose what to turn (seats, power, budget or
+    your dates), turn the dial, and the whole fleet filters live, the matching cars lining up in one row of night
+    photographs. A slider for keyboards and screen readers (arrows, Home, End); without JavaScript the plain filters
+    below do the same job. -#}
+<div class="hr-sd" data-feature="spec-dial"{{ "spec-dial" | tierAttr | safe }} aria-labelledby="hr-sd-h">
+  <div class="wrap hr-sd-grid">
+    <div class="hr-sd-ctl">
+      <h2 class="hr-sd-h" id="hr-sd-h">The spec dial</h2>
+      <div class="hr-sd-modes" role="group" aria-label="What the dial turns">
+        <button type="button" data-sd-mode="seats" aria-pressed="true">Seats</button>
+        <button type="button" data-sd-mode="power" aria-pressed="false">Power</button>
+        <button type="button" data-sd-mode="budget" aria-pressed="false">Budget</button>
+        {%- if "date-range" | enabled %}<button type="button" data-sd-mode="dates" aria-pressed="false">My dates</button>{% endif %}
+      </div>
+      <div class="hr-sd-dial" data-sd-dial role="slider" tabindex="0" aria-labelledby="hr-sd-h" aria-valuemin="0" aria-valuemax="4" aria-valuenow="0" aria-valuetext="Seats: any">
+        <svg viewBox="0 0 240 240" aria-hidden="true" focusable="false">
+          <circle cx="120" cy="120" r="104" fill="none" stroke="var(--line)" stroke-width="1"/>
+          <g data-sd-ticks></g>
+          <line x1="120" y1="120" x2="120" y2="28" stroke="var(--bloom)" stroke-width="1" data-sd-hand/>
+          <circle cx="120" cy="120" r="3" fill="var(--text)"/>
+        </svg>
+        <p class="hr-sd-read"><b data-sd-value>Any</b><small data-sd-unit>seats</small></p>
+      </div>
+      <p class="hr-sd-help">Turn with the arrow keys, or tap a mark.</p>
+    </div>
+    <div class="hr-sd-out">
+      <p class="hr-sd-count" role="status" aria-live="polite" data-sd-count></p>
+      <ul class="hr-sd-row" data-sd-row aria-label="Cars that fit"></ul>
+    </div>
+  </div>
+</div>

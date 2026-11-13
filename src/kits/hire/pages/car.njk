@@ -1,0 +1,14 @@
+---
+layout: core/layouts/base.njk
+pagination:
+  data: site.fleet.cars
+  size: 1
+  alias: car
+feature: fleet-page
+eleventyComputed:
+  pageId: "cars/{{ car.id }}"
+  permalink: "{{ car.id | carFile(build.links) }}"
+  title: "{{ car.make }} {{ car.model }}"
+  description: "Hire the {{ car.make }} {{ car.model }} from {{ site.business.name }}, {{ site.location.locality }}: price, deposit, driver rules, insurance and mileage."
+---
+{% include "kits/hire/features/fleet-page/car.njk" %}

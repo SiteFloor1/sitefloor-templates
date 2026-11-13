@@ -1,0 +1,5 @@
+{#- Every commission on one page (the pieces section, all of them), each linking to its own page. -#}
+{%- set pg = site.cakePages.commissions %}
+{%- set ph = { title: pg.title, intro: pg.intro } %}{% include "kits/cakes/partials/page-head.njk" %}
+{%- set pieceList = site.pieces.items %}
+{% include "kits/cakes/features/commissions/commissions.njk" %}

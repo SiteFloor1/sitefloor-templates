@@ -1,0 +1,21 @@
+{#- Loupe header: the name in lowercase on the left; "Check a date" in the stain colour, WhatsApp, and Menu, which opens
+    every page on a black sheet. No row of links. -#}
+{%- set dateHref = ("#date" if pageId == "index" or pageId == "bridal" else ("index" | href) + "#date") %}
+<header class="nav lp-nav"><div class="wrap lp-nav-in">
+  <a class="lp-mark" href="{{ 'index' | href }}" aria-label="{{ site.business.name }}, home">{% if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="{{ site.business.name }}" height="28">{% else %}<span>{{ site.business.name }}</span>{% endif %}</a>
+  {%- if "mehndi-dates" | enabled %}<a class="lp-date" href="{{ dateHref }}">Check a date</a>{% endif %}
+  <a class="lp-wa" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{{ "WhatsApp" if build.booking.whatsapp else build.booking.label }}</a>
+  <button class="burger lp-menu" type="button" aria-expanded="false" aria-controls="mnav"><span class="lp-open">Menu</span><span class="lp-close">Close</span></button>
+</div></header>
+<div class="mnav lp-sheet" id="mnav" hidden><div class="wrap lp-sheet-in">
+  <nav aria-label="Pages">
+    <a href="{{ 'index' | href }}"{% if pageId == "index" %} aria-current="page"{% endif %}>Home</a>
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+  </nav>
+  <div class="lp-sheet-side">
+    <p class="lp-now" data-live-status><span class="dot" aria-hidden="true"></span> <span data-status-text>Studio hours</span></p>
+    <p>{{ site.location.streetAddress }}<br>{{ site.location.locality }} {{ site.location.postcode }}</p>
+  </div>
+</div></div>

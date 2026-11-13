@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: paint-correction
+permalink: paint-correction.html
+feature: correction-page
+eleventyComputed:
+  title: "{{ site.correctionPage.title | plain }}"
+  description: "Paint correction at {{ site.business.name }}, {{ site.location.locality }}: what each step removes."
+---
+{% include "kits/detailing/features/correction-page/correction-page.njk" %}

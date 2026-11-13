@@ -1,0 +1,24 @@
+{#- Gift concierge: her birthday, your anniversary and the shop's fixed dates (Valentine's…) into his calendar, each with
+    reminders weeks before; and a line to the shop to set something aside. Nothing is stored or sent until he chooses. -#}
+{%- set sec = site.sections.concierge %}
+{%- set c = site.concierge %}
+<section id="concierge" class="ls-conc" data-feature="gift-concierge"{{ "gift-concierge" | tierAttr | safe }}><div class="wrap conc-in">
+  <script type="application/json" data-lx>{{ { leads: c.leads, dates: c.dates, link: site.url } | jsonData | safe }}</script>
+  <div>{% include "core/partials/section-head.njk" %}{% if c.note %}<p class="lx-small">{{ c.note }}</p>{% endif %}</div>
+  <form class="lx-form" data-conc-form>
+    <div class="conc-dates" data-js-only>
+      {%- for d in c.dates %}
+      <fieldset class="conc-d" data-conc="{{ d.id }}"{% if d.md %} data-md="{{ d.md }}"{% endif %}>
+        <legend><label class="lx-check"><input type="checkbox" {% if d.md %}checked {% endif %}data-conc-on> {{ d.label }}</label></legend>
+        {%- if not d.md %}
+        <span class="conc-dm"><select aria-label="{{ d.label }}: day" data-conc-day>{% for n in range(1, 32) %}<option>{{ n }}</option>{% endfor %}</select><select aria-label="{{ d.label }}: month" data-conc-month>{% for m in ["January","February","March","April","May","June","July","August","September","October","November","December"] %}<option value="{{ loop.index }}">{{ m }}</option>{% endfor %}</select></span>
+        {%- endif %}
+        <span class="conc-next lx-small" data-conc-next></span>
+      </fieldset>
+      {%- endfor %}
+    </div>
+    <p class="lx-small">Reminders {% for l in c.leads %}{{ l }} days{% if not loop.last %} and {% endif %}{% endfor %} before each date, every year.</p>
+    <p class="conc-acts"><button type="button" class="lx-go" data-conc-ics>Add them to my calendar</button>
+    <a class="lx-go lx-quiet" href="{{ ('Hello ' + site.business.name + ', could you help me plan a gift?') | wa }}" target="_blank" rel="noopener" data-conc-send>Ask {{ site.business.name }} to plan ahead</a></p>
+  </form>
+</div></section>

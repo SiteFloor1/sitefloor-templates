@@ -1,0 +1,9 @@
+{#- How a commission works, in order, with the studio's own terms. -#}
+{%- set sec = site.sections.process %}
+<section id="how-it-works" class="ck-process" data-feature="how-it-works" aria-label="{{ sec.title | plain }}"{{ 'how-it-works' | tierAttr | safe }}><div class="wrap">
+  {%- include "core/partials/section-head.njk" %}
+  <ol class="ck-steps">
+    {%- for s in site.process.steps %}<li><b>{{ s.title }}</b><p>{{ s.text }}</p></li>{% endfor %}
+  </ol>
+  {%- if site.process.terms %}<p class="ck-note ck-process-t">{{ site.process.terms }}</p>{% endif %}
+</div></section>

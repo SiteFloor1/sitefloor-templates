@@ -1,0 +1,24 @@
+{#- Weddings and events: what the client offers, the cars that suit with their prices (self-drive day rate and, where
+    offered, with a chauffeur), ribbons at the client's price, and a request on WhatsApp. -#}
+{%- set ep = site.eventsPage %}{% set ev = site.hire.events %}
+{%- set ribbon = null %}{% for x in site.hire.extras %}{% if x.id == ev.ribbons %}{% set ribbon = x %}{% endif %}{% endfor %}
+{%- set pt = { title: ep.title, intro: ep.intro, photo: ep.photo, photoTall: ep.photoTall, kicker: ep.kicker } %}{% include "kits/hire/parts/page-top.njk" %}
+<section class="hr-ev" data-feature="events-page" aria-label="{{ ep.title | plain }}">
+  <div class="wrap">
+    <div class="hr-ev-text"><p>{{ ev.text }}</p>
+      {%- if ribbon %}<p class="hr-ev-ribbon"><span>Ribbons</span> {{ ribbon.price | money }} {{ "a day" if ribbon.per == "day" else "a hire" }}</p>{% endif %}
+    </div>
+    <ul class="hr-ev-cars">
+      {%- for car in site.fleet | pickCars(ev.cars) %}{% set pic = car.photos.small or car.photos.card %}
+      <li class="hr-ev-car">
+        <img src="{{ pic.src | img }}" alt="{{ pic.alt }}" width="{{ pic.width }}" height="{{ pic.height }}" loading="lazy" decoding="async">
+        <h2>{{ car | carName }}</h2>
+        <p>{% if not car.chauffeurOnly %}Self-drive {{ car | fromLine | lower }}{% endif %}{% if car.chauffeur %}{% if not car.chauffeurOnly %} · {% endif %}with a chauffeur {{ car.chauffeur.hourly | money }} an hour, {{ car.chauffeur.minHours | words }} hours at least{% endif %}</p>
+        {%- set t = ev.message + " The car: " + (car | carName) + "." %}
+        <p class="hr-ways"><a class="hr-more" href="{{ car.id | carUrl(build.links) }}"><span class="sr-only">{{ car | carName }}: </span>The car in detail</a><a class="hr-ask" href="{{ t | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ t }}"{% endif %} target="_blank" rel="noopener"><span class="sr-only">{{ car | carName }}: </span>Ask about your day</a></p>
+      </li>
+      {%- endfor %}
+    </ul>
+    {%- if "chauffeur-page" | enabled %}<p class="hr-ev-plan"><a class="dt-go" href="{{ 'chauffeur' | href }}">Plan the day with a chauffeur</a></p>{% endif %}
+  </div>
+</section>

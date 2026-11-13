@@ -1,0 +1,62 @@
+{#- The box: choose a size, place the shop's chocolates one by one (its own photos, from above), tie the ribbon, write
+    the card; order it for collection, or as a gift that someone else collects, with a link that shows them their box.
+    Sold-out pieces (from today's sheet) can't go in. Without JavaScript: the sizes, prices and a WhatsApp link. -#}
+{%- set sec = site.sections.box %}
+{%- set b = site.box %}
+<section id="box" class="sec-box" data-feature="dessert-box"{{ "dessert-box" | tierAttr | safe }} data-gift-url="{{ 'gift' | href }}"><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="bx" data-js-only>
+    <div class="bx-stage">
+      <div class="bx-sizes" role="radiogroup" aria-label="Box size">
+        {%- for z in b.sizes %}<label class="bx-size"><input type="radio" name="bx-size" value="{{ z.n }}" data-price="{{ z.price }}"{% if loop.first %} checked{% endif %}><b>{{ z.n }}</b><span>{{ z.price | pounds }}</span></label>{% endfor %}
+      </div>
+      <div class="bx-box" data-bx-box>
+        <ol class="bx-places" data-bx-places aria-label="Your box"></ol>
+        <div class="bx-lid" data-bx-lid hidden>
+          <span class="bx-ribbon" aria-hidden="true"></span>
+          <span class="bx-seal" aria-hidden="true">{% set sealId = "b" %}{% include "looks/" + site.look + "/parts/seal.njk" ignore missing %}</span>
+          <p class="bx-card-view" data-bx-card-view></p>
+        </div>
+      </div>
+    </div>
+    <div class="bx-side">
+      <div class="bx-fill" data-bx-fill>
+        <p class="bx-k"><span data-bx-count></span> <b data-bx-price></b></p>
+        <ul class="bx-pieces">
+          {%- for it in site.desserts | boxItems %}
+          <li><button type="button" class="bx-piece" data-bx-add="{{ it.id }}" data-name="{{ it.name }}" data-allergens="{{ it.allergens | join(' ') }}" data-src="{{ it.tile.src | img }}">
+            <img src="{{ it.tile.src | img }}" alt="" width="{{ it.tile.width }}" height="{{ it.tile.height }}" loading="lazy" decoding="async">
+            <span class="bx-pn">{{ it.name }}</span><span class="bx-out" data-bx-out hidden>Sold out today</span>
+          </button></li>
+          {%- endfor %}
+        </ul>
+        <p class="bx-all" data-bx-allergens aria-live="polite"></p>
+        <div class="bx-acts">
+          <button type="button" class="bx-go" data-bx-tie disabled>Tie the ribbon</button>
+          <button type="button" class="bx-quiet" data-bx-clear>Empty the box</button>
+        </div>
+      </div>
+      <div class="bx-tied" data-bx-tied hidden>
+        <label class="bx-field" for="bx-card">The card <small data-bx-left></small></label>
+        <textarea id="bx-card" rows="3" maxlength="{{ b.cardMax }}" data-bx-card placeholder="Happy birthday, Maya. Save me the gold one."></textarea>
+        <label class="bx-check"><input type="checkbox" id="bx-gift" data-bx-gift> It's a gift: they'll collect it</label>
+        <div class="bx-gift" data-bx-giftf hidden>
+          <label class="bx-field" for="bx-to">For<input id="bx-to" type="text" maxlength="40" autocomplete="off" data-bx-to></label>
+          <label class="bx-field" for="bx-from">From<input id="bx-from" type="text" maxlength="40" autocomplete="name" data-bx-from></label>
+        </div>
+        <label class="bx-field" for="bx-when">Collection<select id="bx-when" data-bx-when></select></label>
+        <div class="bx-acts">
+          <a class="bx-go" href="{{ ('Hi ' + site.business.name + ', I would like to order a box.') | wa }}" target="_blank" rel="noopener" data-bx-send>Order for collection</a>
+          {%- for z in b.sizes %}{% if z.payLink %}<span class="bx-pay" data-bx-pay="{{ z.n }}" hidden>{% set pay = z.payLink %}{% set payLabel = "Pay for the box" %}{% include "features/pay-link/button.njk" %}</span>{% endif %}{% endfor %}
+          <a class="bx-quiet" href="#" target="_blank" rel="noopener" data-bx-share hidden>Send them the gift link</a>
+          <button type="button" class="bx-quiet" data-bx-untie>Untie and change</button>
+        </div>
+        {%- if b.note %}<p class="bx-note">{{ b.note }}</p>{% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="bx-nojs" data-no-js>
+    <p>{% for z in b.sizes %}A box of {{ z.n }}, {{ z.price | pounds }}{{ ". " if loop.last else " · " }}{% endfor %}Message us the pieces you'd like and when you'll collect.</p>
+    <a class="bx-go" href="{{ ('Hi ' + site.business.name + ', I would like to order a box.') | wa }}" target="_blank" rel="noopener">Order on WhatsApp</a>
+  </div>
+</div></section>

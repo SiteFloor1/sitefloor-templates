@@ -1,0 +1,21 @@
+{#- Fit passport (private page): a code from the shop opens her sizes from its sheet. Whoever holds the code can ask
+    the shop for pieces in them. No names anywhere; the page isn't in search or the sitemap. -#}
+{%- set pp = site.passport %}
+<section class="ls-pass wrap" data-feature="fit-passport">
+  <script type="application/json" data-lx>{{ { source: pp.source, csvUrl: pp.csvUrl, sample: pp.sample if pp.source == "sample" else null } | jsonData | safe }}</script>
+  <p class="lp-k">{{ site.business.name }}</p>
+  <h1 class="lp-title">Fit passport</h1>
+  <p class="lp-intro">Her sizes, as our fitters wrote them down. Give the code to whoever is buying for you.</p>
+  <form class="pass-form" data-pass-form>
+    <label class="lx-f">The code<input type="text" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="12" data-pass-code></label>
+    <button type="submit" class="lx-go">Open</button>
+  </form>
+  {%- if pp.source == "sample" %}<p class="lx-small">On this demo, try <b>{{ pp.exampleCode }}</b>.</p>{% endif %}
+  <p class="pass-msg" data-pass-msg aria-live="polite"></p>
+  <div class="pass-card" data-pass-card hidden>
+    <table class="pass-sizes"><caption>Her sizes <span data-pass-when></span></caption><tbody data-pass-rows></tbody></table>
+    <label class="lx-f">Your budget<input type="text" maxlength="30" placeholder="e.g. £400 to £700" data-pass-budget></label>
+    <a class="lx-go" href="#" target="_blank" rel="noopener" data-pass-send>Ask {{ site.business.name }} for pieces in her sizes</a>
+  </div>
+  <p class="lx-small pass-note">{{ pp.note }}</p>
+</section>

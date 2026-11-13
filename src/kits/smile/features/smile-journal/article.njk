@@ -1,0 +1,10 @@
+{#- One journal piece: dated, signed with the clinician's register line, general information and not advice. Set `a`. -#}
+{%- set p = site.clinicians | clinician(a.by) %}
+{%- set ph = { kicker: "Journal", title: a.title, intro: a.intro } %}
+{%- include "kits/smile/partials/page-head.njk" %}
+<article class="sm-art" data-feature="smile-journal"><div class="wrap sm-art-in">
+  <p class="sm-art-meta">{{ a.date | ukDate }} · {% include "kits/smile/partials/clinician-line.njk" %}</p>
+  {%- for s in a.sections %}<section class="sm-wp-part"><h2>{{ s.heading }}</h2><p>{{ s.text }}</p></section>{% endfor %}
+  <p class="sm-art-note">General information, not advice for your teeth. Your clinician tells you what's right for you at consultation.</p>
+  <p><a class="go" href="{{ 'journal' | href }}">The journal</a></p>
+</div></article>

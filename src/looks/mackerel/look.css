@@ -1,0 +1,181 @@
+/* =========================================================================
+   Look: Mackerel. A detailing studio's bay at night with the strip lights on. The ground is the bay with the lights
+   off; the studio's light tubes are the one motif (thin lit bars as dividers, under actions, the stage a car has
+   reached, focus). One accent from a mackerel's back, used rarely. Funnel Display, light and tight, against Sora.
+   One hero idea: the headlight at full height, the line lit in the paint. Motion is slow, once, never tied to the
+   scroll. Design system: sitefloor-internal/docs/design/detailing.md.
+   ========================================================================= */
+:root {
+  --bg: #0B0D0F; --surface: #121619; --surface-2: #192024;
+  --text: #E4E8EA; --muted: #959FA4; --dim: #8A959A;
+  --accent: #6E9EA3; --accent-2: #8DB6BA; --on-accent: #0B0D0F; --accent-soft: #2E4448;
+  --line: rgba(228,232,234,.12); --line-2: rgba(228,232,234,.26);
+  --ok: #7FB394; --busy: #D3A24A; --closed: #8A959A;
+  --font-display: "Funnel Display", "Funnel Fallback", Arial, sans-serif;
+  --font-body: "Sora", "Sora Fallback", Arial, sans-serif;
+  --on-photo: #F4F7F8; --photo-scrim: rgba(11,13,15,.62); --shadow: rgba(0,0,0,.6);
+  --season-bg: #F4F7F8; --season-fg: #0B0D0F;
+  --tube: #F4F7F8; --tube-glow: rgba(244,247,248,.55); --tube-halo: rgba(244,247,248,.16); --tube-off: #2A3135;
+  --car-paint: #23473C; --tape: #D8D4C8;
+  --pad: clamp(16px, 4vw, 64px);
+  --s4: clamp(80px, 9vw, 128px);
+  --nav-h: 76px;
+  --bar-h: 58px;
+  color-scheme: dark;
+}
+html { background: var(--bg); }
+body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-weight: 300; font-size: 15px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 300; letter-spacing: -.02em; text-wrap: balance; }
+b, strong { font-weight: 500; }
+a { color: inherit; }
+::selection { background: var(--tube); color: var(--bg); }
+.wrap { width: min(1440px, 100% - 2 * var(--pad)); }
+main section { padding-block: var(--s4); }
+.kick { font-size: 13px; color: var(--muted); }
+/* focus is a lit tube under the element */
+:focus-visible { outline: 2px solid var(--tube); outline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: none; box-shadow: 0 3px 0 -1px var(--tube), 0 8px 14px -6px var(--tube-glow); }
+
+/* the motif: a strip light. Done stages dim, stages to come off. */
+.tube { display: block; height: 2px; width: 96px; border-radius: 1px; background: var(--tube); box-shadow: 0 0 10px 1px var(--tube-glow), 0 0 34px 4px var(--tube-halo); }
+.dt-st.is-done .tube { background: color-mix(in srgb, var(--tube) 50%, var(--bg)); box-shadow: none; }
+.dt-st.is-next .tube { background: var(--tube-off); box-shadow: none; }
+.dt-size:has(input:checked) { box-shadow: inset 0 -2px 0 var(--tube), 0 8px 12px -10px var(--tube-glow); }
+
+/* actions: words over a lit line; the few solid buttons are the lit tube itself */
+.go, .btn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0; border: 0; border-radius: 0; background: none; box-shadow: inset 0 -1px 0 var(--tube); color: var(--tube); font-family: var(--font-body); font-size: 15px; font-weight: 400; text-decoration: none; cursor: pointer; }
+.go:hover, .btn:hover { background: none; color: var(--text); box-shadow: inset 0 -2px 0 var(--tube), 0 8px 14px -8px var(--tube-glow); }
+.go:disabled { color: var(--muted); box-shadow: inset 0 -1px 0 var(--line-2); cursor: default; }
+.btn.ghost { box-shadow: inset 0 -1px 0 var(--line-2); color: var(--text); }
+.btn .ico { display: none; }
+
+/* header: over the photograph on the home page, on the bay elsewhere */
+.mk-nav { position: relative; z-index: 5; background: var(--bg); border: 0; box-shadow: none; }
+body[data-page="index"] .mk-nav { background: none; margin-bottom: calc(-1 * var(--nav-h)); }
+.mk-nav-in { display: flex; align-items: center; gap: 28px; min-height: var(--nav-h); }
+.mk-brand { margin-right: auto; font-family: var(--font-display); font-weight: 400; font-size: 24px; letter-spacing: -.01em; text-decoration: none; color: var(--text); }
+.mk-brand img { display: block; height: 32px; width: auto; }
+.mk-links { display: flex; gap: 26px; font-size: 13px; }
+.mk-links a { color: color-mix(in srgb, var(--text) 78%, transparent); text-decoration: none; }
+.mk-links a:hover, .mk-links a[aria-current="page"] { color: var(--tube); }
+.mk-links a[aria-current="page"] { box-shadow: inset 0 -1px 0 var(--tube); }
+.mk-book { color: var(--tube); font-size: 13px; font-weight: 500; text-decoration: none; }
+.mk-menu { display: none; min-height: 44px; padding: 0; border: 0; background: none; color: var(--text); font: 400 14px var(--font-body); cursor: pointer; }
+.mk-menu { width: auto; height: auto; }
+.mk-menu span { position: static; height: auto; background: none; transform: none !important; transition: none; }
+.mk-menu .mk-close, .mk-menu[aria-expanded="true"] .mk-open { display: none; }
+.mk-menu[aria-expanded="true"] .mk-close { display: inline; }
+.mk-sheet { position: fixed; inset: var(--nav-h) 0 0; z-index: 4; padding: 24px var(--pad) calc(var(--bar-h) + 24px); background: var(--bg); display: grid; align-content: start; gap: 22px; overflow: auto; }
+.mk-sheet[hidden] { display: none; }
+.mk-sheet nav { display: grid; }
+.mk-sheet nav a { padding-block: 10px; font-family: var(--font-display); font-weight: 300; font-size: 30px; letter-spacing: -.02em; text-decoration: none; }
+.mk-sheet nav a[aria-current="page"] { color: var(--tube); }
+.mk-sheet-now, .mk-sheet-addr { margin: 0; font-size: 13px; color: var(--muted); }
+body[data-page="index"] .mk-sheet { inset: var(--nav-h) 0 0; }
+
+/* hero: the headlight at full height, the line lit in the dark of the paint */
+.mk-hero { position: relative; display: grid; min-height: max(560px, 100svh); padding: 0; isolation: isolate; background: var(--bg); overflow: hidden; }
+.mk-hero-ph, .mk-hero-ph img { position: absolute; inset: 0; width: 100%; height: 100%; }
+.mk-hero-ph img { object-fit: cover; object-position: 20% 50%; }
+.mk-hero::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg, transparent 38%, color-mix(in srgb, var(--bg) 55%, transparent) 70%, color-mix(in srgb, var(--bg) 82%, transparent)), linear-gradient(0deg, color-mix(in srgb, var(--bg) 70%, transparent), transparent 30%); }
+.mk-hero .dt-il { z-index: 0; }
+.mk-lit { position: relative; z-index: 2; align-self: end; justify-self: end; display: grid; gap: 22px; justify-items: start; width: min(520px, 100%); padding: 0 var(--pad) 12vh; }
+.mk-h1 { margin: 0; font-weight: 300; font-size: clamp(48px, 6vw, 104px); line-height: .95; letter-spacing: -.04em; color: var(--tube); text-shadow: 0 0 18px var(--tube-glow), 0 0 60px var(--tube-halo); }
+.mk-hero-i { margin: 0; max-width: 34ch; color: var(--text); }
+.mk-cta { display: inline-grid; gap: 10px; justify-items: stretch; color: var(--tube); font-size: 15px; font-weight: 400; text-decoration: none; }
+.mk-cta .tube { width: 100%; }
+@media (prefers-reduced-motion: no-preference) { .mk-strike { animation: mk-strike 1.8s ease-out .2s both; } }
+@keyframes mk-strike { 0% { opacity: 0; } 18% { opacity: 1; } 26% { opacity: .3; } 40% { opacity: 1; } 100% { opacity: 1; } }
+/* with the inspection light the words sit low and left of the beam's resting place */
+.mk-hero:has(.dt-il) .mk-lit { justify-self: start; pointer-events: none; }
+.mk-hero:has(.dt-il) .mk-lit a { pointer-events: auto; }
+.mk-hero:has(.dt-il)::after { background: linear-gradient(0deg, color-mix(in srgb, var(--bg) 78%, transparent), transparent 42%); }
+
+/* section openings */
+.mk-sh { display: grid; gap: 18px; justify-items: start; margin-bottom: clamp(24px, 3vw, 40px); }
+.mk-sh-t { margin: 0; font-size: clamp(36px, 3.8vw, 62px); line-height: 1; letter-spacing: -.03em; }
+.mk-sh-i { margin: 0; max-width: 46ch; color: var(--muted); }
+.dt-pk-top .mk-sh, .dt-cp-top .mk-sh { margin-bottom: 0; }
+
+/* the bands: car in progress sits one step up from the bay */
+.dt-cp { background: var(--surface); }
+.dt-ex { padding-block: clamp(72px, 7vw, 104px); }
+.dt-cp-code { border-bottom-color: var(--line-2); }
+.dt-cp-code button { color: var(--accent); }
+
+/* shared sections on the bay */
+.sh h2 { font-weight: 300; }
+.foot, .mk-foot { position: relative; background: var(--bg); color: var(--text); border: 0; }
+.mk-foot-tube { width: 100%; height: 1px; }
+.mk-foot-in { display: grid; grid-template-columns: minmax(0, 4fr) repeat(3, minmax(0, 3fr)); gap: 32px clamp(24px, 3vw, 48px); padding-block: clamp(56px, 6vw, 88px) calc(var(--bar-h) + 24px); }
+.mk-foot-word { margin: 0; font-family: var(--font-display); font-weight: 300; font-size: clamp(40px, 4vw, 64px); line-height: 1; letter-spacing: -.03em; }
+.mk-foot-what { margin: 10px 0 0; color: var(--muted); font-size: 13px; }
+.mk-foot-a { font-style: normal; font-size: 14px; line-height: 1.8; }
+.mk-foot-a a { text-decoration: none; }
+.mk-foot-hours { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; font-size: 13px; color: var(--muted); }
+.mk-foot-hours span { display: inline-block; width: 7.5em; color: var(--text); }
+.mk-foot-links { display: grid; gap: 6px; align-content: start; font-size: 13px; }
+.mk-foot-links a { color: var(--muted); text-decoration: none; }
+.mk-foot-links a:hover { color: var(--tube); }
+.mk-foot-by { grid-column: 1 / -1; margin: 0; padding-top: 24px; border-top: 1px solid var(--line); font-size: 12px; color: var(--muted); }
+.mk-foot-by a { color: inherit; text-decoration: none; }
+
+/* inner pages: the first section sits close under the page's opening */
+.dt-ph + section, .dt-body + section, .dt-ph ~ section:first-of-type { padding-top: clamp(40px, 5vw, 72px); }
+.kick { font-size: 13px; font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--muted); }
+
+/* the other pages, as a ruled index */
+.mk-more-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.mk-more-list a { position: relative; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 4fr) 180px; gap: 4px 32px; align-items: center; padding-block: 18px; border-bottom: 1px solid var(--line); color: inherit; text-decoration: none; }
+.mk-more-list .tube { position: absolute; left: 0; right: 0; bottom: -1px; width: auto; opacity: 0; transition: opacity .4s ease; }
+.mk-more-list a:hover .tube, .mk-more-list a:focus-visible .tube { opacity: 1; }
+.mk-more-list b { font-family: var(--font-display); font-weight: 300; font-size: clamp(26px, 2.6vw, 40px); line-height: 1; letter-spacing: -.02em; }
+.mk-more-l { color: var(--muted); }
+.mk-more-list img { display: block; width: 180px; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
+@media (max-width: 760px) {
+  .mk-more-list a { grid-template-columns: minmax(0, 1fr) 96px; padding-block: 14px; }
+  .mk-more-l { grid-column: 1; font-size: 13px; }
+  .mk-more-list img { grid-column: 2; grid-row: 1 / span 2; width: 96px; }
+  .mk-more-list b { font-size: 24px; }
+}
+
+/* visit: the postcode at reading size, the panels on the bay */
+.where-pc { font-size: clamp(32px, 3.4vw, 48px); font-weight: 300; letter-spacing: -.02em; }
+
+/* breadcrumbs on the shared pages: links underlined, not told apart by colour alone */
+.crumb a { text-decoration: underline; text-decoration-color: var(--line-2); text-decoration-thickness: 1px; text-underline-offset: 4px; }
+.crumb a:hover { text-decoration-color: var(--tube); }
+
+/* small labels in the shared sections, in plain words rather than spaced capitals */
+.where-k, .pv-how, .pv-topic h3, .vc-amounts legend, .tile .vid { font-size: 13px; font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--muted); }
+.hrs tr.today th::after { font-size: 12px; letter-spacing: 0; text-transform: none; background: none; color: var(--tube); padding: 0; }
+.ba-lab { letter-spacing: 0; text-transform: none; font-weight: 400; }
+
+/* the voucher card: a dark card lit along its top edge, no ring */
+.vc-card { background: var(--surface-2); color: var(--text); box-shadow: inset 0 2px 0 var(--tube), 0 -10px 24px -18px var(--tube-glow); }
+.vc-card::after { display: none; }
+.vc-amounts input:checked + span { background: var(--tube); color: var(--bg); }
+
+/* phone bar: the bay with one lit tube along its top */
+.mk-bar { display: none; }
+
+@media (max-width: 1100px) { .mk-links { gap: 18px; } }
+@media (max-width: 960px) {
+  .mk-links, .mk-book { display: none; }
+  .mk-menu { display: inline-flex; align-items: center; }
+  .mk-foot-in { grid-template-columns: 1fr 1fr; }
+  .mk-foot-name { grid-column: 1 / -1; }
+}
+@media (max-width: 860px) {
+  .mk-hero { min-height: max(520px, calc(100svh - var(--bar-h))); }
+  .mk-hero-ph img { object-position: 50% 40%; }
+  .mk-hero::after { background: linear-gradient(0deg, color-mix(in srgb, var(--bg) 92%, transparent) 8%, color-mix(in srgb, var(--bg) 45%, transparent) 42%, transparent 62%); }
+  .mk-lit { justify-self: stretch; width: auto; padding-bottom: 40px; }
+  body { padding-bottom: calc(var(--bar-h) + env(safe-area-inset-bottom, 0px)); }
+  .mk-bar { position: fixed; inset: auto 0 0; z-index: 6; display: grid; grid-template-columns: repeat(3, 1fr); align-items: center; height: calc(var(--bar-h) + env(safe-area-inset-bottom, 0px)); padding: 0 var(--pad) env(safe-area-inset-bottom, 0px); background: var(--bg); box-shadow: inset 0 1px 0 var(--tube), 0 -10px 24px -14px var(--tube-glow); text-align: center; font-size: 14px; }
+  .mk-bar a { display: grid; place-items: center; min-height: 44px; text-decoration: none; color: var(--text); }
+  .mk-bar a + a { border-left: 1px solid var(--line-2); }
+  .mk-bar-book { color: var(--tube) !important; font-weight: 500; }
+  .mk-foot-in { padding-bottom: 32px; }
+}
+@media (max-width: 560px) { .mk-foot-in { grid-template-columns: 1fr; } .mk-foot-links { grid-template-columns: 1fr 1fr; gap: 10px 20px; } }

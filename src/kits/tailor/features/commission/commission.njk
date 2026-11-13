@@ -1,0 +1,35 @@
+{#- Your commission, by code: the code on the order card shows which stage the coat has reached, as the house's own
+    photographs along one rule (done in full, the current one marked, the rest still to come), the next fitting with
+    Add to calendar, and the cloth, which opens to its weave. The house's sheet holds only a code, a stage, a time and
+    a cloth. Unknown or old codes say to call. Without JavaScript, the phone number. -#}
+{%- set sec = site.sections.commission %}
+{%- set cm = site.commission %}
+<section id="commission" class="tl-cm" data-feature="commission" aria-labelledby="cm-h"{{ 'commission' | tierAttr | safe }}><div class="wrap">
+  <div class="tl-cm-head">
+    <h2 class="tl-cm-t" id="cm-h">{{ sec.title | markup | safe }}</h2>
+    <form class="tl-cm-form" data-cm-form data-js-only>
+      <label class="tl-label" for="cm-code">The code on your order card</label>
+      <div class="tl-cm-row"><input id="cm-code" data-cm-code autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="16" placeholder="8 to 12 letters and numbers"><button class="tl-btn" type="submit">Show my coat</button></div>
+      {%- if site.mode == "demo" and cm.example %}<p class="tl-small">Demo: try <button type="button" class="tl-quiet tl-cm-try" data-cm-try="{{ cm.example }}">{{ cm.example }}</button></p>{% endif %}
+    </form>
+  </div>
+  <ol class="tl-cm-stages" data-cm-stages>
+    {%- for id in cm.stages %}{% set st = site.process | stepOf(id) %}
+    <li class="tl-cm-st" data-cm-stage="{{ loop.index0 }}">
+      <figure class="tl-cm-ph"><img src="{{ st.photo.src | img }}" alt="{{ st.photo.alt }}" width="{{ st.photo.width }}" height="{{ st.photo.height }}" loading="lazy" decoding="async"></figure>
+      <p class="tl-cm-n">{{ st.name }}</p>
+      <p class="tl-cm-w" data-cm-when>{{ st.text }}</p>
+    </li>
+    {%- endfor %}
+  </ol>
+  <div class="tl-cm-out" data-cm-out hidden aria-live="polite">
+    <p class="tl-cm-next" data-cm-next></p>
+    <p class="tl-cm-acts"><button type="button" class="tl-go" data-cm-ics hidden>Add the fitting to my calendar</button>
+      {%- if "cloth-book" | enabled %}<button type="button" class="tl-quiet tl-cm-cloth" data-cm-cloth hidden></button>{% endif %}</p>
+    {%- if site.fittingReminder %}<p class="tl-small" data-cm-remind hidden>The calendar file reminds you at {{ site.fittingReminder.at | clockWords }} the evening before. {{ site.fittingReminder.items | bringLine }} Some calendars use their own reminders instead.</p>{% endif %}
+    <p class="tl-small" data-cm-upd></p>
+  </div>
+  <p class="tl-cm-off" data-cm-off hidden role="status"></p>
+  <p class="tl-cm-plain" data-no-js>Call us on <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a> and we'll tell you where your coat has reached.</p>
+  <p class="tl-small tl-cm-note">This shows only the stage, the next fitting and the cloth. Never your name or measurements.</p>
+</div></section>

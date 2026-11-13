@@ -1,0 +1,6 @@
+{#- Datum phone bar: three quiet words on the surface, a hairline above. Request carries the bloom line. -#}
+<div class="mbar dt-bar">
+  <a href="tel:{{ site.contact.phone | replace(' ', '') }}">Call</a>
+  <a href="{{ ('fleet' | href) if ('fleet-page' | enabled) else (('index' | href) + '#fleet' if pageId != 'index' else '#fleet') }}">Fleet</a>
+  <a class="dt-bar-req" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">Request</a>
+</div>

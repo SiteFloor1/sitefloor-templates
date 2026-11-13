@@ -1,0 +1,19 @@
+{#- The request on WhatsApp: the car and the dates, written in for the customer. A request, never a booking. Without
+    JavaScript the form still opens WhatsApp with the general message. -#}
+{%- set sec = site.sections.request %}
+<section id="request" class="hr-rq" data-feature="hire-request" aria-labelledby="hr-rq-h">
+  <div class="wrap hr-rq-grid">
+    <div class="dt-head is-stacked"><h2 class="dt-h" id="hr-rq-h">{{ sec.title | markup | safe }}</h2>{% if sec.intro %}<p class="dt-hr">{{ sec.intro }}</p>{% endif %}</div>
+    <form class="hr-rq-form" action="{{ site.messages.general | book }}" method="get" target="_blank" data-rq-form>
+      <label class="hr-field is-wide" for="hr-rq-car"><span>Car</span>
+        <select id="hr-rq-car" name="car" data-rq-car>
+          <option value="">Not sure yet</option>
+          {%- for k in site.fleet | fleetClasses %}<optgroup label="{{ k.name }}">{% for c in k.cars %}<option value="{{ c | carName }}">{{ c | carName }}</option>{% endfor %}</optgroup>{% endfor %}
+        </select></label>
+      <label class="hr-field" for="hr-rq-from"><span>From</span><input type="date" id="hr-rq-from" name="from" data-rq-from></label>
+      <label class="hr-field" for="hr-rq-to"><span>To</span><input type="date" id="hr-rq-to" name="to" data-rq-to></label>
+      <label class="hr-field is-wide" for="hr-rq-where"><span>Delivery postcode, or collect</span><input id="hr-rq-where" name="where" autocomplete="postal-code" maxlength="40" data-rq-where></label>
+      <p class="hr-rq-go"><button type="submit" class="dt-go">Request on WhatsApp</button><span class="hr-rq-note">{{ site.messages.requestNote or "A request, not a booking. We reply to confirm the car and the dates." }}</span></p>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,10 @@
+{#- The room: one photograph of the private room, very large and off-centre, with the house's line beside it. -#}
+{%- set R = site.room %}
+<section class="nc-sec jw-room" data-feature="private-room" aria-labelledby="jw-room-h"><div class="wrap jw-room-in">
+  <figure class="jw-room-ph rv"><img src="{{ R.photo.src | img }}" width="{{ R.photo.width }}" height="{{ R.photo.height }}" loading="lazy" decoding="async" alt="{{ R.photo.alt }}"></figure>
+  <div class="jw-room-t rv">
+    <h2 class="jw-h" id="jw-room-h">{{ site.sections.room.title }}</h2>
+    <p class="jw-say">{{ R.line }}</p>
+    {%- if "appointment-request" | enabled %}<a class="nc-u nc-label" href="#appointment">{{ site.sections.room.intro or "Request a private appointment" }}</a>{% endif %}
+  </div>
+</div></section>

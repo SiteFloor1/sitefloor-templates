@@ -1,0 +1,26 @@
+{#- The fleet on the home page (owner's fixes 2, 3, 5): the class rail with counts from the data, the leading class (one
+    large car and two beside it, the large one filling its column so nothing sits empty), then a strip hinting at the
+    rest of the range. "Free this weekend?" comes from the Sheet and fails closed ("ask us"). -#}
+{%- set sec = site.sections.fleet %}{% set lc = site.fleet | leadClass %}{% set classes = site.fleet | fleetClasses %}
+<section id="fleet" class="hr-fleet" data-feature="fleet" aria-labelledby="hr-fleet-h">
+  <nav class="hr-rail" aria-label="The fleet by class"><div class="wrap"><ul>
+    {%- for k in classes %}
+    <li>{% if "fleet-page" | enabled %}<a href="{{ k.id | classUrl(build.links) }}"{{ "fleet-page" | tierAttr | safe }}{% if k.id == lc.id %} class="is-lead"{% endif %}>{% else %}<span{% if k.id == lc.id %} class="is-lead"{% endif %}>{% endif %}{{ k.name }}<sup>{{ k.cars.length }}</sup>{% if "fleet-page" | enabled %}</a>{% else %}</span>{% endif %}</li>
+    {%- endfor %}
+  </ul></div></nav>
+  <div class="wrap">
+    <div class="dt-head"><h2 class="dt-h" id="hr-fleet-h">{{ lc.name }}</h2><p class="dt-hr">{{ lc.line or sec.intro }}</p></div>
+    <div class="hr-lead">
+      {%- set car = lc.big %}{% set kind = "lead" %}{% include "kits/hire/parts/car-card.njk" %}
+      {%- for car in lc.side %}{% set kind = "side" %}{% include "kits/hire/parts/car-card.njk" %}{% endfor %}
+    </div>
+    {%- if site.fleet.range.length %}
+    <div class="hr-range" aria-labelledby="hr-range-h">
+      <h3 class="hr-range-h" id="hr-range-h">{{ site.sections.range.title if site.sections.range else "The rest of the range" }}</h3>
+      <div class="hr-range-row">
+        {%- for car in site.fleet | pickCars(site.fleet.range) %}{% set kind = "range" %}{% include "kits/hire/parts/car-card.njk" %}{% endfor %}
+      </div>
+    </div>
+    {%- endif %}
+  </div>
+</section>

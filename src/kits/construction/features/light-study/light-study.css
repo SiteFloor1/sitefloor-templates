@@ -1,0 +1,20 @@
+/* The light study: a short row of controls and one sentence about the light. */
+.bd-ls { display: grid; gap: 18px; padding-block: clamp(56px, 8vw, 88px); border-top: 1px solid var(--line); }
+.bd-ls-head p { margin: 10px 0 0; color: var(--muted); max-width: 52ch; }
+.bd-ls-ctl { display: flex; flex-wrap: wrap; gap: 18px 28px; align-items: end; }
+.bd-ls-ctl .bd-field { min-width: 0; }
+.bd-ls-time input { width: min(260px, 70vw); accent-color: var(--accent); min-height: 32px; padding: 0; border: 0; background: none; }
+.bd-ls-time output { color: var(--text); font-variant-numeric: tabular-nums; margin-left: 6px; }
+.bd-ls-face button { padding: 10px 9px; min-width: 40px; }
+.bd-ls-now { margin: 0; font-family: var(--font-display); font-size: clamp(20px, 2vw, 26px); line-height: 1.3; max-width: 44ch; padding-left: 16px; border-left: 3px solid var(--line-2); }
+[data-lit="glass"] .bd-ls-now { border-left-color: var(--accent-soft, var(--accent)); }
+[data-lit="dark"] .bd-ls-now { border-left-color: var(--text); }
+.bd-ls-hint { margin: 0; font-size: 13px; color: var(--accent); }
+.bd-ls-note { margin: 0; font-size: 12px; color: var(--muted); max-width: 70ch; }
+@media (max-width: 560px) { .bd-ls-face { flex-wrap: wrap; } }
+.bd-ls-dial { position: absolute; left: 16px; top: 16px; width: 92px; height: 92px; pointer-events: none; }
+.bd-ls-dial .ring { fill: color-mix(in srgb, var(--bg) 88%, transparent); stroke: var(--line-2); stroke-width: 1.5; }
+.bd-ls-dial .n { font: 600 11px var(--font-body); fill: var(--text); text-anchor: middle; }
+.bd-ls-dial .garden { stroke: var(--accent); stroke-width: 4; stroke-linecap: round; }
+.bd-ls-dial .sun { fill: var(--sun, var(--accent-soft)); stroke: var(--text); stroke-width: 1.5; }
+.bd-ls-dial[data-up="false"] .sun { fill: var(--text); }

@@ -1,0 +1,598 @@
+<title>Aldous Marr Case Study</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Italiana&family=Albert+Sans:wght@300;400;500&family=Pinyon+Script&family=Manrope:wght@600;700&display=swap">
+<style>
+/* Layout: the case study is a stone under a jeweller's loupe, read from the top facet to the point. The hero is the
+   Solitaire with a 10x loupe you move yourself; then the five parts of a brilliant cut, each a chapter with its own
+   composition: Table (the first six screens), Crown (Starter), Girdle (Plus), Pavilion (Signature), Culet (the facts).
+   One world, Aldous Marr's own: cool pearl and grey suede, conch pink used boldly but rarely, the deep conch lip for
+   the point. One look, light. */
+:root {
+  --pearl: #F2EFED; --suede: #E4E0DE; --card: #FAF8F7; --ink: #1B1A1C; --ink-2: #5A5457; --rule: #D5CFCD;
+  --conch: #EFA8AD; --lip: #A24A55; --on-lip: #FFF8F7; --lip-2: #F7E3E4;
+  --display: "Italiana", "Didot", "Bodoni 72", Georgia, serif;
+  --body: "Albert Sans", "Segoe UI", Helvetica, Arial, sans-serif;
+  --script: "Pinyon Script", "Snell Roundhand", "Apple Chancery", cursive;
+  --brand: "Manrope", "Helvetica Neue", Arial, sans-serif;
+  --sf-paper: #FBFAF7; --sf-ink: #0E0F11; --sf-tomato: #E8613C; --sf-line: rgba(14,15,17,.12);
+  color-scheme: light;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { background: var(--pearl); color: var(--ink); font: 300 17px/1.65 var(--body); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--sf-paper); }
+a { color: inherit; }
+img, video { display: block; max-width: 100%; height: auto; }
+.gut { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { width: min(1320px, 100%); margin-inline: auto; }
+h1, h2, h3 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap: balance; letter-spacing: .01em; }
+p { margin: 0; }
+ul, ol { margin: 0; padding: 0; }
+.lab { font: 500 11.5px/1.4 var(--body); letter-spacing: .24em; text-transform: uppercase; color: var(--ink-2); }
+:focus-visible { outline: 2px solid var(--lip); outline-offset: 3px; }
+
+/* Sitefloor's own bar, as on the Sitefloor site and the other case studies */
+.sfbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--sf-paper); color: var(--sf-ink); border-bottom: 1px solid var(--sf-line); }
+.sfbar .wrap { display: flex; justify-content: space-between; align-items: center; height: 66px; gap: 16px; }
+.wm { display: flex; align-items: baseline; font-family: var(--brand); font-weight: 600; font-size: 24px; letter-spacing: -.045em; text-decoration: none; color: var(--sf-ink); }
+.wm svg { margin: 0 1px; overflow: visible; }
+.sfbar nav { display: flex; gap: 28px; font-family: var(--brand); font-size: 14px; font-weight: 600; }
+.sfbar nav a { text-decoration: none; color: var(--sf-ink); }
+.sfbar nav a[aria-current] { box-shadow: inset 0 -1.5px 0 var(--sf-ink); }
+.sfbtn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 20px; background: var(--sf-ink); color: var(--sf-paper); font: 700 12px var(--brand); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; }
+.sfbtn:hover { background: var(--sf-tomato); }
+@media (max-width: 760px) { .sfbar nav { display: none; } }
+@media (max-width: 420px) { .sfbar .sfbtn { display: none; } }
+
+/* buttons: the conch one is the appointment's colour, used for the one thing to do */
+.btn { display: inline-flex; align-items: center; gap: 12px; min-height: 52px; padding: 0 26px; font: 500 12.5px var(--body); letter-spacing: .2em; text-transform: uppercase; text-decoration: none; background: var(--conch); color: var(--ink); border: 0; }
+.btn:hover { background: var(--lip); color: var(--on-lip); }
+.btn.line { background: transparent; box-shadow: inset 0 0 0 1px var(--ink); }
+.btn.line:hover { background: var(--ink); color: var(--pearl); }
+.acts { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* the hero: the words on the pearl, the stone under the loupe */
+.hero .wrap { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(28px, 5vw, 80px); align-items: center; padding-block: clamp(28px, 4vw, 56px); }
+.hero-t { display: grid; gap: 26px; align-content: center; min-width: 0; }
+.hero h1 { font-size: clamp(64px, 9.6vw, 156px); line-height: .88; }
+.hero .lede { font-size: clamp(18px, 1.55vw, 21px); line-height: 1.6; max-width: 34ch; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 14px; color: var(--ink-2); }
+.facts b { font-weight: 500; color: var(--ink); }
+.stage { position: relative; aspect-ratio: 3 / 4; max-width: 100%; background: var(--suede); overflow: hidden; cursor: none; touch-action: pan-y; }
+.stage > img { width: 100%; height: 100%; }
+.lens { --r: clamp(64px, 9vw, 118px); position: absolute; left: 0; top: 0; width: calc(var(--r) * 2); height: calc(var(--r) * 2); border-radius: 50%; translate: calc(var(--x, 0px) - var(--r)) calc(var(--y, 0px) - var(--r)); background-repeat: no-repeat; background-color: var(--suede); box-shadow: 0 0 0 1px rgba(255,255,255,.9), 0 0 0 7px rgba(27,26,28,.82), 0 0 0 8px rgba(255,255,255,.35), 0 26px 50px -12px rgba(27,26,28,.55); touch-action: none; cursor: grab; }
+.lens::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 32% 28%, rgba(255,255,255,.38), transparent 42%); pointer-events: none; }
+.lens-tag { position: absolute; right: 14px; bottom: 14px; z-index: 2; background: var(--card); color: var(--ink); font: 500 11px var(--body); letter-spacing: .2em; text-transform: uppercase; padding: 9px 12px; pointer-events: none; }
+.stage:focus-visible { outline-offset: 4px; }
+@media (max-width: 880px) { .hero .wrap { grid-template-columns: minmax(0, 1fr); } .stage { order: -1; } .hero h1 { font-size: clamp(60px, 17vw, 100px); } }
+
+/* the five parts of the cut, drawn once as a profile; each label leads to its chapter */
+.cut { background: var(--card); border-block: 1px solid var(--rule); }
+.cut .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(24px, 5vw, 80px); align-items: center; padding-block: clamp(44px, 6vw, 84px); }
+.cut h2 { font-size: clamp(34px, 3.6vw, 52px); line-height: 1.05; margin-bottom: 16px; }
+.cut p.lede { max-width: 44ch; color: var(--ink-2); }
+.diagram { width: 100%; height: auto; overflow: visible; }
+.diagram .o { fill: none; stroke: var(--ink); stroke-width: 1.1; }
+.diagram .f { fill: none; stroke: var(--ink-2); stroke-width: .6; }
+.diagram a text { font: 400 15px var(--display); letter-spacing: .18em; fill: var(--ink); }
+.diagram a .ln { stroke: var(--lip); stroke-width: .8; }
+.diagram a:hover text, .diagram a:focus-visible text { fill: var(--lip); }
+.parts { list-style: none; display: grid; gap: 0; margin-top: 26px; border-top: 1px solid var(--rule); }
+.parts li { border-bottom: 1px solid var(--rule); }
+.parts a { display: grid; grid-template-columns: 2.4em 7.5em minmax(0, 1fr); gap: 12px; align-items: baseline; padding: 13px 0; text-decoration: none; }
+.parts .n { font: 400 15px var(--display); color: var(--lip); }
+.parts b { font: 400 19px var(--display); letter-spacing: .14em; text-transform: uppercase; }
+.parts span { font-size: 15px; color: var(--ink-2); }
+.parts a:hover b { color: var(--lip); }
+@media (max-width: 880px) { .cut .wrap { grid-template-columns: minmax(0, 1fr); } .parts a { grid-template-columns: 2em 6.4em minmax(0, 1fr); } }
+
+/* a chapter opener: the cut small with its own part in conch, the part's name, a plain title */
+.ch { padding-block: clamp(70px, 9vw, 140px) 0; }
+.opener { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 18px 28px; align-items: end; padding-bottom: clamp(30px, 4vw, 54px); border-bottom: 1px solid var(--rule); }
+.glyph { width: 92px; height: 50px; color: var(--ink); overflow: visible; }
+.glyph .on { fill: var(--conch); stroke: var(--lip); stroke-width: 2.4; }
+.opener .lab b { color: var(--lip); font-weight: 500; }
+.opener h2 { font-size: clamp(40px, 5.2vw, 84px); line-height: 1; margin-top: 10px; }
+.plan-tag { justify-self: end; text-align: right; font-size: 14px; color: var(--ink-2); }
+.plan-tag b { display: block; font: 400 26px var(--display); letter-spacing: .06em; color: var(--ink); }
+@media (max-width: 760px) { .opener { grid-template-columns: minmax(0, 1fr); } .plan-tag { justify-self: start; text-align: left; } }
+
+/* devices: a phone and a screen, plain and quiet, so the site is the subject */
+.phone { position: relative; width: min(100%, 300px); padding: 8px; border-radius: 44px; background: #fff; box-shadow: 0 0 0 1px var(--rule), 0 40px 70px -40px rgba(27,26,28,.45); }
+.phone .screen { overflow: hidden; border-radius: 36px; aspect-ratio: 600 / 1298; background: var(--pearl); }
+.phone img, .phone video { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.screenframe { padding: 8px; background: #fff; box-shadow: 0 0 0 1px var(--rule), 0 40px 80px -46px rgba(27,26,28,.5); }
+.screenframe img, .screenframe video { width: 100%; }
+.pause { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; margin-top: 16px; padding: 0 16px; background: transparent; border: 1px solid var(--rule); color: var(--ink); font: 500 11.5px var(--body); letter-spacing: .18em; text-transform: uppercase; cursor: pointer; }
+.pause:hover { border-color: var(--ink); }
+figcaption { margin-top: 14px; font-size: 14.5px; color: var(--ink-2); max-width: 40ch; }
+
+/* I. Table: the clip of the home page beside its six screens, in order */
+.table-g { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: clamp(30px, 7vw, 120px); align-items: center; padding-block: clamp(40px, 6vw, 80px); }
+.six { list-style: none; counter-reset: s; display: grid; gap: 0; max-width: 620px; }
+.six li { counter-increment: s; display: grid; grid-template-columns: 3.2em minmax(0, 1fr); gap: 10px; padding: 18px 0; border-bottom: 1px solid var(--rule); }
+.six li::before { content: counter(s, upper-roman); font: 400 19px var(--display); color: var(--lip); padding-top: 2px; }
+.six b { display: block; font: 400 23px/1.25 var(--display); letter-spacing: .02em; font-weight: 400; margin-bottom: 4px; }
+.six span { font-size: 15.5px; color: var(--ink-2); }
+.measure { margin-top: 24px; font-size: 15.5px; max-width: 52ch; }
+@media (max-width: 880px) { .table-g { grid-template-columns: minmax(0, 1fr); } .table-g .phone { margin-inline: auto; } }
+
+/* the box band: the house's one bold colour, edge to edge, with the box itself */
+.band { background: var(--conch); margin-top: clamp(40px, 6vw, 90px); }
+.band .wrap { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(28px, 6vw, 100px); align-items: center; padding-block: clamp(44px, 6vw, 90px); }
+.band img { box-shadow: 0 30px 70px -40px rgba(27,26,28,.55); }
+.band h3 { font-size: clamp(32px, 3.4vw, 50px); line-height: 1.05; margin-bottom: 18px; }
+.band p { max-width: 40ch; }
+@media (max-width: 880px) { .band .wrap { grid-template-columns: minmax(0, 1fr); } }
+
+/* II. Crown: two phones, a little apart, and the Starter list in two columns */
+.crown-g { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.25fr); gap: clamp(20px, 4vw, 60px); align-items: start; padding-block: clamp(40px, 6vw, 80px); }
+.crown-g figure { margin: 0; }
+.crown-g figure:nth-child(2) { margin-top: clamp(0px, 8vw, 120px); }
+.crown-t { display: grid; gap: 22px; align-content: start; }
+.crown-t h3 { font-size: clamp(26px, 2.4vw, 34px); line-height: 1.15; }
+/* every feature of a plan, named in one flowing line with a small diamond between, so lists never become a spec sheet */
+.feats { list-style: none; display: flex; flex-wrap: wrap; gap: 10px 0; padding-top: 22px; border-top: 1px solid var(--rule); font: 400 clamp(17px, 1.5vw, 20px)/1.4 var(--display); letter-spacing: .03em; }
+.feats li { display: inline-flex; align-items: center; }
+.feats li + li::before { content: ""; width: 5px; height: 5px; margin: 0 14px; background: var(--lip); rotate: 45deg; flex: none; }
+.feats-l { margin-bottom: 4px; }
+@media (max-width: 980px) { .crown-g { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .crown-t { grid-column: 1 / -1; } }
+@media (max-width: 560px) { .crown-g { grid-template-columns: minmax(0, 1fr); } .crown-g figure:nth-child(2) { margin-top: 0; } .crown-g .phone { margin-inline: auto; } }
+
+/* III. Girdle: the band that runs round the stone, so the pages run round in one sideways row */
+.girdle-row { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(280px, 34%); gap: clamp(14px, 2vw, 26px); overflow-x: auto; scroll-snap-type: x mandatory; padding: clamp(36px, 5vw, 64px) 0 18px; scrollbar-width: thin; scrollbar-color: var(--lip-2) transparent; }
+.girdle-row figure { margin: 0; scroll-snap-align: start; }
+.girdle-row img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; box-shadow: 0 0 0 1px var(--rule); background: var(--card); }
+.girdle-row figcaption { margin-top: 12px; font: 400 17px var(--display); letter-spacing: .14em; text-transform: uppercase; color: var(--ink); }
+.girdle-row figcaption small { display: block; font: 300 14px/1.5 var(--body); letter-spacing: 0; text-transform: none; color: var(--ink-2); margin-top: 2px; }
+.row-hint { font-size: 13.5px; color: var(--ink-2); }
+@media (max-width: 700px) { .girdle-row { grid-auto-columns: 82%; } }
+.trio { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.6fr) minmax(0, .8fr); gap: clamp(20px, 4vw, 56px); align-items: center; padding-block: clamp(50px, 7vw, 100px); }
+.trio figure { margin: 0; display: grid; justify-items: center; }
+.trio figure.w { justify-items: stretch; }
+.trio figcaption { text-align: left; justify-self: start; }
+@media (max-width: 980px) { .trio { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .trio figure.w { grid-column: 1 / -1; order: -1; } }
+@media (max-width: 560px) { .trio { grid-template-columns: minmax(0, 1fr); } }
+.plus-list { padding-bottom: clamp(20px, 3vw, 40px); }
+
+/* worn, not only shown: three photographs edge to edge, a hand, a neck, an ear */
+.worn { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin-top: clamp(70px, 9vw, 140px); }
+.worn img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.worn-t { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px 60px; align-items: end; padding-block: clamp(26px, 3vw, 40px) 0; }
+.worn-t h2 { font-size: clamp(34px, 3.8vw, 58px); line-height: 1; }
+.worn-t p { color: var(--ink-2); max-width: 46ch; }
+@media (max-width: 700px) { .worn-t { grid-template-columns: minmax(0, 1fr); } }
+
+/* IV. Pavilion: depth. The engraving is live; the vitrine and the card play; a hand and a sketch, still */
+.engrave { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: clamp(28px, 6vw, 90px); align-items: center; padding-block: clamp(44px, 6vw, 90px); }
+.band-ph { position: relative; aspect-ratio: 1100 / 733; max-width: 100%; background: var(--card); }
+.band-ph img { width: 100%; height: 100%; }
+.band-ph svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.band-ph text { fill: #6B4A1C; fill-opacity: .82; }
+.band-ph text[data-s="script"] { font-family: var(--script); font-size: 58px; }
+.band-ph text[data-s="roman"] { font-family: var(--display); font-size: 46px; letter-spacing: 6px; }
+.band-ph text[data-s="block"] { font-family: var(--body); font-weight: 400; font-size: 36px; letter-spacing: 9px; text-transform: uppercase; }
+.eng-f { display: grid; gap: 18px; }
+.eng-f h3 { font-size: clamp(30px, 3vw, 44px); line-height: 1.05; }
+.field { display: grid; gap: 8px; }
+.field input { font: 400 20px var(--body); padding: 12px 0; border: 0; border-bottom: 1px solid var(--ink); background: transparent; color: var(--ink); border-radius: 0; width: 100%; }
+.field input:focus { outline: none; border-bottom-color: var(--lip); box-shadow: 0 1px 0 var(--lip); }
+.count { font-size: 13.5px; color: var(--ink-2); }
+.styles { border: 0; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 6px 22px; }
+.styles legend { margin-bottom: 8px; }
+.styles label { position: relative; cursor: pointer; }
+.styles input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.styles span { display: inline-block; padding: 6px 0 4px; border-bottom: 1px solid transparent; font-size: 15px; color: var(--ink-2); }
+.styles input:checked + span { color: var(--ink); border-bottom-color: var(--lip); }
+.styles input:focus-visible + span { outline: 2px solid var(--lip); outline-offset: 3px; }
+@media (max-width: 880px) { .engrave { grid-template-columns: minmax(0, 1fr); } }
+
+.depth { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: clamp(24px, 4vw, 56px) clamp(20px, 3vw, 44px); padding-block: clamp(30px, 5vw, 70px); align-items: start; }
+.depth figure { margin: 0; }
+.d-vit { grid-column: 1 / span 4; }
+.d-card { grid-column: 6 / span 7; align-self: center; }
+.d-hand { grid-column: 1 / span 7; }
+.d-sketch { grid-column: 8 / span 5; margin-top: clamp(0px, 10vw, 160px); }
+.depth h3 { font-size: clamp(24px, 2.2vw, 32px); line-height: 1.15; margin-top: 18px; }
+.depth p { margin-top: 8px; font-size: 15.5px; color: var(--ink-2); max-width: 46ch; }
+@media (max-width: 880px) { .depth { grid-template-columns: minmax(0, 1fr); } .d-vit, .d-card, .d-hand, .d-sketch { grid-column: 1 / -1; margin-top: 0; } .d-vit .phone { margin-inline: auto; } }
+.sig-list { padding-block: 10px clamp(20px, 3vw, 40px); }
+
+/* V. Culet: the point. The deep conch lip, the facts set narrowing to a point */
+.culet { background: var(--lip); color: var(--on-lip); margin-top: clamp(70px, 9vw, 140px); }
+.culet .wrap { padding-block: clamp(64px, 8vw, 120px); }
+.culet .opener { border-bottom-color: rgba(251,243,242,.28); }
+.culet .lab, .culet .lab b, .culet .plan-tag { color: var(--lip-2); }
+.culet .plan-tag b { color: var(--on-lip); }
+.culet .glyph { color: var(--on-lip); }
+.culet .glyph .on { fill: var(--on-lip); stroke: var(--on-lip); }
+.point { display: grid; justify-items: center; text-align: center; gap: clamp(26px, 3.4vw, 44px); padding-top: clamp(44px, 6vw, 80px); }
+.point .row { display: flex; flex-wrap: wrap; justify-content: center; gap: 0; }
+.point .row > div { padding: 0 clamp(14px, 2.6vw, 40px); border-left: 1px solid rgba(251,243,242,.28); }
+.point .row > div:first-child { border-left: 0; }
+.point .v { display: block; font: 400 clamp(44px, 5.4vw, 86px)/1 var(--display); font-variant-numeric: tabular-nums; }
+.point .k { display: block; margin-top: 10px; font-size: 13.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--lip-2); }
+.point .r2 .v { font-size: clamp(34px, 4vw, 60px); }
+.point .r3 .v { font-size: clamp(26px, 2.8vw, 40px); }
+.point .tip { width: 9px; height: 9px; background: var(--on-lip); rotate: 45deg; }
+.honest { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 4vw, 60px); margin-top: clamp(60px, 8vw, 110px); padding-top: clamp(30px, 4vw, 50px); border-top: 1px solid rgba(251,243,242,.28); }
+.honest h3 { font-size: clamp(24px, 2.2vw, 31px); line-height: 1.15; margin-bottom: 12px; }
+.honest p { font-size: 15.5px; color: var(--lip-2); }
+.honest q { quotes: "\201C" "\201D"; color: var(--on-lip); }
+.speed-note { margin-top: 30px; font-size: 14px; color: var(--lip-2); max-width: 80ch; margin-inline: auto; }
+@media (max-width: 880px) { .honest { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 560px) { .point .row > div { border-left: 0; padding: 10px 14px; } }
+
+/* plans, set like three stones on a tray: the largest is Signature */
+.plans .wrap { padding-block: clamp(70px, 9vw, 140px) clamp(40px, 5vw, 70px); }
+.plans-h { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px 60px; align-items: end; margin-bottom: clamp(34px, 5vw, 60px); }
+.plans-h h2 { font-size: clamp(40px, 5vw, 76px); line-height: 1; }
+.plans-h p { color: var(--ink-2); max-width: 48ch; }
+.three { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 2vw, 26px); align-items: start; }
+.plan { background: var(--card); padding: clamp(24px, 3vw, 38px); box-shadow: 0 0 0 1px var(--rule); display: grid; gap: 14px; }
+.plan.sig { background: var(--suede); box-shadow: 0 0 0 1px var(--rule), inset 0 4px 0 var(--conch); }
+.plan h3 { font-size: clamp(34px, 3vw, 46px); line-height: 1; }
+.plan .pr { font: 400 24px var(--display); }
+.plan .pr small { font: 300 15px var(--body); color: var(--ink-2); }
+.plan .for { font-size: 15px; color: var(--ink-2); }
+.plan ul { list-style: none; display: grid; gap: 0; border-top: 1px solid var(--rule); }
+.plan li { padding: 9px 0; border-bottom: 1px solid var(--rule); font-size: 14.5px; line-height: 1.5; }
+.plan li b { font-weight: 500; }
+.small-print { margin-top: 24px; font-size: 14px; color: var(--ink-2); max-width: 90ch; }
+@media (max-width: 980px) { .three { grid-template-columns: minmax(0, 1fr); } .plans-h { grid-template-columns: minmax(0, 1fr); } }
+
+/* the close: the appointment, in the house's own manner */
+.close { background: var(--suede); }
+.close .wrap { display: grid; justify-items: center; text-align: center; gap: 22px; padding-block: clamp(70px, 9vw, 130px); }
+.close h2 { font-size: clamp(46px, 6.6vw, 104px); line-height: .95; }
+.close p { max-width: 46ch; }
+.close .acts { justify-content: center; }
+.mail { font-size: 15px; letter-spacing: .04em; color: var(--ink-2); user-select: all; }
+
+footer { background: var(--pearl); color: var(--ink-2); font-size: 13px; line-height: 1.6; border-top: 1px solid var(--rule); }
+footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px 32px; padding-block: 28px; }
+footer p { max-width: 96ch; }
+@media (max-width: 700px) { footer .wrap { grid-template-columns: minmax(0, 1fr); } }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- a round brilliant in profile: table, crown, girdle, pavilion, culet -->
+    <symbol id="cut" viewBox="0 0 184 100"><path d="M58 6 H126 L176 34 V40 L92 96 L8 40 V34 Z M8 34 H176 M8 40 H176" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<div class="sfbar gut"><div class="wrap">
+  <a class="wm" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su" aria-label="Sitefloor home">sitefl<svg width="28" height="14" viewBox="0 0 42 21" aria-hidden="true"><rect x="1.9" y="1.9" width="38.2" height="17.2" rx="8.6" fill="none" stroke="#0E0F11" stroke-width="3.8"/><circle cx="31.5" cy="10.5" r="5.2" fill="#E8613C"/></svg>r</a>
+  <nav aria-label="Main"><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#live">Features</a><a href="#top" aria-current="page">Work</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#pricing">Pricing</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#guides">Guides</a></nav>
+  <a class="sfbtn" href="#mockup"><span>Free mockup</span><span aria-hidden="true">→</span></a>
+</div></div>
+
+<main id="top">
+
+<section class="hero gut" aria-labelledby="h1"><div class="wrap">
+  <div class="hero-t">
+    <p class="lab">Case study · Fine jeweller, Mayfair</p>
+    <h1 id="h1">Look closer.</h1>
+    <p class="lede">A fine jeweller's website where every piece is shown large, every fact and price is the house's own, and every page leads to the private room.</p>
+    <p class="facts"><span><b>Aldous Marr</b>, a fictional house</span><span><b>39</b> pages</span><span><b>11</b> pieces in four collections</span></p>
+    <div class="acts">
+      <a class="btn" href="https://claude.ai/artifact/GTogmprMRnzb6F6fWActow">See Aldous Marr</a>
+      <a class="btn line" href="#mockup">Get a free mockup</a>
+    </div>
+  </div>
+  <div class="stage" id="stage" tabindex="0" role="group" aria-label="The Solitaire under a jeweller's loupe. Move the loupe with a mouse, a finger or the arrow keys." aria-describedby="lens-tag">
+    <img id="stone" src="media/hero-phone.webp" width="1170" height="1560" alt="A round brilliant diamond in six claws, close up on grey suede">
+    <div class="lens" id="lens" aria-hidden="true"></div>
+    <span class="lens-tag" id="lens-tag">Move the loupe</span>
+  </div>
+</div></section>
+
+<section class="cut gut" aria-labelledby="cut-h"><div class="wrap">
+  <div>
+    <p class="lab">Through the loupe</p>
+    <h2 id="cut-h">Five parts of a cut, five chapters.</h2>
+    <p class="lede">From the flat top you see first, down through the facets that send the light back, to the point at the bottom where it all meets. Each part is one chapter of how the site works.</p>
+    <ol class="parts">
+      <li><a href="#table"><span class="n">I</span><b>Table</b><span>The home page, in six screens</span></a></li>
+      <li><a href="#crown"><span class="n">II</span><b>Crown</b><span>Starter: what catches the eye</span></a></li>
+      <li><a href="#girdle"><span class="n">III</span><b>Girdle</b><span>Plus: the pages that hold it together</span></a></li>
+      <li><a href="#pavilion"><span class="n">IV</span><b>Pavilion</b><span>Signature: the depth</span></a></li>
+      <li><a href="#culet"><span class="n">V</span><b>Culet</b><span>The point: honesty and speed</span></a></li>
+    </ol>
+  </div>
+  <svg class="diagram" viewBox="-64 0 744 392" aria-labelledby="dg-t">
+    <title id="dg-t">A round brilliant cut in profile, with its table, crown, girdle, pavilion and culet labelled</title>
+    <path class="o" d="M230 80 H410 L560 170 V184 L320 350 L80 184 V170 Z"/>
+    <path class="o" d="M80 170 H560 M80 184 H560"/>
+    <path class="f" d="M230 80 L170 170 M410 80 L470 170 M230 80 L320 170 L410 80 M275 80 L245 170 M365 80 L395 170 M150 184 L320 350 L490 184 M230 184 L320 350 L410 184 M320 184 V350"/>
+    <a href="#table"><line class="ln" x1="320" y1="80" x2="320" y2="34"/><text x="320" y="24" text-anchor="middle">TABLE</text></a>
+    <a href="#crown"><line class="ln" x1="500" y1="132" x2="580" y2="96"/><text x="588" y="92">CROWN</text></a>
+    <a href="#girdle"><line class="ln" x1="80" y1="177" x2="28" y2="177"/><text x="22" y="182" text-anchor="end">GIRDLE</text></a>
+    <a href="#pavilion"><line class="ln" x1="470" y1="250" x2="560" y2="282"/><text x="568" y="288">PAVILION</text></a>
+    <a href="#culet"><line class="ln" x1="320" y1="350" x2="320" y2="366"/><text x="334" y="376">CULET</text></a>
+  </svg>
+</div></section>
+
+<!-- I. TABLE -->
+<section class="ch gut" id="table" aria-labelledby="ch-1"><div class="wrap">
+  <div class="opener">
+    <svg class="glyph" viewBox="0 0 184 100" aria-hidden="true"><use href="#cut"/><path class="on" d="M58 6 H126" stroke-width="7"/></svg>
+    <div><p class="lab"><b>I</b> · Table</p><h2 id="ch-1">Six screens, then the door.</h2></div>
+    <p class="plan-tag"><b>Every plan</b>The home page</p>
+  </div>
+  <div class="table-g">
+    <figure class="phone-fig" style="margin:0">
+      <div class="phone"><div class="screen"><video id="v-home" data-clip muted playsinline loop preload="none" poster="media/c-home-poster.webp" width="600" height="1298" aria-label="The Aldous Marr home page on a phone, from the first still to the footer"><source src="media/c-home.mp4" type="video/mp4"><source src="media/c-home.webm" type="video/webm"></video></div></div>
+      <button class="pause" type="button" data-pause="v-home" data-name="home page clip"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"></svg><span>Pause</span></button>
+    </figure>
+    <div>
+      <ol class="six">
+        <li><div><b>One piece, very large</b><span>The Solitaire, its name, its price as the house sets it, and "See it in person". No headline.</span></div></li>
+        <li><div><b>The collections as doors</b><span>Engagement, wedding bands, anniversary, pearls: each a tall photograph of the piece worn, each opening its own page.</span></div></li>
+        <li><div><b>The box</b><span>One band of the house's colour, the box itself and the monogram.</span></div></li>
+        <li><div><b>From the bench</b><span>One commission, from the drawing to the finished ring, with the weeks between. On Signature.</span></div></li>
+        <li><div><b>Visit and the appointment</b><span>The address and hours beside the request, in the one bold button.</span></div></li>
+        <li><div><b>The footer</b><span>The address, the hours and every page, quietly.</span></div></li>
+      </ol>
+      <p class="measure">On a phone the whole home page fits in under six screens. Reviews, questions, the room and the birthstones live on Plan your visit and their own pages, so the first impression stays quiet.</p>
+    </div>
+  </div>
+</div>
+<div class="band gut"><div class="wrap">
+  <img src="media/d-box.webp" width="1500" height="939" loading="lazy" decoding="async" alt="The Aldous Marr home page: a pale box with a ring inside, on a full-width band of conch pink, with the monogram">
+  <div>
+    <h3>One colour, used rarely.</h3>
+    <p>Conch pink, from the inside of a shell. It appears on the box, the appointment button and the phone's bottom bar, and almost nowhere else, so when it appears it means something.</p>
+  </div>
+</div></div></section>
+
+<!-- II. CROWN -->
+<section class="ch gut" id="crown" aria-labelledby="ch-2"><div class="wrap">
+  <div class="opener">
+    <svg class="glyph" viewBox="0 0 184 100" aria-hidden="true"><use href="#cut"/><path class="on" d="M58 6 H126 L176 34 H8 Z"/></svg>
+    <div><p class="lab"><b>II</b> · Crown · what catches the eye</p><h2 id="ch-2">One piece at a time, then a day to see it.</h2></div>
+    <p class="plan-tag"><b>Starter</b>£99 + £25 a month</p>
+  </div>
+  <div class="crown-g">
+    <figure>
+      <div class="phone"><div class="screen"><img src="media/p-viewer.webp" width="600" height="1298" loading="lazy" decoding="async" alt="The Oval Halo full screen on a phone: one of eleven, with its metal, carat and price, and Previous and Next"></div></div>
+      <figcaption>Tap any piece and it fills the screen, with only the facts the house has given. Swipe, or use the arrow keys, to the next.</figcaption>
+    </figure>
+    <figure>
+      <div class="phone"><div class="screen"><video id="v-appt" data-clip muted playsinline loop preload="none" poster="media/c-appt-poster.webp" width="600" height="1298" aria-label="On a phone: See it in person adds the Solitaire to the request, then a Saturday and a time are chosen on the calendar"><source src="media/c-appt.mp4" type="video/mp4"><source src="media/c-appt.webm" type="video/webm"></video></div></div>
+      <button class="pause" type="button" data-pause="v-appt" data-name="appointment clip"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"></svg><span>Pause</span></button>
+      <figcaption>"See it in person" puts the piece on the request. The calendar offers only days the house is open, after its notice, and only times an hour-long appointment can finish by closing.</figcaption>
+    </figure>
+    <div class="crown-t">
+      <h3>It asks, it never books.</h3>
+      <p>The message reads "The day I'd like: Saturday 14 November at 12:00, or the nearest you can offer". The house replies on WhatsApp. Bank holidays and the house's own closures are already shut on the calendar, on London time wherever the visitor is.</p>
+      <p class="lab feats-l">Everything on Starter</p>
+  <ul class="feats" aria-label="Starter features"><li>The collections as doors</li><li>One piece at a time, full screen</li><li>The private appointment request</li><li>A real day on the calendar</li><li>Drop a hint to someone</li><li>The private room</li><li>In the box</li><li>What happens at an appointment</li><li>Plan your visit</li><li>Reviews and questions</li><li>The house's photographs</li><li>Seasons that change by date</li></ul>
+    </div>
+  </div>
+</div></section>
+
+<!-- III. GIRDLE -->
+<section class="ch gut" id="girdle" aria-labelledby="ch-3"><div class="wrap">
+  <div class="opener">
+    <svg class="glyph" viewBox="0 0 184 100" aria-hidden="true"><use href="#cut"/><path class="on" d="M8 34 H176 V40 H8 Z"/></svg>
+    <div><p class="lab"><b>III</b> · Girdle · the band round the stone</p><h2 id="ch-3">The pages that hold it together.</h2></div>
+    <p class="plan-tag"><b>Plus</b>£199 + £30 a month · up to five pages</p>
+  </div>
+  <div class="girdle-row" tabindex="0" role="region" aria-label="Pages from the Aldous Marr site, scrolls sideways">
+    <figure><img src="media/d-pieces.webp" width="1200" height="750" loading="lazy" decoding="async" alt=""><figcaption>The pieces<small>Every collection on one page, a page for each piece.</small></figcaption></figure>
+    <figure><img src="media/d-collection-engagement.webp" width="1200" height="750" loading="lazy" decoding="async" alt=""><figcaption>A collection<small>Each door opens its own page.</small></figcaption></figure>
+    <figure><img src="media/d-bridal.webp" width="1200" height="750" loading="lazy" decoding="async" alt=""><figcaption>Bridal<small>Rings and the bands beside them.</small></figcaption></figure>
+    <figure><img src="media/d-engagement.webp" width="1200" height="750" loading="lazy" decoding="async" alt=""><figcaption>Choosing a ring<small>Shapes in the house's photographs, each leading to its pieces.</small></figcaption></figure>
+    <figure><img src="media/d-wedding-bands.webp" width="1200" height="750" loading="lazy" decoding="async" alt=""><figcaption>Wedding bands<small>By width and finish, in the house's words.</small></figcaption></figure>
+    <figure><img src="media/d-bespoke.webp" width="1200" height="750" loading="lazy" decoding="async" alt=""><figcaption>Bespoke<small>The house's own steps and timings, and the deposit.</small></figcaption></figure>
+    <figure><img src="media/d-family-pieces.webp" width="1200" height="750" loading="lazy" decoding="async" alt=""><figcaption>Family pieces<small>Remaking an inherited ring.</small></figcaption></figure>
+    <figure><img src="media/d-gifts.webp" width="1200" height="750" loading="lazy" decoding="async" alt=""><figcaption>Gifts<small>By the house's own price bands, and gift cards.</small></figcaption></figure>
+    <figure><img src="media/d-occasion-anniversaries.webp" width="1200" height="750" loading="lazy" decoding="async" alt=""><figcaption>Anniversaries<small>Each occasion, a page of its own.</small></figcaption></figure>
+    <figure><img src="media/d-bridal-party.webp" width="1200" height="750" loading="lazy" decoding="async" alt=""><figcaption>The bridal party<small>Matching pieces, role by role.</small></figcaption></figure>
+    <figure><img src="media/d-ring-size.webp" width="1200" height="750" loading="lazy" decoding="async" alt=""><figcaption>Ring size<small>Three ways to find it at home.</small></figcaption></figure>
+    <figure><img src="media/d-piece-the-solitaire.webp" width="1200" height="750" loading="lazy" decoding="async" alt=""><figcaption>A piece's page<small>Its story and only the house's facts.</small></figcaption></figure>
+  </div>
+  <p class="row-hint">Twelve of the site's 39 pages. Scroll sideways, or tab to the row and use the arrow keys.</p>
+  <div class="trio">
+    <figure>
+      <div class="phone"><div class="screen"><img src="media/p-sizer.webp" width="600" height="1298" loading="lazy" decoding="async" alt="The ring size page on a phone: 52.5 mm entered, about a UK M to N"></div></div>
+      <figcaption>A length of string becomes a UK letter size, from a dated chart. Hold a ring to the screen once it's matched to a bank card.</figcaption>
+    </figure>
+    <figure class="w">
+      <div class="screenframe"><img src="media/d-occasion-valentines.webp" width="1200" height="750" loading="lazy" decoding="async" alt="The Valentine's page: a diamond halo ring set in a red rose, with the name across the photograph"></div>
+      <figcaption>Anniversaries, Valentine's, birthdays, Christmas, Mother's Day: each with its photograph, when to ask by, the pieces chosen for it. Past dates drop off by themselves; the next one leads.</figcaption>
+    </figure>
+    <figure>
+      <div class="phone"><div class="screen"><img src="media/p-party.webp" width="600" height="1298" loading="lazy" decoding="async" alt="The bridal party page on a phone: five pearl studs for the bridesmaids and two strands for the mothers"></div></div>
+      <figcaption>Each role, its piece and how many. The total comes from the house's own prices, or says "price on request".</figcaption>
+    </figure>
+  </div>
+  <p class="lab feats-l">Everything Plus adds</p>
+  <ul class="feats plus-list" aria-label="Plus features"><li>A page for every piece and collection</li><li>Bridal, choosing a ring, wedding bands</li><li>Bespoke, with the house's deposit link</li><li>Family pieces</li><li>Gifts and gift cards</li><li>Occasions, each with its own page</li><li>The bridal party</li><li>Birthstones, this month's leading</li><li>The ring sizer</li><li>Aftercare, with a yearly reminder</li><li>The tray: set three pieces aside</li><li>The anniversary reminder in the calendar</li><li>The stone guide</li><li>The archive, the workshop, the house</li></ul>
+</div></section>
+
+<section class="gut" aria-labelledby="worn-h"><div class="wrap">
+  <div class="worn">
+    <img src="media/worn-hand.webp" width="900" height="1125" loading="lazy" decoding="async" alt="A ring worn on a hand">
+    <img src="media/worn-neck.webp" width="900" height="1125" loading="lazy" decoding="async" alt="A pendant worn at the neck">
+    <img src="media/worn-ear.webp" width="900" height="1125" loading="lazy" decoding="async" alt="An earring worn at the ear">
+  </div>
+  <div class="worn-t">
+    <h2 id="worn-h">Worn, not only shown.</h2>
+    <p>Every collection opens on a piece being worn: on a hand, at the neck, at the ear. A customer sees the scale before they see the price.</p>
+  </div>
+</div></section>
+
+<!-- IV. PAVILION -->
+<section class="ch gut" id="pavilion" aria-labelledby="ch-4"><div class="wrap">
+  <div class="opener">
+    <svg class="glyph" viewBox="0 0 184 100" aria-hidden="true"><use href="#cut"/><path class="on" d="M8 40 H176 L92 96 Z"/></svg>
+    <div><p class="lab"><b>IV</b> · Pavilion · the depth that sends the light back</p><h2 id="ch-4">The moments that feel like the shop.</h2></div>
+    <p class="plan-tag"><b>Signature</b>£349 + £35 a month · up to 20 pages</p>
+  </div>
+  <div class="engrave">
+    <div class="band-ph">
+      <img src="media/band-inside.webp" width="1100" height="733" loading="lazy" decoding="async" alt="A plain yellow-gold band on white satin, its inside showing">
+      <svg viewBox="0 0 1100 733" aria-hidden="true"><path id="eng-path" d="M 150 345 Q 550 255 950 345" fill="none"/><text id="eng-text" data-s="script" text-anchor="middle"><textPath href="#eng-path" startOffset="50%" id="eng-tp">Always, A.</textPath></text></svg>
+    </div>
+    <form class="eng-f" id="eng-f" aria-labelledby="eng-h">
+      <p class="lab">Try it · inside the band</p>
+      <h3 id="eng-h">Words that follow the curve of the gold.</h3>
+      <p>On every piece that can be engraved, the customer types and the words appear inside the band, within the house's own letter limit. They go with the request.</p>
+      <div class="field"><label class="lab" for="eng-in">Your words</label><input id="eng-in" type="text" maxlength="24" value="Always, A." autocomplete="off" aria-describedby="eng-count"><span class="count" id="eng-count" aria-live="polite">14 letters left of 24</span></div>
+      <fieldset class="styles"><legend class="lab">Lettering</legend>
+        <label><input type="radio" name="eng-s" id="eng-s1" value="script" checked><span>Script</span></label>
+        <label><input type="radio" name="eng-s" id="eng-s2" value="roman"><span>Roman</span></label>
+        <label><input type="radio" name="eng-s" id="eng-s3" value="block"><span>Block capitals</span></label>
+      </fieldset>
+    </form>
+  </div>
+  <div class="depth">
+    <figure class="d-vit">
+      <div class="phone"><div class="screen"><video id="v-vit" data-clip muted playsinline loop preload="none" poster="media/c-vitrine-poster.webp" width="600" height="1298" aria-label="On a phone: the anniversary drawer of the vitrine opens, and a piece opens full screen"><source src="media/c-vitrine.mp4" type="video/mp4"><source src="media/c-vitrine.webm" type="video/webm"></video></div></div>
+      <button class="pause" type="button" data-pause="v-vit" data-name="vitrine clip"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"></svg><span>Pause</span></button>
+      <h3>The vitrine.</h3>
+      <p>The pieces page becomes a cabinet of drawers, one for each collection. Open one and the pieces lie in a suede tray, one to a slot. It works without JavaScript.</p>
+    </figure>
+    <figure class="d-card">
+      <div class="screenframe"><video id="v-card" data-clip muted playsinline loop preload="none" poster="media/c-card-poster.webp" width="1280" height="800" aria-label="On the Valentine's page, the Solitaire is chosen and a card message is typed onto the house's monogrammed card"><source src="media/c-card.mp4" type="video/mp4"><source src="media/c-card.webm" type="video/webm"></video></div>
+      <button class="pause" type="button" data-pause="v-card" data-name="card clip"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"></svg><span>Pause</span></button>
+      <h3>The gift, arranged.</h3>
+      <p>On each occasion's page: choose the piece, the day it's needed, and write the card that goes in the box. The words appear on the house's own card as they're typed, and it's sent as a request.</p>
+    </figure>
+    <figure class="d-hand">
+      <img src="media/d-hand.webp" width="1500" height="981" loading="lazy" decoding="async" alt="A piece's page: the ring on a hand, with a button to see it at true size after matching a bank card">
+      <h3>On a hand, at true size.</h3>
+      <p>Match a bank card to the screen once and the ring is shown on a hand at its real size.</p>
+    </figure>
+    <figure class="d-sketch">
+      <img src="media/d-sketch.webp" width="1500" height="1090" loading="lazy" decoding="async" alt="From the bench: a pencil drawing of a ring beside the finished ring, with the weeks between">
+      <h3>From sketch to ring.</h3>
+      <p>The drawing, then the finished piece, with the weeks between. One story on the home page, every one on Stories.</p>
+    </figure>
+  </div>
+  <p class="lab feats-l">Everything Signature adds</p>
+  <ul class="feats sig-list" aria-label="Signature features"><li>The vitrine</li><li>The gift, arranged, with the card</li><li>Inside the band: engraving, live</li><li>On a hand, at true size</li><li>From sketch to ring</li><li>Pair it: a ring beside its bands</li><li>The piece in detail, in macro</li><li>Three within your budget, carried in the calendar</li><li>Planning a proposal, sent privately</li></ul>
+</div></section>
+
+<!-- V. CULET -->
+<section class="culet gut" id="culet" aria-labelledby="ch-5"><div class="wrap">
+  <div class="opener">
+    <svg class="glyph" viewBox="0 0 184 100" aria-hidden="true"><use href="#cut"/><circle class="on" cx="92" cy="94" r="7"/></svg>
+    <div><p class="lab"><b>V</b> · Culet · where it all meets</p><h2 id="ch-5">Nothing guessed. Nothing slow.</h2></div>
+    <p class="plan-tag"><b>Every plan</b>The house's facts, a phone's speed</p>
+  </div>
+  <div class="point">
+    <div class="row r1"><div><span class="v">98</span><span class="k">Lighthouse on a phone, first load</span></div><div><span class="v">100</span><span class="k">Accessibility</span></div><div><span class="v">0</span><span class="k">Layout shift</span></div></div>
+    <div class="row r2"><div><span class="v">2.2–2.4 s</span><span class="k">Largest paint</span></div><div><span class="v">19.7 KB</span><span class="k">Script, compressed</span></div></div>
+    <div class="row r3"><div><span class="v">121 KB</span><span class="k">Photographs on the first screen</span></div></div>
+    <span class="tip" aria-hidden="true"></span>
+  </div>
+  <p class="speed-note">Measured on the demo's home page on a fresh server: 98 on the first, cold load and 98 again. Every page passes an accessibility scan, and the site still works with JavaScript turned off: a piece links to its own page, a request is a plain WhatsApp link.</p>
+  <div class="honest">
+    <div><h3>Only the house's facts.</h3><p>Metal, stones, carat, cut and price come from the house's own entry. A field left empty shows nothing; nothing is filled in for it.</p></div>
+    <div><h3>Claims where they belong.</h3><p>Words such as <q>hallmarked</q>, <q>GIA</q>, <q>conflict-free</q> or <q>lab-grown</q> are refused anywhere but the field made for them, and a demo can never carry them. Aldous Marr's specs say they are a fictional house's.</p></div>
+    <div><h3>Requests, never bookings.</h3><p>Every message asks: an appointment, a hint, a commission, a party, a gift. The house replies to confirm. Nothing is ordered or booked by the website alone.</p></div>
+  </div>
+</div></section>
+
+<section class="plans gut" id="mockup" aria-labelledby="ch-p"><div class="wrap">
+  <div class="plans-h">
+    <div><p class="lab">Set in three sizes</p><h2 id="ch-p">Choose how deep it goes.</h2></div>
+    <p>Every plan is on a 12-month minimum. Any single feature can be added to a smaller plan, and extra pages one at a time.</p>
+  </div>
+  <div class="three">
+    <div class="plan"><span class="lab">The crown</span><h3>Starter</h3><p class="pr">£99 <small>+ £25 a month</small></p><p class="for">The home page and Plan your visit.</p><ul><li>The collections as doors, and one piece at a time</li><li>The private appointment, on a real day</li><li>Drop a hint, the room, the box, the visit</li><li>Reviews, questions, photographs, seasons</li></ul></div>
+    <div class="plan"><span class="lab">The girdle</span><h3>Plus</h3><p class="pr">£199 <small>+ £30 a month</small></p><p class="for">Up to five pages.</p><ul><li>A page for every piece and collection</li><li>Bridal, choosing a ring, wedding bands, bespoke</li><li>Gifts, occasions, the bridal party, birthstones</li><li>The ring sizer, aftercare and anniversary reminders, the tray</li></ul></div>
+    <div class="plan sig"><span class="lab">The pavilion</span><h3>Signature</h3><p class="pr">£349 <small>+ £35 a month</small></p><p class="for">Up to 20 pages, and something made only for your house.</p><ul><li>The vitrine, and the gift arranged with the card</li><li>Engraving inside the band, on a hand at true size</li><li>From sketch to ring, pair it, the piece in detail</li><li>Three within your budget, planning a proposal</li></ul></div>
+  </div>
+  <p class="small-print">Requests come to your own WhatsApp and deposits through your own Stripe Payment Links, so there is no booking system or shop app to pay for on top.</p>
+</div></section>
+
+<section class="close gut" aria-labelledby="ch-c"><div class="wrap">
+  <p class="lab">By appointment</p>
+  <h2 id="ch-c">Bring us your pieces.</h2>
+  <p>Send us your Instagram and we'll make a free mockup of your home page, with your own photographs and your own pieces.</p>
+  <div class="acts">
+    <a class="btn" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#free">Get a free mockup</a>
+    <a class="btn line" href="https://claude.ai/artifact/GTogmprMRnzb6F6fWActow">Try the demo first</a>
+  </div>
+  <span class="mail">hello@sitefloor.com</span>
+</div></section>
+
+</main>
+
+<footer class="gut"><div class="wrap">
+  <p>Aldous Marr is a fictional fine jeweller made to show the Sitefloor jeweller kit. Its pieces, specs, prices, dates and words are demo data. Its photographs are free stock from Unsplash and Pexels, of other makers' pieces, each credited in our records. Client sites use the house's own photographs and its own facts.</p>
+  <span>© 2026 Sitefloor</span>
+</div></footer>
+
+<script>
+(() => {
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Clips play only while on screen, never with reduced motion; each has a Pause (or Play) button.
+  const clips = [...document.querySelectorAll("video[data-clip]")];
+  const paused = new Set(reduce ? clips.map((v) => v.id) : []);
+  const label = (id) => { const btn = document.querySelector(`[data-pause="${id}"]`); if (!btn) return; const p = paused.has(id); btn.querySelector("span").textContent = p ? "Play" : "Pause"; btn.setAttribute("aria-label", `${p ? "Play" : "Pause"} the ${btn.dataset.name || "clip"}`); btn.querySelector("svg").innerHTML = p ? '<path d="M3 1.5v9l7-4.5z" fill="currentColor"/>' : '<rect x="2" y="1" width="3" height="10" fill="currentColor"/><rect x="7" y="1" width="3" height="10" fill="currentColor"/>'; };
+  const seen = new Map();
+  const sync = (v) => { if (seen.get(v) && !paused.has(v.id)) { if (v.preload === "none") v.preload = "auto"; v.play().catch(() => {}); } else v.pause(); };
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver((es) => es.forEach((e) => { seen.set(e.target, e.isIntersecting); sync(e.target); }), { threshold: .35 });
+    clips.forEach((v) => io.observe(v));
+  }
+  document.querySelectorAll("[data-pause]").forEach((btn) => {
+    const v = document.getElementById(btn.dataset.pause); if (!v) return;
+    label(v.id);
+    btn.addEventListener("click", () => { paused.has(v.id) ? paused.delete(v.id) : paused.add(v.id); label(v.id); if (!paused.has(v.id)) seen.set(v, true); sync(v); });
+  });
+
+  // The loupe: a 2.4x lens over the Solitaire. It follows a mouse, goes where a finger taps or drags it, and moves
+  // with the arrow keys. It never moves by itself.
+  const stage = document.getElementById("stage"), lens = document.getElementById("lens"), img = document.getElementById("stone");
+  const Z = 2.4;
+  let fx = .5, fy = .43; // where the lens sits, as a share of the photograph: on the stone to start
+  const place = () => {
+    const w = stage.clientWidth, h = stage.clientHeight;
+    const x = fx * w, y = fy * h, r = lens.offsetWidth / 2;
+    lens.style.setProperty("--x", `${x}px`); lens.style.setProperty("--y", `${y}px`);
+    lens.style.backgroundImage = `url("${img.currentSrc || img.src}")`;
+    lens.style.backgroundSize = `${w * Z}px ${h * Z}px`;
+    lens.style.backgroundPosition = `${r - x * Z}px ${r - y * Z}px`;
+  };
+  const clamp = (v) => Math.min(.97, Math.max(.03, v));
+  const to = (e) => { const b = stage.getBoundingClientRect(); fx = clamp((e.clientX - b.left) / b.width); fy = clamp((e.clientY - b.top) / b.height); place(); };
+  let dragging = false;
+  stage.addEventListener("pointermove", (e) => { if (e.pointerType === "mouse" || dragging) to(e); });
+  stage.addEventListener("pointerdown", (e) => { to(e); if (e.pointerType !== "mouse" && e.target === lens) { dragging = true; lens.setPointerCapture(e.pointerId); } });
+  lens.addEventListener("pointermove", (e) => { if (dragging) to(e); });
+  const stop = () => { dragging = false; };
+  lens.addEventListener("pointerup", stop); lens.addEventListener("pointercancel", stop);
+  stage.addEventListener("keydown", (e) => {
+    const d = e.shiftKey ? .08 : .03;
+    const k = { ArrowLeft: [-d, 0], ArrowRight: [d, 0], ArrowUp: [0, -d], ArrowDown: [0, d] }[e.key];
+    if (!k) return; e.preventDefault(); fx = clamp(fx + k[0]); fy = clamp(fy + k[1]); place();
+  });
+  if (img.complete) place(); else img.addEventListener("load", place);
+  addEventListener("resize", place);
+
+  // Inside the band: the words follow the curve, within the house's 24 letters, in the lettering chosen.
+  const inp = document.getElementById("eng-in"), tp = document.getElementById("eng-tp"), tx = document.getElementById("eng-text"), cnt = document.getElementById("eng-count");
+  const max = inp.maxLength;
+  const eng = () => {
+    const t = inp.value.replace(/\s+/g, " ").trim();
+    tp.textContent = t || " ";
+    const left = max - inp.value.length;
+    cnt.textContent = `${left} letter${left === 1 ? "" : "s"} left of ${max}`;
+  };
+  inp.addEventListener("input", eng);
+  document.querySelectorAll('input[name="eng-s"]').forEach((r) => r.addEventListener("change", () => { tx.dataset.s = r.value; }));
+  document.getElementById("eng-f").addEventListener("submit", (e) => e.preventDefault());
+  eng();
+})();
+</script>

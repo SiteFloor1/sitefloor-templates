@@ -1,0 +1,17 @@
+{#- The journal's index: the newest piece large with its photograph, the rest as a ruled list with their date. -#}
+{%- set j = site.journal %}
+{%- set items = j.items | journalNewest %}
+{%- set pg = { kicker: j.kicker, title: j.title, intro: j.intro } %}
+{% include "kits/detailing/partials/page-head.njk" %}
+<section class="dt-jn" aria-label="{{ j.title | plain }}"><div class="wrap">
+  {%- set a = items[0] %}
+  <a class="dt-jn-lead" href="{{ ('journal-' + a.slug) | href }}">
+    <img src="{{ a.photo.src | img }}" alt="{{ a.photo.alt }}" width="{{ a.photo.width }}" height="{{ a.photo.height }}" loading="lazy" decoding="async">
+    <span class="dt-jn-d">{{ a.date | ukDayShort }}</span><b>{{ a.title }}</b><span class="dt-jn-l">{{ a.line }}</span>
+  </a>
+  {%- if items.length > 1 %}
+  <ul class="dt-jn-list">
+    {%- for a in items %}{% if not loop.first %}<li><a href="{{ ('journal-' + a.slug) | href }}"><span class="dt-jn-d">{{ a.date | ukDayShort }}</span><b>{{ a.title }}</b><span class="dt-jn-l">{{ a.line }}</span></a></li>{% endif %}{% endfor %}
+  </ul>
+  {%- endif %}
+</div></section>

@@ -1,0 +1,13 @@
+---
+layout: core/layouts/base.njk
+pageId: your-project
+permalink: your-project.html
+feature: project-page
+eleventyComputed:
+  title: "{{ site.yourProjectPage.title | plain }}"
+  description: "How a project with {{ site.business.name }} runs, from the first visit to your certificates."
+---
+{%- set ph = site.yourProjectPage %}
+{% include "kits/electrician/partials/page-head.njk" %}
+{% include "kits/electrician/features/project-page/project-page.njk" %}
+{%- set hostPage = "project-page" %}{% include "kits/electrician/partials/hosted.njk" %}

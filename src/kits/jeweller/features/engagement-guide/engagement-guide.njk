@@ -1,0 +1,23 @@
+{#- The engagement guide: shapes in the house's own photographs (the stone guide), then metals and settings as two
+    columns of the house's words, sizing, and planning a proposal. -#}
+{%- set G = site.engagementGuide %}
+{%- set ph = { title: G.title, intro: G.intro } %}
+{% include "kits/jeweller/partials/page-head.njk" %}
+{%- if "stone-guide" | enabled %}{% include "kits/jeweller/features/stone-guide/stone-guide.njk" %}{% endif %}
+<section class="nc-sec jw-guide"><div class="wrap">
+  <div class="jw-guide-c rv">
+    <h2 class="jw-h">Metals</h2>
+    <dl class="jw-dl">{% for m in G.metals %}<div><dt class="jw-name">{{ m.title }}</dt><dd>{{ m.text }}</dd></div>{% endfor %}</dl>
+  </div>
+  <div class="jw-guide-c rv">
+    <h2 class="jw-h">Settings</h2>
+    <dl class="jw-dl">{% for m in G.settings %}<div><dt class="jw-name">{{ m.title }}</dt><dd>{{ m.text }}</dd></div>{% endfor %}</dl>
+  </div>
+</div></section>
+<section class="nc-sec jw-sizing"><div class="wrap jw-sizing-in rv">
+  <h2 class="jw-h">Size</h2>
+  <p class="jw-say">{{ G.sizing }}</p>
+  {%- if "ring-sizer" | enabled %}<a class="nc-u nc-label" href="{{ 'ring-size' | href }}"{{ "ring-sizer" | tierAttr | safe }}>Find a ring size</a>{% endif %}
+</div></section>
+{%- if "proposal-brief" | enabled %}{% include "kits/jeweller/features/proposal-brief/proposal-brief.njk" %}{% endif %}
+{% include "kits/jeweller/partials/invite.njk" %}

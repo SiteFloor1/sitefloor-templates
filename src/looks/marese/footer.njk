@@ -1,0 +1,18 @@
+{#- Marese footer: the logotype again, the address and hours, the pages, the Sitefloor credit. The tray chip and the
+    hint sheet live here so every page has them once. -#}
+{%- if "the-tray" | enabled %}{% include "kits/lingerie/features/the-tray/the-tray.njk" %}{% endif %}
+{%- if "hint-sheet" | enabled %}{% include "kits/lingerie/features/hint-sheet/hint-sheet.njk" %}{% endif %}
+<footer class="foot mr-foot"><div class="wrap mr-foot-in">
+  <p class="mr-foot-logo">{{ site.business.name }}</p>
+  <address class="mr-foot-a">{{ site.location.streetAddress }}<br>{{ site.location.locality }} {{ site.location.postcode }}<br>
+    <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a>{% if site.contact.email %}<br><a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>{% endif %}</address>
+  <ul class="mr-foot-hours" aria-label="Opening hours">
+    {%- for row in site.hours | hoursRows %}<li data-day="{{ row.dayIndex }}"><span>{{ row.day }}</span> {{ row.label }}</li>{% endfor %}
+  </ul>
+  <nav class="mr-foot-links" aria-label="Footer">
+    {%- for item in site.nav | navItems(pageId) %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}>{{ item.label }}</a>{% endfor %}
+    {%- for k, f in { "care": "care-page", "fuller-bust": "fuller-bust-page", "stockings": "stockings-page", "story": "founder-page" } %}{% if f | enabled %}<a href="{{ k | href }}"{{ f | tierAttr | safe }}>{{ site.guides[k].kicker }}</a>{% endif %}{% endfor %}
+    <a href="{{ 'privacy' | href }}">Privacy</a>
+  </nav>
+  <p class="mr-foot-by"><a class="by" href="https://sitefloor.com" rel="noopener">Website by <b>Sitefloor</b></a></p>
+</div></footer>

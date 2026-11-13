@@ -1,0 +1,27 @@
+{#- The bridal party evening: the shop closes for the bride and her party on one of its free evenings (the private
+    evening's sheet); she chooses the evening, how many, the wedding date and their names, and asks on WhatsApp. -#}
+{%- set sec = site.sections.party %}
+{%- set bp = site.bridalParty %}
+{%- set e = site.evenings %}
+{%- set dep = (site | payLinkOf(bp.deposit.payLink)) if bp.deposit else null %}
+<section id="party" class="ls-party" data-feature="party-evening"{{ "party-evening" | tierAttr | safe }}><div class="wrap party-in">
+  <script type="application/json" data-lx>{{ { source: e.source, csvUrl: e.csvUrl, staleAfterHours: e.staleAfterHours, sample: e.sample if e.source == "sample" else null } | jsonData | safe }}</script>
+  <div class="party-t">
+    {% include "core/partials/section-head.njk" %}
+    <p class="lx-small">{{ bp.minutes }} minutes · up to {{ bp.partyMax }} of you{% if bp.deposit %} · {{ bp.deposit.amount | pounds }} deposit{% if bp.deposit.note %}, {{ bp.deposit.note }}{% endif %}{% endif %}</p>
+    <p>{{ bp.note }}</p>
+    <div class="eve-list party-list" role="radiogroup" aria-label="Free evenings" data-party-list hidden></div>
+    <p class="lx-small" data-party-none>{% if e.source == "sheet" %}Message us for the next free evening.{% else %}Loading the free evenings…{% endif %}</p>
+    <form class="lx-form" data-party-form hidden>
+      <div class="lx-fields">
+        <label class="lx-f">How many of you<select data-party-size>{% for n in range(2, bp.partyMax + 1) %}<option value="{{ n }}"{% if n == 4 %} selected{% endif %}>{{ n }}</option>{% endfor %}</select></label>
+        <label class="lx-f">The wedding<input type="date" data-party-wedding></label>
+        <label class="lx-f party-names">Who's coming<textarea rows="3" maxlength="300" placeholder="Their names, one a line" data-party-names></textarea></label>
+        <label class="lx-f">Your name<input type="text" maxlength="40" autocomplete="given-name" data-party-bride></label>
+      </div>
+    </form>
+    <p class="eve-acts"><a class="lx-go" href="{{ ('Hello ' + site.business.name + ', I would like a bridal party evening.') | wa }}" target="_blank" rel="noopener" data-party-send>Ask for the evening</a>
+    {%- if dep %}<a class="lx-go lx-quiet" href="{{ dep.url }}" target="_blank" rel="noopener">Pay the {{ dep.amount | pounds }} deposit</a>{% endif %}</p>
+  </div>
+  <figure class="party-ph">{% set ph = bp.photo %}{% include "kits/lingerie/partials/photo.njk" %}</figure>
+</div></section>

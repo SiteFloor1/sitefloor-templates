@@ -1,0 +1,13 @@
+/* =========================================================================
+   Bakery kit: behaviour every bakery look relies on. Tokens only, nothing visual: each look draws its own.
+   ========================================================================= */
+/* sections inside a feature are parts of it, not page sections: no page spacing */
+main section :is(.bk-sec, .mp-chart) { padding-block: 0; border: 0; }
+/* filters: a checkbox inside each chip label */
+.bk-chip { position: relative; cursor: pointer; user-select: none; }
+.bk-chip input { position: absolute; opacity: 0; pointer-events: none; }
+.bk-avoid summary { list-style: none; cursor: pointer; }
+.bk-avoid summary::-webkit-details-marker { display: none; }
+/* The filters keep their place before the script is ready (and stay invisible without it), so nothing moves. */
+[data-feature]:not([data-ready]) .bk-filters { visibility: hidden; }
+a[aria-disabled] { cursor: default; }

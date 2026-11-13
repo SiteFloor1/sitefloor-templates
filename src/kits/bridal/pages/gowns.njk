@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: gowns
+permalink: gowns.html
+feature: gowns-page
+eleventyComputed:
+  title: "{{ site.gownsPage.title | plain }}"
+  description: "The gowns at {{ site.business.name }}, {{ site.location.locality }}, by silhouette, neckline, sleeve and designer."
+---
+{% include "kits/bridal/features/gowns-page/gowns-page.njk" %}
+{%- set hostPage = "gowns-page" %}{% include "kits/bridal/partials/hosted.njk" %}

@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: vouchers
+permalink: vouchers.html
+feature: voucher-page
+eleventyComputed:
+  title: "{{ site.voucherPage.title | plain }}"
+  description: "Gift vouchers from {{ site.business.name }}, towards a commission, a shirt or alterations."
+---
+{% include "kits/tailor/features/voucher-page/voucher-page.njk" %}
+{%- set hostPage = "voucher-page" %}{% include "kits/tailor/partials/hosted.njk" %}

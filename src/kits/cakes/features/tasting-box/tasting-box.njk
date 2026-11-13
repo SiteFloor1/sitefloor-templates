@@ -1,0 +1,14 @@
+{#- The tasting box: what's in it, when it's posted, the price, paid with the studio's own Stripe Payment Link. -#}
+{%- set sec = site.sections.tasting %}
+{%- set t = site.tasting %}
+<section id="tasting" class="ck-taste" data-feature="tasting-box" aria-label="{{ sec.title | plain }}"{{ 'tasting-box' | tierAttr | safe }}><div class="wrap ck-taste-in">
+  <div>
+    {%- include "core/partials/section-head.njk" %}
+    <p class="ck-taste-n">{{ t.name }} <span>{{ t.price | gbp }}</span></p>
+    <ul class="ck-taste-c">{% for c in t.contents %}<li>{{ c }}</li>{% endfor %}</ul>
+    <p class="ck-taste-p">{{ t.posting }}</p>
+    {%- if t.note %}<p class="ck-note">{{ t.note }}</p>{% endif %}
+    <p><a class="btn ck-pay" href="{{ t.payLink }}" target="_blank" rel="noopener">Buy a tasting box, {{ t.price | gbp }}</a></p>
+  </div>
+  {%- if t.photo %}<figure class="ck-taste-f"><img src="{{ t.photo.src | img }}" alt="{{ t.photo.alt }}" width="{{ t.photo.width }}" height="{{ t.photo.height }}" loading="lazy" decoding="async"></figure>{% endif %}
+</div></section>

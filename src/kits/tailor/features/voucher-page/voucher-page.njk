@@ -1,0 +1,5 @@
+{#- Gift vouchers on a page of their own: one photograph and the house's line, then the shared vouchers section. -#}
+{%- set vp = site.voucherPage %}
+{%- set ph = vp %}
+{% include "kits/tailor/partials/page-head.njk" %}
+{%- if vp.photo %}<figure class="wrap tl-vp-ph"><img src="{{ vp.photo.src | img }}" alt="{{ vp.photo.alt }}" width="{{ vp.photo.width }}" height="{{ vp.photo.height }}" decoding="async"></figure>{% endif %}

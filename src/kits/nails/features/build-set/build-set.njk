@@ -1,0 +1,21 @@
+{#- Build your set: system, shape, length, finish, shade and art; the time and price from the salon's own figures,
+    sent on WhatsApp. Without JavaScript, the menu's own message goes. -#}
+{%- set sec = site.sections.buildSet %}
+{%- set b = site.buildSet %}
+<section id="build" class="nl-build" data-feature="build-set"{{ "build-set" | tierAttr | safe }}><div class="wrap nl-build-in">
+  {% include "core/partials/section-head.njk" %}
+  <form class="nl-form nl-build-f" data-bs-form onsubmit="return false">
+    <fieldset class="nl-chips-set"><legend class="nl-lab">Manicure</legend><div class="nl-chips">{% for x in b.systems %}<label class="nl-chip"><input type="radio" name="bs-system" value="{{ x.id }}"{% if loop.first %} checked{% endif %}>{{ x.name }}</label>{% endfor %}</div></fieldset>
+    <fieldset class="nl-chips-set"><legend class="nl-lab">Shape</legend><div class="nl-chips">{% for id, label in nailWords.shapes %}<label class="nl-chip"><input type="radio" name="bs-shape" value="{{ id }}"{% if loop.first %} checked{% endif %}>{{ label }}</label>{% endfor %}</div></fieldset>
+    <fieldset class="nl-chips-set"><legend class="nl-lab">Length</legend><div class="nl-chips">{% for x in b.lengths %}<label class="nl-chip"><input type="radio" name="bs-length" value="{{ x.length }}"{% if loop.first %} checked{% endif %}>{{ nailWords.lengths[x.length] }}</label>{% endfor %}</div></fieldset>
+    <fieldset class="nl-chips-set"><legend class="nl-lab">Finish</legend><div class="nl-chips">{% for x in b.finishes %}<label class="nl-chip"><input type="radio" name="bs-finish" value="{{ x.id }}"{% if loop.first %} checked{% endif %}>{{ x.name }}</label>{% endfor %}</div></fieldset>
+    <label class="nl-field" for="bs-shade"><span class="nl-lab">Shade</span>
+      <select id="bs-shade" data-bs-shade>{% for s in site.shades.items | byNumber %}<option value="{{ s.id }}">{{ s.name }}, No. {{ s.no }}</option>{% endfor %}</select></label>
+    {%- if b.art and b.art.length %}
+    <fieldset class="nl-chips-set"><legend class="nl-lab">Nail art</legend><div class="nl-chips"><label class="nl-chip"><input type="radio" name="bs-art" value="" checked>None</label>{% for x in b.art %}<label class="nl-chip"><input type="radio" name="bs-art" value="{{ x.level }}">{{ x.name }}</label>{% endfor %}</div></fieldset>
+    {%- endif %}
+    <div class="nl-build-total" aria-live="polite"><span class="nl-lab">Your set</span><b data-bs-total>Choose above</b></div>
+    <a class="nl-chipbook nl-build-go" data-bs-send href="{{ b.message | book }}" target="_blank" rel="noopener">Send the set</a>
+    <p class="nl-small">Times and prices are from our menu. We confirm both when we reply.</p>
+  </form>
+</div></section>

@@ -1,0 +1,11 @@
+.wm-adv { padding-block: clamp(40px, 6vw, 80px) clamp(80px, 9vw, 128px); }
+.wm-adv-in { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 40px 72px; align-items: start; }
+.wm-adv h2 { font: 300 1.4rem/1.2 var(--font-display); margin: 36px 0 12px; }
+.wm-adv-note { max-width: 56ch; margin: 20px 0 0; }
+.wm-adv-dl { margin: 32px 0 0; display: grid; grid-template-columns: 150px minmax(0, 1fr); row-gap: 10px; column-gap: 24px; font-variant-numeric: tabular-nums; }
+.wm-adv-dl dt { color: var(--muted); } .wm-adv-dl dd { margin: 0; overflow-wrap: anywhere; }
+.wm-adv-dl a { color: var(--accent); }
+.wm-adv-go { margin-top: 36px; }
+.wm-adv-fig { margin: 0; }
+.wm-adv-fig img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+@media (max-width: 900px) { .wm-adv-in { grid-template-columns: 1fr; } .wm-adv-fig { order: -1; } .wm-adv-dl { grid-template-columns: 1fr; row-gap: 2px; } .wm-adv-dl dd { margin-bottom: 10px; } }

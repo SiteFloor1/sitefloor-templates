@@ -1,0 +1,47 @@
+{#- THE CHAUFFEUR JOURNEY PLANNER (Signature showpiece): pick-up, stops and drop-off, each with the customer's own time.
+    The hours and the quote come from the client's hourly rate and minimum (never a guessed drive time: the customer
+    enters the times, the client confirms them). A shareable itinerary card for the wedding party; the request on
+    WhatsApp. Needs JavaScript; the quote request below works without it. -#}
+{%- set cars = site.fleet.cars | withChauffeur %}
+<div class="hr-jp" data-feature="journey-planner" data-jp-cars="{{ cars | compareRows | dump }}" data-jp-rates="{% for c in cars %}{{ c.id }}:{{ c.chauffeur.hourly }}:{{ c.chauffeur.minHours }}{% if not loop.last %},{% endif %}{% endfor %}"{{ "journey-planner" | tierAttr | safe }} aria-labelledby="hr-jp-h">
+  <div class="wrap hr-jp-grid">
+    <div class="hr-jp-plan">
+      <div class="dt-head is-stacked"><h2 class="dt-h" id="hr-jp-h">Plan the day</h2><p class="dt-hr">Every stop with its time. We confirm the timings and the route.</p></div>
+      <div class="hr-jp-top">
+        <label class="hr-field" for="jp-car"><span>The car</span><select id="jp-car" data-jp-car>{% for c in cars %}<option value="{{ c.id }}">{{ c | carName }}</option>{% endfor %}</select></label>
+        <label class="hr-field" for="jp-date"><span>The day</span><input id="jp-date" type="date" data-jp-date></label>
+        <label class="hr-field" for="jp-title"><span>For the card</span><input id="jp-title" maxlength="60" placeholder="Amara and Theo" data-jp-title></label>
+      </div>
+      <ol class="hr-jp-stops" data-jp-stops>
+        {%- for s in [["Pick-up", "13:00"], ["Ceremony", "14:00"], ["Reception", "17:30"], ["Drop-off", "23:30"]] %}
+        <li class="hr-jp-stop" data-jp-stop>
+          <label class="hr-field"><span data-jp-label>{{ s[0] }}</span><input maxlength="80" placeholder="{{ ['Where we collect you', 'The ceremony', 'The reception', 'Where we leave you'][loop.index0] }}" data-jp-place aria-label="{{ s[0] }}: where"></label>
+          <label class="hr-field hr-jp-time"><span>Time</span><input type="time" value="{{ s[1] }}" data-jp-time aria-label="{{ s[0] }}: time"></label>
+          <button type="button" class="dt-quiet hr-jp-del" data-jp-del aria-label="Remove {{ s[0] }}">Remove</button>
+        </li>
+        {%- endfor %}
+      </ol>
+      <button type="button" class="dt-quiet" data-jp-add>Add a stop</button>
+    </div>
+    <div class="hr-jp-side">
+      <figure class="hr-jp-card" data-jp-card aria-label="Itinerary card">
+        <p class="hr-jp-card-k">{% include "looks/datum/parts/mark.njk" %} {{ site.business.name }}</p>
+        <p class="hr-jp-card-h" data-jp-card-title>The day</p>
+        <p class="hr-jp-card-d" data-jp-card-date>Choose the day</p>
+        <ol class="hr-jp-card-list" data-jp-card-list></ol>
+        <p class="hr-jp-card-car" data-jp-card-car></p>
+      </figure>
+      <dl class="hr-facts hr-jp-sum" aria-live="polite">
+        <dt>Your times</dt><dd data-jp-span>—</dd>
+        <dt>Hours</dt><dd data-jp-hours>—</dd>
+        <dt>From our rate</dt><dd data-jp-quote>—</dd>
+      </dl>
+      <p class="hr-jp-note">From the times you enter: we don't guess drive times. We confirm the route and the price.</p>
+      <p class="hr-jp-go">
+        <a class="dt-go" href="{{ site.hire.chauffeur.message | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.hire.chauffeur.message }}"{% endif %} target="_blank" rel="noopener" data-jp-send>Request on WhatsApp</a>
+        <button type="button" class="dt-quiet" data-jp-share>Share the card with the party</button>
+      </p>
+      <p class="hr-jp-shared" role="status" data-jp-shared></p>
+    </div>
+  </div>
+</div>

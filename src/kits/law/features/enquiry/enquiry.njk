@@ -1,0 +1,24 @@
+{#- Speak to a partner: choose what it is about and the partner who leads that practice is shown with a direct line and
+    email. Without scripts every area and its partner are listed. -#}
+{%- set sec = site.sections.enquiry %}
+<section id="enquiry" class="lw-enq" data-feature="enquiry" aria-label="{{ sec.title | plain if sec else 'Speak to a partner' }}"><div class="wrap lw-enq-in">
+  <div class="lw-enq-head">
+    <h2 class="lw-enq-t">{{ (sec.title if sec else "Speak to a partner") | markup | safe }}</h2>
+    {%- if sec and sec.intro %}<p class="lw-enq-i">{{ sec.intro }}</p>{% endif %}
+    <label class="lw-enq-pick" data-js-only><span>It's about</span>
+      <select id="enq-area">{% for a in site.practice.items %}<option value="{{ a.id }}">{{ a.name }}</option>{% endfor %}</select>
+    </label>
+  </div>
+  <ul class="lw-enq-list">
+    {%- for a in site.practice.items %}{% set p = site.people | person(a.lead) %}
+    <li class="lw-enq-card" data-area="{{ a.id }}">
+      <p class="lw-enq-a">{{ a.name }}</p>
+      <p class="lw-enq-n">{{ p.name }}</p>
+      <p class="lw-enq-r">{{ p.role }}</p>
+      <p class="lw-enq-c">{% if p.phone %}<a href="tel:{{ p.phone | replace(' ', '') }}">{{ p.phone }}</a><br>{% endif %}<a href="mailto:{{ p.email }}?subject={{ ('About ' + (a.name | lower)) | urlencode }}">{{ p.email }}</a></p>
+    </li>
+    {%- endfor %}
+  </ul>
+  {%- if "your-hours" | enabled %}{% include "kits/law/features/your-hours/your-hours.njk" %}{% endif %}
+  {%- if "first-contact" | enabled %}<p class="lw-enq-more"{{ 'first-contact' | tierAttr | safe }}>Prefer to write first? <a href="{{ 'contact' | href }}">Tell us who is involved</a> and we will check we are free to act before you tell us more.</p>{% endif %}
+</div></section>

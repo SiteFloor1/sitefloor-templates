@@ -1,0 +1,16 @@
+{#- The designers the salon stocks: each house, what it's known for, its price band (the salon's figures). On Plus,
+    each links to its gowns. -#}
+{%- set sec = site.sections.designers %}
+<section id="designers" class="bd-houses" aria-label="{{ sec.title | plain }}"><div class="wrap">
+  {%- include "core/partials/section-head.njk" %}
+  <ol class="bd-house-list">
+    {%- for h in site.designers.items %}
+    <li class="bd-house rv">
+      <h3 class="bd-house-n">{{ h.name }}</h3>
+      <p class="bd-house-k">{{ h.known }}</p>
+      <p class="bd-house-p">{{ h.prices }}</p>
+      {%- if ("gowns-page" | enabled) %}<a class="bd-house-a" href="{{ 'gowns' | href }}#{{ h.id }}"{{ 'gowns-page' | tierAttr | safe }}>Their gowns</a>{% endif %}
+    </li>
+    {%- endfor %}
+  </ol>
+</div></section>

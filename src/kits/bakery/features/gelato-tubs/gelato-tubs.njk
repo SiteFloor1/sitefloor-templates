@@ -1,0 +1,27 @@
+{#- Take-home gelato: choose a tub, pick its flavours from today's wall, collect. A flavour that's off today can't be
+    picked. Without JavaScript: the tubs and prices, and a WhatsApp link. -#}
+{%- set sec = site.sections.tubs %}
+{%- set t = site.tubs %}
+<section id="tubs" class="sec-tubs" data-feature="gelato-tubs"{{ "gelato-tubs" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="gt" data-js-only>
+    <div class="gt-sizes" role="radiogroup" aria-label="Tub">
+      {%- for z in t.sizes %}<label class="gt-size"><input type="radio" name="gt-size" value="{{ z.id }}"{% if loop.first %} checked{% endif %}><b>{{ z.name }}</b><span>{{ z.flavours }} flavour{{ "s" if z.flavours > 1 }} · {{ z.price | pounds }}</span></label>{% endfor %}
+    </div>
+    <ul class="gt-fl">
+      {%- for f in site.gelato.flavours %}
+      <li><button type="button" class="gt-f" aria-pressed="false" data-gt="{{ f.id }}" data-name="{{ f.name }}"><img src="{{ f.photo.src | img }}" alt="" width="{{ f.photo.width }}" height="{{ f.photo.height }}" loading="lazy" decoding="async"><span>{{ f.name }}</span><small data-gt-out hidden>Off today</small></button></li>
+      {%- endfor %}
+    </ul>
+    <div class="gt-side">
+      <p class="gt-k"><span data-gt-count></span> <b data-gt-price></b></p>
+      <label class="bx-field" for="gt-when">Collection<select id="gt-when" data-gt-when></select></label>
+      <a class="bx-go" href="{{ ('Hi ' + site.business.name + ', I would like a tub of gelato to take home.') | wa }}" target="_blank" rel="noopener" data-gt-send aria-disabled="true">Order the tub</a>
+      {%- if t.note %}<p class="bx-note">{{ t.note }}</p>{% endif %}
+    </div>
+  </div>
+  <div class="bx-nojs" data-no-js>
+    <p>{% for z in t.sizes %}{{ z.name }}, {{ z.flavours }} flavour{{ "s" if z.flavours > 1 }}, {{ z.price | pounds }}{{ ". " if loop.last else " · " }}{% endfor %}</p>
+    <a class="bx-go" href="{{ ('Hi ' + site.business.name + ', I would like a tub of gelato to take home.') | wa }}" target="_blank" rel="noopener">Order on WhatsApp</a>
+  </div>
+</div></section>

@@ -1,0 +1,922 @@
+{
+  "schemaVersion": 4,
+  "id": "smile",
+  "mode": "demo",
+  "plan": "signature",
+  "kit": "smile",
+  "look": "booth",
+  "url": "https://smile.demo.sitefloor.com",
+  "indexable": false,
+  "lang": "en-GB",
+  "business": {
+    "name": "Marlie",
+    "schemaType": "Dentist",
+    "description": "Teeth whitening and bonding by a dentist, in a small studio in Shoreditch. Consultation £45.",
+    "priceRange": "££",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "447700900612",
+    "phone": "+44 7700 900612",
+    "email": "studio@marlie.example"
+  },
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "location": {
+    "streetAddress": "4 Calvert Yard",
+    "locality": "London",
+    "postcode": "E2 7QX",
+    "country": "GB",
+    "area": "A yard off Calvert Avenue, Shoreditch. Shoreditch High Street station is a six-minute walk.",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=Calvert%20Avenue%2C%20London%20E2"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [],
+      "tue": [
+        [
+          "08:00",
+          "19:00"
+        ]
+      ],
+      "wed": [
+        [
+          "08:00",
+          "19:00"
+        ]
+      ],
+      "thu": [
+        [
+          "08:00",
+          "20:30"
+        ]
+      ],
+      "fri": [
+        [
+          "08:00",
+          "17:00"
+        ]
+      ],
+      "sat": [
+        [
+          "09:00",
+          "15:00"
+        ]
+      ],
+      "sun": []
+    },
+    "exceptions": [
+      {
+        "date": "2026-12-24",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2026-12-25",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2026-12-26",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      }
+    ]
+  },
+  "nav": [
+    {
+      "label": "Whitening",
+      "page": "whitening",
+      "feature": "smile-whitening-page"
+    },
+    {
+      "label": "Treatments",
+      "page": "treatments",
+      "feature": "smile-treatments-page",
+      "fallback": "#treatments"
+    },
+    {
+      "label": "Weddings",
+      "page": "wedding",
+      "feature": "smile-wedding",
+      "fallback": "#wedding"
+    },
+    {
+      "label": "Smiles",
+      "page": "smiles",
+      "feature": "smile-gallery"
+    },
+    {
+      "label": "Journal",
+      "page": "journal",
+      "feature": "smile-journal"
+    },
+    {
+      "label": "The studio",
+      "page": "studio",
+      "feature": "smile-studio"
+    },
+    {
+      "label": "Visit",
+      "page": "visit",
+      "feature": "plan-visit",
+      "fallback": "#visit"
+    }
+  ],
+  "features": [
+    "smile-treatments",
+    "smile-clinicians",
+    "smile-before-book",
+    "smile-patient-info",
+    "smile-chooser",
+    "smile-treatments-page",
+    "smile-whitening-page",
+    "smile-consultation-page",
+    "smile-journey",
+    "smile-aftercare",
+    "smile-clinicians-page",
+    "smile-gallery",
+    "smile-wedding",
+    "smile-treatment-pages",
+    "smile-journal",
+    "smile-studio",
+    "smile-arrival",
+    "visit",
+    "plan-visit",
+    "questions",
+    "page-links",
+    "seasonal"
+  ],
+  "hero": {
+    "kicker": "Teeth whitening, Shoreditch",
+    "title": "Teeth whitening,|by a dentist.",
+    "intro": "Dr Marlie Okon's studio on Calvert Yard. Whitening, bonding and a plan for the wedding. Consultation £45.",
+    "strip": {
+      "label": "A photo-booth strip of four models laughing",
+      "frames": [
+        {
+          "src": "img/strip-1.webp",
+          "width": 720,
+          "height": 900,
+          "alt": "A woman smiling in dappled light",
+          "focus": "50% 45%"
+        },
+        {
+          "src": "img/strip-2.webp",
+          "width": 720,
+          "height": 900,
+          "alt": "A woman laughing, eyes closed",
+          "focus": "50% 40%"
+        },
+        {
+          "src": "img/strip-3.webp",
+          "width": 720,
+          "height": 900,
+          "alt": "A woman with curly hair smiling",
+          "focus": "50% 42%"
+        },
+        {
+          "src": "img/strip-4.webp",
+          "width": 720,
+          "height": 900,
+          "alt": "A woman in a hood laughing",
+          "focus": "50% 38%"
+        }
+      ],
+      "models": true
+    }
+  },
+  "sections": {
+    "chooser": {
+      "title": "Tell me what you'd change"
+    },
+    "treatments": {
+      "title": "Treatments and prices",
+      "intro": "Prices from the studio's own list. Your plan, and its price, are confirmed at consultation."
+    },
+    "clinicians": {
+      "title": "Who treats you",
+      "intro": "A dentist and a hygienist, both registered with the General Dental Council."
+    },
+    "beforeBook": {
+      "title": "Before you book",
+      "intro": "Every treatment starts with a consultation."
+    },
+    "wedding": {
+      "title": "When's the big day?",
+      "intro": "Whitening takes a few weeks. Tell us the date and we'll tell you when to start."
+    },
+    "questions": {
+      "title": "Asked in our messages"
+    },
+    "visit": {
+      "title": "Find us"
+    }
+  },
+  "messages": {
+    "general": "Hi Marlie, I have a question."
+  },
+  "clinicians": {
+    "items": [
+      {
+        "id": "marlie",
+        "name": "Dr Marlie Okon",
+        "role": "dentist",
+        "qualification": "BDS",
+        "country": "United Kingdom",
+        "gdc": "000000",
+        "interest": "special interest in whitening and bonding",
+        "lead": true,
+        "bio": "I opened the studio so you could ask anything and get a straight answer. I'll always tell you what's realistic for your teeth, even when it's less than you hoped.",
+        "photo": {
+          "src": "img/marlie.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "Dr Marlie Okon in a white coat, smiling"
+        }
+      },
+      {
+        "id": "leah",
+        "name": "Leah Morgan",
+        "role": "hygienist",
+        "qualification": "Diploma in Dental Hygiene",
+        "country": "United Kingdom",
+        "gdc": "000000",
+        "prescribedBy": "marlie",
+        "bio": "Leah does every clean before whitening, and fits trays on Dr Marlie's prescription."
+      }
+    ]
+  },
+  "treatments": {
+    "items": [
+      {
+        "id": "whitening-home",
+        "name": "Whitening at home",
+        "line": "Trays made for your teeth, and gel you wear in the evenings.",
+        "price": {
+          "from": 395
+        },
+        "by": [
+          "marlie",
+          "leah"
+        ],
+        "whitening": true,
+        "visits": [
+          {
+            "label": "Consultation",
+            "minutes": 45
+          },
+          {
+            "label": "Trays fitted",
+            "minutes": 30,
+            "after": 2,
+            "note": "We show you how much gel to use."
+          },
+          {
+            "label": "Check-in",
+            "minutes": 15,
+            "after": 3
+          }
+        ],
+        "page": {
+          "intro": "The way most people whiten: slowly, at home, with trays made for your teeth.",
+          "sections": [
+            {
+              "heading": "How it works",
+              "text": "We take scans of your teeth and make thin trays that fit only you. You wear them with a small amount of gel for an hour or so each evening, for around three weeks."
+            },
+            {
+              "heading": "What to expect",
+              "text": "Teeth lighten gradually. Some people feel sensitive for a day or two; if you do, you skip an evening or two and we give you something for it."
+            },
+            {
+              "heading": "Afterwards",
+              "text": "Keep your trays. A tube of gel now and then keeps your teeth where you like them."
+            }
+          ]
+        }
+      },
+      {
+        "id": "whitening-studio",
+        "name": "Whitening in the studio",
+        "line": "One long visit here, then trays to finish at home.",
+        "price": {
+          "from": 650
+        },
+        "by": [
+          "marlie"
+        ],
+        "whitening": true,
+        "visits": [
+          {
+            "label": "Consultation",
+            "minutes": 45
+          },
+          {
+            "label": "Whitening",
+            "minutes": 120,
+            "after": 1,
+            "note": "Bring headphones if you like."
+          },
+          {
+            "label": "Check-in",
+            "minutes": 15,
+            "after": 2
+          }
+        ],
+        "page": {
+          "intro": "A head start in the chair, finished at home.",
+          "sections": [
+            {
+              "heading": "How it works",
+              "text": "Dr Marlie protects your gums and applies a stronger gel in the studio, in short rounds over about two hours. You take trays home to finish."
+            },
+            {
+              "heading": "Who it suits",
+              "text": "People who want to see a change sooner, for an event or just because. It costs more than whitening at home and ends in the same place."
+            }
+          ]
+        }
+      },
+      {
+        "id": "bonding",
+        "name": "Composite bonding",
+        "line": "Chips, small gaps and uneven edges built up in tooth-coloured resin.",
+        "price": {
+          "from": 280,
+          "unit": "a tooth"
+        },
+        "by": [
+          "marlie"
+        ],
+        "visits": [
+          {
+            "label": "Consultation",
+            "minutes": 45
+          },
+          {
+            "label": "Bonding",
+            "minutes": 90,
+            "after": 1,
+            "note": "Usually no injection needed."
+          }
+        ],
+        "page": {
+          "intro": "Small changes to shape, added rather than drilled away.",
+          "sections": [
+            {
+              "heading": "How it works",
+              "text": "Dr Marlie adds resin, shaped and polished by hand, to the tooth's surface. Most people need nothing taken away from the tooth."
+            },
+            {
+              "heading": "Looking after it",
+              "text": "Bonding can chip or stain like a tooth. We polish it at your hygiene visits and repair it if it chips."
+            }
+          ]
+        }
+      },
+      {
+        "id": "hygiene",
+        "name": "Hygiene",
+        "line": "A clean before any whitening, and every six months after.",
+        "price": {
+          "fixed": 95
+        },
+        "by": [
+          "leah"
+        ],
+        "visits": [
+          {
+            "label": "Hygiene",
+            "minutes": 45
+          }
+        ],
+        "page": {
+          "intro": "Whitening works best on clean teeth.",
+          "sections": [
+            {
+              "heading": "What happens",
+              "text": "Leah cleans above and below the gum line and polishes away surface stains, then shows you anything worth changing in how you brush."
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "consultation": {
+    "title": "A consultation",
+    "intro": "Forty-five minutes with Dr Marlie. Nothing is decided in the room.",
+    "message": "Hi Marlie, I'd like to book a consultation.",
+    "facts": [
+      {
+        "label": "Length",
+        "value": "45 minutes"
+      },
+      {
+        "label": "Fee",
+        "value": "£45, taken off any treatment"
+      },
+      {
+        "label": "With",
+        "value": "Dr Marlie Okon"
+      }
+    ],
+    "bring": [
+      "a list of any medicines you take",
+      "your dentist's details if you have one"
+    ],
+    "steps": [
+      {
+        "heading": "We look",
+        "text": "Dr Marlie checks your teeth and gums and takes photographs for your record, which stay in your notes."
+      },
+      {
+        "heading": "We talk",
+        "text": "What you'd change, what's realistic for your teeth, what it costs and how many visits."
+      },
+      {
+        "heading": "You think",
+        "text": "You leave with a written plan and price. Book when you're ready, or not at all."
+      }
+    ]
+  },
+  "chooser": {
+    "quote": "Tell me what you'd change about your smile. I'll tell you honestly what's possible.",
+    "by": "marlie",
+    "photo": {
+      "src": "img/chooser.webp",
+      "width": 900,
+      "height": 1125,
+      "alt": "A woman laughing, her hand at her neck"
+    },
+    "note": "We reply within a working day. Please don't send photos of your teeth here.",
+    "options": [
+      {
+        "label": "Whiter for my wedding",
+        "message": "Hi Marlie, I'm getting married next year and I'd love whiter teeth for it. Could I book a consultation?"
+      },
+      {
+        "label": "A chipped tooth",
+        "message": "Hi Marlie, I've chipped a front tooth. Could bonding help? I'd like to book a consultation."
+      },
+      {
+        "label": "Gaps or uneven edges",
+        "message": "Hi Marlie, I'd like to talk about the gaps and uneven edges on my front teeth. Could I book a consultation?"
+      },
+      {
+        "label": "Sensitive teeth",
+        "message": "Hi Marlie, my teeth are quite sensitive. Is whitening still possible for me?"
+      },
+      {
+        "label": "Just prices",
+        "message": "Hi Marlie, could you send me your prices for whitening and bonding? Thank you."
+      }
+    ]
+  },
+  "whiteningPage": {
+    "title": "Whitening",
+    "intro": "By a dentist, at home or here.",
+    "by": "marlie",
+    "ways": [
+      {
+        "heading": "At home",
+        "text": "Trays made for your teeth and a gentle gel, worn in the evenings for around three weeks. Most people start here."
+      },
+      {
+        "heading": "In the studio",
+        "text": "About two hours in the chair with a stronger gel, then trays to finish at home. Sooner, and dearer."
+      },
+      {
+        "heading": "How white",
+        "text": "We won't promise a shade. Teeth lighten from their own starting colour, and at consultation I'll show you what's realistic for yours."
+      }
+    ],
+    "sensitivity": "Some people feel sensitive for a day or two. If you do, skip an evening or two; we'll give you a toothpaste for it and slow the plan down.",
+    "crowns": "Crowns, veneers and fillings don't change colour. If you have them at the front, we plan around them before we start."
+  },
+  "journeyPage": {
+    "title": "Visit by visit",
+    "intro": "Choose a treatment to see each visit and the weeks between. Give us your first date and we'll date the rest."
+  },
+  "aftercare": {
+    "title": "Aftercare",
+    "intro": "In Dr Marlie's words, for after whitening and bonding.",
+    "urgent": "If something feels wrong after treatment, call us on 07700 900612. Out of hours, call NHS 111.",
+    "sections": [
+      {
+        "heading": "The first two days",
+        "text": "Go easy on coffee, red wine and anything that would stain a white shirt. Brush gently with the toothpaste we gave you."
+      },
+      {
+        "heading": "Sensitivity",
+        "text": "A little is common and passes. If it doesn't after two days, stop wearing your trays and message us."
+      },
+      {
+        "heading": "Bonding",
+        "text": "Treat it like your own teeth: no opening packets with them, and a night guard if we've given you one."
+      }
+    ],
+    "reminders": [
+      {
+        "id": "hygiene",
+        "label": "Hygiene visit at Marlie",
+        "months": 6,
+        "note": "Book on WhatsApp: 07700 900612."
+      },
+      {
+        "id": "top-up",
+        "label": "Whitening top-up gel",
+        "months": 12,
+        "note": "Order a tube from the studio."
+      }
+    ]
+  },
+  "patientInfo": {
+    "title": "Patient information and complaints",
+    "intro": "How we look after you, who regulates us, and what to do if you're unhappy.",
+    "status": "private",
+    "complaints": {
+      "steps": [
+        "Tell us: at the studio, on the phone, or by email.",
+        "Dr Marlie looks into it herself and replies in writing within ten working days.",
+        "If you're still unhappy, we'll arrange a time to talk it through."
+      ],
+      "contact": "Email complaints@marlie.example, or write to Marlie, 4 Calvert Yard, London E2 7QX.",
+      "replyDays": 3
+    },
+    "notes": [
+      {
+        "heading": "Your records",
+        "text": "Your notes and photographs stay in your record at the studio. We never publish a patient's photograph without their written consent."
+      }
+    ]
+  },
+  "smiles": {
+    "title": "Smiles",
+    "intro": "On a live site, the studio's own patients, each shown with their consent and never retouched. This demo uses photographs of models.",
+    "items": [
+      {
+        "id": "s1",
+        "photo": {
+          "src": "img/smile-1.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "Two women laughing together"
+        },
+        "model": true,
+        "caption": "Friends, laughing."
+      },
+      {
+        "id": "s2",
+        "photo": {
+          "src": "img/smile-2.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "A woman laughing under a leaf"
+        },
+        "model": true
+      },
+      {
+        "id": "s3",
+        "photo": {
+          "src": "img/smile-3.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "A woman smiling outdoors"
+        },
+        "model": true
+      },
+      {
+        "id": "s4",
+        "photo": {
+          "src": "img/smile-4.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "A woman smiling, her hand in her hair"
+        },
+        "model": true
+      }
+    ]
+  },
+  "wedding": {
+    "title": "When's the big day?",
+    "intro": "Whitening at home takes a few weeks. Put in your date and see when to book each visit.",
+    "late": "The first date has passed. Message us anyway: we'll tell you honestly what's possible in the time.",
+    "message": "Hi Marlie, here are my wedding dates.",
+    "steps": [
+      {
+        "id": "consult",
+        "label": "Consultation",
+        "weeksBefore": 12,
+        "note": "Book by this week"
+      },
+      {
+        "id": "whiten",
+        "label": "Whitening starts",
+        "weeksBefore": 9,
+        "note": "Trays fitted, three weeks of evenings"
+      },
+      {
+        "id": "check",
+        "label": "Check-in",
+        "weeksBefore": 5,
+        "note": "Fifteen minutes"
+      },
+      {
+        "id": "polish",
+        "label": "Final polish",
+        "weeksBefore": 1,
+        "note": "The week before"
+      }
+    ]
+  },
+  "journal": {
+    "title": "Journal",
+    "intro": "Notes from Dr Marlie, for anyone thinking about whitening.",
+    "items": [
+      {
+        "slug": "what-whitening-does",
+        "title": "What whitening can and can't do",
+        "date": "2026-10-14",
+        "by": "marlie",
+        "intro": "It lightens your own teeth. It doesn't change crowns or fillings, and it fades slowly over time.",
+        "sections": [
+          {
+            "heading": "What it does",
+            "text": "Whitening gel lightens the colour inside the tooth. How far depends on where your teeth start, which is why I won't promise a shade before I've seen them."
+          },
+          {
+            "heading": "What it doesn't",
+            "text": "Crowns, veneers and fillings stay the colour they are. If you have them at the front, we talk about that first."
+          },
+          {
+            "heading": "Why a dentist",
+            "text": "In the UK, only a registered dentist, or a hygienist or therapist on a dentist's prescription, may whiten teeth. Kits sold elsewhere are weaker, or not legal."
+          }
+        ]
+      },
+      {
+        "slug": "keeping-it",
+        "title": "Keeping your teeth white",
+        "date": "2026-09-30",
+        "by": "marlie",
+        "intro": "Whitening fades slowly. A few habits slow it further.",
+        "sections": [
+          {
+            "heading": "Day to day",
+            "text": "Rinse with water after coffee or red wine. Use a straw for iced coffee if you like."
+          },
+          {
+            "heading": "Top-ups",
+            "text": "Keep your trays. A night or two with fresh gel once or twice a year is usually enough."
+          }
+        ]
+      }
+    ]
+  },
+  "studio": {
+    "title": "The studio",
+    "intro": "Two rooms behind a black door on Calvert Yard.",
+    "rooms": [
+      {
+        "photo": {
+          "src": "img/room-front.webp",
+          "width": 1200,
+          "height": 900,
+          "alt": "A reception desk lit from below"
+        },
+        "name": "The front room.",
+        "text": "Coffee and a coat hook. Most people walk straight through."
+      },
+      {
+        "photo": {
+          "src": "img/room-chair.webp",
+          "width": 1200,
+          "height": 900,
+          "alt": "A dental chair and lamp in a white room"
+        },
+        "name": "Dr Marlie's room.",
+        "text": "Where consultations, whitening and bonding happen."
+      },
+      {
+        "photo": {
+          "src": "img/room-treatment.webp",
+          "width": 1200,
+          "height": 900,
+          "alt": "A treatment room with a dental chair by the window"
+        },
+        "name": "Leah's room.",
+        "text": "Hygiene and trays, with a window onto the yard."
+      }
+    ]
+  },
+  "arrival": {
+    "title": "Arriving",
+    "intro": "Pick your time and see how the visit runs.",
+    "times": [
+      "08:15",
+      "12:40",
+      "18:00"
+    ],
+    "start": "08:15",
+    "photo": {
+      "src": "img/door.webp",
+      "width": 800,
+      "height": 1000,
+      "alt": "A black front door with a brass letterplate"
+    },
+    "steps": [
+      {
+        "at": -2,
+        "text": "The black door on Calvert Yard.",
+        "note": "Ring once; Leah opens it."
+      },
+      {
+        "at": 0,
+        "text": "Straight to your room.",
+        "note": "No waiting room to sit in."
+      },
+      {
+        "at": 45,
+        "text": "Out by the same door.",
+        "note": "Your next visit is booked before you stand."
+      }
+    ]
+  },
+  "questions": [
+    {
+      "topic": "Whitening",
+      "q": "Is whitening done by a dentist?",
+      "a": "Yes. Only a registered dentist, or a hygienist on a dentist's prescription, may whiten teeth in the UK. Dr Marlie prescribes every whitening here.",
+      "home": true
+    },
+    {
+      "topic": "Whitening",
+      "q": "How white will my teeth go?",
+      "a": "We won't promise a shade. At your consultation Dr Marlie shows you what's realistic for your teeth.",
+      "home": true
+    },
+    {
+      "topic": "Whitening",
+      "q": "Can I whiten if I'm under 18?",
+      "a": "No. We don't whiten teeth for anyone under 18."
+    },
+    {
+      "topic": "Whitening",
+      "q": "Will my crowns or fillings change colour?",
+      "a": "No. We plan around them before we start."
+    },
+    {
+      "topic": "Booking",
+      "q": "Do I need a consultation first?",
+      "a": "Yes, always. It's 45 minutes and £45, taken off any treatment.",
+      "home": true
+    },
+    {
+      "topic": "Booking",
+      "q": "Can I pay in instalments?",
+      "a": "Not at the moment. You pay for each visit on the day, by card."
+    },
+    {
+      "topic": "Visiting",
+      "q": "Is it NHS or private?",
+      "a": "Private. We don't offer NHS treatment.",
+      "home": true
+    },
+    {
+      "topic": "Visiting",
+      "q": "Is the studio step-free?",
+      "a": "Yes, both rooms are on the ground floor."
+    }
+  ],
+  "pageLinks": [
+    {
+      "page": "whitening",
+      "image": "img/smile-2.webp",
+      "kicker": "Whitening",
+      "title": "By a dentist, at home or here",
+      "cta": "Whitening"
+    },
+    {
+      "page": "journey",
+      "image": "img/strip-3.webp",
+      "kicker": "Visit by visit",
+      "title": "Every treatment, dated",
+      "cta": "Your visits"
+    },
+    {
+      "page": "studio",
+      "image": "img/door.webp",
+      "kicker": "The studio",
+      "title": "Behind the black door",
+      "cta": "The studio"
+    }
+  ],
+  "visitInfo": {
+    "kicker": "Plan your visit",
+    "title": "Finding *Calvert Yard.*",
+    "intro": "Off Calvert Avenue, six minutes' walk from Shoreditch High Street.",
+    "checked": "2026-11",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "Shoreditch High Street station",
+        "origin": "Shoreditch High Street station, London",
+        "minutes": 6,
+        "steps": [
+          "Leave by the Braithwaite Street exit",
+          "Walk up Shoreditch High Street to Calvert Avenue",
+          "Turn right; Calvert Yard is the second opening on the left"
+        ]
+      },
+      {
+        "mode": "bus",
+        "from": "Buses 26, 48 and 55",
+        "stop": "Shoreditch Church",
+        "minutes": 4,
+        "steps": [
+          "Get off at Shoreditch Church",
+          "Walk along Calvert Avenue to the yard"
+        ]
+      }
+    ],
+    "parking": [
+      {
+        "name": "Pay-by-phone bays nearby",
+        "walk": 4,
+        "price": "check the signs on the street",
+        "paid": {
+          "mon": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "tue": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "wed": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "thu": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "fri": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "sat": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ]
+        },
+        "note": "Residents' bays are marked; avoid those.",
+        "bankHolidays": "sunday"
+      }
+    ],
+    "access": [
+      {
+        "label": "Step-free entrance",
+        "yes": true
+      },
+      {
+        "label": "Both rooms on the ground floor",
+        "yes": true
+      },
+      {
+        "label": "Accessible toilet",
+        "yes": false
+      }
+    ],
+    "accessNote": "Everything is on the ground floor; the toilet is small, so tell us if you'd like help.",
+    "payment": "Card only."
+  },
+  "seasons": [
+    {
+      "name": "Christmas",
+      "from": "2026-11-30",
+      "to": "2027-01-03",
+      "tint": "festive",
+      "banner": "Closed 24 to 28 December. Messages sent then are answered on 29 December.",
+      "link": {
+        "label": "Book",
+        "href": "#chooser"
+      }
+    }
+  ]
+}

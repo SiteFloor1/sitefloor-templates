@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: art
+permalink: art.html
+feature: art-page
+eleventyComputed:
+  title: "{{ site.artPage.title | plain }}"
+  description: "Nail art at {{ site.business.name }}, {{ site.location.locality }}: sets by shape, length and level, with time and price."
+---
+{% include "kits/nails/features/art-page/art-page.njk" %}
+{%- set hostPage = "art-page" %}{% include "kits/nails/partials/hosted.njk" %}

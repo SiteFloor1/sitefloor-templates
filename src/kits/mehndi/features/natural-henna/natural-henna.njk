@@ -1,0 +1,13 @@
+{#- Natural henna only: the paste, the stain, and the NHS line on black henna (PPD) with the day it was checked. -#}
+{%- set sec = site.sections.natural %}
+{%- set n = site.natural %}
+{%- set nhs = mehndiWords.nhs %}
+<section id="natural" class="mh-nat" data-feature="natural-henna" aria-labelledby="mh-nat-h"><div class="wrap mh-nat-in">
+  <h2 class="mh-nat-h" id="mh-nat-h">{{ sec.title | markup | safe }}</h2>
+  <div class="mh-nat-body">
+    <p><strong>{{ n.paste }}</strong> {{ n.stain }}</p>
+    <p>{{ nhs.text }}</p>
+    {%- if n.patch %}<p>{{ n.patch }}</p>{% endif %}
+    <p class="mh-fine">Source: <a href="{{ nhs.url }}" target="_blank" rel="noopener">{{ nhs.source }}</a>, checked {{ nhs.checked | ukDate }}.</p>
+  </div>
+</div></section>

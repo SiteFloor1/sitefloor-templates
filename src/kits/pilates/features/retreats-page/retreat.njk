@@ -1,0 +1,37 @@
+{#- One retreat's page: the photograph, dates and place, day by day, the rooms, what's included, places left as the
+    studio last counted them, the deposit and how long until the balance is due (worked out on the visitor's own day).
+    Set `r` first. -#}
+{%- set ph = { kicker: "Retreats", title: r.name, intro: (r | retreatDates) + " · " + r.place } %}
+<header class="pl-ph"><div class="wrap pl-ph-in">
+  <p class="pl-ph-k"><a href="{{ 'index' | href }}">{{ site.business.name }}</a> <span aria-hidden="true">/</span> <a href="{{ 'retreats' | href }}">Retreats</a></p>
+  <h1 class="pl-ph-t">{{ r.name }}</h1>
+  <p class="pl-ph-i">{{ ph.intro }}</p>
+</div></header>
+<section class="pl-rt" data-feature="retreats-page" aria-label="{{ r.name }}"><div class="wrap">
+  {%- set rp = r.photo or site.retreats.photo %}
+  {%- if rp %}<figure class="pl-ret-hero"><img src="{{ rp.src | img }}" alt="{{ rp.alt }}" width="{{ rp.width }}" height="{{ rp.height }}" fetchpriority="high" decoding="async"></figure>{% endif %}
+  <div class="pl-rt-in">
+    <div>
+      <p class="pl-rt-x">{{ r.text }}</p>
+      {%- if r.days %}
+      <h2 class="pl-cls-sub">Day by day</h2>
+      <ol class="pl-rt-days">{% for d in r.days %}<li><b>{{ d.title }}</b><span>{{ d.text }}</span></li>{% endfor %}</ol>
+      {%- endif %}
+      {%- if r.rooms %}
+      <h2 class="pl-cls-sub">The rooms</h2>
+      <ul class="pl-rt-rooms">{% for m in r.rooms %}<li><b>{{ m.name }}</b><span>{{ m.text }}</span>{% if m.price %}<em>{{ m.price | gbpWhole }} per person</em>{% endif %}</li>{% endfor %}</ul>
+      {%- endif %}
+    </div>
+    <aside class="pl-rt-card" data-rt-card data-to="{{ r.to }}">
+      <h2 class="pl-cls-sub">Included</h2>
+      <ul class="pl-ret-inc">{% for s in r.includes %}<li>{{ s }}</li>{% endfor %}</ul>
+      <dl class="pl-rt-facts">
+        {%- if r.places %}<div><dt>Places</dt><dd>{% if r.placesLeft is defined %}{{ r.placesLeft }} of {{ r.places }} left <small>as at {{ r.placesChecked | ukDate }}</small>{% else %}{{ r.places }}{% endif %}</dd></div>{% endif %}
+        {%- if r.price %}<div><dt>From</dt><dd>{{ r.price | gbpWhole }} per person</dd></div>{% elif site.mode == "demo" %}<div><dt>Price</dt><dd>Demo: the studio sets it</dd></div>{% endif %}
+        {%- if r.balanceDue %}<div><dt>Balance due</dt><dd><time datetime="{{ r.balanceDue }}">{{ r.balanceDue | ukDate }}</time> <small data-rt-days data-due="{{ r.balanceDue }}"></small></dd></div>{% endif %}
+      </dl>
+      {%- if r.depositLink %}<a class="pl-rt-go" href="{{ r.depositLink }}" target="_blank" rel="noopener"{% if site.mode == "demo" %} data-demo-note="On a live site this opens the studio's own Stripe page for the deposit. This demo's link is a Stripe test link, so nothing is charged."{% endif %}>Pay the deposit</a>{% endif %}
+      <p class="pl-rt-past" data-rt-past hidden>This retreat has finished.</p>
+    </aside>
+  </div>
+</div></section>

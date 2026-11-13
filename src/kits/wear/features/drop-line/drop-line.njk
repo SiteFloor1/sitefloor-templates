@@ -1,0 +1,9 @@
+{#- The next drop in one quiet line: name, when, a small clock ticking down to it, and a reminder. Counted on the
+    brand's clock. The clock is hidden from screen readers (it would speak every second); they get "· 3 days" instead. -#}
+{%- import "kits/wear/partials/macros.njk" as m with context %}
+{%- set d = site | wearDrop(build.today) %}
+<p class="wr-drop" data-feature="drop-line" data-opens="{{ d.opens }}" data-tz="{{ site.hours.timezone }}"{% if d.rolling %} data-rolling-day="{{ d.rolling.day }}" data-rolling-time="{{ d.rolling.time }}"{% endif %}{{ "drop-line" | tierAttr | safe }}>
+  <span class="wr-drop-dot" aria-hidden="true"></span>
+  <span class="wr-drop-t"><b>{{ d.name }}</b> · <span data-drop-when>{{ d.words }}</span><span class="sr-only" data-drop-left>{{ d.left }}</span>{% if d.clock %} <span class="wr-clock" data-drop-clock aria-hidden="true">{{ d.clock }}</span>{% endif %}</span>
+  {%- if d.remindForm %} {{ m.formLink(d.remindForm, "Remind me", "Opens the brand's Google Form: leave a phone number or email and we'll message you the day before.", "wr-link") }}{% endif %}
+</p>

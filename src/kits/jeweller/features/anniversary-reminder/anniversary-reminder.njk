@@ -1,0 +1,19 @@
+{#- Anniversary reminder: the date and how much notice; a calendar file reminds them every year. -#}
+{%- set AN = site.anniversary %}
+{%- set sec = { title: site.sections.anniversary.title, intro: site.sections.anniversary.intro } %}
+<section id="anniversary" class="nc-sec jw-anni" data-feature="anniversary-reminder"{{ "anniversary-reminder" | tierAttr | safe }}><div class="wrap jw-anni-in">
+  {% include "core/partials/section-head.njk" %}
+  <p class="jw-say rv">{{ AN.line }}</p>
+  <form class="nc-form jw-anni-f" data-anni-form data-js-only>
+    <label class="nc-field"><span class="nc-label">Whose</span><input class="nc-in" type="text" maxlength="40" value="Our anniversary" data-anni-label></label>
+    <label class="nc-field"><span class="nc-label">The date</span><input class="nc-in" type="date" required data-anni-date></label>
+    <fieldset class="nc-choice"><legend class="nc-label">Remind me</legend>
+      {%- for w in AN.weeks %}<label><input type="radio" name="anni-weeks" value="{{ w }}"{% if loop.first %} checked{% endif %}><span>{{ w }} weeks before</span></label>{% endfor %}
+    </fieldset>
+    {%- set sl = { id: "anni", prefer: (site.occasions.pages | occasionPage("anniversary")).pieces if site.occasions else [], legend: "Set aside three, within" } %}
+    {% include "kits/jeweller/features/gift-shortlist/gift-shortlist.njk" %}
+    <button type="submit" class="nc-u nc-label nc-btnlink jw-send">Add to my calendar</button>
+    <p class="nc-fine" data-anni-say role="status"></p>
+  </form>
+  <p class="nc-body" data-no-js>Add your anniversary to your calendar with a reminder a few weeks before; we never see the date.</p>
+</div></section>

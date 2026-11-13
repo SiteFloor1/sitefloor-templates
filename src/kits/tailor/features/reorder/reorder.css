@@ -1,0 +1,23 @@
+/* from your pattern: a ruled order slip (label left, entry right, a hairline between), the photograph beside it on wide
+   screens. Tokens only. */
+.tl-ro { padding-block: 8px 96px; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: 48px clamp(32px, 5vw, 96px); align-items: start; }
+.tl-ro-slip { border-top: 1px solid var(--text); }
+.tl-ro-row { display: grid; grid-template-columns: 10em minmax(0, 1fr); gap: 8px 24px; align-items: start; margin: 0; padding: 20px 0; border: 0; border-bottom: 1px solid var(--line); min-width: 0; }
+.tl-ro-k { margin: 0; padding: 12px 0 0; font-weight: 500; }
+.tl-ro-v.tl-chips { margin-top: 0; }
+.tl-ro-v { min-width: 0; }
+.tl-ro-code, .tl-ro-sel, .tl-ro-txt { width: 100%; min-height: 48px; padding: 10px 14px; border: 1px solid var(--line-2); border-radius: 0; background: var(--bg); color: var(--text); font: inherit; }
+.tl-ro-code { letter-spacing: .12em; text-transform: uppercase; }
+.tl-ro-txt { resize: vertical; }
+.tl-ro-code[aria-invalid="true"] { border-color: var(--accent); }
+.tl-ro-v .tl-small { margin: 8px 0 0; }
+.tl-ro-end { display: grid; gap: 12px; justify-items: start; padding-top: 28px; }
+.tl-ro-end .tl-btn[aria-disabled="true"] { opacity: .45; pointer-events: none; }
+.tl-ro-ph { margin: 0; }
+.tl-ro-ph img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+@media (max-width: 860px) {
+  .tl-ro { grid-template-columns: 1fr; }
+  .tl-ro-ph { display: none; }
+  .tl-ro-row { grid-template-columns: 1fr; }
+  .tl-ro-k { padding-top: 0; }
+}

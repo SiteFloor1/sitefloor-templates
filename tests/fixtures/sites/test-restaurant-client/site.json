@@ -1,0 +1,906 @@
+{
+  "schemaVersion": 4,
+  "lang": "en-GB",
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [],
+      "tue": [
+        [
+          "12:00",
+          "15:00"
+        ],
+        [
+          "17:00",
+          "22:30"
+        ]
+      ],
+      "wed": [
+        [
+          "12:00",
+          "15:00"
+        ],
+        [
+          "17:00",
+          "22:30"
+        ]
+      ],
+      "thu": [
+        [
+          "12:00",
+          "15:00"
+        ],
+        [
+          "17:00",
+          "22:30"
+        ]
+      ],
+      "fri": [
+        [
+          "12:00",
+          "15:00"
+        ],
+        [
+          "17:00",
+          "23:00"
+        ]
+      ],
+      "sat": [
+        [
+          "10:00",
+          "15:00"
+        ],
+        [
+          "17:00",
+          "23:00"
+        ]
+      ],
+      "sun": [
+        [
+          "10:00",
+          "15:00"
+        ],
+        [
+          "17:00",
+          "21:30"
+        ]
+      ]
+    },
+    "exceptions": [
+      {
+        "date": "2026-12-24",
+        "ranges": [
+          [
+            "12:00",
+            "16:00"
+          ]
+        ],
+        "note": "Christmas Eve: lunch only"
+      },
+      {
+        "date": "2026-12-25",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2026-12-26",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2027-01-01",
+        "ranges": [],
+        "note": "Closed on New Year's Day"
+      }
+    ]
+  },
+  "menu": {
+    "sittings": [
+      {
+        "id": "brunch",
+        "name": "Brunch",
+        "days": [
+          "sat",
+          "sun"
+        ],
+        "from": "10:00",
+        "to": "12:00",
+        "lastOrders": "11:45",
+        "mood": "day"
+      },
+      {
+        "id": "lunch",
+        "name": "Lunch",
+        "days": [
+          "tue",
+          "wed",
+          "thu",
+          "fri",
+          "sat",
+          "sun"
+        ],
+        "from": "12:00",
+        "to": "15:00",
+        "lastOrders": "14:30",
+        "mood": "day"
+      },
+      {
+        "id": "dinner",
+        "name": "Dinner",
+        "days": [
+          "tue",
+          "wed",
+          "thu",
+          "fri",
+          "sat",
+          "sun"
+        ],
+        "from": "17:00",
+        "to": "22:30",
+        "lastOrders": "21:45",
+        "mood": "evening"
+      }
+    ],
+    "statement": "All our meat and chicken is halal, from one butcher in Cheetham Hill. We don't serve alcohol: bring your own wine for £3 corkage a bottle. Our kitchen handles nuts, sesame, gluten, milk and eggs every day, so we can't promise any dish is free from traces.",
+    "chartChecked": "2026-10-20",
+    "sections": [
+      {
+        "id": "brunch",
+        "name": "Weekend brunch",
+        "note": "Saturday and Sunday, 10am to noon",
+        "sittings": [
+          "brunch"
+        ],
+        "dishes": [
+          {
+            "id": "cilbir",
+            "name": "Çılbır",
+            "desc": "Poached eggs on garlic yoghurt, chilli butter, flatbread from the grill",
+            "price": 11.5,
+            "diets": [
+              "halal",
+              "vegetarian"
+            ],
+            "allergens": [
+              "eggs",
+              "milk",
+              "gluten"
+            ],
+            "spice": 1
+          },
+          {
+            "id": "shakshuka",
+            "name": "Shakshuka from the coals",
+            "desc": "Eggs baked in charred pepper and tomato, flatbread",
+            "price": 12,
+            "diets": [
+              "halal",
+              "vegetarian"
+            ],
+            "allergens": [
+              "eggs",
+              "gluten"
+            ],
+            "spice": 1
+          },
+          {
+            "id": "halloumi-brunch",
+            "name": "Grilled halloumi and za'atar",
+            "desc": "Tomato, olives, cucumber and a za'atar flatbread",
+            "price": 11,
+            "diets": [
+              "halal",
+              "vegetarian"
+            ],
+            "allergens": [
+              "milk",
+              "gluten",
+              "sesame"
+            ]
+          },
+          {
+            "id": "sucuk",
+            "name": "Sucuk and eggs",
+            "desc": "Spiced beef sausage, fried eggs, pickled chilli, flatbread",
+            "price": 12.5,
+            "diets": [
+              "halal"
+            ],
+            "allergens": [
+              "eggs",
+              "gluten",
+              "mustard"
+            ],
+            "spice": 2
+          }
+        ]
+      },
+      {
+        "id": "small",
+        "name": "Small plates",
+        "note": "For the table to share",
+        "sittings": [
+          "lunch",
+          "dinner"
+        ],
+        "dishes": [
+          {
+            "id": "hummus",
+            "name": "Hummus",
+            "desc": "Olive oil, smoked paprika, warm flatbread",
+            "price": 7,
+            "diets": [
+              "halal",
+              "vegan"
+            ],
+            "allergens": [
+              "sesame",
+              "gluten"
+            ],
+            "share": true,
+            "takeaway": true
+          },
+          {
+            "id": "baba",
+            "name": "Baba ghanoush",
+            "desc": "Aubergine blackened over the coals, pomegranate, flatbread",
+            "price": 7.5,
+            "diets": [
+              "halal",
+              "vegan"
+            ],
+            "allergens": [
+              "sesame",
+              "gluten"
+            ],
+            "share": true,
+            "takeaway": true
+          },
+          {
+            "id": "halloumi",
+            "name": "Halloumi, honey and nigella",
+            "price": 8,
+            "diets": [
+              "halal",
+              "vegetarian"
+            ],
+            "allergens": [
+              "milk"
+            ],
+            "share": true,
+            "takeaway": true
+          },
+          {
+            "id": "falafel",
+            "name": "Falafel, tahini, pickles",
+            "price": 7,
+            "diets": [
+              "halal",
+              "vegan"
+            ],
+            "allergens": [
+              "sesame"
+            ],
+            "share": true,
+            "takeaway": true
+          },
+          {
+            "id": "squash",
+            "name": "Charred squash and pomegranate",
+            "desc": "Coal-roast squash, spinach, red onion, toasted seeds, tahini dressing",
+            "price": 9,
+            "diets": [
+              "halal",
+              "vegan"
+            ],
+            "allergens": [
+              "sesame"
+            ],
+            "share": true,
+            "takeaway": true,
+            "pairs": [
+              "spritz"
+            ]
+          },
+          {
+            "id": "prawns",
+            "name": "Coal-roast king prawns",
+            "desc": "Garlic, chilli butter, lemon",
+            "price": 11,
+            "diets": [
+              "halal"
+            ],
+            "allergens": [
+              "crustaceans",
+              "milk"
+            ],
+            "share": true,
+            "spice": 2
+          },
+          {
+            "id": "olives",
+            "name": "Marinated olives",
+            "price": 4.5,
+            "diets": [
+              "halal",
+              "vegan"
+            ],
+            "allergens": [],
+            "share": true,
+            "takeaway": true
+          }
+        ]
+      },
+      {
+        "id": "coals",
+        "name": "Off the coals",
+        "sittings": [
+          "lunch",
+          "dinner"
+        ],
+        "dishes": [
+          {
+            "id": "mixed-grill",
+            "name": "Mixed grill for one",
+            "desc": "Lamb and chicken off the skewer, fries, two salads, pickles, flatbread",
+            "price": 19,
+            "diets": [
+              "halal"
+            ],
+            "allergens": [
+              "gluten",
+              "milk",
+              "mustard"
+            ],
+            "spice": 1,
+            "takeaway": true,
+            "pairs": [
+              "ayran",
+              "lemonade"
+            ]
+          },
+          {
+            "id": "kofta-shish",
+            "name": "Kofta and shish for two",
+            "desc": "Lamb kofta and saffron chicken shish, grilled onion, parsley salad, pickled chilli",
+            "price": 32,
+            "diets": [
+              "halal"
+            ],
+            "allergens": [
+              "gluten",
+              "milk"
+            ],
+            "spice": 2,
+            "share": true,
+            "takeaway": true,
+            "pairs": [
+              "spritz",
+              "ayran"
+            ]
+          },
+          {
+            "id": "shish",
+            "name": "Chicken shish on flatbread",
+            "desc": "Chicken thigh off the coals, charred peppers, garlic yoghurt",
+            "price": 15,
+            "diets": [
+              "halal"
+            ],
+            "allergens": [
+              "gluten",
+              "milk"
+            ],
+            "spice": 1,
+            "takeaway": true,
+            "pairs": [
+              "lemonade"
+            ]
+          },
+          {
+            "id": "adana",
+            "name": "Adana kebab",
+            "desc": "Hand-minced lamb with chilli on a flat skewer, bulgur, grilled tomato",
+            "price": 17,
+            "diets": [
+              "halal"
+            ],
+            "allergens": [
+              "gluten"
+            ],
+            "spice": 3,
+            "takeaway": true,
+            "pairs": [
+              "ayran"
+            ]
+          },
+          {
+            "id": "aubergine",
+            "name": "Whole charred aubergine",
+            "desc": "Tahini, pomegranate, crispy onions, herbs",
+            "price": 14,
+            "diets": [
+              "halal",
+              "vegan"
+            ],
+            "allergens": [
+              "sesame",
+              "gluten"
+            ],
+            "takeaway": true,
+            "pairs": [
+              "lemonade"
+            ]
+          },
+          {
+            "id": "kids-chicken",
+            "name": "Little chicken skewer",
+            "desc": "With fries and cucumber. Under 12s",
+            "price": 7,
+            "diets": [
+              "halal"
+            ],
+            "allergens": [
+              "milk"
+            ],
+            "kids": true,
+            "takeaway": true
+          }
+        ]
+      },
+      {
+        "id": "share",
+        "name": "To share",
+        "note": "Evenings only. Order by 8pm",
+        "sittings": [
+          "dinner"
+        ],
+        "dishes": [
+          {
+            "id": "lamb-shoulder",
+            "name": "Lamb shoulder, twelve hours over embers",
+            "desc": "For two or three. Yoghurt, tahini, pickles, saffron rice",
+            "price": 46,
+            "diets": [
+              "halal"
+            ],
+            "allergens": [
+              "milk",
+              "sesame"
+            ],
+            "share": true,
+            "pairs": [
+              "spritz",
+              "tea"
+            ]
+          },
+          {
+            "id": "whole-bream",
+            "name": "Whole sea bream",
+            "desc": "Grilled whole with lemon and herbs",
+            "price": 22,
+            "diets": [
+              "halal"
+            ],
+            "allergens": [
+              "fish"
+            ],
+            "pairs": [
+              "lemonade"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "sides",
+        "name": "Sides",
+        "sittings": [
+          "lunch",
+          "dinner"
+        ],
+        "dishes": [
+          {
+            "id": "rice",
+            "name": "Saffron rice with barberries",
+            "price": 4.5,
+            "diets": [
+              "halal",
+              "vegetarian"
+            ],
+            "allergens": [
+              "milk"
+            ],
+            "takeaway": true
+          },
+          {
+            "id": "fries",
+            "name": "Sumac fries",
+            "price": 4,
+            "diets": [
+              "halal",
+              "vegan"
+            ],
+            "allergens": [],
+            "takeaway": true
+          },
+          {
+            "id": "flatbread",
+            "name": "Flatbread from the grill",
+            "price": 3,
+            "diets": [
+              "halal",
+              "vegan"
+            ],
+            "allergens": [
+              "gluten"
+            ],
+            "takeaway": true
+          },
+          {
+            "id": "shirazi",
+            "name": "Shirazi salad",
+            "desc": "Cucumber, tomato, red onion, lime",
+            "price": 4.5,
+            "diets": [
+              "halal",
+              "vegan"
+            ],
+            "allergens": [],
+            "takeaway": true
+          }
+        ]
+      },
+      {
+        "id": "sweet",
+        "name": "Sweet",
+        "sittings": [
+          "lunch",
+          "dinner"
+        ],
+        "dishes": [
+          {
+            "id": "cake",
+            "name": "Saffron cake, labneh and blueberries",
+            "desc": "Saffron sponge, lightly sweet labneh, blueberries, walnut crumb",
+            "price": 8,
+            "diets": [
+              "halal",
+              "vegetarian"
+            ],
+            "allergens": [
+              "gluten",
+              "eggs",
+              "milk",
+              "nuts"
+            ],
+            "pairs": [
+              "tea",
+              "coffee"
+            ]
+          },
+          {
+            "id": "baklava",
+            "name": "Pistachio baklava",
+            "price": 6.5,
+            "diets": [
+              "halal",
+              "vegetarian"
+            ],
+            "allergens": [
+              "gluten",
+              "nuts",
+              "milk"
+            ],
+            "takeaway": true,
+            "pairs": [
+              "coffee"
+            ]
+          },
+          {
+            "id": "ice-cream",
+            "name": "Rose and cardamom ice cream",
+            "price": 5.5,
+            "diets": [
+              "halal",
+              "vegetarian"
+            ],
+            "allergens": [
+              "milk",
+              "eggs"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "drinks",
+        "name": "To drink",
+        "note": "No alcohol. Bring your own wine: £3 corkage a bottle",
+        "sittings": [
+          "brunch",
+          "lunch",
+          "dinner"
+        ],
+        "drinks": true,
+        "dishes": [
+          {
+            "id": "ayran",
+            "name": "Ayran",
+            "desc": "Salted yoghurt, very cold",
+            "price": 3.5,
+            "diets": [
+              "halal",
+              "vegetarian"
+            ],
+            "allergens": [
+              "milk"
+            ]
+          },
+          {
+            "id": "spritz",
+            "name": "Pomegranate and sumac spritz",
+            "desc": "Alcohol-free, sharp and fizzy",
+            "price": 5,
+            "diets": [
+              "halal",
+              "vegan"
+            ],
+            "allergens": []
+          },
+          {
+            "id": "lemonade",
+            "name": "Mint lemonade",
+            "desc": "Fresh mint, lemon, a little sugar",
+            "price": 4,
+            "diets": [
+              "halal",
+              "vegan"
+            ],
+            "allergens": []
+          },
+          {
+            "id": "tea",
+            "name": "Persian black tea",
+            "desc": "A pot, with cardamom",
+            "price": 3.5,
+            "diets": [
+              "halal",
+              "vegan"
+            ],
+            "allergens": []
+          },
+          {
+            "id": "coffee",
+            "name": "Cardamom coffee",
+            "desc": "Short and strong",
+            "price": 3,
+            "diets": [
+              "halal",
+              "vegan"
+            ],
+            "allergens": []
+          }
+        ]
+      }
+    ]
+  },
+  "tableRequest": {
+    "message": "Hi, can I book a table at the Ember Room?",
+    "maxGuests": 12,
+    "walkIns": "We keep the bar and two window tables for walk-ins every evening.",
+    "largeGroups": "Thirteen or more? Ask about private dining or booking the whole room.",
+    "daysAhead": 45
+  },
+  "delivery": {
+    "apps": [
+      {
+        "name": "Deliveroo",
+        "url": "https://deliveroo.co.uk/menu/leeds/city-centre/the-ember-room-test"
+      }
+    ]
+  },
+  "questions": [
+    {
+      "topic": "Food",
+      "q": "Is everything halal?",
+      "a": "Yes. All our meat and chicken is halal, from one butcher in Cheetham Hill, and we don't serve alcohol.",
+      "home": true
+    },
+    {
+      "topic": "Food",
+      "q": "Can I bring wine?",
+      "a": "Yes, bring your own: £3 corkage a bottle. We have glasses and an opener.",
+      "home": true
+    },
+    {
+      "topic": "Allergies",
+      "q": "I have a nut allergy. Can I eat here?",
+      "a": "Many of our dishes have no nuts, and every dish lists its allergens. Our kitchen handles nuts every day, so tell us when you book and when you order: the chef will talk you through it.",
+      "home": true
+    },
+    {
+      "topic": "Booking",
+      "q": "Do you take walk-ins?",
+      "a": "Yes. We keep the bar and two window tables for walk-ins every evening. The live board on the home page shows how it looks right now.",
+      "home": true
+    },
+    {
+      "topic": "Family",
+      "q": "Are children welcome?",
+      "a": "Yes, until 9pm. We have high chairs, a little chicken skewer for under-12s, and a step-free entrance for prams."
+    },
+    {
+      "topic": "Booking",
+      "q": "How long can we keep the table?",
+      "a": "Two hours on Friday and Saturday evenings, as long as you like the rest of the week."
+    }
+  ],
+  "id": "test-restaurant-client",
+  "mode": "client",
+  "plan": "starter",
+  "kit": "restaurant",
+  "look": "carte",
+  "url": "https://ember-room.example.co.uk",
+  "indexable": true,
+  "business": {
+    "name": "The Ember Room",
+    "schemaType": "Restaurant",
+    "description": "Test client: a small grill in Leeds, Starter plan with the live board and The Table bought as add-ons.",
+    "priceRange": "££",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "447911654888",
+    "phone": "+44 7911 654888",
+    "email": "hello@ember-room.example.co.uk"
+  },
+  "location": {
+    "streetAddress": "12 Call Lane",
+    "locality": "Leeds",
+    "postcode": "LS1 6DT",
+    "country": "GB",
+    "area": "On Call Lane, by the Corn Exchange.",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=Call%20Lane%2C%20Leeds"
+  },
+  "nav": [
+    {
+      "label": "Menu",
+      "page": "menu",
+      "feature": "menu-page",
+      "fallback": "#menu"
+    },
+    {
+      "label": "Visit",
+      "page": "visit",
+      "feature": "plan-visit",
+      "fallback": "#visit"
+    }
+  ],
+  "features": [
+    "menu",
+    "specials",
+    "table-request",
+    "delivery",
+    "visit",
+    "questions",
+    "plan-visit",
+    "tonight",
+    "the-table"
+  ],
+  "addons": [
+    "tonight",
+    "the-table"
+  ],
+  "brand": {
+    "accent": "#1F5A3D",
+    "type": "plain"
+  },
+  "hero": {
+    "kicker": "Grill · Call Lane",
+    "title": "Fire and|*flatbread.*",
+    "intro": "A small grill by the Corn Exchange. Here's what's cooking now."
+  },
+  "sections": {
+    "menu": {
+      "kicker": "The Ember Room",
+      "title": "The menu"
+    },
+    "specials": {
+      "kicker": "On the board",
+      "title": "Today",
+      "intro": "Ask us what's on the board today."
+    },
+    "tonight": {
+      "kicker": "Live",
+      "title": "Right now"
+    },
+    "tableRequest": {
+      "kicker": "Book",
+      "title": "Ask for a *table.*",
+      "intro": "Pick a day and a time. We reply on WhatsApp, usually within the hour."
+    },
+    "delivery": {
+      "kicker": "At home",
+      "title": "Delivery and *collection.*",
+      "intro": "The same kitchen, on the apps or ready to collect."
+    },
+    "questions": {
+      "kicker": "Before you come",
+      "title": "Good to *know.*",
+      "intro": ""
+    },
+    "visit": {
+      "kicker": "Visit",
+      "title": "Find us"
+    },
+    "theTable": {
+      "kicker": "The table",
+      "title": "Who's coming, and *what can they eat?*",
+      "intro": "Add everyone, with their diet and allergies. Every dish shows who can have it, and the request tells us before you arrive."
+    }
+  },
+  "messages": {
+    "general": "Hi, can I book a table?"
+  },
+  "tonight": {
+    "source": "sheet",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-test-ember/pub?output=csv",
+    "staleAfterMinutes": 45
+  },
+  "table": {
+    "maxGuests": 10
+  },
+  "visitInfo": {
+    "kicker": "Plan your visit",
+    "title": "Getting to the studio",
+    "intro": "In Digbeth, off Floodgate Street. Drive into the yard.",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "Moor Street station",
+        "origin": "Birmingham Moor Street station",
+        "minutes": 10,
+        "steps": [
+          "Leave by the Moor Street Queensway exit",
+          "Walk down Park Street past the markets",
+          "Turn left onto Floodgate Street; the yard is on the right"
+        ]
+      },
+      {
+        "mode": "car",
+        "from": "Birmingham city centre",
+        "origin": "Birmingham city centre",
+        "minutes": 6,
+        "steps": [
+          "Head for Digbeth on the A4540 ring road",
+          "Turn onto Floodgate Street",
+          "Drive into the yard and park by the roller door"
+        ]
+      }
+    ],
+    "parking": [
+      {
+        "name": "Studio yard",
+        "walk": 0,
+        "price": "Free for customers",
+        "paid": "never",
+        "note": "Two spaces by the lounge; leave the job car by the roller door."
+      }
+    ],
+    "access": [
+      {
+        "label": "Step-free lounge",
+        "yes": true
+      },
+      {
+        "label": "Accessible toilet",
+        "yes": false
+      }
+    ],
+    "accessNote": "Tell us when you book and we'll keep the space nearest the lounge for you.",
+    "payment": "Card, Apple Pay and bank transfer. Deposits online by card.",
+    "checked": "2026-10"
+  }
+}

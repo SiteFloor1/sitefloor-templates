@@ -1,0 +1,21 @@
+{#- The 3D stage both 3D features share: the car size (SUV first), the photograph and the 3D bay in one box, the button
+    with the chosen car's download size, the studio's paint chart when that feature is on, a line for what's happening,
+    and the cars' credits. Set `stg` to
+    { photo, tag? } and `stgId` to a short name for the picker's inputs. -#}
+{%- set first = detailCars.first %}
+<fieldset class="dt-sizes dt-bodies"><legend class="dt-sizes-l">Your car</legend>
+  {%- for b in detailCars.bodies %}<label class="dt-size"><input type="radio" name="dt-body-{{ stgId }}" value="{{ b.id }}" data-body-pick{% if b.id == first %} checked{% endif %}><span>{{ b.name }}</span></label>{% endfor %}
+</fieldset>
+<div class="dt-3d" data-3d-stage>
+  <img class="dt-3d-ph" src="{{ stg.photo.src | img }}" alt="{{ stg.photo.alt }}" width="{{ stg.photo.width }}" height="{{ stg.photo.height }}" loading="lazy" decoding="async">
+  <div class="dt-3d-gl" data-3d-host hidden
+    data-models='{ {%- for b in detailCars.bodies %}"{{ b.id }}": "{{ b.model | img }}"{% if not loop.last %}, {% endif %}{% endfor %} }'
+    data-mb='{ {%- for b in detailCars.bodies %}"{{ b.id }}": "{{ b.mb }}"{% if not loop.last %}, {% endif %}{% endfor %} }'></div>
+  {%- if stg.tag %}<span class="dt-3d-tag" aria-hidden="true">{{ stg.tag }}</span>{% endif %}
+</div>
+{%- if "paint-chart" | enabled %}{% include "kits/detailing/features/paint-chart/paint-chart.njk" %}{% endif %}
+<div class="dt-3d-bar">
+  {%- for b in detailCars.bodies %}{% if b.id == first %}<button class="go" type="button" data-3d-go>See it on a 3D car <span class="dt-3d-mb" data-3d-mb>{{ b.mb }} MB</span></button>{% endif %}{% endfor %}
+  <p class="dt-note" data-3d-msg aria-live="polite">{{ stg.note }}</p>
+  <p class="dt-3d-credit">3D cars by {% for b in detailCars.bodies %}<a href="{{ b.url }}" target="_blank" rel="noopener">{{ b.by }}</a> ({{ b.name | lower if b.name != "SUV" else "SUV" }}){% if loop.revindex == 2 %} and {% elif not loop.last %}, {% endif %}{% endfor %}, adapted, <a href="{{ detailCars.licenceUrl }}" target="_blank" rel="noopener">{{ detailCars.licence }}</a></p>
+</div>

@@ -1,0 +1,17 @@
+{#- The year in twelve plants: tall photographs side by side, one a month, January first. The month the site was built
+    stands open; the script opens the visitor's own month, and any other with a tap or the arrow keys, and tells the
+    studio's month below which month is open. Closed strips show a light crop; a strip loads its full photograph when it
+    opens. Without JavaScript the build month stays open. On phones only the open
+    month and two either side show, so each strip is wide enough to tap; the window moves with the open month. -#}
+{%- set now = build.today | monthOf %}
+<div class="gd-year" data-feature="the-year" role="group" aria-label="The garden year, month by month">
+  {%- for m in site.year.months %}
+  {%- set open = loop.index == now %}
+  {#- data-pos: where the strip sits counting from two months before the open one; phones show only 0–4 -#}
+  <button class="gd-m" type="button" data-month="{{ loop.index }}" data-pos="{{ (loop.index - now + 14) % 12 }}" aria-pressed="{{ 'true' if open else 'false' }}" aria-label="{{ gardenWords.months[loop.index0] }} {{ m.line }}">
+    <img class="gd-m-img" src="{{ (m.photo.src if open else m.strip.src) | img }}" data-full="{{ m.photo.src | img }}" alt="" width="{{ m.photo.width if open else m.strip.width }}" height="{{ m.photo.height if open else m.strip.height }}"{% if open %} fetchpriority="high"{% else %} loading="lazy"{% endif %} decoding="async">
+    <span class="gd-m-l" aria-hidden="true">{{ gardenWords.short[loop.index0] | first }}</span>
+    <span class="gd-m-open" aria-hidden="true"><strong class="gd-m-name">{{ gardenWords.months[loop.index0] }}</strong><span class="gd-m-line">{{ m.line }}</span></span>
+  </button>
+  {%- endfor %}
+</div>

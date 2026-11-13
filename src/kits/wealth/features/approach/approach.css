@@ -1,0 +1,14 @@
+.wm-ap { padding-bottom: clamp(80px, 9vw, 128px); }
+.wm-ap-steps { list-style: none; counter-reset: s; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 48px; }
+.wm-ap-steps li { counter-increment: s; border-top: 1px solid var(--accent); padding-top: 16px; scroll-margin-top: calc(var(--nav-h) + 24px); }
+.wm-ap-steps h2 { font: 300 clamp(1.4rem, 2.2vw, 1.9rem)/1.2 var(--font-display); margin: 0 0 8px; }
+.wm-ap-steps h2::before { content: counter(s) "  "; color: var(--muted); font-variant-numeric: tabular-nums; }
+.wm-ap-steps p { margin: 0; max-width: 52ch; }
+.wm-ap-fees { margin-top: clamp(72px, 8vw, 112px); max-width: 860px; }
+.wm-ap-fees h2 { font: 300 clamp(2rem, 3.4vw, 3rem)/1.1 var(--font-display); margin: 0 0 14px; }
+.wm-ap-t { width: 100%; border-collapse: collapse; margin: 24px 0; }
+.wm-ap-t th, .wm-ap-t td { text-align: left; vertical-align: top; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.wm-ap-t th { font-weight: 400; width: 38%; padding-right: 24px; }
+.wm-ap-note { color: var(--muted); font-size: 14px; }
+.wm-ap-go { margin-top: 48px; }
+@media (max-width: 760px) { .wm-ap-steps { grid-template-columns: 1fr; } .wm-ap-t th { width: auto; display: block; padding-bottom: 4px; border: 0; } .wm-ap-t td { display: block; padding-top: 0; } }

@@ -1,0 +1,29 @@
+/* The office band: the one deep colour on the page. */
+.wm-office { background: var(--band); color: var(--on-band); }
+main section.wm-office { padding-block: clamp(64px, 8vw, 104px); }
+.wm-office-in { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 24px 48px; align-items: center; }
+.wm-office h2 { font: 300 clamp(2rem, 3.4vw, 3.2rem)/1.1 var(--font-display); margin: 0 0 28px; color: inherit; }
+.wm-office-addr { font: 300 1.35rem/1.45 var(--font-display); margin: 0; }
+.wm-office-clock { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px 16px; margin: 32px 0; padding-block: 20px; border-block: 1px solid var(--band-line); }
+.wm-office-clock b { font: 300 clamp(2.8rem, 5vw, 4.4rem)/1 var(--font-display); font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+.wm-office-clock span, .wm-office-t2 { color: var(--band-muted); font-size: 15px; }
+.wm-office .is-open { color: var(--band-accent); }
+.wm-office-hrs { margin: 28px 0; border-collapse: collapse; font-size: 15px; }
+.wm-office-hrs th { text-align: left; font-weight: 300; color: var(--band-muted); padding: 4px 24px 4px 0; }
+.wm-office-facts { margin: 0; display: grid; grid-template-columns: 150px minmax(0, 1fr); row-gap: 10px; column-gap: 24px; font-size: 15px; }
+.wm-office-facts dt { color: var(--band-muted); }
+.wm-office-facts dd { margin: 0; }
+.wm-office-more { list-style: none; margin: 32px 0 0; padding: 0; border-top: 1px solid var(--band-line); }
+.wm-office-more li { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 5fr) auto; gap: 8px 20px; padding-block: 14px; border-bottom: 1px solid var(--band-line); font-variant-numeric: tabular-nums; }
+.wm-office-more b { font-weight: 400; }
+.wm-office-go { display: flex; gap: 24px; margin: 28px 0 0; }
+.wm-office-go a { color: var(--band-accent); text-decoration: none; }
+.wm-office-go a::after { content: " \2192"; }
+.wm-office-fig { margin: 0; }
+.wm-office-fig img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+@media (max-width: 900px) {
+  .wm-office-in { grid-template-columns: 1fr; }
+  .wm-office-facts { grid-template-columns: 1fr; row-gap: 0; }
+  .wm-office-facts dd { margin-bottom: 12px; }
+  .wm-office-more li { grid-template-columns: 1fr; }
+}

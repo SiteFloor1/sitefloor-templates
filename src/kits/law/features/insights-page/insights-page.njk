@@ -1,0 +1,5 @@
+{#- Insights: the firm's own dated notes as a reading room, newest first, each on its own page. Not advice. -#}
+{%- set ins = site.insights %}
+{%- set ph = { title: ins.title, intro: ins.intro } %}
+{% include "kits/law/partials/page-head.njk" %}
+{%- set pieces = ins.items | newestFirst %}{% set kind = "insight" %}{% include "kits/law/partials/pieces.njk" %}

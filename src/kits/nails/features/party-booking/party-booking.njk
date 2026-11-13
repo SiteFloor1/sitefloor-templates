@@ -1,0 +1,17 @@
+{#- Hen and bridal parties: the occasion, the date, how many, the treatments everyone wants, gathered into one WhatsApp
+    message. No payment, no account. -#}
+{%- set sec = site.sections.parties %}
+{%- set p = site.parties %}
+<section id="parties" class="nl-party" data-feature="party-booking"{{ "party-booking" | tierAttr | safe }}><div class="wrap nl-party-in">
+  {% include "core/partials/section-head.njk" %}
+  <p class="nl-party-p">{{ p.text }}</p>
+  <form class="nl-form" data-pa-form onsubmit="return false">
+    <fieldset class="nl-chips-set"><legend class="nl-lab">The occasion</legend><div class="nl-chips">{% for o in p.occasions %}<label class="nl-chip"><input type="radio" name="pa-occ" value="{{ o }}"{% if loop.first %} checked{% endif %}>{{ o }}</label>{% endfor %}</div></fieldset>
+    {%- set df = "pa" %}{% set dfLabel = "The day" %}{% include "kits/nails/partials/date-field.njk" %}
+    <label class="nl-field" for="pa-people"><span class="nl-lab">How many of you</span>
+      <select id="pa-people" data-pa-people>{% for n in range(p.min, p.max + 1) %}<option value="{{ n }}">{{ n }}</option>{% endfor %}</select></label>
+    <fieldset class="nl-chips-set"><legend class="nl-lab">What you'd like</legend><div class="nl-chips">{% for id in p.treatments %}{% set t = site.menu | menuItem(id) %}<label class="nl-chip"><input type="checkbox" name="pa-t" value="{{ t.name }}">{{ t.name }}</label>{% endfor %}</div></fieldset>
+    <label class="nl-field" for="pa-notes"><span class="nl-lab">Anything else</span><textarea id="pa-notes" rows="2" maxlength="300" data-pa-notes placeholder="A theme, a time of day, the bride's colour"></textarea></label>
+    <a class="nl-chipbook" data-pa-send href="{{ p.message | book }}" target="_blank" rel="noopener">Send it to us</a>
+  </form>
+</div></section>

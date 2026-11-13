@@ -1,0 +1,47 @@
+{#- The Table: set each guest's diet and allergies on a drawn table; every dish on the menu shows how many
+    of them can eat it (a dot per seat), the dishes the whole table can share come first, and the table
+    request carries the group. Only the restaurant's own marks and allergen chart are used. -#}
+{%- set sec = site.sections.theTable %}
+{%- set tb = site.table %}
+<section id="table" class="tb" data-feature="the-table" data-max="{{ tb.maxGuests }}" aria-labelledby="tb-h"{{ "the-table" | tierAttr | safe }}><div class="wrap">
+  <div class="sh rv"><div>{% if sec.kicker %}<span class="kick">{{ sec.kicker }}</span>{% endif %}<h2 id="tb-h">{{ sec.title | markup | safe }}</h2></div>{% if sec.intro %}<p>{{ sec.intro }}</p>{% endif %}</div>
+  <script type="application/json" data-tb-start>{{ (tb.start or []) | dump | replace("<", "\\u003c") | safe }}</script>
+  <details class="rs-drawer" data-drawer data-js-only>
+  <summary class="rs-drawer-sum"><span class="rs-drawer-t">Plan your table</span><span class="rs-drawer-n">Each guest's diet and allergies, dish by dish</span><span class="rs-drawer-i" aria-hidden="true"></span></summary>
+  <div class="tb-grid">
+    <div class="tb-left">
+      <div class="tb-board">
+        <svg class="tb-svg" data-tb-svg role="group" aria-label="Your table"></svg>
+        <div class="tb-ctl">
+          <button type="button" class="btn ghost tb-add" data-tb-add>Add a guest</button>
+          <button type="button" class="tb-del" data-tb-del>Remove this guest</button>
+        </div>
+      </div>
+      <div class="tb-edit" data-tb-edit aria-live="polite">
+        <p class="tb-who" data-tb-who>Guest 1</p>
+        <p class="rs-k">Eats</p>
+        <div class="rs-chips" data-tb-diets>{% for dt in food.diets %}<label class="rs-chip"><input type="checkbox" value="{{ dt.id }}">{{ dt.name }}</label>{% endfor %}</div>
+        <p class="rs-k">Avoids</p>
+        <div class="rs-chips" data-tb-avoid>{% for a in food.allergens %}<label class="rs-chip no"><input type="checkbox" value="{{ a.id }}">{{ a.name }}</label>{% endfor %}</div>
+      </div>
+      <p class="tb-sum" data-tb-sum aria-live="polite"></p>
+      <a class="btn tb-go" href="#book" data-tb-go>Ask for this table</a>
+      <p class="rs-small">{{ tb.note or "" }} We use our allergen chart for this; please still tell us about every allergy when you book.</p>
+    </div>
+    <div class="tb-right">
+      {%- if site.menu.sittings | length > 1 %}<div class="rs-tabs" role="tablist" aria-label="Menus">{% for s in site.menu.sittings %}<button type="button" class="rs-tab" role="tab" aria-selected="{{ 'true' if loop.first else 'false' }}" data-tb-tab="{{ s.id }}">{{ s.name }}</button>{% endfor %}</div>{% endif %}
+      <p class="tb-share" data-tb-share aria-live="polite"></p>
+      <ul class="tb-dishes" data-tb-dishes>
+        {%- for s in site.menu.sittings %}{% for sc in site.menu | sectionsFor(s.id) %}{% if not sc.drinks %}{% for d in sc.dishes %}
+        <li class="tb-dish" data-sit="{{ s.id }}" data-dish="{{ d.id }}" data-name="{{ d.name }}" data-diets="{{ (d.diets or []) | join(' ') }}" data-allergens="{{ d.allergens | join(' ') }}"{% if d.share %} data-share{% endif %}>
+          <div class="tb-d-top"><span class="tb-d-name">{{ d.name }}</span><span class="tb-d-price">{{ d.price | gbp }}</span></div>
+          <div class="tb-d-seats" data-tb-seats aria-hidden="true"></div>
+          <p class="tb-d-why" data-tb-why></p>
+        </li>
+        {%- endfor %}{% endif %}{% endfor %}{% endfor %}
+      </ul>
+    </div>
+  </div>
+  </details>
+  <p data-no-js>Tell us about everyone's diets and allergies when you book, and we'll talk you through the menu.</p>
+</div></section>

@@ -1,0 +1,28 @@
+{#- The handover (owner's fix 6): the car at your door at night, and the key passed over, the bloom used once on the key's
+    line. With "delivered-tonight" (Signature) the same scene becomes the request: choose the car, the dates and your
+    postcode and it assembles beneath (kits/hire/features/delivered-tonight). -#}
+{%- set sec = site.sections.handover %}{% set ho = site.hire.handover %}
+<section id="handover" class="hr-ho" data-feature="handover" aria-labelledby="hr-ho-h">
+  <div class="wrap hr-ho-grid">
+    <figure class="hr-ho-door">
+      <picture><source media="(max-width: 820px)" srcset="{{ ho.doorTall.src | img }}" width="{{ ho.doorTall.width }}" height="{{ ho.doorTall.height }}"><img src="{{ ho.door.src | img }}" alt="{{ ho.door.alt }}" width="{{ ho.door.width }}" height="{{ ho.door.height }}" loading="lazy" decoding="async" data-dt-scene></picture>
+    </figure>
+    <div class="hr-ho-copy">
+      <h2 class="dt-h" id="hr-ho-h">{{ sec.title | markup | safe }}</h2>
+      {%- if sec.intro %}<p class="dt-hr">{{ sec.intro }}</p>{% endif %}
+      <figure class="hr-ho-key"><img src="{{ ho.key.src | img }}" alt="{{ ho.key.alt }}" width="{{ ho.key.width }}" height="{{ ho.key.height }}" loading="lazy" decoding="async"></figure>
+      <dl class="hr-facts hr-ho-facts">
+        <dt>Delivery</dt><dd>{{ ho.window }}</dd>
+        <dt>Collection</dt><dd>{{ site.hire.delivery.collect }}</dd>
+        <dt>Deposit</dt><dd>{{ site.hire.deposit.how }} {{ site.hire.deposit.when }}</dd>
+      </dl>
+      {%- if ("handover-check" | enabled) or ("deposit-status" | enabled) %}
+      <p class="hr-ways">
+        {%- if "handover-check" | enabled %}<a class="hr-more" href="{{ 'handover-check' | href }}"{{ "handover-check" | tierAttr | safe }}>The handover checklist</a>{% endif %}
+        {%- if "deposit-status" | enabled %}<a class="hr-more" href="{{ 'deposit' | href }}"{{ "deposit-status" | tierAttr | safe }}>Where's my deposit</a>{% endif %}
+      </p>
+      {%- endif %}
+    </div>
+  </div>
+  {%- if "delivered-tonight" | enabled %}{% include "kits/hire/features/delivered-tonight/delivered-tonight.njk" %}{% endif %}
+</section>

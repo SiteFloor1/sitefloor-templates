@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: journey
+permalink: journey.html
+feature: smile-journey
+eleventyComputed:
+  title: "{{ site.journeyPage.title | plain }}"
+  description: "Every treatment at {{ site.business.name }}, visit by visit."
+---
+{% include "kits/smile/features/smile-journey/smile-journey.njk" %}

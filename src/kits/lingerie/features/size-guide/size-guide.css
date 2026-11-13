@@ -1,0 +1,14 @@
+/* Size guide: the steps beside a grid; each cell a mark, the words for screen readers. */
+.sg-in { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--s3); align-items: start; }
+.sg-how { margin: 18px 0 0; padding-left: 1.2em; display: grid; gap: 8px; }
+.sg-table-wrap { overflow-x: auto; }
+.sg-table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+.sg-table caption { text-align: left; padding-bottom: 12px; caption-side: top; }
+.sg-table th, .sg-table td { padding: 0; height: 34px; text-align: center; border: 1px solid var(--line); }
+.sg-table td { position: relative; }
+.sg-stock::before, .sg-order::before { content: ""; display: block; margin: auto; width: 10px; height: 10px; border-radius: 50%; }
+.sg-stock::before { background: var(--accent); }
+.sg-order::before { border: 1px solid var(--accent); }
+.sg-key::before { display: inline-block; vertical-align: middle; margin: 0 6px 2px 12px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (max-width: 860px) { .sg-in { grid-template-columns: 1fr; } }

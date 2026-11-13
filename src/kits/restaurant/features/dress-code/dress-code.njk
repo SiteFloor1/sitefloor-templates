@@ -1,0 +1,12 @@
+{#- The dress code and etiquette card, in the café's own words, with the date it was last checked. No script. -#}
+{%- set sec = site.sections.dressCode %}
+{%- set dc = site.dressCode %}
+<section id="dress-code" class="dc" data-feature="dress-code" aria-labelledby="dc-h"{{ "dress-code" | tierAttr | safe }}><div class="wrap">
+  <div class="dc-card">
+    <h2 id="dc-h" class="dc-h">{{ sec.title | markup | safe }}</h2>
+    <p class="dc-sum">{{ dc.summary }}</p>
+    <ul class="dc-rules">{% for r in dc.rules %}<li>{{ r }}</li>{% endfor %}</ul>
+    {%- if dc.etiquette %}<ul class="dc-etq">{% for r in dc.etiquette %}<li>{{ r }}</li>{% endfor %}</ul>{% endif %}
+    <p class="dc-checked">Checked {{ dc.checked | longDate }}</p>
+  </div>
+</div></section>

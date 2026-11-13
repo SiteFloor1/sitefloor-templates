@@ -1,0 +1,14 @@
+---
+layout: core/layouts/base.njk
+feature: build-journal
+pagination:
+  data: site.journal.items
+  size: 1
+  alias: a
+permalink: "{{ a.id }}.html"
+eleventyComputed:
+  pageId: "{{ a.id }}"
+  title: "{{ a.title }}"
+  description: "{{ a.summary }}"
+---
+{% include "kits/construction/features/build-journal/article.njk" %}

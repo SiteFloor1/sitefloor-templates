@@ -1,0 +1,18 @@
+/* The gardens page and a garden's story. The grid is the gardens feature's. */
+.gd-gp { padding-top: 0; }
+.gd-st-hero { margin: 0; }
+.gd-st-hero img { display: block; width: 100%; height: auto; max-height: 78vh; aspect-ratio: 16 / 9; object-fit: cover; }
+.gd-st-facts { display: flex; flex-wrap: wrap; gap: 8px 40px; margin: 20px 0 0; color: var(--muted); font-style: italic; }
+.gd-st-body { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 24px clamp(32px, 6vw, 96px); padding-top: 56px; }
+.gd-st-brief { margin: 0; font-family: var(--font-display); font-style: italic; font-size: clamp(26px, 2.6vw, 34px); line-height: 1.2; }
+.gd-st-tx p { margin: 0 0 1em; max-width: 58ch; }
+.gd-st-more { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; padding-top: 56px; }
+.gd-st-more img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+.gd-st-lists { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; padding-top: 56px; }
+.gd-st-lists h2 { margin: 0 0 12px; font-size: 30px; font-style: italic; }
+.gd-st-lists ul { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--text); }
+.gd-st-lists li { padding: 10px 0; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; gap: 16px; }
+.gd-st-lists li span { color: var(--muted); font-style: italic; text-align: right; }
+.gd-st-go { display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: center; padding-top: 56px; }
+@media (max-width: 760px) { .gd-st-body, .gd-st-more, .gd-st-lists { grid-template-columns: 1fr; } }
+.gd-gp-kinds { display: flex; flex-wrap: wrap; gap: 4px 32px; margin: 48px 0 0; padding-top: 20px; border-top: 1px solid var(--line); }

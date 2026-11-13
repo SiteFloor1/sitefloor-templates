@@ -1,0 +1,10 @@
+{#- How your project runs: the client's stages, from the first visit to the certificates, each with when it happens. -#}
+{%- set sec = site.sections.steps %}
+<section id="steps" class="el-steps" data-feature="project-steps" aria-label="{{ sec.title | plain }}"><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <ol class="el-steps-list">
+    {%- for s in site.steps.items %}
+    <li class="el-step"><p class="el-step-w">{{ s.when }}</p><h3>{{ s.title }}</h3><p>{{ s.text }}</p></li>
+    {%- endfor %}
+  </ol>
+</div></section>

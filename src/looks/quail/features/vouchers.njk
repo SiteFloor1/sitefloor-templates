@@ -1,0 +1,34 @@
+{#- Quail vouchers: the amounts as flat tiles, like swatches on a rail; the voucher itself as the house's shade card,
+    the amount where a shade's name would be. -#}
+{%- set sec = site.sections.vouchers %}
+{%- set v = site.vouchers %}
+<section id="vouchers" class="ql-vc" data-feature="vouchers"{{ "vouchers" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="ql-vc-in">
+    <div class="ql-vc-card rv" aria-live="polite">
+      <p class="ql-vc-k">{{ site.business.name }} · Gift</p>
+      <p class="ql-vc-amt" data-vc-show-amount>{{ (v.amounts[1] or v.amounts[0]) | pounds }}</p>
+      <p class="ql-vc-to" data-vc-show-to>Gift voucher</p>
+      <p class="ql-vc-note" data-vc-show-note></p>
+      <p class="ql-vc-small">Valid {{ v.validMonths }} months · {{ site.location.streetAddress }}, {{ site.location.locality }}</p>
+    </div>
+    <form class="ql-vc-form rv" data-vc-form>
+      <div data-js-only>
+      <fieldset class="ql-vc-amts">
+        <legend>Amount</legend>
+        {%- for a in v.amounts %}<label><input type="radio" name="vc-amount" value="{{ a }}"{% if loop.index0 == 1 or v.amounts.length == 1 and loop.first %} checked{% endif %}><span>{{ a | pounds }}</span></label>{% endfor %}
+        {%- if v.custom %}<label><input type="radio" name="vc-amount" value="custom"><span>Other</span></label>{% endif %}
+      </fieldset>
+      {%- if v.custom %}<input class="ql-vc-custom" type="number" inputmode="numeric" min="{{ v.custom.min }}" max="{{ v.custom.max }}" step="1" placeholder="£{{ v.custom.min }}–{{ v.custom.max }}" aria-label="Other amount in pounds" data-vc-custom hidden>{% endif %}
+      <label class="nl-field">For <input type="text" maxlength="40" autocomplete="off" data-vc-to placeholder="Their name"></label>
+      <label class="nl-field">From <input type="text" maxlength="40" autocomplete="name" data-vc-from placeholder="Your name"></label>
+      <label class="nl-field">A line for the card <input type="text" maxlength="90" autocomplete="off" data-vc-note placeholder="Happy birthday"></label>
+      <p class="ql-vc-err" data-vc-err role="alert" hidden></p>
+      </div>
+      <p class="ql-fine" data-no-js>Message us the amount, who it's for and a line for the card.</p>
+      <a class="ql-led-book" href="{{ 'Hi, I would like to buy a gift voucher. How can I pay?' | wa }}" target="_blank" rel="noopener" data-vc-order>Order on WhatsApp</a>
+      <p class="ql-fine">{{ v.howToBuy }}</p>
+    </form>
+  </div>
+  <p class="ql-fine">{{ v.terms }}</p>
+</div></section>

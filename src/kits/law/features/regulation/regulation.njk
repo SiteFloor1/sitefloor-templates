@@ -1,0 +1,13 @@
+{#- Regulation in plain sight: the regulator, the SRA number, how to complain and the published prices, set as a
+    plate. Always on for a law firm. -#}
+{%- set sec = site.sections.regulation %}
+<section id="regulation" class="lw-reg" aria-label="{{ sec.title | plain if sec else 'Regulation' }}"><div class="wrap lw-reg-in">
+  <h2 class="lw-reg-t">{{ (sec.title if sec else "A private firm, openly regulated.") | markup | safe }}</h2>
+  <dl class="lw-plate">
+    <div class="lw-plate-row"><dt>Regulator</dt><dd><a href="{{ regulator.sra.url }}" rel="noopener">Solicitors Regulation Authority</a></dd></div>
+    <div class="lw-plate-row"><dt>SRA number</dt><dd>{{ site.regulation.sraNumber }}{% if site.mode == "demo" %} (demo){% endif %}</dd></div>
+    <div class="lw-plate-row"><dt>Firm</dt><dd>{{ site.regulation.legalName }}, {{ site.regulation.entity }}</dd></div>
+    <div class="lw-plate-row"><dt>Complaints</dt><dd><a href="{{ 'complaints' | href }}">Our procedure, the Legal Ombudsman and the SRA</a></dd></div>
+    {%- if "pricing" | enabled %}<div class="lw-plate-row"><dt>Prices</dt><dd><a href="{{ 'pricing' | href }}">{{ site.pricing.title }}</a></dd></div>{% endif %}
+  </dl>
+</div></section>

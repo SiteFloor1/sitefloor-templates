@@ -1,0 +1,28 @@
+{#- Inside the band: type the words and see them set along the inside of a band in the house's photograph, in its
+    letter styles and within its letter limit; then ask for it on WhatsApp. Set `bandPiece` (or leave it for a general
+    band). Without JavaScript, the house's note and a plain request. -#}
+{%- set E = site.engraving %}
+{%- set bp = bandPiece %}
+{%- set first = "Hello " + site.business.name + ", I'd like to ask about engraving" + (" " + bp.name if bp else " a band") + "." %}
+<section class="nc-sec jw-eng" data-feature="inside-the-band"{{ "inside-the-band" | tierAttr | safe }} data-max="{{ E.max }}" data-piece="{{ bp.name if bp else 'a band' }}" aria-labelledby="jw-eng-h"><div class="wrap jw-eng-in">
+  <div class="jw-eng-t">
+    <h2 class="jw-h" id="jw-eng-h">Inside the band</h2>
+    <p class="nc-body">{{ E.note }}</p>
+    <div data-js-only>
+      <label class="nc-field"><span class="nc-label">The words, up to {{ E.max }} letters</span><input class="nc-in" type="text" maxlength="{{ E.max }}" autocomplete="off" spellcheck="false" data-eng-text value="Always, A. 14.02.27"></label>
+      <fieldset class="nc-choice"><legend class="nc-label">Lettering</legend>
+        {%- for s in E.styles %}<label><input type="radio" name="eng-style-{{ bp.id if bp else 'band' }}" value="{{ s.id }}" data-label="{{ s.label }}"{% if loop.first %} checked{% endif %}><span>{{ s.label }}</span></label>{% endfor %}
+      </fieldset>
+      <p class="nc-fine" data-eng-left aria-live="polite"></p>
+    </div>
+    <p class="jw-acts"><a class="nc-u nc-label" href="{{ first | wa }}" data-wa-text="{{ first }}" target="_blank" rel="noopener" data-eng-send>Ask for this engraving</a></p>
+  </div>
+  <figure class="jw-eng-ph">
+    <img src="{{ E.photo.src | img }}" width="{{ E.photo.width }}" height="{{ E.photo.height }}" loading="lazy" decoding="async" alt="{{ E.photo.alt }}">
+    <svg class="jw-eng-svg" viewBox="0 0 {{ E.photo.width }} {{ E.photo.height }}" aria-hidden="true" data-js-only>
+      <defs><path id="eng-path-{{ bp.id if bp else 'band' }}" d="{{ E.path }}"/></defs>
+      <text class="jw-eng-w" data-eng-svg data-style="{{ E.styles[0].id }}"><textPath href="#eng-path-{{ bp.id if bp else 'band' }}" startOffset="50%" text-anchor="middle" data-eng-show>Always, A. 14.02.27</textPath></text>
+    </svg>
+    <figcaption class="sr-only" data-eng-say aria-live="polite"></figcaption>
+  </figure>
+</div></section>

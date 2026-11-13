@@ -1,0 +1,5 @@
+{#- Mantel phone bar: a block in this week's colour; today's delivery state on the left, Order on the right. -#}
+<div class="mbar mt-bar">
+  <span class="mt-bar-now" data-sd-bar>{% if site.delivery %}Same-day: {{ site.delivery.cutoffs | cutoffGroups }}{% else %}{{ site.location.locality }}{% endif %}</span>
+  <a class="mt-bar-go" href="{{ site.messages.order | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.order }}"{% endif %} target="_blank" rel="noopener">Order</a>
+</div>

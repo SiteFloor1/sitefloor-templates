@@ -1,0 +1,17 @@
+/* The pâtisserie window: the pieces large, the box beside them. Looks restyle freely. */
+.wn-pieces { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr)); gap: 24px; }
+.wn-ph { margin: 0; }
+.wn-ph img { width: 100%; height: auto; display: block; }
+.wn-n { display: flex; justify-content: space-between; gap: 12px; margin: 10px 0 0; font-family: var(--font-display); }
+.wn-d, .wn-a { margin: 2px 0 0; color: var(--muted); font-size: .85rem; }
+.wn-out { color: var(--accent); }
+.wn-piece.is-out .wn-ph img { opacity: .45; }
+.wn-q { display: flex; align-items: center; gap: 12px; margin-top: 8px; }
+.wn-q button { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--line-2); background: none; color: var(--text); cursor: pointer; }
+.wn-q button:disabled { opacity: .35; cursor: default; }
+.wn-sizes { border: 0; margin: 0; padding: 0; display: grid; gap: 6px; }
+.wn-sizes label { display: flex; gap: 10px; }
+.wn-sizes b { margin-left: auto; font-weight: 400; }
+.wn-l { display: grid; gap: 4px; margin-top: 12px; }
+.wn-steps { margin: 16px 0 0; padding-left: 1.2em; display: grid; gap: 10px; }
+.wn-steps a[aria-disabled="true"] { opacity: .45; }

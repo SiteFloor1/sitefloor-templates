@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: pieces
+permalink: pieces.html
+feature: jewel-pages
+eleventyComputed:
+  title: "{{ site.piecesPage.title | plain }}"
+  description: "{{ site.piecesPage.description or ('Every piece from ' + site.business.name + ', ' + site.location.locality + ', by collection: seen by private appointment.') }}"
+---
+{% include "kits/jeweller/features/jewel-pages/jewel-pages.njk" %}

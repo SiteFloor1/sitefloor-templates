@@ -1,0 +1,14 @@
+{#- Before you book: the consultation's facts and what to bring, in the studio's words, and one Book link. -#}
+{%- set sec = site.sections.beforeBook %}
+{%- set c = site.consultation %}
+<section id="before-you-book" class="sm-bb" data-feature="smile-before-book" aria-label="{{ sec.title | plain }}"{{ 'smile-before-book' | tierAttr | safe }}><div class="wrap sm-bb-in">
+  {%- include "core/partials/section-head.njk" %}
+  <div class="sm-bb-card rv">
+    <dl class="sm-facts">
+      {%- for f in c.facts %}<div><dt>{{ f.label }}</dt><dd>{{ f.value }}</dd></div>{% endfor %}
+    </dl>
+    {%- if c.bring %}<p class="sm-bb-bring"><b>Bring</b> {{ c.bring | join(", ") }}.</p>{% endif %}
+    <p class="sm-bb-go"><a class="go" href="{{ c.message | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ c.message }}"{% endif %} target="_blank" rel="noopener">Book a consultation</a>
+      {%- if "smile-consultation-page" | enabled %} <a class="sm-quiet" href="{{ 'consultation' | href }}"{{ 'smile-consultation-page' | tierAttr | safe }}>What happens at a consultation</a>{% endif %}</p>
+  </div>
+</div></section>

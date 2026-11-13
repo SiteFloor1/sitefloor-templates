@@ -1,0 +1,14 @@
+{#- Cacao reviews: the words in the display face, one after another along a line; who and when beneath; the stars small. -#}
+{%- set sec = site.sections.reviews %}
+<section id="reviews" class="sec-reviews cc-reviews" data-feature="reviews"{{ "reviews" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="cc-quotes" tabindex="0" role="region" aria-label="Reviews, scrolls sideways">
+    {%- for r in site.reviews.items %}
+    <figure class="rev">
+      <blockquote><p>{{ r.text }}</p></blockquote>
+      <figcaption>{{ r.author }}, {{ r.date | monthYear }} <span class="st"><span aria-hidden="true">{{ r.rating | stars }}</span><span class="sr-only">Rated {{ r.rating }} out of 5</span></span></figcaption>
+    </figure>
+    {%- endfor %}
+  </div>
+  {%- if site.reviews.source == "sample" %}<p class="cc-fine">Sample reviews for the demo. On a live site these are the shop's own Google reviews, with the name and month.</p>{% endif %}
+</div></section>

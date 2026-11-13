@@ -1,0 +1,8 @@
+/* Take-home gelato. Structure only; tokens only. */
+.gt-sizes { display: flex; flex-wrap: wrap; gap: 8px; }
+.gt-size { position: relative; display: grid; cursor: pointer; }
+.gt-size input { position: absolute; opacity: 0; pointer-events: none; }
+.gt-fl { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 8px; }
+.gt-f { display: grid; gap: 6px; width: 100%; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.gt-f img { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; }
+.gt-f[aria-disabled], .gt-f:disabled { cursor: default; }

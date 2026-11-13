@@ -1,0 +1,17 @@
+{#- Before you call: the home's age, the rooms, what's wanted and a note, sent as one WhatsApp message (with a
+    reminder to attach a photo of the fuse board), so the first visit can bring a quote. -#}
+{%- set sec = site.sections.beforeCall %}
+{%- set b = site.beforeYouCall %}
+<section id="before-you-call" class="el-bc" data-feature="before-you-call" aria-label="{{ sec.title | plain }}"><div class="wrap el-bc-in">
+  <div>{% include "core/partials/section-head.njk" %}</div>
+  <form class="el-bc-form" data-bc-form>
+    <label for="bc-age"><span>How old is the house?</span><select id="bc-age" data-bc-age>{% for a in b.ages %}<option>{{ a }}</option>{% endfor %}</select></label>
+    <label for="bc-rooms"><span>Which rooms?</span><input id="bc-rooms" data-bc-rooms maxlength="120" placeholder="Kitchen, living room, garden"></label>
+    <fieldset><legend>What you'd like</legend><div class="el-seg">
+      {%- for g in b.goals %}<label><input type="checkbox" name="bc-goal" value="{{ g }}"><span>{{ g }}</span></label>{% endfor %}
+    </div></fieldset>
+    <label for="bc-note"><span>Anything else</span><textarea id="bc-note" rows="3" maxlength="400" data-bc-note placeholder="When you'd like it done, parking, access"></textarea></label>
+    <p class="el-bc-photo">Then attach a photo of your fuse board in WhatsApp, door open. It tells us more than anything else.</p>
+    <a class="go" data-bc-send href="{{ b.message | wa }}" target="_blank" rel="noopener">Send it on WhatsApp</a>
+  </form>
+</div></section>

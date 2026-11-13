@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: celebrations
+permalink: celebrations.html
+feature: celebrations-page
+eleventyComputed:
+  title: "{{ site.ranges.celebrations.title | plain }}"
+  description: "Celebration cakes by {{ site.business.name }}, {{ site.location.locality }}: prices, cakes and questions."
+---
+{% include "kits/cakes/features/range-pages/celebrations-page.njk" %}

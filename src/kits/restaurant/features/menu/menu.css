@@ -1,0 +1,42 @@
+/* The menu card (home). Tokens only. */
+.mn { padding-block: 0; }
+.mn-card { background: var(--card); color: var(--card-ink); padding: clamp(22px, 4vw, 52px) clamp(18px, 4vw, 56px); transition: background-color var(--mood-fade), color var(--mood-fade); }
+.mn-top { display: grid; gap: 6px; text-align: center; justify-items: center; }
+.mn-title { font-family: var(--font-display); font-weight: 400; font-size: clamp(30px, 4vw, 46px); line-height: 1; margin: 2px 0 0; }
+.mn-kitchen { margin: 4px 0 0; font-size: 14px; color: var(--muted); min-height: 1.55em; }
+.mn-kitchen[data-state="last"] { color: var(--accent); font-weight: 600; }
+.mn-tabs { margin-top: 10px; justify-content: center; max-width: 100%; }
+.mn-filters { display: grid; gap: 10px; justify-items: center; margin: 18px 0 6px; padding: 14px 0; border-block: 1px solid var(--line); }
+.mn-avoid { width: 100%; text-align: center; }
+.mn-avoid summary { cursor: pointer; font-size: 13.5px; color: var(--muted); list-style: none; display: inline-flex; align-items: center; gap: 6px; min-height: 32px; }
+.mn-avoid summary::-webkit-details-marker { display: none; }
+.mn-avoid summary::after { content: "+"; font-size: 16px; }
+.mn-avoid[open] summary::after { content: "–"; }
+.mn-avoid .rs-chips { justify-content: center; margin-top: 8px; }
+.mn-filters > .rs-chips { justify-content: center; }
+.mn-hidden { margin: 0; min-height: 1.4em; }
+.mn-when { text-align: center; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--dim); margin: 22px 0 0; }
+.mn-sitting:not([hidden]) + .mn-sitting { margin-top: 36px; padding-top: 10px; border-top: 1px solid var(--line); }
+:root[data-sitting] .mn-when { display: none; }
+.mn-sec { margin-top: clamp(22px, 3vw, 34px); }
+.mn-sec h3 { text-align: center; font-family: var(--font-body); font-weight: 600; font-size: 12px; letter-spacing: .28em; text-transform: uppercase; margin: 0 0 4px; color: var(--accent); }
+.mn-note { text-align: center; margin: 0 0 6px; font-size: 13.5px; color: var(--dim); font-style: italic; }
+.mn-list { list-style: none; margin: 0; padding: 0; }
+.mn-list .rs-dish + .rs-dish { border-top: 1px solid var(--line); }
+.mn-none { text-align: center; margin: 8px 0; }
+.mn-foot { margin-top: 30px; padding-top: 18px; border-top: 1px solid var(--line); display: grid; gap: 8px; font-size: 13.5px; color: var(--muted); text-align: center; justify-items: center; }
+.mn-foot p { margin: 0; max-width: 62ch; }
+.mn-key { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; color: var(--dim); }
+.mn-more { font-weight: 600; color: var(--text); }
+@media (min-width: 1100px) {
+  .mn-sitting { columns: 2; column-gap: 52px; }
+  .mn-sec { break-inside: avoid; margin-top: 0; padding-top: clamp(22px, 3vw, 34px); }
+  .mn-when { column-span: all; }
+}
+/* The controls need JavaScript. The head script sets data-sitting before the first paint when it runs, so they
+   take their place from the start instead of appearing (and moving the menu) when the menu's script starts. */
+.mn-kitchen, .mn-tabs, .mn-filters { display: none; }
+:root[data-sitting] .mn-kitchen { display: block; }
+:root[data-sitting] .mn-tabs { display: flex; }
+:root[data-sitting] .mn-filters { display: grid; }
+.mn-links { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; justify-content: center; margin-top: 6px; }

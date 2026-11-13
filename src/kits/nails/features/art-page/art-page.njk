@@ -1,0 +1,25 @@
+{#- Nail art: the salon's sets by shape, length and level, each with its time and price and "Ask for this". Without
+    JavaScript every set shows. -#}
+{%- set ph = site.artPage %}
+{% include "kits/nails/partials/page-head.njk" %}
+<section id="art" class="nl-art" data-feature="art-page"><div class="wrap">
+  <div class="nl-art-f" data-ar-filter hidden>
+    <div class="nl-chips" role="group" aria-label="Shape"><button type="button" class="nl-chip" aria-pressed="true" data-k="shape" data-v="">Any shape</button>{% for s in site.art | usedShapes %}<button type="button" class="nl-chip" aria-pressed="false" data-k="shape" data-v="{{ s.id }}">{{ s.label }}</button>{% endfor %}</div>
+    <div class="nl-chips" role="group" aria-label="Length"><button type="button" class="nl-chip" aria-pressed="true" data-k="length" data-v="">Any length</button>{% for s in site.art | usedLengths %}<button type="button" class="nl-chip" aria-pressed="false" data-k="length" data-v="{{ s.id }}">{{ s.label }}</button>{% endfor %}</div>
+  </div>
+  <dl class="nl-levels">{% for l in site.art.levels %}<div><dt>{{ l.name }}</dt><dd>{{ l.text }}</dd></div>{% endfor %}</dl>
+  <ul class="nl-art-grid" role="list">
+    {%- for x in site.art.items %}
+    <li class="nl-art-i" data-shape="{{ x.shape }}" data-length="{{ x.length }}"><figure>
+      <img src="{{ x.photo.src | img }}" alt="{{ x.photo.alt }}" width="{{ x.photo.width }}" height="{{ x.photo.height }}" loading="lazy" decoding="async">
+      <figcaption>
+        <b>{{ x.name }}</b>
+        <span>{{ (site.art | level(x.level)).name }} · {{ nailWords.shapes[x.shape] }}, {{ nailWords.lengths[x.length] | lower }}</span>
+        <span class="nl-art-f2">{{ x.minutes | timeWords }} · {{ x.price | price(x.from) }}</span>
+        <a class="nl-link" href="{{ (site.art.message + ' I would like the ' + x.name + ' set from your gallery.') | book }}" target="_blank" rel="noopener" data-usual="{{ x.name }}">Ask for this</a>
+      </figcaption>
+    </figure></li>
+    {%- endfor %}
+  </ul>
+  <p class="nl-art-none" data-ar-none hidden>Nothing in that shape and length yet. Message us: most sets can be made in any shape.</p>
+</div></section>

@@ -1,0 +1,20 @@
+{#- Is my date free? The wedding date in; the artist's diary answers. The darkest-day line sits under it when on. -#}
+{%- set sec = site.sections.dates %}
+{%- set dc = site.dateCheck %}
+<section id="date" class="mh-dc" data-feature="mehndi-dates" aria-labelledby="mh-dc-h"><div class="wrap mh-dc-in">
+  <div class="mh-dc-head">
+    <h2 class="mh-dc-h" id="mh-dc-h">{{ sec.title | markup | safe }}</h2>
+    {%- if dc.lead %}<p class="mh-dc-lead">{{ dc.lead }}</p>{% endif %}
+  </div>
+  <div class="mh-dc-form">
+    {%- set df = "dc" %}{% set dfLabel = "Your wedding date" %}{% include "kits/mehndi/partials/date-field.njk" %}
+    <p class="mh-dc-out" data-dc-out data-state="idle" aria-live="polite">Choose the day to see it in the diary.</p>
+    <a class="mh-solid" data-dc-ask href="{{ dc.message | dateText | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ dc.message | dateText }}"{% endif %} target="_blank" rel="noopener">Ask about this date</a>
+    {%- if "darkest-day" | enabled %}
+    <div class="mh-dd" data-feature="darkest-day"{{ "darkest-day" | tierAttr | safe }}>
+      <p class="mh-dd-line" data-dd-out aria-live="polite">Choose your date, and we'll name the evening for your mehndi.</p>
+      <p class="mh-fine">{{ site.darkest.text }}</p>
+    </div>
+    {%- endif %}
+  </div>
+</div></section>

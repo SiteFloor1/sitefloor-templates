@@ -1,0 +1,25 @@
+{#- Packages by the size of your car: the sizes as a switch, then each package with what it includes, its "from"
+    price for the chosen size and how many days the car stays. The prices for every size are in the markup, so the
+    switch only swaps text; without JavaScript the first size shows. -#}
+{%- set sec = site.sections.packages %}
+{%- set first = site.sizes[0].id %}
+<section id="packages" class="dt-pk" data-feature="packages" aria-label="{{ sec.title | plain }}"><div class="wrap">
+  <div class="dt-pk-top">
+    {%- include "core/partials/section-head.njk" %}
+    <fieldset class="dt-sizes">
+      <legend class="dt-sizes-l">Your car</legend>
+      {%- for s in site.sizes %}<label class="dt-size"><input type="radio" name="dt-size-pk" value="{{ s.id }}" data-size-pick{% if loop.first %} checked{% endif %}><span>{{ s.name }}</span></label>{% endfor %}
+    </fieldset>
+  </div>
+  <ol class="dt-pk-list">
+    {%- for p in site.packages.items %}
+    <li class="dt-pk-i">
+      <h3 class="dt-pk-n">{{ p.name }}</h3>
+      <p class="dt-pk-line">{{ p.line }}</p>
+      {%- if p.includes %}<ul class="dt-pk-inc">{% for x in p.includes %}<li>{{ x }}</li>{% endfor %}</ul>{% endif %}
+      <p class="dt-pk-p"><span class="dt-pk-from">from</span> <b data-size-price="{{ p.prices | dump }}">{{ (p | priceIn(first)) or "Ask us" }}</b> <span class="dt-pk-d">{{ p.days | daysLabel }}</span></p>
+    </li>
+    {%- endfor %}
+  </ol>
+  {%- if site.packages.note %}<p class="dt-note">{{ site.packages.note }}</p>{% endif %}
+</div></section>

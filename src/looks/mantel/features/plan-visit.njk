@@ -1,0 +1,55 @@
+{#- Mantel "the studio door": the address set large like the seal's engraving, the live status, then each way here as a
+    ruled row that opens to its steps; parking, access and paying as notes for the door; the hours; every question.
+    Same hooks as the shared page (live status, parking), no tabs or "leave by": you don't book a time at a florist. -#}
+{%- set v = site.visitInfo %}
+{%- set journeys = v.journeys or [] %}
+{%- set parking = v.parking or [] %}
+{%- set ph = { kicker: v.kicker, title: v.title, intro: v.intro } %}
+{% include "kits/florist/partials/page-head.njk" %}
+<div data-feature="plan-visit">
+<section class="mt-door"><div class="wrap mt-door-in">
+  <div class="mt-door-a">
+    <p class="mt-door-addr">{{ site.location.streetAddress }}<br>{{ site.location.locality }}<br>{{ site.location.postcode }}</p>
+    <p class="mt-door-now" data-live-status><span class="dot" aria-hidden="true"></span><span data-status-text>Hours below</span></p>
+    <a class="fl-link" href="{{ site.location | directions }}" target="_blank" rel="noopener">Open in Google Maps</a>
+  </div>
+  {%- if journeys.length %}
+  <div class="mt-ways">
+    <h2 class="mt-k" id="pv-j-h">Ways here</h2>
+    {%- for j in journeys %}
+    <details class="mt-way">
+      <summary><b>{{ j.from }}</b><span>{% if (j.mode | modeWords).about %}about {% endif %}{{ j.minutes }} min {{ (j.mode | modeWords).verb }}</span></summary>
+      <ol>{% for step in j.steps %}<li>{{ step }}</li>{% endfor %}<li>{{ site.business.name }}, {{ site.location.streetAddress }}</li></ol>
+      <a class="fl-link" href="{{ j | directionsFor }}" target="_blank" rel="noopener">Directions from {{ j.from }}</a>
+    </details>
+    {%- endfor %}
+    {%- if site.mode == "demo" %}<p class="mt-fine">Example journeys for a fictional studio.</p>
+    {%- elif v.checked %}<p class="mt-fine">Checked with {{ site.business.name }} in {{ v.checked | checkedText }}.</p>{% endif %}
+  </div>
+  {%- endif %}
+</div></section>
+{%- if parking.length or v.access or v.payment %}
+<section class="mt-notes" aria-label="Parking, access and paying"><div class="wrap">
+  <dl class="mt-notes-l">
+    {%- for c in parking %}
+    <div><dt>{{ c.name }}</dt><dd><span data-parking="{{ loop.index0 }}">{% if c.walk is defined %}{{ c.walk }} min walk{% endif %}</span>. {{ c | parkingSummary }}{% if c.note %} {{ c.note }}{% endif %}</dd></div>
+    {%- endfor %}
+    {%- if v.access %}
+    <div><dt>Getting in</dt><dd>{% for a in v.access %}{{ a.label }}: {{ "yes" if a.yes else "no" }}{% if not loop.last %}. {% endif %}{% endfor %}.{% if v.accessNote %} {{ v.accessNote }}{% endif %}</dd></div>
+    {%- endif %}
+    {%- if v.payment %}<div><dt>Paying</dt><dd>{{ v.payment }}</dd></div>{% endif %}
+  </dl>
+</div></section>
+{%- endif %}
+</div>
+{%- set visitHeading = false %}
+{% include "features/visit/visit.njk" %}
+{%- set groups = site | questionTopics %}
+{%- if groups.length %}
+<section class="mt-qs" id="questions" aria-labelledby="allq-h"><div class="wrap">
+  <h2 class="mt-qs-h" id="allq-h">What people ask us</h2>
+  {%- for g in groups %}
+  <div class="mt-qs-g"><h3>{{ g.topic }}</h3><div>{% for item in g.items %}<details class="mt-q"><summary>{{ item.q }}</summary><p>{{ item.a }}</p></details>{% endfor %}</div></div>
+  {%- endfor %}
+</div></section>
+{%- endif %}

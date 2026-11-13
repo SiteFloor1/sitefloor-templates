@@ -1,0 +1,25 @@
+{#- The look book: the salon's own work, filtered by cut, colour, texture or occasion. Each look names its stylist and
+    the price from, with "Ask for this look" on WhatsApp. Without JavaScript every look shows. -#}
+{%- set l = site.looks %}
+{%- set ph = { title: "Look book", intro: "The salon's own work. Each one names who did it." } %}
+{% include "kits/hair/partials/page-head.njk" %}
+<section class="hr-lb" data-feature="look-book" aria-label="Looks"><div class="wrap">
+  <div class="hr-lb-f" role="group" aria-label="Show">
+    <button type="button" class="hr-opt" data-lb-f="all" aria-pressed="true">All</button>
+    {%- for f in l | usedTags %}<button type="button" class="hr-opt" data-lb-f="{{ f.id }}" aria-pressed="false">{{ f.name }}</button>{% endfor %}
+  </div>
+  <ul class="hr-lb-grid">
+    {%- for x in l.items %}
+    {%- set who = site.stylists.items | idOf(x.stylist) %}
+    {%- set s = site.menu.services | idOf(x.service) if x.service else null %}
+    <li class="hr-lb-one" data-tags="{{ x.tags | join(' ') }}">
+      <figure><img src="{{ x.photo.src | img }}" alt="{{ x.photo.alt }}" width="{{ x.photo.width }}" height="{{ x.photo.height }}" loading="lazy" decoding="async"></figure>
+      <h2 class="hr-lb-n">{{ x.name }}</h2>
+      <p class="hr-lb-w">{{ who.name }}, {{ (site.menu.levels | idOf(who.level)).name | lower }}{% if s %} · {{ s | fromWords }}{% endif %}</p>
+      <a class="hr-go" href="{{ (l.message + ' ' + x.name + ', with ' + who.name + '.') | book }}" target="_blank" rel="noopener">Ask for this look</a>
+    </li>
+    {%- endfor %}
+  </ul>
+</div></section>
+{%- if "consent-pairs" | enabled %}{% include "kits/hair/features/consent-pairs/consent-pairs.njk" %}{% endif %}
+{%- set hostPage = "look-book" %}{% include "kits/hair/partials/hosted.njk" %}

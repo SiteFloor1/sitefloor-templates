@@ -1,0 +1,22 @@
+{#- Book a design consultation: at the studio or on a video call, which days suit, the date of the event, sent on
+    WhatsApp for the studio to offer a time. -#}
+{%- set sec = site.sections.consultation %}
+{%- set c = site.consultation %}
+<section id="consultation" class="ck-consult" data-feature="consultation" aria-label="{{ sec.title | plain }}"{{ 'consultation' | tierAttr | safe }}><div class="wrap ck-consult-in">
+  {%- include "core/partials/section-head.njk" %}
+  <form class="ck-consult-f" data-cs-form>
+    <fieldset class="ck-consult-k"><legend class="sr-only">How you'd like to meet</legend>
+      {%- for k in c.kinds %}
+      <label><input type="radio" name="cs-kind" id="cs-{{ k.id }}" value="{{ k.id }}"{% if loop.first %} checked{% endif %}><span><b>{{ k.name }}</b> <span class="ck-mins">{{ k.minutes }} min</span><span class="ck-consult-t">{{ k.text }}</span></span></label>
+      {%- endfor %}
+    </fieldset>
+    <fieldset class="ck-consult-d"><legend>Which suit you?</legend>
+      <label><input type="checkbox" name="cs-when" value="weekday daytimes" id="cs-day"> Weekday daytimes</label>
+      <label><input type="checkbox" name="cs-when" value="weekday evenings" id="cs-eve"> Weekday evenings</label>
+      <label><input type="checkbox" name="cs-when" value="Saturdays" id="cs-sat"> Saturdays</label>
+    </fieldset>
+    <div class="ck-field"><label for="cs-date">Date of your event</label><input id="cs-date" type="date" data-cs-date></div>
+  </form>
+  <p><a class="btn" href="{{ c.message | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ c.message }}"{% endif %} target="_blank" rel="noopener" data-cs-send>Ask for a consultation</a></p>
+  {%- if c.note %}<p class="ck-note">{{ c.note }}</p>{% endif %}
+</div></section>

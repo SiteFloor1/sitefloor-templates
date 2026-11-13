@@ -1,0 +1,14 @@
+---
+layout: core/layouts/base.njk
+feature: piece-pages
+pagination:
+  data: site.pieces
+  size: 1
+  alias: piece
+permalink: "{{ piece.id }}.html"
+eleventyComputed:
+  pageId: "{{ piece.id }}"
+  title: "{{ piece.name }} {{ piece.colour }}"
+  description: "{{ piece.name }} in {{ piece.colour }} by {{ site.business.name }}: {{ piece.kind }}, £{{ piece.price }}. Sizes, fit, fabric and what's left."
+---
+{% include "kits/wear/features/piece-pages/piece-pages.njk" %}

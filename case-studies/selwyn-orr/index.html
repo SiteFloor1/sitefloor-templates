@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Selwyn Orr Case Study</title>
+<meta name="description" content="A Marylebone hair salon's Sitefloor site: the price list is the salon's own photograph, cut at the length a client taps.">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@300;500&family=Public+Sans:wght@400;500&family=Manrope:wght@600;700&display=swap">
+<style>
+/* Layout: daylight and ivory. The opening is Selwyn Orr's own salon photograph across the page, with the length cut
+   working on it and the price set under it like a caption. Then the site itself, a feature at a time, on a phone at
+   about actual size, each with one plain sentence; the plans as a table; the measured speed; the offer. Darker
+   Grotesque and Public Sans are Selwyn Orr's own. Nothing moves with scrolling. */
+:root {
+  --bg: #F8F6F1; --ink: #1A1A18; --soft: #5F5C55; --line: rgba(26,26,24,.14); --accent: #4D5A46;
+  --display: "Darker Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --read: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --brand: "Manrope", Arial, sans-serif;
+  --sf-paper: #FBFAF7; --sf-ink: #0E0F11; --sf-tomato: #E8613C; --sf-line: rgba(14,15,17,.12);
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 17px/1.6 var(--read); -webkit-font-smoothing: antialiased; }
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.gut { padding-inline: max(24px, env(safe-area-inset-left, 0px)); }
+.wrap { max-width: 1320px; margin: 0 auto; }
+
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 40; background: var(--sf-paper); }
+.sfbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--sf-paper); color: var(--sf-ink); border-bottom: 1px solid var(--sf-line); }
+.sfbar .wrap { display: flex; justify-content: space-between; align-items: center; height: 66px; gap: 16px; }
+.wm { display: flex; align-items: baseline; font-family: var(--brand); font-weight: 600; font-size: 24px; letter-spacing: -.045em; text-decoration: none; color: var(--sf-ink); }
+.wm svg { margin: 0 1px; transform: translateY(1px); }
+.sfbar nav { display: flex; gap: 28px; font-family: var(--brand); font-size: 14px; font-weight: 600; }
+.sfbar nav a { text-decoration: none; }
+.sfbar nav a[aria-current] { box-shadow: inset 0 -1.5px 0 var(--sf-ink); }
+.sfbtn:hover { background: var(--sf-tomato); }
+.sfbtn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 20px; background: var(--sf-ink); color: var(--sf-paper); font: 700 12px var(--brand); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; }
+@media (max-width: 760px) { .sfbar nav { display: none; } }
+@media (max-width: 420px) { .sfbar .sfbtn { display: none; } }
+
+/* opening: a short headline, then the photograph across the whole width */
+.open { padding-top: clamp(40px, 6vw, 88px); }
+.open .wrap { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 24px 80px; align-items: end; }
+.k { margin: 0 0 18px; font-size: 14px; color: var(--soft); }
+h1 { margin: 0; font: 300 clamp(56px, 7vw, 112px)/.86 var(--display); letter-spacing: -.035em; }
+.open p.l { margin: 0; max-width: 36ch; color: var(--soft); }
+.open .go { display: inline-block; margin-top: 14px; font-weight: 500; text-decoration-thickness: 1px; text-underline-offset: 5px; }
+
+/* the frame always keeps the photograph's own 2000:1335 shape, sized to cover the box and centred on the hair (--fx), so the
+   hair layers and the cut line stay on the hair at any size; the box crops it */
+.photo { --fx: .5; position: relative; container-type: size; margin-top: clamp(36px, 5vw, 64px); width: 100%; aspect-ratio: 2000 / 1335; max-height: 86vh; overflow: hidden; background: #e7e3dc; }
+.photo .f { --fw: max(100cqw, 149.8cqh); position: absolute; width: var(--fw); height: calc(var(--fw) / 1.498); top: calc((100cqh - var(--fw) / 1.498) / 2); left: clamp(calc(100cqw - var(--fw)), calc(50cqw - var(--fw) * var(--fx)), 0px); }
+.photo .f > img, .photo .ly img { position: absolute; left: 0; width: 100%; height: auto; }
+.photo .f > img { top: 0; height: 100%; }
+.photo .ly { position: absolute; inset: 0; }
+.photo .ly img { top: 33.7%; }
+.photo .keep { clip-path: inset(0 0 calc((1 - var(--keep)) * 100%) 0); }
+.photo .rest { opacity: .3; clip-path: inset(calc(var(--keep) * 100%) 0 0 0); }
+.photo .band { opacity: 0; transition: opacity .8s cubic-bezier(.4, 0, .2, 1); }
+.photo .cut { position: absolute; left: 0; right: 0; height: 1px; background: var(--bg); transition: top .8s cubic-bezier(.4, 0, .2, 1); }
+
+/* the caption under the photograph carries the controls and the price, like a plate in a catalogue */
+.cap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px 40px; align-items: start; padding-block: 20px 0; border-bottom: 1px solid var(--line); padding-bottom: 22px; }
+.rows { display: grid; gap: 4px; font-size: 15px; }
+.rows div { display: flex; flex-wrap: wrap; gap: 2px 20px; align-items: baseline; }
+.rows span { width: 64px; color: var(--soft); }
+.rows button { padding: 6px 0; color: var(--soft); border-bottom: 1px solid transparent; }
+.rows button[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+.pr { text-align: right; }
+.pr b { display: block; font: 300 clamp(56px, 6vw, 88px)/.8 var(--display); letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+.pr span { display: block; margin-top: 10px; font-size: 14px; color: var(--soft); }
+
+/* one feature: the site on a phone, large, and one sentence */
+.feat { padding-block: clamp(96px, 12vw, 180px); }
+.feat .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px 96px; align-items: center; }
+.ph { justify-self: center; width: min(390px, 100%); }
+.ph img { width: 100%; height: auto; border-radius: 28px; box-shadow: 0 0 0 1px var(--line), 0 30px 80px rgba(26,26,24,.16); }
+.feat .n { font-size: 14px; color: var(--soft); }
+.feat h2 { margin: 12px 0 0; font: 300 clamp(48px, 5.2vw, 84px)/.88 var(--display); letter-spacing: -.035em; }
+.feat p { margin: 22px 0 0; max-width: 38ch; color: var(--soft); font-size: 18px; }
+.feat .t { display: block; margin-top: 18px; font-size: 14px; color: var(--accent); }
+
+.feat + .feat { padding-top: 0; }
+.feat.r .ph { order: 2; }
+.feat.r .wrap > div:last-child { justify-self: end; }
+.more { padding-block: 0 clamp(96px, 12vw, 160px); }
+.more p { margin: 0; max-width: 62ch; font-size: 18px; color: var(--soft); border-top: 1px solid var(--line); padding-top: 26px; }
+.more b { color: var(--ink); font-weight: 500; }
+
+/* plans: a plain table */
+.plans { padding-block: clamp(96px, 12vw, 170px); border-top: 1px solid var(--line); }
+.plans h2, .speed h2, .close h2 { margin: 0; font: 300 clamp(48px, 5.2vw, 84px)/.88 var(--display); letter-spacing: -.035em; }
+.tbl { margin-top: clamp(40px, 5vw, 72px); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--ink); }
+.col { padding: 26px 32px 0 0; }
+.col + .col { padding-left: 32px; border-left: 1px solid var(--line); }
+.col h3 { margin: 0; font: 500 30px/1 var(--display); }
+.col .c { margin: 14px 0 0; font: 300 52px/.9 var(--display); letter-spacing: -.03em; }
+.col .c small { font: 400 15px var(--read); color: var(--soft); letter-spacing: 0; }
+.col .pg { margin: 10px 0 0; font-size: 15px; color: var(--soft); }
+.col ul { list-style: none; margin: 22px 0 0; padding: 0; font-size: 15px; }
+.col li { padding: 9px 0; border-top: 1px solid var(--line); }
+.tnote { margin: 28px 0 0; font-size: 14px; color: var(--soft); }
+
+/* speed */
+.speed { padding-block: clamp(96px, 12vw, 170px); background: #EFECE5; }
+.meas { margin-top: clamp(40px, 5vw, 64px); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--ink); }
+.meas div { padding: 22px 24px 0 0; }
+.meas div + div { padding-left: 24px; border-left: 1px solid var(--line); }
+.meas b { display: block; font: 300 clamp(56px, 6vw, 92px)/.84 var(--display); letter-spacing: -.04em; }
+.meas span { display: block; margin-top: 12px; font-size: 14px; color: var(--soft); }
+.speed .tnote { max-width: 70ch; }
+
+/* close */
+.close { padding-block: clamp(110px, 14vw, 190px); }
+.close .wrap { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 40px 80px; align-items: end; }
+.close p { margin: 0; max-width: 40ch; font-size: 18px; color: var(--soft); }
+.acts { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+.btn { display: inline-flex; align-items: center; min-height: 52px; padding: 0 26px; background: var(--ink); color: var(--bg); text-decoration: none; font-weight: 500; }
+.btn.line { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.btn:hover { background: #3a3a36; color: var(--bg); }
+.mail { display: block; margin-top: 22px; font-size: 14px; color: var(--soft); }
+footer { padding-block: 32px 48px; border-top: 1px solid var(--line); color: var(--soft); font-size: 13px; }
+footer .wrap { display: flex; justify-content: space-between; gap: 32px; }
+footer p { margin: 0; max-width: 92ch; }
+
+@media (max-width: 860px) {
+  .feat.r .ph { order: 2; }
+  .feat.r .wrap > div:last-child { justify-self: start; }
+  .tbl, .meas { grid-template-columns: minmax(0, 1fr); }
+  .col, .col + .col { padding: 24px 0 14px; border-left: 0; border-top: 1px solid var(--line); }
+  .meas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .meas div, .meas div + div { padding: 20px 16px 20px 0; border-left: 0; border-bottom: 1px solid var(--line); }
+  .close .wrap { grid-template-columns: minmax(0, 1fr); }
+  footer .wrap { flex-direction: column; gap: 10px; }
+  .open .wrap, .feat .wrap { grid-template-columns: minmax(0, 1fr); }
+  .photo { aspect-ratio: 4 / 5; max-height: none; }
+  .photo { --fx: .617; }
+  .cap { grid-template-columns: minmax(0, 1fr); }
+  .pr { text-align: left; order: -1; }
+  .feat .ph { order: 2; }
+}
+@media (max-width: 620px) {
+  .gut { padding-inline: 16px; }
+  h1 { font-size: 52px; }
+  .k { margin-bottom: 12px; font-size: 13px; }
+  .open p.l { font-size: 16px; }
+  .photo { margin-inline: -16px; width: calc(100% + 32px); }
+  .rows span { width: 44px; }
+  .pr b { font-size: 64px; }
+}
+@media (prefers-reduced-motion: reduce) { .photo .band, .photo .cut { transition: none; } }
+</style>
+</head>
+<body>
+
+<div class="sfbar gut"><div class="wrap">
+  <a class="wm" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su" aria-label="Sitefloor home">sitefl<svg width="28" height="14" viewBox="0 0 42 21" aria-hidden="true"><rect x="1.9" y="1.9" width="38.2" height="17.2" rx="8.6" fill="none" stroke="#0E0F11" stroke-width="3.8"/><circle cx="31.5" cy="10.5" r="5.2" fill="#E8613C"/></svg>r</a>
+  <nav aria-label="Main"><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#live">Features</a><a href="#top" aria-current="page">Work</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#pricing">Pricing</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#guides">Guides</a></nav>
+  <a class="sfbtn" href="#mockup"><span>Free mockup</span><span aria-hidden="true">→</span></a>
+</div></div>
+
+<main id="top">
+<section class="open gut" aria-labelledby="h"><div class="wrap">
+  <div>
+    <p class="k">Selwyn Orr, hair salon, Marylebone</p>
+    <h1 id="h">The price list is the photograph.</h1>
+  </div>
+  <div>
+    <p class="l">On Selwyn Orr's site, a client taps where her hair falls and sees the price, the time and the stylist level before she books.</p>
+    <a class="go" href="https://claude.ai/artifact/GXyXTKTbH26eeBqNSoW758">Try Selwyn Orr's site</a>
+  </div>
+  <div style="grid-column: 1 / -1">
+    <div class="photo" id="ph" style="--keep:.58">
+      <div class="f">
+        <img src="media/cut-plate.webp" width="2000" height="1335" fetchpriority="high" alt="A client in the chair at Selwyn Orr, long straight blonde hair over a black knit, the stylist's hands at the side">
+        <div class="ly rest" aria-hidden="true"><img src="media/cut-hair.webp" width="2000" height="593" alt=""></div>
+        <div class="ly keep" aria-hidden="true"><img src="media/cut-hair.webp" width="2000" height="593" alt=""></div>
+        <div class="ly band" id="band" aria-hidden="true"><img src="media/cut-hair.webp" width="2000" height="593" alt=""></div>
+        <span class="cut" id="cut" aria-hidden="true" style="top:58%"></span>
+      </div>
+    </div>
+    <div class="cap">
+      <div class="rows">
+        <div role="group" aria-label="Length"><span>Length</span><button type="button" data-i="0" data-y=".37" aria-pressed="false">Short</button><button type="button" data-i="1" data-y=".46" aria-pressed="false">Shoulder</button><button type="button" data-i="2" data-y=".58" aria-pressed="true">Mid-length</button><button type="button" data-i="3" data-y=".78" aria-pressed="false">Long</button></div>
+        <div role="group" aria-label="Service"><span>For</span><button type="button" data-s="cut" aria-pressed="true">Cut and finish</button><button type="button" data-s="roots" aria-pressed="false">Root colour</button><button type="button" data-s="balayage" aria-pressed="false">Balayage</button></div>
+        <div role="group" aria-label="With"><span>With</span><button type="button" data-l="stylist" aria-pressed="false">Stylist</button><button type="button" data-l="senior" aria-pressed="true">Senior</button><button type="button" data-l="director" aria-pressed="false">Director</button></div>
+      </div>
+      <p class="pr" aria-live="polite"><b id="price">£100</b><span id="when">Mid-length, about 1 hr 15 min</span></p>
+    </div>
+  </div>
+</div></section>
+
+<section class="feat gut" aria-labelledby="f-stylists"><div class="wrap">
+  <div class="ph"><img src="media/stylists.webp" width="780" height="1688" alt="The stylists on a phone: each one's work, level and next free day" loading="lazy"></div>
+  <div>
+    <h2 id="f-stylists">The stylists, by their work.</h2>
+    <p>One photograph of each stylist's cut or colour, their level, and their next free day, read from the salon's own sheet. No portraits.</p>
+    <span class="t">Starter</span>
+  </div>
+</div></section>
+
+<section class="feat r gut" aria-labelledby="f-textures"><div class="wrap">
+  <div class="ph"><img src="media/textures.webp" width="780" height="1688" alt="Every texture side by side on a phone" loading="lazy"></div>
+  <div>
+    <h2 id="f-textures">Every texture.</h2>
+    <p>Straight, waves, curls, coils and braids side by side. Each opens to who cuts it, the price, the time, and how to arrive.</p>
+    <span class="t">Plus</span>
+  </div>
+</div></section>
+
+<section class="feat gut" aria-labelledby="f-chairs"><div class="wrap">
+  <div class="ph"><img src="media/chairs.webp" width="780" height="1688" alt="Selwyn Orr's home page on a phone, with today's free chairs along the foot of the photograph"></div>
+  <div>
+    <h2 id="f-chairs">Chairs free today.</h2>
+    <p>The blow-dries, walk-ins and fringe trims the salon frees up during the day, soonest first, each with the stylist and the price from. A slot the salon hasn't confirmed today never shows.</p>
+    <span class="t">Signature</span>
+  </div>
+</div></section>
+
+<section class="feat r gut" aria-labelledby="f-colour-year"><div class="wrap">
+  <div class="ph"><img src="media/colour-year.webp" width="780" height="1688" alt="The colour year on a phone, with balayage visits marked on the coming months" loading="lazy"></div>
+  <div>
+    <h2 id="f-colour-year">The colour year.</h2>
+    <p>Her colour and the day it was done mark the visits in the year ahead, from the salon's own weeks, and go to her calendar in one tap.</p>
+    <span class="t">Plus</span>
+  </div>
+</div></section>
+
+<section class="feat gut" aria-labelledby="f-match"><div class="wrap">
+  <div class="ph"><img src="media/match.webp" width="780" height="1688" alt="Find your stylist on a phone: three answers and one match" loading="lazy"></div>
+  <div>
+    <h2 id="f-match">Find your stylist.</h2>
+    <p>Three answers lead to the one stylist whose work fits, with their next free day and a message to book them.</p>
+    <span class="t">Signature</span>
+  </div>
+</div></section>
+
+<section class="feat r gut" aria-labelledby="f-pass"><div class="wrap">
+  <div class="ph"><img src="media/pass.webp" width="780" height="1688" alt="The blow-dry pass on a phone: five blow-dries for £220" loading="lazy"></div>
+  <div>
+    <h2 id="f-pass">The blow-dry pass.</h2>
+    <p>Five blow-dries for one price, paid on the salon's own Stripe link. The desk keeps count.</p>
+    <span class="t">Plus</span>
+  </div>
+</div></section>
+
+<section class="more gut" aria-label="Also on the site"><div class="wrap">
+  <p><b>Also on Selwyn Orr's site:</b> the skin test, with the last day for it from her colour date; the look book, each look with its stylist and price; my usual, kept on her own phone; gift vouchers; the wedding hair planner; and a page for each kind of service.</p>
+</div></section>
+
+<section class="plans gut" id="plans" aria-labelledby="h-pl"><div class="wrap">
+  <h2 id="h-pl">The plans.</h2>
+  <div class="tbl">
+    <div class="col"><h3>Starter</h3><p class="c">£99 <small>then £25 a month</small></p><p class="pg">Home and Plan your visit</p>
+      <ul><li>Price by length, on the salon's photograph</li><li>The stylists, by their work</li><li>The skin test</li></ul></div>
+    <div class="col"><h3>Plus</h3><p class="c">£199 <small>then £30 a month</small></p><p class="pg">Up to five pages</p>
+      <ul><li>Every texture</li><li>The colour year</li><li>The look book</li><li>The blow-dry pass and gift vouchers</li><li>My usual</li></ul></div>
+    <div class="col"><h3>Signature</h3><p class="c">£349 <small>then £35 a month</small></p><p class="pg">Up to twenty pages</p>
+      <ul><li>Find your stylist</li><li>Chairs free today</li><li>The wedding hair planner</li><li>Before and after, with each client's written consent</li></ul></div>
+  </div>
+  <p class="tnote">Twelve-month minimum. Any feature can be added to any plan, and extra pages one at a time.</p>
+</div></section>
+
+<section class="speed gut" aria-labelledby="h-sp"><div class="wrap">
+  <h2 id="h-sp">Fast on a phone.</h2>
+  <div class="meas">
+    <div><b>97</b><span>Lighthouse performance, mobile, Selwyn Orr's home page</span></div>
+    <div><b>100</b><span>Accessibility, the same test</span></div>
+    <div><b>2.5 s</b><span>Until the salon photograph is on screen, on a slowed mobile connection</span></div>
+    <div><b>0.02</b><span>Layout shift, well under the 0.1 Google counts as good</span></div>
+  </div>
+</div></section>
+
+<section class="close gut" id="mockup" aria-labelledby="h-cl"><div class="wrap">
+  <h2 id="h-cl">Your prices, on your own photograph.</h2>
+  <div>
+    <p>Send us your Instagram handle. We'll make a free mockup of your home page with your own photograph and your own price list on it.</p>
+    <div class="acts">
+      <a class="btn" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#free">Get a free mockup</a>
+      <a class="btn line" href="https://claude.ai/artifact/GXyXTKTbH26eeBqNSoW758">Try Selwyn Orr's site</a>
+    </div>
+    <span class="mail">hello@sitefloor.com</span>
+  </div>
+</div></section>
+
+</main>
+
+<footer class="gut"><div class="wrap">
+  <p>Selwyn Orr is a fictional salon made to show the Sitefloor hair kit. Its prices, stylists, chairs, address and phone number are demo data. Its photographs are free stock from Unsplash and Pexels, each credited in our records. Client sites use the salon's own photographs, prices and Google Sheet.</p>
+  <span>© 2026 Sitefloor</span>
+</div></footer>
+
+<script>
+(() => {
+  const P = {
+    cut: { stylist: [68, 74, 80, 88], senior: [84, 92, 100, 110], director: [110, 120, 130, 142], m: [60, 60, 75, 90] },
+    roots: { stylist: [78, 84, 90, 96], senior: [92, 98, 106, 114], director: [115, 122, 132, 142], m: [90, 90, 105, 120] },
+    balayage: { stylist: [160, 185, 210, 240], senior: [190, 215, 245, 280], director: [240, 270, 305, 345], m: [150, 180, 210, 240] },
+  };
+  const LEN = ["Short", "Shoulder", "Mid-length", "Long"];
+  const hm = (m) => [Math.floor(m / 60) ? `${Math.floor(m / 60)} hr` : "", m % 60 ? `${m % 60} min` : ""].filter(Boolean).join(" ");
+  const $$ = (s) => [...document.querySelectorAll(s)];
+  const ph = document.getElementById("ph"), band = document.getElementById("band"), cut = document.getElementById("cut");
+  const still = matchMedia("(prefers-reduced-motion: reduce)");
+  let s = "cut", l = "senior", i = 2, y = 0.58, wait = 0;
+  const paint = () => { document.getElementById("price").textContent = `£${P[s][l][i]}`; document.getElementById("when").textContent = `${LEN[i]}, about ${hm(P[s].m[i])}`; };
+  const go = (ny) => {
+    clearTimeout(wait); const a = y; y = ny; cut.style.top = `${ny * 100}%`;
+    if (still.matches || a === ny) { ph.style.setProperty("--keep", ny); return; }
+    band.style.clipPath = `inset(${Math.min(a, ny) * 100}% 0 ${(1 - Math.max(a, ny)) * 100}% 0)`;
+    band.style.transition = "none"; band.style.opacity = ny < a ? "1" : "0"; void band.offsetWidth; band.style.transition = "";
+    band.style.opacity = ny < a ? "0" : "1";
+    if (ny < a) ph.style.setProperty("--keep", ny); else wait = setTimeout(() => { ph.style.setProperty("--keep", ny); band.style.opacity = "0"; }, 820);
+  };
+  for (const b of $$("[data-y]")) b.addEventListener("click", () => { for (const x of $$("[data-y]")) x.setAttribute("aria-pressed", String(x === b)); i = Number(b.dataset.i); go(Number(b.dataset.y)); paint(); });
+  for (const b of $$("[data-s]")) b.addEventListener("click", () => { s = b.dataset.s; for (const x of $$("[data-s]")) x.setAttribute("aria-pressed", String(x === b)); paint(); });
+  for (const b of $$("[data-l]")) b.addEventListener("click", () => { l = b.dataset.l; for (const x of $$("[data-l]")) x.setAttribute("aria-pressed", String(x === b)); paint(); });
+})();
+</script>
+</body>
+</html>

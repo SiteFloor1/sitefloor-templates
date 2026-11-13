@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: music
+permalink: music.html
+feature: music-page
+eleventyComputed:
+  title: "{{ site.musicPage.title | plain }}"
+  description: "Music and licensing in wedding films, explained by {{ site.business.name }}."
+---
+{%- set ph = site.musicPage %}{% include "kits/weddingfilm/partials/page-head.njk" %}
+{% include "kits/weddingfilm/features/music-page/music-page.njk" %}

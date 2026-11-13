@@ -1,0 +1,6 @@
+{#- Portland section opening: one sentence in the carved capitals, its line beside it when there is one. No label
+    above; the sentence says what the section is. `sec` = { title, intro }. -#}
+<div class="pt-sh">
+  <h2 class="pt-sh-t">{{ sec.title | markup | safe }}</h2>
+  {%- if sec.intro %}<p class="pt-sh-i">{{ sec.intro }}</p>{% endif %}
+</div>

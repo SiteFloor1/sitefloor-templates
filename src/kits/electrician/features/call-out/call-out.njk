@@ -1,0 +1,5 @@
+{#- The emergency line: one sentence, when they come out, and the number (a tel: link). At the top of every page. -#}
+<div class="el-call" data-feature="call-out"><div class="wrap el-call-in">
+  <p>{{ site.callOut.line }} <span class="el-call-when">{{ site.callOut.when }}</span></p>
+  <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a>
+</div></div>

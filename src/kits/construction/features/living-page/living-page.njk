@@ -1,0 +1,23 @@
+{#- Living through a build: pick a start date and see each stage's dates from the builder's own lengths, what the
+    house is like in each, and the noisy stages; add the stage starts to a calendar. Then the builder's own tips. -#}
+{%- set lp = site.livingPage %}{% set st = site.stages %}
+{%- set ph = { title: lp.title, intro: lp.intro } %}
+{% include "kits/construction/partials/page-head.njk" %}
+<div class="wrap bd-lv" data-feature="living-page">
+  <div class="bd-lv-ctl" data-js-only>
+    <label class="bd-field"><span>If we started on</span><input type="date" data-lv-start></label>
+    <a class="bd-btn" data-lv-ics href="#" download="build-programme.ics">Add the stage starts to your calendar</a>
+  </div>
+  <ol class="bd-lv-plan">
+    {%- for s in st.items %}
+    <li class="{{ 'noisy' if s.living and s.living.noisy }}">
+      <div class="bd-lv-when"><b>{{ s.name }}</b><span data-lv-dates="{{ loop.index0 }}">{% if s.weeks %}{{ s.weeks | weeksWords }}{% endif %}</span></div>
+      <ul>{% if s.living %}{% for l in s.living.lines %}<li>{{ l }}</li>{% endfor %}{% if s.living.noisy %}<li class="bd-lv-noisy">The noisy part. We tell you the loud days a week ahead.</li>{% endif %}{% else %}<li>{{ s.line }}</li>{% endif %}</ul>
+    </li>
+    {%- endfor %}
+  </ol>
+  <p class="bd-lv-note">Dates are worked out from our usual stage lengths, earliest and latest: an estimate, not a programme. Yours comes with the price.</p>
+  {%- if lp.tips %}
+  <section class="bd-lv-tips" aria-labelledby="lv-tips"><h2 id="lv-tips" class="bd-h3">From families who <em>stayed in</em></h2><ul>{% for t in lp.tips %}<li>{{ t }}</li>{% endfor %}</ul></section>
+  {%- endif %}
+</div>

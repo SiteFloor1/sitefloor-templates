@@ -1,0 +1,11 @@
+{#- The journal: the clinician's own pieces, newest first, each dated and signed. -#}
+{%- set j = site.journal %}
+{%- set ph = { kicker: "Journal", title: j.title, intro: j.intro } %}
+{%- include "kits/smile/partials/page-head.njk" %}
+<div class="sm-jn" data-feature="smile-journal"><div class="wrap">
+  <ul class="sm-jn-list">
+    {%- for a in j.items | newestFirst %}{% set p = site.clinicians | clinician(a.by) %}
+    <li class="sm-jn-item rv"><a href="{{ ('journal-' ~ a.slug) | href }}"><span class="sm-jn-date">{{ a.date | ukDate }}</span><b class="sm-jn-title">{{ a.title }}</b><span class="sm-jn-intro">{{ a.intro }}</span><span class="sm-jn-by">{{ p.name }}</span></a></li>
+    {%- endfor %}
+  </ul>
+</div></div>

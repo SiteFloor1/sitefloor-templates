@@ -1,0 +1,8 @@
+/* The tasting flight: the pieces to choose from, and the board in tasting order. Structure only; tokens only. */
+.tf-pick { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); }
+.tf-p { display: grid; justify-items: center; gap: 6px; width: 100%; padding: 8px 4px; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; }
+.tf-p img { width: 72%; height: auto; aspect-ratio: 1; object-fit: contain; }
+.tf-p[aria-disabled], .tf-p:disabled { cursor: default; }
+.tf-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(var(--n, 5), minmax(0, 1fr)); }
+.tf-step { display: grid; justify-items: center; align-content: start; gap: 6px; text-align: center; min-width: 0; }
+.tf-step img { width: 80%; height: auto; aspect-ratio: 1; object-fit: contain; }

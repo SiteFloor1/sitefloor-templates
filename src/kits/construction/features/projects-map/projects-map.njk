@@ -1,0 +1,22 @@
+{#- The projects map: the districts first, as a list; the OpenStreetMap map (worked out when the site is built) loads
+    only when the visitor asks for it. A marker is a postcode district's centre, never a house. -#}
+{%- set pm = site.projectsMap %}{% set view = site.projects.items | projectsMapView %}{% set districts = site.projects.items | byDistrict %}
+<section class="bd-map" aria-labelledby="map-h" data-feature="projects-map"><div class="wrap bd-map-in">
+  <div class="bd-map-side">
+    <h2 id="map-h" class="bd-h2">{{ pm.title | markup | safe }}</h2>
+    {%- if pm.intro %}<p>{{ pm.intro }}</p>{% endif %}
+    <ol class="bd-map-list">
+      {%- for d in districts %}<li><b>{{ d.code }}</b><span>{% for x in d.projects %}<a href="{{ x.id | href }}">{{ x.place }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</span></li>{% endfor %}
+    </ol>
+  </div>
+  {%- if view %}
+  <div class="bd-map-frame" style="aspect-ratio:{{ view.cols }} / {{ view.rows }}">
+    <button class="bd-map-show" type="button" data-map-show data-js-only>Show the map<small>Loads OpenStreetMap</small></button>
+    <template data-map-tiles>
+      <div class="bd-map-tiles" style="grid-template-columns:repeat({{ view.cols }}, 1fr)">{% for t in view.tiles %}<img src="{{ t.src }}" alt="" width="256" height="256" loading="lazy" decoding="async" referrerpolicy="strict-origin-when-cross-origin">{% endfor %}</div>
+      {%- for d in districts %}{% set m = view.markers[loop.index0] %}<span class="bd-map-pin" style="left:{{ m.left }}%;top:{{ m.top }}%">{{ d.code }}</span>{% endfor %}
+      <p class="bd-map-osm">© <a href="https://www.openstreetmap.org/copyright" rel="noopener" target="_blank">OpenStreetMap</a> contributors</p>
+    </template>
+  </div>
+  {%- endif %}
+</div></section>

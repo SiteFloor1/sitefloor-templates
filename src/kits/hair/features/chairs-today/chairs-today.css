@@ -1,0 +1,9 @@
+/* Chairs free today: three ruled rows, the time very large. The box keeps three rows' height. Tokens only. */
+.hr-ch-box { min-height: 216px; border-top: 1px solid var(--text); }
+.hr-ch-list { list-style: none; margin: 0; padding: 0; }
+.hr-ch-list li { display: grid; grid-template-columns: 120px minmax(0, 1fr) auto; align-items: baseline; gap: 4px 24px; min-height: 72px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.hr-ch-t { font-family: var(--font-display); font-weight: 300; font-size: 44px; line-height: 1; font-variant-numeric: tabular-nums; }
+.hr-ch-none { margin: 0; padding: 20px 0; color: var(--muted); }
+.hr-ch-none .hr-go { margin-left: 8px; }
+.hr-ch-note { margin-top: 12px; }
+@media (max-width: 560px) { .hr-ch-list li { grid-template-columns: 88px minmax(0, 1fr); } .hr-ch-list .hr-go { grid-column: 2; min-height: 32px; } .hr-ch-t { font-size: 36px; } }

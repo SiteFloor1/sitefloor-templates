@@ -1,0 +1,23 @@
+{#- Tell us about her: beside a campaign photograph, what he knows (her size if he knows it, what she wears, the budget,
+    the occasion), the wrap and the card; sent as one WhatsApp message and the shop sets pieces aside. -#}
+{%- set sec = site.sections.her %}
+{%- set h = site.her %}
+<section id="her" class="ls-her" data-feature="tell-us-about-her"{{ "tell-us-about-her" | tierAttr | safe }}><div class="wrap her-in">
+  <figure class="her-ph">{% set ph = h.photo %}{% include "kits/lingerie/partials/photo.njk" %}</figure>
+  <div class="her-t">
+    {% include "core/partials/section-head.njk" %}
+    <form class="lx-form" data-her-form>
+      <div class="lx-fields her-fields" data-js-only>
+        <label class="lx-f">Her size<input type="text" maxlength="30" placeholder="If you know it" data-her-size></label>
+        <label class="lx-f">She wears<select data-her-wears><option value="">Not sure</option>{% for w in h.wears %}<option>{{ w }}</option>{% endfor %}</select></label>
+        <label class="lx-f">Budget<select data-her-budget><option value="">Open</option>{% for b in h.budgets %}<option>{{ b }}</option>{% endfor %}</select></label>
+        <label class="lx-f">It's for<select data-her-occasion><option value="">Just because</option>{% for o in h.occasions %}<option>{{ o }}</option>{% endfor %}</select></label>
+        <label class="lx-check"><input type="checkbox" checked data-her-wrap> Wrap it</label>
+        <label class="lx-f her-card">The card <span class="lx-count" data-her-count></span><textarea rows="2" maxlength="{{ site.giftWrap.cardMax if site.giftWrap else 140 }}" data-her-card></textarea></label>
+        <label class="lx-f">Your name<input type="text" maxlength="40" autocomplete="given-name" data-her-name></label>
+      </div>
+      <a class="lx-go" href="{{ ('Hello ' + site.business.name + ', I would like something for her.') | wa }}" target="_blank" rel="noopener" data-her-send>Send to {{ site.business.name }} on WhatsApp</a>
+      <p class="lx-small">{{ h.note }}</p>
+    </form>
+  </div>
+</div></section>

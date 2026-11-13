@@ -1,0 +1,22 @@
+{#- The colour consultation on WhatsApp: the colour in mind and when the hair was last coloured, sent as one message that
+    asks for two photos in the chat (a link can't attach them). Without JavaScript the button sends the opening line. -#}
+{%- set c = site.consultation %}
+{%- set ph = { title: c.title, intro: c.intro, photo: c.photo } %}
+{% include "kits/hair/partials/page-head.njk" %}
+<section class="hr-cc" data-feature="colour-consult" aria-labelledby="cc-h"><div class="wrap hr-cc-in">
+  <div>
+    <h2 id="cc-h">How it runs</h2>
+    <ol class="hr-steps hr-cc-steps">{% for s in c.steps %}<li><span>{{ s }}</span></li>{% endfor %}</ol>
+  </div>
+  <form class="hr-cc-form" data-cc-form>
+    <fieldset class="hr-chips-set"><legend class="hr-label">The colour in mind</legend><div class="hr-chips">
+      {%- for w in c.wants %}<label class="hr-chip"><input type="radio" name="cc-want" value="{{ w }}"{% if loop.first %} checked{% endif %}><span>{{ w }}</span></label>{% endfor %}
+    </div></fieldset>
+    <fieldset class="hr-chips-set"><legend class="hr-label">Last coloured</legend><div class="hr-chips">
+      {%- for w in c.lastColour %}<label class="hr-chip"><input type="radio" name="cc-last" value="{{ w }}"{% if loop.first %} checked{% endif %}><span>{{ w }}</span></label>{% endfor %}
+    </div></fieldset>
+    <label class="hr-cc-more"><span class="hr-label">Anything else (optional)</span><textarea name="cc-more" rows="3" maxlength="400" data-cc-more></textarea></label>
+    <a class="hr-btn" data-cc-send href="{{ c.message | book }}" target="_blank" rel="noopener">Start it on WhatsApp</a>
+    {%- if c.note %}<p class="hr-small">{{ c.note }}</p>{% endif %}
+  </form>
+</div></section>

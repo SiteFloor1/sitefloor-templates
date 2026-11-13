@@ -1,0 +1,18 @@
+/* Packages by size: a ruled list, the price set large on the right; the size switch as plain words with a lit line
+   under the chosen one (the look draws the line). */
+.dt-pk-top { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px 48px; align-items: end; margin-bottom: clamp(28px, 4vw, 48px); }
+.dt-pk-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.dt-pk-i { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 4fr) auto; gap: 8px 32px; align-items: baseline; padding-block: clamp(22px, 3vw, 34px); border-bottom: 1px solid var(--line); }
+.dt-pk-n { margin: 0; font-family: var(--font-display); font-weight: 300; font-size: clamp(28px, 3vw, 44px); line-height: 1; letter-spacing: -.02em; }
+.dt-pk-line { margin: 0; color: var(--muted); max-width: 44ch; }
+.dt-pk-inc { grid-column: 2; list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; font-size: 14px; color: var(--muted); }
+.dt-pk-p { grid-column: 3; grid-row: 1 / span 2; margin: 0; display: grid; justify-items: end; gap: 2px; text-align: right; }
+.dt-pk-from { font-size: 13px; color: var(--muted); }
+.dt-pk-p b { font-family: var(--font-display); font-weight: 300; font-size: clamp(28px, 2.6vw, 40px); line-height: 1; font-variant-numeric: tabular-nums lining-nums; letter-spacing: -.02em; }
+.dt-pk-d { font-size: 13px; color: var(--muted); }
+@media (max-width: 760px) {
+  .dt-pk-top { grid-template-columns: 1fr; }
+  .dt-pk-i { grid-template-columns: minmax(0, 1fr) auto; }
+  .dt-pk-line, .dt-pk-inc { grid-column: 1 / -1; }
+  .dt-pk-p { grid-column: 2; grid-row: 1; }
+}

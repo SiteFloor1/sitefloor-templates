@@ -1,0 +1,14 @@
+{#- Infill reminder: the day of your set and the gap you want; your infill day goes into your calendar as one file. -#}
+{%- set sec = site.sections.infill %}
+{%- set f = site.infill %}
+<section id="infill" class="nl-infill" data-feature="infill-reminder"{{ "infill-reminder" | tierAttr | safe }}><div class="wrap nl-infill-in">
+  {% include "core/partials/section-head.njk" %}
+  <form class="nl-form" data-in-form onsubmit="return false">
+    {%- set df = "in" %}{% set dfLabel = "Your set was on" %}{% include "kits/nails/partials/date-field.njk" %}
+    <fieldset class="nl-chips-set"><legend class="nl-lab">Infill after</legend><div class="nl-chips">
+      {%- for w in f.weeks %}<label class="nl-chip"><input type="radio" name="in-weeks" value="{{ w }}"{% if w == f.defaultWeeks %} checked{% endif %}>{{ w }} weeks</label>{% endfor %}
+    </div></fieldset>
+    <p class="nl-infill-out" data-in-out aria-live="polite">{{ f.text }}</p>
+    <a class="nl-link" data-in-ics href="#" download="infill.ics" hidden>Add it to my calendar</a>
+  </form>
+</div></section>

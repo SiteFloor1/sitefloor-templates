@@ -1,0 +1,7 @@
+{#- Private client guides: the firm's longer pieces for families as a reading room, each dated, reviewed by a named
+    solicitor and on its own page; the will review reminder after them when it's on. Not advice. -#}
+{%- set gs = site.guides %}
+{%- set ph = { title: gs.title, intro: gs.intro } %}
+{% include "kits/law/partials/page-head.njk" %}
+{%- set pieces = gs.items | newestFirst %}{% set kind = "guide" %}{% include "kits/law/partials/pieces.njk" %}
+{%- if "will-reminder" | enabled %}<div class="wrap">{% include "kits/law/features/will-reminder/will-reminder.njk" %}</div>{% endif %}

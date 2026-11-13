@@ -1,0 +1,30 @@
+/* Projects: a two-column wall of finished houses; each project page leads with one photograph, then the story. */
+.bd-pp { padding-bottom: clamp(72px, 10vw, 112px); }
+.bd-pp-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px 32px; }
+.bd-pp-list a { display: grid; gap: 6px; color: inherit; text-decoration: none; }
+.bd-pp-list img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; margin-bottom: 10px; }
+.bd-pp-list li:nth-child(3n + 1) { grid-column: 1 / -1; }
+.bd-pp-list li:nth-child(3n + 1) img { aspect-ratio: 21 / 9; }
+.bd-pp-list b { font-family: var(--font-display); font-weight: 400; font-size: clamp(24px, 2.6vw, 32px); line-height: 1.1; }
+.bd-pp-list span { color: var(--muted); }
+.bd-pp-list small { font-size: 12px; color: var(--muted); }
+.bd-pp-list a:hover b { font-style: italic; }
+.bd-pj { display: grid; gap: 32px; padding-bottom: clamp(72px, 10vw, 112px); }
+.bd-pj-facts { margin: 0; display: flex; flex-wrap: wrap; gap: 12px 40px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 14px 0; }
+.bd-pj-facts div { display: grid; gap: 2px; }
+.bd-pj-facts dt { font-size: 12px; color: var(--muted); }
+.bd-pj-facts dd { margin: 0; font-size: 15px; }
+.bd-pj figure { margin: 0; }
+.bd-pj-lead img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; }
+.bd-pj-story { max-width: 62ch; font-size: 17px; line-height: 1.65; }
+.bd-pj-story p { margin: 0 0 1em; }
+.bd-pj-more { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.bd-pj-more img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block; }
+.bd-pj-stages { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 20px; border-top: 1px solid var(--line); padding-top: 20px; }
+.bd-pj-step { display: flex; flex-direction: column-reverse; gap: 10px; margin: 0; }
+.bd-pj-step img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block; }
+.bd-pj-step figcaption { font-size: 13px; color: var(--muted); display: grid; gap: 2px; min-height: 2.6em; }
+.bd-pj-step figcaption b { font-family: var(--font-display); font-weight: 400; font-size: 22px; color: var(--text); }
+@media (max-width: 700px) { .bd-pj-stages { grid-auto-flow: column; grid-auto-columns: 78%; overflow-x: auto; scroll-snap-type: x mandatory; } .bd-pj-step { scroll-snap-align: start; } }
+.bd-pj-nav { display: flex; justify-content: space-between; gap: 20px; border-top: 1px solid var(--line); padding-top: 18px; font-size: 14px; }
+@media (max-width: 700px) { .bd-pp-list { grid-template-columns: 1fr; gap: 40px; } .bd-pp-list li img { aspect-ratio: 4 / 5 !important; } .bd-pj-lead img { aspect-ratio: 4 / 5; } .bd-pj-more { grid-template-columns: 1fr; } }

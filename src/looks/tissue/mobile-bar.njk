@@ -1,0 +1,5 @@
+{#- Tissue phone bar: warm white with a hairline; one ink button that asks on WhatsApp, and Instagram as an italic link. -#}
+<div class="mbar ts-bar">
+  <a class="ts-bar-go" href="{{ site.messages.order | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.order }}"{% endif %} target="_blank" rel="noopener">Ask on WhatsApp</a>
+  {%- if site.bouquets and site.bouquets.instagram %}<a class="ts-bar-ig" href="https://ig.me/m/{{ site.bouquets.instagram }}" target="_blank" rel="noopener">or Instagram</a>{% endif %}
+</div>

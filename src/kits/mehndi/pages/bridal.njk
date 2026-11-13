@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: bridal
+permalink: bridal.html
+feature: bridal-mehndi
+eleventyComputed:
+  title: "{{ site.bridalPage.title | plain }}"
+  description: "Bridal mehndi with {{ site.business.name }}, {{ site.location.locality }}: the trial, the day, travel to your venue and packages."
+---
+{% include "kits/mehndi/features/bridal-mehndi/bridal-mehndi.njk" %}
+{%- set hostPage = "bridal-mehndi" %}{% include "kits/mehndi/partials/hosted.njk" %}

@@ -1,0 +1,6 @@
+{#- New season: the newest pieces on models, named, swatched and priced. -#}
+{%- set sec = site.sections.newSeason %}
+<section id="new" class="ls-new"{{ "new-season" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="pc-row">{% for p in site.pieces | piecesWhere({ newSeason: true }) %}{% include "kits/lingerie/partials/piece-card.njk" %}{% endfor %}</div>
+</div></section>

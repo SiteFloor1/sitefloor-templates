@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: weddings
+permalink: weddings.html
+feature: wedding-order
+eleventyComputed:
+  title: "{{ site.weddingOrder.title | plain }}"
+  description: "Ordering bespoke for a wedding at {{ site.business.name }}: the last day to start and every fitting from one date."
+---
+{% include "kits/tailor/features/wedding-order/wedding-order.njk" %}

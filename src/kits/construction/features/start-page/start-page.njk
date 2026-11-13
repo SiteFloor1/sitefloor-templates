@@ -1,0 +1,11 @@
+{#- Start a project, as its own page: the brief, then what happens after it is sent, in the builder's words. -#}
+{%- set b = site.brief %}
+{%- set ph = { title: b.title, intro: b.intro } %}
+{% include "kits/construction/partials/page-head.njk" %}
+<div class="bd-start">{% set briefPage = true %}{% include "kits/construction/features/brief/brief.njk" %}</div>
+{%- if b.after %}
+<section class="wrap bd-after" aria-labelledby="after-h">
+  <h2 id="after-h" class="bd-h3">After you <em>send it</em></h2>
+  <ol class="bd-steps">{% for st in b.after %}<li><b>{{ st.name }}</b><span>{{ st.line }}</span></li>{% endfor %}</ol>
+</section>
+{%- endif %}

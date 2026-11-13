@@ -1,0 +1,14 @@
+---
+layout: core/layouts/base.njk
+feature: adviser-pages
+pagination:
+  data: site.advisers.items
+  size: 1
+  alias: p
+permalink: "{{ p.id }}.html"
+eleventyComputed:
+  pageId: "{{ p.id }}"
+  title: "{{ p.name }}"
+  description: "{{ p.name }}, {{ p.role }} at {{ site.business.name }}."
+---
+{% include "kits/wealth/features/adviser-pages/adviser-pages.njk" %}

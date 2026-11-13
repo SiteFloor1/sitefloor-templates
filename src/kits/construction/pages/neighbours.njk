@@ -1,0 +1,15 @@
+---
+layout: core/layouts/base.njk
+feature: neighbours-page
+noindex: true
+pagination:
+  data: site.neighbours.sites
+  size: 1
+  alias: x
+permalink: "neighbours-{{ x.id }}.html"
+eleventyComputed:
+  pageId: "neighbours-{{ x.id }}"
+  title: "For our neighbours in {{ x.district.code }}"
+  description: "When {{ site.business.name }} works, how to reach us and what's happening this week at our site in {{ x.district.code }}."
+---
+{% include "kits/construction/features/neighbours-page/neighbours-page.njk" %}

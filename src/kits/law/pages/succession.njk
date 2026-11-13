@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: succession
+permalink: succession.html
+feature: succession-map
+eleventyComputed:
+  title: "{{ site.succession.title | plain }}"
+  description: "{{ site.succession.intro }}"
+---
+{% include "kits/law/features/succession-map/succession-map.njk" %}
+{%- if "intestacy" | enabled %}<div class="wrap">{% include "kits/law/features/intestacy/intestacy.njk" %}</div>{% endif %}

@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: meeting
+permalink: meeting.html
+feature: meeting-pack
+noindex: true
+eleventyComputed:
+  title: "{{ site.meetingPack.title | plain }}"
+  description: "Your first meeting at {{ site.business.name }}: when, who you are meeting, the way in and what to bring."
+---
+{% include "kits/law/features/meeting-pack/meeting-pack.njk" %}

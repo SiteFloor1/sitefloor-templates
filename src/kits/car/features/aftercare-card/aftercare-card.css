@@ -1,0 +1,18 @@
+/* Aftercare: a card of steps with dates, one button for the calendar. Shared by the home card and the page. */
+.ac { display: grid; gap: 18px; max-width: 860px; }
+.ac-pick { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 12px; }
+.ac-f { display: grid; gap: 6px; font-weight: 600; font-size: 14px; }
+.ac-f :is(select, input) { font: inherit; font-weight: 400; min-height: 46px; padding: 0 12px; border: 1px solid var(--line-2); background: var(--surface); color: var(--text); }
+.ac-svc.off { display: none; }
+.ac-name { font-family: var(--font-display); font-weight: 400; text-transform: uppercase; font-size: 16px; margin: 0 0 10px; }
+.ac-steps { list-style: none; margin: 0; padding: 0; border-left: 1px solid var(--text); }
+.ac-steps li { position: relative; padding: 0 0 18px 22px; }
+.ac-steps li::before { content: ""; position: absolute; left: -5px; top: 6px; width: 9px; height: 9px; background: var(--accent); }
+.ac-when { display: block; font: 500 12px var(--font-mono, monospace); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.ac-when i { font-style: normal; color: var(--text); margin-left: 6px; }
+.ac-steps b { display: block; margin: 4px 0 2px; }
+.ac-steps p { margin: 0; color: var(--muted); font-size: 14.5px; max-width: 60ch; }
+.ac-go { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; }
+.ac-note { margin: 0; font-size: 13px; color: var(--dim); max-width: 40ch; }
+.ac-more { font-weight: 600; color: var(--accent); text-decoration: none; }
+@media (max-width: 600px) { .ac-pick { grid-template-columns: minmax(0, 1fr); } }

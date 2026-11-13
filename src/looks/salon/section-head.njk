@@ -1,0 +1,5 @@
+{#- Salon section heads: the title alone, large; the intro in italic beneath. No small label above. -#}
+<div class="sa-sh">
+  <h2>{{ sec.title | markup | safe }}</h2>
+  {%- if sec.intro %}<p>{{ sec.intro }}</p>{% endif %}
+</div>

@@ -1,0 +1,20 @@
+/* birthstone: layout in tokens only; the look sets type and colour. */
+.jw-bs-in { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 4fr); gap: clamp(24px, 6vw, 96px); align-items: end; }
+.jw-months-l { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.jw-month { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr) minmax(0, 4fr) minmax(0, 3fr); gap: 20px; align-items: baseline; padding: 26px 0; border-bottom: 1px solid var(--line); }
+.jw-month-n { margin: 0; font: 400 clamp(28px, 3.4vw, 44px)/1 var(--font-display); letter-spacing: .05em; text-transform: uppercase; }
+.jw-month .jw-now { display: none; }
+.jw-month.is-now .jw-now { display: inline; }
+.jw-month.is-now .jw-month-n { color: var(--accent); }
+.jw-month-p { display: flex; flex-wrap: wrap; gap: 4px 20px; }
+@media (max-width: 700px) {
+  .jw-bs-in { grid-template-columns: 1fr; }
+  .jw-month { grid-template-columns: 1fr; gap: 8px; }
+}
+.jw-bsp-in { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(24px, 6vw, 96px); align-items: start; }
+.jw-bsp-ph { margin: 0; position: sticky; top: 24px; }
+.jw-bsp-ph img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+@media (max-width: 700px) {
+  .jw-bsp-in { grid-template-columns: 1fr; }
+  .jw-bsp-ph { position: static; }
+}

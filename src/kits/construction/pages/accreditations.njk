@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: accreditations
+permalink: accreditations.html
+feature: credentials-page
+eleventyComputed:
+  title: '{{ (site.credentials.title or "Accreditations and insurance") | plain }}'
+  description: "Accreditations, insurance and the guarantee at {{ site.business.name }}, from our certificates."
+---
+{% include "kits/construction/features/credentials-page/credentials-page.njk" %}

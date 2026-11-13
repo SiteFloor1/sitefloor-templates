@@ -1,0 +1,43 @@
+{#- Drops page: the next drop and its pieces with the reminder list, the restock list, and past drops as an archive of
+    their campaign photographs. -#}
+{%- import "kits/wear/partials/macros.njk" as m with context %}
+{%- set ph = { kicker: site.dropsPage.kicker, title: site.dropsPage.title, intro: site.dropsPage.intro } %}
+{%- set d = site | wearDrop(build.today) %}
+{% include "kits/wear/partials/page-head.njk" %}
+<div class="wr-drops" data-feature="drops-page">
+<script type="application/json" data-wear-stock>{{ site | wearStockJson(build.today) | safe }}</script>
+<section class="wr-next"><div class="wrap wr-next-in">
+  <div class="wr-next-t">
+    <p class="wr-next-k">Next</p>
+    <h2>{{ d.name }}{% if d.title %} <span>{{ d.title }}</span>{% endif %}</h2>
+    <p class="wr-next-when">{{ d.where }}, <span data-drops-when>{{ d.words }}</span>.{% if d.clock %} <span class="wr-clock" data-drops-clock aria-hidden="true">{{ d.clock }}</span>{% endif %}</p>
+    {%- if d.text %}<p>{{ d.text }}</p>{% endif %}
+    <p class="wr-next-acts">{% if d.remindForm %}{{ m.formLink(d.remindForm, "Remind me the day before", "Opens the brand's Google Form: leave a phone number or email and we'll message you the day before.", "wr-buy") }}{% endif %}</p>
+  </div>
+  <ul class="wr-next-pieces">
+    {%- for p in site | wearPieces(d.pieces) %}
+    {%- set st = site | wearStockWords(p, build.today) %}
+    <li data-stock="{{ p.id }}" data-state="{{ st.state }}">
+      <a href="{{ m.pieceHref(p) }}"><img src="{{ p.photos[0].src | img }}" alt="{{ p.photos[0].alt }}" width="{{ p.photos[0].width }}" height="{{ p.photos[0].height }}" decoding="async"></a>
+      <p><b>{{ p.name }} {{ p.colour }}</b> {{ p.price | gbpWhole }}</p>
+      <p class="wr-stock"><b data-stock-lead>{{ st.lead }}</b> <span data-stock-rest>{{ st.rest }}</span></p>
+    </li>
+    {%- endfor %}
+  </ul>
+</div></section>
+{%- if "size-run" | enabled %}{% include "kits/wear/features/size-run/size-run.njk" %}{% endif %}
+{%- if d.past.length %}
+<section class="wr-archive" aria-labelledby="archive-h"><div class="wrap">
+  <h2 class="wr-archive-h" id="archive-h">Before</h2>
+  {%- for a in d.past %}
+  <article class="wr-past rv">
+    <p class="wr-past-k">{{ a.name }}{% if a.title %}, {{ a.title }}{% endif %} · {{ a.opens | monthLong }}</p>
+    {%- if a.text %}<p class="wr-past-t">{{ a.text }}</p>{% endif %}
+    <ul class="wr-past-ph">{% for p in a.photos %}<li><img src="{{ p.src | img }}" alt="{{ p.alt }}" width="{{ p.width }}" height="{{ p.height }}" loading="lazy" decoding="async"></li>{% endfor %}</ul>
+    {%- if a.pieces and a.pieces.length %}<p class="wr-past-acts">{% for p in site | wearPieces(a.pieces) %}<a class="wr-link" href="{{ m.pieceHref(p) }}">{{ p.name }} {{ p.colour }}</a> {% endfor %}
+      {%- if site.drop.restockForm %}{{ m.formLink(site.drop.restockForm, "Restock list", "Opens the brand's Google Form: it messages you first if a piece is made again.", "wr-link") }}{% endif %}</p>{% endif %}
+  </article>
+  {%- endfor %}
+</div></section>
+{%- endif %}
+</div>

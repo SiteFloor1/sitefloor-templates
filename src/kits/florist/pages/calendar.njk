@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: calendar
+permalink: calendar.html
+feature: flower-calendar
+eleventyComputed:
+  title: "{{ site.calendar.title | plain }}"
+  description: "The flower calendar from {{ site.business.name }}: what's at its best each month, for weddings, events and every week."
+---
+{% include "kits/florist/features/flower-calendar/flower-calendar.njk" %}

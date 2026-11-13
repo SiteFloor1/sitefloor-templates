@@ -1,0 +1,17 @@
+{#- Pregnancy and after: the go-ahead first, then stage by stage, which class and what changes, in the studio's words;
+    a question on WhatsApp. Nothing here is medical advice; the studio's words say who to ask. -#}
+{%- set pg = site.prenatal %}
+{%- set ph = pg %}
+{% include "kits/pilates/partials/page-head.njk" %}
+<section class="pl-pn" data-feature="prenatal-guide" aria-label="{{ pg.title | plain }}"><div class="wrap pl-pn-in">
+  <div>
+    <p class="pl-pn-go">{{ pg.goAhead }}</p>
+    <ol class="pl-pn-st">
+      {%- for s in pg.stages %}{% set ct = (site | classOf(s.class)) if s.class else null %}
+      <li><span class="pl-pn-w">{{ s.when }}</span><div>{% if ct %}<b>{% if 'class-pages' | enabled %}<a href="{{ ('class-' + s.class) | href }}">{{ ct.name }}</a>{% else %}{{ ct.name }}{% endif %}</b>{% endif %}<p>{{ s.text }}</p></div></li>
+      {%- endfor %}
+    </ol>
+    <p class="pl-pn-ask"><a href="{{ pg.message | wa }}" target="_blank" rel="noopener">Ask us on WhatsApp</a></p>
+  </div>
+  {%- if pg.photo %}<figure class="pl-pn-ph"><img src="{{ pg.photo.src | img }}" alt="{{ pg.photo.alt }}" width="{{ pg.photo.width }}" height="{{ pg.photo.height }}" fetchpriority="high" decoding="async"></figure>{% endif %}
+</div></section>

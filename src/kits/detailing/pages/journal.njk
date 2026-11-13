@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: journal
+permalink: journal.html
+feature: care-journal
+eleventyComputed:
+  title: "{{ site.journal.title | plain }}"
+  description: "{{ site.journal.intro }}"
+---
+{% include "kits/detailing/features/care-journal/care-journal.njk" %}

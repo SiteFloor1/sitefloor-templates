@@ -1,0 +1,24 @@
+{#- How we build: each stage in full with the builder's own length, then the contract, payments, the defects period
+    and living at home during the work, in their words. On Signature, the build in 3D sits between. -#}
+{%- set w = site.howWeBuild %}{% set s = site.stages %}
+{%- set ph = { title: w.title, intro: w.intro } %}
+{% include "kits/construction/partials/page-head.njk" %}
+<div class="wrap bd-hw">
+  <ol class="bd-hw-stages">
+    {%- for st in s.items %}
+    <li class="bd-hw-stage">
+      <div class="bd-hw-head"><span class="bd-hw-n">{{ loop.index }}</span><h2 class="bd-h3">{{ st.name }}</h2>{% if st.weeks %}<p class="bd-hw-weeks">{{ st.weeks | weeksWords }}</p>{% endif %}</div>
+      <div class="bd-hw-body">{% if st.about %}{% for para in st.about %}<p>{{ para }}</p>{% endfor %}{% else %}<p>{{ st.line }}</p>{% endif %}</div>
+      {%- if st.photo %}<img class="bd-hw-img" src="{{ st.photo.src | img }}" alt="{{ st.photo.alt }}" width="{{ st.photo.width }}" height="{{ st.photo.height }}" loading="lazy" decoding="async">{% endif %}
+    </li>
+    {%- endfor %}
+  </ol>
+  {%- set tw = s.items | totalWeeks %}
+  {%- if tw and not ("build-3d" | enabled) %}<p class="bd-hw-total">From survey to handover, {{ tw | weeksWords }} on our recent jobs. We give you a programme for your house before we start.</p>{% endif %}
+</div>
+{%- if "build-3d" | enabled %}{% include "kits/construction/features/build-3d/build-3d.njk" %}{% endif %}
+<div class="wrap bd-hw-terms">
+  {%- for sec in w.sections %}
+  <section class="bd-hw-term" aria-labelledby="hw-{{ loop.index }}"><h2 id="hw-{{ loop.index }}" class="bd-h3">{{ sec.title | markup | safe }}</h2><div>{% for para in sec.text %}<p>{{ para }}</p>{% endfor %}</div></section>
+  {%- endfor %}
+</div>

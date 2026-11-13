@@ -1,0 +1,22 @@
+/* Car hire kit: behaviour every hire look shares. The fleet filters work without JavaScript: each checked radio hides
+   the cars whose flags don't fit (generated from the steps in src/kits/hire/lib/fleet.js). With JavaScript the script
+   adds search, dates and sort, and hides cars with [hidden]. */
+.hr-fl:has(#fl-seats-2:checked) .hr-fl-list > [data-car]:not([data-flags~="seats-2"]),
+.hr-fl:has(#fl-seats-4:checked) .hr-fl-list > [data-car]:not([data-flags~="seats-4"]),
+.hr-fl:has(#fl-seats-5:checked) .hr-fl-list > [data-car]:not([data-flags~="seats-5"]),
+.hr-fl:has(#fl-seats-7:checked) .hr-fl-list > [data-car]:not([data-flags~="seats-7"]),
+.hr-fl:has(#fl-power-300:checked) .hr-fl-list > [data-car]:not([data-flags~="power-300"]),
+.hr-fl:has(#fl-power-450:checked) .hr-fl-list > [data-car]:not([data-flags~="power-450"]),
+.hr-fl:has(#fl-power-600:checked) .hr-fl-list > [data-car]:not([data-flags~="power-600"]),
+.hr-fl:has(#fl-power-750:checked) .hr-fl-list > [data-car]:not([data-flags~="power-750"]),
+.hr-fl:has(#fl-budget-300:checked) .hr-fl-list > [data-car]:not([data-flags~="budget-300"]),
+.hr-fl:has(#fl-budget-600:checked) .hr-fl-list > [data-car]:not([data-flags~="budget-600"]),
+.hr-fl:has(#fl-budget-1000:checked) .hr-fl-list > [data-car]:not([data-flags~="budget-1000"]),
+.hr-fl:has(#fl-budget-2000:checked) .hr-fl-list > [data-car]:not([data-flags~="budget-2000"]),
+.hr-fl:has(#fl-cls-everyday:checked) .hr-fl-list > [data-car]:not([data-flags~="class-everyday"]),
+.hr-fl:has(#fl-cls-performance:checked) .hr-fl-list > [data-car]:not([data-flags~="class-performance"]),
+.hr-fl:has(#fl-cls-suv:checked) .hr-fl-list > [data-car]:not([data-flags~="class-suv"]),
+.hr-fl:has(#fl-cls-supercar:checked) .hr-fl-list > [data-car]:not([data-flags~="class-supercar"]),
+.hr-fl:has(#fl-cls-chauffeur:checked) .hr-fl-list > [data-car]:not([data-flags~="class-chauffeur"]),
+.hr-fl:has(#fl-cls-tuned:checked) .hr-fl-list > [data-car]:not([data-flags~="class-tuned"]) { display: none; }
+.hr-fl-list > [hidden] { display: none; }

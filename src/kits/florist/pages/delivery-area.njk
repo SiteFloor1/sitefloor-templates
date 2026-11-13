@@ -1,0 +1,14 @@
+---
+layout: core/layouts/base.njk
+feature: delivery-areas
+pagination:
+  data: site.deliveryAreas.areas
+  size: 1
+  alias: a
+permalink: "delivery-{{ a.district | lower }}.html"
+eleventyComputed:
+  pageId: "delivery-{{ a.district | lower }}"
+  title: "Flower delivery to {{ a.district }}, {{ a.name }}"
+  description: "Same-day flower delivery by hand to {{ a.district }} ({{ a.name }}) from {{ site.business.name }}: {{ a.line }}"
+---
+{% include "kits/florist/features/delivery-areas/delivery-area.njk" %}

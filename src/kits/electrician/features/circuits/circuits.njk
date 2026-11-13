@@ -1,0 +1,18 @@
+{#- Services as the chart inside a fuse board's door: one numbered circuit per service, each opening (native
+    <details>, so it works without JavaScript) to what it includes, in the client's words. The registers sit beside it. -#}
+{%- set sec = site.sections.circuits %}
+<section id="services" class="el-board" data-feature="circuits" aria-label="{{ sec.title | plain }}"><div class="wrap el-board-in">
+  <div class="el-board-t">
+    {% include "core/partials/section-head.njk" %}
+    {%- if "registers" | enabled %}{% include "kits/electrician/features/registers/registers.njk" %}{% endif %}
+  </div>
+  <div class="el-chart">
+    <p class="el-chart-h" aria-hidden="true"><span>Cct</span><span>Service</span><span>On</span></p>
+    {%- for c in site.circuits.items %}
+    <details class="el-cct"{% if loop.first %} open{% endif %}>
+      <summary><span class="el-cct-n">{{ loop.index }}</span><span class="el-cct-t">{{ c.name }}</span><span class="el-mcb" aria-hidden="true"></span></summary>
+      <ul class="el-cct-in">{% for line in c.included %}<li>{{ line }}</li>{% endfor %}</ul>
+    </details>
+    {%- endfor %}
+  </div>
+</div></section>

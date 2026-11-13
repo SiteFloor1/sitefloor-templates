@@ -1,0 +1,20 @@
+{#- Tissue "Build your bouquet": the florist's own photograph of that wrap and size, large, beside the choices; the
+    wraps as round swatches with their names, the sizes as words with prices. Never a drawing: if a size isn't
+    photographed, the nearest in that wrap shows and the note says so. Same hooks as the kit's. -#}
+{%- set B = site.builder %}
+{%- set ph = { title: B.title, intro: B.intro } %}
+{% include "looks/tissue/parts/page-head.njk" %}
+{%- set first = B.bouquets[0] %}
+<section class="ts-bb" data-feature="bouquet-builder"><div class="wrap ts-bb-in">
+  <figure class="ts-bb-ph"><img data-bb-img src="{{ first.photo.src | img }}" alt="{{ first.photo.alt }}" width="{{ first.photo.width }}" height="{{ first.photo.height }}" fetchpriority="high" decoding="async"><figcaption data-bb-note></figcaption></figure>
+  <form class="ts-bb-f" data-bb-form novalidate>
+    <fieldset class="ts-wraps"><legend>The wrap</legend>
+      {%- for p in B.palettes %}<label><input type="radio" name="bb-palette" value="{{ p.id }}"{% if p.id == first.palette %} checked{% endif %}><i style="--sw:{{ p.colour }}" aria-hidden="true"></i><span>{{ p.label }}</span></label>{% endfor %}
+    </fieldset>
+    <fieldset class="ts-sizes"><legend>The size</legend>
+      {%- for s in B.sizes %}<label><input type="radio" name="bb-size" value="{{ s.id }}"{% if s.id == first.size %} checked{% endif %}><span>{{ s.label }}</span><b>{{ s.price | pounds }}</b></label>{% endfor %}
+    </fieldset>
+    <a class="ts-btn" data-bb-send href="{{ B.message | book }}" target="_blank" rel="noopener">Order this bouquet</a>
+    <p class="ts-fine">Every choice here is a bouquet we've made and photographed.</p>
+  </form>
+</div></section>

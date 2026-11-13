@@ -1,0 +1,61 @@
+{#- The lookbook as a printed book: a cover, then the season's looks spread by spread (two portraits face each other
+    across the fold; a landscape takes a spread), page numbers at the foot, a contact sheet to jump between looks.
+    Tap a look's marks to see each piece worn in it, its price and what's left. -#}
+{%- import "kits/wear/partials/macros.njk" as m with context %}
+{%- set lb = site.lookbook %}
+{%- set spreads = lb.looks | lookSpreads %}
+<div class="wr-book" data-feature="lookbook">
+<script type="application/json" data-wear-stock>{{ site | wearStockJson(build.today) | safe }}</script>
+<h1 class="sr-only">{{ site.lookbookPage.title | plain }}</h1>
+<div class="wr-book-bar wrap">
+  <p class="wr-book-k"><a href="{{ 'index' | href }}">{{ site.business.name }}</a> <span aria-hidden="true">/</span> {{ site.lookbookPage.kicker }}</p>
+  <p class="wr-book-n" data-book-count aria-live="polite">{{ lb.looks.length }} looks</p>
+  <div class="wr-book-nav" data-js-only hidden>
+    <button type="button" data-book-dir="-1" aria-label="Previous spread">←</button>
+    <button type="button" data-book-dir="1" aria-label="Next spread">→</button>
+    <a class="wr-link" href="#contact">Contact sheet</a>
+  </div>
+</div>
+<div class="wr-spreads" tabindex="0" role="region" aria-label="The lookbook, spread by spread" data-spreads>
+  <section class="wr-spread wr-cover" aria-label="Cover">
+    <div class="wr-page wr-cover-l">
+      <p class="wr-cover-mark">{{ site.business.name | upper }}</p>
+      <p class="wr-cover-t">{{ lb.title }}</p>
+      <p class="wr-cover-s">{{ lb.season }}</p>
+    </div>
+    <div class="wr-page wr-cover-r"><img src="{{ lb.looks[0].photo.src | img }}" alt="" width="{{ lb.looks[0].photo.width }}" height="{{ lb.looks[0].photo.height }}" decoding="async" fetchpriority="high"></div>
+  </section>
+  {%- for sp in spreads %}
+  <section class="wr-spread{% if sp.length == 1 and sp[0].photo.width > sp[0].photo.height %} is-wide{% elif sp.length == 1 %} is-single{% endif %}" aria-label="Look {{ sp[0].n }}{% if sp.length == 2 %} and {{ sp[1].n }}{% endif %}">
+    {%- for look in sp %}
+    <figure class="wr-page wr-look" id="look-{{ look.n }}">
+      <div class="wr-look-ph">
+        <img src="{{ look.photo.src | img }}" alt="{{ look.photo.alt }}" width="{{ look.photo.width }}" height="{{ look.photo.height }}" loading="lazy" decoding="async">
+        {%- for pc in look.pieces or [] %}{% set p = site | wearPiece(pc.id) %}
+        <button type="button" class="wr-mark" style="left:{{ pc.x }}%;top:{{ pc.y }}%" data-mark="{{ p.id }}" aria-expanded="false" aria-controls="slip-{{ look.n }}-{{ loop.index }}" aria-label="{{ p.name }} {{ p.colour }}, worn here"><span aria-hidden="true"></span></button>
+        <div class="wr-slip" id="slip-{{ look.n }}-{{ loop.index }}" data-stock="{{ p.id }}" hidden>
+          <p class="wr-slip-n">{{ p.name }} <span>{{ p.colour }}</span></p>
+          <p class="wr-slip-p">{{ p.price | gbpWhole }}</p>
+          <p class="wr-stock"><b data-stock-lead></b> <span data-stock-rest></span></p>
+          <a class="wr-link" href="{{ m.pieceHref(p) }}">See it</a>
+        </div>
+        {%- endfor %}
+      </div>
+      <figcaption><span class="wr-look-n">{{ look.n | pad2 }}</span> {{ look.caption }}{% if look.pieces and look.pieces.length %}<span class="wr-look-w"> · {% for pc in look.pieces %}{% set p = site | wearPiece(pc.id) %}{{ p.name }} {{ p.colour }}, {{ p.price | gbpWhole }}{% if not loop.last %}; {% endif %}{% endfor %}</span>{% endif %}</figcaption>
+    </figure>
+    {%- endfor %}
+  </section>
+  {%- endfor %}
+  <section class="wr-spread wr-colophon" aria-label="Back page">
+    <div class="wr-page"><p class="wr-cover-mark">{{ site.business.name | upper }}</p><p>{{ lb.title }}, {{ lb.season }}.</p>{% if lb.credit %}<p class="wr-fine">{{ lb.credit }}</p>{% endif %}<p><a class="wr-link" href="{{ ('shells' | href) if ('shop-page' | enabled) else '#contact' }}">Every piece</a></p></div>
+  </section>
+</div>
+<section class="wr-contact wrap" id="contact" aria-labelledby="contact-h">
+  <h2 id="contact-h">Contact sheet</h2>
+  <ol class="wr-contact-grid">
+    {%- for look in lb.looks %}
+    <li><a href="#look-{{ loop.index }}" data-jump="{{ loop.index }}"><img src="{{ look.photo.src | img }}" alt="Look {{ loop.index }}: {{ look.caption or look.photo.alt }}" width="{{ look.photo.width }}" height="{{ look.photo.height }}" loading="lazy" decoding="async"><span>{{ loop.index | pad2 }}</span></a></li>
+    {%- endfor %}
+  </ol>
+</section>
+</div>

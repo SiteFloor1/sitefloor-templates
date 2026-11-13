@@ -1,0 +1,32 @@
+{#- The guest mehndi sum: guests and a design size in, artists, hours and a from price out, sent for a quote. -#}
+{%- set sec = site.sections.guests %}
+{%- set g = site.guests %}
+{%- set sum = g | guestSum %}
+<section id="guests" class="mh-gq" data-feature="guest-quote"{{ "guest-quote" | tierAttr | safe }} aria-labelledby="mh-gq-h"><div class="wrap mh-gq-in">
+  <div class="mh-gq-head">
+    <h2 class="mh-gq-h" id="mh-gq-h">{{ sec.title | markup | safe }}</h2>
+    {%- if g.text %}<p>{{ g.text }}</p>{% endif %}
+  </div>
+  <div class="mh-gq-sum">
+    <div class="mh-gq-count">
+      <output id="mh-gq-n" data-gq-n aria-live="polite" aria-describedby="mh-gq-lbl">{{ sum.guests }}</output>
+      <div class="mh-gq-btns">
+        <button type="button" data-gq-down aria-label="One fewer guest">&minus;</button>
+        <button type="button" data-gq-up aria-label="One more guest">+</button>
+      </div>
+      <span class="mh-gq-lbl" id="mh-gq-lbl">guests having mehndi</span>
+    </div>
+    <p class="mh-gq-line" data-gq-line aria-live="polite">{% if sum.over %}More than we can do in one night: we'd plan it with you.{% else %}{{ sum.artists }}, about <b>{{ sum.hours }}</b>.{% endif %}</p>
+    <p class="mh-gq-from" data-gq-from>{{ sum.size.name }} each · from {{ sum.from }}</p>
+    <div class="mh-gq-sizes" role="group" aria-label="Design size per guest">
+      {%- for s in g.sizes %}
+      <button type="button" data-gq-size="{{ s.id }}" data-min="{{ s.minutes }}" data-price="{{ s.price }}" data-name="{{ s.name }}" aria-pressed="{{ 'true' if s.id == sum.size.id else 'false' }}">
+        <img src="{{ s.photo.src | img }}" alt="{{ s.photo.alt }}" width="{{ s.photo.width }}" height="{{ s.photo.height }}" loading="lazy" decoding="async">
+        <b>{{ s.name }}</b><span>{{ s.minutes }} min · £{{ s.price }}</span>
+      </button>
+      {%- endfor %}
+    </div>
+    <a class="mh-solid" data-gq-send href="{{ sum.text | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ sum.text }}"{% endif %} target="_blank" rel="noopener">Send this on WhatsApp</a>
+    {%- if g.note %}<p class="mh-fine">{{ g.note }}</p>{% endif %}
+  </div>
+</div></section>

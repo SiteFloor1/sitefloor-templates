@@ -1,0 +1,16 @@
+/* The mirror: three panes, the middle one wide, the side ones angled in like a fitting room's side mirrors. */
+.bd-mirror { width: min(1180px, 100% - 24px); max-height: calc(100% - 24px); margin: auto; padding: 0; border: 0; background: var(--bg); color: var(--text); }
+.bd-mirror::backdrop { background: var(--photo-scrim); }
+.bd-mirror-in { display: grid; gap: 18px; padding: clamp(16px, 3vw, 36px); }
+.bd-mirror-top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+.bd-mirror-h { margin: 0; font-family: var(--font-display); font-size: clamp(26px, 3vw, 40px); }
+.bd-mirror-panes { display: grid; grid-template-columns: 1fr 1.7fr 1fr; gap: 10px; perspective: 1600px; }
+.bd-mirror-panes[data-count="2"] { grid-template-columns: 1fr 1fr; }
+.bd-pane { margin: 0; display: grid; gap: 8px; }
+.bd-pane img { display: block; width: 100%; height: min(64vh, 640px); object-fit: cover; background: var(--surface); }
+.bd-pane figcaption { font-size: 13px; color: var(--muted); text-align: center; }
+.bd-mirror-panes[data-count="3"] .bd-pane-l { transform: rotateY(16deg); transform-origin: right center; }
+.bd-mirror-panes[data-count="3"] .bd-pane-r { transform: rotateY(-16deg); transform-origin: left center; }
+.bd-mirror-more { margin: 0; color: var(--muted); font-size: 14px; }
+.bd-mirror-more:empty { display: none; }
+@media (max-width: 640px) { .bd-mirror-panes { gap: 5px; } .bd-pane img { height: 52vh; } .bd-mirror-panes[data-count="3"] .bd-pane-l, .bd-mirror-panes[data-count="3"] .bd-pane-r { transform: none; } }

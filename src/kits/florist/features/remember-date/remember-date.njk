@@ -1,0 +1,18 @@
+{#- Remember the date (Signature): whose date, the date and what it is; a calendar file reminds them every year on the
+    last day to order. Nothing is sent to the florist or stored. -#}
+{%- set Rm = site.remember %}
+{%- set sec = site.sections.remember %}
+<section id="remember" class="fl-remember" data-feature="remember-date" aria-labelledby="rem-h"><div class="wrap fl-remember-in">
+  <div class="fl-remember-t rv">
+    <h2 id="rem-h">{{ sec.title | markup | safe }}</h2>
+    {%- if sec.intro %}<p>{{ sec.intro }}</p>{% endif %}
+  </div>
+  <form class="fl-form" data-rem-form data-js-only novalidate>
+    <label class="fl-field" for="rem-who"><span>Whose day</span><input id="rem-who" data-rem-who maxlength="40" placeholder="Mum, Sam, our anniversary"></label>
+    <label class="fl-field" for="rem-kind"><span>What it is</span><select id="rem-kind" data-rem-kind>{% for k in Rm.kinds %}<option>{{ k }}</option>{% endfor %}</select></label>
+    <label class="fl-field" for="rem-date"><span>The date</span><input id="rem-date" type="date" data-rem-date required></label>
+    <button type="submit" class="fl-btn">Add to my calendar</button>
+    <p class="fl-say" data-rem-say role="status"></p>
+  </form>
+  <p data-no-js>Add a birthday or anniversary to your own calendar, with a reminder to order the day before. We never see it.</p>
+</div></section>

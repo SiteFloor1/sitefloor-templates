@@ -1,0 +1,33 @@
+{#- Weddings and events (Signature): the pieces in the florist's photographs, a date check (only the florist's own
+    "taken" dates and notice; anything else is "ask", never "free"), a consultation request, and palette from a
+    swatch: send a photo of the fabric on WhatsApp and the florist replies with stems for the month. -#}
+{%- set Wd = site.weddings %}
+{%- set ph = { kicker: Wd.kicker or "Weddings and events", title: Wd.title, intro: Wd.intro } %}
+{% include "kits/florist/partials/page-head.njk" %}
+<figure class="fl-wd-hero wrap"><img src="{{ Wd.photo.src | img }}" alt="{{ Wd.photo.alt }}" width="{{ Wd.photo.width }}" height="{{ Wd.photo.height }}" decoding="async"></figure>
+<section class="fl-wd" aria-label="The pieces"><div class="wrap">
+  <ul class="fl-wd-pieces" role="list">
+    {%- for p in Wd.pieces %}
+    <li class="rv"><span class="fl-wd-ph"><img src="{{ p.photo.src | img }}" alt="{{ p.photo.alt }}" width="{{ p.photo.width }}" height="{{ p.photo.height }}" loading="lazy" decoding="async"></span>
+      <b>{{ p.title }}</b><span>{{ p.line }}</span>{% if p.from %}<span>From {{ p.from | pounds }}</span>{% endif %}</li>
+    {%- endfor %}
+  </ul>
+</div></section>
+<section class="fl-wd-ask" data-feature="weddings-planner" aria-label="Your date"><div class="wrap fl-wd-ask-in">
+  <div class="fl-wd-card">
+    <h2>{{ Wd.consult.title }}</h2>
+    <p>{{ Wd.consult.text }}</p>
+    <form class="fl-wd-f" data-wd-form novalidate>
+      <label class="fl-field" for="wd-date"><span>Your date</span><input id="wd-date" type="date" data-wd-date></label>
+      <label class="fl-field" for="wd-place"><span>Where</span><input id="wd-place" data-wd-place maxlength="80"></label>
+      <p class="fl-say" data-wd-say role="status"></p>
+      <a class="fl-btn" data-wd-send href="{{ Wd.consult.message | book }}" target="_blank" rel="noopener">Ask for a consultation</a>
+    </form>
+  </div>
+  <div class="fl-wd-card" id="swatch">
+    <h2>{{ Wd.swatch.title }}</h2>
+    <p>{{ Wd.swatch.text }}</p>
+    <a class="fl-link" href="{{ Wd.swatch.message | book }}" target="_blank" rel="noopener">Send your swatch on WhatsApp</a>
+  </div>
+</div></section>
+{%- if "photo-band" | enabled %}{% include "features/photo-band/photo-band.njk" %}{% endif %}

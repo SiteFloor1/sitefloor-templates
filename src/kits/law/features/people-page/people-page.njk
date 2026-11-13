@@ -1,0 +1,18 @@
+{#- The people page: each person with a neutral portrait (or none), role, practice, a short note and, for solicitors,
+    the year admitted and SRA ID. -#}
+{%- set ph = { title: "People", intro: (site.sections.people.intro if site.sections.people else "") } %}
+{% include "kits/law/partials/page-head.njk" %}
+<div class="wrap lw-pg">
+  <ul class="lw-pg-list">
+    {%- for p in site.people.items %}
+    <li class="lw-pg-p" id="{{ p.id }}">
+      {%- if p.photo %}<figure class="lw-pg-fig"><img src="{{ p.photo.src | img }}" alt="{{ p.photo.alt }}" width="{{ p.photo.width }}" height="{{ p.photo.height }}" loading="lazy" decoding="async"{% if p.photo.position %} style="object-position:{{ p.photo.position }}"{% endif %}></figure>{% endif %}
+      <h2 class="lw-pg-n">{{ p.name }}</h2>
+      <p class="lw-pg-r">{{ p.role }}{% if p.practice and p.practice.length %} · {{ p.practice | areaNames(site.practice) | andList }}{% endif %}</p>
+      {%- if p.note %}<p class="lw-pg-note">{{ p.note }}</p>{% endif %}
+      <p class="lw-pg-meta">{% if p.solicitor %}{% if p.admitted %}Admitted {{ p.admitted }} · {% endif %}SRA ID {{ p.sraId }}{% if site.mode == "demo" %} (demo){% endif %}{% endif %}{% if p.email %}{% if p.solicitor %}<br>{% endif %}<a href="mailto:{{ p.email }}">{{ p.email }}</a>{% endif %}</p>
+    </li>
+    {%- endfor %}
+  </ul>
+  <p class="lw-pg-reg">Every solicitor's details are on the <a href="{{ regulator.sra.register }}" rel="noopener">SRA's register</a>.{% if site.mode == "demo" %} The portraits on this demo are stock photographs of models, not lawyers.{% endif %}</p>
+</div>

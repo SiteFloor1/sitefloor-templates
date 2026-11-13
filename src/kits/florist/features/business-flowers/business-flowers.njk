@@ -1,0 +1,25 @@
+{#- Your flowers this week (Signature): an unlisted page for each business client, reached by the link the florist
+    sends (your-flowers#GLB2Q8). By code only; shows what's going where this week and when it changes next. -#}
+{%- set A = site.contract.accounts %}
+{%- set ph = { kicker: site.contract.kicker or "For business", title: A.title, intro: A.intro } %}
+{% include "kits/florist/partials/page-head.njk" %}
+<section class="fl-acc" data-feature="business-flowers"><div class="wrap fl-acc-in">
+  <form class="fl-track-f" data-acc-form novalidate>
+    <label for="acc-code">Your code <span>in our message{% if A.example %}, e.g. {{ A.example }}{% endif %}</span></label>
+    <div class="fl-track-row"><input id="acc-code" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="12"><button class="fl-btn" type="submit">Open</button></div>
+  </form>
+  <div class="fl-acc-card" data-acc-card hidden aria-live="polite">
+    <h2 class="fl-acc-name" data-acc-name>Your flowers</h2>
+    <p class="fl-acc-week" data-acc-week></p>
+    <ul class="fl-acc-l" role="list" data-acc-list></ul>
+    <p class="fl-acc-next" data-acc-next></p>
+    <p class="fl-acc-note" data-acc-note hidden></p>
+    <figure class="fl-track-ph" data-acc-fig hidden><img data-acc-photo alt="This week's flowers, photographed in place" width="900" height="1125" decoding="async"></figure>
+    <a class="fl-btn" data-acc-ask href="{{ site.contract.message | book }}" target="_blank" rel="noopener">Ask for a change</a>
+  </div>
+  <div class="fl-track-off" data-acc-off hidden aria-live="polite">
+    <p data-acc-why></p>
+    <a class="fl-btn" data-acc-help href="{{ site.contract.message | book }}" target="_blank" rel="noopener">Message us</a>
+  </div>
+  <noscript><p>This page needs JavaScript. Message us and we'll tell you what's coming this week.</p></noscript>
+</div></section>

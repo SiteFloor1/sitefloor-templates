@@ -1,0 +1,13 @@
+---
+layout: core/layouts/base.njk
+pageId: your-home
+permalink: your-home.html
+feature: certificates
+noindex: true
+eleventyComputed:
+  title: "{{ site.certificates.title | plain }}"
+  description: "Your home's electrical certificates from {{ site.business.name }}: what was certified and when the next inspection is due, from the code in our message."
+---
+{%- set ph = site.certificates %}
+{% include "kits/electrician/partials/page-head.njk" %}
+{% include "kits/electrician/features/certificates/certificates.njk" %}

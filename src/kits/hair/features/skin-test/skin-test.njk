@@ -1,0 +1,23 @@
+{#- The skin test before colour: who needs one and how to walk in, then the colour date gives the last day for the test
+    by the salon's own rule, to the calendar or as a WhatsApp message. -#}
+{%- set sec = site.sections.skinTest %}
+{%- set k = site.skinTest %}
+<section id="skin-test" class="hr-sk" data-feature="skin-test" aria-labelledby="sk-h"><div class="wrap hr-sk-in">
+  <div class="hr-sk-words">
+    {%- set secId = "sk-h" %}{% include "core/partials/section-head.njk" %}
+    <dl class="hr-sk-rules">
+      <dt>Who</dt><dd>{{ k.who }}</dd>
+      <dt>When</dt><dd>At least {{ k.hoursBefore }} hours before your colour.</dd>
+      <dt>How</dt><dd>{{ k.walkIn }}</dd>
+    </dl>
+    {%- if k.note %}<p class="hr-small">{{ k.note }}</p>{% endif %}
+  </div>
+  <form class="hr-sk-form" data-sk-form>
+    {%- set df = "sk-date" %}{% set dfLabel = "Your colour appointment" %}{% include "kits/hair/partials/date-field.njk" %}
+    <p class="hr-sk-out" data-sk-out aria-live="polite">Choose the day of your colour.</p>
+    <div class="hr-sk-go">
+      <button type="button" class="hr-btn" data-sk-ics hidden>Add the skin test to my calendar</button>
+      <a class="hr-go" data-sk-send href="{{ k.message | book }}" target="_blank" rel="noopener">Tell us on WhatsApp</a>
+    </div>
+  </form>
+</div></section>

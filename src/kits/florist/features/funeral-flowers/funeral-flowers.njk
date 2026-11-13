@@ -1,0 +1,24 @@
+{#- Funeral flowers (Plus): plain and quiet. The pieces with the florist's prices, the notice they need and delivery to
+    the funeral director, and one way to ask. No countdowns, offers or the week's colour on this page. -#}
+{%- set Fu = site.funeral %}
+{%- set ph = { kicker: Fu.kicker or "Funeral flowers", title: Fu.title, intro: Fu.intro } %}
+{% include "kits/florist/partials/page-head.njk" %}
+<figure class="fl-fun-hero wrap"><img src="{{ Fu.photo.src | img }}" alt="{{ Fu.photo.alt }}" width="{{ Fu.photo.width }}" height="{{ Fu.photo.height }}" fetchpriority="high" decoding="async"></figure>
+<section class="fl-fun" aria-labelledby="fun-h"><div class="wrap">
+  <h2 id="fun-h">The flowers</h2>
+  <ul class="fl-fun-l" role="list">
+    {%- for p in Fu.pieces %}
+    <li class="fl-fun-p"><span class="fl-fun-ph"><img src="{{ p.photo.src | img }}" alt="{{ p.photo.alt }}" width="{{ p.photo.width }}" height="{{ p.photo.height }}" loading="lazy" decoding="async"></span>
+      <b>{{ p.title }}</b><span>{{ p.line }}</span><span>From {{ p.from | pounds }}</span></li>
+    {%- endfor %}
+  </ul>
+</div></section>
+<section class="fl-how" aria-labelledby="fun-n"><div class="wrap">
+  <h2 id="fun-n">Notice, delivery and the card</h2>
+  <dl class="fl-how-l">{% for h in Fu.notice %}<div><dt>{{ h.q }}</dt><dd>{{ h.a }}</dd></div>{% endfor %}</dl>
+</div></section>
+<section class="fl-fun-ask"><div class="wrap fl-fun-ask-in">
+  {%- if Fu.note %}<p>{{ Fu.note }}</p>{% endif %}
+  <a class="fl-btn" href="{{ Fu.message | book }}" target="_blank" rel="noopener">Ask about funeral flowers</a>
+  {%- if "sympathy-order" | enabled %}<p class="fl-fun-sym">Sending flowers to a home instead? <a href="{{ 'sympathy' | href }}">Sympathy flowers</a>.</p>{% endif %}
+</div></section>

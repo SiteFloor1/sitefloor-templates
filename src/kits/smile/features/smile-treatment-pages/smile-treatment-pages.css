@@ -1,0 +1,8 @@
+/* A treatment's page: the clinician's words, the facts beside them. */
+.sm-one-in { display: grid; gap: 40px; }
+.sm-one-part { margin-bottom: 28px; max-width: 62ch; }
+.sm-one-part h2 { margin: 0 0 8px; font-size: 1.5rem; }
+.sm-one-part p { margin: 0; }
+.sm-one-facts { align-self: start; padding: 24px; background: var(--surface); }
+.sm-one-facts .sm-tp-span { margin-top: 6px; }
+@media (min-width: 900px) { .sm-one-in { grid-template-columns: 7fr 4fr; gap: 72px; } .sm-one-facts { position: sticky; top: calc(var(--nav-h, 72px) + 24px); } }

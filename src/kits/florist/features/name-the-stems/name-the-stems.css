@@ -1,0 +1,10 @@
+/* Name the stems: structure only. The look draws the rings and the labels. */
+:has(> .fl-nts) { position: relative; }
+.fl-nts { position: absolute; inset: 0; pointer-events: none; }
+.fl-nts-l { list-style: none; margin: 0; padding: 0; }
+.fl-nts-p { position: absolute; transform: translate(-50%, -50%); pointer-events: auto; }
+.fl-nts-b { display: block; width: 44px; height: 44px; padding: 0; border: 0; background: transparent; cursor: pointer; position: relative; }
+.fl-nts-t { position: absolute; left: calc(100% - 4px); top: 50%; transform: translateY(-50%); white-space: nowrap; pointer-events: none; }
+.fl-nts-p.to-left .fl-nts-t { left: auto; right: calc(100% - 4px); }
+.fl-nts-b[aria-expanded="false"] + .fl-nts-t { display: none; }
+.fl-nts-all { position: absolute; pointer-events: auto; }

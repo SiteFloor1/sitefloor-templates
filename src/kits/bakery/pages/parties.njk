@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: parties
+permalink: parties.html
+feature: parties
+eleventyComputed:
+  title: "{{ site.partiesPage.title | plain }}"
+  description: "{{ site.partiesPage.description or ('Parties and groups at ' + site.business.name + ', ' + site.location.locality + '.') }}"
+---
+{% include "kits/bakery/features/parties/parties.njk" %}

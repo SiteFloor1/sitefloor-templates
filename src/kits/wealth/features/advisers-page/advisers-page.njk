@@ -1,0 +1,7 @@
+{#- The people page: each adviser with what they lead, a note, a direct line and their FCA reference. -#}
+{%- set ph = { title: site.sections.advisers.title, intro: site.sections.advisers.intro } %}
+{% include "kits/wealth/partials/page-head.njk" %}
+<section class="wm-pplp" data-feature="advisers-page"><div class="wrap">
+  {%- set full = true %}{% include "kits/wealth/features/advisers/list.njk" %}
+  <p class="wm-pplp-n">Anyone on the FCA register can be checked by name or reference number at <a href="{{ fca.register }}" target="_blank" rel="noopener">register.fca.org.uk</a>.</p>
+</div></section>

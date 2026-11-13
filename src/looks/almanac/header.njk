@@ -1,0 +1,22 @@
+{#- Almanac header: the studio's name in italic on the left; the first five pages on the right, and "Start your garden"
+    in a hairline box. "Menu" opens every page: always on phones, and on wide screens when there are more than five. -#}
+<header class="nav al-nav"><div class="wrap al-nav-in">
+  <a class="al-name" href="{{ 'index' | href }}" aria-label="{{ site.business.name }}, home">
+    {%- if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="{{ site.business.name }}" height="30">{% else %}{{ site.business.name }}{% endif %}</a>
+  <nav class="al-links" aria-label="Main">
+    {%- for item in site.nav | navItems(pageId) %}{% if loop.index <= 5 %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endif %}{% endfor %}
+  </nav>
+  <a class="al-start" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">Start your garden</a>
+  <button class="burger al-menu{% if (site.nav | navItems(pageId)).length > 5 %} al-menu-all{% endif %}" type="button" aria-expanded="false" aria-controls="mnav"><span class="al-open">Menu</span><span class="al-close">Close</span></button>
+</div></header>
+<div class="mnav al-sheet" id="mnav" hidden>
+  <nav aria-label="Pages">
+    <a href="{{ 'index' | href }}"{% if pageId == "index" %} aria-current="page"{% endif %}>The year</a>
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+  </nav>
+  <p class="al-sheet-now" data-live-status><span class="dot" aria-hidden="true"></span> <span data-status-text>Studio hours</span></p>
+</div>

@@ -1,0 +1,36 @@
+{#- A piece's page: its photographs, Collection · Style · Colour, swatches, price, sizes and the fitters' note; set aside
+    in my size on WhatsApp (or buy it on the brand's own shop), the tray and the hint. Set `p`. -#}
+{%- import "kits/lingerie/partials/mode.njk" as mode with context %}
+{%- set col = site | collectionOf(p.collection) %}
+{%- set pname = p | pieceName(site) %}
+<article class="pp wrap" data-piece="{{ p.id }}" data-name="{{ pname }}" data-price="{{ p.price }}">
+  <div class="pp-ph">
+    <figure>{% set ph = p.photo %}{% set eager = true %}{% include "kits/lingerie/partials/photo.njk" %}{% set eager = false %}</figure>
+    {%- for ph in p.photos %}<figure>{% include "kits/lingerie/partials/photo.njk" %}</figure>{% endfor %}
+  </div>
+  <div class="pp-t">
+    <p class="lp-k">{% if "collection-pages" | enabled %}<a href="{{ ('collection-' + col.id) | href }}">{{ col.name }}</a>{% else %}{{ col.name }}{% endif %}</p>
+    <h1 class="pp-n">{{ p.style }} <span>{{ (p | colourOf(site)).name }}</span></h1>
+    <p class="pp-price">{{ p.price | pounds }}</p>
+    <p class="sw pp-sw" aria-label="Colours">{% for c in p | swatches(site) %}<i style="--sw:{{ c.hex }}" title="{{ c.name }}"></i>{% endfor %}</p>
+    <dl class="pp-dl">
+      <div><dt>Sizes</dt><dd>{{ p.sizes }}</dd></div>
+      {%- if p.fit %}<div><dt>The fit</dt><dd>{{ p.fit }}</dd></div>{% endif %}
+      {%- if p.preorder %}<div><dt>Pre-order</dt><dd>Ships {{ p.preorder.ships }}</dd></div>{% endif %}
+    </dl>
+    <p class="pp-acts">
+      {%- if p.buyUrl and mode.shows("online") == "true" %}<a class="pp-go"{{ mode.attr("online") }} href="{{ p.buyUrl }}" target="_blank" rel="noopener">Buy on our shop</a>{% endif %}
+      {%- if mode.shows("boutique") == "true" or not p.buyUrl %}<a class="pp-go"{% if p.buyUrl %}{{ mode.attr("boutique") }}{% endif %} href="{{ (p | setAside(site)) | wa }}" target="_blank" rel="noopener">Set it aside in my size</a>{% endif %}
+      {%- if "the-tray" | enabled %}<button type="button" class="pc-act" data-tray-add="{{ p.id }}" aria-pressed="false" data-js-only>Have it at my fitting</button>{% endif %}
+      {%- if "hint-sheet" | enabled %}<button type="button" class="pc-act" data-hint="{{ p.id }}" data-js-only>Drop a hint</button>{% endif %}
+    </p>
+    {%- if "size-guide" | enabled %}<p class="pp-help"><a href="{{ ('fitting' | href) + '#sizes' if ('fitting-page' | enabled) else ('index' | href) + '#sizes' }}">The size guide</a></p>{% endif %}
+  </div>
+</article>
+{%- set others = site.pieces | piecesWhere({ collection: p.collection }) | notShown([p.photo.src] | concat(p.photos | srcs)) %}
+{%- if others.length %}
+<section class="wrap pp-more" aria-label="More from {{ col.name }}">
+  <p class="lp-k">More from {{ col.name }}</p>
+  <div class="pc-row">{% for p in others %}{% include "kits/lingerie/partials/piece-card.njk" %}{% endfor %}</div>
+</section>
+{%- endif %}

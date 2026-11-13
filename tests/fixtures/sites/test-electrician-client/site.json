@@ -1,0 +1,867 @@
+{
+  "schemaVersion": 4,
+  "id": "test-electrician-client",
+  "mode": "client",
+  "plan": "plus",
+  "kit": "electrician",
+  "look": "bluehour",
+  "url": "https://bright-wire-test.co.uk",
+  "indexable": true,
+  "lang": "en-GB",
+  "business": {
+    "name": "Brightwire Electrical",
+    "schemaType": "Electrician",
+    "description": "Electricians in Leeds: rewires, lighting and car chargers, certified and notified.",
+    "priceRange": "£££",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "447911123458",
+    "phone": "+44 7911 123458",
+    "email": "hello@bright-wire-test.co.uk"
+  },
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "location": {
+    "streetAddress": "5 Test Street",
+    "locality": "Leeds",
+    "postcode": "LS1 4AA",
+    "country": "GB",
+    "area": "We come to you; the office is for meetings.",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=Leeds"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [
+        [
+          "08:00",
+          "18:00"
+        ]
+      ],
+      "tue": [
+        [
+          "08:00",
+          "18:00"
+        ]
+      ],
+      "wed": [
+        [
+          "08:00",
+          "18:00"
+        ]
+      ],
+      "thu": [
+        [
+          "08:00",
+          "18:00"
+        ]
+      ],
+      "fri": [
+        [
+          "08:00",
+          "17:00"
+        ]
+      ],
+      "sat": [
+        [
+          "09:00",
+          "13:00"
+        ]
+      ],
+      "sun": []
+    },
+    "exceptions": [
+      {
+        "date": "2026-12-25",
+        "ranges": [],
+        "note": "Christmas Day: emergency line only"
+      },
+      {
+        "date": "2026-12-26",
+        "ranges": [],
+        "note": "Boxing Day: emergency line only"
+      }
+    ]
+  },
+  "mark": {
+    "word": "Brightwire",
+    "line": "Electrical"
+  },
+  "nav": [
+    {
+      "label": "Lighting",
+      "page": "lighting",
+      "feature": "room-designer",
+      "fallback": "#lights"
+    },
+    {
+      "label": "Projects",
+      "page": "projects",
+      "feature": "projects-page"
+    },
+    {
+      "label": "Car chargers",
+      "page": "ev-charging",
+      "feature": "ev-check"
+    },
+    {
+      "label": "Your project",
+      "page": "your-project",
+      "feature": "project-page"
+    },
+    {
+      "label": "Studio",
+      "page": "visit",
+      "feature": "plan-visit",
+      "fallback": "#visit"
+    }
+  ],
+  "features": [
+    "circuits",
+    "call-out",
+    "registers",
+    "lit-rooms",
+    "fault-guide",
+    "visit",
+    "plan-visit",
+    "questions",
+    "light-reasons",
+    "projects-page",
+    "ev-check",
+    "room-designer",
+    "project-steps",
+    "before-you-call",
+    "project-page",
+    "certificates"
+  ],
+  "hero": {
+    "kicker": "Electricians, Leeds",
+    "title": "Wired right.",
+    "intro": "Rewires, lighting and car chargers, certified.",
+    "scenes": [
+      {
+        "id": "evening",
+        "label": "EVENING",
+        "line": "Evening.",
+        "wide": {
+          "src": "img/wide.webp",
+          "width": 744,
+          "height": 480,
+          "alt": "A house at dusk"
+        },
+        "tall": {
+          "src": "img/tall.webp",
+          "width": 480,
+          "height": 600
+        }
+      }
+    ]
+  },
+  "sections": {
+    "lights": {
+      "title": "Every light *has a reason.*",
+      "intro": "Tap a number to see the fitting and why it's there. The house opens in 3D."
+    },
+    "litRooms": {
+      "title": "Rooms, *at night.*",
+      "intro": "Each one on its own scene, from one keypad by the door."
+    },
+    "circuits": {
+      "title": "Everything we do, *as it reads on the board.*",
+      "intro": "Every fuse board has a chart inside its door. This is ours. Switch a circuit on to see what's included."
+    },
+    "fault": {
+      "title": "Something's wrong? *Tell us this.*",
+      "intro": "What helps us most when you call, and one thing not to do."
+    },
+    "steps": {
+      "title": "How your project *runs.*",
+      "intro": "From the first visit to the certificates in your hand."
+    },
+    "beforeCall": {
+      "title": "Before *you call.*",
+      "intro": "Four answers and a photo of your fuse board, and the first visit can bring a quote."
+    },
+    "estimate": {
+      "title": "The whole house, *roughly.*",
+      "intro": "A range from homes we've done, before anyone visits."
+    },
+    "dimmer": {
+      "title": "Turn it *down.*",
+      "intro": "The same garden room, photographed from one spot as the lights come up."
+    },
+    "ev3d": {
+      "title": "On your drive, *in 3D.*",
+      "intro": "Slide the charger along the wall and see where the cable runs."
+    },
+    "reviews": {
+      "title": "In *their* words"
+    },
+    "gallery": {
+      "title": "Lately",
+      "intro": "On a live site these come from our Instagram; here, stock photos."
+    },
+    "vouchers": {
+      "title": "Give a *lighting design*",
+      "intro": "A voucher towards a design visit, or the work itself."
+    },
+    "questions": {
+      "title": "Before *we start*"
+    },
+    "visit": {
+      "title": "The *studio*"
+    }
+  },
+  "messages": {
+    "general": "Hello Brightwire, I'd like to talk about some work at home."
+  },
+  "callOut": {
+    "line": "Lost power, or a burning smell?",
+    "when": "Emergency call-outs, day and night.",
+    "message": "Hello Brightwire, I have an electrical emergency."
+  },
+  "registers": [
+    {
+      "scheme": "napit",
+      "label": "NAPIT registered",
+      "url": "https://www.napit.org.uk/find-an-installer/12345"
+    }
+  ],
+  "circuits": {
+    "items": [
+      {
+        "id": "lighting",
+        "name": "Lighting design and control",
+        "included": [
+          "A lighting plan for every room, drawn before a wall is opened",
+          "Scenes on one keypad: Evening, Cinema, Away",
+          "Wired or wireless control, so finished walls can stay finished"
+        ]
+      },
+      {
+        "id": "rewire",
+        "name": "Rewires and new circuits",
+        "included": [
+          "Whole and part rewires, room by room so you can stay in",
+          "A new consumer unit with surge protection",
+          "Notified under Part P; certificates at the end"
+        ]
+      },
+      {
+        "id": "smart",
+        "name": "Smart home and Wi-Fi",
+        "included": [
+          "Heating, blinds, music and cameras on one system",
+          "Wi-Fi that reaches the garden room",
+          "Set up on your phones, and shown to everyone at home"
+        ]
+      },
+      {
+        "id": "ev",
+        "name": "Car chargers",
+        "included": [
+          "A survey of your supply first",
+          "A charger sited where the lead reaches",
+          "Load management with a heat pump or shower"
+        ]
+      },
+      {
+        "id": "testing",
+        "name": "Testing and certificates",
+        "included": [
+          "Electrical Installation Condition Reports (EICR)",
+          "For owners, landlords and buyers",
+          "Explained in plain English, observation by observation"
+        ]
+      },
+      {
+        "id": "faults",
+        "name": "Faults and call-outs",
+        "included": [
+          "Day and night",
+          "Tell us what happened; we'll tell you when we can be there",
+          "Made safe first, repaired after"
+        ]
+      }
+    ]
+  },
+  "rooms": {
+    "items": [
+      {
+        "id": "kitchen",
+        "name": "Kitchen",
+        "scene": "Evening",
+        "did": "Pendants on their own dimmer, light under the wall cupboards.",
+        "photo": {
+          "src": "img/room.webp",
+          "width": 480,
+          "height": 600,
+          "alt": "A kitchen at night: two globe pendants over a stone island, lit cupboards behind"
+        }
+      },
+      {
+        "id": "living",
+        "name": "Living room",
+        "scene": "Evening",
+        "did": "Lamps on the keypad with the ceiling light, so one press sets the room.",
+        "photo": {
+          "src": "img/room.webp",
+          "width": 480,
+          "height": 600,
+          "alt": "A living room at dusk lit by lamps, rain-blue windows behind the sofa"
+        }
+      },
+      {
+        "id": "cinema",
+        "name": "Cinema",
+        "scene": "Cinema",
+        "did": "Step lights, a star ceiling and lights that fade when the film starts.",
+        "photo": {
+          "src": "img/room.webp",
+          "width": 480,
+          "height": 600,
+          "alt": "A home cinema: red reclining seats on lit risers, a starry ceiling"
+        }
+      },
+      {
+        "id": "bathroom",
+        "name": "Bathroom",
+        "scene": "Late",
+        "did": "Mirror lights for the morning, a low glow for the bath.",
+        "photo": {
+          "src": "img/room.webp",
+          "width": 480,
+          "height": 600,
+          "alt": "A marble bathroom: brass wall lights either side of the mirror, a lit vanity"
+        }
+      }
+    ]
+  },
+  "faultGuide": {
+    "message": "Hello Brightwire, something's wrong with our electrics.",
+    "safety": "Please don't open or repair anything yourself. If you smell burning, see scorch marks or hear crackling, keep clear and call us now.",
+    "cases": [
+      {
+        "id": "trip",
+        "label": "Keeps tripping",
+        "tell": [
+          "When it trips: straight away, or after something is switched on.",
+          "What was running at the time.",
+          "Whether it happens in wet weather.",
+          "A photo of the board with its door open, if it's easy to reach."
+        ]
+      },
+      {
+        "id": "off",
+        "label": "Part of the house is off",
+        "tell": [
+          "Which rooms or sockets are off, and which still work.",
+          "When you first noticed.",
+          "Whether your neighbours have power.",
+          "Anything new fitted or plugged in lately."
+        ]
+      },
+      {
+        "id": "smell",
+        "label": "Burning smell or buzzing",
+        "tell": [
+          "Where the smell or sound is coming from.",
+          "When it started, and whether it comes and goes.",
+          "Whether anything looks scorched or discoloured.",
+          "Keep clear of it while you call."
+        ]
+      },
+      {
+        "id": "warm",
+        "label": "Socket or switch feels warm",
+        "tell": [
+          "Which socket or switch, and in which room.",
+          "What is plugged in or switched on there.",
+          "How long it has felt warm.",
+          "Stop using it while you call."
+        ]
+      }
+    ]
+  },
+  "fittings": {
+    "photo": {
+      "src": "img/wide.webp",
+      "width": 744,
+      "height": 480,
+      "alt": "A room with its lights numbered"
+    },
+    "items": [
+      {
+        "x": 36.7,
+        "y": 58.8,
+        "name": "Wall lights, up and down",
+        "why": "Two beams graze the brick, so the wall glows instead of the room glaring.",
+        "scene": "Evening, Cinema",
+        "colour": "Warm white, 2700K",
+        "control": "Dimmed from the keypad by the doors"
+      },
+      {
+        "x": 33,
+        "y": 24,
+        "name": "Light washing the vaulted ceiling",
+        "why": "Hidden along the beam, it lights the ceiling and lets the room feel twice its height.",
+        "scene": "Evening",
+        "colour": "Warm white, 2700K",
+        "control": "Its own circuit, so it can fade alone"
+      },
+      {
+        "x": 52.7,
+        "y": 26.5,
+        "name": "Downlight in the tall window",
+        "why": "One narrow beam on the table, nothing in your eyes from the sofa.",
+        "scene": "Evening",
+        "colour": "Warm white, 2700K",
+        "control": "Narrow beam, glare-free"
+      },
+      {
+        "x": 68.5,
+        "y": 75.3,
+        "name": "Lights over the garage door",
+        "why": "Light where you park and where you walk, on a timer and a sensor.",
+        "scene": "Away, and on arrival",
+        "colour": "Warm white, 3000K",
+        "control": "Sunset to midnight, then on movement"
+      }
+    ]
+  },
+  "projectsPage": {
+    "kicker": "Projects",
+    "title": "Finished *work*",
+    "intro": "Houses we've lit, rewired and wired for cars, by kind of job."
+  },
+  "projects": {
+    "types": [
+      {
+        "id": "lighting",
+        "label": "Lighting"
+      },
+      {
+        "id": "rewire",
+        "label": "Rewires"
+      },
+      {
+        "id": "smart",
+        "label": "Smart home"
+      },
+      {
+        "id": "ev",
+        "label": "Car chargers"
+      }
+    ],
+    "items": [
+      {
+        "id": "garden-room",
+        "title": "A garden room that glows at dusk",
+        "area": "Highgate",
+        "type": "lighting",
+        "did": [
+          "Ceiling wash along the beam",
+          "Wall lights up and down on the brick",
+          "Three scenes on one keypad"
+        ],
+        "photo": {
+          "src": "img/room.webp",
+          "width": 480,
+          "height": 600,
+          "alt": "A brick and glass garden room lit at dusk"
+        }
+      },
+      {
+        "id": "period",
+        "title": "A Victorian front room, relit",
+        "area": "Islington",
+        "type": "lighting",
+        "did": [
+          "Picture lights and lamps on one circuit",
+          "The chandelier on its own dimmer",
+          "Original switches kept, new wiring behind"
+        ],
+        "photo": {
+          "src": "img/room.webp",
+          "width": 480,
+          "height": 600,
+          "alt": "A dark blue Victorian sitting room with a candlelit fireplace and a chandelier"
+        }
+      },
+      {
+        "id": "townhouse",
+        "title": "A townhouse, rewired floor by floor",
+        "area": "Primrose Hill",
+        "type": "rewire",
+        "did": [
+          "Rewired a floor at a time, the family at home",
+          "A new consumer unit with surge protection",
+          "Part P notified; EICR at the end"
+        ],
+        "photo": {
+          "src": "img/room.webp",
+          "width": 480,
+          "height": 600,
+          "alt": "A Georgian townhouse at dusk, its windows lit"
+        }
+      },
+      {
+        "id": "pool",
+        "title": "Terrace, pool and garden on one app",
+        "area": "Hampstead",
+        "type": "smart",
+        "did": [
+          "Pool and terrace lights on scenes",
+          "Heating, blinds and music together",
+          "Wi-Fi to the end of the garden"
+        ],
+        "photo": {
+          "src": "img/room.webp",
+          "width": 480,
+          "height": 600,
+          "alt": "A terrace beside a long lit pool at night"
+        }
+      },
+      {
+        "id": "media",
+        "title": "A media room that dims itself",
+        "area": "Muswell Hill",
+        "type": "smart",
+        "did": [
+          "Lights fade when the film starts",
+          "Projector, screen and sound on one remote",
+          "Blackout blinds on the scene"
+        ],
+        "photo": {
+          "src": "img/room.webp",
+          "width": 480,
+          "height": 600,
+          "alt": "A living room at night with a projector screen and a fire"
+        }
+      },
+      {
+        "id": "bath",
+        "title": "A bathroom lit like a hotel's",
+        "area": "Hampstead",
+        "type": "lighting",
+        "did": [
+          "Mirror lights for the morning",
+          "A low glow for the bath, on a sensor at night",
+          "Zones and IP ratings checked"
+        ],
+        "photo": {
+          "src": "img/room.webp",
+          "width": 480,
+          "height": 600,
+          "alt": "A bathroom with a copper bath by a tall curtained window"
+        }
+      },
+      {
+        "id": "chandelier",
+        "title": "A double-height hall and its chandeliers",
+        "area": "Belsize Park",
+        "type": "lighting",
+        "did": [
+          "Two chandeliers on a winch for cleaning",
+          "Scene dimming from the hall and the landing"
+        ],
+        "photo": {
+          "src": "img/room.webp",
+          "width": 480,
+          "height": 600,
+          "alt": "Two crystal chandeliers lit against a dark ceiling"
+        }
+      },
+      {
+        "id": "charger",
+        "title": "A charger on the garage wall",
+        "area": "Highgate",
+        "type": "ev",
+        "did": [
+          "7 kW, load managed with the heat pump",
+          "Sited where the lead reaches both cars"
+        ],
+        "photo": {
+          "src": "img/room.webp",
+          "width": 480,
+          "height": 600,
+          "alt": "A wall-mounted car charger on a brick garage"
+        }
+      }
+    ]
+  },
+  "evPage": {
+    "kicker": "Car chargers",
+    "title": "A charger *on your drive*",
+    "intro": "Four answers tell you whether it's a standard install, and what it costs."
+  },
+  "ev": {
+    "message": "Hello Brightwire, about a car charger.",
+    "standard": {
+      "price": 1195,
+      "includedMetres": 10,
+      "what": "A 7 kW charger, fitted, tested and set up on your phone."
+    },
+    "perMetre": 28,
+    "maxMetres": 30,
+    "minFuse": 80,
+    "leadMetres": 7.5,
+    "grantUrl": "https://www.gov.uk/government/collections/government-grants-for-low-emission-vehicles",
+    "photo": {
+      "src": "img/room.webp",
+      "width": 480,
+      "height": 600,
+      "alt": "A charger on a wall"
+    }
+  },
+  "lightingPage": {
+    "kicker": "Lighting",
+    "title": "Light, *in layers*",
+    "intro": "Choose a room, its size and the layers of light. The price is ours, for fittings we supply and fit."
+  },
+  "designer": {
+    "message": "Hello Brightwire, I've designed a room on your website.",
+    "sizes": [
+      {
+        "id": "s",
+        "label": "Up to 12 m²"
+      },
+      {
+        "id": "m",
+        "label": "12–25 m²"
+      },
+      {
+        "id": "l",
+        "label": "Over 25 m²"
+      }
+    ],
+    "rooms": [
+      {
+        "id": "kitchen",
+        "name": "Kitchen"
+      },
+      {
+        "id": "living",
+        "name": "Living room"
+      },
+      {
+        "id": "bedroom",
+        "name": "Bedroom"
+      },
+      {
+        "id": "bathroom",
+        "name": "Bathroom"
+      },
+      {
+        "id": "hall",
+        "name": "Hall and stairs"
+      }
+    ],
+    "layers": [
+      {
+        "id": "down",
+        "name": "Downlights",
+        "about": "Even light to work and clean by.",
+        "price": 145,
+        "per": {
+          "s": 4,
+          "m": 8,
+          "l": 12
+        }
+      },
+      {
+        "id": "wall",
+        "name": "Wall lights",
+        "about": "Light on the walls, so the room feels bigger and softer.",
+        "price": 260,
+        "per": {
+          "s": 2,
+          "m": 4,
+          "l": 6
+        }
+      },
+      {
+        "id": "pendant",
+        "name": "Pendants",
+        "about": "Over a table or an island, on their own dimmer.",
+        "price": 340,
+        "per": {
+          "s": 1,
+          "m": 2,
+          "l": 3
+        }
+      },
+      {
+        "id": "plinth",
+        "name": "A lit plinth or shelf",
+        "about": "A low line of light for the evening and the night.",
+        "price": 220,
+        "per": {
+          "s": 1,
+          "m": 2,
+          "l": 3
+        }
+      }
+    ],
+    "control": {
+      "name": "A scene keypad",
+      "price": 420
+    }
+  },
+  "yourProjectPage": {
+    "kicker": "Your project",
+    "title": "From the first visit *to your certificates*",
+    "intro": "How a job runs with us, what to send before we speak, and a range for the whole house."
+  },
+  "steps": {
+    "items": [
+      {
+        "title": "First visit",
+        "when": "Within a week",
+        "text": "We walk the house with you, look at the board and talk about how you live in it."
+      },
+      {
+        "title": "The design",
+        "when": "Two weeks later",
+        "text": "A lighting plan for each room and a fixed quote, line by line."
+      },
+      {
+        "title": "The work",
+        "when": "Days, not weeks",
+        "text": "Room by room, dust sheets down, everything back as we found it."
+      },
+      {
+        "title": "Tested and certified",
+        "when": "The last day",
+        "text": "Every circuit tested, notified under Part P, and the certificates in your hand."
+      }
+    ]
+  },
+  "beforeYouCall": {
+    "message": "Hello Brightwire, before we speak:",
+    "ages": [
+      "Before 1919",
+      "1919–1960",
+      "1960–2000",
+      "Since 2000",
+      "Not sure"
+    ],
+    "goals": [
+      "Lighting design",
+      "A rewire",
+      "Smart home",
+      "A car charger",
+      "An EICR"
+    ]
+  },
+  "certificates": {
+    "kicker": "Your home",
+    "title": "Your certificates",
+    "source": "sheet",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-test/pub?output=csv",
+    "intervalYears": 10,
+    "weeksBefore": 6
+  },
+  "visitInfo": {
+    "kicker": "The studio",
+    "title": "Seeing the *fittings*",
+    "intro": "Come and see the fittings and the keypads before you choose. By appointment.",
+    "checked": "2026-11",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "Tufnell Park station",
+        "origin": "Tufnell Park station, London",
+        "minutes": 9,
+        "steps": [
+          "Leave the station and turn up Brecknock Road",
+          "Turn left onto Highgate Road",
+          "Ashgrove Yard is the gated yard on the right"
+        ]
+      },
+      {
+        "mode": "bus",
+        "from": "Buses C2 and 214",
+        "stop": "Highgate Road",
+        "minutes": 3,
+        "steps": [
+          "Get off at the Highgate Road stop",
+          "Walk on fifty metres to the yard gate"
+        ]
+      }
+    ],
+    "parking": [
+      {
+        "name": "Two spaces in the yard",
+        "walk": 0,
+        "price": "free for visitors",
+        "paid": "never",
+        "note": "Tell us your registration when you book.",
+        "bankHolidays": "free"
+      }
+    ],
+    "access": [
+      {
+        "label": "Step-free entrance",
+        "yes": true
+      },
+      {
+        "label": "Studio on the ground floor",
+        "yes": true
+      },
+      {
+        "label": "Accessible toilet",
+        "yes": false
+      }
+    ],
+    "accessNote": "The studio is on the ground floor of the yard.",
+    "payment": "Card and bank transfer."
+  },
+  "questions": [
+    {
+      "topic": "Before we start",
+      "q": "Are you registered, and can I check?",
+      "a": "Yes. Our registers are linked under the services; each link goes to the scheme's own public register.",
+      "home": true
+    },
+    {
+      "topic": "Before we start",
+      "q": "Will the work be notified, and do I get certificates?",
+      "a": "Yes. Notifiable work is notified under Part P and you get the certificates when we finish. Keep them: you'll need them when you sell.",
+      "home": true
+    },
+    {
+      "topic": "Lighting",
+      "q": "Can you add lighting control without chasing walls?",
+      "a": "Often, yes: wireless control replaces the switch in its own box. In a new build or a full rewire we wire it in. We'll say which suits your house at the first visit.",
+      "home": true
+    },
+    {
+      "topic": "Lighting",
+      "q": "What happens if the Wi-Fi drops?",
+      "a": "The keypads keep working. They talk to each other on their own system; the app is the extra.",
+      "home": true
+    },
+    {
+      "topic": "Rewires",
+      "q": "Can we stay in the house during a rewire?",
+      "a": "Usually, yes. We work a floor or a few rooms at a time and leave power on where we can each evening.",
+      "home": true
+    },
+    {
+      "topic": "Chargers",
+      "q": "Can I get a grant for a charger?",
+      "a": "Some renters and flat owners can. The amounts change, so check gov.uk; the link is on our car charger page."
+    },
+    {
+      "topic": "Testing",
+      "q": "How often do I need an EICR?",
+      "a": "For a home you own, we suggest every ten years. If you let it, in England the law asks for every five years; see the rules on gov.uk."
+    }
+  ],
+  "addons": [
+    "certificates"
+  ]
+}

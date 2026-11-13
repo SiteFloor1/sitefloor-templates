@@ -1,0 +1,6 @@
+{#- Your usual: shown only when this phone has asked for a set before (remembered on the phone, nowhere else). -#}
+<section id="usual" class="nl-usual" data-feature="usual-set"{{ "usual-set" | tierAttr | safe }} aria-label="Your usual" hidden><div class="wrap nl-usual-in">
+  <p><span class="nl-lab">Your usual</span> <b data-yu-what></b></p>
+  <a class="nl-link" data-yu-book href="{{ site.yourUsual.message | book }}" target="_blank" rel="noopener">Book it again</a>
+  <button type="button" class="nl-quiet" data-yu-forget>Forget it</button>
+</div></section>

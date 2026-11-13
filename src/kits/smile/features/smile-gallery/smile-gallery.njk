@@ -1,0 +1,25 @@
+{#- The smile gallery: the studio's own patients, close and large, each with the treatment and who treated them. Only
+    with consent the studio has recorded (never shown here), never retouched; a before only of the same person. A demo
+    uses stock photographs of models, and says so on every one. -#}
+{%- set s = site.smiles %}
+{%- set ph = { kicker: "Smiles", title: s.title, intro: s.intro } %}
+{%- include "kits/smile/partials/page-head.njk" %}
+<div class="sm-gal" data-feature="smile-gallery"><div class="wrap">
+  <ul class="sm-gal-list">
+    {%- for x in s.items %}
+    <li class="sm-gal-item rv">
+      <div class="sm-gal-ph{% if x.before %} sm-gal-pair{% endif %}">
+        {%- if x.before %}<figure><img src="{{ x.before.src | img }}" alt="{{ x.before.alt }}" width="{{ x.before.width }}" height="{{ x.before.height }}" loading="lazy" decoding="async"><figcaption>Before</figcaption></figure>{% endif %}
+        <figure><img src="{{ x.photo.src | img }}" alt="{{ x.photo.alt }}" width="{{ x.photo.width }}" height="{{ x.photo.height }}" loading="lazy" decoding="async">{% if x.before %}<figcaption>After</figcaption>{% endif %}</figure>
+      </div>
+      {%- if x.model %}
+      <p class="sm-gal-cap">A model photograph, not a patient. {{ x.caption }}</p>
+      {%- else %}
+      {%- set t = site.treatments | treatment(x.treatment) %}{% set p = site.clinicians | clinician(x.by) %}
+      <p class="sm-gal-cap"><b>{{ t.name }}</b>{% if x.caption %}. {{ x.caption }}{% endif %}<br>{{ p.name }} · {% include "kits/smile/partials/gdc.njk" %}<br>Shown with the patient's consent. Not retouched.</p>
+      {%- endif %}
+    </li>
+    {%- endfor %}
+  </ul>
+  {%- include "kits/smile/partials/rules.njk" %}
+</div></div>

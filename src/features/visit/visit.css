@@ -1,0 +1,20 @@
+/* Visit: hours table with today highlighted, address panel with the postcode set large and a Google Maps link. */
+.sec-visit { padding-top: 0 !important; }
+.visit { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 14px; }
+@media (max-width: 900px) { .visit { grid-template-columns: minmax(0, 1fr); } }
+.hours { background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); padding: 28px; }
+.hours .now { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 800; margin: 0 0 4px; }
+.hours .sub { color: var(--muted); font-size: 14px; margin: 0 0 18px; }
+.hrs { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.hrs th, .hrs td { padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 15px; font-weight: 500; }
+.hrs th { text-align: left; } .hrs td { text-align: right; }
+.hrs tr.today th, .hrs tr.today td { color: var(--accent); font-weight: 800; }
+.hrs tr.today th::after { content: "Today"; margin-left: 10px; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; background: var(--accent); color: var(--on-accent); padding: 2px 6px; vertical-align: 2px; }
+.exceptions { list-style: none; padding: 0; margin: 18px 0 0; font-size: 14px; color: var(--muted); }
+.exceptions li { padding: 4px 0; } .exceptions b { color: var(--text); margin-right: 6px; }
+.where { display: flex; flex-direction: column; justify-content: flex-end; gap: 14px; min-height: 320px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); padding: 28px; }
+.where-k { margin: 0 0 auto; font-size: 11px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); }
+.where-pc { margin: 0; font-family: var(--font-display); font-size: clamp(56px, 9vw, 112px); line-height: .9; letter-spacing: -.02em; color: var(--text); }
+.where address { font-style: normal; color: var(--muted); font-size: 15px; line-height: 1.55; border-top: 1px solid var(--line); padding-top: 14px; }
+.where address b { display: block; color: var(--text); font-family: var(--font-display); font-size: 22px; font-weight: 600; margin-bottom: 2px; }
+.where .btn { align-self: flex-start; min-height: 44px; font-size: 14px; }

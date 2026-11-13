@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: people
+permalink: people.html
+feature: people-page
+title: People
+eleventyComputed:
+  description: "The partners and solicitors of {{ site.business.name }}, what each does and their SRA ID."
+---
+{% include "kits/law/features/people-page/people-page.njk" %}
+{%- set hostPage = "people-page" %}{% set hostSkip = "people" %}{% include "kits/law/partials/hosted.njk" %}

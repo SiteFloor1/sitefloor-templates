@@ -1,0 +1,19 @@
+{#- Build a bouquet from real stems (Signature): choose a palette and a size; the florist's own photograph of that
+    bouquet shows with its price (never a drawing). If they haven't photographed that size, the nearest in the palette
+    shows, said plainly. Ordered on WhatsApp. -#}
+{%- set B = site.builder %}
+{%- set ph = { kicker: B.kicker or "Build a bouquet", title: B.title, intro: B.intro } %}
+{% include "kits/florist/partials/page-head.njk" %}
+{%- set first = B.bouquets[0] %}
+<section class="fl-bb" data-feature="bouquet-builder"><div class="wrap fl-bb-in">
+  <figure class="fl-bb-ph"><img data-bb-img src="{{ first.photo.src | img }}" alt="{{ first.photo.alt }}" width="{{ first.photo.width }}" height="{{ first.photo.height }}" decoding="async"><figcaption data-bb-note></figcaption></figure>
+  <form class="fl-bb-f" data-bb-form novalidate>
+    <fieldset class="fl-bb-pal"><legend>Palette</legend>
+      {%- for p in B.palettes %}<label class="fl-swatch-pick"><input type="radio" name="bb-palette" value="{{ p.id }}"{% if p.id == first.palette %} checked{% endif %}><i style="--sw:{{ p.colour }}" aria-hidden="true"></i>{{ p.label }}</label>{% endfor %}
+    </fieldset>
+    <fieldset class="fl-sizes"><legend>Size</legend>
+      {%- for s in B.sizes %}<label class="fl-size"><input type="radio" name="bb-size" value="{{ s.id }}"{% if s.id == first.size %} checked{% endif %}><span class="fl-size-l">{{ s.label }}</span><span class="fl-size-p">{{ s.price | pounds }}</span></label>{% endfor %}
+    </fieldset>
+    <a class="fl-send" data-bb-send href="{{ B.message | book }}" target="_blank" rel="noopener">Order this bouquet</a>
+  </form>
+</div></section>

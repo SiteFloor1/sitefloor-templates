@@ -1,0 +1,13 @@
+{#- Words we use: each term in one plain sentence, A to Z, with a filter. Without scripts the whole list shows. -#}
+{%- set gl = site.glossary %}
+{%- set ph = { title: gl.title, intro: gl.intro } %}
+{% include "kits/law/partials/page-head.njk" %}
+<div class="wrap lw-gl" data-feature="glossary">
+  <label class="lw-gl-find" data-js-only><span>Find a word</span><input id="gl-find" type="search" autocomplete="off"></label>
+  <dl class="lw-gl-list">
+    {%- for t in gl.terms | sort(false, false, "term") %}
+    <div class="lw-gl-t" data-term="{{ t.term | lower }} {{ t.means | lower }}"><dt>{{ t.term }}</dt><dd>{{ t.means }}</dd></div>
+    {%- endfor %}
+  </dl>
+  <p class="lw-gl-none" id="gl-none" hidden>No word matches. <a href="{{ ('contact' | href) if ('first-contact' | enabled) else ('index' | href) + '#enquiry' }}">Ask us</a>.</p>
+</div>

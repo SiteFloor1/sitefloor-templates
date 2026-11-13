@@ -1,0 +1,7 @@
+{#- The piece in detail, on its own page: the house's macro photographs, very large (one alone runs full measure). -#}
+<section class="nc-sec jw-detail" data-feature="the-piece"{{ "the-piece" | tierAttr | safe }} aria-labelledby="jw-detail-h"><div class="wrap">
+  <h2 class="jw-h" id="jw-detail-h">In detail</h2>
+  <div class="jw-macros">
+    {%- for m in p.photos %}<figure class="rv"><img src="{{ m.src | img }}" width="{{ m.width }}" height="{{ m.height }}" loading="lazy" decoding="async" alt="{{ m.alt }}"></figure>{% endfor %}
+  </div>
+</div></section>

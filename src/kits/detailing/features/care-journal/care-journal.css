@@ -1,0 +1,13 @@
+/* The journal: the newest piece large, the rest as a ruled list; pieces at reading width. */
+.dt-jn-lead { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: 8px clamp(24px, 4vw, 64px); align-items: end; color: inherit; text-decoration: none; }
+.dt-jn-lead img { grid-row: span 3; display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
+.dt-jn-lead b { font-family: var(--font-display); font-weight: 300; font-size: clamp(28px, 3vw, 44px); line-height: 1.05; letter-spacing: -.02em; }
+.dt-jn-d { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.dt-jn-l { color: var(--muted); }
+.dt-jn-list { list-style: none; margin: clamp(40px, 5vw, 72px) 0 0; padding: 0; border-top: 1px solid var(--line); }
+.dt-jn-list a { display: grid; grid-template-columns: 9em minmax(0, 1fr) minmax(0, 1fr); gap: 4px 24px; align-items: baseline; padding-block: 20px; border-bottom: 1px solid var(--line); color: inherit; text-decoration: none; }
+.dt-jn-list b { font-family: var(--font-display); font-weight: 400; font-size: 22px; }
+.dt-jn-lead:hover b, .dt-jn-list a:hover b { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px; }
+.dt-art { max-width: 68ch; padding-block: clamp(32px, 4vw, 56px); }
+.dt-art p { font-size: 17px; line-height: 1.75; }
+@media (max-width: 760px) { .dt-jn-lead { grid-template-columns: 1fr; } .dt-jn-lead img { grid-row: auto; } .dt-jn-list a { grid-template-columns: 1fr; } }

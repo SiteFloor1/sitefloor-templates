@@ -1,0 +1,53 @@
+/* the cloth book: one dark spine with a tacking stitch, lengths hanging from it at their own widths and drops, pinked
+   at the foot; on phones the book scrolls sideways inside itself (the page never does). The weave fills the screen. */
+.tl-cb-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; margin-bottom: 28px; }
+.tl-cb-t { margin: 0; }
+.tl-cb-i { margin: 0; color: var(--muted); font-size: 15px; }
+.tl-book { --h: 560px; overflow-x: auto; scrollbar-width: none; margin-inline: calc(-1 * var(--pad)); padding: 0 var(--pad) 8px; overscroll-behavior-x: contain; }
+.tl-book::-webkit-scrollbar { display: none; }
+.tl-book-in { min-width: 940px; }
+.tl-spine { height: 12px; background: var(--text); position: relative; }
+.tl-spine::after { content: ""; position: absolute; left: 0; right: 0; top: 5px; border-top: 1.5px dashed var(--accent-soft); }
+.tl-lengths { list-style: none; margin: 0; padding: 0; display: flex; gap: 5px; align-items: flex-start; }
+.tl-len-li { flex: var(--w) 1 0; min-width: 0; }
+.tl-len-li[hidden] { display: none; }
+.tl-len { display: block; text-decoration: none; color: inherit; }
+.tl-len-cl { display: block; height: calc(var(--h) * var(--d)); overflow: hidden; background: var(--surface);
+  -webkit-mask: conic-gradient(from -45deg at bottom, transparent, black 1deg 89deg, transparent 90deg) bottom / 14px 100%;
+          mask: conic-gradient(from -45deg at bottom, transparent, black 1deg 89deg, transparent 90deg) bottom / 14px 100%; }
+.tl-len-cl img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s cubic-bezier(.2,.6,.2,1); }
+.tl-len:hover img { transform: translateY(6px) scale(1.03); }
+.tl-len-n { display: block; margin-top: 14px; font-size: 16px; font-weight: 500; }
+.tl-len-s { display: block; color: var(--muted); font-size: 14px; }
+.tl-cb-note { margin-top: 36px; }
+.tl-cb-more { margin-top: 20px; }
+@media (max-width: 760px) { .tl-book { --h: 420px; } .tl-book-in { min-width: 860px; } }
+
+.tl-weave { position: fixed; inset: 0; width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: var(--bg); color: var(--text); }
+.tl-weave::backdrop { background: var(--bg); }
+.tl-weave picture, .tl-weave-img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
+.tl-weave-img.in { animation: tl-weave-in 1s ease both; }
+@keyframes tl-weave-in { from { opacity: .3; transform: scale(1.02); } to { opacity: 1; transform: none; } }
+.tl-weave-x { position: absolute; top: calc(16px + env(safe-area-inset-top, 0px)); right: calc(16px + env(safe-area-inset-right, 0px)); width: 48px; height: 48px; border: 0; background: var(--bg); color: var(--text); font-size: 26px; line-height: 1; cursor: pointer; }
+.tl-weave-card { position: absolute; left: 0; right: 0; bottom: 0; background: var(--bg); display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px 40px; align-items: end;
+  padding: 24px max(var(--pad), env(safe-area-inset-right, 0px)) calc(24px + env(safe-area-inset-bottom, 0px)) max(var(--pad), env(safe-area-inset-left, 0px)); }
+.tl-weave-n { margin: 0 0 8px; font-family: var(--font-display); }
+.tl-weave-dl { display: flex; flex-wrap: wrap; gap: 4px 28px; margin: 0; color: var(--muted); font-size: 15px; }
+.tl-weave-dl div { display: flex; gap: .4em; }
+.tl-weave-dl div[hidden] { display: none; }
+.tl-weave-dl dd { margin: 0; color: var(--text); }
+.tl-weave-acts { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.tl-weave-count { color: var(--muted); font-size: 14px; white-space: nowrap; font-variant-numeric: tabular-nums; margin-right: 6px; }
+.tl-weave-nav { width: 48px; height: 48px; border: 1px solid var(--line-2); background: var(--bg); color: var(--text); font-size: 20px; cursor: pointer; }
+@media (max-width: 760px) { .tl-weave-card { grid-template-columns: 1fr; } .tl-weave-acts .tl-btn { flex: 1 0 100%; justify-content: center; } }
+@media (prefers-reduced-motion: reduce) { .tl-weave-img.in { animation: none; } .tl-len-cl img { transition: none; } }
+
+/* the swatch set: one line of names and the request, under the book */
+.tl-set { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 28px; margin-top: 28px; padding: 16px 0; border-top: 1px solid var(--line-2); border-bottom: 1px solid var(--line-2); }
+.tl-set[hidden] { display: none; }
+.tl-set-t { margin: 0; }
+.tl-set-n { color: var(--muted); font-size: 14px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.tl-set-acts { margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 22px; }
+.tl-len-in { color: var(--accent); font-weight: 400; font-size: 14px; }
+.tl-weave-add[aria-pressed="true"] { color: var(--text); text-decoration: underline; text-decoration-style: dashed; text-decoration-color: var(--accent); text-underline-offset: 7px; }
+.tl-weave-add:disabled { cursor: default; }

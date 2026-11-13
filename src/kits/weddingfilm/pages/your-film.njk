@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: your-film
+permalink: your-film.html
+feature: film-progress
+noindex: true
+eleventyComputed:
+  title: "{{ site.progress.title | plain }}"
+  description: "For couples of {{ site.business.name }}: where your film is, with the code we sent you."
+---
+{%- set ph = { kicker: "For our couples", title: site.progress.title, intro: site.progress.intro } %}{% include "kits/weddingfilm/partials/page-head.njk" %}
+{% include "kits/weddingfilm/features/film-progress/film-progress.njk" %}

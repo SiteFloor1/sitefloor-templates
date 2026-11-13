@@ -1,0 +1,29 @@
+{#- Find your first class: three answers, the studio's own choice of class and its next three times. Works without
+    the result script as a plain pointer to the first class. -#}
+{%- set sec = site.sections.classFinder %}
+<section id="finder" class="pl-find" data-feature="class-finder" aria-labelledby="pl-find-h"{{ 'class-finder' | tierAttr | safe }}><div class="wrap pl-find-in">
+  <div>
+    <h2 class="pl-find-h" id="pl-find-h">{{ sec.title | markup | safe }}</h2>
+    {%- if sec.intro %}<p class="pl-find-i">{{ sec.intro }}</p>{% endif %}
+  </div>
+  <form class="pl-find-q" data-cf-form>
+    <fieldset><legend>Done reformer before?</legend>
+      <label><input type="radio" name="cf-new" id="cf-new-yes" value="no" checked> Yes</label>
+      <label><input type="radio" name="cf-new" id="cf-new-no" value="yes"> Never, or not for a while</label></fieldset>
+    <fieldset><legend>How would you like it?</legend>
+      <label><input type="radio" name="cf-pace" id="cf-pace-slower" value="slower"> Slower, longer stretches</label>
+      <label><input type="radio" name="cf-pace" id="cf-pace-steady" value="steady" checked> Strong and steady</label>
+      <label><input type="radio" name="cf-pace" id="cf-pace-faster" value="faster"> Quicker</label></fieldset>
+    {%- if site.classFinder.pregnancy %}
+    <fieldset><legend>Pregnant, or had a baby this year?</legend>
+      <label><input type="radio" name="cf-preg" id="cf-preg-no" value="no" checked> No</label>
+      <label><input type="radio" name="cf-preg" id="cf-preg-yes" value="yes"> Yes</label></fieldset>
+    {%- endif %}
+  </form>
+  <div class="pl-find-r" aria-live="polite" data-cf-result>
+    <p class="pl-find-k">Start with</p>
+    <p class="pl-find-c" data-cf-class>{{ (site | classOf(site.firstClass.class if site.firstClass else site.classFinder.new)).name }}</p>
+    <p class="pl-find-x" data-cf-text></p>
+    <ul class="pl-find-t" data-cf-times></ul>
+  </div>
+</div></section>

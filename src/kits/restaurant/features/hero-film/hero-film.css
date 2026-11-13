@@ -1,0 +1,12 @@
+/* The hero film: stacked photos, one shown; a slow push-in while it's on. Tokens only. */
+.hf { position: absolute; inset: 0; overflow: hidden; background: var(--bg); }
+.hf-shot { position: absolute; inset: 0; opacity: 0; transition: opacity 1.8s ease; }
+.hf-shot.on { opacity: 1; }
+.hf-shot img { width: 100%; height: 100%; object-fit: cover; display: block; transform: scale(1.02); }
+@media (prefers-reduced-motion: no-preference) {
+  .hf-shot.on img { animation: hf-push 9s ease-out both; }
+  @keyframes hf-push { from { transform: scale(1.02); } to { transform: scale(1.12); } }
+}
+.hf-video img, .hf-video video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--hf-focus, 50% 50%); display: block; }
+.hf-video video { opacity: 0; transition: opacity 1.2s ease; }
+.hf-video video.on { opacity: 1; }

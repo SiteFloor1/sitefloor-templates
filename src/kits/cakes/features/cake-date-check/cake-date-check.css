@@ -1,0 +1,7 @@
+/* The date check: one date field, the answer in the display face, a message link below. */
+.ck-date-f { display: grid; gap: 6px; max-width: 320px; }
+.ck-date-f label { color: var(--muted); }
+.ck-date-f input { font: inherit; font-size: 22px; color: var(--text); background: transparent; border: 0; border-bottom: 2px solid var(--text); padding: 6px 0; min-height: 44px; }
+.ck-date-r { margin: 18px 0 10px; font-family: var(--font-display); font-size: clamp(22px, 2.2vw, 30px); line-height: 1.15; max-width: 32ch; }
+.ck-date-r[data-state="free"], .ck-date-r[data-state="one"] { color: var(--ok); }
+.ck-date-r[data-state="booked"] { color: var(--muted); }

@@ -1,0 +1,13 @@
+---
+layout: core/layouts/base.njk
+pageId: projects
+permalink: projects.html
+feature: projects-page
+eleventyComputed:
+  title: "{{ site.projectsPage.title | plain }}"
+  description: "Finished work by {{ site.business.name }}, {{ site.location.locality }}, by kind of job."
+---
+{%- set ph = site.projectsPage %}
+{% include "kits/electrician/partials/page-head.njk" %}
+{% include "kits/electrician/features/projects-page/projects-page.njk" %}
+{%- set hostPage = "projects-page" %}{% include "kits/electrician/partials/hosted.njk" %}

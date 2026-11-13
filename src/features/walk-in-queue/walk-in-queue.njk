@@ -1,0 +1,32 @@
+{%- set sec = site.sections.queue %}
+{%- set grid = site.queue | busyGrid %}
+<section id="queue" class="sec-queue" data-feature="walk-in-queue"{{ "walk-in-queue" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="q-grid">
+    <div class="q-live rv" data-q-live data-js-only aria-live="polite">
+      <p class="q-k">Right now</p>
+      <p class="q-num"><b data-q-waiting>–</b><span data-q-unit>waiting</span></p>
+      <ol class="q-line" data-q-line aria-hidden="true"></ol>
+      <p class="q-wait" data-q-wait>Checking the queue…</p>
+      <p class="q-upd" data-q-updated></p>
+    </div>
+    <div class="q-off rv" data-q-fallback>
+      <p class="q-k">Right now</p>
+      <p class="q-wait">The live queue isn't showing right now. Walk in, or message us and we'll tell you how long it is.</p>
+      <a class="btn ghost" href="{{ 'How long is the queue right now?' | wa }}" target="_blank" rel="noopener">Ask how long it is</a>
+    </div>
+    <div class="q-week rv">
+      <p class="q-k">Usually <span class="q-best" data-q-best></span></p>
+      <div class="q-heat" role="table" aria-label="How busy the shop usually is, by day and hour">
+        <div class="q-row q-head" role="row"><span role="columnheader"><span class="sr-only">Day</span></span>{% for h in grid.hours %}<span role="columnheader">{% if loop.index0 % 2 == 0 %}{{ h.label }}{% else %}<span class="sr-only">{{ h.label }}</span>{% endif %}</span>{% endfor %}</div>
+        {%- for row in grid.rows %}
+        <div class="q-row" role="row" data-q-day="{{ row.dayIndex }}"><span role="rowheader">{{ row.label }}</span>
+          {%- for level in row.cells %}<span role="cell" class="q-c{% if level === null %} q-x{% else %} q-l{{ level }}{% endif %}" data-q-hour="{{ grid.hours[loop.index0].hour }}"><span class="sr-only">{{ grid.hours[loop.index0].label }}: {{ "closed" if level === null else (level | busyWord) }}</span></span>{% endfor %}
+        </div>
+        {%- endfor %}
+      </div>
+      <p class="q-key" aria-hidden="true"><i class="q-c q-l0"></i>Quiet <i class="q-c q-l1"></i>Steady <i class="q-c q-l2"></i>Busy <i class="q-c q-l3"></i>Very busy</p>
+    </div>
+  </div>
+  <p class="q-foot">Usual busyness: {{ site.queue.busynessSource }}.{% if site.queue.source == "simulated" %} The live queue is demo data; on a live site staff update it from their phone in one tap.{% endif %}</p>
+</div></section>

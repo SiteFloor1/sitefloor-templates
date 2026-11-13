@@ -1,0 +1,17 @@
+{#- Will review reminder: tick what has changed since the will was made. Any tick: it is time to review it, with the
+    partner's email. None: a reminder for later in the visitor's calendar. -#}
+{%- set wr = site.willReminder %}{% set wa = site.practice | area(wr.practice) %}{% set wl = site.people | person(wa.lead) %}
+<section class="lw-wr" id="will-review" data-feature="will-reminder" data-years="{{ wr.years }}" aria-labelledby="wr-t"{{ "will-reminder" | tierAttr | safe }}>
+  <div class="lw-wr-head">
+    <h2 id="wr-t">{{ wr.title }}</h2>
+    {%- if wr.intro %}<p>{{ wr.intro }}</p>{% endif %}
+  </div>
+  <fieldset class="lw-wr-ev"><legend>Since your will was made:</legend>
+    {%- for e in wr.events %}<label><input type="checkbox" data-wr-ev value="{{ e.id }}"> {{ e.label }}</label>{% endfor %}
+  </fieldset>
+  <div class="lw-wr-out" data-js-only>
+    <p data-wr-yes hidden>Then it is worth reviewing your will now. <a class="go" href="mailto:{{ wl.email }}?subject={{ 'Reviewing my will' | urlencode }}">Write to {{ wl.name }}</a></p>
+    <p data-wr-no>Nothing has changed? <button class="go" type="button" data-wr-ics>Remind me in {{ wr.years }} years</button></p>
+  </div>
+  <p class="lw-wr-plain" data-no-js>If any of these has happened, it is worth reviewing your will: write to <a href="mailto:{{ wl.email }}">{{ wl.name }}</a>.</p>
+</section>

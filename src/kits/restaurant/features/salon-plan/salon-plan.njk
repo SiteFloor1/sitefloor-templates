@@ -1,0 +1,15 @@
+{#- The salon plan: a photograph of the room with its places marked. Choosing one goes with the table request as a
+    preference. Without JavaScript the places are listed under the photograph. -#}
+{%- set sec = site.sections.salonPlan %}
+{%- set sp = site.salonPlan %}
+<section id="salon" class="sp-plan" data-feature="salon-plan" {{ "salon-plan" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <figure class="spl-room"><div class="spl-in">
+    <img src="{{ sp.photo.src | img }}" width="{{ sp.photo.width }}" height="{{ sp.photo.height }}" alt="{{ sp.photo.alt }}" loading="lazy">
+    {%- for s in sp.spots %}
+    <button type="button" class="spl-spot" style="left:{{ s.x }}%;top:{{ s.y }}%" data-spl="{{ s.id }}" aria-pressed="false" data-js-only><span>{{ s.label }}</span></button>
+    {%- endfor %}
+  </div></figure>
+  <p class="spl-now" data-spl-now aria-live="polite" data-js-only>{{ sp.note or "Choose where you'd like to sit; we'll do our best." }}</p>
+  <ul class="spl-list" data-no-js>{% for s in sp.spots %}<li><b>{{ s.label }}</b>{% if s.note %}: {{ s.note }}{% endif %}</li>{% endfor %}</ul>
+</div></section>

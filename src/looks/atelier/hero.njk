@@ -1,0 +1,31 @@
+{#- Atelier hero: one statement cake fills the left of the screen top to bottom, its number and price along its foot.
+    Beside it, the servings calculator (how many are you feeding, the tiers built in type) when the plan has it;
+    otherwise the studio's line and a way to ask. On phones the cake comes first, cut 4:5. -#}
+{%- set hp = site.hero.photo %}
+{%- set piece = (site | pieceOf(site.hero.piece)) if site.hero.piece else null %}
+<section class="hero at-hero" aria-label="{{ site.business.name }}">
+  <h1 class="sr-only">{{ site.business.name }}: {{ site.hero.title | plain }}</h1>
+  <figure class="at-hero-f">
+    <picture>
+      {%- if site.hero.phonePhoto %}<source media="(max-width: 900px)" srcset="{{ site.hero.phonePhoto.src | img }}" width="{{ site.hero.phonePhoto.width }}" height="{{ site.hero.phonePhoto.height }}">{% endif %}
+      <img src="{{ hp.src | img }}" alt="{{ hp.alt }}" width="{{ hp.width }}" height="{{ hp.height }}" fetchpriority="high" decoding="async">
+    </picture>
+    {%- if piece %}
+    <figcaption class="at-hero-cap">
+      {%- if 'commission-pages' | enabled %}<a href="{{ ('commission-' + piece.id) | href }}">{% else %}<span>{% endif %}{% if piece.no %}No. {{ piece.no }}, {% endif %}{{ piece.name }}{% if 'commission-pages' | enabled %}</a>{% else %}</span>{% endif %}
+      <span>from {{ piece.from | gbp }}</span>
+    </figcaption>
+    {%- endif %}
+  </figure>
+  <div class="at-hero-side">
+    {%- if 'servings' | enabled %}{% include "kits/cakes/features/servings/servings.njk" %}
+    {%- else %}
+    <div class="at-hero-say">
+      <p class="at-hero-k">{{ site.hero.kicker }}</p>
+      <p class="at-hero-t">{{ site.hero.title | replace("|", " ") }}</p>
+      <p class="at-hero-i">{{ site.hero.intro }}</p>
+      <a class="btn" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">Ask about your cake</a>
+    </div>
+    {%- endif %}
+  </div>
+</section>

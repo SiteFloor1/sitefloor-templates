@@ -1,0 +1,28 @@
+{#- One teacher's page: their photograph, their line, their training in their words, the classes they teach each
+    week (from the timetable), and a private session request if they teach them. Set `t` first. -#}
+{%- set st = site | staffOf(t.name) %}
+{%- set week = site | teacherWeek(t.name) %}
+<header class="pl-ph"><div class="wrap pl-ph-in">
+  <p class="pl-ph-k"><a href="{{ 'index' | href }}">{{ site.business.name }}</a> <span aria-hidden="true">/</span> <a href="{{ 'team' | href }}">{{ site.team.title | plain }}</a></p>
+  <h1 class="pl-ph-t">{{ t.name }}</h1>
+  <p class="pl-ph-i">{{ t.line }}</p>
+</div></header>
+<section class="pl-tch" data-feature="teacher-pages" aria-label="{{ t.name }}"><div class="wrap pl-tch-in">
+  {%- if st.photo %}<figure class="pl-tch-ph"><img src="{{ st.photo | img }}" alt="{{ t.name }} teaching" width="800" height="1000" fetchpriority="high" decoding="async"></figure>{% endif %}
+  <div>
+    <p class="pl-tch-role">{{ st.role }}{% if st.speciality %} · {{ st.speciality }}{% endif %}</p>
+    {%- if st.bio %}<p class="pl-tch-bio">{{ st.bio }}</p>{% endif %}
+    <h2 class="pl-cls-sub">Training</h2>
+    <ul class="pl-tch-tr">{% for x in t.training %}<li>{{ x }}</li>{% endfor %}</ul>
+    {%- if week.length %}
+    <h2 class="pl-cls-sub">Teaching each week</h2>
+    <dl class="pl-tch-wk">
+      {%- for d in week %}<div><dt>{{ d.label }}</dt><dd>{% for c in d.classes %}{% set ct = site | classOf(c.class) %}{{ c.time | said }} {% if 'class-pages' | enabled %}<a href="{{ ('class-' + c.class) | href }}">{{ ct.name }}</a>{% else %}{{ ct.name }}{% endif %}{% if not loop.last %} · {% endif %}{% endfor %}</dd></div>{% endfor %}
+    </dl>
+    {%- endif %}
+    {%- if t.private and ('private-page' | enabled) %}
+    {%- set msg = site.privatePage.message + " With " + t.name + ", please." %}
+    <p class="pl-tch-go"><a href="{{ msg | wa }}" target="_blank" rel="noopener">A private session with {{ t.name }}</a></p>
+    {%- endif %}
+  </div>
+</div></section>

@@ -1,0 +1,17 @@
+{#- Quail page links: an index, not cards. Each page a ruled line: a small square of its photo, its name large in
+    italic, its line, and the way in. -#}
+{%- set links = site.pageLinks | enabledLinks %}
+{%- if links.length %}
+<section class="ql-idx" data-feature="page-links"{{ "page-links" | tierAttr | safe }}><div class="wrap">
+  <ul class="ql-idx-list">
+    {%- for l in links %}
+    <li class="rv"><a href="{{ l.page | href }}">
+      <img src="{{ l.image | img }}" alt="" loading="lazy" decoding="async" width="720" height="900">
+      <span class="ql-idx-k">{{ l.kicker }}</span>
+      <span class="ql-idx-t">{{ l.title | markup | safe }}</span>
+      <span class="ql-idx-go">{{ l.cta }}</span>
+    </a></li>
+    {%- endfor %}
+  </ul>
+</div></section>
+{%- endif %}

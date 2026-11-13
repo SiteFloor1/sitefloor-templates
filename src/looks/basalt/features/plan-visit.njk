@@ -1,0 +1,88 @@
+{#- Basalt "the showroom": the address and the live status first, then each way here as a short route with its time,
+    access and paying as plain notes, the week's hours and every question. Same logic as the shared page; every hook kept. -#}
+{%- set v = site.visitInfo %}
+{%- set journeys = v.journeys or [] %}
+{%- set parking = v.parking or [] %}
+{%- set ph = { kicker: v.kicker, title: v.title, intro: v.intro } %}
+{% include "kits/wear/partials/page-head.njk" %}
+
+<div data-feature="plan-visit">
+<section class="bs-arrive"><div class="wrap bs-arrive-in">
+  <div>
+    <p class="bs-addr-l">{{ site.location.streetAddress }}<br>{{ site.location.locality }} {{ site.location.postcode }}</p>
+    {%- if site.location.area %}<p class="bs-addr-s">{{ site.location.area }}</p>{% endif %}
+  </div>
+  <div>
+    <p class="bs-now" data-live-status><span class="dot" aria-hidden="true"></span><span data-status-text>Hours below</span></p>
+    <dl class="bs-arrive-dl">
+      {%- for j in journeys %}<div><dt>{{ j.from }}</dt><dd>{{ j | boardTime }}</dd></div>{% endfor %}
+      {%- for c in parking %}<div><dt>{{ c.name }}</dt><dd data-parking="{{ loop.index0 }}">{% if c.walk is defined %}{{ c.walk }} min walk{% endif %}</dd></div>{% endfor %}
+    </dl>
+    {%- if site.mode == "demo" %}<p class="wr-fine">Example journeys for a fictional brand.</p>
+    {%- elif v.checked %}<p class="wr-fine">Checked with {{ site.business.name }} in {{ v.checked | checkedText }}.</p>{% endif %}
+  </div>
+</div></section>
+
+{%- if journeys.length %}
+<section class="bs-ways" aria-labelledby="pv-j-h"><div class="wrap">
+  <h2 class="bs-pt" id="pv-j-h">Getting here</h2>
+  <div class="bs-chips" role="tablist" aria-label="Ways to get here" data-pv-tabs hidden>
+    {%- for j in journeys %}
+    <button type="button" role="tab" id="pv-tab-{{ loop.index0 }}" aria-controls="pv-panel-{{ loop.index0 }}" aria-selected="{{ 'true' if loop.first else 'false' }}" tabindex="{{ '0' if loop.first else '-1' }}">{{ (j.mode | modeWords).tab }}</button>
+    {%- endfor %}
+  </div>
+  {%- for j in journeys %}
+  <div class="bs-way rv" id="pv-panel-{{ loop.index0 }}" data-pv-panel>
+    <p class="bs-way-h"><b>{{ j.from }}</b>{% if j.stop %}, get off at {{ j.stop }}{% endif %} <span>{% if (j.mode | modeWords).about %}about {% endif %}{{ j.minutes }} min {{ (j.mode | modeWords).verb }}</span></p>
+    <ol>
+      {%- for step in j.steps %}<li>{{ step }}</li>{% endfor %}
+      <li><b>{{ site.business.name }}</b>, {{ site.location.streetAddress }}</li>
+    </ol>
+    <a class="wr-link" href="{{ j | directionsFor }}" target="_blank" rel="noopener">Directions in Google Maps</a>
+  </div>
+  {%- endfor %}
+  <div class="bs-leave" data-pv-leave hidden>
+    <label for="pv-appt">Meeting us at a set time? We'll say when to leave.</label>
+    <input type="time" id="pv-appt" step="900" data-pv-appt>
+    <ul data-pv-leave-list aria-live="polite"></ul>
+  </div>
+</div></section>
+{%- endif %}
+
+{%- if parking.length or v.access or v.payment %}
+<section class="bs-notes"><div class="wrap bs-notes-in">
+  {%- if parking.length %}
+  <div><h2 class="bs-pt">Parking</h2>
+    {%- for c in parking %}
+    <div class="bs-note rv">
+      <h3>{{ c.name }}</h3>
+      <p class="bs-note-live" data-parking-card="{{ loop.index0 }}" hidden></p>
+      <p>{{ c | parkingSummary }}</p>
+      <p class="wr-fine">{% if c.walk is defined %}{{ c.walk }} min walk{% endif %}{% if c.walk is defined and c.price %} · {% endif %}{{ c.price }}</p>
+      {%- if c.note %}<p class="wr-fine">{{ c.note }}</p>{% endif %}
+    </div>
+    {%- endfor %}
+  </div>
+  {%- endif %}
+  {%- if v.access %}<div><h2 class="bs-pt">Access</h2>
+    <ul class="bs-access">{% for a in v.access %}<li class="{{ 'yes' if a.yes else 'no' }}"><span class="sr-only">{{ "Yes:" if a.yes else "No:" }}</span>{{ a.label }}</li>{% endfor %}</ul>
+    {%- if v.accessNote %}<p class="wr-fine">{{ v.accessNote }}</p>{% endif %}</div>{% endif %}
+  {%- if v.payment %}<div><h2 class="bs-pt">Paying</h2><p>{{ v.payment }}</p></div>{% endif %}
+</div></section>
+{%- endif %}
+</div>
+
+{%- set visitHeading = false %}
+{% include "features/visit/visit.njk" %}
+{%- set groups = site | questionTopics %}
+{%- if groups.length %}
+<section class="bs-qa" id="questions"><div class="wrap bs-qa-in">
+  <h2 class="bs-pt">Questions</h2>
+  <div class="bs-qa-list">
+  {%- for g in groups %}
+  <h3 class="bs-qa-topic">{{ g.topic }}</h3>
+  {%- for item in g.items %}<details><summary>{{ item.q }}</summary><p>{{ item.a }}</p></details>{% endfor %}
+  {%- endfor %}
+  </div>
+</div></section>
+{%- endif %}

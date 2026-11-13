@@ -1,0 +1,601 @@
+{
+  "schemaVersion": 4,
+  "id": "test-hire-client",
+  "mode": "client",
+  "plan": "plus",
+  "kit": "hire",
+  "look": "datum",
+  "url": "https://kerb-hire-test.co.uk",
+  "indexable": true,
+  "lang": "en-GB",
+  "business": {
+    "name": "Kerb Hire",
+    "schemaType": "LocalBusiness",
+    "description": "Performance and everyday luxury car hire in Leeds, delivered or collected."
+  },
+  "contact": {
+    "whatsapp": "447911123456",
+    "phone": "+44 7911 123456",
+    "email": "hello@kerb-hire-test.co.uk"
+  },
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "brand": {
+    "accent": "#CDBB97"
+  },
+  "location": {
+    "streetAddress": "2 Test Yard",
+    "locality": "Leeds",
+    "postcode": "LS1 4AP",
+    "country": "GB"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [
+        [
+          "09:00",
+          "18:00"
+        ]
+      ],
+      "tue": [
+        [
+          "09:00",
+          "18:00"
+        ]
+      ],
+      "wed": [
+        [
+          "09:00",
+          "18:00"
+        ]
+      ],
+      "thu": [
+        [
+          "09:00",
+          "18:00"
+        ]
+      ],
+      "fri": [
+        [
+          "09:00",
+          "18:00"
+        ]
+      ],
+      "sat": [
+        [
+          "09:00",
+          "18:00"
+        ]
+      ],
+      "sun": []
+    }
+  },
+  "nav": [
+    {
+      "label": "Fleet",
+      "page": "fleet",
+      "feature": "fleet-page",
+      "fallback": "#fleet"
+    },
+    {
+      "label": "Delivery",
+      "href": "#delivery"
+    },
+    {
+      "label": "Questions",
+      "href": "#questions"
+    }
+  ],
+  "hero": {
+    "kicker": "Car hire \u00b7 Leeds",
+    "title": "Take it home tonight.",
+    "intro": "Performance and everyday luxury, delivered.",
+    "photo": {
+      "src": "img/hero.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "A dark car at night"
+    },
+    "photoTall": {
+      "src": "img/hero-tall.webp",
+      "width": 800,
+      "height": 1000,
+      "alt": "A dark car at night"
+    },
+    "secondaryCta": {
+      "label": "Delivery",
+      "href": "#delivery"
+    }
+  },
+  "sections": {
+    "fleet": {
+      "title": "The fleet",
+      "intro": "Delivered across Leeds."
+    },
+    "handover": {
+      "title": "At your door."
+    },
+    "postcode": {
+      "title": "Delivery",
+      "intro": "Across Leeds and Bradford."
+    },
+    "request": {
+      "title": "Request a car"
+    },
+    "bring": {
+      "title": "What to bring"
+    },
+    "questions": {
+      "title": "Questions"
+    },
+    "visit": {
+      "title": "Find us"
+    },
+    "payLinks": {
+      "title": "Deposits"
+    },
+    "range": {
+      "title": "Also in the fleet"
+    }
+  },
+  "messages": {
+    "general": "Hi Kerb Hire, I have a question."
+  },
+  "features": [
+    "visit",
+    "questions",
+    "fleet",
+    "handover",
+    "postcode",
+    "hire-request",
+    "bring-list",
+    "fleet-page",
+    "hire-quote",
+    "date-range",
+    "pay-link",
+    "driver-check",
+    "driver-form",
+    "deposit-status",
+    "meet-greet"
+  ],
+  "questions": [
+    {
+      "topic": "Hire",
+      "q": "How old do I need to be?",
+      "a": "Each car has its own rules, on its page.",
+      "home": true
+    },
+    {
+      "topic": "Hire",
+      "q": "Is insurance included?",
+      "a": "Yes, fully comprehensive, with the excess shown on each car.",
+      "home": true
+    }
+  ],
+  "payLinks": {
+    "note": "You pay on Stripe's own secure page.",
+    "items": [
+      {
+        "id": "deposit-2000",
+        "label": "Deposit, \u00a32,000 band",
+        "amount": 2000,
+        "kind": "deposit",
+        "url": "https://buy.stripe.com/test_dep2000",
+        "holds": "request"
+      }
+    ]
+  },
+  "fleetPage": {
+    "kicker": "The fleet",
+    "title": "Every car."
+  },
+  "depositPage": {
+    "kicker": "Your deposit",
+    "title": "Where's my deposit?"
+  },
+  "fleet": {
+    "lead": "performance",
+    "range": [
+      "range-rover-sport",
+      "mercedes-e-class"
+    ],
+    "classes": [
+      {
+        "id": "everyday",
+        "name": "Everyday luxury",
+        "photo": {
+          "src": "img/hero.webp",
+          "width": 1600,
+          "height": 900,
+          "alt": "A dark car at night"
+        },
+        "photoTall": {
+          "src": "img/hero-tall.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "A dark car at night"
+        }
+      },
+      {
+        "id": "performance",
+        "name": "Performance",
+        "line": "Fast, and easy to live with.",
+        "photo": {
+          "src": "img/hero.webp",
+          "width": 1600,
+          "height": 900,
+          "alt": "A dark car at night"
+        },
+        "photoTall": {
+          "src": "img/hero-tall.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "A dark car at night"
+        }
+      },
+      {
+        "id": "suv",
+        "name": "SUV",
+        "photo": {
+          "src": "img/hero.webp",
+          "width": 1600,
+          "height": 900,
+          "alt": "A dark car at night"
+        },
+        "photoTall": {
+          "src": "img/hero-tall.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "A dark car at night"
+        }
+      }
+    ],
+    "cars": [
+      {
+        "id": "bmw-m3",
+        "make": "BMW",
+        "model": "M3 Competition",
+        "trim": "Touring",
+        "year": 2024,
+        "class": "performance",
+        "seats": 5,
+        "power": 503,
+        "zeroToSixtyTwo": 3.6,
+        "rates": {
+          "day": 350,
+          "weekend": 800,
+          "week": 1900
+        },
+        "deposit": 2000,
+        "payLink": "deposit-2000",
+        "lead": true,
+        "photos": {
+          "card": {
+            "src": "img/car.webp",
+            "width": 960,
+            "height": 640,
+            "alt": "A dark saloon at night"
+          },
+          "small": {
+            "src": "img/car.webp",
+            "width": 960,
+            "height": 640,
+            "alt": "A dark saloon at night"
+          },
+          "square": {
+            "src": "img/square.webp",
+            "width": 600,
+            "height": 600,
+            "alt": "A dark saloon at night"
+          }
+        },
+        "driver": {
+          "minAge": 25,
+          "licenceYears": 3,
+          "maxPoints": 6
+        },
+        "insurance": {
+          "cover": "Fully comprehensive",
+          "excess": 2000,
+          "reduction": {
+            "price": 30,
+            "per": "day",
+            "to": 500
+          }
+        },
+        "miles": {
+          "perDay": 150,
+          "extra": 1.25
+        },
+        "fuelPolicy": "Full to full; we refuel at the pump price if not.",
+        "lateReturn": "Charged by the hour at the day rate divided by eight.",
+        "delivery": true
+      },
+      {
+        "id": "audi-rs3",
+        "make": "Audi",
+        "model": "RS3",
+        "year": 2023,
+        "class": "performance",
+        "seats": 5,
+        "power": 394,
+        "rates": {
+          "day": 250,
+          "week": 1400
+        },
+        "deposit": 1500,
+        "photos": {
+          "card": {
+            "src": "img/car.webp",
+            "width": 960,
+            "height": 640,
+            "alt": "A dark saloon at night"
+          },
+          "small": {
+            "src": "img/car.webp",
+            "width": 960,
+            "height": 640,
+            "alt": "A dark saloon at night"
+          },
+          "square": {
+            "src": "img/square.webp",
+            "width": 600,
+            "height": 600,
+            "alt": "A dark saloon at night"
+          }
+        },
+        "driver": {
+          "minAge": 25,
+          "licenceYears": 3,
+          "maxPoints": 6
+        },
+        "insurance": {
+          "cover": "Fully comprehensive",
+          "excess": 1500,
+          "reduction": false
+        },
+        "miles": {
+          "perDay": 150,
+          "extra": 1.25
+        },
+        "fuelPolicy": "Full to full; we refuel at the pump price if not.",
+        "lateReturn": "Charged by the hour at the day rate divided by eight.",
+        "delivery": true
+      },
+      {
+        "id": "range-rover-sport",
+        "make": "Land Rover",
+        "model": "Range Rover Sport",
+        "year": 2024,
+        "class": "suv",
+        "seats": 5,
+        "rates": {
+          "day": 300,
+          "month": 5200
+        },
+        "deposit": 2000,
+        "payLink": "deposit-2000",
+        "chauffeur": {
+          "hourly": 95,
+          "minHours": 3
+        },
+        "photos": {
+          "card": {
+            "src": "img/car.webp",
+            "width": 960,
+            "height": 640,
+            "alt": "A dark saloon at night"
+          },
+          "small": {
+            "src": "img/car.webp",
+            "width": 960,
+            "height": 640,
+            "alt": "A dark saloon at night"
+          },
+          "square": {
+            "src": "img/square.webp",
+            "width": 600,
+            "height": 600,
+            "alt": "A dark saloon at night"
+          }
+        },
+        "driver": {
+          "minAge": 25,
+          "licenceYears": 3,
+          "maxPoints": 6
+        },
+        "insurance": {
+          "cover": "Fully comprehensive",
+          "excess": 2000,
+          "reduction": {
+            "price": 30,
+            "per": "day",
+            "to": 500
+          }
+        },
+        "miles": {
+          "perDay": 150,
+          "extra": 1.25
+        },
+        "fuelPolicy": "Full to full; we refuel at the pump price if not.",
+        "lateReturn": "Charged by the hour at the day rate divided by eight.",
+        "delivery": true
+      },
+      {
+        "id": "mercedes-e-class",
+        "make": "Mercedes-Benz",
+        "model": "E-Class",
+        "trim": "E300 AMG Line",
+        "year": 2025,
+        "class": "everyday",
+        "seats": 5,
+        "rates": {
+          "day": 160,
+          "weekend": 360
+        },
+        "deposit": 750,
+        "photos": {
+          "card": {
+            "src": "img/car.webp",
+            "width": 960,
+            "height": 640,
+            "alt": "A dark saloon at night"
+          },
+          "small": {
+            "src": "img/car.webp",
+            "width": 960,
+            "height": 640,
+            "alt": "A dark saloon at night"
+          },
+          "square": {
+            "src": "img/square.webp",
+            "width": 600,
+            "height": 600,
+            "alt": "A dark saloon at night"
+          }
+        },
+        "driver": {
+          "minAge": 25,
+          "licenceYears": 3,
+          "maxPoints": 6
+        },
+        "insurance": {
+          "cover": "Fully comprehensive",
+          "excess": 2000,
+          "reduction": {
+            "price": 30,
+            "per": "day",
+            "to": 500
+          }
+        },
+        "miles": {
+          "perDay": "unlimited"
+        },
+        "fuelPolicy": "Full to full; we refuel at the pump price if not.",
+        "lateReturn": "Charged by the hour at the day rate divided by eight.",
+        "delivery": true
+      }
+    ]
+  },
+  "hire": {
+    "dates": {
+      "horizonDays": 180,
+      "bankHolidays": "closed",
+      "leadHours": 24,
+      "minDays": 1,
+      "maxDays": 60,
+      "slots": [
+        "09:00",
+        "12:00",
+        "17:00"
+      ]
+    },
+    "rates": {
+      "weekDays": 7,
+      "monthDays": 28,
+      "weekend": {
+        "pickUp": [
+          "fri"
+        ],
+        "returnOn": [
+          "mon"
+        ],
+        "maxDays": 3
+      }
+    },
+    "deposit": {
+      "how": "Taken by card when you collect, or by our Payment Link to hold your request.",
+      "when": "Returned within seven days of the car coming back and being checked."
+    },
+    "extras": [
+      {
+        "id": "driver",
+        "label": "Extra driver",
+        "price": 20,
+        "per": "day"
+      },
+      {
+        "id": "seat",
+        "label": "Child seat",
+        "price": 30,
+        "per": "hire"
+      }
+    ],
+    "delivery": {
+      "collect": "From our yard in Leeds, by appointment.",
+      "zones": [
+        {
+          "name": "Leeds",
+          "fee": 40,
+          "districts": [
+            "LS1",
+            "LS2",
+            "LS6"
+          ]
+        },
+        {
+          "name": "West Yorkshire",
+          "fee": 90,
+          "districts": [
+            "LS",
+            "BD",
+            "WF"
+          ]
+        }
+      ]
+    },
+    "airports": [
+      {
+        "id": "lba",
+        "name": "Leeds Bradford",
+        "fee": 60
+      }
+    ],
+    "availability": {
+      "source": "sheet",
+      "csvUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-test-hire/pub?gid=0&single=true&output=csv",
+      "staleAfterHours": 48
+    },
+    "deposits": {
+      "source": "sheet",
+      "csvUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-test-hire/pub?gid=1&single=true&output=csv",
+      "staleAfterHours": 72
+    },
+    "driverForm": {
+      "url": "https://docs.google.com/forms/d/e/1FAIpQLSdTestHireForm/viewform",
+      "checkCode": {
+        "validDays": 21,
+        "source": "https://www.gov.uk/add-driving-licence-check-code",
+        "checked": "2026-10-29"
+      }
+    },
+    "bring": [
+      "Your driving licence (the card)",
+      "A DVLA check code made in the last 21 days",
+      "The card you paid the deposit with"
+    ],
+    "handover": {
+      "door": {
+        "src": "img/door.webp",
+        "width": 960,
+        "height": 640,
+        "alt": "A car outside a front door at night"
+      },
+      "doorTall": {
+        "src": "img/door-tall.webp",
+        "width": 800,
+        "height": 1000,
+        "alt": "A car outside a front door at night"
+      },
+      "key": {
+        "src": "img/key.webp",
+        "width": 400,
+        "height": 500,
+        "alt": "A car key held out"
+      },
+      "window": "Delivered between 5 and 8 in the evening."
+    }
+  }
+}

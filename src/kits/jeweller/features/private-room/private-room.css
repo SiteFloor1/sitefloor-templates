@@ -1,0 +1,9 @@
+/* private-room: layout in tokens only; the look sets type and colour. */
+.jw-room-in { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(24px, 5vw, 80px); align-items: end; }
+.jw-room-ph { order: 2; margin: 0; background: var(--surface); }
+.jw-room-ph img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
+.jw-room-t { padding-bottom: 8px; }
+@media (max-width: 700px) {
+  .jw-room-in { grid-template-columns: 1fr; }
+  .jw-room-ph { order: 0; }
+}

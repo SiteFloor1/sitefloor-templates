@@ -1,0 +1,23 @@
+{#- Three within your budget: the client's price bands as choices; for each, three of its priced pieces (the occasion's
+    own first). Pure HTML and CSS: the checked band shows its three, so it works without JavaScript. The anniversary
+    reminder reads the three on show into its calendar file. Set `sl = { id, prefer, legend }` first. -#}
+{%- if "gift-shortlist" | enabled %}
+{%- set slBands = site.pieces.items | shortlistBands(site.gifts.bands, sl.prefer) %}
+{%- if slBands.length %}
+<div class="jw-sl" data-feature="gift-shortlist" data-sl="{{ sl.id }}"{{ "gift-shortlist" | tierAttr | safe }}>
+  <fieldset class="nc-choice jw-sl-b"><legend class="nc-label">{{ sl.legend or "Three within" }}</legend>
+    {%- for b in slBands %}<label><input type="radio" name="sl-{{ sl.id }}" value="{{ loop.index0 }}"{% if loop.first %} checked{% endif %}><span>{{ b.label }}</span></label>{% endfor %}
+  </fieldset>
+  {%- for b in slBands %}
+  <ol class="jw-sl-p" data-sl-panel="{{ loop.index0 }}" aria-label="Three {{ b.label | lower }}">
+    {%- for p in b.picks %}
+    <li class="jw-sl-i" data-sl-item="{{ p.name }}, {{ p | priceLabel }}: {{ site.url }}/{{ p.id | pieceHref }}">
+      <a href="{{ p.id | pieceHref | href }}" data-open="{{ p.id }}"><img src="{{ p.photo.src | cardSrc | img }}" width="900" height="1125" loading="lazy" decoding="async" alt="{{ p.photo.alt }}"></a>
+      <p><b class="jw-name">{{ p.name }}</b><span class="nc-label nc-muted">{{ p | priceLabel }}</span></p>
+    </li>
+    {%- endfor %}
+  </ol>
+  {%- endfor %}
+</div>
+{%- endif %}
+{%- endif %}

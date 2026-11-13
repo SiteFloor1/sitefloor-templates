@@ -1,0 +1,25 @@
+{#- Dove header: the mirror emblem and the name in spaced capitals on the left; the pages on the right, and
+    "Appointments" underlined in the dove's violet. On phones, "Menu" opens the pages. -#}
+<header class="nav dv-nav"><div class="wrap dv-nav-in">
+  <a class="dv-mark" href="{{ 'index' | href }}" aria-label="{{ site.business.name }}, home">
+    <svg class="dv-emblem" viewBox="0 0 22 30" aria-hidden="true"><ellipse cx="11" cy="15" rx="10" ry="14" class="dv-em-o"/><path d="M5 10.5l3 11 3-8.2 3 8.2 3-11" class="dv-em-w"/></svg>
+    {%- if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="{{ site.business.name }}" height="26">{% else %}<span class="dv-word">{{ site.business.name }}</span>{% endif %}
+  </a>
+  <nav class="dv-links" aria-label="Main">
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+  </nav>
+  <a class="dv-req" href="{{ (site.appointment.message if site.appointment else site.messages.general) | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.appointment.message if site.appointment else site.messages.general }}"{% endif %} target="_blank" rel="noopener">Appointments</a>
+  <button class="burger dv-menu" type="button" aria-expanded="false" aria-controls="mnav"><span class="dv-open">Menu</span><span class="dv-close">Close</span></button>
+</div></header>
+<div class="mnav dv-sheet" id="mnav" hidden>
+  <nav aria-label="Pages">
+    <a href="{{ 'index' | href }}"{% if pageId == "index" %} aria-current="page"{% endif %}>The salon</a>
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+  </nav>
+  <p class="dv-sheet-now" data-live-status><span class="dot" aria-hidden="true"></span> <span data-status-text>Opening hours</span></p>
+  <p class="dv-sheet-addr">{{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}</p>
+</div>

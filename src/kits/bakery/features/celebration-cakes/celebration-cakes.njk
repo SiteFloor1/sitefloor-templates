@@ -1,0 +1,75 @@
+{#- Celebration cakes page: the shop's cakes, sizes with servings and prices, flavours and finishes, the earliest day
+    one can be ready, a request on WhatsApp with the message for the cake, the deposit and "remind me next year". -#}
+{%- set c = site.cakes %}
+{%- set cp = site.cakesPage %}
+{%- set q = c | cakeQuote %}
+{%- set ph = cp %}
+{% include "kits/bakery/partials/page-head.njk" %}
+<p class="wrap cc-soon" data-cc-soon>We need {{ c.leadDays }} days' notice{% if c.cutoff %} (asked before {{ c.cutoff | t12 }}){% endif %}.</p>
+
+{%- if c.photos %}
+<section class="cc-gallery" aria-label="Cakes we've made"><div class="wrap">
+  <ul class="cc-photos" tabindex="0" aria-label="Cakes we've made, scrolls sideways">
+    {%- for p in c.photos %}<li class="rv"><figure><div class="cc-ph"><img src="{{ p.src | img }}" alt="{{ p.alt }}" width="{{ p.width }}" height="{{ p.height }}" loading="{{ 'eager' if loop.first else 'lazy' }}" decoding="async"></div>{% if p.caption %}<figcaption>{{ p.caption }}</figcaption>{% endif %}</figure></li>{% endfor %}
+  </ul>
+</div></section>
+{%- endif %}
+
+<section class="cc-sizes" aria-labelledby="cc-sizes-h"><div class="wrap">
+  <h2 class="part-h" id="cc-sizes-h">Sizes</h2>
+  <ul class="cc-size-list">
+    {%- for s in c.stacks %}{% set z = c | cakeSize(s.id) %}
+    <li class="rv"><b>{{ s.label }}</b><span>Serves about {{ z.servings }}</span><span class="cc-from">from {{ z.price | pounds }}</span></li>
+    {%- endfor %}
+  </ul>
+  <p class="bk-small">Prices are for the size itself; finishes, toppings and some flavours cost extra, as listed below.</p>
+</div></section>
+
+<section class="cc-parts" aria-labelledby="cc-parts-h"><div class="wrap">
+  <h2 class="part-h" id="cc-parts-h">Inside and out</h2>
+  <div class="cc-cols">
+    {%- for group in [["Sponge", c.sponges, "a tier"], ["Filling", c.fillings, "a tier"], ["Finish", c.finishes, "a tier"], ["On top", c.toppings, ""]] %}
+    <div class="cc-col rv">
+      <h3>{{ group[0] }}</h3>
+      <ul>
+        {%- for p in group[1] %}
+        <li><span class="cc-pn">{{ p.name }}</span>{% if p.price %}<span class="cc-pp">+{{ p.price | pounds }}{% if group[2] %} {{ group[2] }}{% endif %}</span>{% endif %}
+          <small>{% for d in p | sweetMarks %}<abbr class="bk-mark" title="{{ d.name }}">{{ d.mark }}</abbr> {% endfor %}{% set names = p | allergenNames %}{{ ("Contains " + names | join(", ")) if names.length else "No listed allergens" }}</small></li>
+        {%- endfor %}
+      </ul>
+    </div>
+    {%- endfor %}
+  </div>
+  <p class="bk-small">A message on a white chocolate plaque, up to {{ c.message.max }} characters{% if c.message.price %}: {{ c.message.price | pounds }}{% else %}, free{% endif %}.</p>
+</div></section>
+
+<section class="cc-order" id="order" data-feature="celebration-cakes" aria-labelledby="cc-order-h"><div class="wrap cc-order-in">
+  <div class="cc-how">
+    <h2 class="part-h" id="cc-order-h">Order</h2>
+    {%- if c.howToOrder %}<ol class="cc-steps">{% for s in c.howToOrder %}<li>{{ s }}</li>{% endfor %}</ol>{% endif %}
+    {%- if c.note %}<p class="bk-small">{{ c.note }}</p>{% endif %}
+  </div>
+  <form class="cc-form" data-cc-form>
+    <div class="cc-fields" data-js-only>
+      <label class="bk-field">Size<select data-cc="stack">{% for s in c.stacks %}<option value="{{ s.id }}"{% if s.id == c.start.stack %} selected{% endif %}>{{ s.label }}</option>{% endfor %}</select></label>
+      <label class="bk-field">Sponge<select data-cc="sponge">{% for s in c.sponges %}<option value="{{ s.id }}"{% if s.id == c.start.sponge %} selected{% endif %}>{{ s.name }}</option>{% endfor %}</select></label>
+      <label class="bk-field">Filling<select data-cc="filling">{% for s in c.fillings %}<option value="{{ s.id }}"{% if s.id == c.start.filling %} selected{% endif %}>{{ s.name }}</option>{% endfor %}</select></label>
+      <label class="bk-field">Finish<select data-cc="finish">{% for s in c.finishes %}<option value="{{ s.id }}"{% if s.id == c.start.finish %} selected{% endif %}>{{ s.name }}</option>{% endfor %}</select></label>
+      <label class="bk-field">Colour<select data-cc="colour">{% for s in c.colours %}<option value="{{ s.id }}"{% if s.id == c.start.colour %} selected{% endif %}>{{ s.name }}</option>{% endfor %}</select></label>
+      <label class="bk-field">Name on the cake<input type="text" maxlength="{{ c.message.max }}" data-cc="message" placeholder="Happy birthday, Maya" autocomplete="off"></label>
+      <label class="bk-field">Collection day<input type="date" data-cc="day" required></label>
+      <label class="bk-field">Your name<input type="text" maxlength="40" data-cc="name" autocomplete="name"></label>
+      <p class="bk-err" data-cc-err role="alert" hidden></p>
+    </div>
+    <div class="cc-sum" aria-live="polite">
+      <p class="cc-price"><span data-cc-price>{{ q.price | pounds }}</span> <small>serves about <span data-cc-serves>{{ q.servings }}</span></small></p>
+      <p class="bk-small" data-cc-allergens>Contains {{ q | allergenNames | join(", ") }}.</p>
+    </div>
+    <p class="cc-nojs" data-no-js>Message us the size, flavours, the day and any message for the cake; we'll confirm the price and the date.</p>
+    <div class="cc-actions">
+      <a class="btn" href="{{ ('Hi ' + site.business.name + ', I would like to order a celebration cake.') | wa }}" target="_blank" rel="noopener" data-cc-send>Request on WhatsApp</a>
+      {%- if c.depositLink %}{% set pay = c.depositLink %}{% set payLabel = "" %}{% include "features/pay-link/button.njk" %}{% endif %}
+    </div>
+    <button type="button" class="bk-linkbtn" data-cc-remind data-js-only>Remind me to order again next year</button>
+  </form>
+</div></section>

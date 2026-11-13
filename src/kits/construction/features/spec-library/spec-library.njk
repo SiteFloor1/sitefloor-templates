@@ -1,0 +1,18 @@
+{#- The specification library: the materials the builder works with, photographed close, each with where it is used;
+    a quick filter by kind. Without scripts every material is listed. -#}
+{%- set s = site.spec %}
+{%- set ph = { title: s.title, intro: s.intro } %}
+{% include "kits/construction/partials/page-head.njk" %}
+<div class="wrap bd-spec" data-feature="spec-library">
+  <div class="bd-seg bd-spec-filter" role="group" aria-label="Show" data-js-only>
+    <button type="button" data-spec-cat="" aria-pressed="true">All</button>{% for c in s.categories %}<button type="button" data-spec-cat="{{ c.id }}" aria-pressed="false">{{ c.name }}</button>{% endfor %}
+  </div>
+  <ul class="bd-spec-list" aria-live="polite">
+    {%- for x in s.items %}
+    <li data-cat="{{ x.category }}">
+      <img src="{{ x.photo.src | img }}" alt="{{ x.photo.alt }}" width="{{ x.photo.width }}" height="{{ x.photo.height }}"{% if loop.index > 3 %} loading="lazy"{% endif %} decoding="async"{% if x.photo.position %} style="object-position:{{ x.photo.position }}"{% endif %}>
+      <b>{{ x.name }}</b><span>{{ x.line }}</span>{% if x.where %}<small>{{ x.where }}</small>{% endif %}
+    </li>
+    {%- endfor %}
+  </ul>
+</div>

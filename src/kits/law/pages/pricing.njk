@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: pricing
+permalink: pricing.html
+feature: pricing
+eleventyComputed:
+  title: "{{ site.pricing.title | plain }}"
+  description: "Prices and service information from {{ site.business.name }}: what each service costs, what is included, VAT, disbursements, the stages, timescales and who does the work."
+---
+{% include "kits/law/features/pricing/pricing.njk" %}

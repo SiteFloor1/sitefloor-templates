@@ -1,0 +1,23 @@
+{#- The film behind the hero. Either a short silent loop (heroFilm.video: the restaurant's own footage, e.g. the grill)
+    or the restaurant's photos crossfading slowly (heroFilm.photos). A video shows its still first and starts only once
+    the page has loaded, so it never slows the first paint; still with "prefers reduced motion" or data saver. -#}
+{%- set hf = site.heroFilm %}
+{%- if hf.video %}
+<div class="hf hf-video" data-feature="hero-film" data-motion aria-hidden="true">
+  <img class="hf-poster" src="{{ hf.video.poster | img }}" width="{{ hf.video.width }}" height="{{ hf.video.height }}" alt="" fetchpriority="high" decoding="async">
+  <video class="hf-vid" muted loop playsinline preload="none" width="{{ hf.video.width }}" height="{{ hf.video.height }}" data-src="{{ hf.video.src | img }}"></video>
+</div>
+{%- else %}
+<div class="hf" data-feature="hero-film" data-motion data-seconds="{{ hf.seconds or 7 }}" aria-hidden="true">
+  {%- for p in hf.photos %}
+  <picture class="hf-shot{% if loop.first %} on{% endif %}">
+    {%- if loop.first %}
+    {%- if p.srcMobile %}<source media="(max-width: 760px)" srcset="{{ p.srcMobile | img }}">{% endif %}
+    <img src="{{ p.src | img }}" width="{{ p.width }}" height="{{ p.height }}" alt="" fetchpriority="high" decoding="async">
+    {%- else %}
+    <img data-src="{{ p.src | img }}"{% if p.srcMobile %} data-src-mobile="{{ p.srcMobile | img }}"{% endif %} width="{{ p.width }}" height="{{ p.height }}" alt="">
+    {%- endif %}
+  </picture>
+  {%- endfor %}
+</div>
+{%- endif %}

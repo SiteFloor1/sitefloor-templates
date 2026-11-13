@@ -1,0 +1,36 @@
+{#- Your home's certificates, by code: the code from the client's message (in the link after #, or typed) shows what
+    was certified and when, the next inspection date and a calendar reminder. From the client's published Google
+    Sheet (a simulation on demos). No names, addresses or certificate files. -#}
+{%- set c = site.certificates %}
+<section class="el-certs" data-feature="certificates"><div class="wrap el-certs-in">
+  <div>
+    <form class="el-certs-find" data-certs-form data-js-only>
+      <label for="certs-code">Your code</label>
+      <div class="el-certs-row">
+        <input id="certs-code" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="14" placeholder="{{ c.example if site.mode == 'demo' and c.example else 'e.g. HX7Q2M' }}"{% if site.mode == "demo" and c.example %} value="{{ c.example }}"{% endif %} required>
+        <button class="go" type="submit">Show my certificates</button>
+      </div>
+      <p class="el-certs-hint">It's in the message we sent with your certificates.</p>
+    </form>
+    <p class="el-certs-nojs" data-no-js>This page needs JavaScript. Message us on WhatsApp for copies of your certificates.</p>
+    {%- if c.landlord %}
+    <div class="el-certs-law">
+      <p>{{ c.landlord.text }}</p>
+      <p class="el-certs-src"><a href="{{ c.landlord.source }}" target="_blank" rel="noopener">The rules on gov.uk</a> · checked {{ c.landlord.checked }}</p>
+    </div>
+    {%- endif %}
+  </div>
+  <div class="el-certs-out" aria-live="polite">
+    <div data-certs-list hidden>
+      <div class="el-certs-next" data-certs-next hidden>
+        <p class="el-certs-k">Next inspection due</p>
+        <p class="el-certs-due" data-certs-due></p>
+        <button class="go" type="button" data-certs-ics>Remind me {{ c.weeksBefore }} weeks before</button>
+      </div>
+      <ol class="el-certs-items" data-certs-items></ol>
+      <a class="el-certs-ask" data-certs-copy href="#" target="_blank" rel="noopener">Ask for a copy on WhatsApp</a>
+    </div>
+    <div class="el-certs-off" data-certs-off hidden role="status"><p data-certs-why></p><a class="go" data-certs-ask href="#" target="_blank" rel="noopener">Message us</a></div>
+    <p class="el-certs-privacy">This page only knows a code, the kind of each certificate and its dates: no names, addresses or the certificates themselves.</p>
+  </div>
+</div></section>

@@ -1,0 +1,6 @@
+{#- Flannel section opening: the section's name in Della Respira on the left, its one line small on the right, on the
+    same baseline. `sec` = { title, intro }; `secId` names the heading for the section's aria-labelledby. -#}
+<div class="fl-sh">
+  <h2 class="fl-sh-t"{% if secId %} id="{{ secId }}"{% endif %}>{{ sec.title | markup | safe }}</h2>
+  {%- if sec.intro %}<p class="fl-sh-i">{{ sec.intro }}</p>{% endif %}
+</div>

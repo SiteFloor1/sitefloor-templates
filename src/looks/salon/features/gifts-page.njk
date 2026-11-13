@@ -1,0 +1,17 @@
+{#- Salon: gifts. The title set large; a sitting given, then vouchers and the box from the window as the plan allows. -#}
+{%- set gp = site.giftsPage %}
+<section class="sa-page-head"><div class="wrap">
+  <h1>{{ gp.title | markup | safe }}</h1>
+  {%- if gp.intro %}<p>{{ gp.intro }}</p>{% endif %}
+  <div class="sa-crowns" aria-hidden="true"></div>
+</div></section>
+{%- if "give-a-sitting" | enabled %}{% include "kits/restaurant/features/give-a-sitting/give-a-sitting.njk" %}{% endif %}
+{%- if "vouchers" | enabled %}{% include "features/vouchers/vouchers.njk" %}{% endif %}
+{%- if "the-window" | enabled and site.window.photo %}{% set w = site.window %}
+<section class="sa-gp-box"><div class="wrap sa-gp-box-in">
+  <img src="{{ w.photo.src | img }}" width="{{ w.photo.width }}" height="{{ w.photo.height }}" alt="{{ w.photo.alt }}" loading="lazy">
+  <div><h2>{{ site.sections.window.title | markup | safe }}</h2>
+  <p>{% for b in w.boxes %}{{ b.name }}, {{ b.price | gbp }}{% if not loop.last %}; {% endif %}{% endfor %}. Chosen piece by piece from the window, paid by card, collected from the salon.</p>
+  <a class="sa-send" href="{{ 'index' | href }}#window">Fill a box</a></div>
+</div></section>
+{%- endif %}

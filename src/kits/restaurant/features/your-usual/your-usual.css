@@ -1,0 +1,151 @@
+/* Your usual: the glass on the left (on top, and following you, on a phone), the choices beside it, the order
+   below. Tokens only: the coffee and porcelain colours are kit tokens (--cup-*), everything else the look's. */
+.yu { --milk: var(--cup-milk); }
+.yu[data-yu-milk="cream"] { --milk: color-mix(in srgb, var(--cup-milk) 86%, var(--cup-gold)); }
+.yu[data-yu-milk="oat"] { --milk: var(--cup-oat); }
+.yu[data-yu-milk="nut"] { --milk: color-mix(in srgb, var(--cup-oat) 82%, var(--cup-crema)); }
+
+.yu-back { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; margin: 0 0 28px; padding: 16px 20px; background: var(--surface); border: 1px solid var(--line-2); border-radius: 14px; }
+.yu-back p { margin: 0; display: grid; gap: 2px; }
+.yu-back-name { font-family: var(--font-display); font-size: 1.25em; line-height: 1.2; }
+
+.yu-grid { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: clamp(24px, 4vw, 64px); align-items: start; }
+.yu-stage { position: sticky; top: calc(var(--nav-h) + 16px); margin: 0; display: grid; justify-items: center; gap: 10px; padding: clamp(16px, 3vw, 36px) 12px 22px; border-radius: 22px;
+  background: radial-gradient(70% 60% at 50% 42%, var(--surface) 0%, var(--surface-2) 100%); box-shadow: inset 0 0 0 1px var(--line); }
+.yu-svg { width: min(100%, 360px); height: auto; overflow: visible; }
+.yu-cap { font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); min-height: 1.5em; text-align: center; }
+
+/* the glass and what's in it: the coffee colours are the kit's --cup-* tokens; the milk sets --milk */
+.yu { --drink: color-mix(in srgb, var(--milk) 55%, var(--cup-crema)); }
+.yu[data-yu-kind="black"], .yu[data-yu-kind="filter"] { --drink: var(--cup-espresso); }
+.yu[data-yu-kind="chai"] { --drink: color-mix(in srgb, var(--milk) 60%, var(--cup-gold)); }
+.yu[data-yu-kind="choc"], .yu[data-yu-kind="mocha"] { --drink: color-mix(in srgb, var(--milk) 38%, var(--cup-espresso)); }
+.yu[data-yu-kind="matcha"] { --drink: color-mix(in srgb, var(--milk) 35%, var(--cup-matcha)); }
+.yu-s-mix-top { stop-color: color-mix(in srgb, var(--drink) 78%, var(--milk)); }
+.yu-s-mix-mid { stop-color: var(--drink); }
+.yu-s-mix-low { stop-color: color-mix(in srgb, var(--drink) 80%, var(--cup-espresso)); }
+.yu[data-yu-kind="black"] .yu-s-mix-top { stop-color: color-mix(in srgb, var(--cup-espresso) 85%, var(--cup-crema)); }
+.yu[data-yu-kind="filter"] .yu-s-mix-top { stop-color: color-mix(in srgb, var(--cup-espresso) 70%, var(--cup-crema)); }
+.yu[data-yu-kind="filter"] .yu-s-mix-mid { stop-color: color-mix(in srgb, var(--cup-espresso) 82%, var(--cup-crema)); }
+.yu-s-esp { stop-color: var(--cup-espresso); }
+.yu-s-esp-dk { stop-color: var(--cup-roast); }
+.yu-s-foam { stop-color: var(--cup-foam); }
+.yu-s-foam-lo { stop-color: color-mix(in srgb, var(--cup-foam) 85%, var(--milk)); }
+.yu-s-crema { stop-color: var(--cup-crema); }
+.yu-s-crema-hi { stop-color: color-mix(in srgb, var(--cup-crema) 70%, var(--cup-foam)); }
+.yu-s-crema-dk { stop-color: color-mix(in srgb, var(--cup-crema) 60%, var(--cup-espresso)); }
+.yu[data-yu-kind="matcha"] .yu-s-crema, .yu[data-yu-kind="matcha"] .yu-s-crema-hi, .yu[data-yu-kind="matcha"] .yu-s-crema-dk { stop-color: color-mix(in srgb, var(--cup-matcha) 80%, var(--milk)); }
+.yu[data-yu-kind="chai"] .yu-s-crema, .yu[data-yu-kind="chai"] .yu-s-crema-hi { stop-color: color-mix(in srgb, var(--cup-gold) 70%, var(--milk)); }
+.yu[data-yu-kind="choc"] .yu-s-crema, .yu[data-yu-kind="choc"] .yu-s-crema-hi { stop-color: color-mix(in srgb, var(--cup-espresso) 55%, var(--milk)); }
+.yu[data-yu-kind="filter"] .yu-s-crema, .yu[data-yu-kind="filter"] .yu-s-crema-hi { stop-color: color-mix(in srgb, var(--cup-espresso) 85%, var(--cup-crema)); }
+.yu-s-shade { stop-color: var(--cup-shade); stop-opacity: .55; }
+.yu-s-clear { stop-color: var(--cup-porcelain); stop-opacity: .06; }
+.yu-s-pool { stop-color: var(--cup-crema); stop-opacity: .35; }
+.yu-s-none { stop-color: var(--cup-crema); stop-opacity: 0; }
+.yu-s-steel-hi { stop-color: var(--cup-porcelain); }
+.yu-s-steel { stop-color: var(--cup-shade); }
+.yu-s-steel-dk { stop-color: color-mix(in srgb, var(--cup-shade) 60%, var(--cup-espresso)); }
+.yu-l-syrup { fill: color-mix(in srgb, var(--cup-crema) 60%, var(--cup-gold)); }
+.yu[data-yu-choc="yes"] .yu-l-syrup { fill: color-mix(in srgb, var(--cup-espresso) 75%, var(--cup-crema)); }
+.yu-streak { fill: none; stroke: var(--cup-espresso); stroke-width: 7; stroke-linecap: round; opacity: .18; filter: url(#yu-haze); }
+.yu-surface { stroke: color-mix(in srgb, var(--cup-crema) 60%, var(--cup-espresso)); stroke-width: .6; }
+.yu-art path { fill: var(--cup-foam); }
+.yu-art .yu-art-pull { fill: none; stroke: color-mix(in srgb, var(--cup-crema) 70%, var(--cup-foam)); stroke-width: 1.6; }
+.yu-art { transition: opacity .4s; }
+.yu-base { fill: var(--cup-shade); opacity: .55; }
+.yu-wall { opacity: .9; }
+.yu-edge { fill: none; stroke: color-mix(in srgb, var(--cup-shade) 70%, var(--cup-espresso)); stroke-width: 1.2; opacity: .55; }
+.yu-hi { stroke: var(--cup-porcelain); stroke-width: 7; stroke-linecap: round; opacity: .55; filter: url(#yu-soft); }
+.yu-hi2 { stroke: var(--cup-porcelain); stroke-width: 3; stroke-linecap: round; opacity: .45; }
+.yu-rim { fill: none; stroke: var(--cup-porcelain); stroke-width: 3; opacity: .9; }
+.yu-rim-in { fill: none; stroke: color-mix(in srgb, var(--cup-shade) 70%, var(--cup-espresso)); stroke-width: .8; opacity: .45; }
+.yu-shadow { fill: var(--cup-espresso); opacity: .28; }
+.yu-pool { fill: url(#yu-pool); }
+
+/* a saucer and spoon to drink here; on the counter to take away */
+.yu-saucer { transition: opacity .45s; }
+.yu:not([data-yu-cup="here"]) .yu-saucer { opacity: 0; }
+.yu-saucer-b { fill: var(--cup-shade); }
+.yu-saucer-t { fill: var(--cup-porcelain); stroke: var(--cup-gold); stroke-width: 2.6; }
+.yu-saucer-w { fill: none; stroke: var(--cup-shade); stroke-width: 1.2; }
+.yu-spoon-h { stroke: url(#yu-steel); stroke-width: 5; stroke-linecap: round; }
+.yu-spoon-b { fill: url(#yu-steel); }
+
+/* steam for extra hot; the decaf tag */
+.yu-steam path { fill: none; stroke: var(--cup-shade); stroke-width: 4; stroke-linecap: round; opacity: 0; transition: opacity .5s; }
+.yu-stage.is-hot .yu-steam path { opacity: .75; }
+@media (prefers-reduced-motion: no-preference) {
+  .yu-stage.is-hot .yu-steam path { animation: yu-steam 3.2s ease-in-out 2 both; }
+  .yu-stage.is-hot .yu-steam path:nth-child(2) { animation-delay: .5s; }
+  .yu-stage.is-hot .yu-steam path:nth-child(3) { animation-delay: 1s; }
+  @keyframes yu-steam { 0% { opacity: 0; transform: translateY(14px); } 40% { opacity: .8; } 100% { opacity: .4; transform: translateY(-6px); } }
+}
+.yu-tag { opacity: 0; transition: opacity .4s; }
+.yu-stage.is-decaf .yu-tag { opacity: 1; }
+.yu-tag-s { fill: none; stroke: var(--cup-gold); stroke-width: 1; }
+.yu-tag-p { fill: var(--cup-paper); stroke: var(--cup-gold); stroke-width: 1.2; }
+.yu-tag text { fill: var(--cup-espresso); font: 700 8px var(--font-body); letter-spacing: .14em; }
+
+/* the choices */
+.yu-now { width: 100%; padding-top: 16px; border-top: 1px solid var(--line-2); text-align: center; }
+.yu-name { margin: 0; font-family: var(--font-display); font-size: clamp(20px, 2vw, 26px); line-height: 1.2; min-height: 2.4em; }
+.yu-price { margin: 6px 0 0; font-family: var(--font-display); font-size: clamp(40px, 5vw, 60px); line-height: 1; font-variant-numeric: lining-nums tabular-nums; color: var(--accent); }
+.yu-all { margin: 8px 0 0; min-height: 2.8em; }
+.yu-form { display: grid; gap: 18px; }
+.yu-f { border: 0; margin: 0; padding: 0; min-width: 0; display: grid; gap: 8px; }
+.yu-f legend { padding: 0; margin-bottom: 8px; }
+.yu-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.yu-chip { position: relative; display: inline-flex; align-items: baseline; gap: 6px; min-height: 44px; padding: 11px 15px; border-radius: 12px; border: 1.5px solid var(--line-2); background: var(--bg); font-size: 14.5px; line-height: 1.2; cursor: pointer; user-select: none; transition: background .2s, color .2s, border-color .2s, transform .12s; }
+.yu-chip small { font-size: 11.5px; color: var(--dim); }
+.yu-chip input { position: absolute; opacity: 0; pointer-events: none; }
+.yu-chip:has(input:checked) { background: var(--text); color: var(--bg); border-color: var(--text); }
+.yu-chip:has(input:checked) small { color: inherit; opacity: .75; }
+.yu-chip:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+.yu-chip:active { transform: translateY(1px); }
+.yu-chip:has(input:disabled) { opacity: .45; cursor: not-allowed; text-decoration: line-through; }
+.yu-row { display: flex; flex-wrap: wrap; gap: 18px 28px; align-items: end; }
+.yu-shots .rs-k small { letter-spacing: 0; text-transform: none; font-size: 12px; }
+.yu-step { display: inline-flex; align-items: center; border: 1.5px solid var(--line-2); border-radius: 12px; overflow: hidden; }
+.yu-step button { width: 46px; height: 44px; border: 0; background: transparent; font-size: 20px; cursor: pointer; }
+.yu-step button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.yu-step output { min-width: 34px; text-align: center; font-variant-numeric: tabular-nums; font-weight: 600; }
+.yu-syr { min-width: 200px; }
+.yu-toggles { display: flex; gap: 8px; flex-wrap: wrap; }
+.yu-acts { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+
+/* the order */
+.yu-order { margin-top: clamp(28px, 4vw, 48px); }
+.yu-order-in { display: grid; gap: 18px; max-width: 720px; margin-inline: auto; padding: clamp(20px, 3vw, 34px); background: var(--surface); border: 1px solid var(--line-2); border-radius: 18px; }
+.yu-oh { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(26px, 3vw, 36px); }
+.yu-lines { list-style: none; margin: 0; padding: 0; }
+.yu-lines li { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 12px; align-items: center; padding: 12px 0; border-top: 1px solid var(--line); }
+.yu-lines b { font-variant-numeric: tabular-nums; }
+.yu-x { min-height: 36px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background: transparent; font-size: 12.5px; cursor: pointer; }
+.yu-total { display: flex; justify-content: space-between; align-items: baseline; padding-top: 14px; border-top: 1.5px solid var(--text); font-family: var(--font-display); font-size: 26px; }
+.yu-oall { margin: -8px 0 0; }
+.yu-send { justify-content: center; }
+.yu-order .yu-chip[data-state="fresh"] { border-color: var(--fresh); }
+
+/* the price list */
+.yu-list { margin-top: clamp(28px, 4vw, 48px); border-block: 1px solid var(--line-2); }
+.yu-list summary { padding: 18px 2px; cursor: pointer; font-family: var(--font-display); font-size: 22px; }
+.yu-table-wrap { overflow-x: auto; }
+.yu-table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+.yu-table th, .yu-table td { padding: 10px 8px; border-top: 1px solid var(--line); text-align: left; vertical-align: top; }
+.yu-table td { font-variant-numeric: tabular-nums; }
+.yu-table small { display: block; font-weight: 400; font-size: 12px; color: var(--dim); }
+.yu-extras { list-style: none; margin: 18px 0; padding: 0; display: grid; gap: 6px; font-size: 14px; color: var(--muted); }
+.yu-extras b { color: var(--text); font-weight: 600; }
+.yu-nojs { margin-top: 20px; }
+
+@media (max-width: 860px) {
+  .yu-grid { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .yu-stage { top: calc(var(--nav-h) + 6px); z-index: 2; grid-template-columns: 112px minmax(0, 1fr); align-items: center; justify-items: start; gap: 4px 14px; padding: 10px 14px; border-radius: 16px;
+    background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 10px 30px -18px var(--shadow), inset 0 0 0 1px var(--line); }
+  .yu-svg { width: 104px; }
+  .yu-cap { display: none; }
+  .yu-now { border: 0; padding: 0; text-align: left; }
+  .yu-name { min-height: 0; font-size: 15.5px; }
+  .yu-price { font-size: 30px; margin-top: 2px; }
+  .yu-all { min-height: 0; margin-top: 4px; font-size: 11.5px; line-height: 1.35; }
+}

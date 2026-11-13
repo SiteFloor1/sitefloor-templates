@@ -1,0 +1,26 @@
+{#- When's the big day: one date in, the dates to book out, worked back from the studio's own timings (weeks before the
+    day), each step dated in UK order; then to the calendar or to the studio. Without a date (or without JavaScript)
+    each step shows how many weeks before it falls. Used on the home page and the wedding page (`weddingPage`). -#}
+{%- set w = site.wedding %}
+{%- set sec = site.sections.wedding %}
+<section id="wedding" class="sm-wd" data-feature="smile-wedding" aria-label="{{ (w.title if weddingPage else sec.title) | plain }}"{{ 'smile-wedding' | tierAttr | safe }}><div class="wrap sm-wd-in">
+  <div class="sm-wd-side">
+    {%- if not weddingPage %}<h2 class="sm-wd-t">{{ sec.title | markup | safe }}</h2>{% if sec.intro %}<p class="sm-wd-i">{{ sec.intro }}</p>{% endif %}{% endif %}
+    <label class="sm-wd-date"><span class="sm-wd-dl">Your date</span> <input type="date" data-wd-date></label>
+    <p class="sm-wd-away" data-wd-away aria-live="polite"></p>
+    <p class="sm-wd-late" data-wd-late hidden>{{ w.late }}</p>
+  </div>
+  <div>
+    <ol class="sm-wd-plan" data-wd-steps>
+      {%- for s in w.steps | byWeeks %}
+      <li data-step="{{ s.id }}"><span class="sm-wd-n" data-when>{{ s.weeksBefore | weeksWords }}</span><span class="sm-wd-w">{{ s.label }}{% if s.note %}<small>{{ s.note }}</small>{% endif %}</span></li>
+      {%- endfor %}
+    </ol>
+    <p class="sm-wd-fine">Our usual timings. Your clinician confirms your plan at consultation.</p>
+    <div class="sm-wd-acts" data-js-only>
+      <button type="button" class="sm-quiet" data-wd-ics hidden>Add the dates to my calendar</button>
+      <a class="sm-quiet" data-wd-send href="{{ w.message | book }}" target="_blank" rel="noopener" hidden>Send my dates to {{ site.business.name }}</a>
+      {%- if not weddingPage and ("smile-wedding" | enabled) %}<a class="sm-quiet" href="{{ 'wedding' | href }}">Planning for the wedding</a>{% endif %}
+    </div>
+  </div>
+</div></section>

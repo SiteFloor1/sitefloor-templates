@@ -1,0 +1,19 @@
+{#- Aftercare: the clinician's own instructions, who to call if something feels wrong, and reminders (a top-up, a
+    hygiene visit) added to the patient's calendar from the day of treatment. -#}
+{%- set a = site.aftercare %}
+{%- set ph = { kicker: "Aftercare", title: a.title, intro: a.intro } %}
+{%- include "kits/smile/partials/page-head.njk" %}
+<div class="sm-ac" data-feature="smile-aftercare"><div class="wrap sm-ac-in">
+  <p class="sm-ac-urgent">{{ a.urgent }}</p>
+  {%- for s in a.sections %}<section class="sm-wp-part"><h2>{{ s.heading }}</h2><p>{{ s.text }}</p></section>{% endfor %}
+  {%- if a.reminders and a.reminders.length %}
+  <section class="sm-ac-rem" aria-labelledby="ac-rem">
+    <h2 id="ac-rem">Reminders</h2>
+    <ul class="sm-ac-list">{% for r in a.reminders %}<li><b>{{ r.label }}</b> {{ r.months }} {{ "month" if r.months == 1 else "months" }} after{% if r.note %}. {{ r.note }}{% endif %}</li>{% endfor %}</ul>
+    <div class="sm-ac-go" data-js-only>
+      <label class="sm-jy-date"><span>Day of your treatment</span> <input type="date" data-ac-day></label>
+      <button type="button" class="sm-btn" data-ac-ics disabled>Add the reminders to my calendar</button>
+    </div>
+  </section>
+  {%- endif %}
+</div></div>

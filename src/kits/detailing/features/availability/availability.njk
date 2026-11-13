@@ -1,0 +1,18 @@
+{#- The next start for each package: how many working days the car stays and the first day a run that long is free in
+    the studio's diary. The page says "Ask for a date" until the diary is read, so nothing moves when it is; a stale or
+    unreadable diary leaves it that way. -#}
+{%- set sec = site.sections.availability %}
+<section id="availability" class="dt-av" data-feature="availability" aria-label="{{ sec.title | plain }}"><div class="wrap">
+  {%- include "core/partials/section-head.njk" %}
+  <ul class="dt-av-list">
+    {%- for p in site.packages.items %}
+    <li class="dt-av-i" data-av-for="{{ p.id }}" data-av-days="{{ p.days }}" data-av-name="{{ p.name }}">
+      <span class="dt-av-n">{{ p.name }}</span>
+      <span class="dt-av-d">{{ p.days | daysLabel }}</span>
+      <span class="dt-av-when" data-av-when>Ask for a date</span>
+      <a class="dt-av-go" data-av-go href="{{ site.messages.general | wa }}" target="_blank" rel="noopener">Ask on WhatsApp</a>
+    </li>
+    {%- endfor %}
+  </ul>
+  <p class="dt-note" data-av-note aria-live="polite">From the studio's diary.</p>
+</div></section>

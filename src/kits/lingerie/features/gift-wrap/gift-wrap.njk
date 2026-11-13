@@ -1,0 +1,10 @@
+{#- Gift wrap: how the shop wraps and what it costs; the card written here, sent on WhatsApp with the order. -#}
+{%- set sec = site.sections.wrap %}
+{%- set w = site.giftWrap %}
+<section id="wrap" class="ls-wrap" data-feature="gift-wrap"><div class="wrap wrp-in">
+  <div>{% include "core/partials/section-head.njk" %}<p>{{ w.text }}</p><p class="lx-small">{{ "Wrapping is free." if w.price == 0 else ("Wrapping " + (w.price | pounds) + ".") }}</p></div>
+  <form class="lx-form" data-wrap-form>
+    <label class="lx-f">The card <span class="lx-count" data-wrap-count></span><textarea rows="3" maxlength="{{ w.cardMax }}" data-wrap-card></textarea></label>
+    <a class="lx-go" href="{{ ('Hello ' + site.business.name + ', please gift wrap my order.') | wa }}" target="_blank" rel="noopener" data-wrap-send>Ask for it wrapped</a>
+  </form>
+</div></section>

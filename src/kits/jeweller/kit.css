@@ -1,0 +1,61 @@
+/* Jeweller kit: what every jeweller feature shares (cards, rows, facts, closing lines). Tokens only; the look
+   sets the type system (nc-*) and its colours. */
+.jw-h { margin: 0 0 20px; font: 400 clamp(24px, 2.2vw, 30px)/1.15 var(--font-display); letter-spacing: .08em; text-transform: uppercase; }
+.jw-name { font: 400 18px/1.25 var(--font-display); letter-spacing: .06em; text-transform: uppercase; margin: 0; }
+.jw-name-l { font: 400 clamp(24px, 2.4vw, 32px)/1.15 var(--font-display); letter-spacing: .07em; text-transform: uppercase; margin: 0; }
+.jw-name-xl { font: 400 clamp(36px, 5vw, 72px)/1.02 var(--font-display); letter-spacing: .05em; text-transform: uppercase; margin: 0; }
+.jw-say { font: 300 clamp(19px, 1.9vw, 24px)/1.55 var(--font-body); max-width: 30ch; margin: 0 0 28px; }
+.jw-spec { font: 400 12px/1.5 var(--font-body); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.jw-line { color: var(--muted); max-width: 46ch; margin: -24px 0 48px; }
+.jw-acts { display: flex; flex-wrap: wrap; gap: 14px 32px; align-items: baseline; margin: 28px 0 0; }
+.jw-all { display: flex; justify-content: flex-end; margin: 56px 0 0; }
+.jw-labels { list-style: none; margin: 0 0 32px; padding: 0; display: flex; flex-wrap: wrap; gap: 10px 26px; }
+.jw-send { margin-top: 6px; font-size: 12px; }
+.jw-range { width: 100%; max-width: 420px; accent-color: var(--text); margin: 14px 0; }
+.jw-card { margin: 0; }
+.jw-card-a { display: block; background: var(--surface); }
+.jw-card img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; transition: opacity .6s; }
+.jw-card-a:hover img { opacity: .94; }
+.jw-card figcaption { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-top: 16px; }
+.jw-card figcaption .nc-label { white-space: nowrap; }
+@media (max-width: 700px) {
+  .jw-all { justify-content: flex-start; margin-top: 40px; }
+  .jw-card figcaption { flex-direction: column; gap: 6px; }
+}
+.jw-index { display: flex; flex-wrap: wrap; gap: 10px 32px; margin-top: 32px; }
+.jw-index a { padding: 6px 0; border-bottom: 1px solid transparent; }
+.jw-index a:hover { border-color: var(--rose); }
+.jw-cat { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 72px clamp(20px, 6vw, 96px); }
+.jw-cat > :nth-child(even) { margin-top: clamp(0px, 10vw, 160px); }
+.jw-cat-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.jw-cat-3 > :nth-child(even) { margin-top: 0; }
+.jw-row { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(240px, 30%); gap: clamp(20px, 3vw, 48px); overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 14px; scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+.jw-row > * { scroll-snap-align: start; }
+.jw-demo { margin-top: 48px; }
+@media (max-width: 700px) {
+  .jw-cat { grid-template-columns: 1fr; gap: 48px; }
+  .jw-cat > :nth-child(even) { margin-top: 0; }
+  .jw-cat-3 { grid-template-columns: 1fr; }
+  .jw-row { grid-auto-columns: 74%; }
+}
+.jw-facts { margin: 12px 0 0; border-top: 1px solid var(--line); }
+.jw-facts div { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.jw-facts dt { font: 400 11px/1.7 var(--font-body); letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+.jw-facts dd { margin: 0; font-weight: 300; }
+.jw-invite .wrap { text-align: center; display: grid; justify-items: center; gap: 18px; border-top: 1px solid var(--line); padding-top: clamp(48px, 6vw, 96px); }
+.jw-invite-t { margin: 0; font: 400 clamp(24px, 2.6vw, 36px)/1.25 var(--font-display); letter-spacing: .06em; text-transform: uppercase; max-width: 24ch; }
+.jw-guide .wrap { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(24px, 6vw, 96px); }
+.jw-guide .wrap > .jw-dl-2 { grid-column: 1 / -1; }
+.jw-dl { margin: 0; border-top: 1px solid var(--line); }
+.jw-dl > div { padding: 22px 0; border-bottom: 1px solid var(--line); display: grid; gap: 10px; }
+.jw-dl dd { margin: 0; font-weight: 300; line-height: 1.7; max-width: 60ch; }
+.jw-dl-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(24px, 6vw, 96px); border-top: 0; }
+.jw-dl-2 > div { border-top: 1px solid var(--line); border-bottom: 0; }
+@media (max-width: 700px) {
+  .jw-guide .wrap, .jw-dl-2 { grid-template-columns: 1fr; }
+}
+.jw-anni-in { display: grid; gap: 0; }
+.jw-anni-f { margin-top: 8px; }
+
+.jw-cal { margin: 18px 0; }
+.jw-cal-card { width: 320px; height: 202px; max-width: none; border: 1px dashed var(--text); border-radius: 12px; margin: 10px 0; }

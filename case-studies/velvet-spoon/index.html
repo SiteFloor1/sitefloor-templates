@@ -1,0 +1,592 @@
+<title>Velvet Spoon Case Study</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gilda+Display&family=Albert+Sans:wght@400;500;600&family=Manrope:wght@600;700&display=swap">
+<style>
+/* Layout: the case study is the box itself. The lid opens on the first layer; each layer of the box is a plan, each
+   piece something the site does. Under the box, the folded guide card names every piece; on the back, the label.
+   Ground: the tissue paper a box is packed in, with its gold foil. The shop's own box (cocoa lid, pistachio ribbon,
+   seal) is the only dark object on the table. */
+:root {
+  --tissue: #F3EDE4; --tissue-2: #E9E0D3; --card: #FBF7F1; --ink: #2A1912; --ink-soft: #6A5446; --rule: #D8CBB9;
+  --foil: #9A7440; --foil-2: #C9AE80; --lid: #2A1813; --lid-2: #3A241B; --cup: #1A0F0B; --pista: #B3BF7A; --pulp: #F1E7DA;
+  --display: "Gilda Display", "Didot", "Bodoni 72", Georgia, serif;
+  --body: "Albert Sans", "Helvetica Neue", Arial, sans-serif;
+  --brand: "Manrope", Arial, sans-serif;
+  --sf-paper: #FBFAF7; --sf-ink: #0E0F11; --sf-tomato: #E8613C; --sf-line: rgba(14,15,17,.12);
+  --s: clamp(64px, 9vw, 140px);
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --tissue: #17100C; --tissue-2: #20160F; --card: #221811; --ink: #EFE5D8; --ink-soft: #B8A796; --rule: #3B2C22;
+  --foil: #CDAA6E; --foil-2: #8E7346; color-scheme: dark; } }
+:root[data-theme="dark"] { --tissue: #17100C; --tissue-2: #20160F; --card: #221811; --ink: #EFE5D8; --ink-soft: #B8A796; --rule: #3B2C22; --foil: #CDAA6E; --foil-2: #8E7346; color-scheme: dark; }
+*, *::before, *::after { box-sizing: border-box; }
+body { background: var(--tissue); color: var(--ink); font: 400 17px/1.6 var(--body); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--sf-paper); }
+a { color: inherit; }
+img, video { display: block; max-width: 100%; height: auto; }
+.gut { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { width: min(1240px, 100%); margin-inline: auto; }
+h1, h2, h3 { font-family: var(--display); font-weight: 400; text-wrap: balance; margin: 0; }
+p { margin: 0; }
+.lab { font-size: 11.5px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--foil); }
+:focus-visible { outline: 2px solid var(--foil); outline-offset: 3px; }
+
+/* Sitefloor's own bar, as on the Sitefloor site and the other case studies */
+.sfbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--sf-paper); color: var(--sf-ink); border-bottom: 1px solid var(--sf-line); }
+.sfbar .wrap { display: flex; justify-content: space-between; align-items: center; height: 66px; gap: 16px; }
+.wm { display: flex; align-items: baseline; font-family: var(--brand); font-weight: 600; font-size: 24px; letter-spacing: -.045em; text-decoration: none; color: var(--sf-ink); }
+.wm svg { margin: 0 1px; overflow: visible; }
+.sfbar nav { display: flex; gap: 28px; font-family: var(--brand); font-size: 14px; font-weight: 600; }
+.sfbar nav a { text-decoration: none; color: var(--sf-ink); }
+.sfbar nav a[aria-current] { box-shadow: inset 0 -1.5px 0 var(--sf-ink); }
+.sfbtn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 20px; background: var(--sf-ink); color: var(--sf-paper); font: 700 12px var(--brand); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; }
+.sfbtn:hover { background: var(--sf-tomato); }
+@media (max-width: 760px) { .sfbar nav { display: none; } }
+@media (max-width: 420px) { .sfbar .sfbtn { display: none; } }
+
+/* ---- the box (hero) */
+.hero { padding-block: clamp(40px, 6vw, 88px) var(--s); overflow-x: clip; }
+.guide { overflow-x: clip; }
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(36px, 6vw, 96px); align-items: center; }
+.hero h1 { font-size: clamp(44px, 6.4vw, 96px); line-height: 1.02; letter-spacing: -.01em; }
+.hero h1 em { font-style: normal; color: var(--foil); }
+.hero-t { display: grid; gap: 26px; min-width: 0; }
+.hero-t p { max-width: 34em; color: var(--ink-soft); font-size: 18px; }
+.acts { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 26px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 50px; padding: 0 26px; border: 1px solid var(--ink); background: var(--ink); color: var(--tissue); font: 600 13px var(--body); letter-spacing: .14em; text-transform: uppercase; text-decoration: none; cursor: pointer; }
+.btn:hover { background: var(--foil); border-color: var(--foil); }
+.btn.line { background: none; color: var(--ink); }
+.btn.line:hover { color: var(--tissue); }
+.txt { display: inline-flex; align-items: center; min-height: 44px; padding: 0; border: 0; background: none; color: var(--ink); font: 600 13px var(--body); letter-spacing: .14em; text-transform: uppercase; text-decoration: underline; text-underline-offset: 7px; text-decoration-color: var(--foil); cursor: pointer; }
+
+.box { position: relative; width: 100%; max-width: 620px; justify-self: end; perspective: 1600px; }
+.tray { position: relative; aspect-ratio: 1; padding: 6.5%; background: var(--lid); box-shadow: inset 0 0 0 1px #4A2E23, inset 0 0 0 9px var(--lid), inset 0 0 0 10px #5B4536, 0 40px 80px -40px rgba(30,15,8,.7); display: grid; }
+.pieces { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(var(--c, 3), minmax(0, 1fr)); gap: 3%; align-content: center; transition: opacity .35s, transform .35s; }
+.pieces.lifting { opacity: 0; transform: translateY(-14px); }
+.pc { aspect-ratio: 1; display: grid; place-items: center; border-radius: 50%; background: radial-gradient(circle at 50% 55%, rgba(0,0,0,.6) 0 50%, rgba(255,255,255,.04) 52%, transparent 66%); }
+.pc a { display: grid; place-items: center; width: 100%; height: 100%; border-radius: 50%; text-decoration: none; }
+.pc img { width: 84%; height: auto; filter: drop-shadow(0 8px 10px rgba(0,0,0,.5)); transition: transform .35s cubic-bezier(.3,.7,.2,1); }
+.pc a:hover img, .pc a:focus-visible img { transform: translateY(-4px) scale(1.04); }
+.pc.foil a { background: radial-gradient(circle at 34% 30%, #F6E7C2 0 6%, #D9BC83 16%, #A98345 46%, #6F5226 74%, #8E6C37 100%); box-shadow: inset 0 0 0 1px rgba(255,240,210,.35), inset 0 -10px 18px rgba(60,40,10,.4), 0 10px 16px -6px rgba(0,0,0,.6); width: 82%; height: 82%; }
+.pc.foil b { font: 400 clamp(20px, 3vw, 40px)/1 var(--display); color: #4A3415; text-shadow: 0 1px 0 rgba(255,240,210,.6); }
+.lid { position: absolute; inset: 0; transform-origin: 50% 0; transition: transform 1s cubic-bezier(.5,0,.2,1) .45s, opacity .5s 1.05s; background: var(--lid-2) repeating-linear-gradient(135deg, rgba(255,255,255,.022) 0 2px, transparent 2px 7px); box-shadow: inset 0 0 0 1px #5B4536, 0 40px 80px -40px rgba(30,15,8,.7); display: grid; place-items: center; overflow: hidden; }
+.rib { position: absolute; background: var(--pista) repeating-linear-gradient(90deg, rgba(31,26,14,.08) 0 1px, transparent 1px 3px); transition: transform .5s cubic-bezier(.6,0,.4,1); }
+.rib.v { left: calc(50% - 6%); width: 12%; top: 0; bottom: 0; transform-origin: 50% 0; }
+.rib.h { top: calc(50% - 6%); height: 12%; left: 0; right: 0; transform-origin: 100% 50%; background-image: repeating-linear-gradient(0deg, rgba(31,26,14,.08) 0 1px, transparent 1px 3px); }
+.lid .seal { position: relative; width: 34%; transition: transform .5s, opacity .4s; filter: drop-shadow(0 14px 20px rgba(0,0,0,.55)); }
+.lid-words { position: absolute; left: 0; right: 0; bottom: 6%; text-align: center; color: var(--pulp); font-size: 11px; letter-spacing: .3em; text-transform: uppercase; opacity: .72; }
+.box.open .rib.v { transform: scaleY(0); }
+.box.open .rib.h { transform: scaleX(0); }
+.box.open .seal { transform: translateY(-14px) scale(.9); opacity: 0; }
+.box.open .lid { transform: translateY(-6%) rotateX(78deg); opacity: 0; pointer-events: none; }
+.box-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 20px; margin-top: 18px; min-height: 50px; }
+.layers { display: flex; flex-wrap: wrap; gap: 6px; }
+.layers button { min-height: 44px; padding: 0 14px; border: 1px solid var(--rule); background: none; color: var(--ink-soft); font: 600 11.5px var(--body); letter-spacing: .14em; text-transform: uppercase; cursor: pointer; }
+.layers button[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: var(--tissue); }
+.layers[hidden] { display: none; }
+.box-note { font-size: 13.5px; color: var(--ink-soft); }
+@media (prefers-reduced-motion: reduce) { .lid, .rib, .lid .seal, .pieces, .pc img { transition: none !important; } }
+
+/* ---- the guide card */
+.guide { padding-block: 0 var(--s); }
+.layer-h { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 10px 32px; padding-bottom: 18px; border-bottom: 1px solid var(--ink); margin-bottom: 8px; }
+.layer-h h2 { font-size: clamp(36px, 4.6vw, 68px); line-height: 1; }
+.layer-h .price { font-size: 15px; color: var(--ink-soft); text-align: right; }
+.layer-h .price b { display: block; font: 400 clamp(24px, 2.4vw, 34px)/1.1 var(--display); color: var(--ink); }
+.layer + .layer, .spread + .layer { margin-top: var(--s); }
+.entries { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: clamp(24px, 3vw, 48px); }
+.en { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 0 18px; align-items: start; padding: 26px 0; border-bottom: 1px solid var(--rule); scroll-margin-top: 90px; }
+.en img, .en .fw { grid-row: span 2; width: 76px; height: 76px; }
+.en .fw { display: grid; place-items: center; border-radius: 50%; background: radial-gradient(circle at 34% 30%, #F6E7C2 0 6%, #D9BC83 16%, #A98345 46%, #6F5226 74%, #8E6C37 100%); font: 400 30px/1 var(--display); color: #4A3415; }
+.en h3 { font-size: 23px; line-height: 1.2; }
+.en p { margin-top: 6px; font-size: 15.5px; line-height: 1.55; color: var(--ink-soft); }
+.en:target { background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--foil) 12%, transparent), transparent); }
+@media (max-width: 1000px) { .entries { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .entries { grid-template-columns: minmax(0, 1fr); } .layer-h { grid-template-columns: minmax(0, 1fr); } .layer-h .price { text-align: left; } }
+
+/* ---- spreads: the real thing, between the layers */
+.spread { margin-top: var(--s); display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 5vw, 80px); align-items: center; }
+.spread.flip { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+.spread.flip .sp-t { order: 2; }
+.sp-t { display: grid; gap: 18px; align-content: center; min-width: 0; }
+.sp-t h2 { font-size: clamp(32px, 3.8vw, 56px); line-height: 1.05; }
+.sp-t p { color: var(--ink-soft); max-width: 32em; }
+.sp-m { min-width: 0; position: relative; }
+.frame { position: relative; background: var(--lid); padding: clamp(8px, 1.2vw, 14px); box-shadow: 0 30px 60px -34px rgba(30,15,8,.75); }
+.frame video, .frame img { width: 100%; height: auto; }
+.phone { width: min(330px, 100%); margin-inline: auto; padding: 11px; border-radius: 46px; background: #0E0907; box-shadow: inset 0 0 0 1.5px #3A2A22, 0 34px 60px -30px rgba(30,15,8,.8); }
+.phone video, .phone img { border-radius: 36px; aspect-ratio: 390 / 844; object-fit: cover; }
+.phone::before { content: ""; position: absolute; z-index: 2; top: 20px; left: 50%; width: 31%; height: 24px; translate: -50% 0; border-radius: 14px; background: #0E0907; }
+.pause { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-top: 10px; padding: 0; border: 0; background: none; color: var(--ink-soft); font: 600 11.5px var(--body); letter-spacing: .16em; text-transform: uppercase; cursor: pointer; }
+.pause svg { width: 12px; height: 12px; }
+.mcap { margin-top: 8px; font-size: 13px; color: var(--ink-soft); }
+@media (max-width: 860px) { .spread, .spread.flip { grid-template-columns: minmax(0, 1fr); } .spread.flip .sp-t { order: 0; } }
+
+/* the gift, as it arrives */
+.gift { display: grid; grid-template-columns: minmax(0, 270px) minmax(0, 1fr); gap: 28px; align-items: center; }
+.bubble { max-width: 300px; padding: 14px 16px 12px; background: var(--card); border: 1px solid var(--rule); border-radius: 18px 18px 18px 4px; font-size: 14.5px; line-height: 1.45; box-shadow: 0 16px 30px -22px rgba(30,15,8,.6); animation: arrive 5s ease-in-out -1.5s infinite; }
+.bubble small { display: block; margin-top: 8px; color: var(--foil); word-break: break-all; font-size: 12px; }
+@keyframes arrive { 0%, 8% { opacity: 0; transform: translateY(10px); } 18%, 90% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+.gift.paused .bubble { animation-play-state: paused; }
+@media (max-width: 640px) { .gift { grid-template-columns: minmax(0, 1fr); justify-items: center; } .gift .phone { width: min(270px, 100%) !important; } }
+
+/* your seal, live */
+.sealw { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); align-items: center; }
+.seal-lid { position: relative; aspect-ratio: 1; display: grid; place-items: center; overflow: hidden; background: var(--lid-2) repeating-linear-gradient(135deg, rgba(255,255,255,.022) 0 2px, transparent 2px 7px); box-shadow: 0 30px 60px -34px rgba(30,15,8,.75); }
+.seal-lid .rib.v, .seal-lid .rib.h { transition: none; }
+.seal-lid .seal { position: relative; width: 56%; filter: drop-shadow(0 14px 20px rgba(0,0,0,.55)); }
+.sealf { display: grid; gap: 16px; }
+.letters { display: flex; align-items: center; gap: 12px; }
+.letters input { width: 68px; height: 68px; border: 1px solid var(--rule); border-radius: 0; background: var(--card); color: var(--ink); font: 400 36px/1 var(--display); text-align: center; text-transform: uppercase; }
+.letters span { font: 400 28px var(--display); color: var(--foil); }
+.fld { display: grid; gap: 8px; font-size: 11.5px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); }
+.fld input { width: 100%; min-height: 50px; padding: 0 14px; border: 1px solid var(--rule); border-radius: 0; background: var(--card); color: var(--ink); font: 400 17px var(--body); letter-spacing: 0; text-transform: none; }
+.letters input:focus, .fld input:focus { outline: 2px solid var(--foil); outline-offset: 0; }
+@media (max-width: 640px) { .sealw { grid-template-columns: minmax(0, 1fr); } }
+
+/* advent, a small one */
+.adv { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 5px; padding: clamp(12px, 2vw, 22px); background: var(--lid-2) repeating-linear-gradient(135deg, rgba(255,255,255,.022) 0 2px, transparent 2px 7px); box-shadow: inset 0 0 0 1px #5B4536, 0 30px 60px -34px rgba(30,15,8,.75); perspective: 1200px; }
+.adv button { position: relative; aspect-ratio: 1; padding: 0; border: 0; background: var(--cup); cursor: pointer; }
+.adv button img { position: absolute; inset: 12%; width: 76%; height: 76%; }
+.adv .door { position: absolute; inset: 0; display: grid; place-items: center; background: #321E17; box-shadow: inset 0 0 0 1px rgba(241,231,218,.22); color: var(--pulp); font: 400 clamp(17px, 2.2vw, 30px)/1 var(--display); transform-origin: 0 50%; transition: transform .7s cubic-bezier(.3,.7,.2,1); backface-visibility: hidden; }
+.adv button:nth-child(5n+2) .door { color: var(--pista); }
+.adv button[aria-expanded="true"] .door { transform: rotateY(-108deg); }
+@media (prefers-reduced-motion: reduce) { .adv .door { transition: none; } .adv button[aria-expanded="true"] .door { opacity: 0; transform: none; } }
+@media (max-width: 520px) { .adv { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+/* posting dates */
+.post { display: grid; gap: 10px; }
+.post-q { display: flex; flex-wrap: wrap; gap: 6px; }
+.post-q button { min-height: 44px; padding: 0 14px; border: 1px solid var(--rule); background: var(--card); color: var(--ink); font: 500 14px var(--body); cursor: pointer; }
+.post-q button[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: var(--tissue); }
+.post-a { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--ink); }
+.post-a div { padding: 18px 0 4px; }
+.post-a div + div { padding-left: 20px; border-left: 1px solid var(--rule); }
+.post-a b { display: block; margin-top: 4px; font: 400 clamp(24px, 2.6vw, 36px)/1.15 var(--display); }
+.post-why { min-height: 3.2em; font-size: 14.5px; color: var(--ink-soft); }
+
+/* ---- the back of the box: its label */
+.back { padding-block: var(--s); background: var(--tissue-2); }
+.label { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(32px, 5vw, 80px); }
+.label h2 { font-size: clamp(36px, 4.6vw, 68px); line-height: 1; }
+.label-t { display: grid; gap: 18px; align-content: start; }
+.label-t p { color: var(--ink-soft); }
+.panel { border: 1.5px solid var(--ink); background: var(--card); }
+.panel h3 { padding: 14px 20px; border-bottom: 1.5px solid var(--ink); font-size: 26px; }
+.row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; padding: 12px 20px; border-bottom: 1px solid var(--rule); font-size: 15.5px; }
+.row:last-child { border-bottom: 0; }
+.row b { font-weight: 600; font-variant-numeric: tabular-nums; text-align: right; }
+.row.k { border-bottom: 1.5px solid var(--ink); font-weight: 600; }
+.panel + .panel { margin-top: 18px; }
+.panel .fine { padding: 12px 20px; font-size: 13px; color: var(--ink-soft); border-top: 1px solid var(--rule); }
+@media (max-width: 860px) { .label { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 640px) { .row { grid-template-columns: minmax(0, 1fr); gap: 2px; } .row b { text-align: left; font-weight: 500; color: var(--ink-soft); } .row.k { display: none; } }
+
+/* ---- choose your box (plans) */
+.plans { padding-block: var(--s); }
+.plans-h { display: grid; gap: 14px; margin-bottom: clamp(28px, 4vw, 48px); }
+.plans-h h2 { font-size: clamp(36px, 4.6vw, 68px); line-height: 1; }
+.plans-h p { color: var(--ink-soft); max-width: 40em; }
+.sizes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2vw, 28px); align-items: end; }
+.size { display: grid; gap: 14px; padding: 26px 24px 28px; border: 1px solid var(--rule); background: var(--card); }
+.size.sig { border-color: var(--foil); box-shadow: inset 0 0 0 1px var(--foil); }
+.mini { display: grid; grid-template-columns: repeat(var(--c), 1fr); gap: 4px; width: var(--w); padding: 8px; background: var(--lid); }
+.mini i { aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #7A5040, #3B2219 60%); }
+.size.sig .mini i { background: radial-gradient(circle at 34% 30%, #F6E7C2 0 6%, #D9BC83 16%, #A98345 46%, #6F5226 74%); }
+.size h3 { font-size: 30px; }
+.size .pr { font: 400 22px/1.2 var(--display); }
+.size .pr small { font: 400 14px var(--body); color: var(--ink-soft); }
+.size ul { margin: 0; padding: 0 0 0 18px; color: var(--ink-soft); font-size: 15px; display: grid; gap: 6px; }
+.plans .fine { margin-top: 18px; font-size: 13.5px; color: var(--ink-soft); }
+@media (max-width: 860px) { .sizes { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---- close and footer */
+.close { padding-block: 0 var(--s); }
+.close .wrap { display: grid; gap: 22px; justify-items: start; padding-top: var(--s); border-top: 1px solid var(--ink); }
+.close h2 { font-size: clamp(40px, 5.4vw, 80px); line-height: 1.02; max-width: 14em; }
+.close p { color: var(--ink-soft); max-width: 36em; }
+.mail { display: inline-block; color: var(--ink-soft); font-size: 14px; user-select: all; }
+footer { background: var(--tissue-2); color: var(--ink-soft); font-size: 13px; line-height: 1.6; border-top: 1px solid var(--rule); }
+footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px 32px; padding-block: 28px; }
+footer p { max-width: 96ch; }
+@media (max-width: 860px) { .hero .wrap { grid-template-columns: minmax(0, 1fr); } .box { justify-self: stretch; margin-inline: auto; } }
+@media (max-width: 700px) { footer .wrap { grid-template-columns: minmax(0, 1fr); } }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs><symbol id="sealsym" viewBox="0 0 120 120">
+    <circle cx="60" cy="60" r="58" fill="#2A1813"/>
+    <circle cx="60" cy="60" r="54" fill="none" stroke="#B3BF7A" stroke-width=".9"/>
+    <circle cx="60" cy="60" r="33" fill="none" stroke="#B3BF7A" stroke-width=".9"/>
+  </symbol></defs>
+</svg>
+
+<div class="sfbar gut"><div class="wrap">
+  <a class="wm" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su" aria-label="Sitefloor home">sitefl<svg width="28" height="14" viewBox="0 0 42 21" aria-hidden="true"><rect x="1.9" y="1.9" width="38.2" height="17.2" rx="8.6" fill="none" stroke="#0E0F11" stroke-width="3.8"/><circle cx="31.5" cy="10.5" r="5.2" fill="#E8613C"/></svg>r</a>
+  <nav aria-label="Main"><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#live">Features</a><a href="#top" aria-current="page">Work</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#pricing">Pricing</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#guides">Guides</a></nav>
+  <a class="sfbtn" href="#mockup"><span>Free mockup</span><span aria-hidden="true">→</span></a>
+</div></div>
+
+<main id="top">
+
+<section class="hero gut" aria-labelledby="h1"><div class="wrap">
+  <div class="hero-t">
+    <p class="lab">Case study · Chocolatier and gelateria</p>
+    <h1 id="h1">Lift the lid. <em>Every layer is a plan.</em></h1>
+    <p>Velvet Spoon is a fictional chocolatier on London Road, Leicester, made to show Sitefloor's dessert kit. The site is set out like the shop's own box: each piece is something it does for the shop, and each layer goes one plan deeper.</p>
+    <div class="acts">
+      <button type="button" class="btn" id="untie" aria-controls="box">Untie the ribbon</button>
+      <a class="txt" href="https://claude.ai/artifact/6aER6f7X5GECRf1LrLpqGC">Open the shop</a>
+    </div>
+  </div>
+  <div>
+    <div class="box" id="box">
+      <div class="tray"><ul class="pieces" id="pieces" aria-label="The box, top layer"></ul></div>
+      <div class="lid" id="lid" aria-hidden="true">
+        <span class="rib v"></span><span class="rib h"></span>
+        <svg class="seal" id="heroSeal" viewBox="0 0 120 120" aria-hidden="true"></svg>
+        <span class="lid-words">London Road · Leicester</span>
+      </div>
+    </div>
+    <div class="box-bar">
+      <div class="layers" id="layers" role="group" aria-label="Layers of the box" hidden>
+        <button type="button" data-layer="0" aria-pressed="true">Top · Starter</button>
+        <button type="button" data-layer="1" aria-pressed="false">Second · Plus</button>
+        <button type="button" data-layer="2" aria-pressed="false">Bottom · Signature</button>
+      </div>
+      <p class="box-note" id="boxNote">Twenty-seven pieces in three layers.</p>
+    </div>
+  </div>
+</div></section>
+
+<section class="guide gut" aria-label="The guide to the box"><div class="wrap">
+
+  <div class="layer" id="layer-0">
+    <div class="layer-h">
+      <div><p class="lab">The top layer</p><h2>Starter</h2></div>
+      <p class="price"><b>£99 + £25 a month</b>The home page and a Plan your visit page</p>
+    </div>
+    <ol class="entries" id="en-0"></ol>
+  </div>
+
+  <div class="spread">
+    <div class="sp-t">
+      <p class="lab">On a phone</p>
+      <h2>It opens on the pour, then the counter.</h2>
+      <p>The first thing a customer sees is the shop itself: its film, then today's tubs with their prices. When the raspberry sorbet runs out, the tub stays on the wall and says "Back tomorrow". The shop changes one cell in a Google Sheet on its phone; the page does the rest.</p>
+    </div>
+    <div class="sp-m">
+      <div class="phone"><video id="v-phone" muted loop playsinline preload="none" poster="media/phone-poster.jpg" data-src="media/phone.mp4" aria-label="The Velvet Spoon home page on a phone: the film of chocolate pouring, then the gelato wall with one flavour marked Back tomorrow"></video></div>
+      <p style="text-align:center"><button type="button" class="pause" data-pause="v-phone" aria-label="Pause the phone clip"><svg viewBox="0 0 12 12" aria-hidden="true"><rect x="2" y="1" width="3" height="10" fill="currentColor"/><rect x="7" y="1" width="3" height="10" fill="currentColor"/></svg><span>Pause</span></button></p>
+    </div>
+  </div>
+
+  <div class="layer" id="layer-1">
+    <div class="layer-h">
+      <div><p class="lab">The second layer</p><h2>Plus</h2></div>
+      <p class="price"><b>£199 + £30 a month</b>Everything in Starter, up to five pages</p>
+    </div>
+    <ol class="entries" id="en-1"></ol>
+  </div>
+
+  <div class="spread flip">
+    <div class="sp-t">
+      <p class="lab">By post</p>
+      <h2>It knows when the post goes.</h2>
+      <p>Customers ask "will it be there for Friday?". The page answers from the shop's own posting days and noon cut-off, and it skips Sundays, bank holidays, Christmas and any day the shop is closed. It always says "usually", because no courier promises the next day.</p>
+    </div>
+    <div class="sp-m post" id="post">
+      <p class="lab">If the order goes in on</p>
+      <div class="post-q" role="group" aria-label="When the order goes in">
+        <button type="button" aria-pressed="true" data-i="0">Thu 29 Oct, 9:30am</button>
+        <button type="button" aria-pressed="false" data-i="1">Thu 29 Oct, 1pm</button>
+        <button type="button" aria-pressed="false" data-i="2">Wed 23 Dec</button>
+      </div>
+      <div class="post-a" aria-live="polite">
+        <div><p class="lab">It goes out</p><b id="post-out">Today</b></div>
+        <div><p class="lab">Usually with them</p><b id="post-in">Friday 30 October</b></div>
+      </div>
+      <p class="post-why" id="post-why">Posting days are Tuesday, Thursday and Saturday; this one is before the cut-off.</p>
+    </div>
+  </div>
+
+  <div class="layer" id="layer-2">
+    <div class="layer-h">
+      <div><p class="lab">The bottom layer</p><h2>Signature</h2></div>
+      <p class="price"><b>£349 + £35 a month</b>Everything in Plus, up to 20 pages and the showpieces</p>
+    </div>
+    <ol class="entries" id="en-2"></ol>
+  </div>
+
+  <div class="spread">
+    <div class="sp-t">
+      <p class="lab">The box</p>
+      <h2>Fill it, tie it, write the card.</h2>
+      <p>The shop's own chocolates, from its own photographs, placed one by one. A piece that sold out today can't go in. When the box is full the ribbon ties with the shop's seal, and the card is written on the lid. The order arrives on WhatsApp with every piece, the price and the allergens.</p>
+    </div>
+    <div class="sp-m">
+      <div class="frame"><video id="v-box" muted loop playsinline preload="none" poster="media/box-poster.jpg" data-src="media/box.mp4" aria-label="Filling a box of six: three chocolates placed, the ribbon tied with the seal, a card written"></video></div>
+      <button type="button" class="pause" data-pause="v-box" aria-label="Pause the box clip"><svg viewBox="0 0 12 12" aria-hidden="true"><rect x="2" y="1" width="3" height="10" fill="currentColor"/><rect x="7" y="1" width="3" height="10" fill="currentColor"/></svg><span>Pause</span></button>
+    </div>
+  </div>
+
+  <div class="spread flip">
+    <div class="sp-t">
+      <p class="lab">The gift link</p>
+      <h2>For someone else, it arrives as a link.</h2>
+      <p>Tick "It's a gift" and the customer gets a message to forward. It opens a page with their box, the card, who it's from and when to collect it. Nothing is stored on a server: the box travels inside the link itself, and a link the shop wouldn't sell simply doesn't open.</p>
+    </div>
+    <div class="sp-m gift" id="gift">
+      <div class="phone" style="width:100%"><img src="media/gift-phone.jpg" alt="The gift page on a phone: a box of six, 'Maya, a box for you', the card 'Happy birthday, Maya. Save me the gold one.', From Sam, ready to collect today at 8pm" width="780" height="1688" loading="lazy"></div>
+      <div>
+        <p class="bubble">Maya, there's a box waiting for you at Velvet Spoon, today, 8pm. From Sam.<small>velvetspoon.co.uk/gift#…</small></p>
+        <button type="button" class="pause" id="giftPause" aria-label="Pause the message animation"><svg viewBox="0 0 12 12" aria-hidden="true"><rect x="2" y="1" width="3" height="10" fill="currentColor"/><rect x="7" y="1" width="3" height="10" fill="currentColor"/></svg><span>Pause</span></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="spread">
+    <div class="sp-t">
+      <p class="lab">Your seal · try it</p>
+      <h2>Their initials, on the shop's own seal.</h2>
+      <p>For wedding favours and company gifts, the couple or the company types two letters and a line, and the seal on the lid is redrawn as they type. It goes with the request, so the shop knows exactly what to print.</p>
+      <div class="sealf">
+        <div class="letters"><input id="sa" type="text" maxlength="2" autocomplete="off" aria-label="First initial" value="A"><span aria-hidden="true">&amp;</span><input id="sb" type="text" maxlength="2" autocomplete="off" aria-label="Second initial" value="S"></div>
+        <label class="fld" for="sline">Around it<input id="sline" type="text" maxlength="30" autocomplete="off" value="Amira &amp; Sam · 14 June 2027"></label>
+      </div>
+    </div>
+    <div class="sp-m">
+      <div class="seal-lid"><span class="rib v"></span><span class="rib h"></span><svg class="seal" id="liveSeal" viewBox="0 0 120 120" role="img" aria-label="The seal"></svg></div>
+    </div>
+  </div>
+
+  <div class="spread flip">
+    <div class="sp-t">
+      <p class="lab">The advent box · try it</p>
+      <h2>Twenty-four mornings.</h2>
+      <p>The windows sit in shuffled places, like a printed calendar, with one of the shop's chocolates behind each. Before December every window opens, so customers can see inside before they order. From the 1st, one more opens each morning, by the shop's date in the UK, wherever the visitor is.</p>
+      <p class="mcap" id="advNote" aria-live="polite">Open any window.</p>
+    </div>
+    <div class="sp-m"><div class="adv" id="adv" aria-label="The advent box, 24 windows"></div></div>
+  </div>
+
+  <div class="spread">
+    <div class="sp-t">
+      <p class="lab">The tasting flight</p>
+      <h2>Five pieces, in the order to taste them.</h2>
+      <p>The customer chooses; the board sorts them lightest to darkest, with the shop's own line on each. A card to keep at the counter, and an order for collection.</p>
+    </div>
+    <div class="sp-m"><div class="frame"><img src="media/flight-board.jpg" alt="A tasting board of five chocolates numbered 1 to 5: White vanilla, Raspberry, Gianduja, Coffee caramel, Dark 70%, each with a line on how it tastes" width="873" height="324" loading="lazy"></div></div>
+  </div>
+
+</div></section>
+
+<section class="back gut" aria-labelledby="bh"><div class="wrap label">
+  <div class="label-t">
+    <p class="lab">The back of the box</p>
+    <h2 id="bh">What's in it.</h2>
+    <p>Everything runs on things the shop already has. Nothing to install, nothing to learn, no software fees on top.</p>
+  </div>
+  <div>
+    <div class="panel">
+      <h3>Made with</h3>
+      <div class="row k"><span>Ingredient</span><b>Does</b></div>
+      <div class="row"><span>The shop's Google Sheet</span><b>Today's counter, the kitchen line, full cake days</b></div>
+      <div class="row"><span>The shop's WhatsApp</span><b>Every order and request</b></div>
+      <div class="row"><span>The shop's Stripe Payment Links</span><b>Deposits, boxes, the box a month</b></div>
+      <div class="row"><span>The shop's Google Form</span><b>The weekly flavour vote</b></div>
+      <div class="row"><span>The shop's own photos and film</span><b>Every picture on the page</b></div>
+    </div>
+    <div class="panel">
+      <h3>On a phone</h3>
+      <div class="row k"><span>Measured on the demo home page</span><b>Result</b></div>
+      <div class="row"><span>Speed score (Lighthouse, mobile), repeat visits</span><b>99, 99</b></div>
+      <div class="row"><span>Speed score, the very first visit</span><b>81</b></div>
+      <div class="row"><span>Accessibility score</span><b>100</b></div>
+      <div class="row"><span>Movement while it loads</span><b>None</b></div>
+      <div class="row"><span>Pictures needed for the first screen</span><b>45 KB</b></div>
+      <p class="fine">The film starts only after the page has loaded, and never for anyone who has asked their phone for less motion or to save data.</p>
+    </div>
+  </div>
+</div></section>
+
+<section class="plans gut" id="mockup" aria-labelledby="ph"><div class="wrap">
+  <div class="plans-h">
+    <p class="lab">Choose your box</p>
+    <h2 id="ph">Three sizes, like the shop's.</h2>
+    <p>Every plan is on a 12-month minimum, and any single piece can be added to a smaller box.</p>
+  </div>
+  <div class="sizes">
+    <div class="size"><div class="mini" style="--c:3;--w:84px"><i></i><i></i><i></i><i></i><i></i><i></i></div><h3>Starter</h3><p class="pr">£99 <small>+ £25 a month</small></p><ul><li>The home page and Plan your visit</li><li>The gelato wall, today's counter, the kitchen line</li><li>The menu with every allergen and the filters</li></ul></div>
+    <div class="size"><div class="mini" style="--c:4;--w:108px"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><h3>Plus</h3><p class="pr">£199 <small>+ £30 a month</small></p><ul><li>Up to five pages</li><li>Cakes, collection, private hire, gift cards</li><li>Posted boxes, tubs, favours, the vote, the box a month</li></ul></div>
+    <div class="size sig"><div class="mini" style="--c:4;--w:108px"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><h3>Signature</h3><p class="pr">£349 <small>+ £35 a month</small></p><ul><li>Up to 20 pages</li><li>The box with its gift link, the tasting flight</li><li>Your seal, the advent box, and one thing made only for you</li></ul></div>
+  </div>
+</div></section>
+
+<section class="close gut" aria-labelledby="ch"><div class="wrap">
+  <h2 id="ch">A shop that sells beautiful things deserves a site that does too.</h2>
+  <p>Send us your Instagram and we'll make a free mockup of your home page, with your own photos and prices.</p>
+  <div class="acts">
+    <a class="btn" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#free">Get a free mockup</a>
+    <a class="btn line" href="https://claude.ai/artifact/6aER6f7X5GECRf1LrLpqGC">Try the demo first</a>
+  </div>
+  <span class="mail">hello@sitefloor.com</span>
+</div></section>
+
+</main>
+
+<footer class="gut"><div class="wrap">
+  <p>Velvet Spoon is a fictional chocolatier and gelateria made to show the Sitefloor dessert kit. Its menu, prices, posting days, votes and today's counter are demo data, and its reviews are samples. Its photos and its film are free stock from Pexels and Unsplash, of other shops' chocolates, gelato and cakes, each credited in our records. Client sites use the shop's own photos and film.</p>
+  <span>© 2026 Sitefloor</span>
+</div></footer>
+
+<script>
+(() => {
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const T = (f) => "media/" + f; // file paths, relative to this page
+  const L = [
+    { name: "Top layer", c: 3, items: [
+      ["r-g-pistachio.webp", "The pour", "The home page opens on the shop's own film. It starts once the page has loaded, with a Pause button, and stays still for anyone who prefers less motion."],
+      ["r-g-caramel.webp", "The gelato wall", "Today's tubs side by side with the scoop prices. When a flavour runs out it stays on the wall and says “Back tomorrow”, so nobody walks in for it."],
+      ["r-c-truffle.webp", "Today's counter", "Shelves of what's in, each with its price. The shop updates a Google Sheet on its phone and the page says “Only 3 left today” or “Sold out today”."],
+      ["r-c-squares.webp", "From the kitchen", "One line the shop types in, like “Tempering raspberry, out at 4”. It goes quiet after six hours, so an old line never lingers."],
+      ["r-c-stripe.webp", "The menu, with allergens", "Every item with the 14 allergens from the shop's own chart, filters for eggless, vegan and halal, and “hide anything with nuts”."],
+      ["r-g-lampone.webp", "Open late", "Tonight's closing time, last orders counting down in the final hour, and whether there are seats inside right now."],
+      ["r-g-limone.webp", "Delivery", "Links to the shop's own pages on the delivery apps it already uses."],
+      ["r-c-pistachio.webp", "Plan your visit", "Directions, parking, step-free access, and the questions people ask before they come: is it halal, is anything nut-free, how long do chocolates keep."],
+      ["r-k-drip.webp", "Instagram, reviews, seasons", "The shop's latest posts, its Google reviews, and a line for the season (“Christmas cakes: order by 18 December”) that comes and goes on its own dates."],
+    ]},
+    { name: "Second layer", c: 4, items: [
+      ["p-white.webp", "The menu page", "The full menu with photographs and the complete allergen chart, ready to show a customer at the counter."],
+      ["p-raspberry.webp", "Celebration cakes", "Sizes, servings and prices, and the earliest day the shop can make one, counting its notice and the days already full. A reminder for next year goes into the customer's calendar."],
+      ["p-passion.webp", "Collection", "Choose desserts, see the running total and the allergens, pick a time within today's hours, send it on WhatsApp."],
+      ["p-gianduja.webp", "Private hire", "The room, the options and the notice, and a calculator that turns the number of guests into the cakes or trays they'll need."],
+      ["p-swirl.webp", "Pay online", "Deposits and full payments on the shop's own Stripe links. No checkout of ours and no fee of ours."],
+      ["p-lattice.webp", "Gift cards", "Pick an amount, add the names and a message, see the card as you type, and order it on WhatsApp."],
+      ["p-dark.webp", "The flavour vote", "Customers choose next week's gelato on the shop's own Google Form. The page shows the shares so far and a card to share their vote."],
+      ["p-cocoa.webp", "Take some home", "A 500ml or a litre tub, its flavours chosen from today's wall (never one that's off today), ready to collect."],
+      ["p-gold.webp", "By post", "Order by noon, usually there the next day. The page works out the next posting day for itself."],
+      ["r-k-layer.webp", "A box a month", "A gift that arrives every month, paid on the shop's own Stripe subscription link."],
+      ["r-k-glaze.webp", "Favours", "Boxes by the dozen for a wedding or a company. The price per box drops at the shop's own numbers, with the earliest date it can make them."],
+      ["r-k-blackberry.webp", "More pages", "The kitchen and its people, the shop's story, every Instagram photo: up to five pages in all."],
+    ]},
+    { name: "Bottom layer", c: 3, foil: true, items: [
+      ["B", "The box", "Choose 6, 12 or 16. Place each chocolate, tie the ribbon with the shop's seal, write the card. A piece that sold out today can't go in."],
+      ["G", "The gift link", "For someone else, the box arrives as a link: their box, the card, who it's from and when to collect. Nothing is stored anywhere."],
+      ["T", "The tasting flight", "Choose five; the board puts them in the order the shop tastes them, with its own line on each."],
+      ["S", "Your seal", "Favour boxes with the couple's or the company's initials redrawn on the shop's seal, live as they type."],
+      ["A", "The advent box", "Twenty-four windows on the shop's lid. In December, one more opens each morning."],
+      ["✦", "Made for your shop", "Every Signature site gets one thing made for it alone."],
+    ]},
+  ];
+  const slug = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  // the guide card
+  L.forEach((layer, li) => {
+    const ol = document.getElementById("en-" + li);
+    for (const [pic, name, text] of layer.items) {
+      const id = "p-" + slug(name);
+      const li2 = document.createElement("li"); li2.className = "en"; li2.id = id;
+      li2.innerHTML = (layer.foil ? `<span class="fw" aria-hidden="true">${pic}</span>` : `<img src="${T(pic)}" alt="" width="152" height="152" loading="lazy">`) + `<h3></h3><p></p>`;
+      li2.querySelector("h3").textContent = name; li2.querySelector("p").textContent = text;
+      ol.append(li2);
+    }
+  });
+  // the tray
+  const pieces = document.getElementById("pieces"), note = document.getElementById("boxNote");
+  const fill = (li) => {
+    const layer = L[li];
+    pieces.style.setProperty("--c", layer.c);
+    pieces.setAttribute("aria-label", `The box, ${layer.name.toLowerCase()}`);
+    pieces.replaceChildren(...layer.items.map(([pic, name]) => {
+      const el = document.createElement("li"); el.className = "pc" + (layer.foil ? " foil" : "");
+      el.innerHTML = `<a href="#p-${slug(name)}"></a>`;
+      const a = el.firstChild; a.setAttribute("aria-label", name);
+      a.innerHTML = layer.foil ? `<b aria-hidden="true">${pic}</b>` : `<img src="${T(pic)}" alt="" width="152" height="152">`;
+      return el;
+    }));
+    note.textContent = `${["Starter", "Plus", "Signature"][li]}: ${layer.items.length} pieces. Tap one to read about it.`;
+  };
+  fill(0);
+  note.textContent = "Twenty-seven pieces in three layers.";
+  pieces.inert = true;
+  const box = document.getElementById("box"), untie = document.getElementById("untie"), layers = document.getElementById("layers");
+  untie.addEventListener("click", () => {
+    if (box.classList.contains("open")) { box.classList.remove("open"); untie.textContent = "Untie the ribbon"; layers.hidden = true; fill(0); pieces.inert = true; note.textContent = "Twenty-seven pieces in three layers."; return; }
+    box.classList.add("open"); untie.textContent = "Put the lid back"; layers.hidden = false; pieces.inert = false;
+    for (const x of layers.querySelectorAll("button")) x.setAttribute("aria-pressed", String(x.dataset.layer === "0"));
+    note.textContent = "Starter: 9 pieces. Tap one to read about it.";
+  });
+  layers.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-layer]"); if (!b) return;
+    for (const x of layers.querySelectorAll("button")) x.setAttribute("aria-pressed", String(x === b));
+    if (reduce) { fill(Number(b.dataset.layer)); return; }
+    pieces.classList.add("lifting");
+    setTimeout(() => { fill(Number(b.dataset.layer)); pieces.classList.remove("lifting"); }, 350);
+  });
+  // the seal (the shop's, as on its box)
+  const sealSvg = (svg, id, a, b, ring, fit) => {
+    svg.innerHTML = `<defs><path id="${id}" d="M60 60 m-43 0 a43 43 0 1 1 86 0 a43 43 0 1 1 -86 0"/></defs><use href="#sealsym"/>`
+      + `<text font-family="Albert Sans, Arial, sans-serif" font-size="8.2" letter-spacing="2" fill="#B3BF7A"><textPath href="#${id}"${fit ? ' textLength="262" lengthAdjust="spacingAndGlyphs"' : ""}></textPath></text>`
+      + `<text x="47" y="72" text-anchor="middle" font-family="Gilda Display, Georgia, serif" font-size="34" fill="#F1E7DA"></text><text x="71" y="75" text-anchor="middle" font-family="Gilda Display, Georgia, serif" font-size="34" fill="#B3BF7A"></text>`;
+    svg.querySelector("textPath").textContent = ring;
+    const t = svg.querySelectorAll("text"); t[1].textContent = a; t[2].textContent = b;
+  };
+  const SHOP = "VELVET SPOON · CHOCOLATE · GELATO · LEICESTER ·";
+  sealSvg(document.getElementById("heroSeal"), "ring-h", "V", "S", SHOP, false);
+  const sa = document.getElementById("sa"), sb = document.getElementById("sb"), sl = document.getElementById("sline"), live = document.getElementById("liveSeal");
+  const letter = (x) => (x.normalize("NFC").match(/\p{L}/u)?.[0] ?? "").toUpperCase();
+  const drawSeal = () => {
+    const a = letter(sa.value), b = letter(sb.value), line = sl.value.replace(/\s+/g, " ").trim().slice(0, 30).toUpperCase();
+    sealSvg(live, "ring-l", a || "V", b || "S", line ? `${line} · VELVET SPOON ·` : SHOP, Boolean(line));
+    live.setAttribute("aria-label", `The seal: ${a || "V"} ${b || "S"}${line ? `, with ${line} around it` : ""}`);
+  };
+  for (const el of [sa, sb, sl]) el.addEventListener("input", drawSeal);
+  drawSeal();
+  // advent: the same shuffled layout as the demo's lid (2026)
+  const doorOrder = (seed) => { const d = Array.from({ length: 24 }, (_, i) => i + 1); let x = (seed * 2654435761) >>> 0 || 1; for (let i = 23; i > 0; i--) { x ^= x << 13; x >>>= 0; x ^= x >>> 17; x ^= x << 5; x >>>= 0; const j = x % (i + 1); [d[i], d[j]] = [d[j], d[i]]; } return d; };
+  const tiles = ["p-white.webp", "p-raspberry.webp", "p-passion.webp", "p-gianduja.webp", "p-gold.webp", "p-swirl.webp", "p-lattice.webp", "p-cocoa.webp", "p-dark.webp"];
+  const names = ["White vanilla", "Raspberry", "Passion fruit", "Gianduja", "Gianduja squares", "Coffee caramel", "Salted caramel", "Cocoa truffle", "Dark 70%"];
+  const adv = document.getElementById("adv"), advNote = document.getElementById("advNote");
+  for (const day of doorOrder(2026)) {
+    const k = (day - 1) % tiles.length, b = document.createElement("button");
+    b.type = "button"; b.setAttribute("aria-expanded", "false"); b.setAttribute("aria-label", `Window ${day}`);
+    b.innerHTML = `<img src="${T(tiles[k])}" alt="" width="152" height="152" loading="lazy"><span class="door" aria-hidden="true">${day}</span>`;
+    b.addEventListener("click", () => { const open = b.getAttribute("aria-expanded") !== "true"; b.setAttribute("aria-expanded", String(open)); b.setAttribute("aria-label", open ? `Window ${day}: ${names[k]}` : `Window ${day}`); if (open) advNote.textContent = `Window ${day}: ${names[k]}.`; });
+    adv.append(b);
+  }
+  // posting dates: the kit's own answers for these three moments (Tuesday, Thursday and Saturday posts, noon cut-off)
+  const P = [
+    ["Today", "Friday 30 October", "Posting days are Tuesday, Thursday and Saturday; this one is before the cut-off."],
+    ["Saturday 31 October", "Monday 2 November", "After noon it waits for Saturday's post, and nothing arrives on a Sunday."],
+    ["Thursday 24 December", "Tuesday 29 December", "Not Christmas Day, not Boxing Day, not the Sunday, not Monday's bank holiday."],
+  ];
+  const post = document.getElementById("post");
+  post.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-i]"); if (!b) return;
+    for (const x of post.querySelectorAll("[data-i]")) x.setAttribute("aria-pressed", String(x === b));
+    const [o, i, w] = P[Number(b.dataset.i)];
+    document.getElementById("post-out").textContent = o; document.getElementById("post-in").textContent = i; document.getElementById("post-why").textContent = w;
+  });
+  // clips: load after the page, play only when on screen, never with reduced motion
+  const vids = [...document.querySelectorAll("video[data-src]")], paused = new Set();
+  const setBtn = (id, isPaused) => { const btn = document.querySelector(`[data-pause="${id}"]`); if (!btn) return; btn.querySelector("span").textContent = isPaused ? "Play" : "Pause"; btn.setAttribute("aria-label", `${isPaused ? "Play" : "Pause"} the ${id === "v-phone" ? "phone" : "box"} clip`); };
+  if (reduce) { for (const v of vids) { paused.add(v.id); setBtn(v.id, true); } }
+  addEventListener("load", () => {
+    for (const v of vids) { v.src = v.dataset.src; }
+    const io = new IntersectionObserver((es) => { for (const e of es) { const v = e.target; if (e.isIntersecting && !paused.has(v.id)) v.play().catch(() => {}); else v.pause(); } }, { threshold: .35 });
+    for (const v of vids) io.observe(v);
+  });
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-pause]"); if (!btn) return;
+    const v = document.getElementById(btn.dataset.pause);
+    if (paused.has(v.id)) { paused.delete(v.id); if (!v.src) v.src = v.dataset.src; v.play().catch(() => {}); setBtn(v.id, false); }
+    else { paused.add(v.id); v.pause(); setBtn(v.id, true); }
+  });
+  const gift = document.getElementById("gift"), gp = document.getElementById("giftPause");
+  const setGift = (p) => { gift.classList.toggle("paused", p); gp.querySelector("span").textContent = p ? "Play" : "Pause"; gp.setAttribute("aria-label", `${p ? "Play" : "Pause"} the message animation`); };
+  if (reduce) setGift(true); // with less motion asked for, it waits for Play, like the clips
+  gp.addEventListener("click", () => setGift(!gift.classList.contains("paused")));
+})();
+</script>

@@ -1,0 +1,38 @@
+{#- Maintenance plans laid on the year: choose a plan and the twelve months show which it visits and what the studio
+    does at each visit; the studio's own price when it publishes one; "Ask about this plan" sends the plan, the garden's
+    size and postcode on WhatsApp. Without JavaScript every plan's rota shows, one after another. -#}
+{%- set mp = site.maintenance %}
+{%- set ph = mp %}
+{% include "kits/garden/partials/page-head.njk" %}
+<section class="wrap gd-mp" data-feature="maintenance-plans" aria-label="{{ mp.title | plain }}">
+  <div class="gd-pick-row gd-mp-pick" role="group" aria-label="Plan" data-mp-pick data-wait>
+    {%- for p in mp.plans %}<button class="gd-pick" type="button" data-mp-plan="{{ p.id }}" aria-pressed="{{ 'true' if loop.first else 'false' }}">{{ p.name }}</button>{% endfor %}
+  </div>
+  {%- for p in mp.plans %}
+  <div class="gd-mp-plan" data-mp-show="{{ p.id }}">
+    <div class="gd-mp-top">
+      <h2 class="gd-mp-n">{{ p.name }}</h2>
+      <p class="gd-mp-facts"><span>{{ p.visits.length }} {{ "visit" if p.visits.length == 1 else "visits" }} a year</span>{% set pw = p.price | priceWords(p.per) %}{% if pw %}<span>{{ pw }}</span>{% else %}<span>Priced after we've seen the garden</span>{% endif %}</p>
+      {%- if p.text %}<p class="gd-mp-t">{{ p.text }}</p>{% endif %}
+    </div>
+    <ol class="gd-mp-rota" aria-label="{{ p.name }}, month by month">
+      {%- for m in p | rota(mp.tasks) %}
+      <li class="gd-mp-m{% if m.visit %} gd-mp-on{% endif %}">
+        <span class="gd-mp-mo"><span aria-hidden="true">{{ m.name.slice(0, 3) }}</span><span class="sr-only">{{ m.name }}{% if m.visit %}, a visit{% else %}, no visit{% endif %}</span></span>
+        {%- if m.visit %}<ul class="gd-mp-tasks">{% for t in m.tasks %}<li>{{ t }}</li>{% endfor %}</ul>{% endif %}
+      </li>
+      {%- endfor %}
+    </ol>
+  </div>
+  {%- endfor %}
+  <form class="gd-mp-ask" data-mp-form>
+    <h2 class="gd-mp-ask-h">Ask about a plan</h2>
+    <div class="gd-mp-fields">
+      <label><span class="gd-label">Plan</span><select class="gd-select" id="mp-plan" data-mp-which>{% for p in mp.plans %}<option value="{{ p.id }}">{{ p.name }}</option>{% endfor %}</select></label>
+      <label><span class="gd-label">Garden size, roughly</span><input class="gd-input" id="mp-size" data-mp-size type="text" placeholder="e.g. 10 × 20 m, mostly lawn" autocomplete="off"></label>
+      <label><span class="gd-label">Postcode</span><input class="gd-input" id="mp-postcode" data-mp-postcode type="text" autocomplete="postal-code" inputmode="text" maxlength="8"></label>
+    </div>
+    <a class="btn" data-mp-send href="{{ mp.message | book }}" target="_blank" rel="noopener">Ask on WhatsApp</a>
+  </form>
+  {%- if mp.note %}<p class="gd-small">{{ mp.note }}</p>{% endif %}
+</section>

@@ -1,0 +1,28 @@
+{#- Private and duet sessions: the kinds, the assessment first, and a request sent on WhatsApp for the studio to offer
+    a time. A request, never a booking. -#}
+{%- set pp = site.privatePage %}
+{%- set ph = pp %}
+{% include "kits/pilates/partials/page-head.njk" %}
+<section class="pl-priv" data-feature="private-page" aria-label="Private and duet sessions"><div class="wrap pl-priv-in">
+  <div class="pl-priv-l">
+    {%- if pp.photo %}<figure class="pl-priv-ph"><img src="{{ pp.photo.src | img }}" alt="{{ pp.photo.alt }}" width="{{ pp.photo.width }}" height="{{ pp.photo.height }}" fetchpriority="high" decoding="async">{% if pp.photo.caption %}<figcaption>{{ pp.photo.caption }}</figcaption>{% endif %}</figure>{% endif %}
+    <ul class="pl-kinds">
+      {%- for k in pp.kinds %}<li><b>{{ k.name }}</b><span>{{ k.minutes }} min</span><p>{{ k.text }}</p></li>{% endfor %}
+    </ul>
+    <div class="pl-assess"><h2>First, an assessment</h2><p>{{ pp.assessment }}</p></div>
+    {%- if pp.photo2 %}<figure class="pl-priv-ph2"><img src="{{ pp.photo2.src | img }}" alt="{{ pp.photo2.alt }}" width="{{ pp.photo2.width }}" height="{{ pp.photo2.height }}" loading="lazy" decoding="async"></figure>{% endif %}
+  </div>
+  <form class="pl-req" data-pp-form aria-labelledby="pl-req-h">
+    <h2 id="pl-req-h">Ask for a time</h2>
+    <fieldset><legend>Which?</legend>
+      {%- for k in pp.kinds %}<label class="pl-chip"><input type="radio" name="pp-kind" id="pp-{{ k.id }}" value="{{ k.name }}"{% if loop.first %} checked{% endif %}>{{ k.name }}</label>{% endfor %}
+    </fieldset>
+    <fieldset><legend>When suits?</legend>
+      {%- for w in ["Mornings", "Lunchtimes", "Evenings", "Weekends"] %}<label class="pl-chip"><input type="checkbox" name="pp-when" id="pp-when-{{ loop.index }}" value="{{ w }}">{{ w }}</label>{% endfor %}
+    </fieldset>
+    <label class="pl-field" for="pp-aim">What would you like to work on?<textarea id="pp-aim" name="pp-aim" rows="3" maxlength="300" placeholder="A stronger back, getting ready for a race, coming back after a baby…"></textarea></label>
+    <label class="pl-field" for="pp-name">Your name<input id="pp-name" name="pp-name" autocomplete="given-name" maxlength="40"></label>
+    <a class="pl-req-go" href="{{ pp.message | book }}" target="_blank" rel="noopener" data-pp-send>Send on WhatsApp</a>
+    <p class="pl-req-n">The studio replies with times. Nothing is booked until you agree one.</p>
+  </form>
+</div></section>

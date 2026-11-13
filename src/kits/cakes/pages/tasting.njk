@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: tasting
+permalink: tasting.html
+feature: tasting-page
+eleventyComputed:
+  title: "{{ site.cakePages.tasting.title | plain }}"
+  description: "The {{ site.business.name }} tasting box: what's in it, when it's posted and what it costs."
+---
+{% include "kits/cakes/features/tasting-page/tasting-page.njk" %}
+{%- set hostPage = "tasting-page" %}{% include "kits/cakes/partials/hosted.njk" %}

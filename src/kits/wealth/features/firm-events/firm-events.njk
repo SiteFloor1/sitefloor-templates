@@ -1,0 +1,19 @@
+{#- Events: seminars and next-generation evenings, soonest first, each with its date, time, place, a reply and a
+    calendar file. From the firm's own sheet once compliance has approved each row; past events drop off by themselves. -#}
+{%- set ev = site.events %}
+{%- set ph = { title: ev.title, intro: ev.intro } %}
+{% include "kits/wealth/partials/page-head.njk" %}
+<section class="wm-ev" data-feature="firm-events" data-reply="{{ ev.reply }}"><div class="wrap">
+  <p class="wm-ins-risk">Events are for general information, not advice. Places are limited; we confirm every reply.</p>
+  <ol class="wm-ev-list" data-ev-list>
+    {%- for e in (ev.items | sort(false, false, 'date')) %}
+    <li class="wm-ev-e" id="{{ e.id }}" data-date="{{ e.date }}">
+      <p class="wm-ev-d"><time datetime="{{ e.date }}">{{ e.date | ukDate }}</time><span>{{ e.start }} to {{ e.end }}</span></p>
+      <div><p class="wm-ev-k">{{ e.kind }}</p><h2>{{ e.title }}</h2><p>{{ e.summary }}</p><p class="wm-ev-p">{{ e.place }}</p><p class="wm-ev-by">Approved by compliance on {{ e.approvedOn | ukDate }}.</p></div>
+      <p class="wm-ev-act"><a class="wm-go" href="{{ ('mailto:' + (e.reply or ev.reply)) if not ((e.reply or ev.reply) | string).startsWith('https://') else (e.reply or ev.reply) }}">Reply to attend</a></p>
+    </li>
+    {%- endfor %}
+  </ol>
+  <p class="wm-ins-off" data-ev-none hidden>No events are planned just now. Ask your adviser to tell you about the next one.</p>
+  <p class="wm-ins-off" data-ins-off hidden>Our events aren't loading just now. Please try again shortly.</p>
+</div></section>

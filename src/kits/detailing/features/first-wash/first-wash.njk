@@ -1,0 +1,16 @@
+{#- The first wash and care after handover: the studio's own steps, in order (so numbered by their day), and the day
+    you collect, which puts them all into your phone's calendar at 9am on each day. -#}
+{%- set sec = site.sections.firstWash %}
+<section id="first-wash" class="dt-fw" data-feature="first-wash" aria-label="{{ sec.title | plain }}"><div class="wrap dt-fw-in">
+  <div>
+    {%- include "core/partials/section-head.njk" %}
+    <form class="dt-fw-f" data-fw-form>
+      <label class="dt-field" for="dt-fw-date"><span>The day you collect</span><input id="dt-fw-date" type="date" required data-fw-date></label>
+      <button class="go" type="submit">Add these to my calendar</button>
+      <p class="dt-note" data-fw-out aria-live="polite">Reminders at 9am. Nothing is booked.</p>
+    </form>
+  </div>
+  <ol class="dt-fw-steps">
+    {%- for s in site.care.steps %}<li><span class="dt-fw-day">Day {{ s.day }}</span><b>{{ s.title }}</b><span class="dt-fw-t">{{ s.text }}</span></li>{% endfor %}
+  </ol>
+</div></section>

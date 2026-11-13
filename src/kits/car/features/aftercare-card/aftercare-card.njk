@@ -1,0 +1,20 @@
+{#- Aftercare reminder card: pick the work and the day it was fitted; every step goes into the customer's calendar. -#}
+{%- set sec = site.sections.aftercareCard %}
+<section id="aftercare" class="sec-aftercare" data-feature="aftercare-card"{{ "aftercare-card" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="ac rv" data-ac>
+    <div class="ac-pick" data-js-only>
+      <label class="ac-f">Work done<select name="service">{% for s in site.aftercare.services %}<option value="{{ s.id }}">{{ s.name }}</option>{% endfor %}</select></label>
+      <label class="ac-f">Fitted on<input type="date" name="fitted"></label>
+    </div>
+    {%- for s in site.aftercare.services %}
+    <div class="ac-svc" data-ac-svc="{{ s.id }}">
+      <h3 class="ac-name">{{ s.name }}</h3>
+      <ol class="ac-steps">{% for st in s.steps | sort(false, false, "day") %}<li data-day="{{ st.day }}"><span class="ac-when">{{ st.day | dayLabel }} <i data-ac-date></i></span><b>{{ st.title }}</b><p>{{ st.body }}</p></li>{% endfor %}</ol>
+    </div>
+    {%- endfor %}
+    <div class="ac-go" data-js-only><button class="btn" type="button" data-ac-add>Add reminders to my calendar</button>
+      <p class="ac-note">Reminders at 9am on each day. The file is made on your phone; nothing is sent to us.</p>
+      {%- if "aftercare" | enabled %}<a class="ac-more" href="{{ 'aftercare' | href }}"{{ "aftercare" | tierAttr | safe }}>Full aftercare guide <span aria-hidden="true">→</span></a>{% endif %}</div>
+  </div>
+</div></section>

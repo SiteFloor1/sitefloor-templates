@@ -1,0 +1,14 @@
+---
+layout: core/layouts/base.njk
+feature: garden-pages
+pagination:
+  data: site.gardenPages.items
+  size: 1
+  alias: gp
+permalink: "{{ gp.slug }}.html"
+eleventyComputed:
+  pageId: "{{ gp.slug }}"
+  title: "{{ gp.title | plain }}"
+  description: "{{ gp.description }}"
+---
+{% include "kits/garden/partials/garden.njk" %}

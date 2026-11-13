@@ -1,0 +1,16 @@
+{#- Size guide: every band and cup, marked on the shelf or ordered in; how the fitters measure. Never works out a size. -#}
+{%- set sec = site.sections.sizeGuide %}
+{%- set sg = site.sizeGuide %}
+<section id="sizes" class="ls-sizes"><div class="wrap sg-in">
+  <div class="sg-head">{% include "core/partials/section-head.njk" %}
+    <ol class="sg-how">{% for step in sg.how %}<li>{{ step }}</li>{% endfor %}</ol>
+    <p class="sg-note">{{ sg.note }}</p>
+  </div>
+  <div class="sg-table-wrap">
+    <table class="sg-table">
+      <caption>Bands down, cups across. <span class="sg-key sg-stock">On the shelf</span>{% if sg.order %} <span class="sg-key sg-order">Ordered in</span>{% endif %}</caption>
+      <thead><tr><th scope="col">Band</th>{% for c in sg.cups %}<th scope="col">{{ c }}</th>{% endfor %}</tr></thead>
+      <tbody>{% for row in sg | sizeGrid %}<tr><th scope="row">{{ row.band }}</th>{% for cell in row.cells %}<td class="sg-{{ cell.kind or 'none' }}"><span class="sr">{{ row.band }}{{ cell.cup }}: {{ "on the shelf" if cell.kind == "stock" else ("ordered in" if cell.kind == "order" else "not made") }}</span></td>{% endfor %}</tr>{% endfor %}</tbody>
+    </table>
+  </div>
+</div></section>

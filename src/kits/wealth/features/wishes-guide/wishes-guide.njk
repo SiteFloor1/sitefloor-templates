@@ -1,0 +1,22 @@
+{#- The letter-of-wishes guide: general information in plain English, each part from a named source, dated. Not advice:
+    it ends by sending the reader to their solicitor, and to us for how a letter fits the family's plan. -#}
+{%- set w = site.wishesGuide %}
+{%- include "kits/wealth/partials/meet-href.njk" %}
+{%- set ph = { title: w.title, intro: w.intro } %}
+{% include "kits/wealth/partials/page-head.njk" %}
+<section class="wm-wg" data-feature="wishes-guide"><div class="wrap wm-wg-in">
+  <div class="wm-wg-body">
+    {%- for s in wishes.sections %}
+    <div class="wm-wg-s"><h2>{{ s.title }}</h2>
+      {%- for p in s.points %}<p>{{ p }}</p>{% endfor %}
+      <p class="wm-wg-from">From: {% for k in s.from %}<a href="{{ wishes.sources[k].url }}" target="_blank" rel="noopener">{{ wishes.sources[k].label }}</a>{% if not loop.last %}; {% endif %}{% endfor %}</p>
+    </div>
+    {%- endfor %}
+    <p class="wm-wg-not">This is general information about England and Wales, not legal or financial advice. Your solicitor drafts and keeps your will and any letter of wishes. Checked {{ wishes.checked | ukDate }}.</p>
+  </div>
+  <aside class="wm-wg-side">
+    <p>We work alongside your solicitor on how a letter of wishes fits your family's plan.</p>
+    {%- if "life-events" | enabled %}{% set fam = site.lifeEvents | lifeEvent("family-and-succession") %}{% if fam %}<p><a class="wm-go" href="{{ fam.id | href }}">{{ fam.title }}</a></p>{% endif %}{% endif %}
+    <p><a class="wm-btn" href="{{ meetHref }}">Arrange a meeting</a></p>
+  </aside>
+</div></section>

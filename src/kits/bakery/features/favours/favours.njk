@@ -1,0 +1,38 @@
+{#- Favours: boxes by the dozen for a wedding, a party or a company. On Signature ("favour-seal") the lid shows the
+    shop's seal redrawn live with the customer's initials and a line around the ring. The lid is drawn, not a photo. -#}
+{%- set sec = site.sections.favours %}
+{%- set f = site.favours %}
+{%- set seal = "favour-seal" | enabled %}
+<section id="favours" class="sec-favours" data-feature="favours"{{ "favours" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="fv-w">
+    <div class="fv-stage">
+      <div class="fv-lid" data-fv-lid>
+        <span class="fv-ribbon" aria-hidden="true"></span>
+        <span class="fv-seal" data-fv-seal aria-hidden="true">{% set sealId = "fv" %}{% include "looks/" + site.look + "/parts/seal.njk" ignore missing %}</span>
+      </div>
+      <p class="fv-cap" data-fv-cap>{{ f.options[0].name }}</p>
+    </div>
+    <div class="fv-side" data-js-only>
+      <div class="fv-opts" role="radiogroup" aria-label="In each box">
+        {%- for o in f.options %}<label class="fv-opt"><input type="radio" name="fv-opt" value="{{ o.id }}"{% if loop.first %} checked{% endif %}><b>{{ o.name }}</b><span>{{ o.price | pounds }} a box</span></label>{% endfor %}
+      </div>
+      <div class="fv-qty">
+        <label class="bx-field" for="fv-n">Boxes</label>
+        <div class="fv-step"><button type="button" data-fv-less aria-label="Ten fewer">−</button><input id="fv-n" type="number" inputmode="numeric" min="{{ f.minQty }}" max="{{ f.maxQty }}" step="1" value="{{ f.minQty if f.minQty > 60 else 60 }}" data-fv-n><button type="button" data-fv-more aria-label="Ten more">+</button></div>
+      </div>
+      <p class="fv-sum"><span data-fv-per></span> <b data-fv-total></b></p>
+      <p class="fv-break" data-fv-break aria-live="polite"></p>
+      {%- if seal %}{% include "kits/bakery/features/favour-seal/favour-seal.njk" %}{% endif %}
+      <label class="bx-field" for="fv-for">What it's for<input id="fv-for" type="text" maxlength="80" autocomplete="off" placeholder="Our wedding, 120 guests" data-fv-for></label>
+      <label class="bx-field" for="fv-day">Needed by<input id="fv-day" type="date" data-fv-day></label>
+      <p class="fv-soon" data-fv-soon></p>
+      <a class="bx-go" href="{{ ('Hi ' + site.business.name + ', I would like to ask about favour boxes.') | wa }}" target="_blank" rel="noopener" data-fv-send>Ask for these</a>
+      {%- if f.note %}<p class="bx-note">{{ f.note }}</p>{% endif %}
+    </div>
+    <div class="bx-nojs" data-no-js>
+      <p>{% for o in f.options %}{{ o.name }}, {{ o.price | pounds }} a box{{ ". " if loop.last else " · " }}{% endfor %}From {{ f.minQty }} boxes, with {{ f.leadDays }} days' notice.</p>
+      <a class="bx-go" href="{{ ('Hi ' + site.business.name + ', I would like to ask about favour boxes.') | wa }}" target="_blank" rel="noopener">Ask on WhatsApp</a>
+    </div>
+  </div>
+</div></section>

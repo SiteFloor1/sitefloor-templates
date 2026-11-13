@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Larchmere Case Study</title>
+<meta name="description" content="How a Sitefloor site sells a wedding film studio, read the way the studio shoots: by the height of the sun, from high afternoon to the last light.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sorts+Mill+Goudy:ital@0;1&family=Urbanist:wght@400;500;600&family=Manrope:wght@600;700&display=swap">
+<style>
+/* Layout: the sun's height. A wedding film studio sells light, so the page is read by the sun's elevation over
+   Bibury, from high afternoon to the last light: each chapter sits at a height (+40°, +20°, +6°, 0°, −4°, −6°) and its
+   ground darkens with it, ivory by day to night at the end. The first screen is the studio's film with the sun's real
+   height over Bibury, now, on a scale beside it. Ground: ivory, then night. Colour: the low sun (amber), and the photo
+   grade. Type: Sorts Mill Goudy, roman and italic, display only; Urbanist for everything else. Grid: 12 columns.
+   Type scale: 12 / 17 / 22 / 44–104 / 140–360 (the degree numerals). Motion: the film, and the sun settling on the
+   scale once on load; nothing follows the scroll. */
+:root {
+  --day: #F6F1E7; --day-2: #EDE5D6; --ink: #1B140C; --soft: #5C5145; --rule: rgba(27,20,12,.16);
+  --sun: #C8782E; --sun-ink: #8A5713; --night: #0E0F13; --night-ink: #F3ECDF; --night-soft: rgba(243,236,223,.66);
+  --display: "Sorts Mill Goudy", "Iowan Old Style", Georgia, serif;
+  --body: "Urbanist", "Helvetica Neue", Arial, sans-serif;
+  --brand: "Manrope", Arial, sans-serif;
+  --sf-paper: #FBFAF7; --sf-ink: #0E0F11; --sf-tomato: #E8613C; --sf-line: rgba(14,15,17,.12);
+  --gut: clamp(16px, 3vw, 48px);
+  color-scheme: light;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--night); -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--day); color: var(--ink); font: 400 17px/1.6 var(--body); }
+img, video { display: block; max-width: 100%; }
+a { color: inherit; }
+.gut { padding-inline: max(var(--gut), env(safe-area-inset-left)) max(var(--gut), env(safe-area-inset-right)); }
+.wrap { max-width: 1440px; margin-inline: auto; }
+.k { font: 600 12px/1.4 var(--body); letter-spacing: .16em; text-transform: uppercase; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Sitefloor's bar, as on every case study */
+.sfbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--sf-paper); color: var(--sf-ink); border-bottom: 1px solid var(--sf-line); }
+.sfbar .wrap { display: flex; justify-content: space-between; align-items: center; height: 66px; gap: 16px; }
+.wm { display: inline-flex; align-items: center; font: 700 22px/1 var(--brand); letter-spacing: -.04em; color: var(--sf-ink); text-decoration: none; }
+.wm svg { margin: 0 1px; }
+.sfbar nav { display: flex; gap: 28px; font-family: var(--brand); font-size: 14px; font-weight: 600; }
+.sfbar nav a { text-decoration: none; color: var(--sf-ink); }
+.sfbar nav a[aria-current] { box-shadow: inset 0 -1.5px 0 var(--sf-ink); }
+.sfbtn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 20px; background: var(--sf-ink); color: var(--sf-paper); font: 700 12px var(--brand); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; }
+.sfbtn:hover { background: var(--sf-tomato); }
+@media (max-width: 760px) { .sfbar nav { display: none; } }
+
+/* The first screen: the film, and the sun's real height over Bibury beside it */
+.sky { position: relative; min-height: calc(100svh - 66px); background: #17110B; color: var(--night-ink); overflow: hidden; isolation: isolate; }
+.sky-film, .sky-film img, .sky-film video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.sky-film { z-index: -2; }
+.sky::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(270deg, rgba(14,10,6,.7) 0%, rgba(14,10,6,.3) 44%, rgba(14,10,6,0) 64%, rgba(14,10,6,.38) 100%), linear-gradient(0deg, rgba(14,10,6,.5) 0%, rgba(14,10,6,0) 40%); }
+.sky-in { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(12px, 2vw, 32px); min-height: calc(100svh - 66px); padding-block: clamp(32px, 6vh, 72px) clamp(28px, 5vh, 56px); }
+.sky-words { grid-column: 7 / span 6; grid-row: 1; align-self: end; }
+.sky-words .k { color: var(--night-soft); }
+.now { margin: 18px 0 0; font: 400 clamp(40px, 4.6vw, 80px)/1.04 var(--display); letter-spacing: -.012em; text-wrap: balance; max-width: 15ch; }
+.now i { color: #F0B36E; }
+.sky-sub { margin: clamp(20px, 3vh, 32px) 0 0; max-width: 34rem; font-size: clamp(16px, 1.25vw, 19px); color: var(--night-soft); }
+.sky-sub b { color: var(--night-ink); font-weight: 500; }
+.sky-acts { display: flex; gap: 24px; align-items: center; margin-top: clamp(20px, 3vh, 28px); }
+.ghost { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0; background: none; border: 0; color: var(--night-ink); font: 500 15px var(--body); text-decoration: none; cursor: pointer; border-bottom: 1px solid rgba(243,236,223,.4); }
+.ghost:hover { border-color: #F0B36E; }
+
+/* The scale: degrees down the right edge, the chapters at their heights, the sun where it is now */
+.scale { grid-column: 1 / span 3; grid-row: 1; justify-self: start; align-self: stretch; position: relative; width: min(100%, 250px); margin: 0; }
+.scale ol { list-style: none; margin: 0; padding: 0; position: absolute; inset: 0; }
+.scale::before { content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 1px; background: rgba(243,236,223,.42); }
+.tick { position: absolute; right: 0; left: 0; display: flex; justify-content: flex-start; align-items: baseline; gap: 4px; transform: translateY(-50%); }
+.tick a { text-decoration: none; text-align: left; color: var(--night-soft); font-size: 14px; line-height: 1.2; transition: color .4s; }
+.tick a:hover, .tick a:focus-visible { color: var(--night-ink); }
+.tick span { order: -1; flex: none; width: 66px; padding-left: 20px; text-align: left; font: italic 400 20px/1 var(--display); color: var(--night-ink); position: relative; }
+.tick span::after { content: ""; position: absolute; left: 0; top: 50%; width: 9px; height: 1px; background: rgba(243,236,223,.7); }
+.tick.horizon span::after { width: 22px; }
+.sunmark { position: absolute; left: -8px; width: 17px; height: 17px; border-radius: 50%; background: #F6C58A; box-shadow: 0 0 0 5px rgba(246,197,138,.18), 0 0 40px 12px rgba(240,179,110,.45); transform: translateY(-50%); top: 50%; transition: top 1.6s cubic-bezier(.2,.7,.2,1), opacity .6s; }
+.sunmark[data-below] { background: transparent; box-shadow: inset 0 0 0 1.5px #F6C58A; }
+.sunread { position: absolute; left: 22px; white-space: nowrap; font: 600 12px/1 var(--body); letter-spacing: .14em; text-transform: uppercase; color: #F6C58A; transform: translateY(-50%); transition: top 1.6s cubic-bezier(.2,.7,.2,1); }
+.pause { position: absolute; z-index: 2; right: max(var(--gut), env(safe-area-inset-right)); top: 16px; }
+.pause button { min-height: 44px; padding: 0 2px; background: none; border: 0; color: var(--night-soft); font: 500 13px var(--body); cursor: pointer; }
+.pause button:hover { color: var(--night-ink); }
+
+/* A chapter: the height, the page, the words */
+.ch { position: relative; background: var(--ground, var(--day)); color: var(--fg, var(--ink)); }
+.ch-in { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(12px, 2vw, 32px); padding-block: clamp(72px, 12vh, 160px); align-items: start; }
+.deg { grid-column: 1 / span 5; margin: 0; font: italic 400 clamp(140px, 21vw, 360px)/.78 var(--display); letter-spacing: -.04em; color: var(--sun-ink); }
+.deg sup { font-size: .42em; vertical-align: .9em; margin-left: .02em; }
+.ch-shot { grid-column: 6 / span 3; margin: 0; }
+.ch-shot img { width: 100%; height: auto; aspect-ratio: 390 / 844; border: 1px solid var(--rule); box-shadow: 0 40px 80px -40px rgba(70,40,10,.45); }
+.ch-shot figcaption { margin-top: 12px; color: var(--soft); font-size: 13px; }
+.ch-words { grid-column: 10 / span 3; padding-top: clamp(8px, 4vw, 64px); }
+.ch-words .k { color: var(--sun-ink); }
+.ch-words h2 { margin: 14px 0 0; font: 400 clamp(32px, 2.8vw, 44px)/1.08 var(--display); letter-spacing: -.01em; }
+.ch-words h2 i { color: var(--sun-ink); }
+.ch-words p { margin: 20px 0 0; color: var(--soft); }
+.plan { margin: 28px 0 0; padding-top: 14px; border-top: 1px solid var(--rule); font-size: 14px; color: var(--soft); }
+.plan b { color: var(--ink); font-weight: 600; }
+.live { margin-top: 28px; padding: 20px 0 0; border-top: 1px solid var(--rule); }
+.live label { display: block; }
+.live input { width: 100%; min-height: 44px; margin-top: 8px; padding: 0; background: none; border: 0; border-bottom: 1px solid var(--ink); font: 400 22px var(--display); color: var(--ink); }
+.live output { display: block; margin-top: 16px; font: 400 22px/1.35 var(--display); }
+.live output i { color: var(--sun-ink); }
+
+/* Grounds by height: day, late day, dusk, blue hour, night. The text inverts below the horizon. */
+.ch { color: var(--ink); }
+.dark { --ink: #F3ECDF; --soft: rgba(243,236,223,.72); --rule: rgba(243,236,223,.18); --sun-ink: #E9A85E; }
+.flip .deg { grid-column: 8 / span 5; grid-row: 1; text-align: right; }
+.flip .ch-shot { grid-column: 4 / span 3; grid-row: 1; }
+.flip .ch-words { grid-column: 1 / span 3; grid-row: 1; }
+.ch-shot video { width: 100%; height: auto; aspect-ratio: 390 / 844; border: 1px solid var(--rule); background: #F6F1E7; box-shadow: 0 40px 80px -40px rgba(0,0,0,.5); }
+.ch-shot .still { width: 100%; height: auto; aspect-ratio: 390 / 844; }
+.dark .ch-shot img, .dark .ch-shot video { box-shadow: 0 40px 90px -30px rgba(0,0,0,.8); }
+.tap { margin-top: 10px; min-height: 44px; padding: 0; background: none; border: 0; color: var(--soft); font: 500 13px var(--body); cursor: pointer; text-decoration: underline; text-underline-offset: 4px; }
+.facts { list-style: none; margin: 24px 0 0; padding: 0; border-top: 1px solid var(--rule); }
+.facts li { padding: 12px 0; border-bottom: 1px solid var(--rule); font-size: 15px; color: var(--soft); }
+.facts b { color: var(--ink); font-weight: 600; }
+
+/* −6°: the plans as three lights */
+.plans { background: var(--night); color: #F3ECDF; }
+.plans-in { padding-block: clamp(72px, 12vh, 160px) clamp(48px, 8vh, 96px); }
+.plans-head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(12px, 2vw, 32px); align-items: end; }
+.plans-head .deg { color: #E9A85E; }
+.plans-head div { grid-column: 7 / span 6; }
+.plans-head h2 { margin: 14px 0 0; font: 400 clamp(36px, 3.6vw, 60px)/1.05 var(--display); }
+.plans-head h2 i { color: #E9A85E; }
+.plans-head p { margin: 18px 0 0; color: rgba(243,236,223,.72); max-width: 36rem; }
+.lights { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(12px, 2vw, 32px); margin-top: clamp(48px, 8vh, 96px); }
+.light { display: flex; flex-direction: column; border-top: 1px solid rgba(243,236,223,.2); }
+.sky-cut { height: clamp(120px, 16vw, 220px); }
+.l1 .sky-cut { background: linear-gradient(180deg, #A9C3D6 0%, #DCE3E2 62%, #EFE7D6 100%); }
+.l2 .sky-cut { background: linear-gradient(180deg, #6E7FA0 0%, #D9A06A 58%, #F2C27E 82%, #F7DEB0 100%); }
+.l3 .sky-cut { background: linear-gradient(180deg, #0F1B3A 0%, #24396B 55%, #4D5F92 85%, #8E7D8E 100%); }
+.light h3 { margin: 22px 0 0; font: 400 clamp(30px, 2.6vw, 42px)/1.05 var(--display); }
+.light h3 small { display: block; margin-top: 6px; font: 600 12px/1.4 var(--body); letter-spacing: .16em; text-transform: uppercase; color: #E9A85E; }
+.price { margin: 16px 0 0; font: 400 22px var(--display); }
+.price span { font: 400 15px var(--body); color: rgba(243,236,223,.72); }
+.light ul { list-style: none; margin: 18px 0 0; padding: 0; }
+.light li { padding: 10px 0; border-top: 1px solid rgba(243,236,223,.12); font-size: 15px; color: rgba(243,236,223,.78); }
+.light li:first-child { color: #F3ECDF; }
+
+/* The speed: a degree every four minutes */
+.speed { background: var(--night); color: #F3ECDF; border-top: 1px solid rgba(243,236,223,.12); }
+.speed-in { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(12px, 2vw, 32px); padding-block: clamp(56px, 9vh, 120px); align-items: end; }
+.speed-say { grid-column: 1 / span 7; margin: 0; font: 400 clamp(32px, 3.4vw, 56px)/1.1 var(--display); text-wrap: balance; }
+.speed-say i { color: #E9A85E; }
+.speed dl { grid-column: 9 / span 4; margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 0 20px; }
+.speed dt, .speed dd { margin: 0; padding: 10px 0; border-top: 1px solid rgba(243,236,223,.14); }
+.speed dt { font: 400 26px var(--display); color: #F3ECDF; }
+.speed dd { align-self: center; font-size: 14px; color: rgba(243,236,223,.72); }
+.speed .note { grid-column: 9 / span 4; margin: 12px 0 0; font-size: 13px; color: rgba(243,236,223,.55); }
+
+/* The close: back to morning */
+.close { background: var(--day); }
+.close-in { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(12px, 2vw, 32px); padding-block: clamp(72px, 12vh, 150px); align-items: center; }
+.close-in > div { grid-column: 1 / span 6; }
+.close h2 { margin: 0; font: 400 clamp(40px, 4.6vw, 76px)/1.02 var(--display); letter-spacing: -.01em; }
+.close h2 i { color: var(--sun-ink); }
+.close p { margin: 22px 0 0; max-width: 32rem; color: var(--soft); }
+.acts { display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: center; margin-top: 32px; }
+.btn { display: inline-flex; align-items: center; min-height: 48px; padding: 0 24px; background: var(--ink); color: var(--day); font: 600 15px var(--body); text-decoration: none; }
+.btn:hover { background: var(--sun-ink); }
+.btn.line { background: none; color: var(--ink); padding: 0; border-bottom: 1px solid var(--ink); min-height: 44px; }
+.mail { display: block; margin-top: 28px; font-size: 14px; color: var(--soft); }
+.close figure { grid-column: 8 / span 5; margin: 0; }
+.close figure img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+.close figcaption { margin-top: 10px; font-size: 13px; color: var(--soft); }
+
+footer { background: var(--night); color: var(--night-soft); font-size: 13px; line-height: 1.6; }
+footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px 32px; padding-block: 28px; }
+footer p { margin: 0; max-width: 60rem; }
+
+@media (max-width: 960px) {
+  .sky-words { grid-column: 4 / span 9; }
+  .scale { grid-column: 1 / span 2; width: 76px; }
+  .tick a { display: none; }
+  .ch-in { row-gap: 40px; }
+  .deg { grid-column: 1 / -1; }
+  .ch-shot { grid-column: 1 / span 6; }
+  .ch-words { grid-column: 7 / span 6; padding-top: 0; }
+  .flip .deg { grid-column: 1 / -1; grid-row: auto; text-align: left; }
+  .flip .ch-shot { grid-column: 1 / span 6; grid-row: auto; }
+  .flip .ch-words { grid-column: 7 / span 6; grid-row: auto; }
+  .plans-head div { grid-column: 1 / -1; margin-top: 24px; }
+  .lights { grid-template-columns: 1fr; }
+  .sky-cut { height: 96px; }
+  .speed-say, .speed dl, .speed .note { grid-column: 1 / -1; }
+  .speed dl { margin-top: 32px; }
+  .close-in > div, .close figure { grid-column: 1 / -1; }
+  .close figure { margin-top: 48px; max-width: 420px; }
+}
+@media (max-width: 600px) {
+  .sky-in { padding-bottom: 28px; }
+  .sky-in { grid-template-rows: auto 1fr auto; }
+  .sky-words { grid-column: 3 / span 10; grid-row: 1; align-self: start; }
+  .sky-sub, .sky-acts { display: none; }
+  .sky::after { background: linear-gradient(180deg, rgba(14,10,6,.72) 0%, rgba(14,10,6,.25) 46%, rgba(14,10,6,0) 62%); }
+  .now { font-size: clamp(32px, 9.4vw, 44px); }
+  .scale { grid-column: 1 / span 2; grid-row: 1 / span 3; }
+  .scale { width: 56px; }
+  .tick span { width: 44px; font-size: 17px; }
+  .sunread { display: none; }
+  .ch-shot { grid-column: 2 / span 10; }
+  .ch-words, .flip .ch-words { grid-column: 1 / -1; }
+  .ch-shot, .flip .ch-shot { grid-column: 2 / span 10; }
+  .deg { font-size: 42vw; }
+  footer .wrap { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) { .sunmark, .sunread { transition: none; } }
+</style>
+</head>
+<body>
+
+<div class="sfbar gut"><div class="wrap">
+  <a class="wm" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su" aria-label="Sitefloor home">sitefl<svg width="28" height="14" viewBox="0 0 42 21" aria-hidden="true"><rect x="1.9" y="1.9" width="38.2" height="17.2" rx="8.6" fill="none" stroke="#0E0F11" stroke-width="3.8"/><circle cx="31.5" cy="10.5" r="5.2" fill="#E8613C"/></svg>r</a>
+  <nav aria-label="Main"><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#live">Features</a><a href="#top" aria-current="page">Work</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#pricing">Pricing</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#guides">Guides</a></nav>
+  <a class="sfbtn" href="#mockup"><span>Free mockup</span><span aria-hidden="true">→</span></a>
+</div></div>
+
+<main id="top">
+<section class="sky gut" aria-labelledby="now">
+  <div class="sky-film" aria-hidden="true">
+    <picture><source media="(max-aspect-ratio: 4/5)" srcset="media/reel-tall-poster.webp"><img src="media/reel-poster.webp" alt="" width="1920" height="804" fetchpriority="high"></picture>
+    <video muted loop playsinline preload="none" data-film></video>
+  </div>
+  <div class="pause"><button type="button" data-pause hidden>Pause the film</button></div>
+  <div class="wrap sky-in">
+    <div class="sky-words">
+      <p class="k">Larchmere · a wedding film studio</p>
+      <h1 class="now" id="now" data-now>In Bibury tonight, golden hour begins at <i>sunset less forty minutes</i>.</h1>
+      <p class="sky-sub"><b>Their website, read the way they shoot:</b> by the height of the sun, from the afternoon to the last light. That line above is worked out for Bibury, now.</p>
+      <div class="sky-acts"><a class="ghost" href="#c6">Begin at +6°</a></div>
+    </div>
+    <nav class="scale" aria-label="Chapters, by the sun's height">
+      <ol>
+        <li class="tick" style="top:4%"><a href="#c40">The film</a><span>+40°</span></li>
+        <li class="tick" style="top:24%"><a href="#c20">Your date</a><span>+20°</span></li>
+        <li class="tick" style="top:46%"><a href="#c6">Golden hour</a><span>+6°</span></li>
+        <li class="tick horizon" style="top:62%"><a href="#c0">The day</a><span>0°</span></li>
+        <li class="tick" style="top:76%"><a href="#c-4">Your film</a><span>−4°</span></li>
+        <li class="tick" style="top:88%"><a href="#c-6">The plans</a><span>−6°</span></li>
+      </ol>
+      <span class="sunmark" data-sun aria-hidden="true"></span>
+      <span class="sunread" data-sunread aria-hidden="true"></span>
+    </nav>
+  </div>
+</section>
+
+<section class="ch gut" id="c40" aria-labelledby="hc40" style="--ground: var(--day)">
+  <div class="wrap ch-in">
+    <p class="deg" aria-hidden="true">+40<sup>°</sup></p>
+    <figure class="ch-shot"><img class="still" src="media/home.webp" width="780" height="1688" alt="Larchmere's home page on a phone: the studio's film edge to edge under the name, with its chapters beneath" loading="lazy"><figcaption>The home page, on a phone.</figcaption></figure>
+    <div class="ch-words">
+      <p class="k">The film</p>
+      <h2 id="hc40">Their work first, <i>large and in colour.</i></h2>
+      <p>The home page opens on the studio's film, edge to edge, with its chapters beneath it. Tap one and the film goes there. Below it, the two questions every couple asks first: is our date free, and what's the light that evening?</p>
+      <p class="plan"><b>Starter</b> the film, packages and delivery times · <b>Signature</b> the chapters</p>
+    </div>
+  </div>
+</section>
+
+<section class="ch gut flip" id="c20" aria-labelledby="hc20" style="--ground: var(--day-2)">
+  <div class="wrap ch-in">
+    <p class="deg" aria-hidden="true">+20<sup>°</sup></p>
+    <figure class="ch-shot"><video class="clip" muted loop playsinline preload="none" poster="media/date.webp" data-clip="media/date.mp4" width="780" height="1688" aria-label="A couple checks 12 June 2027, which is booked, then 19 June, which is free, and types their venue"></video><button class="tap" type="button" data-tap hidden>Pause</button><figcaption>Check your date, on a phone.</figcaption></figure>
+    <div class="ch-words">
+      <p class="k">Your date</p>
+      <h2 id="hc20">Free, held or booked, <i>before they write.</i></h2>
+      <p>The studio keeps its diary in a Google Sheet. A couple picks a date and the page answers from it, with that evening's sunset, then sends the date and venue on WhatsApp. If the sheet hasn't been touched for two days, it stops answering and asks them to send the date instead.</p>
+      <p class="plan"><b>Plus</b> the date check, with the sunset</p>
+    </div>
+  </div>
+</section>
+
+<section class="ch gut" id="c6" aria-labelledby="h6" style="--ground: var(--day)">
+  <div class="wrap ch-in">
+    <p class="deg" aria-hidden="true">+6<sup>°</sup></p>
+    <figure class="ch-shot"><img src="media/light.webp" width="780" height="1688" alt="Larchmere's home page on a phone: on Saturday 19 June 2027 at Bibury the sun sets at 21:29, golden hour 20:35 to 21:58, with the day drawn as a line" loading="lazy"><figcaption>The home page, on a phone.</figcaption></figure>
+    <div class="ch-words">
+      <p class="k">Golden hour</p>
+      <h2 id="h6">Their light, <i>before their day.</i></h2>
+      <p>A couple picks a date and a place. The page works out that evening's golden hour to the minute, keeps forty minutes of it for their portraits, and puts it in their calendar.</p>
+      <div class="live">
+        <label class="k" for="lv-date">Try a date, for Bibury</label>
+        <input id="lv-date" type="date" value="2027-06-19" data-lv>
+        <output for="lv-date" data-lv-out aria-live="polite"></output>
+      </div>
+      <p class="plan"><b>Signature</b> the light planner · <b>Plus</b> the sunset on the date check</p>
+    </div>
+  </div>
+</section>
+<section class="ch gut dark flip" id="c0" aria-labelledby="hc0" style="--ground: #2A2119">
+  <div class="wrap ch-in">
+    <p class="deg" aria-hidden="true">0<sup>°</sup></p>
+    <figure class="ch-shot"><video class="clip" muted loop playsinline preload="none" poster="media/day.webp" data-clip="media/day.mp4" width="780" height="1688" aria-label="The day planner rebuilds the wedding day as the ceremony time changes, then for a December date"></video><button class="tap" type="button" data-tap hidden>Pause</button><figcaption>The day, on a phone.</figcaption></figure>
+    <div class="ch-words">
+      <p class="k">The day</p>
+      <h2 id="hc0">One time typed in. <i>The whole day out.</i></h2>
+      <p>The couple types their ceremony time. The page lays out the day from the studio's own timings, and puts the portraits in that evening's golden hour. In December, when the light goes before the vows are done, it says so and moves them.</p>
+      <p class="plan"><b>Signature</b> the day planner, with a calendar file and a WhatsApp copy</p>
+    </div>
+  </div>
+</section>
+
+<section class="ch gut dark" id="c-4" aria-labelledby="hc-4" style="--ground: #141823">
+  <div class="wrap ch-in">
+    <p class="deg" aria-hidden="true">−4<sup>°</sup></p>
+    <figure class="ch-shot"><video class="clip" muted loop playsinline preload="none" poster="media/film.webp" data-clip="media/film.mp4" width="780" height="1688" aria-label="A couple types their code and sees their film in colour, the trailer delivered and the photographs due"></video><button class="tap" type="button" data-tap hidden>Pause</button><figcaption>Your film, on a phone.</figcaption></figure>
+    <div class="ch-words">
+      <p class="k">Your film</p>
+      <h2 id="hc-4">Never <i>“is it ready yet?”</i></h2>
+      <p>After the wedding, a code in the studio's message opens where their film is: footage in, the edit, colour, sound, delivered, and when the trailer and photographs are due. The studio changes one cell in a sheet.</p>
+      <ul class="facts"><li><b>Codes, never names.</b> The sheet is public, so it holds no names and no links.</li><li><b>The film itself</b> goes to the couple directly, never through the page.</li></ul>
+      <p class="plan"><b>Signature</b> your film</p>
+    </div>
+  </div>
+</section>
+
+<section class="plans gut" id="c-6" aria-labelledby="hplans">
+  <div class="wrap plans-in">
+    <div class="plans-head">
+      <p class="deg" aria-hidden="true">−6<sup>°</sup></p>
+      <div>
+        <p class="k" style="color:#E9A85E">The plans</p>
+        <h2 id="hplans">Three lights. <i>Pick how far into the evening.</i></h2>
+        <p>Every plan has the film first, a page that loads quickly on a phone, and no running costs beyond hosting and the domain. Twelve months to start.</p>
+      </div>
+    </div>
+    <div class="lights">
+      <article class="light l1"><div class="sky-cut" aria-hidden="true"></div><h3>Daylight<small>Starter</small></h3><p class="price">£99 <span>then £25 a month</span></p>
+        <ul><li>The home page and Plan your visit</li><li>The film, edge to edge</li><li>Packages and prices</li><li>When the trailer and film arrive</li></ul></article>
+      <article class="light l2"><div class="sky-cut" aria-hidden="true"></div><h3>Golden hour<small>Plus</small></h3><p class="price">£199 <span>then £30 a month</span></p>
+        <ul><li>Up to 5 pages</li><li>Check your date, with the sunset</li><li>Build your package, with a deposit link</li><li>Films by venue, each on its own page</li><li>Photographs and questions</li></ul></article>
+      <article class="light l3"><div class="sky-cut" aria-hidden="true"></div><h3>Blue hour<small>Signature</small></h3><p class="price">£349 <span>then £35 a month</span></p>
+        <ul><li>Up to 20 pages</li><li>The film in chapters</li><li>The light planner and the day planner</li><li>Your film, by code</li><li>Venues, with their light and drone rules; music and licensing</li></ul></article>
+    </div>
+  </div>
+</section>
+
+<section class="speed gut" aria-labelledby="hspeed">
+  <div class="wrap speed-in">
+    <h2 class="speed-say" id="hspeed">The sun crosses the sky at a degree every four minutes. <i>The home page is ready in two seconds.</i></h2>
+    <dl>
+      <dt>99</dt><dd>Lighthouse, home page, on a phone</dd>
+      <dt>2.0 s</dt><dd>until the opening still shows</dd>
+      <dt>0.003</dt><dd>layout shift at most, on the home page</dd>
+      <dt>100</dt><dd>accessibility, on every page tested</dd>
+    </dl>
+    <p class="note">Lighthouse 12, mobile, on the Larchmere demo. The film itself starts only once the page has loaded, and never for visitors who ask for less motion.</p>
+  </div>
+</section>
+
+<section class="close gut" id="mockup" aria-labelledby="hclose">
+  <div class="wrap close-in">
+    <div>
+      <h2 id="hclose">Your film, <i>on their phone.</i></h2>
+      <p>Send us one of your films and your packages, and we'll make a free mockup of your home page with your own work on it.</p>
+      <div class="acts">
+        <a class="btn" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#free">Get a free mockup</a>
+        <a class="btn line" href="https://claude.ai/artifact/VNHc8UZrMqqFNcX2gjYrYS">Try the demo first</a>
+      </div>
+      <span class="mail">hello@sitefloor.com</span>
+    </div>
+    <figure><img src="media/reel-tall-poster.webp" width="720" height="900" alt="A bride and groom on a stone bridge over still water, autumn trees around them, late light" loading="lazy"><figcaption>From Larchmere's film.</figcaption></figure>
+  </div>
+</section>
+</main>
+
+<footer class="gut"><div class="wrap">
+  <p>Larchmere is a fictional wedding film studio made to show the Sitefloor wedding film kit. Its venues, prices, couples and codes are demo data. Its film and photographs are free stock from Pexels, each credited in our records. The sun's height and golden hour are calculated for Bibury, not typed in.</p>
+  <span>© 2026 Sitefloor</span>
+</div></footer>
+
+<script>
+(() => {
+  // The sun's elevation (NOAA's solar calculator, as the kit uses), for Bibury.
+  const LAT = 51.758, LON = -1.833, TZ = "Europe/London", R = Math.PI / 180;
+  const elev = (ms) => {
+    const jc = (ms / 864e5 + 2440587.5 - 2451545) / 36525;
+    const L0 = (280.46646 + jc * (36000.76983 + jc * 0.0003032)) % 360;
+    const M = 357.52911 + jc * (35999.05029 - 0.0001537 * jc);
+    const e = 0.016708634 - jc * (0.000042037 + 0.0000001267 * jc);
+    const C = Math.sin(M * R) * (1.914602 - jc * (0.004817 + 0.000014 * jc)) + Math.sin(2 * M * R) * (0.019993 - 0.000101 * jc) + Math.sin(3 * M * R) * 0.000289;
+    const om = 125.04 - 1934.136 * jc, lam = L0 + C - 0.00569 - 0.00478 * Math.sin(om * R);
+    const eps = 23 + (26 + (21.448 - jc * (46.815 + jc * (0.00059 - jc * 0.001813))) / 60) / 60 + 0.00256 * Math.cos(om * R);
+    const dec = Math.asin(Math.sin(eps * R) * Math.sin(lam * R)), y = Math.tan((eps * R) / 2) ** 2;
+    const eq = (4 / R) * (y * Math.sin(2 * L0 * R) - 2 * e * Math.sin(M * R) + 4 * e * y * Math.sin(M * R) * Math.cos(2 * L0 * R) - 0.5 * y * y * Math.sin(4 * L0 * R) - 1.25 * e * e * Math.sin(2 * M * R));
+    const d = new Date(ms), mu = d.getUTCHours() * 60 + d.getUTCMinutes() + d.getUTCSeconds() / 60;
+    const ha = ((((mu + eq + 4 * LON) % 1440) + 1440) % 1440) / 4 - 180;
+    return Math.asin(Math.sin(LAT * R) * Math.sin(dec) + Math.cos(LAT * R) * Math.cos(dec) * Math.cos(ha * R)) / R;
+  };
+  const hm = (ms) => new Intl.DateTimeFormat("en-GB", { timeZone: TZ, hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).format(new Date(ms + 30000));
+  const day = (ms) => new Intl.DateTimeFormat("en-GB", { timeZone: TZ, year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date(ms));
+  // The next moment the sun goes down through a height, searching ahead a minute at a time.
+  const nextDown = (from, deg, hours = 40) => { let p = elev(from); for (let t = from + 60000; t < from + hours * 3600000; t += 60000) { const e = elev(t); if (p >= deg && e < deg) return t; p = e; } return null; };
+  const when = (t, now) => (day(t) === day(now) ? "today" : "tomorrow");
+
+  const line = document.querySelector("[data-now]"), sun = document.querySelector("[data-sun]"), read = document.querySelector("[data-sunread]");
+  // The scale's own heights: +40° at 4%, +20° at 24%, +6° at 46%, 0° at 62%, −4° at 76%, −6° at 88%; below that, 98%.
+  const STOPS = [[40, 4], [20, 24], [6, 46], [0, 62], [-4, 76], [-6, 88]];
+  const place = (e) => {
+    if (e >= 40) return 4; if (e < -6) return 98;
+    for (let i = 0; i < STOPS.length - 1; i++) { const [a, pa] = STOPS[i], [b, pb] = STOPS[i + 1]; if (e <= a && e >= b) return pa + ((a - e) / (a - b)) * (pb - pa); }
+    return 46;
+  };
+  const deg = (e) => `${Math.abs(e) < 10 ? Math.abs(e).toFixed(1) : Math.round(Math.abs(e))}°`;
+  const tell = () => {
+    const now = Date.now(), e = elev(now), rising = elev(now + 300000) > e;
+    const gold = nextDown(now, 6), blue = nextDown(now, -4), dark = nextDown(now, -6);
+    let html;
+    if (!rising && e < 6 && e >= -4 && blue) html = `It's golden hour in Bibury now. The light turns blue at <i>${hm(blue)}</i>.`;
+    else if (!rising && e < -4 && e >= -6 && dark) html = `It's blue hour in Bibury, until <i>${hm(dark)}</i>.`;
+    else if (e >= 0) html = `In Bibury the sun is <i>${deg(e)}</i> up. Golden hour begins ${when(gold, now)} at <i>${hm(gold)}</i>.`;
+    else html = `In Bibury the sun is <i>${deg(e)}</i> below the horizon. Golden hour begins ${when(gold, now)} at <i>${hm(gold)}</i>.`;
+    line.innerHTML = html;
+    const top = `${place(e)}%`;
+    sun.style.top = top; read.style.top = top;
+    read.textContent = `Now ${e < 0 ? "−" : "+"}${deg(e)}`;
+    if (e < -6) sun.setAttribute("data-below", ""); else sun.removeAttribute("data-below");
+  };
+  tell();
+  setInterval(tell, 60000);
+
+  // The film loads after the page, unless the visitor asked for less motion.
+  const v = document.querySelector("[data-film]"), pause = document.querySelector("[data-pause]");
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const start = () => {
+    v.src = matchMedia("(max-aspect-ratio: 4/5)").matches ? "media/reel-tall.mp4" : "media/reel.mp4";
+    v.play().then(() => { pause.hidden = false; }).catch(() => {});
+  };
+  if (!still) { if (document.readyState === "complete") start(); else addEventListener("load", start, { once: true }); }
+  pause.addEventListener("click", () => { if (v.paused) { v.play(); pause.textContent = "Pause the film"; } else { v.pause(); pause.textContent = "Play the film"; } });
+
+  // The clips: each loads and plays only when it's on screen, and never for visitors who ask for less motion.
+  const clips = [...document.querySelectorAll("[data-clip]")];
+  if (!still && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver((es) => { for (const e of es) { const c = e.target; if (e.isIntersecting) { if (!c.src) c.src = c.dataset.clip; if (!c.dataset.held) c.play().catch(() => {}); } else c.pause(); } }, { threshold: 0.35 });
+    for (const c of clips) {
+      io.observe(c);
+      const b = c.parentElement.querySelector("[data-tap]"); b.hidden = false;
+      b.addEventListener("click", () => { if (c.paused) { delete c.dataset.held; c.play(); b.textContent = "Pause"; } else { c.dataset.held = "1"; c.pause(); b.textContent = "Play"; } });
+    }
+  }
+
+  // Golden hour for any date, at Bibury: what the planner on the site does.
+  const lv = document.querySelector("[data-lv]"), out = document.querySelector("[data-lv-out]");
+  const light = (ymd) => {
+    const [y, m, d] = ymd.split("-").map(Number); const noon = Date.UTC(y, m - 1, d, 12) - LON * 4 * 60000;
+    let p = elev(noon), g = null, s = null, b = null;
+    for (let t = noon + 15000; t < noon + 12 * 3600000; t += 15000) { const e = elev(t); if (!g && p >= 6 && e < 6) g = t; if (!s && p >= -0.833 && e < -0.833) s = t; if (!b && p >= -4 && e < -4) b = t; p = e; }
+    return { g, s, b };
+  };
+  const show = () => {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(lv.value)) return;
+    const { g, s, b } = light(lv.value);
+    if (!g || !s || !b) { out.textContent = "That evening the light doesn't follow the usual pattern."; return; }
+    const long = new Intl.DateTimeFormat("en-GB", { weekday: "long", day: "numeric", month: "long", timeZone: TZ }).format(new Date(s));
+    out.innerHTML = `${long}: golden hour <i>${hm(g)}</i> to <i>${hm(b)}</i>, sunset <i>${hm(s)}</i>. Portraits at ${hm(g + 300000)}.`;
+  };
+  lv.addEventListener("change", show); lv.addEventListener("input", show); show();
+})();
+</script>
+</body>
+</html>

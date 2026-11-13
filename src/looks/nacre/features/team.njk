@@ -1,0 +1,28 @@
+{#- Nacre workshop page: the house by its hands. Each person's bench photographed (no faces), their name and what they
+    make, one after another down the page. -#}
+{%- set ph = { title: site.team.title, intro: site.team.intro, label: site.team.kicker } %}
+{% include "kits/jeweller/partials/page-head.njk" %}
+<div class="wrap nc-team" data-feature="team">
+  {%- if site.team.filters %}
+  <div class="nc-arch-bar">
+    <span class="sr-only" id="tf-label">{{ site.team.filtersLabel or "Who makes" }}</span>
+    <div class="nc-chips" role="group" aria-labelledby="tf-label" data-team-chips>
+      <button type="button" aria-pressed="true" data-tag="">Everyone</button>
+      {%- for f in site.team.filters %}<button type="button" aria-pressed="false" data-tag="{{ f.tag }}">{{ f.label }}</button>{% endfor %}
+    </div>
+    <p class="nc-label nc-muted" data-team-count role="status"></p>
+  </div>
+  {%- endif %}
+  {%- for s in site.staff %}
+  <article class="nc-person rv" id="{{ s.name | slug }}" data-tags="{{ (s.tags or []) | join(' ') }}">
+    {%- if s.photo %}<img src="{{ s.photo | img }}" alt="{{ s.name }}'s bench" loading="{{ 'eager' if loop.first else 'lazy' }}" decoding="async" width="1400" height="1750">{% endif %}
+    <div>
+      <h2 class="nc-name">{{ s.name }}</h2>
+      <p class="nc-label nc-muted">{{ s.role }}</p>
+      {%- if s.bio %}<p class="nc-body">{{ s.bio }}</p>{% endif %}
+      {%- if s.knownFor %}<p class="nc-fine">{{ s.knownFor | join(" · ") }}</p>{% endif %}
+    </div>
+  </article>
+  {%- endfor %}
+  <p class="nc-acts"><a class="nc-u nc-label" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{{ site.team.bookLine or "Write to the workshop" }}</a></p>
+</div>

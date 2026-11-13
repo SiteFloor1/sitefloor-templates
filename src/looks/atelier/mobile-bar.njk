@@ -1,0 +1,6 @@
+{#- Atelier phone bar: ink. The live answer from the servings calculator on the left ("3 tiers · 120 guests"), the
+    studio's name elsewhere; WhatsApp on the right. The page reserves the bar's height so it never covers anything. -#}
+<div class="mbar at-bar">
+  <span class="at-bar-t" data-sv-bar>{{ site.business.name }}</span>
+  <a class="at-bar-go" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">Send on WhatsApp</a>
+</div>

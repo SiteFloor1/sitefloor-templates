@@ -1,0 +1,13 @@
+{#- Tissue care: the steps as a short numbered list, how long they last on a handwritten-style card held by the pin,
+    and the QR the florist prints on their card. -#}
+{%- set Cr = site.care %}
+{%- set ph = { title: Cr.title, intro: Cr.intro } %}
+{% include "looks/tissue/parts/page-head.njk" %}
+<section class="ts-care"><div class="wrap ts-care-in">
+  <ol class="ts-steps">{% for s in Cr.steps %}<li>{{ s }}</li>{% endfor %}</ol>
+  <aside class="ts-care-side">
+    <div class="ts-card">{% set pinClass = "ts-pin-card" %}{% include "looks/tissue/parts/pin.njk" %}<p>{{ Cr.lasts }}</p></div>
+    <p>Something not right? <a class="ts-ask" href="{{ ('Hello ' + site.business.name + ', a question about my flowers.') | book }}" target="_blank" rel="noopener">Message us</a> and we'll put it right.</p>
+    <figure class="ts-qr">{{ (site.url + '/flower-care') | qrSvg | safe }}<figcaption>The code on our care card brings you here.</figcaption></figure>
+  </aside>
+</div></section>

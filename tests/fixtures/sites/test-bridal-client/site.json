@@ -1,0 +1,452 @@
+{
+  "schemaVersion": 4,
+  "lang": "en-GB",
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [],
+      "tue": [
+        [
+          "10:00",
+          "18:00"
+        ]
+      ],
+      "wed": [
+        [
+          "10:00",
+          "18:00"
+        ]
+      ],
+      "thu": [
+        [
+          "10:00",
+          "20:00"
+        ]
+      ],
+      "fri": [
+        [
+          "10:00",
+          "18:00"
+        ]
+      ],
+      "sat": [
+        [
+          "09:30",
+          "17:30"
+        ]
+      ],
+      "sun": []
+    },
+    "exceptions": [
+      {
+        "date": "2026-12-24",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2026-12-26",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2026-12-29",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2026-12-30",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2026-12-31",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2027-01-02",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      }
+    ]
+  },
+  "messages": {
+    "general": "Hello Ivory and Pin, I have a question."
+  },
+  "diary": {
+    "orderStep": "order",
+    "late": "Your order date has passed. Message us before you decide: some gowns can be made sooner, and we'll tell you honestly which.",
+    "steps": [
+      {
+        "id": "order",
+        "label": "Order your gown",
+        "weeksBefore": 40,
+        "note": "Half the price now, the rest at the first fitting."
+      },
+      {
+        "id": "veil",
+        "label": "Choose your veil",
+        "weeksBefore": 16
+      },
+      {
+        "id": "arrives",
+        "label": "Your gown arrives",
+        "weeksBefore": 10,
+        "note": "We call you to book the first fitting."
+      },
+      {
+        "id": "first",
+        "label": "First fitting",
+        "weeksBefore": 8,
+        "note": "Bring your shoes and underwear."
+      },
+      {
+        "id": "second",
+        "label": "Second fitting",
+        "weeksBefore": 5
+      },
+      {
+        "id": "final",
+        "label": "Final fitting",
+        "weeksBefore": 2,
+        "note": "Bring whoever will dress you on the day."
+      },
+      {
+        "id": "collect",
+        "label": "Collect your gown",
+        "weeksBefore": 1,
+        "note": "Steamed, bagged and ready."
+      }
+    ]
+  },
+  "fittingsPage": {
+    "kicker": "After you order",
+    "title": "Fittings and veils",
+    "intro": "Three fittings in the workroom upstairs, then the gown is yours.",
+    "fittings": [
+      {
+        "title": "First fitting",
+        "when": "Eight weeks before",
+        "text": "The gown arrives and we pin it to you. Bring your shoes and underwear."
+      },
+      {
+        "title": "Second fitting",
+        "when": "Five weeks before",
+        "text": "The hem, the bustle and the length of your veil."
+      },
+      {
+        "title": "Final fitting",
+        "when": "Two weeks before",
+        "text": "Bring whoever will dress you on the day. We show them every button."
+      }
+    ],
+    "alterations": "Taking in, hemming and a bustle are included in every gown's price. Changes to the design, such as sleeves or a different neckline, we price before we start.",
+    "veils": [
+      {
+        "name": "Fingertip",
+        "length": "110 cm",
+        "text": "Falls to the hands. Easy all day.",
+        "price": "£280"
+      },
+      {
+        "name": "Chapel",
+        "length": "230 cm",
+        "text": "Just past the hem of most gowns.",
+        "price": "£420"
+      },
+      {
+        "name": "Cathedral",
+        "length": "300 cm",
+        "text": "Longer than the train. For an aisle.",
+        "price": "£560"
+      }
+    ]
+  },
+  "gownsPage": {
+    "kicker": "The gowns",
+    "title": "Every gown in the salon",
+    "intro": "Sample sizes 8 to 16. Each is ordered in your size, then fitted here."
+  },
+  "id": "test-bridal-client",
+  "mode": "client",
+  "plan": "plus",
+  "kit": "bridal",
+  "look": "dove",
+  "url": "https://ivory-and-pin-test.co.uk",
+  "indexable": true,
+  "business": {
+    "name": "Ivory and Pin",
+    "schemaType": "ClothingStore",
+    "description": "Bridal boutique in Harrogate, by appointment.",
+    "priceRange": "£££",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "447911123457",
+    "phone": "+44 7911 123457",
+    "email": "hello@ivory-and-pin-test.co.uk"
+  },
+  "location": {
+    "streetAddress": "12 Station Parade",
+    "locality": "Harrogate",
+    "postcode": "HG1 1UE",
+    "country": "GB",
+    "area": "Opposite the station clock.",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=Station%20Parade%20Harrogate"
+  },
+  "nav": [
+    {
+      "label": "Gowns",
+      "page": "gowns",
+      "feature": "gowns-page"
+    },
+    {
+      "label": "Fittings",
+      "page": "fittings",
+      "feature": "fittings-page"
+    },
+    {
+      "label": "Visit",
+      "page": "visit",
+      "feature": "plan-visit"
+    }
+  ],
+  "features": [
+    "appointment",
+    "designers",
+    "gowns-page",
+    "fittings-page",
+    "trunk-shows",
+    "visit",
+    "plan-visit",
+    "questions"
+  ],
+  "hero": {
+    "kicker": "Bridal boutique, Harrogate",
+    "title": "Your gown,|fitted here.",
+    "intro": "By appointment, Tuesday to Saturday.",
+    "mirror": {
+      "label": "Iris in the boutique's mirror",
+      "left": {
+        "src": "img/gown.webp",
+        "width": 900,
+        "height": 1125,
+        "alt": "Iris, hanging",
+        "label": "Back"
+      },
+      "centre": {
+        "src": "img/gown.webp",
+        "width": 900,
+        "height": 1125,
+        "alt": "Iris, hanging",
+        "label": "Front"
+      },
+      "right": {
+        "src": "img/gown.webp",
+        "width": 900,
+        "height": 1125,
+        "alt": "Iris, hanging",
+        "label": "Detail"
+      }
+    }
+  },
+  "sections": {
+    "appointment": {
+      "title": "Your appointment"
+    },
+    "gowns": {
+      "title": "Gowns"
+    },
+    "designers": {
+      "title": "Designers"
+    },
+    "orderBy": {
+      "title": "When to order"
+    },
+    "trunkShows": {
+      "title": "Trunk shows"
+    },
+    "questions": {
+      "title": "Questions"
+    },
+    "visit": {
+      "title": "Find us"
+    }
+  },
+  "appointment": {
+    "message": "Hello Ivory and Pin, I'd like an appointment.",
+    "facts": [
+      {
+        "label": "Length",
+        "value": "One hour"
+      },
+      {
+        "label": "Guests",
+        "value": "Up to four"
+      }
+    ],
+    "maxGuests": 4
+  },
+  "designers": {
+    "items": [
+      {
+        "id": "house-a",
+        "name": "House A",
+        "known": "Crepe",
+        "prices": "Price on request"
+      }
+    ]
+  },
+  "gowns": {
+    "message": "Hello Ivory and Pin.",
+    "items": [
+      {
+        "id": "iris",
+        "name": "Iris",
+        "house": "house-a",
+        "fabric": "Silk",
+        "silhouette": "a-line",
+        "neckline": "scoop",
+        "sleeve": "straps",
+        "price": null,
+        "views": [
+          {
+            "label": "Front",
+            "src": "img/gown.webp",
+            "width": 900,
+            "height": 1125,
+            "alt": "Iris, hanging"
+          }
+        ]
+      }
+    ]
+  },
+  "trunkShows": {
+    "items": []
+  },
+  "visitInfo": {
+    "kicker": "Plan your visit",
+    "title": "Finding *the mews.*",
+    "intro": "Off Sloane Avenue, eight minutes' walk from South Kensington.",
+    "checked": "2026-10",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "South Kensington station",
+        "origin": "South Kensington station, London",
+        "minutes": 8,
+        "steps": [
+          "Leave by the Pelham Street exit",
+          "Walk along Pelham Street to Sloane Avenue",
+          "Turn left; Vane Mews is the second opening on the right"
+        ]
+      },
+      {
+        "mode": "bus",
+        "from": "Buses 49 and 345",
+        "stop": "Sloane Avenue",
+        "minutes": 2,
+        "steps": [
+          "Get off at the Sloane Avenue stop",
+          "Walk back thirty metres to the mews"
+        ]
+      },
+      {
+        "mode": "car",
+        "from": "By taxi",
+        "origin": "Hyde Park Corner, London",
+        "minutes": 10,
+        "steps": [
+          "Ask for Vane Mews, off Sloane Avenue, SW3",
+          "The mews is cobbled; the door is the grey one with the brass plate"
+        ]
+      }
+    ],
+    "parking": [
+      {
+        "name": "Pay-by-phone bays nearby",
+        "walk": 2,
+        "price": "check the signs on the street",
+        "paid": {
+          "mon": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "tue": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "wed": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "thu": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "fri": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "sat": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ]
+        },
+        "note": "Residents' bays are marked; avoid those.",
+        "bankHolidays": "sunday"
+      }
+    ],
+    "access": [
+      {
+        "label": "Step-free entrance",
+        "yes": true
+      },
+      {
+        "label": "Fitting room on the ground floor",
+        "yes": true
+      },
+      {
+        "label": "Accessible toilet",
+        "yes": false
+      }
+    ],
+    "accessNote": "The salon and fitting room are on the ground floor; the workroom is upstairs and fittings can be held downstairs.",
+    "payment": "Card and bank transfer."
+  },
+  "questions": [
+    {
+      "topic": "Your appointment",
+      "q": "Do I need an appointment?",
+      "a": "Yes. The salon is yours for the ninety minutes, so we see one bride at a time.",
+      "home": true
+    },
+    {
+      "topic": "Your appointment",
+      "q": "How many people can I bring?",
+      "a": "Up to three. For more, tell us when you ask and we'll find a longer slot.",
+      "home": true
+    },
+    {
+      "topic": "Your appointment",
+      "q": "Can I take photos?",
+      "a": "Of the gown you choose, yes. We ask you not to photograph the rest of the rail.",
+      "home": true
+    }
+  ]
+}

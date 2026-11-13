@@ -1,0 +1,19 @@
+{#- Almanac footer: ivory under an ink rule. The twelve month initials as a quiet line; the studio's name large in
+    italic; where it is, how to reach it, the hours and the pages; the Sitefloor credit last. -#}
+<footer class="foot al-foot"><div class="wrap">
+  <p class="al-foot-year" aria-hidden="true">{% for m in gardenWords.short %}<span>{{ m | first }}</span>{% endfor %}</p>
+  <div class="al-foot-in">
+    <p class="al-foot-name">{{ site.business.name }}</p>
+    <address class="al-foot-a">{{ site.location.streetAddress }}<br>{{ site.location.locality }} {{ site.location.postcode }}<br>
+      <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a>{% if site.contact.email %}<br><a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>{% endif %}</address>
+    <ul class="al-foot-hours" aria-label="Studio hours">
+      {%- for row in site.hours | hoursRows %}<li data-day="{{ row.dayIndex }}"><span>{{ row.day }}</span> {{ row.label }}</li>{% endfor %}
+    </ul>
+    <nav class="al-foot-links" aria-label="Footer">
+      <a href="{{ 'index' | href }}">Home</a>
+      {%- for item in site.nav | navItems(pageId) %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}>{{ item.label }}</a>{% endfor %}
+      <a href="{{ 'privacy' | href }}">Privacy</a>
+    </nav>
+  </div>
+  <p class="al-foot-by"><a class="by" href="https://sitefloor.com" rel="noopener">Website by <b>Sitefloor</b></a></p>
+</div></footer>

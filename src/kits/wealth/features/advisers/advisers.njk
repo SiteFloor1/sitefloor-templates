@@ -1,0 +1,6 @@
+{#- Your advisers on the home page (moves to the people page when that page is on). -#}
+{%- set sec = { title: site.sections.advisers.title, intro: site.sections.advisers.intro } %}
+<section id="people" class="wm-people" data-feature="people"><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  {%- set full = false %}{% include "kits/wealth/features/advisers/list.njk" %}
+</div></section>

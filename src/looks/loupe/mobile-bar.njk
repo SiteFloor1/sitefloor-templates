@@ -1,0 +1,6 @@
+{#- Loupe phone bar: black; "Check a date" in outline, WhatsApp in the stain colour. -#}
+{%- set dateHref = ("#date" if pageId == "index" or pageId == "bridal" else ("index" | href) + "#date") %}
+<div class="mbar lp-bar">
+  {%- if "mehndi-dates" | enabled %}<a class="lp-bar-date" href="{{ dateHref }}">Check a date</a>{% else %}<a class="lp-bar-date" href="tel:{{ site.contact.phone | replace(' ', '') }}">Call</a>{% endif %}
+  <a class="lp-bar-wa" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{{ "WhatsApp" if build.booking.whatsapp else build.booking.label }}</a>
+</div>

@@ -1,0 +1,23 @@
+{#- The gowns page: every gown large; the finder (silhouette, neckline, sleeve, designer) narrows the rail and never
+    offers a choice that would show nothing. A designer's link (gowns.html#<id>) opens already filtered. -#}
+{%- set ph = site.gownsPage %}
+{% include "kits/bridal/partials/page-head.njk" %}
+<section class="bd-gowns" data-feature="gowns-page" aria-label="Gowns"><div class="wrap">
+  <form class="bd-finder" data-gf-form data-js-only aria-label="Find a gown">
+    {%- for f in [{ key: "silhouette", label: "Silhouette", words: gownWords.silhouettes }, { key: "neckline", label: "Neckline", words: gownWords.necklines }, { key: "sleeve", label: "Sleeves", words: gownWords.sleeves }] %}
+    <label class="bd-field" for="gf-{{ f.key }}"><span class="bd-k">{{ f.label }}</span>
+      <select id="gf-{{ f.key }}" data-gf="{{ f.key }}"><option value="">Any</option>{% for w in site.gowns | usedWords(f.key, f.words) %}<option value="{{ w.id }}">{{ w.label }}</option>{% endfor %}</select>
+    </label>
+    {%- endfor %}
+    <label class="bd-field" for="gf-house"><span class="bd-k">Designer</span>
+      <select id="gf-house" data-gf="house"><option value="">Any</option>{% for h in site.designers.items %}{% if (site.gowns | gownsOf(h.id)).length %}<option value="{{ h.id }}">{{ h.name }}</option>{% endif %}{% endfor %}</select>
+    </label>
+    <p class="bd-finder-n" role="status" data-gf-count>{{ site.gowns.items.length }} gowns</p>
+  </form>
+  <ol class="bd-gown-grid">
+    {%- for g in site.gowns.items %}{% set eager = loop.index <= 2 %}{% set full = true %}{% include "kits/bridal/features/gowns-page/gown-card.njk" %}{% endfor %}
+  </ol>
+  <p class="bd-small bd-gowns-none" data-gf-none hidden>No gown matches all of those. <button type="button" class="bd-quiet" data-gf-reset>Show every gown</button></p>
+</div></section>
+{%- if "shortlist" | enabled %}{% include "kits/bridal/features/shortlist/shortlist.njk" %}{% endif %}
+{%- if "gown-mirror" | enabled %}{% include "kits/bridal/features/gown-mirror/gown-mirror.njk" %}{% endif %}

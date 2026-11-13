@@ -1,0 +1,17 @@
+{#- The bridal nails timeline: one wedding date in, the salon's steps out with their dates in UK order, added to her
+    calendar in one file, and the trial request carrying the date. -#}
+{%- set sec = site.sections.bridalTimeline %}
+<section id="bridal-dates" class="nl-bt" data-feature="nail-bridal-timeline"{{ "nail-bridal-timeline" | tierAttr | safe }}><div class="wrap nl-bt-in">
+  {% include "core/partials/section-head.njk" %}
+  <form class="nl-form" onsubmit="return false">
+    {%- set df = "bt" %}{% set dfLabel = "Your wedding" %}{% include "kits/nails/partials/date-field.njk" %}
+  </form>
+  <ol class="nl-bt-l" role="list" data-bt-list>
+    {%- for s in site.bridal.steps %}<li data-step="{{ s.id }}"><span class="nl-bt-d" data-bt-date>{{ s.daysBefore | daysWords }}</span><b>{{ s.label }}</b>{% if s.text %}<span>{{ s.text }}</span>{% endif %}</li>{% endfor %}
+  </ol>
+  <p class="nl-small" data-bt-late hidden>Some of these days have already passed. Message us: we'll fit you in where we can.</p>
+  <div class="nl-bt-act">
+    <a class="nl-link" data-bt-ask href="{{ (site.bridal.message + ' I would like to book a bridal trial.') | book }}" target="_blank" rel="noopener">Ask for a trial</a>
+    <a class="nl-quiet" data-bt-ics href="#" download="bridal-nails.ics" hidden>Add the dates to my calendar</a>
+  </div>
+</div></section>

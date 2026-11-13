@@ -1,0 +1,17 @@
+{#- Mantel general page: the florist's page opening, then each text block as a ruled row (its heading left, the words
+    right), photographs full width with a line beneath, and the way to order. -#}
+{%- set ph = { kicker: cp.kicker or cp.title | plain, title: cp.title, intro: cp.intro } %}
+{% include "kits/florist/partials/page-head.njk" %}
+<div class="mt-cp" data-feature="custom-pages"><div class="wrap">
+  {%- for b in cp.blocks %}
+  {%- if b.type == "text" %}
+  <section class="mt-cp-row">{% if b.heading %}<h2>{{ b.heading }}</h2>{% else %}<span></span>{% endif %}<div>{% for para in b.body | paragraphs %}<p>{{ para }}</p>{% endfor %}</div></section>
+  {%- elif b.type == "photo" %}
+  <figure class="mt-cp-ph"><img src="{{ b.src | img }}" alt="{{ b.alt }}" loading="lazy" decoding="async">{% if b.caption %}<figcaption>{{ b.caption }}</figcaption>{% endif %}</figure>
+  {%- elif b.type == "list" %}
+  <section class="mt-cp-row">{% if b.heading %}<h2>{{ b.heading }}</h2>{% else %}<span></span>{% endif %}<ul>{% for item in b.items %}<li>{{ item }}</li>{% endfor %}</ul></section>
+  {%- elif b.type == "book" %}
+  <p class="mt-cp-go"><span>{{ b.text }}</span><a class="fl-btn" href="{{ site.messages.order | book }}" target="_blank" rel="noopener">{{ b.label or build.booking.label }}</a></p>
+  {%- endif %}
+  {%- endfor %}
+</div></div>

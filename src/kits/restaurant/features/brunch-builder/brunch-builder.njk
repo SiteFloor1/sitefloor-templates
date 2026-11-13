@@ -1,0 +1,39 @@
+{#- Brunch builder: a plate for each person from the café's brunch dishes, with the sides they want; a running total
+    and the allergens; sent as a pre-order with the table request. Without JavaScript: the plates and sides with prices. -#}
+{%- set sec = site.sections.brunch %}
+{%- set br = site.brunch %}
+<section id="brunch" class="bb" data-feature="brunch-builder" aria-labelledby="bb-h"{{ "brunch-builder" | tierAttr | safe }}><div class="wrap">
+  <div class="sh rv"><div>{% if sec.kicker %}<span class="kick">{{ sec.kicker }}</span>{% endif %}<h2 id="bb-h">{{ sec.title | markup | safe }}</h2></div>{% if sec.intro %}<p>{{ sec.intro }}</p>{% endif %}</div>
+  <div class="bb-people" data-js-only>
+    <div class="bb-tabs" role="group" aria-label="Which plate you are choosing for" data-bb-tabs></div>
+    <button type="button" class="bb-add" data-bb-add>+ Add a plate</button>
+  </div>
+  <div class="bb-grid">
+    <fieldset class="bb-plates" data-bb-plates>
+      <legend class="rs-k">The plate</legend>
+      {%- for id in br.plates %}{% set d = site.menu | dish(id) %}{% set an = d | allergenNames %}
+      <label class="bb-plate">
+        <input type="radio" name="bb-plate" value="{{ d.id }}"{% if loop.first %} checked{% endif %}>
+        <span class="bb-photo" aria-hidden="true"><img data-src="{{ d.photo.src | img }}" width="{{ d.photo.width }}" height="{{ d.photo.height }}" alt=""></span>
+        <span class="bb-pname">{{ d.name }}</span>
+        <span class="bb-pprice">{{ d.price | gbp }}</span>
+        {%- if d.desc %}<span class="bb-pdesc">{{ d.desc }}</span>{% endif %}
+        <span class="bb-pall">{% for mk in d | dietMarks %}<abbr class="rs-mark" title="{{ mk.name }}">{{ mk.mark }}</abbr> {% endfor %}{% if an.length %}Contains: {{ an | join(", ") | lower }}{% else %}None of the 14 allergens{% endif %}</span>
+      </label>
+      {%- endfor %}
+    </fieldset>
+    <div class="bb-side">
+      <fieldset class="bb-sides">
+        <legend class="rs-k">On the side</legend>
+        <div class="rs-chips bb-chips">{% for id in br.sides %}{% set d = site.menu | dish(id) %}<label class="rs-chip bb-chip"><input type="checkbox" name="bb-side" value="{{ d.id }}">{{ d.name }} <small>+{{ d.price | gbp }}</small></label>{% endfor %}</div>
+      </fieldset>
+      <div class="bb-sum" data-js-only>
+        <ol class="bb-lines" data-bb-lines aria-live="polite"></ol>
+        <div class="bb-total"><span>Brunch total</span><b data-bb-total>£0</b></div>
+        <p class="rs-small" data-bb-all></p>
+        <a class="btn bb-go" href="#book" data-bb-go>Add to my table request</a>
+        <p class="rs-small">Your plates go with the table request as a pre-order; we confirm both when we reply.{% if br.note %} {{ br.note }}{% endif %}</p>
+      </div>
+    </div>
+  </div>
+</div></section>

@@ -1,0 +1,19 @@
+{#- Paint correction on a 3D car: the studio's own photograph of correction first, its words and its steps (a real
+    order, so numbered); on tap the visitor's size of car in the bay, a tape line down the middle of the bonnet and
+    roof, swirled on one side and corrected on the other, and a strip light the visitor moves along it. Labelled an
+    illustration. -#}
+{%- set sec = site.sections.correction3d %}
+{%- set c = site.correction %}
+<section id="correction" class="dt-c3" data-feature="correction-3d" aria-label="{{ sec.title | plain }}"><div class="wrap dt-c3-in">
+  <div class="dt-c3-words">
+    {%- include "core/partials/section-head.njk" %}
+    <p class="dt-c3-t">{{ c.text }}</p>
+    <ol class="dt-c3-steps">{% for s in c.steps %}<li><b>{{ s.name }}</b><span>{{ s.text }}</span></li>{% endfor %}</ol>
+    {%- if c.package %}{% set p = site | pkgOf(c.package) %}<p class="dt-c3-pk">{{ p.name }}, from <b data-size-price="{{ p.prices | dump }}">{{ (p | priceIn(site.sizes[0].id)) or "Ask us" }}</b></p>{% endif %}
+  </div>
+  <div class="dt-c3-stage">
+    {%- set stg = { photo: c.photo, tag: "Illustration", note: "An illustration: swirls on the left of the tape, corrected paint on the right." } %}{% set stgId = "c3" %}
+    {% include "kits/detailing/partials/stage-3d.njk" %}
+    <label class="dt-3d-light" data-c3-light hidden><span>Move the light</span><input type="range" min="0" max="100" value="62" data-c3-range aria-label="Move the strip light along the car"></label>
+  </div>
+</div></section>

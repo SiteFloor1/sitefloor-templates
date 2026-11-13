@@ -1,0 +1,27 @@
+{#- The wedding-day light, as one sentence you can change: "On [date] at [place] the sun sets at 21:29." The date and
+    place are the controls (each a native picker under its words). Below: golden and blue hour, the day drawn to scale
+    from 04:00 to 23:00, the portrait window the studio keeps, the calendar file and WhatsApp. The page is built with
+    the studio's opening date and place already worked out, so it reads right before the script runs. -#}
+{%- set lp = site.lightPlanner %}
+{%- set sec = site.sections.lightPlanner %}
+{%- set L = site | lightAt(lp.date, lp.place) %}
+<section id="light" class="wf-light" data-feature="light-planner" aria-labelledby="lp-h"{{ "light-planner" | tierAttr | safe }}><div class="wrap wf-light-in">
+  <div class="wf-light-tool">
+    <h2 id="lp-h" class="wf-vh">{{ sec.title | plain }}</h2>
+    <p class="wf-sentence">On <label class="wf-pick"><span data-lp-date-text>{{ lp.date | ukDay }}</span><input type="date" data-lp-date value="{{ lp.date }}" aria-label="Wedding date"></label> at <label class="wf-pick"><span data-lp-place-text>{{ L.place.name }}</span><select data-lp-place aria-label="Where">{% for p in site.places.items %}<option value="{{ p.id }}"{% if p.id == L.place.id %} selected{% endif %}>{{ p.name }}</option>{% endfor %}</select></label> the sun sets at <b data-lp-set>{{ L.sunset or "—" }}</b>.</p>
+    <p class="wf-facts" data-lp-facts aria-live="polite">{% if L.goldenFrom and L.goldenTo %}Golden hour {{ L.goldenFrom }} to {{ L.goldenTo }}<span>{% if L.blueTo %}, then blue hour until {{ L.blueTo }}{% endif %}.</span>{% endif %}</p>
+    <div class="wf-day" aria-hidden="true">
+      <div class="wf-track" data-lp-track>
+        {%- if L.goldenFrom and L.goldenTo %}<span class="wf-band" style="left:{{ L.goldenFrom | along }}%;width:{{ L.goldenFrom | between(L.goldenTo) }}%"></span>{% endif %}
+        {%- if L.goldenTo and L.blueTo %}<span class="wf-band wf-blue" style="left:{{ L.goldenTo | along }}%;width:{{ L.goldenTo | between(L.blueTo) }}%"></span>{% endif %}
+        {%- if L.sunrise %}<span class="wf-tick" style="left:{{ L.sunrise | along }}%"></span><span class="wf-lbl wf-minor" style="left:{{ L.sunrise | along }}%">Sunrise {{ L.sunrise }}</span>{% endif %}
+        {%- if L.sunset %}<span class="wf-tick" style="left:{{ L.sunset | along }}%"></span><span class="wf-lbl" style="left:{{ L.sunset | along }}%">Sunset {{ L.sunset }}</span>{% endif %}
+      </div>
+      <div class="wf-hours"><span>04:00</span><span>09:00</span><span>14:00</span><span>19:00</span><span>23:00</span></div>
+    </div>
+    {%- if lp.portrait %}<p class="wf-advice" data-lp-advice>{% if L.portrait %}We keep {{ L.portrait.from }} to {{ L.portrait.to }} free for your portraits.{% endif %}</p>{% endif %}
+    <p class="wf-light-acts"><a class="wf-go" data-lp-send href="{{ lp.message | book }}" target="_blank" rel="noopener">Send us this date on WhatsApp</a> <a class="wf-quiet" data-lp-ics href="#" hidden>Add golden hour to your calendar</a></p>
+    <p class="wf-small">Calculated from the sun's position for that day and place, to the nearest minute. Cloud is another matter.</p>
+  </div>
+  {%- if lp.photo %}<figure class="wf-light-ph"><img src="{{ lp.photo.src | img }}" alt="{{ lp.photo.alt }}" width="{{ lp.photo.width }}" height="{{ lp.photo.height }}" loading="lazy" decoding="async">{% if lp.photo.caption %}<figcaption>{{ lp.photo.caption }}</figcaption>{% endif %}</figure>{% endif %}
+</div></section>

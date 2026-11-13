@@ -1,0 +1,7 @@
+{#- An inner page's opening: where it sits, the page's name large and light, its line beneath. Set `ph` to
+    { kicker, title, intro } first. -#}
+<header class="sm-ph"><div class="wrap sm-ph-in">
+  <p class="sm-ph-k"><a href="{{ 'index' | href }}">{{ site.business.name }}</a> <span aria-hidden="true">/</span> {{ ph.kicker or ph.title | plain }}</p>
+  <h1 class="sm-ph-t">{{ ph.title | markup | safe }}</h1>
+  {%- if ph.intro %}<p class="sm-ph-i">{{ ph.intro }}</p>{% endif %}
+</div></header>

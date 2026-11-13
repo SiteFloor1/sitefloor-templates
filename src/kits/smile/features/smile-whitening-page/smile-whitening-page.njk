@@ -1,0 +1,25 @@
+{#- The whitening page: the UK rule first (who may whiten, linked and dated), then the studio's ways of whitening and
+    what to expect, in the clinician's own words, the whitening treatments with prices, and the under-18 rule. -#}
+{%- set w = site.whiteningPage %}
+{%- set by = site.clinicians | clinician(w.by) %}
+{%- set ph = { kicker: "Whitening", title: w.title, intro: w.intro } %}
+{%- include "kits/smile/partials/page-head.njk" %}
+<div class="sm-wp" data-feature="smile-whitening-page"><div class="wrap sm-wp-in">
+  <section class="sm-wp-law" aria-labelledby="wp-law">
+    <h2 id="wp-law">Who may whiten teeth</h2>
+    <p>{{ gdc.rule }} <a href="{{ gdc.sources.whitening.url }}" target="_blank" rel="noopener">{{ gdc.sources.whitening.name }}</a>, checked {{ gdc.checked }}.</p>
+    <p>{{ gdc.under18 }}</p>
+  </section>
+  {%- for s in w.ways %}
+  <section class="sm-wp-part"><h2>{{ s.heading }}</h2><p>{{ s.text }}</p></section>
+  {%- endfor %}
+  <section class="sm-wp-part"><h2>Sensitivity</h2><p>{{ w.sensitivity }}</p></section>
+  {%- if w.crowns %}<section class="sm-wp-part"><h2>Crowns, veneers and fillings</h2><p>{{ w.crowns }}</p></section>{% endif %}
+  <p class="sm-wp-by">Written by {% set p = by %}{% include "kits/smile/partials/clinician-line.njk" %}</p>
+  <ul class="sm-tx-list">
+    {%- for t in site.treatments | whitening %}
+    <li class="sm-tx-row"><h3 class="sm-tx-name">{{ t.name }}</h3><p class="sm-tx-line">{{ t.line }} {{ t.visits | spanWords }}.</p><p class="sm-tx-price">{{ t.price | price }}</p></li>
+    {%- endfor %}
+  </ul>
+  {%- include "kits/smile/partials/rules.njk" %}
+</div></div>

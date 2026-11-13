@@ -1,0 +1,11 @@
+{#- The lace, close: a large photograph with a loupe that follows the finger or pointer (arrow keys too); the shop's
+    notes beside it. Without JavaScript, the photograph and the notes. -#}
+{%- set sec = site.sections.lace %}
+{%- set l = site.lace %}
+<section id="lace" class="ls-lace" data-feature="lace-viewer"{{ "lace-viewer" | tierAttr | safe }}><div class="wrap lace-in">
+  <div class="lace-stage" data-lace-stage data-zoom="{{ l.zoom }}" tabindex="0" aria-label="{{ l.photo.alt }}. Move the pointer, or use the arrow keys, to look closer.">
+    {% set ph = l.photo %}{% include "kits/lingerie/partials/photo.njk" %}
+    <span class="lace-loupe" data-lace-loupe aria-hidden="true" hidden style="background-image:url('{{ l.photo.src | img }}')"></span>
+  </div>
+  <div class="lace-t">{% include "core/partials/section-head.njk" %}<ul class="lace-notes">{% for n in l.notes %}<li>{{ n }}</li>{% endfor %}</ul></div>
+</div></section>

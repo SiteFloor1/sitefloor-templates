@@ -1,0 +1,5 @@
+{#- An inner page's opening: the page's name very large, its line beside it. Set `ph` to { title, intro }. -#}
+<header class="ck-ph"><div class="wrap ck-ph-in">
+  <h1 class="ck-ph-t">{{ ph.title | markup | safe }}</h1>
+  {%- if ph.intro %}<p class="ck-ph-i">{{ ph.intro }}</p>{% endif %}
+</div></header>

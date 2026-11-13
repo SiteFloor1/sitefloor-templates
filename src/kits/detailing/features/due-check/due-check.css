@@ -1,0 +1,7 @@
+/* Is my car due: the choices on the left, the answer on the right under a lit line, large. */
+.dt-dc-in { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(28px, 5vw, 96px); align-items: start; }
+.dt-dc-f { display: grid; gap: clamp(22px, 3vw, 34px); margin-top: 8px; }
+.dt-dc-out { display: grid; gap: 12px; justify-items: start; }
+.dt-dc-out .tube { width: 100%; }
+.dt-dc-when { margin: 8px 0 0; font-family: var(--font-display); font-weight: 300; font-size: clamp(34px, 4vw, 56px); line-height: 1.05; letter-spacing: -.03em; }
+@media (max-width: 900px) { .dt-dc-in { grid-template-columns: 1fr; } }

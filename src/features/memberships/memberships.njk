@@ -1,0 +1,26 @@
+{%- set sec = site.sections.memberships %}
+{%- set m = site.memberships %}
+{%- set svc = m.compareService | service %}
+{%- set cmp = 3 | compareMemberships(m, svc.price) %}
+<section id="memberships" class="sec-members" data-feature="memberships"{{ "memberships" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="mb-calc rv">
+    <label class="mb-q" for="mb-weeks">I get a {{ svc.name | lower }} every <output data-mb-weeks for="mb-weeks">3</output> <span data-mb-unit>weeks</span></label>
+    <input id="mb-weeks" data-js-only type="range" min="1" max="8" step="1" value="3" data-mb-range>
+    <p class="mb-payg">Paying each time: <b data-mb-payg>{{ cmp.payg | pounds }}</b> a month</p>
+  </div>
+  <div class="mb-plans">
+    {%- for p in m.plans %}{% set row = cmp.plans[loop.index0] %}
+    <article class="mb-plan rv{% if p.featured %} featured{% endif %}{% if cmp.best == p.name %} best{% endif %}" data-mb-plan="{{ loop.index0 }}">
+      <p class="mb-tag" data-mb-tag>{% if cmp.best == p.name %}Best for you{% elif p.featured %}Most popular{% endif %}</p>
+      <h3>{{ p.name }}</h3>
+      <p class="mb-price"><b>{{ p.price | pounds }}</b><span>a month</span></p>
+      <p class="mb-cuts">{% if p.cuts == "unlimited" %}Unlimited {{ svc.name | lower }}s{% else %}{{ p.cuts }} {{ svc.name | lower }}{% if p.cuts > 1 %}s{% endif %} a month{% endif %}</p>
+      {%- if p.includes %}<ul>{% for i in p.includes %}<li>{{ i }}</li>{% endfor %}</ul>{% endif %}
+      <p class="mb-save" data-mb-save>{% if row.saving > 0 %}You'd save {{ row.saving | pounds }} a month{% elif row.saving < 0 %}{{ (0 - row.saving) | pounds }} a month more than paying each time{% else %}Same as paying each time{% endif %}</p>
+      <a class="btn{% if not p.featured %} ghost{% endif %}" href="{{ ((m.join or 'Hi, I would like to join the membership:') + ' ' + p.name) | wa }}" target="_blank" rel="noopener">Join {{ p.name }}</a>
+    </article>
+    {%- endfor %}
+  </div>
+  <p class="mb-terms">{{ m.terms }} Worked out from our {{ svc.name | lower }} price ({{ svc.price | pounds }}); cuts beyond a plan are at that price.</p>
+</div></section>

@@ -1,0 +1,10 @@
+/* The colour page, and the shared steps and "who does it" rows. Tokens only. */
+.hr-steps { list-style: none; counter-reset: st; margin: 28px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px 32px; }
+.hr-steps li { counter-increment: st; display: grid; gap: 6px; padding-top: 16px; border-top: 1px solid var(--text); }
+.hr-steps li::before { content: counter(st); color: var(--accent); font-family: var(--font-display); font-size: 40px; line-height: 1; }
+.hr-steps span { color: var(--muted); }
+.hr-who { list-style: none; margin: 28px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 32px 24px; }
+.hr-who li { display: grid; gap: 4px; align-content: start; }
+.hr-who img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; display: block; margin-bottom: 10px; }
+.hr-who span { color: var(--muted); font-size: 14px; }
+.hr-cp-prices .hr-lvl { margin: 20px 0 8px; }

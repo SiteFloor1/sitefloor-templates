@@ -1,0 +1,582 @@
+{
+  "schemaVersion": 4,
+  "id": "test-smile-client",
+  "mode": "client",
+  "plan": "plus",
+  "kit": "smile",
+  "look": "booth",
+  "url": "https://bright-test-studio.co.uk",
+  "indexable": true,
+  "lang": "en-GB",
+  "business": {
+    "name": "Bright Room",
+    "schemaType": "Dentist",
+    "description": "Teeth whitening by a dentist in Leeds.",
+    "priceRange": "££",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "447911123458",
+    "phone": "+44 7911 123458",
+    "email": "hello@bright-test-studio.co.uk"
+  },
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "location": {
+    "streetAddress": "12 Test Row",
+    "locality": "Leeds",
+    "postcode": "LS1 4AP",
+    "country": "GB",
+    "area": "Off Briggate.",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=Briggate%2C%20Leeds"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [],
+      "tue": [
+        [
+          "08:00",
+          "19:00"
+        ]
+      ],
+      "wed": [
+        [
+          "08:00",
+          "19:00"
+        ]
+      ],
+      "thu": [
+        [
+          "08:00",
+          "20:30"
+        ]
+      ],
+      "fri": [
+        [
+          "08:00",
+          "17:00"
+        ]
+      ],
+      "sat": [
+        [
+          "09:00",
+          "15:00"
+        ]
+      ],
+      "sun": []
+    },
+    "exceptions": [
+      {
+        "date": "2026-12-24",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2026-12-26",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      }
+    ]
+  },
+  "nav": [
+    {
+      "label": "Whitening",
+      "page": "whitening",
+      "feature": "smile-whitening-page"
+    },
+    {
+      "label": "Treatments",
+      "page": "treatments",
+      "feature": "smile-treatments-page",
+      "fallback": "#treatments"
+    },
+    {
+      "label": "Visit",
+      "page": "visit",
+      "feature": "plan-visit",
+      "fallback": "#visit"
+    }
+  ],
+  "features": [
+    "smile-treatments",
+    "smile-clinicians",
+    "smile-before-book",
+    "smile-patient-info",
+    "smile-chooser",
+    "smile-treatments-page",
+    "smile-whitening-page",
+    "smile-journey",
+    "smile-aftercare",
+    "visit",
+    "plan-visit",
+    "questions"
+  ],
+  "hero": {
+    "kicker": "Teeth whitening, Leeds",
+    "title": "Teeth whitening,|by a dentist.",
+    "intro": "Dr Ada Test's studio in Leeds. Consultation £45.",
+    "strip": {
+      "label": "A photo-booth strip of four models laughing",
+      "frames": [
+        {
+          "src": "img/strip-1.webp",
+          "width": 720,
+          "height": 900,
+          "alt": "A woman smiling in dappled light",
+          "focus": "50% 45%"
+        },
+        {
+          "src": "img/strip-2.webp",
+          "width": 720,
+          "height": 900,
+          "alt": "A woman laughing, eyes closed",
+          "focus": "50% 40%"
+        },
+        {
+          "src": "img/strip-3.webp",
+          "width": 720,
+          "height": 900,
+          "alt": "A woman with curly hair smiling",
+          "focus": "50% 42%"
+        },
+        {
+          "src": "img/strip-4.webp",
+          "width": 720,
+          "height": 900,
+          "alt": "A woman in a hood laughing",
+          "focus": "50% 38%"
+        }
+      ],
+      "models": true
+    }
+  },
+  "sections": {
+    "chooser": {
+      "title": "Tell me what you'd change"
+    },
+    "treatments": {
+      "title": "Treatments and prices",
+      "intro": "Prices from the studio's own list. Your plan, and its price, are confirmed at consultation."
+    },
+    "clinicians": {
+      "title": "Who treats you",
+      "intro": "A dentist and a hygienist, both registered with the General Dental Council."
+    },
+    "beforeBook": {
+      "title": "Before you book",
+      "intro": "Every treatment starts with a consultation."
+    },
+    "wedding": {
+      "title": "When's the big day?",
+      "intro": "Whitening takes a few weeks. Tell us the date and we'll tell you when to start."
+    },
+    "questions": {
+      "title": "Asked in our messages"
+    },
+    "visit": {
+      "title": "Find us"
+    }
+  },
+  "messages": {
+    "general": "Hi Bright Room, I have a question."
+  },
+  "clinicians": {
+    "items": [
+      {
+        "id": "marlie",
+        "name": "Dr Ada Test",
+        "role": "dentist",
+        "qualification": "BDS",
+        "country": "United Kingdom",
+        "gdc": "100001",
+        "interest": "special interest in whitening and bonding",
+        "lead": true,
+        "bio": "I opened the studio so you could ask anything and get a straight answer. I'll always tell you what's realistic for your teeth, even when it's less than you hoped."
+      },
+      {
+        "id": "leah",
+        "name": "Leah Morgan",
+        "role": "hygienist",
+        "qualification": "Diploma in Dental Hygiene",
+        "country": "United Kingdom",
+        "gdc": "100002",
+        "prescribedBy": "marlie",
+        "bio": "Leah does every clean before whitening, and fits trays on Dr Ada's prescription."
+      }
+    ]
+  },
+  "treatments": {
+    "items": [
+      {
+        "id": "whitening-home",
+        "name": "Whitening at home",
+        "line": "Trays made for your teeth, and gel you wear in the evenings.",
+        "price": {
+          "from": 395
+        },
+        "by": [
+          "marlie",
+          "leah"
+        ],
+        "whitening": true,
+        "visits": [
+          {
+            "label": "Consultation",
+            "minutes": 45
+          },
+          {
+            "label": "Trays fitted",
+            "minutes": 30,
+            "after": 2,
+            "note": "We show you how much gel to use."
+          },
+          {
+            "label": "Check-in",
+            "minutes": 15,
+            "after": 3
+          }
+        ]
+      },
+      {
+        "id": "whitening-studio",
+        "name": "Whitening in the studio",
+        "line": "One long visit here, then trays to finish at home.",
+        "price": {
+          "from": 650
+        },
+        "by": [
+          "marlie"
+        ],
+        "whitening": true,
+        "visits": [
+          {
+            "label": "Consultation",
+            "minutes": 45
+          },
+          {
+            "label": "Whitening",
+            "minutes": 120,
+            "after": 1,
+            "note": "Bring headphones if you like."
+          },
+          {
+            "label": "Check-in",
+            "minutes": 15,
+            "after": 2
+          }
+        ]
+      },
+      {
+        "id": "bonding",
+        "name": "Composite bonding",
+        "line": "Chips, small gaps and uneven edges built up in tooth-coloured resin.",
+        "price": {
+          "from": 280,
+          "unit": "a tooth"
+        },
+        "by": [
+          "marlie"
+        ],
+        "visits": [
+          {
+            "label": "Consultation",
+            "minutes": 45
+          },
+          {
+            "label": "Bonding",
+            "minutes": 90,
+            "after": 1,
+            "note": "Usually no injection needed."
+          }
+        ]
+      },
+      {
+        "id": "hygiene",
+        "name": "Hygiene",
+        "line": "A clean before any whitening, and every six months after.",
+        "price": {
+          "fixed": 95
+        },
+        "by": [
+          "leah"
+        ],
+        "visits": [
+          {
+            "label": "Hygiene",
+            "minutes": 45
+          }
+        ]
+      }
+    ]
+  },
+  "consultation": {
+    "title": "A consultation",
+    "intro": "Forty-five minutes with Dr Ada. Nothing is decided in the room.",
+    "message": "Hi Bright Room, I'd like to book a consultation.",
+    "facts": [
+      {
+        "label": "Length",
+        "value": "45 minutes"
+      },
+      {
+        "label": "Fee",
+        "value": "£45, taken off any treatment"
+      },
+      {
+        "label": "With",
+        "value": "Dr Ada Test"
+      }
+    ],
+    "bring": [
+      "a list of any medicines you take",
+      "your dentist's details if you have one"
+    ],
+    "steps": [
+      {
+        "heading": "We look",
+        "text": "Dr Ada checks your teeth and gums and takes photographs for your record, which stay in your notes."
+      },
+      {
+        "heading": "We talk",
+        "text": "What you'd change, what's realistic for your teeth, what it costs and how many visits."
+      },
+      {
+        "heading": "You think",
+        "text": "You leave with a written plan and price. Book when you're ready, or not at all."
+      }
+    ]
+  },
+  "chooser": {
+    "quote": "Tell me what you'd change about your smile. I'll tell you honestly what's possible.",
+    "by": "marlie",
+    "note": "We reply within a working day. Please don't send photos of your teeth here.",
+    "options": [
+      {
+        "label": "Whiter for my wedding",
+        "message": "Hi Bright Room, I'm getting married next year and I'd love whiter teeth for it. Could I book a consultation?"
+      },
+      {
+        "label": "A chipped tooth",
+        "message": "Hi Bright Room, I've chipped a front tooth. Could bonding help? I'd like to book a consultation."
+      },
+      {
+        "label": "Gaps or uneven edges",
+        "message": "Hi Bright Room, I'd like to talk about the gaps and uneven edges on my front teeth. Could I book a consultation?"
+      },
+      {
+        "label": "Sensitive teeth",
+        "message": "Hi Bright Room, my teeth are quite sensitive. Is whitening still possible for me?"
+      },
+      {
+        "label": "Just prices",
+        "message": "Hi Bright Room, could you send me your prices for whitening and bonding? Thank you."
+      }
+    ]
+  },
+  "whiteningPage": {
+    "title": "Whitening",
+    "intro": "By a dentist, at home or here.",
+    "by": "marlie",
+    "ways": [
+      {
+        "heading": "At home",
+        "text": "Trays made for your teeth and a gentle gel, worn in the evenings for around three weeks. Most people start here."
+      },
+      {
+        "heading": "In the studio",
+        "text": "About two hours in the chair with a stronger gel, then trays to finish at home. Sooner, and dearer."
+      },
+      {
+        "heading": "How white",
+        "text": "We won't promise a shade. Teeth lighten from their own starting colour, and at consultation I'll show you what's realistic for yours."
+      }
+    ],
+    "sensitivity": "Some people feel sensitive for a day or two. If you do, skip an evening or two; we'll give you a toothpaste for it and slow the plan down.",
+    "crowns": "Crowns, veneers and fillings don't change colour. If you have them at the front, we plan around them before we start."
+  },
+  "journeyPage": {
+    "title": "Visit by visit",
+    "intro": "Choose a treatment to see each visit and the weeks between. Give us your first date and we'll date the rest."
+  },
+  "aftercare": {
+    "title": "Aftercare",
+    "intro": "In Dr Ada's words, for after whitening and bonding.",
+    "urgent": "If something feels wrong after treatment, call us on 0113 496 0000. Out of hours, call NHS 111.",
+    "sections": [
+      {
+        "heading": "The first two days",
+        "text": "Go easy on coffee, red wine and anything that would stain a white shirt. Brush gently with the toothpaste we gave you."
+      },
+      {
+        "heading": "Sensitivity",
+        "text": "A little is common and passes. If it doesn't after two days, stop wearing your trays and message us."
+      },
+      {
+        "heading": "Bonding",
+        "text": "Treat it like your own teeth: no opening packets with them, and a night guard if we've given you one."
+      }
+    ],
+    "reminders": [
+      {
+        "id": "hygiene",
+        "label": "Hygiene visit at Bright Room",
+        "months": 6,
+        "note": "Book on WhatsApp: 0113 496 0000."
+      },
+      {
+        "id": "top-up",
+        "label": "Whitening top-up gel",
+        "months": 12,
+        "note": "Order a tube from the studio."
+      }
+    ]
+  },
+  "patientInfo": {
+    "title": "Patient information and complaints",
+    "intro": "How we look after you, who regulates us, and what to do if you're unhappy.",
+    "status": "private",
+    "complaints": {
+      "steps": [
+        "Tell us: at the studio, on the phone, or by email.",
+        "Dr Ada looks into it herself and replies in writing within ten working days.",
+        "If you're still unhappy, we'll arrange a time to talk it through."
+      ],
+      "contact": "Email complaints@bright-test-studio.co.uk, or write to Bright Room, 4 Test Row, London LS1 4AP.",
+      "replyDays": 3
+    },
+    "notes": [
+      {
+        "heading": "Your records",
+        "text": "Your notes and photographs stay in your record at the studio. We never publish a patient's photograph without their written consent."
+      }
+    ]
+  },
+  "questions": [
+    {
+      "topic": "Whitening",
+      "q": "Is whitening done by a dentist?",
+      "a": "Yes. Only a registered dentist, or a hygienist on a dentist's prescription, may whiten teeth in the UK. Dr Ada prescribes every whitening here.",
+      "home": true
+    },
+    {
+      "topic": "Whitening",
+      "q": "How white will my teeth go?",
+      "a": "We won't promise a shade. At your consultation Dr Ada shows you what's realistic for your teeth.",
+      "home": true
+    },
+    {
+      "topic": "Whitening",
+      "q": "Can I whiten if I'm under 18?",
+      "a": "No. We don't whiten teeth for anyone under 18."
+    },
+    {
+      "topic": "Whitening",
+      "q": "Will my crowns or fillings change colour?",
+      "a": "No. We plan around them before we start."
+    },
+    {
+      "topic": "Booking",
+      "q": "Do I need a consultation first?",
+      "a": "Yes, always. It's 45 minutes and £45, taken off any treatment.",
+      "home": true
+    },
+    {
+      "topic": "Booking",
+      "q": "Can I pay in instalments?",
+      "a": "Not at the moment. You pay for each visit on the day, by card."
+    },
+    {
+      "topic": "Visiting",
+      "q": "Is it NHS or private?",
+      "a": "Private. We don't offer NHS treatment.",
+      "home": true
+    },
+    {
+      "topic": "Visiting",
+      "q": "Is the studio step-free?",
+      "a": "Yes, both rooms are on the ground floor."
+    }
+  ],
+  "visitInfo": {
+    "kicker": "Plan your visit",
+    "title": "Finding *Test Row.*",
+    "intro": "Off Briggate.",
+    "checked": "2026-11",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "Leeds station",
+        "origin": "Leeds station",
+        "minutes": 8,
+        "steps": [
+          "Walk up Briggate"
+        ]
+      }
+    ],
+    "parking": [
+      {
+        "name": "Pay-by-phone bays nearby",
+        "walk": 4,
+        "price": "check the signs on the street",
+        "paid": {
+          "mon": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "tue": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "wed": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "thu": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "fri": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "sat": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ]
+        },
+        "note": "Residents' bays are marked; avoid those.",
+        "bankHolidays": "sunday"
+      }
+    ],
+    "access": [
+      {
+        "label": "Step-free entrance",
+        "yes": true
+      },
+      {
+        "label": "Both rooms on the ground floor",
+        "yes": true
+      },
+      {
+        "label": "Accessible toilet",
+        "yes": false
+      }
+    ],
+    "accessNote": "Everything is on the ground floor; the toilet is small, so tell us if you'd like help.",
+    "payment": "Card only."
+  }
+}

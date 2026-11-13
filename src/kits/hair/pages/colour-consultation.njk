@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: colour-consultation
+permalink: colour-consultation.html
+feature: colour-consult
+eleventyComputed:
+  title: "{{ site.consultation.title | plain }}"
+  description: "{{ site.consultation.description or site.consultation.intro }}"
+---
+{% include "kits/hair/features/colour-consult/colour-consult.njk" %}

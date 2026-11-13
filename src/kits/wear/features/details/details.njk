@@ -1,0 +1,13 @@
+{#- In detail: the brand's close-ups, very large, one short line each. -#}
+{%- set sec = site.sections.details %}
+<section id="details" class="wr-details" data-feature="details"{{ "details" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <ul class="wr-details-list">
+    {%- for x in site.details.items %}
+    <li class="wr-detail rv"><figure>
+      <img src="{{ x.photo.src | img }}" alt="{{ x.photo.alt }}" width="{{ x.photo.width }}" height="{{ x.photo.height }}" loading="lazy" decoding="async">
+      <figcaption>{{ x.line }}</figcaption>
+    </figure></li>
+    {%- endfor %}
+  </ul>
+</div></section>

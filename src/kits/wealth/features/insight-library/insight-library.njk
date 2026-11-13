@@ -1,0 +1,29 @@
+{#- The insights page: every approved insight, newest first, with a filter by subject. Each folds out to its full text,
+    its author and the date compliance approved it. Linked by #id from the home page. -#}
+{%- set ins = site.insights %}
+{%- set ph = { title: ins.title, intro: ins.intro } %}
+{% include "kits/wealth/partials/page-head.njk" %}
+<section class="wm-insp" data-feature="insight-library"><div class="wrap">
+  <p class="wm-ins-risk">{{ fca.notAdvice }}. {{ site.regulation.capitalAtRisk or fca.capitalAtRisk }}</p>
+  <div class="wm-insp-f" role="group" aria-label="Subjects" data-js-only data-insp-filter></div>
+  <div class="wm-insp-list" data-insp-list>
+    {%- for x in (ins.items | newestFirst) %}
+    {%- set p = ins | insightPhoto(x.photo) %}
+    <article class="wm-insp-e" id="{{ x.id }}" data-cat="{{ x.category }}">
+      <img src="{{ p.src | img }}" alt="{{ p.alt }}" width="{{ p.width }}" height="{{ p.height }}" loading="lazy" decoding="async">
+      <div class="wm-insp-b">
+        <span class="wm-ins-meta"><span>{{ x.category }}</span><time datetime="{{ x.date }}">{{ x.date | ukDate }}</time></span>
+        <h2>{{ x.title }}</h2>
+        <p class="wm-insp-s">{{ x.summary }}</p>
+        <details class="wm-insp-d"><summary>Read the full insight</summary><div class="wm-insp-full">
+          {%- for para in x.body %}<p>{{ para }}</p>{% endfor %}
+          <p class="wm-insp-by">{% if x.author %}By {{ x.author }}. {% endif %}Approved for publication on {{ x.approvedOn | ukDate }}.</p>
+        </div></details>
+        <span class="wm-ins-tag">{{ fca.notAdvice }}</span>
+      </div>
+    </article>
+    {%- endfor %}
+  </div>
+  <p class="wm-ins-off" data-ins-off hidden>Our insights aren't loading just now. Please try again shortly.</p>
+  {% include "kits/wealth/features/insights/photos.njk" %}
+</div></section>

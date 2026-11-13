@@ -1,0 +1,32 @@
+{%- set sec = site.sections.vouchers %}
+{%- set v = site.vouchers %}
+<section id="vouchers" class="sec-vouchers" data-feature="vouchers"{{ "vouchers" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="vc">
+    <form class="vc-form rv" data-vc-form>
+      <div class="vc-fields" data-js-only>
+      <fieldset class="vc-amounts">
+        <legend>Amount</legend>
+        {%- for a in v.amounts %}<label><input type="radio" name="vc-amount" value="{{ a }}"{% if loop.index0 == 1 or v.amounts.length == 1 and loop.first %} checked{% endif %}><span>{{ a | pounds }}</span></label>{% endfor %}
+        {%- if v.custom %}<label class="vc-other"><input type="radio" name="vc-amount" value="custom"><span>Other</span></label>
+        <input class="vc-custom" type="number" inputmode="numeric" min="{{ v.custom.min }}" max="{{ v.custom.max }}" step="1" placeholder="£{{ v.custom.min }}–{{ v.custom.max }}" aria-label="Other amount in pounds" data-vc-custom hidden>{% endif %}
+      </fieldset>
+      <label class="vc-f">For <input type="text" maxlength="40" autocomplete="off" data-vc-to placeholder="Their name"></label>
+      <label class="vc-f">From <input type="text" maxlength="40" autocomplete="name" data-vc-from placeholder="Your name"></label>
+      <label class="vc-f">Message <input type="text" maxlength="90" autocomplete="off" data-vc-note placeholder="Happy birthday!"></label>
+      <p class="vc-err" data-vc-err role="alert" hidden></p>
+      </div>
+      <p class="vc-how" data-no-js>Message us the amount, who it's for and any message for the card.</p>
+      <a class="btn" href="{{ 'Hi, I would like to buy a gift voucher. How can I pay?' | wa }}" target="_blank" rel="noopener" data-vc-order>{% include "core/partials/icon-whatsapp.njk" %}Order on WhatsApp</a>
+      <p class="vc-how">{{ v.howToBuy }}</p>
+    </form>
+    <div class="vc-card rv" aria-live="polite">
+      <p class="vc-shop">{{ site.business.name }}</p>
+      <p class="vc-amount" data-vc-show-amount>{{ (v.amounts[1] or v.amounts[0]) | pounds }}</p>
+      <p class="vc-to" data-vc-show-to>Gift voucher</p>
+      <p class="vc-note" data-vc-show-note></p>
+      <p class="vc-small">Valid {{ v.validMonths }} months from purchase · {{ site.location.streetAddress }}, {{ site.location.locality }}</p>
+    </div>
+  </div>
+  <p class="vc-terms">{{ v.terms }}</p>
+</div></section>

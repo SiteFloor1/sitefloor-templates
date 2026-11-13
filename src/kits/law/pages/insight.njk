@@ -1,0 +1,14 @@
+---
+layout: core/layouts/base.njk
+feature: insights-page
+pagination:
+  data: site.insights.items
+  size: 1
+  alias: art
+permalink: "{{ art.id }}.html"
+eleventyComputed:
+  pageId: "{{ art.id }}"
+  title: "{{ art.title }}"
+  description: "{{ art.summary }}"
+---
+{%- set kind = "insight" %}{% include "kits/law/partials/article.njk" %}

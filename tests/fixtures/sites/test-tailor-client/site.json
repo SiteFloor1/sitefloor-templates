@@ -1,0 +1,514 @@
+{
+  "schemaVersion": 4,
+  "id": "test-tailor-client",
+  "mode": "client",
+  "plan": "signature",
+  "kit": "tailor",
+  "look": "flannel",
+  "url": "https://hollis-and-vane-test.co.uk",
+  "indexable": true,
+  "lang": "en-GB",
+  "business": {
+    "name": "Hollis & Vane",
+    "schemaType": "ClothingStore",
+    "description": "Bespoke tailors in Bath, by appointment: suits, jackets and overcoats cut by hand.",
+    "priceRange": "£££",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "447911123461",
+    "phone": "+44 7911 123461",
+    "email": "hello@hollis-and-vane-test.co.uk"
+  },
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "location": {
+    "streetAddress": "14 Quiet Street",
+    "locality": "Bath",
+    "postcode": "BA1 2JS",
+    "country": "GB",
+    "area": "Off Milsom Street, Bath.",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=Quiet%20Street%2C%20Bath"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [
+        [
+          "09:30",
+          "18:00"
+        ]
+      ],
+      "tue": [
+        [
+          "09:30",
+          "18:00"
+        ]
+      ],
+      "wed": [
+        [
+          "09:30",
+          "18:00"
+        ]
+      ],
+      "thu": [
+        [
+          "09:30",
+          "19:30"
+        ]
+      ],
+      "fri": [
+        [
+          "09:30",
+          "18:00"
+        ]
+      ],
+      "sat": [
+        [
+          "10:00",
+          "16:00"
+        ]
+      ],
+      "sun": []
+    },
+    "exceptions": [
+      {
+        "date": "2026-12-24",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2026-12-26",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2026-12-28",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2026-12-31",
+        "ranges": [
+          [
+            "09:30",
+            "13:00"
+          ]
+        ],
+        "note": "Closing early"
+      },
+      {
+        "date": "2027-01-02",
+        "ranges": [],
+        "note": "Closed for the new year"
+      }
+    ]
+  },
+  "nav": [
+    {
+      "label": "Cloth",
+      "href": "#cloth",
+      "feature": "cloth-book"
+    },
+    {
+      "label": "Trunk shows",
+      "page": "trunk-shows",
+      "feature": "travels"
+    },
+    {
+      "label": "Visit",
+      "page": "visit",
+      "feature": "plan-visit",
+      "fallback": "#visit"
+    }
+  ],
+  "features": [
+    "garments",
+    "the-process",
+    "visit",
+    "plan-visit",
+    "questions",
+    "cloth-book",
+    "travels",
+    "commission"
+  ],
+  "hero": {
+    "kicker": "Bespoke tailors, Mayfair",
+    "title": "The coat, cut to you.",
+    "intro": "Bespoke tailoring off Savile Row, by appointment.",
+    "cut": {
+      "src": "img/photo.webp",
+      "width": 300,
+      "height": 400,
+      "alt": "The cutting table"
+    },
+    "cutPhone": {
+      "src": "img/photo.webp",
+      "width": 300,
+      "height": 400
+    },
+    "stand": {
+      "src": "img/photo.webp",
+      "width": 300,
+      "height": 400,
+      "alt": "A coat on its stand"
+    }
+  },
+  "sections": {
+    "cloth": {
+      "title": "Choose the cloth.",
+      "intro": "Tap a length to see the weave."
+    },
+    "commission": {
+      "title": "Your coat, between fittings."
+    },
+    "garments": {
+      "title": "What we make",
+      "intro": "Each one cut from your own paper pattern, kept for the next."
+    },
+    "process": {
+      "title": "How a commission runs"
+    },
+    "reviews": {
+      "title": "In their words"
+    },
+    "gallery": {
+      "title": "Lately",
+      "intro": "On a live site these come from the house's Instagram; here, from the demo."
+    },
+    "questions": {
+      "title": "Before you come"
+    },
+    "visit": {
+      "title": "Find us"
+    }
+  },
+  "messages": {
+    "general": "Hello Hollis & Vane, I have a question."
+  },
+  "garments": {
+    "message": "Hello Hollis & Vane, I'd like a first appointment.",
+    "items": [
+      {
+        "id": "suit",
+        "name": "Two-piece suit",
+        "from": 4800,
+        "text": "Coat and trousers"
+      },
+      {
+        "id": "three-piece",
+        "name": "Three-piece suit",
+        "from": 5600,
+        "text": "With a waistcoat"
+      },
+      {
+        "id": "jacket",
+        "name": "Odd jacket",
+        "from": 3400,
+        "text": "Tweed, linen or hopsack"
+      },
+      {
+        "id": "overcoat",
+        "name": "Overcoat",
+        "from": 4600
+      },
+      {
+        "id": "trousers",
+        "name": "Trousers",
+        "from": 1300
+      },
+      {
+        "id": "evening",
+        "name": "Dinner suit",
+        "from": 5200,
+        "text": "Single or double breasted"
+      }
+    ],
+    "times": [
+      "A weekday morning",
+      "A weekday afternoon",
+      "A Thursday evening",
+      "A Saturday"
+    ]
+  },
+  "process": {
+    "steps": [
+      {
+        "id": "first",
+        "name": "First appointment",
+        "text": "Cloth, style and measurements. About an hour.",
+        "more": "We look at how you stand and how you'll wear it, choose the cloth together and take some thirty measurements. Bring a jacket you like and the shoes you'll wear with the suit."
+      },
+      {
+        "id": "cut",
+        "name": "Cut",
+        "text": "Your pattern drafted by hand, then the cloth cut.",
+        "more": "Your cutter drafts a paper pattern from the measurements and cuts the cloth from it. The pattern is kept in your name for every commission after this one.",
+        "photo": {
+          "src": "img/photo.webp",
+          "width": 300,
+          "height": 400,
+          "alt": "A cutter drawing on a paper pattern on the cutting table"
+        }
+      },
+      {
+        "id": "baste",
+        "name": "Baste fitting",
+        "text": "The coat held in white thread, to be taken apart.",
+        "more": "About four weeks after the first appointment. The coat is loosely sewn so the cutter can mark changes in chalk, unpick it and recut where needed.",
+        "photo": {
+          "src": "img/photo.webp",
+          "width": 300,
+          "height": 400,
+          "alt": "A coat in progress on a tailor's stand in the workroom, the tailor at his bench behind"
+        }
+      },
+      {
+        "id": "forward",
+        "name": "Forward fitting",
+        "text": "Lining and pockets in; the last changes.",
+        "more": "Four to six weeks later. The coat is nearly finished; sleeves, collar and length are settled and the buttons chosen.",
+        "photo": {
+          "src": "img/photo.webp",
+          "width": 300,
+          "height": 400,
+          "alt": "Four horn buttons in an open hand"
+        }
+      },
+      {
+        "id": "finished",
+        "name": "Finished",
+        "text": "Pressed and ready to collect.",
+        "more": "A last try-on, a final press, and the coat is yours. Most first commissions take ten to twelve weeks; later ones are quicker.",
+        "photo": {
+          "src": "img/photo.webp",
+          "width": 300,
+          "height": 400,
+          "alt": "A finished camel jacket on a hanger by a window"
+        }
+      }
+    ]
+  },
+  "cloths": {
+    "message": "Hello Hollis & Vane.",
+    "items": [
+      {
+        "id": "herringbone",
+        "name": "Tobacco herringbone",
+        "cloth": "Tweed",
+        "weight": 470,
+        "seasons": [
+          "autumn",
+          "winter"
+        ],
+        "drop": 1,
+        "length": {
+          "src": "img/cloth.webp",
+          "width": 200,
+          "height": 500,
+          "alt": "Tobacco herringbone tweed on the loom, a wooden shuttle resting on it"
+        },
+        "weave": {
+          "src": "img/cloth.webp",
+          "width": 200,
+          "height": 500
+        },
+        "weavePhone": {
+          "src": "img/cloth.webp",
+          "width": 200,
+          "height": 500
+        }
+      },
+      {
+        "id": "midnight",
+        "name": "Midnight",
+        "cloth": "Worsted",
+        "weight": 260,
+        "seasons": [
+          "all-year"
+        ],
+        "drop": 0.86,
+        "length": {
+          "src": "img/cloth.webp",
+          "width": 200,
+          "height": 500,
+          "alt": "Navy worsted, folded"
+        },
+        "weave": {
+          "src": "img/cloth.webp",
+          "width": 200,
+          "height": 500
+        },
+        "weavePhone": {
+          "src": "img/cloth.webp",
+          "width": 200,
+          "height": 500
+        }
+      },
+      {
+        "id": "windowpane",
+        "name": "Navy windowpane",
+        "cloth": "Worsted",
+        "weight": 300,
+        "seasons": [
+          "autumn",
+          "winter",
+          "spring"
+        ],
+        "drop": 0.94,
+        "length": {
+          "src": "img/cloth.webp",
+          "width": 200,
+          "height": 500,
+          "alt": "Navy windowpane check over grey cloths"
+        },
+        "weave": {
+          "src": "img/cloth.webp",
+          "width": 200,
+          "height": 500
+        },
+        "weavePhone": {
+          "src": "img/cloth.webp",
+          "width": 200,
+          "height": 500
+        }
+      }
+    ]
+  },
+  "travels": {
+    "message": "Hello Hollis & Vane.",
+    "items": [
+      {
+        "id": "bristol-dec",
+        "city": "Bristol",
+        "venue": "A private room near the cathedral",
+        "from": "2026-12-03",
+        "to": "2026-12-04"
+      }
+    ]
+  },
+  "travelsPage": {
+    "kicker": "Trunk shows",
+    "title": "Where we'll be"
+  },
+  "commission": {
+    "source": "sheet",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-hollis-test/pub?gid=0&single=true&output=csv",
+    "staleAfterDays": 14,
+    "fittingMinutes": 45,
+    "stages": [
+      "cut",
+      "baste",
+      "forward",
+      "finished"
+    ]
+  },
+  "visitInfo": {
+    "kicker": "Plan your visit",
+    "title": "Finding us",
+    "intro": "Off Milsom Street.",
+    "checked": "2026-11",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "Bath Spa station",
+        "origin": "Bath Spa station",
+        "minutes": 12,
+        "steps": [
+          "Walk north up Manvers Street",
+          "Turn left into Quiet Street"
+        ]
+      }
+    ],
+    "parking": [
+      {
+        "name": "Pay-by-phone bays nearby",
+        "walk": 3,
+        "price": "check the signs on the street",
+        "paid": {
+          "mon": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "tue": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "wed": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "thu": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "fri": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "sat": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ]
+        },
+        "note": "Mayfair bays fill early; a taxi is easier.",
+        "bankHolidays": "sunday"
+      }
+    ],
+    "access": [
+      {
+        "label": "Step-free entrance",
+        "yes": true
+      },
+      {
+        "label": "Fitting room on the ground floor",
+        "yes": true
+      },
+      {
+        "label": "Accessible toilet",
+        "yes": false
+      }
+    ],
+    "accessNote": "The fitting room is on the ground floor; the workroom is upstairs.",
+    "payment": "Card and bank transfer. Half when you order, the rest when you collect."
+  },
+  "questions": [
+    {
+      "topic": "Your first appointment",
+      "q": "Do I need an appointment?",
+      "a": "Yes. Your cutter sees one client at a time, for about an hour.",
+      "home": true
+    },
+    {
+      "topic": "Your first appointment",
+      "q": "What should I bring?",
+      "a": "A jacket you like the fit of, and the shoes you'll wear with the suit.",
+      "home": true
+    },
+    {
+      "topic": "The commission",
+      "q": "How long does it take?",
+      "a": "About twelve weeks for a first commission, with three fittings. Later ones are quicker because we keep your pattern.",
+      "home": true
+    },
+    {
+      "topic": "The commission",
+      "q": "How many fittings will I have?",
+      "a": "Usually three: the baste, the forward and a last try-on when you collect.",
+      "home": true
+    }
+  ]
+}

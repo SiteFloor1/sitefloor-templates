@@ -1,0 +1,18 @@
+{#- A page for a kind of garden: `st` = a stylePages item. The studio's words on it, then its gardens. -#}
+{%- set ph = st %}
+{% include "kits/garden/partials/page-head.njk" %}
+<section class="wrap gd-sty" aria-label="{{ st.title | plain }}">
+  <figure class="gd-st-hero"><img src="{{ st.photo.src | img }}" alt="{{ st.photo.alt }}" width="{{ st.photo.width }}" height="{{ st.photo.height }}" fetchpriority="high" decoding="async"></figure>
+  <div class="gd-sty-tx">{% for p in st.body | paras %}<p>{{ p }}</p>{% endfor %}</div>
+  {%- set mine = site.gardens.items | where("style", st.style) %}
+  {%- if mine.length %}
+  <ul class="gd-gs-list gd-sty-list">
+    {%- for g in mine %}
+    {%- set gpage = (site.gardenPages.items | pageFor("garden", g.id)) if ("garden-pages" | enabled) else null %}
+    {%- set eager = loop.first %}
+    {% include "kits/garden/partials/garden-card.njk" %}
+    {%- endfor %}
+  </ul>
+  {%- endif %}
+  <p class="gd-st-go"><a class="btn" href="{{ site.messages.general | book }}" target="_blank" rel="noopener">Start your garden</a></p>
+</section>

@@ -1,0 +1,13 @@
+{#- Something to go with it (Plus): the florist's own vases, candles and cards at their prices, ticked and listed on
+    the WhatsApp order by this week's script. Without JavaScript the order still goes; the florist asks. -#}
+{%- set G = site.gifts %}
+<details class="fl-adds">
+  <summary>{{ G.title or "Add a vase, candle or card" }}</summary>
+  <fieldset class="fl-adds-l"><legend class="sr-only">{{ G.title or "Add a vase, candle or card" }}</legend>
+    {%- for g in G.items %}
+    <label class="fl-add"><input type="checkbox" name="week-gift" value="{{ g.id }}" data-gift-name="{{ g.name }}" data-gift-price="{{ g.price }}">
+      <img src="{{ g.photo.src | img }}" alt="" width="{{ g.photo.width }}" height="{{ g.photo.height }}" loading="lazy" decoding="async">
+      <span class="fl-add-n">{{ g.name }}</span><span class="fl-add-p">{{ g.price | pounds }}</span></label>
+    {%- endfor %}
+  </fieldset>
+</details>

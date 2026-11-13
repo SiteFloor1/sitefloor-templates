@@ -1,0 +1,67 @@
+/* The Showroom: the car on the studio floor, a build sheet beside it. */
+.sr { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(300px, 1fr); gap: clamp(16px, 2.4vw, 36px); align-items: start; }
+.sr-stage { position: sticky; top: calc(var(--nav-h) + 12px); display: grid; grid-template-columns: minmax(0, 1fr); padding: 64px clamp(8px, 2vw, 28px) 18px; min-height: 360px; align-content: center; }
+/* The car: a still picture until the 3D studio is open, then the canvas in exactly the same box. */
+.sr-3d { position: relative; aspect-ratio: 16 / 10; margin: 0 calc(-1 * clamp(8px, 2vw, 28px)); }
+.sr-poster, .sr-3d canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.sr-3d canvas { opacity: 0; transition: opacity .6s ease; touch-action: pan-y; cursor: grab; }
+.sr-3d canvas:active { cursor: grabbing; }
+.sr-3d.live canvas { opacity: 1; }
+.sr-3d.live .sr-poster { opacity: 0; transition: opacity .6s ease .1s; }
+.sr-go { position: absolute; right: 0; bottom: 4%; display: inline-flex; align-items: baseline; gap: 8px; border: 1px solid var(--text); background: color-mix(in srgb, var(--surface) 86%, transparent);
+  color: var(--text); padding: 12px 18px; font: 500 12px/1 var(--font-body); letter-spacing: .14em; text-transform: uppercase; cursor: pointer; backdrop-filter: blur(6px); }
+.sr-go small { font-size: 11px; letter-spacing: .06em; color: var(--muted); text-transform: none; }
+.sr-go:hover { background: var(--text); color: var(--bg); }
+.sr-go:hover small { color: inherit; }
+.sr-3d.loading .sr-go { cursor: progress; }
+.sr-3d.loading .sr-go::after { content: ""; position: absolute; left: 0; bottom: -1px; height: 2px; width: 30%; background: var(--accent); animation: sr-load 1.1s ease-in-out infinite alternate; }
+@keyframes sr-load { to { transform: translateX(233%); } }
+.sr-3d.live .sr-go { display: none; }
+.sr-tip { position: absolute; left: 0; bottom: 4%; margin: 0; font-size: 12px; letter-spacing: .04em; color: var(--muted); opacity: 0; transition: opacity .4s ease .6s; pointer-events: none; }
+.sr-3d.live .sr-tip { opacity: 1; }
+.sr-car-note { margin: 4px 0 0; font-size: 12px; color: var(--dim); }
+.sr-win.flash legend { animation: sr-flash 1.2s ease; }
+@keyframes sr-flash { 0%, 60% { color: var(--accent); } }
+.sr-tabs { position: absolute; top: 14px; left: 14px; z-index: 2; display: flex; }
+.sr-tabs button { border: 1px solid var(--line-2); background: color-mix(in srgb, var(--surface) 80%, transparent); color: var(--muted); padding: 10px 18px; cursor: pointer;
+  font: 500 12px/1 var(--font-body); letter-spacing: .14em; text-transform: uppercase; backdrop-filter: blur(6px); }
+.sr-tabs button + button { border-left: 0; }
+.sr-tabs button[aria-selected="true"] { background: var(--text); color: var(--bg); border-color: var(--text); }
+.sr-read { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: 6px 20px; margin: 18px 0 0; font: 400 13px/1.4 var(--font-body); color: var(--muted); min-height: 2.8em; }
+.sr-read span::before { content: ""; display: inline-block; width: 6px; height: 6px; margin-right: 8px; background: var(--accent); vertical-align: 2px; }
+
+.sr-panel { display: grid; gap: 18px; background: var(--surface); border: 1px solid var(--line-2); padding: clamp(18px, 2vw, 28px); }
+.sr-head h2 { font-family: var(--font-display); font-weight: 300; font-size: clamp(22px, 2.2vw, 30px); line-height: 1.12; margin: 6px 0 0; }
+.sr-head h2 em { font-style: normal; color: var(--accent); }
+.sr-p { display: grid; gap: 16px; }
+.sr-set { border: 0; margin: 0; padding: 0; min-width: 0; display: grid; gap: 10px; }
+.sr-set legend { font-weight: 600; font-size: 14px; padding: 0; margin-bottom: 10px; }
+.sr-hint { margin: 0; font-size: 13px; color: var(--dim); }
+[data-sr-finishes].off legend::after { content: " (pick a colour first)"; font-weight: 400; color: var(--dim); }
+.sr-check { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; cursor: pointer; }
+.sr-check small { color: var(--dim); }
+.sr-check input { width: 18px; height: 18px; margin-top: 1px; accent-color: var(--text); flex: none; }
+.sr-legal { margin: 0; font-size: 13px; color: var(--muted); }
+.sr-legal a { color: inherit; }
+.sr-make { display: grid; gap: 6px; font-weight: 600; font-size: 14px; }
+.sr-make small { color: var(--dim); font-weight: 400; }
+.sr-make input { font: inherit; font-weight: 400; min-height: 44px; padding: 0 12px; border: 1px solid var(--line-2); background: var(--bg); }
+.sr-total { display: grid; gap: 12px; border-top: 1px solid var(--line-2); padding-top: 16px; }
+.sr-sum { display: grid; grid-template-columns: auto 1fr; align-items: baseline; gap: 2px 14px; margin: 0; }
+.sr-sum span:first-child { font-size: 11.5px; font-weight: 500; text-transform: uppercase; letter-spacing: .14em; color: var(--muted); }
+.sr-sum b { grid-row: span 2; justify-self: end; font: 300 clamp(30px, 3.2vw, 44px)/1 var(--font-display); font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+.sr-sum span:last-child { font-size: 13px; color: var(--muted); }
+.sr-refused { margin: 0; font-size: 13.5px; padding: 10px 12px; border-left: 3px solid var(--accent); background: color-mix(in srgb, var(--accent) 8%, transparent); }
+.sr-total .btn { justify-content: center; }
+.sr-total .btn.off { background: var(--surface-2); color: var(--muted); box-shadow: none; pointer-events: none; }
+.sr-note { margin: 0; font-size: 12.5px; color: var(--dim); }
+.sr-nojs { grid-column: 1 / -1; margin: 0; color: var(--muted); }
+.sr-nojs a { color: var(--text); }
+/* The form is in the page from the start, so nothing moves when the script runs, but only works once it has. */
+[data-feature="showroom"]:not([data-ready]) :is(.sr-panel, .sr-tabs) { opacity: .55; pointer-events: none; }
+@media (max-width: 960px) { .sr { grid-template-columns: minmax(0, 1fr); } .sr-stage { position: relative; top: 0; min-height: 0; padding-top: 62px; } }
+@media (max-width: 520px) { .sr-go { right: 50%; transform: translateX(50%); bottom: 0; white-space: nowrap; } .sr-tip { left: 50%; transform: translateX(-50%); bottom: 0; white-space: nowrap; } }
+@media (prefers-reduced-motion: reduce) { .sr-3d canvas, .sr-3d.live .sr-poster { transition: none; } .sr-3d.loading .sr-go::after { animation: none; } }
+.sr-car-note a { color: inherit; }
+.sr-3d.live.loading canvas { opacity: .4; transition: opacity .2s ease; }
+.sr-3d.live.loading::after { content: "Bringing your car in… " attr(data-pct); position: absolute; inset: 0; display: grid; place-items: center; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }

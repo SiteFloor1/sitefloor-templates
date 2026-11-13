@@ -1,0 +1,20 @@
+{#- Dune footer: the crest. The mark and the name large in italic, the address and how to reach the studio, the
+    week's hours, the pages; the Sitefloor credit last. -#}
+<footer class="foot du-foot"><div class="wrap du-foot-in">
+  <div class="du-foot-name">
+    <span class="du-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+    <p class="du-foot-word">{{ site.business.name }}</p>
+    <p class="du-foot-what">{{ site.hero.kicker }}</p>
+  </div>
+  <address class="du-foot-a">{{ site.location.streetAddress }}<br>{{ site.location.locality }} {{ site.location.postcode }}<br>
+    <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a>{% if site.contact.email %}<br><a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>{% endif %}</address>
+  <ul class="du-foot-hours" aria-label="Opening hours">
+    {%- for row in site.hours | hoursRows %}<li data-day="{{ row.dayIndex }}"><span>{{ row.day }}</span> {{ row.label }}</li>{% endfor %}
+  </ul>
+  <nav class="du-foot-links" aria-label="Footer">
+    <a href="{{ 'index' | href }}">The studio</a>
+    {%- for item in site.nav | navItems(pageId) %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}>{{ item.label }}</a>{% endfor %}
+    <a href="{{ 'privacy' | href }}">Privacy</a>
+  </nav>
+  <p class="du-foot-by"><a class="by" href="https://sitefloor.com" rel="noopener">Website by <b>Sitefloor</b></a></p>
+</div></footer>

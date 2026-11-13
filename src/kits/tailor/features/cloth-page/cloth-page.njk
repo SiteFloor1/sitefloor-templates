@@ -1,0 +1,14 @@
+{#- The cloth library: the whole book with a season filter; each length opens its weave (cloth-book.js). -#}
+{%- set ph = site.clothPage %}
+{% include "kits/tailor/partials/page-head.njk" %}
+<section class="tl-cloth tl-cloth-page" data-feature="cloth-book" aria-label="{{ site.clothPage.title | plain }}"><div class="wrap">
+  <div class="tl-cp-seasons" role="group" aria-label="Season" data-js-only>
+    <button type="button" class="tl-pick" data-cb-season-pick="" aria-pressed="true">Every season</button>
+    {%- for s in site.cloths.items | usedSeasons %}<button type="button" class="tl-pick" data-cb-season-pick="{{ s.id }}" aria-pressed="false">{{ s.label }}</button>{% endfor %}
+  </div>
+  {%- set cbItems = site.cloths.items %}{% include "kits/tailor/partials/lengths.njk" %}
+  {% include "kits/tailor/partials/swatch-set.njk" %}
+  {%- if site.cloths.note %}<p class="tl-small tl-cb-note">{{ site.cloths.note }}</p>{% endif %}
+</div>
+{% include "kits/tailor/partials/weave.njk" %}
+</section>

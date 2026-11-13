@@ -1,0 +1,18 @@
+{#- Same-day delivery, honestly: the line is written at build time from the florist's own cut-offs (so it reads well
+    without JavaScript) and kept true in the browser: a countdown before today's cut-off, the next delivery day after
+    it. "Do you deliver to my postcode?" opens the check. -#}
+{%- set DL = site.delivery %}
+{%- set sdCut = (DL | areaCutoffs(sdArea)) if sdArea else DL.cutoffs %}
+<div class="fl-sd" data-feature="same-day"{% if sdArea %} data-area="{{ sdArea.district }}"{% endif %}>
+  <p class="fl-sd-state" data-sd-state><span data-sd-text>Same-day delivery: {{ sdCut | cutoffGroups }}</span></p>
+  <details class="fl-sd-check" data-js-only>
+    <summary>Do you deliver to my postcode?</summary>
+    <form class="fl-pc" data-sd-form novalidate>
+      <label class="sr-only" for="pc-{{ sdId or 'week' }}">Postcode</label>
+      <input id="pc-{{ sdId or 'week' }}" data-pc-input autocomplete="postal-code" inputmode="text" placeholder="e.g. SW6 1AA" maxlength="9">
+      <button type="submit">Check</button>
+    </form>
+    <p class="fl-pc-say" data-sd-answer aria-live="polite"></p>
+  </details>
+  <p class="fl-sd-areas" data-no-js>We deliver by hand to {{ DL.zones | join(", ") }}{% if DL.areas %}, {{ DL.areas }}{% endif %}. {{ DL.collect }}</p>
+</div>

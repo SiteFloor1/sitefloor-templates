@@ -1,0 +1,48 @@
+{#- "Your car, live": the customer opens the link the studio sent (or types the code from it) and sees where their
+    car is: the stage, when it was last updated, the studio's note and photo, and every stage still to come. From the
+    studio's published Google Sheet; a simulation on demos. The page holds no names, plates or phone numbers. -#}
+{%- set p = site.jobTracker %}
+<header class="phero"><div class="wrap">
+  <nav class="crumb" aria-label="Breadcrumb"><a href="{{ 'index' | href }}">Home</a> / {{ p.title | plain }}</nav>
+  <span class="kick">{{ p.kicker }}</span>
+  <h1>{{ p.title | markup | safe }}</h1>
+  {%- if p.intro %}<p>{{ p.intro }}</p>{% endif %}
+</div></header>
+<section class="sec-tracker" data-feature="job-tracker"><div class="wrap">
+  <div class="jt" data-jt>
+    <form class="jt-find" data-jt-form data-js-only>
+      <label for="jt-code">Your code</label>
+      <div class="jt-row">
+        <input id="jt-code" name="code" autocomplete="off" autocapitalize="characters" spellcheck="false" inputmode="text" maxlength="14" placeholder="{{ p.example if site.mode == 'demo' and p.example else 'e.g. K7M2QX' }}"{% if site.mode == "demo" and p.example %} value="{{ p.example }}"{% endif %} required>
+        <button class="btn" type="submit">Show my car</button>
+      </div>
+      <p class="jt-hint">It's in the message we sent when you dropped the car off.</p>
+    </form>
+
+    <div class="jt-card" data-jt-card hidden aria-live="polite">
+      <div class="jt-now">
+        <p class="jt-label">Now</p>
+        <h2 data-jt-stage>{{ p.stages[0].name }}</h2>
+        <p class="jt-about" data-jt-about></p>
+        <p class="jt-upd"><span class="jt-dot" aria-hidden="true"></span><span data-jt-upd></span></p>
+        <blockquote class="jt-note" data-jt-note hidden></blockquote>
+        <div class="jt-ready" data-jt-ready hidden>
+          <a class="btn" data-jt-way href="#" target="_blank" rel="noopener">I'm on my way</a>
+          {%- if "aftercare" | enabled %}<a class="btn ghost" href="{{ 'aftercare' | href }}">Aftercare</a>{% endif %}
+        </div>
+      </div>
+      <figure class="jt-photo" data-jt-fig hidden><img data-jt-photo alt="The studio's latest photo of your car" width="1200" height="800" decoding="async"></figure>
+      <ol class="jt-steps">
+        {%- for s in p.stages %}<li data-jt-step="{{ loop.index0 }}"><b>{{ s.name }}</b><span>{{ s.about }}</span></li>{% endfor %}
+      </ol>
+    </div>
+
+    <div class="jt-off" data-jt-off hidden role="status">
+      <p data-jt-why></p>
+      <a class="btn" data-jt-ask href="#" target="_blank" rel="noopener">Message us</a>
+    </div>
+
+    <p class="jt-nojs" data-no-js>This page needs JavaScript. Message us on WhatsApp and we'll tell you where your car is.</p>
+    <p class="jt-privacy">This page only knows a code and how far along the work is: no names, number plates or phone numbers. It checks for news every two minutes while it's open.</p>
+  </div>
+</div></section>

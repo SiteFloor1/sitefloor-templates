@@ -1,0 +1,13 @@
+/* Rooms, lit: tall photographs in one row; on phones the row scrolls sideways and stops on each room. */
+.el-rooms-row { list-style: none; margin: 0; padding: 0; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: clamp(10px, 1.4vw, 20px); }
+.el-room { display: grid; gap: 16px; align-content: start; }
+.el-room figure { margin: 0; }
+.el-room img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+.el-room h3 { margin: 0 0 4px; }
+.el-room-s { margin: 0 0 6px; color: var(--accent); font-size: 13px; }
+.el-room-d { margin: 0; color: var(--muted); font-size: 14px; max-width: 32ch; }
+@media (max-width: 860px) {
+  .el-rooms-row { grid-auto-columns: 72%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-inline: calc(-1 * var(--pad)); padding-inline: var(--pad); scroll-padding-inline: var(--pad); }
+  .el-rooms-row::-webkit-scrollbar { display: none; }
+  .el-room { scroll-snap-align: start; }
+}

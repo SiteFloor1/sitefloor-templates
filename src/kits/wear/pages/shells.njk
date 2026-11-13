@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: shells
+permalink: shells.html
+feature: shop-page
+eleventyComputed:
+  title: "{{ site.shellsPage.title | plain }}"
+  description: "{{ site.shellsPage.description or (site.shellsPage.kicker + ' at ' + site.business.name) }}"
+---
+{% include "kits/wear/features/shop-page/shop-page.njk" %}

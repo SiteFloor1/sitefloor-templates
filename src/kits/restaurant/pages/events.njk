@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: events
+permalink: events.html
+feature: events
+eleventyComputed:
+  title: "{{ site.events.title | plain }}"
+  description: "What's on at {{ site.business.name }}, {{ site.location.locality }}: dates, times and how to book."
+---
+{% include "kits/restaurant/features/events/events.njk" %}

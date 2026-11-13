@@ -1,0 +1,18 @@
+{#- The dimmer: the client's own photographs of one finished room from one spot, low to full, under a fader. The
+    frames cross-fade as the fader moves; real photographs only, never simulated light. -#}
+{%- set sec = site.sections.dimmer %}
+{%- set d = site.dimmer %}
+<section id="dimmer" class="el-dim" data-feature="dimmer" aria-label="{{ sec.title | plain }}"><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="el-dim-in">
+    <div class="el-dim-stage">
+      {%- for f in d.frames %}<img class="el-dim-f" src="{{ f.src | img }}" alt="{{ f.alt }}" width="{{ f.width }}" height="{{ f.height }}" loading="lazy" decoding="async" data-dim-frame="{{ loop.index0 }}" data-label="{{ f.label }}"{% if not loop.last %} data-under{% endif %}>{% endfor %}
+    </div>
+    <div class="el-dim-ctl" data-js-only>
+      <label for="dim-fader">{{ d.label }}</label>
+      <input id="dim-fader" type="range" min="0" max="100" value="100" data-dim-fader aria-valuetext="{{ d.frames[d.frames.length - 1].label }}">
+      <p class="el-dim-now" data-dim-now aria-hidden="true">{{ d.frames[d.frames.length - 1].label }}</p>
+    </div>
+    {%- if d.note %}<p class="el-dim-note">{{ d.note }}</p>{% endif %}
+  </div>
+</div></section>

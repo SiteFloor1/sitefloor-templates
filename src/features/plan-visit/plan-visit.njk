@@ -1,0 +1,116 @@
+{#- Plan your visit: an arrival guide for any business people come to. A live arrival board,
+    journeys by walk/bus/train/car/bike with Google Maps directions, a "leave by" helper, live
+    parking status, access, then hours and every question by topic. Works without JavaScript:
+    every journey is listed, and the board shows the details without the live parts. -#}
+{%- set v = site.visitInfo %}
+{%- set journeys = v.journeys or [] %}
+{%- set parking = v.parking or [] %}
+<header class="phero pv-hero"><div class="wrap">
+  <nav class="crumb" aria-label="Breadcrumb"><a href="{{ 'index' | href }}">Home</a> / {{ v.title | plain }}</nav>
+  <span class="kick">{{ v.kicker }}</span>
+  <h1>{{ v.title | markup | safe }}</h1>
+  {%- if v.intro %}<p>{{ v.intro }}</p>{% endif %}
+</div></header>
+
+<div data-feature="plan-visit">
+<section class="pv-board-sec"><div class="wrap">
+  <div class="pv-board rv" aria-label="Arrival board">
+    <div class="pv-board-head"><span>{{ site.business.name }}</span><span>{{ site.location.streetAddress }}, {{ site.location.postcode }}</span></div>
+    <ul class="pv-rows">
+      <li class="pv-row"><span class="pv-what"><i class="pv-dot" aria-hidden="true"></i>Opening hours</span><span class="pv-val" data-live-status><span data-status-text>See below</span></span></li>
+      {%- for c in parking %}
+      <li class="pv-row"><span class="pv-what">{% set mode = "parking" %}{% include "core/partials/mode-icon.njk" %}{{ c.name }}</span><span class="pv-val" data-parking="{{ loop.index0 }}">{% if c.walk is defined %}{{ c.walk }} min walk{% endif %}</span></li>
+      {%- endfor %}
+      {%- for j in journeys %}
+      <li class="pv-row"><span class="pv-what">{% set mode = j.mode %}{% include "core/partials/mode-icon.njk" %}{{ j.from }}</span><span class="pv-val">{{ j | boardTime }}</span></li>
+      {%- endfor %}
+    </ul>
+  </div>
+  {%- if site.mode == "demo" %}
+  <p class="pv-checked">Example journeys and parking for a fictional shop.</p>
+  {%- elif v.checked %}
+  <p class="pv-checked">Journey times, parking and access checked with {{ site.business.name }} in {{ v.checked | checkedText }}. Driving times are outside rush hour.</p>
+  {%- endif %}
+</div></section>
+
+{%- if journeys.length %}
+<section class="pv-journeys" aria-labelledby="pv-j-h"><div class="wrap">
+  <div class="pv-j-top">
+    <h2 class="pv-h" id="pv-j-h">Getting here</h2>
+    <div class="pv-tabs" role="tablist" aria-label="Ways to get here" data-pv-tabs hidden>
+      {%- for j in journeys %}
+      <button type="button" role="tab" id="pv-tab-{{ loop.index0 }}" aria-controls="pv-panel-{{ loop.index0 }}" aria-selected="{{ 'true' if loop.first else 'false' }}" tabindex="{{ '0' if loop.first else '-1' }}">{% set mode = j.mode %}{% include "core/partials/mode-icon.njk" %}<span>{{ (j.mode | modeWords).tab }}</span></button>
+      {%- endfor %}
+    </div>
+  </div>
+  {%- for j in journeys %}
+  <div class="pv-panel rv" id="pv-panel-{{ loop.index0 }}" data-pv-panel>
+    <div class="pv-route">
+      <p class="pv-from">{% set mode = j.mode %}{% include "core/partials/mode-icon.njk" %}<span><b>{{ j.from }}</b>{% if j.stop %} · get off at {{ j.stop }}{% endif %}</span><em>{% if (j.mode | modeWords).about %}<span class="pv-about">about </span>{% endif %}{{ j.minutes }} min<small>{{ (j.mode | modeWords).verb }}</small></em></p>
+      <ol class="pv-steps">
+        {%- for step in j.steps %}<li>{{ step }}</li>{% endfor %}
+        <li class="pv-end"><b>{{ site.business.name }}</b>{{ site.location.streetAddress }}, {{ site.location.postcode }}</li>
+      </ol>
+    </div>
+    <a class="btn ghost" href="{{ j | directionsFor }}" target="_blank" rel="noopener">Directions in Google Maps</a>
+  </div>
+  {%- endfor %}
+
+  <div class="pv-leave" data-pv-leave hidden>
+    <label for="pv-appt">Booked in? Pick your time and we'll tell you when to set off.</label>
+    <div class="pv-leave-row">
+      <input type="time" id="pv-appt" step="900" data-pv-appt>
+      <ul class="pv-leave-list" data-pv-leave-list aria-live="polite"></ul>
+    </div>
+  </div>
+</div></section>
+{%- endif %}
+
+{%- if parking.length or v.access or v.payment %}
+<section class="pv-facts"><div class="wrap pv-facts-grid">
+  {%- if parking.length %}
+  <div>
+    <h2 class="pv-h">Parking</h2>
+    <ul class="pv-park">
+      {%- for c in parking %}
+      <li class="pv-card rv">
+        <h3>{{ c.name }}</h3>
+        <p class="pv-park-status" data-parking-card="{{ loop.index0 }}" hidden></p>
+        <p class="pv-charges">{{ c | parkingSummary }}</p>
+        <p class="pv-meta">{% if c.walk is defined %}{{ c.walk }} min walk{% endif %}{% if c.walk is defined and c.price %} · {% endif %}{{ c.price }}</p>
+        {%- if c.note %}<p class="pv-note">{{ c.note }}</p>{% endif %}
+      </li>
+      {%- endfor %}
+    </ul>
+  </div>
+  {%- endif %}
+  <div>
+    {%- if v.access %}
+    <h2 class="pv-h">Access</h2>
+    <ul class="pv-access">
+      {%- for a in v.access %}<li class="{{ 'yes' if a.yes else 'no' }}"><span class="pv-tick" aria-hidden="true">{{ "✓" if a.yes else "✕" }}</span><span class="sr-only">{{ "Yes:" if a.yes else "No:" }}</span>{{ a.label }}</li>{% endfor %}
+    </ul>
+    {%- if v.accessNote %}<p class="pv-note">{{ v.accessNote }}</p>{% endif %}
+    {%- endif %}
+    {%- if v.payment %}<h2 class="pv-h pv-h-sm">Paying</h2><p class="pv-pay">{{ v.payment }}</p>{% endif %}
+  </div>
+</div></section>
+{%- endif %}
+</div>
+
+{%- set visitHeading = false %}
+{% include "features/visit/visit.njk" %}
+{%- set groups = site | questionTopics %}
+{%- if groups.length %}
+<section class="sec-allq" id="questions"><div class="wrap">
+  <h2 class="pv-h">Questions people ask</h2>
+  <div class="pv-topics">
+    {%- for g in groups %}
+    <div class="pv-topic">
+      <h3>{{ g.topic }}</h3>
+      {%- for item in g.items %}<details class="qa"><summary>{{ item.q }}</summary><p>{{ item.a }}</p></details>{% endfor %}
+    </div>
+    {%- endfor %}
+  </div>
+</div></section>
+{%- endif %}

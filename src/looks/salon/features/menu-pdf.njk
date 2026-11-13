@@ -1,0 +1,3 @@
+{#- Salon: the printed carte, as a quiet link beside the others. -#}
+{%- set pdf = (site.menuPdf.file if site.menuPdf and site.menuPdf.file else "menu.pdf") %}
+<a class="mpdf sa-pdf" href="{{ pdf | img }}" download="{{ site.business.name | replace('&', 'and') | replace(' ', '-') }}-menu.pdf" type="application/pdf">The printed carte (PDF)</a>

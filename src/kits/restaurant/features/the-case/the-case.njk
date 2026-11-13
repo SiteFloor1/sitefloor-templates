@@ -1,0 +1,29 @@
+{#- The glass case: the café's bakes on its counter, from the menu's counter sections, each with its own photo.
+    The sheet lights a bake up when a tray comes out ("Fresh out 8:10am") and marks it sold out. Tap one for its
+    allergens and to ask for one to be put aside. Without JavaScript: plain items with names, prices and allergens, no photos;
+    the script turns each into a button. -#}
+{%- set sec = site.sections.theCase %}
+{%- set ctr = site.counter %}
+<section id="case" class="tc" data-feature="the-case" aria-labelledby="tc-h"{{ "the-case" | tierAttr | safe }}><div class="wrap">
+  <div class="sh rv"><div>{% if sec.kicker %}<span class="kick">{{ sec.kicker }}</span>{% endif %}<h2 id="tc-h">{{ sec.title | markup | safe }}</h2></div>{% if sec.intro %}<p>{{ sec.intro }}</p>{% endif %}</div>
+  <div class="tc-case">
+    <div class="tc-light" aria-hidden="true"></div>
+    <ul class="tc-shelf" aria-label="On the counter today">
+      {%- for sc in site.menu.sections %}{% if sc.id in ctr.sections %}{% for d in sc.dishes %}
+      {%- set an = d | allergenNames %}
+      <li><div class="tc-item" data-bake="{{ d.id }}" data-tc-bake="{{ d.id }}">
+        <span class="tc-plate" aria-hidden="true"><img data-src="{{ d.photo.src | img }}" width="{{ d.photo.width }}" height="{{ d.photo.height }}" alt=""></span>
+        <span class="tc-card"><span class="tc-name">{{ d.name }}</span><span class="tc-price">{{ d.price | gbp }}</span></span>
+        <span class="tc-tag" data-bake-tag></span>
+        <span class="sr-only">{% if an.length %}Contains {{ an | join(", ") | lower }}{% else %}None of the 14 allergens{% endif %}</span>
+      </div>
+      <div class="tc-data" hidden data-tc-desc="{{ d.id }}">{{ d.desc }}</div></li>
+      {%- endfor %}{% endif %}{% endfor %}
+    </ul>
+    <div class="tc-base" aria-hidden="true"></div>
+  </div>
+  <div class="tc-info" id="tc-info" aria-live="polite" data-tc-info>
+    <p class="tc-hint" data-js-only>Tap a bake for what's in it{% if ctr.hold %} and to have one put aside{% endif %}.</p>
+  </div>
+  <p class="rs-small tc-note">{% if ctr.note %}{{ ctr.note }} {% endif %}Allergens are from our allergen chart, last checked {{ site.menu.chartChecked | longDate }}. Please tell us about any allergy when you order.</p>
+</div></section>

@@ -1,0 +1,38 @@
+{#- Salon: private hire. The rooms as photographs with how many they seat and any minimum spend, the set menus,
+    then the enquiry card. Keeps the private dining hooks. -#}
+{%- set pd = site.privateDining %}
+<section class="sa-page-head"><div class="wrap">
+  <h1>{{ pd.title | markup | safe }}</h1>
+  <p>{{ pd.intro }}</p>
+  <div class="sa-crowns" aria-hidden="true"></div>
+</div></section>
+<section class="pd sa-pd" data-feature="private-dining"><div class="wrap">
+  <ul class="sa-rooms">
+    {%- for r in pd.rooms %}
+    <li class="sa-room-c" data-pd-room="{{ r.id }}" data-min="{{ r.minSpend or 0 }}" data-seats="{{ r.seats[0] }}-{{ r.seats[1] }}">
+      {%- if r.photo %}<img src="{{ r.photo.src | img }}" width="{{ r.photo.width }}" height="{{ r.photo.height }}" alt="{{ r.photo.alt }}" loading="lazy">{% endif %}
+      <div class="sa-room-tx"><h2>{{ r.name }}</h2><p class="sa-when">{{ r.seats[0] }}–{{ r.seats[1] }} guests · {% if r.minSpend %}minimum spend {{ r.minSpend | gbp }}{% else %}no minimum spend{% endif %}</p><p>{{ r.text }}</p></div>
+    </li>
+    {%- endfor %}
+  </ul>
+  <div class="sa-pd-grid">
+    {%- if pd.menus %}
+    <div class="sa-pd-menus">
+      <h2>Set menus</h2>
+      <ul>{% for mm in pd.menus %}<li data-pd-menu="{{ mm.id }}" data-price="{{ mm.price }}"><p class="sa-dn"><span>{{ mm.name }}</span><span class="sa-dp">{{ mm.price | gbp }} a head</span></p><p class="sa-dd">{{ mm.courses | join(" · ") }}</p></li>{% endfor %}</ul>
+    </div>
+    {%- endif %}
+    <form class="sa-card" data-pd-form data-js-only aria-label="Ask about a date">
+      <svg class="sa-seal" aria-hidden="true"><use href="#brand-mark"/></svg>
+      <h2>Ask about a date</h2>
+      <label class="sa-l">Guests<input type="number" inputmode="numeric" min="1" max="200" value="14" data-pd-guests></label>
+      <label class="sa-l">Date<input type="date" data-pd-date></label>
+      <label class="sa-l">Room<select data-pd-roomsel>{% for r in pd.rooms %}<option value="{{ r.id }}">{{ r.name }}</option>{% endfor %}</select></label>
+      {%- if pd.menus %}<label class="sa-l">Menu<select data-pd-menusel><option value="">Not sure yet</option>{% for mm in pd.menus %}<option value="{{ mm.id }}">{{ mm.name }} ({{ mm.price | gbp }})</option>{% endfor %}</select></label>{% endif %}
+      <p class="sa-small" data-pd-sum aria-live="polite">&nbsp;</p>
+      <a class="sa-send" data-pd-send href="{{ pd.message | wa }}" target="_blank" rel="noopener">Send the enquiry</a>
+      {%- if pd.note %}<p class="sa-small">{{ pd.note }}</p>{% endif %}
+    </form>
+    <p data-no-js><a class="sa-send" href="{{ pd.message | wa }}" target="_blank" rel="noopener">Message us about private hire</a></p>
+  </div>
+</div></section>

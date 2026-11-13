@@ -1,0 +1,23 @@
+/* Fittings, alterations and veils: the fittings as a numbered sequence beside one photograph, then two ruled lists. */
+.bd-fit-in { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
+.bd-fit-list { list-style: none; margin: 0; padding: 0; counter-reset: fit; }
+.bd-fit-item { counter-increment: fit; display: grid; grid-template-columns: 3.2em minmax(0, 1fr); gap: 4px 20px; padding-block: 24px; border-top: 1px solid var(--line-2); }
+.bd-fit-item::before { content: counter(fit); grid-row: 1 / span 3; font-family: var(--font-display); font-size: 34px; line-height: 1; color: var(--accent); }
+.bd-fit-item p, .bd-fit-t { margin: 0; }
+.bd-fit-when { color: var(--muted); font-size: 14px; }
+.bd-fit-t { font-size: clamp(22px, 2vw, 28px); }
+.bd-fit-x { color: var(--muted); max-width: 56ch; }
+.bd-fit-photo { margin: 0; position: sticky; top: calc(var(--nav-h) + 24px); }
+.bd-fit-photo img { display: block; width: 100%; height: auto; }
+.bd-fit-photo figcaption { margin-top: 10px; font-size: 13px; color: var(--muted); }
+.bd-alter-in { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(24px, 5vw, 80px); }
+.bd-alter-h { margin: 0 0 24px; font-size: clamp(28px, 3vw, 44px); }
+.bd-alter-x { margin: 0; max-width: 60ch; }
+.bd-veil-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 28px; }
+.bd-veil { display: grid; gap: 6px; padding-top: 16px; border-top: 1px solid var(--line-2); }
+.bd-veil p, .bd-veil-n { margin: 0; }
+.bd-veil-l { font-size: 13px; color: var(--accent); }
+.bd-veil-n { font-size: 24px; }
+.bd-veil-x { color: var(--muted); }
+.bd-veil-p { font-variant-numeric: tabular-nums; }
+@media (max-width: 860px) { .bd-fit-in, .bd-alter-in { grid-template-columns: minmax(0, 1fr); } .bd-fit-photo { position: static; } }

@@ -1,0 +1,175 @@
+/* =========================================================================
+   Look: Dune. A reformer studio in morning sun. The palette is one sun-baked dune: its sunlit face (bone) for the
+   page, the lit crest for cards and the phone bar, its shadow side for the one colour (underlines, free reformers,
+   step numbers), and wet sand at the waterline for text. One hero idea: a reformer photograph with today's classes
+   along its foot, each drawn as the room's reformers. Noto Serif Display (light, often italic) against Red Hat Text.
+   Motion is slow and never tied to the scroll. Design system: sitefloor-internal/docs/design/pilates.md.
+   ========================================================================= */
+:root {
+  --bg: #F4E8D8; --surface: #FBF4EA; --surface-2: #EBDCC8;
+  --text: #2B2019; --muted: #6A5242; --dim: #6E5A4A;
+  --accent: #8A5D40; --accent-2: #744D34; --on-accent: #FBF4EA; --accent-soft: #C9A88E;
+  --line: rgba(43,32,25,.14); --line-2: rgba(43,32,25,.28);
+  --ok: #3F6B4F; --busy: #8A5A1E; --closed: #6E5A4A;
+  --font-display: "Noto Serif Display", "Noto Display Fallback", "Times New Roman", serif;
+  --font-body: "Red Hat Text", "Red Hat Fallback", Arial, sans-serif;
+  --on-photo: #FBF4EA; --photo-scrim: rgba(43,32,25,.58); --shadow: rgba(43,32,25,.42);
+  --season-bg: #2B2019; --season-fg: #FBF4EA;
+  --pad: clamp(16px, 4vw, 64px);
+  --s4: clamp(80px, 9vw, 140px);
+  --nav-h: 88px;
+  --bar-h: 64px;
+  color-scheme: light;
+}
+html { background: var(--bg); }
+body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-weight: 400; font-size: 16px; line-height: 1.6; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 300; letter-spacing: -.01em; text-wrap: balance; }
+b, strong { font-weight: 500; }
+::selection { background: var(--accent); color: var(--on-accent); }
+.wrap { width: min(1440px, 100% - 2 * var(--pad)); }
+main section { padding-block: var(--s4); }
+:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
+.kick { font-size: 14px; color: var(--muted); }
+
+/* actions: words underlined in the dune's shadow; the few filled buttons are dark ink pills */
+.go, .btn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; color: var(--text); font-family: var(--font-body); font-size: 15px; font-weight: 500; text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 7px; cursor: pointer; }
+.go:hover, .btn:hover { background: none; color: var(--accent-2); }
+.btn.ghost { text-decoration-color: var(--line-2); }
+.btn .ico { display: none; }
+
+/* six reformers: the mark (logo, phone bar) */
+.du-mark { display: inline-flex; gap: 5px; align-items: flex-end; flex: none; }
+.du-mark i { display: block; width: 5px; height: 34px; border-radius: 3px; background: var(--text); }
+.du-mark i:nth-child(n+5) { background: transparent; box-shadow: inset 0 0 0 1.25px var(--accent); }
+
+/* ---------------------------------------------------------------- header */
+.nav.du-nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: color-mix(in srgb, var(--bg) 94%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 31; background: var(--bg); }
+.du-nav-in { display: flex; align-items: flex-end; gap: clamp(18px, 2.4vw, 40px); height: var(--nav-h); padding-bottom: 16px; }
+.du-brand { display: flex; align-items: flex-end; gap: 16px; text-decoration: none; }
+.du-brand .du-mark { margin-bottom: 9px; }
+.du-brand img { display: block; height: 40px; width: auto; }
+.du-word { font-family: var(--font-display); font-style: italic; font-weight: 300; font-size: clamp(42px, 4.6vw, 70px); line-height: .9; letter-spacing: -.02em; white-space: nowrap; }
+.du-links { display: flex; gap: clamp(16px, 2vw, 28px); margin-left: auto; padding-bottom: 6px; font-size: 15px; }
+.du-links a { text-decoration: none; padding-block: 6px; }
+.du-links a:hover, .du-links a[aria-current="page"] { text-decoration: underline; text-decoration-color: var(--line-2); text-underline-offset: 8px; }
+.du-book { padding-bottom: 6px; font-size: 15px; font-weight: 500; white-space: nowrap; text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 7px; }
+.du-menu { display: none; width: auto; height: 44px; padding: 0; font-size: 15px; }
+.du-menu span { position: static; height: auto; background: none; transition: none; }
+.du-menu .du-close, .du-menu[aria-expanded="true"] .du-open { display: none; }
+.du-menu[aria-expanded="true"] .du-close { display: inline; }
+@media (max-width: 980px) { .du-links { display: none; } .du-book { margin-left: auto; } .du-menu { display: block; } }
+@media (max-width: 760px) {
+  :root { --nav-h: 68px; }
+  .du-nav-in { align-items: center; padding-bottom: 0; }
+  .du-brand { align-items: center; gap: 10px; }
+  .du-brand .du-mark { margin: 0; gap: 3px; }
+  .du-brand .du-mark i { width: 3px; height: 22px; }
+  .du-word { font-size: 40px; }
+  .du-book { display: none; }
+  .du-menu { margin-left: auto; }
+}
+.mnav.du-sheet { top: calc(var(--nav-h) + env(safe-area-inset-top, 0px)); background: var(--bg); }
+.du-sheet a { font-family: var(--font-display); font-style: italic; font-weight: 300; font-size: 36px; border-bottom-color: var(--line); }
+.du-sheet p { font-weight: 400; }
+
+/* ---------------------------------------------------------------- the hero: the reformer, then today */
+main section.du-hero { padding-block: 0; }
+.du-hero-f { margin: 0; overflow: clip; } /* the photo's slow settle stays inside its frame */
+.du-hero-f img { display: block; width: 100%; height: min(54vw, calc(100svh - var(--nav-h) - 190px)); min-height: 420px; object-fit: cover; object-position: 50% 0%; }
+.du-hero-line { margin: 0; padding-block: 22px; color: var(--muted); }
+@media (prefers-reduced-motion: no-preference) {
+  .du-hero-f img { animation: du-sun 2.6s cubic-bezier(.2,.6,.2,1) both; }
+  @keyframes du-sun { from { filter: brightness(.95); transform: scale(1.015); } to { filter: none; transform: none; } }
+}
+@media (max-width: 820px) { .du-hero-f img { height: auto; min-height: 0; aspect-ratio: 4 / 5; } }
+
+/* ---------------------------------------------------------------- section openings and inner pages */
+.du-sh { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 12px clamp(24px, 5vw, 88px); align-items: end; margin-bottom: clamp(28px, 4vw, 52px); }
+.du-sh-t { margin: 0; font-style: italic; font-size: clamp(36px, 3.6vw, 56px); line-height: 1.02; }
+.du-sh-t em { font-style: normal; }
+.du-sh-i { margin: 0; max-width: 46ch; color: var(--muted); }
+@media (max-width: 760px) { .du-sh { grid-template-columns: minmax(0, 1fr); } }
+.pl-ph { padding-block: clamp(44px, 6vw, 96px) clamp(28px, 4vw, 52px); }
+.pl-ph-in { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 14px clamp(24px, 5vw, 88px); align-items: end; }
+.pl-ph-k { grid-column: 1 / -1; margin: 0; font-size: 14px; color: var(--muted); }
+.pl-ph-k a { text-decoration: none; }
+.pl-ph-t { margin: 0; font-style: italic; font-weight: 200; font-size: clamp(48px, 6.6vw, 108px); line-height: .95; letter-spacing: -.03em; }
+.pl-ph-i { margin: 0; max-width: 40ch; color: var(--muted); }
+@media (max-width: 760px) { .pl-ph-in { grid-template-columns: minmax(0, 1fr); } }
+.nf-back { padding-bottom: var(--s4); }
+.phero { border-bottom: 0; }
+.phero h1 { font-style: italic; font-weight: 200; letter-spacing: -.02em; line-height: 1; }
+.phero .kick { color: var(--muted); }
+
+/* ---------------------------------------------------------------- the studio's own sections, in this look */
+main section.pl-intro { padding-top: clamp(72px, 9vw, 130px); }
+main section.pl-types { padding-top: 0; }
+main section.pl-first, main section.pl-clip { background: var(--surface); }
+.pl-steps li::before { color: var(--accent); }
+main section.pl-find { padding-top: clamp(64px, 8vw, 110px); }
+
+/* ---------------------------------------------------------------- shared features in the studio's hand */
+.shot img { display: block; width: 100%; height: auto; }
+.shot-cap { color: var(--muted); }
+.qa { border-color: var(--line-2); }
+.qa summary, .qa h3 { font-family: var(--font-display); font-weight: 300; font-size: clamp(20px, 1.8vw, 24px); }
+.tz, .pv-card, .pv-panel, .pv-board, .vc-card { background: var(--surface); border-color: transparent; border-radius: 4px; box-shadow: none; }
+.vc-card { color: var(--text); }
+.crumb a { text-decoration: underline; text-decoration-color: var(--line-2); text-underline-offset: 4px; }
+.tz img { border-radius: 2px; }
+.hours, .where { border-radius: 4px; }
+.barber { border-color: var(--line-2); }
+.b-img { background: var(--surface-2); }
+.b-name { font-family: var(--font-display); font-weight: 300; }
+.mono { font-family: var(--font-display); }
+.season { background: var(--season-bg); color: var(--season-fg); font-size: 14px; }
+.season a { color: inherit; text-decoration-color: var(--accent-soft); }
+.prose h2 { font-style: italic; }
+.prose p { color: var(--muted); }
+
+/* ---------------------------------------------------------------- footer and phone bar */
+.foot.du-foot { background: var(--surface); border-top: 0; color: var(--text); padding: clamp(56px, 7vw, 96px) 0 clamp(40px, 5vw, 64px); }
+.du-foot-in { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 3fr) minmax(0, 3fr) minmax(0, 2fr); gap: 32px; align-items: start; }
+.du-foot-name { display: grid; gap: 12px; justify-items: start; }
+.du-foot-word { margin: 0; font-family: var(--font-display); font-style: italic; font-weight: 300; font-size: clamp(44px, 4.4vw, 68px); line-height: .9; letter-spacing: -.02em; }
+.du-foot-what { margin: 0; color: var(--muted); }
+.du-foot-a { font-style: normal; line-height: 1.8; }
+.du-foot-a a { text-decoration-color: var(--line-2); }
+.du-foot-hours { list-style: none; margin: 0; padding: 0; font-size: 14px; font-variant-numeric: tabular-nums; }
+.du-foot-hours li { display: grid; grid-template-columns: 6.5em auto; }
+.du-foot-hours span { color: var(--muted); }
+.du-foot-links { display: grid; gap: 6px; font-size: 15px; }
+.du-foot-links a { text-decoration: none; }
+.du-foot-links a:hover { text-decoration: underline; }
+.du-foot-by { grid-column: 1 / -1; margin: 24px 0 0; padding-top: 18px; border-top: 1px solid var(--line); font-size: 13px; }
+.du-foot .by, .du-foot .by b { color: var(--text); }
+@media (max-width: 860px) { .du-foot-in { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .du-foot-name { grid-column: 1 / -1; } }
+@media (max-width: 560px) { .du-foot-in { grid-template-columns: minmax(0, 1fr); } }
+.mbar.du-bar { box-sizing: border-box; height: calc(var(--bar-h) + env(safe-area-inset-bottom, 0px)); padding-top: 0; min-height: 0; background: var(--surface); color: var(--text); border-top: 1px solid var(--line); backdrop-filter: none; justify-content: space-between; align-items: center; gap: 12px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.du-bar-t { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.du-bar-t .pl-six { gap: 3px; }
+.du-bar-t .pl-six i { width: 3px; height: 15px; }
+.du-bar-t b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--font-display); font-style: italic; font-weight: 300; font-size: 20px; }
+.du-bar-go { display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; font-weight: 500; white-space: nowrap; text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 6px; }
+/* The bar never covers the page: the page ends where the bar begins. */
+@media (max-width: 760px) { body { padding-bottom: calc(var(--bar-h) + env(safe-area-inset-bottom, 0px)); } }
+
+/* ---------------------------------------------------------------- the ways in to the other pages */
+.tease { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(10px, 1.4vw, 20px); }
+.tz { aspect-ratio: 4 / 5; border-radius: 2px; }
+.tz-body b { font-family: var(--font-display); font-style: italic; font-weight: 300; }
+.tz .go { color: var(--on-photo); text-decoration-color: var(--on-photo); }
+@media (max-width: 760px) { .tease { grid-template-columns: minmax(0, 1fr); } .tz { aspect-ratio: 3 / 2; } }
+
+/* ---------------------------------------------------------------- teachers */
+.du-team-l { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: clamp(20px, 3vw, 44px); }
+.du-team-l li { display: grid; gap: 6px; align-content: start; }
+.du-team-a { display: grid; gap: 10px; color: inherit; text-decoration: none; }
+.du-team-l img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+.du-team-l b { font-family: var(--font-display); font-style: italic; font-weight: 300; font-size: 34px; line-height: 1; }
+.du-team-a:hover b { text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 8px; }
+.du-team-l span { color: var(--muted); font-size: 15px; }
+.du-team-l p { margin: 4px 0 0; max-width: 40ch; }
+.du-team-book { margin: clamp(32px, 4vw, 56px) 0 0; }
+.du-team-book a { font-weight: 500; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 6px; }

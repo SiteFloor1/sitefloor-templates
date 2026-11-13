@@ -1,0 +1,401 @@
+{
+  "schemaVersion": 4,
+  "lang": "en-GB",
+  "booking": {
+    "provider": "phone"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [
+        [
+          "08:00",
+          "17:30"
+        ]
+      ],
+      "tue": [
+        [
+          "08:00",
+          "17:30"
+        ]
+      ],
+      "wed": [
+        [
+          "08:00",
+          "17:30"
+        ]
+      ],
+      "thu": [
+        [
+          "08:00",
+          "17:30"
+        ]
+      ],
+      "fri": [
+        [
+          "08:00",
+          "17:00"
+        ]
+      ],
+      "sat": [],
+      "sun": []
+    },
+    "exceptions": [
+      {
+        "date": "2026-12-24",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2026-12-29",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2026-12-30",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2026-12-31",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      }
+    ]
+  },
+  "id": "test-construction-client",
+  "mode": "client",
+  "plan": "signature",
+  "kit": "construction",
+  "look": "handover",
+  "url": "https://ashby-build-test.co.uk",
+  "indexable": true,
+  "business": {
+    "name": "Ashby Build",
+    "schemaType": "GeneralContractor",
+    "description": "Builders in Bath: extensions and renovations.",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "447911123461",
+    "phone": "+44 1225 123461",
+    "email": "office@ashby-build-test.co.uk"
+  },
+  "location": {
+    "streetAddress": "12 Mill Lane",
+    "locality": "Bath",
+    "postcode": "BA2 3DT",
+    "country": "GB",
+    "area": "At the end of Mill Lane, by the river.",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=Mill%20Lane%20Bath"
+  },
+  "nav": [
+    {
+      "label": "Projects",
+      "page": "projects",
+      "feature": "jobs-page"
+    },
+    {
+      "label": "How we build",
+      "page": "how-we-build",
+      "feature": "how-we-build"
+    },
+    {
+      "label": "Start a project",
+      "page": "start",
+      "feature": "start-page"
+    }
+  ],
+  "features": [
+    "visualiser",
+    "build-stages",
+    "projects",
+    "build-types",
+    "credentials",
+    "brief",
+    "jobs-page",
+    "projects-map",
+    "how-we-build",
+    "start-page",
+    "site-progress",
+    "build-3d",
+    "visualiser-page",
+    "visit",
+    "neighbours-page"
+  ],
+  "hero": {
+    "kicker": "Builders, Bath",
+    "title": "Built *properly.*",
+    "intro": "Extensions and renovations in Bath.",
+    "photo": {
+      "src": "img/house.webp",
+      "width": 900,
+      "height": 506,
+      "alt": "A finished garden extension with tall glazing"
+    }
+  },
+  "messages": {
+    "general": "Hello Ashby Build, I have a question."
+  },
+  "visualiser": {
+    "house": "semi",
+    "roof": "lantern",
+    "depth": {
+      "min": 3,
+      "max": 6,
+      "step": 0.5,
+      "start": 4
+    },
+    "message": "Hello Ashby Build, I'd like to talk about an extension.",
+    "rates": {
+      "perM2": {
+        "lantern": [
+          3200,
+          3900
+        ],
+        "glass": [
+          3700,
+          4500
+        ]
+      },
+      "vat": "excluded",
+      "checked": "2026-10"
+    }
+  },
+  "visualiserPage": {
+    "title": "Your extension, *in 3D*",
+    "intro": "Choose the house, the depth and the roof."
+  },
+  "stages": {
+    "title": "How a build *runs*",
+    "intro": "One project manager from survey to handover, and a written update every week.",
+    "above": {
+      "src": "img/room.webp",
+      "width": 600,
+      "height": 338,
+      "alt": "A finished room"
+    },
+    "below": {
+      "src": "img/work.webp",
+      "width": 600,
+      "height": 300,
+      "alt": "An extension during the build"
+    },
+    "items": [
+      {
+        "id": "survey",
+        "name": "Survey",
+        "line": "Measured, drawn and priced before anything starts.",
+        "model": "survey",
+        "weeks": [
+          2,
+          4
+        ],
+        "about": [
+          "We measure the house, read your architect's drawings and walk the job with you. Then we price it line by line, and you see every line.",
+          "Before anything is signed you have a fixed price and a programme for your house, week by week."
+        ]
+      },
+      {
+        "id": "structure",
+        "name": "Structure",
+        "line": "Foundations, steel and the dig, checked at every stage.",
+        "model": "structure",
+        "weeks": [
+          6,
+          10
+        ],
+        "about": [
+          "The groundworks, the footings and the slab, then the steel and the walls. Building control inspects at each stage, and so does your project manager.",
+          "This is the noisy part. We agree the hours with you and your neighbours before it starts."
+        ]
+      },
+      {
+        "id": "envelope",
+        "name": "Envelope",
+        "line": "Roof, walls and glass. Dry from here.",
+        "model": "envelope",
+        "weeks": [
+          4,
+          6
+        ],
+        "about": [
+          "The roof goes on, the glazing goes in and the house is weathertight. From here the work moves inside, and the garden starts to come back."
+        ]
+      },
+      {
+        "id": "finish",
+        "name": "Finish",
+        "line": "Plaster, joinery and stone, then the snagging walk together.",
+        "model": "finish",
+        "weeks": [
+          8,
+          12
+        ],
+        "about": [
+          "First fix, plaster, then the joinery, stone and paint. The last two weeks are for the details nobody else would notice.",
+          "At handover we walk every room with you and write down anything that isn't right. Then we put it right."
+        ]
+      }
+    ]
+  },
+  "build3d": {
+    "title": "The build, *stage by stage*",
+    "intro": "The same extension from the survey to the day we hand you the keys. Tap a stage."
+  },
+  "howWeBuild": {
+    "title": "How we *build*",
+    "intro": "Four stages, one project manager, a written update every Friday.",
+    "sections": [
+      {
+        "title": "The *contract*",
+        "text": [
+          "We build on a fixed-price contract with a programme attached. If you change something, we price the change in writing before we do it."
+        ]
+      },
+      {
+        "title": "How you *pay*",
+        "text": [
+          "In stages, as each one is finished and you have seen it. Never more than the work done so far.",
+          "We never change our bank details by email. Call us before paying if anything looks different."
+        ]
+      },
+      {
+        "title": "After *handover*",
+        "text": [
+          "A twelve-month defects period, and a visit at six months to check the house has settled."
+        ]
+      },
+      {
+        "title": "Living at home *during the work*",
+        "text": [
+          "Most of our clients stay in. We seal off the work, keep a kitchen running where we can, and tell you a week ahead about the noisy days and the ones when the water or power will be off."
+        ]
+      }
+    ]
+  },
+  "buildTypes": {
+    "title": "What we *build*",
+    "items": [
+      {
+        "id": "extensions",
+        "name": "Extensions",
+        "line": "Rear and side extensions.",
+        "photo": {
+          "src": "img/room.webp",
+          "width": 600,
+          "height": 338,
+          "alt": "A finished room"
+        }
+      }
+    ]
+  },
+  "projects": {
+    "title": "Recently *handed over*",
+    "items": [
+      {
+        "id": "widcombe",
+        "place": "Widcombe, BA2",
+        "scope": "A rear extension and a new kitchen.",
+        "type": "extensions",
+        "year": 2026,
+        "district": {
+          "code": "BA2",
+          "lat": 51.375,
+          "lng": -2.352
+        },
+        "photos": [
+          {
+            "src": "img/room.webp",
+            "width": 600,
+            "height": 338,
+            "alt": "The finished kitchen extension"
+          }
+        ]
+      }
+    ]
+  },
+  "projectsMap": {
+    "title": "Where we've *built*"
+  },
+  "credentials": {
+    "updated": "2026-10",
+    "items": [
+      {
+        "name": "Trade association membership",
+        "number": "AB123456",
+        "checkUrl": "https://example.org/register"
+      }
+    ],
+    "insurance": [
+      {
+        "cover": "Public liability",
+        "amount": "£5m",
+        "insurer": "Example Insurance Ltd"
+      }
+    ],
+    "guarantee": "A twelve-month defects period."
+  },
+  "brief": {
+    "title": "Start a *project*",
+    "intro": "Tell us what, where and when. Your project manager replies on WhatsApp.",
+    "opening": "Hello Ashby Build, I'd like to talk about a project.",
+    "whens": [
+      "As soon as possible",
+      "In the next six months",
+      "Next year",
+      "Just planning"
+    ],
+    "after": [
+      {
+        "name": "We reply",
+        "line": "A project manager replies on WhatsApp to arrange a visit."
+      },
+      {
+        "name": "We visit",
+        "line": "We look at the house with you and, if you have one, your architect."
+      },
+      {
+        "name": "A fixed price",
+        "line": "A written price and a programme for your house before anything is signed."
+      }
+    ]
+  },
+  "siteProgress": {
+    "title": "Your house, *this week*",
+    "intro": "Type the site code from our first message.",
+    "source": "sheet",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vTestBuildSheet/pub?gid=0&single=true&output=csv",
+    "staleAfterDays": 10
+  },
+  "sections": {
+    "visit": {
+      "title": "The *yard*"
+    }
+  },
+  "neighbours": {
+    "title": "For our *neighbours*",
+    "intro": "When we work and how to reach us.",
+    "hours": [
+      "Monday to Friday, 8 am to 6 pm"
+    ],
+    "reach": "Call the office.",
+    "message": "Hello, I live near your site in {district}.",
+    "source": "sheet",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vTestNeighbours/pub?gid=0&single=true&output=csv",
+    "staleAfterDays": 10,
+    "sites": [
+      {
+        "id": "se22-rear",
+        "district": {
+          "code": "SE22",
+          "lat": 51.4545,
+          "lng": -0.0737
+        },
+        "work": "A rear extension",
+        "from": "2026-10",
+        "to": "2027-03"
+      }
+    ]
+  }
+}

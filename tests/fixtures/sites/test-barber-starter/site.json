@@ -1,0 +1,266 @@
+{
+  "schemaVersion": 4,
+  "id": "test-barber-starter",
+  "mode": "client",
+  "plan": "starter",
+  "kit": "barber",
+  "look": "barber-noir",
+  "url": "https://starter-barber.example.co.uk",
+  "indexable": false,
+  "lang": "en-GB",
+  "business": {
+    "name": "Starter Cuts",
+    "schemaType": "BarberShop",
+    "description": "Test fixture: the smallest valid Starter-plan barber site."
+  },
+  "contact": {
+    "whatsapp": "447911654321",
+    "phone": "+44 7911 654321",
+    "email": "hello@starter-barber.example.co.uk"
+  },
+  "location": {
+    "streetAddress": "9 High Street",
+    "locality": "Testford",
+    "postcode": "TE2 2ST",
+    "country": "GB"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [],
+      "tue": [
+        [
+          "10:00",
+          "18:00"
+        ]
+      ],
+      "wed": [
+        [
+          "10:00",
+          "18:00"
+        ]
+      ],
+      "thu": [
+        [
+          "10:00",
+          "18:00"
+        ]
+      ],
+      "fri": [
+        [
+          "10:00",
+          "22:00"
+        ]
+      ],
+      "sat": [
+        [
+          "22:00",
+          "02:00"
+        ]
+      ],
+      "sun": []
+    }
+  },
+  "nav": [
+    {
+      "label": "Prices",
+      "page": "prices",
+      "feature": "price-page",
+      "fallback": "#prices"
+    },
+    {
+      "label": "Visit",
+      "page": "visit",
+      "feature": "plan-visit",
+      "fallback": "#visit"
+    }
+  ],
+  "features": [
+    "price-list",
+    "visit",
+    "questions",
+    "plan-visit"
+  ],
+  "hero": {
+    "kicker": "Barbers · Testford",
+    "title": "Starter|*cuts.*",
+    "intro": "Fixture copy."
+  },
+  "sections": {
+    "prices": {
+      "title": "Prices"
+    },
+    "visit": {
+      "title": "Visit"
+    },
+    "questions": {
+      "kicker": "Before you come in",
+      "title": "Good to|know*.*",
+      "intro": "What people ask before their first visit."
+    }
+  },
+  "messages": {
+    "general": "Hi, can I book a cut?"
+  },
+  "priceList": [
+    {
+      "group": "Cuts",
+      "items": [
+        {
+          "name": "Cut",
+          "price": "£15"
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "topic": "Getting here",
+      "q": "Where can I park?",
+      "a": "On Station Road, a minute's walk. It's free after 6pm.",
+      "home": true
+    },
+    {
+      "topic": "Your visit",
+      "q": "Do I need to book?",
+      "a": "Walk in any time, or call ahead on Saturdays.",
+      "home": true
+    },
+    {
+      "topic": "Paying",
+      "q": "Do you take card?",
+      "a": "Yes, card and cash.",
+      "home": false
+    }
+  ],
+  "visitInfo": {
+    "kicker": "Plan your visit",
+    "title": "Before you|come in*.*",
+    "intro": "Parking and the quickest way here.",
+    "checked": "2026-10",
+    "journeys": [
+      {
+        "mode": "train",
+        "from": "Hightown station",
+        "stop": "Hightown station",
+        "minutes": 6,
+        "steps": [
+          "Leave by the main exit",
+          "Turn right onto Station Road"
+        ]
+      },
+      {
+        "mode": "car",
+        "from": "the ring road",
+        "minutes": 5,
+        "steps": [
+          "Exit at junction 2",
+          "Follow signs for the town centre"
+        ]
+      }
+    ],
+    "parking": [
+      {
+        "name": "Station Road",
+        "walk": 1,
+        "price": "£1.50 an hour",
+        "paid": {
+          "mon": [
+            [
+              "08:00",
+              "18:00"
+            ]
+          ],
+          "tue": [
+            [
+              "08:00",
+              "18:00"
+            ]
+          ],
+          "wed": [
+            [
+              "08:00",
+              "18:00"
+            ]
+          ],
+          "thu": [
+            [
+              "08:00",
+              "18:00"
+            ]
+          ],
+          "fri": [
+            [
+              "08:00",
+              "18:00"
+            ]
+          ]
+        },
+        "bankHolidays": "free"
+      },
+      {
+        "name": "Leisure centre car park",
+        "walk": 4,
+        "paid": "never",
+        "open": {
+          "mon": [
+            [
+              "06:00",
+              "22:00"
+            ]
+          ],
+          "tue": [
+            [
+              "06:00",
+              "22:00"
+            ]
+          ],
+          "wed": [
+            [
+              "06:00",
+              "22:00"
+            ]
+          ],
+          "thu": [
+            [
+              "06:00",
+              "22:00"
+            ]
+          ],
+          "fri": [
+            [
+              "06:00",
+              "22:00"
+            ]
+          ],
+          "sat": [
+            [
+              "06:00",
+              "22:00"
+            ]
+          ],
+          "sun": [
+            [
+              "06:00",
+              "22:00"
+            ]
+          ]
+        }
+      }
+    ],
+    "access": [
+      {
+        "label": "Step-free entrance",
+        "yes": true
+      },
+      {
+        "label": "Accessible toilet",
+        "yes": false
+      }
+    ],
+    "payment": "Card and cash."
+  },
+  "brand": {
+    "type": "modern"
+  }
+}

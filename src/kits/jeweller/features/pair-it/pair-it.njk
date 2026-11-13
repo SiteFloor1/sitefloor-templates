@@ -1,0 +1,20 @@
+{#- Pair it: the engagement ring beside each wedding band the house suggests for it, from its own photographs, side
+    by side at the same height; choose a band and ask to see the pair. Set `ring` first. Without JavaScript, every
+    band is shown in a row beside the ring. -#}
+{%- set bands = site.pieces.items | piecesById(ring.pairs) %}
+{%- set pairText = "Hello " + site.business.name + ", I'd like to see " + ring.name + " with " + bands[0].name + " in person." %}
+<section class="nc-sec jw-pair" data-feature="pair-it"{{ "pair-it" | tierAttr | safe }} aria-labelledby="jw-pair-{{ ring.id }}"><div class="wrap">
+  {%- set sec = { title: "Pair it", intro: ring.name, id: "jw-pair-" + ring.id } %}{% include "core/partials/section-head.njk" %}
+  <div class="jw-pair-in">
+    <figure class="jw-pair-r"><img src="{{ ring.photo.src | cardSrc | img }}" width="900" height="1125" loading="lazy" decoding="async" alt="{{ ring.photo.alt }}"><figcaption class="nc-label nc-muted">{{ ring.name }}</figcaption></figure>
+    <div class="jw-pair-bands">
+      {%- for b in bands %}
+      <figure class="jw-pair-b" data-pair-band="{{ b.id }}" data-pair-name="{{ b.name }}"><img src="{{ b.photo.src | cardSrc | img }}" width="900" height="1125" loading="lazy" decoding="async" alt="{{ b.photo.alt }}"><figcaption class="nc-label nc-muted">{{ b.name }}{% set bpl = b | priceLabel %}{% if bpl %} · {{ bpl }}{% endif %}</figcaption></figure>
+      {%- endfor %}
+    </div>
+  </div>
+  <fieldset class="nc-choice" data-js-only><legend class="nc-label">With</legend>
+    {%- for b in bands %}<label><input type="radio" name="pair-{{ ring.id }}" value="{{ b.id }}"{% if loop.first %} checked{% endif %}><span>{{ b.name }}</span></label>{% endfor %}
+  </fieldset>
+  <p class="jw-acts"><a class="nc-u nc-label" href="{{ pairText | wa }}" data-wa-text="{{ pairText }}" target="_blank" rel="noopener" data-pair-send data-ring="{{ ring.name }}">Ask to see the pair</a></p>
+</div></section>

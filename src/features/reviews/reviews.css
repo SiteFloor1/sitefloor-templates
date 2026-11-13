@@ -1,0 +1,9 @@
+/* Reviews: three cards. */
+.sec-reviews { padding-top: 0 !important; }
+.revs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 900px) { .revs { grid-template-columns: minmax(0, 1fr); } }
+.rev { background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); padding: 26px; }
+.rev .st { color: var(--accent); letter-spacing: .15em; font-size: 14px; margin: 0; }
+.rev blockquote p { font-family: var(--font-display); font-size: 21px; line-height: 1.35; margin: 14px 0 18px; }
+.rev figcaption { color: var(--muted); font-size: 13px; }
+.note { margin-top: 14px; font-size: 12.5px; color: var(--dim); }

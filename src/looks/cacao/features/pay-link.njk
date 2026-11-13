@@ -1,0 +1,16 @@
+{#- Cacao pay online: a short list like a receipt, one line each: what it's for, the amount, and the button. -#}
+{%- set sec = site.sections.payLinks %}
+<section id="pay" class="sec-pay cc-pay" data-feature="pay-link"{{ "pay-link" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <ul class="cc-rows">
+    {%- for p in site.payLinks.items %}
+    <li>
+      <span class="cc-rk">{{ "Deposit" if p.kind == "deposit" else ("Monthly" if p.kind == "monthly" else "In full") }}</span>
+      <span class="cc-rn">{{ p.label }}{% if p.for %}<small>{{ p.for }}</small>{% endif %}</span>
+      <span class="cc-ra">{{ p.amount | pounds }}</span>
+      <a class="go pl-btn" href="{{ p.url }}" target="_blank" rel="noopener" data-pay="{{ p.id }}" aria-label="{{ ('Pay the ' + (p.amount | pounds) + ' deposit: ' + p.label) if p.kind == 'deposit' else ('Pay ' + (p.amount | pounds) + (' a month' if p.kind == 'monthly' else '') + ': ' + p.label) }}">{{ "Pay deposit" if p.kind == "deposit" else "Pay" }}</a>
+    </li>
+    {%- endfor %}
+  </ul>
+  <p class="cc-fine">{{ site.payLinks.note }}</p>
+</div></section>

@@ -1,0 +1,6 @@
+{#- Your seal (Signature): two initials and a line for the favour lid's seal. Included by the favours section; the
+    favours script redraws the seal as they type. -#}
+<fieldset class="fv-sealf"{{ "favour-seal" | tierAttr | safe }}><legend class="bx-field">Your seal</legend>
+  <div class="fv-letters"><input type="text" maxlength="2" autocomplete="off" aria-label="First initial" data-fv-a><span aria-hidden="true">&amp;</span><input type="text" maxlength="2" autocomplete="off" aria-label="Second initial" data-fv-b></div>
+  <label class="bx-field" for="fv-line">Around it<input id="fv-line" type="text" maxlength="30" autocomplete="off" placeholder="Amira &amp; Sam · 14 June 2027" data-fv-line></label>
+</fieldset>

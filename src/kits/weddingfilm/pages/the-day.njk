@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: the-day
+permalink: the-day.html
+feature: day-planner
+eleventyComputed:
+  title: "{{ site.dayPlanner.title | plain }}"
+  description: "Plan your wedding day around the light, with {{ site.business.name }}: your filming timeline from your ceremony time, and the day explained."
+---
+{%- set ph = site.dayPlanner %}{% include "kits/weddingfilm/partials/page-head.njk" %}
+{% include "kits/weddingfilm/features/day-planner/day-planner.njk" %}

@@ -1,0 +1,8 @@
+/* The day's sittings: one line each; the one being served carries the accent. Looks restyle freely. */
+.si-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.si-item { display: grid; grid-template-columns: 4.5em minmax(0, 1fr) auto; gap: 4px 16px; align-items: baseline; padding: 14px 0; border-top: 1px solid var(--line); }
+.si-now { color: var(--accent); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.si-name { font-family: var(--font-display); font-size: 1.25rem; }
+.si-days { grid-column: 2 / -1; color: var(--muted); font-size: .9rem; }
+.si-item[data-state="now"] .si-name { color: var(--accent); }
+.si-line { color: var(--muted); }

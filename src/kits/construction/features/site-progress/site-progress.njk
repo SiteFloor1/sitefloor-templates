@@ -1,0 +1,28 @@
+{#- Your house, this week: the client types the code the builder gave them (or follows the link with it) and sees the
+    stage, this week's work, a photograph and what happens next. The builder's sheet holds no names or addresses.
+    Unknown or old codes say to call. -#}
+{%- set sp = site.siteProgress %}
+{%- set ph = { title: sp.title, intro: sp.intro } %}
+{% include "kits/construction/partials/page-head.njk" %}
+<div class="wrap bd-sp" data-feature="site-progress">
+  <form class="bd-key bd-sp-form" id="sp-form" data-js-only>
+    <span class="bd-tag" aria-hidden="true"></span>
+    <label for="sp-code">Your site code</label>
+    <input id="sp-code" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="14" placeholder="Site code">
+    <button type="submit">This week</button>
+  </form>
+  {%- if site.mode == "demo" and sp.example %}<p class="bd-sp-try">Demo: try <button type="button" data-sp-try="{{ sp.example }}">{{ sp.example }}</button></p>{% endif %}
+  <article class="bd-sp-card" id="sp-out" hidden aria-live="polite">
+    <img class="bd-sp-photo" data-sp-photo alt="This week on site" hidden>
+    <div class="bd-sp-body">
+      <p class="bd-sp-when" data-sp-when></p>
+      <h2 class="bd-sp-done" data-sp-done>This week on site</h2>
+      <ol class="bd-sp-bar" aria-label="Stages">{% for st in site.stages.items %}<li data-sp-stage="{{ loop.index0 }}"><span>{{ st.name }}</span></li>{% endfor %}</ol>
+      <p class="bd-sp-stage" data-sp-stage-name></p>
+      <p class="bd-sp-next" data-sp-next></p>
+    </div>
+  </article>
+  <p class="bd-sp-off" id="sp-off" hidden role="status"></p>
+  <p class="bd-sp-plain" data-no-js>Call us on <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone | replace('+44 ', '0') }}</a> and your project manager will tell you where the build has reached.</p>
+  <p class="bd-sp-note">This page shows only where your build has reached and this week's work. Never your name or your address.</p>
+</div>

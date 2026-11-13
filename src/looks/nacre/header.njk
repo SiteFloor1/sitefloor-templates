@@ -1,0 +1,27 @@
+{#- Nacre header: the monogram centred and alone; on the left the menu and the first two pages, on the right
+    "Appointment", all as small spaced capitals over one hairline. It doesn't stick: the page keeps its silence. -#}
+{%- set navAll = site.nav | navItems(pageId) %}
+<header class="nav nc-head"><div class="nc-head-in">
+  <nav class="nc-l" aria-label="Main">
+    <button class="burger nc-menu" type="button" aria-expanded="false" aria-controls="mnav"><span class="nc-open">Menu</span><span class="nc-close">Close</span></button>
+    {%- for item in navAll %}{% if loop.index <= 2 %}
+    <a class="nc-x" href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endif %}{% endfor %}
+  </nav>
+  <a class="nc-mark" href="{{ 'index' | href }}" aria-label="{{ site.business.name }}, home">
+    {%- if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="" height="40">{% else %}{% set cartoucheClass = "" %}{% include "looks/nacre/parts/cartouche.njk" %}{% endif %}
+  </a>
+  <nav class="nc-r" aria-label="Appointments">
+    <a href="{{ (site.messages.appointment or site.messages.general) | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.appointment or site.messages.general }}"{% endif %} target="_blank" rel="noopener">Appointment</a>
+  </nav>
+</div></header>
+<div class="mnav nc-sheet" id="mnav" hidden>
+  <nav aria-label="Pages">
+    <a href="{{ 'index' | href }}"{% if pageId == "index" %} aria-current="page"{% endif %}>{{ site.business.name }}</a>
+    {%- for item in navAll %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+  </nav>
+  <p class="nc-sheet-now" data-live-status><span data-status-text>Opening hours</span></p>
+  <p class="nc-sheet-addr">{{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}</p>
+</div>

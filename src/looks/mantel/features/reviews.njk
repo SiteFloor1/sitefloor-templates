@@ -1,0 +1,12 @@
+{#- Mantel reviews: each one as a sentence in the serif under a fine ring in the week's colour, the name and month
+    beneath; the score in words for screen readers and as a small number for everyone. -#}
+{%- set sec = site.sections.reviews %}
+<section id="reviews" class="mt-revs" data-feature="reviews"{{ "reviews" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <ul class="mt-revs-l" role="list">
+    {%- for r in site.reviews.items %}
+    <li><figure class="mt-rev"><blockquote><p>{{ r.text }}</p></blockquote><figcaption>{{ r.author }}, {{ r.date | monthYear }} <span class="mt-rev-s">{{ r.rating }} of 5</span></figcaption></figure></li>
+    {%- endfor %}
+  </ul>
+  {%- if site.reviews.source == "sample" %}<p class="mt-fine">Sample reviews for the demo; a live site shows the studio's own Google reviews.</p>{% endif %}
+</div></section>

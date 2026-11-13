@@ -1,0 +1,10 @@
+/* stone-guide: layout in tokens only; the look sets type and colour. */
+.jw-stone { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(24px, 5vw, 80px); align-items: center; margin-bottom: 64px; }
+.jw-stones.is-tabbed .jw-stone { margin-bottom: 0; }
+.jw-stone figure { margin: 0; background: var(--surface); }
+.jw-stone img { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; }
+.jw-stone > div { display: grid; gap: 16px; }
+.jw-in-shape { display: flex; flex-wrap: wrap; gap: 6px 22px; align-items: baseline; margin: 8px 0 0; }
+@media (max-width: 700px) {
+  .jw-stone { grid-template-columns: 1fr; }
+}

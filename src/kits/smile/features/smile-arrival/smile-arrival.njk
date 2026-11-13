@@ -1,0 +1,16 @@
+{#- Arriving: choose your appointment time; the way from the door to the chair re-times itself. Without JavaScript
+    the route shows for the first time the studio lists. -#}
+{%- set a = site.arrival %}
+<section id="arriving" class="sm-ar" data-feature="smile-arrival" aria-labelledby="ar-h"{{ 'smile-arrival' | tierAttr | safe }}><div class="wrap sm-ar-in">
+  {%- if a.photo %}<figure class="sm-ar-ph"><img src="{{ a.photo.src | img }}" alt="{{ a.photo.alt }}" width="{{ a.photo.width }}" height="{{ a.photo.height }}" loading="lazy" decoding="async"></figure>{% endif %}
+  <div>
+    <h2 id="ar-h" class="sm-ar-t">{{ a.title }}</h2>
+    {%- if a.intro %}<p class="sm-ar-i">{{ a.intro }}</p>{% endif %}
+    <div class="sm-chips" role="group" aria-label="Your appointment time" data-js-only>
+      {%- for t in a.times %}<button type="button" class="sm-chip" data-ar="{{ t }}" aria-pressed="{{ 'true' if t == a.start else 'false' }}">{{ t | clock }}</button>{% endfor %}
+    </div>
+    <ol class="sm-ar-route" data-ar-route data-start="{{ a.start }}">
+      {%- for s in a | arrive %}<li><span class="sm-ar-time" data-ar-time>{{ s.time }}</span><span class="sm-ar-s">{{ s.text }}{% if s.note %}<small>{{ s.note }}</small>{% endif %}</span></li>{% endfor %}
+    </ol>
+  </div>
+</div></section>

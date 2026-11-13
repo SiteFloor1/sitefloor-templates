@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: bridal-party
+permalink: bridal-party.html
+feature: bridal-party
+eleventyComputed:
+  title: "{{ site.party.title | plain }}"
+  description: "{{ site.party.description or ('Matching pieces for the bridal party, from ' + site.business.name + ', ' + site.location.locality + '.') }}"
+---
+{% include "kits/jeweller/features/bridal-party/bridal-party.njk" %}

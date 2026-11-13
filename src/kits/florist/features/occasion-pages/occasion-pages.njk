@@ -1,0 +1,19 @@
+{#- Occasions (Plus): every occasion the florist has a page for, each with its own photograph and the price it starts at. -#}
+{%- set OP = site.occasionPages %}
+{%- set ph = { kicker: OP.kicker or "Occasions", title: OP.title, intro: OP.intro } %}
+{% include "kits/florist/partials/page-head.njk" %}
+<section class="fl-ops" aria-label="Occasions"><div class="wrap">
+  <ul class="fl-ops-l" role="list">
+    {%- for g in OP.pages %}
+    <li><a class="fl-ops-a" href="{{ ('for-' + g.id) | href }}">
+      <span class="fl-ops-ph"><img src="{{ g.photo.src | img }}" alt="{{ g.photo.alt }}" width="{{ g.photo.width }}" height="{{ g.photo.height }}"{% if loop.index > 3 %} loading="lazy"{% endif %} decoding="async"></span>
+      <b class="fl-ops-t">{{ g.title }}</b><span class="fl-ops-l2">{{ g.line }}</span><span class="fl-ops-p">From {{ g.items | fromPrice | pounds }}</span></a></li>
+    {%- endfor %}
+    {%- if "sympathy-order" | enabled %}
+    <li><a class="fl-ops-a fl-ops-quiet" href="{{ 'sympathy' | href }}"><b class="fl-ops-t">Sympathy</b><span class="fl-ops-l2">To a home or to the service, with words for the card</span></a></li>
+    {%- endif %}
+    {%- if "funeral-flowers" | enabled %}
+    <li><a class="fl-ops-a fl-ops-quiet" href="{{ 'funeral' | href }}"><b class="fl-ops-t">Funeral flowers</b><span class="fl-ops-l2">Wreaths, sprays and tributes, and the notice we need</span></a></li>
+    {%- endif %}
+  </ul>
+</div></section>

@@ -1,0 +1,35 @@
+{#- Run club page: each weekly run with its next date, where to meet and what to expect; "I'm in" on WhatsApp and the
+    run in your calendar. Route cards (Signature) draw each run's route. -#}
+{%- set ph = { kicker: site.clubPage.kicker, title: site.clubPage.title, intro: site.clubPage.intro } %}
+{%- set c = site.club %}
+{% include "kits/wear/partials/page-head.njk" %}
+<div class="wr-clubpage" data-feature="club-page" data-tz="{{ site.hours.timezone }}" data-business="{{ site.business.name }}" data-place="{{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}">
+  {%- if c.photo %}
+  <picture class="wr-club-ph wrap">
+    {%- if c.photoTall %}<source media="(max-width: 759px)" srcset="{{ c.photoTall.src | img }}" width="{{ c.photoTall.width }}" height="{{ c.photoTall.height }}">{% endif %}
+    <img src="{{ c.photo.src | img }}" alt="{{ c.photo.alt }}" width="{{ c.photo.width }}" height="{{ c.photo.height }}" decoding="async">
+  </picture>
+  {%- endif %}
+  <div class="wrap">
+  {%- for r in c.runs %}
+  {%- set when = r | runWhen %}
+  {%- set route = site | wearRouteOf(r.route) if r.route else null %}
+  <article class="wr-crun rv" id="run-{{ r.id }}" data-run="{{ r | wearJson }}">
+    <div class="wr-crun-t">
+      <p class="wr-crun-when">{{ when }}</p>
+      <h2>{{ r.title }}</h2>
+      <p>{{ r.text }}</p>
+      <p class="wr-crun-m">Meet at {{ r.meet }}. About {{ r.minutes }} minutes. <span data-next></span></p>
+      <p class="wr-crun-acts">
+        <a class="wr-link" href="{{ (c.rsvp or "Hi, I'm in for {run}.") | replace('{run}', r.title + ', ' + when) | wa }}" target="_blank" rel="noopener">I'm in</a>
+        <button type="button" class="wr-link" data-ics hidden>Add the next one to my calendar</button>
+      </p>
+    </div>
+    {%- if route and ("route-cards" | enabled) %}{% include "kits/wear/features/route-cards/route-cards.njk" %}{% endif %}
+  </article>
+  {%- endfor %}
+  {%- if c.photos %}
+  <ul class="wr-club-strip">{% for p in c.photos %}<li><img src="{{ p.src | img }}" alt="{{ p.alt }}" width="{{ p.width }}" height="{{ p.height }}" loading="lazy" decoding="async"></li>{% endfor %}</ul>
+  {%- endif %}
+  </div>
+</div>

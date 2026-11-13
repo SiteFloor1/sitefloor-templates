@@ -1,0 +1,16 @@
+{#- Basalt page links: the other pages as tall photographs, the page's name over the foot of each. -#}
+{%- set links = site.pageLinks | enabledLinks %}
+{%- if links.length %}
+<section class="bs-pl" data-feature="page-links"{{ "page-links" | tierAttr | safe }}><div class="wrap">
+  <ul class="bs-pl-row">
+    {%- for l in links %}
+    <li><a href="{{ l.page | href }}">
+      <img src="{{ l.image | img }}" alt="" loading="lazy" decoding="async" width="1100" height="1375">
+      <span class="bs-pl-k">{{ l.kicker }}</span>
+      <span class="bs-pl-t">{{ l.title | plain }}</span>
+      <span class="bs-pl-go">{{ l.cta }}</span>
+    </a></li>
+    {%- endfor %}
+  </ul>
+</div></section>
+{%- endif %}

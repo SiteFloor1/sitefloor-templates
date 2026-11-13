@@ -1,0 +1,14 @@
+---
+layout: core/layouts/base.njk
+pageId: your-car
+permalink: your-car.html
+feature: car-progress
+noindex: true
+eleventyComputed:
+  title: "{{ site.sections.progress.title | plain }}"
+  description: "Where your car is at {{ site.business.name }}: type the code from your booking text."
+---
+{%- set pg = { kicker: "Your car", title: site.sections.progress.title, intro: "Type the code from your booking text: the stage, our latest note and the handover." } %}
+{% include "kits/detailing/partials/page-head.njk" %}
+{%- set cpSuffix = "-p" %}{% set cpPage = true %}
+{% include "kits/detailing/features/car-progress/car-progress.njk" %}

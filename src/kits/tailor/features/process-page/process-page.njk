@@ -1,0 +1,14 @@
+{#- The bespoke process: each step with what happens and, where the house gives one, a photograph. -#}
+{%- set ph = site.processPage %}
+{% include "kits/tailor/partials/page-head.njk" %}
+<div class="wrap tl-pp">
+  <ol class="tl-pp-list">
+    {%- for s in site.process.steps %}
+    <li class="tl-pp-step" id="step-{{ s.id }}">
+      {%- if s.photo %}<figure class="tl-pp-ph"><img src="{{ s.photo.src | img }}" alt="{{ s.photo.alt }}" width="{{ s.photo.width }}" height="{{ s.photo.height }}" loading="lazy" decoding="async"></figure>{% endif %}
+      <div class="tl-pp-t"><h2 class="tl-pp-n">{{ s.name }}</h2><p class="tl-pp-l">{{ s.text }}</p>{% if s.more %}<p class="tl-pp-m">{{ s.more }}</p>{% endif %}</div>
+    </li>
+    {%- endfor %}
+  </ol>
+  <p class="tl-pp-go"><a class="tl-go" href="{{ (site.garments.message if site.garments else site.messages.general) | book }}" target="_blank" rel="noopener">Book a first appointment</a></p>
+</div>

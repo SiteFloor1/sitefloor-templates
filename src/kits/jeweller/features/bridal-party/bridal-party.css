@@ -1,0 +1,23 @@
+/* Bridal party orders: the photograph tall beside the title; the pieces in a row; the order set like a seating plan. */
+.jw-bp-hero { padding-top: clamp(24px, 4vw, 60px); }
+.jw-bp-hero-in { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(28px, 6vw, 110px); align-items: end; }
+.jw-bp-ph img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+.jw-bp-h { margin: 0 0 24px; font: 400 clamp(48px, 7vw, 112px)/.95 var(--font-display); letter-spacing: .02em; }
+.jw-bp-set-in { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: clamp(16px, 3vw, 44px); }
+.jw-bp-o-in { max-width: 860px; }
+.jw-bp-tab { width: 100%; border-collapse: collapse; margin-bottom: 18px; }
+.jw-bp-tab caption { text-align: left; padding-bottom: 12px; }
+.jw-bp-tab th, .jw-bp-tab td { text-align: left; padding: 14px 12px 14px 0; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.jw-bp-tab thead th { font: 400 12px/1.2 var(--font-body); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.jw-bp-tab tbody th { font: 400 clamp(19px, 1.8vw, 23px)/1.2 var(--font-display); letter-spacing: .04em; }
+.jw-bp-tab select { width: 100%; }
+.jw-bp-n { width: 5.5em; }
+.jw-bp-sum { font: 400 clamp(19px, 1.8vw, 23px)/1.4 var(--font-display); letter-spacing: .02em; margin: 0 0 30px; min-height: 1.4em; }
+.jw-bp-more { display: grid; grid-template-columns: 1fr 1fr; gap: 0 28px; margin-bottom: 8px; }
+@media (max-width: 47.99em) {
+  .jw-bp-hero-in, .jw-bp-more { grid-template-columns: 1fr; }
+  .jw-bp-tab thead { display: none; }
+  .jw-bp-tab tr { display: grid; grid-template-columns: 1fr 5.5em; gap: 8px 12px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .jw-bp-tab th, .jw-bp-tab td { border: 0; padding: 0; }
+  .jw-bp-tab tbody th { grid-column: 1 / -1; }
+}

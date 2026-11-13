@@ -1,0 +1,27 @@
+{#- Mackerel footer: a lit tube across the top, the studio's name large, the address and how to reach it, the week's
+    hours, the pages; the Sitefloor credit last. -#}
+<footer class="foot mk-foot"><span class="tube mk-foot-tube" aria-hidden="true"></span><div class="wrap mk-foot-in">
+  <div class="mk-foot-name">
+    <p class="mk-foot-word">{{ site.business.name }}</p>
+    <p class="mk-foot-what">{{ site.hero.kicker }}</p>
+  </div>
+  <address class="mk-foot-a">{{ site.location.streetAddress }}<br>{{ site.location.locality }} {{ site.location.postcode }}<br>
+    <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a>{% if site.contact.email %}<br><a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>{% endif %}</address>
+  <ul class="mk-foot-hours" aria-label="Opening hours">
+    {%- for row in site.hours | hoursRows %}<li data-day="{{ row.dayIndex }}"><span>{{ row.day }}</span> {{ row.label }}</li>{% endfor %}
+  </ul>
+  <nav class="mk-foot-links" aria-label="Footer">
+    <a href="{{ 'index' | href }}">The bay</a>
+    {%- set navF = [] %}
+    {%- for item in site.nav | navItems(pageId) %}{% if navF.push(item.feature) %}{% endif %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}>{{ item.label }}</a>{% endfor %}
+    {#- The kit's other pages that are on and not already in the nav. #}
+    {%- for f in [["wheels-page", "wheels-and-calipers", "wheelsPage"], ["interior-page", "interior", "interiorPage"], ["new-car-page", "new-car-protection", "newCarPage"], ["selling-page", "selling-your-car", "sellingPage"], ["lease-return", "lease-return", "leaseReturn"], ["maintenance-page", "maintenance", "maintenancePage"], ["aftercare-page", "aftercare", "aftercarePage"], ["results-page", "before-and-after", "resultsPage"], ["work", "work", "work"]] %}
+    {%- if (f[0] | enabled) and not (f[0] in navF) %}<a href="{{ f[1] | href }}">{{ site[f[2]].title | plain }}</a>{% endif %}
+    {%- endfor %}
+    {%- if 'custom-pages' | enabled %}{% for p in site.pages %}<a href="{{ p.slug | href }}">{{ p.title | plain }}</a>{% endfor %}{% endif %}
+    {%- if 'care-journal' | enabled %}<a href="{{ 'journal' | href }}">{{ site.journal.title | plain }}</a>{% endif %}
+    {%- if 'plan-visit' | enabled %}<a href="{{ 'visit' | href }}">Plan your visit</a>{% endif %}
+    <a href="{{ 'privacy' | href }}">Privacy</a>
+  </nav>
+  <p class="mk-foot-by"><a class="by" href="https://sitefloor.com" rel="noopener">Website by <b>Sitefloor</b></a></p>
+</div></footer>

@@ -1,0 +1,28 @@
+{#- The vitrine: the pieces page as a cabinet of drawers, one per collection. A drawer is a native <details> (one open
+    at a time); open, its pieces lie in a suede tray, one to a slot, each opening full screen in the pieces viewer or,
+    without JavaScript, its own page. The first drawer starts open. -#}
+{%- set P = site.pieces %}
+<div class="wrap jw-vit" data-feature="vitrine"{{ "vitrine" | tierAttr | safe }}>
+  {%- for c in P.collections %}
+  {%- set items = P.items | inCollection(c.id) %}
+  <details class="jw-drawer" name="vitrine" id="drawer-{{ c.id }}"{% if loop.first %} open{% endif %}>
+    <summary class="jw-drawer-f">
+      <span class="jw-drawer-no" aria-hidden="true">{{ "0" + loop.index if loop.index < 10 else loop.index }}</span>
+      <span class="jw-drawer-n">{{ c.name }}</span>
+      <span class="nc-label nc-muted jw-drawer-c">{{ items.length | countWords }}</span>
+      <span class="jw-pull" aria-hidden="true"></span>
+    </summary>
+    <div class="jw-vtray">
+      <ul class="jw-slots">
+        {%- for p in items %}
+        <li><a class="jw-slot" href="{{ p.id | pieceHref | href }}" data-open="{{ p.id }}">
+          <span class="jw-slot-w"><img src="{{ p.photo.src | cardSrc | img }}" width="900" height="1125" loading="lazy" decoding="async" alt="{{ p.photo.alt }}"></span>
+          <span class="jw-slot-n">{{ p.name }}</span>{% set pl = p | priceLabel %}{% if pl %}<span class="nc-label nc-muted">{{ pl }}</span>{% endif %}
+        </a></li>
+        {%- endfor %}
+      </ul>
+      {%- if c.line %}<p class="jw-vtray-l">{{ c.line }} <a class="nc-u nc-label" href="{{ ('collection-' + c.id) | href }}">The collection</a></p>{% endif %}
+    </div>
+  </details>
+  {%- endfor %}
+</div>

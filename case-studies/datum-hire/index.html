@@ -1,0 +1,472 @@
+<meta charset="utf-8">
+<title>Datum Hire Case Study</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Overpass:wght@300;400;600;800&family=Overpass+Mono:wght@400;600&family=Manrope:wght@600;700&display=swap">
+<style>
+/* Layout: the case study is the drive that brings the car. Read like a sat-nav at night: one amber route line runs down
+   the page from the arches in Battersea to the customer's door, each feature a stop at its own mile marker; the plans
+   are three motorway junctions, set as blue road-sign plates; the speed is the journey time. Deliberately one look (night).
+   Ground: a London road after dark (deep navy), road-marking white, sodium-lamp amber for the route, motorway-sign blue
+   for the plates. Overpass (from the highway lettering family) for words, Overpass Mono for miles and times. */
+:root {
+  --night: #0B1324; --night-2: #101B31; --night-3: #16233D; --lane: #26324D; --lane-2: #34425F;
+  --white: #EEF0F3; --grey: #A3ABBC; --amber: #F2A93B; --amber-2: #FFC46B; --sign: #1D4F91; --sign-edge: #EEF0F3;
+  --display: "Overpass", "Highway Gothic", "Helvetica Neue", Arial, sans-serif;
+  --mono: "Overpass Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+  --brand: "Manrope", Arial, sans-serif;
+  --sf-paper: #FBFAF7; --sf-ink: #0E0F11; --sf-tomato: #E8613C; --sf-line: rgba(14,15,17,.12);
+  --s: clamp(72px, 10vw, 152px);
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--night); }
+body { margin: 0; background: var(--night); color: var(--white); font: 400 17px/1.6 var(--display); -webkit-font-smoothing: antialiased; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 40; background: var(--sf-paper); }
+h1, h2, h3, p { margin: 0; }
+h1, h2, h3 { text-wrap: balance; }
+a { color: inherit; }
+img, video { display: block; max-width: 100%; height: auto; }
+:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+.gut { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 1280px; margin: 0 auto; }
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Sitefloor's own bar, as on the Sitefloor site and the other case studies */
+.sfbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--sf-paper); color: var(--sf-ink); border-bottom: 1px solid var(--sf-line); }
+.sfbar .wrap { display: flex; justify-content: space-between; align-items: center; height: 66px; gap: 16px; }
+.wm { display: flex; align-items: baseline; font-family: var(--brand); font-weight: 600; font-size: 24px; letter-spacing: -.045em; text-decoration: none; color: var(--sf-ink); }
+.wm svg { margin: 0 1px; overflow: visible; }
+.sfbar nav { display: flex; gap: 28px; font-family: var(--brand); font-size: 14px; font-weight: 600; }
+.sfbar nav a { text-decoration: none; color: var(--sf-ink); }
+.sfbar nav a[aria-current] { box-shadow: inset 0 -1.5px 0 var(--sf-ink); }
+.sfbtn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 20px; background: var(--sf-ink); color: var(--sf-paper); font: 700 12px var(--brand); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; }
+.sfbtn:hover { background: var(--sf-tomato); }
+@media (max-width: 760px) { .sfbar nav { display: none; } }
+@media (max-width: 420px) { .sfbar .sfbtn { display: none; } }
+
+/* the sat-nav opening */
+.nav-hero { padding-block: clamp(40px, 6vw, 88px) var(--s); }
+.nav-hero .wrap { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
+.instr { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px 28px; align-items: center; }
+.instr svg { width: clamp(72px, 9vw, 128px); height: auto; grid-row: 1 / 3; }
+.instr .dist { font: 600 clamp(40px, 6vw, 84px)/1 var(--mono); letter-spacing: -.02em; color: var(--amber); }
+.instr .dist small { font-size: .42em; color: var(--grey); margin-left: 6px; }
+.instr .then { font: 600 13px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--grey); }
+.nav-hero h1 { margin-top: clamp(28px, 4vw, 48px); font-weight: 800; font-size: clamp(48px, 7.4vw, 112px); line-height: .92; letter-spacing: -.035em; }
+.lede { margin-top: 24px; max-width: 46ch; font-size: clamp(18px, 1.6vw, 21px); color: var(--grey); font-weight: 300; }
+.lede b { color: var(--white); font-weight: 600; }
+.eta { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 0; border-top: 1px solid var(--lane); border-bottom: 1px solid var(--lane); }
+.eta div { padding: 14px 24px 14px 0; margin-right: 24px; border-right: 1px solid var(--lane); }
+.eta div:last-child { border-right: 0; }
+.eta dt { font: 600 11px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--grey); }
+.eta dd { margin: 4px 0 0; font: 600 20px var(--mono); }
+.acts { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; }
+.btn { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 22px; background: var(--amber); color: var(--night); font: 800 14px var(--display); letter-spacing: .04em; text-transform: uppercase; text-decoration: none; border-radius: 3px; }
+.btn:hover { background: var(--amber-2); }
+.txt { font-weight: 600; text-decoration: underline; text-decoration-color: var(--amber); text-underline-offset: 6px; }
+
+/* the phone: a mount on the dashboard, not a mock-up frame */
+.mount { justify-self: center; width: min(390px, 100%); }
+.screen { position: relative; border-radius: 28px; overflow: hidden; background: var(--night-2); box-shadow: 0 0 0 1px var(--lane-2), 0 30px 80px rgba(0,0,0,.45); aspect-ratio: 390 / 844; max-width: 100%; }
+.screen video, .screen img { width: 100%; height: 100%; object-fit: cover; }
+.cap { margin-top: 14px; display: flex; justify-content: space-between; align-items: center; gap: 12px; font: 400 13px var(--mono); color: var(--grey); }
+.pause { min-height: 36px; padding: 0 12px; border: 1px solid var(--lane-2); border-radius: 3px; background: none; color: var(--white); font: 600 12px var(--mono); letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
+.pause:hover { border-color: var(--amber); }
+
+/* the route */
+.route { position: relative; padding-block: 0 var(--s); }
+.route .wrap { position: relative; }
+.road { position: absolute; top: 0; bottom: 0; left: 118px; width: 0; border-left: 3px dashed var(--amber); opacity: .9; }
+.stop { position: relative; display: grid; grid-template-columns: 100px 36px minmax(0, 1fr); gap: 0 0; padding-block: clamp(48px, 6vw, 88px); border-top: 1px solid var(--lane); }
+.stop:first-child { border-top: 0; }
+.mile { font: 600 15px var(--mono); color: var(--amber); padding-top: 8px; text-align: right; padding-right: 14px; }
+.mile small { display: block; color: var(--grey); font-weight: 400; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
+.pin { position: relative; }
+.pin::before { content: ""; position: absolute; left: 9px; top: 10px; width: 14px; height: 14px; border-radius: 50%; background: var(--night); border: 3px solid var(--amber); }
+.stop.is-door .pin::before { background: var(--amber); box-shadow: 0 0 0 6px rgba(242,169,59,.18); }
+.body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 64px); align-items: start; }
+.body.solo { grid-template-columns: minmax(0, 1fr); }
+.stop h2 { font-weight: 800; font-size: clamp(32px, 4vw, 56px); line-height: 1; letter-spacing: -.025em; }
+.stop h2 .turn { display: block; font: 600 13px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--grey); margin-bottom: 14px; }
+.stop p.say { margin-top: 18px; max-width: 54ch; color: var(--grey); }
+.stop p.say b { color: var(--white); font-weight: 600; }
+.feat { margin: 22px 0 0; padding: 0; list-style: none; display: grid; gap: 0; max-width: 60ch; }
+.feat li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; padding-block: 12px; border-top: 1px solid var(--lane); font-size: 16px; }
+.feat li span:first-child { min-width: 0; }
+.plate { display: inline-flex; align-items: center; min-height: 26px; padding: 0 10px; border: 2px solid var(--sign-edge); border-radius: 5px; background: var(--sign); color: var(--white); font: 800 11px var(--display); letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; }
+.shot { margin: 0; }
+.shot img { border-radius: 14px; box-shadow: 0 0 0 1px var(--lane-2); }
+.shot figcaption { margin-top: 10px; font: 400 13px var(--mono); color: var(--grey); }
+.stop > .shot.wide { grid-column: 3 / 4; }
+.pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
+.wide { margin-top: 28px; } .wide img { border-radius: 10px; }
+.said { margin-top: 22px; padding: 18px 20px; background: var(--night-2); border-left: 3px solid var(--amber); font: 400 14px/1.55 var(--mono); color: var(--white); white-space: pre-wrap; max-width: 60ch; overflow-x: auto; }
+
+/* the live delivery at the door */
+.live { margin-top: 26px; display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(20px, 3vw, 40px); background: var(--night-2); border: 1px solid var(--lane); border-radius: 6px; padding: clamp(18px, 2.4vw, 32px); }
+.live fieldset { margin: 0; padding: 0; border: 0; min-width: 0; display: grid; gap: 18px; align-content: start; }
+.live legend { font: 600 12px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--grey); margin-bottom: 4px; }
+.cars { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.cars label { position: relative; display: grid; gap: 4px; min-width: 0; overflow-wrap: anywhere; padding: 10px 12px; border: 1px solid var(--lane-2); border-radius: 4px; cursor: pointer; font-size: 15px; }
+.cars label small { font: 400 12px var(--mono); color: var(--grey); }
+.cars input { position: absolute; opacity: 0; }
+.cars input:checked + span { color: var(--amber); }
+.cars label:has(input:checked) { border-color: var(--amber); }
+.cars label:has(input:focus-visible) { outline: 2px solid var(--amber); outline-offset: 2px; }
+.field { display: grid; gap: 6px; }
+.field label { font: 600 12px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--grey); }
+.field input { width: 100%; min-width: 0; box-sizing: border-box; min-height: 46px; padding: 0 12px; border: 1px solid var(--lane-2); border-radius: 4px; background: var(--night); color: var(--white); font: 600 18px var(--mono); text-transform: uppercase; }
+.field input:focus { outline: 2px solid var(--amber); outline-offset: 1px; }
+.note { font: 400 12px var(--mono); color: var(--grey); }
+.door { position: relative; margin: 0; border-radius: 4px; overflow: hidden; aspect-ratio: 3 / 2; background: var(--night); max-width: 100%; }
+.door img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .8s ease; }
+.door .car { opacity: 0; }
+.live[data-car] .door .car { opacity: 1; }
+.door figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 32px 14px 12px; background: linear-gradient(to top, rgba(11,19,36,.92), rgba(11,19,36,0)); font: 600 14px var(--mono); }
+.tally { margin: 14px 0 0; padding: 0; list-style: none; }
+.tally li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; padding-block: 9px; border-top: 1px solid var(--lane); font: 400 15px var(--mono); transition: color .35s ease; }
+.tally li[data-off], .tally li.total[data-off] { color: var(--grey); }
+.tally li.total { font-weight: 600; font-size: 20px; color: var(--amber); border-top-color: var(--lane-2); }
+.tally li.key b { box-shadow: inset 0 -2px 0 var(--amber); font-weight: 400; }
+.sent { margin-top: 14px; font: 600 14px var(--mono); color: var(--white); min-height: 1.6em; }
+
+/* zones: the plans as road-sign plates */
+.zones { padding-block: var(--s); border-top: 1px solid var(--lane); }
+.zones-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: end; margin-bottom: 48px; }
+.zones-head h2 { font-weight: 800; font-size: clamp(40px, 5.4vw, 80px); line-height: .95; letter-spacing: -.03em; }
+.zones-head p { color: var(--grey); max-width: 48ch; }
+.signs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.sign { display: grid; gap: 14px; align-content: start; padding: 24px; background: var(--sign); border: 4px solid var(--sign-edge); border-radius: 14px; color: var(--white); min-width: 0; }
+.sign .z { font: 800 13px var(--display); letter-spacing: .12em; text-transform: uppercase; }
+.sign h3 { font-weight: 800; font-size: 36px; line-height: 1; letter-spacing: -.02em; }
+.sign .price { font: 600 18px var(--mono); }
+.sign ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 7px; font-size: 15px; }
+.sign ul li { padding-left: 18px; position: relative; }
+.sign ul li::before { content: ""; position: absolute; left: 0; top: .62em; width: 8px; height: 2px; background: var(--white); }
+.sign .pages { padding-top: 12px; border-top: 2px solid rgba(238,240,243,.35); font-size: 14px; }
+
+/* journey time: the speed */
+.time { padding-block: var(--s); border-top: 1px solid var(--lane); }
+.time .wrap { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
+.time h2 { font-weight: 800; font-size: clamp(40px, 5.4vw, 80px); line-height: .95; letter-spacing: -.03em; }
+.time p.say { margin-top: 18px; color: var(--grey); max-width: 42ch; }
+.board { margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--lane); }
+.board div { padding: 18px 16px 20px 0; border-bottom: 1px solid var(--lane); min-width: 0; }
+.board dt { font: 600 11px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--grey); }
+.board dd { margin: 6px 0 0; font: 600 clamp(28px, 3.4vw, 44px)/1 var(--mono); color: var(--white); letter-spacing: -.02em; }
+.board dd small { font-size: .42em; color: var(--grey); margin-left: 4px; letter-spacing: 0; }
+.board .lit dd { color: var(--amber); }
+.fine { margin-top: 18px; font: 400 13px/1.6 var(--mono); color: var(--grey); max-width: 70ch; }
+
+/* arrive: the call to action */
+.arrive { padding-block: var(--s); border-top: 1px solid var(--lane); text-align: left; }
+.arrive h2 { font-weight: 800; font-size: clamp(48px, 7vw, 104px); line-height: .92; letter-spacing: -.035em; max-width: 14ch; }
+.arrive p.say { margin-top: 20px; color: var(--grey); max-width: 52ch; }
+.arrive .mail { display: inline-block; margin-top: 20px; font: 600 16px var(--mono); color: var(--white); user-select: all; }
+.btn.line { background: none; color: var(--white); box-shadow: inset 0 0 0 2px var(--white); }
+.btn.line:hover { box-shadow: inset 0 0 0 2px var(--amber); color: var(--amber); }
+
+footer { background: var(--night); color: var(--grey); font-size: 13px; line-height: 1.6; border-top: 1px solid var(--lane); }
+footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px 32px; padding-block: 28px; }
+footer p { max-width: 96ch; }
+
+@media (max-width: 900px) {
+  .nav-hero .wrap, .body, .zones-head, .time .wrap, .live { grid-template-columns: minmax(0, 1fr); }
+  .signs { grid-template-columns: minmax(0, 1fr); }
+  .road { left: 74px; }
+  .stop { grid-template-columns: 58px 30px minmax(0, 1fr); }
+  .mile { font-size: 13px; padding-right: 8px; }
+  .pin::before { left: 7px; }
+  .board { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 700px) { .feat li { grid-template-columns: minmax(0, 1fr); gap: 6px; } .feat li .plate { justify-self: start; } footer .wrap { grid-template-columns: minmax(0, 1fr); } .eta { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .eta div { margin-right: 0; padding-right: 16px; } .eta div:nth-child(2) { border-right: 0; padding-left: 16px; } .eta div:last-child { grid-column: 1 / -1; border-top: 1px solid var(--lane); } .pair { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 420px) { .cars { grid-template-columns: minmax(0, 1fr); } }
+@media (prefers-reduced-motion: reduce) { .door img, .tally li { transition: none; } }
+</style>
+
+<div class="sfbar gut"><div class="wrap">
+  <a class="wm" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su" aria-label="Sitefloor home">sitefl<svg width="28" height="14" viewBox="0 0 42 21" aria-hidden="true"><rect x="1.9" y="1.9" width="38.2" height="17.2" rx="8.6" fill="none" stroke="#0E0F11" stroke-width="3.8"/><circle cx="31.5" cy="10.5" r="5.2" fill="#E8613C"/></svg>r</a>
+  <nav aria-label="Main"><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#live">Features</a><a href="#top" aria-current="page">Work</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#pricing">Pricing</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#guides">Guides</a></nav>
+  <a class="sfbtn" href="#mockup"><span>Free mockup</span><span aria-hidden="true">→</span></a>
+</div></div>
+
+<main id="top">
+<section class="nav-hero gut" aria-labelledby="h1"><div class="wrap">
+  <div>
+    <div class="instr">
+      <svg viewBox="0 0 120 120" aria-hidden="true"><path d="M38 108V60a20 20 0 0 1 20-20h28" fill="none" stroke="#F2A93B" stroke-width="14" stroke-linecap="square"/><path d="M78 16l30 24-30 24z" fill="#F2A93B"/></svg>
+      <p class="dist mono">6.4<small>mi</small></p>
+      <p class="then">Then arrive at your door, on the right</p>
+    </div>
+    <h1 id="h1">Directions to your door.</h1>
+    <p class="lede">A website for a performance car hire firm, read like the drive that brings the car. <b>Twenty cars, one page of the plan.</b> Every rule and price is the firm's own. It takes requests and deposits, never bookings.</p>
+    <dl class="eta">
+      <div><dt>Arrive</dt><dd>21:04</dd></div>
+      <div><dt>Via</dt><dd>the fleet</dd></div>
+      <div><dt>Demo</dt><dd>Datum Hire</dd></div>
+    </dl>
+    <p class="acts"><a class="btn" href="https://claude.ai/artifact/6fSaqCLa8WbErfEjhGMwhY">Try the demo first</a><a class="txt" href="#mockup">Get a free mockup</a></p>
+  </div>
+  <figure class="mount">
+    <div class="screen"><video data-clip muted loop playsinline preload="none" poster="media/tonight-poster.jpg" aria-label="On a phone: choosing an Audi RS 6 Avant, a postcode and a weekend; the car appears at a door at night and the total builds beneath it"><source src="media/tonight.mp4" type="video/mp4"></video></div>
+    <figcaption class="cap"><span>Delivered tonight, on the demo</span><button class="pause" type="button" data-pause aria-label="Pause">Pause</button></figcaption>
+  </figure>
+</div></section>
+
+<section class="route gut" aria-label="The route, stop by stop"><div class="wrap">
+  <span class="road" aria-hidden="true"></span>
+
+  <article class="stop">
+    <p class="mile">0.0<small>mi</small></p><span class="pin" aria-hidden="true"></span>
+    <div class="body">
+      <div>
+        <h2><span class="turn">Leave the arches</span>One car, at night.</h2>
+        <p class="say">The home page opens on one car in detail, full bleed, with a single line: <b>Yours for the weekend.</b> Beneath it the fleet comes in classes. One class leads with three cars and their rules; the rest wait on a quiet rail with their counts, and a strip hints at the supercars and chauffeur cars.</p>
+        <ul class="feat">
+          <li><span>The class rail and the leading class, with each car's deposit, driver age, licence years, points, excess, mileage and delivery</span><span class="plate">Junction 1</span></li>
+          <li><span>"Free this weekend?" from a sheet the firm edits on its phone; "ask us" when it's old, never "free"</span><span class="plate">Junction 1</span></li>
+          <li><span>The delivery postcode checker: in the zone or not, and the fee</span><span class="plate">Junction 1</span></li>
+          <li><span>The firm's own film behind the first car, with Pause</span><span class="plate">Junction 3</span></li>
+        </ul>
+      </div>
+      <figure class="shot"><img src="media/home.webp" alt="The demo's home page on a phone: a red tail light at night and the line Yours for the weekend" width="780" height="1688" loading="lazy"><figcaption>The home page, on a phone</figcaption></figure>
+    </div>
+  </article>
+
+  <article class="stop">
+    <p class="mile">1.2<small>mi</small></p><span class="pin" aria-hidden="true"></span>
+    <div class="body">
+      <div>
+        <h2><span class="turn">Through the fleet</span>Twenty cars. One page.</h2>
+        <p class="say">A real firm may run many more. The fleet comes from one Google Sheet, a row per car, and becomes a page for every car and every class. <b>However many cars, the whole fleet counts as one page of the plan.</b> A car that leaves out a rule (the deposit, the excess, the mileage) is refused before it reaches the site.</p>
+        <ul class="feat">
+          <li><span>Every car, with filters that work even without JavaScript, search by make and model, sort by price</span><span class="plate">Junction 2</span></li>
+          <li><span>A page per class with its own night photograph, a page per car</span><span class="plate">Junction 2</span></li>
+          <li><span>The fleet calendar: a fortnight of free and taken days, a row per car</span><span class="plate">Junction 2</span></li>
+          <li><span>The spec dial: one control for seats, power, budget and dates, the cars lining up in one row</span><span class="plate">Junction 3</span></li>
+        </ul>
+      </div>
+      <div class="pair">
+        <figure class="mount"><div class="screen"><video data-clip muted loop playsinline preload="none" poster="media/dial-poster.jpg" aria-label="The spec dial turned to 600 brake horsepower; seven cars line up beneath it"><source src="media/dial.mp4" type="video/mp4"></video></div><figcaption class="cap"><span>The spec dial</span><button class="pause" type="button" data-pause aria-label="Pause">Pause</button></figcaption></figure>
+        <figure class="shot"><img src="media/fleet.webp" alt="The fleet page on a phone, with its filters" width="780" height="1688" loading="lazy"><figcaption>Filters, on a phone</figcaption></figure>
+      </div>
+    </div>
+    <figure class="shot wide"><img src="media/calendar.webp" alt="The fleet calendar: a row per car, a column per day for two weeks, free days marked in lilac" width="1326" height="982" loading="lazy"><figcaption>The fleet calendar on the demo, from the simulated sheet</figcaption></figure>
+  </article>
+
+  <article class="stop">
+    <p class="mile">2.8<small>mi</small></p><span class="pin" aria-hidden="true"></span>
+    <div class="body">
+      <div>
+        <h2><span class="turn">Pull in at the car</span>Every part of the price.</h2>
+        <p class="say">Each car's page carries its gallery at night, the firm's figures (shown only when given) and every rule a hire customer asks about. Pick dates on the calendar, days taken on the sheet greyed out, and the quote builds from the firm's own table: the weekend rate when it applies, delivery for the postcode or meet-and-greet at a named airport, extras, extra miles. <b>The deposit stands apart, because it comes back.</b></p>
+        <ul class="feat">
+          <li><span>The calendar and the quote, every part shown</span><span class="plate">Junction 2</span></li>
+          <li><span>Deposits by the firm's own Stripe links, each holding a request</span><span class="plate">Junction 2</span></li>
+          <li><span>"You can request this car if…": three answers read back against the car's rules, never a decision</span><span class="plate">Junction 2</span></li>
+          <li><span>Compare two cars; the first ten minutes with that car; a Tuned class</span><span class="plate">Junction 2</span></li>
+        </ul>
+      </div>
+      <figure class="shot"><img src="media/car.webp" alt="The Porsche 911 GT3 RS's page on a phone: a detail of its headlight at night and the model name" width="780" height="1688" loading="lazy"><figcaption>A car's page, on a phone</figcaption></figure>
+    </div>
+  </article>
+
+  <article class="stop">
+    <p class="mile">4.1<small>mi</small></p><span class="pin" aria-hidden="true"></span>
+    <div class="body solo">
+      <div>
+        <h2><span class="turn">Signal</span>A request, in writing.</h2>
+        <p class="say">Hire firms check every licence before a key changes hands, so the site never says booked, confirmed or reserved. The request goes on WhatsApp with the dates in full, every part of the quote and a reference. The deposit link carries the same reference to Stripe, so the payment and the message match.</p>
+        <p class="said" aria-label="The request message the demo writes">Hello Datum Hire, I'd like to request the Audi RS 6 Avant.
+From Friday 6 November 2026 at 18:00 to Monday 9 November 2026 at 18:00, delivery to SW11 4NQ.
+
+Weekend rate: £950
+Delivery and collection, Zone one: £60
+Total: £1,010
+Deposit (returned): £2,500
+
+Reference: audi-rs6-avant_2026-11-06_2026-11-09
+I understand this is a request until you confirm.</p>
+      </div>
+    </div>
+  </article>
+
+  <article class="stop">
+    <p class="mile">5.6<small>mi</small></p><span class="pin" aria-hidden="true"></span>
+    <div class="body">
+      <div>
+        <h2><span class="turn">Detour for the day itself</span>Driven, quietly.</h2>
+        <p class="say">Chauffeur is its own service: by the hour, airport transfers, weddings. On Signature the journey planner takes every stop with the customer's own time, works out the hours from the firm's rate and minimum, and sets a card for the wedding party to share. <b>It never guesses a drive time;</b> the firm confirms the route.</p>
+        <ul class="feat">
+          <li><span>The chauffeur page and quote request; weddings and events; long-term and corporate</span><span class="plate">Junction 2</span></li>
+          <li><span>The journey planner and its card</span><span class="plate">Junction 3</span></li>
+        </ul>
+      </div>
+      <figure class="mount"><div class="screen"><video data-clip muted loop playsinline preload="none" poster="media/planner-poster.jpg" aria-label="The journey planner: four stops with times and an itinerary card for Amara and Theo"><source src="media/planner.mp4" type="video/mp4"></video></div><figcaption class="cap"><span>The journey planner</span><button class="pause" type="button" data-pause aria-label="Pause">Pause</button></figcaption></figure>
+    </div>
+  </article>
+
+  <article class="stop is-door" id="door">
+    <p class="mile">6.4<small>mi</small></p><span class="pin" aria-hidden="true"></span>
+    <div class="body solo">
+      <div>
+        <h2><span class="turn">Arrive</span>Delivered tonight.</h2>
+        <p class="say">The demo's showpiece, here to try with its own figures. Choose a car and type a London postcode: the car arrives at the door and the request assembles beneath it, the key handed over at the door, the deposit apart.</p>
+        <form class="live" data-live aria-label="Try Delivered tonight" novalidate>
+          <fieldset>
+            <legend>The car, Friday 6 to Monday 9 November</legend>
+            <div class="cars">
+              <label><input type="radio" name="car" id="car-rs6" value="rs6"><span>Audi RS 6 Avant</span><small>£950 the weekend</small></label>
+              <label><input type="radio" name="car" id="car-m5" value="m5"><span>BMW M5</span><small>£850 the weekend</small></label>
+              <label><input type="radio" name="car" id="car-g63" value="g63"><span>Mercedes-AMG G 63</span><small>£1,700 the weekend</small></label>
+              <label><input type="radio" name="car" id="car-sf90" value="sf90"><span>Ferrari SF90</span><small>£5,500 the weekend</small></label>
+            </div>
+            <div class="field"><label for="pc">Your postcode</label><input id="pc" maxlength="9" autocomplete="off" spellcheck="false" placeholder="SW11 4NQ" inputmode="text"></div>
+            <p class="note">Demo figures and zones from Datum Hire, a fictional firm. Nothing is sent from this page.</p>
+          </fieldset>
+          <div>
+            <figure class="door"><img src="media/scene-door.webp" alt="A dark car parked by a lamp-lit townhouse on a cobbled street at night" width="1900" height="1267" loading="lazy"><img class="car" data-photo src="media/scene-door.webp" alt="" width="960" height="640" loading="lazy"><figcaption data-cap>Your door, tonight.</figcaption></figure>
+            <ol class="tally" aria-live="polite">
+              <li data-row="window"><span>Delivery</span><b>6 to 10 in the evening</b></li>
+              <li data-row="hire" data-off><span>Weekend rate</span><b data-hire>choose a car</b></li>
+              <li data-row="zone" data-off><span data-zone-name>Delivery and collection</span><b data-zone>add a postcode</b></li>
+              <li data-row="key" class="key" data-off><span>The key</span><b>handed to you at the door</b></li>
+              <li class="total" data-row="total" data-off><span>Total</span><b data-total>—</b></li>
+              <li data-row="deposit" data-off><span>Deposit, returned</span><b data-deposit>—</b></li>
+            </ol>
+            <p class="sent" data-sent role="status"></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </article>
+
+  <article class="stop">
+    <p class="mile">12.8<small>mi</small></p><span class="pin" aria-hidden="true"></span>
+    <div class="body">
+      <div>
+        <h2><span class="turn">The way back</span>Round the car, together.</h2>
+        <p class="say">At collection the driver and the customer walk round the car on the customer's phone: each panel, the fuel, the mileage, dated. At return they do it again, and the page lists what changed in plain words. It records what was seen and never decides a deposit. Then the customer follows the deposit home: held, car checked, returned, by reference only, never a name.</p>
+        <ul class="feat">
+          <li><span>Where's my deposit, from the firm's sheet</span><span class="plate">Junction 2</span></li>
+          <li><span>The handover checklist</span><span class="plate">Junction 3</span></li>
+          <li><span>Neither counts towards the plan's pages: the firm sends the link</span><span class="plate">Free</span></li>
+        </ul>
+      </div>
+      <figure class="mount"><div class="screen"><video data-clip muted loop playsinline preload="none" poster="media/checklist-poster.jpg" aria-label="The handover checklist: a stone chip at collection, a scuffed mirror at return, and the changes listed"><source src="media/checklist.mp4" type="video/mp4"></video></div><figcaption class="cap"><span>The handover checklist</span><button class="pause" type="button" data-pause aria-label="Pause">Pause</button></figcaption></figure>
+    </div>
+  </article>
+</div></section>
+
+<section class="zones gut" aria-labelledby="zones-h"><div class="wrap">
+  <div class="zones-head"><h2 id="zones-h">Three junctions.</h2><p>Every plan has the firm's own colours, type and logo. Plan your visit is free on all three, and any feature can be added to a lower plan on its own.</p></div>
+  <div class="signs">
+    <div class="sign"><p class="z">Junction 1</p><h3>Starter</h3><p class="price mono">£99 + £25/mo</p>
+      <ul><li>One car in detail at night, the fleet in classes, the range strip</li><li>Every car's rules and from-price</li><li>Free this weekend? from the sheet</li><li>The handover, the postcode checker</li><li>A WhatsApp request; what to bring</li></ul>
+      <p class="pages">The home page and Plan your visit</p></div>
+    <div class="sign"><p class="z">Junction 2</p><h3>Plus</h3><p class="price mono">£199 + £30/mo</p>
+      <ul><li>The fleet: a page per class and per car</li><li>Calendar, quote and deposits</li><li>Fleet calendar, meet-and-greet, driver checker and form</li><li>Compare, the first ten minutes, a Tuned class</li><li>Chauffeur, weddings, long-term, where's my deposit</li></ul>
+      <p class="pages">Up to five pages; the whole fleet is one</p></div>
+    <div class="sign"><p class="z">Junction 3</p><h3>Signature</h3><p class="price mono">£349 + £35/mo</p>
+      <ul><li>Delivered tonight</li><li>The chauffeur journey planner</li><li>The spec dial</li><li>The handover checklist</li><li>The firm's own film; Before your hire as a page</li></ul>
+      <p class="pages">Up to twenty pages, and something made just for the firm</p></div>
+  </div>
+  <p class="fine">12-month minimum. Prices are per site, as on the Sitefloor pricing page.</p>
+</div></section>
+
+<section class="time gut" aria-labelledby="time-h"><div class="wrap">
+  <div><h2 id="time-h">Journey time.</h2><p class="say">Measured on the demo's home page on a phone, from a fresh server: the first visit and the one after.</p></div>
+  <div>
+    <dl class="board">
+      <div class="lit"><dt>First visit</dt><dd>98<small>/100</small></dd></div>
+      <div class="lit"><dt>After</dt><dd>99<small>/100</small></dd></div>
+      <div><dt>Accessibility</dt><dd>100</dd></div>
+      <div><dt>Main picture</dt><dd>0.9–1.0<small>s</small></dd></div>
+      <div><dt>Layout shift</dt><dd>0.001</dd></div>
+      <div><dt>First screen</dt><dd>149<small>KB images</small></dd></div>
+    </dl>
+    <p class="fine">Lighthouse, mobile. Script 24.9 KB and styles 16.3 KB, compressed; fonts 56.2 KB. A car's page and the fleet page scored 100 and 99. The film behind the first car loads only after the page.</p>
+  </div>
+</div></section>
+
+<section class="arrive gut" id="mockup" aria-labelledby="arrive-h"><div class="wrap">
+  <h2 id="arrive-h">Your fleet, at their door.</h2>
+  <p class="say">Send us your firm's name. We'll make a private mockup with your own cars and rules, free, and take it down if you'd rather.</p>
+  <p class="acts"><a class="btn" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#free">Get a free mockup</a><a class="btn line" href="https://claude.ai/artifact/6fSaqCLa8WbErfEjhGMwhY">Try the demo first</a></p>
+  <span class="mail">hello@sitefloor.com</span>
+</div></section>
+</main>
+
+<footer class="gut"><div class="wrap">
+  <p>Datum Hire is a fictional performance and luxury car hire firm made to show the Sitefloor car hire kit. Its cars, prices, rules, zones and customers' words are demo data. Its photographs are free stock from Unsplash, of other cars, each credited in our records; the film behind its first car is animated from one photograph. Independent hire company, not affiliated with any manufacturer. Client sites use the firm's own photographs and figures.</p>
+  <span>© 2026 Sitefloor</span>
+</div></footer>
+
+<script>
+(() => {
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // Clips: play muted when on screen (not under reduced motion); every clip has its own Pause.
+  for (const v of document.querySelectorAll("[data-clip]")) {
+    const btn = v.closest("figure").querySelector("[data-pause]");
+    const name = btn.previousElementSibling.textContent.replace(/, on the demo$/, "").replace(/^The /, "");
+    let paused = still;
+    const label = () => { btn.textContent = paused ? "Play" : "Pause"; btn.setAttribute("aria-label", `${paused ? "Play" : "Pause"} the ${name} clip`); };
+    label();
+    btn.addEventListener("click", () => { paused = !paused; label(); if (paused) v.pause(); else v.play().catch(() => {}); });
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(([e]) => { if (e.isIntersecting && !paused) v.play().catch(() => {}); else v.pause(); }, { threshold: .35 }).observe(v);
+    }
+  }
+
+  // Delivered tonight, with the demo's own figures and zones (Datum Hire is fictional).
+  const CARS = {
+    rs6: { name: "Audi RS 6 Avant", weekend: 950, deposit: 2500, photo: "media/car-audi-rs6-avant-m.webp", alt: "A black Audi RS 6 Avant at night" },
+    m5: { name: "BMW M5", weekend: 850, deposit: 2500, photo: "media/car-bmw-m5-m.webp", alt: "A white BMW M5 in a dark car park" },
+    g63: { name: "Mercedes-AMG G 63", weekend: 1700, deposit: 5000, photo: "media/car-mercedes-amg-g63-m.webp", alt: "A black Mercedes-AMG G 63 at night" },
+    sf90: { name: "Ferrari SF90 Stradale", weekend: 5500, deposit: 10000, photo: "media/car-ferrari-sf90-m.webp", alt: "A red Ferrari SF90 Stradale under a red light" },
+  };
+  const ZONES = [
+    { name: "Zone one", fee: 60, d: ["SW8", "SW11", "SW4", "SW3", "SW10", "SW1"] },
+    { name: "Zone two", fee: 90, d: ["SW", "W", "SE", "WC", "EC"] },
+    { name: "Zone three", fee: 150, d: ["N", "NW", "E", "KT", "TW", "CR", "BR"] },
+  ];
+  const money = (n) => "£" + n.toLocaleString("en-GB");
+  const zoneFor = (pc) => {
+    const m = /^([A-Z]{1,2}\d[A-Z\d]?)(\d[A-Z]{2})?$/.exec(pc.toUpperCase().replace(/\s+/g, ""));
+    if (!m) return null;
+    const dist = m[1], area = /^[A-Z]+/.exec(dist)[0], fam = /^[A-Z]+\d+/.exec(dist)[0];
+    let best = null, score = 0;
+    for (const z of ZONES) for (const d of z.d) { const s = d === dist ? 3 : d === fam ? 2 : d === area ? 1 : 0; if (s > score) { best = z; score = s; } }
+    return { dist, zone: best };
+  };
+  const form = document.querySelector("[data-live]");
+  const $ = (s) => form.querySelector(s);
+  const photo = $("[data-photo]");
+  const row = (k, on) => { const li = $(`[data-row="${k}"]`); if (on) li.removeAttribute("data-off"); else li.setAttribute("data-off", ""); };
+  function paint() {
+    const id = form.querySelector("input[name=car]:checked")?.value;
+    const car = CARS[id];
+    const pc = $("#pc").value.trim();
+    const z = pc ? zoneFor(pc) : null;
+    if (car) { if (photo.getAttribute("src") !== car.photo) { photo.src = car.photo; photo.alt = car.alt; } form.dataset.car = id; } else delete form.dataset.car;
+    $("[data-cap]").textContent = car ? `${car.name}${z ? `, at ${pc.toUpperCase()}` : ""}, Friday 6 November.` : "Your door, tonight.";
+    $("[data-hire]").textContent = car ? money(car.weekend) : "choose a car"; row("hire", !!car);
+    if (!pc) { $("[data-zone]").textContent = "add a postcode"; $("[data-zone-name]").textContent = "Delivery and collection"; row("zone", false); }
+    else if (!z) { $("[data-zone-name]").textContent = "Delivery and collection"; $("[data-zone]").textContent = "not a postcode yet"; row("zone", false); }
+    else if (!z.zone) { $("[data-zone-name]").textContent = `${z.dist}, outside the zones`; $("[data-zone]").textContent = "collect from us"; row("zone", true); }
+    else { $("[data-zone-name]").textContent = `Delivery and collection, ${z.zone.name}`; $("[data-zone]").textContent = money(z.zone.fee); row("zone", true); }
+    const ready = car && z && z.zone;
+    row("key", !!ready);
+    $("[data-total]").textContent = ready ? money(car.weekend + z.zone.fee) : "—"; row("total", !!ready);
+    $("[data-deposit]").textContent = car ? money(car.deposit) : "—"; row("deposit", !!car);
+    $("[data-sent]").textContent = ready ? "On the demo this goes to the firm on WhatsApp: request sent, not booked." : "";
+  }
+  form.addEventListener("change", paint);
+  $("#pc").addEventListener("input", paint);
+  form.addEventListener("submit", (e) => e.preventDefault());
+  paint();
+})();
+</script>

@@ -1,0 +1,25 @@
+{#- DEMO ONLY. WhatsApp preview (nothing is sent) and the "this page is part of Plus" gate. -#}
+<div class="sheet" data-wa-preview role="dialog" aria-modal="true" aria-label="WhatsApp message preview" hidden>
+  <div class="wa">
+    <div class="wa-top"><span class="av" aria-hidden="true">{{ site.business.name | first }}</span><div><b>{{ site.business.name }}</b><small>Business account</small></div><button type="button" data-wa-close aria-label="Close">×</button></div>
+    <div class="wa-body"><p class="bub" data-wa-bubble></p></div>
+    <div class="wa-foot"><div class="in">Message</div><a class="send" data-wa-send href="#" target="_blank" rel="noopener" aria-label="Open in WhatsApp"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M3 20.5 21 12 3 3.5 3 10l12 2-12 2z"/></svg></a></div>
+    <p class="wa-note">On a live site this opens WhatsApp with the message ready to send. This demo number is fictional.</p>
+  </div>
+</div>
+{%- set gatePlan = (feature | minPlan) if feature else "starter" %}
+<div class="gate" data-tier-gate hidden>
+  <div class="gate-card" role="dialog" aria-modal="false" aria-labelledby="gate-title">
+    {%- if gatePlan == "signature" %}
+    <span class="kick">Signature</span>
+    <h2 id="gate-title">This page is part of Signature.</h2>
+    <p>{{ build.kitDemo.gate.signature }}</p>
+    <div class="gate-cta"><button class="btn" type="button" data-tier-pick="signature">See it on Signature</button><a class="btn ghost" href="{{ 'index' | href }}">Back to home</a></div>
+    {%- else %}
+    <span class="kick">Plus</span>
+    <h2 id="gate-title">This page is part of Plus.</h2>
+    <p>{{ build.kitDemo.gate.plus }}</p>
+    <div class="gate-cta"><button class="btn" type="button" data-tier-pick="plus">See it on Plus</button><a class="btn ghost" href="{{ 'index' | href }}">Back to home</a></div>
+    {%- endif %}
+  </div>
+</div>

@@ -1,0 +1,4 @@
+{#- Pause for anything in the hero that moves by itself for more than five seconds (WCAG 2.2.2): the hero film, the
+    barber pole. Shown once the script runs (it's what pauses things); remembered for the visit. Put it inside the moving
+    part's positioned container; mark the moving element with data-motion. -#}
+<button type="button" class="motion-pause" data-motion-pause aria-label="Pause the moving background" hidden><svg class="mp-pause" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3v10M11 3v10" stroke="currentColor" stroke-width="2" fill="none"/></svg><svg class="mp-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3l8 5-8 5z" fill="currentColor"/></svg><span data-motion-label>Pause</span></button>

@@ -1,0 +1,32 @@
+{#- Conflict-safe first contact. The first message carries only who is involved and how to reply, so the firm can check
+    it doesn't already act for anyone on the other side before a confidence is shared. The visitor's own email app
+    sends it; nothing passes through this site. -#}
+{%- set fc = site.firstContact %}
+{%- set ph = { title: fc.title, intro: fc.intro } %}
+{% include "kits/law/partials/page-head.njk" %}
+<div class="wrap lw-fc" data-feature="first-contact">
+  <ol class="lw-fc-why">
+    <li><b>Who is involved.</b> Your name, how to reach you, and the other people or companies in the matter. Nothing about what happened.</li>
+    <li><b>We check.</b> We make sure we don't already act for anyone on the other side.</li>
+    <li><b>Then we talk.</b> A partner calls or writes to you, and only then do you tell us more.</li>
+  </ol>
+  <form class="lw-fc-form" id="fc-form" data-js-only novalidate>
+    <label for="fc-name">Your name</label>
+    <input id="fc-name" name="name" autocomplete="name" required maxlength="80">
+    <label for="fc-reach">How to reach you <span>(email or phone)</span></label>
+    <input id="fc-reach" name="reach" autocomplete="email" required maxlength="120">
+    <label for="fc-area">It's about</label>
+    <select id="fc-area" name="area">{% for a in site.practice.items %}<option value="{{ a.name }}">{{ a.name }}</option>{% endfor %}<option value="Something else">Something else</option></select>
+    <label for="fc-parties">The other people or companies involved <span>(one per line)</span></label>
+    <textarea id="fc-parties" name="parties" rows="4" required maxlength="800"></textarea>
+    <p class="lw-fc-hint">Please don't describe the matter yet.</p>
+    <p class="lw-fc-err" id="fc-err" role="alert" hidden></p>
+    <button class="go" type="submit">Write the email</button>
+  </form>
+  <div class="lw-fc-done" id="fc-done" hidden tabindex="-1">
+    <p>Your email app should open with this message to <b>{{ fc.email }}</b>. Nothing is sent until you press send there.</p>
+    <pre class="lw-fc-msg" id="fc-msg"></pre>
+    <p><button class="go" type="button" id="fc-copy">Copy the message</button> <a class="go" id="fc-open" href="mailto:{{ fc.email }}">Open my email app again</a></p>
+  </div>
+  <p class="lw-fc-plain" data-no-js>Email <a href="mailto:{{ fc.email }}">{{ fc.email }}</a> with your name, how to reach you and the other people or companies involved, and nothing more yet. Or call <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a>.</p>
+</div>

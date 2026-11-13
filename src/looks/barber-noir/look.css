@@ -1,0 +1,82 @@
+/* =========================================================================
+   Look: Barber Noir — dark gentleman's club. Near-black, warm gold, classic
+   serif headlines, hard corners, deep shadows, a spinning barber pole.
+   ========================================================================= */
+:root {
+  --bg: #0F0D0C; --surface: #171412; --surface-2: #201C19;
+  --text: #F5EFE6; --muted: #B5AC9F; --dim: #8A8175;
+  --accent: #C9A46A; --accent-2: #E2C48F; --on-accent: #140F0A;
+  --line: rgba(245,239,230,.1); --line-2: rgba(245,239,230,.18);
+  --ok: #3DCB7F; --busy: #E8A33C; --closed: #7C746A;
+  --font-display: "Playfair Display", "Playfair Fallback", Georgia, serif;
+  --font-body: "Manrope", "Manrope Fallback", Arial, sans-serif;
+  --pole-red: #B3261E; --pole-blue: #1D3F8A; --pole-white: #F3EFE6;
+  /* Diagrams: ink line art on a warm paper card; face charts in cream and gold on the dark surface. */
+  --chart-bg: #EAE3D7; --chart-ink: #141210; --chart-muted: #6b604f; --chart-guide: #9C7A3C;
+  --chart-skin: #F4EEE5; --chart-tan: #a8927a; --chart-buzz: #7d6f62;
+  --face-fill: rgba(245,239,230,.04); --face-cheek: #141210; --face-label: #8f877b;
+  color-scheme: dark;
+}
+/* Seasonal tints: the banner takes a deep shade of the occasion; gold stays the accent. */
+:root { --season-bg: #241F1A; --season-fg: #F5EFE6; }
+:root[data-season="festive"] { --season-bg: #17402F; }
+:root[data-season="winter"] { --season-bg: #1C2733; }
+:root[data-season="spring"] { --season-bg: #2C3B2A; }
+:root[data-season="summer"] { --season-bg: #4A3416; }
+:root[data-season="autumn"] { --season-bg: #4A2616; }
+:root[data-season="gold"] { --season-bg: #C9A46A; --season-fg: #140F0A; }
+.btn { box-shadow: 0 10px 30px -12px color-mix(in srgb, var(--accent) 60%, transparent); }
+.btn:hover { transform: translateY(-2px); }
+.btn.ghost { box-shadow: inset 0 0 0 1.5px var(--line-2); }
+.logo { letter-spacing: .02em; }
+.logo i { width: 8px; height: 22px; display: block; background: repeating-linear-gradient(-45deg, var(--pole-red) 0 4px, var(--pole-white) 4px 8px, var(--pole-blue) 8px 12px, var(--pole-white) 12px 16px); }
+.phero { background: radial-gradient(50% 80% at 85% 0%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 70%); }
+.phero h1 em, .sh h2 em { font-style: italic; font-weight: 500; color: var(--accent); }
+.shot img { filter: saturate(.8) contrast(1.06) brightness(.82); }
+.tile .ph, .b-img img { filter: saturate(.85) contrast(1.05); }
+
+/* hero */
+main .hero { position: relative; padding: 0; min-height: min(92svh, 900px); display: grid; align-items: center; overflow: hidden; isolation: isolate; }
+.hero::before { content: ""; position: absolute; inset: 0; z-index: -2; background:
+  radial-gradient(38% 60% at 74% 46%, rgba(255,178,110,.20), transparent 70%),
+  radial-gradient(60% 80% at 74% 120%, rgba(201,164,106,.10), transparent 70%),
+  linear-gradient(180deg, #14110f, #0b0908); }
+.hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 22%; z-index: -1; background: linear-gradient(180deg, transparent, rgba(0,0,0,.35)); border-top: 1px solid rgba(255,255,255,.04); }
+.hero-in { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); gap: 40px; align-items: center; padding-block: 70px 90px; }
+.h-kick { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 26px; }
+.chip { display: inline-flex; align-items: center; gap: 8px; padding: 7px 12px; background: rgba(255,255,255,.05); box-shadow: inset 0 0 0 1px var(--line); font-size: 13px; font-weight: 700; }
+.hero h1 { font-family: var(--font-display); font-weight: 600; font-size: clamp(64px, 11.5vw, 168px); line-height: .86; letter-spacing: -.035em; margin: 0 0 30px; }
+.hero h1 em { font-style: italic; font-weight: 500; color: var(--accent); }
+.h-sub { font-size: clamp(17px, 1.5vw, 20px); color: #cfc6b8; max-width: 38ch; margin: 0 0 34px; }
+.h-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+/* Phones: the status chip gets its own line and the buttons stack, so neither the live status text
+   nor the web font arriving can change how many lines the hero takes (layout shift). */
+@media (max-width: 960px) { .h-kick { flex-direction: column; align-items: flex-start; gap: 12px; } }
+@media (max-width: 520px) { .h-cta { flex-direction: column; align-items: flex-start; } }
+.h-meta { display: flex; gap: 34px; margin-top: 46px; flex-wrap: wrap; }
+.h-meta div { display: flex; flex-direction: column-reverse; }
+.h-meta dt { font-size: 13px; color: var(--muted); }
+.h-meta dd { font-family: var(--font-display); font-size: 30px; font-weight: 600; line-height: 1.1; }
+
+/* barber pole (pure CSS) */
+.pole-wrap { position: relative; display: flex; justify-content: center; align-items: center; height: min(68svh, 620px); }
+.pole { position: relative; width: 86px; height: 100%; display: flex; flex-direction: column; align-items: center; filter: drop-shadow(0 40px 50px rgba(0,0,0,.6)); }
+.cap { width: 110px; height: 34px; background: linear-gradient(90deg, #5d5f63, #e9eaec 32%, #fff 40%, #9a9ca1 62%, #3c3e42); position: relative; z-index: 2; }
+.cap.top { border-radius: 55px 55px 6px 6px / 24px 24px 6px 6px; }
+.cap.top::before { content: ""; position: absolute; left: 50%; top: -30px; width: 46px; height: 46px; margin-left: -23px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff, #c9cbcf 30%, #55575c 75%); }
+.cap.bot { border-radius: 6px 6px 55px 55px / 6px 6px 24px 24px; }
+.tube { position: relative; flex: 1; width: 86px; overflow: hidden; background: repeating-linear-gradient(-45deg, var(--pole-red) 0 18px, var(--pole-white) 18px 36px, var(--pole-blue) 36px 54px, var(--pole-white) 54px 72px); background-size: 100% 101.82px; animation: pole-spin 2.6s linear infinite; }
+.tube::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,.62), rgba(0,0,0,.12) 24%, rgba(255,255,255,.42) 38%, rgba(255,255,255,.08) 46%, rgba(0,0,0,.1) 64%, rgba(0,0,0,.7)); }
+.glass { position: absolute; top: 30px; bottom: 30px; left: 50%; width: 104px; margin-left: -52px; border-radius: 4px; background: linear-gradient(90deg, rgba(255,255,255,.08), transparent 20%, rgba(255,255,255,.28) 30%, transparent 36%, transparent 80%, rgba(255,255,255,.12)); box-shadow: inset 0 0 0 1px rgba(255,255,255,.12); z-index: 1; pointer-events: none; }
+@keyframes pole-spin { to { background-position: 0 101.82px; } } /* 72px stripe period ÷ sin(45°) = one seamless loop */
+.pole-glow { position: absolute; inset: -10% -60%; background: radial-gradient(40% 50% at 50% 50%, rgba(255,170,100,.18), transparent 70%); z-index: -1; }
+.bracket { position: absolute; right: calc(50% + 55px); top: 24%; width: 60px; height: 10px; background: linear-gradient(180deg, #d6d7da, #6b6d71); }
+.bracket.b2 { top: auto; bottom: 24%; }
+.mirror { position: absolute; inset: 4% 8%; z-index: -1; background: linear-gradient(115deg, rgba(255,255,255,.035), transparent 40%); box-shadow: inset 0 0 0 1px rgba(255,255,255,.05); }
+@media (max-width: 900px) {
+  .hero-in { grid-template-columns: minmax(0, 1fr); padding-block: 40px 70px; }
+  .pole-wrap { position: absolute; right: -34px; top: 24px; height: 330px; opacity: .5; z-index: -1; transform: scale(.6); transform-origin: top right; }
+  .mirror, .bracket { display: none; }
+  .hero h1 { font-size: clamp(60px, 19vw, 110px); }
+}
+@media (prefers-reduced-motion: reduce) { .tube { animation: none; } }

@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: your-build
+permalink: your-build.html
+feature: site-progress
+noindex: true
+eleventyComputed:
+  title: "{{ site.siteProgress.title | plain }}"
+  description: "Where your build has reached this week, by the site code we gave you."
+---
+{% include "kits/construction/features/site-progress/site-progress.njk" %}

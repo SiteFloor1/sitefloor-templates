@@ -1,0 +1,8 @@
+{#- The palm in its case: the photo, the ring where the name is (hero.find, in percent) and the magnifier. Read by
+    features/name-find/name-find.js; set `caseId` (an id for the photo's description) first. -#}
+{%- set p = site.hero.palm %}{% set f = site.hero.find %}
+<div class="mh-case" data-nf-case tabindex="0" role="group" aria-label="The palm, close up: move over it to look closer" style="--nf-x: {{ f.x }}%; --nf-y: {{ f.y }}%; --nf-w: {{ f.width }}%">
+  <img src="{{ p.src | img }}" alt="{{ p.alt }}" width="{{ p.width }}" height="{{ p.height }}"{% if caseHero %} fetchpriority="high"{% else %} loading="lazy"{% endif %} decoding="async" data-nf-img>
+  <span class="mh-ring" aria-hidden="true"></span>
+  <span class="mh-loupe" data-nf-loupe aria-hidden="true"></span>
+</div>

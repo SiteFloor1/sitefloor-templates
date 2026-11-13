@@ -1,0 +1,50 @@
+{#- Takeaway: build an order from the dishes marked for takeaway, with a running total and the allergens
+    in it, a collection time and a WhatsApp message. The delivery apps sit alongside. -#}
+{%- set o = site.order %}
+<section class="phero"><div class="wrap">
+  <span class="kick">{{ o.kicker }}</span>
+  <h1>{{ o.title | markup | safe }}</h1>
+  {%- if o.intro %}<p>{{ o.intro }}</p>{% endif %}
+</div></section>
+<section class="od" data-feature="order"><div class="wrap od-grid">
+  <div class="od-menu">
+    {%- for sc in site.menu | takeawaySections %}
+    <div class="od-sec">
+      <h2>{{ sc.name }}</h2>
+      <ul class="od-list">
+        {%- for d in sc.dishes %}
+        <li class="od-item" data-dish="{{ d.id }}" data-name="{{ d.name }}" data-price="{{ d.price }}" data-diets="{{ (d.diets or []) | join(' ') }}" data-allergens="{{ d.allergens | join(' ') }}">
+          <div class="od-text">
+            <div class="rs-row"><span class="rs-name">{{ d.name }}</span><span class="rs-dots" aria-hidden="true"></span><span class="rs-price">{{ d.price | gbp }}</span></div>
+            <p class="rs-meta">{% for mk in d | dietMarks %}<abbr class="rs-mark" title="{{ mk.name }}">{{ mk.mark }}</abbr>{% endfor %}{% set an = d | allergenNames %}<span class="rs-all">{% if an.length %}Contains: {{ an | join(", ") | lower }}{% else %}None of the 14 allergens{% endif %}</span></p>
+          </div>
+          <div class="od-qty" data-js-only>
+            <button type="button" class="od-btn" data-od-minus aria-label="One fewer {{ d.name }}" disabled>−</button>
+            <output class="od-n" data-od-n aria-live="polite">0</output>
+            <button type="button" class="od-btn" data-od-plus aria-label="Add {{ d.name }}">+</button>
+          </div>
+        </li>
+        {%- endfor %}
+      </ul>
+    </div>
+    {%- endfor %}
+  </div>
+  <aside class="od-tray" aria-labelledby="od-h">
+    <h2 id="od-h" class="od-h">Your order</h2>
+    <div data-js-only>
+      <ul class="od-lines" data-od-lines><li class="rs-small">Nothing yet. Tap + to add a dish.</li></ul>
+      <p class="od-total"><span>Total</span><b data-od-total>£0</b></p>
+      <p class="od-all rs-small" data-od-all></p>
+      <div class="od-form">
+        <label class="rs-field">Collect at<select data-od-time></select></label>
+        <label class="rs-field">Name for the order<input type="text" maxlength="40" autocomplete="given-name" data-od-name></label>
+        <label class="rs-field">Notes<textarea maxlength="300" data-od-notes placeholder="e.g. no onions, extra sauce"></textarea></label>
+      </div>
+      <a class="btn od-send" data-od-send href="{{ o.message | wa }}" target="_blank" rel="noopener" aria-disabled="true">{% include "core/partials/icon-whatsapp.njk" %}Send the order</a>
+      <p class="rs-small">We reply to confirm the order and the time, and you pay when you collect. Tell us about any allergy: we'll check it with the kitchen.</p>
+      {%- if o.note %}<p class="rs-small">{{ o.note }}</p>{% endif %}
+    </div>
+    <p data-no-js><a class="btn" href="{{ o.message | wa }}" target="_blank" rel="noopener">Message us your order</a></p>
+  </aside>
+</div></section>
+{%- if "delivery" | enabled %}{% include "kits/restaurant/features/delivery/delivery.njk" %}{% endif %}

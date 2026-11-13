@@ -1,0 +1,21 @@
+{#- One exercise: the photograph large, what it is, what it works, the usual springs, easier and harder, the classes it
+    comes up in. All in the studio's words. Set `x` first. -#}
+<header class="pl-ph"><div class="wrap pl-ph-in">
+  <p class="pl-ph-k"><a href="{{ 'index' | href }}">{{ site.business.name }}</a> <span aria-hidden="true">/</span> <a href="{{ 'method' | href }}">{{ site.method.title | plain }}</a></p>
+  <h1 class="pl-ph-t">{{ x.name }}</h1>
+  <p class="pl-ph-i">{{ x.line }}</p>
+</div></header>
+<section class="pl-ex" data-feature="method-library" aria-label="{{ x.name }}"><div class="wrap pl-ex-in">
+  <figure class="pl-ex-ph"><img src="{{ x.photo.src | img }}" alt="{{ x.photo.alt }}" width="{{ x.photo.width }}" height="{{ x.photo.height }}" fetchpriority="high" decoding="async">{% if x.photo.caption %}<figcaption>{{ x.photo.caption }}</figcaption>{% endif %}</figure>
+  <div>
+    <p class="pl-ex-x">{{ x.text }}</p>
+    <dl class="pl-ex-facts">
+      <div><dt>Works</dt><dd>{{ x.works }}</dd></div>
+      <div><dt>Springs</dt><dd>{{ x.springs }}</dd></div>
+      <div><dt>Easier</dt><dd>{{ x.easier }}</dd></div>
+      <div><dt>Harder</dt><dd>{{ x.harder }}</dd></div>
+      <div><dt>In</dt><dd>{% for c in x.classes %}{% set ct = site | classOf(c) %}{% if 'class-pages' | enabled %}<a href="{{ ('class-' + c) | href }}">{{ ct.name }}</a>{% else %}{{ ct.name }}{% endif %}{% if not loop.last %}, {% endif %}{% endfor %}</dd></div>
+    </dl>
+    <p class="pl-ex-note">Your teacher sets your springs and shows you each move first.</p>
+  </div>
+</div></section>

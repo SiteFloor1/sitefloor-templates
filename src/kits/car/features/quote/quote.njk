@@ -1,0 +1,22 @@
+{#- WhatsApp quote: vehicle, make and model, the work wanted and a preferred week, sent as one message. -#}
+{%- set sec = site.sections.quote %}
+<section id="quote" class="sec-quote" data-feature="quote"{{ "quote" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <form class="qt rv" data-qt>
+    <fieldset class="qt-set"><legend>Vehicle</legend>
+      <div class="sr-chips">{% for v in site.vehicles %}<label class="sr-chip"><input type="radio" name="vehicle" value="{{ v.id }}"{% if loop.first %} checked{% endif %}><span>{{ v.name }}</span></label>{% endfor %}</div>
+    </fieldset>
+    <label class="qt-f">Make and model<input type="text" name="car" maxlength="60" autocomplete="off" placeholder="e.g. Audi A4 Avant, 2021" required></label>
+    <fieldset class="qt-set"><legend>What would you like?</legend>
+      <div class="sr-chips">{% for o in site.quote.options %}<label class="sr-chip"><input type="checkbox" name="work" value="{{ o }}"><span>{{ o }}</span></label>{% endfor %}</div>
+    </fieldset>
+    <fieldset class="qt-set"><legend>When suits you?</legend>
+      <div class="sr-chips">{% for o in ["This week", "Next week", "In two weeks or more", "I'm flexible"] %}<label class="sr-chip"><input type="radio" name="when" value="{{ o }}"{% if loop.last %} checked{% endif %}><span>{{ o }}</span></label>{% endfor %}</div>
+    </fieldset>
+    <label class="qt-f">Anything else? <small>(optional)</small><textarea name="notes" rows="2" maxlength="300"></textarea></label>
+    <div class="qt-go">
+      <a class="btn" data-qt-send href="{{ site.quote.message | wa }}" target="_blank" rel="noopener">{% include "core/partials/icon-whatsapp.njk" %}Get my quote on WhatsApp</a>
+      <p class="qt-note" data-qt-note>{{ sec.note or "It opens WhatsApp with your message ready. Add photos of the car there if you can." }}</p>
+    </div>
+  </form>
+</div></section>

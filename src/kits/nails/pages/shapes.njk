@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: shapes
+permalink: shapes.html
+feature: shapes-page
+eleventyComputed:
+  title: "{{ site.shapesPage.title | plain }}"
+  description: "Nail shapes at {{ site.business.name }}: what each suits, shown on real sets."
+---
+{% include "kits/nails/features/shapes-page/shapes-page.njk" %}
+{%- set hostPage = "shapes-page" %}{% include "kits/nails/partials/hosted.njk" %}

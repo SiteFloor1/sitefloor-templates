@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: servings
+permalink: servings.html
+feature: servings-page
+eleventyComputed:
+  title: "{{ site.cakePages.servings.title | plain }}"
+  description: "How many tiers for your guests: {{ site.business.name }}'s portion chart and calculator."
+---
+{% include "kits/cakes/features/servings-page/servings-page.njk" %}

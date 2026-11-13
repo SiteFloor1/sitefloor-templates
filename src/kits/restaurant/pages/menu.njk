@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: menu
+permalink: menu.html
+feature: menu-page
+eleventyComputed:
+  title: "{{ site.menuPage.title | plain }}"
+  description: "The menu at {{ site.business.name }}, {{ site.location.locality }}: every dish with its price, diet marks and allergens, the drinks, and our full allergen chart."
+---
+{% include "kits/restaurant/features/menu-page/menu-page.njk" %}

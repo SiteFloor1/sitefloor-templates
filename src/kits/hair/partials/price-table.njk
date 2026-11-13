@@ -1,0 +1,26 @@
+{#- One group's services as a price grid: lengths across, the chosen level's price in each cell (every level is in the
+    page; level-pick.njk chooses which shows). A flat price spans the row; null reads "Priced at a free consultation".
+    Set `ptGroup` (a menu group id) first. -#}
+{%- set m = site.menu %}
+{%- set grp = m.groups | idOf(ptGroup) %}
+{%- set dl = (m.defaults.level if m.defaults and m.defaults.level else m.levels[0].id) %}
+<div class="hr-pt-wrap" data-dl="{{ dl }}">
+<table class="hr-pt">
+  <caption class="sr-only">{{ grp.name }}: prices by hair length</caption>
+  <thead><tr><th scope="col" class="hr-pt-s">Service</th>{% for l in m.lengths %}<th scope="col">{{ l.name }}<span>{{ l.line }}</span></th>{% endfor %}</tr></thead>
+  <tbody>
+    {%- for s in m | servicesIn(ptGroup) %}
+    <tr>
+      <th scope="row" class="hr-pt-s">{{ s.name }}<span>{% if s.text %}{{ s.text }} {% endif %}{{ s | timeRange | capitalize }}.{% if s.skinTest %} Skin test 48 hours before.{% endif %}</span></th>
+      {%- if not s.prices %}
+      <td colspan="{{ m.lengths.length }}" class="hr-pt-all">Priced at a free consultation</td>
+      {%- elif s | byLength %}
+      {%- for l in m.lengths %}{% set li = loop.index0 %}<td>{% for lv in m.levels %}<span data-l="{{ lv.id }}">{{ s | cell(lv.id, li) }}</span>{% endfor %}</td>{% endfor %}
+      {%- else %}
+      <td colspan="{{ m.lengths.length }}" class="hr-pt-all">{% for lv in m.levels %}<span data-l="{{ lv.id }}">{% set c = s | cell(lv.id, 0) %}{% if c == "–" %}Not with a {{ lv.name | lower }}{% else %}{{ c }}, any length{% endif %}</span>{% endfor %}</td>
+      {%- endif %}
+    </tr>
+    {%- endfor %}
+  </tbody>
+</table>
+</div>

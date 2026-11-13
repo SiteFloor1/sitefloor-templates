@@ -1,0 +1,22 @@
+{#- Tissue delivery: every area as one row (the district large, its name, its cut-off and charge), then how delivery
+    works as questions. -#}
+{%- set DA = site.deliveryAreas %}
+{%- set ph = { title: DA.title, intro: DA.intro } %}
+{% include "looks/tissue/parts/page-head.njk" %}
+<section class="ts-areas" aria-label="Areas"><div class="wrap">
+  <ul class="ts-area-l" role="list">
+    {%- for a in DA.areas %}
+    <li><a href="{{ ('delivery-' + (a.district | lower)) | href }}">
+      <b>{{ a.district }}</b><span class="ts-area-n">{{ a.name }}</span>
+      <span class="ts-area-c">{{ site.delivery | areaCutoffs(a) | cutoffGroups }}</span>
+      <span class="ts-area-f">{% set fee = a.fee if a.fee is defined else site.delivery.fee %}{% if fee is defined %}{{ "Free" if fee == 0 else (fee | pounds) }}{% endif %}</span></a></li>
+    {%- endfor %}
+  </ul>
+  <p class="ts-fine">{{ site.delivery.collect }}</p>
+</div></section>
+{%- if DA.how %}
+<section class="ts-qa-sec" aria-labelledby="dhow-h"><div class="wrap">
+  <h2 id="dhow-h" class="ts-h2">How delivery works</h2>
+  <div class="ts-qa">{% for h in DA.how %}<details><summary>{{ h.q }}</summary><p>{{ h.a }}</p></details>{% endfor %}</div>
+</div></section>
+{%- endif %}

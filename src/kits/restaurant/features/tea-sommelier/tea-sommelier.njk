@@ -1,0 +1,28 @@
+{#- The tea sommelier: three questions (the time of day, milk or not, how strong) and one tea from the café's own
+    library, set like a menu card with where it's from, how it's brewed and what it goes with on the stand. Without
+    JavaScript, the whole library is listed. -#}
+{%- set sec = site.sections.sommelier %}
+<section id="sommelier" class="ts" data-feature="tea-sommelier" aria-labelledby="ts-h"{{ "tea-sommelier" | tierAttr | safe }}><div class="wrap">
+  {%- if sec.photo %}<figure class="ts-ph"><img src="{{ sec.photo.src | img }}" width="{{ sec.photo.width }}" height="{{ sec.photo.height }}" alt="{{ sec.photo.alt }}" loading="lazy"></figure>{% endif %}
+  <div class="ts-body">
+    <h2 id="ts-h" class="ts-h">{{ sec.title | markup | safe }}</h2>
+    {%- if sec.intro %}<p class="ts-intro">{{ sec.intro }}</p>{% endif %}
+    <form class="ts-q" data-ts-form data-js-only>
+      <fieldset><legend>When</legend>{% for v in [["morning", "Morning"], ["afternoon", "Afternoon"], ["evening", "Evening"]] %}<label class="ts-o"><input type="radio" name="ts-when" value="{{ v[0] }}"{% if loop.index == 2 %} checked{% endif %}><span>{{ v[1] }}</span></label>{% endfor %}</fieldset>
+      <fieldset><legend>Milk</legend><label class="ts-o"><input type="radio" name="ts-milk" value="yes" checked><span>With milk</span></label><label class="ts-o"><input type="radio" name="ts-milk" value="no"><span>Without</span></label></fieldset>
+      <fieldset><legend>Strength</legend>{% for v in [["light", "Light"], ["medium", "Medium"], ["full", "Full"]] %}<label class="ts-o"><input type="radio" name="ts-str" value="{{ v[0] }}"{% if loop.index == 2 %} checked{% endif %}><span>{{ v[1] }}</span></label>{% endfor %}</fieldset>
+    </form>
+    <article class="ts-card" data-ts-card data-js-only aria-live="polite">
+      <p class="ts-k">For you</p>
+      <h3 class="ts-name" data-ts-name>&nbsp;</h3>
+      <p class="ts-from" data-ts-from></p>
+      <p class="ts-brew" data-ts-brew></p>
+      <p class="ts-pairs" data-ts-pairs></p>
+      <p class="ts-also" data-ts-also></p>
+    </article>
+    <details class="ts-lib">
+      <summary>The whole library</summary>
+      <ul>{% for t in site.tea.library %}<li><b>{{ t.name }}</b>{% if t.origin %}, {{ t.origin }}{% endif %}{% if t.notes %}. {{ t.notes }}{% endif %}</li>{% endfor %}</ul>
+    </details>
+  </div>
+</div></section>

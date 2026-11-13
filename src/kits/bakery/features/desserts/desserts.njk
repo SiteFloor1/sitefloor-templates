@@ -1,0 +1,24 @@
+{#- The dessert menu on the home page: every section, each item with its price, marks and allergens; filters for
+    eggless, vegan and halal and "hide anything containing…"; tonight's sold-out items marked from the sheet. -#}
+{%- set sec = site.sections.desserts %}
+<section id="desserts" class="sec-desserts" data-feature="desserts"{{ "desserts" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  {% include "kits/bakery/features/desserts/filters.njk" %}
+  <nav class="bk-jump" aria-label="Menu sections">
+    {%- for s in site.desserts.sections %}<a href="#m-{{ s.id }}">{{ s.name }}</a>{% endfor %}
+  </nav>
+  <div class="bk-sections">
+    {%- for s in site.desserts.sections %}
+    <section class="bk-sec rv" id="m-{{ s.id }}" aria-labelledby="mh-{{ s.id }}" data-bk-sec>
+      <h3 class="bk-sec-h" id="mh-{{ s.id }}">{{ s.name }}</h3>
+      {%- if s.intro %}<p class="bk-sec-i">{{ s.intro }}</p>{% endif %}
+      <ul class="bk-list">
+        {%- for it in s.items %}{% set withPhoto = false %}{% include "kits/bakery/features/desserts/item.njk" %}{% endfor %}
+      </ul>
+      <p class="bk-none" data-bk-none hidden>Nothing in this section fits those filters.</p>
+    </section>
+    {%- endfor %}
+  </div>
+  {% include "kits/bakery/features/desserts/statement.njk" %}
+  {%- if "dessert-menu" | enabled %}<p class="bk-more"><a class="btn ghost" href="{{ 'desserts' | href }}"{{ "dessert-menu" | tierAttr | safe }}>The full menu, with photos and the allergen chart</a></p>{% endif %}
+</div></section>

@@ -1,0 +1,18 @@
+/* Gallery: a grid of recent photos (Instagram-style 4:5 tiles). Shared by the home strip and the work page. */
+.gal { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; } /* three across, like an Instagram profile */
+@media (max-width: 760px) { .gal { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; } }
+.tile { aspect-ratio: 4 / 5; position: relative; overflow: hidden; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); }
+.tile figure, .tile > a, .tile-open { position: absolute; inset: 0; margin: 0; display: block; padding: 0; border: 0; background: none; cursor: pointer; color: inherit; }
+.tile figure { cursor: default; }
+.tile .ph { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .8s cubic-bezier(.2,.8,.2,1); }
+.tile:hover .ph { transform: scale(1.05); }
+.tile .cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 14px; background: linear-gradient(180deg, transparent, var(--photo-scrim)); color: var(--on-photo); display: flex; justify-content: space-between; align-items: flex-end; gap: 8px; font-size: 13px; font-weight: 700; }
+.tile .cap small { opacity: .75; font-weight: 600; font-size: 12px; }
+.tile .vid { position: absolute; top: 10px; right: 10px; font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; padding: 4px 7px; background: var(--photo-scrim); color: var(--on-photo); }
+.tile.skel { background: linear-gradient(100deg, var(--surface) 30%, var(--surface-2) 50%, var(--surface) 70%) 0 0 / 300% 100%; animation: skel 1.6s linear infinite; }
+@keyframes skel { to { background-position: -150% 0; } }
+@media (prefers-reduced-motion: reduce) { .tile.skel { animation: none; } }
+.gal-foot { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin-top: 18px; }
+.gal-handle { color: var(--muted); font-weight: 700; font-size: 14px; }
+.gal-empty { margin: 0; padding: 26px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); font-size: 17px; }
+.gal-empty a { color: var(--accent); }

@@ -1,0 +1,5 @@
+{#- Dune section opening: the section's name in italic, its line beside it in the muted ink. No label above. -#}
+<div class="du-sh rv">
+  <h2 class="du-sh-t">{{ sec.title | markup | safe }}</h2>
+  {%- if sec.intro %}<p class="du-sh-i">{{ sec.intro }}</p>{% endif %}
+</div>

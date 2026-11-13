@@ -1,0 +1,19 @@
+{#- Cacao hero: the shop's film fills the screen under the ribbon (its first frame shows first, the loop starts after
+    the page has loaded, never with reduced motion), one line and two links at its foot. Without a film, its photo. -#}
+{%- set fm = site.hero.film %}
+<section class="hero cc-hero" aria-label="{{ site.business.name }}">
+  <div class="cc-film"{% if fm and ("shop-film" | enabled) %} data-feature="shop-film"{% endif %}>
+    {%- if fm %}
+    <picture><source media="(max-width: 759px)" srcset="{{ fm.posterTall.src | img }}" width="{{ fm.posterTall.width }}" height="{{ fm.posterTall.height }}"><img src="{{ fm.poster.src | img }}" alt="{{ fm.poster.alt }}" width="{{ fm.poster.width }}" height="{{ fm.poster.height }}" fetchpriority="high" decoding="async"></picture>
+    {%- if "shop-film" | enabled %}<video muted loop playsinline preload="none" aria-hidden="true" data-shop-film data-motion data-wide="{{ fm.wide | img }}" data-tall="{{ fm.tall | img }}" hidden></video>
+    {% include "core/partials/motion-pause.njk" %}{% endif %}
+    {%- elif site.hero.photo %}
+    <img src="{{ site.hero.photo.src | img }}" alt="{{ site.hero.photo.alt }}" width="{{ site.hero.photo.width }}" height="{{ site.hero.photo.height }}" fetchpriority="high" decoding="async">
+    {%- endif %}
+  </div>
+  <div class="cc-hero-in"><div class="wrap">
+    <h1 class="cc-line">{{ site.hero.title | plain }}</h1>
+    <p class="cc-now" data-live-status><span class="dot" aria-hidden="true"></span><span data-status-text>Opening hours</span></p>
+    <p class="cc-acts"><a class="go" href="#collect">Order for collection</a><a class="quiet" href="#gelato">Today's counter</a></p>
+  </div></div>
+</section>

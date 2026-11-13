@@ -1,0 +1,14 @@
+---
+layout: core/layouts/base.njk
+feature: area-pages
+pagination:
+  data: site.practice.items
+  size: 1
+  alias: a
+permalink: "{{ a.id }}.html"
+eleventyComputed:
+  pageId: "{{ a.id }}"
+  title: "{{ a.name }}"
+  description: "{{ a.name }} at {{ site.business.name }}: {{ a.line }}"
+---
+{% include "kits/law/features/area-pages/area-pages.njk" %}

@@ -1,0 +1,23 @@
+{#- Before and after, consent only: each pair is one client in one session, compared with a slider (drag, tap or the
+    arrow keys; it's a range input). Each names the stylist and, on a client site, the date the client agreed. The
+    slider itself is the shared before-after script. Without JavaScript the two photographs sit side by side. -#}
+{%- set sec = site.sections.pairs %}
+{%- set pr = site.pairs %}
+<section id="pairs" class="hr-pr" data-feature="consent-pairs" aria-labelledby="pr-h"><div class="wrap">
+  {%- set secId = "pr-h" %}{% include "core/partials/section-head.njk" %}
+  <div class="hr-pr-list">
+    {%- for p in pr.items %}
+    {%- set who = site.stylists.items | idOf(p.stylist) %}
+    <figure class="hr-pr-one" data-ba>
+      <div class="ba-frame hr-pr-frame">
+        <div class="ba-side ba-before"><img src="{{ p.before | img }}" alt="" width="880" height="1100" loading="lazy" decoding="async"><span class="hr-pr-lab">{{ p.beforeLabel or "Before" }}</span></div>
+        <div class="ba-side ba-after"><img src="{{ p.after | img }}" alt="" width="880" height="1100" loading="lazy" decoding="async"><span class="hr-pr-lab hr-pr-lab-a">{{ p.afterLabel or "After" }}</span></div>
+        <span class="hr-pr-handle" aria-hidden="true"></span>
+        <input class="hr-pr-range" type="range" min="0" max="100" value="50" data-ba-range aria-label="Slide to compare {{ (p.beforeLabel or 'before') | lower }} and {{ (p.afterLabel or 'after') | lower }}">
+      </div>
+      <figcaption><span class="sr-only">{{ p.alt }}. </span>{% if p.caption %}{{ p.caption }} · {% endif %}{{ who.name }}{% if p.consent %} · Shown with consent, {{ p.consent | ukDay }}{% endif %}</figcaption>
+    </figure>
+    {%- endfor %}
+  </div>
+  {%- if pr.note %}<p class="hr-small hr-pr-note">{{ pr.note }}</p>{% endif %}
+</div></section>

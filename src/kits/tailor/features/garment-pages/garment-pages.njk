@@ -1,0 +1,28 @@
+{#- One garment's page (a generated collection: suits, overcoats, shirts…): the garment large, what the house says
+    about it, its details as a short list, the "from" price from what the house makes, the cloths it's often made in
+    (each opening the cloth library), and the way to the specification card and a first appointment. `gp` = one item. -#}
+{%- set ph = gp %}
+{% include "kits/tailor/partials/page-head.njk" %}
+{%- set item = (site.garments | garmentOf(gp.garment)) if (site.garments and gp.garment) else null %}
+<article class="wrap tl-gp">
+  <figure class="tl-gp-ph"><img src="{{ gp.photo.src | img }}" alt="{{ gp.photo.alt }}" width="{{ gp.photo.width }}" height="{{ gp.photo.height }}" fetchpriority="high" decoding="async"></figure>
+  <div class="tl-gp-t">
+    {%- for para in gp.body | paragraphs %}<p>{{ para }}</p>{% endfor %}
+    {%- if gp.details and gp.details.length %}
+    <dl class="tl-gp-dl">{% for d in gp.details %}<div><dt>{{ d.label }}</dt><dd>{{ d.value }}</dd></div>{% endfor %}</dl>
+    {%- endif %}
+    {%- if item and item.from %}<p class="tl-gp-price">{{ item.from | fromPrice }}{% if site.garments.note %}<span>{{ site.garments.note }}</span>{% endif %}</p>{% endif %}
+    {%- if gp.cloths and gp.cloths.length and site.cloths %}
+    <p class="tl-label">Often made in</p>
+    <ul class="tl-gp-cloths">
+      {%- for id in gp.cloths %}{% set c = site.cloths | clothOf(id) %}{% if c %}
+      <li><a href="{{ ('cloth' | href) if ('cloth-page' | enabled) else (('index' | href) + '#cloth') }}"><img src="{{ c.length.src | img }}" alt="" width="{{ c.length.width }}" height="{{ c.length.height }}" loading="lazy" decoding="async"><span>{{ c.name }}</span></a></li>
+      {%- endif %}{% endfor %}
+    </ul>
+    {%- endif %}
+    <p class="tl-gp-acts">
+      <a class="tl-btn" href="{{ (site.garments.message if site.garments else site.messages.general) | book }}" target="_blank" rel="noopener">Book a first appointment</a>
+      {%- if "spec-card" | enabled %}<a class="tl-go" href="{{ 'specification' | href }}"{{ 'spec-card' | tierAttr | safe }}>Make a specification card</a>{% endif %}
+    </p>
+  </div>
+</article>

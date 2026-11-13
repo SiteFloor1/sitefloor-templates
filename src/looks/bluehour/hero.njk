@@ -1,0 +1,28 @@
+{#- Blue hour hero: the house at blue hour, edge to edge, the headline at its foot. With the scene keypad (Signature)
+    the engraved keys change the photograph to the same house in each scene; the others load after the page has. -#}
+{%- set scenes = site.hero.scenes %}
+{%- set keypad = ("scene-keypad" | enabled) and scenes.length > 1 %}
+<section class="hero bh-hero" data-hero aria-label="{{ site.business.name }}">
+  <div class="bh-pics">
+    {%- for s in scenes %}{% if loop.first or keypad %}
+    <picture class="bh-pic{% if loop.first %} on{% endif %}" data-scene-pic="{{ s.id }}">
+      {%- if loop.first %}
+      <source media="(max-width:860px)" srcset="{{ s.tall.src | img }}" width="{{ s.tall.width }}" height="{{ s.tall.height }}">
+      <img src="{{ s.wide.src | img }}" alt="{{ s.wide.alt }}" width="{{ s.wide.width }}" height="{{ s.wide.height }}" fetchpriority="high" decoding="async">
+      {%- else %}
+      <source media="(max-width:860px)" data-srcset="{{ s.tall.src | img }}" width="{{ s.tall.width }}" height="{{ s.tall.height }}">
+      <img data-src="{{ s.wide.src | img }}" alt="{{ s.wide.alt }}" width="{{ s.wide.width }}" height="{{ s.wide.height }}" decoding="async">
+      {%- endif %}
+    </picture>
+    {%- endif %}{% endfor %}
+  </div>
+  <div class="wrap bh-foot">
+    <div class="bh-words">
+      <h1 class="bh-h1">{% for l in site.hero.title.split("|") %}{{ l | markup | safe }}{% if not loop.last %}<br>{% endif %}{% endfor %}</h1>
+      {%- if keypad %}<p class="bh-line" data-scene-line>{{ scenes[0].line }}</p>{% endif %}
+      <p class="bh-intro">{{ site.hero.intro }}</p>
+      {%- if not keypad %}<p class="bh-intro-go"><a class="go" href="{{ site.messages.general | book }}" target="_blank" rel="noopener">Request a visit</a></p>{% endif %}
+    </div>
+    {%- if keypad %}<div class="bh-pad">{% include "kits/electrician/features/scene-keypad/scene-keypad.njk" %}</div>{% endif %}
+  </div>
+</section>

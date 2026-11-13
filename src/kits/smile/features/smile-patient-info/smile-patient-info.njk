@@ -1,0 +1,41 @@
+{#- Patient information and complaints, as the GDC asks a dental website to give: NHS or private, who treats you with
+    their GDC numbers, who may whiten teeth, the under-18 rule, the studio's own complaints procedure, then the Dental
+    Complaints Service and the GDC, the sources with the day they were checked, and when the site was last updated. -#}
+{%- set pi = site.patientInfo %}
+{%- set ph = { kicker: "Patient information", title: pi.title, intro: pi.intro } %}
+{%- include "kits/smile/partials/page-head.njk" %}
+<div class="sm-pi" data-feature="smile-patient-info"><div class="wrap sm-pi-in">
+  <section class="sm-pi-part" aria-labelledby="pi-who">
+    <h2 id="pi-who">Who treats you</h2>
+    <p>{{ gdc.status[pi.status] }} Every clinician is registered with the {{ gdc.gdc.name }}; each number opens the register.</p>
+    <ul class="sm-cl-list">{% for p in site.clinicians.items %}<li>{% include "kits/smile/partials/clinician-line.njk" %}</li>{% endfor %}</ul>
+  </section>
+  <section class="sm-pi-part" aria-labelledby="pi-white">
+    <h2 id="pi-white">Who may whiten teeth</h2>
+    <p>{{ gdc.rule }}</p>
+    <p>{{ gdc.under18 }}</p>
+    <p>We don't promise a shade, a result or how long it lasts. Your clinician tells you what's realistic for your teeth at consultation.</p>
+  </section>
+  <section class="sm-pi-part" aria-labelledby="pi-complain">
+    <h2 id="pi-complain">If you're unhappy</h2>
+    <ol class="sm-pi-steps">{% for s in pi.complaints.steps %}<li>{{ s }}</li>{% endfor %}</ol>
+    <p>{{ pi.complaints.contact }} We acknowledge every complaint within {{ pi.complaints.replyDays }} working {{ "day" if pi.complaints.replyDays == 1 else "days" }}.</p>
+    {%- if pi.status != "nhs" %}
+    <p>If you're still unhappy about private treatment, the <a href="{{ gdc.dcs.url }}" target="_blank" rel="noopener">{{ gdc.dcs.name }}</a> can help, free.</p>
+    {%- endif %}
+    {%- if pi.status != "private" %}
+    <p>For NHS treatment, ask us for the NHS complaints procedure and we'll give it to you in writing.</p>
+    {%- endif %}
+    <p>If you're worried about a dental professional's conduct or fitness to practise, you can contact the <a href="{{ gdc.gdc.url }}" target="_blank" rel="noopener">{{ gdc.gdc.name }}</a>.</p>
+  </section>
+  {%- for n in pi.notes or [] %}
+  <section class="sm-pi-part"><h2>{{ n.heading }}</h2><p>{{ n.text }}</p></section>
+  {%- endfor %}
+  <section class="sm-pi-part" aria-labelledby="pi-src">
+    <h2 id="pi-src">Where these rules come from</h2>
+    <ul class="sm-pi-src">
+      {%- for s in [gdc.sources.whitening, gdc.sources.advertising, gdc.sources.cap, gdc.sources.law] %}<li><a href="{{ s.url }}" target="_blank" rel="noopener">{{ s.name }}</a></li>{% endfor %}
+    </ul>
+    <p>Checked {{ gdc.checked }}. This website was last updated {{ build.today | ukDate }}.</p>
+  </section>
+</div></div>

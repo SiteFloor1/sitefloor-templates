@@ -1,0 +1,11 @@
+/* Discreet arrival: the words beside the house, the photograph running to the page edge on wide screens. */
+.lw-arr { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr); align-items: center; gap: clamp(24px, 5vw, 88px); }
+.lw-arr-say { justify-self: end; width: min(100%, 560px); padding-left: max(16px, env(safe-area-inset-left, 0px)); }
+.lw-arr-t { margin: 0 0 24px; font-size: clamp(32px, 3.6vw, 54px); line-height: 1.08; }
+.lw-arr-i { margin: 0 0 20px; color: var(--muted); max-width: 44ch; }
+.lw-arr-ways { margin: 0 0 28px; display: grid; gap: 12px; }
+.lw-arr-ways dt { font-size: 14px; font-weight: 500; }
+.lw-arr-ways dd { margin: 0; color: var(--muted); }
+.lw-arr-fig { margin: 0; aspect-ratio: 4 / 5; overflow: hidden; max-width: 100%; }
+.lw-arr-fig img { width: 100%; height: 100%; object-fit: cover; display: block; }
+@media (max-width: 760px) { .lw-arr { grid-template-columns: 1fr; gap: 28px; } .lw-arr-fig { order: -1; } .lw-arr-say { justify-self: stretch; width: auto; padding-right: max(16px, env(safe-area-inset-right, 0px)); } }

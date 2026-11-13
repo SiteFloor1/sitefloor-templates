@@ -1,0 +1,7 @@
+{#- The book page: its opening, then the next start for each package, and send us your paint (each only when its feature is on), then any home sections the
+    look moves here. -#}
+{%- set pg = site.bookPage %}
+{% include "kits/detailing/partials/page-head.njk" %}
+{%- set shown = ["availability", "paint-request"] %}
+{% include "kits/detailing/partials/sections.njk" %}
+{%- set hostPage = "book-page" %}{% include "kits/detailing/partials/hosted.njk" %}

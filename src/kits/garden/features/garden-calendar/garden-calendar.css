@@ -1,0 +1,26 @@
+/* The studio's month: a photograph beside the month's page of entries. */
+.gd-cal-in { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); grid-template-rows: auto 1fr; column-gap: clamp(32px, 6vw, 96px); align-items: start; }
+.gd-cal-m { display: contents; }
+.gd-cal-m[hidden] { display: none; }
+.gd-cal-ph { margin: 0; grid-row: span 2; }
+.gd-cal-ph img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; display: block; }
+.gd-cal-m-nophoto .gd-cal-tx { grid-column: 1 / -1; max-width: 760px; }
+.gd-cal-tx { min-width: 0; }
+.gd-cal-h { font-size: clamp(40px, 5vw, 76px); line-height: 1.02; margin: 0; }
+.gd-cal-h em { color: var(--accent); }
+.gd-cal-i { color: var(--muted); margin: 24px 0 0; max-width: 32ch; }
+.gd-cal-dl { margin: 32px 0 0; border-top: 1px solid var(--text); }
+.gd-cal-dl div { display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: 24px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+.gd-cal-dl dt { font-style: italic; color: var(--muted); }
+.gd-cal-dl dd { margin: 0; }
+.gd-cal-go { grid-column: 2; display: flex; flex-wrap: wrap; align-items: center; gap: 16px 40px; margin-top: 40px; }
+.gd-cal-in:has(.gd-cal-m-nophoto:not([hidden])) .gd-cal-go { grid-column: 1 / -1; }
+.gd-cal-next { margin: 0; color: var(--muted); font-size: 17px; }
+.gd-cal-next b { color: var(--text); font-weight: 500; }
+@media (max-width: 860px) {
+  .gd-cal-in { grid-template-columns: 1fr; }
+  .gd-cal-ph { grid-row: auto; order: 2; margin-top: 28px; }
+  .gd-cal-ph img { aspect-ratio: 3 / 2; height: auto; object-fit: cover; }
+  .gd-cal-go { grid-column: 1; order: 1; }
+  .gd-cal-dl div { grid-template-columns: 96px minmax(0, 1fr); gap: 16px; }
+}

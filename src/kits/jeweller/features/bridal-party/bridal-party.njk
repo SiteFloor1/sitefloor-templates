@@ -1,0 +1,57 @@
+{#- Bridal party orders. The photograph tall on one side, the title and a few words on the other; the pieces offered
+    for a party, large; then the order, set like a seating plan: each role, its piece and how many, with the wedding
+    date and the names for the boxes. What it comes to at the client's own prices (or "price on request"); sent as a
+    request on WhatsApp. Without JavaScript, a plain WhatsApp link. -#}
+{%- set BP = site.party %}
+{%- set bpPieces = site.pieces.items | piecesById(BP.pieces) %}
+{%- set plain = "Hello " + site.business.name + ", I'd like to ask about pieces for my bridal party." %}
+<div data-feature="bridal-party">
+<header class="jw-bp-hero"><div class="wrap jw-bp-hero-in">
+  <picture class="jw-bp-ph">
+    <source media="(max-width: 47.99em)" srcset="{{ BP.photoPhone.src | img }}" width="{{ BP.photoPhone.width }}" height="{{ BP.photoPhone.height }}">
+    <img src="{{ BP.photo.src | img }}" width="{{ BP.photo.width }}" height="{{ BP.photo.height }}" fetchpriority="high" decoding="async" alt="{{ BP.photo.alt }}">
+  </picture>
+  <div class="jw-bp-t">
+    <h1 class="jw-bp-h">{{ BP.title }}</h1>
+    <p class="jw-say">{{ BP.intro }}</p>
+    {%- if BP.lead %}<p class="jw-oc-by"><span class="nc-label nc-muted">In time</span>{{ BP.lead }}</p>{% endif %}
+  </div>
+</div></header>
+<section class="nc-sec jw-bp-set" aria-label="Pieces for the party"><div class="wrap jw-bp-set-in">
+  {%- for p in bpPieces %}{% set cardSize = "" %}{% include "kits/jeweller/partials/card.njk" %}{% endfor %}
+</div></section>
+<section class="nc-sec jw-bp-o" aria-labelledby="bp-o-h"><div class="wrap jw-bp-o-in">
+  <h2 class="jw-h" id="bp-o-h">The party, piece by piece</h2>
+  <form class="nc-form jw-bp-f" data-bp-form data-js-only>
+    <table class="jw-bp-tab">
+      <caption class="nc-label nc-muted">Each role, its piece and how many</caption>
+      <thead><tr><th scope="col">For</th><th scope="col">The piece</th><th scope="col">How many</th></tr></thead>
+      <tbody>
+        {%- for r in BP.roles %}
+        <tr data-bp-row data-role="{{ r }}">
+          <th scope="row">{{ r }}</th>
+          <td><label class="sr-only" for="bp-p-{{ loop.index }}">Piece for {{ r | lower }}</label>
+            <select class="nc-in" id="bp-p-{{ loop.index }}" data-bp-piece>
+              {%- for p in bpPieces %}<option value="{{ p.id }}" data-name="{{ p.name }}"{% if p.price is number and not p.onRequest %} data-price="{{ p.price }}"{% endif %}>{{ p.name }}{% set pl = p | priceLabel %}{% if pl %} · {{ pl }}{% endif %}</option>{% endfor %}
+            </select></td>
+          <td><label class="sr-only" for="bp-n-{{ loop.index }}">How many for {{ r | lower }}</label>
+            <input class="nc-in jw-bp-n" id="bp-n-{{ loop.index }}" type="number" inputmode="numeric" min="0" max="{{ BP.max }}" value="0" data-bp-n></td>
+        </tr>
+        {%- endfor %}
+      </tbody>
+    </table>
+    <p class="jw-bp-sum" data-bp-sum role="status">Nothing chosen yet.</p>
+    <div class="jw-bp-more">
+      <label class="nc-field"><span class="nc-label">The wedding</span><input class="nc-in" type="date" data-bp-date></label>
+      <label class="nc-field"><span class="nc-label">Names for the boxes</span><input class="nc-in" type="text" maxlength="300" placeholder="Separated by commas" data-bp-names></label>
+      <label class="nc-field"><span class="nc-label">Your name</span><input class="nc-in" type="text" maxlength="60" autocomplete="name" data-bp-name></label>
+      <label class="nc-field"><span class="nc-label">Anything we should know</span><input class="nc-in" type="text" maxlength="200" data-bp-note></label>
+    </div>
+  </form>
+  <p class="nc-body" data-no-js>Tell us the pieces, how many and the wedding date, and we'll come back to you.</p>
+  <a class="nc-btn" href="{{ plain | wa }}" data-wa-text="{{ plain }}" target="_blank" rel="noopener" data-bp-send>Ask about the party's pieces</a>
+  <p class="nc-fine">A request: we reply to say they can be ready in time, and the price with any engraving. Nothing is ordered until then.</p>
+</div></section>
+{%- if site.pieces.demoData %}<p class="wrap nc-fine jw-demo">Demo pieces and prices for a fictional house; stock photographs.</p>{% endif %}
+</div>
+{% include "kits/jeweller/partials/invite.njk" %}

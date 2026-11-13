@@ -1,0 +1,19 @@
+{#- Quail footer: the house shades as a thin strip of flat swatches across the top (a colophon), then the name in
+    italic beside the address, the week's hours and the pages; the Sitefloor credit last. -#}
+<footer class="foot ql-foot">
+  {%- if site.shades %}<div class="ql-foot-rail" aria-hidden="true">{% for s in site.shades.items %}<i style="--c: {{ s.hex }}"></i>{% endfor %}</div>{% endif %}
+  <div class="wrap ql-foot-in">
+  <p class="ql-foot-word">{{ site.business.name }}</p>
+  <address class="ql-foot-a">{{ site.location.streetAddress }}<br>{{ site.location.locality }} {{ site.location.postcode }}<br>
+    <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a>{% if site.contact.email %}<br><a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>{% endif %}</address>
+  <ul class="ql-foot-hours" aria-label="Opening hours">
+    {%- for row in site.hours | hoursRows %}<li data-day="{{ row.dayIndex }}"><span>{{ row.day }}</span> {{ row.label }}</li>{% endfor %}
+  </ul>
+  <nav class="ql-foot-links" aria-label="Footer">
+    <a href="{{ 'index' | href }}">The counter</a>
+    {%- for item in site.nav | navItems(pageId) %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}>{{ item.label }}</a>{% endfor %}
+    <a href="{{ 'privacy' | href }}">Privacy</a>
+  </nav>
+  <p class="ql-foot-by"><a class="by" href="https://sitefloor.com" rel="noopener">Website by <b>Sitefloor</b></a></p>
+  </div>
+</footer>

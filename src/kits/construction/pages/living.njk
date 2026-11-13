@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: living
+permalink: living.html
+feature: living-page
+eleventyComputed:
+  title: "{{ site.livingPage.title | plain }}"
+  description: "Staying at home while {{ site.business.name }} builds: each stage, what home is like, and the dates for your start."
+---
+{% include "kits/construction/features/living-page/living-page.njk" %}

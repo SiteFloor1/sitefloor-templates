@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: calendar
+permalink: calendar.html
+feature: calendar-page
+eleventyComputed:
+  title: "{{ site.calendarPage.title | plain }}"
+  description: "The garden year at {{ site.business.name }}: what we design, build, plant and look after each month, and when to get in touch."
+---
+{% include "kits/garden/features/calendar-page/calendar-page.njk" %}

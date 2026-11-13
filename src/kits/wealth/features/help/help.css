@@ -1,0 +1,9 @@
+.wm-svc-cols { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+.wm-svc-col img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+.wm-svc-col h3 { font: 400 1.2rem/1.3 var(--font-body); margin: 18px 0 6px; padding-top: 14px; border-top: 1px solid var(--accent); }
+.wm-svc-col p { margin: 0; color: var(--muted); font-size: 15px; max-width: 34ch; }
+.wm-svc-a { display: block; text-decoration: none; color: inherit; }
+.wm-svc-a:hover h3 { color: var(--accent); }
+.wm-svc-who { margin: 40px 0 0; max-width: 70ch; color: var(--muted); }
+@media (max-width: 900px) { .wm-svc-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 36px; } }
+@media (max-width: 420px) { .wm-svc-cols { gap: 28px 14px; } .wm-svc-col h3 { font-size: 1.05rem; margin-top: 12px; padding-top: 10px; } .wm-svc-col p { font-size: 14px; } }

@@ -1,0 +1,25 @@
+{#- Private fitting request: what for, the day and time of day, guests, a name, the tray if she chose pieces; sent on
+    WhatsApp for the shop to confirm. Online brands: a video fitting. A plain WhatsApp link without JavaScript. -#}
+{%- import "kits/lingerie/partials/mode.njk" as mode with context %}
+{%- set sec = site.sections.fitting %}
+{%- set f = site.fitting %}
+<section id="fitting" class="ls-fit" data-feature="private-fitting"><div class="wrap fit-in">
+  <div class="fit-head">
+    {% include "core/partials/section-head.njk" %}
+    <p class="fit-facts">{{ mode.say(f.minutes + " minutes", (f.video.minutes if f.video else f.minutes) + " minutes by video") }} · {{ "Free" if f.price == 0 else (f.price | pounds) }}{% if f.guestsMax %} · Bring {{ "one guest" if f.guestsMax == 1 else ("up to " + f.guestsMax + " guests") }}{% endif %}</p>
+    <p class="fit-note">{{ mode.say(f.note, f.video.note if f.video else f.note) }}</p>
+  </div>
+  <form class="fit-form lx-form" data-fit-form>
+    <script type="application/json" data-lx>{{ { video: (site.shop.mode == "online") and (true if f.video else false) } | jsonData | safe }}</script>
+    <div class="lx-fields" data-js-only>
+      <label class="lx-f">For<select data-fit-kind>{% for k in f.kinds %}<option>{{ k }}</option>{% endfor %}</select></label>
+      <label class="lx-f">Day<select data-fit-day><option value="">Any day</option></select></label>
+      <label class="lx-f">Time<select data-fit-time><option value="">Any time</option>{% for t in f.times %}<option>{{ t }}</option>{% endfor %}</select></label>
+      {%- if f.guestsMax %}<label class="lx-f">Guests<select data-fit-guests>{% for n in range(0, f.guestsMax + 1) %}<option value="{{ n }}">{{ "Just me" if n == 0 else n }}</option>{% endfor %}</select></label>{% endif %}
+      <label class="lx-f">Your name<input type="text" maxlength="40" autocomplete="given-name" data-fit-name></label>
+    </div>
+    <div class="fit-tray" data-fit-tray hidden><p class="lx-small">Ready for you at the fitting:</p><ol data-fit-tray-list></ol></div>
+    <a class="lx-go" href="{{ ('Hello ' + site.business.name + ', I would like to book a private fitting.') | wa }}" target="_blank" rel="noopener" data-fit-send>Ask for a fitting</a>
+    <p class="lx-small">We reply on WhatsApp to confirm the time.</p>
+  </form>
+</div></section>

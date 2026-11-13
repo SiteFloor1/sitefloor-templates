@@ -1,0 +1,42 @@
+{#- Visit and appointment, one section: where the house is and when it's open on one side; on the other one line, the
+    appointment in the signature colour, and (folded away) what it's for, the day (the shared date picker, with the
+    house's notice, closed days, bank holidays and its own times; or "when suits" words without it), the pieces to have
+    ready and a name. Sent on WhatsApp as a request; the house replies with times. Without JavaScript, a plain WhatsApp link. -#}
+{%- set A = site.appointments %}
+{%- set plain = (site.messages.appointment or site.messages.general) %}
+<section id="appointment" class="nc-sec jw-appt" data-feature="appointment-request" aria-labelledby="jw-appt-h"><div class="wrap jw-appt-in">
+  <div class="jw-appt-where rv" id="visit">
+    <p class="jw-appt-addr">{{ site.location.streetAddress }}<br>{{ site.location.locality }} {{ site.location.postcode }}</p>
+    <p class="nc-label nc-now" data-live-status><span class="dot" aria-hidden="true"></span><span data-status-text>Opening hours</span></p>
+    <ul class="jw-appt-hours" aria-label="Opening hours">{% for g in site.hours | hoursGroups %}<li><span>{{ g.days }}</span> {{ g.label }}</li>{% endfor %}</ul>
+    <p class="jw-acts"><a class="nc-u nc-label" href="{{ site.location | directions }}" target="_blank" rel="noopener">Directions</a>{% if "plan-visit" | enabled %}<a class="nc-u nc-label" href="{{ 'visit' | href }}">Plan your visit</a>{% endif %}</p>
+  </div>
+  <div class="jw-appt-req rv">
+    <h2 class="jw-h" id="jw-appt-h">{{ site.sections.appointment.title }}</h2>
+    <p class="jw-say">{{ A.message }}</p>
+    <form class="nc-form jw-appt-f" data-appt-form>
+      <details class="jw-appt-more" data-js-only>
+        <summary class="nc-label">Say what it's for and the day you'd like</summary>
+        <fieldset class="nc-choice"><legend class="nc-label">For</legend>
+          {%- for r in A.reasons %}<label><input type="radio" name="appt-for" value="{{ r }}"{% if loop.first %} checked{% endif %}><span>{{ r }}</span></label>{% endfor %}
+        </fieldset>
+        {%- if ("date-range" | enabled) and A.bankHolidays %}
+        {%- set dr = { id: "appt", region: site.location | region, rules: A | apptRules, legend: "The day you'd like", from: "Day" } %}
+        {% include "features/date-range/date-range.njk" %}
+        {%- else %}
+        <fieldset class="nc-choice"><legend class="nc-label">When suits</legend>
+          {%- for w in A.when %}<label><input type="radio" name="appt-when" value="{{ w }}"{% if loop.first %} checked{% endif %}><span>{{ w }}</span></label>{% endfor %}
+        </fieldset>
+        {%- endif %}
+        <label class="nc-field"><span class="nc-label">Your name</span><input class="nc-in" type="text" maxlength="60" autocomplete="name" data-appt-name></label>
+        <label class="nc-field"><span class="nc-label">Anything we should know</span><input class="nc-in" type="text" maxlength="160" autocomplete="off" data-appt-note></label>
+      </details>
+      <div class="jw-appt-pieces" data-appt-pieces hidden>
+        <p class="nc-label nc-muted">To have ready</p>
+        <ul class="jw-appt-list" data-appt-list></ul>
+      </div>
+      <a class="nc-btn" href="{{ plain | wa }}" data-wa-text="{{ plain }}" target="_blank" rel="noopener" data-appt-send>Request a private appointment</a>
+      {%- if A.reply %}<p class="nc-fine">{{ A.reply }}</p>{% endif %}
+    </form>
+  </div>
+</div></section>

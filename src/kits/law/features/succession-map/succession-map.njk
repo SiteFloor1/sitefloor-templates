@@ -1,0 +1,35 @@
+{#- The succession map: the firm's illustration of how an estate can pass across generations, drawn at build time.
+    Step through it a generation at a time; without scripts every arrow and every step shows. Always labelled an
+    illustration, never advice. -#}
+{%- set sm = site.succession %}
+{%- set ph = { title: sm.title, intro: sm.intro } %}
+{% include "kits/law/partials/page-head.njk" %}
+<div class="wrap lw-sm" data-feature="succession-map">
+  <p class="lw-sm-note" role="note">{{ sm.note }}</p>
+  {%- if sm.scenarios.length > 1 %}
+  <div class="lw-sm-tabs" role="tablist" aria-label="Illustrations" data-js-only>
+    {%- for sc in sm.scenarios %}<button type="button" role="tab" id="sm-tab-{{ sc.id }}" aria-controls="sm-{{ sc.id }}" aria-selected="{{ 'true' if loop.first else 'false' }}" data-sm-tab="{{ sc.id }}">{{ sc.label }}</button>{% endfor %}
+  </div>
+  {%- endif %}
+  {%- for sc in sm.scenarios %}{% set d = sc | succession %}
+  <section class="lw-sm-sc" id="sm-{{ sc.id }}" data-sm="{{ sc.id }}" data-upto="{{ sc.steps.length - 1 }}"{% if sm.scenarios.length > 1 %} role="tabpanel" aria-labelledby="sm-tab-{{ sc.id }}"{% endif %}>
+    <h2 class="lw-sm-t">{{ sc.label }}</h2>
+    <div class="lw-sm-board">
+      <svg viewBox="0 0 720 {{ d.height }}" role="img" aria-label="{{ sc.label }}: an illustration of how an estate can pass across {{ sc.steps.length }} steps">
+        <defs><marker id="sm-arrow-{{ sc.id }}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="lw-sm-head"/></marker></defs>
+        {%- for f in d.flows %}
+        <line class="lw-sm-flow" data-step="{{ f.step }}" x1="{{ f.a.x }}" y1="{{ f.a.y + 22 }}" x2="{{ f.b.x }}" y2="{{ f.b.y - 24 }}" marker-end="url(#sm-arrow-{{ sc.id }})"/>
+        {%- endfor %}
+        {%- for n in d.nodes %}
+        <g class="lw-sm-node lw-sm-{{ n.kind }}"><rect x="{{ n.x - 84 }}" y="{{ n.y - 20 }}" width="168" height="40" rx="{{ 20 if n.kind == 'person' else 0 }}"/><text x="{{ n.x }}" y="{{ n.y + 5 }}" text-anchor="middle">{{ n.label }}</text></g>
+        {%- endfor %}
+      </svg>
+    </div>
+    <ol class="lw-sm-steps">
+      {%- for st in sc.steps %}<li data-step="{{ loop.index0 }}"><h3>{{ st.title }}</h3><p>{{ st.text }}</p></li>{% endfor %}
+    </ol>
+    <p class="lw-sm-nav" data-js-only><button class="go" type="button" data-sm-back>Back a generation</button> <button class="go" type="button" data-sm-next>Next generation</button></p>
+  </section>
+  {%- endfor %}
+  <p class="lw-sm-more">Every family is different. {% if "first-contact" | enabled %}<a href="{{ 'contact' | href }}">Speak to us</a>{% else %}<a href="{{ 'index' | href }}#enquiry">Speak to us</a>{% endif %} before making or changing a will or a trust.</p>
+</div>

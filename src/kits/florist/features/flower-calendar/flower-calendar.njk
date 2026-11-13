@@ -1,0 +1,25 @@
+{#- The flower calendar (Signature): twelve months, each with the florist's photograph and what's at its best. This
+    month is marked (by the shop's clock, in the browser). Couples go from a month straight to the wedding enquiry or
+    a palette from their swatch. -#}
+{%- set C = site.calendar %}
+{%- set wed = "weddings-planner" | enabled %}
+{%- set ph = { kicker: C.kicker or "The flower calendar", title: C.title, intro: C.intro } %}
+{% include "kits/florist/partials/page-head.njk" %}
+<section class="fl-cal" data-feature="flower-calendar" aria-label="Month by month"><div class="wrap">
+  <nav class="fl-cal-jump" aria-label="Months">{% for m in C.months %}<a href="#m{{ loop.index }}" data-cal-jump="{{ loop.index }}">{{ (loop.index0 | monthName) | truncate(3, true, "") }}</a>{% endfor %}</nav>
+  <ol class="fl-cal-l" role="list">
+    {%- for m in C.months %}
+    {%- set name = loop.index0 | monthName %}
+    <li class="fl-cal-m" id="m{{ loop.index }}" data-cal-month="{{ loop.index }}">
+      <figure class="fl-cal-ph"><img src="{{ m.photo.src | img }}" alt="{{ m.photo.alt }}" width="{{ m.photo.width }}" height="{{ m.photo.height }}" loading="lazy" decoding="async"></figure>
+      <div class="fl-cal-t">
+        <h2 class="fl-cal-h">{{ name }}<span class="fl-cal-now" data-cal-now hidden> · this month</span></h2>
+        <p class="fl-cal-s">{{ m.stems }}</p>
+        <p class="fl-cal-x">{{ m.line }}</p>
+        {%- if wed %}<p class="fl-cal-go"><a href="{{ 'weddings' | href }}?month={{ loop.index }}">Married in {{ name }}? Ask about your date</a></p>{% endif %}
+      </div>
+    </li>
+    {%- endfor %}
+  </ol>
+  {%- if wed and C.weddingLine %}<p class="fl-cal-wl">{{ C.weddingLine }} <a href="{{ 'weddings' | href }}#swatch">Palette from a swatch</a></p>{% endif %}
+</div></section>

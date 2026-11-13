@@ -1,0 +1,26 @@
+{#- Your treatment, visit by visit: choose a treatment and see each visit, how long it takes and the weeks between, from
+    the studio's own timings; give the first visit's date and every visit is dated and can go to the calendar. Without
+    JavaScript every treatment's visits are listed. -#}
+{%- set j = site.journeyPage %}
+{%- set ph = { kicker: "Your treatment", title: j.title, intro: j.intro } %}
+{%- include "kits/smile/partials/page-head.njk" %}
+<div class="sm-jy" data-feature="smile-journey"><div class="wrap sm-jy-in">
+  <div class="sm-jy-pick" role="group" aria-label="Choose a treatment" data-js-only>
+    {%- for t in site.treatments.items %}<button type="button" class="sm-chip" data-jy="{{ t.id }}" aria-pressed="{{ 'true' if loop.first else 'false' }}">{{ t.name }}</button>{% endfor %}
+  </div>
+  <label class="sm-jy-date" data-js-only><span>First visit</span> <input type="date" data-jy-start></label>
+  {%- for t in site.treatments.items %}
+  <section class="sm-jy-t" data-jy-t="{{ t.id }}" aria-label="{{ t.name }}">
+    <h2 class="sm-jy-name">{{ t.name }} <span>{{ t.visits | spanWords }} · {{ t.price | price }}</span></h2>
+    <ol class="sm-jy-steps">
+      {%- for v in t.visits %}
+      <li data-v="{{ loop.index0 }}"><span class="sm-jy-when" data-when>{{ "First" if loop.first else ("The same week" if v.after == 0 else (v.after ~ (" week" if v.after == 1 else " weeks") ~ " later")) }}</span>
+        <span class="sm-jy-what"><b>{{ v.label }}</b> {{ v.minutes | duration }}{% if v.note %}<span class="sm-jy-note">{{ v.note }}</span>{% endif %}</span></li>
+      {%- endfor %}
+    </ol>
+  </section>
+  {%- endfor %}
+  <p data-js-only><button type="button" class="sm-quiet" data-jy-ics hidden>Add these visits to my calendar</button></p>
+  <p class="sm-jy-fine">Our usual timings. Your clinician confirms your plan at consultation.</p>
+  {%- include "kits/smile/partials/rules.njk" %}
+</div></div>

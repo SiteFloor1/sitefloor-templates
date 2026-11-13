@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: personal
+permalink: personal.html
+feature: hidden-details
+eleventyComputed:
+  title: "{{ site.personalPage.title | plain }}"
+  description: "Hide your names, your date or a place in your bridal mehndi with {{ site.business.name }}, {{ site.location.locality }}."
+---
+{% include "kits/mehndi/features/hidden-details/hidden-details.njk" %}

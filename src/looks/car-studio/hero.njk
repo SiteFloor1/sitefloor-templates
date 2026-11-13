@@ -1,0 +1,30 @@
+{#- Car Studio hero: a bright photo-studio backdrop with the studio car as the hero. On Signature the
+    Showroom sits here, above the fold; otherwise the same studio shows a still car and a build sheet
+    of the studio's own "from" prices. -#}
+<section class="hero"><div class="wrap">
+  <div class="sx-top">
+    <p class="sx-tag">{{ site.hero.kicker }}</p>
+    <h1>{{ site.hero.title | markup | safe }}</h1>
+    <div class="sx-side">
+      <p class="h-sub">{{ site.hero.intro }}</p>
+      <div class="h-cta">
+        <a class="btn" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{% if build.booking.whatsapp %}{% include "core/partials/icon-whatsapp.njk" %}{% endif %}{{ build.booking.label }}</a>
+        {%- set cta = site.hero.secondaryCta %}
+        {%- if cta and (not cta.feature or (cta.feature | enabled)) %}<a class="btn ghost" href="{{ cta.href }}"{{ cta.feature | tierAttr | safe }}>{{ cta.label }}</a>{% endif %}
+      </div>
+    </div>
+  </div>
+  {%- if "showroom" | enabled %}{% include "kits/car/features/showroom/showroom.njk" %}{% endif %}
+  <div class="sx-still">
+    {%- set v0 = site.vehicles[1] if (site.vehicles | length) > 1 else site.vehicles[0] %}{% set c = (v0.body if v0 else "supercar") | carFor %}
+    <div class="sx-car"><img src="{{ c.poster | img }}" srcset="{{ c.small | img }} 900w, {{ c.poster | img }} 1600w" sizes="(max-width: 960px) 100vw, 60vw" width="{{ c.w }}" height="{{ c.h }}" alt="A car in the studio" loading="lazy"><p class="sx-credit"><a href="{{ c.credit.url }}" target="_blank" rel="noopener">{{ c.credit.text }}</a></p></div>
+    {%- set first = site.priceList[0] if site.priceList else null %}
+    {%- if first %}
+    <dl class="sx-sheet">
+      {%- for line in first.items | batch(4) | first %}{% set item = line | priceItem %}
+      <div><dt>{{ item.name }}</dt><dd>{{ item.price }}</dd></div>
+      {%- endfor %}
+    </dl>
+    {%- endif %}
+  </div>
+</div></section>

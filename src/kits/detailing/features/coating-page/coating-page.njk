@@ -1,0 +1,7 @@
+{#- The ceramic-coating page: its opening, then coating and film explained, and the packages (each only when its feature is on), then any home sections the
+    look moves here. -#}
+{%- set pg = site.coatingPage %}
+{% include "kits/detailing/partials/page-head.njk" %}
+{%- set shown = ["coating-explained", "packages"] %}
+{% include "kits/detailing/partials/sections.njk" %}
+{%- set hostPage = "coating-page" %}{% include "kits/detailing/partials/hosted.njk" %}

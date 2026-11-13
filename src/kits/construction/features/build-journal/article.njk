@@ -1,0 +1,16 @@
+{#- One article: dated, signed, the builder's words; planning and building-regulation facts link to gov.uk with the
+    date each page was checked. -#}
+{%- set ph = { title: a.title, intro: a.summary } %}
+{% include "kits/construction/partials/page-head.njk" %}
+<article class="wrap bd-ar">
+  <p class="bd-ar-by"><time datetime="{{ a.date }}">{{ a.date | ukDate }}</time> · {{ a.author }}</p>
+  <figure class="bd-ar-fig"><img src="{{ a.photo.src | img }}" alt="{{ a.photo.alt }}" width="{{ a.photo.width }}" height="{{ a.photo.height }}" fetchpriority="high" decoding="async"></figure>
+  <div class="bd-ar-body">{% for para in a.body %}<p>{{ para | markup | safe }}</p>{% endfor %}</div>
+  {%- if a.sources and a.sources.length %}
+  <aside class="bd-ar-src" aria-labelledby="src-h"><h2 id="src-h">Where the facts come from</h2>
+    <ul>{% for s in a.sources %}<li><a href="{{ s.url }}" rel="noopener" target="_blank">{{ s.label }}</a> <span>(GOV.UK, checked {{ s.checked | ukDate }})</span></li>{% endfor %}</ul>
+    <p>Rules change. Check the page, or ask us or your local council, before relying on it.</p>
+  </aside>
+  {%- endif %}
+  <nav class="bd-pj-nav" aria-label="Journal"><a href="{{ 'journal' | href }}">All articles</a>{% if "start-page" | enabled %}<a href="{{ 'start' | href }}">Start a project</a>{% endif %}</nav>
+</article>

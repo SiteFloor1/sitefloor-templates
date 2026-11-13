@@ -1,0 +1,14 @@
+/* Three within your budget: the checked band shows its three; without :has every band shows. */
+.jw-sl { display: grid; gap: 24px; }
+.jw-sl-p { list-style: none; margin: 0; padding: 0; display: none; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(12px, 2.4vw, 32px); }
+.jw-sl-i a { display: block; background: var(--surface); }
+.jw-sl-i img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+.jw-sl-i p { margin: 12px 0 0; display: grid; gap: 4px; }
+.jw-sl:has(input[value="0"]:checked) [data-sl-panel="0"],
+.jw-sl:has(input[value="1"]:checked) [data-sl-panel="1"],
+.jw-sl:has(input[value="2"]:checked) [data-sl-panel="2"],
+.jw-sl:has(input[value="3"]:checked) [data-sl-panel="3"],
+.jw-sl:has(input[value="4"]:checked) [data-sl-panel="4"],
+.jw-sl:has(input[value="5"]:checked) [data-sl-panel="5"] { display: grid; }
+@supports not selector(:has(*)) { .jw-sl-p { display: grid; } }
+@media (max-width: 47.99em) { .jw-sl-p { grid-template-columns: repeat(3, 72%); overflow-x: auto; scroll-snap-type: x mandatory; } .jw-sl-i { scroll-snap-align: start; } }

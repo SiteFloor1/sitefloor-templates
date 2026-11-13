@@ -1,0 +1,23 @@
+{#- The menu by the hour: each band's minutes large on the left, its treatments and prices, and one photo of the work.
+    Every price and line is the salon's own. -#}
+{%- set sec = site.sections.menu %}
+<section id="menu" class="nl-menu" data-feature="menu-hours"><div class="wrap">
+  {%- if pageId != "menu" %}{% include "core/partials/section-head.njk" %}{% endif %}
+  <div class="nl-bands">
+  {%- for b in site.menu.bands | byMinutes %}
+    <div class="nl-band rv">
+      <p class="nl-mins"><span class="nl-mins-n">{{ b.minutes }}</span><span class="nl-mins-w">minutes</span></p>
+      <ul class="nl-rows">
+        {%- for x in b.items %}
+        <li class="nl-row"><div class="nl-row-t"><b>{{ x.name }}</b>{% if x.text %}<span>{{ x.text }}</span>{% endif %}</div><span class="nl-price">{{ x.price | price(x.from) }}</span></li>
+        {%- endfor %}
+      </ul>
+      {%- if b.photo %}<img class="nl-band-ph" src="{{ b.photo.src | img }}" alt="{{ b.photo.alt }}" width="{{ b.photo.width }}" height="{{ b.photo.height }}" loading="lazy" decoding="async">{% endif %}
+    </div>
+  {%- endfor %}
+  </div>
+  <div class="nl-menu-foot">
+    {%- if site.menu.note %}<p>{{ site.menu.note }}</p>{% endif %}
+    {%- if pageId == "index" and ("nail-menu" | enabled) %}<a class="nl-link" href="{{ 'menu' | href }}"{{ "nail-menu" | tierAttr | safe }}>The whole menu</a>{% endif %}
+  </div>
+</div></section>

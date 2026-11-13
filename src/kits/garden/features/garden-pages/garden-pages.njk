@@ -1,0 +1,26 @@
+{#- Every garden on one page, by kind, each to its story. -#}
+{%- set gp = site.gardenPages %}
+{%- set ph = gp %}
+{% include "kits/garden/partials/page-head.njk" %}
+{%- set gd = site.gardens %}
+<section class="wrap gd-gs gd-gp" data-feature="garden-pages" aria-label="{{ gp.title | plain }}">
+  {%- set used = gd | usedStyles %}
+  {%- if used.length > 1 %}
+  <div class="gd-pick-row" role="group" aria-label="Kind of garden" data-gs-filter data-wait>
+    <button class="gd-pick" type="button" data-style="" aria-pressed="true">All</button>
+    {%- for s in used %}<button class="gd-pick" type="button" data-style="{{ s.id }}" aria-pressed="false">{{ s.name }}</button>{% endfor %}
+  </div>
+  {%- endif %}
+  <ul class="gd-gs-list">
+    {%- for g in gd.items %}
+    {%- set gpage = gp.items | pageFor("garden", g.id) %}
+    {%- set eager = loop.first %}
+    {% include "kits/garden/partials/garden-card.njk" %}
+    {%- endfor %}
+  </ul>
+  <p class="gd-gs-none" data-gs-none hidden>No gardens of that kind yet.</p>
+  {%- if gd.note %}<p class="gd-small">{{ gd.note }}</p>{% endif %}
+  {%- if ("style-pages" | enabled) and site.stylePages %}
+  <p class="gd-gp-kinds"{{ 'style-pages' | tierAttr | safe }}>{% for st in site.stylePages.items %}<a class="go" href="{{ st.slug | href }}">{{ st.title | plain }}</a>{% endfor %}</p>
+  {%- endif %}
+</section>

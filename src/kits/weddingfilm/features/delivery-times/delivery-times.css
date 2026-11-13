@@ -1,0 +1,7 @@
+/* What you receive and when: one line per step, weeks first; the day appears at the right once a date is in. */
+.wf-dl-list { list-style: none; margin: 0; padding: 0; }
+.wf-dl-list li { display: grid; grid-template-columns: 9em minmax(0, 1fr) auto; gap: 4px 24px; padding-block: 16px; border-bottom: 1px solid var(--line); align-items: baseline; }
+.wf-dl-w { color: var(--muted); font-variant-numeric: tabular-nums; }
+.wf-dl-d { color: var(--accent); text-align: right; }
+.wf-dl-t { grid-column: 2 / -1; color: var(--muted); }
+@media (max-width: 640px) { .wf-dl-list li { grid-template-columns: minmax(0, 1fr); } .wf-dl-d { text-align: left; } .wf-dl-t { grid-column: 1; } }

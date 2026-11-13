@@ -1,0 +1,25 @@
+/* Chair board: one card per barber with status, next free time and a WhatsApp action. */
+.board { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 1000px) { .board { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .board { grid-template-columns: minmax(0, 1fr); } }
+.chair { position: relative; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); padding: 22px 20px 20px; display: flex; flex-direction: column; gap: 14px; transition: box-shadow .3s, transform .3s; }
+.chair:hover { box-shadow: inset 0 0 0 1px var(--line-2), 0 24px 50px -24px var(--shadow); transform: translateY(-3px); }
+.chair .bar { position: absolute; left: 0; top: 0; height: 2px; width: 0; background: var(--busy); transition: width 1s linear; }
+.chair.free .bar { background: var(--ok); }
+.chair.off .bar { width: 0 !important; }
+.c-top { display: flex; align-items: center; gap: 12px; }
+.chair .mono { width: 46px; height: 46px; display: grid; place-items: center; font-family: var(--font-display); font-size: 22px; font-weight: 600; background: var(--surface-2); box-shadow: inset 0 0 0 1px var(--line-2); color: var(--accent); }
+.c-name { font-family: var(--font-display); font-size: 22px; font-weight: 600; line-height: 1.1; margin: 0; }
+.c-spec { font-size: 12.5px; color: var(--muted); margin: 0; }
+.c-stat { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: var(--busy); margin: 0; }
+.chair.free .c-stat { color: var(--ok); } .chair.off .c-stat { color: var(--muted); } .chair.off .c-stat i { background: var(--closed); }
+.c-stat i { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.c-next { display: flex; justify-content: space-between; align-items: baseline; border-top: 1px solid var(--line); padding-top: 14px; margin: 0; }
+.c-next span { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .14em; font-weight: 700; }
+.c-upd { margin: -6px 0 0; min-height: 1.4em; font-size: 12px; color: var(--muted); }
+.c-next b { font-family: var(--font-display); font-size: 36px; font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1; }
+.btn-take { display: grid; place-items: center; min-height: 46px; font-weight: 800; font-size: 14px; text-decoration: none; box-shadow: inset 0 0 0 1.5px var(--line-2); transition: background .25s, color .25s; text-align: center; padding: 6px 10px; }
+.btn-take:hover, .chair.free .btn-take { background: var(--accent); color: var(--on-accent); box-shadow: none; }
+.board-fallback { background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); padding: 26px; font-size: 17px; margin: 0; }
+.boardfoot { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin: 18px 0 0; font-size: 13px; color: var(--dim); }
+.boardfoot b { color: var(--muted); font-variant-numeric: tabular-nums; }

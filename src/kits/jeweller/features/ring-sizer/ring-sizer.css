@@ -1,0 +1,14 @@
+/* ring-sizer: layout in tokens only; the look sets type and colour. */
+.jw-rs-in { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 4vw, 64px); align-items: start; }
+.jw-rs-w { display: grid; gap: 14px; align-content: start; padding-top: 22px; border-top: 1px solid var(--line); }
+.jw-rs-out { font: 400 clamp(20px, 2vw, 26px)/1.3 var(--font-display); letter-spacing: .06em; text-transform: uppercase; min-height: 1.3em; margin: 0; }
+.jw-ringfit-c { width: 104px; height: 104px; border: 1px solid var(--text); border-radius: 50%; margin: 18px 0; }
+.jw-sizes-t { overflow-x: auto; }
+.jw-tbl { width: 100%; border-collapse: collapse; font-weight: 300; }
+.jw-tbl th, .jw-tbl td { text-align: left; padding: 10px 16px 10px 0; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.jw-tbl thead th { font: 400 11px/1.4 var(--font-body); letter-spacing: .22em; text-transform: uppercase; color: var(--muted); }
+.jw-tbl tbody th { font: 400 20px/1 var(--font-display); }
+.jw-tbl tr.is-hit th, .jw-tbl tr.is-hit td { color: var(--accent); }
+@media (max-width: 700px) {
+  .jw-rs-in { grid-template-columns: 1fr; }
+}

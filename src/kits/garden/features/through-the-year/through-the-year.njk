@@ -1,0 +1,29 @@
+{#- A garden through the year: one of the studio's gardens from the same spot, month after month. A month scale under the
+    photograph moves between them (tap, or the arrow keys); each month names what is at its best, from the planting
+    palette. Without JavaScript the first photograph shows. -#}
+{%- set sec = site.sections.throughYear %}
+{%- set ty = site.throughYear %}
+{%- set g = site.gardens.items | byId(ty.garden) %}
+{%- set shots = ty.photos | sort(false, false, "month") %}
+<section id="through-the-year" class="gd-ty" data-feature="through-the-year" aria-labelledby="ty-h"><div class="wrap">
+  {%- set secId = "ty-h" %}{% include "core/partials/section-head.njk" %}
+  <div class="gd-ty-stage">
+    {%- for s in shots %}
+    <figure class="gd-ty-f" data-ty-shot="{{ s.month }}"{% if not loop.first %} data-ty-later{% endif %}>
+      <img src="{{ s.photo.src | img }}" alt="{{ s.photo.alt }}" width="{{ s.photo.width }}" height="{{ s.photo.height }}" loading="lazy" decoding="async">
+      <figcaption class="gd-ty-cap"><span class="gd-ty-mo">{{ gardenWords.months[s.month - 1] }}</span>
+        {%- set best = (site.palette.items | bestIn(s.month)) if site.palette else [] %}
+        <span class="gd-ty-line">{% if s.line %}{{ s.line }}{% elif best.length %}At its best: {{ (best | pluck("name")).slice(0, 3) | join(", ") }}.{% endif %}</span></figcaption>
+    </figure>
+    {%- endfor %}
+  </div>
+  {%- set have = shots | pluck("month") %}
+  <div class="gd-ty-scale" role="group" aria-label="Choose a month" data-ty-scale data-ty-wait>
+    {%- for name in gardenWords.months %}
+    {%- if loop.index in have %}<button class="gd-ty-tick" type="button" data-ty-tick="{{ loop.index }}" aria-pressed="{{ 'true' if loop.index == have[0] else 'false' }}" aria-label="{{ name }}">{{ name | first }}</button>
+    {%- else %}<span class="gd-ty-tick gd-ty-gap" aria-hidden="true">{{ name | first }}</span>{% endif %}
+    {%- endfor %}
+  </div>
+  <p class="gd-ty-where">{{ g.name }}, {{ g.place }}. {{ ty.viewpoint }}</p>
+  {%- if ty.note %}<p class="gd-small">{{ ty.note }}</p>{% endif %}
+</div></section>

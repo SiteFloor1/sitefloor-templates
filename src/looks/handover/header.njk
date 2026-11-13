@@ -1,0 +1,27 @@
+{#- Handover header: the name as a wordmark (an ampersand in italic), then the site code with its key tag, the
+    telephone number, and "Menu", which opens every page on any screen. Quiet, so the house underneath leads. -#}
+{%- set nm = site.business.name.split(" & ") %}
+<header class="nav hv-nav"><div class="wrap hv-nav-in">
+  <a class="hv-mark" href="{{ 'index' | href }}" aria-label="{{ site.business.name }}, home">
+    {%- if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="{{ site.business.name }}" height="28">{% elif nm.length == 2 %}{{ nm[0] }} <i>&amp;</i> {{ nm[1] }}{% else %}{{ site.business.name }}{% endif %}</a>
+  <div class="hv-nav-r">
+    {%- if "site-progress" | enabled %}<a class="hv-code" href="{{ 'your-build' | href }}"{{ 'site-progress' | tierAttr | safe }}><span class="bd-tag" aria-hidden="true"></span>Site code</a>{% endif %}
+    <a class="hv-tel" href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone | replace('+44 ', '0') }}</a>
+    <button class="burger hv-menu" type="button" aria-expanded="false" aria-controls="mnav"><span class="hv-open">Menu</span><span class="hv-close">Close</span></button>
+  </div>
+</div></header>
+<div class="mnav hv-sheet" id="mnav" hidden>
+  <div class="wrap hv-sheet-in">
+    <nav aria-label="Pages">
+      <a href="{{ 'index' | href }}"{% if pageId == "index" %} aria-current="page"{% endif %}>Home</a>
+      {%- for item in site.nav | navItems(pageId) %}
+      <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+      {%- endfor %}
+    </nav>
+    <div class="hv-sheet-side">
+      {%- if "site-progress" | enabled %}{% set keyId = "site-code-menu" %}{% include "kits/construction/features/site-progress/key.njk" %}{% set keyId = "" %}{% endif %}
+      <p class="hv-sheet-now" data-live-status><span class="dot" aria-hidden="true"></span> <span data-status-text>Office hours</span></p>
+      <p class="hv-sheet-addr">{{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}</p>
+    </div>
+  </div>
+</div>

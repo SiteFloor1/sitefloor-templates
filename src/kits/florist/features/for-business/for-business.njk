@@ -1,0 +1,22 @@
+{#- Hotels, restaurants and offices (Signature): two photographs of the florist's work in a room, what changes each
+    week, how it works, the sizes with their prices and one enquiry on WhatsApp. -#}
+{%- set K = site.contract %}
+{%- set ph = { kicker: K.kicker or "For business", title: K.title, intro: K.intro } %}
+{% include "kits/florist/partials/page-head.njk" %}
+<section class="fl-biz" aria-label="Our work for businesses"><div class="wrap fl-biz-in">
+  {%- for p in K.photos %}<figure class="fl-biz-ph"><img src="{{ p.src | img }}" alt="{{ p.alt }}" width="{{ p.width }}" height="{{ p.height }}"{% if not loop.first %} loading="lazy"{% endif %} decoding="async"></figure>{% endfor %}
+  <p class="fl-biz-weekly">{{ K.weekly }}</p>
+</div></section>
+<section class="fl-biz-sizes" aria-labelledby="biz-s"><div class="wrap">
+  <h2 id="biz-s">Sizes and prices</h2>
+  <ul class="fl-biz-l" role="list">
+    {%- for x in K.sizes %}
+    <li class="fl-plan"><p class="fl-plan-h"><b>{{ x.name }}</b><span>{{ x.price | pounds }} a {{ x.every }}</span></p><p class="fl-plan-l">{{ x.line }}</p></li>
+    {%- endfor %}
+  </ul>
+  <a class="fl-btn" href="{{ K.message | book }}" target="_blank" rel="noopener">Ask about flowers for your business</a>
+</div></section>
+<section class="fl-how" aria-labelledby="biz-h"><div class="wrap">
+  <h2 id="biz-h">How it works</h2>
+  <dl class="fl-how-l">{% for h in K.how %}<div><dt>{{ h.q }}</dt><dd>{{ h.a }}</dd></div>{% endfor %}</dl>
+</div></section>

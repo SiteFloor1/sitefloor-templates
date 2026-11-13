@@ -1,0 +1,34 @@
+{#- Build your package: the car's size, one package and any extras add up to a "from" price and the days the car
+    stays; the message to the studio carries every choice. Extras the studio hasn't priced for that size say "to quote".
+    Without JavaScript the form still shows every price for the first size and the button opens WhatsApp. -#}
+{%- set sec = site.sections.builder %}
+{%- set first = site.sizes[0].id %}
+<section id="builder" class="dt-bd" data-feature="package-builder" aria-label="{{ sec.title | plain }}"><div class="wrap dt-bd-in">
+  <div>
+    {%- include "core/partials/section-head.njk" %}
+    <form class="dt-bd-f" data-bd-form>
+      <fieldset class="dt-sizes"><legend class="dt-bd-l">Your car</legend>
+        {%- for s in site.sizes %}<label class="dt-size"><input type="radio" name="dt-size-bd" value="{{ s.id }}" data-size-pick{% if loop.first %} checked{% endif %}><span>{{ s.name }}</span></label>{% endfor %}
+      </fieldset>
+      <fieldset class="dt-bd-pk"><legend class="dt-bd-l">Package</legend>
+        {%- for p in site.packages.items %}
+        <label class="dt-opt"><input type="radio" name="dt-pkg" value="{{ p.id }}"{% if loop.first %} checked{% endif %}><span class="dt-opt-n">{{ p.name }}</span><b data-size-price="{{ p.prices | dump }}">{{ (p | priceIn(first)) or "Ask us" }}</b></label>
+        {%- endfor %}
+      </fieldset>
+      <fieldset class="dt-bd-pk"><legend class="dt-bd-l">Extras</legend>
+        {%- for x in site.addOns %}
+        <label class="dt-opt"><input type="checkbox" name="dt-extra" value="{{ x.id }}"><span class="dt-opt-n">{{ x.name }}{% if x.line %}<small>{{ x.line }}</small>{% endif %}</span><b data-size-price="{{ x.prices | dump }}" data-quote="to quote">{{ (x | priceIn(first)) or "to quote" }}</b></label>
+        {%- endfor %}
+      </fieldset>
+      <label class="dt-field" for="dt-bd-car"><span>Make and model (optional)</span><input id="dt-bd-car" maxlength="60" autocomplete="off" data-bd-car></label>
+    </form>
+  </div>
+  <div class="dt-bd-sum" aria-live="polite">
+    <span class="tube" aria-hidden="true"></span>
+    <p class="dt-bd-total"><span>from</span> <b data-bd-total>{{ (site.packages.items[0] | priceIn(first)) or "Ask us" }}</b></p>
+    <p class="dt-bd-days" data-bd-days>About {{ site.packages.items[0].days | daysLabel }} with us.</p>
+    <p class="dt-note" data-bd-quote hidden></p>
+    <a class="go dt-bd-go" data-bd-go href="{{ site.builder.message | wa }}" target="_blank" rel="noopener">Send this to {{ site.business.name }}</a>
+    <p class="dt-note">A "from" price for your size. We confirm yours after we've seen the paint.</p>
+  </div>
+</div></section>

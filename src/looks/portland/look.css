@@ -1,0 +1,147 @@
+/* =========================================================================
+   Look: Portland. A private-client law firm in a grand London house. The palette is one block of Portland stone in
+   low sun: the lit face for the page, the face in full sun for panels and the phone bar, the soot in its joints for
+   text, the mortar for hairlines, and the blue-grey of the shadow inside a carved letter as the one colour (rules,
+   the call to action's line, the badge's frame). Marcellus, an inscriptional capital, for the sentences; Source Sans 3
+   for everything else. One hero idea: one carved sentence beside the firm's own room, the SRA badge under the call.
+   Every photograph carries one stone grade. Motion is slow and never tied to the scroll. Design: sitefloor-internal/docs/design/law-firm.md.
+   ========================================================================= */
+:root {
+  --bg: #E3DED3; --surface: #EDE9E0; --surface-2: #D8D2C5; --stone: #E3DED3;
+  --text: #25262A; --muted: #55534D; --dim: #5F5C55;
+  --accent: #5C6470; --accent-2: #4A515C; --on-accent: #FFFFFF; --accent-soft: #9AA1AA;
+  --line: rgba(37,38,42,.12); --line-2: #C6C0B3;
+  --ok: #3E6248; --busy: #7A5A22; --closed: #6A675F;
+  --font-display: "Marcellus", "Marcellus Fallback", "Times New Roman", serif;
+  --font-body: "Source Sans 3", "Source Sans 3 Fallback", Arial, sans-serif;
+  --on-photo: #FFFFFF; --photo-scrim: rgba(37,38,42,.5); --shadow: rgba(20,20,22,.4);
+  --season-bg: #25262A; --season-fg: #EDE9E0;
+  --pad: max(16px, env(safe-area-inset-left, 0px));
+  --s4: clamp(80px, 10vw, 144px);
+  --nav-h: 80px; --bar-h: 56px;
+  color-scheme: light;
+}
+html { background: var(--bg); }
+body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-weight: 300; font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 400; letter-spacing: 0; text-wrap: balance; }
+b, strong { font-weight: 500; }
+::selection { background: var(--accent); color: var(--on-accent); }
+.wrap { width: min(1360px, 100% - 2 * var(--pad)); }
+main section { padding-block: var(--s4); }
+main section + section { padding-top: 0; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+a { color: inherit; text-decoration-color: var(--accent-soft); text-underline-offset: 4px; }
+a:hover { text-decoration-color: var(--accent); }
+
+/* actions: words with a carved line beside or under them; nothing filled */
+.go, .btn, .pt-cta { display: inline-flex; align-items: center; gap: 14px; min-height: 44px; padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; color: var(--text); font: 500 16px/1.2 var(--font-body); text-decoration: none; cursor: pointer; }
+.go, .btn { text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 8px; }
+.go:hover, .btn:hover { background: none; color: var(--accent-2); }
+.btn.ghost { text-decoration-color: var(--line-2); }
+.btn .ico { display: none; }
+.pt-cta span { display: inline-block; width: 48px; height: 1px; background: var(--accent); transition: width .9s cubic-bezier(.2, .6, .2, 1); }
+.pt-cta:hover span { width: 88px; }
+
+/* ---------------------------------------------------------------- the seal: initials blind-embossed in a square */
+.pt-seal { display: inline-grid; place-items: center; width: 34px; height: 34px; flex: none; font-family: var(--font-display); font-size: 12px; letter-spacing: .08em; color: var(--surface); background: var(--surface); box-shadow: inset 1px 1px 0 rgba(255,255,255,.8), inset -1px -1px 0 rgba(37,38,42,.18); text-shadow: 1px 1px 0 rgba(255,255,255,.9), -1px -1px 0 rgba(37,38,42,.28); }
+
+/* ---------------------------------------------------------------- header */
+.nav.pt-nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: color-mix(in srgb, var(--bg) 95%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid transparent; transition: border-color .6s; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 31; background: var(--bg); }
+.pt-nav-in { display: flex; align-items: center; gap: clamp(18px, 2.6vw, 40px); height: var(--nav-h); }
+.pt-mark { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+.pt-mark img { display: block; height: 24px; width: auto; }
+.pt-word { font-family: var(--font-display); font-size: 19px; letter-spacing: .32em; text-transform: uppercase; white-space: nowrap; }
+.pt-links { display: flex; gap: clamp(16px, 2.2vw, 36px); margin-left: auto; font-size: 15px; }
+.pt-links a { text-decoration: none; padding-block: 6px; }
+.pt-links a:hover, .pt-links a[aria-current="page"] { text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 8px; }
+.pt-tel { font-size: 15px; text-decoration: none; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.pt-speak { font-size: 15px; font-weight: 500; text-decoration: none; border-bottom: 1px solid var(--accent); padding-bottom: 2px; white-space: nowrap; }
+.pt-menu { display: none; width: auto; height: 44px; padding: 0; font: 400 15px var(--font-body); color: var(--text); }
+.pt-menu span { position: static; height: auto; background: none; transition: none; }
+.pt-menu .pt-close, .pt-menu[aria-expanded="true"] .pt-open { display: none; }
+.pt-menu[aria-expanded="true"] .pt-close { display: inline; }
+@media (max-width: 1100px) { .pt-tel { display: none; } }
+@media (max-width: 900px) { .pt-links { display: none; } .pt-speak { margin-left: auto; } .pt-menu { display: block; } }
+@media (max-width: 480px) { .pt-word { font-size: 15px; letter-spacing: .24em; } .pt-speak { display: none; } .pt-menu { margin-left: auto; } .pt-seal { width: 30px; height: 30px; font-size: 11px; } }
+.mnav.pt-sheet { top: calc(var(--nav-h) + env(safe-area-inset-top, 0px)); background: var(--bg); }
+.pt-sheet a { font-family: var(--font-display); font-weight: 400; font-size: 30px; border-bottom-color: var(--line-2); }
+.pt-sheet p { font-weight: 400; }
+
+/* ---------------------------------------------------------------- hero: the carved sentence and the firm's room */
+main section.pt-hero { padding-block: clamp(16px, 3vw, 40px) var(--s4); }
+.pt-hero-in { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(24px, 5vw, 88px); align-items: end; }
+.pt-h1 { margin: 0 0 36px; font-size: clamp(38px, 5.2vw, 80px); line-height: 1.04; }
+.pt-intro { margin: 0 0 28px; color: var(--muted); max-width: 32ch; }
+.pt-hero-say .lw-badge { margin-top: 44px; border-top: 1px solid var(--line-2); padding-top: 22px; max-width: 460px; }
+.pt-hero-fig { margin: 0; aspect-ratio: 4 / 5; overflow: hidden; max-width: 100%; background: var(--surface-2); }
+.pt-hero-fig img { width: 100%; height: 100%; object-fit: cover; display: block; }
+@media (max-width: 760px) {
+  .pt-hero-in { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .pt-hero-fig { order: -1; width: calc(100% + 2 * var(--pad)); margin-inline: calc(-1 * var(--pad)); }
+  .pt-h1 { margin-bottom: 22px; font-size: clamp(34px, 9.4vw, 48px); }
+  .pt-hero-say .lw-badge { margin-top: 32px; }
+}
+
+/* ---------------------------------------------------------------- the law kit in stone */
+.lw-badge-frame { width: 132px; }
+.lw-badge-slot { color: var(--accent-2); border-color: var(--accent); }
+.lw-index-n { font-family: var(--font-display); transition: transform 1.1s cubic-bezier(.2, .6, .2, 1), color .6s; }
+a.lw-index-row:hover .lw-index-n { transform: translateX(14px); color: var(--accent-2); }
+.lw-index-row { border-top-color: var(--line-2); }
+main section.lw-arr { padding-block: 0 var(--s4); }
+main section.lw-enq, main section.lw-mats, main section.lw-people { padding-top: 0; }
+.lw-enq-n, .lw-person-n, .lw-mat-t, .lw-area-n, .lw-pg-n, .lw-mp-when { font-family: var(--font-display); }
+main section.lw-reg { background: var(--surface); padding-block: clamp(56px, 7vw, 104px); }
+.lw-reg-t { font-family: var(--font-display); }
+.lw-plate { border-color: var(--text); }
+.lw-plate dt { font-family: var(--font-display); letter-spacing: .14em; font-size: 13px; text-transform: uppercase; padding-top: 2px; }
+.lw-ph-t, .lw-art-t, .lw-svc-t, .lw-pp-t { font-family: var(--font-display); }
+.lw-crumb { letter-spacing: .02em; }
+.kick, .crumb { color: var(--muted); }
+.crumb a, .lw-crumb a { text-decoration: underline; text-decoration-color: var(--line-2); }
+.lw-sm-note { border-color: var(--accent); }
+.lw-fc-msg, .lw-mp-make { background: var(--surface); }
+.lw-mp-make { padding: 24px; border-top: 0; }
+
+/* ---------------------------------------------------------------- shared features in stone */
+.pt-sh { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 16px clamp(24px, 5vw, 88px); align-items: end; margin-bottom: clamp(32px, 4vw, 56px); }
+.pt-sh-t { margin: 0; font-size: clamp(30px, 3.4vw, 52px); line-height: 1.08; }
+.pt-sh-i { margin: 0; color: var(--muted); max-width: 44ch; }
+@media (max-width: 760px) { .pt-sh { grid-template-columns: minmax(0, 1fr); } }
+.shot { position: relative; }
+.shot img { display: block; width: 100%; height: auto; }
+.shot-cap { color: var(--muted); }
+.shot-cap .kick { font-size: 13px; color: var(--muted); }
+.qa { border-color: var(--line-2); }
+.qa summary, .qa h3 { font-family: var(--font-display); font-weight: 400; font-size: clamp(19px, 1.8vw, 23px); }
+.tz, .pv-card, .pv-panel, .pv-board, .hours, .where { background: var(--surface); border-color: transparent; border-radius: 0; box-shadow: none; }
+.where-pc { font-family: var(--font-display); }
+.season { background: var(--season-bg); color: var(--season-fg); font-size: 14px; }
+.season a { color: inherit; text-decoration-color: var(--accent-soft); }
+.prose h2 { font-weight: 400; }
+.prose p { color: var(--muted); }
+.phero h1 { font-weight: 400; letter-spacing: 0; line-height: 1.04; }
+
+/* ---------------------------------------------------------------- footer and phone bar */
+.foot.pt-foot { background: var(--text); color: var(--surface); border-top: 0; padding: clamp(56px, 7vw, 96px) 0 clamp(40px, 5vw, 64px); }
+.pt-foot a { color: inherit; text-decoration-color: rgba(237,233,224,.35); }
+.pt-foot-in { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 3fr) minmax(0, 3fr); gap: 32px clamp(24px, 4vw, 64px); align-items: start; }
+.pt-foot-name { display: flex; align-items: center; gap: 14px; }
+.pt-foot-name p { margin: 0; font-family: var(--font-display); font-size: clamp(22px, 2.2vw, 30px); letter-spacing: .26em; text-transform: uppercase; }
+.pt-foot .pt-seal { color: var(--text); background: var(--text); box-shadow: inset 1px 1px 0 rgba(255,255,255,.14), inset -1px -1px 0 rgba(0,0,0,.5); text-shadow: 1px 1px 0 rgba(255,255,255,.16), -1px -1px 0 rgba(0,0,0,.6); }
+.pt-foot-a { font-style: normal; line-height: 1.8; font-variant-numeric: tabular-nums; }
+.pt-foot-links { display: grid; gap: 6px; font-size: 15px; }
+.pt-foot-links a { text-decoration: none; }
+.pt-foot-links a:hover { text-decoration: underline; }
+.pt-foot-reg { grid-column: 1 / -1; margin: 16px 0 0; padding-top: 20px; border-top: 1px solid rgba(237,233,224,.18); font-size: 13px; color: rgba(237,233,224,.72); max-width: 110ch; }
+.pt-foot-by { grid-column: 1 / -1; margin: 0; font-size: 13px; }
+.pt-foot .by, .pt-foot .by b { color: var(--surface); }
+@media (max-width: 860px) { .pt-foot-in { grid-template-columns: minmax(0, 1fr); } }
+.mbar.pt-bar { gap: 0; padding: 0 0 env(safe-area-inset-bottom, 0px); background: var(--surface); backdrop-filter: none; border-top: 1px solid var(--line-2); }
+.pt-bar a { flex: 1; display: grid; place-items: center; min-height: var(--bar-h); font-size: 16px; font-weight: 500; text-decoration: none; }
+.pt-bar-tel { border-left: 1px solid var(--line-2); font-variant-numeric: tabular-nums; }
+/* The phone bar sits over the page's bottom edge; the page keeps that much room, so the bar never covers text. */
+@media (max-width: 760px) { body { padding-bottom: calc(var(--bar-h) + env(safe-area-inset-bottom, 0px)); } }
+
+@media (prefers-reduced-motion: reduce) { .pt-cta span, .lw-index-n, .nav.pt-nav { transition: none; } }

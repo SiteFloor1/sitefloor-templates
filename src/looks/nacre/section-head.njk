@@ -1,0 +1,7 @@
+{#- Nacre section intro: a hairline across the measure, the name in hairline capitals on the left (giant for a
+    collection, smaller for a tool), one small label on the right. No eyebrow, no subhead, nothing drawn.
+    Expects `sec` = { title, intro } (intro is the label); `shSize` "xl" for a collection. -#}
+<div class="nc-sh{% if shSize == 'xl' %} nc-sh-xl{% endif %} rv">
+  <h2{% if sec.id %} id="{{ sec.id }}"{% endif %}>{{ sec.title | plain }}</h2>
+  {%- if sec.intro %}<span class="nc-label">{{ sec.intro }}</span>{% endif %}
+</div>

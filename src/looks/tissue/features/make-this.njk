@@ -1,0 +1,25 @@
+{#- Tissue: "Send the link" after the one satin-ribbon divider; the message preview is the handwritten-style card,
+    held by the pearl pin. Same hooks as the kit's. -#}
+{%- set M = site.makeThis %}
+{% include "looks/tissue/parts/ribbon.njk" %}
+<section class="mk" id="make-this" data-feature="make-this" aria-labelledby="mk-h"><div class="wrap mk-in">
+  {%- if M.photo %}<figure class="mk-ph"><img src="{{ M.photo.src | img }}" alt="{{ M.photo.alt }}" width="{{ M.photo.width }}" height="{{ M.photo.height }}" loading="lazy" decoding="async"></figure>{% endif %}
+  <div class="mk-t">
+    <h2 class="mk-h" id="mk-h">{{ M.title }}</h2>
+    <p class="mk-i">{{ M.intro }}</p>
+    <form class="mk-f" data-mk-form novalidate data-js-only>
+      <div class="mk-row"><label class="mk-l" for="mk-link">Link to the post</label>
+        <input id="mk-link" type="url" inputmode="url" autocomplete="off" spellcheck="false" placeholder="https://www.tiktok.com/@…" data-mk-link aria-describedby="mk-why"></div>
+      <div class="mk-row"><span class="mk-l" id="mk-bud-l">Budget</span>
+        <div class="mk-bud" role="radiogroup" aria-labelledby="mk-bud-l">
+          {%- for b in M.budgets %}<label><input type="radio" name="mk-budget" value="{{ b }}"{% if loop.index == 2 %} checked{% endif %}><span>{{ b }}</span></label>{% endfor %}
+        </div></div>
+      <div class="mk-row"><label class="mk-l" for="mk-day">For</label><input id="mk-day" type="date" data-mk-day></div>
+      <div class="mk-row"><span class="mk-l">Your message</span>
+        <div class="mk-card">{% set pinClass = "ts-pin-card" %}{% include "looks/tissue/parts/pin.njk" %}<p class="mk-msg" data-mk-msg aria-live="polite">Paste a link from TikTok, Instagram or Pinterest.</p></div>
+        <p class="mk-why" id="mk-why" data-mk-why></p></div>
+      <a class="mk-go" href="{{ M.message | book }}" target="_blank" rel="noopener" data-mk-send aria-disabled="true">Send on WhatsApp</a>
+    </form>
+    <p class="mk-nojs" data-no-js><a class="mk-go" href="{{ (M.message + ' (I\'ll send the link)') | book }}" target="_blank" rel="noopener">Send us the link on WhatsApp</a></p>
+  </div>
+</div></section>

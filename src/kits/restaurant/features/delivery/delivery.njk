@@ -1,0 +1,10 @@
+{#- Delivery and collection: the restaurant's own pages on the delivery apps it uses. -#}
+{%- set sec = site.sections.delivery %}
+<section id="delivery" class="dv" aria-labelledby="dv-h"><div class="wrap">
+  <div class="sh rv"><div>{% if sec.kicker %}<span class="kick">{{ sec.kicker }}</span>{% endif %}<h2 id="dv-h">{{ sec.title | markup | safe }}</h2></div>{% if sec.intro %}<p>{{ sec.intro }}</p>{% endif %}</div>
+  <ul class="dv-apps">
+    {%- for a in site.delivery.apps %}<li><a href="{{ a.url }}" target="_blank" rel="noopener"><span class="rs-k">Delivery</span><b>{{ a.name }}</b><span class="dv-go">Order on {{ a.name }} <span aria-hidden="true">↗</span></span></a></li>{% endfor %}
+    {%- if "order" | enabled %}<li><a href="{{ 'takeaway' | href }}"{{ "order" | tierAttr | safe }}><span class="rs-k">Collection</span><b>Order from us</b><span class="dv-go">Build your order <span aria-hidden="true">→</span></span></a></li>{% endif %}
+  </ul>
+  {%- if site.delivery.collection %}<p class="dv-note">{{ site.delivery.collection }}</p>{% endif %}
+</div></section>

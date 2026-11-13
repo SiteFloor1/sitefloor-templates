@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: brides
+permalink: brides.html
+feature: brides-page
+eleventyComputed:
+  title: "{{ site.bridesPage.title | plain }}"
+  description: "What brides say about {{ site.business.name }}, {{ site.location.locality }}, and the salon's latest photographs."
+---
+{%- set ph = site.bridesPage %}
+{% include "kits/bridal/partials/page-head.njk" %}
+{%- set hostPage = "brides-page" %}{% include "kits/bridal/partials/hosted.njk" %}

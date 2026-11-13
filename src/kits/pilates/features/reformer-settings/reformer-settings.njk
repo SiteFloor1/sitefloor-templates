@@ -1,0 +1,45 @@
+{#- Your reformer settings: the card the teacher's link opens (springs, footbar, headrest, straps, gear, a note), kept
+    on the phone if you like; and, for teachers, the form that makes the link. The settings live in the link; the site
+    stores nothing. -#}
+{%- set m = site.machine %}
+{%- set ph = { kicker: "Members", title: "Your reformer settings", intro: "Set by your teacher after your first class. Open it at the reformer." } %}
+{% include "kits/pilates/partials/page-head.njk" %}
+<section class="pl-set" data-feature="reformer-settings" aria-label="Your reformer settings"><div class="wrap pl-set-in">
+  <div>
+    <article class="pl-setcard" data-rs-card hidden aria-live="polite">
+      <p class="pl-setcard-k"><span class="pl-six" aria-hidden="true"><i></i><i></i><i></i><i></i><i class="o"></i><i class="o"></i></span><span data-rs-who>Your reformer</span></p>
+      <dl class="pl-setcard-l">
+        <div><dt>Springs</dt><dd data-rs-springs></dd></div>
+        <div><dt>Footbar</dt><dd data-rs-footbar></dd></div>
+        <div><dt>Headrest</dt><dd data-rs-headrest></dd></div>
+        <div><dt>Straps</dt><dd data-rs-straps></dd></div>
+        <div><dt>Gear</dt><dd data-rs-gear></dd></div>
+      </dl>
+      <p class="pl-setcard-n" data-rs-note></p>
+      <p class="pl-setcard-go"><button type="button" class="pl-ws-cal" data-rs-keep>Keep on this phone</button><button type="button" class="pl-ws-cal" data-rs-forget hidden>Forget it</button></p>
+    </article>
+    <p class="pl-set-none" data-rs-none>Your teacher sends you this page after your first class, with your settings in the link. Open it here at the reformer.</p>
+    {%- if site.mode == "demo" %}<p class="pl-set-demo"><a href="#n=Leah&s-red=1&s-blue=1&f=2&h=up&t=long&g=2&x=Lighter%20springs%20on%20footwork%20for%20the%20left%20knee" data-rs-example>See an example card</a></p>{% endif %}
+  </div>
+  <details class="pl-req pl-set-make">
+    <summary>For teachers: make a card</summary>
+    <form class="pl-set-f" data-rs-form>
+      <label class="pl-field" for="rs-name">First name<input id="rs-name" name="rs-name" maxlength="30" autocomplete="off"></label>
+      <fieldset class="pl-set-sp"><legend>Springs</legend>
+        {%- for sp in m.springs %}<label class="pl-field" for="rs-s-{{ sp.id }}">{{ sp.name }}<input id="rs-s-{{ sp.id }}" name="rs-s-{{ sp.id }}" data-spring="{{ sp.id }}" type="number" min="0" max="{{ m.maxPerSpring }}" value="0" inputmode="numeric"></label>{% endfor %}
+      </fieldset>
+      <div class="pl-set-row">
+        <label class="pl-field" for="rs-f">Footbar (1–{{ m.footbar }})<input id="rs-f" name="rs-f" type="number" min="1" max="{{ m.footbar }}" value="1" inputmode="numeric"></label>
+        <label class="pl-field" for="rs-g">Gear (1–{{ m.gear }})<input id="rs-g" name="rs-g" type="number" min="1" max="{{ m.gear }}" value="1" inputmode="numeric"></label>
+      </div>
+      <div class="pl-set-row">
+        <label class="pl-field" for="rs-h">Headrest<select id="rs-h" name="rs-h">{% for h in m.headrest %}<option value="{{ h }}">{{ h | capitalize }}</option>{% endfor %}</select></label>
+        <label class="pl-field" for="rs-t">Straps<select id="rs-t" name="rs-t">{% for t in m.straps %}<option value="{{ t }}">{{ t | capitalize }}</option>{% endfor %}</select></label>
+      </div>
+      <label class="pl-field" for="rs-x">A note (optional)<textarea id="rs-x" name="rs-x" rows="2" maxlength="140"></textarea></label>
+      <label class="pl-field" for="rs-link">The link<input id="rs-link" name="rs-link" readonly data-rs-link></label>
+      <p class="pl-set-acts"><button type="button" class="pl-req-go" data-rs-send>Share the link</button><button type="button" class="pl-ws-cal" data-rs-copy>Copy the link</button></p>
+      <p class="pl-req-n" data-rs-copied role="status"></p>
+    </form>
+  </details>
+</div></section>

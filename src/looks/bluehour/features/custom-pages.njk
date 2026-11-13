@@ -1,0 +1,21 @@
+{#- Blue hour general page (About and the like): the page's name, then each block as a ruled line: a heading in the
+    narrow left column and the words in the wide right one; photographs run the full width; lists are numbered like
+    circuits. -#}
+{%- set ph = { kicker: cp.kicker or cp.title | plain, title: cp.title, intro: cp.intro } %}
+{% include "kits/electrician/partials/page-head.njk" %}
+<div class="bh-cp" data-feature="custom-pages">
+  {%- for b in cp.blocks %}
+  {%- if b.type == "photo" %}
+  <figure class="bh-cp-photo"><img src="{{ b.src | img }}" alt="{{ b.alt }}" loading="lazy" decoding="async">{% if b.caption %}<figcaption class="wrap">{{ b.caption }}</figcaption>{% endif %}</figure>
+  {%- else %}
+  <section class="wrap bh-cp-row">
+    {%- if b.heading %}<h2 class="bh-cp-h">{{ b.heading }}</h2>{% else %}<span class="bh-cp-h" aria-hidden="true"></span>{% endif %}
+    <div class="bh-cp-b">
+      {%- if b.type == "text" %}{% for para in b.body | paragraphs %}<p>{{ para }}</p>{% endfor %}
+      {%- elif b.type == "list" %}<ol class="bh-cp-l">{% for item in b.items %}<li><span class="bh-cno" aria-hidden="true">{{ loop.index | pad2 }}</span>{{ item }}</li>{% endfor %}</ol>
+      {%- elif b.type == "book" %}<p>{{ b.text }}</p><a class="go" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{{ b.label or build.booking.label }}</a>{% endif %}
+    </div>
+  </section>
+  {%- endif %}
+  {%- endfor %}
+</div>

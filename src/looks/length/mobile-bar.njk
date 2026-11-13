@@ -1,0 +1,6 @@
+{#- Length phone bar: two halves, "Every price" (the services page, or the price by length) and an ink "Ask on WhatsApp"
+    ("Book" when the salon books through an app). -#}
+<div class="mbar ln-bar">
+  <a class="ln-bar-p" href="{{ ('services' | href) if ('hair-services' | enabled) else ('index' | href) + '#prices' }}">Every price</a>
+  <a class="ln-bar-go" href="{{ (site.menu.message if site.menu else site.messages.general) | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.menu.message if site.menu else site.messages.general }}"{% endif %} target="_blank" rel="noopener">{{ "Ask on WhatsApp" if build.booking.whatsapp else "Book" }}</a>
+</div>

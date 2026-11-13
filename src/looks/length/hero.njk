@@ -1,0 +1,11 @@
+{#- Length hero: the price by length is the hero (the cut photograph and the price beside it). A site without it gets
+    the plate photograph and the line, quietly. -#}
+{%- if "length-price" | enabled %}
+{% include "kits/hair/features/length-price/length-price.njk" %}
+{%- else %}
+<section class="hero ln-plain" aria-labelledby="ln-h1"><div class="wrap">
+  <h1 id="ln-h1" class="ln-plain-h">{{ site.hero.title | plain }}</h1>
+  {%- if site.hero.intro %}<p class="ln-plain-i">{{ site.hero.intro }}</p>{% endif %}
+  <p><a class="hr-btn" href="{{ site.messages.general | book }}" target="_blank" rel="noopener">Ask on WhatsApp</a></p>
+</div></section>
+{%- endif %}

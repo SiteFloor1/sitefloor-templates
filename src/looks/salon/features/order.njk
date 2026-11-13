@@ -1,0 +1,46 @@
+{#- Salon: cakes and pâtisserie to order. Each cake as a large photograph with its price and the notice it needs;
+    the order card beside it: the total and the allergens, a collection day no sooner than the cakes can be made, a
+    deposit by the shop's own Stripe link over its threshold, and the WhatsApp message. Keeps the order hooks. -#}
+{%- set o = site.order %}
+<section class="sa-page-head"><div class="wrap">
+  <h1>{{ o.title | markup | safe }}</h1>
+  {%- if o.intro %}<p>{{ o.intro }}</p>{% endif %}
+  <div class="sa-crowns" aria-hidden="true"></div>
+</div></section>
+<section class="od sa-od" data-feature="order"><div class="wrap sa-od-grid">
+  <ul class="sa-cakes">
+    {%- for sc in site.menu | takeawaySections %}{% for d in sc.dishes %}{% set an = d | allergenNames %}
+    <li class="od-item sa-cake" data-dish="{{ d.id }}" data-name="{{ d.name }}" data-price="{{ d.price }}" data-lead="{{ d.leadDays or 0 }}" data-diets="{{ (d.diets or []) | join(' ') }}" data-allergens="{{ d.allergens | join(' ') }}">
+      {%- if d.photo %}<img src="{{ d.photo.src | img }}" width="{{ d.photo.width }}" height="{{ d.photo.height }}" alt="{{ d.photo.alt }}" loading="lazy">{% endif %}
+      <div class="sa-cake-tx">
+        <p class="sa-dn"><span>{{ d.name }}</span><span class="sa-dp">{{ d.price | gbp }}</span></p>
+        {%- if d.desc %}<p class="sa-dd">{{ d.desc }}</p>{% endif %}
+        <p class="sa-dm"><span>{% if d.leadDays %}{{ d.leadDays | words | capitalize }} days’ notice. {% endif %}{% if an.length %}Contains {{ an | join(", ") | lower }}{% else %}None of the 14 allergens{% endif %}</span></p>
+        <div class="sa-qty" data-js-only>
+          <button type="button" data-od-minus aria-label="One fewer {{ d.name }}" disabled>−</button>
+          <output data-od-n aria-live="polite">0</output>
+          <button type="button" data-od-plus aria-label="Add {{ d.name }}">+</button>
+        </div>
+      </div>
+    </li>
+    {%- endfor %}{% endfor %}
+  </ul>
+  <aside class="sa-card sa-od-card" aria-labelledby="od-h">
+    <svg class="sa-seal" aria-hidden="true"><use href="#brand-mark"/></svg>
+    <h2 id="od-h">Your order</h2>
+    <div data-js-only>
+      <ul class="sa-lines" data-od-lines><li class="sa-small">Nothing yet.</li></ul>
+      <p class="sa-total"><span>Total</span><b data-od-total>£0</b></p>
+      <p class="sa-small" data-od-all></p>
+      {%- if o.daysAhead %}<label class="sa-l">To collect on<select data-od-day></select></label>{% endif %}
+      <label class="sa-l">At<select data-od-time></select></label>
+      <label class="sa-l">Name for the order<input type="text" maxlength="40" autocomplete="given-name" data-od-name></label>
+      <label class="sa-l">For the cake<textarea rows="1" maxlength="300" data-od-notes placeholder="the words for the top, a candle"></textarea></label>
+      {%- if o.deposit %}<a class="sa-pay" data-od-deposit href="{{ o.deposit.link }}" target="_blank" rel="noopener" hidden>Pay the deposit by card</a>{% endif %}
+      <a class="sa-send" data-od-send href="{{ o.message | wa }}" target="_blank" rel="noopener" aria-disabled="true">Send the order</a>
+      <p class="sa-small">We reply to confirm the order, the day and the allergens.{% if o.deposit %} Orders over {{ o.deposit.from | gbp }} are kept with a {{ o.deposit.amount | gbp }} deposit, paid on a secure Stripe page.{% endif %}</p>
+      {%- if o.note %}<p class="sa-small">{{ o.note }}</p>{% endif %}
+    </div>
+    <p data-no-js><a class="sa-send" href="{{ o.message | wa }}" target="_blank" rel="noopener">Message us your order</a></p>
+  </aside>
+</div></section>

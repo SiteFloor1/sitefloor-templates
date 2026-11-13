@@ -1,0 +1,752 @@
+{
+  "schemaVersion": 4,
+  "id": "test-barber-street",
+  "mode": "client",
+  "plan": "plus",
+  "kit": "barber",
+  "look": "barber-street",
+  "url": "https://quickstep-barbers.example.co.uk",
+  "indexable": false,
+  "lang": "en-GB",
+  "business": {
+    "name": "Quickstep Barbers",
+    "schemaType": "BarberShop",
+    "description": "Walk-in barbers in Testford. Fixed prices.",
+    "priceRange": "£",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "447911654321",
+    "phone": "+44 7911 654321",
+    "email": "hello@quickstep-barbers.example.co.uk"
+  },
+  "location": {
+    "streetAddress": "31 Boar Lane",
+    "locality": "Leeds",
+    "postcode": "LS1 6EZ",
+    "country": "GB",
+    "area": "Two minutes from Leeds station, opposite the Corn Exchange end of Boar Lane.",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=Boar%20Lane%2C%20Leeds%20LS1%206EZ"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [
+        [
+          "07:30",
+          "19:00"
+        ]
+      ],
+      "tue": [
+        [
+          "07:30",
+          "19:00"
+        ]
+      ],
+      "wed": [
+        [
+          "07:30",
+          "19:00"
+        ]
+      ],
+      "thu": [
+        [
+          "07:30",
+          "20:00"
+        ]
+      ],
+      "fri": [
+        [
+          "07:30",
+          "20:00"
+        ]
+      ],
+      "sat": [
+        [
+          "08:00",
+          "18:00"
+        ]
+      ],
+      "sun": [
+        [
+          "10:00",
+          "16:00"
+        ]
+      ]
+    },
+    "exceptions": [
+      {
+        "date": "2026-12-25",
+        "ranges": [],
+        "note": "Closed for Christmas Day"
+      },
+      {
+        "date": "2026-12-26",
+        "ranges": [],
+        "note": "Closed for Boxing Day"
+      },
+      {
+        "date": "2026-12-24",
+        "ranges": [
+          [
+            "09:00",
+            "14:00"
+          ]
+        ],
+        "note": "Christmas Eve: closing early"
+      }
+    ]
+  },
+  "nav": [
+    {
+      "label": "Prices",
+      "page": "prices",
+      "feature": "price-page",
+      "fallback": "#prices"
+    },
+    {
+      "label": "Visit",
+      "page": "visit",
+      "feature": "plan-visit",
+      "fallback": "#visit"
+    },
+    {
+      "label": "Queue",
+      "href": "#queue"
+    },
+    {
+      "label": "Vouchers",
+      "href": "#vouchers"
+    }
+  ],
+  "features": [
+    "walk-in-queue",
+    "fit-a-cut",
+    "price-list",
+    "price-page",
+    "memberships",
+    "before-after",
+    "loyalty",
+    "vouchers",
+    "reviews",
+    "gallery",
+    "questions",
+    "visit",
+    "plan-visit"
+  ],
+  "hero": {
+    "kicker": "Walk-in barbers · Leeds",
+    "title": "No booking. No fuss. Most cuts done in 20 minutes.",
+    "intro": "Walk in, check the queue, sit down. Fixed prices on the board.",
+    "secondaryCta": {
+      "label": "Will I make it?",
+      "href": "#fit",
+      "feature": "fit-a-cut"
+    }
+  },
+  "sections": {
+    "queue": {
+      "kicker": "Live queue",
+      "title": "How long's the wait?",
+      "intro": "Updated by the shop as people come and go."
+    },
+    "prices": {
+      "kicker": "Prices",
+      "title": "Fixed prices",
+      "intro": "Same price whoever cuts it. Card or cash."
+    },
+    "memberships": {
+      "kicker": "Memberships",
+      "title": "Cut on a plan",
+      "intro": "For regulars: one monthly price, walk in whenever."
+    },
+    "beforeAfter": {
+      "kicker": "Our work",
+      "title": "Drag to compare",
+      "intro": "Drag the slider to compare."
+    },
+    "loyalty": {
+      "kicker": "Loyalty",
+      "title": "Every 8th cut free",
+      "intro": "Ask for a card on your first visit."
+    },
+    "vouchers": {
+      "kicker": "Gift vouchers",
+      "title": "Give a fresh cut",
+      "intro": "Make one up here and order it on WhatsApp."
+    },
+    "reviews": {
+      "kicker": "Reviews",
+      "title": "Reviews",
+      "intro": "Copied from Google with the reviewer's first name and date."
+    },
+    "gallery": {
+      "kicker": "Fresh cuts",
+      "title": "Recent cuts",
+      "intro": "On a live site, these come from the shop's Instagram."
+    },
+    "visit": {
+      "kicker": "Visit",
+      "title": "Find us"
+    },
+    "questions": {
+      "kicker": "Before you come in",
+      "title": "Good to know",
+      "intro": ""
+    },
+    "fitCut": {
+      "kicker": "Got a train to catch?",
+      "title": "Will I make it?",
+      "intro": "Tell us when you need to be done. We'll check the queue and tell you straight."
+    }
+  },
+  "messages": {
+    "general": "Hi, how long is the queue right now?"
+  },
+  "services": [
+    {
+      "id": "clipper",
+      "name": "Clipper cut",
+      "price": 12,
+      "minutes": 15
+    },
+    {
+      "id": "fade",
+      "name": "Skin fade",
+      "price": 16,
+      "minutes": 25
+    },
+    {
+      "id": "scissor",
+      "name": "Scissor cut",
+      "price": 18,
+      "minutes": 25
+    },
+    {
+      "id": "shave",
+      "name": "Head shave",
+      "price": 10,
+      "minutes": 15
+    },
+    {
+      "id": "beard",
+      "name": "Beard trim",
+      "price": 8,
+      "minutes": 10
+    },
+    {
+      "id": "kids",
+      "name": "Kids cut (under 12)",
+      "price": 10,
+      "minutes": 15
+    }
+  ],
+  "priceList": [
+    {
+      "group": "Cuts",
+      "items": [
+        {
+          "service": "clipper",
+          "note": "Same grade all over, or sides and top"
+        },
+        {
+          "service": "fade",
+          "note": "Taper or skin, blended"
+        },
+        {
+          "service": "scissor",
+          "note": "Any length"
+        },
+        {
+          "service": "shave",
+          "note": "Clippers then foil"
+        }
+      ]
+    },
+    {
+      "group": "Quick extras",
+      "items": [
+        {
+          "service": "beard",
+          "note": "Clippers and line-up"
+        },
+        {
+          "name": "Cut and beard",
+          "price": "£22",
+          "note": "Any cut plus beard trim"
+        },
+        {
+          "name": "Neck and line-up tidy",
+          "price": "£5",
+          "note": "Between cuts, 5 minutes"
+        }
+      ]
+    },
+    {
+      "group": "Everyone else",
+      "items": [
+        {
+          "service": "kids",
+          "note": "Any cut"
+        },
+        {
+          "name": "Over 65s",
+          "price": "£9",
+          "note": "Any cut, every day"
+        }
+      ]
+    }
+  ],
+  "gallery": {
+    "source": "photos",
+    "handle": "quickstep.test",
+    "filters": [
+      {
+        "tag": "fade",
+        "label": "Fades"
+      },
+      {
+        "tag": "clipper",
+        "label": "Clipper cuts"
+      }
+    ],
+    "photos": [
+      {
+        "src": "img/fade-side.webp",
+        "alt": "High skin fade being finished at the side",
+        "caption": "High skin fade",
+        "by": "Mo",
+        "width": 720,
+        "height": 900,
+        "tags": [
+          "fade"
+        ]
+      },
+      {
+        "src": "img/clipper-close.webp",
+        "alt": "Close-up of clippers lining up a short fade",
+        "caption": "Clipper line-up",
+        "by": "Tasha",
+        "width": 720,
+        "height": 900,
+        "tags": [
+          "clipper",
+          "fade"
+        ]
+      }
+    ]
+  },
+  "reviews": {
+    "source": "google",
+    "items": [
+      {
+        "text": "In and out in 18 minutes before my train. Checked the queue on the site first, spot on.",
+        "author": "Daniel R.",
+        "rating": 5,
+        "date": "2026-10"
+      },
+      {
+        "text": "Membership pays for itself if you get a fade every week like me.",
+        "author": "Kwame A.",
+        "rating": 5,
+        "date": "2026-09"
+      },
+      {
+        "text": "Saturday was rammed, 40 minute wait, but the site said so before I left. Good cut for the price.",
+        "author": "Steph L.",
+        "rating": 4,
+        "date": "2026-09"
+      }
+    ]
+  },
+  "questions": [
+    {
+      "topic": "Your visit",
+      "q": "Can I book?",
+      "a": "No, it's walk-in only. Check the live queue before you set off, or message us and we'll tell you how long it is.",
+      "home": true
+    },
+    {
+      "topic": "Your visit",
+      "q": "When is it quietest?",
+      "a": "Weekday mornings after 9am and mid-afternoon. The chart on our home page shows every hour.",
+      "home": true
+    },
+    {
+      "topic": "Your visit",
+      "q": "How long does a cut take?",
+      "a": "A clipper cut is about 15 minutes, a skin fade about 25."
+    },
+    {
+      "topic": "Getting here",
+      "q": "Where can I park?",
+      "a": "Call Lane pay and display is three minutes' walk. Most people come by train or bus: we're two minutes from the station.",
+      "home": true
+    },
+    {
+      "topic": "Getting here",
+      "q": "Is the shop step-free?",
+      "a": "Yes, level entrance and one chair that lowers."
+    },
+    {
+      "topic": "Paying",
+      "q": "Do you take card?",
+      "a": "Card, Apple Pay, Google Pay and cash. Same prices whichever you use.",
+      "home": true
+    },
+    {
+      "topic": "Kids",
+      "q": "Do you cut kids' hair?",
+      "a": "Yes, from age 3. Under-12s are £10 for any cut."
+    }
+  ],
+  "visitInfo": {
+    "kicker": "Plan your visit",
+    "title": "Getting here",
+    "intro": "Two minutes from the station. Live parking and the quietest times to walk in.",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "Leeds station",
+        "origin": "Leeds railway station, Leeds",
+        "minutes": 2,
+        "steps": [
+          "Leave by the New Station Street exit",
+          "Cross onto Boar Lane and turn right",
+          "We're on the left, with the queue screen in the window"
+        ]
+      },
+      {
+        "mode": "bus",
+        "from": "Buses on Boar Lane",
+        "stop": "Boar Lane",
+        "minutes": 1,
+        "steps": [
+          "Get off at the Boar Lane stops",
+          "We're between the two stops"
+        ]
+      },
+      {
+        "mode": "car",
+        "from": "Leeds city centre",
+        "origin": "Leeds city centre",
+        "minutes": 8,
+        "steps": [
+          "Park on Call Lane: pay and display, free after 6pm and on Sundays",
+          "Walk three minutes along Call Lane onto Boar Lane"
+        ]
+      }
+    ],
+    "parking": [
+      {
+        "name": "Call Lane pay and display",
+        "walk": 3,
+        "price": "£2.40 an hour",
+        "paid": {
+          "mon": [
+            [
+              "08:00",
+              "18:00"
+            ]
+          ],
+          "tue": [
+            [
+              "08:00",
+              "18:00"
+            ]
+          ],
+          "wed": [
+            [
+              "08:00",
+              "18:00"
+            ]
+          ],
+          "thu": [
+            [
+              "08:00",
+              "18:00"
+            ]
+          ],
+          "fri": [
+            [
+              "08:00",
+              "18:00"
+            ]
+          ],
+          "sat": [
+            [
+              "08:00",
+              "18:00"
+            ]
+          ],
+          "sun": []
+        },
+        "note": "Up to 3 hours.",
+        "bankHolidays": "sunday"
+      },
+      {
+        "name": "Kirkgate Market multi-storey",
+        "walk": 6,
+        "price": "from £4",
+        "paid": "always",
+        "note": "Good on Saturdays when the street spaces are full.",
+        "open": {
+          "mon": [
+            [
+              "07:00",
+              "20:00"
+            ]
+          ],
+          "tue": [
+            [
+              "07:00",
+              "20:00"
+            ]
+          ],
+          "wed": [
+            [
+              "07:00",
+              "20:00"
+            ]
+          ],
+          "thu": [
+            [
+              "07:00",
+              "20:00"
+            ]
+          ],
+          "fri": [
+            [
+              "07:00",
+              "20:00"
+            ]
+          ],
+          "sat": [
+            [
+              "07:00",
+              "20:00"
+            ]
+          ],
+          "sun": [
+            [
+              "07:00",
+              "20:00"
+            ]
+          ]
+        },
+        "closures": {
+          "dates": [
+            "2026-12-25",
+            "2027-12-25"
+          ]
+        }
+      }
+    ],
+    "access": [
+      {
+        "label": "Step-free entrance",
+        "yes": true
+      },
+      {
+        "label": "Chair that lowers",
+        "yes": true
+      },
+      {
+        "label": "Accessible toilet",
+        "yes": false
+      }
+    ],
+    "accessNote": "Tell us at the door what you need and we'll sort the right chair.",
+    "payment": "Card, Apple Pay, Google Pay and cash. Gift vouchers by WhatsApp or in the shop.",
+    "checked": "2026-10"
+  },
+  "pricesPage": {
+    "kicker": "Prices",
+    "title": "Every price",
+    "intro": "What everything costs and how long it takes.",
+    "footnote": "Students save £2 Monday to Thursday with a student card."
+  },
+  "queue": {
+    "source": "sheet",
+    "staleAfterMinutes": 15,
+    "chairs": 3,
+    "minutesPerCut": 15,
+    "busynessSource": "Google popular times for the shop, checked October 2026",
+    "busyness": {
+      "mon": [
+        2,
+        1,
+        0,
+        0,
+        1,
+        2,
+        1,
+        1,
+        1,
+        2,
+        3,
+        2
+      ],
+      "tue": [
+        2,
+        1,
+        0,
+        0,
+        1,
+        2,
+        1,
+        1,
+        1,
+        2,
+        3,
+        2
+      ],
+      "wed": [
+        2,
+        1,
+        0,
+        0,
+        1,
+        2,
+        1,
+        1,
+        1,
+        2,
+        3,
+        2
+      ],
+      "thu": [
+        2,
+        1,
+        0,
+        0,
+        1,
+        2,
+        1,
+        1,
+        1,
+        2,
+        3,
+        3,
+        2
+      ],
+      "fri": [
+        2,
+        1,
+        1,
+        1,
+        2,
+        3,
+        2,
+        2,
+        2,
+        3,
+        3,
+        3,
+        2
+      ],
+      "sat": [
+        1,
+        2,
+        3,
+        3,
+        3,
+        3,
+        3,
+        2,
+        2,
+        1
+      ],
+      "sun": [
+        1,
+        2,
+        2,
+        2,
+        1,
+        1
+      ]
+    },
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-test-queue/pub?output=csv"
+  },
+  "loyalty": {
+    "stamps": 8,
+    "reward": "Your 8th cut is free",
+    "compareService": "clipper",
+    "card": "paper",
+    "rules": [
+      "One stamp for any cut over £10",
+      "The free cut is any cut on the board",
+      "One card each; it doesn't expire"
+    ]
+  },
+  "memberships": {
+    "compareService": "fade",
+    "join": "Hi, I'd like to join the membership:",
+    "terms": "Monthly by card, cancel any time with a month's notice. Unused cuts don't roll over.",
+    "plans": [
+      {
+        "name": "Tidy",
+        "price": 28,
+        "cuts": 2,
+        "includes": [
+          "2 skin fades a month",
+          "Neck tidy any time"
+        ]
+      },
+      {
+        "name": "Sharp",
+        "price": 45,
+        "cuts": 4,
+        "featured": true,
+        "includes": [
+          "A skin fade every week",
+          "Beard trims included"
+        ]
+      },
+      {
+        "name": "Unlimited",
+        "price": 60,
+        "cuts": "unlimited",
+        "includes": [
+          "Walk in as often as you like",
+          "Jump to the front once a week"
+        ]
+      }
+    ]
+  },
+  "beforeAfter": {
+    "items": [
+      {
+        "before": "img/ba-during.webp",
+        "after": "img/ba-after.webp",
+        "beforeLabel": "In progress",
+        "afterLabel": "Finished",
+        "alt": "An example of a cut in progress, and a finished short fade with a tidy beard",
+        "caption": "Example: in progress and finished"
+      }
+    ]
+  },
+  "vouchers": {
+    "amounts": [
+      10,
+      16,
+      25,
+      50
+    ],
+    "custom": {
+      "min": 10,
+      "max": 150
+    },
+    "validMonths": 24,
+    "howToBuy": "We'll reply with a payment link or you can pay in the shop. The voucher comes as a card in the shop or a photo by WhatsApp.",
+    "terms": "Can be used across several visits. Not exchangeable for cash."
+  },
+  "addons": [
+    "walk-in-queue",
+    "fit-a-cut"
+  ],
+  "brand": {
+    "accent": "#11643F",
+    "type": "plain"
+  }
+}

@@ -1,0 +1,30 @@
+{#- Shop by occasion and price: each occasion with a photograph, one line and the price it starts from; "Up to" narrows
+    them to a budget. Each opens WhatsApp with its own message (or to its own page: sympathy, and each occasion page when they're on). -#}
+{%- set O = site.occasions %}
+{%- set sec = site.sections.occasions %}
+<section id="occasions" class="fl-occ" data-feature="shop-by-occasion" aria-labelledby="occ-h"><div class="wrap">
+  <div class="fl-sec-top">
+    <h2 id="occ-h">{{ sec.title | markup | safe }}</h2>
+    {%- if O.budgets %}
+    <fieldset class="fl-budget" data-js-only><legend class="sr-only">Spend up to</legend>
+      <label class="fl-chip"><input type="radio" name="occ-budget" value="0" checked>Any price</label>
+      {%- for b in O.budgets %}<label class="fl-chip"><input type="radio" name="occ-budget" value="{{ b }}">Up to {{ b | pounds }}</label>{% endfor %}
+    </fieldset>
+    {%- endif %}
+  </div>
+  <ul class="fl-occ-list" role="list">
+    {%- for o in O.items %}
+    {%- set ownPage = ("occasion-pages" | enabled) and (site.occasionPages.pages | pageFor(o.id)) %}
+    {%- set toPage = ("sympathy" if (o.id == "sympathy" and ("sympathy-order" | enabled)) else ("for-" + o.id if ownPage else "")) %}
+    <li class="fl-occ-i rv" data-from="{{ o.from }}">
+      <a class="fl-occ-a" href="{{ (toPage | href) if toPage else (o.message | book) }}"{% if not toPage %} target="_blank" rel="noopener"{% endif %}>
+        <span class="fl-occ-ph"><img src="{{ o.photo.src | img }}" alt="{{ o.photo.alt }}" width="{{ o.photo.width }}" height="{{ o.photo.height }}" loading="lazy" decoding="async"></span>
+        <b class="fl-occ-t">{{ o.title }}</b>
+        <span class="fl-occ-l">{{ o.line }}</span>
+        <span class="fl-occ-p">From {{ o.from | pounds }}</span>
+      </a>
+    </li>
+    {%- endfor %}
+  </ul>
+  <p class="fl-occ-none" data-occ-none hidden>Nothing at that price this week. Message us and we'll make something that is.</p>
+</div></section>

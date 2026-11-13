@@ -1,0 +1,18 @@
+{#- Is this really us?: the only numbers and email addresses the firm uses, what it will never ask, and what to do
+    before acting on a call, an email or a change of bank details. -#}
+{%- set c = site.check %}
+{%- set ph = { title: c.title, intro: c.intro } %}
+{% include "kits/wealth/partials/page-head.njk" %}
+<section class="wm-chk" data-feature="check"><div class="wrap wm-chk-in">
+  <div>
+    <h2>We only call from</h2>
+    <ul class="wm-chk-list">{% for p in c.phones %}<li><span>{{ p.label }}</span><a href="tel:{{ p.number | replace(' ', '') }}">{{ p.number | replace('+44 ', '0') }}</a></li>{% endfor %}</ul>
+    <h2>We only email from</h2>
+    <ul class="wm-chk-list">{% for d in c.domains %}<li><span>Addresses ending</span><b>@{{ d }}</b></li>{% endfor %}</ul>
+  </div>
+  <div>
+    <h2>We will never</h2>
+    <ul class="wm-chk-never">{% for n in c.never %}<li>{{ n }}</li>{% endfor %}</ul>
+    <p class="wm-chk-cb">{{ c.callback }}</p>
+  </div>
+</div></section>

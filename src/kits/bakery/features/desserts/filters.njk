@@ -1,0 +1,15 @@
+{#- Diet filters and "hide anything containing…": shown once the script runs (everything is listed without it). -#}
+<div class="bk-filters" data-bk-filters>
+  <div class="bk-chips" role="group" aria-label="Only show">
+    {%- for d in sweets.diets %}{% if d.id != "vegetarian" %}
+    <label class="bk-chip"><input type="checkbox" value="{{ d.id }}" data-diet> {{ d.name }}</label>
+    {%- endif %}{% endfor %}
+  </div>
+  <details class="bk-avoid">
+    <summary><span>Hide anything containing…</span> <b data-avoid-count></b></summary>
+    <div class="bk-avoid-list" role="group" aria-label="Hide items containing">
+      {%- for a in sweets.allergens %}<label class="bk-chip no"><input type="checkbox" value="{{ a.id }}" data-avoid> {{ a.name }}</label>{% endfor %}
+    </div>
+  </details>
+  <p class="bk-count" data-bk-count aria-live="polite"></p>
+</div>

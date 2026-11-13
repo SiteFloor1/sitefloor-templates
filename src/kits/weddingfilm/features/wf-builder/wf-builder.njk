@@ -1,0 +1,28 @@
+{#- Build your package: one package, then the studio's extras, the total from its own prices, sent on WhatsApp; the
+    deposit by the studio's own Stripe link. Without JavaScript the link sends the opening line only. -#}
+{%- set sec = site.sections.builder %}
+{%- set b = site.builder %}
+<section id="builder" class="wf-bd" data-feature="wf-builder" aria-labelledby="bd-h"{{ "wf-builder" | tierAttr | safe }}><div class="wrap wf-bd-in">
+  <h2 id="bd-h" class="wf-h2">{{ sec.title | markup | safe }}</h2>
+  <form class="wf-bd-f" data-bd-form>
+    <fieldset class="wf-bd-set"><legend class="wf-k">Package</legend>
+      {%- for p in site.packages.items %}{% if p.price %}
+      <label class="wf-opt"><input type="radio" name="bd-pkg" value="{{ p.id }}"{% if loop.first %} checked{% endif %}><span class="wf-opt-n">{{ p.name }}</span><span class="wf-opt-p">{{ p.price | gbp }}</span></label>
+      {%- endif %}{% endfor %}
+    </fieldset>
+    {%- if b.extras.length %}
+    <fieldset class="wf-bd-set"><legend class="wf-k">Add</legend>
+      {%- for x in b.extras %}
+      {%- if x.max and x.max > 1 %}
+      <label class="wf-opt" for="bd-x-{{ x.id }}"><span class="wf-opt-n">{{ x.name }}{% if x.text %}<small>{{ x.text }}</small>{% endif %}</span><select id="bd-x-{{ x.id }}" data-bd-extra="{{ x.id }}">{% for n in range(0, x.max + 1) %}<option value="{{ n }}">{% if n == 0 %}None{% else %}{{ n }} {{ x.per or "" }}{% if n > 1 and x.per %}s{% endif %}{% endif %}</option>{% endfor %}</select><span class="wf-opt-p">{{ x.price | gbp }}{% if x.per %} a {{ x.per }}{% endif %}</span></label>
+      {%- else %}
+      <label class="wf-opt"><input type="checkbox" data-bd-extra="{{ x.id }}" value="1"><span class="wf-opt-n">{{ x.name }}{% if x.text %}<small>{{ x.text }}</small>{% endif %}</span><span class="wf-opt-p">{{ x.price | gbp }}</span></label>
+      {%- endif %}
+      {%- endfor %}
+    </fieldset>
+    {%- endif %}
+  </form>
+  <p class="wf-bd-t" data-bd-total aria-live="polite"></p>
+  <p class="wf-bd-acts"><a class="wf-go" data-bd-send href="{{ b.message | book }}" target="_blank" rel="noopener">Send this to us</a>{% if b.depositLink %} <a class="wf-quiet" href="{{ b.depositLink }}" target="_blank" rel="noopener">{{ b.depositText }}</a>{% endif %}</p>
+  <p class="wf-small">The total is from our prices on this page. We confirm everything when we reply{% if site.mode == "demo" %}; on this demo the deposit link is a Stripe test link and takes no money{% endif %}.</p>
+</div></section>

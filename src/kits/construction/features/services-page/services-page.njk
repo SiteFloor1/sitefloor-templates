@@ -1,0 +1,17 @@
+{#- Services: each kind of work in turn, a photograph beside what it includes, in the builder's words. -#}
+{%- set b = site.buildTypes %}
+{%- set ph = { title: b.title or "What we *build*", intro: b.intro } %}
+{% include "kits/construction/partials/page-head.njk" %}
+<div class="wrap bd-svc">
+  {%- for t in b.items %}
+  <section class="bd-svc-row" id="{{ t.id }}" aria-labelledby="svc-{{ t.id }}">
+    <img src="{{ t.photo.src | img }}" alt="{{ t.photo.alt }}" width="{{ t.photo.width }}" height="{{ t.photo.height }}"{% if not loop.first %} loading="lazy"{% endif %} decoding="async"{% if t.photo.position %} style="object-position:{{ t.photo.position }}"{% endif %}>
+    <div class="bd-svc-say">
+      <h2 id="svc-{{ t.id }}" class="bd-h3">{{ t.name }}</h2>
+      <p>{{ t.line }}</p>
+      {%- if t.includes %}<ul>{% for i in t.includes %}<li>{{ i }}</li>{% endfor %}</ul>{% endif %}
+      {%- if "service-pages" | enabled %}<a href="{{ t.id | href }}"{{ 'service-pages' | tierAttr | safe }}>More on {{ t.name | lower }}</a>{% endif %}
+    </div>
+  </section>
+  {%- endfor %}
+</div>

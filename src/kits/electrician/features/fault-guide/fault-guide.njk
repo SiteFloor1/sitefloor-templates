@@ -1,0 +1,24 @@
+{#- Something's wrong? Pick what happened; the page shows what to tell the electrician and one safety line. Never a
+    repair instruction (the validator refuses wording that reads like one). Send it on WhatsApp, or call. Without
+    JavaScript every case is listed and the WhatsApp link carries the general message. -#}
+{%- set sec = site.sections.fault %}
+{%- set g = site.faultGuide %}
+<section id="fault" class="el-fault" data-feature="fault-guide" aria-label="{{ sec.title | plain }}"><div class="wrap el-fault-in">
+  <div class="el-fault-t">{% include "core/partials/section-head.njk" %}</div>
+  <div class="el-fault-b">
+    <div class="el-picks" role="radiogroup" aria-label="What happened" data-js-only>
+      {%- for c in g.cases %}<button type="button" role="radio" class="el-pick" data-case="{{ c.id }}" aria-checked="{{ 'true' if loop.first else 'false' }}">{{ c.label }}</button>{% endfor %}
+    </div>
+    {%- for c in g.cases %}
+    <div class="el-tell" data-tell="{{ c.id }}">
+      <h3>{{ "What to tell us when you call" if loop.first else c.label }}</h3>
+      <ol>{% for t in c.tell %}<li>{{ t }}</li>{% endfor %}</ol>
+    </div>
+    {%- endfor %}
+    <p class="el-safe"><b>{{ g.safety }}</b></p>
+    <div class="el-fault-go">
+      <a class="go" data-fault-send href="{{ g.message | wa }}" target="_blank" rel="noopener">Send this on WhatsApp</a>
+      <span>or call <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a></span>
+    </div>
+  </div>
+</div></section>

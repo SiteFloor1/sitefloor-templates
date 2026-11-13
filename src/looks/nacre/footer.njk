@@ -1,0 +1,18 @@
+{#- Nacre footer: the monogram, the address, the hours and the pages as one hairline-topped row of small capitals;
+    the Sitefloor credit last. -#}
+<footer class="foot nc-foot"><div class="nc-foot-in">
+  <a class="nc-foot-mark" href="{{ 'index' | href }}" aria-label="{{ site.business.name }}, home">{% set cartoucheClass = "nc-cartouche-s" %}{% include "looks/nacre/parts/cartouche.njk" %}</a>
+  <address class="nc-foot-a">{{ site.business.name }}<br>{{ site.location.streetAddress }}<br>{{ site.location.locality }} {{ site.location.postcode }}<br>
+    <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a>{% if site.contact.email %}<br><a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>{% endif %}</address>
+  <ul class="nc-foot-h" aria-label="Opening hours">
+    {%- for g in site.hours | hoursGroups %}<li><span>{{ g.days }}</span> {{ g.label }}</li>{% endfor %}
+  </ul>
+  <nav class="nc-foot-l" aria-label="Footer">
+    {%- for item in site.nav | navItems(pageId) %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}>{{ item.label }}</a>{% endfor %}
+    <a href="{{ 'privacy' | href }}">Privacy</a>
+  </nav>
+  <p class="nc-foot-by"><a class="by" href="https://sitefloor.com" rel="noopener">Website by <b>Sitefloor</b></a></p>
+</div></footer>
+{#- The piece viewer and the tray belong to every page (they open over it), so the footer carries them. -#}
+{%- if "piece-viewer" | enabled %}{% include "kits/jeweller/features/piece-viewer/piece-viewer.njk" %}{% endif %}
+{%- if "your-tray" | enabled %}{% include "kits/jeweller/features/your-tray/your-tray.njk" %}{% endif %}

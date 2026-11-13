@@ -1,0 +1,21 @@
+{#- One gown: its first photograph large, name, house, fabric and cut, price; "Ask to try" on WhatsApp; on Signature,
+    every side in the mirror and a place on the shortlist (on the gowns page). Set `g`, `eager` and `full` first. -#}
+{%- set h = site.designers | house(g.house) %}
+{%- set v = g.views[0] %}
+<li class="bd-gown rv" id="g-{{ g.id }}" data-gown="{{ g.id }}" data-house="{{ g.house }}" data-silhouette="{{ g.silhouette }}" data-neckline="{{ g.neckline }}" data-sleeve="{{ g.sleeve }}">
+  <figure class="bd-gown-img"><img src="{{ v.src | img }}" alt="{{ v.alt }}" width="{{ v.width }}" height="{{ v.height }}" loading="{{ 'eager' if eager else 'lazy' }}" decoding="async"></figure>
+  <div class="bd-gown-t">
+    <h3 class="bd-gown-n">{{ g.name }}</h3>
+    <p class="bd-gown-h">{{ h.name }}</p>
+    <p class="bd-gown-f">{{ g.fabric }} · {{ gownWords.silhouettes[g.silhouette] }} · {{ gownWords.necklines[g.neckline] }}</p>
+    <p class="bd-gown-p">{{ g.price | gownPrice }}</p>
+    <p class="bd-gown-acts">
+      <a class="bd-go" href="{{ site.gowns.message | tryText(g, site.designers) | book }}" target="_blank" rel="noopener">Ask to try</a>
+      {%- if full and ("gown-mirror" | enabled) and g.views.length > 1 %}<button type="button" class="bd-quiet" data-mirror="{{ g.id }}" data-js-only{{ 'gown-mirror' | tierAttr | safe }}>Every side</button>{% endif %}
+      {%- if full and ("shortlist" | enabled) %}<button type="button" class="bd-quiet bd-keep" data-keep="{{ g.id }}" aria-pressed="false" data-js-only{{ 'shortlist' | tierAttr | safe }}><span class="bd-keep-off">Keep</span><span class="bd-keep-on">Kept</span><span class="sr-only"> {{ g.name }}</span></button>{% endif %}
+    </p>
+  </div>
+  {%- if full and ("gown-mirror" | enabled) and g.views.length > 1 %}
+  <ul hidden data-views>{% for x in g.views %}<li data-src="{{ x.src | img }}" data-alt="{{ x.alt }}" data-label="{{ x.label }}" data-w="{{ x.width }}" data-h="{{ x.height }}"></li>{% endfor %}</ul>
+  {%- endif %}
+</li>

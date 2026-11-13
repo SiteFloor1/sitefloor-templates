@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: fit
+permalink: fit.html
+feature: fit-room
+eleventyComputed:
+  title: "{{ site.fitPage.title | plain }}"
+  description: "{{ site.fitPage.description or (site.fitPage.kicker + ' at ' + site.business.name) }}"
+---
+{% include "kits/wear/features/fit-room/fit-room.njk" %}

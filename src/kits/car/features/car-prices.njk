@@ -1,0 +1,34 @@
+{#- Car studio Prices page: every job for every size of vehicle, with its time. On a phone one size
+    shows at a time (chips, no JavaScript needed). -#}
+{%- set p = site.pricesPage %}
+<header class="phero"><div class="wrap">
+  <nav class="crumb" aria-label="Breadcrumb"><a href="{{ 'index' | href }}">Home</a> / {{ p.title | plain }}</nav>
+  <span class="kick">{{ p.kicker }}</span>
+  <h1>{{ p.title | markup | safe }}</h1>
+  {%- if p.intro %}<p>{{ p.intro }}</p>{% endif %}
+</div></header>
+<section class="sec-fullprices cp" data-feature="price-page"><div class="wrap">
+  <div class="cp-pick" role="radiogroup" aria-label="Vehicle size">{% for v in site.vehicles %}<label class="sr-chip"><input type="radio" name="cp-v" value="{{ loop.index }}"{% if loop.first %} checked{% endif %}><span>{{ v.name }}</span></label>{% endfor %}</div>
+  {%- for group in site.priceList %}
+  <div class="cp-group rv">
+    <h2>{{ group.group }}</h2>
+    <table class="cp-table">
+      <caption class="sr-only">{{ group.group }} prices by vehicle</caption>
+      <thead><tr><th scope="col">Job</th>{% for v in site.vehicles %}<th scope="col" class="cp-c{{ loop.index }}">{{ v.name }}{% if v.example %}<small>{{ v.example }}</small>{% endif %}</th>{% endfor %}</tr></thead>
+      <tbody>
+      {%- for line in group.items %}
+        {%- if line.job %}{% set j = site.jobs | job(line.job) %}
+        <tr><th scope="row"><b>{{ line.name or j.name }}</b>{% if line.note or j.note %}<small>{{ line.note or j.note }}</small>{% endif %}</th>
+          {%- for v in site.vehicles %}<td class="cp-c{{ loop.index }}"><b>{{ j.prices[v.id] | pounds }}</b><small>{{ j.hours[v.id] | hoursText }}</small></td>{% endfor %}</tr>
+        {%- else %}{% set item = line | priceItem %}
+        <tr><th scope="row"><b>{{ item.name }}</b>{% if item.note %}<small>{{ item.note }}</small>{% endif %}</th><td class="cp-all" colspan="{{ site.vehicles | length }}"><b>{{ item.price }}</b></td></tr>
+        {%- endif %}
+      {%- endfor %}
+      </tbody>
+    </table>
+  </div>
+  {%- endfor %}
+  {%- if p.footnote %}<p class="pp-foot">{{ p.footnote }}</p>{% endif %}
+  <div class="pp-cta"><a class="btn" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{% if build.booking.whatsapp %}{% include "core/partials/icon-whatsapp.njk" %}{% endif %}{{ build.booking.label }}</a>
+  {%- if "showroom" | enabled %}<a class="btn ghost" href="{{ 'index' | href }}#showroom"{{ "showroom" | tierAttr | safe }}>Build yours in the Showroom</a>{% endif %}</div>
+</div></section>

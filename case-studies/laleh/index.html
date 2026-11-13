@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Laleh Case Study</title>
+<meta name="description" content="How a Sitefloor site answers an Instagram florist's DMs: the page is the conversation, every question a customer sends and the website replying to it, live, on a phone.">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tenor+Sans&family=Spectral:ital,wght@0,300;1,300;1,400&family=Manrope:wght@600;700&display=swap">
+<style>
+/* Layout: the DMs. The page is one conversation with a florist who sells on Instagram. Each chapter opens with a
+   customer's message, set huge in italic on the left; the reply comes from the right, from Laleh's website, as a real
+   recording of the demo on a phone inside a rounded message, with what the site did and which plan it's on.
+   The plans are pinned posts (Instagram lets you pin three): one pin Starter, two Plus, three Signature.
+   One sheet of paper-white, ink, and one peony from Laleh's own palette; the only round shapes on the page are
+   the messages. The first thread arrives once on load; nothing else moves on its own or with scrolling. */
+:root {
+  --paper: #FFFFFF; --mist: #F4F1EE; --mist-2: #EAE4DF; --ink: #1D1517; --soft: #6E6266; --hair: #E5DDD8;
+  --peony: #9A3A64; --peony-2: #7E2D51; --blush: #F6E4E8; --on-peony: #FFFFFF;
+  --msg: "Spectral", Georgia, "Times New Roman", serif;
+  --ui: "Tenor Sans", "Gill Sans", Optima, sans-serif;
+  --brand: "Manrope", Arial, sans-serif;
+  --sf-paper: #FBFAF7; --sf-ink: #0E0F11; --sf-tomato: #E8613C; --sf-line: rgba(14,15,17,.12);
+  --s: clamp(64px, 9vw, 140px);
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { background: var(--paper); }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 300 18px/1.6 var(--msg); -webkit-font-smoothing: antialiased; }
+.gut { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { width: min(1240px, 100%); margin: 0 auto; }
+h1, h2, h3, p { margin: 0; }
+h1, h2, h3 { font-weight: 300; text-wrap: balance; }
+a { color: inherit; }
+img, video { display: block; max-width: 100%; }
+:focus-visible { outline: 2px solid var(--peony); outline-offset: 3px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 40; background: var(--sf-paper); }
+
+/* Sitefloor's bar, as on every case study */
+.sfbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--sf-paper); color: var(--sf-ink); border-bottom: 1px solid var(--sf-line); }
+.sfbar .wrap { display: flex; justify-content: space-between; align-items: center; height: 66px; gap: 16px; }
+.wm { display: flex; align-items: baseline; font-family: var(--brand); font-weight: 600; font-size: 24px; letter-spacing: -.045em; text-decoration: none; color: var(--sf-ink); }
+.wm svg { margin: 0 1px; overflow: visible; }
+.sfbar nav { display: flex; gap: 28px; font-family: var(--brand); font-size: 14px; font-weight: 600; }
+.sfbar nav a { text-decoration: none; color: var(--sf-ink); }
+.sfbar nav a[aria-current] { box-shadow: inset 0 -1.5px 0 var(--sf-ink); }
+.sfbtn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 20px; background: var(--sf-ink); color: var(--sf-paper); font: 700 12px var(--brand); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; }
+.sfbtn:hover { background: var(--sf-tomato); }
+@media (max-width: 760px) { .sfbar nav { display: none; } }
+@media (max-width: 420px) { .sfbar .sfbtn { display: none; } }
+
+/* ------------------------------------------------------------------ the thread's own header, like a DM's */
+.who { display: flex; align-items: center; gap: 14px; padding-block: 22px; border-bottom: 1px solid var(--hair); }
+.av { width: 46px; height: 46px; border-radius: 50%; background: var(--blush); display: grid; place-items: center; flex: none; }
+.av svg { width: 12px; height: 30px; }
+.who b { display: block; font: 400 17px/1.2 var(--ui); }
+.who span { font: italic 300 15px var(--msg); color: var(--soft); }
+.who .live-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #3F8F5B; margin-right: 6px; vertical-align: 1px; }
+
+/* ------------------------------------------------------------------ messages */
+.in, .out { position: relative; max-width: min(100%, 980px); }
+.in { justify-self: start; }
+.out { justify-self: end; }
+.bub { display: inline-block; padding: .34em .66em .42em; border-radius: 1.05em 1.05em 1.05em .22em; background: var(--mist); color: var(--ink); font: italic 300 clamp(40px, 7.4vw, 118px)/1.02 var(--msg); letter-spacing: -.012em; text-wrap: balance; }
+.bub.sm { font-size: clamp(30px, 4.6vw, 64px); }
+.bub .lnk { display: block; margin-top: .2em; font-size: .42em; line-height: 1.3; }
+.bub a { color: var(--peony); text-decoration-thickness: 1px; text-underline-offset: .12em; overflow-wrap: anywhere; }
+.time { display: block; margin: 12px 0 0 .3em; font: 400 13px var(--ui); color: var(--soft); }
+.out .time { text-align: right; margin: 12px .3em 0 0; }
+.typing { display: inline-flex; gap: 7px; padding: 20px 24px; border-radius: 26px 26px 26px 6px; background: var(--mist); }
+.typing i { width: 10px; height: 10px; border-radius: 50%; background: var(--soft); opacity: .5; animation: dot 1.1s infinite ease-in-out; }
+.typing i:nth-child(2) { animation-delay: .15s; } .typing i:nth-child(3) { animation-delay: .3s; }
+@keyframes dot { 40% { opacity: 1; transform: translateY(-3px); } }
+/* a reply from the site: a phone recording inside a rounded message, with the words beside it */
+.reply { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 28px clamp(28px, 4vw, 64px); align-items: end; justify-self: stretch; }
+.reply .say { justify-self: end; max-width: 46ch; text-align: right; display: grid; gap: 14px; justify-items: end; }
+.phone { position: relative; width: clamp(240px, 26vw, 340px); aspect-ratio: 390 / 844; border-radius: 34px 34px 8px 34px; overflow: hidden; background: var(--peony); padding: 8px; box-shadow: 0 30px 60px -32px rgba(29,21,23,.45); }
+.phone video, .phone img { width: 100%; height: 100%; object-fit: cover; border-radius: 27px 27px 3px 27px; background: var(--mist); }
+.phone.pair { width: clamp(200px, 20vw, 270px); }
+.phones { display: flex; gap: 14px; align-items: end; }
+.says { font: italic 300 22px/1.45 var(--msg); color: var(--ink); }
+.says b { font-style: normal; font-weight: 300; font-family: var(--ui); font-size: 19px; }
+.from { font: 400 13px var(--ui); color: var(--soft); }
+.pins { display: inline-flex; align-items: center; gap: 10px; font: 400 14px var(--ui); color: var(--peony); }
+.pins svg { width: 9px; height: 22px; }
+.pins span { padding-left: 4px; }
+@media (max-width: 760px) {
+  .reply { grid-template-columns: minmax(0, 1fr); justify-items: end; }
+  .reply .say { order: 2; }
+  .phone { width: min(78vw, 320px); }
+  .phones .phone.pair { width: min(46vw, 220px); }
+}
+
+/* a post the customer shared into the chat, as Instagram shows it */
+.shared-wrap { align-self: start; justify-self: start; }
+.shared { margin: 0; width: clamp(220px, 23vw, 320px); border-radius: 24px 24px 24px 6px; overflow: hidden; background: var(--mist); align-self: start; justify-self: start; }
+.shared figcaption { display: flex; align-items: center; gap: 10px; padding: 12px 14px; font: 400 14px var(--ui); }
+.shared figcaption .av { width: 28px; height: 28px; }
+.shared figcaption .av svg { width: 8px; height: 19px; }
+.shared img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+.shared p { padding: 12px 14px 14px; font: italic 300 16px var(--msg); color: var(--soft); }
+.shared p b { font: 400 15px var(--ui); color: var(--ink); font-style: normal; }
+.reply.has-post { grid-template-columns: auto minmax(0, 1fr) auto; }
+.shared-l { font: 400 13px var(--ui); color: var(--soft); display: block; margin-bottom: 8px; }
+@media (max-width: 760px) { .reply.has-post { grid-template-columns: minmax(0, 1fr); } .shared-wrap { order: -1; } .shared { width: min(64vw, 260px); } }
+.arrive .shared-wrap { animation: pop .6s cubic-bezier(.2,.8,.2,1) .7s both; }
+
+/* ------------------------------------------------------------------ the hero thread */
+.hero { padding-block: clamp(24px, 3vw, 44px) var(--s); }
+.thread { display: grid; gap: 22px; padding-top: clamp(28px, 4vw, 56px); }
+.hero h1 { font: 400 clamp(30px, 3.4vw, 50px)/1.1 var(--ui); max-width: 18ch; }
+.hero h1 em { font: italic 300 1.06em var(--msg); color: var(--peony); }
+.lede { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 20px 64px; align-items: end; margin-top: clamp(56px, 7vw, 104px); padding-top: 28px; border-top: 1px solid var(--hair); }
+.lede p { color: var(--soft); max-width: 48ch; }
+@media (max-width: 760px) { .lede { grid-template-columns: minmax(0, 1fr); } }
+/* arrival, once, on load; at rest everything is there */
+.hero .reply { position: relative; }
+.tw { position: absolute; right: 0; top: 0; opacity: 0; }
+.arrive .a1 { animation: pop .6s cubic-bezier(.2,.8,.2,1) .25s both; }
+.arrive .a3 > .say, .arrive .a3 > .phone { animation: pop .7s cubic-bezier(.2,.8,.2,1) 3.2s both; }
+.arrive .tw { animation: tw 2.1s ease 1.2s both; }
+@keyframes pop { from { opacity: 0; transform: translateY(14px) scale(.98); } }
+@keyframes tw { 0% { opacity: 0; } 8%, 90% { opacity: 1; } 100% { opacity: 0; } }
+
+/* ------------------------------------------------------------------ chapters */
+.ch { padding-block: var(--s) 0; }
+.ch .thread { padding-top: 0; gap: 40px; }
+.ch + .ch .thread { border-top: 1px solid var(--hair); padding-top: var(--s); }
+.ch:first-of-type .thread { border-top: 0; }
+.ch .lab { font: 400 13px var(--ui); color: var(--soft); }
+
+/* live replies */
+.livebox { width: min(100%, 560px); background: var(--mist); border-radius: 30px 30px 8px 30px; padding: 26px 28px; display: grid; gap: 14px; text-align: left; justify-self: end; }
+.livebox .k { font: 400 13px var(--ui); color: var(--soft); }
+.livebox .big { font: italic 300 clamp(26px, 3vw, 36px)/1.25 var(--msg); color: var(--ink); }
+.livebox .big b { font-weight: 400; color: var(--peony); }
+.clock { display: flex; gap: 22px; font-variant-numeric: tabular-nums; }
+.clock span { display: grid; }
+.clock b { font: 400 clamp(40px, 5vw, 64px)/1 var(--ui); color: var(--peony); }
+.clock small { font: italic 300 14px var(--msg); color: var(--soft); }
+.mk label { font: 400 13px var(--ui); color: var(--soft); }
+.mk input { width: 100%; border: 0; border-bottom: 1px solid var(--ink); background: transparent; color: var(--ink); font: 300 19px var(--msg); padding: 8px 0; border-radius: 0; }
+.mk input:focus-visible { outline: none; border-bottom: 2px solid var(--peony); }
+.mk .budg { display: flex; gap: 22px; flex-wrap: wrap; }
+.mk .budg button { all: unset; cursor: pointer; font: 400 20px var(--ui); color: var(--soft); border-bottom: 1px solid transparent; }
+.mk .budg button[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--peony); }
+.mk .budg button:focus-visible { outline: 2px solid var(--peony); outline-offset: 3px; }
+.mk .note { background: var(--paper); border-radius: 18px 18px 4px 18px; padding: 16px 18px; font: italic 300 18px/1.5 var(--msg); overflow-wrap: anywhere; }
+.mk .note.no { color: var(--peony); }
+
+/* the plans: pinned posts */
+.plans { padding-block: var(--s); background: var(--mist); margin-top: var(--s); }
+.plans-h { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 20px 64px; align-items: end; margin-bottom: clamp(36px, 5vw, 64px); }
+.plans-h h2 { font: 400 clamp(36px, 5vw, 76px)/1.02 var(--ui); }
+.plans-h h2 em { font: italic 300 1.04em var(--msg); color: var(--peony); }
+.plans-h p { color: var(--soft); max-width: 46ch; }
+.grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.post { background: var(--paper); display: grid; grid-template-rows: auto 1fr; min-width: 0; }
+.post figure { margin: 0; position: relative; aspect-ratio: 4 / 5; overflow: hidden; }
+.post figure img { width: 100%; height: 100%; object-fit: cover; }
+.post .pinned { position: absolute; left: 14px; top: 14px; display: flex; gap: 6px; background: rgba(255,255,255,.94); padding: 8px 10px; border-radius: 999px; }
+.post .pinned svg { width: 8px; height: 19px; }
+.post .tx { padding: 22px 22px 26px; display: grid; gap: 12px; align-content: start; }
+.post h3 { font: 400 26px var(--ui); display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+.post h3 small { font: italic 300 16px var(--msg); color: var(--soft); }
+.post ul { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; font-size: 16px; }
+.post li::marker { color: var(--peony); }
+.small { margin-top: 26px; color: var(--soft); font-size: 15px; max-width: 80ch; }
+@media (max-width: 900px) { .grid3 { grid-template-columns: minmax(0, 1fr); } .plans-h { grid-template-columns: minmax(0, 1fr); } .post { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); grid-template-rows: none; } .post figure { aspect-ratio: auto; min-height: 100%; } }
+@media (max-width: 520px) { .post { grid-template-columns: minmax(0, 1fr); } .post figure { aspect-ratio: 4 / 3; } }
+
+/* speed: as a message's status */
+.speed { padding-block: var(--s); }
+.speed .thread { gap: 30px; }
+.status { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--hair); }
+.status > div { padding: 22px 18px 4px 0; display: grid; gap: 6px; }
+.status .k { font: 400 13px var(--ui); color: var(--soft); }
+.status b { font: 400 clamp(32px, 3.4vw, 46px)/1 var(--ui); font-weight: 400; }
+.status p { font: italic 300 15px/1.4 var(--msg); color: var(--soft); }
+@media (max-width: 760px) { .status { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* close */
+.close { padding-block: var(--s); border-top: 1px solid var(--hair); }
+.close .thread { gap: 24px; }
+.acts { display: flex; flex-wrap: wrap; gap: 12px; justify-content: flex-end; }
+.btn { display: inline-flex; align-items: center; min-height: 52px; padding: 0 26px; border-radius: 999px; background: var(--ink); color: var(--paper); text-decoration: none; font: 400 17px var(--ui); }
+.btn:hover { background: var(--peony); }
+.btn.line { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.btn.line:hover { background: var(--ink); color: var(--paper); }
+.mail { display: block; text-align: right; font: 400 14px var(--ui); color: var(--soft); margin-top: 14px; user-select: all; }
+
+footer { background: var(--mist); color: var(--soft); font-size: 13px; line-height: 1.6; border-top: 1px solid var(--hair); }
+footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px 32px; padding-block: 28px; font-family: var(--brand); }
+footer p { max-width: 100ch; }
+@media (max-width: 600px) { footer .wrap { grid-template-columns: minmax(0, 1fr); } }
+@media (prefers-reduced-motion: reduce) { .arrive .shared-wrap, .arrive .a1, .arrive .a3 > .say, .arrive .a3 > .phone, .arrive .tw { animation: none; } .typing i { animation: none; } }
+</style>
+</head>
+<body>
+
+<div class="sfbar gut"><div class="wrap">
+  <a class="wm" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su" aria-label="Sitefloor home">sitefl<svg width="28" height="14" viewBox="0 0 42 21" aria-hidden="true"><rect x="1.9" y="1.9" width="38.2" height="17.2" rx="8.6" fill="none" stroke="#0E0F11" stroke-width="3.8"/><circle cx="31.5" cy="10.5" r="5.2" fill="#E8613C"/></svg>r</a>
+  <nav aria-label="Main"><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#live">Features</a><a href="#top" aria-current="page">Work</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#pricing">Pricing</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#guides">Guides</a></nav>
+  <a class="sfbtn" href="#mockup"><span>Free mockup</span><span aria-hidden="true">→</span></a>
+</div></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="pin" viewBox="0 0 10 26"><line x1="5" y1="9" x2="5" y2="26" stroke="#1D1517" stroke-width="1.2"/><circle cx="5" cy="5" r="4.2" fill="#FFFDF9" stroke="#C9AFA6" stroke-width="1"/><circle cx="3.6" cy="3.6" r="1.2" fill="#FFFFFF"/></symbol>
+</defs></svg>
+
+<main id="top">
+
+<section class="hero gut" aria-labelledby="h1"><div class="wrap">
+  <div class="who">
+    <span class="av"><svg aria-hidden="true"><use href="#pin"/></svg></span>
+    <div><b>laleh.demo</b><span><i class="live-dot" aria-hidden="true"></i>The website replies</span></div>
+  </div>
+  <div class="thread" id="hero-thread">
+    <div class="in a1"><p class="bub">hiya is this one still available??</p><span class="time" data-now>Today</span></div>
+    <div class="reply a3 has-post">
+      <div class="shared-wrap"><span class="shared-l">Shared a post</span><figure class="shared"><figcaption><span class="av"><svg aria-hidden="true"><use href="#pin"/></svg></span>laleh.demo</figcaption><img src="media/peony-hand.webp" width="800" height="1000" alt="Laleh's post of pink peonies held against a white wall"><p><b>Just peonies</b> · £55</p></figure></div>
+      <div class="say">
+        <p class="says"><b>Just peonies, £55. 2 left.</b> Sold out goes grey on its own. It comes from Laleh's Google Sheet, and a count she hasn't updated in three hours isn't shown at all.</p>
+        <p class="pins">
+          <svg aria-hidden="true"><use href="#pin"/></svg><span>Starter</span></p>
+      </div>
+      <span class="typing tw" aria-hidden="true"><i></i><i></i><i></i></span>
+      <figure class="phone" style="margin:0"><video src="media/hero.mp4" poster="media/hero-poster.jpg" muted loop playsinline autoplay preload="metadata" aria-label="Laleh's home page on a phone: the feed, Just peonies with 2 left, and One peony sold out"></video></figure>
+    </div>
+  </div>
+  <div class="lede">
+    <h1 id="h1">An Instagram florist's website, <em>read as her DMs.</em></h1>
+    <p>Laleh sells bouquets from a small studio in Birmingham, mostly through Instagram and TikTok. Every message below is one her customers send all day. Every reply is her Sitefloor site answering it, recorded on a phone.</p>
+  </div>
+</div></section>
+
+<section class="ch gut" aria-labelledby="c1"><div class="wrap thread">
+  <div class="in"><h2 class="bub" id="c1">can you make this one? <a class="lnk" href="#make" tabindex="-1">tiktok.com/@blooms/video/7431</a></h2><span class="time">Messages · 2 min ago</span></div>
+  <div class="reply" id="make">
+    <div class="say">
+      <p class="says"><b>Send the link.</b> A customer pastes a TikTok, Instagram or Pinterest link, picks a budget and a day, and one WhatsApp message arrives with all three. Any other link is turned away. Try it.</p>
+      <div class="livebox mk" aria-labelledby="mk-h">
+        <p class="k" id="mk-h">The real check, running here</p>
+        <div><label for="mk-l">Link to the post</label><input id="mk-l" type="url" inputmode="url" autocomplete="off" spellcheck="false" value="https://www.tiktok.com/@blooms/video/7431?is_from_webapp=1"></div>
+        <div class="budg" role="group" aria-label="Budget"><button type="button" aria-pressed="false">£30</button><button type="button" aria-pressed="true">£45</button><button type="button" aria-pressed="false">£60</button><button type="button" aria-pressed="false">£80+</button></div>
+        <p class="note" id="mk-out" aria-live="polite"></p>
+      </div>
+      <p class="pins"><svg aria-hidden="true"><use href="#pin"/></svg><span>Starter, the easy extra</span></p>
+    </div>
+    <figure class="phone" style="margin:0"><video src="media/make.mp4" poster="media/make-poster.jpg" muted loop playsinline autoplay preload="none" aria-label="Pasting a TikTok link into Send the link on a phone, choosing £60 and Saturday; the message writes itself"></video></figure>
+  </div>
+</div></section>
+
+<section class="ch gut" aria-labelledby="c2"><div class="wrap thread">
+  <div class="in"><h2 class="bub" id="c2">can u deliver today to B15</h2><span class="time">Messages · 11:48</span></div>
+  <div class="reply">
+    <div class="say">
+      <div class="livebox" aria-live="polite">
+        <p class="k">Right now, on London time, from Laleh's own delivery settings</p>
+        <p class="big" id="today-say">Checking the time…</p>
+      </div>
+      <p class="says"><b>Same-day, honest to the minute.</b> The line above the bouquets counts down to the cut-off and names the next day once it passes. A postcode answers for its own area, with that area's charge.</p>
+      <p class="pins"><svg aria-hidden="true"><use href="#pin"/></svg><span>Starter</span></p>
+    </div>
+    <figure class="phone" style="margin:0"><video src="media/today.mp4" poster="media/today-poster.jpg" muted loop playsinline autoplay preload="none" aria-label="Typing B15 2TT into the postcode check on a phone: yes, B15 today if you order by 2pm, delivery £8"></video></figure>
+  </div>
+</div></section>
+
+<section class="ch gut" aria-labelledby="c3"><div class="wrap thread">
+  <div class="in"><h2 class="bub" id="c3">how much w a card and a candle, it's for friday</h2><span class="time">Messages · 12:02</span></div>
+  <div class="reply has-post">
+    <div class="shared-wrap"><span class="shared-l">Shared a post</span><figure class="shared"><figcaption><span class="av"><svg aria-hidden="true"><use href="#pin"/></svg></span>laleh.demo</figcaption><img src="media/blush-sage.webp" width="800" height="1000" alt="Laleh's post of blush roses and sage tied with a pale ribbon" loading="lazy"><p><b>Blush and sage</b> · £48</p></figure></div>
+    <div class="say">
+      <p class="says"><b>Ask for this one.</b> Under every bouquet. It opens a card: the day, the words for the card (held to her length), the add-ons at her prices, and the message exactly as she'll read it. It goes on WhatsApp, or it's copied for an Instagram DM, because Instagram's message links can't carry words.</p>
+      <p class="pins"><svg aria-hidden="true"><use href="#pin"/></svg><span>Starter</span></p>
+    </div>
+    <figure class="phone" style="margin:0"><video src="media/ask.mp4" poster="media/ask-poster.jpg" muted loop playsinline autoplay preload="none" aria-label="The order card on a phone: Blush and sage, Friday 13 November, a card message typed in and a soy candle added; the message updates as it goes"></video></figure>
+  </div>
+</div></section>
+
+<section class="ch gut" aria-labelledby="c4"><div class="wrap thread">
+  <div class="in"><h2 class="bub" id="c4">when's the next drop??</h2><span class="time">Messages · 18:57</span></div>
+  <div class="reply has-post">
+    <div class="shared-wrap"><span class="shared-l">Replied to a story</span><figure class="shared"><figcaption><span class="av"><svg aria-hidden="true"><use href="#pin"/></svg></span>laleh.demo</figcaption><img src="media/drop-rose.webp" width="800" height="1000" alt="Laleh's post of pink roses in pink tissue, last week's drop" loading="lazy"><p><b>The Friday drop</b> · 20 made</p></figure></div>
+    <div class="say">
+      <div class="livebox" aria-live="off">
+        <p class="k" id="drop-k">Laleh's Friday drop, from here</p>
+        <p class="clock" id="drop-clock"><span><b data-d="d">00</b><small>days</small></span><span><b data-d="h">00</b><small>hours</small></span><span><b data-d="m">00</b><small>min</small></span><span><b data-d="s">00</b><small>sec</small></span></p>
+        <p class="big" id="drop-open" hidden>It's open now, until Sunday at 7pm.</p>
+      </div>
+      <p class="says"><b>The drop.</b> Twenty bouquets every Friday at 7pm. A countdown, then how many are left, read from her Sheet every minute. A count she hasn't touched for ten minutes is never shown: it says check her stories instead.</p>
+      <p class="pins"><svg aria-hidden="true"><use href="#pin"/></svg><svg aria-hidden="true"><use href="#pin"/></svg><svg aria-hidden="true"><use href="#pin"/></svg><span>Signature</span></p>
+    </div>
+    <figure class="phone" style="margin:0"><video src="media/drop.mp4" poster="media/drop-poster.jpg" muted loop playsinline autoplay preload="none" aria-label="The drop's page on a phone counting the last seconds to 7pm, then turning to Open now: 12 of 20 left, with an order button"></video></figure>
+  </div>
+</div></section>
+
+<section class="ch gut" aria-labelledby="c5"><div class="wrap thread">
+  <div class="in"><h2 class="bub" id="c5">are you going live this week</h2><span class="time">Messages · 20:14</span></div>
+  <div class="reply">
+    <div class="say">
+      <p class="says"><b>LIVE dates.</b> Her next TikTok and Instagram LIVEs, each into the customer's own calendar with a reminder fifteen minutes before. They drop off the page once they've ended.</p>
+      <p class="pins"><svg aria-hidden="true"><use href="#pin"/></svg><svg aria-hidden="true"><use href="#pin"/></svg><span>Plus, the easy extra</span></p>
+    </div>
+    <figure class="phone" style="margin:0"><img src="media/live.jpg" width="780" height="1688" loading="lazy" alt="Come to a LIVE on a phone: the next sessions on TikTok and Instagram with their dates, times and Add to my calendar"></figure>
+  </div>
+</div></section>
+
+<section class="ch gut" aria-labelledby="c6"><div class="wrap thread">
+  <div class="in"><h2 class="bub" id="c6">can i have it in blush, the big one</h2><span class="time">Messages · 21:03</span></div>
+  <div class="reply has-post">
+    <div class="shared-wrap"><span class="shared-l">Shared a post</span><figure class="shared"><figcaption><span class="av"><svg aria-hidden="true"><use href="#pin"/></svg></span>laleh.demo</figcaption><img src="media/card.webp" width="800" height="1000" alt="Laleh's post of blush roses and lisianthus with a card tucked in" loading="lazy"><p><b>Blush, with a card</b> · from £45</p></figure></div>
+    <div class="say">
+      <p class="says"><b>Build your bouquet.</b> A colour and a size, and each choice is a bouquet she's made and photographed. Where a size isn't photographed, the nearest one shows and says so. Never a drawing.</p>
+      <p class="pins"><svg aria-hidden="true"><use href="#pin"/></svg><svg aria-hidden="true"><use href="#pin"/></svg><svg aria-hidden="true"><use href="#pin"/></svg><span>Signature</span></p>
+    </div>
+    <figure class="phone" style="margin:0"><video src="media/build.mp4" poster="media/build-poster.jpg" muted loop playsinline autoplay preload="none" aria-label="Build your bouquet on a phone: choosing ivory, white and green, then blush, then Large, the photograph changing with each"></video></figure>
+  </div>
+</div></section>
+
+<section class="ch gut" aria-labelledby="c7"><div class="wrap thread">
+  <div class="in"><h2 class="bub" id="c7">hiii where's my order</h2><span class="time">Messages · 14:26</span></div>
+  <div class="reply">
+    <div class="say">
+      <p class="says"><b>Your order.</b> From the reference in her message: being made, on its way, delivered, with her note at each step and a photo of the actual bouquet before it leaves. She updates one row of her Sheet.</p>
+      <p class="pins"><svg aria-hidden="true"><use href="#pin"/></svg><svg aria-hidden="true"><use href="#pin"/></svg><svg aria-hidden="true"><use href="#pin"/></svg><span>Signature</span></p>
+    </div>
+    <figure class="phone" style="margin:0"><video src="media/order.mp4" poster="media/order-poster.jpg" muted loop playsinline autoplay preload="none" aria-label="Following order LAL7Q2 on a phone: being made, then on its way with the florist's note and a photo of the bouquet in kraft and blush tissue"></video></figure>
+  </div>
+</div></section>
+
+<section class="ch gut" aria-labelledby="c8"><div class="wrap thread">
+  <div class="in"><h2 class="bub" id="c8">do you do birthday ones? and harborne?</h2><span class="time">Messages · 09:41</span></div>
+  <div class="reply">
+    <div class="say">
+      <p class="says"><b>A page for every day, and every area.</b> Birthday, anniversary, new baby, thank you and love, each with what she'd make, the price and words for the card. Every delivery area has its own page with its own cut-off and charge: the pages people find when they search.</p>
+      <p class="pins"><svg aria-hidden="true"><use href="#pin"/></svg><svg aria-hidden="true"><use href="#pin"/></svg><span>Plus</span></p>
+    </div>
+    <div class="phones">
+      <figure class="phone pair" style="margin:0"><img src="media/occasions.jpg" width="780" height="1688" loading="lazy" alt="The birthday page on a phone: a pink and lilac bouquet, the price and three bouquets to ask for"></figure>
+      <figure class="phone pair" style="margin:0"><img src="media/area.jpg" width="780" height="1688" loading="lazy" alt="The B17 Harborne delivery page on a phone: order by times, a £10 delivery charge and the streets"></figure>
+    </div>
+  </div>
+</div></section>
+
+<section class="plans gut" id="mockup" aria-labelledby="h-p"><div class="wrap">
+  <div class="plans-h">
+    <h2 id="h-p">Pin one, two <em>or three.</em></h2>
+    <p>Instagram lets a florist pin three posts to the top of her profile. The plans work the same way. Each runs on a 12-month minimum, then a month's notice, and any single feature can be added to a smaller plan.</p>
+  </div>
+  <div class="grid3">
+    <article class="post">
+      <figure><img src="media/peony-hand.webp" width="800" height="1000" loading="lazy" alt="A hand holding pink peonies against a white wall"><span class="pinned" aria-hidden="true"><svg><use href="#pin"/></svg></span></figure>
+      <div class="tx"><h3>Starter <small>£99 + £25 a month</small></h3>
+        <ul><li>The home page and Collect and visit</li><li>Today's bouquets, with what's left from her Sheet</li><li>Ask for this one, for WhatsApp or Instagram</li><li>Same-day delivery and the postcode check</li><li>Send the link</li></ul></div>
+    </article>
+    <article class="post">
+      <figure><img src="media/blush-sage.webp" width="800" height="1000" loading="lazy" alt="Blush roses and sage tied with a pale ribbon"><span class="pinned" aria-hidden="true"><svg><use href="#pin"/></svg><svg><use href="#pin"/></svg></span></figure>
+      <div class="tx"><h3>Plus <small>£199 + £30 a month</small></h3>
+        <ul><li>Up to five pages</li><li>LIVE dates, into the customer's calendar</li><li>Occasion pages, with words for the card</li><li>A page for each delivery area</li><li>The flower care card, with its QR code</li></ul></div>
+    </article>
+    <article class="post">
+      <figure><img src="media/drop-rose.webp" width="800" height="1000" loading="lazy" alt="Pink roses wrapped in pink tissue"><span class="pinned" aria-hidden="true"><svg><use href="#pin"/></svg><svg><use href="#pin"/></svg><svg><use href="#pin"/></svg></span></figure>
+      <div class="tx"><h3>Signature <small>£349 + £35 a month</small></h3>
+        <ul><li>Up to 20 pages</li><li>The weekly drop: a countdown, then what's left</li><li>Build your bouquet from her own photographs</li><li>Your order, with the photo before it leaves</li></ul></div>
+    </article>
+  </div>
+  <p class="small">Running costs stay at nothing beyond hosting. What's left, the drop's count and every order's progress live in the florist's own Google Sheet, prices and bouquets in the site's settings, and every order arrives on WhatsApp.</p>
+</div></section>
+
+<section class="speed gut" aria-labelledby="h-sp"><div class="wrap thread">
+  <div class="in"><h2 class="bub sm" id="h-sp">does it take ages to load</h2><span class="time">Messages · 22:51</span></div>
+  <div class="status">
+    <div><span class="k">Performance</span><b>100</b><p>Lighthouse, mobile, on Laleh's home page: 100 on all three runs</p></div>
+    <div><span class="k">On screen</span><b>1.1 s</b><p>The largest picture by 1.5 to 1.7 s</p></div>
+    <div><span class="k">Nothing moves</span><b>0</b><p>Layout shift, with the feed placed before the page's script runs</p></div>
+    <div><span class="k">Accessibility</span><b>100</b><p>And 63 KB of fonts, served by the site itself</p></div>
+  </div>
+  <span class="time">Delivered</span>
+</div></section>
+
+<section class="close gut" aria-labelledby="h-cl"><div class="wrap thread">
+  <div class="in"><h2 class="bub" id="h-cl">ok how do i get one</h2><span class="time" data-now>Today</span></div>
+  <div class="out">
+    <p class="says" style="text-align:right;max-width:44ch;margin-left:auto">Send us your Instagram handle. We'll make a free mockup of your home page with your own bouquets and prices on it.</p>
+    <div class="acts" style="margin-top:22px">
+      <a class="btn" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#free">Get a free mockup</a>
+      <a class="btn line" href="https://claude.ai/artifact/5pAWxZ8gjSmVU8ws3EXSJb">Try Laleh's site</a>
+    </div>
+    <span class="mail">hello@sitefloor.com</span>
+  </div>
+</div></section>
+
+</main>
+
+<footer class="gut"><div class="wrap">
+  <p>Laleh is a fictional florist made to show the Sitefloor florist kit. Its bouquets, prices, drops, LIVE dates, delivery areas, orders and address are demo data, and its Instagram and TikTok handles aren't real accounts. Its photographs are free stock from Pexels, each credited in our records. Client sites use the florist's own photographs, prices and Google Sheet.</p>
+  <span>© 2026 Sitefloor</span>
+</div></footer>
+
+<script>
+(() => {
+  const TZ = "Europe/London";
+  // London wall time, without a library
+  const parts = (d) => Object.fromEntries(new Intl.DateTimeFormat("en-GB", { timeZone: TZ, weekday: "short", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", second: "2-digit", hourCycle: "h23" }).formatToParts(d).map((p) => [p.type, p.value]));
+  const offset = (d) => { const p = parts(d); return Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour, +p.minute, +p.second) - Math.floor(d.getTime() / 1000) * 1000; };
+  const at = (y, m, d, h, mi) => { const guess = Date.UTC(y, m - 1, d, h, mi); return guess - offset(new Date(guess)); };
+  const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  // the visitor's own clock on "today" messages
+  const hhmm = new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit" }).format(new Date());
+  document.querySelectorAll("[data-now]").forEach((el) => { el.textContent = `Today ${hhmm}`; });
+
+  // the hero arrives once
+  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.getElementById("hero-thread").classList.add("arrive");
+
+  // Send the link: the demo's own check (TikTok, Instagram, Pinterest hosts only; tracking stripped)
+  const HOSTS = /^(?:www\.|m\.|vm\.|vt\.|uk\.)?(tiktok\.com|instagram\.com|pinterest\.(?:com|co\.uk)|pin\.it)$/;
+  const link = document.getElementById("mk-l"), out = document.getElementById("mk-out");
+  let budget = "£45";
+  const mk = () => {
+    let u = null; try { u = new URL(link.value.trim()); } catch {}
+    const ok = u && (u.protocol === "https:" || u.protocol === "http:") && HOSTS.test(u.hostname.toLowerCase());
+    if (!ok) { out.textContent = link.value.trim() ? "That link isn't from TikTok, Instagram or Pinterest." : "Paste a link from TikTok, Instagram or Pinterest."; out.classList.add("no"); return; }
+    const sat = new Date(); sat.setDate(sat.getDate() + ((6 - sat.getDay() + 7) % 7 || 7));
+    const when = sat.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" });
+    out.textContent = `Hi Laleh, can you do this one? https://${u.hostname.toLowerCase()}${u.pathname} Budget ${budget}, for ${when}.`; out.classList.remove("no");
+  };
+  document.querySelectorAll(".budg button").forEach((b) => b.addEventListener("click", () => {
+    document.querySelectorAll(".budg button").forEach((x) => x.setAttribute("aria-pressed", String(x === b))); budget = b.textContent; mk();
+  }));
+  link.addEventListener("input", mk); mk();
+
+  // Same-day for B15, from Laleh's own demo settings (sites/demos/florist-social/site.json: delivery and the B15
+  // area) and the kit's own logic and wording (src/kits/florist/lib/delivery.js: sameDay, postcodeAnswer).
+  const DELIVERY = {
+    cutoffs: { sun: null, mon: null, tue: "14:00", wed: "14:00", thu: "14:00", fri: "16:00", sat: "12:00" },
+    closed: ["2026-12-25", "2026-12-26", "2027-01-01"], dates: { "2026-12-24": "11:00" }, fee: 8,
+  };
+  const B15 = { sat: "11:00" }; // Edgbaston's own Saturday cut-off
+  // England and Wales bank holidays (Laleh closes on them), from src/core/lib/bank-holidays.js
+  const HOLIDAYS = ["2026-01-01","2026-04-03","2026-04-06","2026-05-04","2026-05-25","2026-08-31","2026-12-25","2026-12-28","2027-01-01","2027-03-26","2027-03-29","2027-05-03","2027-05-31","2027-08-30","2027-12-27","2027-12-28","2028-01-03","2028-04-14","2028-04-17","2028-05-01","2028-05-29","2028-08-28","2028-12-25","2028-12-26"];
+  const KEYS = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"], NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const cuts = { ...DELIVERY.cutoffs, ...B15 };
+  const toMin = (hhmm) => { const [h, m] = hhmm.split(":").map(Number); return h * 60 + m; };
+  const label = (hhmm) => { const m = toMin(hhmm), h = Math.floor(m / 60), mi = m % 60; return `${h % 12 || 12}${mi ? "." + String(mi).padStart(2, "0") : ""}${h < 12 ? "am" : "pm"}`; };
+  const addDays = (iso, n) => { const d = new Date(`${iso}T12:00:00Z`); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); };
+  const cutOn = (date, wd) => (date in DELIVERY.dates ? DELIVERY.dates[date] : cuts[KEYS[wd]]);
+  const shut = new Set([...DELIVERY.closed, ...HOLIDAYS]);
+  const today = document.getElementById("today-say");
+  const sameDay = () => {
+    const p = parts(new Date()), date = `${p.year}-${p.month}-${p.day}`, wd = DAYS.indexOf(p.weekday), mins = +p.hour * 60 + +p.minute;
+    const c = cutOn(date, wd), tail = ` Delivery £${DELIVERY.fee}.`;
+    if (c && !shut.has(date) && mins < toMin(c)) { today.innerHTML = `<b>Yes</b>, B15 today if you order by ${label(c)}.${tail}`; return; }
+    for (let i = 1; i <= 21; i++) {
+      const d = addDays(date, i), w = (wd + i) % 7, n = cutOn(d, w);
+      if (n && !shut.has(d)) { today.innerHTML = `<b>Yes</b>, B15: next delivery ${i === 1 ? "tomorrow" : NAMES[w]}, order by ${label(n)}.${tail}`; return; }
+    }
+    today.textContent = `Yes, we deliver to B15.${tail}`;
+  };
+  sameDay(); setInterval(sameDay, 30000);
+
+  // The drop: every Friday at 7pm, London, open 48 hours
+  const clock = document.getElementById("drop-clock"), open = document.getElementById("drop-open"), k = document.getElementById("drop-k");
+  const nextDrop = () => {
+    const now = Date.now(), p = parts(new Date(now));
+    const back = (DAYS.indexOf(p.weekday) - 5 + 7) % 7; // days since Friday
+    const fri = new Date(Date.UTC(+p.year, +p.month - 1, +p.day - back, 12));
+    let opens = at(fri.getUTCFullYear(), fri.getUTCMonth() + 1, fri.getUTCDate(), 19, 0);
+    if (opens + 48 * 3600000 <= now) { const n = new Date(fri.getTime() + 7 * 86400000); opens = at(n.getUTCFullYear(), n.getUTCMonth() + 1, n.getUTCDate(), 19, 0); }
+    return opens;
+  };
+  const tick = () => {
+    const opens = nextDrop(), ms = opens - Date.now();
+    if (ms <= 0) { clock.hidden = true; open.hidden = false; k.textContent = "Laleh's Friday drop"; return; }
+    clock.hidden = false; open.hidden = true;
+    const s = Math.floor(ms / 1000), v = { d: Math.floor(s / 86400), h: Math.floor(s % 86400 / 3600), m: Math.floor(s % 3600 / 60), s: s % 60 };
+    for (const key in v) clock.querySelector(`[data-d="${key}"]`).textContent = String(v[key]).padStart(2, "0");
+    clock.setAttribute("aria-label", `${v.d} days ${v.h} hours ${v.m} minutes until the drop`);
+  };
+  tick(); setInterval(tick, 1000);
+
+  // videos play only while on screen (and not at all when asked for less motion)
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const vids = [...document.querySelectorAll("video")];
+  if (still) vids.forEach((v) => { v.removeAttribute("autoplay"); v.pause(); });
+  else if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.preload = "auto"; e.target.play().catch(() => {}); } else e.target.pause(); }), { rootMargin: "200px" });
+    vids.forEach((v) => io.observe(v));
+  }
+})();
+</script>
+</body>
+</html>

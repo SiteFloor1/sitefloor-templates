@@ -1,0 +1,18 @@
+{#- From the bench, on the home page: one commission as two photographs, the drawing and the finished piece, the weeks
+    between them, and its steps as one line of words. -#}
+{%- set ST = site.stories %}
+{%- set s = ST.items[0] %}
+{%- set first = s.steps[0] %}{% set last = s.steps[s.steps.length - 1] %}
+<section id="stories" class="nc-sec jw-bench2" data-feature="sketch-to-ring"{{ "sketch-to-ring" | tierAttr | safe }} aria-labelledby="jw-bench2-h"><div class="wrap">
+  <div class="jw-bench2-t rv">
+    <h2 class="jw-h" id="jw-bench2-h">{{ site.sections.stories.title }}</h2>
+    <p class="jw-say">{{ s.title }}. {{ s.line }}</p>
+  </div>
+  <div class="jw-bench2-pair">
+    <figure class="rv"><img src="{{ first.photo.src | cardSrc | img }}" width="900" height="1125" loading="lazy" decoding="async" alt="{{ first.photo.alt }}"><figcaption class="nc-label nc-muted">{{ first.caption }}</figcaption></figure>
+    <p class="jw-bench2-w" aria-hidden="true">{{ s.weeks }}</p>
+    <figure class="rv"><img src="{{ last.photo.src | cardSrc | img }}" width="900" height="1125" loading="lazy" decoding="async" alt="{{ last.photo.alt }}"><figcaption class="nc-label nc-muted">{{ last.caption }}</figcaption></figure>
+  </div>
+  <p class="jw-all">{% if "bespoke" | enabled %}<a class="nc-u nc-label" href="{{ 'bespoke' | href }}">Begin a commission</a>{% endif %}<a class="nc-u nc-label" href="{{ 'stories' | href }}">The whole story</a></p>
+  {%- if ST.demoNote %}<p class="nc-fine">{{ ST.demoNote }}</p>{% endif %}
+</div></section>

@@ -1,0 +1,19 @@
+{#- The packages: hours of coverage, the films and photographs, the price; the deposit in the studio's words. Set as
+    a list of plain rows, not cards: name and price on one line, what's in it under. -#}
+{%- set sec = site.sections.packages %}
+<section id="packages" class="wf-pk" aria-labelledby="pk-h"><div class="wrap wf-pk-in">
+  <h2 id="pk-h" class="wf-h2">{{ sec.title | markup | safe }}</h2>
+  {%- if sec.intro %}<p class="wf-lead">{{ sec.intro }}</p>{% endif %}
+  <ol class="wf-pk-list">
+    {%- for p in site.packages.items %}
+    <li class="wf-pk-row" id="pk-{{ p.id }}">
+      <h3 class="wf-pk-n">{{ p.name }}</h3>
+      <p class="wf-pk-p">{{ p.price | gbp }}</p>
+      <p class="wf-pk-h">{{ p.hours }}</p>
+      <ul class="wf-pk-w">{% for f in p.films %}<li>{{ f }}</li>{% endfor %}{% if p.photographs %}<li>{{ p.photographs }}</li>{% endif %}</ul>
+      {%- if p.text %}<p class="wf-pk-t">{{ p.text }}</p>{% endif %}
+    </li>
+    {%- endfor %}
+  </ol>
+  <p class="wf-small">{{ site.packages.deposit }}{% if site.packages.note %} {{ site.packages.note }}{% endif %}</p>
+</div></section>

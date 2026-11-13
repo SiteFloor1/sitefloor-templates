@@ -1,0 +1,33 @@
+/* For our neighbours: the district large, then this week, the hours and how to reach us in three plain blocks.
+   Tokens only. */
+.bd-nb { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: clamp(24px, 4vw, 48px); padding-bottom: clamp(64px, 9vw, 112px); }
+.bd-nb-where { grid-column: 1 / -1; display: flex; align-items: baseline; gap: clamp(16px, 3vw, 40px); border-bottom: 1px solid var(--line); padding-bottom: 20px; }
+.bd-nb-code { margin: 0; font-family: var(--font-display); font-size: clamp(64px, 10vw, 128px); line-height: .9; }
+.bd-nb-work { margin: 0; font-size: 17px; }
+.bd-nb-work span { display: block; color: var(--muted); font-size: 14px; margin-top: 4px; }
+.bd-nb-week { grid-column: 1 / span 7; }
+.bd-nb-hours { grid-column: 8 / span 5; }
+.bd-nb-reach { grid-column: 1 / span 7; }
+.bd-nb h2 { margin: 0 0 14px; }
+.bd-nb-when { margin: 0 0 8px; font-size: 13px; color: var(--muted); }
+.bd-nb-line { margin: 0 0 16px; font-family: var(--font-display); font-size: clamp(21px, 2.2vw, 27px); line-height: 1.25; }
+.bd-nb-dl { margin: 0; border-top: 1px solid var(--line); }
+.bd-nb-dl div { display: grid; grid-template-columns: 9em 1fr; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.bd-nb-dl dt { color: var(--muted); font-size: 14px; }
+.bd-nb-dl dd { margin: 0; }
+.bd-nb-off { margin: 0; color: var(--muted); }
+.bd-nb-hours ul { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+.bd-nb-hours li { padding: 10px 0; border-bottom: 1px solid var(--line); }
+.bd-nb-promise { margin-top: 18px !important; border-top: 0 !important; }
+.bd-nb-promise li { border: 0; padding: 4px 0 4px 18px; position: relative; color: var(--muted); font-size: 14px; }
+.bd-nb-promise li::before { content: ""; position: absolute; left: 0; top: .85em; width: 8px; height: 2px; background: var(--accent); }
+.bd-nb-reach p { margin: 0 0 16px; max-width: 52ch; }
+.bd-nb-acts { display: flex; flex-wrap: wrap; gap: 10px; }
+.bd-nb .bd-btn-q { background: transparent; color: var(--text); box-shadow: inset 0 0 0 1px var(--text); }
+.bd-nb .bd-btn-q:hover { background: var(--text); color: var(--bg); }
+@media (max-width: 760px) {
+  .bd-nb-week, .bd-nb-hours, .bd-nb-reach { grid-column: 1 / -1; }
+  .bd-nb-where { flex-direction: column; gap: 6px; }
+  .bd-nb-dl div { grid-template-columns: 1fr; gap: 2px; }
+  .bd-nb-acts .bd-btn { flex: 1 1 100%; justify-content: center; }
+}

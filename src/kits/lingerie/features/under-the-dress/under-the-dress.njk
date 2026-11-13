@@ -1,0 +1,17 @@
+{#- Under the dress: choose the dress; the shop's advice for what works under it and its pieces. Without JavaScript
+    every option shows. -#}
+<section id="under" class="ls-ud" data-feature="under-the-dress"><div class="wrap">
+  <div class="ud-chips" role="group" aria-label="The dress" data-js-only>
+    {%- for o in site.underDress.options %}<button type="button" class="ud-chip" data-ud="{{ o.id }}" aria-pressed="{{ 'true' if loop.first else 'false' }}">{{ o.label }}</button>{% endfor %}
+  </div>
+  {%- for o in site.underDress.options %}
+  <div class="ud-ans" data-ud-ans="{{ o.id }}">
+    <div class="ud-head">
+      {%- if o.photo %}<figure class="ud-ph">{% set ph = o.photo %}{% include "kits/lingerie/partials/photo.njk" %}</figure>{% endif %}
+      <div><h2 class="ud-h">{{ o.label }}</h2><p class="ud-adv">{{ o.advice }}</p></div>
+    </div>
+    {%- set udPieces = site.pieces | piecesWhere({ ids: o.pieces }) | notShown([o.photo.src] if o.photo else []) %}
+    {%- if udPieces.length %}<div class="pc-row">{% for p in udPieces %}{% include "kits/lingerie/partials/piece-card.njk" %}{% endfor %}</div>{% endif %}
+  </div>
+  {%- endfor %}
+</div></section>

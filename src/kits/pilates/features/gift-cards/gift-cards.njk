@@ -1,0 +1,36 @@
+{#- Gift class cards: choose a card, write who it's for; the card updates as you type. Pay with the studio's own Stripe
+    link, then send the details on WhatsApp so the studio writes and hands over the card. -#}
+{%- set sec = site.sections.giftCards %}
+{%- set g = site.giftCards %}
+<section id="gifts" class="pl-gift" data-feature="gift-cards" aria-labelledby="pl-gift-h"{{ 'gift-cards' | tierAttr | safe }}><div class="wrap pl-gift-in">
+  <div class="pl-gift-l">
+    <h2 class="pl-gift-h" id="pl-gift-h">{{ sec.title | markup | safe }}</h2>
+    {%- if sec.intro %}<p class="pl-gift-i">{{ sec.intro }}</p>{% endif %}
+    <form class="pl-gift-f" data-gc-form>
+      <fieldset><legend class="sr-only">Card</legend>
+        {%- for c in g.items %}
+        <label class="pl-gift-o"><input type="radio" name="gc-card" id="gc-{{ c.id }}" value="{{ c.id }}"{% if loop.first %} checked{% endif %}><b>{{ c.name }}</b><span>{{ c.text }}{% if c.price %} · {{ c.price | gbpWhole }}{% endif %}</span></label>
+        {%- endfor %}
+      </fieldset>
+      <div class="pl-gift-two">
+        <label for="gc-to">For<input id="gc-to" name="gc-to" autocomplete="off" maxlength="40"></label>
+        <label for="gc-from">From<input id="gc-from" name="gc-from" autocomplete="off" maxlength="40"></label>
+      </div>
+      <label for="gc-line">A line for the card<input id="gc-line" name="gc-line" autocomplete="off" maxlength="90"></label>
+    </form>
+  </div>
+  <div class="pl-gift-r">
+    <div class="pl-gcard" aria-hidden="true">
+      <p class="pl-gcard-n" data-gc-name>{{ g.items[0].name }}</p>
+      <p class="pl-gcard-to" data-gc-to>For someone</p>
+      <p class="pl-gcard-line" data-gc-line></p>
+      <p class="pl-gcard-from" data-gc-from></p>
+      <p class="pl-gcard-by">{{ site.business.name }}</p>
+    </div>
+    <p class="pl-gift-how">{{ g.howItWorks }}</p>
+    <p class="pl-gift-go">
+      <a class="pl-gift-pay" href="{{ g.items[0].payLink }}" target="_blank" rel="noopener" data-gc-pay{% if site.mode == "demo" %} data-demo-note="On a live site this opens the studio's own Stripe page for the card. This demo uses a Stripe test link, so nothing is charged."{% endif %}>Pay by card</a>
+      <a class="pl-gift-wa" href="{{ g.message | book }}" target="_blank" rel="noopener" data-gc-send>Send the details on WhatsApp</a>
+    </p>
+  </div>
+</div></section>

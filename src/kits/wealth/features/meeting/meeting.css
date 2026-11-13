@@ -1,0 +1,18 @@
+.wm-meet { padding-bottom: clamp(80px, 9vw, 128px); }
+.wm-meet-in { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: 48px 72px; align-items: start; }
+.wm-meet-f { display: grid; gap: 22px; max-width: 640px; }
+.wm-field { margin: 0; display: grid; gap: 6px; border: 0; padding: 0; }
+.wm-field label, .wm-field legend { font-size: 14px; color: var(--muted); padding: 0; }
+.wm-field input:not([type="radio"]), .wm-field select { font: 300 17px var(--font-body); color: var(--text); background: transparent; border: 0; border-bottom: 1px solid var(--line-2); border-radius: 0; padding: 10px 0; min-height: 48px; width: 100%; }
+.wm-field input:focus, .wm-field select:focus { outline: none; border-bottom-color: var(--accent); }
+.wm-meet-where label { display: flex; align-items: center; gap: 10px; min-height: 44px; color: var(--text); font-size: 16px; }
+.wm-meet-where input { accent-color: var(--accent); width: 18px; height: 18px; }
+.wm-meet-warn { margin: 0; font-size: 14px; color: var(--muted); border-left: 1px solid var(--accent); padding-left: 14px; }
+.wm-meet-err { margin: 0; color: var(--text); font-weight: 400; }
+.wm-meet-send { display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: center; margin: 4px 0 0; }
+.wm-meet-done { margin: 0; }
+@media (max-width: 900px) { .wm-meet-in { grid-template-columns: 1fr; } }
+
+/* Keep the space for the controls while the script starts, so the page below never jumps (CLS). Without
+   JavaScript the core rule still removes them. */
+@media (scripting: enabled) { [data-feature]:not([data-ready]) .wm-meet-f[data-js-only] { display: grid !important; } [data-feature]:not([data-ready]) .wm-meet-f[data-js-only] { visibility: hidden; } }

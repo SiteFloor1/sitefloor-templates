@@ -1,0 +1,11 @@
+/* The people page: portraits in a quiet grid, all one ratio; a person without a portrait is just their words. */
+.lw-pg { padding-block: 0 var(--s4, 96px); }
+.lw-pg-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: clamp(32px, 4vw, 56px) clamp(20px, 3vw, 40px); }
+.lw-pg-p { border-top: 1px solid var(--line-2); padding-top: 18px; scroll-margin-top: 96px; }
+.lw-pg-fig { margin: 0 0 16px; aspect-ratio: 4 / 5; overflow: hidden; max-width: 100%; background: var(--surface); }
+.lw-pg-fig img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.lw-pg-n { margin: 0; font-size: clamp(22px, 2vw, 28px); line-height: 1.15; }
+.lw-pg-r { margin: 4px 0 0; color: var(--muted); }
+.lw-pg-note { margin: 12px 0 0; }
+.lw-pg-meta { margin: 12px 0 0; font-size: 14px; font-variant-numeric: tabular-nums; }
+.lw-pg-reg { margin-top: 48px; color: var(--muted); font-size: 14px; }

@@ -1,0 +1,22 @@
+{#- Quail header: "Menu" on the left opens every page; the name in spaced capitals in the middle; Book on the right as a
+    chip in the shade on the hand. -#}
+{%- set worn = site.shades | shade(site.hero.hands[0].wearing) %}
+{%- set open = site.menu.message if site.menu else site.messages.general %}
+{%- if "usual-set" | enabled %}<span data-feature="usual-set" data-yu-listen hidden></span>{% endif %}
+<header class="nav ql-nav"><div class="wrap ql-nav-in">
+  <button class="burger ql-menu" type="button" aria-expanded="false" aria-controls="mnav"><span class="ql-open">Menu</span><span class="ql-close">Close</span></button>
+  <a class="ql-mark" href="{{ 'index' | href }}" aria-label="{{ site.business.name }}, home">{% if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="{{ site.business.name }}" height="26">{% else %}<span class="ql-word">{{ site.business.name }}</span>{% endif %}</a>
+  <a class="ql-chip ql-chip-s{% if worn.hex | darkShade %} is-dark{% endif %}" style="--shade: {{ worn.hex }}" data-sh-book href="{{ open | shadeText(worn) | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ open | shadeText(worn) }}"{% endif %} target="_blank" rel="noopener">Book</a>
+</div></header>
+<div class="mnav ql-sheet" id="mnav" hidden><div class="wrap ql-sheet-in">
+  <nav aria-label="Pages">
+    <a href="{{ 'index' | href }}"{% if pageId == "index" %} aria-current="page"{% endif %}>The counter</a>
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+  </nav>
+  <div class="ql-sheet-side">
+    <p class="ql-sheet-now" data-live-status><span class="dot" aria-hidden="true"></span> <span data-status-text>Opening hours</span></p>
+    <p>{{ site.location.streetAddress }}<br>{{ site.location.locality }} {{ site.location.postcode }}</p>
+  </div>
+</div></div>

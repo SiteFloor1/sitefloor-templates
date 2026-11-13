@@ -1,0 +1,22 @@
+{#- Coating and film explained: the studio's line and the two side by side (what each does, what it doesn't) beside
+    one large photograph of water on coated paint. The words sit close to the picture, so there is no empty column. -#}
+{%- set sec = site.sections.explained %}
+{%- set e = site.explained %}
+<section id="coating" class="dt-ex" data-feature="coating-explained" aria-label="{{ sec.title | plain }}"><div class="wrap dt-ex-in">
+  <div class="dt-ex-words">
+    {%- include "core/partials/section-head.njk" %}
+    <div class="dt-ex-two">
+      {%- for k in ["coating", "film"] %}{% set x = e[k] %}
+      <div class="dt-ex-col">
+        <h3>{{ x.name }}</h3>
+        <ul class="dt-ex-does" aria-label="What it does">{% for d in x.does %}<li>{{ d }}</li>{% endfor %}</ul>
+        <ul class="dt-ex-not" aria-label="What it doesn't do">{% for d in x.doesnt %}<li>{{ d }}</li>{% endfor %}</ul>
+      </div>
+      {%- endfor %}
+    </div>
+  </div>
+  <figure class="dt-ex-ph">
+    <img src="{{ e.photo.src | img }}" alt="{{ e.photo.alt }}" width="{{ e.photo.width }}" height="{{ e.photo.height }}" loading="lazy" decoding="async">
+    {%- if e.photo.caption %}<figcaption>{{ e.photo.caption }}</figcaption>{% endif %}
+  </figure>
+</div></section>

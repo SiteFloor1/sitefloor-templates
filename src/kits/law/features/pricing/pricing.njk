@@ -1,0 +1,40 @@
+{#- Prices and service information (SRA Transparency Rules, rule 1): for each service the rules list that the firm
+    offers, the price or how it is worked out, VAT, disbursements, what is and isn't included, the stages, how long it
+    takes and who does the work. Every figure is the firm's own. -#}
+{%- set pr = site.pricing %}
+{%- set ph = { title: pr.title, intro: pr.intro } %}
+{% include "kits/law/partials/page-head.njk" %}
+<div class="wrap lw-pricing">
+  <p class="lw-pricing-vat">{% if pr.vatRegistered %}Prices are shown before VAT and with VAT at 20%.{% else %}We are not registered for VAT, so no VAT is added to our fees.{% endif %} Checked {{ pr.updated | ukDate }}.{% if site.mode == "demo" %} <b>Demo figures, for illustration only.</b>{% endif %}</p>
+  {%- if not pr.services.length %}<p>We don't offer any of the services the SRA asks firms to publish prices for. Ask us for a quote for your matter.</p>{% endif %}
+  {%- for s in pr.services %}
+  <section class="lw-svc" id="{{ s.service }}" aria-labelledby="svc-{{ s.service }}">
+    <h2 class="lw-svc-t" id="svc-{{ s.service }}">{{ s.name }}</h2>
+    <p class="lw-svc-k">{{ s.service | serviceLabel }}</p>
+    <p class="lw-svc-price">
+      {%- if s.price.fixed is defined %}A fixed fee of {{ s.price.fixed | gbp }}{% if pr.vatRegistered %} ({{ s.price.fixed | withVat | gbp }} with VAT){% endif %}
+      {%- elif s.price.from is defined %}From {{ s.price.from | gbp }} to {{ s.price.to | gbp }}{% if pr.vatRegistered %} ({{ s.price.from | withVat | gbp }} to {{ s.price.to | withVat | gbp }} with VAT){% endif %}
+      {%- else %}{{ s.price.hourly | gbp }} an hour{% if pr.vatRegistered %} ({{ s.price.hourly | withVat | gbp }} with VAT){% endif %}{% endif %}</p>
+    <p class="lw-svc-basis">{{ s.basis }}</p>
+    <div class="lw-svc-grid">
+      <div><h3>Included</h3><ul>{% for x in s.includes %}<li>{{ x }}</li>{% endfor %}</ul></div>
+      <div><h3>Not included</h3><ul>{% for x in s.excludes %}<li>{{ x }}</li>{% endfor %}</ul></div>
+      <div><h3>The stages</h3><ol>{% for x in s.stages %}<li>{{ x }}</li>{% endfor %}</ol></div>
+      <div><h3>How long it takes</h3><p>{{ s.timescale }}</p></div>
+    </div>
+    {%- if s.disbursements.length %}
+    <h3 class="lw-svc-h">Disbursements</h3>
+    <p class="lw-svc-note">Costs paid to others on your behalf, at cost.</p>
+    <table class="lw-disb"><thead><tr><th scope="col">For</th><th scope="col">Amount</th><th scope="col">VAT</th></tr></thead><tbody>
+      {%- for d in s.disbursements %}<tr><th scope="row">{{ d.name }}{% if d.note %}<span>{{ d.note }}</span>{% endif %}</th><td>{{ (d.amount | gbp) if d.amount is number else "Varies" }}</td><td>{{ "Added" if d.vat else "None" }}</td></tr>{% endfor %}
+    </tbody></table>
+    {%- endif %}
+    <h3 class="lw-svc-h">Who does the work</h3>
+    <ul class="lw-svc-team">{% for id in s.team %}{% set p = site.people | person(id) %}<li><b>{{ p.name }}</b>, {{ p.role }}{% if p.solicitor %}, SRA ID {{ p.sraId }}{% endif %}</li>{% endfor %}</ul>
+    <p>{{ s.experience }}</p>
+    {%- if ("estimator" | enabled) and site.estimator.service == s.service %}{% include "kits/law/features/estimator/estimator.njk" %}{% endif %}
+  </section>
+  {%- endfor %}
+  {%- if pr.other %}<p class="lw-pricing-other">{{ pr.other }}</p>{% endif %}
+  <p class="lw-pricing-more">How to complain, and our regulator: <a href="{{ 'complaints' | href }}">Complaints and regulation</a>.</p>
+</div>

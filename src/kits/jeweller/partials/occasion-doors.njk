@@ -1,0 +1,11 @@
+{#- Doors into the occasions' own pages: each its photograph, cropped tall, and its name. -#}
+{%- if site.occasions.pages and ("occasions" | enabled) %}
+<section class="nc-sec jw-od"{{ "occasions" | tierAttr | safe }} aria-labelledby="od-h"><div class="wrap">
+  <h2 class="jw-h" id="od-h">{{ odTitle or "For the day itself" }}</h2>
+  <ul class="jw-od-row" role="list">
+    {%- for o in site.occasions.pages %}
+    <li><a class="jw-od-a" href="{{ ('occasion-' + o.id) | href }}"><img src="{{ o.photoPhone.src | img }}" width="{{ o.photoPhone.width }}" height="{{ o.photoPhone.height }}" loading="lazy" decoding="async" alt=""><span class="jw-od-n">{{ o.name }}</span></a></li>
+    {%- endfor %}
+  </ul>
+</div></section>
+{%- endif %}

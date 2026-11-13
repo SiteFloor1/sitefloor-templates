@@ -1,0 +1,28 @@
+{#- Personal details: a real hand where the name can be found, beside the request (what, the words, where, the date). -#}
+{%- set p = site.personal %}
+{%- set ph = { kicker: site.personalPage.kicker, title: site.personalPage.title, intro: site.personalPage.intro } %}
+{% include "kits/mehndi/partials/page-head.njk" %}
+<section class="mh-pd" aria-label="Ask for something personal"><div class="wrap mh-pd-in">
+  <div class="mh-pd-example" data-feature="name-find">
+    {%- set caseHero = false %}{% include "kits/mehndi/partials/name-case.njk" %}
+    <div class="mh-pd-find">
+      <button type="button" class="mh-text" data-nf-show data-nf-line="{{ site.hero.find.line }}" aria-pressed="false">Show me</button>
+      <p class="mh-fine" data-nf-hint>A real bridal hand. The name is in it.</p>
+    </div>
+  </div>
+  <form class="mh-pd-form" data-feature="hidden-details"{{ "hidden-details" | tierAttr | safe }} data-pd-form>
+    {%- if p.text %}<p class="mh-pd-text">{{ p.text }}</p>{% endif %}
+    <fieldset>
+      <legend class="mh-lab">What to hide</legend>
+      {%- for k in p.kinds %}<label class="mh-check"><input type="checkbox" name="pd-k" value="{{ k }}"> {{ k }}</label>{% endfor %}
+    </fieldset>
+    <label class="mh-lab" for="pd-details">The exact words</label>
+    <textarea id="pd-details" rows="3" data-pd-details placeholder="Names as you spell them, the date, the place"></textarea>
+    <fieldset>
+      <legend class="mh-lab">Where</legend>
+      {%- for w in p.places %}<label class="mh-check"><input type="radio" name="pd-w" value="{{ w }}"{% if loop.last %} checked{% endif %}> {{ w }}</label>{% endfor %}
+    </fieldset>
+    {%- set df = "pd" %}{% set dfLabel = "Your wedding date (if you like)" %}{% include "kits/mehndi/partials/date-field.njk" %}
+    <a class="mh-solid" data-pd-send href="{{ p.message | hideText | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ p.message | hideText }}"{% endif %} target="_blank" rel="noopener">Send on WhatsApp</a>
+  </form>
+</div></section>

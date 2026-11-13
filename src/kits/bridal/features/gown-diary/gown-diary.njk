@@ -1,0 +1,38 @@
+{#- The gown diary: one wedding date in, the year out. It leads with the last day to order; then every step the salon
+    lists (the gown arriving, each fitting, collection) from its own timings, in UK date order; the whole diary to the
+    bride's calendar and to the salon. The date is chosen in a quiet sheet. Without a date (or without JavaScript)
+    each step shows how many weeks before the wedding it falls. -#}
+{%- set sec = site.sections.diary %}
+{%- set step = site.diary | orderStep %}
+<section id="diary" class="bd-diary" data-feature="gown-diary" aria-label="{{ sec.title | plain }}"{{ 'gown-diary' | tierAttr | safe }}><div class="wrap">
+  {%- include "core/partials/section-head.njk" %}
+  <div class="bd-diary-in">
+    <div class="bd-diary-side">
+      <p class="bd-diary-order" aria-live="polite" data-gd-order>{{ step.label }} {{ step.weeksBefore }} {{ "week" if step.weeksBefore == 1 else "weeks" }} before your wedding.</p>
+      <p class="bd-diary-away" data-gd-away hidden></p>
+      <p class="bd-small" data-gd-late hidden>{{ site.diary.late }}</p>
+      <div class="bd-diary-acts" data-js-only>
+        <button type="button" class="bd-go" data-gd-pick>Choose your wedding date</button>
+        <button type="button" class="bd-quiet" data-gd-ics hidden>Add every date to my calendar</button>
+        <a class="bd-quiet" data-gd-send href="{{ site.messages.general | book }}" target="_blank" rel="noopener" hidden>Send my dates to {{ site.business.name }}</a>
+      </div>
+    </div>
+    <ol class="bd-steps" data-gd-steps>
+      {%- for s in site.diary.steps | byWeeks %}
+      <li class="bd-step" data-step="{{ s.id }}">
+        <span class="bd-step-when" data-when>{{ s.weeksBefore }} {{ "week" if s.weeksBefore == 1 else "weeks" }} before</span>
+        <span class="bd-step-what"><b>{{ s.label }}</b>{% if s.note %}<span class="bd-step-note">{{ s.note }}</span>{% endif %}</span>
+      </li>
+      {%- endfor %}
+      <li class="bd-step bd-step-day"><span class="bd-step-when" data-gd-day>The day</span><span class="bd-step-what"><b>Your wedding</b></span></li>
+    </ol>
+  </div>
+</div>
+<dialog class="bd-sheet" data-gd-sheet aria-labelledby="gd-sheet-h">
+  <form class="bd-req" method="dialog">
+    <div class="bd-sheet-top"><h2 id="gd-sheet-h" class="bd-sheet-h">Your wedding date</h2></div>
+    {%- set df = "gd" %}{% set dfLabel = "Day, month and year" %}{% include "kits/bridal/partials/date-field.njk" %}
+    <button type="submit" class="bd-go" data-gd-done>See every date</button>
+  </form>
+</dialog>
+</section>

@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: stories
+permalink: stories.html
+feature: sketch-to-ring
+eleventyComputed:
+  title: "{{ site.stories.title | plain }}"
+  description: "{{ site.stories.description or ('Past commissions from ' + site.business.name + ', from the first drawing to the finished piece.') }}"
+---
+{% include "kits/jeweller/features/sketch-to-ring/page.njk" %}

@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: extension
+permalink: extension.html
+feature: visualiser-page
+eleventyComputed:
+  title: "{{ site.visualiserPage.title | plain }}"
+  description: "See an extension on your house in 3D: choose the house, the depth and the roof."
+---
+{% include "kits/construction/features/visualiser-page/visualiser-page.njk" %}

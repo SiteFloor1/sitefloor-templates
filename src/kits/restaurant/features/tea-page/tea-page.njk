@@ -1,0 +1,10 @@
+{#- The afternoon tea page: the spread and the request, then (as the plan allows) Your table, the salon plan, the
+    seasonal stands and the tea sommelier. -#}
+{%- set tp = site.teaPage %}
+<section class="phero tp-head"><div class="wrap">
+  <span class="kick">{{ tp.kicker }}</span>
+  <h1>{{ tp.title | markup | safe }}</h1>
+  {%- if tp.intro %}<p>{{ tp.intro }}</p>{% endif %}
+</div></section>
+{% include "kits/restaurant/features/table-request/table-request.njk" %}
+{%- for id in ["your-table", "salon-plan", "seasonal-tea", "tea-sommelier"] %}{% if id | enabled %}{% include "kits/restaurant/features/" + id + "/" + id + ".njk" %}{% endif %}{% endfor %}

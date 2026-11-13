@@ -1,0 +1,15 @@
+{#- A guide: its sections alternate text and photograph, then the pieces it names. Set `g` first. -#}
+<div class="lp-guide wrap">
+  {%- for s in g.sections %}
+  <section class="lp-sec{% if s.photo %} has-ph{% endif %}{% if loop.index is even %} flip{% endif %}">
+    <div class="lp-sec-t"><h2>{{ s.title | markup | safe }}</h2>{% for para in s.text | paragraphs %}<p>{{ para | markup | safe }}</p>{% endfor %}</div>
+    {%- if s.photo %}<figure class="lp-sec-ph">{% set ph = s.photo %}{% include "kits/lingerie/partials/photo.njk" %}</figure>{% endif %}
+  </section>
+  {%- endfor %}
+</div>
+{%- set rowPieces = site.pieces | piecesWhere({ ids: g.pieces or [] }) | notShown(g | guidePhotos) %}
+{%- if rowPieces.length %}
+<section class="lp-pieces wrap" aria-label="Pieces for this">
+  <div class="pc-row">{% for p in rowPieces %}{% include "kits/lingerie/partials/piece-card.njk" %}{% endfor %}</div>
+</section>
+{%- endif %}

@@ -1,0 +1,49 @@
+{#- Quail hero: one confident line over the hand; the hand large, the shade card overlapping its edge like the tag on
+    a piece of jewellery, the next free time and Book (in the shade's own colour) under the card; below, the house
+    shades as a rail of flat swatches. A swatch shows that shade on the hand (shade-hand; shade-on-hand on Signature). -#}
+{%- set hands = site.hero.hands %}
+{%- set h0 = hands[0] %}
+{%- set worn = site.shades | shade(h0.wearing) %}
+{%- set masks = "shade-on-hand" | enabled %}
+<section class="hero ql-hero" data-feature="shade-hand" data-sh-opening="{{ site.menu.message if site.menu else site.messages.general }}" data-sh-wearing="{{ h0.wearing }}" aria-labelledby="ql-h1"><div class="wrap ql-hero-in">
+  <h1 class="ql-h1" id="ql-h1">{% for l in site.hero.title.split("|") %}{{ l | markup | safe }}{% if not loop.last %} <br>{% endif %}{% endfor %}</h1>
+  <figure class="ql-hand" data-sh-frame>
+    <img class="ql-layer on" data-sh-layer src="{{ h0.src | img }}" alt="{{ h0.alt }}" width="{{ h0.width }}" height="{{ h0.height }}" fetchpriority="high" decoding="async">
+    <img class="ql-layer" data-sh-layer alt="" width="{{ h0.width }}" height="{{ h0.height }}" decoding="async">
+    <canvas class="ql-layer" data-sh-canvas role="img" aria-label="{{ h0.alt }}" width="{{ h0.width }}" height="{{ h0.height }}"></canvas>
+    {%- if masks %}
+    <div class="ql-hands" data-sh-hands role="group" aria-label="Show the shade on"{{ "shade-on-hand" | tierAttr | safe }}{% if hands.length < 2 %} hidden{% endif %}>
+      {%- for h in hands %}<button type="button" data-sh-hand="{{ h.id }}" data-src="{{ h.src | img }}" data-mask="{{ h.mask | img }}" data-wearing="{{ h.wearing }}" data-alt="{{ h.alt }}" aria-pressed="{{ 'true' if loop.first else 'false' }}"><span class="ql-tone ql-tone-{{ loop.index }}" aria-hidden="true"></span>{{ h.label }}</button>{% endfor %}
+    </div>
+    {%- endif %}
+  </figure>
+  <div class="ql-stack">
+    <div class="ql-card" aria-live="polite">
+      <span class="ql-swatch{% if worn.hex | darkShade %} is-dark{% endif %}" data-sh-swatch style="--shade: {{ worn.hex }}" aria-hidden="true"></span>
+      <div class="ql-label">
+        <span class="ql-no" data-sh-no>No. {{ worn.no }}</span>
+        <p class="ql-name" data-sh-name>{{ worn.name }}</p>
+        <p class="ql-line" data-sh-line>{{ worn | shadeLine }}</p>
+      </div>
+    </div>
+    <div class="ql-under">
+      {%- if "next-slot" | enabled %}
+      <p class="ql-next" data-feature="next-slot"><span class="ql-lab">Next free</span><span data-ns-on hidden><b data-ns-when></b></span><span data-ns-off>Message us for a time</span></p>
+      {%- else %}
+      <p class="ql-next"><span class="ql-lab">{{ site.location.locality }}</span><span>{{ site.hero.kicker }}</span></p>
+      {%- endif %}
+      <a class="ql-chip{% if worn.hex | darkShade %} is-dark{% endif %}" style="--shade: {{ worn.hex }}" data-sh-book data-usual="{{ worn.name }} (No. {{ worn.no }})" href="{{ (site.menu.message if site.menu else site.messages.general) | shadeText(worn) | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ (site.menu.message if site.menu else site.messages.general) | shadeText(worn) }}"{% endif %} target="_blank" rel="noopener">Book <span data-sh-word>{{ worn.name }}</span></a>
+    </div>
+  </div>
+</div>
+<div class="wrap ql-shades">
+  <div class="ql-shades-head"><h2 class="ql-shades-t">House shades</h2>{% if "shades-page" | enabled %}<a class="nl-link" href="{{ 'shades' | href }}"{{ "shades-page" | tierAttr | safe }}>Every shade</a>{% endif %}</div>
+  <div class="ql-rail-wrap"><div class="ql-rail" data-sh-rail role="group" aria-label="Show a shade on the hand">
+    {%- for r in site.shades | railShades(h0) %}{% if r.photo or masks %}
+    <button type="button" class="ql-sw" data-sh-pick="{{ r.shade.id }}" data-no="{{ r.shade.no }}" data-name="{{ r.shade.name }}" data-hex="{{ r.shade.hex }}" data-line="{{ r.shade | shadeLine }}" data-dark="{{ 'true' if (r.shade.hex | darkShade) else 'false' }}"{% if r.photo and r.shade.id != h0.wearing %} data-shot="{{ h0 | shotOf(r.shade.id) | img }}"{% endif %} aria-pressed="{{ 'true' if r.shade.id == h0.wearing else 'false' }}"{% if not r.photo %}{{ "shade-on-hand" | tierAttr | safe }}{% endif %}>
+      <i style="--c: {{ r.shade.hex }}" aria-hidden="true"></i><span>{{ r.shade.name }}<small>No. {{ r.shade.no }}</small></span>
+    </button>
+    {%- endif %}{% endfor %}
+  </div></div>
+</div>
+</section>

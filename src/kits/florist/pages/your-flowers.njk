@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: your-flowers
+permalink: your-flowers.html
+feature: business-flowers
+noindex: true
+eleventyComputed:
+  title: "{{ site.contract.accounts.title | plain }}"
+  description: "Your flowers this week from {{ site.business.name }}: what's going where and when it changes next."
+---
+{% include "kits/florist/features/business-flowers/business-flowers.njk" %}

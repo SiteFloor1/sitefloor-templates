@@ -1,0 +1,82 @@
+/* Plan your visit: arrival board, journeys, parking, access. Hours and questions reuse visit and questions styles. */
+.pv-h { font-family: var(--font-display); font-weight: 600; font-size: clamp(30px, 3.6vw, 46px); line-height: 1; margin: 0 0 22px; }
+.pv-h-sm { font-size: clamp(24px, 2.6vw, 32px); margin-top: 34px; }
+.pv-hero { padding-bottom: clamp(30px, 4vw, 50px); }
+
+/* Arrival board: one glance answers "are they open, can I park, how far is it". */
+.pv-board-sec { padding-block: clamp(30px, 4vw, 50px) 0; }
+.pv-board { background: var(--surface); box-shadow: inset 0 0 0 1px var(--line-2), 0 30px 70px -40px var(--shadow); }
+.pv-board-head { display: flex; justify-content: space-between; gap: 8px 20px; flex-wrap: wrap; padding: 16px 22px; border-bottom: 1px solid var(--line-2); font-size: 12px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); }
+.pv-rows { list-style: none; margin: 0; padding: 0; }
+.pv-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 20px; align-items: center; padding: 16px 22px; border-bottom: 1px dashed var(--line-2); }
+.pv-row:last-child { border-bottom: 0; }
+.pv-what { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 16px; min-width: 0; }
+.pv-what .mi-ico { color: var(--accent); flex: none; }
+.pv-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--ok); margin: 0 6px 0 7px; flex: none; }
+.pv-val { font-variant-numeric: tabular-nums; font-weight: 700; color: var(--text); text-align: right; }
+.pv-val.is-free, .pv-park-status.is-free { color: var(--ok); }
+.pv-val[data-live-status].is-closed { color: var(--muted); }
+@media (max-width: 600px) { .pv-row { grid-template-columns: minmax(0, 1fr); } .pv-val { text-align: left; padding-left: 34px; font-size: 14px; } }
+
+/* Journeys */
+.pv-journeys { padding-block: clamp(50px, 7vw, 90px) 0; }
+.pv-j-top { display: flex; justify-content: space-between; align-items: end; gap: 16px 24px; flex-wrap: wrap; margin-bottom: 22px; }
+.pv-j-top .pv-h { margin: 0; }
+.pv-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.pv-tabs button { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border: 0; background: transparent; color: var(--text); box-shadow: inset 0 0 0 1.5px var(--line-2); font: 700 14px var(--font-body); cursor: pointer; }
+.pv-tabs button[aria-selected="true"] { background: var(--accent); color: var(--on-accent); box-shadow: none; }
+.pv-tabs button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.pv-panel { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 20px 40px; align-items: end; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); padding: clamp(22px, 3vw, 34px); margin-bottom: 14px; }
+.pv-panel[hidden] { display: none; }
+@media (max-width: 760px) { .pv-panel { grid-template-columns: minmax(0, 1fr); } }
+.pv-from { display: flex; align-items: center; gap: 12px; margin: 0 0 18px; font-size: 18px; }
+.pv-from .mi-ico { color: var(--accent); }
+.pv-from em { margin-left: auto; font-style: normal; font-family: var(--font-display); font-size: 30px; font-weight: 600; color: var(--accent); font-variant-numeric: tabular-nums; text-align: right; line-height: 1; }
+.pv-from em small { display: block; font: 600 12px var(--font-body); letter-spacing: .04em; color: var(--muted); margin-top: 4px; }
+/* The route: a line down the left with a stop for each direction, ending at the door. */
+.pv-steps { list-style: none; margin: 0; padding: 0 0 0 30px; position: relative; }
+.pv-steps::before { content: ""; position: absolute; left: 8px; top: 8px; bottom: 14px; width: 2px; background: linear-gradient(var(--accent), var(--accent)) 0 0 / 100% var(--route, 100%) no-repeat, var(--line-2); transition: background-size 1.2s cubic-bezier(.2,.8,.2,1); }
+.pv-steps li { position: relative; padding: 0 0 16px; color: var(--muted); font-size: 16px; line-height: 1.5; max-width: 60ch; }
+.pv-steps li::before { content: ""; position: absolute; left: -27px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--surface); box-shadow: inset 0 0 0 2px var(--accent); }
+.pv-steps .pv-end { color: var(--text); padding-bottom: 0; }
+.pv-steps .pv-end::before { background: var(--accent); box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 25%, transparent); }
+.pv-steps .pv-end b { display: block; font-family: var(--font-display); font-size: 22px; font-weight: 600; }
+.js-reveal .pv-panel:not(.in) .pv-steps::before { --route: 0%; }
+
+.pv-leave { margin-top: 26px; padding: 22px; box-shadow: inset 0 0 0 1px var(--line-2); }
+.pv-leave label { display: block; font-weight: 700; margin-bottom: 12px; }
+.pv-leave-row { display: flex; gap: 16px 28px; flex-wrap: wrap; align-items: center; }
+.pv-leave input { min-height: 46px; padding: 0 12px; font: 700 18px var(--font-body); background: var(--bg); color: var(--text); border: 0; box-shadow: inset 0 0 0 1.5px var(--line-2); color-scheme: inherit; }
+.pv-leave input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.pv-leave-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 24px; color: var(--muted); }
+.pv-leave-list b { color: var(--accent); font-variant-numeric: tabular-nums; }
+.pv-how { font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--text); margin-right: 8px; }
+
+/* Parking, access, paying */
+.pv-facts { padding-block: clamp(50px, 7vw, 90px); }
+.pv-facts-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(30px, 5vw, 72px); }
+@media (max-width: 900px) { .pv-facts-grid { grid-template-columns: minmax(0, 1fr); } }
+.pv-park { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.pv-card { background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); padding: 22px; }
+.pv-card h3 { margin: 0 0 6px; font-size: 18px; }
+.pv-park-status { margin: 0 0 4px; font-weight: 800; font-variant-numeric: tabular-nums; color: var(--busy); }
+.pv-meta { margin: 0; color: var(--muted); font-size: 14px; }
+.pv-note { margin: 10px 0 0; color: var(--muted); font-size: 14px; line-height: 1.55; }
+.pv-access { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.pv-access li { display: flex; align-items: center; gap: 12px; font-size: 16px; }
+.pv-tick { width: 26px; height: 26px; display: grid; place-items: center; font-weight: 800; flex: none; box-shadow: inset 0 0 0 1.5px var(--line-2); }
+.pv-access .yes .pv-tick { color: var(--ok); }
+.pv-access .no { color: var(--muted); }
+.pv-pay { margin: 0; font-size: 17px; }
+
+/* Questions on this page */
+.sec-allq { padding-block: clamp(50px, 7vw, 90px); }
+.pv-topics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px clamp(24px, 5vw, 72px); }
+@media (max-width: 900px) { .pv-topics { grid-template-columns: minmax(0, 1fr); } }
+.pv-topic h3 { margin: 26px 0 4px; font-size: 12px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+.pv-topic .qa { border-top: 1px solid var(--line-2); border-bottom: 0; }
+.pv-topic .qa:last-child { border-bottom: 1px solid var(--line-2); }
+.pv-park-status.is-closed { color: var(--muted); }
+.pv-charges { margin: 0 0 6px; font-size: 15px; font-weight: 600; color: var(--text); }
+.pv-checked { margin: 12px 0 0; font-size: 13px; color: var(--muted); }
+.pv-about { font-size: .55em; font-family: var(--font-body); font-weight: 700; color: var(--muted); }

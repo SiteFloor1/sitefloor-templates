@@ -1,0 +1,27 @@
+{#- Family pieces: remodelling something inherited. Before and after in the house's own photographs (one over the
+    other with a slider, or side by side without JavaScript), what can be kept, and how it starts. -#}
+{%- set F = site.family %}
+{%- set ph = { title: F.title, intro: F.intro } %}
+{% include "kits/jeweller/partials/page-head.njk" %}
+<div data-feature="family-pieces">
+{%- for x in F.pairs %}
+<section class="nc-sec jw-fam" aria-label="Before and after"><div class="wrap jw-fam-in">
+  <div class="jw-dc-in jw-fam-ph" data-dc>
+    <figure><img src="{{ x.before.src | img }}" width="{{ x.before.width }}" height="{{ x.before.height }}" loading="lazy" decoding="async" alt="{{ x.before.alt }}"><figcaption class="nc-label nc-muted">Before</figcaption></figure>
+    <figure class="jw-dc-c" data-dc-candle><img src="{{ x.after.src | img }}" width="{{ x.after.width }}" height="{{ x.after.height }}" loading="lazy" decoding="async" alt="{{ x.after.alt }}"><figcaption class="nc-label nc-muted">After</figcaption></figure>
+  </div>
+  <div>
+    <p class="jw-say rv">{{ x.text }}</p>
+    <label class="jw-dc-ctl" data-js-only><span class="nc-label">Before</span><input class="jw-range" type="range" min="0" max="100" value="100" data-dc-range aria-label="From before to after"><span class="nc-label">After</span></label>
+  </div>
+</div></section>
+{%- endfor %}
+</div>
+<section class="nc-sec jw-keep"><div class="wrap jw-keep-in">
+  <h2 class="jw-h">What can be kept</h2>
+  <ul class="jw-labels">{% for k in F.keep %}<li class="nc-label">{{ k }}</li>{% endfor %}</ul>
+  <p class="jw-say">{{ F.start }}</p>
+  {%- set famText = "Hello " + site.business.name + ", I have a family piece I'd like to talk about remodelling. I can send a photograph." %}
+  <a class="nc-u nc-label" href="{{ famText | wa }}" data-wa-text="{{ famText }}" target="_blank" rel="noopener">Send a photograph of the piece</a>
+  {%- if F.demoNote %}<p class="nc-fine">{{ F.demoNote }}</p>{% endif %}
+</div></section>

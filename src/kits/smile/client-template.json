@@ -1,0 +1,236 @@
+{
+  "schemaVersion": 4,
+  "id": "REPLACE_ME",
+  "mode": "client",
+  "plan": "REPLACE_ME",
+  "kit": "smile",
+  "look": "booth",
+  "url": "https://REPLACE_ME.co.uk",
+  "indexable": true,
+  "lang": "en-GB",
+  "business": {
+    "name": "REPLACE_ME",
+    "schemaType": "Dentist",
+    "description": "REPLACE_ME one sentence: what you do, where, who treats.",
+    "priceRange": "££",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "REPLACE_ME",
+    "phone": "REPLACE_ME",
+    "email": "REPLACE_ME"
+  },
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "location": {
+    "streetAddress": "REPLACE_ME",
+    "locality": "REPLACE_ME",
+    "postcode": "REPLACE_ME",
+    "country": "GB",
+    "area": "REPLACE_ME how to find us, parking",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=REPLACE_ME"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": "REPLACE_ME opening times, e.g. [[\"09:00\",\"18:00\"]], or [] if closed",
+      "tue": "REPLACE_ME opening times, e.g. [[\"09:00\",\"18:00\"]], or [] if closed",
+      "wed": "REPLACE_ME opening times, e.g. [[\"09:00\",\"18:00\"]], or [] if closed",
+      "thu": "REPLACE_ME opening times, e.g. [[\"09:00\",\"18:00\"]], or [] if closed",
+      "fri": "REPLACE_ME opening times, e.g. [[\"09:00\",\"18:00\"]], or [] if closed",
+      "sat": "REPLACE_ME opening times, e.g. [[\"09:00\",\"18:00\"]], or [] if closed",
+      "sun": "REPLACE_ME opening times, e.g. [[\"09:00\",\"18:00\"]], or [] if closed"
+    },
+    "exceptions": []
+  },
+  "nav": [
+    {
+      "label": "Treatments",
+      "href": "#treatments",
+      "feature": "smile-treatments"
+    },
+    {
+      "label": "Who treats you",
+      "href": "#clinicians",
+      "feature": "smile-clinicians"
+    },
+    {
+      "label": "Visit",
+      "page": "visit",
+      "feature": "plan-visit",
+      "fallback": "#visit"
+    }
+  ],
+  "features": [
+    "smile-treatments",
+    "smile-clinicians",
+    "smile-before-book",
+    "smile-patient-info",
+    "visit",
+    "plan-visit",
+    "questions"
+  ],
+  "hero": {
+    "kicker": "REPLACE_ME e.g. Teeth whitening, Leeds",
+    "title": "Teeth whitening,|by a dentist.",
+    "intro": "REPLACE_ME one or two sentences: whose studio, where, the consultation fee.",
+    "strip": {
+      "label": "REPLACE_ME what the four photographs show",
+      "frames": [
+        {
+          "src": "img/REPLACE_ME-1.webp",
+          "width": 720,
+          "height": 900,
+          "alt": "REPLACE_ME"
+        },
+        {
+          "src": "img/REPLACE_ME-2.webp",
+          "width": 720,
+          "height": 900,
+          "alt": "REPLACE_ME"
+        },
+        {
+          "src": "img/REPLACE_ME-3.webp",
+          "width": 720,
+          "height": 900,
+          "alt": "REPLACE_ME"
+        },
+        {
+          "src": "img/REPLACE_ME-4.webp",
+          "width": 720,
+          "height": 900,
+          "alt": "REPLACE_ME"
+        }
+      ]
+    }
+  },
+  "sections": {
+    "treatments": {
+      "title": "Treatments and prices",
+      "intro": "REPLACE_ME e.g. Your plan, and its price, are confirmed at consultation."
+    },
+    "clinicians": {
+      "title": "Who treats you"
+    },
+    "beforeBook": {
+      "title": "Before you book"
+    },
+    "questions": {
+      "title": "Before you come"
+    },
+    "visit": {
+      "title": "Find us"
+    }
+  },
+  "messages": {
+    "general": "REPLACE_ME e.g. Hi <name>, I have a question."
+  },
+  "clinicians": {
+    "items": [
+      {
+        "id": "lead",
+        "name": "REPLACE_ME",
+        "role": "dentist",
+        "qualification": "REPLACE_ME e.g. BDS",
+        "country": "REPLACE_ME country the qualification was gained in",
+        "gdc": "REPLACE_ME GDC number, checked on the register",
+        "lead": true
+      }
+    ]
+  },
+  "treatments": {
+    "items": [
+      {
+        "id": "whitening-home",
+        "name": "Whitening at home",
+        "line": "REPLACE_ME one line in the clinician's words",
+        "price": {
+          "from": "REPLACE_ME whole pounds"
+        },
+        "by": [
+          "lead"
+        ],
+        "whitening": true,
+        "visits": [
+          {
+            "label": "Consultation",
+            "minutes": "REPLACE_ME minutes"
+          }
+        ]
+      }
+    ]
+  },
+  "consultation": {
+    "title": "A consultation",
+    "intro": "REPLACE_ME",
+    "message": "REPLACE_ME e.g. Hi <name>, I'd like to book a consultation.",
+    "facts": [
+      {
+        "label": "Length",
+        "value": "REPLACE_ME"
+      },
+      {
+        "label": "Fee",
+        "value": "REPLACE_ME"
+      }
+    ]
+  },
+  "patientInfo": {
+    "title": "Patient information and complaints",
+    "intro": "REPLACE_ME",
+    "status": "REPLACE_ME private, nhs or mixed",
+    "complaints": {
+      "steps": [
+        "REPLACE_ME the practice's own complaints procedure, step by step"
+      ],
+      "contact": "REPLACE_ME",
+      "replyDays": "REPLACE_ME working days to acknowledge"
+    }
+  },
+  "questions": [
+    {
+      "topic": "Whitening",
+      "q": "Is whitening done by a dentist?",
+      "a": "REPLACE_ME in the clinician's words",
+      "home": true
+    }
+  ],
+  "visitInfo": {
+    "kicker": "Plan your visit",
+    "title": "Before you|come in*.*",
+    "intro": "Parking, the quickest way here and what to expect.",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "REPLACE_ME (nearest station)",
+        "origin": "REPLACE_ME, Town",
+        "minutes": "REPLACE_ME whole minutes, timed on foot",
+        "steps": [
+          "REPLACE_ME",
+          "REPLACE_ME"
+        ]
+      }
+    ],
+    "parking": [
+      {
+        "name": "REPLACE_ME",
+        "walk": "REPLACE_ME whole minutes on foot to the door",
+        "price": "REPLACE_ME",
+        "paid": "REPLACE_ME \"always\", \"never\", or the hours you pay, like opening hours: {\"mon\": [[\"08:00\",\"18:00\"]], …, \"sun\": []}"
+      }
+    ],
+    "access": [
+      {
+        "label": "Step-free entrance",
+        "yes": "REPLACE_ME true or false, checked with the client"
+      },
+      {
+        "label": "Accessible toilet",
+        "yes": "REPLACE_ME true or false, checked with the client"
+      }
+    ],
+    "payment": "REPLACE_ME",
+    "checked": "REPLACE_ME month you checked these facts with the client, YYYY-MM"
+  }
+}

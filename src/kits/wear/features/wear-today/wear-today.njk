@@ -1,0 +1,18 @@
+{#- What to wear today: the brand's city now, in one sentence from the Open-Meteo forecast (the brand's own paid plan),
+    answered with the brand's own pieces. A demo shows a labelled example and never calls Open-Meteo; a client's
+    section stays hidden until the live forecast arrives. -#}
+{%- set w = site.weather %}
+{%- set ex = w.looks.wet %}
+<section id="today" class="wr-today" data-feature="wear-today"{{ "wear-today" | tierAttr | safe }} data-lat="{{ w.lat }}" data-lng="{{ w.lng }}" data-place="{{ w.place }}" data-tz="{{ site.hours.timezone }}"{% if site.mode != "demo" %} data-key="{{ w.apiKey }}" hidden{% endif %}>
+<script type="application/json" data-wear-looks>{{ w.looks | wearJson | safe }}</script>
+<div class="wrap">
+  <p class="wr-today-say"><span data-today-weather>{{ w.place }} is 11° with rain from 6pm.</span> <em data-today-wear>{{ ex.say }}</em></p>
+  <ul class="wr-today-kit" data-today-kit>
+    {%- for p in site.pieces %}
+    <li data-kit-piece="{{ p.id }}"{% if not (p.id in ex.pieces) %} hidden{% endif %}><a href="{{ (p.id | href) if ('piece-pages' | enabled) else (('shells' | href) + '#' + p.id if ('shop-page' | enabled) else '#pieces') }}"><img src="{{ p.photos[0].src | img }}" alt="" width="{{ p.photos[0].width }}" height="{{ p.photos[0].height }}" loading="lazy" decoding="async"><span>{{ p.name }} {{ p.colour }}</span><span>{{ p.price | gbpWhole }}</span></a></li>
+    {%- endfor %}
+  </ul>
+  <p class="wr-today-with" data-today-with hidden></p>
+  <p class="wr-fine" data-today-src>{% if site.mode == "demo" %}Example forecast. On a brand's own site the live one comes from Open-Meteo.{% endif %}</p>
+  {%- if "kit-card" | enabled %}{% include "kits/wear/features/kit-card/kit-card.njk" %}{% endif %}
+</div></section>

@@ -1,0 +1,46 @@
+{#- Salon: plan your visit. The title set large; how to arrive from each station as a short itinerary, step-free
+    access and paying, the dress code, the address and hours, then the questions guests ask, as a printed list.
+    Keeps the plan-visit hooks it uses (journeys are listed in full; no tabs). -#}
+{%- set v = site.visitInfo %}
+<section class="sa-page-head"><div class="wrap">
+  <h1>{{ v.title | markup | safe }}</h1>
+  {%- if v.intro %}<p>{{ v.intro }}</p>{% endif %}
+  <div class="sa-crowns" aria-hidden="true"></div>
+</div></section>
+<div data-feature="plan-visit">
+{%- if v.journeys and v.journeys.length %}
+<section class="sa-pv"><div class="wrap">
+  <ol class="sa-pv-j">
+    {%- for j in v.journeys %}
+    <li>
+      <h2>{{ j.from }}</h2>
+      <p class="sa-when">{% if (j.mode | modeWords).about %}About {% endif %}{{ j.minutes }} minutes {{ (j.mode | modeWords).verb }}{% if j.stop %} · alight at {{ j.stop }}{% endif %}</p>
+      <ol class="sa-pv-steps">{% for step in j.steps %}<li>{{ step }}</li>{% endfor %}</ol>
+      <a class="sa-link" href="{{ j | directionsFor }}" target="_blank" rel="noopener">Directions in Google Maps</a>
+    </li>
+    {%- endfor %}
+  </ol>
+  {%- if site.mode == "demo" %}<p class="sa-small">Example journeys for a fictional salon.</p>{% elif v.checked %}<p class="sa-small">Journeys and access checked with {{ site.business.name }} in {{ v.checked | checkedText }}.</p>{% endif %}
+</div></section>
+{%- endif %}
+{%- if v.access or v.payment %}
+<section class="sa-pv-facts"><div class="wrap">
+  {%- if v.access %}<ul class="sa-pv-acc">{% for a in v.access %}<li><span class="sr-only">{{ "Yes:" if a.yes else "No:" }}</span><span aria-hidden="true">{{ "✓" if a.yes else "✕" }}</span> {{ a.label }}</li>{% endfor %}</ul>
+  {%- if v.accessNote %}<p class="sa-small">{{ v.accessNote }}</p>{% endif %}{% endif %}
+  {%- if v.payment %}<p class="sa-small">{{ v.payment }}</p>{% endif %}
+</div></section>
+{%- endif %}
+</div>
+{%- if "dress-code" | enabled %}{% include "kits/restaurant/features/dress-code/dress-code.njk" %}{% endif %}
+{% include "features/visit/visit.njk" %}
+{%- set groups = site | questionTopics %}
+{%- if groups.length %}
+<section class="sa-qs" id="questions"><div class="wrap">
+  {%- set sec = site.sections.questions %}{% include "core/partials/section-head.njk" %}
+  {%- for g in groups %}
+  <div class="sa-q-g"><h3>{{ g.topic }}</h3>
+    {%- for item in g.items %}<details class="sa-q"><summary>{{ item.q }}</summary><p>{{ item.a }}</p></details>{% endfor %}
+  </div>
+  {%- endfor %}
+</div></section>
+{%- endif %}

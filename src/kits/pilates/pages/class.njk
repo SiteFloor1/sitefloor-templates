@@ -1,0 +1,14 @@
+---
+layout: core/layouts/base.njk
+feature: class-pages
+pagination:
+  data: site.classTypes.items
+  size: 1
+  alias: c
+permalink: "class-{{ c.id }}.html"
+eleventyComputed:
+  pageId: "class-{{ c.id }}"
+  title: "{{ c.name }}"
+  description: "{{ c.name }} at {{ site.business.name }}, {{ site.location.locality }}: {{ c.who }}"
+---
+{% include "kits/pilates/features/class-pages/class-page.njk" %}

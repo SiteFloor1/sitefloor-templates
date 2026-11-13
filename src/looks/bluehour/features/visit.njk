@@ -1,0 +1,37 @@
+{#- Blue hour visit: the week as a time switch. Each day is a row with a track from 6am to 10pm and its opening hours
+    lit along it, as a timer would show them; today's row is marked by the live status. The address sits beside it as
+    an engraved plate. On Plan your visit (visitHeading false) only the week shows. -#}
+{%- set sec = { title: site.sections.visit.title, intro: site.location.area } %}
+{%- set keys = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"] %}
+<section id="visit" class="bh-vis" data-feature="visit"><div class="wrap">
+  {%- if visitHeading == false %}<h2 class="bh-vis-h">Opening hours</h2>{% else %}{% include "core/partials/section-head.njk" %}{% endif %}
+  <div class="bh-vis-in{% if visitHeading == false %} bh-vis-only{% endif %}">
+    <div class="bh-timer" data-hours>
+      <p class="bh-timer-now" data-live-status><span class="dot" aria-hidden="true"></span><span data-status-text>Opening hours</span></p>
+      <p class="bh-timer-det" data-status-detail></p>
+      <table class="bh-timer-t">
+        <caption class="sr-only">Opening hours</caption>
+        <thead aria-hidden="true"><tr><td></td><td class="bh-timer-scale"><span style="left:0%">6am</span><span style="left:37.5%">noon</span><span style="left:75%">6pm</span></td><td></td></tr></thead>
+        <tbody>
+        {%- for row in site.hours | hoursRows %}
+          {%- set ranges = site.hours.weekly[keys[row.dayIndex]] or [] %}
+          <tr data-day="{{ row.dayIndex }}">
+            <th scope="row">{{ row.day | truncate(3, true, "") }}<span class="sr-only">{{ row.day | replace(row.day | truncate(3, true, ""), "") }}</span></th>
+            <td class="bh-track" aria-hidden="true">{% for r in ranges %}{% set a = (r[0].split(":")[0] | int) + (r[0].split(":")[1] | int) / 60 %}{% set b = (r[1].split(":")[0] | int) + (r[1].split(":")[1] | int) / 60 %}<i style="left:{{ ((a - 6) / 16 * 100) | round(2) }}%;width:{{ ((b - a) / 16 * 100) | round(2) }}%"></i>{% endfor %}</td>
+            <td class="bh-timer-l">{{ row.label }}</td>
+          </tr>
+        {%- endfor %}
+        </tbody>
+      </table>
+      {%- set upcoming = site.hours | upcomingExceptions(build.today) %}
+      {%- if upcoming.length %}<ul class="bh-timer-ex">{% for ex in upcoming %}<li><b>{{ ex.dateLabel }}</b> {{ ex.note or ex.label }}</li>{% endfor %}</ul>{% endif %}
+    </div>
+    {%- if visitHeading != false %}
+    <div class="bh-plate">
+      <p class="bh-plate-k">Studio</p>
+      <address><b>{{ site.business.name }}</b>{{ site.location.streetAddress }}<br>{{ site.location.locality }} {{ site.location.postcode }}</address>
+      <a class="bh-under" href="{{ site.location | directions }}" target="_blank" rel="noopener">Directions</a>
+    </div>
+    {%- endif %}
+  </div>
+</div></section>

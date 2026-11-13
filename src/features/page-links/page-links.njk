@@ -1,0 +1,13 @@
+{%- set links = site.pageLinks | enabledLinks %}
+{%- if links.length %}
+<section class="sec-more" data-feature="page-links"{{ "page-links" | tierAttr | safe }}><div class="wrap">
+  <div class="tease">
+    {%- for l in links %}
+    <a class="tz rv" href="{{ l.page | href }}">
+      <img src="{{ l.image | img }}" alt="" loading="lazy" decoding="async" width="720" height="900">
+      <span class="tz-body"><span class="kick">{{ l.kicker }}</span><b>{{ l.title | markup | safe }}</b><span class="go">{{ l.cta }} →</span></span>
+    </a>
+    {%- endfor %}
+  </div>
+</div></section>
+{%- endif %}

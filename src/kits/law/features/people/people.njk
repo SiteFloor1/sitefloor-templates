@@ -1,0 +1,16 @@
+{#- The firm's people on the home page: name, role, practice and every solicitor's SRA ID. On Plus a look may move
+    this to the people page. -#}
+{%- set sec = site.sections.people %}
+<section id="people" class="lw-people" aria-label="{{ sec.title | plain if sec else 'People' }}"><div class="wrap">
+  {%- if sec %}{% include "core/partials/section-head.njk" %}{% endif %}
+  <ul class="lw-people-list">
+    {%- for p in site.people.items %}
+    <li class="lw-person">
+      <p class="lw-person-n">{{ p.name }}</p>
+      <p class="lw-person-r">{{ p.role }}{% if p.practice and p.practice.length %} · {{ p.practice | areaNames(site.practice) | andList }}{% endif %}</p>
+      {%- if p.solicitor %}<p class="lw-person-sra">SRA ID {{ p.sraId }}{% if site.mode == "demo" %} (demo){% endif %}</p>{% endif %}
+    </li>
+    {%- endfor %}
+  </ul>
+  <p class="lw-people-reg">Check any solicitor on the <a href="{{ regulator.sra.register }}" rel="noopener">SRA's register</a>.</p>
+</div></section>

@@ -1,0 +1,37 @@
+/* the specification card: the choices as rows of photographs on the left, the card building on the right (it stays
+   in view on wide screens); on phones the card follows the choices. Print shows only the card. */
+.tl-sp { padding-block: 8px 96px; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 48px clamp(32px, 4vw, 72px); align-items: start; }
+.tl-sp-form { display: grid; gap: 40px; }
+.tl-sp-g { border: 0; margin: 0; padding: 0; min-width: 0; }
+.tl-sp-h { padding: 0; margin-bottom: 14px; font-weight: 500; font-size: 17px; }
+.tl-sp-opts { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
+.tl-sp-cloths { grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); }
+.tl-sp-o { position: relative; display: grid; gap: 4px; cursor: pointer; }
+.tl-sp-o input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.tl-sp-o img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; outline: 1px solid var(--line); outline-offset: -1px; transition: outline-color .4s ease; }
+.tl-sp-c img { aspect-ratio: 2 / 3; }
+.tl-sp-o:has(input:checked) img { outline: 3px solid var(--text); outline-offset: 3px; }
+.tl-sp-o:has(input:focus-visible) img { outline: 3px solid var(--accent); outline-offset: 3px; }
+.tl-sp-ol { font-weight: 500; margin-top: 6px; }
+.tl-sp-o:has(input:checked) .tl-sp-ol { text-decoration: underline; text-decoration-style: dashed; text-decoration-color: var(--accent); text-underline-offset: 6px; }
+.tl-sp-ot { color: var(--muted); font-size: 14px; }
+.tl-sp-side { position: sticky; top: calc(var(--nav-h) + 24px); display: grid; gap: 18px; }
+.tl-card { background: var(--bg); box-shadow: 0 1px 0 var(--line), 0 24px 60px -36px var(--shadow); outline: 1px solid var(--line); padding: 28px 28px 24px; }
+.tl-card-h { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 18px; padding-bottom: 14px; border-bottom: 1px dashed var(--accent); }
+.tl-card-house { margin: 0; font-family: var(--font-display); font-size: 30px; line-height: 1; }
+.tl-card-k { margin: 0; color: var(--muted); font-size: 14px; }
+.tl-card-for { margin: 16px 0 0; font-weight: 500; }
+.tl-card-list { list-style: none; margin: 16px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 16px 12px; }
+.tl-card-list li { display: grid; gap: 6px; }
+.tl-card-list img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+.tl-card-list p { margin: 0; display: grid; font-size: 14px; line-height: 1.35; }
+.tl-card-list p span { color: var(--muted); }
+.tl-card-list p b { font-weight: 500; }
+.tl-card-note { margin: 18px 0 0; color: var(--muted); font-size: 14px; }
+.tl-sp-acts { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 22px; margin: 0; }
+@media (max-width: 960px) { .tl-sp { grid-template-columns: 1fr; } .tl-sp-side { position: static; } }
+@media print {
+  body * { visibility: hidden !important; }
+  .tl-card, .tl-card * { visibility: visible !important; }
+  .tl-card { position: absolute; left: 0; top: 0; width: 100%; box-shadow: none; outline: 0; }
+}

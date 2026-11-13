@@ -1,0 +1,72 @@
+{#- Tissue, today's bouquets: the florist's feed as the home page. Ranges switch what shows (fresh, forever); the
+    pinned post comes first, two columns by two rows; every bouquet has its photo, its price, what's left and an italic
+    "Ask for this one", which opens the order (card, add-ons, the day) for WhatsApp, or copied for an Instagram DM.
+    Without JavaScript every range shows and each Ask opens WhatsApp with that bouquet. -#}
+{%- set B = site.bouquets %}
+{%- set R0 = B.ranges[0].id %}
+{%- set tbTitle = (site.sections.bouquets.title if site.sections and site.sections.bouquets) or "Our bouquets" %}
+<section class="tb" id="bouquets" data-feature="todays-bouquets" aria-labelledby="tb-h"><div class="wrap">
+  <h2 class="sr-only" id="tb-h">{{ tbTitle }}</h2>
+  {%- if B.ranges.length > 1 %}
+  <div class="tb-ranges" role="tablist" aria-label="Range">
+    {%- for r in B.ranges %}
+    <button class="tb-range" type="button" role="tab" id="tb-tab-{{ r.id }}" aria-selected="{{ 'true' if loop.first else 'false' }}" aria-controls="tb-feed" data-tb-range="{{ r.id }}"><b>{{ r.label }}</b><span>{{ r.line }}</span></button>
+    {%- endfor %}
+  </div>
+  {%- endif %}
+  {%- if "same-day" | enabled %}<div class="tb-sd">{% set sdId = "feed" %}{% include "kits/florist/features/same-day/same-day.njk" %}</div>{% endif %}
+  <div class="tb-feed" id="tb-feed" role="tabpanel" aria-labelledby="tb-tab-{{ R0 }}">
+    {%- if B.pinned %}{% set P = B.pinned %}
+    <article class="tb-post tb-pinned">
+      <div class="tb-ph">
+        {%- if P.video %}
+        <video data-tb-clip muted loop playsinline autoplay preload="metadata" poster="{{ P.photo.src | img }}" width="{{ P.photo.width }}" height="{{ P.photo.height }}" aria-label="{{ P.photo.alt }}"><source src="{{ P.video | img }}" type="video/mp4"></video>
+        <button class="tb-pause" type="button" data-tb-pause aria-label="Pause the clip" data-js-only><span aria-hidden="true">II</span></button>
+        {%- else %}
+        <img src="{{ P.photo.src | img }}" alt="{{ P.photo.alt }}" width="{{ P.photo.width }}" height="{{ P.photo.height }}" fetchpriority="high" decoding="async">
+        {%- endif %}
+        <span class="tb-flag">{% set pinClass = "ts-pin-sm" %}{% include "looks/tissue/parts/pin.njk" %}{{ P.flag or "Pinned" }}</span>
+      </div>
+      <div class="tb-cap"><h3>{{ P.name }}</h3><span class="tb-price">{% if P.priceFrom %}from {{ P.priceFrom | pounds }}{% else %}{{ P.price | pounds }}{% endif %}</span></div>
+      <a class="tb-ask" href="{{ (B.message + ' ' + P.name) | book }}" target="_blank" rel="noopener" data-tb-ask data-tb-name="{{ P.name }}" data-tb-price="{{ P.priceFrom or P.price }}"{% if P.priceFrom %} data-tb-from{% endif %}>Ask for this one</a>
+    </article>
+    {%- endif %}
+    {%- if "the-drop" | enabled %}{% include "kits/florist/features/the-drop/drop-tile.njk" %}{% endif %}
+    {%- for x in B.items %}
+    {%- set pos = build.bouquetPos[x.id] %}
+    <article class="tb-post{% if pos == 1 %} tb-lead{% endif %}{% if x.status == 'sold' %} is-sold{% endif %}" data-tb-item="{{ x.id }}" data-tb-in="{{ x.range }}"{% if pos %} data-pos="{{ pos }}"{% else %} data-tb-later hidden{% endif %}>
+      <div class="tb-ph"><img src="{{ x.photo.src | img }}" alt="{{ x.photo.alt }}" width="{{ x.photo.width }}" height="{{ x.photo.height }}" loading="lazy" decoding="async"></div>
+      <div class="tb-cap"><h3>{{ x.name }}</h3><span class="tb-price">{{ x.price | pounds }}</span></div>
+      <p class="tb-status" data-tb-status{% if not x.status or x.status == 'available' %} hidden{% endif %}>{% if x.status == 'sold' %}Sold out{% elif x.status == 'few' %}{{ x.left }} left{% endif %}</p>
+      <a class="tb-ask" href="{{ (B.message + ' ' + x.name + ' (' + (x.price | pounds) + ')') | book }}" target="_blank" rel="noopener" data-tb-ask data-tb-name="{{ x.name }}" data-tb-price="{{ x.price }}"{% if x.status == 'sold' %} hidden{% endif %}>Ask for this one</a>
+    </article>
+    {%- endfor %}
+  </div>
+  {%- if B.ranges.length > 1 %}<noscript><style>[data-tb-later]{display:flex!important}.tb-ranges{display:none!important}</style></noscript>{% endif %}
+  <dialog class="tb-order" data-tb-order aria-labelledby="tb-o-h">
+    <form method="dialog" class="tb-o-f" data-tb-form novalidate>
+      <p class="tb-o-k">Your order</p>
+      <h2 id="tb-o-h" data-tb-o-name>Your bouquet</h2>
+      <p class="tb-o-p" data-tb-o-price></p>
+      <label class="tb-o-l" for="tb-o-day">For</label>
+      <input id="tb-o-day" type="date" data-tb-o-day>
+      {%- if B.card %}
+      <label class="tb-o-l" for="tb-o-card">The card <span data-tb-o-left></span></label>
+      <textarea id="tb-o-card" rows="3" maxlength="{{ B.card.max }}" data-tb-o-card placeholder="What should it say?"></textarea>
+      {%- endif %}
+      {%- if B.addOns and B.addOns.length %}
+      <fieldset class="tb-o-adds"><legend class="tb-o-l">To go with it</legend>
+        {%- for a in B.addOns %}<label><input type="checkbox" value="{{ a.id }}" data-tb-o-add data-name="{{ a.name }}" data-price="{{ a.price }}"> {{ a.name }} <span>{{ a.price | pounds }}</span></label>{% endfor %}
+      </fieldset>
+      {%- endif %}
+      <p class="tb-o-l">What we'll get</p>
+      <p class="tb-o-msg" data-tb-o-msg aria-live="polite"></p>
+      <div class="tb-o-go">
+        <a class="tb-o-wa" href="{{ B.message | book }}" target="_blank" rel="noopener" data-tb-o-wa>Send on WhatsApp</a>
+        {%- if B.instagram %}<button class="tb-o-ig" type="button" data-tb-o-ig>Copy it for Instagram</button>{% endif %}
+      </div>
+      {%- if B.instagram %}<p class="tb-o-note" data-tb-o-say aria-live="polite">Instagram can't carry the words, so we copy them: paste them into the DM.</p>{% endif %}
+      <button class="tb-o-x" value="close" aria-label="Close">Close</button>
+    </form>
+  </dialog>
+</div></section>

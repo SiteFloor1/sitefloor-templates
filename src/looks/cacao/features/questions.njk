@@ -1,0 +1,11 @@
+{#- Cacao questions: two columns, the question in the display face, the answer under it. -#}
+{%- set sec = site.sections.questions %}
+{%- set qs = site | homeQuestions %}
+<section id="questions" class="sec-questions cc-qa" data-feature="questions"{{ "questions" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <dl class="cc-dl">
+    {%- for item in qs %}<div><dt>{{ item.q }}</dt><dd>{{ item.a }}</dd></div>{% endfor %}
+  </dl>
+  <p class="cc-more">{%- if "plan-visit" | enabled %}<a class="quiet" href="{{ 'visit' | href }}"{{ "plan-visit" | tierAttr | safe }}>Every question</a>{% endif %}
+    <a class="quiet" href="{{ site.messages.general | wa }}" data-wa-text="{{ site.messages.general }}" target="_blank" rel="noopener">Ask us</a></p>
+</div></section>

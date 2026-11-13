@@ -1,0 +1,10 @@
+/* trunk shows: one row per city, the city large, dates and venue beside it, the actions at the end. */
+.tl-tv { padding-block: 16px 96px; }
+.tl-tv-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line-2); }
+.tl-tv-row { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 3fr) minmax(0, 4fr) auto; gap: 8px 32px; align-items: baseline; padding-block: 28px; border-bottom: 1px solid var(--line); }
+.tl-tv-city { margin: 0; }
+.tl-tv-when, .tl-tv-where { margin: 0; }
+.tl-tv-where span { display: block; color: var(--muted); font-size: 15px; }
+.tl-tv-acts { margin: 0; display: flex; flex-wrap: wrap; gap: 4px 20px; justify-content: flex-end; }
+.tl-tv-none { margin-top: 28px; }
+@media (max-width: 860px) { .tl-tv-row { grid-template-columns: 1fr; } .tl-tv-acts { justify-content: flex-start; } }

@@ -1,0 +1,13 @@
+/* The treatments page: one block per treatment, the visits as a numbered list. Shared by the treatment pages. */
+.sm-tp { padding-block: 16px 96px; }
+.sm-tp-item { padding: 32px 0; border-top: 1px solid var(--line); }
+.sm-tp-head { display: flex; flex-wrap: wrap; gap: 4px 24px; justify-content: space-between; align-items: baseline; }
+.sm-tp-name { margin: 0; font-size: 1.75rem; }
+.sm-tp-price { margin: 0; font-size: 1.25rem; font-variant-numeric: tabular-nums; }
+.sm-tp-line { margin: 8px 0 0; color: var(--muted); max-width: 60ch; }
+.sm-tp-span { margin: 20px 0 8px; }
+.sm-visits { list-style: none; margin: 0 0 16px; padding: 0; counter-reset: v; max-width: 640px; }
+.sm-visits li { counter-increment: v; display: grid; grid-template-columns: 2.2em 1fr auto; gap: 4px 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.sm-visits li::before { content: counter(v); color: var(--accent); font-variant-numeric: tabular-nums; }
+.sm-v-len { color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
+.sm-tp-by { margin: 0; }

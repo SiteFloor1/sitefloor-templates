@@ -1,0 +1,10 @@
+{#- Fit and fabric: each piece's flat measurements size by size, how it sits, a size from the chest (the brand's
+    table only), then the fabric and care in the brand's words. -#}
+{%- set ph = { kicker: site.fitPage.kicker, title: site.fitPage.title, intro: site.fitPage.intro } %}
+{% include "kits/wear/partials/page-head.njk" %}
+<div class="wr-fitpage" data-feature="fit-room">
+{%- if site.sizeGuide %}{% include "kits/wear/partials/size-finder.njk" %}{% endif %}
+{%- for p in site.pieces %}{% if p.fit %}
+{% include "kits/wear/partials/fit-block.njk" %}
+{%- endif %}{% endfor %}
+</div>

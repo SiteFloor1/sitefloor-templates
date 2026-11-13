@@ -1,0 +1,134 @@
+/* =========================================================================
+   Look: Handover. A builder's site with the calm of the finished house. Limewash ground; the photographs carry the
+   colour, all in one grade. The palette is one duck's egg: the shell (a fill only: the key tag, the ground line, the
+   chosen control), the shell in shade for links and focus, the umber speckle for text. One hero idea: a photograph
+   of a finished extension that becomes a 3D house on tap. Castoro (one word in italic) against Kumbh Sans.
+   Motion: the hero photo settles once; nothing is tied to the scroll. Design system: sitefloor-internal/docs/design/construction.md.
+   ========================================================================= */
+:root {
+  --bg: #F7F5F0; --surface: #EDE9E1; --surface-2: #E2DCD1;
+  --text: #2A241D; --muted: #6B6157; --dim: #6B6157;
+  --accent: #3E6B62; --accent-2: #2F554D; --on-accent: #F7F5F0; --accent-soft: #A9CBC1;
+  --line: #D9D2C5; --line-2: #BDB3A3;
+  --ok: #3F6B4F; --busy: #8A5A1E; --closed: #6B6157;
+  --font-display: "Castoro", "Castoro Fallback", "Times New Roman", serif;
+  --font-body: "Kumbh Sans", "Kumbh Sans Fallback", Arial, sans-serif;
+  --on-photo: #FFFFFF; --photo-scrim: rgba(20, 16, 12, .55); --shadow: rgba(42, 36, 29, .18);
+  --season-bg: #2A241D; --season-fg: #F7F5F0;
+  --pad: clamp(20px, 4vw, 56px);
+  --nav-h: 72px;
+  --bar-h: 58px;
+  --paper: #FFFFFF;
+  /* The 3D house's palette (src/kits/construction/features/visualiser/house-3d.js reads these). */
+  --model-sky: #E9E6DF; --model-light-sky: #F4F1EA; --model-light-ground: #7E8A6E; --model-sun: #FFF3DF;
+  --model-lawn: #8D9B76; --model-soil: #6E5A47; --model-paving: #D0C9BB; --model-concrete: #BDBAB2; --model-blocks: #B2B0AA;
+  --model-brick: #B08F62; --model-mortar: #D9D0C0; --model-new-brick: #C4AB80; --model-new-mortar: #E4DDCF;
+  --model-neighbour: #DCD6CB; --model-neighbour-roof: #B6B1A7; --model-fence: #8C7A63; --model-roof: #4C5156;
+  --model-frame: #2D2A26; --model-steel: #3A3F44; --model-trim: #F1EEE7; --model-plaster: #CDBFAE; --model-glass: #A6C6BC;
+  --model-glow: #F2E3C6; --model-glow-light: #F4D9A8; --model-sky-night: #2E3440; --model-limit: #2F554D; --model-limit-far: #6B6157; --model-label-bg: #F7F5F0;
+  --sun: #E9B949; --model-deck: #5B5F62; --model-oak: #B98E60; --model-timber: #D8BF94; --model-line: #2D2A26;
+  color-scheme: light;
+}
+html { background: var(--bg); }
+body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 400; letter-spacing: -.01em; text-wrap: balance; }
+em, h1 i, h2 i { font-style: italic; }
+b, strong { font-weight: 500; }
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+a:hover { color: var(--accent); }
+::selection { background: var(--accent-soft); color: var(--text); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.wrap { width: min(1360px, 100% - 2 * var(--pad)); }
+main section { padding-block: 0; }
+main img { height: auto; }
+
+/* Type: Castoro large, one italic word does the emphasis. */
+.bd-h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(34px, 3.8vw, 54px); line-height: 1.05; margin: 0; }
+.bd-h3 { font-family: var(--font-display); font-weight: 400; font-size: clamp(24px, 2.4vw, 32px); line-height: 1.1; margin: 0; }
+
+/* Buttons: square, umber, quiet. Links underline. */
+.bd-btn, .btn, .go { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 46px; padding: 0 20px; border: 0; border-radius: 2px; background: var(--text); color: var(--bg); font: inherit; font-weight: 500; font-size: 14px; text-decoration: none; cursor: pointer; box-shadow: none; }
+.bd-btn:hover, .btn:hover, .go:hover { background: var(--accent-2); color: var(--bg); }
+.btn.ghost { background: none; color: var(--text); box-shadow: inset 0 0 0 1px var(--line-2); }
+.btn .ico { display: none; }
+.bd-back { padding-block: 0 120px; }
+
+/* Header: the wordmark, the site code, the number, "Menu". */
+.nav.hv-nav { position: relative; background: var(--bg); backdrop-filter: none; -webkit-backdrop-filter: none; border-bottom: 0; }
+.hv-nav-in { display: flex; justify-content: space-between; align-items: center; height: var(--nav-h); gap: 20px; }
+.hv-mark { font-family: var(--font-display); font-size: 27px; line-height: 1; text-decoration: none; white-space: nowrap; }
+.hv-mark i { font-style: italic; }
+.hv-mark img { display: block; height: 28px; width: auto; }
+.hv-nav-r { display: flex; align-items: center; gap: 28px; font-size: 14px; }
+.hv-nav-r a { text-decoration: none; }
+.hv-code { display: inline-flex; align-items: center; gap: 9px; }
+.hv-code .bd-tag { width: 12px; height: 18px; }
+.hv-tel { font-variant-numeric: tabular-nums; }
+.burger.hv-menu { display: inline-flex; align-items: center; font: inherit; font-weight: 500; font-size: 14px; background: none; border: 0; border-bottom: 1px solid var(--text); color: var(--text); padding: 8px 0; cursor: pointer; width: auto; height: auto; }
+.hv-menu span { position: static; height: auto; background: none; transition: none; transform: none !important; }
+.hv-close, .hv-menu[aria-expanded="true"] .hv-open { display: none; }
+.hv-menu[aria-expanded="true"] .hv-close { display: inline; }
+@media (max-width: 760px) { .hv-code, .hv-tel { display: none; } .hv-mark { font-size: 24px; } }
+
+/* The menu sheet: the pages large in Castoro, the site code and the office beside. */
+.mnav.hv-sheet { top: var(--nav-h); background: var(--bg); padding: 12px 0 calc(var(--bar-h) + 40px); border-top: 1px solid var(--line); }
+.hv-sheet-in { display: grid; gap: 32px; }
+.hv-sheet nav a { font-family: var(--font-display); font-weight: 400; font-size: clamp(28px, 4vw, 40px); padding: 10px 0; border-bottom: 1px solid var(--line); }
+.hv-sheet nav a[aria-current="page"] { font-style: italic; }
+.hv-sheet-side { display: grid; gap: 14px; align-content: start; }
+.hv-sheet-side .bd-key { justify-self: start; }
+.hv-sheet p { margin: 0; color: var(--muted); font-weight: 400; }
+@media (min-width: 900px) { .hv-sheet-in { grid-template-columns: 7fr 5fr; gap: 64px; } }
+
+/* Hero: the visualiser, then the line and the key. */
+.hero.hv-hero { padding: 0; min-height: 0; background: none; }
+.hv-hero .bd-vz-photo { max-height: 78vh; animation: hv-settle 2.4s cubic-bezier(.2, .6, .2, 1) both; }
+@keyframes hv-settle { from { transform: scale(1.02); } to { transform: none; } }
+.hv-intro { display: grid; gap: 18px; padding-block: 30px 0; }
+.hv-lead { display: grid; gap: 14px; }
+.hv-h1 { font-size: clamp(44px, 6.4vw, 92px); line-height: 1; margin: 0; letter-spacing: -.012em; }
+.hv-lead p { margin: 0; max-width: 44ch; color: var(--muted); }
+.hv-intro .bd-key { justify-self: start; }
+@media (min-width: 900px) { .hv-intro { grid-template-columns: 1fr auto; align-items: end; gap: 48px; } }
+@media (max-width: 760px) { .hv-hero .bd-vz-photo { max-height: none; } .hv-intro .bd-key { justify-self: stretch; } }
+
+/* Inner pages: the name large, its line beside. */
+.bd-ph { padding-block: clamp(36px, 6vw, 72px) clamp(32px, 5vw, 56px); }
+.bd-ph-in { display: grid; gap: 14px; }
+.bd-ph-t { font-size: clamp(42px, 6vw, 88px); line-height: 1; margin: 0; }
+.bd-ph-i { margin: 0; max-width: 46ch; color: var(--muted); font-size: 16px; }
+@media (min-width: 900px) { .bd-ph-in { grid-template-columns: 7fr 4fr; align-items: end; gap: 48px; } }
+
+/* Shared sections, in this look's voice. */
+.hv-sh { display: grid; gap: 12px; margin-bottom: 28px; }
+.hv-sh p { margin: 0; color: var(--muted); max-width: 46ch; }
+.sec-visit, .sec-questions, .sec-reviews, .sec-more { padding-block: clamp(72px, 10vw, 112px); border-top: 1px solid var(--line); }
+.hours, .where, .tz, .pv-card, .pv-panel, .pv-board { background: var(--surface); border-color: transparent; border-radius: 0; box-shadow: none; }
+.where-pc { font-family: var(--font-display); }
+.qa { border-color: var(--line); }
+.qa summary, .qa h3 { font-family: var(--font-display); font-weight: 400; font-size: clamp(19px, 1.8vw, 23px); }
+.rev { background: none; border: 0; border-top: 1px solid var(--line); border-radius: 0; padding: 20px 0 0; box-shadow: none; }
+.rev p { font-family: var(--font-display); font-size: 20px; line-height: 1.4; }
+.st { color: var(--accent); }
+
+/* Footer: one hairline, the name, how to reach us, the pages, the credit. */
+.foot.hv-foot { border-top: 1px solid var(--line); padding: 40px 0 48px; color: var(--muted); font-size: 13px; background: var(--bg); }
+.hv-foot-in { display: grid; gap: 16px; }
+.hv-foot-name { margin: 0; font-family: var(--font-display); font-size: 22px; color: var(--text); }
+.hv-foot-name i { font-style: italic; }
+.hv-foot-a { font-style: normal; line-height: 1.7; }
+.hv-foot-links { display: flex; flex-wrap: wrap; gap: 6px 22px; }
+.hv-foot-links a, .hv-foot-a a { color: var(--text); text-decoration: none; }
+.hv-foot-by { margin: 0; }
+.hv-foot-by .by { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+@media (min-width: 900px) { .hv-foot-in { grid-template-columns: 3fr 5fr 4fr; align-items: start; } .hv-foot-by { grid-column: 1 / -1; } }
+
+/* Phone bar: white, two halves, the key tag on the second. */
+.mbar.hv-bar { box-sizing: border-box; height: calc(var(--bar-h) + env(safe-area-inset-bottom, 0px)); padding: 0 env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px); gap: 0; background: var(--paper); border-top: 1px solid var(--line); backdrop-filter: none; }
+.hv-bar a { flex: 1; display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; font-weight: 500; font-size: 15px; color: var(--text); }
+.hv-bar a + a { border-left: 1px solid var(--line); }
+.hv-bar .bd-tag { width: 11px; height: 16px; }
+@media (max-width: 760px) { body { padding-bottom: calc(var(--bar-h) + env(safe-area-inset-bottom, 0px)); } html { scroll-padding-bottom: calc(var(--bar-h) + 16px); } }
+
+@media (prefers-reduced-motion: reduce) { .hv-hero .bd-vz-photo { animation: none; } }
+[data-motion="paused"] .hv-hero .bd-vz-photo { animation: none; }

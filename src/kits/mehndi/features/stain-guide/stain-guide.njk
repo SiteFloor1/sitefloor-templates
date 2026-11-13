@@ -1,0 +1,24 @@
+{#- The stain as it develops, the artist's aftercare in order, how long it lasts, and the NHS line on black henna. -#}
+{%- set a = site.aftercare %}
+{%- set nhs = mehndiWords.nhs %}
+{%- set ph = { kicker: site.aftercarePage.kicker, title: site.aftercarePage.title, intro: site.aftercarePage.intro } %}
+{% include "kits/mehndi/partials/page-head.njk" %}
+<section class="mh-ac" data-feature="stain-guide" aria-labelledby="mh-ac-h"><div class="wrap">
+  <h2 class="mh-ac-h" id="mh-ac-h">How the stain develops</h2>
+  <ol class="mh-ac-stages">
+    {%- for s in a.stages %}
+    <li>
+      {%- if s.photo %}<img src="{{ s.photo.src | img }}" alt="{{ s.photo.alt }}" width="{{ s.photo.width }}" height="{{ s.photo.height }}" loading="lazy" decoding="async">{% endif %}
+      <span class="mh-ac-when">{{ s.when }}</span><b>{{ s.label }}</b><p>{{ s.text }}</p>
+    </li>
+    {%- endfor %}
+  </ol>
+  <div class="mh-ac-care">
+    <h2>Looking after it</h2>
+    <ol>{% for x in a.steps %}<li>{{ x }}</li>{% endfor %}</ol>
+    <h2>How long it lasts</h2>
+    <p>{{ a.lasts }}</p>
+    <p>{{ nhs.text }}</p>
+    <p class="mh-fine">Source: <a href="{{ nhs.url }}" target="_blank" rel="noopener">{{ nhs.source }}</a>, checked {{ nhs.checked | ukDate }}.</p>
+  </div>
+</div></section>

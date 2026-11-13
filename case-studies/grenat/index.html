@@ -1,0 +1,669 @@
+<title>Grenat Case Study</title>
+<meta charset="utf-8">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Italiana&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Manrope:wght@500;600;700&display=swap">
+<style>
+/* Layout: the case study is a three-tier stand, read the way tea is taken: savouries, then scones, then the
+   pâtisserie. A gilt rod runs down the page; each plan is a tier set on it. Palette from one pistachio: the pale
+   kernel is the ground, the deep kernel the ink, the violet skin the Signature tier, the shell's gold the gilt.
+   One committed light look, like a pâtisserie box. Motion: the stand draws itself once; nothing follows the scroll. */
+:root {
+  --kernel: #E3E8D2; --kernel-2: #D5DDBF; --leaf: #1E2B1D; --leaf-soft: #4C5A45; --rule: rgba(30,43,29,.18);
+  --skin: #3D1630; --skin-2: #4E1D3D; --blush: #F1E4E2; --blush-dim: #CDB5BC;
+  --gilt: #9C7B3E; --gilt-hi: #D4B67A; --gilt-text: #6B5226; --card: #F8F6EE;
+  --display: "Italiana", "Didot", "Bodoni 72", Georgia, serif;
+  --body: "EB Garamond", "Garamond", "Iowan Old Style", Georgia, serif;
+  --brand: "Manrope", "Helvetica Neue", Arial, sans-serif;
+  --sf-paper: #FBFAF7; --sf-ink: #0E0F11; --sf-tomato: #E8613C; --sf-line: rgba(14,15,17,.12);
+  --ease: cubic-bezier(.22,.61,.36,1);
+  color-scheme: light;
+}
+*, *::before, *::after { box-sizing: border-box; }
+body { background: var(--kernel); color: var(--leaf); font: 400 19px/1.55 var(--body); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--sf-paper); }
+a { color: inherit; }
+img, video { display: block; max-width: 100%; height: auto; }
+.gut { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { width: min(1260px, 100%); margin-inline: auto; }
+h1, h2, h3 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap: balance; letter-spacing: .005em; }
+p { margin: 0; }
+.cap { font-family: var(--brand); font-weight: 600; font-size: 11px; letter-spacing: .26em; text-transform: uppercase; }
+:focus-visible { outline: 2px solid var(--gilt); outline-offset: 3px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Sitefloor's own bar, as on the Sitefloor site and the other case studies */
+.sfbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--sf-paper); color: var(--sf-ink); border-bottom: 1px solid var(--sf-line); }
+.sfbar .wrap { display: flex; justify-content: space-between; align-items: center; height: 66px; gap: 16px; }
+.wm { display: flex; align-items: baseline; font-family: var(--brand); font-weight: 600; font-size: 24px; letter-spacing: -.045em; text-decoration: none; color: var(--sf-ink); }
+.wm svg { margin: 0 1px; overflow: visible; }
+.sfbar nav { display: flex; gap: 28px; font-family: var(--brand); font-size: 14px; font-weight: 600; }
+.sfbar nav a { text-decoration: none; color: var(--sf-ink); }
+.sfbar nav a[aria-current] { box-shadow: inset 0 -1.5px 0 var(--sf-ink); }
+.sfbtn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 20px; background: var(--sf-ink); color: var(--sf-paper); font: 700 12px var(--brand); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; }
+.sfbtn:hover { background: var(--sf-tomato); }
+@media (max-width: 760px) { .sfbar nav { display: none; } }
+@media (max-width: 420px) { .sfbar .sfbtn { display: none; } }
+
+/* the phone */
+.phone { position: relative; width: min(300px, 100%); aspect-ratio: 390 / 844; border-radius: 44px; padding: 10px; background: #0D0D0F; box-shadow: 0 0 0 1px rgba(255,255,255,.08) inset, 0 40px 80px -40px rgba(30,20,30,.75); max-width: 100%; }
+.phone video, .phone img { width: 100%; height: 100%; object-fit: cover; border-radius: 34px; background: #2E0910; }
+.phone::before { content: ""; position: absolute; top: 20px; left: 50%; width: 30%; height: 24px; transform: translateX(-50%); background: #0D0D0F; border-radius: 20px; z-index: 1; }
+.pause { margin-top: 14px; display: inline-flex; align-items: center; gap: 10px; min-height: 40px; padding: 0 16px; background: none; border: 1px solid currentColor; color: inherit; font: 600 11px var(--brand); letter-spacing: .2em; text-transform: uppercase; cursor: pointer; border-radius: 999px; }
+.pause::before { content: ""; width: 8px; height: 10px; border-left: 2.5px solid currentColor; border-right: 2.5px solid currentColor; }
+.pause[aria-pressed="true"]::before { width: 0; height: 0; border: 0; border-left: 9px solid currentColor; border-top: 5.5px solid transparent; border-bottom: 5.5px solid transparent; }
+.figure { display: grid; justify-items: center; }
+
+/* hero */
+.hero { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(28px, 5vw, 80px); align-items: center; padding-block: clamp(40px, 7vw, 100px) clamp(48px, 7vw, 96px); }
+.hero .cap { color: var(--leaf-soft); }
+.hero h1 { font-size: clamp(88px, 15vw, 210px); line-height: .82; margin: 22px 0 0 -.04em; color: var(--skin); }
+.hero .lede { margin-top: 26px; font-size: clamp(24px, 2.6vw, 34px); line-height: 1.22; max-width: 22ch; }
+.hero .lede em { color: var(--skin); }
+.hero .sub { margin-top: 20px; max-width: 48ch; color: var(--leaf-soft); }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-top: 32px; align-items: center; }
+.btn { display: inline-flex; align-items: center; min-height: 48px; padding: 0 24px; font: 700 12px var(--brand); letter-spacing: .14em; text-transform: uppercase; text-decoration: none; }
+.btn.fill { background: var(--leaf); color: var(--card); }
+.btn.fill:hover { background: var(--skin); }
+.btn.line { padding: 0; min-height: 0; padding-bottom: 4px; border-bottom: 1px solid var(--gilt); }
+.btn.line:hover { color: var(--skin); }
+
+/* the stand */
+.stand-sec { border-top: 1px solid var(--rule); padding-block: clamp(48px, 6vw, 88px); }
+.stand-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(28px, 5vw, 80px); align-items: center; }
+.stand-copy h2 { font-size: clamp(40px, 5vw, 64px); line-height: 1; }
+.stand-copy p { margin-top: 18px; max-width: 44ch; color: var(--leaf-soft); }
+.stand { width: 100%; max-width: 640px; height: auto; justify-self: center; overflow: visible; }
+.stand .wire { fill: none; stroke: var(--gilt); stroke-width: 1.6; stroke-linecap: round; }
+.stand .plate { fill: var(--card); stroke: var(--gilt); stroke-width: 1.6; }
+.stand .top-plate { fill: var(--skin); }
+.stand text { font-family: var(--brand); font-weight: 600; font-size: 13px; letter-spacing: .24em; fill: var(--leaf); }
+.stand .tl { font-family: var(--display); font-size: 30px; letter-spacing: 0; fill: var(--leaf); }
+.stand a:hover .tl, .stand a:focus .tl { fill: var(--skin); }
+.stand .price { font-family: var(--body); font-size: 17px; letter-spacing: 0; fill: var(--leaf-soft); font-style: italic; }
+.draw .wire, .draw .plate { stroke-dasharray: 1400; stroke-dashoffset: 1400; animation: draw 2.6s var(--ease) forwards; }
+.draw .p2 { animation-delay: .5s; } .draw .p3 { animation-delay: 1s; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+
+/* the hour */
+.hour { padding-block: clamp(56px, 8vw, 120px); border-top: 1px solid var(--rule); }
+.hour-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(28px, 5vw, 72px); align-items: center; }
+.mirror { position: relative; aspect-ratio: 4 / 3; max-width: 100%; border-radius: 50% / 50%; overflow: hidden; box-shadow: 0 0 0 1px var(--gilt), 0 0 0 10px var(--kernel), 0 0 0 11px var(--gilt), 0 50px 80px -50px rgba(40,20,30,.6); }
+.mirror img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 1.6s var(--ease); }
+.mirror .eve { opacity: 0; }
+.mirror.is-eve .eve { opacity: 1; }
+.hour h2 { font-size: clamp(40px, 5.4vw, 72px); line-height: 1; }
+.hour p { margin-top: 18px; max-width: 42ch; color: var(--leaf-soft); }
+.switch { display: inline-flex; margin-top: 26px; border: 1px solid var(--gilt); border-radius: 999px; padding: 4px; }
+.switch button { min-height: 40px; padding: 0 20px; border: 0; border-radius: 999px; background: none; color: var(--leaf); font: 600 11px var(--brand); letter-spacing: .2em; text-transform: uppercase; cursor: pointer; transition: background-color .6s var(--ease), color .6s var(--ease); }
+.switch button[aria-pressed="true"] { background: var(--leaf); color: var(--card); }
+.plan-tag { display: inline-block; margin-top: 22px; font: 600 11px var(--brand); letter-spacing: .22em; text-transform: uppercase; color: var(--gilt-text); }
+
+/* tiers */
+.tier { position: relative; padding-block: clamp(64px, 9vw, 140px); }
+.tier::before { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: linear-gradient(var(--gilt), var(--gilt)) top / 1px 100% no-repeat; opacity: .55; }
+.tier-head { position: relative; z-index: 1; background: var(--tier-bg); display: grid; justify-items: center; text-align: center; gap: 10px; margin-bottom: clamp(44px, 6vw, 88px); padding-block: 18px; }
+.tier-head .plate-mark { width: min(420px, 80%); height: 22px; border: 1.5px solid var(--gilt); border-radius: 50%; background: var(--card); }
+.tier-head .cap { color: var(--gilt-text); }
+.tier-head h2 { font-size: clamp(54px, 8vw, 116px); line-height: .9; }
+.tier-head p { max-width: 40ch; color: var(--leaf-soft); font-style: italic; font-size: 21px; }
+.tier-head .tprice { font-family: var(--brand); font-weight: 600; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; }
+.t1 { --tier-bg: var(--kernel); background: var(--tier-bg); }
+.t2 { --tier-bg: var(--kernel-2); background: var(--tier-bg); }
+.t3 { --tier-bg: var(--skin); background: var(--tier-bg); color: var(--blush); --leaf-soft: var(--blush-dim); --rule: rgba(241,228,226,.18); }
+.t3 .tier-head .plate-mark { background: var(--skin-2); border-color: var(--gilt-hi); }
+.t3 .tier-head .cap, .t3 .plan-tag { color: var(--gilt-hi); }
+.t3 .btn.line { border-color: var(--gilt-hi); }
+
+/* courses: two columns either side of the rod */
+.courses { position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(56px, 9vw, 140px); row-gap: clamp(40px, 5vw, 72px); }
+.course { position: relative; z-index: 1; display: grid; gap: 10px; align-content: start; }
+.course:nth-child(even) { margin-top: clamp(40px, 6vw, 96px); }
+.course h3 { font-size: clamp(30px, 3.2vw, 42px); line-height: 1.02; }
+.course p { color: var(--leaf-soft); max-width: 46ch; }
+.course .plan-tag { margin-top: 0; }
+.course img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.course .wide { aspect-ratio: 16 / 10; }
+.course ul { margin: 4px 0 0; padding-left: 1.1em; color: var(--leaf-soft); display: grid; gap: 4px; }
+
+/* sittings ribbon (live, London time) */
+.ribbon { list-style: none; margin: 8px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--gilt); }
+.ribbon li { padding: 12px 10px 0 0; display: grid; gap: 2px; border-right: 1px solid var(--rule); }
+.ribbon li:last-child { border-right: 0; }
+.ribbon b { font-family: var(--display); font-weight: 400; font-size: 22px; line-height: 1.1; }
+.ribbon span { font-size: 15px; color: var(--leaf-soft); font-variant-numeric: tabular-nums; }
+.ribbon i { font-style: normal; font: 600 10px var(--brand); letter-spacing: .2em; text-transform: uppercase; color: var(--skin); min-height: 1.4em; }
+.ribbon .now b { color: var(--skin); }
+
+/* the board */
+.board { background: var(--card); padding: 22px 22px 18px; display: grid; gap: 10px; box-shadow: 0 0 0 1px var(--rule); }
+.board .row { display: flex; justify-content: space-between; gap: 14px; font-size: 18px; }
+.board .row span:last-child { font-variant-numeric: tabular-nums; }
+.board small { color: var(--leaf-soft); font-style: italic; font-size: 15px; }
+.board .out { color: var(--skin); font-style: italic; font-size: 16px; }
+
+/* seasons */
+.seasons { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.seasons figure { margin: 0; display: grid; gap: 6px; }
+.seasons img { aspect-ratio: 4 / 5; object-fit: cover; width: 100%; }
+.seasons figcaption { font-size: 15px; line-height: 1.3; }
+.seasons figcaption span { display: block; color: var(--leaf-soft); font-style: italic; }
+
+/* signature: showpieces */
+.show { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 96px); align-items: center; padding-block: clamp(36px, 5vw, 64px); border-top: 1px solid var(--rule); position: relative; background: var(--skin); }
+.show:first-of-type { border-top: 0; }
+.show h3 { font-size: clamp(40px, 5vw, 68px); line-height: .98; }
+.show .tx { display: grid; gap: 14px; align-content: start; }
+.show .tx > p { color: var(--blush-dim); max-width: 44ch; }
+.show ul { margin: 0; padding-left: 1.1em; color: var(--blush-dim); display: grid; gap: 6px; max-width: 46ch; }
+.show.flip .tx { order: 2; }
+
+/* the box (mini demo) */
+.boxer { --leaf-soft: #4C5A45; background: var(--card); color: var(--leaf); padding: clamp(18px, 2.4vw, 28px); display: grid; gap: 16px; position: relative; }
+.boxer::after { content: ""; position: absolute; inset: 7px; border: 1px solid var(--gilt); pointer-events: none; }
+.pieces { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.piece { position: relative; padding: 0; border: 0; background: none; cursor: pointer; text-align: left; color: inherit; font: inherit; display: grid; gap: 4px; }
+.piece img { aspect-ratio: 1; object-fit: cover; width: 100%; transition: transform .8s var(--ease); }
+.piece:hover img { transform: scale(1.03); }
+.piece span { font-size: 15px; line-height: 1.2; }
+.piece small { font: 600 9.5px var(--brand); letter-spacing: .16em; text-transform: uppercase; color: var(--skin); }
+.piece:disabled { cursor: default; }
+.piece:disabled img { opacity: .4; }
+.slots { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; padding: 10px; background: var(--kernel); border-radius: 2px; }
+.slot { aspect-ratio: 1; border-radius: 50%; border: 1px dashed var(--gilt); overflow: hidden; }
+.slot img { width: 100%; height: 100%; object-fit: cover; animation: pop .5s var(--ease); }
+@keyframes pop { from { transform: scale(.6); opacity: .3; } }
+.box-foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px 16px; }
+.box-foot p { font-style: italic; font-size: 17px; }
+.mini { min-height: 40px; padding: 0 16px; border: 1px solid var(--leaf); background: none; color: var(--leaf); font: 600 11px var(--brand); letter-spacing: .18em; text-transform: uppercase; cursor: pointer; }
+.mini.go { background: var(--skin); border-color: var(--skin); color: var(--blush); }
+.note { font-size: 14px; color: var(--leaf-soft); font-style: italic; }
+
+/* salon plan (mini demo) */
+.plan-ph { position: relative; max-width: 100%; }
+.plan-ph img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
+.spot { position: absolute; transform: translate(-50%, -50%); min-height: 34px; padding: 0 12px; border: 1px solid var(--gilt-hi); background: var(--card); color: var(--leaf); font: 600 9.5px var(--brand); letter-spacing: .16em; text-transform: uppercase; cursor: pointer; white-space: nowrap; box-shadow: 0 10px 24px -10px #000; }
+.spot[aria-pressed="true"] { background: var(--gilt-hi); color: var(--skin); }
+.req { margin-top: 12px; background: var(--card); color: var(--leaf); padding: 14px 16px; font-style: italic; font-size: 17px; min-height: 3.4em; }
+
+/* gift card (mini demo) */
+.gift { display: grid; gap: 16px; }
+.gcard { --leaf-soft: #4C5A45; position: relative; background: var(--card); color: var(--leaf); aspect-ratio: 7 / 5; max-width: 100%; display: grid; place-content: center; justify-items: center; text-align: center; gap: 6px; padding: 28px; transform: rotate(-1.5deg); box-shadow: 0 40px 70px -40px #000; }
+.gcard::before { content: ""; position: absolute; inset: 10px; border: 1px solid var(--gilt); }
+.gcard .cap { color: var(--gilt-text); }
+.gcard .to { font-family: var(--display); font-size: clamp(34px, 4vw, 52px); line-height: 1; color: var(--skin); min-height: 1em; }
+.gcard .what { font-style: italic; color: var(--leaf-soft); }
+.gform { display: grid; gap: 10px; }
+.gform label { display: grid; gap: 4px; font: 600 10.5px var(--brand); letter-spacing: .2em; text-transform: uppercase; color: var(--blush-dim); }
+.gform input[type="text"] { font: italic 400 20px var(--body); letter-spacing: 0; text-transform: none; color: var(--blush); background: none; border: 0; border-bottom: 1px solid var(--gilt-hi); padding: 6px 2px; }
+.gifts { display: grid; gap: 6px; border: 0; padding: 0; margin: 0; }
+.gifts label { display: flex; gap: 10px; align-items: baseline; font: 400 18px var(--body); letter-spacing: 0; text-transform: none; color: var(--blush); cursor: pointer; }
+.gifts b { margin-left: auto; font-weight: 400; font-variant-numeric: tabular-nums; }
+.gifts input { accent-color: var(--gilt-hi); }
+
+/* the pot: numbers */
+.pot { padding-block: clamp(64px, 9vw, 130px); }
+.pot-head { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(28px, 5vw, 80px); align-items: end; }
+.pot-head h2 { font-size: clamp(48px, 7vw, 100px); line-height: .92; }
+.pot-head p { color: var(--leaf-soft); max-width: 48ch; }
+.figs { list-style: none; margin: clamp(36px, 5vw, 64px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--gilt); }
+.figs li { padding: 22px 18px 24px 0; border-bottom: 1px solid var(--rule); display: grid; gap: 6px; align-content: start; }
+.figs b { font-family: var(--display); font-weight: 400; font-size: clamp(48px, 6vw, 80px); line-height: .9; font-variant-numeric: tabular-nums; color: var(--skin); }
+.figs b small { font-size: .4em; }
+.figs span { color: var(--leaf-soft); font-size: 16px; max-width: 30ch; }
+
+/* one pomegranate */
+.fruit { padding-block: clamp(56px, 8vw, 110px); border-top: 1px solid var(--rule); }
+.fruit-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(28px, 5vw, 80px); align-items: center; }
+.fruit h2 { font-size: clamp(40px, 5vw, 66px); line-height: 1; }
+.fruit p { margin-top: 18px; color: var(--leaf-soft); max-width: 46ch; }
+.seeds { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+.seed { display: grid; gap: 8px; justify-items: center; text-align: center; }
+.seed i { width: 100%; aspect-ratio: 3 / 4; border-radius: 50% 50% 46% 46% / 58% 58% 42% 42%; box-shadow: inset 0 -12px 22px rgba(0,0,0,.18), 0 0 0 1px rgba(30,43,29,.12); }
+.seed b { font-family: var(--display); font-weight: 400; font-size: 22px; }
+.seed span { font-size: 13px; color: var(--leaf-soft); font-variant-numeric: tabular-nums; }
+.mono { display: flex; gap: 22px; align-items: center; margin-top: 26px; }
+.mono svg { width: 64px; height: 81px; color: var(--gilt); flex: none; }
+.mono p { margin: 0; }
+.type-line { margin-top: 18px; font-family: "Libre Caslon Display", Georgia, serif; }
+
+/* plans */
+.plans { padding-block: clamp(64px, 9vw, 130px); background: var(--kernel-2); }
+.plans h2 { font-size: clamp(44px, 6vw, 84px); line-height: .95; max-width: 14ch; }
+.plan-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: clamp(32px, 4vw, 56px); align-items: stretch; }
+.pl { background: var(--card); padding: 28px 24px 26px; display: grid; gap: 12px; align-content: start; }
+.pl.sig { background: var(--skin); color: var(--blush); }
+.pl h3 { font-size: 40px; line-height: 1; }
+.pl .pr { font-size: 20px; font-variant-numeric: tabular-nums; }
+.pl .pr small { font-size: 15px; color: var(--leaf-soft); }
+.pl.sig .pr small { color: var(--blush-dim); }
+.pl ul { margin: 0; padding-left: 1.1em; display: grid; gap: 5px; font-size: 17px; }
+.plans .fine { margin-top: 18px; font-size: 15px; color: var(--leaf-soft); font-style: italic; }
+
+/* close and footer */
+.close { padding-block: clamp(72px, 10vw, 150px); text-align: center; }
+.close h2 { font-size: clamp(48px, 8vw, 116px); line-height: .92; }
+.close h2 em { font-family: var(--body); color: var(--skin); }
+.close p { margin: 22px auto 0; max-width: 46ch; color: var(--leaf-soft); }
+.close .hero-cta { justify-content: center; }
+.close .mail { display: block; margin-top: 22px; font-family: var(--brand); font-weight: 600; font-size: 15px; user-select: all; }
+footer { background: var(--leaf); color: #C6CDB8; font-size: 14px; line-height: 1.6; }
+footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px 32px; padding-block: 28px; }
+footer p { max-width: 96ch; }
+
+/* motion: elements settle from a visible resting state, once */
+.rise { transition: transform 1.2s var(--ease); }
+.js .rise:not(.in) { transform: translateY(14px); }
+
+@media (max-width: 900px) {
+  .hero, .stand-grid, .hour-grid, .show, .pot-head, .fruit-grid { grid-template-columns: minmax(0, 1fr); }
+  .show.flip .tx { order: 0; }
+  .courses { grid-template-columns: minmax(0, 1fr); }
+  .course:nth-child(even) { margin-top: 0; }
+  .tier::before { display: none; }
+  .plan-cols, .figs { grid-template-columns: minmax(0, 1fr); }
+  .figure { justify-items: start; }
+}
+@media (max-width: 560px) {
+  .ribbon { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 14px; }
+  .seeds { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
+  .seed b { font-size: 16px; } .seed span { font-size: 11px; }
+  footer .wrap { grid-template-columns: minmax(0, 1fr); }
+  .slots { gap: 5px; padding: 8px; }
+  .spot { font-size: 8.5px; padding: 0 8px; min-height: 30px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .draw .wire, .draw .plate { animation: none; stroke-dashoffset: 0; }
+  .rise, .mirror img, .slot img { transition: none; animation: none; }
+  .js .rise:not(.in) { transform: none; }
+}
+</style>
+
+<div class="sfbar gut"><div class="wrap">
+  <a class="wm" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su" aria-label="Sitefloor home">sitefl<svg width="28" height="14" viewBox="0 0 42 21" aria-hidden="true"><rect x="1.9" y="1.9" width="38.2" height="17.2" rx="8.6" fill="none" stroke="#0E0F11" stroke-width="3.8"/><circle cx="31.5" cy="10.5" r="5.2" fill="#E8613C"/></svg>r</a>
+  <nav aria-label="Main"><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#live">Features</a><a href="#top" aria-current="page">Work</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#pricing">Pricing</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#guides">Guides</a></nav>
+  <a class="sfbtn" href="#mockup"><span>Free mockup</span><span aria-hidden="true">→</span></a>
+</div></div>
+
+<main id="top">
+<section class="gut"><div class="wrap hero">
+  <div>
+    <p class="cap">Case study · Grand café and pâtisserie · Mayfair</p>
+    <h1>Grenat</h1>
+    <p class="lede">The salon, laid for her <em>before she arrives.</em></p>
+    <p class="sub">A grand café's whole day on a phone: who is playing the harp, which pieces are left in the window, a stand made for every guest at the table, and a sitting given as a present. On a café's own site every word, price and photograph is its own, and nothing adds a running cost: it uses the café's Google Sheet, WhatsApp and Stripe links.</p>
+    <div class="hero-cta">
+      <a class="btn fill" href="https://claude.ai/artifact/QjWw2Ako8ePR3Fw7Na4z9V">Walk into Grenat</a>
+      <a class="btn line" href="#stand">Take tea, tier by tier</a>
+    </div>
+  </div>
+  <div class="figure">
+    <div class="phone"><video id="v1" src="media/evening.mp4" poster="media/evening.jpg" muted loop playsinline autoplay preload="none" aria-label="Grenat on a phone at half past eight in the evening: the room by candlelight, then today's board, walk-in tables tonight and the pâtisserie window"></video></div>
+    <button class="pause" type="button" data-v="v1" aria-pressed="false">Pause the evening clip</button>
+  </div>
+</div></section>
+
+<section class="gut stand-sec" id="stand"><div class="wrap stand-grid">
+  <div class="stand-copy">
+    <h2>Read it as tea is taken.</h2>
+    <p>Savouries first, then scones, then the pâtisserie. Every Grenat site starts with the bottom tier; each plan above it adds a tier. Tap a tier to go to it.</p>
+  </div>
+  <svg class="stand draw" viewBox="0 0 640 470" aria-label="A three-tier stand: one tier for each plan">
+    <path class="wire" d="M320 18 C 308 30 332 34 320 48 L320 440"/>
+    <circle cx="320" cy="14" r="7" class="wire"/>
+    <path class="wire" d="M300 455 h40"/>
+    <a href="#signature" aria-label="Top tier: Signature, £349 then £35 a month"><ellipse class="plate top-plate p3" cx="320" cy="110" rx="120" ry="16"/><text class="tl" x="456" y="104">Signature</text><text class="price" x="456" y="128">£349, then £35</text></a>
+    <a href="#plus" aria-label="Middle tier: Plus, £199 then £30 a month"><ellipse class="plate p2" cx="320" cy="250" rx="170" ry="20"/><text class="tl" x="500" y="244" text-anchor="start">Plus</text><text class="price" x="500" y="268">£199, then £30</text></a>
+    <a href="#starter" aria-label="Bottom tier: Starter, £99 then £25 a month"><ellipse class="plate" cx="320" cy="400" rx="220" ry="24"/><text class="tl" x="22" y="370">Starter</text><text class="price" x="22" y="346">£99, then £25</text></a>
+  </svg>
+</div></section>
+
+<section class="gut hour"><div class="wrap hour-grid">
+  <div class="mirror" id="mirror">
+    <img src="media/hero-day.webp" width="1600" height="914" alt="The gallery by day under its glass roof, gilt armchairs and palms">
+    <img class="eve" src="media/hero-evening.webp" width="1600" height="914" alt="The salon by candlelight: one lamp on a linen-covered table">
+  </div>
+  <div class="rise">
+    <h2>From eight in the morning until the candles.</h2>
+    <p>The site keeps the café's hours. Through breakfast, luncheon and tea it is pith and gilt; at seven, when candlelight begins, it turns to garnet and velvet, before the page has even drawn, on every visit.</p>
+    <div class="switch" role="group" aria-label="Time of day">
+      <button type="button" id="hDay" aria-pressed="true">Half past three</button>
+      <button type="button" id="hEve" aria-pressed="false">Half past eight</button>
+    </div>
+    <p class="plan-tag">On every plan</p>
+  </div>
+</div></section>
+
+<!-- Tier one -->
+<section class="gut tier t1" id="starter"><div class="wrap">
+  <header class="tier-head">
+    <span class="plate-mark" aria-hidden="true"></span>
+    <p class="cap">The bottom tier · Starter</p>
+    <h2>The savouries</h2>
+    <p>What every guest asks before she sets out.</p>
+    <p class="tprice">£99 to set up, then £25 a month</p>
+  </header>
+  <div class="courses">
+    <article class="course rise">
+      <p class="plan-tag">Starter</p>
+      <h3>The day, by sitting</h3>
+      <p>Morning, luncheon, afternoon tea, candlelight. The one being served right now is marked, with how long the kitchen is open. This is Grenat today, by London time:</p>
+      <ol class="ribbon" id="ribbon">
+        <li data-from="480" data-to="690"><i></i><b>Morning</b><span>8am–11:30am</span></li>
+        <li data-from="720" data-to="870"><i></i><b>Luncheon</b><span>12pm–2:30pm</span></li>
+        <li data-from="900" data-to="1110"><i></i><b>Afternoon tea</b><span>3pm–6:30pm</span></li>
+        <li data-from="1140" data-to="1380"><i></i><b>Candlelight</b><span>7pm–11pm</span></li>
+      </ol>
+    </article>
+    <article class="course rise">
+      <p class="plan-tag">Starter</p>
+      <h3>Today's board</h3>
+      <p>The pâtisserie writes the day's specials, and anything sold out, in a Google Sheet it already keeps. The site reads it every couple of minutes, and a sold-out piece is struck from the carte and from the window.</p>
+      <div class="board" aria-label="Today's board, as the demo shows it">
+        <div class="row"><span>Quince and bay tart</span><span>£9</span></div>
+        <small>The pâtisserie's autumn tart, until it's gone</small>
+        <div class="row"><span>Chestnut Mont Blanc</span><span>£11</span></div>
+        <p class="out">Sold out today: Éclair fraise</p>
+      </div>
+    </article>
+    <article class="course rise">
+      <p class="plan-tag">Starter</p>
+      <h3>The carte, with all fourteen allergens</h3>
+      <p>Every dish carries the fourteen allergens from the café's own chart, with diet marks and filters, and the carte prints as a PDF in the house style. The site never calls a dish safe; it asks guests to tell the café.</p>
+    </article>
+    <article class="course rise">
+      <p class="plan-tag">Starter</p>
+      <h3>The concierge card</h3>
+      <p>No booking form. A card reads like a sentence: "A table for <em>two</em>, <em>today</em> at <em>four</em>", with a note for the concierge. It opens WhatsApp with the request written, and the café replies to confirm.</p>
+      <img class="wide" src="media/tea-guest.webp" width="1100" height="1375" alt="A guest lifts her cup beside a silver stand, damask curtains behind" loading="lazy">
+    </article>
+    <article class="course rise">
+      <p class="plan-tag">Starter</p>
+      <h3>Plan your visit</h3>
+      <p>A page of its own: the walk from Bond Street and Green Park, step by step, step-free access, how to pay, the opening hours with open now, and the questions guests ask.</p>
+    </article>
+  </div>
+</div></section>
+
+<!-- Tier two -->
+<section class="gut tier t2" id="plus"><div class="wrap">
+  <header class="tier-head">
+    <span class="plate-mark" aria-hidden="true"></span>
+    <p class="cap">The middle tier · Plus</p>
+    <h2>The scones</h2>
+    <p>The courtesies a regular comes to expect.</p>
+    <p class="tprice">£199 to set up, then £30 a month</p>
+  </header>
+  <div class="courses">
+    <article class="course rise">
+      <p class="plan-tag">Plus</p>
+      <h3>Cakes, to order</h3>
+      <p>Each cake knows how much notice it needs, so the first day offered is the first the pâtisserie can make it. Past £60 the order asks for a £20 deposit through the café's own Stripe link. The order goes on WhatsApp with the collection day.</p>
+      <img src="media/cake-1.webp" width="800" height="1000" alt="A white iced cake with piped scrolls and gilded cherries" loading="lazy">
+    </article>
+    <article class="course rise">
+      <p class="plan-tag">Plus</p>
+      <h3>Seasonal stands</h3>
+      <p>The year's teas, each with its dates, price and photograph. The one being served leads; otherwise the next one, marked "Next".</p>
+      <div class="seasons">
+        <figure><img src="media/season-christmas.webp" width="800" height="1000" alt="Tea and cake before a lit Christmas tree hung with red ribbon" loading="lazy"><figcaption>Christmas<span>27 Nov – 31 Dec</span></figcaption></figure>
+        <figure><img src="media/season-valentine.webp" width="800" height="1000" alt="Pastries and raspberries on painted porcelain" loading="lazy"><figcaption>Valentine's<span>12 – 14 Feb</span></figcaption></figure>
+        <figure><img src="media/season-mothers-day.webp" width="800" height="1000" alt="A floral teapot, champagne and macarons on a tiered stand" loading="lazy"><figcaption>Mother's Day<span>5 – 7 Mar</span></figcaption></figure>
+      </div>
+    </article>
+    <article class="course rise">
+      <p class="plan-tag">Plus</p>
+      <h3>Candlelight tonight</h3>
+      <p>In the evening, beside today's board: how many walk-in tables are left (from the same sheet, hidden once it's out of date), how long the kitchen is open, and "On our way" for a table without a booking.</p>
+    </article>
+    <article class="course rise">
+      <p class="plan-tag">Plus</p>
+      <h3>The harp, the piano, the dress code</h3>
+      <p>"Playing now: the harp, until 6pm", or who plays next, from the café's own times. The dress code in the café's words, with the date it was last checked: smart, never stiff.</p>
+    </article>
+    <article class="course rise">
+      <p class="plan-tag">Plus</p>
+      <h3>Rooms of its own</h3>
+      <p>Afternoon tea has its own page. So do gifts and What's on, set as a printed programme of evenings, and private hire, where each room shows the guests it seats and any minimum spend.</p>
+      <ul><li>Afternoon tea</li><li>Gifts</li><li>What's on</li><li>Private hire</li><li>The whole carte, with its allergen chart</li></ul>
+    </article>
+  </div>
+</div></section>
+
+<!-- Tier three -->
+<section class="gut tier t3" id="signature"><div class="wrap">
+  <header class="tier-head">
+    <span class="plate-mark" aria-hidden="true"></span>
+    <p class="cap">The top tier · Signature</p>
+    <h2>The pâtisserie</h2>
+    <p>The pieces people photograph.</p>
+    <p class="tprice">£349 to set up, then £35 a month</p>
+  </header>
+
+  <div class="show">
+    <div class="figure">
+      <div class="phone"><video id="v2" src="media/table.mp4" poster="media/table.jpg" muted loop playsinline autoplay preload="none" aria-label="Your table on a phone: the second guest named Clara and set as vegan, pieces marked to be made differently for her, the rosé champagne chosen, place cards for Guest 1 and Clara, and the request card summing it up"></video></div>
+      <button class="pause" type="button" data-v="v2" aria-pressed="false">Pause the Your table clip</button>
+    </div>
+    <div class="tx rise">
+      <p class="plan-tag">Signature · the showpiece</p>
+      <h3>Your table</h3>
+      <p>Afternoon tea, set guest by guest from the kitchen's own photographs of each tier. Give a guest a name and a diet and every piece that isn't right for her is marked, with why, and made differently.</p>
+      <ul>
+        <li>A place card for every guest, in the house style</li>
+        <li>The champagne table: a bottle, poured at the table</li>
+        <li>The occasion, and the words the pâtisserie writes on the plate</li>
+        <li>All of it travels with the concierge card as one request</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="show flip">
+    <div class="boxer" id="boxer">
+      <div class="pieces" id="pieces">
+        <button class="piece" type="button" data-id="framboise" data-src="media/window-eclair-framboise.webp"><img src="media/window-eclair-framboise.webp" width="700" height="875" alt="" loading="lazy"><span>Éclair framboise</span></button>
+        <button class="piece" type="button" data-id="fraise" disabled><img src="media/window-eclair-fraise.webp" width="700" height="875" alt="" loading="lazy"><span>Éclair fraise</span><small>Gone for today</small></button>
+        <button class="piece" type="button" data-id="dome" data-src="media/window-chocolat.webp"><img src="media/window-chocolat.webp" width="700" height="875" alt="" loading="lazy"><span>Dôme chocolat</span></button>
+        <button class="piece" type="button" data-id="citron" data-src="media/window-tart.webp"><img src="media/window-tart.webp" width="700" height="875" alt="" loading="lazy"><span>Tarte au citron</span></button>
+        <button class="piece" type="button" data-id="mure" data-src="media/window-gateau.webp"><img src="media/window-gateau.webp" width="700" height="875" alt="" loading="lazy"><span>Mûre</span></button>
+        <button class="piece" type="button" data-id="fours" data-src="media/window-plate.webp"><img src="media/window-plate.webp" width="700" height="875" alt="" loading="lazy"><span>Petits fours</span></button>
+      </div>
+      <div class="slots" id="slots" aria-hidden="true"><i class="slot"></i><i class="slot"></i><i class="slot"></i><i class="slot"></i><i class="slot"></i><i class="slot"></i></div>
+      <div class="box-foot">
+        <p id="boxLine" aria-live="polite">The box of six, £42. Six to choose.</p>
+        <div><button class="mini" type="button" id="boxReset">Empty the box</button></div>
+      </div>
+      <p class="note">Try it: tap a piece to add it. On Grenat's site, a full box opens the café's own Stripe link for £42, then sends the pieces, the date to collect and the name on WhatsApp.</p>
+    </div>
+    <div class="tx rise">
+      <p class="plan-tag">Signature</p>
+      <h3>The window, and the box</h3>
+      <p>The morning's pieces, shown large on velvet like the glass case at night. Fill the house box of six or twelve piece by piece. A piece the pâtisserie marks sold out on its sheet can't go in.</p>
+      <ul>
+        <li>The box stops at its size; a smaller box keeps what fits</li>
+        <li>Today is offered only while there's time to collect</li>
+        <li>The message gives the date, so it reads true tomorrow</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="show">
+    <div>
+      <div class="plan-ph">
+        <img src="media/salon-plan.webp" width="1800" height="1200" alt="The salon: gold velvet sofas and green armchairs beneath a gilded gallery and a glass roof" loading="lazy">
+        <button class="spot" type="button" style="left:50%;top:80%" data-l="The gold velvet sofas" aria-pressed="false">The velvet sofas</button>
+        <button class="spot" type="button" style="left:16%;top:70%" data-l="The green armchairs" aria-pressed="false">Armchairs</button>
+        <button class="spot" type="button" style="left:50%;top:36%" data-l="Beneath the glass roof" aria-pressed="false">The glass roof</button>
+        <button class="spot" type="button" style="left:82%;top:48%" data-l="Among the palms" aria-pressed="false">The palms</button>
+      </div>
+      <p class="req" id="req" aria-live="polite">Choose a place in the room.</p>
+    </div>
+    <div class="tx rise">
+      <p class="plan-tag">Signature</p>
+      <h3>The salon plan</h3>
+      <p>A photograph of the room with its places set on it. Choose the velvet sofas or the long gallery under the glass, and it goes with the request as a preference. The café still replies to confirm.</p>
+    </div>
+  </div>
+
+  <div class="show flip">
+    <div class="gift">
+      <div class="gcard" aria-live="polite">
+        <p class="cap">Grenat</p>
+        <p class="what" id="gWhat">Afternoon tea for two</p>
+        <p class="to" id="gTo">Clara</p>
+        <p class="what" id="gFrom">with love, from Sam</p>
+      </div>
+      <form class="gform" id="gform">
+        <fieldset class="gifts"><legend class="sr">The gift</legend>
+          <label><input type="radio" name="gift" value="Afternoon tea for two" checked><span>Afternoon tea for two</span><b>£136</b></label>
+          <label><input type="radio" name="gift" value="With champagne, for two"><span>With champagne, for two</span><b>£168</b></label>
+          <label><input type="radio" name="gift" value="Afternoon tea for four"><span>Afternoon tea for four</span><b>£272</b></label>
+        </fieldset>
+        <label for="gName">For<input type="text" id="gName" value="Clara" maxlength="24" autocomplete="off"></label>
+      </form>
+    </div>
+    <div class="tx rise">
+      <p class="plan-tag">Signature</p>
+      <h3>Give a sitting</h3>
+      <p>The card is set in the house style as it's written. Payment goes through the café's own Stripe link; the names and the line for the card follow on WhatsApp, so the café writes it by hand and sends it the same day.</p>
+      <p class="plan-tag">Also Signature: the tea sommelier</p>
+      <p>Three questions (the hour, milk or not, how strong) and one tea from the café's own library, set like a menu card with where it grows, how to brew it and what it goes with on the stand.</p>
+    </div>
+  </div>
+</div></section>
+
+<section class="gut pot" id="pot"><div class="wrap">
+  <div class="pot-head">
+    <h2>Brewed light.</h2>
+    <p>A grand room, and a page that still opens quickly on a phone in the street. The figures below are measured on the Grenat demo.</p>
+  </div>
+  <ul class="figs">
+    <li><b>19.1<small> KB</small></b><span>of script for the whole site, compressed</span></li>
+    <li><b>18.3<small> KB</small></b><span>of styles for the whole site, compressed</span></li>
+    <li><b>15.4<small> KB</small></b><span>for the home page itself, compressed, before its photographs</span></li>
+    <li><b>92</b><span>Lighthouse speed on a phone (74 on the very first, cold load)</span></li>
+    <li><b>100</b><span>Lighthouse accessibility on a phone; layout shift 0</span></li>
+    <li><b>£0</b><span>a month to run, beyond hosting: the café's own Google Sheet, WhatsApp and Stripe links</span></li>
+  </ul>
+</div></section>
+
+<section class="gut fruit"><div class="wrap fruit-grid">
+  <div class="rise">
+    <h2>One pomegranate.</h2>
+    <p>Grenat's colours come from a single fruit on velvet: the pale pith for the day, the dark rind for the night, the seeds for every accent, and the dried crown for the gilt. Repeated as a band, the crown is the house's motif, on the cards, the box and the stand.</p>
+    <div class="mono">
+      <svg viewBox="0 0 46 58" aria-hidden="true"><path d="M14.5 13.6h17V10l2.6-6.6-4.8 3.6L26.5.5 23 6.3 19.5.5l-2.8 6.5-4.8-3.6 2.6 6.6z" fill="currentColor"/><circle cx="23" cy="36" r="20.5" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="23" cy="36" r="17.6" fill="none" stroke="currentColor" stroke-width=".5"/><text x="23" y="45.5" text-anchor="middle" font-family="Georgia, serif" font-size="27" fill="currentColor">G</text></svg>
+      <p>The monogram sits under the crown. Titles are set in Caslon, the type of London's eighteenth-century printers; labels in small spaced capitals.</p>
+    </div>
+  </div>
+  <div class="seeds" role="list" aria-label="Grenat's palette">
+    <div class="seed" role="listitem"><i style="background:#F6EEE0"></i><b>Pith</b><span>#F6EEE0</span></div>
+    <div class="seed" role="listitem"><i style="background:#2E0910"></i><b>Rind</b><span>#2E0910</span></div>
+    <div class="seed" role="listitem"><i style="background:#B4233C"></i><b>Seed</b><span>#B4233C</span></div>
+    <div class="seed" role="listitem"><i style="background:#571020"></i><b>Velvet</b><span>#571020</span></div>
+    <div class="seed" role="listitem"><i style="background:#A9824C"></i><b>Crown</b><span>#A9824C</span></div>
+  </div>
+</div></section>
+
+<section class="gut plans" id="plans"><div class="wrap">
+  <h2>Choose your tiers.</h2>
+  <div class="plan-cols">
+    <div class="pl"><h3>Starter</h3><p class="pr">£99 <small>to set up, then £25 a month</small></p>
+      <ul><li>Home and Plan your visit</li><li>The day by sitting, open now</li><li>The carte with all 14 allergens, and its PDF</li><li>Today's board and sold-out</li><li>The concierge card</li><li>Day to candlelight</li></ul></div>
+    <div class="pl"><h3>Plus</h3><p class="pr">£199 <small>to set up, then £30 a month</small></p>
+      <ul><li>Up to 5 pages</li><li>Everything in Starter</li><li>Cakes to order, with deposits</li><li>Seasonal stands</li><li>Candlelight tonight</li><li>Music now and the dress code</li><li>Afternoon tea, gifts, What's on, private hire</li></ul></div>
+    <div class="pl sig"><h3>Signature</h3><p class="pr">£349 <small>to set up, then £35 a month</small></p>
+      <ul><li>Up to 20 pages</li><li>Everything in Plus</li><li>Your table</li><li>The window and the box</li><li>The salon plan</li><li>Give a sitting</li><li>The tea sommelier</li></ul></div>
+  </div>
+  <p class="fine">Twelve-month minimum. Any feature can be added to any plan on its own, and extra pages one at a time.</p>
+</div></section>
+
+<section class="gut close" id="mockup"><div class="wrap">
+  <h2>Pour the <em>first cup.</em></h2>
+  <p>Run a café, a tea room or a pâtisserie? Send us your Instagram or Google listing and we'll make a free mockup with your name, your menu and your photographs.</p>
+  <div class="hero-cta">
+    <a class="btn fill" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#free">Get a free mockup</a>
+    <a class="btn line" href="https://claude.ai/artifact/QjWw2Ako8ePR3Fw7Na4z9V">Try the demo first</a>
+  </div>
+  <span class="mail">hello@sitefloor.com</span>
+</div></section>
+</main>
+
+<footer class="gut"><div class="wrap">
+  <p>Grenat is a fictional grand café made to show the Sitefloor restaurant kit. Its menu, prices, sittings, music, seasons and today's board are demo data, and the Stripe links are test links. Its photographs are from Unsplash, of other rooms, tables and pâtisserie, each photographer credited by name in Sitefloor's records. Client sites use the café's own photographs.</p>
+  <span>© 2026 Sitefloor</span>
+</div></footer>
+
+<script>
+(() => {
+  document.documentElement.classList.add("js");
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Pause buttons for the clips; clips below the fold start when they come into view.
+  document.querySelectorAll(".pause").forEach((b) => {
+    const v = document.getElementById(b.dataset.v);
+    const name = b.textContent.replace(/^(Pause|Play) /, "");
+    const set = (paused) => { b.setAttribute("aria-pressed", String(paused)); b.textContent = (paused ? "Play " : "Pause ") + name; };
+    if (reduce) { v.removeAttribute("autoplay"); v.pause(); set(true); }
+    b.addEventListener("click", () => { if (v.paused) { v.play(); set(false); } else { v.pause(); set(true); } });
+  });
+
+  // Settle each block once as it comes into view (it is already visible before).
+  const io = "IntersectionObserver" in window ? new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -8% 0px" }) : null;
+  document.querySelectorAll(".rise").forEach((el) => io ? io.observe(el) : el.classList.add("in"));
+
+  // Day and candlelight.
+  const mirror = document.getElementById("mirror"), hDay = document.getElementById("hDay"), hEve = document.getElementById("hEve");
+  const hour = (eve) => { mirror.classList.toggle("is-eve", eve); hDay.setAttribute("aria-pressed", String(!eve)); hEve.setAttribute("aria-pressed", String(eve)); };
+  hDay.addEventListener("click", () => hour(false));
+  hEve.addEventListener("click", () => hour(true));
+
+  // The sittings ribbon, by London time.
+  const parts = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).formatToParts(new Date());
+  const mins = Number(parts.find((p) => p.type === "hour").value) * 60 + Number(parts.find((p) => p.type === "minute").value);
+  const items = [...document.querySelectorAll("#ribbon li")];
+  const now = items.find((li) => mins >= +li.dataset.from && mins < +li.dataset.to);
+  const next = now ? null : items.find((li) => mins < +li.dataset.from);
+  if (now) { now.classList.add("now"); now.querySelector("i").textContent = "Now"; }
+  else if (next) next.querySelector("i").textContent = "Next";
+  else items[0].querySelector("i").textContent = "Tomorrow";
+  if (mins >= 1140 || mins < 480) hour(true);
+
+  // The box of six.
+  const slots = [...document.querySelectorAll("#slots .slot")], line = document.getElementById("boxLine");
+  const pieces = [...document.querySelectorAll("#pieces .piece[data-src]")];
+  let chosen = [];
+  const draw = () => {
+    slots.forEach((s, i) => { const c = chosen[i]; if (!c && s.firstChild) s.replaceChildren(); if (c && !s.firstChild) s.append(Object.assign(document.createElement("img"), { src: c.src, alt: "" })); });
+    const left = 6 - chosen.length;
+    pieces.forEach((p) => { p.disabled = left === 0; });
+    const counts = chosen.reduce((m, c) => (m.set(c.name, (m.get(c.name) || 0) + 1), m), new Map());
+    const list = [...counts].map(([n, q]) => `${q} × ${n}`).join(", ");
+    line.textContent = left ? `The box of six, £42. ${list ? list + ". " : ""}${left} more to choose.` : `The box is full: ${list}. Pay £42 by card, then send the box.`;
+  };
+  pieces.forEach((p) => {
+    p.setAttribute("aria-label", `Add ${p.querySelector("span").textContent} to the box`);
+    p.addEventListener("click", () => { if (chosen.length < 6) { chosen.push({ src: p.dataset.src, name: p.querySelector("span").textContent }); draw(); } });
+  });
+  document.querySelector('.piece[data-id="fraise"]').setAttribute("aria-label", "Éclair fraise, gone for today");
+  document.getElementById("boxReset").addEventListener("click", () => { chosen = []; draw(); });
+  draw();
+
+  // The salon plan.
+  const spots = [...document.querySelectorAll(".spot")], req = document.getElementById("req");
+  spots.forEach((s) => s.addEventListener("click", () => {
+    const on = s.getAttribute("aria-pressed") !== "true";
+    spots.forEach((x) => x.setAttribute("aria-pressed", String(on && x === s)));
+    req.textContent = on ? `Where: ${s.dataset.l}. A preference; we'll do our best.` : "Choose a place in the room.";
+  }));
+
+  // Give a sitting.
+  const gName = document.getElementById("gName"), gTo = document.getElementById("gTo"), gWhat = document.getElementById("gWhat");
+  document.getElementById("gform").addEventListener("submit", (e) => e.preventDefault());
+  document.getElementById("gform").addEventListener("input", () => {
+    gTo.textContent = gName.value.trim() || " ";
+    gWhat.textContent = document.querySelector('input[name="gift"]:checked').value;
+  });
+})();
+</script>

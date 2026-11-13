@@ -1,0 +1,14 @@
+{#- The journal: the studio's own dated writing, newest first, each to its own page. -#}
+{%- set jn = site.journal %}
+{%- set ph = jn %}
+{% include "kits/garden/partials/page-head.njk" %}
+<section class="wrap gd-jn" aria-label="{{ jn.title | plain }}">
+  <ul class="gd-jn-list">
+    {%- for a in jn.items | newestFirst %}
+    <li class="gd-jn-i"><a href="{{ a.slug | href }}">
+      <img src="{{ a.photo.src | img }}" alt="{{ a.photo.alt }}" width="{{ a.photo.width }}" height="{{ a.photo.height }}" loading="{{ 'eager' if loop.first else 'lazy' }}" decoding="async">
+      <span class="gd-jn-d">{{ a.date | ukDay }}</span><span class="gd-jn-t">{{ a.title }}</span><span class="gd-jn-s">{{ a.summary }}</span></a></li>
+    {%- endfor %}
+  </ul>
+  {%- if jn.note %}<p class="gd-small">{{ jn.note }}</p>{% endif %}
+</section>

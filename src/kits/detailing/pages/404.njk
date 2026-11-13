@@ -1,0 +1,9 @@
+---
+layout: core/layouts/base.njk
+pageId: "404"
+permalink: 404.html
+title: Page not found
+---
+{%- set pg = { kicker: "Not found", title: "This page isn't here.", intro: "It may have moved. The packages and the next free dates are on the home page." } %}
+{% include "kits/detailing/partials/page-head.njk" %}
+<p class="wrap dt-body"><a class="go" href="{{ 'index' | href }}">Back to the studio</a></p>

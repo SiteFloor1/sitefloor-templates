@@ -1,0 +1,43 @@
+{#- Counter hero: the counter at 8 a.m. The café's own counter photo in a tall arch, each bake on it tagged live from
+    the sheet ("Fresh out 8:10am", "Sold out"); beside it the line, the order-ahead buttons, the open status and the
+    visitor's usual. What's on the counter today and the coffee board follow straight after (the specials band).
+    Without a counter photo the words carry it alone. Nothing here moves by itself for more than a few seconds. -#}
+{%- set ctr = site.counter %}
+{%- set ph = ctr.photo if ctr else null %}
+<section class="hero cn{% if ph %} cn-withphoto{% endif %}"><div class="wrap cn-in">
+  {%- if ph %}
+  <figure class="cn-arch">
+    <div class="cn-frame" style="--ih: {{ (ph.height / ph.width) | round(4) }}">
+      <img src="{{ (ph.srcSmall or ph.src) | img }}"{% if ph.srcSmall %} srcset="{{ ph.srcSmall | img }} {{ ph.srcSmallWidth }}w, {{ ph.src | img }} {{ ph.width }}w" sizes="(max-width: 899px) 92vw, 34vw"{% endif %} width="{{ ph.width }}" height="{{ ph.height }}" alt="{{ ph.alt }}" fetchpriority="high" decoding="async">
+      {%- for sp in ctr.spots %}{% set d = site.menu | dish(sp.dish) %}
+      <span class="cn-spot" data-bake="{{ d.id }}" style="--x: {{ sp.x }}; --y: {{ sp.y }}"><i aria-hidden="true"></i><span class="cn-label"><b>{{ d.name }}</b><span data-bake-tag></span></span></span>
+      {%- endfor %}
+    </div>
+    <figcaption class="cn-cap">The counter</figcaption>
+  </figure>
+  {%- endif %}
+  <div class="cn-main">
+    <p class="cn-kick">{{ site.hero.kicker }}</p>
+    <h1>{{ site.hero.title | markup | safe }}</h1>
+    <p class="cn-intro">{{ site.hero.intro }}</p>
+    <div class="h-cta">
+      {%- if "your-usual" | enabled %}
+      <a class="btn" href="#usual"{{ "your-usual" | tierAttr | safe }}>Order ahead</a>
+      {%- elif "order" | enabled %}
+      <a class="btn" href="{{ 'takeaway' | href }}">Order ahead</a>
+      {%- else %}
+      <a class="btn" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{% if build.booking.whatsapp %}{% include "core/partials/icon-whatsapp.njk" %}{% endif %}{{ build.booking.label }}</a>
+      {%- endif %}
+      {%- set cta = site.hero.secondaryCta %}
+      {%- if cta and (not cta.feature or (cta.feature | enabled)) %}<a class="btn ghost" href="{{ cta.href }}"{{ cta.feature | tierAttr | safe }}>{{ cta.label }}</a>
+      {%- elif "menu" | enabled %}<a class="btn ghost" href="{{ 'menu' | href if ('menu-page' | enabled) else '#menu' }}">The menu</a>{% endif %}
+    </div>
+    <div class="cn-foot">
+      <p class="cn-now" data-live-status><span class="dot" aria-hidden="true"></span><span data-status-text>Opening hours</span></p>
+      {%- if "your-usual" | enabled %}
+      <a class="cn-usual" href="#usual" data-usual-ticket data-saved="no"{{ "your-usual" | tierAttr | safe }}><span class="cn-usual-k">Your usual</span><b data-usual-name>Build your usual</b><span class="cn-usual-p" data-usual-price></span></a>
+      {%- endif %}
+    </div>
+  </div>
+</div></section>
+<div class="cn-tiles" aria-hidden="true"></div>

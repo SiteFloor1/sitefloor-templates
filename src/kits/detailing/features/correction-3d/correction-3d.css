@@ -1,0 +1,12 @@
+/* Paint correction on a 3D car: words left, the stage right; the photograph and the 3D bay share one box, so the car
+   fades in where the photograph was. Shared by the coverage feature (.dt-3d*). */
+.dt-c3-in { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(28px, 5vw, 88px); align-items: start; }
+.dt-c3-t { margin: 0 0 18px; color: var(--muted); max-width: 46ch; }
+.dt-c3-steps { list-style: none; margin: 0; padding: 0; counter-reset: st; border-top: 1px solid var(--line); }
+.dt-c3-steps li { counter-increment: st; display: grid; grid-template-columns: 2.2em minmax(0, 1fr); gap: 2px 12px; padding-block: 14px; border-bottom: 1px solid var(--line); }
+.dt-c3-steps li::before { content: counter(st); grid-row: span 2; color: var(--muted); font-variant-numeric: tabular-nums; }
+.dt-c3-steps b { font-weight: 500; }
+.dt-c3-steps span { color: var(--muted); font-size: 14px; }
+.dt-c3-pk { margin: 18px 0 0; }
+.dt-c3-pk b { font-weight: 500; }
+@media (max-width: 900px) { .dt-c3-in { grid-template-columns: 1fr; } .dt-c3-stage { order: -1; } }

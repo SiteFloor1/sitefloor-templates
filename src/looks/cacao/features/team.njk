@@ -1,0 +1,28 @@
+{#- Cacao team page: the kitchen by its hands: a photograph of each person's work, their name and what they make. -#}
+{%- set ph = { kicker: site.team.kicker, title: site.team.title, intro: site.team.intro } %}
+{% include "kits/bakery/partials/page-head.njk" %}
+<div class="wrap cc-team" data-feature="team">
+  {%- if site.team.filters %}
+  <div class="cc-wall-bar">
+    <span class="sr-only" id="tf-label">{{ site.team.filtersLabel or "Who makes" }}</span>
+    <div class="cc-wall-chips" role="group" aria-labelledby="tf-label" data-team-chips>
+      <button type="button" aria-pressed="true" data-tag="">Everyone</button>
+      {%- for f in site.team.filters %}<button type="button" aria-pressed="false" data-tag="{{ f.tag }}">{{ f.label }}</button>{% endfor %}
+    </div>
+    <p class="cc-wall-n" data-team-count role="status"></p>
+  </div>
+  {%- endif %}
+  <ul class="shelf-row cc-team-row" style="--n:{{ site.staff.length }}">
+  {%- for s in site.staff %}
+  <li><article class="piece cc-person" id="{{ s.name | slug }}" data-tags="{{ (s.tags or []) | join(' ') }}">
+    {%- if s.photo %}<div class="piece-ph"><img src="{{ s.photo | img }}" alt="{{ s.name }} at work" loading="{{ 'eager' if loop.first else 'lazy' }}" decoding="async" width="720" height="960"></div>{% endif %}
+    <h2 class="ticket"><b>{{ s.name }}</b><span>{{ s.role }}</span></h2>
+    <div class="cc-person-t">
+      {%- if s.bio %}<p>{{ s.bio }}</p>{% endif %}
+      <p class="cc-fine">{% if s.days %}{{ s.days }}{% endif %}{% if s.years %}{{ " · " if s.days }}{{ s.years }} {{ site.team.yearsLabel or "years" }}{% endif %}{% if s.knownFor %} · {{ s.knownFor | join(", ") }}{% endif %}</p>
+    </div>
+  </article></li>
+  {%- endfor %}
+  </ul>
+  <p class="cc-more"><a class="go" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{{ site.team.bookLine or "Message the kitchen" }}</a></p>
+</div>

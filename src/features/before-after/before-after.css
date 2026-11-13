@@ -1,0 +1,18 @@
+/* Before/after: side by side without JavaScript; once ready, one frame with a slider that wipes between them. */
+.ba-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+.ba { margin: 0; }
+.ba-frame { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 4px; overflow: hidden; background: var(--surface-2); }
+.ba-side { position: relative; aspect-ratio: 4 / 5; overflow: hidden; }
+.ba-side img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.ba-lab { position: absolute; top: 12px; padding: 5px 10px; background: var(--photo-scrim); color: var(--on-photo); font-size: 12px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; z-index: 2; }
+.ba-before .ba-lab { left: 12px; }
+.ba-after .ba-lab { right: 12px; }
+.ba-handle, .ba-range { display: none; }
+[data-ba-ready] .ba-frame { display: block; aspect-ratio: 4 / 5; touch-action: pan-y; }
+[data-ba-ready] .ba-side { position: absolute; inset: 0; aspect-ratio: auto; }
+[data-ba-ready] .ba-before { z-index: 1; clip-path: inset(0 calc(100% - var(--ba, 50%)) 0 0); }
+[data-ba-ready] .ba-handle { display: block; position: absolute; top: 0; bottom: 0; left: var(--ba, 50%); width: 3px; margin-left: -1.5px; background: var(--on-photo); z-index: 3; pointer-events: none; box-shadow: 0 0 0 1px var(--photo-scrim); }
+[data-ba-ready] .ba-handle::after { content: "↔"; position: absolute; top: 50%; left: 50%; width: 44px; height: 44px; margin: -22px 0 0 -22px; display: grid; place-items: center; border-radius: 50%; background: var(--on-photo); color: var(--photo-scrim); font-weight: 800; }
+[data-ba-ready] .ba-range { display: block; position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; z-index: 4; }
+.ba-range:focus-visible + .ba-handle, [data-ba-ready] .ba-frame:focus-within .ba-handle { width: 5px; }
+.ba figcaption { margin-top: 10px; font-size: 14px; color: var(--muted); }

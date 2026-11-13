@@ -1,0 +1,14 @@
+{#- Blue hour questions: the heading and the way to Plan your visit on the left; the questions on the right as ruled
+    lines that open, each with a small square that lights when it's open. -#}
+{%- set sec = site.sections.questions %}
+{%- set qs = site | homeQuestions %}
+<section id="questions" class="bh-qs-sec" data-feature="questions"{{ "questions" | tierAttr | safe }}><div class="wrap bh-qs">
+  <div>
+    {% include "core/partials/section-head.njk" %}
+    <p class="bh-qs-go">
+      {%- if "plan-visit" | enabled %}<a class="bh-under" href="{{ 'visit' | href }}"{{ "plan-visit" | tierAttr | safe }}>Plan your visit</a>{% endif %}
+      <a class="bh-under" href="{{ site.messages.general | wa }}" data-wa-text="{{ site.messages.general }}" target="_blank" rel="noopener">Ask us something else</a>
+    </p>
+  </div>
+  <div>{% for item in qs %}<details class="bh-qa"{% if loop.first %} open{% endif %}><summary>{{ item.q }}</summary><p>{{ item.a }}</p></details>{% endfor %}</div>
+</div></section>

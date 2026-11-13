@@ -1,0 +1,2 @@
+{#- One clinician as the GDC asks: name, registered role, qualification and country, GDC number linked. Set `p`. -#}
+<span class="sm-cl-line"><b>{{ p.name }}</b>, {{ p.role | roleLabel | lower }} · {{ p.qualification }}, {{ p.country }}{% if p.specialist %} · on the GDC specialist list for {{ p.specialist }}{% elif p.interest %} · {{ p.interest }}{% endif %} · {% include "kits/smile/partials/gdc.njk" %}</span>

@@ -1,0 +1,19 @@
+{#- Your matter, by code: the client types the code the firm gave them and sees the stage their matter has reached.
+    The firm's sheet holds only a code, a stage and a time. Unknown or old codes say to call. -#}
+{%- set mc = site.matterCode %}
+{%- set ph = { title: mc.title, intro: mc.intro } %}
+{% include "kits/law/partials/page-head.njk" %}
+<div class="wrap lw-mc" data-feature="matter-code">
+  <form class="lw-mc-form" id="mc-form" data-js-only>
+    <label for="mc-code">Your code</label>
+    <div class="lw-mc-row"><input id="mc-code" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="16" placeholder="8 to 12 letters and numbers"><button class="go" type="submit">Show my matter</button></div>
+    {%- if site.mode == "demo" and mc.example %}<p class="lw-mc-ex">Demo: try <button type="button" class="lw-mc-try" data-mc-try="{{ mc.example }}">{{ mc.example }}</button></p>{% endif %}
+  </form>
+  <div class="lw-mc-out" id="mc-out" hidden aria-live="polite">
+    <ol class="lw-mc-stages">{% for st in mc.stages %}<li data-mc-stage="{{ loop.index0 }}"><b>{{ st.name }}</b><span>{{ st.about }}</span></li>{% endfor %}</ol>
+    <p class="lw-mc-upd" data-mc-upd></p>
+  </div>
+  <p class="lw-mc-off" id="mc-off" hidden role="status"></p>
+  <p class="lw-mc-plain" data-no-js>Call us on <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a> and we will tell you where your matter has reached.</p>
+  <p class="lw-mc-note">This page shows only the stage your matter has reached. It never shows your name or any detail of your matter.</p>
+</div>

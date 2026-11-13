@@ -1,0 +1,14 @@
+{#- Cacao page links: the other pages as two large photographs side by side, each with its ticket. -#}
+{%- set links = site.pageLinks | enabledLinks %}
+{%- if links.length %}
+<section class="cc-pl" data-feature="page-links"{{ "page-links" | tierAttr | safe }}><div class="wrap">
+  <ul class="cc-pl-row">
+    {%- for l in links %}
+    <li><a class="cc-pl-a" href="{{ l.page | href }}">
+      <img src="{{ l.image | img }}" alt="" loading="lazy" decoding="async" width="720" height="960">
+      <span class="ticket"><b>{{ l.title | plain }}</b><span>{{ l.cta }}</span></span>
+    </a></li>
+    {%- endfor %}
+  </ul>
+</div></section>
+{%- endif %}

@@ -1,0 +1,34 @@
+{#- Stylist match: three answers (what we're doing, the hair, the first free chair or the most experience) and the one
+    stylist who fits, with their level, line and next free day, and a WhatsApp message to book
+    them. It first paints with the first answers chosen and their match. -#}
+{%- set sec = site.sections.match %}
+{%- set mt = site.match %}
+<section id="match" class="hr-mt" data-feature="stylist-match" aria-labelledby="mt-h"><div class="wrap hr-mt-in">
+  <div>
+    {%- set secId = "mt-h" %}{% include "core/partials/section-head.njk" %}
+    <form class="hr-mt-q" data-mt-form>
+      <fieldset class="hr-mt-f"><legend class="hr-label">We're doing</legend><div class="hr-mt-o">
+        {%- for d in mt.doing %}<label class="hr-pick"><input type="radio" name="mt-doing" value="{{ d.id }}"{% if loop.first %} checked{% endif %}><span>{{ d.name }}</span></label>{% endfor %}
+      </div></fieldset>
+      <fieldset class="hr-mt-f"><legend class="hr-label">Your hair is</legend><div class="hr-mt-o">
+        <label class="hr-pick"><input type="radio" name="mt-texture" value="" checked><span>Any</span></label>
+        {%- for t in site.textures.items %}<label class="hr-pick"><input type="radio" name="mt-texture" value="{{ t.id }}"><span>{{ t.name }}</span></label>{% endfor %}
+      </div></fieldset>
+      <fieldset class="hr-mt-f"><legend class="hr-label">You'd like</legend><div class="hr-mt-o">
+        <label class="hr-pick"><input type="radio" name="mt-want" value="soon" checked><span>The first free chair</span></label>
+        <label class="hr-pick"><input type="radio" name="mt-want" value="senior"><span>The most experience</span></label>
+      </div></fieldset>
+    </form>
+  </div>
+  <div class="hr-mt-r" aria-live="polite">
+    {%- set first = null %}{% for x in site.stylists.items %}{% if not first and (mt.doing[0].id in x.does) %}{% set first = x %}{% endif %}{% endfor %}
+    <div>
+      <p class="hr-label">Your match</p>
+      <p class="hr-mt-n" data-mt-name>{{ first.name }}</p>
+      <p class="hr-mt-l" data-mt-line>{{ (site.menu.levels | idOf(first.level)).name }} · {{ first.line }}</p>
+      <p class="hr-mt-free" data-mt-free>&nbsp;</p>
+      <a class="hr-btn" data-mt-book href="{{ (site.stylists.message + ' I\'d like to book with ' + first.name + '.') | book }}" target="_blank" rel="noopener">Book {{ first.name.split(' ')[0] }}</a>
+    </div>
+  </div>
+  <ul hidden>{% for x in site.stylists.items %}<li data-mt-card="{{ x.id }}" data-line="{{ (site.menu.levels | idOf(x.level)).name }} · {{ x.line }}"></li>{% endfor %}</ul>
+</div></section>

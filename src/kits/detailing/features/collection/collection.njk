@@ -1,0 +1,22 @@
+{#- Collection and delivery: a postcode and a day; the studio's sheet says whether it collects from that district on
+    that day, and its charge if it gives one. Only the district (the postcode's first half) is used or sent. -#}
+{%- set sec = site.sections.collection %}
+{%- set cl = site.collection %}
+<section id="collection" class="dt-cl" data-feature="collection" aria-label="{{ sec.title | plain }}"><div class="wrap dt-cl-in">
+  <div>
+    {%- include "core/partials/section-head.njk" %}
+    <form class="dt-cl-f" data-cl-form novalidate>
+      <label class="dt-field" for="dt-cl-pc"><span>Your postcode</span><input id="dt-cl-pc" autocomplete="postal-code" autocapitalize="characters" spellcheck="false" maxlength="9" placeholder="KT13 8AA" data-cl-pc></label>
+      <label class="dt-field" for="dt-cl-day"><span>The day</span><select id="dt-cl-day" data-cl-day>
+        {%- for d in [["mon","Monday"],["tue","Tuesday"],["wed","Wednesday"],["thu","Thursday"],["fri","Friday"],["sat","Saturday"],["sun","Sunday"]] %}<option value="{{ d[0] }}">{{ d[1] }}</option>{% endfor %}
+      </select></label>
+      <button class="go" type="submit">Check</button>
+    </form>
+  </div>
+  <div class="dt-cl-out" aria-live="polite">
+    <span class="tube" aria-hidden="true"></span>
+    <p class="dt-cl-a" data-cl-out>Type the first half of your postcode, or all of it.</p>
+    <a class="go" data-cl-go href="{{ cl.message | wa }}" target="_blank" rel="noopener">Ask us on WhatsApp</a>
+    {%- if cl.note %}<p class="dt-note">{{ cl.note }}</p>{% endif %}
+  </div>
+</div></section>

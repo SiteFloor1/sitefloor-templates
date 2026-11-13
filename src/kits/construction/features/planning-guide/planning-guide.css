@@ -1,0 +1,19 @@
+/* The planning guide: three bands to scale, a marker at the chosen depth, the rules and the source under it. */
+.bd-pg { display: grid; gap: 18px; padding-block: clamp(56px, 8vw, 88px); border-top: 1px solid var(--line); }
+.bd-pg-head p { margin: 10px 0 0; color: var(--muted); max-width: 52ch; }
+.bd-pg-scale { position: relative; display: grid; grid-template-columns: 33fr 33fr 34fr; margin-top: 8px; }
+.bd-pg-band { display: grid; gap: 2px; padding: 12px 12px 14px; font-size: 12px; border-top: 4px solid var(--line-2); color: var(--muted); transition: background .3s, color .3s; }
+.bd-pg-band b { font-weight: 600; font-size: 13px; }
+.bd-pg-band i { font-style: normal; color: var(--muted); font-variant-numeric: tabular-nums; }
+.bd-pg-band.pd { border-top-color: var(--accent); }
+.bd-pg-band.prior { border-top-color: var(--accent-soft, var(--line-2)); }
+[data-zone="pd"] .pd, [data-zone="prior"] .prior, [data-zone="permission"] .permission { color: var(--text); background: var(--surface); }
+.bd-pg-mark { position: absolute; top: -10px; width: 2px; height: 22px; background: var(--text); transform: translateX(-1px); transition: left .25s; }
+.bd-pg-mark::before { content: ""; position: absolute; left: -5px; top: -2px; width: 12px; height: 12px; border-radius: 50%; background: var(--text); }
+.bd-pg-now { margin: 0; font-family: var(--font-display); font-size: clamp(20px, 2vw, 26px); line-height: 1.25; max-width: 40ch; }
+.bd-pg-rules { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); max-width: 70ch; }
+.bd-pg-rules li { padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+.bd-pg-not { margin: 0; font-size: 15px; }
+.bd-pg-src { margin: 0; font-size: 12px; color: var(--muted); max-width: 80ch; }
+@media (max-width: 560px) { .bd-pg-band { padding: 10px 6px 12px; } .bd-pg-band b { font-size: 12px; } }
+@media (prefers-reduced-motion: reduce) { .bd-pg-mark, .bd-pg-band { transition: none; } }

@@ -1,0 +1,12 @@
+{#- Blue hour gallery strip (home or a hosting page): the same lit wall as the work page, three frames, with the way
+    to the rest as a quiet underlined line. -#}
+{%- set sec = site.sections.gallery %}
+{%- set g = site.gallery %}
+<section id="work" class="bh-wall-sec" data-feature="gallery" data-gallery-limit="6"{{ "gallery" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="bh-wall">{% include "features/gallery/gallery-list.njk" %}</div>
+  <p class="bh-wall-more">
+    {%- if "work" | enabled %}<a class="bh-under" href="{{ 'work' | href }}"{{ "work" | tierAttr | safe }}>Every photograph</a>
+    {%- elif g.profile %}<a class="bh-under" href="{{ g.profile }}" target="_blank" rel="noopener">On Instagram{% if g.handle %}, @{{ g.handle }}{% endif %}</a>{% endif %}
+  </p>
+</div></section>

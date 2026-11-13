@@ -1,0 +1,16 @@
+{#- The cloth book, opened: tall lengths of real cloth hanging from one spine, each its own width and drop, pinked at
+    the foot. Tap one and its weave fills the screen (partials/weave.njk) with its cloth, weight and season, and "Ask
+    for a swatch" on WhatsApp. Without JavaScript each length links to its weave photograph. -#}
+{%- set sec = site.sections.cloth %}
+<section id="cloth" class="tl-cloth" data-feature="cloth-book" aria-labelledby="cb-h"{{ 'cloth-book' | tierAttr | safe }}><div class="wrap">
+  <div class="tl-cb-head">
+    <h2 class="tl-cb-t" id="cb-h">{{ sec.title | markup | safe }}</h2>
+    {%- if sec.intro %}<p class="tl-cb-i">{{ sec.intro }}</p>{% endif %}
+  </div>
+  {%- set cbItems = site.cloths.items %}{% include "kits/tailor/partials/lengths.njk" %}
+  {% include "kits/tailor/partials/swatch-set.njk" %}
+  {%- if site.cloths.note %}<p class="tl-small tl-cb-note">{{ site.cloths.note }}</p>{% endif %}
+  {%- if "cloth-page" | enabled %}<p class="tl-cb-more"><a class="tl-go" href="{{ 'cloth' | href }}"{{ 'cloth-page' | tierAttr | safe }}>The whole cloth library</a></p>{% endif %}
+</div>
+{% include "kits/tailor/partials/weave.njk" %}
+</section>

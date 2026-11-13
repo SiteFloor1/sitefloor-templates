@@ -1,0 +1,13 @@
+{#- The care card (Plus, unlisted): the florist's own care advice, reached from the QR code printed on the card that
+    goes with every bouquet. The code itself is drawn below for the florist to print (made at build time). -#}
+{%- set Cr = site.care %}
+{%- set ph = { kicker: "Care", title: Cr.title, intro: Cr.intro } %}
+{% include "kits/florist/partials/page-head.njk" %}
+<section class="fl-care"><div class="wrap fl-care-in">
+  <ol class="fl-care-steps">{% for s in Cr.steps %}<li>{{ s }}</li>{% endfor %}</ol>
+  <aside class="fl-care-side">
+    <p class="fl-care-lasts">{{ Cr.lasts }}</p>
+    <p>Something not right? <a class="fl-link" href="{{ ('Hello ' + site.business.name + ', a question about my flowers.') | book }}" target="_blank" rel="noopener">Message us</a> and we'll put it right.</p>
+    <figure class="fl-care-qr">{{ (site.url + '/flower-care') | qrSvg | safe }}<figcaption>The code on our care card brings you here.</figcaption></figure>
+  </aside>
+</div></section>

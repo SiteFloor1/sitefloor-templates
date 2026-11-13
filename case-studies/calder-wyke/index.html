@@ -1,0 +1,402 @@
+<title>Calder Wyke Case Study</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,200..500;1,7..72,300&family=Geologica:wght@300;400;500&family=Manrope:wght@600;700&display=swap">
+<style>
+/* The case study as a deed between a law firm and its website. The sheet's top edge is cut as an indenture; recitals
+   say why; the operative clauses are the features, each with its exhibit (the demo, marked CW1, CW2…), two of them
+   live; the schedules are the plans; "time is of the essence" is the speed; it ends executed, under a blind stamp.
+   Palette from one magpie: the white of its belly for the sheet, its black for ink and the surround, the blue gloss of
+   its wing for clause numbers, exhibit marks and the stamp's ring; the grey where black meets white for secondary text.
+   Literata (a contemporary book serif, light) for the deed's words and numbers, against Geologica (a modern sans) for
+   everything a reader uses. Manrope only in Sitefloor's own bar. Motion: the stamp presses once; nothing follows the scroll. */
+:root {
+  --belly: #F4F5F4;     /* the magpie's white: the sheet */
+  --mist: #E7E9E9;      /* white in shade: panels */
+  --black: #121417;     /* its black: ink and the surround */
+  --grey: #5E636A;      /* where black meets white: secondary text */
+  --gloss: #2C4E86;     /* the blue gloss on the wing: numbers, marks, links */
+  --hair: #CDD1D3;      /* hairlines */
+  --f-deed: "Literata", "Iowan Old Style", Georgia, serif;
+  --f-sans: "Geologica", "Segoe UI", system-ui, sans-serif;
+  --sf-paper: #FBFAF7; --sf-ink: #0E0F11; --sf-tomato: #E8613C; --sf-line: rgba(14,15,17,.12);
+  --brand: "Manrope", Arial, sans-serif;
+  --gut-l: max(16px, env(safe-area-inset-left, 0px));
+  --gut-r: max(16px, env(safe-area-inset-right, 0px));
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--black); color: var(--black); font: 300 17px/1.6 var(--f-sans); -webkit-font-smoothing: antialiased; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--sf-paper); }
+a { color: inherit; text-decoration-color: var(--gloss); text-underline-offset: 4px; }
+:focus-visible { outline: 2px solid var(--gloss); outline-offset: 3px; }
+.wrap { max-width: 1320px; margin: 0 auto; padding-left: var(--gut-l); padding-right: var(--gut-r); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Sitefloor's bar: the same on every case study. */
+.sfbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--sf-paper); color: var(--sf-ink); border-bottom: 1px solid var(--sf-line); }
+.sfbar .wrap { display: flex; justify-content: space-between; align-items: center; height: 66px; gap: 16px; }
+.wm { display: flex; align-items: baseline; font-family: var(--brand); font-weight: 600; font-size: 24px; letter-spacing: -.045em; text-decoration: none; color: var(--sf-ink); }
+.wm svg { margin: 0 1px; overflow: visible; }
+.sfbar nav { display: flex; gap: 28px; font-family: var(--brand); font-size: 14px; font-weight: 600; }
+.sfbar nav a { text-decoration: none; color: var(--sf-ink); }
+.sfbar nav a[aria-current] { box-shadow: inset 0 -1.5px 0 var(--sf-ink); }
+.sfbtn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 20px; background: var(--sf-ink); color: var(--sf-paper); font: 700 12px var(--brand); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; }
+.sfbtn:hover { background: var(--sf-tomato); }
+@media (max-width: 760px) { .sfbar nav { display: none; } }
+@media (max-width: 420px) { .sfbar .sfbtn { display: none; } }
+
+/* The deed: one white sheet on the black, its top edge cut as an indenture. */
+.deed { position: relative; background: var(--belly); margin: clamp(32px, 5vw, 72px) auto 0; max-width: 1400px; padding-bottom: clamp(64px, 9vw, 128px); }
+.indent { display: block; width: 100%; height: clamp(10px, 1.2vw, 16px); position: absolute; left: 0; top: 0; transform: translateY(-99%); color: var(--belly); }
+
+/* Hero */
+.open { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(28px, 5vw, 96px); align-items: center; padding-block: clamp(48px, 7vw, 112px) clamp(56px, 8vw, 120px); }
+.kick { margin: 0 0 clamp(18px, 2vw, 28px); font-size: 14px; color: var(--grey); }
+.this { margin: 0; font-family: var(--f-deed); font-weight: 200; font-size: clamp(68px, 11.5vw, 184px); line-height: .88; letter-spacing: -.035em; }
+.this i { font-style: italic; font-weight: 300; color: var(--gloss); }
+.parties { margin: clamp(24px, 3vw, 40px) 0 0; font-family: var(--f-deed); font-weight: 300; font-size: clamp(21px, 2.1vw, 30px); line-height: 1.32; max-width: 26ch; }
+.parties i { font-style: italic; }
+.between { display: grid; gap: 10px; margin: clamp(24px, 3vw, 40px) 0 0; padding: 0; list-style: none; max-width: 520px; counter-reset: p; }
+.between li { display: grid; grid-template-columns: 2.4em minmax(0, 1fr); gap: 8px; border-top: 1px solid var(--hair); padding-top: 12px; font-size: 15px; color: var(--grey); }
+.between li::before { counter-increment: p; content: "(" counter(p) ")"; font-family: var(--f-deed); font-size: 17px; color: var(--gloss); }
+.between b { color: var(--black); font-weight: 500; }
+.ex { position: relative; margin: 0; }
+.ex img { display: block; width: 100%; height: auto; border: 1px solid var(--hair); box-shadow: 0 28px 56px -32px rgba(18,20,23,.5); background: var(--mist); }
+.ex figcaption { display: flex; justify-content: space-between; gap: 12px; margin-top: 12px; font-size: 13px; color: var(--grey); }
+.ex figcaption b { font-family: var(--f-deed); font-weight: 400; font-size: 15px; color: var(--gloss); white-space: nowrap; }
+.open .ex { justify-self: center; width: min(100%, 360px); }
+
+/* The blind stamp: the firm's initials pressed into the sheet, no ink. */
+.stamp { position: absolute; left: -46px; top: 34%; width: 112px; height: 112px; border-radius: 50%; background: var(--belly); display: grid; place-items: center;
+  box-shadow: inset 2px 2px 4px rgba(18,20,23,.18), inset -2px -2px 3px rgba(255,255,255,.9), 0 1px 0 rgba(255,255,255,.7), 0 14px 28px -18px rgba(18,20,23,.5); }
+.stamp::before { content: ""; position: absolute; inset: 8px; border-radius: 50%; border: 1px solid var(--gloss); opacity: .55; }
+.stamp svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.stamp text { font: 500 8.6px var(--f-sans); letter-spacing: .26em; fill: var(--grey); }
+.stamp span { position: relative; font-family: var(--f-deed); font-weight: 400; font-size: 30px; color: var(--belly); letter-spacing: -.02em; text-shadow: 1px 1px 1px rgba(255,255,255,.9), -1px -1px 1px rgba(18,20,23,.35); }
+
+/* Recitals and clauses */
+.head { margin: 0; font-family: var(--f-deed); font-weight: 300; font-size: clamp(28px, 2.8vw, 40px); line-height: 1; letter-spacing: -.01em; }
+.recitals { border-top: 1px solid var(--black); padding-top: 22px; display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); gap: 16px clamp(24px, 4vw, 64px); }
+.recitals ol { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 3vw, 44px); counter-reset: r; }
+.recitals li { font-family: var(--f-deed); font-weight: 300; font-size: clamp(19px, 1.6vw, 22px); line-height: 1.38; }
+.recitals li::before { counter-increment: r; content: "(" counter(r, upper-alpha) ")"; display: block; font-size: 17px; color: var(--gloss); margin-bottom: 6px; }
+.operative { margin-top: clamp(72px, 10vw, 144px); }
+.operative > .head { border-top: 1px solid var(--black); padding-top: 22px; }
+.clause { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 5fr) minmax(0, 4fr); gap: 20px clamp(24px, 4vw, 64px); align-items: start; margin-top: clamp(56px, 8vw, 112px); border-top: 1px solid var(--hair); padding-top: 22px; }
+.num { margin: 0; font-family: var(--f-deed); font-weight: 200; font-size: clamp(88px, 11vw, 168px); line-height: .8; letter-spacing: -.04em; color: var(--gloss); }
+.clause h3 { margin: 0 0 18px; font-family: var(--f-deed); font-weight: 300; font-size: clamp(30px, 3.4vw, 50px); line-height: 1.05; letter-spacing: -.015em; }
+.sub { margin: 0; padding: 0; list-style: none; display: grid; gap: 16px; }
+.sub li { display: grid; grid-template-columns: 3.2em minmax(0, 1fr); gap: 6px; }
+.sub li > span { font-family: var(--f-deed); font-size: 16px; color: var(--gloss); padding-top: 2px; }
+.sub p { margin: 0; max-width: 46ch; }
+.clause .ex { width: min(100%, 340px); }
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.pair .ex figcaption { flex-direction: column; gap: 2px; }
+
+/* The two live clauses: the demo's own maths and the law's own rules, answered here. */
+.live { margin-top: 28px; background: var(--mist); padding: 20px 22px 22px; }
+.live-k { margin: 0 0 12px; font-size: 13px; color: var(--grey); display: flex; justify-content: space-between; gap: 12px; }
+.live fieldset { border: 0; margin: 0 0 12px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.live legend { width: 100%; font-size: 14px; font-weight: 500; margin-bottom: 6px; }
+.live label { position: relative; cursor: pointer; }
+.live input { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; }
+.live label span { display: inline-block; min-height: 40px; line-height: 22px; padding: 8px 12px; border: 1px solid var(--hair); background: var(--belly); font-size: 14px; }
+.live input:checked + span { border-color: var(--black); box-shadow: inset 0 -2px 0 var(--gloss); }
+.live input:focus-visible + span { outline: 2px solid var(--gloss); outline-offset: 2px; }
+.fee { margin: 14px 0 0; border-top: 1px solid var(--black); padding-top: 12px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; }
+.fee b { font-family: var(--f-sans); font-weight: 300; font-size: clamp(28px, 2.8vw, 40px); line-height: 1; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.fee span { font-size: 14px; color: var(--grey); }
+.heirs { margin: 14px 0 0; border-top: 1px solid var(--black); padding: 12px 0 0; list-style: none; display: grid; gap: 10px; }
+.heirs b { display: block; font-family: var(--f-deed); font-weight: 400; font-size: 20px; line-height: 1.2; }
+.heirs .n { font-size: 13px; color: var(--grey); }
+.live .src { margin: 14px 0 0; font-size: 13px; color: var(--grey); }
+
+/* Schedules */
+.schedules { margin-top: clamp(80px, 11vw, 160px); border-top: 1px solid var(--black); padding-top: 22px; }
+.sched { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin-top: clamp(28px, 4vw, 48px); border-top: 1px solid var(--hair); }
+.sched section { padding: 22px clamp(16px, 2.4vw, 32px) 26px; border-left: 1px solid var(--hair); }
+.sched section:first-child { border-left: 0; padding-left: 0; }
+.sched .k { margin: 0; font-size: 13px; color: var(--gloss); font-family: var(--f-deed); }
+.sched h3 { margin: 4px 0 6px; font-family: var(--f-deed); font-weight: 300; font-size: clamp(30px, 3vw, 44px); line-height: 1; }
+.sched .price { margin: 0 0 16px; font-variant-numeric: tabular-nums; }
+.sched ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; font-size: 15px; }
+.sched li { border-top: 1px solid var(--hair); padding-top: 8px; }
+
+/* Time is of the essence */
+.essence { margin-top: clamp(80px, 11vw, 160px); display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); gap: 16px clamp(24px, 4vw, 64px); border-top: 1px solid var(--black); padding-top: 22px; }
+.essence dl { margin: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; }
+.essence div { border-left: 1px solid var(--hair); padding: 0 clamp(12px, 2vw, 28px) 4px; }
+.essence div:first-child { border-left: 0; padding-left: 0; }
+.essence dt { font-size: 13px; color: var(--grey); margin-bottom: 6px; }
+.essence dd { margin: 0; font-family: var(--f-deed); font-weight: 200; font-size: clamp(40px, 5vw, 76px); line-height: 1; letter-spacing: -.03em; font-variant-numeric: lining-nums; }
+.essence dd small { display: block; margin-top: 8px; font: 300 14px/1.4 var(--f-sans); letter-spacing: 0; color: var(--grey); }
+
+/* Executed */
+.executed { margin-top: clamp(80px, 11vw, 160px); border-top: 1px solid var(--black); padding-top: 22px; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 28px clamp(24px, 5vw, 96px); align-items: end; }
+.executed p { margin: 0; }
+.exec-line { font-family: var(--f-deed); font-weight: 300; font-size: clamp(30px, 3.6vw, 54px); line-height: 1.08; letter-spacing: -.015em; max-width: 18ch; }
+.sig { display: grid; gap: 12px; }
+.sig .line { border-bottom: 1px solid var(--black); padding-bottom: 6px; font-family: var(--f-deed); font-style: italic; font-weight: 300; font-size: 22px; }
+.sig .who { font-size: 14px; color: var(--grey); }
+.acts { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 14px 32px; margin-top: 8px; }
+.go { display: inline-flex; align-items: center; min-height: 48px; padding: 0 22px; background: var(--black); color: var(--belly); text-decoration: none; font-weight: 500; font-size: 15px; }
+.go:hover { background: var(--gloss); }
+.go.quiet { background: none; color: var(--black); padding: 0; text-decoration: underline; text-decoration-color: var(--gloss); text-underline-offset: 8px; }
+footer { color: #A9AEB4; font-size: 13px; line-height: 1.6; }
+footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px 32px; padding-block: 28px 44px; }
+footer p { margin: 0; max-width: 96ch; }
+@media (max-width: 700px) { footer .wrap { grid-template-columns: minmax(0, 1fr); } }
+
+@media (max-width: 900px) {
+  .open, .recitals, .clause, .essence, .executed { grid-template-columns: 1fr; }
+  .open .ex { width: min(100%, 300px); margin-left: 44px; justify-self: start; }
+  .recitals ol { grid-template-columns: 1fr; }
+  .num { font-size: 96px; }
+  .clause .ex, .pair { max-width: 520px; }
+  .sched { grid-template-columns: 1fr; }
+  .sched section { border-left: 0; padding-left: 0; border-top: 1px solid var(--hair); }
+  .sched section:first-child { border-top: 0; }
+  .essence dl { grid-template-columns: 1fr 1fr; gap: 24px 0; }
+  .essence div:nth-child(3) { border-left: 0; padding-left: 0; }
+}
+@media (max-width: 480px) { .stamp { width: 92px; height: 92px; left: -38px; } .stamp span { font-size: 25px; } .pair { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: no-preference) {
+  .stamp { animation: press 1.2s cubic-bezier(.2, .7, .2, 1) .6s both; }
+  @keyframes press { from { transform: scale(1.08); box-shadow: 0 18px 30px -12px rgba(18,20,23,.35); } to { transform: scale(1); } }
+}
+</style>
+
+<div class="sfbar"><div class="wrap">
+  <a class="wm" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su" aria-label="Sitefloor home">sitefl<svg width="28" height="14" viewBox="0 0 42 21" aria-hidden="true"><rect x="1.9" y="1.9" width="38.2" height="17.2" rx="8.6" fill="none" stroke="#0E0F11" stroke-width="3.8"/><circle cx="31.5" cy="10.5" r="5.2" fill="#E8613C"/></svg>r</a>
+  <nav aria-label="Main"><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#live">Features</a><a href="#top" aria-current="page">Work</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#pricing">Pricing</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#guides">Guides</a></nav>
+  <a class="sfbtn" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#mockup"><span>Free mockup</span><span aria-hidden="true">→</span></a>
+</div></div>
+
+<main id="top">
+<article class="deed">
+  <svg class="indent" viewBox="0 0 1400 16" preserveAspectRatio="none" aria-hidden="true"><path d="M0 16 V9 C 17.5 1, 35 1, 52.5 9 S 87.5 17, 105 9 S 140 1, 157.5 9 S 192.5 17, 210 9 S 245 1, 262.5 9 S 297.5 17, 315 9 S 350 1, 367.5 9 S 402.5 17, 420 9 S 455 1, 472.5 9 S 507.5 17, 525 9 S 560 1, 577.5 9 S 612.5 17, 630 9 S 665 1, 682.5 9 S 717.5 17, 735 9 S 770 1, 787.5 9 S 822.5 17, 840 9 S 875 1, 892.5 9 S 927.5 17, 945 9 S 980 1, 997.5 9 S 1032.5 17, 1050 9 S 1085 1, 1102.5 9 S 1137.5 17, 1155 9 S 1190 1, 1207.5 9 S 1242.5 17, 1260 9 S 1295 1, 1312.5 9 S 1347.5 17, 1365 9 S 1400 3, 1400 9 V16 Z" fill="currentColor"/></svg>
+  <div class="wrap">
+    <section class="open" aria-label="Calder Wyke, a law firm website by Sitefloor">
+      <div>
+        <p class="kick">Case study · Law firm · Calder Wyke</p>
+        <h1 class="this">This <i>Deed</i></h1>
+        <p class="parties">is made <i>between</i> a private firm of solicitors and the website that had to earn its trust before anything else.</p>
+        <ol class="between">
+          <li><span><b>Calder Wyke</b>, solicitors in London: private wealth, family, estates, disputes, charities and family companies. A fictional firm.</span></li>
+          <li><span><b>Its website</b>, built by Sitefloor on the law kit, in the Portland look.</span></li>
+        </ol>
+      </div>
+      <figure class="ex">
+        <img src="media/home.webp" alt="The Calder Wyke home page on a phone: one sentence over the firm's library and Speak to a partner" width="780" height="1688">
+        <span class="stamp" aria-hidden="true"><svg viewBox="0 0 112 112"><defs><path id="ring" d="M56 56 m-41 0 a41 41 0 1 1 82 0 a41 41 0 1 1 -82 0"/></defs><text><textPath href="#ring">CALDER WYKE · SOLICITORS · LONDON ·</textPath></text></svg><span>CW</span></span>
+        <figcaption><b>Exhibit CW1</b><span>The home page, on a phone</span></figcaption>
+      </figure>
+    </section>
+
+    <section class="recitals" aria-labelledby="rec-h">
+      <h2 class="head" id="rec-h">Recitals</h2>
+      <ol>
+        <li>A family chooses a firm on trust, long before it reads a word about the law.</li>
+        <li>The regulator asks every firm to show its number, its badge, its complaints procedure and, for some work, its prices.</li>
+        <li>Some clients would rather nobody saw them arrive.</li>
+      </ol>
+    </section>
+
+    <section class="operative" aria-labelledby="op-h">
+      <h2 class="head" id="op-h">Now this deed provides</h2>
+
+      <div class="clause" id="trust">
+        <p class="num" aria-hidden="true">1</p>
+        <div>
+          <h3>Trust, before anything</h3>
+          <ol class="sub">
+            <li><span>1.1</span><p>The regulator's badge sits directly under "Speak to a partner", and the firm's SRA number is on every page.</p></li>
+            <li><span>1.2</span><p>Every solicitor is shown with their own SRA ID. Prices, complaints and how to reach the Legal Ombudsman are free pages on every plan.</p></li>
+            <li><span>1.3</span><p>A real firm's site won't build without its real number and its badge. A demo can only ever show 000000.</p></li>
+          </ol>
+        </div>
+        <figure class="ex"><img src="media/badge.webp" alt="The home page on a phone, scrolled to the call to action with the SRA badge and regulated-by line beneath it" width="780" height="1688" loading="lazy"><figcaption><b>Exhibit CW2</b><span>The badge, under the first call to action</span></figcaption></figure>
+      </div>
+
+      <div class="clause" id="practice">
+        <p class="num" aria-hidden="true">2</p>
+        <div>
+          <h3>The firm, seen from inside</h3>
+          <ol class="sub">
+            <li><span>2.1</span><p>The home page opens in the firm's own library, not on its front door. The practice is set large, as an index beside the stair.</p></li>
+            <li><span>2.2</span><p>Each practice opens on its own photograph: what the firm does, who leads it, what to read, and only the facts the firm itself has published.</p></li>
+            <li><span>2.3</span><p>Every matter is shown step by step, in the firm's own stages, with what the client does at each.</p></li>
+          </ol>
+        </div>
+        <figure class="ex"><img src="media/practice.webp" alt="The practice page on a phone: the Family practice opening on a photograph of a quiet sitting room" width="780" height="1688" loading="lazy"><figcaption><b>Exhibit CW3</b><span>The practice page</span></figcaption></figure>
+      </div>
+
+      <div class="clause" id="price">
+        <p class="num" aria-hidden="true">3</p>
+        <div>
+          <h3>The price of probate</h3>
+          <ol class="sub">
+            <li><span>3.1</span><p>Every price the regulator asks for is published, with VAT, the disbursements, the stages and who does the work.</p></li>
+            <li><span>3.2</span><p>Four answers give an estimate from those published prices, without getting in touch first.</p></li>
+            <li><span>3.3</span><p>No answer can take the estimate outside the firm's own range. The site refuses to build if one could.</p></li>
+          </ol>
+          <form class="live" id="est" aria-label="The probate estimator, live">
+            <p class="live-k"><span>Try it: the demo's own figures</span><span>Demo data</span></p>
+            <fieldset><legend>A house or flat to deal with?</legend>
+              <label><input type="radio" name="q1" data-low="0" data-high="0" checked><span>No</span></label><label><input type="radio" name="q1" data-low="500" data-high="1500"><span>Yes, one</span></label><label><input type="radio" name="q1" data-low="1000" data-high="2000"><span>More than one</span></label></fieldset>
+            <fieldset><legend>Bank accounts and investments?</legend>
+              <label><input type="radio" name="q2" data-low="0" data-high="0" checked><span>Up to five</span></label><label><input type="radio" name="q2" data-low="500" data-high="1000"><span>Six to fifteen</span></label><label><input type="radio" name="q2" data-low="750" data-high="1500"><span>More than fifteen</span></label></fieldset>
+            <fieldset><legend>Inheritance tax due?</legend>
+              <label><input type="radio" name="q3" data-low="0" data-high="0" checked><span>No</span></label><label><input type="radio" name="q3" data-low="750" data-high="1000"><span>Yes, or not sure</span></label></fieldset>
+            <fieldset><legend>Beneficiaries?</legend>
+              <label><input type="radio" name="q4" data-low="0" data-high="0" checked><span>Up to four</span></label><label><input type="radio" name="q4" data-low="250" data-high="500"><span>Five to ten</span></label><label><input type="radio" name="q4" data-low="250" data-high="1000"><span>More than ten</span></label></fieldset>
+            <p class="fee" aria-live="polite"><b id="est-fee">£3,500</b><span id="est-vat">£4,200 with VAT at 20%, before disbursements</span></p>
+          </form>
+        </div>
+        <figure class="ex"><img src="media/estimate.webp" alt="The probate estimator on the demo's prices page, on a phone: four questions and an estimate of £4,750 to £6,000" width="780" height="1688" loading="lazy"><figcaption><b>Exhibit CW4</b><span>The estimator on the prices page</span></figcaption></figure>
+      </div>
+
+      <div class="clause" id="conflict">
+        <p class="num" aria-hidden="true">4</p>
+        <div>
+          <h3>Who is involved, first</h3>
+          <ol class="sub">
+            <li><span>4.1</span><p>A firm must check it doesn't act for anyone on the other side before it hears a confidence.</p></li>
+            <li><span>4.2</span><p>So the first message carries only names and how to reply. The visitor's own email app sends it; the site sends and stores nothing.</p></li>
+            <li><span>4.3</span><p>"Speak to a partner" shows the partner who leads the chosen practice, with a direct line, and the firm's hours in the visitor's own time zone.</p></li>
+          </ol>
+        </div>
+        <figure class="ex"><img src="media/contact.webp" alt="Conflict-safe first contact on a phone: name, how to reach you, the area, and the other people involved, with a note not to describe the matter yet" width="780" height="1688" loading="lazy"><figcaption><b>Exhibit CW5</b><span>Conflict-safe first contact</span></figcaption></figure>
+      </div>
+
+      <div class="clause" id="arrival">
+        <p class="num" aria-hidden="true">5</p>
+        <div>
+          <h3>Arriving unseen</h3>
+          <ol class="sub">
+            <li><span>5.1</span><p>Before a visit the client knows which door, where to leave the car and who will open it.</p></li>
+            <li><span>5.2</span><p>The house is shown room by room: the front door, the mews door, the stair, the library, the drawing room.</p></li>
+            <li><span>5.3</span><p>The first-meeting pack lives in the link the firm sends. Nothing about the client is stored anywhere, and it adds the meeting to their calendar.</p></li>
+          </ol>
+        </div>
+        <div class="pair">
+          <figure class="ex"><img src="media/house.webp" alt="The house, room by room, on a phone: the drawing room's carved fireplace above a list of rooms" width="780" height="1688" loading="lazy"><figcaption><b>Exhibit CW6</b><span>The house, room by room</span></figcaption></figure>
+          <figure class="ex"><img src="media/meeting.webp" alt="The first-meeting pack on a phone: the date and time, who you are meeting and the way in" width="780" height="1688" loading="lazy"><figcaption><b>Exhibit CW7</b><span>The first-meeting pack</span></figcaption></figure>
+        </div>
+      </div>
+
+      <div class="clause" id="nowill">
+        <p class="num" aria-hidden="true">6</p>
+        <div>
+          <h3>If there's no will</h3>
+          <ol class="sub">
+            <li><span>6.1</span><p>Tap who in the family is alive, and see who would inherit under the rules of England and Wales.</p></li>
+            <li><span>6.2</span><p>Every rule is dated and sourced on the page. It is general information, never advice.</p></li>
+          </ol>
+          <div class="live" id="int" aria-label="If there's no will, live">
+            <p class="live-k"><span>Try it: the rules of England and Wales</span><span>General information</span></p>
+            <fieldset><legend>Who in your family is alive?</legend>
+              <label><input type="checkbox" value="spouse" checked><span>A spouse or civil partner</span></label><label><input type="checkbox" value="partner"><span>An unmarried partner</span></label><label><input type="checkbox" value="children" checked><span>Children</span></label><label><input type="checkbox" value="parents"><span>A parent</span></label><label><input type="checkbox" value="siblings"><span>A brother or sister</span></label></fieldset>
+            <ul class="heirs" id="int-out" aria-live="polite"></ul>
+            <p class="src">General information about England and Wales, not advice. Checked 2 November 2026 against <a href="https://www.gov.uk/hmrc-internal-manuals/trusts-settlements-and-estates-manual/tsem7826" rel="noopener">HMRC manual TSEM7826</a>, <a href="https://www.gov.uk/hmrc-internal-manuals/trusts-settlements-and-estates-manual/tsem7830" rel="noopener">TSEM7830</a> and <a href="https://www.citizensadvice.org.uk/family/death-and-wills/who-can-inherit-if-there-is-no-will-the-rules-of-intestacy/" rel="noopener">Citizens Advice</a>.</p>
+          </div>
+        </div>
+        <figure class="ex"><img src="media/nowill.webp" alt="If there's no will on a phone: family choices and the result, the spouse and the children's shares" width="780" height="1688" loading="lazy"><figcaption><b>Exhibit CW8</b><span>On the demo's succession page</span></figcaption></figure>
+      </div>
+
+      <div class="clause" id="help">
+        <p class="num" aria-hidden="true">7</p>
+        <div>
+          <h3>When it matters most</h3>
+          <ol class="sub">
+            <li><span>7.1</span><p>When someone has died: the first steps in order, the official links, and gentle reminders for the family's calendar. Reminders, never deadlines.</p></li>
+            <li><span>7.2</span><p>What to gather before a first meeting, ticked on the visitor's own phone. Words we use, in plain English.</p></li>
+            <li><span>7.3</span><p>Your matter, by code: the stage it has reached, from a sheet that holds only a code, a stage and a time. Never a name.</p></li>
+          </ol>
+        </div>
+        <div class="pair">
+          <figure class="ex"><img src="media/bereavement.webp" alt="When someone has died on a phone: the steps in order with gov.uk links and suggested reminders" width="780" height="1688" loading="lazy"><figcaption><b>Exhibit CW9</b><span>When someone has died</span></figcaption></figure>
+          <figure class="ex"><img src="media/matter.webp" alt="Your matter, by code, on a phone: a code entered and the stages with Tax and probate marked" width="780" height="1688" loading="lazy"><figcaption><b>Exhibit CW10</b><span>Your matter, by code</span></figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="schedules" aria-labelledby="sch-h">
+      <h2 class="head" id="sch-h">The schedules</h2>
+      <div class="sched">
+        <section aria-labelledby="s1"><p class="k">Schedule 1</p><h3 id="s1">Starter</h3><p class="price">£99, then £25 a month</p>
+          <ul><li>The home page: the library, the practice index, Speak to a partner, regulation</li><li>The SRA badge and number, every solicitor's SRA ID</li><li>Prices, complaints and Plan your visit, free</li><li>Words we use</li></ul></section>
+        <section aria-labelledby="s2"><p class="k">Schedule 2</p><h3 id="s2">Plus</h3><p class="price">£199, then £30 a month</p>
+          <ul><li>Up to five pages: practice, people, insights, contact</li><li>Each matter step by step</li><li>Conflict-safe first contact</li><li>Discreet arrival, our day in yours</li><li>When someone has died, what to gather, the will review reminder</li></ul></section>
+        <section aria-labelledby="s3"><p class="k">Schedule 3</p><h3 id="s3">Signature</h3><p class="price">£349, then £35 a month</p>
+          <ul><li>Up to 20 pages, a page for each practice</li><li>The probate estimator, if there's no will</li><li>The house, room by room, and the first-meeting pack</li><li>Guides, approved matters, your matter by code</li><li>The succession map, as an illustration</li></ul></section>
+      </div>
+    </section>
+
+    <section class="essence" aria-labelledby="ess-h">
+      <h2 class="head" id="ess-h">Time is of the essence</h2>
+      <dl>
+        <div><dt>Lighthouse, phone</dt><dd>96–100<small>home and practice pages</small></dd></div>
+        <div><dt>Accessibility</dt><dd>100<small>no serious issues on any page</small></dd></div>
+        <div><dt>Largest paint</dt><dd>1.6–2.6 s<small>the library, on a phone</small></dd></div>
+        <div><dt>Layout shift</dt><dd>0<small>nothing moves as fonts arrive</small></dd></div>
+      </dl>
+    </section>
+
+    <section class="executed" aria-labelledby="exe-h">
+      <div>
+        <h2 class="sr" id="exe-h">Executed</h2>
+        <p class="exec-line">Executed as a deed, and delivered on the day it is dated.</p>
+      </div>
+      <div class="sig">
+        <p class="line">Sitefloor</p>
+        <p class="who">Websites for UK businesses, each one unlike the last.</p>
+      </div>
+      <p class="acts"><a class="go" href="https://claude.ai/artifact/GtxCKFj5dom8wRjo81WqF1">Open the Calder Wyke demo</a><a class="go quiet" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#mockup">Ask for a free mockup of your firm</a></p>
+    </section>
+
+  </div>
+</article>
+</main>
+<footer class="gut"><div class="wrap">
+  <p>Calder Wyke is a fictional firm made to show the Sitefloor law kit. Its people, SRA numbers, prices, matters and meetings are demo data, and the SRA badge on the demo is a placeholder: a real firm's site shows its live badge. Its photographs are free stock from Unsplash, each credited in our records. Client sites use the firm's own photographs.</p>
+  <span>© 2026 Sitefloor</span>
+</div></footer>
+
+<script>
+(() => {
+  const gbp = (n) => "£" + n.toLocaleString("en-GB");
+  const form = document.getElementById("est"), fee = document.getElementById("est-fee"), vat = document.getElementById("est-vat");
+  const show = () => {
+    let lo = 3500, hi = 3500;
+    for (const r of form.querySelectorAll("input:checked")) { lo += +r.dataset.low; hi += +r.dataset.high; }
+    fee.textContent = lo === hi ? gbp(lo) : gbp(lo) + " to " + gbp(hi);
+    vat.textContent = (lo === hi ? gbp(Math.round(lo * 1.2)) : gbp(Math.round(lo * 1.2)) + " to " + gbp(Math.round(hi * 1.2))) + " with VAT at 20%, before disbursements";
+  };
+  form.addEventListener("change", show); show();
+
+  // If there's no will: the same rules as the demo (src/kits/law/lib/intestacy.js), checked 2 November 2026.
+  const box = document.getElementById("int"), out = document.getElementById("int-out");
+  const heirs = (f) => {
+    const s = [], n = [];
+    if (f.spouse && !f.children) s.push(["Your spouse or civil partner", "Everything."]);
+    else if (f.spouse) { s.push(["Your spouse or civil partner", "Your personal possessions, the first £322,000 and half of what is left."]); s.push(["Your children", "The other half, shared equally."]); n.push("The £322,000 is for deaths on or after 26 July 2023. If everything is worth £322,000 or less, your spouse or civil partner inherits all of it."); }
+    else if (f.children) s.push(["Your children", "Everything, shared equally."]);
+    else if (f.parents) s.push(["Your parents", "Everything, shared equally."]);
+    else if (f.siblings) s.push(["Your brothers and sisters", "Everything, shared equally."]);
+    else s.push(["Further relatives, or the Crown", "Half-brothers and half-sisters, then grandparents, then aunts and uncles, then half-aunts and half-uncles; with none, the Crown."]);
+    if (f.spouse && f.children) n.push("A home you own jointly as joint tenants passes to the other owner automatically and is not part of this.");
+    if (f.children) n.push("A share for anyone under 18 is held in trust until they are 18.");
+    if (f.partner) n.push("An unmarried partner inherits nothing under these rules.");
+    return { s, n };
+  };
+  const draw = () => {
+    const f = {}; for (const c of box.querySelectorAll("input")) f[c.value] = c.checked;
+    const r = heirs(f);
+    out.replaceChildren(...r.s.map(([w, g]) => { const li = document.createElement("li"); const b = document.createElement("b"); b.textContent = w; li.append(b, g); return li; }),
+      ...r.n.map((t) => { const li = document.createElement("li"); li.className = "n"; li.textContent = t; return li; }));
+  };
+  box.addEventListener("change", draw); draw();
+})();
+</script>

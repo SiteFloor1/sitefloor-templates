@@ -1,0 +1,21 @@
+{#- The whole-house estimate: the kind of home, bedrooms and the work wanted give a range from the client's own
+    bands (estimateRange in lib/quotes.js), never a single price. Sent on WhatsApp. -#}
+{%- set sec = site.sections.estimate %}
+{%- set e = site.estimate %}
+<section id="estimate" class="el-est" data-feature="estimate"{{ "estimate" | tierAttr | safe }} aria-label="{{ sec.title | plain }}"><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="el-est-in">
+    <form class="el-est-form" data-est-form>
+      <fieldset><legend>The home</legend><div class="el-seg">{% for h in e.homes %}<label><input type="radio" name="est-home" value="{{ h.id }}"{% if loop.index == 2 or e.homes.length == 1 %} checked{% endif %}><span>{{ h.label }}</span></label>{% endfor %}</div></fieldset>
+      <label for="est-beds" class="el-est-beds"><span>Bedrooms <output data-est-beds-out>3</output></span><input id="est-beds" type="range" min="1" max="{{ e.bedroomsMax }}" value="3" data-est-beds></label>
+      <fieldset><legend>The work</legend><div class="el-seg">{% for w in e.works %}<label><input type="checkbox" name="est-work" value="{{ w.id }}"{% if loop.first %} checked{% endif %}><span>{{ w.name }}</span></label>{% endfor %}</div></fieldset>
+    </form>
+    <div class="el-est-out" aria-live="polite" data-js-only>
+      <p class="el-est-k">Likely to come to</p>
+      <p class="el-est-range" data-est-range>—</p>
+      <ul class="el-est-lines" data-est-lines></ul>
+      <a class="go" data-est-send href="{{ e.message | wa }}" target="_blank" rel="noopener">Ask for a proper quote</a>
+      <p class="el-est-note">A range from homes we've done. Every house is different: the survey sets the price.</p>
+    </div>
+  </div>
+</div></section>

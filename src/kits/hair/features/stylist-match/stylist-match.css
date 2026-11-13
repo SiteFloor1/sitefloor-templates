@@ -1,0 +1,12 @@
+/* Stylist match: the three questions, then the match with their work. Tokens only. */
+.hr-mt-in { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: 40px clamp(32px, 6vw, 96px); align-items: start; }
+.hr-mt-q { margin-top: 28px; border-top: 1px solid var(--text); }
+.hr-mt-f { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 8px 16px; margin: 0; padding: 14px 0; border: 0; border-bottom: 1px solid var(--line); min-width: 0; }
+.hr-mt-f legend { float: left; padding-top: 12px; }
+.hr-mt-o { display: flex; flex-wrap: wrap; gap: 0 22px; }
+.hr-mt-r { padding: 28px; background: var(--surface); }
+.hr-mt-r p { margin: 0; }
+.hr-mt-n { font-family: var(--font-display); font-weight: 300; font-size: 56px; line-height: 1; margin-top: 6px !important; }
+.hr-mt-l { margin-top: 8px !important; color: var(--muted); }
+.hr-mt-free { min-height: 1.6em; margin: 6px 0 16px !important; font-size: 14px; }
+@media (max-width: 860px) { .hr-mt-in { grid-template-columns: minmax(0, 1fr); } .hr-mt-f { grid-template-columns: minmax(0, 1fr); } .hr-mt-f legend { float: none; padding: 0; } }

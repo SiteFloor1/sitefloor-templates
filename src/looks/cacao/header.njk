@@ -1,0 +1,27 @@
+{#- Cacao header: a pistachio ribbon across the top of every page, the seal tied on at the left, the wordmark beside it;
+    the pages and one "Order" on the right. On phones, "Menu" opens the pages full screen. -#}
+<header class="nav cc-ribbon"><div class="wrap cc-ribbon-in">
+  <a class="cc-seal" href="{{ 'index' | href }}" aria-label="{{ site.business.name }}, home">{% set sealId = "h" %}{% include "looks/cacao/parts/seal.njk" %}</a>
+  {%- if site.brand and site.brand.logo %}
+  <a class="cc-word has-img" href="{{ 'index' | href }}"><img src="{{ site.brand.logo | img }}" alt="{{ site.business.name }}" height="28"></a>
+  {%- else %}
+  <a class="cc-word" href="{{ 'index' | href }}">{{ site.business.name }}</a>
+  {%- endif %}
+  <nav class="cc-links" aria-label="Main">
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+  </nav>
+  <a class="cc-buy" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">Order</a>
+  <button class="burger cc-menu" type="button" aria-expanded="false" aria-controls="mnav"><span class="cc-open">Menu</span><span class="cc-close">Close</span></button>
+</div></header>
+<div class="mnav cc-sheet" id="mnav" hidden>
+  <nav aria-label="Pages">
+    <a href="{{ 'index' | href }}"{% if pageId == "index" %} aria-current="page"{% endif %}>The counter</a>
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+  </nav>
+  <p class="cc-sheet-now" data-live-status><span class="dot" aria-hidden="true"></span> <span data-status-text>Opening hours</span></p>
+  <p class="cc-sheet-addr">{{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}</p>
+</div>

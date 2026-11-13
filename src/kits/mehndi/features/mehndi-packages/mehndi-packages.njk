@@ -1,0 +1,28 @@
+{#- Bridal packages beside the bride's hands and jewellery; the wide photo beneath. -#}
+{%- set sec = site.sections.packages %}
+{%- set pk = site.packages %}
+<section id="packages" class="mh-pk" data-feature="mehndi-packages" aria-labelledby="mh-pk-h"><div class="wrap">
+  <div class="mh-pk-grid">
+    {%- for ph in pk.photos %}
+    <figure class="mh-pk-ph mh-pk-ph{{ loop.index }}"><img src="{{ ph.src | img }}" alt="{{ ph.alt }}" width="{{ ph.width }}" height="{{ ph.height }}" loading="lazy" decoding="async"></figure>
+    {%- endfor %}
+    <div class="mh-pk-list">
+      <h2 class="mh-pk-h" id="mh-pk-h">{{ sec.title | markup | safe }}</h2>
+      {%- if sec.intro %}<p class="mh-pk-i">{{ sec.intro }}</p>{% endif %}
+      <ul>
+        {%- for x in pk.items %}
+        <li><b>{{ x.name }}</b><span>{{ x.text }} · {{ x.hours | hrs }} · {{ x.price | gbp(x.from) }}</span></li>
+        {%- endfor %}
+      </ul>
+      {%- if "mehndi-dates" | enabled %}
+      <a class="mh-solid" href="#date">Check your date</a>
+      {%- else %}
+      <a class="mh-solid" href="{{ pk.message | dateText | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ pk.message | dateText }}"{% endif %} target="_blank" rel="noopener">Ask about your date</a>
+      {%- endif %}
+      {%- if pk.note %}<p class="mh-fine">{{ pk.note }}</p>{% endif %}
+    </div>
+  </div>
+  {%- if pk.wide %}
+  <figure class="mh-pk-wide"><img src="{{ pk.wide.src | img }}" alt="{{ pk.wide.alt }}" width="{{ pk.wide.width }}" height="{{ pk.wide.height }}" loading="lazy" decoding="async"></figure>
+  {%- endif %}
+</div></section>

@@ -1,0 +1,2 @@
+{#- Where "Arrange a meeting" goes: the meeting page when it is on, otherwise a call. Sets `meetHref`. -#}
+{%- set meetHref = ('meeting' | href) if ('meeting' | enabled) else 'tel:' + (site.contact.phone | replace(' ', '')) %}

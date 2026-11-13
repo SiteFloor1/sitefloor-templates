@@ -1,0 +1,8 @@
+/* pair-it: layout in tokens only; the look sets type and colour. */
+.jw-pair-in { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(12px, 2vw, 32px); align-items: start; }
+.jw-pair-in figure { margin: 0; }
+.jw-pair-in img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+.jw-pair-in figcaption { margin-top: 12px; }
+.jw-pair-bands { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 16px; }
+.jw-pair.is-picking .jw-pair-bands { grid-auto-flow: row; }
+.jw-pair .nc-choice { margin-top: 28px; }

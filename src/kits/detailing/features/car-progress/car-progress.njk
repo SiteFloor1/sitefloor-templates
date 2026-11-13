@@ -1,0 +1,33 @@
+{#- Your car, in the bay: the code from the booking text opens one car from the studio's sheet. The stages run as a
+    rail of strip lights (done dim, today lit, still to come off); the studio's photograph of the bay is in place until a
+    car's own photo replaces it in the same frame, and the note column keeps its height, so nothing moves. -#}
+{%- set sec = site.sections.progress %}
+{%- set pg = site.progress %}
+<section id="your-car" class="dt-cp" data-feature="car-progress" aria-label="{{ sec.title | plain }}"><div class="wrap">
+  <div class="dt-cp-top">
+    {%- if not cpPage %}{% include "core/partials/section-head.njk" %}{% else %}<span></span>{% endif %}
+    <form class="dt-cp-code" data-cp-form>
+      <label class="sr-only" for="dt-cp-in{{ cpSuffix or '' }}">Car code from your booking text</label>
+      <input id="dt-cp-in{{ cpSuffix or '' }}" autocomplete="off" spellcheck="false" autocapitalize="characters" maxlength="16" placeholder="Your car code" data-cp-code>
+      <button type="submit">Open</button>
+    </form>
+  </div>
+  <ol class="dt-rail" aria-label="Stages">
+    {%- for s in pg.stages %}<li class="dt-st is-next" data-st="{{ s.id }}"><span class="tube" aria-hidden="true"></span><b data-st-name>{{ s.name }}</b><span class="dt-st-w" data-st-w>&nbsp;</span></li>{% endfor %}
+  </ol>
+  <div class="dt-cp-today">
+    <figure class="dt-cp-ph">
+      <img src="{{ pg.photo.src | img }}" alt="{{ pg.photo.alt }}" width="{{ pg.photo.width }}" height="{{ pg.photo.height }}" loading="lazy" decoding="async" data-cp-photo>
+      <figcaption data-cp-cap>{{ pg.photo.caption or "The bay." }}</figcaption>
+    </figure>
+    <div class="dt-cp-note" aria-live="polite">
+      <p class="dt-cp-q" data-cp-note>Your code is on the booking text. We update this as the work moves.</p>
+      <p class="dt-cp-when" data-cp-when>&nbsp;</p>
+      <dl class="dt-cp-facts" data-cp-facts hidden>
+        <div><dt>Car</dt><dd data-cp-car></dd></div>
+        <div><dt>Work</dt><dd data-cp-work></dd></div>
+        <div><dt>Handover</dt><dd data-cp-hand></dd></div>
+      </dl>
+    </div>
+  </div>
+</div></section>

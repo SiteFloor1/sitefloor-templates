@@ -1,0 +1,22 @@
+{#- Pre-order windows (Plus): Christmas, Valentine's Day, Mother's Day. A short menu at the florist's prices and their
+    own order-by date, shown only while a window is open: chosen at build time from today's date and kept true in the
+    browser (a window that closes hides itself; one that opens shows). -#}
+{%- set today = build.today %}
+<section id="pre-order" class="fl-pre" data-feature="pre-order" aria-label="Pre-order">
+  {%- for w in site.preorder.windows %}
+  <div class="wrap fl-pre-w" id="pre-{{ w.id }}" data-pre-opens="{{ w.opens }}" data-pre-closes="{{ w.orderBy }}"{% if not (w.opens <= today and today <= w.orderBy) %} hidden{% endif %}>
+    <div class="fl-pre-t">
+      <h2 class="fl-pre-h">{{ w.title }}</h2>
+      <p class="fl-pre-by">Order by {{ w.orderBy | ukDate }} for {{ w.day | ukDate }}.</p>
+      <p class="fl-pre-l">{{ w.line }}</p>
+    </div>
+    <ul class="fl-pre-items" role="list">
+      {%- for x in w.items %}
+      <li><a class="fl-pre-i" href="{{ (w.message + ' ' + x.name + ' (' + (x.price | pounds) + ')') | book }}" target="_blank" rel="noopener">
+        <img src="{{ x.photo.src | img }}" alt="{{ x.photo.alt }}" width="{{ x.photo.width }}" height="{{ x.photo.height }}" loading="lazy" decoding="async">
+        <span class="fl-pre-n">{{ x.name }}</span><span class="fl-pre-p">{{ x.price | pounds }}</span></a></li>
+      {%- endfor %}
+    </ul>
+  </div>
+  {%- endfor %}
+</section>

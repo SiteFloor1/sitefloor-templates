@@ -1,0 +1,262 @@
+/* Nacre (Aldous Marr): a Bond Street salon in daylight, the inside of an oyster shell. One piece under perfect light,
+   names in hairline capitals, silence between. Mini design system: sitefloor-internal/docs/design/aldous-marr.md. Light by design. */
+:root {
+  --bg: #F4F1EF;                 /* pearl: the nacre's body */
+  --surface: #E9E4E2;            /* mist: the nacre in shadow */
+  --surface-2: #E2DCDA;
+  --text: #1B1A1C;               /* ink */
+  --muted: #5A5658;              /* slate: the outer shell (6:1 on pearl) */
+  --dim: #5A5658;
+  --accent: #A24A55;             /* deep conch: the rare accent text (5.1:1 on pearl); a client's brand colour replaces it */
+  --brand: #EFA8AD;              /* CONCH: the pink inside a queen conch shell. The signature, used boldly and rarely:
+                                    the box, its ribbon, the appointment button. Follows a client's accent (below). */
+  --on-brand: #1B1A1C;
+  --accent-2: color-mix(in oklab, var(--accent) 80%, var(--text));
+  --on-accent: #F4F1EF;
+  --rose: color-mix(in oklab, var(--brand) 70%, var(--line)); /* the hairline under an action, never text */
+  --line: #B9B4B6;               /* the shell's lip */
+  --line-2: #9E999B;
+  --font-display: "Italiana", "Italiana Fallback", "Didot", Georgia, serif;
+  --font-body: "Albert Sans", "Albert Fallback", "Helvetica Neue", Arial, sans-serif;
+  --on-photo: #F4F1EF; --photo-scrim: rgba(27, 26, 28, .5); --shadow: rgba(27, 26, 28, .14);
+  --season-bg: var(--surface); --season-fg: var(--text);
+  --chart-bg: var(--surface); --chart-ink: var(--text); --chart-muted: var(--muted); --chart-guide: var(--accent);
+  --ok: #4E6E64; --busy: #7A6440; --closed: #8C8789;
+  --gl: max(16px, env(safe-area-inset-left, 0px)); --gr: max(16px, env(safe-area-inset-right, 0px));
+  --pad: var(--gl);
+  --sec: 80px;
+  --nav-h: 76px;
+  color-scheme: light;
+}
+@media (min-width: 900px) {
+  :root { --gl: max(48px, env(safe-area-inset-left, 0px)); --gr: max(48px, env(safe-area-inset-right, 0px)); --sec: 150px; --nav-h: 84px; }
+}
+@supports (color: oklch(from red l c h)) { :root { --brand: oklch(from var(--accent) 0.8 calc(c * 0.72) h); } }
+body { background: var(--bg); color: var(--text); font: 300 17px/1.65 var(--font-body); text-rendering: optimizeLegibility; }
+a { color: inherit; text-decoration: none; }
+:focus-visible { outline: 1px solid var(--accent); outline-offset: 5px; }
+.wrap { width: min(1280px, 100% - var(--gl) - var(--gr)); margin-inline: auto; }
+main section { padding-block: 0; }
+.nc-sec { margin-top: var(--sec); }
+main > :last-child { margin-bottom: var(--sec); }
+.skip { background: var(--text); color: var(--bg); font-weight: 400; }
+::selection { background: color-mix(in oklab, var(--rose) 45%, var(--bg)); }
+/* The type system: labels, hairline capitals, light text, underlined actions. Nacre has no buttons. */
+.nc-label { font: 400 12px/1.4 var(--font-body); letter-spacing: .2em; text-transform: uppercase; }
+.nc-muted { color: var(--muted); }
+.nc-fine { font: 400 13px/1.6 var(--font-body); color: var(--muted); max-width: 72ch; }
+.nc-body { font: 300 17px/1.7 var(--font-body); max-width: 58ch; margin: 0; }
+/* The one filled action: the appointment, in conch. */
+.nc-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 54px; padding: 0 30px; background: var(--brand); color: var(--on-brand); border: 0; border-radius: 0; font: 400 12px/1 var(--font-body); letter-spacing: .22em; text-transform: uppercase; cursor: pointer; transition: background .4s; }
+.nc-btn:hover { background: color-mix(in oklab, var(--brand) 88%, var(--text)); }
+.nc-u { display: inline-block; padding: 6px 0 4px; border-bottom: 1px solid var(--rose); color: var(--text); transition: border-color .4s; }
+.nc-u:hover { border-color: var(--text); }
+.nc-btnlink { background: none; border: 0; border-radius: 0; cursor: pointer; color: var(--text); padding: 6px 0 4px; }
+.nc-btnlink:not(.nc-u) { border-bottom: 1px solid transparent; }
+.nc-h3 { margin: 0 0 20px; font: 400 clamp(24px, 2.2vw, 30px)/1.15 var(--font-display); letter-spacing: .08em; text-transform: uppercase; }
+.nc-acts { display: flex; flex-wrap: wrap; gap: 14px 32px; align-items: baseline; margin: 28px 0 0; }
+.nc-list { list-style: none; margin: 0; padding: 0; }
+.nc-list li { padding: 10px 0; border-bottom: 1px solid var(--line); }
+.nc-fade { animation: nc-fade .6s ease-out both; }
+@keyframes nc-fade { from { opacity: .0001; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .nc-fade { animation: none; }
+}
+.js-reveal .rv { transform: none; transition: opacity .6s ease-out; }
+/* Header: the monogram centred and alone, split small capitals, one hairline. It doesn't stick. */
+.nc-head { position: relative; top: auto; background: var(--bg); backdrop-filter: none; -webkit-backdrop-filter: none; border-bottom: 1px solid var(--line); }
+.nc-head-in { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; max-width: 1440px; margin: 0 auto; padding: 20px var(--gr) 20px var(--gl); }
+.nc-l { display: flex; align-items: center; gap: 36px; }
+.nc-l a, .nc-r a, .nc-head .burger { font: 400 11px/1.4 var(--font-body); letter-spacing: .24em; text-transform: uppercase; color: var(--text); padding: 10px 0; border-bottom: 1px solid transparent; }
+.nc-l a:hover, .nc-r a:hover, .nc-l a[aria-current="page"] { border-color: var(--rose); }
+.nc-r { display: flex; justify-content: flex-end; }
+.nc-head .burger { display: inline-block; position: static; width: auto; height: auto; background: none; border-radius: 0; }
+.nc-head .burger span { position: static; height: auto; background: none; transition: none; }
+.nc-head .burger .nc-close, .nc-head .burger[aria-expanded="true"] .nc-open { display: none; }
+.nc-head .burger[aria-expanded="true"] .nc-close { display: inline; transform: none; }
+.nc-head .burger span:first-child, .nc-head .burger span:last-child { transform: none; }
+.nc-mark { display: block; }
+.nc-mark img { display: block; height: 40px; width: auto; }
+.nc-cartouche { display: block; width: 64px; height: 42px; overflow: visible; }
+.nc-cartouche-o { fill: none; stroke: var(--rose); stroke-width: .8; }
+.nc-cartouche text { font-family: var(--font-display); font-size: 19px; letter-spacing: .1em; fill: var(--text); }
+.nc-cartouche-s { width: 48px; height: 32px; }
+.mnav.nc-sheet { background: var(--bg); padding: 32px var(--gr) 140px var(--gl); border-top: 1px solid var(--line); }
+.nc-sheet nav a { font: 400 clamp(28px, 7vw, 44px)/1.15 var(--font-display); letter-spacing: .06em; text-transform: uppercase; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.nc-sheet nav a[aria-current="page"] { color: var(--accent); }
+.nc-sheet p { font: 400 11px/1.6 var(--font-body); letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin: 24px 0 0; display: block; }
+@media (max-width: 700px) {
+  .nc-head-in { padding-block: 14px; }
+  .nc-x { display: none; }
+  .nc-cartouche { width: 56px; height: 37px; }
+}
+/* Season line: one centred line of small capitals on mist. */
+.nc-season .season { margin: 0; padding: 8px var(--gr) 8px var(--gl); background: var(--surface); color: var(--text); text-align: center; font: 400 11px/1.5 var(--font-body); letter-spacing: .2em; text-transform: uppercase; }
+.nc-season a { margin-left: 12px; border-bottom: 1px solid var(--rose); }
+/* Hero: one piece, full width, no headline; its name beneath. */
+.nc-hero-fig { position: relative; margin: 0; background: var(--surface); }
+.nc-hero-fig img, .nc-film-v { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; max-height: calc(100svh - 250px); min-height: 420px; object-fit: cover; object-position: 50% 46%; }
+.nc-film-v { position: absolute; inset: 0; height: 100%; max-height: none; min-height: 0; }
+.nc-hero:has(.nc-film:not(.tier-off)) .nc-still { display: none; }
+.nc-hero-cap { display: grid; justify-items: center; gap: 14px; text-align: center; padding: 44px var(--gr) 0 var(--gl); }
+.nc-hero-name { margin: 0; font: 400 clamp(26px, 2.6vw, 38px)/1.1 var(--font-display); letter-spacing: .08em; text-transform: uppercase; }
+.nc-hero-cap .nc-u { margin-top: 10px; }
+.motion-pause { right: var(--gr); bottom: 16px; border-radius: 0; border: 0; border-bottom: 1px solid var(--rose); background: color-mix(in srgb, var(--bg) 70%, transparent); color: var(--text); font: 400 11px/1 var(--font-body); letter-spacing: .2em; text-transform: uppercase; min-height: 34px; padding: 0 12px; }
+@media (max-width: 700px) {
+  .nc-hero-fig img, .nc-film-v { aspect-ratio: 3 / 4; max-height: none; min-height: 0; }
+  .nc-film-v { height: 100%; }
+  .nc-hero-cap { padding-top: 32px; }
+}
+/* Section intro: a hairline, the name in hairline capitals, one label. */
+.nc-sh { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; border-top: 1px solid var(--line); padding-top: 22px; margin-bottom: 56px; }
+.nc-sh h2 { margin: 0; font: 400 clamp(30px, 4.6vw, 64px)/.95 var(--font-display); letter-spacing: .04em; text-transform: uppercase; }
+.nc-sh-xl h2 { font-size: min(168px, max(40px, 12.5vw)); line-height: .9; letter-spacing: .02em; margin-left: -.04em; }
+.nc-sh .nc-label { color: var(--muted); white-space: nowrap; }
+@media (max-width: 700px) {
+  .nc-sh { flex-direction: column; gap: 14px; padding-top: 16px; margin-bottom: 36px; }
+}
+/* Inner page opening. */
+.nc-ph { padding-top: clamp(64px, 9vw, 120px); }
+.nc-ph .wrap { border-bottom: 1px solid var(--line); padding-bottom: clamp(32px, 4vw, 56px); }
+.nc-ph-t { margin: 10px 0 0 -.04em; font: 400 min(150px, max(40px, 11vw))/.92 var(--font-display); letter-spacing: .02em; text-transform: uppercase; }
+.nc-ph-i { margin: 28px 0 0 auto; max-width: 40ch; font: 300 clamp(17px, 1.6vw, 21px)/1.55 var(--font-body); }
+@media (max-width: 700px) {
+  .nc-ph-i { margin-left: 0; }
+}
+.nc-404 { padding-bottom: var(--sec); }
+/* Forms: hairline fields, choices as words. */
+.nc-form { max-width: 560px; }
+.nc-field { display: grid; gap: 6px; margin: 0 0 24px; }
+.nc-in { width: 100%; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; background: transparent; padding: 10px 0; font: 300 16px/1.4 var(--font-body); color: var(--text); }
+.nc-in:focus { border-color: var(--text); outline: none; }
+.nc-in:focus-visible { outline: 1px solid var(--accent); outline-offset: 4px; }
+.nc-in-s { max-width: 200px; }
+textarea.nc-in { resize: vertical; min-height: 84px; }
+.nc-choice { border: 0; padding: 0; margin: 0 0 26px; display: flex; flex-wrap: wrap; gap: 4px 24px; }
+.nc-choice legend { margin-bottom: 10px; color: var(--muted); }
+.nc-choice label { position: relative; cursor: pointer; }
+.nc-choice input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.nc-choice span { display: inline-block; padding: 8px 0 4px; font: 400 13px/1.3 var(--font-body); letter-spacing: .04em; color: var(--muted); border-bottom: 1px solid transparent; transition: color .3s, border-color .3s; }
+.nc-choice input:checked + span { color: var(--text); border-color: var(--rose); }
+.nc-choice input:focus-visible + span { outline: 1px solid var(--accent); outline-offset: 4px; }
+.nc-err { color: var(--accent); font-size: 13px; }
+.nc-chips { display: flex; flex-wrap: wrap; gap: 4px 26px; margin: 0 0 36px; }
+.nc-chips button { background: none; border: 0; border-bottom: 1px solid transparent; border-radius: 0; padding: 8px 0 4px; cursor: pointer; font: 400 11px/1.4 var(--font-body); letter-spacing: .22em; text-transform: uppercase; color: var(--muted); }
+.nc-chips button[aria-selected="true"], .nc-chips button[aria-pressed="true"] { color: var(--text); border-color: var(--rose); }
+/* Collections: one large piece beside a dropped column of two. */
+/* Catalogue (the pieces page), rows and indexes. */
+/* One piece at a time (the viewer). */
+/* Facts: a hairline list of the client's own words. */
+/* A piece's page. */
+/* On a hand, day and candle, metals, pairs, engraving. */
+/* The room, the box, the appointment, the visit prepared. */
+/* Birthstones, stones, anniversary. */
+/* Inner pages: bridal, guide, bands, bespoke, stories, family, gifts, occasions, sizes. */
+.nc-paywrap { display: grid; gap: 4px; }
+/* Shared features, in Nacre's hand. */
+.nc-qa-dl { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(24px, 6vw, 96px); }
+.nc-qa-dl > div { padding: 22px 0; border-top: 1px solid var(--line); }
+.nc-qa-dl dt { font: 400 17px/1.35 var(--font-display); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 10px; }
+.nc-qa-dl dd { margin: 0; font-weight: 300; line-height: 1.7; }
+.nc-qa-topic { margin: 40px 0 8px; }
+.nc-rev-in { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 56px clamp(24px, 6vw, 96px); }
+.nc-rev .rev { margin: 0; display: grid; gap: 16px; align-content: start; }
+.nc-rev blockquote { margin: 0; }
+.nc-rev blockquote p { margin: 0; font: 300 clamp(17px, 1.6vw, 20px)/1.6 var(--font-body); }
+.nc-rev .nc-rev-1 { grid-column: 1 / -1; max-width: 900px; }
+.nc-rev .nc-rev-1 blockquote p { font: 400 clamp(24px, 3vw, 40px)/1.3 var(--font-display); letter-spacing: .02em; }
+.nc-rev .st { margin-left: 10px; letter-spacing: .1em; color: var(--text); }
+.nc-visit-in { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(24px, 6vw, 96px); align-items: start; }
+.nc-visit-a { display: grid; gap: 18px; justify-items: start; }
+.nc-visit-addr { margin: 0; font: 400 clamp(28px, 3.4vw, 48px)/1.12 var(--font-display); letter-spacing: .04em; text-transform: uppercase; }
+.nc-now { display: flex; align-items: center; gap: 10px; margin: 0 0 6px; }
+.nc-hrs { width: 100%; border-collapse: collapse; margin-top: 14px; font-weight: 300; }
+.nc-hrs th, .nc-hrs td { text-align: left; padding: 9px 0; border-bottom: 1px solid var(--line); font-weight: 300; }
+.nc-hrs th { font: 400 11px/1.6 var(--font-body); letter-spacing: .2em; text-transform: uppercase; color: var(--muted); width: 40%; }
+.nc-hrs tr.today th, .nc-hrs tr.today td { color: var(--text); font-weight: 400; }
+.nc-ex { list-style: none; margin: 14px 0 0; padding: 0; font-size: 13px; color: var(--muted); }
+.dot { width: 6px; height: 6px; animation: none; }
+.nc-gift-in { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(24px, 6vw, 96px); align-items: start; }
+.nc-gcard { aspect-ratio: 1.586; background: var(--surface); outline: 1px solid var(--rose); outline-offset: -14px; display: grid; justify-items: center; align-content: center; gap: 10px; padding: 32px; text-align: center; }
+.nc-gcard p { margin: 0; }
+.nc-gcard-amt { font: 400 clamp(34px, 4vw, 56px)/1 var(--font-display); letter-spacing: .04em; }
+.nc-gcard-note { font-weight: 300; min-height: 1.6em; }
+.nc-rows { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.nc-rows li { display: grid; grid-template-columns: 110px minmax(0, 1fr) auto auto; gap: 20px; align-items: baseline; padding: 20px 0; border-bottom: 1px solid var(--line); }
+.nc-rows-n small { display: block; color: var(--muted); font-size: 13px; }
+.nc-rows-a { font: 400 22px/1 var(--font-display); }
+.nc-gal .gal { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 3vw, 40px); }
+.nc-gal .tile:nth-child(3n+2), .nc-arch .tile:nth-child(3n+2) { margin-top: clamp(0px, 6vw, 96px); }
+.nc-gal .tile figure, .nc-arch .tile figure { margin: 0; }
+.nc-gal .tile img, .nc-arch .tile img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; background: var(--surface); }
+.tile .cap { display: block; margin-top: 10px; font-size: 13px; color: var(--muted); font-weight: 300; }
+.tile.skel { aspect-ratio: 4 / 5; background: var(--surface); }
+.nc-arch .gal { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 3vw, 40px); }
+.nc-arch-bar { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; flex-wrap: wrap; margin-bottom: 32px; }
+.nc-lb { border: 0; padding: 24px; max-width: min(1100px, 96vw); background: var(--bg); color: var(--text); }
+.nc-lb::backdrop { background: color-mix(in srgb, var(--bg) 94%, transparent); }
+.nc-lb figure { margin: 0; }
+.nc-lb img { display: block; max-width: 100%; max-height: 74vh; margin: 0 auto; }
+.nc-lb-bar { display: flex; flex-wrap: wrap; gap: 12px 28px; justify-content: center; margin-top: 18px; }
+.nc-band { margin-top: var(--sec); }
+.nc-band img { display: block; width: 100%; height: auto; max-height: 82svh; object-fit: cover; }
+.nc-band-cap { padding: 18px var(--gr) 0 var(--gl); margin: 0; text-align: center; }
+.nc-pl-row { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(20px, 5vw, 80px); }
+.nc-pl-row li:nth-child(2) { margin-top: clamp(0px, 12vw, 200px); }
+.nc-pl-a { display: grid; gap: 12px; }
+.nc-pl-a img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; background: var(--surface); }
+.nc-pl-n { font: 400 clamp(24px, 2.6vw, 36px)/1.1 var(--font-display); letter-spacing: .06em; text-transform: uppercase; margin-top: 8px; }
+.nc-pl-a:hover .nc-pl-n { color: var(--accent); }
+.nc-team { margin-top: var(--sec); }
+.nc-person { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(24px, 6vw, 96px); align-items: center; padding: 48px 0; border-top: 1px solid var(--line); }
+.nc-person img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+.nc-person > div { display: grid; gap: 12px; }
+.nc-name { margin: 0; font: 400 clamp(26px, 3vw, 40px)/1.1 var(--font-display); letter-spacing: .06em; text-transform: uppercase; }
+.nc-cp { margin-top: var(--sec); }
+.nc-cp-t { max-width: 720px; margin-bottom: 72px; }
+.nc-cp-t p { font: 300 17px/1.8 var(--font-body); margin: 0 0 16px; }
+.nc-cp-p { margin: 0 0 72px; width: min(1100px, 100% - var(--gl) - var(--gr)); margin-inline: auto 0; }
+.nc-cp-p-r { margin-inline: 0 auto; }
+.nc-cp-p img { display: block; width: 100%; height: auto; }
+.nc-cp-p figcaption { margin-top: 12px; padding-inline: 0 var(--gr); }
+.nc-cp-o { display: flex; flex-wrap: wrap; gap: 14px 28px; align-items: baseline; }
+.nc-dl { margin: 18px 0 0; border-top: 1px solid var(--line); }
+.nc-dl > div { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 6fr); gap: 20px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.nc-dl dt { font: 400 11px/1.7 var(--font-body); letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+.nc-dl dd { margin: 0; font-weight: 300; }
+.nc-way { margin-bottom: 40px; }
+.nc-way-h { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: baseline; margin: 0 0 12px; }
+.nc-way-h b { font: 400 20px/1.2 var(--font-display); letter-spacing: .06em; text-transform: uppercase; }
+.nc-steps-s { margin: 0 0 16px; padding-left: 20px; font-weight: 300; line-height: 1.8; }
+.nc-notes .wrap { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(24px, 6vw, 96px); }
+.nc-note { padding: 18px 0; border-top: 1px solid var(--line); }
+.nc-note h3 { margin: 0 0 8px; }
+@media (max-width: 700px) {
+  .nc-qa-dl, .nc-rev-in, .nc-visit-in, .nc-gift-in, .nc-notes .wrap, .nc-person, .nc-pl-row { grid-template-columns: 1fr; }
+  .nc-pl-row li:nth-child(2) { margin-top: 0; }
+  .nc-rows li { grid-template-columns: 1fr auto; }
+  .nc-gal .gal, .nc-arch .gal { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .nc-gal .tile:nth-child(3n+2), .nc-arch .tile:nth-child(3n+2) { margin-top: 0; }
+  .nc-gal .tile:nth-child(even), .nc-arch .tile:nth-child(even) { margin-top: 40px; }
+  .nc-dl > div { grid-template-columns: 1fr; gap: 4px; }
+}
+/* Your tray: a small tab above the phone bar. */
+/* Footer: one hairline-topped row of small capitals. */
+.nc-foot { margin-top: 0; border-top: 1px solid var(--line); padding: 48px 0 120px; color: var(--muted); font-size: 13px; }
+.nc-foot-in { width: min(1280px, 100% - var(--gl) - var(--gr)); margin-inline: auto; display: grid; grid-template-columns: auto minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.4fr); gap: 32px clamp(24px, 4vw, 64px); align-items: start; }
+.nc-foot-a { font: 300 15px/1.7 var(--font-body); font-style: normal; color: var(--text); }
+.nc-foot-h { list-style: none; margin: 0; padding: 0; font: 300 15px/1.7 var(--font-body); }
+.nc-foot-h span { display: inline-block; min-width: 72px; color: var(--muted); }
+.nc-foot-l { display: flex; flex-wrap: wrap; gap: 4px 22px; font: 400 11px/1.9 var(--font-body); letter-spacing: .18em; text-transform: uppercase; }
+.nc-foot-l a:hover { color: var(--text); }
+.nc-foot-by { grid-column: 1 / -1; margin: 12px 0 0; padding-top: 22px; border-top: 1px solid var(--line); font-size: 12px; }
+.nc-foot .by b { color: var(--text); font-weight: 400; }
+@media (max-width: 760px) {
+  .nc-foot-in { grid-template-columns: 1fr; }
+}
+/* Phone bar: one band of the signature colour, the appointment across it. */
+.mbar.nc-bar { padding: 0 0 env(safe-area-inset-bottom, 0px); background: var(--brand); backdrop-filter: none; -webkit-backdrop-filter: none; border-top: 0; }
+.nc-bar a { flex: 1; display: flex; align-items: center; justify-content: center; min-height: 56px; font: 400 12px/1 var(--font-body); letter-spacing: .22em; text-transform: uppercase; color: var(--on-brand); }
+.nc-rev .rev { background: none; border: 0; padding: 0; box-shadow: none; border-radius: 0; }
+/* Links inside running text keep an underline, so they never rely on colour alone. */
+.prose a, p a:not([class]), dd a:not([class]) { text-decoration: underline; text-decoration-color: var(--rose); text-decoration-thickness: 1px; text-underline-offset: 4px; }

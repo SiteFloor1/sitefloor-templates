@@ -1,0 +1,27 @@
+/* Gift vouchers: choose and personalise on the left, see the voucher update on the right. */
+.vc { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; align-items: start; }
+.vc-fields { display: grid; gap: 14px; }
+.vc-form { display: grid; gap: 14px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); padding: 24px; }
+.vc-amounts { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; border: 0; }
+.vc-amounts legend { width: 100%; margin-bottom: 8px; font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.vc-amounts label { position: relative; }
+.vc-amounts input[type="radio"] { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.vc-amounts span { display: grid; place-items: center; min-width: 64px; min-height: 44px; padding: 0 14px; font-weight: 800; box-shadow: inset 0 0 0 1.5px var(--line-2); }
+.vc-amounts input:checked + span { background: var(--accent); color: var(--on-accent); box-shadow: none; }
+.vc-amounts input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+.vc-custom, .vc-f input { min-height: 44px; padding: 0 12px; border: 0; box-shadow: inset 0 0 0 1.5px var(--line-2); background: var(--bg); color: var(--text); width: 100%; }
+.vc-custom { width: 130px; }
+.vc-f { display: grid; gap: 6px; font-size: 14px; font-weight: 700; }
+.vc-err { margin: 0; color: var(--busy); font-weight: 700; }
+.vc-form .btn { justify-self: start; }
+.vc-how { margin: 0; font-size: 14px; color: var(--muted); }
+.vc-card { position: sticky; top: calc(var(--nav-h) + 16px); aspect-ratio: 1.75; display: flex; flex-direction: column; justify-content: space-between; padding: 26px; background: var(--text); color: var(--bg); overflow: hidden; }
+.vc-card::after { content: ""; position: absolute; right: -40px; top: -40px; width: 170px; height: 170px; border-radius: 50%; border: 14px solid var(--accent); opacity: .9; }
+.vc-card p { margin: 0; position: relative; z-index: 1; }
+.vc-shop { font-family: var(--font-display); font-weight: 800; font-size: 20px; }
+.vc-amount { font-family: var(--font-display); font-size: clamp(56px, 7vw, 88px); line-height: 1; letter-spacing: -.04em; }
+.vc-to { font-weight: 800; font-size: 18px; min-height: 1.4em; }
+.vc-note { font-size: 15px; opacity: .85; min-height: 1.3em; }
+.vc-small { font-size: 12px; opacity: .7; }
+.vc-terms { margin: 14px 0 0; font-size: 13px; color: var(--dim); }
+@media (max-width: 860px) { .vc { grid-template-columns: minmax(0, 1fr); } .vc-card { position: relative; top: 0; order: -1; } }

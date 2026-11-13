@@ -1,0 +1,24 @@
+{#- Curly and textured hair: each texture with its photograph, who cuts it and how to arrive, then the curl services'
+    prices by length and level. -#}
+{%- set tp = site.texturedPage %}
+{%- set ph = { title: tp.title, intro: tp.intro, photo: tp.photo } %}
+{% include "kits/hair/partials/page-head.njk" %}
+<section class="hr-tp" aria-label="Textures"><div class="wrap">
+  <ul class="hr-tp-list">
+    {%- for t in site.textures.items %}
+    {%- set s = site.menu.services | idOf(t.service) %}
+    <li class="hr-tp-one">
+      <img src="{{ t.photo.src | img }}" alt="{{ t.photo.alt }}" width="{{ t.photo.width }}" height="{{ t.photo.height }}" loading="lazy" decoding="async">
+      <div><h2 class="hr-tp-n">{{ t.name }}</h2>
+        <p>{{ site.stylists.items | firstNames(t.stylists) }} · {{ s.name }}, {{ (s | fromWords) | lower }}.</p>
+        <p class="hr-tp-a">{{ t.arrive }}</p></div>
+    </li>
+    {%- endfor %}
+  </ul>
+</div></section>
+<section class="hr-tp-prices" aria-labelledby="tp-p"><div class="wrap">
+  <h2 id="tp-p">Prices</h2>
+  {% include "kits/hair/partials/level-pick.njk" %}
+  {%- set ptGroup = "textured" %}{% include "kits/hair/partials/price-table.njk" %}
+  <p class="hr-gp-go"><a class="hr-btn" href="{{ site.menu.message | book }}" target="_blank" rel="noopener">Ask on WhatsApp</a></p>
+</div></section>

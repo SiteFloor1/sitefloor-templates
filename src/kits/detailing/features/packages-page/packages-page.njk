@@ -1,0 +1,7 @@
+{#- The packages page: its opening, then the packages and the builder (each only when its feature is on), then any home sections the
+    look moves here. -#}
+{%- set pg = site.packagesPage %}
+{% include "kits/detailing/partials/page-head.njk" %}
+{%- set shown = ["packages", "package-builder"] %}
+{% include "kits/detailing/partials/sections.njk" %}
+{%- set hostPage = "packages-page" %}{% include "kits/detailing/partials/hosted.njk" %}

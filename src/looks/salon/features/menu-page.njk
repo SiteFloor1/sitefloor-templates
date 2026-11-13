@@ -1,0 +1,60 @@
+{#- Salon: the whole carte. The page opens with its title set large; every sitting, the drinks and the full allergen
+    chart follow as one long carte with a quiet index. Keeps the menu page's hooks. -#}
+{%- set m = site.menu %}
+{%- set mp = site.menuPage %}
+<section class="sa-page-head"><div class="wrap">
+  <h1>{{ mp.title | markup | safe }}</h1>
+  {%- if mp.intro %}<p>{{ mp.intro }}</p>{% endif %}
+  {%- if "menu-pdf" | enabled %}<p class="sa-links">{% include "kits/restaurant/features/menu-pdf/menu-pdf.njk" %}</p>{% endif %}
+  <div class="sa-crowns" aria-hidden="true"></div>
+</div></section>
+<section class="mp sa-mp" data-feature="menu-page"><div class="wrap">
+  <div class="sa-mp-bar">
+    <div class="sa-tabs" role="tablist" aria-label="Menus" data-js-only>
+      {%- for s in m.sittings %}<button type="button" role="tab" id="mp-tab-{{ s.id }}" aria-controls="mp-{{ s.id }}" aria-selected="{{ 'true' if loop.first else 'false' }}" data-mp-tab="{{ s.id }}">{{ s.name }}</button>{% endfor %}
+      {%- if m | drinks | length %}<button type="button" role="tab" id="mp-tab-drinks" aria-controls="mp-drinks" aria-selected="false" data-mp-tab="drinks">Drinks</button>{% endif %}
+      <button type="button" role="tab" id="mp-tab-chart" aria-controls="mp-chart" aria-selected="false" data-mp-tab="chart">Allergen chart</button>
+    </div>
+    <details class="sa-avoid" data-js-only>
+      <summary>Allergies</summary>
+      <div class="sa-chips">{% for a in food.allergens %}<label><input type="checkbox" name="mp-avoid" value="{{ a.id }}"><span>{{ a.name }}</span></label>{% endfor %}</div>
+    </details>
+    <p class="sa-small" data-mp-hidden aria-live="polite"></p>
+  </div>
+  {%- for s in m.sittings %}
+  <div class="sa-mp-panel" id="mp-{{ s.id }}" role="tabpanel" aria-labelledby="mp-tab-{{ s.id }}" data-mp-panel="{{ s.id }}" data-mn-mood="{{ s.mood }}">
+    <h2>{{ s.name }}</h2>
+    <p class="sa-when">{{ s.days | sittingDays }} · {{ s.from | t12 }}–{{ s.to | t12 }}{% if s.lastOrders %} · last orders {{ s.lastOrders | t12 }}{% endif %}</p>
+    <div class="sa-cols">
+    {%- for sc in m | sectionsFor(s.id) %}{% if not sc.drinks %}
+      <div class="sa-msec"><h3>{{ sc.name }}</h3>{% if sc.note %}<p class="sa-mnote">{{ sc.note }}</p>{% endif %}<ul class="sa-dishes">{% for d in sc.dishes %}{% include "kits/restaurant/features/menu/dish.njk" %}{% endfor %}</ul></div>
+    {%- endif %}{% endfor %}
+    </div>
+  </div>
+  {%- endfor %}
+  {%- if m | drinks | length %}
+  <div class="sa-mp-panel" id="mp-drinks" role="tabpanel" aria-labelledby="mp-tab-drinks" data-mp-panel="drinks">
+    <h2>Drinks</h2>
+    <div class="sa-cols">{% for sc in m.sections %}{% if sc.drinks %}<div class="sa-msec"><h3>{{ sc.name }}</h3>{% if sc.note %}<p class="sa-mnote">{{ sc.note }}</p>{% endif %}<ul class="sa-dishes">{% for d in sc.dishes %}{% include "kits/restaurant/features/menu/dish.njk" %}{% endfor %}</ul></div>{% endif %}{% endfor %}</div>
+  </div>
+  {%- endif %}
+  <div class="sa-mp-panel" id="mp-chart" role="tabpanel" aria-labelledby="mp-tab-chart" data-mp-panel="chart">
+    <h2>Allergen chart</h2>
+    <p class="sa-when">Checked {{ m.chartChecked | longDate }}</p>
+    <div class="sa-chart-wrap">
+      <table class="sa-chart">
+        <caption class="sr-only">The 14 allergens in every dish and drink. A dot means the dish contains it.</caption>
+        <thead><tr><th scope="col">Dish</th>{% for a in food.allergens %}<th scope="col"><span>{{ a.name }}</span></th>{% endfor %}</tr></thead>
+        <tbody>
+          {%- for sc in m.sections %}<tr class="sa-chart-g"><th scope="rowgroup" colspan="{{ food.allergens | length + 1 }}">{{ sc.name }}</th></tr>
+          {%- for d in sc.dishes %}<tr data-dish="{{ d.id }}" data-name="{{ d.name }}" data-diets="{{ (d.diets or []) | join(' ') }}" data-allergens="{{ d.allergens | join(' ') }}"><th scope="row">{{ d.name }}</th>{% for a in food.allergens %}<td>{% if a.id in d.allergens %}<span class="sa-dot" role="img" aria-label="contains {{ a.name | lower }}"></span>{% else %}<span class="sr-only">no</span>{% endif %}</td>{% endfor %}</tr>{% endfor %}
+          {%- endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="sa-carte-foot">
+    <p>{{ m.statement }}</p>
+    <p class="sa-small">Allergens are from our allergen chart, last checked {{ m.chartChecked | longDate }}. Please tell us about any allergy when you order. The 14 allergens are the ones UK food businesses must tell you about (<a href="{{ food.guidance.url }}" target="_blank" rel="noopener">Food Standards Agency guidance</a>).</p>
+  </div>
+</div></section>

@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: reviews
+permalink: reviews.html
+feature: reviews-page
+eleventyComputed:
+  title: "{{ site.reviewsPage.title | plain }}"
+  description: "What clients say about {{ site.business.name }}."
+---
+{% include "kits/construction/features/reviews-page/reviews-page.njk" %}
+{%- set hostPage = "reviews-page" %}{% include "kits/construction/partials/hosted.njk" %}
+{%- if site.reviewsPage.googleUrl %}<p class="wrap bd-rv-all"><a href="{{ site.reviewsPage.googleUrl }}" rel="noopener" target="_blank">All our reviews on Google</a></p>{% else %}<div class="bd-rv-all"></div>{% endif %}

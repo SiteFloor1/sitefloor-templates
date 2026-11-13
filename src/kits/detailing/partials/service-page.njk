@@ -1,0 +1,24 @@
+{#- One service's page: its opening, then what's included and how it goes side by side, then its "from" prices by car
+    size (the studio's own, or the package's or extra's it names) and a question on WhatsApp. Set `pg` first. -#}
+{% include "kits/detailing/partials/page-head.njk" %}
+{%- set svPrices = pg | servicePrices(site) %}
+<section class="dt-sv" aria-label="{{ pg.title | plain }}: what we do"><div class="wrap dt-sv-in">
+  <div>
+    <h2 class="dt-sv-h">What's included</h2>
+    <ul class="dt-sv-inc">{% for x in pg.includes %}<li>{{ x }}</li>{% endfor %}</ul>
+  </div>
+  <div>
+    <h2 class="dt-sv-h">How it goes</h2>
+    <ol class="dt-sv-steps">{% for s in pg.steps %}<li><b>{{ s.name }}</b><span>{{ s.text }}</span></li>{% endfor %}</ol>
+  </div>
+</div></section>
+<section class="dt-sv-p" aria-label="{{ pg.title | plain }}: prices"><div class="wrap dt-sv-p-in">
+  <span class="tube" aria-hidden="true"></span>
+  {%- if svPrices %}
+  <dl class="dt-sv-dl">
+    {%- for s in site.sizes %}{% if svPrices[s.id] %}<div><dt>{{ s.name }}</dt><dd><span>from</span> £{{ svPrices[s.id] }}</dd></div>{% endif %}{% endfor %}
+  </dl>
+  {%- endif %}
+  <a class="go" href="{{ pg.message | wa }}" target="_blank" rel="noopener">Ask us on WhatsApp</a>
+  {%- if site.packages.note %}<p class="dt-note">{{ site.packages.note }}</p>{% endif %}
+</div></section>

@@ -1,0 +1,11 @@
+{#- Mantel questions: the heading and the way to ask on the left, the questions as ruled rows on the right. -#}
+{%- set sec = site.sections.questions %}
+{%- set qs = site | homeQuestions %}
+<section id="questions" class="mt-qs" data-feature="questions"{{ "questions" | tierAttr | safe }}><div class="wrap mt-qs-g">
+  <div>
+    <h2 class="mt-qs-h">{{ sec.title | markup | safe }}</h2>
+    {%- if "plan-visit" | enabled %}<p><a class="fl-link" href="{{ 'visit' | href }}"{{ "plan-visit" | tierAttr | safe }}>Every question</a></p>{% endif %}
+    <p><a class="fl-link" href="{{ site.messages.general | wa }}" target="_blank" rel="noopener">Ask us on WhatsApp</a></p>
+  </div>
+  <div>{% for item in qs %}<details class="mt-q"><summary>{{ item.q }}</summary><p>{{ item.a }}</p></details>{% endfor %}</div>
+</div></section>

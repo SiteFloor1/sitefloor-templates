@@ -1,0 +1,16 @@
+/* Right now: a small live board. Fixed line heights so late data never moves the page. Tokens only. */
+.tn { padding: 22px; background: var(--card); color: var(--card-ink); transition: background-color var(--mood-fade), color var(--mood-fade); }
+main section.tn { padding-block: 22px; }
+.tn-h { font-family: var(--font-display); font-weight: 400; font-size: 30px; line-height: 1; margin: 4px 0 12px; }
+.tn-board { display: grid; gap: 0; margin: 0; }
+.tn-board div { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; padding: 9px 0; border-top: 1px solid var(--line); min-height: 44px; }
+.tn-board dt { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--dim); }
+.tn-board dd { text-align: right; font-weight: 600; }
+.tn-board dd[data-state="free"]::before, .tn-board dd[data-state="few"]::before, .tn-board dd[data-state="bar"]::before, .tn-board dd[data-state="full"]::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; background: var(--ok); vertical-align: 1px; }
+.tn-board dd[data-state="few"]::before, .tn-board dd[data-state="bar"]::before { background: var(--busy); }
+.tn-board dd[data-state="full"]::before { background: var(--closed); }
+.tn-board dd[data-state="last"] { color: var(--accent); }
+.tn-note { margin: 2px 0 12px; min-height: 2.8em; }
+.tn-walk { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 10px; align-items: end; }
+.tn-go { justify-content: center; min-height: 46px; padding: 0 14px; font-size: 14px; }
+.tn-off { margin: 12px 0 0; font-size: 14px; color: var(--muted); }

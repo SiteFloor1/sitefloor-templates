@@ -1,0 +1,15 @@
+{#- One journal article: its title, date and author, the photograph, the words, any sources, and the way back. `a` = one item. -#}
+<header class="ph tl-ph"><div class="wrap">
+  <p class="tl-ph-k"><a href="{{ 'journal' | href }}">{{ site.journal.title | plain }}</a> <span aria-hidden="true">/</span> {{ a.date | ukDay }}{% if a.author %} · {{ a.author }}{% endif %}</p>
+  <h1 class="tl-ph-t tl-ar-t">{{ a.title }}</h1>
+  <p class="tl-ph-i">{{ a.summary }}</p>
+</div></header>
+<article class="wrap tl-ar">
+  <figure class="tl-ar-ph"><img src="{{ a.photo.src | img }}" alt="{{ a.photo.alt }}" width="{{ a.photo.width }}" height="{{ a.photo.height }}" fetchpriority="high" decoding="async"></figure>
+  <div class="tl-ar-b">
+    {%- for para in a.body | paragraphs %}<p>{{ para }}</p>{% endfor %}
+    {%- if a.sources and a.sources.length %}<p class="tl-label">Sources</p><ol class="tl-ar-src">{% for s in a.sources %}<li><a href="{{ s.url }}" target="_blank" rel="noopener">{{ s.label }}</a></li>{% endfor %}</ol>{% endif %}
+    {%- if site.journal.note %}<p class="tl-small">{{ site.journal.note }}</p>{% endif %}
+    <p><a class="tl-go" href="{{ 'journal' | href }}">Every article</a></p>
+  </div>
+</article>

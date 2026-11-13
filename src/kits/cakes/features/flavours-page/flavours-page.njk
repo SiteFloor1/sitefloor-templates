@@ -1,0 +1,14 @@
+{#- The flavours page: every flavour with what's in it, when it's on and its allergens, then the flavour calendar. -#}
+{%- set pg = site.cakePages.flavours %}
+{%- set ph = { title: pg.title, intro: pg.intro } %}{% include "kits/cakes/partials/page-head.njk" %}
+<section class="ck-fltbl" data-feature="flavours-page" aria-label="Every flavour"><div class="wrap">
+  <div class="ck-fltbl-w" role="region" aria-label="Every flavour" tabindex="0">
+    <table>
+      <thead><tr><th scope="col">Flavour</th><th scope="col">What's in it</th><th scope="col">When</th><th scope="col">Allergens</th></tr></thead>
+      <tbody>
+        {%- for f in site.flavours.items %}<tr><th scope="row">{{ f.name }}</th><td>{{ f.what }}{% if f.diets and f.diets.length %} <span class="ck-diet">{{ f.diets | dietWords }}</span>{% endif %}</td><td>{{ f.months | seasonWords }}</td><td>{{ f.allergens | allergenWords }}</td></tr>{% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {%- if site.flavours.note %}<p class="ck-note">{{ site.flavours.note }}</p>{% endif %}
+</div></section>

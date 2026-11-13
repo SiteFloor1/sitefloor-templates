@@ -1,0 +1,5 @@
+{#- The rules line under anything clinical: who may whiten, the under-18 rule, no promised shade, the complaints page.
+    Body size and full contrast, never small print. -#}
+<p class="sm-rules">Whitening only by GDC-registered clinicians, never for anyone under 18. We don't promise a shade or a result.
+  {{ gdc.status[site.patientInfo.status] if site.patientInfo else "" }}
+  {%- if "smile-patient-info" | enabled %} <a href="{{ 'patient-information' | href }}">Complaints and patient information</a>{% endif %}</p>

@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Marese Case Study</title>
+<meta name="description" content="How a Sitefloor site sells luxury lingerie for a fictional Mayfair boutique: fittings, gifts, private evenings and the fit passport.">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..500,100;1,9..144,300..500,100&family=Red+Hat+Text:wght@400;500&family=Manrope:wght@600;700&display=swap">
+<style>
+/* Layout: a stocking's back seam. One stitched line runs the length of the page; each feature is a clasp on it, and the
+   plans are deniers (lower is finer: Starter 15, Plus 10, Signature 7). Ground: bare skin in lamplight, with one black,
+   the knit of a sheer stocking. Type: Fraunces at its softest, italic for what she feels; Red Hat Text for facts. */
+:root {
+  --skin: #EBDBD1; --skin-2: #E2CCBF; --skin-3: #D9BFB1; --flush: #F4EAE4;
+  --noir: #140E0D; --noir-2: #2A1F1C; --soft: #5A4640; --rule: rgba(20,14,13,.16);
+  --display: "Fraunces", "Didot", Georgia, serif;
+  --body: "Red Hat Text", "Helvetica Neue", Arial, sans-serif;
+  --brand: "Manrope", Arial, sans-serif;
+  --sf-paper: #FBFAF7; --sf-ink: #0E0F11; --sf-tomato: #E8613C; --sf-line: rgba(14,15,17,.12);
+  --seam-x: 50%;
+  --s: clamp(72px, 9vw, 136px);
+  color-scheme: light;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--skin); }
+body { margin: 0; background: var(--skin); color: var(--noir); font: 400 17px/1.65 var(--body); -webkit-font-smoothing: antialiased; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--sf-paper); }
+a { color: inherit; }
+img, video { display: block; max-width: 100%; height: auto; }
+figure { margin: 0; }
+h1, h2, h3 { font-family: var(--display); font-weight: 300; font-variation-settings: "SOFT" 100, "opsz" 144; margin: 0; letter-spacing: -.012em; }
+em, i { font-style: italic; }
+p { margin: 0; }
+.gut { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { width: min(1240px, 100%); margin-inline: auto; }
+.lab { font: 500 11px/1.4 var(--body); letter-spacing: .22em; text-transform: uppercase; color: var(--soft); }
+:focus-visible { outline: 2px solid var(--noir); outline-offset: 3px; }
+
+/* Sitefloor's bar: the same on every case study. */
+.sfbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--sf-paper); color: var(--sf-ink); border-bottom: 1px solid var(--sf-line); }
+.sfbar .wrap { display: flex; justify-content: space-between; align-items: center; height: 66px; gap: 16px; }
+.wm { display: flex; align-items: baseline; font-family: var(--brand); font-weight: 600; font-size: 24px; letter-spacing: -.045em; text-decoration: none; color: var(--sf-ink); }
+.wm svg { margin: 0 1px; overflow: visible; }
+.sfbar nav { display: flex; gap: 28px; font-family: var(--brand); font-size: 14px; font-weight: 600; }
+.sfbar nav a { text-decoration: none; color: var(--sf-ink); }
+.sfbar nav a[aria-current] { box-shadow: inset 0 -1.5px 0 var(--sf-ink); }
+.sfbtn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 20px; background: var(--sf-ink); color: var(--sf-paper); font: 700 12px var(--brand); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; }
+.sfbtn:hover { background: var(--sf-tomato); }
+@media (max-width: 760px) { .sfbar nav { display: none; } }
+@media (max-width: 420px) { .sfbar .sfbtn { display: none; } }
+
+/* The seam: two rows of stitches, the length of the page. */
+.seamed { position: relative; }
+.seamed::before { content: ""; position: absolute; top: 0; bottom: 0; left: var(--seam-x); width: 3px; margin-left: -1.5px; z-index: 0; pointer-events: none;
+  background: repeating-linear-gradient(to bottom, var(--noir) 0 6px, transparent 6px 9px) left / 1px 100% no-repeat,
+              repeating-linear-gradient(to bottom, transparent 0 4px, var(--noir) 4px 10px, transparent 10px 13px) right / 1px 100% no-repeat; opacity: .55; }
+.clasp { position: absolute; left: var(--seam-x); top: 0; width: 22px; margin-left: -11px; z-index: 2; color: var(--noir); }
+
+/* Hero: the photograph to the right of the seam, the line to the left. */
+.hero { position: relative; }
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: min(92vh, 900px); }
+.hero-t { align-self: end; padding: var(--s) clamp(24px, 5vw, 80px) clamp(48px, 7vw, 96px) 0; position: relative; z-index: 1; }
+.hero h1 { font-size: clamp(3rem, 7.2vw, 6.6rem); line-height: .98; margin-top: 22px; }
+.hero h1 em { display: block; font-weight: 300; }
+.hero-lede { margin-top: 28px; max-width: 34ch; font-size: 1.08rem; color: var(--noir-2); }
+.hero-ph { margin: 0; position: relative; z-index: 1; padding-left: clamp(24px, 4vw, 64px); }
+.hero-ph img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 28%; min-height: 560px; }
+.hero-ph figcaption { position: absolute; left: clamp(24px, 4vw, 64px); right: 0; bottom: 0; padding: 60px 18px 14px; color: var(--flush); font-size: 12px; letter-spacing: .04em; background: linear-gradient(transparent, rgba(20,14,13,.6)); }
+
+/* Index of clasps: the stations down the seam. */
+.index { padding-block: clamp(48px, 7vw, 96px); background: var(--skin); position: relative; z-index: 1; }
+.index ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--rule); }
+.index li a { display: grid; gap: 6px; padding: 18px 16px 20px 0; border-bottom: 1px solid var(--rule); text-decoration: none; min-height: 100%; }
+.index li a:hover .t, .index li a:focus-visible .t { text-decoration: underline; text-underline-offset: 4px; }
+.index .t { font-family: var(--display); font-size: 1.22rem; line-height: 1.2; font-variation-settings: "SOFT" 100; }
+.index .d { font-size: 12px; color: var(--soft); letter-spacing: .06em; }
+
+/* A station: words on one side of the seam, the phone on the other; sides alternate. */
+.st { position: relative; padding-block: var(--s); }
+.st .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; }
+.st-t { padding-right: clamp(32px, 6vw, 96px); max-width: 560px; justify-self: end; position: relative; z-index: 1; }
+.st-m { padding-left: clamp(32px, 6vw, 96px); position: relative; z-index: 1; }
+.st.flip .st-t { order: 2; padding: 0 0 0 clamp(32px, 6vw, 96px); justify-self: start; }
+.st.flip .st-m { order: 1; padding: 0 clamp(32px, 6vw, 96px) 0 0; display: flex; justify-content: flex-end; }
+.st h2 { font-size: clamp(2.2rem, 4.4vw, 3.9rem); line-height: 1.02; margin: 18px 0 22px; }
+.st h2 em { font-weight: 300; }
+.st p + p { margin-top: 14px; }
+.st-t p { color: var(--noir-2); }
+.den { display: inline-flex; align-items: center; gap: 10px; }
+.den b { font: 500 11px/1 var(--body); letter-spacing: .18em; text-transform: uppercase; padding: 6px 9px; border: 1px solid var(--noir); }
+.den.plus b { background: var(--noir); color: var(--skin); }
+.den.sig b { background: var(--noir); color: var(--skin); box-shadow: 0 0 0 3px var(--skin), 0 0 0 4px var(--noir); }
+.facts { list-style: none; margin: 26px 0 0; padding: 0; border-top: 1px solid var(--rule); }
+.facts li { padding: 11px 0; border-bottom: 1px solid var(--rule); font-size: 15px; }
+.st.dark { background: var(--noir); color: var(--skin); }
+.st.dark .st-t p, .st.dark .facts li { color: #DCC9BF; }
+.st.dark .lab { color: #C2ACA2; }
+.st.dark .facts, .st.dark .facts li { border-color: rgba(235,219,209,.2); }
+.st.dark .den b { border-color: var(--skin); }
+.st.dark .den.plus b, .st.dark .den.sig b { background: var(--skin); color: var(--noir); }
+.st.dark .den.sig b { box-shadow: 0 0 0 3px var(--noir), 0 0 0 4px var(--skin); }
+.st.dark .clasp { color: var(--skin); }
+.seamed .st.dark::before { content: ""; position: absolute; top: 0; bottom: 0; left: var(--seam-x); width: 3px; margin-left: -1.5px; z-index: 0;
+  background: repeating-linear-gradient(to bottom, var(--skin) 0 6px, transparent 6px 9px) left / 1px 100% no-repeat,
+              repeating-linear-gradient(to bottom, transparent 0 4px, var(--skin) 4px 10px, transparent 10px 13px) right / 1px 100% no-repeat; opacity: .5; }
+
+/* The phone: no frame, a hairline and the knit's shadow. */
+.ph { position: relative; width: min(340px, 100%); }
+.ph video, .ph img { width: 100%; aspect-ratio: 390 / 844; object-fit: cover; object-position: top; background: var(--flush); border: 1px solid var(--noir); }
+.st.dark .ph video, .st.dark .ph img { border-color: rgba(235,219,209,.5); }
+.pair { display: flex; gap: clamp(12px, 2vw, 24px); align-items: flex-start; }
+.pair .ph { flex: 0 1 270px; width: auto; min-width: 0; }
+.pair .ph:nth-child(2) { margin-top: 72px; }
+.st.flip .pair { justify-content: flex-end; }
+.ph figcaption { margin-top: 10px; font-size: 12px; color: var(--soft); letter-spacing: .04em; }
+.st.dark .ph figcaption { color: #C2ACA2; }
+.pause { position: absolute; right: 10px; bottom: 44px; display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 12px; border: 0; background: rgba(20,14,13,.78); color: var(--flush); font: 500 12px var(--body); letter-spacing: .06em; cursor: pointer; }
+.pause svg { width: 12px; height: 12px; }
+
+/* The hint, written live. */
+.hint { margin-top: 30px; padding: 22px; background: var(--flush); border: 1px solid var(--noir); }
+.hint fieldset { border: 0; margin: 0; padding: 0; }
+.hint legend { padding: 0; margin-bottom: 10px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips label { position: relative; }
+.chips input { position: absolute; opacity: 0; inset: 0; }
+.chips span { display: inline-block; min-height: 40px; padding: 10px 14px; border: 1px solid var(--noir); font-size: 14px; cursor: pointer; }
+.chips input:checked + span { background: var(--noir); color: var(--skin); }
+.chips input:focus-visible + span { outline: 2px solid var(--noir); outline-offset: 3px; }
+.hint .row { display: grid; grid-template-columns: 1fr 1.6fr; gap: 12px; margin-top: 16px; }
+.hint label.f { display: grid; gap: 6px; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--soft); }
+.hint input[type=text] { font: 400 16px var(--body); color: var(--noir); padding: 10px 0; border: 0; border-bottom: 1px solid var(--noir); background: transparent; border-radius: 0; }
+.bubble { margin-top: 18px; padding: 14px 16px; background: #fff; border-radius: 0 14px 14px 14px; font-size: 14px; line-height: 1.5; white-space: pre-line; max-width: 46ch; box-shadow: 0 1px 0 var(--rule); }
+.hint .go { display: inline-flex; margin-top: 16px; min-height: 44px; align-items: center; padding: 0 18px; background: var(--noir); color: var(--skin); text-decoration: none; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
+.hint small { display: block; margin-top: 10px; font-size: 12px; color: var(--soft); }
+
+.count { margin-top: 26px; font-family: var(--display); font-size: clamp(1.4rem, 2.4vw, 1.9rem); line-height: 1.25; font-variation-settings: "SOFT" 100; }
+.count b { font-weight: 400; font-style: italic; }
+
+/* Speed: three numbers stitched to the seam. */
+.speed { padding-block: var(--s); position: relative; }
+.speed .wrap { position: relative; z-index: 1; }
+.speed h2 { font-size: clamp(2.2rem, 4.4vw, 3.9rem); line-height: 1.02; max-width: 14ch; margin-top: 18px; }
+.nums { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; margin-top: 48px; border-top: 1px solid var(--noir); }
+.nums div { padding: 22px 18px 24px 0; border-bottom: 1px solid var(--rule); background: var(--skin); }
+.nums b { display: block; font-family: var(--display); font-weight: 300; font-size: clamp(2.4rem, 5vw, 4.2rem); line-height: 1; font-variation-settings: "SOFT" 100, "opsz" 144; }
+.nums span { display: block; margin-top: 10px; font-size: 14px; color: var(--noir-2); max-width: 24ch; }
+.speed .note { margin-top: 18px; font-size: 13px; color: var(--soft); max-width: min(80ch, calc(50% - 40px)); }
+
+/* The plans: three deniers, the knit drawn over skin. */
+.plans { padding-block: var(--s); background: var(--skin-2); position: relative; }
+.plans .wrap { position: relative; z-index: 1; }
+.plans-h { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px 64px; align-items: end; }
+.plans h2 { font-size: clamp(2.4rem, 5vw, 4.4rem); line-height: 1; margin-top: 18px; }
+.plans-h p { color: var(--noir-2); max-width: 44ch; }
+.three { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(12px, 2vw, 24px); margin-top: 56px; }
+.plan { background: var(--flush); border: 1px solid var(--noir); display: flex; flex-direction: column; }
+.knit { height: 150px; position: relative; overflow: hidden; background: linear-gradient(180deg, #D8B7A6, #C79F8B); border-bottom: 1px solid var(--noir); }
+.knit::before { content: ""; position: absolute; inset: -20px; background:
+  repeating-linear-gradient(60deg, rgba(20,14,13,var(--a)) 0 1px, transparent 1px var(--g)),
+  repeating-linear-gradient(-60deg, rgba(20,14,13,var(--a)) 0 1px, transparent 1px var(--g)),
+  rgba(20,14,13,var(--tint)); }
+.knit span { position: absolute; left: 16px; bottom: 12px; font-family: var(--display); font-size: 2.8rem; line-height: 1; color: var(--flush); font-variation-settings: "SOFT" 100, "opsz" 144; text-shadow: 0 1px 12px rgba(20,14,13,.35); }
+.knit span small { font: 500 11px var(--body); letter-spacing: .2em; text-transform: uppercase; margin-left: 6px; }
+.k15 { --a: .9; --g: 4px; --tint: .62; } .k10 { --a: .8; --g: 5px; --tint: .42; } .k7 { --a: .7; --g: 6px; --tint: .22; }
+.plan-b { padding: 22px 20px 26px; display: grid; gap: 8px; align-content: start; }
+.plan h3 { font-size: 2rem; line-height: 1.1; }
+.pr { font-size: 15px; }
+.pr small { color: var(--soft); font-size: 13px; }
+.plan ul { list-style: none; margin: 12px 0 0; padding: 0; }
+.plan li { padding: 9px 0; border-top: 1px solid var(--rule); font-size: 14px; line-height: 1.5; }
+.plans .small { margin-top: 22px; font-size: 13px; color: var(--soft); max-width: 90ch; }
+
+/* The close. */
+.close { padding-block: var(--s); background: var(--noir); color: var(--skin); position: relative; overflow: hidden; }
+.close .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px clamp(32px, 6vw, 96px); align-items: center; position: relative; z-index: 1; }
+.close h2 { font-size: clamp(3rem, 7vw, 6.4rem); line-height: .98; }
+.close .lab { color: #C2ACA2; }
+.close p { color: #DCC9BF; max-width: 40ch; margin-top: 20px; }
+.acts { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.btn { display: inline-flex; align-items: center; min-height: 48px; padding: 0 22px; background: var(--skin); color: var(--noir); text-decoration: none; font: 500 13px var(--body); letter-spacing: .1em; text-transform: uppercase; }
+.btn.line { background: transparent; color: var(--skin); box-shadow: inset 0 0 0 1px var(--skin); }
+.btn:hover { background: var(--flush); color: var(--noir); }
+.mail { display: block; margin-top: 22px; font-size: 14px; color: #C2ACA2; letter-spacing: .04em; }
+.close-ph { margin: 0; }
+.close-ph img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
+
+footer { background: var(--skin); color: var(--soft); font-size: 13px; line-height: 1.6; border-top: 1px solid var(--rule); }
+footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px 32px; padding-block: 28px; }
+footer p { max-width: 96ch; }
+
+@media (max-width: 900px) {
+  :root { --seam-x: 22px; }
+  .hero .wrap { grid-template-columns: minmax(0, 1fr); min-height: 0; }
+  .hero-t { padding: 56px 0 40px 46px; }
+  .hero-ph { padding-left: 46px; order: 2; }
+  .hero-ph img { min-height: 0; aspect-ratio: 4 / 5; }
+  .hero-ph figcaption { left: 46px; }
+  .index ol { grid-template-columns: 1fr 1fr; padding-left: 30px; }
+  .st .wrap { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+  .st-t, .st.flip .st-t { order: 1; padding: 0 0 0 46px; justify-self: start; }
+  .st-m, .st.flip .st-m { order: 2; padding: 0 0 0 46px; justify-content: flex-start; }
+  .st.flip .pair { justify-content: flex-start; }
+  .speed .wrap, .plans .wrap { padding-left: 30px; }
+  .nums { grid-template-columns: 1fr 1fr; }
+  .speed .note { max-width: none; }
+  .plans-h { grid-template-columns: 1fr; }
+  .three { grid-template-columns: 1fr; }
+  .close .wrap { grid-template-columns: 1fr; padding-left: 30px; }
+  .clasp { top: 0; }
+}
+@media (max-width: 520px) {
+  .index ol { grid-template-columns: 1fr; }
+  .pair .ph:nth-child(2) { margin-top: 40px; }
+  .hint .row { grid-template-columns: 1fr; }
+  footer .wrap { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-t > * { animation: rise 1.4s cubic-bezier(.2,.7,.1,1) both; }
+  .hero-t > *:nth-child(2) { animation-delay: .15s; } .hero-t > *:nth-child(3) { animation-delay: .3s; }
+  @keyframes rise { from { opacity: 0; transform: translateY(14px); } }
+}
+</style>
+</head>
+<body>
+
+<div class="sfbar gut"><div class="wrap">
+  <a class="wm" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su" aria-label="Sitefloor home">sitefl<svg width="28" height="14" viewBox="0 0 42 21" aria-hidden="true"><rect x="1.9" y="1.9" width="38.2" height="17.2" rx="8.6" fill="none" stroke="#0E0F11" stroke-width="3.8"/><circle cx="31.5" cy="10.5" r="5.2" fill="#E8613C"/></svg>r</a>
+  <nav aria-label="Main"><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#live">Features</a><a href="#top" aria-current="page">Work</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#pricing">Pricing</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#guides">Guides</a></nav>
+  <a class="sfbtn" href="#mockup"><span>Free mockup</span><span aria-hidden="true">→</span></a>
+</div></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="clasp" viewBox="0 0 22 34"><rect x="3" y="1.5" width="16" height="12" rx="6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M11 13.5v5" stroke="currentColor" stroke-width="1.6"/><rect x="5.5" y="18.5" width="11" height="14" rx="2.5" fill="currentColor"/></symbol></svg>
+
+<main id="top" class="seamed">
+
+<section class="hero gut" aria-labelledby="h1"><div class="wrap">
+  <div class="hero-t">
+    <p class="lab">Case study · Lingerie boutique, Mayfair</p>
+    <h1 id="h1">Seen at midnight. <em>Fitted by Friday.</em></h1>
+    <p class="hero-lede">Marese sells French lace from a first-floor salon in Mayfair. Her customers find it on a phone, late, in private. The site is made for that moment, and for what she does next.</p>
+  </div>
+  <figure class="hero-ph"><img src="media/hero-b.webp" width="1200" height="2093" alt="A woman in a black lace body and sheer stockings, a fur coat falling from her shoulders" fetchpriority="high"><figcaption>Marese is fictional. The site is real, and yours can be next.</figcaption></figure>
+</div></section>
+
+<nav class="index gut" aria-label="On the seam"><div class="wrap">
+  <ol>
+    <li><a href="#c1"><span class="d">15 denier · Starter</span><span class="t">The first look</span></a></li>
+    <li><a href="#c2"><span class="d">10 denier · Plus</span><span class="t">He doesn't know her size</span></a></li>
+    <li><a href="#c3"><span class="d">10 denier · Plus</span><span class="t">February, early</span></a></li>
+    <li><a href="#c4"><span class="d">10 denier · Plus</span><span class="t">Waiting upstairs</span></a></li>
+    <li><a href="#c5"><span class="d">7 denier · Signature</span><span class="t">Eight characters</span></a></li>
+    <li><a href="#c6"><span class="d">7 denier · Signature</span><span class="t">After seven</span></a></li>
+    <li><a href="#c7"><span class="d">7 denier · Signature</span><span class="t">Close enough to touch</span></a></li>
+    <li><a href="#c8"><span class="d">Starter and Plus</span><span class="t">A shop, or a brand</span></a></li>
+  </ol>
+</div></nav>
+
+<section class="st gut" id="c1" aria-labelledby="h-c1"><svg class="clasp" aria-hidden="true"><use href="#clasp"/></svg><div class="wrap">
+  <div class="st-t">
+    <span class="den"><b>Starter</b></span>
+    <h2 id="h-c1">She sees the piece <em>before the price.</em></h2>
+    <p>The campaign first, large: a woman wearing the collection, nothing laid over the lace. Then the new season, every piece by its full name, Calloway · Bralette · Smoke, with its colours and its price.</p>
+    <ul class="facts">
+      <li>Shop by category: bras, briefs, suspenders, bodies, robes, bridal</li>
+      <li>A private fitting, asked for on WhatsApp</li>
+      <li>Gift wrap with a handwritten card; discreet packaging in her words</li>
+    </ul>
+  </div>
+  <div class="st-m"><div class="pair">
+    <figure class="ph"><img src="media/home.jpg" width="780" height="1688" alt="Marese's home page on a phone: a woman in a black lace body, then the line Made to be taken off slowly" loading="lazy"><figcaption>The home page</figcaption></figure>
+    <figure class="ph"><img src="media/new.jpg" width="780" height="1688" alt="The new season on a phone: each piece named by collection, style and colour, with swatches and its price" loading="lazy"><figcaption>New season</figcaption></figure>
+  </div></div>
+</div></section>
+
+<section class="st flip gut" id="c2" aria-labelledby="h-c2"><svg class="clasp" aria-hidden="true"><use href="#clasp"/></svg><div class="wrap">
+  <div class="st-t">
+    <span class="den plus"><b>Plus</b></span>
+    <h2 id="h-c2">He doesn't know her size. <em>He doesn't have to.</em></h2>
+    <p>Tell us about her: what she wears, the budget, the occasion, in one WhatsApp message. The shop sets pieces aside. And on any piece, she can drop a hint to whoever she chooses.</p>
+    <form class="hint" id="hint" onsubmit="return false">
+      <fieldset>
+        <legend class="lab">Write her hint</legend>
+        <div class="chips">
+          <label><input type="radio" name="piece" value="Calloway · Body · Noir|320" checked><span>Calloway Body</span></label>
+          <label><input type="radio" name="piece" value="Vesna · Suspender belt · Noir|160"><span>Vesna Belt</span></label>
+          <label><input type="radio" name="piece" value="Halden · Velvet robe · Noir|860"><span>Halden Robe</span></label>
+        </div>
+      </fieldset>
+      <div class="row">
+        <label class="f">Your size<input type="text" id="h-size" maxlength="12" placeholder="32D" autocomplete="off"></label>
+        <label class="f">A line from you<input type="text" id="h-note" maxlength="80" placeholder="For the fourteenth." autocomplete="off"></label>
+      </div>
+      <p class="bubble" id="h-out" aria-live="polite"></p>
+      <a class="go" id="h-go" href="#" target="_blank" rel="noopener">Send it on WhatsApp</a>
+      <small>WhatsApp asks who it's for. Marese's pieces and prices are demo.</small>
+    </form>
+  </div>
+  <div class="st-m"><figure class="ph"><img src="media/her.jpg" width="780" height="1688" alt="Tell us about her on a phone: a woman touching her shoulder, then her size, what she wears and the budget" loading="lazy"><figcaption>Tell us about her</figcaption></figure></div>
+</div></section>
+
+<section class="st dark gut" id="c3" aria-labelledby="h-c3"><svg class="clasp" aria-hidden="true"><use href="#clasp"/></svg><div class="wrap">
+  <div class="st-t">
+    <span class="den plus"><b>Plus</b></span>
+    <h2 id="h-c3">February arrives <em>a fortnight early.</em></h2>
+    <p>From late January the home page belongs to Valentine's: the campaign, the edit to give and the edit to hint at, and a countdown to the shop's own last order time. After it, she can still collect. Then it switches itself off. Christmas does the same.</p>
+    <p class="count" id="vday">Marese's last Valentine's order: <b>Thursday 11 February, 4pm</b>.</p>
+  </div>
+  <div class="st-m"><figure class="ph"><video id="v-takeover" data-clip muted playsinline loop preload="none" poster="media/takeover-poster.jpg" width="780" height="1688" aria-label="The Valentine's takeover on a phone: the campaign, the edit with prices, then a hint written with her size"><source src="media/takeover.mp4" type="video/mp4"></video><button class="pause" type="button" data-pause="v-takeover" data-name="Valentine's clip"><svg viewBox="0 0 12 12" aria-hidden="true"></svg><span>Pause</span></button><figcaption>Valentine's, on a phone</figcaption></figure></div>
+</div></section>
+
+<section class="st flip gut" id="c4" aria-labelledby="h-c4"><svg class="clasp" aria-hidden="true"><use href="#clasp"/></svg><div class="wrap">
+  <div class="st-t">
+    <span class="den plus"><b>Plus</b></span>
+    <h2 id="h-c4">Three pieces, <em>waiting upstairs.</em></h2>
+    <p>She taps "Have it at my fitting" on up to three pieces, anywhere on the site. When she asks for a fitting, they're already in the message, so the fitter has them in her size before she arrives.</p>
+    <ul class="facts">
+      <li>The fitting, Under the dress, Bridal and Buying for her pages</li>
+      <li>A fit finder: "the band rides up" and what it usually means</li>
+    </ul>
+  </div>
+  <div class="st-m"><figure class="ph"><video id="v-tray" data-clip muted playsinline loop preload="none" poster="media/tray-poster.jpg" width="780" height="1688" aria-label="Two pieces added to the tray from the new season, then the fitting request listing them"><source src="media/tray.mp4" type="video/mp4"></video><button class="pause" type="button" data-pause="v-tray" data-name="tray clip"><svg viewBox="0 0 12 12" aria-hidden="true"></svg><span>Pause</span></button><figcaption>The tray, then the fitting</figcaption></figure></div>
+</div></section>
+
+<section class="st gut" id="c5" aria-labelledby="h-c5"><svg class="clasp" aria-hidden="true"><use href="#clasp"/></svg><div class="wrap">
+  <div class="st-t">
+    <span class="den sig"><b>Signature</b></span>
+    <h2 id="h-c5">Her sizes, <em>in eight characters.</em></h2>
+    <p>After a fitting she's given a private code. Whoever she shares it with sees the sizes her fitter wrote down, balconette 32D, plunge 32DD, and can ask the shop for pieces in them. The sheet behind it holds no names.</p>
+    <ul class="facts">
+      <li>The gift concierge: her birthday and your anniversary in his calendar, with reminders</li>
+      <li>Wedding dates: one date in, every fitting worked back from it</li>
+    </ul>
+  </div>
+  <div class="st-m"><figure class="ph"><video id="v-passport" data-clip muted playsinline loop preload="none" poster="media/passport-poster.jpg" width="780" height="1688" aria-label="The fit passport on a phone: a code typed in, then her sizes by shape and the date of her fitting"><source src="media/passport.mp4" type="video/mp4"></video><button class="pause" type="button" data-pause="v-passport" data-name="fit passport clip"><svg viewBox="0 0 12 12" aria-hidden="true"></svg><span>Pause</span></button><figcaption>The fit passport</figcaption></figure></div>
+</div></section>
+
+<section class="st flip dark gut" id="c6" aria-labelledby="h-c6"><svg class="clasp" aria-hidden="true"><use href="#clasp"/></svg><div class="wrap">
+  <div class="st-t">
+    <span class="den sig"><b>Signature</b></span>
+    <h2 id="h-c6">After seven, <em>the salon is hers.</em></h2>
+    <p>The private evening: the shop closes for one client. Its free evenings come from a sheet the shop keeps; she chooses one and asks, and the deposit is the shop's own Stripe link. A bride asks for the same evening for her bridesmaids, names and wedding date included.</p>
+    <p>If the sheet goes quiet, no evening is offered. She's asked to message instead.</p>
+  </div>
+  <div class="st-m"><div class="pair">
+    <figure class="ph"><video id="v-evening" data-clip muted playsinline loop preload="none" poster="media/evening-poster.jpg" width="780" height="1688" aria-label="The private evening: free evenings listed, one chosen, the occasion and a name written"><source src="media/evening.mp4" type="video/mp4"></video><button class="pause" type="button" data-pause="v-evening" data-name="private evening clip"><svg viewBox="0 0 12 12" aria-hidden="true"></svg><span>Pause</span></button><figcaption>The private evening</figcaption></figure>
+    <figure class="ph"><video id="v-party" data-clip muted playsinline loop preload="none" poster="media/party-poster.jpg" width="780" height="1688" aria-label="The bridal party evening: an evening chosen, six of them, and the bridesmaids' names"><source src="media/party.mp4" type="video/mp4"></video><button class="pause" type="button" data-pause="v-party" data-name="bridal party clip"><svg viewBox="0 0 12 12" aria-hidden="true"></svg><span>Pause</span></button><figcaption>The bridal party</figcaption></figure>
+  </div></div>
+</div></section>
+
+<section class="st gut" id="c7" aria-labelledby="h-c7"><svg class="clasp" aria-hidden="true"><use href="#clasp"/></svg><div class="wrap">
+  <div class="st-t">
+    <span class="den sig"><b>Signature</b></span>
+    <h2 id="h-c7">Close enough <em>to touch.</em></h2>
+    <p>A loupe follows her finger across the lace: the twist of the threads, the scallop cut by hand. Beside it, the shop's own words on how it's made. Then a page for every collection and every piece, and guides for fuller busts, stockings and care.</p>
+  </div>
+  <div class="st-m"><figure class="ph"><video id="v-lace" data-clip muted playsinline loop preload="none" poster="media/lace-poster.jpg" width="780" height="1688" aria-label="The lace close up: a magnifier moving across ivory Leavers lace on black"><source src="media/lace.mp4" type="video/mp4"></video><button class="pause" type="button" data-pause="v-lace" data-name="lace clip"><svg viewBox="0 0 12 12" aria-hidden="true"></svg><span>Pause</span></button><figcaption>The lace, close</figcaption></figure></div>
+</div></section>
+
+<section class="st flip gut" id="c8" aria-labelledby="h-c8"><svg class="clasp" aria-hidden="true"><use href="#clasp"/></svg><div class="wrap">
+  <div class="st-t">
+    <span class="den"><b>Starter</b></span> <span class="den plus"><b>Plus</b></span>
+    <h2 id="h-c8">A salon in Mayfair, <em>or a brand with no door.</em></h2>
+    <p>The same site serves a boutique or a lingerie brand that sells online. For a brand, the fitting becomes a video fitting, the stockists are listed by city, and the next collection counts down to the minute, with a waitlist, pre-orders on its own Stripe links and the founders' story.</p>
+  </div>
+  <div class="st-m"><figure class="ph"><img src="media/drop.jpg" width="780" height="1688" alt="The next drop on a phone: Ottoline in ivory, a countdown in days, hours, minutes and seconds, and Join the waitlist" loading="lazy"><figcaption>The next drop</figcaption></figure></div>
+</div></section>
+
+<section class="speed gut" aria-labelledby="h-sp"><div class="wrap">
+  <p class="lab">On her phone</p>
+  <h2 id="h-sp">Quick, <em>even at midnight.</em></h2>
+  <div class="nums">
+    <div><b>95</b><span>Lighthouse performance, phone, home page</span></div>
+    <div><b>100</b><span>Lighthouse accessibility</span></div>
+    <div><b>2.6s</b><span>Until the largest photograph has drawn</span></div>
+    <div><b>65 KB</b><span>Of images on the first screen</span></div>
+  </div>
+  <p class="note">One Lighthouse run on a phone profile, Marese's home page: performance 95, accessibility 100, largest paint 2.6 s, total blocking 140 ms, layout shift 0.002. The whole site's script is 16.1 KB and its styles 13.7 KB, compressed. Every page passes the accessibility checks, open and closed.</p>
+</div></section>
+
+<section class="plans gut" id="mockup" aria-labelledby="h-p"><div class="wrap">
+  <div class="plans-h">
+    <div><p class="lab">The plans</p><h2 id="h-p">Choose the <em>denier.</em></h2></div>
+    <p>Lower is finer. Every plan is on a 12-month minimum, then a month's notice, and any single feature can be added to a smaller plan.</p>
+  </div>
+  <div class="three">
+    <div class="plan"><div class="knit k15" aria-hidden="true"><span>15<small>denier</small></span></div><div class="plan-b"><h3>Starter</h3><p class="pr">£99 <small>+ £25 a month</small></p><ul><li>The home page and Plan your visit</li><li>The campaign, new season and the category doors</li><li>Size guide and private fitting requests</li><li>Gift wrap with a card, discreet packaging, Ask the shop</li></ul></div></div>
+    <div class="plan"><div class="knit k10" aria-hidden="true"><span>10<small>denier</small></span></div><div class="plan-b"><h3>Plus</h3><p class="pr">£199 <small>+ £30 a month</small></p><ul><li>Up to five pages: the fitting, Under the dress, Bridal, Buying for her</li><li>Tell us about her, drop a hint, the tray, the fit finder</li><li>The Valentine's and Christmas takeover</li><li>For brands: the drop, pre-orders, the founders' story</li></ul></div></div>
+    <div class="plan"><div class="knit k7" aria-hidden="true"><span>7<small>denier</small></span></div><div class="plan-b"><h3>Signature</h3><p class="pr">£349 <small>+ £35 a month</small></p><ul><li>Up to 20 pages, a page for every collection and piece</li><li>The private evening and the bridal party evening</li><li>The fit passport, the gift concierge, wedding dates</li><li>The lace close up, and the guides</li></ul></div></div>
+  </div>
+  <p class="small">Running costs stay at nothing beyond hosting: evenings and sizes live in the shop's own Google Sheet, payments go through its own Stripe links, and every request arrives on its WhatsApp.</p>
+</div></section>
+
+<section class="close gut" aria-labelledby="h-cl"><div class="wrap">
+  <div>
+    <p class="lab">Your boutique</p>
+    <h2 id="h-cl">Let them <em>linger.</em></h2>
+    <p>Send us your Instagram and we'll make a free mockup of your home page, with your own photographs and your own collection.</p>
+    <div class="acts">
+      <a class="btn" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#free">Get a free mockup</a>
+      <a class="btn line" href="https://claude.ai/artifact/BXpdaHsb9EwWCd7kho96DF">Try the demo first</a>
+    </div>
+    <span class="mail">hello@sitefloor.com</span>
+  </div>
+  <figure class="close-ph"><img src="media/vesna-stockings.webp" width="1800" height="1194" alt="Legs in lace-topped stockings, raised on a dark bed" loading="lazy"></figure>
+</div></section>
+
+</main>
+
+<footer class="gut"><div class="wrap">
+  <p>Marese is a fictional lingerie boutique made to show the Sitefloor lingerie kit. Its collections, pieces, prices, evenings, codes and sizes are demo data. Its photographs are free stock from Unsplash, of other lingerie and rooms, each credited in our records. Client sites use the shop's own photographs.</p>
+  <span>© 2026 Sitefloor</span>
+</div></footer>
+
+<script>
+(() => {
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Clips play only while on screen and never with reduced motion; each has a Pause (or Play) button.
+  const clips = [...document.querySelectorAll("video[data-clip]")];
+  const paused = new Set(reduce ? clips.map((v) => v.id) : []);
+  const seen = new Map();
+  const label = (id) => {
+    const btn = document.querySelector(`[data-pause="${id}"]`); if (!btn) return;
+    const p = paused.has(id);
+    btn.querySelector("span").textContent = p ? "Play" : "Pause";
+    btn.setAttribute("aria-label", `${p ? "Play" : "Pause"} the ${btn.dataset.name}`);
+    btn.querySelector("svg").innerHTML = p ? '<path d="M3 1.5v9l7-4.5z" fill="currentColor"/>' : '<rect x="2" y="1" width="3" height="10" fill="currentColor"/><rect x="7" y="1" width="3" height="10" fill="currentColor"/>';
+  };
+  const sync = (v) => { if (seen.get(v) && !paused.has(v.id)) { if (v.preload === "none") v.preload = "auto"; v.play().catch(() => {}); } else v.pause(); };
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver((es) => es.forEach((e) => { seen.set(e.target, e.isIntersecting); sync(e.target); }), { threshold: .35 });
+    clips.forEach((v) => io.observe(v));
+  }
+  document.querySelectorAll("[data-pause]").forEach((btn) => {
+    const v = document.getElementById(btn.dataset.pause); if (!v) return;
+    label(v.id);
+    btn.addEventListener("click", () => { paused.has(v.id) ? paused.delete(v.id) : paused.add(v.id); label(v.id); if (!paused.has(v.id)) seen.set(v, true); sync(v); });
+  });
+
+  // The hint, written live, sent to whoever she chooses (no number: WhatsApp asks who).
+  const f = document.getElementById("hint");
+  const out = document.getElementById("h-out"), go = document.getElementById("h-go");
+  const size = document.getElementById("h-size"), note = document.getElementById("h-note");
+  const write = () => {
+    const [name, price] = f.querySelector("input[name=piece]:checked").value.split("|");
+    const s = size.value.trim(), n = note.value.trim() || "For the fourteenth.";
+    const text = [n, `${name}, £${price}${s ? `, in my size: ${s}` : ""}.`, "Marese, 3 Halden Mews, Mayfair (a demo)."].join("\n");
+    out.textContent = text;
+    go.href = `https://wa.me/?text=${encodeURIComponent(text)}`;
+  };
+  f.addEventListener("input", write); f.addEventListener("change", write); write();
+
+  // Days until Marese's Valentine's order-by (Thursday 11 February 2027, 4pm London time, which is GMT in February).
+  const vday = document.getElementById("vday");
+  const ms = Date.UTC(2027, 1, 11, 16, 0) - Date.now();
+  if (ms > 0) {
+    const d = Math.floor(ms / 86400000);
+    vday.innerHTML = `Marese's last Valentine's order: <b>Thursday 11 February, 4pm</b>. ${d > 1 ? `${d} days from today.` : d === 1 ? "Tomorrow." : "Today."}`;
+  }
+})();
+</script>
+</body>
+</html>

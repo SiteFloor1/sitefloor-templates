@@ -1,0 +1,14 @@
+{%- set sec = site.sections.reviews %}
+<section id="reviews" class="sec-reviews" data-feature="reviews"{{ "reviews" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="revs">
+    {%- for r in site.reviews.items %}
+    <figure class="rev rv">
+      <p class="st"><span aria-hidden="true">{{ r.rating | stars }}</span><span class="sr-only">Rated {{ r.rating }} out of 5</span></p>
+      <blockquote><p>“{{ r.text }}”</p></blockquote>
+      <figcaption>{{ r.author }} · {{ r.date | monthYear }}</figcaption>
+    </figure>
+    {%- endfor %}
+  </div>
+  {%- if site.reviews.source == "sample" %}<p class="note">Sample reviews for the demo. On a live site these are the business's real Google reviews.</p>{% endif %}
+</div></section>

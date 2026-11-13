@@ -1,0 +1,15 @@
+{#- The photographs: each wedding as a short sequence, large, with its venue. One portrait and one landscape set side
+    by side, then the next pair; the look sets the rhythm. -#}
+<section class="wf-ph" aria-label="Photographs"><div class="wrap">
+  {%- for w in site.photographs.weddings %}
+  {%- set firstW = loop.first %}
+  <article class="wf-ph-w" id="ph-{{ w.id }}" aria-labelledby="ph-{{ w.id }}-h">
+    <header class="wf-ph-head"><h2 id="ph-{{ w.id }}-h" class="wf-ph-h">{{ w.title }}</h2><p class="wf-ph-v">{{ w.venue }}</p></header>
+    <div class="wf-ph-set">
+      {%- for p in w.photos %}
+      <figure class="wf-ph-f{% if p.width > p.height %} wf-wide{% endif %}"><img src="{{ p.src | img }}" alt="{{ p.alt }}" width="{{ p.width }}" height="{{ p.height }}"{% if not firstW %} loading="lazy"{% elif p.width > p.height %} fetchpriority="high"{% else %} fetchpriority="low"{% endif %} decoding="async">{% if p.caption %}<figcaption>{{ p.caption }}</figcaption>{% endif %}</figure>
+      {%- endfor %}
+    </div>
+  </article>
+  {%- endfor %}
+</div></section>

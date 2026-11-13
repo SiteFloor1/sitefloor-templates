@@ -1,0 +1,14 @@
+{#- Nail shapes: each shape the salon files, what it suits, shown on one of the salon's real sets in that shape. -#}
+{%- set ph = site.shapesPage %}
+{% include "kits/nails/partials/page-head.njk" %}
+<section id="shapes" class="nl-shapes"><div class="wrap">
+  <ol class="nl-shapes-l" role="list">
+    {%- for x in site.shapes.items %}
+    {%- set a = site.art | artItem(x.art) if x.art else null %}
+    <li class="nl-shape rv">
+      {%- if a %}<img src="{{ a.photo.src | img }}" alt="{{ a.photo.alt }}" width="{{ a.photo.width }}" height="{{ a.photo.height }}" loading="lazy" decoding="async">{% endif %}
+      <div><h2>{{ nailWords.shapes[x.shape] }}</h2><p>{{ x.text }}</p><p class="nl-shape-s"><b>Suits</b> {{ x.suits }}</p></div>
+    </li>
+    {%- endfor %}
+  </ol>
+</div></section>

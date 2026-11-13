@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: specification
+permalink: specification.html
+feature: spec-library
+eleventyComputed:
+  title: "{{ site.spec.title | plain }}"
+  description: "The materials {{ site.business.name }} builds with, and where each is used."
+---
+{% include "kits/construction/features/spec-library/spec-library.njk" %}
+{%- if "sample-box" | enabled %}{% include "kits/construction/features/sample-box/sample-box.njk" %}{% endif %}

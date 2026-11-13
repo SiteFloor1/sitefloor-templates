@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="en-GB">
+<title>The Varnell Brochure</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="A Sitefloor case study: Varnell, a car detailing studio's website, presented as a car brochure. Choose the paint, read the range, see the specification.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Michroma&family=Geist:wght@300;400;500&family=Geist+Mono:wght@400;500&family=Manrope:wght@600;700&display=swap">
+<style>
+:root {
+  --sf-paper: #FBFAF7; --sf-ink: #0E0F11; --sf-tomato: #E8613C; --sf-line: rgba(14,15,17,.12); --brand: "Manrope", system-ui, sans-serif;
+  --cyc: #E9E9E6; --floor: #F4F4F1; --ink: #111214; --mute: #595C5F; --hair: rgba(17,18,20,.16); --accent: #3F6E73;
+  --wide: "Michroma", "Arial Black", sans-serif; --body: "Geist", system-ui, sans-serif; --mono: "Geist Mono", ui-monospace, monospace;
+  --gut: clamp(16px, 4.2vw, 64px);
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--floor); color: var(--ink); font: 300 17px/1.55 var(--body); }
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+.gut { padding-left: max(var(--gut), env(safe-area-inset-left, 0px)); padding-right: max(var(--gut), env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 1520px; margin-inline: auto; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 40; background: var(--sf-paper); }
+
+/* Sitefloor's bar, as on every case study */
+.sfbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--sf-paper); color: var(--sf-ink); border-bottom: 1px solid var(--sf-line); }
+.sfbar .wrap { display: flex; justify-content: space-between; align-items: center; height: 66px; gap: 16px; }
+.wm { display: flex; align-items: baseline; font-family: var(--brand); font-weight: 600; font-size: 24px; letter-spacing: -.045em; text-decoration: none; color: var(--sf-ink); }
+.wm svg { margin: 0 1px; overflow: visible; }
+.sfbar nav { display: flex; gap: 28px; font-family: var(--brand); font-size: 14px; font-weight: 600; }
+.sfbar nav a { text-decoration: none; color: var(--sf-ink); }
+.sfbar nav a[aria-current] { box-shadow: inset 0 -1.5px 0 var(--sf-ink); }
+.sfbtn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 20px; background: var(--sf-ink); color: var(--sf-paper); font: 700 12px var(--brand); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; }
+.sfbtn:hover { background: var(--sf-tomato); }
+@media (max-width: 760px) { .sfbar nav { display: none; } }
+@media (max-width: 420px) { .sfbar .sfbtn { display: none; } }
+
+/* ------------------------------------------------------------------ the cover: a studio cyclorama */
+.cover { position: relative; min-height: calc(100svh - 66px); display: grid; grid-template-rows: auto 1fr auto; overflow: hidden;
+  background: radial-gradient(120% 60% at 50% 100%, var(--floor) 0 40%, transparent 70%), linear-gradient(var(--cyc), #EDEDEA 62%, var(--floor)); }
+.cover > .wrap { width: 100%; min-width: 0; }
+.folio { display: flex; justify-content: space-between; gap: 16px; padding-block: 18px; font: 400 11px/1.4 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--mute); }
+.stage { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); align-content: center; }
+.name { margin: 0; text-align: center; font: 400 clamp(38px, 11.4vw, 184px)/.9 var(--wide); letter-spacing: .05em; margin-right: -.05em; white-space: nowrap; color: var(--ink); user-select: none; }
+.car { position: relative; width: min(100%, 1240px); margin: clamp(-128px, -6.2vw, -14px) auto 0; aspect-ratio: 1680 / 750; }
+.car img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; transition: opacity .7s ease; }
+.car img.out { opacity: 0; }
+.base { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 5fr) minmax(0, 4fr); gap: 24px 40px; align-items: end; padding-block: 18px 30px; border-top: 1px solid var(--hair); }
+.lede { margin: 0; max-width: 34ch; font-size: clamp(16px, 1.25vw, 19px); line-height: 1.45; }
+.lede a { font: 500 12px var(--mono); letter-spacing: .1em; text-transform: uppercase; display: inline-block; margin-top: 14px; text-underline-offset: 4px; }
+.paint { justify-self: center; text-align: center; }
+.paint fieldset { border: 0; margin: 0; padding: 0; }
+.paint legend { font: 400 11px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--mute); margin: 0 auto 10px; }
+.chips { display: flex; justify-content: center; flex-wrap: wrap; gap: 2px; }
+.chip { position: relative; display: grid; place-items: center; width: 44px; height: 44px; cursor: pointer; }
+.chip input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+.chip i { width: 26px; height: 26px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(0,0,0,.18); transition: transform .3s ease; }
+.chip i.metal { background-image: linear-gradient(140deg, rgba(255,255,255,.38), transparent 46%, rgba(0,0,0,.18)); }
+.chip:has(input:checked) i { transform: scale(1.12); box-shadow: 0 0 0 2px var(--floor), 0 0 0 3px var(--ink); }
+.chip:has(input:focus-visible) { outline: 2px solid var(--ink); outline-offset: -2px; }
+.paint p { margin: 8px 0 0; font: 400 15px var(--body); }
+.paint p small { display: block; font: 400 11px var(--mono); letter-spacing: .08em; color: var(--mute); text-transform: uppercase; margin-top: 2px; }
+.spec { display: flex; justify-content: flex-end; gap: clamp(18px, 2.4vw, 40px); margin: 0; }
+.spec div { text-align: right; }
+.spec dt { font: 400 11px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--mute); }
+.spec dd { margin: 4px 0 0; font: 400 clamp(22px, 2.2vw, 34px)/1 var(--wide); }
+
+/* ------------------------------------------------------------------ the range: three trims, like a brochure spread */
+.range { padding-block: clamp(56px, 8vw, 120px) clamp(64px, 9vw, 140px); background: var(--floor); }
+.run { display: flex; justify-content: space-between; gap: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--ink); font: 400 11px var(--mono); letter-spacing: .14em; text-transform: uppercase; }
+.trims { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin-top: clamp(28px, 4vw, 56px); }
+.trim { padding-inline: clamp(0px, 1.6vw, 28px); border-left: 1px solid var(--hair); }
+.trim:first-child { border-left: 0; padding-left: 0; }
+.trim:last-child { padding-right: 0; }
+.trim figure { margin: 0 0 clamp(18px, 2vw, 28px); height: clamp(150px, 13vw, 200px); }
+.trim figure img { width: 100%; height: 100%; object-fit: contain; object-position: left center; }
+.trim h3 { margin: 0; font: 400 clamp(22px, 2.3vw, 36px)/1 var(--wide); letter-spacing: .04em; }
+.price { margin: 14px 0 0; font-size: 17px; }
+.price b { font-weight: 500; }
+.pages { margin: 4px 0 0; font: 400 12px var(--mono); letter-spacing: .06em; color: var(--mute); text-transform: uppercase; }
+.eq { margin: 26px 0 8px; font: 400 11px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--mute); }
+.trim ul { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--hair); }
+.trim li { padding: 11px 0; border-bottom: 1px solid var(--hair); font-size: 15.5px; line-height: 1.4; }
+.trim li em { font-style: normal; font: 400 10.5px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-left: 8px; white-space: nowrap; }
+.small { margin: 28px 0 0; font: 400 12px/1.6 var(--mono); color: var(--mute); max-width: 80ch; }
+
+@media (max-width: 900px) {
+  .base { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+  .lede { order: 3; max-width: 40ch; }
+  .spec { order: 2; justify-content: center; }
+  .spec div { text-align: center; }
+  .paint { order: 1; }
+  .trims { grid-template-columns: 1fr; }
+  .trim, .trim:first-child, .trim:last-child { border-left: 0; padding-inline: 0; padding-block: 32px; border-top: 1px solid var(--hair); }
+  .trim:first-child { border-top: 0; padding-top: 0; }
+}
+@media (max-width: 560px) {
+  .name { font-size: 10.9vw; margin-top: 10px; }
+  .car { margin-top: -2vw; width: 150%; margin-left: -8%; }
+  .cover { min-height: 0; }
+  .stage { padding-block: 28px 8px; }
+  .folio span:nth-child(2) { display: none; }
+  .chips { gap: 0; }
+  .chip { width: 42px; }
+}
+/* ------------------------------------------------------------------ chapters: brochure spreads under a running head */
+.ch { padding-block: clamp(56px, 8vw, 128px) 0; }
+.ch .run { margin-bottom: clamp(28px, 4vw, 56px); }
+.ch h2 { margin: 0; font: 400 clamp(26px, 3.3vw, 52px)/1.12 var(--wide); letter-spacing: -.005em; text-wrap: balance; max-width: 18ch; }
+.ch .says { margin: 22px 0 0; max-width: 46ch; font-size: clamp(17px, 1.3vw, 20px); line-height: 1.5; }
+.kv { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 0 24px; margin: 30px 0 0; max-width: 520px; border-top: 1px solid var(--hair); }
+.kv dt, .kv dd { margin: 0; padding: 10px 0; border-bottom: 1px solid var(--hair); }
+.kv dt { font: 400 11px/1.9 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--mute); }
+.kv dd { font-size: 15px; font-variant-numeric: tabular-nums; }
+.cap { margin: 10px 0 0; font: 400 11px/1.5 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--mute); }
+
+/* a phone clip: the screen only, no drawn handset */
+.clip { position: relative; margin: 0; }
+.clip video, .clip img { display: block; width: 100%; height: auto; border-radius: 22px; background: #0B0D0F; box-shadow: 0 30px 60px -30px rgba(17,18,20,.45); }
+.clip.wide video, .clip.wide img { border-radius: 4px; }
+.hold { position: absolute; right: 10px; bottom: 10px; min-width: 44px; min-height: 44px; padding: 0 12px; border: 0; border-radius: 22px; background: rgba(250,250,248,.86); color: var(--ink); font: 500 11px var(--mono); letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
+.clip.wide .hold { bottom: auto; top: 10px; }
+.hold:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+/* 02 Exterior: the demo's own hero photograph as a plate, the phone standing in front of it */
+.ext { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(28px, 4vw, 72px); align-items: end; }
+.ext-plate { position: relative; }
+.ext-plate > img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 40%; border-radius: 4px; }
+.ext-plate .clip { position: absolute; right: clamp(16px, 4vw, 56px); bottom: clamp(-60px, -4vw, -24px); width: clamp(150px, 17vw, 250px); }
+
+/* 03 Paint and 04 Protection: the 3D stage as a dark plate */
+.plate { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(28px, 4vw, 72px); align-items: start; }
+.plate.flip { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+.plate.flip > :first-child { order: 2; }
+.opts { margin-top: 28px; }
+.opts table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.opts caption { text-align: left; padding-bottom: 10px; font: 400 11px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--mute); }
+.opts th, .opts td { padding: 0; border-bottom: 1px solid var(--hair); text-align: left; }
+.opts thead th { padding: 8px 0; font: 400 11px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--mute); font-weight: 400; }
+.opts tbody th { padding: 12px 12px 12px 0; font-weight: 400; font-size: 15px; }
+.opts td button { width: 100%; min-height: 44px; padding: 0 8px; border: 0; background: none; color: var(--ink); font: 400 15px var(--body); text-align: left; cursor: pointer; font-variant-numeric: tabular-nums; }
+.opts td button:hover { background: rgba(17,18,20,.05); }
+.opts td button[aria-pressed="true"] { background: var(--ink); color: var(--floor); }
+.opts td button:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
+.pick { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; margin-top: 18px; }
+.pick b { font: 400 clamp(28px, 2.6vw, 40px)/1 var(--wide); }
+.pick span { font-size: 15px; color: var(--mute); }
+
+/* 05 and 06: two phones side by side with the words between */
+.pair { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 5fr) minmax(0, 3fr); gap: clamp(24px, 4vw, 72px); align-items: center; }
+.pair .clip { max-width: 300px; }
+.eqlist { list-style: none; margin: 28px 0 0; padding: 0; border-top: 1px solid var(--hair); }
+.eqlist li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; padding: 12px 0; border-bottom: 1px solid var(--hair); }
+.eqlist b { font-weight: 400; }
+.eqlist span { grid-column: 1; font-size: 14.5px; color: var(--mute); }
+.eqlist em { grid-row: 1; grid-column: 2; font: 400 10.5px var(--mono); letter-spacing: .1em; text-transform: uppercase; font-style: normal; color: var(--accent); }
+
+/* 07 Collection: the live check, set like a brochure's dealer finder */
+.find { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(28px, 4vw, 72px); align-items: start; }
+.find form { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; gap: 12px; align-items: end; padding: clamp(18px, 2.4vw, 32px); background: var(--cyc); }
+.find label { display: grid; gap: 6px; font: 400 11px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--mute); }
+.find input, .find select { min-height: 48px; padding: 0 12px; border: 1px solid var(--hair); border-radius: 0; background: var(--floor); color: var(--ink); font: 400 17px var(--body); text-transform: none; letter-spacing: 0; }
+.find input:focus-visible, .find select:focus-visible { outline: 2px solid var(--ink); outline-offset: 0; }
+.find button { min-height: 48px; padding: 0 22px; border: 0; background: var(--ink); color: var(--floor); font: 500 12px var(--mono); letter-spacing: .12em; text-transform: uppercase; cursor: pointer; }
+.find button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.ans { grid-column: 1 / -1; margin: 6px 0 0; min-height: 3em; font: 400 clamp(19px, 1.7vw, 24px)/1.35 var(--body); }
+
+/* 09 Technical data: the back page */
+.tech { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(28px, 4vw, 72px); align-items: start; }
+.big { margin: 0; font: 400 clamp(64px, 8.4vw, 150px)/.9 var(--wide); letter-spacing: -.02em; white-space: nowrap; }
+.big small { display: block; margin-top: 14px; font: 400 11px/1.5 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--mute); }
+.sheet { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 clamp(24px, 3vw, 48px); }
+.sheet h3 { margin: 26px 0 6px; font: 500 11px var(--mono); letter-spacing: .14em; text-transform: uppercase; }
+.sheet h3:first-child { margin-top: 0; }
+.sheet dl { margin: 0; border-top: 1px solid var(--ink); }
+.sheet dl div { display: flex; justify-content: space-between; gap: 16px; padding: 9px 0; border-bottom: 1px solid var(--hair); font-size: 14.5px; }
+.sheet dt { color: var(--mute); }
+.sheet dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; }
+
+/* 10 Order yours */
+.order { padding-block: clamp(72px, 10vw, 160px); text-align: center; background: radial-gradient(120% 70% at 50% 100%, var(--floor) 0 40%, transparent 72%), linear-gradient(var(--cyc), var(--floor)); }
+.order h2 { margin: 0 auto; font: 400 clamp(36px, 7vw, 112px)/1 var(--wide); letter-spacing: .02em; }
+.order p { margin: 22px auto 0; max-width: 44ch; font-size: 18px; }
+.acts { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 30px; }
+.btn { display: inline-flex; align-items: center; min-height: 52px; padding: 0 28px; background: var(--ink); color: var(--floor); font: 500 12px var(--mono); letter-spacing: .14em; text-transform: uppercase; text-decoration: none; }
+.btn:hover { background: var(--sf-tomato); }
+.btn.line { background: none; color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.btn.line:hover { background: var(--ink); color: var(--floor); }
+.mail { display: block; margin-top: 22px; font: 400 13px var(--mono); color: var(--mute); user-select: all; }
+
+footer { padding-block: 32px 40px; border-top: 1px solid var(--sf-line); background: var(--sf-paper); color: var(--sf-ink); }
+footer .wrap { display: flex; justify-content: space-between; gap: 24px 48px; flex-wrap: wrap; font: 400 13px/1.6 var(--brand); }
+footer p { margin: 0; max-width: 92ch; }
+footer a { color: inherit; }
+
+@media (max-width: 980px) {
+  .ext, .plate, .plate.flip, .find, .tech { grid-template-columns: 1fr; }
+  .plate.flip > :first-child { order: 0; }
+  .ext-plate { margin-bottom: 70px; }
+  .pair { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .pair > .words { grid-column: 1 / -1; grid-row: 1; }
+  .sheet { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .find form { grid-template-columns: 1fr; }
+  .opts tbody th { font-size: 14px; }
+  .opts td button { font-size: 14px; padding: 0 4px; }
+}
+@media (prefers-reduced-motion: reduce) { .car img, .chip i { transition: none; } }
+</style>
+
+<header class="sfbar gut"><div class="wrap">
+  <a class="wm" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su" aria-label="Sitefloor home">sitefl<svg width="28" height="14" viewBox="0 0 42 21" aria-hidden="true"><rect x="1.9" y="1.9" width="38.2" height="17.2" rx="8.6" fill="none" stroke="#0E0F11" stroke-width="3.8"/><circle cx="31.5" cy="10.5" r="5.2" fill="#E8613C"/></svg>r</a>
+  <nav aria-label="Main"><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#live">Features</a><a href="#top" aria-current="page">Work</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#pricing">Pricing</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#guides">Guides</a></nav>
+  <a class="sfbtn" href="#mockup"><span>Free mockup</span><span aria-hidden="true">→</span></a>
+</div></header>
+
+<main id="top">
+
+<section class="cover gut" aria-labelledby="h-name">
+  <div class="wrap folio"><span>Car detailing · Weybridge</span><span>Specification and range</span><span>Model year 2026</span></div>
+  <div class="wrap stage">
+    <h1 class="name" id="h-name"><span class="sr">Varnell: a car detailing studio's website, as a brochure</span><span aria-hidden="true">VARNELL</span></h1>
+    <div class="car" data-car>
+      <img src="media/car-bay-green.webp" srcset="media/car-bay-green-900.webp 900w, media/car-bay-green.webp 1680w" sizes="(max-width: 560px) 150vw, min(100vw, 1240px)" width="1680" height="750" alt="Varnell's 3D SUV in Bay green, metallic, on a studio floor" fetchpriority="high" data-a>
+      <img class="out" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" width="1680" height="750" alt="" aria-hidden="true" data-b>
+    </div>
+  </div>
+  <div class="wrap base">
+    <p class="lede">The website of a detailing studio, specified like the cars it looks after. Twenty pages, priced from its own sheets, with your car on the screen.<br><a href="https://claude.ai/artifact/SUwNHXX7u4CFr7xrpqi4Bv">Open Varnell's site</a></p>
+    <div class="paint">
+      <fieldset>
+        <legend>Paint, from Varnell's chart</legend>
+        <div class="chips" data-chips></div>
+      </fieldset>
+      <p aria-live="polite"><span data-paint-name>Bay green, metallic</span><small>Approximate on screen</small></p>
+    </div>
+    <dl class="spec">
+      <div><dt>Pages</dt><dd>20</dd></div>
+      <div><dt>3D cars</dt><dd>3</dd></div>
+      <div><dt>Accessibility</dt><dd>100</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="ch gut" aria-labelledby="h-ext"><div class="wrap">
+  <div class="run"><span>Exterior</span><span>p. 02</span></div>
+  <div class="ext">
+    <div>
+      <h2 id="h-ext">The first screen is the car.</h2>
+      <p class="says">Varnell's home page opens on a headlight at full height and ends about six phone screens later. Every package is priced by car size, and the next start date comes from the studio's own diary.</p>
+      <dl class="kv">
+        <dt>Home page</dt><dd>About six phone screens</dd>
+        <dt>Prices</dt><dd>By car size, the studio's own</dd>
+        <dt>Next start</dt><dd>From its diary sheet</dd>
+        <dt>Trim</dt><dd>Starter</dd>
+      </dl>
+    </div>
+    <div class="ext-plate">
+      <img src="media/demo-headlight.webp" width="2400" height="2088" alt="The front of a green sports car at night, one headlight lit, the photograph Varnell's home page opens on" loading="lazy">
+      <figure class="clip" data-clip><video src="media/home.mp4" poster="media/home.webp" width="780" height="1688" muted loop playsinline preload="none" aria-label="Varnell's home page on a phone, scrolling from the headlight down"></video></figure>
+    </div>
+  </div>
+</div></section>
+
+<section class="ch gut" aria-labelledby="h-paint"><div class="wrap">
+  <div class="run"><span>Paint</span><span>p. 03</span></div>
+  <div class="plate">
+    <figure class="clip wide" data-clip>
+      <video src="media/correction.mp4" poster="media/correction.webp" width="716" height="540" muted loop playsinline preload="none" aria-label="Varnell's 3D SUV in the bay, the strip light sliding across the bonnet and showing the swirls"></video>
+      <figcaption class="cap">Paint correction page. The site labels the 3D car an illustration.</figcaption>
+    </figure>
+    <div>
+      <h2 id="h-paint">Swirls, under a moving light.</h2>
+      <p class="says">The bay's strip light hangs over the car the visitor picked. Move it and the swirls in the clear coat show, the way they do under a detailer's lamp. Nothing loads until the visitor asks.</p>
+      <dl class="kv">
+        <dt>Cars</dt><dd>SUV, saloon or hatch</dd>
+        <dt>On tap</dt><dd>157.7 KB of script, then one car</dd>
+        <dt>The car</dt><dd>1.3 to 2.5 MB, loaded once</dd>
+        <dt>Trim</dt><dd>Signature</dd>
+      </dl>
+    </div>
+  </div>
+</div></section>
+
+<section class="ch gut" aria-labelledby="h-film"><div class="wrap">
+  <div class="run"><span>Protection</span><span>p. 04</span></div>
+  <div class="plate flip">
+    <figure class="clip wide" data-clip>
+      <video src="media/film.mp4" poster="media/film.webp" width="716" height="540" muted loop playsinline preload="none" aria-label="The 3D SUV repainted red, then the film's reach lighting up from the front end to the full body"></video>
+      <figcaption class="cap">Film page. Paint from the chart, then four packages.</figcaption>
+    </figure>
+    <div>
+      <h2 id="h-film">Choose the film. The panels light up.</h2>
+      <p class="says">Pick a package and the film's reach lights up on the visitor's car. The price comes from the studio's own sheet, and the choice goes to the studio on WhatsApp. Try Varnell's price list:</p>
+      <div class="opts">
+        <table data-film>
+          <caption>Varnell's example prices, from</caption>
+          <thead><tr><th scope="col"><span class="sr">Package</span></th><th scope="col">Hatch</th><th scope="col">Saloon</th><th scope="col">SUV</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <p class="pick" aria-live="polite"><b data-film-price>£2,295</b><span data-film-said>Full front on an SUV, about 3 days</span></p>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section class="ch gut" aria-labelledby="h-bay"><div class="wrap">
+  <div class="run"><span>In the bay · Ownership</span><span>p. 05–06</span></div>
+  <div class="pair">
+    <figure class="clip" data-clip><video src="media/car.mp4" poster="media/car.webp" width="780" height="1688" muted loop playsinline preload="none" aria-label="The your-car page on a phone: a booking code opens the car's stages, today's note and photograph"></video></figure>
+    <div class="words">
+      <h2 id="h-bay">Where's my car? And after.</h2>
+      <p class="says">The booking text carries a code. It opens the stage the car is at, the studio's note and photograph from today, and the handover time, with no names or number plates. A sheet nobody has updated says so.</p>
+      <ul class="eqlist">
+        <li><b>First wash</b><span>The studio's care steps, into the calendar</span><em>Starter</em></li>
+        <li><b>Is my car due?</b><span>From the last visit, a 9am reminder</span><em>Starter</em></li>
+        <li><b>Maintenance</b><span>Joined monthly through the studio's own Stripe link</span><em>Plus</em></li>
+        <li><b>Handing a lease car back</b><span>What the BVRLA standard looks at, priced by the studio</span><em>Signature</em></li>
+      </ul>
+    </div>
+    <figure class="clip" data-clip><video src="media/lease.mp4" poster="media/lease.webp" width="780" height="1688" muted loop playsinline preload="none" aria-label="The lease-return page on a phone: scratches, wheels and dents ticked, the total and the source underneath"></video></figure>
+  </div>
+</div></section>
+
+<section class="ch gut" aria-labelledby="h-col"><div class="wrap">
+  <div class="run"><span>Collection</span><span>p. 07</span></div>
+  <div class="find">
+    <div>
+      <h2 id="h-col">Collected from your drive.</h2>
+      <p class="says">A postcode and a day, answered from the studio's collection rounds. Only the district is used, and an out-of-date sheet answers "ask us", never yes.</p>
+      <dl class="kv"><dt>Rounds</dt><dd>The studio's sheet</dd><dt>Trim</dt><dd>Plus</dd></dl>
+    </div>
+    <form data-find novalidate>
+      <label for="pc">Postcode<input id="pc" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="9" value="KT13 8AA"></label>
+      <label for="day">Day<select id="day"><option value="mon">Monday</option><option value="tue">Tuesday</option><option value="wed">Wednesday</option><option value="thu" selected>Thursday</option><option value="fri">Friday</option><option value="sat">Saturday</option><option value="sun">Sunday</option></select></label>
+      <button type="submit">Check</button>
+      <p class="ans" aria-live="polite" data-ans>Yes: Varnell collects from KT13 on Thursdays. No charge.</p>
+    </form>
+  </div>
+</div></section>
+
+<section class="range gut" aria-labelledby="h-range">
+  <div class="wrap">
+    <div class="run"><span id="h-range">The range</span><span>p. 08</span></div>
+    <div class="trims">
+      <article class="trim">
+        <figure><img src="media/car-gloss-black-900.webp" width="900" height="402" alt="The same SUV in Gloss black" loading="lazy"></figure>
+        <h3>Starter</h3>
+        <p class="price"><b>£99</b>, then £25 a month</p>
+        <p class="pages">Home and Plan your visit</p>
+        <p class="eq">Standard equipment</p>
+        <ul>
+          <li>Packages priced by car size</li>
+          <li>Next start date, from the studio's diary sheet</li>
+          <li>First-wash reminders in your calendar</li>
+          <li>Is my car due? From the date of the last visit</li>
+        </ul>
+      </article>
+      <article class="trim">
+        <figure><img src="media/car-silver-900.webp" width="900" height="402" alt="The same SUV in Silver" loading="lazy"></figure>
+        <h3>Plus</h3>
+        <p class="price"><b>£199</b>, then £30 a month</p>
+        <p class="pages">Up to 5 pages</p>
+        <p class="eq">Starter, and</p>
+        <ul>
+          <li>The package builder, quoted on WhatsApp</li>
+          <li>Before and after, by drag</li>
+          <li>Coating explained, with the studio's own photographs</li>
+          <li>Maintenance plans, joined monthly <em>Stripe</em></li>
+          <li>Collection by postcode district and day</li>
+          <li>Service pages: wheels, interior, new car, selling</li>
+        </ul>
+      </article>
+      <article class="trim">
+        <figure><img src="media/car-bay-green-900.webp" width="900" height="402" alt="The same SUV in Bay green" loading="lazy"></figure>
+        <h3>Signature</h3>
+        <p class="price"><b>£349</b>, then £35 a month</p>
+        <p class="pages">Up to 20 pages</p>
+        <p class="eq">Plus, and</p>
+        <ul>
+          <li>Film coverage on your car, priced <em>3D</em></li>
+          <li>Paint correction under a moving light <em>3D</em></li>
+          <li>Your car in the bay, stage by stage</li>
+          <li>Your colour, from the studio's paint chart</li>
+          <li>Handing a lease car back, priced</li>
+          <li>Paint condition by photographs, on WhatsApp</li>
+        </ul>
+      </article>
+    </div>
+    <p class="small">Every plan: 12-month minimum. Any feature can be added on its own, and extra pages one at a time.</p>
+  </div>
+</section>
+
+<section class="ch gut" aria-labelledby="h-tech" style="padding-bottom: clamp(56px, 8vw, 128px)"><div class="wrap">
+  <div class="run"><span id="h-tech">Technical data</span><span>p. 09</span></div>
+  <div class="tech">
+    <p class="big">1.4 s<small>To first paint on a phone, home page</small></p>
+    <div class="sheet">
+      <div>
+        <h3>Performance</h3>
+        <dl>
+          <div><dt>Lighthouse, phone, home</dt><dd>97–98</dd></div>
+          <div><dt>Largest paint</dt><dd>2.4 s</dd></div>
+          <div><dt>Layout shift</dt><dd>0</dd></div>
+          <div><dt>Accessibility</dt><dd>100</dd></div>
+        </dl>
+        <h3>Weight</h3>
+        <dl>
+          <div><dt>Script, whole site</dt><dd>18.0 KB gz</dd></div>
+          <div><dt>Styles</dt><dd>13.0 KB gz</dd></div>
+          <div><dt>Fonts, served by the site</dt><dd>49.9 KB</dd></div>
+          <div><dt>First screen of images</dt><dd>187 KB</dd></div>
+        </dl>
+      </div>
+      <div>
+        <h3>Body</h3>
+        <dl>
+          <div><dt>Pages</dt><dd>20</dd></div>
+          <div><dt>3D cars</dt><dd>SUV, saloon, hatch</dd></div>
+          <div><dt>3D on tap</dt><dd>157.7 KB gz + one car</dd></div>
+        </dl>
+        <h3>Live data, from the studio's sheets</h3>
+        <dl>
+          <div><dt>Diary</dt><dd>Next start date</dd></div>
+          <div><dt>The bay</dt><dd>Each car's stage</dd></div>
+          <div><dt>Prices</dt><dd>Film, lease return</dd></div>
+          <div><dt>Rounds and colours</dt><dd>Collection, paint chart</dd></div>
+          <div><dt>Running cost</dt><dd>£0 beyond hosting and domain</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+  <p class="small">Measured on Varnell's demo: Lighthouse in phone mode, two runs, 4 November 2026; weights 5 November 2026. The journal counts as one page.</p>
+</div></section>
+
+<section class="order gut" id="mockup" aria-labelledby="h-order"><div class="wrap">
+  <h2 id="h-order">Order yours.</h2>
+  <p>Send us your Instagram handle. We'll make a free mockup of your home page with your own cars and prices on it.</p>
+  <div class="acts">
+    <a class="btn" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#free">Get a free mockup</a>
+    <a class="btn line" href="https://claude.ai/artifact/SUwNHXX7u4CFr7xrpqi4Bv">Try Varnell's site</a>
+  </div>
+  <span class="mail">hello@sitefloor.com</span>
+</div></section>
+
+</main>
+
+<footer class="gut"><div class="wrap">
+  <p>Varnell is a fictional detailing studio made to show the Sitefloor detailing kit. Its prices, diary, booking codes, collection rounds and paint chart are demo data. Its photographs are free stock from Unsplash, each credited in our records. The cars on this page are renders of the site's own 3D models: <a href="https://sketchfab.com/BlackSnow02">Black Snow</a> (SUV), <a href="https://sketchfab.com/lazercar">lazercar</a> (saloon) and <a href="https://sketchfab.com/DanielZhabotinsky">Daniel Zhabotinsky</a> (hatch), adapted, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Client sites use the studio's own photographs, prices and Google Sheets.</p>
+  <span>© 2026 Sitefloor</span>
+</div></footer>
+
+<script>
+(() => {
+  const CHART = [
+    ["bay-green", "Bay green", "#23473C", "metallic"], ["gloss-black", "Gloss black", "#0D0E10", "solid"],
+    ["pearl-white", "Pearl white", "#E9E8E3", "pearl"], ["silver", "Silver", "#A7ABAE", "metallic"],
+    ["graphite", "Graphite", "#4A4D50", "metallic"], ["midnight-blue", "Midnight blue", "#15213A", "metallic"],
+    ["signal-red", "Signal red", "#9E1B1E", "solid"], ["satin-grey", "Satin grey", "#6E7173", "matte"],
+  ];
+  const chips = document.querySelector("[data-chips]"), said = document.querySelector("[data-paint-name]");
+  let a = document.querySelector("[data-a]"), b = document.querySelector("[data-b]"), busy = 0;
+  const src = (id) => ({ src: `media/car-${id}.webp`, srcset: `media/car-${id}-900.webp 900w, media/car-${id}.webp 1680w` });
+  const warm = (id) => { const i = new Image(); i.sizes = a.sizes; Object.assign(i, src(id)); };
+  for (const [id, name, hex, fin] of CHART) {
+    const l = document.createElement("label"); l.className = "chip"; l.title = name;
+    const r = Object.assign(document.createElement("input"), { type: "radio", name: "paint", value: id, checked: id === "bay-green" });
+    r.setAttribute("aria-label", `${name}, ${fin}`);
+    const i = document.createElement("i"); i.style.backgroundColor = hex; if (fin !== "solid" && fin !== "matte") i.className = "metal";
+    l.append(r, i); chips.append(l);
+    l.addEventListener("pointerenter", () => warm(id), { once: true });
+    r.addEventListener("focus", () => warm(id), { once: true });
+    r.addEventListener("change", () => {
+      const n = ++busy;
+      said.textContent = `${name}, ${fin}`;
+      b.sizes = a.sizes; Object.assign(b, src(id)); b.alt = `Varnell's 3D SUV in ${name}, ${fin}, on a studio floor`;
+      const swap = () => { if (n !== busy) return; b.classList.remove("out"); b.removeAttribute("aria-hidden"); a.classList.add("out"); a.setAttribute("aria-hidden", "true"); a.alt = ""; [a, b] = [b, a]; };
+      b.decode ? b.decode().then(swap, swap) : swap();
+    });
+  }
+})();
+
+// Clips play while on screen, each with its own pause; reduced motion starts them paused.
+(() => {
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const io = new IntersectionObserver((es) => { for (const e of es) { const v = e.target.querySelector("video"); if (e.isIntersecting && !v.dataset.held) v.play().catch(() => {}); else v.pause(); } }, { threshold: .35 });
+  for (const f of document.querySelectorAll("[data-clip]")) {
+    const v = f.querySelector("video"), btn = document.createElement("button");
+    btn.type = "button"; btn.className = "hold";
+    const say = () => { btn.textContent = v.dataset.held ? "Play" : "Pause"; btn.setAttribute("aria-label", `${v.dataset.held ? "Play" : "Pause"} the clip`); };
+    if (still) v.dataset.held = "1";
+    btn.addEventListener("click", () => { if (v.dataset.held) { delete v.dataset.held; v.play().catch(() => {}); } else { v.dataset.held = "1"; v.pause(); } say(); });
+    say(); f.append(btn); io.observe(f);
+  }
+})();
+
+// Varnell's example film prices (the demo's own sheet): package by car, from, with days.
+(() => {
+  const P = { "front-end": [795, 895, 995, 1, 1, 1], "full-front": [1795, 1995, 2295, 2, 2, 3], track: [2395, 2650, 2950, 3, 3, 3], whole: [4950, 5750, 6750, 6, 6, 7] };
+  const NAMES = { "front-end": "Front end", "full-front": "Full front", track: "Track pack", whole: "Full body" }, CARS = ["Hatch", "Saloon", "SUV"];
+  const body = document.querySelector("[data-film] tbody"), price = document.querySelector("[data-film-price]"), said = document.querySelector("[data-film-said]");
+  const gbp = (n) => "£" + n.toLocaleString("en-GB");
+  for (const [id, row] of Object.entries(P)) {
+    const tr = document.createElement("tr"), th = document.createElement("th");
+    th.scope = "row"; th.textContent = NAMES[id]; tr.append(th);
+    CARS.forEach((car, i) => {
+      const td = document.createElement("td"), b = document.createElement("button");
+      b.type = "button"; b.textContent = gbp(row[i]); b.setAttribute("aria-label", `${NAMES[id]} on a ${car}: from ${gbp(row[i])}`);
+      b.setAttribute("aria-pressed", String(id === "full-front" && car === "SUV"));
+      b.addEventListener("click", () => {
+        for (const x of body.querySelectorAll("button")) x.setAttribute("aria-pressed", "false");
+        b.setAttribute("aria-pressed", "true");
+        price.textContent = gbp(row[i]);
+        const d = row[i + 3]; said.textContent = `${NAMES[id]} on ${car === "SUV" ? "an SUV" : "a " + car.toLowerCase()}, about ${d} ${d === 1 ? "day" : "days"}`;
+      });
+      td.append(b); tr.append(td);
+    });
+    body.append(tr);
+  }
+})();
+
+// Varnell's example collection rounds (the demo's own sheet): only the postcode's first half is used.
+(() => {
+  const R = { KT13: [["mon", "tue", "wed", "thu", "fri", "sat"], 0], KT12: [["mon", "wed", "fri"], 0], KT15: [["tue", "fri"], 0], KT14: [["tue", "thu"], 20], KT11: [["mon", "thu"], 25], KT16: [["wed"], 25], GU21: [["thu"], 35], TW20: [["fri"], 35] };
+  const DAY = { mon: "Monday", tue: "Tuesday", wed: "Wednesday", thu: "Thursday", fri: "Friday", sat: "Saturday", sun: "Sunday" };
+  const districtOf = (v) => { const s = String(v).toUpperCase().replace(/[^A-Z0-9 ]/g, "").trim(); const full = /^([A-Z]{1,2}\d[A-Z\d]?) ?\d[A-Z]{2}$/.exec(s); if (full) return full[1]; const half = /^([A-Z]{1,2}\d[A-Z\d]?)$/.exec(s.replace(/\s+/g, "")); return half ? half[1] : ""; };
+  const form = document.querySelector("[data-find]"), ans = document.querySelector("[data-ans]");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const d = districtOf(form.querySelector("#pc").value), day = form.querySelector("#day").value;
+    if (!d) { ans.textContent = "That doesn't look like a UK postcode. Try the first half, like KT13."; return; }
+    const r = R[d], list = (ds) => ds.map((x) => DAY[x]).join(ds.length === 2 ? " and " : ", ");
+    if (!r) { ans.textContent = `Varnell doesn't usually collect from ${d}. The site says: ask us.`; return; }
+    const fee = r[1] === 0 ? " No charge." : ` £${r[1]} each way.`;
+    ans.textContent = r[0].includes(day) ? `Yes: Varnell collects from ${d} on ${DAY[day]}s.${fee}` : `Not on ${DAY[day]}s. Varnell collects from ${d} on ${list(r[0])}.${fee}`;
+  });
+})();
+</script>

@@ -1,0 +1,15 @@
+{#- Before your hire (Signature, a full page): what to bring, the driver details form and the check code rule, how the
+    deposit works, and the handover. On Plus the same parts sit in the home questions and on every car page. -#}
+{%- set bp = site.beforePage %}
+{%- set pt = { title: bp.title, intro: bp.intro, photo: bp.photo, photoTall: bp.photoTall, kicker: bp.kicker } %}{% include "kits/hire/parts/page-top.njk" %}
+<section class="hr-bf" data-feature="before-page" aria-label="{{ bp.title | plain }}">
+  <div class="wrap hr-bf-grid">
+    <div class="hr-bf-a">{% include "kits/hire/features/bring-list/bring-list.njk" %}</div>
+    <div class="hr-bf-b">{% include "kits/hire/features/driver-form/driver-form.njk" %}</div>
+    <dl class="hr-facts hr-bf-facts">
+      <dt>The deposit</dt><dd>{{ site.hire.deposit.how }} {{ site.hire.deposit.when }}</dd>
+      {%- if site.hire.handover %}<dt>Delivery</dt><dd>{{ site.hire.handover.window }}</dd>{% endif %}
+      <dt>Collection</dt><dd>{{ site.hire.delivery.collect }}</dd>
+    </dl>
+  </div>
+</section>

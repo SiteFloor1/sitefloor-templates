@@ -1,0 +1,12 @@
+{#- Your tray: up to three pieces set aside while browsing, kept on this phone, sent with the appointment request so
+    they're ready on the tray. A small tab above the phone bar; it opens a short list. Included by the look's footer. -#}
+{%- set trayDefault = "Hello " + site.business.name + ", I'd like to request a private appointment to see the pieces on my tray." %}
+<div class="jw-tray" data-feature="your-tray"{{ "your-tray" | tierAttr | safe }} hidden>
+  <button type="button" class="jw-tray-tab nc-label" aria-expanded="false" aria-controls="jw-tray-p" data-tray-toggle>Your tray <span data-tray-n>0</span></button>
+  <div class="jw-tray-p" id="jw-tray-p" data-tray-panel hidden>
+    <p class="nc-fine">Set aside to see in person, up to three. Kept on this device only.</p>
+    <ul class="jw-tray-l" data-tray-list></ul>
+    <a class="nc-u nc-label" href="{{ trayDefault | wa }}" data-wa-text="{{ trayDefault }}" target="_blank" rel="noopener" data-tray-send>Request an appointment to see them</a>
+  </div>
+  <p class="sr-only" role="status" data-tray-say></p>
+</div>

@@ -1,0 +1,44 @@
+{%- set sec = site.sections.fitCut %}
+<section id="fit" class="sec-fit" data-feature="fit-a-cut"{{ "fit-a-cut" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="fc">
+    <form class="fc-form rv" data-fc-form data-js-only>
+      <fieldset class="fc-set">
+        <legend><span>1</span> I need to be done</legend>
+        <div class="fc-chips">
+          {%- for m in [20, 30, 45, 60] %}<label><input type="radio" name="fc-in" value="{{ m }}"{% if m == 45 %} checked{% endif %}><span>in {% if m == 60 %}1 hr{% else %}{{ m }} min{% endif %}</span></label>{% endfor %}
+          <label class="fc-at"><input type="radio" name="fc-in" value="at"><span>by</span></label>
+          <input class="fc-time" type="time" step="300" aria-label="Done by this time" data-fc-time>
+        </div>
+      </fieldset>
+      <fieldset class="fc-set">
+        <legend><span>2</span> What I'm having</legend>
+        <div class="fc-chips">
+          {%- for s in site.services %}<label><input type="radio" name="fc-cut" value="{{ s.id }}"{% if loop.first %} checked{% endif %}><span>{{ s.name }} <small>{{ s.minutes }} min</small></span></label>{% endfor %}
+        </div>
+      </fieldset>
+      <fieldset class="fc-set">
+        <legend><span>3</span> Coming from</legend>
+        <div class="fc-chips">
+          <label><input type="radio" name="fc-from" value="0" data-fc-label="here"{% if not site.visitInfo or not site.visitInfo.journeys %} checked{% endif %}><span>I'm outside</span></label>
+          {%- if site.visitInfo and site.visitInfo.journeys %}{% for j in site.visitInfo.journeys %}<label><input type="radio" name="fc-from" value="{{ j.minutes }}" data-fc-label="{{ j.from }}"{% if loop.first %} checked{% endif %}><span>{{ j.from }} <small>{{ j.minutes }} min {{ (j.mode | modeWords).tab | lower }}</small></span></label>{% endfor %}{% endif %}
+        </div>
+        <label class="fc-back"><input type="checkbox" checked data-fc-back> and I need to get back there in time</label>
+      </fieldset>
+    </form>
+    <div class="fc-out rv" data-fc-out aria-live="polite">
+      <p class="fc-verdict" data-fc-verdict>Message us and we'll tell you if you can fit a cut in.</p>
+      <p class="fc-sub" data-fc-sub><a href="{{ 'Hi, can I fit a cut in before I need to leave?' | wa }}" target="_blank" rel="noopener">Ask on WhatsApp</a></p>
+      <div class="fc-bar" data-fc-bar hidden aria-hidden="true">
+        <span class="fc-seg go" data-fc-seg="go"></span><span class="fc-seg wait" data-fc-seg="wait"></span><span class="fc-seg cut" data-fc-seg="cut"></span><span class="fc-seg back" data-fc-seg="back"></span>
+        <i class="fc-dead" data-fc-dead></i>
+      </div>
+      <ol class="fc-steps" data-fc-steps hidden></ol>
+      <p class="fc-src" data-fc-src></p>
+      <div class="fc-act" data-fc-act hidden>
+        <a class="btn" data-fc-go target="_blank" rel="noopener" href="#">On my way</a>
+        <a class="btn ghost" data-fc-remind hidden href="#">Remind me</a>
+      </div>
+    </div>
+  </div>
+</div></section>

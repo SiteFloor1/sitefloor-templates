@@ -1,0 +1,15 @@
+{#- Dove reviews: what brides said, set as quotes in the display face, alternating left and right; no stars. Each
+    keeps the author and month as written on Google. -#}
+{%- set sec = site.sections.reviews %}
+<section id="reviews" class="sec-reviews" data-feature="reviews"{{ "reviews" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <ol class="dv-quotes">
+    {%- for r in site.reviews.items %}
+    <li><figure class="dv-quote rv">
+      <blockquote><p>“{{ r.text }}”</p></blockquote>
+      <figcaption>{{ r.author }} · {{ r.date | monthYear }}</figcaption>
+    </figure></li>
+    {%- endfor %}
+  </ol>
+  {%- if site.reviews.source == "sample" %}<p class="dv-quotes-note">Sample words for the demo. On a live site these are the salon's real Google reviews.</p>{% endif %}
+</div></section>

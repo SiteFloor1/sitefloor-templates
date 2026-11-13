@@ -1,0 +1,29 @@
+{#- Quail visit (on Plan your visit the card is already beside the routes, so only the week shows): the address as a shade card (the number large, the street in italic, the postcode as its line) beside
+    the week as seven flat tiles, today's filled in umber; the live status sits over the tiles. -#}
+{%- set sec = { title: site.sections.visit.title, intro: site.sections.visit.intro } %}
+{%- set words = site.location.streetAddress.split(" ") %}
+{%- set num = words[0] if (words[0] | int) > 0 else "" %}
+<section id="visit" class="ql-v" data-feature="visit"><div class="wrap">
+  {%- if visitHeading == false %}<h2 class="ql-v-h">Opening hours</h2>{% else %}{% include "core/partials/section-head.njk" %}{% endif %}
+  <div class="ql-v-in{% if visitHeading == false %} ql-v-only{% endif %}">
+    {%- if visitHeading != false %}
+    <div class="ql-v-card rv">
+      {%- if num %}<p class="ql-v-no">No. {{ num }}</p>{% endif %}
+      <p class="ql-v-st">{{ words.slice(1).join(" ") if num else site.location.streetAddress }}</p>
+      <p class="ql-v-pc">{{ site.location.locality }} · {{ site.location.postcode }}</p>
+      {%- if site.location.area %}<p class="ql-v-area">{{ site.location.area }}</p>{% endif %}
+      <a class="ql-v-go" href="{{ site.location | directions }}" target="_blank" rel="noopener">Directions</a>
+    </div>
+    {%- endif %}
+    <div class="ql-v-week rv" data-hours>
+      <p class="ql-v-now" data-live-status><span class="dot" aria-hidden="true"></span><span data-status-text>Opening hours</span></p>
+      <p class="ql-v-det" data-status-detail></p>
+      <table class="ql-v-days">
+        <caption class="sr-only">Opening hours</caption>
+        <tbody>{% for row in site.hours | hoursRows %}<tr data-day="{{ row.dayIndex }}"><th scope="row">{{ row.day | truncate(3, true, "") }}<span class="sr-only">{{ row.day | replace(row.day | truncate(3, true, ""), "") }}</span></th><td>{{ row.label }}</td></tr>{% endfor %}</tbody>
+      </table>
+      {%- set upcoming = site.hours | upcomingExceptions(build.today) %}
+      {%- if upcoming.length %}<ul class="ql-v-ex">{% for ex in upcoming %}<li><b>{{ ex.dateLabel }}</b> {{ ex.note or ex.label }}</li>{% endfor %}</ul>{% endif %}
+    </div>
+  </div>
+</div></section>

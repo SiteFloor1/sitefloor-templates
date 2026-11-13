@@ -1,0 +1,93 @@
+{#- A car's own page: its details at night, the client's spec (only what the client gives), the rules, then the dates, the
+    quote and the request. The driver checker, the first ten minutes, what to bring and compare sit quietly below.
+    `car` set. Every figure is the client's own. -#}
+{%- set g = car.photos.gallery or [] %}{% set first = g[0] if g.length else car.photos.card %}
+{%- set cls = site.fleet | className(car.class) %}
+<article class="hr-cp" data-feature="fleet-page" aria-labelledby="hr-cp-h">
+  <section class="dt-top has-photo is-car">
+    <img src="{{ first.src | img }}" alt="{{ first.alt }}" width="{{ first.width }}" height="{{ first.height }}" fetchpriority="high" decoding="async">
+  </section>
+  <div class="wrap hr-cp-head">
+    <p class="dt-top-k"><a href="{{ car.class | classUrl(build.links) }}">{{ cls }}</a></p>
+    <h1 class="hr-cp-h" id="hr-cp-h">{{ car.make }} <b>{{ car.model }}</b></h1>
+    <p class="hr-cp-trim">{{ car | trimLine }}</p>
+    <p class="hr-cp-from">{{ car | fromLine }}</p>
+  </div>
+
+  {%- if g.length > 1 or (g.length and car.photos.card) %}
+  <div class="wrap hr-cp-gallery">
+    <figure class="is-whole"><img src="{{ car.photos.card.src | img }}" alt="{{ car.photos.card.alt }}" width="{{ car.photos.card.width }}" height="{{ car.photos.card.height }}" loading="lazy" decoding="async"></figure>
+    {%- for p in g %}{% if not loop.first %}<figure><img src="{{ p.src | img }}" alt="{{ p.alt }}" width="{{ p.width }}" height="{{ p.height }}" loading="lazy" decoding="async"></figure>{% endif %}{% endfor %}
+  </div>
+  {%- endif %}
+
+  <div class="wrap hr-cp-body">
+    <section class="hr-cp-spec" aria-labelledby="hr-spec-h">
+      <h2 class="hr-cp-sh" id="hr-spec-h">The car</h2>
+      <dl class="hr-spec">
+        {%- if car.power %}<div><dt>Power</dt><dd>{{ car.power }} <small>bhp</small></dd></div>{% endif %}
+        {%- if car.zeroToSixtyTwo %}<div><dt>0–62 mph</dt><dd>{{ car.zeroToSixtyTwo }} <small>s</small></dd></div>{% endif %}
+        <div><dt>Seats</dt><dd>{{ car.seats }}</dd></div>
+        {%- if car.boot %}<div><dt>Boot</dt><dd class="is-text">{{ car.boot }}</dd></div>{% endif %}
+        {%- if car.gearbox %}<div><dt>Gearbox</dt><dd class="is-text">{{ car.gearbox }}</dd></div>{% endif %}
+        {%- if car.fuel %}<div><dt>Fuel</dt><dd class="is-text">{{ car.fuel }}</dd></div>{% endif %}
+      </dl>
+      {%- if car.interior or car.colours %}
+      <p class="hr-cp-int">{% if car.interior %}{{ car.interior }}{% endif %}{% if car.colours %}{% if car.interior %} · {% endif %}{{ car.colours | join(", ") }}{% endif %}</p>
+      {%- endif %}
+      {%- if car.tuned and ("tuned-class" | enabled) %}
+      <div class="hr-tuned"{{ "tuned-class" | tierAttr | safe }}>
+        <h3>Modifications</h3><p>{{ car.tuned.mods }}</p>
+        <h3>Insurance</h3><p>{{ car.tuned.insurance }}</p>
+        {%- if car.tuned.driver %}<h3>Driver</h3><p>{{ car.tuned.driver }}</p>{% endif %}
+      </div>
+      {%- endif %}
+      {%- if site.mode == "demo" %}<p class="hr-demo-note">Demo figures. A client's site shows only the client's own.</p>{% endif %}
+    </section>
+
+    <section class="hr-cp-rules" aria-labelledby="hr-rules-h">
+      <h2 class="hr-cp-sh" id="hr-rules-h">The rules</h2>
+      {%- if car.chauffeurOnly %}
+      <dl class="hr-facts is-rules">
+        <dt>With a chauffeur</dt><dd>{{ car.chauffeur.hourly | money }} an hour, {{ car.chauffeur.minHours | words }} hours at least</dd>
+        {%- if car.deposit %}<dt>Deposit</dt><dd>{{ car.deposit | money }}</dd>{% endif %}
+      </dl>
+      {%- if "chauffeur-page" | enabled %}<p class="hr-ways"><a class="dt-go" href="{{ 'chauffeur' | href }}"{{ "chauffeur-page" | tierAttr | safe }}>Plan a journey</a></p>{% endif %}
+      {%- else %}
+      <dl class="hr-facts is-rules">
+        <dt>Deposit</dt><dd>{{ car.deposit | money }}. {{ site.hire.deposit.how }} {{ site.hire.deposit.when }}</dd>
+        <dt>Driver</dt><dd>{{ car.driver | driverLine | capitalize }}</dd>
+        <dt>Insurance</dt><dd>{{ car | excessLine }}. {{ car | reductionLine }}.</dd>
+        <dt>Mileage</dt><dd>{{ car | mileLine }}</dd>
+        <dt>Fuel</dt><dd>{{ car.fuelPolicy }}</dd>
+        <dt>Late return</dt><dd>{{ car.lateReturn }}</dd>
+        <dt>Delivery</dt><dd>{{ car | deliveryLine(site.hire) }}</dd>
+        {%- if car.chauffeur %}<dt>With a chauffeur</dt><dd>{{ car.chauffeur.hourly | money }} an hour, {{ car.chauffeur.minHours | words }} hours at least</dd>{% endif %}
+      </dl>
+      {%- endif %}
+    </section>
+  </div>
+
+  {%- if not car.chauffeurOnly %}
+  {%- if "hire-quote" | enabled %}{% include "kits/hire/features/hire-quote/hire-quote.njk" %}
+  {%- else %}
+  {%- set waText = (site.messages.carRequest or "I'd like to request the {car}.") | replace("{car}", car | carName) %}
+  <p class="wrap hr-ways"><a class="dt-go" href="{{ waText | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ waText }}"{% endif %} target="_blank" rel="noopener">Request on WhatsApp</a></p>
+  {%- endif %}
+  {%- endif %}
+
+  <div class="wrap hr-cp-extra">
+    {%- if not car.chauffeurOnly and ("driver-check" | enabled) %}{% include "kits/hire/features/driver-check/driver-check.njk" %}{% endif %}
+    {%- if car.firstTen and ("first-ten" | enabled) %}{% include "kits/hire/features/first-ten/first-ten.njk" %}{% endif %}
+    {%- if not car.chauffeurOnly %}
+    <div class="hr-cp-before">
+      {%- include "kits/hire/features/bring-list/bring-list.njk" %}
+      {%- include "kits/hire/features/driver-form/driver-form.njk" %}
+    </div>
+    {%- endif %}
+  </div>
+  {%- if "compare" | enabled %}{% include "kits/hire/features/compare/compare.njk" %}{% endif %}
+  <nav class="wrap hr-cls-nav" aria-label="More cars">
+    <a href="{{ car.class | classUrl(build.links) }}">More {{ cls }}</a><a href="{{ 'fleet' | href }}">The whole fleet</a>
+  </nav>
+</article>

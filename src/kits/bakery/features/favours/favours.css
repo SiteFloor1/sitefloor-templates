@@ -1,0 +1,14 @@
+/* Favours and "your seal". Structure only; tokens only. */
+.fv-w { display: grid; gap: var(--s3, 32px); }
+.fv-lid { position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
+.fv-ribbon { position: absolute; inset: 0; pointer-events: none; }
+.fv-seal { position: absolute; left: 50%; top: 50%; translate: -50% -50%; }
+.fv-seal svg { display: block; width: 100%; height: auto; }
+.fv-side { display: grid; gap: 14px; align-content: start; }
+.fv-opts { display: grid; gap: 6px; }
+.fv-opt { position: relative; display: flex; justify-content: space-between; gap: 12px; cursor: pointer; }
+.fv-opt input { position: absolute; opacity: 0; pointer-events: none; }
+.fv-step { display: inline-flex; align-items: stretch; }
+.fv-step input { width: 6ch; text-align: center; }
+.fv-sum, .fv-break, .fv-soon { margin: 0; }
+@media (min-width: 900px) { .fv-w { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: start; } }

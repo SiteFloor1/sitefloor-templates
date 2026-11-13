@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="en-GB">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>From First Light</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="A Sitefloor case study: Tollgarth, a Richmond garden studio's website, read from dawn to dusk by the sun.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Alegreya:ital,wght@0,400;0,500;1,400;1,500&family=Manrope:wght@600;700&display=swap">
+<style>
+:root {
+  --sf-paper: #FBFAF7; --sf-ink: #0E0F11; --sf-tomato: #E8613C; --sf-line: rgba(14,15,17,.12); --brand: "Manrope", system-ui, sans-serif;
+  --stone: #ECE6DA; --stone-2: #E3DBCC; --ink: #1D1B16; --mute: #645D51; --hair: rgba(29,27,22,.16);
+  --beech: #8E4F2A;           /* copper beech, the one colour */
+  --gold: #D9A441;            /* the demo's sun */
+  --night: #171A22; --night-ink: #E9E3D6;
+  --cap: "Cinzel", "Trajan Pro", Georgia, serif; --serif: "Alegreya", Georgia, serif;
+  --gut: clamp(16px, 4.2vw, 64px);
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--stone); color: var(--ink); font: 400 19px/1.55 var(--serif); }
+img, video { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+.gut { padding-left: max(var(--gut), env(safe-area-inset-left, 0px)); padding-right: max(var(--gut), env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 1440px; margin-inline: auto; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 40; background: var(--sf-paper); }
+:focus-visible { outline: 2px solid var(--beech); outline-offset: 3px; }
+
+/* Sitefloor's bar, as on every case study */
+.sfbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--sf-paper); color: var(--sf-ink); border-bottom: 1px solid var(--sf-line); }
+.sfbar .wrap { display: flex; justify-content: space-between; align-items: center; height: 66px; gap: 16px; max-width: 1520px; }
+.wm { display: flex; align-items: baseline; font-family: var(--brand); font-weight: 600; font-size: 24px; letter-spacing: -.045em; text-decoration: none; color: var(--sf-ink); }
+.wm svg { margin: 0 1px; overflow: visible; }
+.sfbar nav { display: flex; gap: 28px; font-family: var(--brand); font-size: 14px; font-weight: 600; }
+.sfbar nav a { text-decoration: none; color: var(--sf-ink); }
+.sfbar nav a[aria-current] { box-shadow: inset 0 -1.5px 0 var(--sf-ink); }
+.sfbtn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 20px; background: var(--sf-ink); color: var(--sf-paper); font: 700 12px var(--brand); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; }
+.sfbtn:hover { background: var(--sf-tomato); }
+@media (max-width: 760px) { .sfbar nav { display: none; } }
+@media (max-width: 420px) { .sfbar .sfbtn { display: none; } }
+
+.cap { font-family: var(--cap); font-weight: 400; letter-spacing: .22em; text-transform: uppercase; font-size: 12px; }
+
+/* ---------- First light: the hero follows the hour you set ---------- */
+.dawn { --ground: var(--stone); --fg: var(--ink); --fg-2: var(--mute); position: relative; min-height: calc(100svh - 66px); background: var(--ground); color: var(--fg); transition: background-color 1.6s ease, color 1.6s ease; overflow: hidden; }
+.dawn[data-light="low"] { --ground: #EAD9BF; }
+.dawn[data-light="dusk"] { --ground: #4A4250; --fg: #F1E9DD; --fg-2: #CBBFAE; }
+.dawn[data-light="night"] { --ground: var(--night); --fg: var(--night-ink); --fg-2: #9C978C; }
+.dawn .wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 24px clamp(24px, 4vw, 72px); min-height: calc(100svh - 66px); padding-block: clamp(28px, 6vh, 72px); align-items: center; }
+.dawn .kick { color: var(--fg-2); margin: 0 0 clamp(20px, 4vh, 44px); }
+.dawn h1 { margin: 0; font: italic 400 clamp(64px, 9.4vw, 164px)/.86 var(--serif); letter-spacing: -.02em; }
+.dawn h1 span { display: block; }
+.dawn .lede { margin: clamp(20px, 3.5vh, 36px) 0 0; max-width: 30ch; font-size: clamp(19px, 1.5vw, 23px); line-height: 1.45; }
+.dawn .now { margin: 18px 0 0; color: var(--fg-2); font-size: 16px; font-style: italic; min-height: 1.5em; }
+
+.clock { margin-top: clamp(26px, 5vh, 52px); max-width: 560px; }
+.clock label { display: block; color: var(--fg-2); margin-bottom: 10px; }
+.clock input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 44px; margin: 0; background: transparent; cursor: ew-resize; }
+.clock input[type=range]::-webkit-slider-runnable-track { height: 1px; background: currentColor; opacity: .5; }
+.clock input[type=range]::-moz-range-track { height: 1px; background: currentColor; opacity: .5; }
+.clock input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 36px; margin-top: -18px; border: 0; border-radius: 0; background: var(--beech); clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+.clock input[type=range]::-moz-range-thumb { width: 18px; height: 36px; border: 0; border-radius: 0; background: var(--beech); clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+.dawn[data-light="dusk"] .clock input[type=range]::-webkit-slider-thumb, .dawn[data-light="night"] .clock input[type=range]::-webkit-slider-thumb { background: var(--gold); }
+.dawn[data-light="dusk"] .clock input[type=range]::-moz-range-thumb, .dawn[data-light="night"] .clock input[type=range]::-moz-range-thumb { background: var(--gold); }
+.ticks { position: relative; height: 22px; margin-top: 2px; font: 400 11px var(--cap); letter-spacing: .08em; color: var(--fg-2); }
+.ticks span { position: absolute; transform: translateX(-50%); }
+.ticks i { position: absolute; left: 50%; top: -26px; width: 1px; height: 7px; background: currentColor; transform: translateX(-50%); }
+.days { display: flex; gap: 0 26px; flex-wrap: wrap; margin-top: 14px; }
+.days button { min-height: 44px; padding: 0; border: 0; background: none; color: var(--fg-2); font: italic 400 18px var(--serif); cursor: pointer; }
+.days .play { margin-left: auto; font-style: normal; font-family: var(--cap); font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg); }
+.days .play[aria-pressed="true"] { box-shadow: none; }
+.days button[aria-pressed="true"] { color: var(--fg); box-shadow: inset 0 -1px 0 currentColor; }
+
+.garden { position: relative; margin: 0; }
+.garden svg { display: block; width: 100%; height: auto; max-height: calc(100svh - 230px); overflow: visible; }
+.garden figcaption { margin-top: 14px; font-size: 17px; line-height: 1.45; color: var(--fg); max-width: 46ch; min-height: 3em; }
+.garden figcaption small { display: block; margin-top: 6px; color: var(--fg-2); font: 400 11px var(--cap); letter-spacing: .16em; text-transform: uppercase; }
+/* the demo's drawing, in this page's light */
+.garden .gd-ss-cells polygon { stroke: var(--ground); stroke-width: .035; transition: fill 1.2s; }
+.gd-ss-h0 { fill: #D9D1C2; } .gd-ss-h1 { fill: #DFD2B7; } .gd-ss-h2 { fill: #E3D1AA; } .gd-ss-h3 { fill: #E5CB93; }
+.gd-ss-h4 { fill: #E3C27A; } .gd-ss-h5 { fill: #DEB45E; } .gd-ss-h6 { fill: var(--gold); }
+.gd-ss-shade { fill: #1D1B16; fill-opacity: .34; }
+.gd-ss-fence3 { fill: var(--fg); fill-opacity: .14; stroke: var(--fg); stroke-width: .05; }
+.gd-ss-house-side, .gd-ss-house-top { fill: var(--ground); fill-opacity: .55; stroke: var(--fg); stroke-width: .05; }
+.gd-ss-house-edge { fill: none; stroke: var(--fg); stroke-width: .05; stroke-dasharray: .3 .2; }
+.gd-ss-north line { stroke: var(--fg); stroke-width: .08; }
+.gd-ss-north text { font: 400 .8px var(--cap); fill: var(--fg); }
+.dawn[data-light="night"] .gd-ss-cells polygon, .dawn[data-light="dusk"] .gd-ss-cells polygon { fill-opacity: .55; }
+
+/* ---------- The dial: the page's contents as hour lines ---------- */
+.dial { padding-block: clamp(80px, 13vw, 180px) clamp(40px, 6vw, 80px); }
+.dial .wrap { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 40px clamp(32px, 5vw, 96px); align-items: end; }
+.dial h2 { margin: 0; font: 400 clamp(40px, 5vw, 76px)/1 var(--serif); letter-spacing: -.015em; }
+.dial p { margin: 22px 0 0; max-width: 34ch; color: var(--mute); }
+.dial .shadow-now { font-style: italic; color: var(--ink); }
+.fan { width: 100%; height: auto; overflow: visible; }
+.fan .ln { stroke: var(--ink); stroke-width: 1; opacity: .28; }
+.fan .ln.ch { opacity: 1; stroke: var(--beech); }
+.fan .half { stroke: var(--ink); opacity: .14; }
+.fan text { font: 400 15px var(--cap); fill: var(--mute); letter-spacing: .06em; }
+.fan a text { fill: var(--beech); font-size: 22px; }
+.fan a:hover text, .fan a:focus-visible text { fill: var(--ink); }
+.fan .ring { fill: none; stroke: var(--ink); opacity: .35; }
+.fan .shade { stroke: var(--ink); stroke-width: 7; stroke-linecap: round; opacity: .2; transition: opacity 1s; }
+.fan .gnomon { fill: var(--beech); }
+
+/* ---------- The hours ---------- */
+.hr { padding-block: clamp(64px, 10vw, 150px); border-top: 1px solid var(--hair); }
+.hr .wrap { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 5fr) minmax(0, 4fr); gap: 32px clamp(28px, 4vw, 80px); align-items: start; }
+.num { position: sticky; top: 104px; }
+.num b { display: block; font: 400 clamp(84px, 12vw, 210px)/.8 var(--cap); color: transparent; -webkit-text-stroke: 1px var(--beech); letter-spacing: -.02em; }
+.num span { display: block; margin-top: 18px; color: var(--mute); }
+.hr h3 { margin: 0; font: 400 clamp(36px, 4.2vw, 64px)/1.02 var(--serif); letter-spacing: -.012em; }
+.hr h3 em { font-style: italic; }
+.hr .copy p { margin: 22px 0 0; max-width: 38ch; }
+.hr .copy .plan { margin-top: 28px; color: var(--mute); }
+.hr .copy .plan b { color: var(--beech); font-weight: 400; }
+.hr:nth-of-type(even) .wrap { grid-template-columns: minmax(0, 3fr) minmax(0, 4fr) minmax(0, 5fr); }
+.hr:nth-of-type(even) .phones { order: 2; justify-self: start; }
+.hr:nth-of-type(even) .copy { order: 3; }
+.phones { display: flex; gap: 22px; justify-self: end; align-items: flex-start; }
+.ph { position: relative; width: clamp(220px, 21vw, 300px); aspect-ratio: 390 / 844; border-radius: 30px; overflow: hidden; background: #F7F4EC; box-shadow: 0 0 0 1px var(--hair), 0 40px 80px -40px rgba(60, 40, 15, .45); }
+.ph img, .ph video { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.ph + .ph { margin-top: 90px; }
+.phones:has(.clip + .ph) .ph { width: clamp(170px, 14vw, 236px); }
+.clip { display: flex; flex-direction: column; align-items: flex-start; }
+.clip + .ph { margin-top: 90px; }
+.tap { margin-top: 14px; min-height: 44px; padding: 0 18px; background: none; color: var(--ink); border: 1px solid var(--ink); font: 400 12px var(--cap); letter-spacing: .2em; text-transform: uppercase; cursor: pointer; }
+.tap:hover { background: var(--ink); color: var(--stone); }
+.tap[hidden] { display: none; }
+
+/* bands of the demo's photographs, at the hour they belong to */
+.band { position: relative; margin: 0; }
+.band img { width: 100%; height: clamp(320px, 62vw, 860px); object-fit: cover; }
+.band figcaption { position: absolute; left: var(--gut); bottom: 22px; color: #F4EFE6; text-shadow: 0 1px 10px rgba(0,0,0,.45); }
+
+/* ---------- After dark ---------- */
+.dark { background: var(--night); color: var(--night-ink); padding-block: clamp(80px, 12vw, 170px); }
+.dark .wrap { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 48px clamp(32px, 5vw, 96px); align-items: end; }
+.dark h2 { margin: 0; font: italic 400 clamp(48px, 6.4vw, 108px)/.95 var(--serif); }
+.dark p { margin: 24px 0 0; max-width: 40ch; color: #BDB6A8; }
+.dark .lit img { width: 100%; height: auto; }
+.strip { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(14px, 2vw, 28px); margin-top: clamp(56px, 8vw, 110px); grid-column: 1 / -1; }
+.strip figure { margin: 0; }
+.strip .ph { width: 100%; background: #F7F4EC; box-shadow: 0 0 0 1px rgba(233,227,214,.18); }
+.strip figure:nth-child(even) { margin-top: 64px; }
+.strip figcaption { margin-top: 14px; color: #BDB6A8; font-size: 16px; line-height: 1.4; }
+.strip figcaption b { display: block; color: var(--night-ink); font: 400 11px var(--cap); letter-spacing: .16em; text-transform: uppercase; margin-bottom: 4px; }
+
+/* ---------- Three days: the plans ---------- */
+.plans { padding-block: clamp(80px, 12vw, 170px); }
+.plans .head { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 24px clamp(32px, 5vw, 96px); align-items: end; }
+.plans h2 { margin: 0; font: 400 clamp(44px, 5.6vw, 92px)/.98 var(--serif); letter-spacing: -.015em; }
+.plans .head p { margin: 0; max-width: 44ch; color: var(--mute); }
+.trio { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin-top: clamp(48px, 7vw, 96px); border-top: 1px solid var(--ink); }
+.day { padding: 28px clamp(16px, 2.4vw, 40px) 8px 0; }
+.day + .day { padding-left: clamp(16px, 2.4vw, 40px); border-left: 1px solid var(--hair); }
+.day .when { color: var(--mute); }
+.day svg { display: block; width: 100%; height: auto; margin: 22px 0 18px; overflow: visible; }
+.day svg .lit { stroke: var(--beech); stroke-width: 1.4; }
+.day svg .unlit { stroke: var(--ink); opacity: .12; }
+.day svg circle { fill: var(--beech); }
+.day h3 { margin: 0; font: 400 clamp(30px, 2.6vw, 42px)/1.05 var(--serif); }
+.day .price { margin: 8px 0 0; font-style: italic; }
+.day .len { margin: 4px 0 0; color: var(--mute); font-size: 16px; min-height: 1.5em; }
+.day p.has { margin: 18px 0 0; }
+.plans .small { margin-top: 40px; color: var(--mute); font-size: 16px; }
+
+/* ---------- Speed ---------- */
+.speed { padding-block: clamp(64px, 9vw, 130px); background: var(--stone-2); }
+.speed .wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 40px clamp(32px, 5vw, 96px); align-items: start; }
+.speed h2 { margin: 0; font: italic 400 clamp(42px, 5vw, 80px)/1 var(--serif); }
+.speed .moves { margin: 22px 0 0; max-width: 36ch; min-height: 3em; }
+.speed dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; margin: 0; border-top: 1px solid var(--ink); }
+.speed dl div { padding: 22px 16px 22px 0; border-bottom: 1px solid var(--hair); }
+.speed dt { order: 2; color: var(--mute); font-size: 16px; }
+.speed dd { margin: 0 0 4px; font: 400 clamp(34px, 3.6vw, 56px)/1 var(--cap); letter-spacing: -.01em; }
+.speed dl div { display: flex; flex-direction: column; }
+
+/* ---------- Order ---------- */
+.order { padding-block: clamp(80px, 12vw, 170px); }
+.order .wrap { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 32px clamp(32px, 5vw, 96px); align-items: end; }
+.order h2 { margin: 0; font: 400 clamp(52px, 8vw, 140px)/.9 var(--serif); letter-spacing: -.02em; }
+.order h2 em { color: var(--beech); }
+.order p { margin: 0 0 26px; max-width: 34ch; }
+.btn { display: inline-flex; align-items: center; min-height: 48px; padding: 0 24px; margin: 0 12px 12px 0; background: var(--ink); color: var(--stone); text-decoration: none; font: 400 12px var(--cap); letter-spacing: .2em; text-transform: uppercase; }
+.btn:hover { background: var(--beech); }
+.btn.line { background: none; color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.btn.line:hover { background: var(--ink); color: var(--stone); }
+.mail { display: block; margin-top: 14px; color: var(--mute); font-size: 16px; }
+
+footer { padding-block: 32px 40px; border-top: 1px solid var(--sf-line); background: var(--sf-paper); color: var(--sf-ink); }
+footer .wrap { display: flex; justify-content: space-between; gap: 24px 48px; flex-wrap: wrap; font: 400 13px/1.6 var(--brand); max-width: 1520px; }
+footer p { margin: 0; max-width: 92ch; }
+
+@media (max-width: 980px) {
+  .dawn .wrap, .dial .wrap, .dark .wrap, .plans .head, .speed .wrap, .order .wrap { grid-template-columns: minmax(0, 1fr); }
+  .dawn .wrap { min-height: 0; }
+  .garden svg { max-height: 62vh; }
+  .hr .wrap, .hr:nth-of-type(even) .wrap { grid-template-columns: minmax(0, 1fr); }
+  .hr:nth-of-type(even) .phones, .hr:nth-of-type(even) .copy { order: 0; }
+  .num { position: static; display: flex; align-items: baseline; gap: 18px; }
+  .num span { margin: 0; }
+  .phones, .hr:nth-of-type(even) .phones { justify-self: start; }
+  .ph { width: min(46vw, 280px); }
+  .ph + .ph, .clip + .ph { margin-top: 48px; }
+  .trio { grid-template-columns: minmax(0, 1fr); }
+  .day + .day { padding-left: 0; border-left: 0; border-top: 1px solid var(--hair); }
+  .strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .strip figure:nth-child(even) { margin-top: 40px; }
+}
+@media (max-width: 560px) {
+  body { font-size: 18px; }
+  .phones { gap: 14px; }
+  .ph { width: 100%; max-width: 280px; border-radius: 24px; }
+  .phones:has(.clip + .ph) .ph { width: 100%; } .phones:has(.clip + .ph) > * { width: calc(50% - 7px); }
+  .speed dl { grid-template-columns: minmax(0, 1fr); }
+  .ticks span:nth-child(4n+2), .ticks span:nth-child(4n) { visibility: hidden; }
+}
+@media (max-width: 560px) { .fan text { font-size: 30px; } .fan a text { font-size: 40px; } .fan .ln.ch { stroke-width: 2.5; } }
+@media (prefers-reduced-motion: reduce) { .dawn, .garden .gd-ss-cells polygon, .fan .shade { transition: none; } }
+</style>
+
+<header class="sfbar gut"><div class="wrap">
+  <a class="wm" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su" aria-label="Sitefloor home">sitefl<svg width="28" height="14" viewBox="0 0 42 21" aria-hidden="true"><rect x="1.9" y="1.9" width="38.2" height="17.2" rx="8.6" fill="none" stroke="#0E0F11" stroke-width="3.8"/><circle cx="31.5" cy="10.5" r="5.2" fill="#E8613C"/></svg>r</a>
+  <nav aria-label="Main"><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#live">Features</a><a href="#top" aria-current="page">Work</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#pricing">Pricing</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#guides">Guides</a></nav>
+  <a class="sfbtn" href="#mockup"><span>Free mockup</span><span aria-hidden="true">→</span></a>
+</div></header>
+
+<main id="top">
+
+<section class="dawn gut" data-dawn data-light="day" aria-labelledby="h-name"><div class="wrap">
+  <div>
+    <p class="cap kick">Tollgarth · Garden design · Richmond</p>
+    <h1 id="h-name"><span>From first</span><span>light.</span></h1>
+    <p class="lede">The website of a garden studio, read the way a garden is: by the sun.</p>
+    <p class="now" data-now aria-live="polite"></p>
+    <div class="clock">
+      <label class="cap" for="hour">Set the hour</label>
+      <input id="hour" type="range" min="0" max="1435" step="5" value="720" data-hour>
+      <div class="ticks" data-ticks aria-hidden="true"></div>
+      <div class="days" role="group" aria-label="Day">
+        <button type="button" data-day="today" aria-pressed="true">Today</button>
+        <button type="button" data-day="6" aria-pressed="false">21 June</button>
+        <button type="button" data-day="12" aria-pressed="false">21 December</button>
+        <button type="button" class="play" data-play-day aria-pressed="false">Watch the day</button>
+      </div>
+    </div>
+  </div>
+  <figure class="garden">
+    <svg data-garden viewBox="0 0 20 20" role="img" aria-labelledby="g-words"></svg>
+    <figcaption><span id="g-words" data-words>Tollgarth's example garden: 8 by 18 metres, facing south-west.</span><small>The studio's example garden · colour: hours of sun on the 21st</small></figcaption>
+  </figure>
+</div></section>
+
+<section class="dial gut" aria-labelledby="h-dial"><div class="wrap">
+  <div>
+    <h2 id="h-dial">One day, seven hours.</h2>
+    <p>Each line on this dial is a page of Tollgarth's site, set at the hour it does its work. It is drawn for Richmond, where the studio is.</p>
+    <p class="shadow-now" data-shadow-words></p>
+  </div>
+  <nav aria-label="The hours of this page">
+    <svg class="fan" data-fan viewBox="-520 -500 1040 560"></svg>
+  </nav>
+</div></section>
+
+<article class="hr gut" id="vi" aria-labelledby="h-vi"><div class="wrap">
+  <div class="num"><b aria-hidden="true">VI</b><span class="cap">6 am · First light</span></div>
+  <div class="copy">
+    <h3 id="h-vi">The year, open at <em>this</em> month.</h3>
+    <p>Twelve plants from the studio's own gardens stand side by side. The visitor's month opens by itself, its name across the photograph; any other opens with a tap. The site is never out of season, and nobody has to update it.</p>
+    <p class="plan cap"><b>Starter</b> · the home page</p>
+  </div>
+  <div class="phones"><div class="clip"><div class="ph"><video muted loop playsinline preload="none" poster="media/clip-year.webp" aria-label="On a phone: the twelve months; a tap opens December, then January" data-clip><source src="media/clip-year.mp4" type="video/mp4"></video></div><button class="tap" type="button" data-tap data-name="year" hidden>Pause</button></div></div>
+</div></article>
+
+<article class="hr gut" id="viii" aria-labelledby="h-viii"><div class="wrap">
+  <div class="num"><b aria-hidden="true">VIII</b><span class="cap">8 am · At the studio</span></div>
+  <div class="copy">
+    <h3 id="h-viii">The studio's <em>month</em>.</h3>
+    <p>What Tollgarth is designing, building, planting and caring for now, following the month chosen above. The next design and build start sits beside it, and takes itself down once it is out of date.</p>
+    <p class="plan cap"><b>Starter</b> · the home page</p>
+  </div>
+  <div class="phones"><div class="ph"><img src="media/phone-month.webp" width="780" height="1688" alt="On a phone: November is for planting, with what the studio designs, builds, plants and cares for this month" loading="lazy"></div></div>
+</div></article>
+
+<article class="hr gut" id="x" aria-labelledby="h-x"><div class="wrap">
+  <div class="num"><b aria-hidden="true">X</b><span class="cap">10 am · The yard</span></div>
+  <div class="copy">
+    <h3 id="h-x">The sample <em>table</em>.</h3>
+    <p>Granite, reclaimed brick, oak, gravel, moss: the materials the studio builds with, laid out as one board. Touch a sample and it becomes the garden it was laid in. Tick a few and ask for samples on WhatsApp.</p>
+    <p class="plan cap"><b>Plus</b> · its own page</p>
+  </div>
+  <div class="phones"><div class="clip"><div class="ph"><video muted loop playsinline preload="none" poster="media/clip-materials.webp" aria-label="On a phone: touching granite setts, then brick, turns each sample into the garden it built" data-clip><source src="media/clip-materials.mp4" type="video/mp4"></video></div><button class="tap" type="button" data-tap data-name="sample table" hidden>Pause</button></div></div>
+</div></article>
+
+<figure class="band"><img src="media/g-meadow.webp" width="1400" height="933" alt="A meadow of wild flowers and grasses at midday" loading="lazy"><figcaption class="cap">Noon</figcaption></figure>
+
+<article class="hr gut" id="xii" aria-labelledby="h-xii"><div class="wrap">
+  <div class="num"><b aria-hidden="true">XII</b><span class="cap">Noon · The showpiece</span></div>
+  <div class="copy">
+    <h3 id="h-xii">Where the sun <em>falls</em>.</h3>
+    <p>The question every garden starts with. On the home page, the studio's example garden turns to face another way or shows itself in December. On its own page the visitor draws their own: its size, which way it faces, the house and the fences. The plan shows the hours of sun across it on the 21st of any month, and the shadows at any hour, from above or in 3D.</p>
+    <p>The garden at the top of this page is drawn by the same code.</p>
+    <p class="plan cap"><b>Signature</b> · home and its own page</p>
+  </div>
+  <div class="phones">
+    <div class="clip"><div class="ph"><video muted loop playsinline preload="none" poster="media/clip-sun.webp" aria-label="On a phone: the example garden turned to face north, then east, then seen on 21 December" data-clip><source src="media/clip-sun.mp4" type="video/mp4"></video></div><button class="tap" type="button" data-tap data-name="sun" hidden>Pause</button></div>
+    <div class="ph"><img src="media/phone-sun-3d.webp" width="780" height="1688" alt="On a phone: a garden drawn in 3D with the hours of sun across it in gold" loading="lazy"></div>
+  </div>
+</div></article>
+
+<article class="hr gut" id="ii" aria-labelledby="h-ii"><div class="wrap">
+  <div class="num"><b aria-hidden="true">II</b><span class="cap">2 pm · The round</span></div>
+  <div class="copy">
+    <h3 id="h-ii">Care, laid on the <em>year</em>.</h3>
+    <p>Each maintenance plan set out over twelve months: which months the studio comes and what it does in each, with its own price when it publishes one. "Ask about this plan" sends the garden's size and postcode on WhatsApp.</p>
+    <p class="plan cap"><b>Signature</b> · its own page</p>
+  </div>
+  <div class="phones"><div class="ph"><img src="media/phone-maintenance.webp" width="780" height="1688" alt="On a phone: the monthly maintenance plan, twelve visits a year, with the work for January to March" loading="lazy"></div></div>
+</div></article>
+
+<article class="hr gut" id="iv" aria-labelledby="h-iv"><div class="wrap">
+  <div class="num"><b aria-hidden="true">IV</b><span class="cap">4 pm · Planning ahead</span></div>
+  <div class="copy">
+    <h3 id="h-iv">Ready <em>by</em>.</h3>
+    <p>Choose the month the garden should be finished. The calendar works back through the studio's own weeks for design, the wait for a build slot and the build itself, and gives the day to get in touch.</p>
+    <p class="plan cap"><b>Plus</b> · the calendar page</p>
+  </div>
+  <div class="phones"><div class="ph"><img src="media/phone-ready.webp" width="780" height="1688" alt="On a phone: finished by May 2027 means getting in touch by Saturday 12 December 2026" loading="lazy"></div></div>
+</div></article>
+
+<figure class="band"><img src="media/g-dusk.webp" width="1100" height="1467" alt="A garden light glowing among ferns at dusk" loading="lazy" style="object-position: 50% 62%"><figcaption class="cap">Dusk</figcaption></figure>
+
+<article class="hr gut" id="vi-pm" aria-labelledby="h-vi-pm"><div class="wrap">
+  <div class="num"><b aria-hidden="true">VI</b><span class="cap">6 pm · Over the fence</span></div>
+  <div class="copy">
+    <h3 id="h-vi-pm">Do I need <em>permission?</em></h3>
+    <p>Fences, decking, garden rooms and front gardens, in plain words from GOV.UK, with the day it was checked and both sources. A guide, not a decision.</p>
+    <p class="plan cap"><b>Signature</b> · its own page</p>
+  </div>
+  <div class="phones"><div class="ph"><img src="media/phone-permission.webp" width="780" height="1688" alt="On a phone: Do I need permission? Fences, decking, garden rooms and front gardens, checked against GOV.UK" loading="lazy"></div></div>
+</div></article>
+
+<section class="dark gut" aria-labelledby="h-dark"><div class="wrap">
+  <div>
+    <h2 id="h-dark">And after dark, the rest of the house.</h2>
+    <p>The pages a client reads at night, with the curtains drawn and a garden in mind.</p>
+  </div>
+  <figure class="lit" style="margin:0"><img src="media/g-lights.webp" width="1100" height="1650" alt="A path light glowing among planting at night" loading="lazy"></figure>
+  <div class="strip">
+    <figure><div class="ph"><img src="media/phone-gardens.webp" width="780" height="1688" alt="On a phone: the gardens page, by kind" loading="lazy"></div><figcaption><b>Gardens</b>Every garden by kind, each with where it is, its size and its aspect.</figcaption></figure>
+    <figure><div class="ph"><img src="media/phone-story.webp" width="780" height="1688" alt="On a phone: a walled garden in Islington, its brief and its planting" loading="lazy"></div><figcaption><b>A page per garden</b>The brief, the garden, its plants and materials.</figcaption></figure>
+    <figure><div class="ph"><img src="media/phone-planting.webp" width="780" height="1688" alt="On a phone: plants we love, found by month and by sun or shade" loading="lazy"></div><figcaption><b>The planting palette</b>Found by month and by sun or shade.</figcaption></figure>
+    <figure><div class="ph"><img src="media/phone-process.webp" width="780" height="1688" alt="On a phone: how a design runs, five stages" loading="lazy"></div><figcaption><b>How a design runs</b>Five stages, and where you can stop.</figcaption></figure>
+    <figure><div class="ph"><img src="media/phone-journal.webp" width="780" height="1688" alt="On a phone: the studio's journal" loading="lazy"></div><figcaption><b>The journal</b>The studio's own dated articles.</figcaption></figure>
+  </div>
+</div></section>
+
+<section class="plans gut" id="plans" aria-labelledby="h-plans"><div class="wrap">
+  <div class="head">
+    <h2 id="h-plans">Three days of the year.</h2>
+    <p>The shortest day, the equinox and the longest day in Richmond, and a plan for each. Each dial shows that day's hours of light.</p>
+  </div>
+  <div class="trio">
+    <div class="day">
+      <p class="cap when">21 December</p>
+      <svg data-day-dial="12" viewBox="-220 -210 440 230" aria-hidden="true"></svg>
+      <h3>Starter</h3>
+      <p class="price">£99, then £25 a month</p>
+      <p class="len" data-len="12"></p>
+      <p class="has">Home and Start your garden: the year, the studio's month, design, build and care, the gardens.</p>
+    </div>
+    <div class="day">
+      <p class="cap when">20 March</p>
+      <svg data-day-dial="3" viewBox="-220 -210 440 230" aria-hidden="true"></svg>
+      <h3>Plus</h3>
+      <p class="price">£199, then £30 a month</p>
+      <p class="len" data-len="3"></p>
+      <p class="has">Up to five pages. Every garden and a page for each, design, build and care, the sample table, the planting palette, the calendar and ready by, the journal, how a design runs, and before and after with your own photographs.</p>
+    </div>
+    <div class="day">
+      <p class="cap when">21 June</p>
+      <svg data-day-dial="6" viewBox="-220 -210 440 230" aria-hidden="true"></svg>
+      <h3>Signature</h3>
+      <p class="price">£349, then £35 a month</p>
+      <p class="len" data-len="6"></p>
+      <p class="has">Up to twenty pages. Where the sun falls, care laid on the year, a page for each kind of garden, do I need permission?, and one garden through the year from your own photographs.</p>
+    </div>
+  </div>
+  <p class="small">Twelve months minimum. Any feature can be added on its own, and extra pages one at a time. Bespoke, made from scratch: from £1,399, quoted after a call.</p>
+</div></section>
+
+<section class="speed gut" aria-labelledby="h-speed"><div class="wrap">
+  <div>
+    <h2 id="h-speed">Before the shadow moves.</h2>
+    <p class="moves" data-moves>Tollgarth's home page shows its first photograph in under two seconds on a phone.</p>
+  </div>
+  <dl>
+    <div><dt>Lighthouse, mobile, home page</dt><dd>99–100</dd></div>
+    <div><dt>First photograph, slow 4G</dt><dd>1.7–2.1 s</dd></div>
+    <div><dt>Layout shift</dt><dd>0</dd></div>
+    <div><dt>Images on the first screen</dt><dd>62.5 KB</dd></div>
+  </dl>
+</div></section>
+
+<section class="order gut" id="mockup" aria-labelledby="h-order"><div class="wrap">
+  <h2 id="h-order">Your garden, <em>next</em>.</h2>
+  <div>
+    <p>Send us your Instagram handle. We'll make a free mockup of your home page with your own gardens on it.</p>
+    <a class="btn" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#free">Get a free mockup</a><a class="btn line" href="https://claude.ai/artifact/Q57GaMM1UAr6AKkDmSGvUo">Try Tollgarth's site</a>
+    <span class="mail">hello@sitefloor.com</span>
+  </div>
+</div></section>
+
+</main>
+
+<footer class="gut"><div class="wrap">
+  <p>Tollgarth is a fictional Richmond garden studio made to show the Sitefloor garden kit. Its gardens, months, plans, prices and articles are demo data. Photographs: Laura Repsone (the meadow), Quan Pham (dusk), Stefan Hiienurm (the path light), and on the site the month plants by Nik, Annie Spratt, Sebastian Schuster, Anita Austvika, Marek Studzinski, LanFeng, Nicole Elliott, Gary J Stearman, H&amp;CO, Szymon Ostrowski, Jonah Pettrich and Krzysztof Plocha, all free on Unsplash; the site's other photographs are credited in our records. The sun is worked out from NOAA's solar equations. Client sites use the studio's own photographs.</p>
+  <span>© 2026 Sitefloor</span>
+</div></footer>
+
+<script>(()=>{var l=Math.PI/180;function H(t,n,s){let o=(t/864e5+24405875e-1-2451545)/36525,a=(280.46646+o*(36000.76983+o*3032e-7))%360,r=357.52911+o*(35999.05029-1537e-7*o),u=.016708634-o*(42037e-9+1267e-10*o),i=Math.sin(r*l)*(1.914602-o*(.004817+14e-6*o))+Math.sin(2*r*l)*(.019993-101e-6*o)+Math.sin(3*r*l)*289e-6,d=125.04-1934.136*o,M=a+i-.00569-.00478*Math.sin(d*l),x=23+(26+(21.448-o*(46.815+o*(59e-5-o*.001813)))/60)/60+.00256*Math.cos(d*l),w=Math.asin(Math.sin(x*l)*Math.sin(M*l)),p=Math.tan(x/2*l)**2,$=4/l*(p*Math.sin(2*a*l)-2*u*Math.sin(r*l)+4*u*p*Math.sin(r*l)*Math.cos(2*a*l)-.5*p*p*Math.sin(4*a*l)-1.25*u*u*Math.sin(2*r*l)),S=new Date(t),D=((S.getUTCHours()*60+S.getUTCMinutes()+S.getUTCSeconds()/60+$+4*s)%1440+1440)%1440,A=D/4<0?D/4+180:D/4-180,P=Math.sin(n*l)*Math.sin(w)+Math.cos(n*l)*Math.cos(w)*Math.cos(A*l),c=Math.acos(Math.min(1,Math.max(-1,P))),h=90-c/l,m=Math.acos(Math.min(1,Math.max(-1,(Math.sin(n*l)*Math.cos(c)-Math.sin(w))/(Math.cos(n*l)*Math.sin(c))))),g=A>0?(m/l+180)%360:(540-m/l)%360;return{elevation:h,azimuth:g}}function _(t,n,s){let{elevation:e,azimuth:o}=H(t,n,s);return{elevation:Math.round(e*10)/10,azimuth:Math.round(o*10)/10}}function z(t,n){let s=Date.UTC(t.year,t.month-1,t.day,t.hour,t.minute,t.second??0),e=new Intl.DateTimeFormat("en-GB",{timeZone:n,year:"numeric",month:"numeric",day:"numeric",hour:"numeric",minute:"numeric",second:"numeric",hourCycle:"h23"}),o=r=>{let u={};for(let i of e.formatToParts(new Date(r)))u[i.type]=Number(i.value);return Date.UTC(u.year,u.month-1,u.day,u.hour,u.minute,u.second)-r},a=s-o(s);return s-o(a)}var j=Math.PI/180,k={N:0,NE:45,E:90,SE:135,S:180,SW:225,W:270,NW:315},J=["north","north-east","east","south-east","south","south-west","west","north-west"],v=3,W=9,O=t=>J[Math.round((t%360+360)%360/45)%8];function Q(t,n){let s=(t-n)*j;return[-Math.sin(s),-Math.cos(s)]}function V(t){let{width:n,length:s}=t;return[{pts:[[0,-W],[n,-W],[n,0],[0,0]],h:t.house},{pts:[[0,0],[0,s]],h:t.fence},{pts:[[n,0],[n,s]],h:t.fence},{pts:[[0,s],[n,s]],h:t.fence}]}function X(t){let n=[...t].sort((a,r)=>a[0]-r[0]||a[1]-r[1]);if(n.length<3)return n;let s=(a,r,u)=>(r[0]-a[0])*(u[1]-a[1])-(r[1]-a[1])*(u[0]-a[0]),e=[],o=[];for(let a of n){for(;e.length>=2&&s(e[e.length-2],e[e.length-1],a)<=0;)e.pop();e.push(a)}for(let a of n.reverse()){for(;o.length>=2&&s(o[o.length-2],o[o.length-1],a)<=0;)o.pop();o.push(a)}return e.slice(0,-1).concat(o.slice(0,-1))}function C(t,n,s){if(t.elevation<=v)return[];let[e,o]=Q(t.azimuth,n),a=1/Math.tan(t.elevation*j);return V(s).map(r=>X([...r.pts,...r.pts.map(([u,i])=>[u+e*r.h*a,i+o*r.h*a])]))}function tt(t,n){if(n.length<3)return!1;for(let s=0;s<n.length;s++){let e=n[s],o=n[(s+1)%n.length];if((o[0]-e[0])*(t[1]-e[1])-(o[1]-e[1])*(t[0]-e[0])<-1e-9)return!1}return!0}var F=(t,n,s)=>n.elevation>v&&!s.some(e=>tt(t,e));function Y(t){let n=Math.max(4,Math.min(24,Math.round(t.width))),s=Math.max(4,Math.min(40,Math.round(t.length))),e=t.width/n,o=t.length/s;return{nx:n,ny:s,cw:e,ch:o,centre:(a,r)=>[(a+.5)*e,(r+.5)*o]}}function G(t,n,s,e,o,a=20){let r=Y(t),u=new Array(r.nx*r.ny).fill(0);for(let i=240;i<=1320;i+=a){let d=_(z({year:e,month:o,day:21,hour:Math.floor(i/60),minute:i%60},s.tz),s.lat,s.lng);if(d.elevation<=v)continue;let M=C(d,n,t);for(let y=0;y<r.ny;y++)for(let x=0;x<r.nx;x++)F(r.centre(x,y),d,M)&&(u[y*r.nx+x]+=a/60)}return{nx:r.nx,ny:r.ny,hours:u.map(i=>Math.round(i*10)/10)}}function L(t){let n=o=>{let a=0,r=0;for(let u=0;u<t.ny;u++)for(let i=0;i<t.nx;i++)o(i,u)&&(a+=t.hours[u*t.nx+i],r++);return r?Math.round(a/r*2)/2:0},s=t.ny/3,e=Math.max(1,Math.floor(t.nx/4));return{near:n((o,a)=>a<s),middle:n((o,a)=>a>=s&&a<2*s),far:n((o,a)=>a>=2*s),left:n(o=>o<e),right:n(o=>o>=t.nx-e)}}function I(t){if(t<.25)return"no direct sun";if(t<.75)return"about half an hour";let n=Math.round(t*2)/2;return`about ${Number.isInteger(n)?n:n.toFixed(1)} ${n===1?"hour":"hours"}`}function q(t,n){let s=t.far>=t.near?`On 21 ${n} the far end gets ${I(t.far)} of sun, the part by the house ${I(t.near)}.`:`On 21 ${n} the part by the house gets ${I(t.near)} of sun, the far end ${I(t.far)}.`,e=Math.abs(t.left-t.right),o=e>=1?` The ${t.left>t.right?"left":"right"}-hand border gets ${I(e)} more.`:"";return s+o}function R(t,n){if(t.elevation<=0)return"The sun has set.";if(t.elevation<=v)return`The sun is on the horizon in the ${O(t.azimuth)}; the garden is in shade.`;let s=Math.round(n*10)*10;return`The sun is ${Math.round(t.elevation)}\xB0 up in the ${O(t.azimuth)}. ${s===0?"The whole garden is in shade":s===100?"The whole garden is in sun":`About ${s}% of the garden is in sun`}.`}function B(t,n,s){let e=Y(t),o=C(n,s,t),a=0;for(let r=0;r<e.ny;r++)for(let u=0;u<e.nx;u++)F(e.centre(u,r),n,o)&&a++;return a/(e.nx*e.ny)}function K(t,n){return t==="plan"?(s,e)=>[s,n.length-e]:(s,e,o=0)=>[s+e*.42,(n.length-e)*.6-o]}var E=6,nt=t=>t<1?0:t<2?1:t<3?2:t<4.5?3:t<6?4:t<8?5:6,f=t=>Math.round(t*100)/100,N=t=>t.map(([n,s])=>`${f(n)},${f(s)}`).join(" ");function Z(t){let{g:n,view:s}=t,e=K(s,n),o=Y(n),a=t.id??"ss",r=[],u=(c,h,m=0)=>`<polygon class="${h}" points="${N(c.map(([g,T])=>e(g,T,m)))}"/>`,i=n.width,d=n.length;r.push(`<defs><clipPath id="${a}-clip"><polygon points="${N([[0,0],[i,0],[i,d],[0,d]].map(([c,h])=>e(c,h)))}"/></clipPath></defs>`),r.push('<g class="gd-ss-cells">');for(let c=0;c<o.ny;c++)for(let h=0;h<o.nx;h++){let m=h*o.cw,g=c*o.ch,T=t.hours.hours[c*o.nx+h]??0;r.push(u([[m,g],[m+o.cw,g],[m+o.cw,g+o.ch],[m,g+o.ch]],`gd-ss-h${nt(T)}`))}if(r.push("</g>"),t.sun){let c=t.sun.elevation>3?C(t.sun,t.facing,n):null;if(r.push(`<g class="gd-ss-shades" clip-path="url(#${a}-clip)">`),!c)r.push(u([[0,0],[i,0],[i,d],[0,d]],"gd-ss-shade"));else for(let h of c)r.push(u(h,"gd-ss-shade"));r.push("</g>")}let M=[[[0,0],[0,d]],[[0,d],[i,d]],[[i,d],[i,0]]];if(s==="plan")r.push(`<polyline class="gd-ss-fence" points="${N(M.flat().map(([c,h])=>e(c,h)))}"/>`),r.push(u([[0,-E],[i,-E],[i,0],[0,0]],"gd-ss-house")),r.push(`<text class="gd-ss-label" x="${f(i/2)}" y="${f(d+E/2)}" text-anchor="middle" dominant-baseline="middle">House</text>`);else{for(let[m,g]of[M[1],M[0],M[2]]){let[T,b]=[m,g];r.push(`<polygon class="gd-ss-fence3" points="${N([e(T[0],T[1],0),e(b[0],b[1],0),e(b[0],b[1],n.fence),e(T[0],T[1],n.fence)])}"/>`)}let c=n.house,h=-E;r.push(`<polygon class="gd-ss-house-side" points="${N([e(0,h,0),e(i,h,0),e(i,h,c),e(0,h,c)])}"/>`),r.push(`<polygon class="gd-ss-house-top" points="${N([e(0,0,c),e(i,0,c),e(i,h,c),e(0,h,c)])}"/>`),r.push(`<polyline class="gd-ss-house-edge" points="${N([e(0,0,c),e(0,0,0),e(i,0,0),e(i,0,c)])}"/>`)}let y=-t.facing*Math.PI/180,x=Math.sin(y),w=Math.cos(y),p=e(i+2.2,d-1.5),$=s==="plan"?[p[0]+x*1.4,p[1]-w*1.4]:[p[0]+(x+w*.42)*1.2,p[1]-w*.6*1.2];if(r.push(`<g class="gd-ss-north"><line x1="${f(p[0])}" y1="${f(p[1])}" x2="${f($[0])}" y2="${f($[1])}"/><text x="${f($[0]+($[0]-p[0])*.6)}" y="${f($[1]+($[1]-p[1])*.6)}" text-anchor="middle" dominant-baseline="middle">N</text></g>`),t.spot){let c=e(t.spot[0],t.spot[1]);r.push(`<circle class="gd-ss-spot" cx="${f(c[0])}" cy="${f(c[1])}" r="0.55"/>`)}let S=[[0,0,0],[i,0,0],[i,d,0],[0,d,0],[0,-E,0],[i,-E,0],[0,-E,n.house],[i,0,n.house],[i,d,n.fence],[0,d,n.fence]].map(([c,h,m])=>e(c,h,s==="3d"?m:0));S.push([p[0]+2,p[1]-2],[p[0]+2,p[1]+2]);let U=S.map(c=>c[0]),D=S.map(c=>c[1]),A=1,P=`${f(Math.min(...U)-A)} ${f(Math.min(...D)-A)} ${f(Math.max(...U)-Math.min(...U)+2*A)} ${f(Math.max(...D)-Math.min(...D)+2*A)}`;return{svg:r.join(""),viewBox:P}}window.TG={drawGarden:Z,sunHours:G,FACINGS:k,parts:L,dayWords:q,momentWords:R,sunnyShare:B,compass:O,solarAngles:H,sunPosition:_};})();</script>
+<script>
+(() => {
+  const T = window.TG, AT = { lat: 51.463, lng: -0.298, tz: "Europe/London" };
+  const G = { width: 8, length: 18, house: 8, fence: 1.8, facing: "SW" }, FACE = T.FACINGS.SW;
+  const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Richmond's wall clock: the parts of a moment there, and the moment for a wall time there.
+  const fmt = new Intl.DateTimeFormat("en-GB", { timeZone: AT.tz, year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric", hourCycle: "h23" });
+  const partsOf = (ms) => Object.fromEntries(fmt.formatToParts(ms).filter((p) => p.type !== "literal").map((p) => [p.type, Number(p.value)]));
+  const msFor = (y, m, d, min) => {
+    let guess = Date.UTC(y, m - 1, d, 0, min);
+    for (let i = 0; i < 2; i++) { const p = partsOf(guess); guess += (Date.UTC(y, m - 1, d, 0, min) - Date.UTC(p.year, p.month - 1, p.day, p.hour, p.minute)); }
+    return guess;
+  };
+  const clock = (min) => { const h = Math.floor(min / 60), m = min % 60; return `${((h + 11) % 12) + 1}${m ? ":" + String(m).padStart(2, "0") : ""} ${h < 12 ? "am" : "pm"}`; };
+  const ROMAN = ["XII","I","II","III","IV","V","VI","VII","VIII","IX","X","XI"];
+  // sunrise and sunset (the sun's centre 0.833° below the horizon), and the moment it is highest
+  const dayOf = (y, m, d) => {
+    let rise = null, set = null, noon = 0, top = -90, prev = null;
+    for (let min = 0; min <= 1440; min += 1) {
+      const e = T.solarAngles(msFor(y, m, d, min), AT.lat, AT.lng).elevation;
+      if (e > top) { top = e; noon = min; }
+      // the crossing, between this minute and the last, to the nearest minute
+      if (prev !== null) { const at = Math.round(min - 1 + (-0.833 - prev) / (e - prev)); if (prev < -0.833 && e >= -0.833) rise = at; if (prev >= -0.833 && e < -0.833) set = at; }
+      prev = e;
+    }
+    return { rise, set, noon };
+  };
+
+  // ---------- the hero: the example garden at the hour set ----------
+  const dawn = document.querySelector("[data-dawn]"), svg = document.querySelector("[data-garden]"), words = document.querySelector("[data-words]");
+  const range = document.querySelector("[data-hour]"), nowLine = document.querySelector("[data-now]"), ticks = document.querySelector("[data-ticks]");
+  const now = partsOf(Date.now()), today = { y: now.year, m: now.month, d: now.day };
+  const nextDay = (dt) => { const p = partsOf(msFor(dt.y, dt.m, dt.d, 720) + 86400000); return { y: p.year, m: p.month, d: p.day }; };
+  let day = "today";
+  const date = () => day === "today" ? today : { y: today.y, m: Number(day), d: 21 };
+  const hoursCache = {};
+  const hoursFor = (m) => hoursCache[m] ??= T.sunHours(G, FACE, AT, today.y, m);
+  for (let h = 4; h <= 22; h += 2) {
+    const s = document.createElement("span"); s.style.left = `${(h * 60 / 1435) * 100}%`;
+    s.innerHTML = `<i></i>${ROMAN[h % 12]}`; ticks.append(s);
+  }
+  const render = () => {
+    const dt = date(), min = Number(range.value), ms = msFor(dt.y, dt.m, dt.d, min);
+    const sun = T.sunPosition(ms, AT.lat, AT.lng);
+    const out = T.drawGarden({ g: G, facing: FACE, view: "3d", hours: hoursFor(dt.m), sun, id: "tg" });
+    svg.setAttribute("viewBox", out.viewBox); svg.innerHTML = out.svg;
+    const e = sun.elevation;
+    dawn.dataset.light = e < -4 ? "night" : e < 1 ? "dusk" : e < 12 ? "low" : "day";
+    const when = `${clock(min)}, ${dt.d} ${MONTHS[dt.m - 1]}`;
+    words.textContent = `${when}. ` + (e > 3 ? T.momentWords(sun, T.sunnyShare(G, sun, FACE)) : e > 0 ? T.momentWords(sun, 0) : "The sun is below the horizon; the garden is dark.");
+    range.setAttribute("aria-valuetext", clock(min));
+  };
+  const setLine = () => {
+    const d = dayOf(today.y, today.m, today.d), nowMin = now.hour * 60 + now.minute;
+    nowLine.textContent = nowMin < d.rise ? `In Richmond it is ${clock(nowMin)}; the sun rises at ${clock(d.rise)}.`
+      : nowMin > d.set ? `In Richmond it is ${clock(nowMin)}; the sun set at ${clock(d.set)}.`
+      : `In Richmond it is ${clock(nowMin)}; the sun sets at ${clock(d.set)}.`;
+    range.value = String(Math.round(nowMin / 5) * 5);
+  };
+  setLine(); render();
+  let raf = 0;
+  range.addEventListener("input", () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(render); });
+  // Watch the day: sunrise to sunset in twelve seconds, stopped by any touch of the hour
+  const playBtn = document.querySelector("[data-play-day]");
+  let playing = 0;
+  const stop = () => { cancelAnimationFrame(playing); playing = 0; playBtn.setAttribute("aria-pressed", "false"); playBtn.textContent = "Watch the day"; };
+  playBtn.addEventListener("click", () => {
+    if (playing) return stop();
+    const dt = date(), d = dayOf(dt.y, dt.m, dt.d), from = d.rise - 30, to = d.set + 30, t0 = performance.now(), dur = reduce ? 1 : 12000;
+    playBtn.setAttribute("aria-pressed", "true"); playBtn.textContent = "Stop";
+    const step = (t) => { const k = Math.min(1, (t - t0) / dur); range.value = String(Math.round((from + (to - from) * k) / 5) * 5); render(); playing = k < 1 ? requestAnimationFrame(step) : (stop(), 0); };
+    playing = requestAnimationFrame(step);
+  });
+  range.addEventListener("pointerdown", () => playing && stop());
+  document.querySelector(".days").addEventListener("click", (ev) => {
+    const b = ev.target.closest("[data-day]"); if (!b) return;
+    if (playing) stop();
+    document.querySelectorAll("[data-day]").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+    day = b.dataset.day;
+    if (day !== "today") { const d = dayOf(today.y, Number(day), 21); range.value = String(Math.round(Math.min(d.set - 60, Math.max(d.rise + 60, Number(range.value))) / 5) * 5); }
+    else range.value = String(Math.round((now.hour * 60 + now.minute) / 5) * 5);
+    render();
+  });
+
+  // ---------- the dial: true hour lines for a horizontal sundial at Richmond ----------
+  const phi = AT.lat * Math.PI / 180, R = 470;
+  const lineAngle = (ha) => Math.atan(Math.sin(phi) * Math.tan(ha * Math.PI / 180)); // radians from the noon line
+  const at = (a, r) => [r * Math.sin(a), -r * Math.cos(a)];
+  const fan = document.querySelector("[data-fan]");
+  const CH = { 6: ["vi", "VI"], 8: ["viii", "VIII"], 10: ["x", "X"], 12: ["xii", "XII"], 14: ["ii", "II"], 16: ["iv", "IV"], 18: ["vi-pm", "VI"] };
+  const NAMES = { 6: "The year", 8: "The studio's month", 10: "The sample table", 12: "Where the sun falls", 14: "Care on the year", 16: "Ready by", 18: "Do I need permission?" };
+  let f = `<path class="ring" d="M ${-R} 0 A ${R} ${R} 0 0 1 ${R} 0"/>`;
+  for (let h = 6; h <= 18; h += 0.5) {
+    const a = h === 6 ? -Math.PI / 2 : h === 18 ? Math.PI / 2 : lineAngle((h - 12) * 15);
+    const [x, y] = at(a, R);
+    if (h % 1) { const [x0, y0] = at(a, R - 26); f += `<line class="half" x1="${x0}" y1="${y0}" x2="${x}" y2="${y}"/>`; continue; }
+    const ch = CH[h];
+    f += `<line class="ln${ch ? " ch" : ""}" x1="0" y1="0" x2="${x}" y2="${y}"/>`;
+    const [lx, ly] = at(a, R + 30), anchor = Math.abs(lx) < 30 ? "middle" : lx < 0 ? "end" : "start";
+    const label = `<text x="${lx.toFixed(1)}" y="${(ly + 6).toFixed(1)}" text-anchor="${anchor}">${ch ? ch[1] : ROMAN[h % 12]}</text>`;
+    f += ch ? `<a href="#${ch[0]}" aria-label="${clock(h * 60)}: ${NAMES[h]}">${label}</a>` : `<g aria-hidden="true">${label}</g>`;
+  }
+  f += `<line class="shade" data-shade x1="0" y1="0" x2="0" y2="0"/><path class="gnomon" d="M -9 0 L 9 0 L 0 -22 Z"/>`;
+  fan.innerHTML = f;
+  const shadowWords = document.querySelector("[data-shadow-words]"), shade = fan.querySelector("[data-shade]");
+  const tDay = dayOf(today.y, today.m, today.d);
+  const placeShadow = () => {
+    const p = partsOf(Date.now()), min = p.hour * 60 + p.minute;
+    if (min < tDay.rise || min > tDay.set) {
+      const back = min > tDay.set ? dayOf(...Object.values(nextDay(today))).rise : tDay.rise;
+      shade.style.opacity = 0; shadowWords.textContent = `It is night in Richmond. The shadow comes back to this dial at ${clock(back)}.`; return;
+    }
+    // more than six hours from noon (summer mornings and evenings) the shadow lies along the VI line on its own side
+    const ha = (min - tDay.noon) / 4, a = Math.abs(ha) >= 90 ? Math.sign(ha) * Math.PI / 2 : lineAngle(ha);
+    const [x, y] = at(a, R * 0.86);
+    shade.setAttribute("x2", x.toFixed(1)); shade.setAttribute("y2", y.toFixed(1)); shade.style.opacity = "";
+    shadowWords.textContent = `The grey line is the shadow in Richmond now, at ${clock(min)}.`;
+  };
+  placeShadow(); setInterval(placeShadow, 60000);
+
+  // ---------- three days: the hours of light on each dial, and their length ----------
+  document.querySelectorAll("[data-day-dial]").forEach((el) => {
+    const m = Number(el.dataset.dayDial), d = dayOf(today.y, m, m === 3 ? 20 : 21), r = 190;
+    let s = "";
+    for (let h = 6; h <= 18; h++) {
+      const ha = (h * 60 - 720 + (720 - d.noon)) / 4; // the line for this clock hour, by the sun
+      const a = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, Math.abs(ha) >= 90 ? Math.sign(ha) * Math.PI / 2 : lineAngle(ha)));
+      const [x, y] = at(a, r), on = h * 60 >= d.rise && h * 60 <= d.set;
+      s += `<line class="${on ? "lit" : "unlit"}" x1="0" y1="0" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}"/>`;
+    }
+    el.innerHTML = s + `<circle cx="0" cy="0" r="5"/>`;
+    const len = d.set - d.rise;
+    document.querySelector(`[data-len="${m}"]`).textContent = `${Math.floor(len / 60)} hours ${len % 60} minutes of daylight, ${clock(d.rise)} to ${clock(d.set)}.`;
+  });
+
+  // ---------- speed: how far a fence's shadow moves while the home page loads ----------
+  {
+    const p = partsOf(Date.now()), min = p.hour * 60 + p.minute, use = min > tDay.rise + 30 && min < tDay.set - 30 ? min : tDay.noon;
+    const t0 = msFor(today.y, today.m, today.d, use), a = T.solarAngles(t0, AT.lat, AT.lng), b = T.solarAngles(t0 + 1700, AT.lat, AT.lng);
+    const L = (e) => 1.8 / Math.tan(e * Math.PI / 180);
+    const dx = L(b.elevation) * Math.sin(b.azimuth * Math.PI / 180) - L(a.elevation) * Math.sin(a.azimuth * Math.PI / 180);
+    const dy = L(b.elevation) * Math.cos(b.azimuth * Math.PI / 180) - L(a.elevation) * Math.cos(a.azimuth * Math.PI / 180);
+    const mm = Math.hypot(dx, dy) * 1000;
+    document.querySelector("[data-moves]").textContent = `Tollgarth's home page shows its first photograph in about 1.7 seconds on a phone. In that time, at ${clock(use)} today in Richmond, the shadow of a 1.8 metre fence moves ${mm < 1 ? "less than a millimetre" : `about ${mm.toFixed(1)} millimetres`}.`;
+  }
+
+  // ---------- clips play while on screen ----------
+  // a named Pause and Play for every clip; a paused clip stays paused (with reduced motion, clips start paused)
+  const clips = [...document.querySelectorAll("[data-clip]")];
+  document.querySelectorAll("[data-tap]").forEach((b) => {
+    const v = b.parentElement.querySelector("video"), name = b.dataset.name;
+    if (reduce) v.dataset.held = "1";
+    const label = () => { const off = v.dataset.held === "1"; b.textContent = off ? "Play" : "Pause"; b.setAttribute("aria-label", `${off ? "Play" : "Pause"} the ${name} clip`); };
+    b.hidden = false; label();
+    b.addEventListener("click", () => { if (v.dataset.held === "1") { delete v.dataset.held; v.play().catch(() => {}); } else { v.dataset.held = "1"; v.pause(); } label(); });
+  });
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting && e.target.dataset.held !== "1") e.target.play().catch(() => {}); else e.target.pause(); }), { threshold: 0.35 });
+  clips.forEach((v) => io.observe(v));
+})();
+</script>

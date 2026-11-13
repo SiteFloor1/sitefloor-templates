@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: occasions
+permalink: occasions.html
+feature: occasions
+eleventyComputed:
+  title: "{{ site.occasions.title | plain }}"
+  description: "{{ site.occasions.description or ('Pieces for the occasions ahead, from ' + site.business.name + ', ' + site.location.locality + '.') }}"
+---
+{% include "kits/jeweller/features/occasions/occasions.njk" %}

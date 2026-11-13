@@ -1,0 +1,21 @@
+{#- Projects: finished jobs, filtered by kind of work (native radio buttons; every project shows without JavaScript). -#}
+{%- set pj = site.projects %}
+<section class="el-projects" data-feature="projects-page" aria-label="Projects"><div class="wrap">
+  <div class="el-filter" role="radiogroup" aria-label="Kind of work" data-js-only>
+    <button type="button" role="radio" data-type="" aria-checked="true">All work</button>
+    {%- for t in pj.types %}<button type="button" role="radio" data-type="{{ t.id }}" aria-checked="false">{{ t.label }}</button>{% endfor %}
+  </div>
+  <ul class="el-proj-grid">
+    {%- for p in pj.items %}
+    <li class="el-proj" data-proj-type="{{ p.type }}">
+      <figure><img src="{{ p.photo.src | img }}" alt="{{ p.photo.alt }}" width="{{ p.photo.width }}" height="{{ p.photo.height }}" loading="lazy" decoding="async"></figure>
+      <div class="el-proj-t">
+        <p class="el-proj-k">{{ p.area }} · {% for t in pj.types %}{% if t.id == p.type %}{{ t.label }}{% endif %}{% endfor %}</p>
+        <h2>{{ p.title }}</h2>
+        <ul class="el-proj-did">{% for d in p.did %}<li>{{ d }}</li>{% endfor %}</ul>
+      </div>
+    </li>
+    {%- endfor %}
+  </ul>
+  <p class="el-proj-none" data-proj-none hidden>None of that kind yet. <button type="button" data-type="">See all work</button></p>
+</div></section>

@@ -1,0 +1,471 @@
+<title>Morrow Case Study</title>
+<meta charset="utf-8">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Onest:wght@400;500;600&family=Manrope:wght@600;700&display=swap">
+<style>
+/* Layout: one weekday at Morrow's counter, 7:30am to 4pm. A clock column runs down the left; each hour of the café's
+   day brings the feature its customers use then. In Morrow's own world: daylight oat walls, espresso ink, tiled
+   teal-green, brass hairlines, steamed-milk panels, a butter tag for a fresh tray; Gloock headings, Onest text.
+   Quiet and scannable, like the café's site. One light look. */
+:root {
+  --oat: #F3ECDF; --milk: #FBF8F2; --oat-2: #EAE0CE; --ink: #1C1714; --ink-soft: #574C43;
+  --tile: #1E6B5C; --tile-2: #175548; --tile-soft: #9DC2B8; --grout: #E2D7C3; --brass: #A88A4C; --butter: #F2D88A;
+  --line: rgba(28,23,20,.12); --line-2: rgba(28,23,20,.22);
+  --display: "Gloock", Georgia, serif;
+  --body: "Onest", "Segoe UI", Helvetica, Arial, sans-serif;
+  --brand: "Manrope", "Helvetica Neue", Arial, sans-serif;
+  --sf-paper: #FBFAF7; --sf-ink: #0E0F11; --sf-tomato: #E8613C; --sf-line: rgba(14,15,17,.12);
+  --soft: cubic-bezier(.22,.61,.36,1);
+  color-scheme: light;
+}
+*, *::before, *::after { box-sizing: border-box; }
+body { background: var(--oat); color: var(--ink); font: 400 17px/1.6 var(--body); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--sf-paper); }
+a { color: inherit; }
+img, video { display: block; max-width: 100%; height: auto; }
+.gut { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { width: min(1180px, 100%); margin-inline: auto; }
+h1, h2, h3 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap: balance; letter-spacing: -.01em; }
+p { margin: 0; }
+.tag { font: 600 11.5px var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--tile); }
+.tag.sig, .tag.plus { color: var(--tile); }
+.tag.sig::after { content: " ●"; color: var(--brass); }
+:focus-visible { outline: 2px solid var(--tile); outline-offset: 3px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Sitefloor's own bar, as on the Sitefloor site and the other case studies */
+.sfbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--sf-paper); color: var(--sf-ink); border-bottom: 1px solid var(--sf-line); }
+.sfbar .wrap { display: flex; justify-content: space-between; align-items: center; height: 66px; gap: 16px; }
+.wm { display: flex; align-items: baseline; font-family: var(--brand); font-weight: 600; font-size: 24px; letter-spacing: -.045em; text-decoration: none; color: var(--sf-ink); }
+.wm svg { margin: 0 1px; overflow: visible; }
+.sfbar nav { display: flex; gap: 28px; font-family: var(--brand); font-size: 14px; font-weight: 600; }
+.sfbar nav a { text-decoration: none; color: var(--sf-ink); }
+.sfbar nav a[aria-current] { box-shadow: inset 0 -1.5px 0 var(--sf-ink); }
+.sfbtn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 20px; background: var(--sf-ink); color: var(--sf-paper); font: 700 12px var(--brand); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; }
+.sfbtn:hover { background: var(--sf-tomato); }
+@media (max-width: 760px) { .sfbar nav { display: none; } }
+@media (max-width: 420px) { .sfbar .sfbtn { display: none; } }
+
+/* the tile frieze: Morrow's teal tiles as a thin band */
+.frieze { height: 14px; background:
+  linear-gradient(90deg, var(--tile) 0 calc(100% - 2px), var(--grout) 0) 0 0 / 28px 14px; border-block: 2px solid var(--grout); }
+
+/* hero */
+.hero { padding-block: clamp(40px, 6vw, 84px) clamp(40px, 5vw, 64px); display: grid; gap: clamp(28px, 4vw, 48px); }
+.hero-top { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 14px 56px; align-items: end; }
+.hero-tx { display: grid; gap: 16px; align-content: end; }
+.arch { margin: 0; justify-self: end; width: min(340px, 100%); max-width: 100%; aspect-ratio: 2 / 3; border-radius: 999px 999px 18px 18px; overflow: hidden; box-shadow: 0 0 0 1px var(--brass), 0 0 0 7px var(--oat), 0 0 0 8px var(--brass); }
+.arch img { width: 100%; height: 100%; object-fit: cover; }
+.hero h1 { font-size: clamp(64px, 10vw, 132px); line-height: .9; }
+.hero h1 span { position: relative; color: var(--tile); }
+.hero .lede { font-family: var(--display); font-size: clamp(24px, 2.6vw, 34px); line-height: 1.18; max-width: 24ch; }
+.hero .meta { font-size: 16px; color: var(--ink-soft); max-width: 40ch; }
+.day { background: var(--milk); border-radius: 18px; padding: clamp(18px, 2.4vw, 30px); box-shadow: 0 0 0 1px var(--line); }
+.day-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 20px; align-items: flex-start; margin-bottom: 8px; }
+.day-head b { font-family: var(--display); font-weight: 400; font-size: clamp(22px, 2vw, 28px); }
+.day-head span { font-size: 14px; color: var(--ink-soft); }
+.days { display: flex; flex-wrap: wrap; gap: 4px; }
+.days button { min-height: 36px; min-width: 44px; padding: 0 10px; border-radius: 10px; border: 1px solid var(--line-2); background: none; color: var(--ink); font: 500 13px var(--body); cursor: pointer; }
+.days button[aria-pressed="true"] { background: var(--tile); border-color: var(--tile); color: var(--milk); }
+.bars { display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); gap: clamp(4px, 1vw, 10px); align-items: end; height: clamp(130px, 16vw, 190px); margin-top: 18px; border-bottom: 1px solid var(--line-2); }
+.bar { position: relative; height: 100%; display: flex; align-items: flex-end; }
+.bar i { display: block; width: 100%; height: var(--h, 4%); border-radius: 8px 8px 0 0; background: var(--grout); transition: height 1s var(--soft); }
+.bar[data-l="1"] i { background: var(--tile-soft); }
+.bar[data-l="2"] i { background: var(--tile); }
+.bar[data-l="3"] i { background: var(--tile-2); }
+.bar.closed i { background: repeating-linear-gradient(135deg, var(--oat-2) 0 4px, transparent 4px 8px); }
+.bar.now i { outline: 2px solid var(--brass); outline-offset: 3px; }
+.bar b { position: absolute; left: 50%; top: 0; transform: translateX(-50%); font: 600 10.5px var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--ink); background: var(--butter); padding: 1px 6px; border-radius: 4px; white-space: nowrap; }
+.hours { display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); gap: clamp(4px, 1vw, 10px); margin-top: 8px; font-size: 13px; font-variant-numeric: tabular-nums; color: var(--ink-soft); text-align: center; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 14px; font-size: 13px; color: var(--ink-soft); }
+.legend span::before { content: ""; display: inline-block; width: 11px; height: 11px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; background: var(--c); }
+.word { color: var(--tile); font-weight: 600; }
+
+/* the clock column */
+.hour { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); gap: clamp(20px, 4vw, 56px); padding-block: clamp(52px, 7vw, 96px); border-top: 1px solid var(--line-2); }
+.clock { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 86px); align-self: start; display: grid; gap: 4px; }
+.clock time { font-family: var(--display); font-size: clamp(48px, 6vw, 84px); line-height: .9; color: var(--tile); font-variant-numeric: lining-nums; }
+.clock time small { font-family: var(--body); font-size: .26em; letter-spacing: .06em; margin-left: 4px; color: var(--ink-soft); }
+.clock span { font-size: 14.5px; color: var(--ink-soft); padding-top: 8px; border-top: 1px solid var(--brass); width: fit-content; }
+.body { display: grid; gap: clamp(26px, 3.4vw, 40px); min-width: 0; }
+.body h2 { font-size: clamp(34px, 4.2vw, 54px); line-height: 1.02; }
+.body .intro { font-size: 18px; max-width: 56ch; color: var(--ink-soft); }
+.feat { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(20px, 3vw, 44px); align-items: start; }
+.feat .tx { display: grid; gap: 10px; align-content: start; }
+.feat h3 { font-size: clamp(25px, 2.4vw, 32px); line-height: 1.05; }
+.feat p { color: var(--ink-soft); max-width: 46ch; }
+.feat ul { margin: 0; padding-left: 1.1em; color: var(--ink-soft); display: grid; gap: 4px; }
+.pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: clamp(20px, 3vw, 36px); }
+.pair > div { display: grid; gap: 8px; align-content: start; padding-top: 14px; border-top: 1px solid var(--line); }
+.pair h3 { font-size: 24px; line-height: 1.08; }
+.pair p { color: var(--ink-soft); font-size: 16px; }
+
+/* phone */
+.figure { display: grid; justify-items: center; gap: 12px; }
+.phone { position: relative; width: min(280px, 100%); aspect-ratio: 390 / 844; border-radius: 40px; padding: 9px; background: #1C1714; max-width: 100%; box-shadow: 0 30px 60px -36px var(--ink); }
+.phone video { width: 100%; height: 100%; object-fit: cover; border-radius: 32px; background: var(--milk); }
+.phone::before { content: ""; position: absolute; top: 18px; left: 50%; width: 30%; height: 22px; transform: translateX(-50%); background: #1C1714; border-radius: 20px; z-index: 1; }
+.pause { display: inline-flex; align-items: center; gap: 10px; min-height: 40px; padding: 0 14px; border-radius: 10px; border: 1px solid var(--line-2); background: var(--milk); color: var(--ink); font: 500 13px var(--body); cursor: pointer; }
+.pause::before { content: ""; width: 7px; height: 10px; border-left: 2.5px solid currentColor; border-right: 2.5px solid currentColor; }
+.pause[aria-pressed="true"]::before { width: 0; height: 0; border: 0; border-left: 9px solid currentColor; border-top: 5.5px solid transparent; border-bottom: 5.5px solid transparent; }
+
+/* trays */
+.tray { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; background: var(--milk); border-radius: 16px; padding: 16px 14px 14px; box-shadow: 0 0 0 1px var(--line); }
+.tray figure { margin: 0; display: grid; gap: 6px; position: relative; }
+.tray img { border-radius: 12px; aspect-ratio: 1; object-fit: cover; width: 100%; }
+.tray figcaption { font-size: 13.5px; line-height: 1.3; }
+.tray figcaption b { display: block; font-weight: 500; }
+.tray .tick { position: absolute; top: 8px; left: 8px; background: var(--milk); border-radius: 6px; padding: 2px 7px; font: 600 10.5px var(--body); white-space: nowrap; }
+.tray .fresh .tick { background: var(--butter); }
+.tray .out img { filter: grayscale(.85); opacity: .6; }
+.tray .out .tick { background: var(--ink); color: var(--milk); }
+
+/* work here */
+.yesno { list-style: none; margin: 4px 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 20px; }
+.yesno li { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 15.5px; }
+.yesno b { font: 600 11px var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--tile); align-self: center; }
+.photo { border-radius: 16px; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+
+/* stamp card (mini demo) */
+.card { background: var(--milk); border-radius: 16px; padding: clamp(18px, 2.4vw, 26px); display: grid; gap: 16px; box-shadow: 0 0 0 1px var(--line), inset 0 0 0 7px var(--milk), inset 0 0 0 8px var(--brass-hi, #D6BE88); }
+.card h4 { margin: 0; font-family: var(--display); font-weight: 400; font-size: 24px; }
+.stamps { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 8px; }
+.stamp { aspect-ratio: 1; border-radius: 50%; border: 1.5px dashed var(--line-2); display: grid; place-items: center; font: 600 10px var(--body); color: var(--ink-soft); transition: background-color .4s var(--soft), border-color .4s var(--soft); }
+.stamp.on { border: 1.5px solid var(--tile); background: radial-gradient(circle, var(--tile) 0 36%, transparent 38%); }
+.stamp.free { border-style: solid; border-color: var(--brass); }
+.card label { display: grid; gap: 6px; font-size: 15px; }
+.card input[type="range"] { width: 100%; accent-color: var(--tile); }
+.card output { font-size: 17px; }
+.card output b { color: var(--tile); font-weight: 600; }
+
+/* figures */
+.figs { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 24px; border-top: 1px solid var(--brass); }
+.figs li { padding: 18px 0 20px; border-bottom: 1px solid var(--line); display: grid; gap: 4px; align-content: start; }
+.figs b { font-family: var(--display); font-weight: 400; font-size: clamp(40px, 4.4vw, 58px); line-height: .95; font-variant-numeric: tabular-nums; color: var(--tile); }
+.figs b small { font-family: var(--body); font-size: .32em; color: var(--ink-soft); }
+.figs span { font-size: 14.5px; color: var(--ink-soft); max-width: 30ch; }
+
+/* plans */
+.plans { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.pl { background: var(--milk); border-radius: 16px; padding: 22px 20px; display: grid; gap: 10px; align-content: start; box-shadow: 0 0 0 1px var(--line); }
+.pl.sig { background: var(--tile); color: var(--milk); box-shadow: none; }
+.pl h3 { font-size: 32px; }
+.pl .pr { font-size: 15px; color: var(--ink-soft); }
+.pl.sig .pr { color: #D7E7E2; }
+.pl .pr b { font-family: var(--display); font-weight: 400; font-size: 28px; color: var(--ink); }
+.pl.sig .pr b { color: var(--milk); }
+.pl ul { margin: 0; padding-left: 1.1em; display: grid; gap: 4px; font-size: 15.5px; }
+.fine { font-size: 14.5px; color: var(--ink-soft); }
+
+/* close */
+.close { padding-block: clamp(60px, 8vw, 110px); border-top: 1px solid var(--line-2); text-align: center; }
+.close h2 { font-size: clamp(46px, 7vw, 96px); line-height: .95; }
+.close p { max-width: 46ch; color: var(--ink-soft); }
+.cta { display: flex; flex-wrap: wrap; gap: 12px 20px; justify-content: center; align-items: center; }
+.btn { display: inline-flex; align-items: center; min-height: 52px; padding: 0 24px; border-radius: 14px; font: 600 15px var(--body); text-decoration: none; }
+.btn.fill { background: var(--tile); color: var(--milk); box-shadow: inset 0 0 0 2px var(--ink), inset 0 0 0 4.5px var(--tile), inset 0 0 0 5.5px #D6BE88, 0 4px 0 0 var(--ink); }
+.btn.fill:hover { background: var(--tile-2); }
+.btn.line { box-shadow: inset 0 0 0 1px var(--line-2); }
+.btn.line:hover { background: var(--milk); }
+.mail { font-family: var(--brand); font-weight: 600; font-size: 15px; user-select: all; }
+footer { background: var(--ink); color: #DCD3C5; font-size: 14px; line-height: 1.6; }
+footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px 32px; padding-block: 28px; }
+footer p { max-width: 96ch; }
+
+@media (max-width: 900px) {
+  .hour { grid-template-columns: minmax(0, 1fr); }
+  .clock { position: static; }
+  .feat { grid-template-columns: minmax(0, 1fr); }
+  .figs, .plans { grid-template-columns: minmax(0, 1fr); }
+  .hero-top { grid-template-columns: minmax(0, 1fr); }
+  .arch { justify-self: start; width: min(260px, 80%); }
+}
+@media (max-width: 560px) {
+  .hours { font-size: 10.5px; }
+  .yesno { grid-template-columns: minmax(0, 1fr); }
+  .stamps { gap: 5px; }
+  .bar b { font-size: 9px; letter-spacing: .04em; }
+  footer .wrap { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bar i, .stamp { transition: none; }
+}
+</style>
+
+<div class="sfbar gut"><div class="wrap">
+  <a class="wm" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su" aria-label="Sitefloor home">sitefl<svg width="28" height="14" viewBox="0 0 42 21" aria-hidden="true"><rect x="1.9" y="1.9" width="38.2" height="17.2" rx="8.6" fill="none" stroke="#0E0F11" stroke-width="3.8"/><circle cx="31.5" cy="10.5" r="5.2" fill="#E8613C"/></svg>r</a>
+  <nav aria-label="Main"><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#live">Features</a><a href="#top" aria-current="page">Work</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#pricing">Pricing</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#guides">Guides</a></nav>
+  <a class="sfbtn" href="#mockup"><span>Free mockup</span><span aria-hidden="true">→</span></a>
+</div></div>
+
+<main id="top">
+<section class="gut"><div class="wrap hero">
+  <div class="hero-top">
+    <div class="hero-tx">
+      <p class="tag">Case study · Coffee house · Gloucester Road, Bristol</p>
+      <h1>Morrow</h1>
+      <p class="lede">A neighbourhood café that answers the street's questions before the door opens.</p>
+      <p class="meta">Is it busy? What's fresh? Can I bring the laptop, the dog, the buggy? Will my usual be ready?</p>
+    </div>
+    <figure class="arch"><img src="media/hero-counter.webp" width="1040" height="1560" alt="A glass pastry counter by a sunny window, croissants on the top shelf and buns in the case below"></figure>
+  </div>
+  <div class="day" aria-labelledby="dayH">
+    <div class="day-head">
+      <div><b id="dayH">How busy Morrow usually is</b><br><span id="dayNow">Hour by hour, from the café's own till receipts.</span></div>
+      <div class="days" role="group" aria-label="Day of the week">
+        <button type="button" data-d="mon" aria-pressed="false">Mon</button><button type="button" data-d="tue" aria-pressed="false">Tue</button><button type="button" data-d="wed" aria-pressed="true">Wed</button><button type="button" data-d="thu" aria-pressed="false">Thu</button><button type="button" data-d="fri" aria-pressed="false">Fri</button><button type="button" data-d="sat" aria-pressed="false">Sat</button><button type="button" data-d="sun" aria-pressed="false">Sun</button>
+      </div>
+    </div>
+    <div class="bars" id="bars"></div>
+    <div class="hours" aria-hidden="true"><span>7am</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>1pm</span><span>2</span><span>3</span></div>
+    <div class="legend" aria-hidden="true"><span style="--c:var(--grout)">Quiet</span><span style="--c:var(--tile-soft)">Steady</span><span style="--c:var(--tile)">Busy</span><span style="--c:var(--tile-2)">Queue at the door</span></div>
+  </div>
+</div></section>
+<div class="frieze" aria-hidden="true"></div>
+
+<section class="gut"><div class="wrap hour" id="h730">
+  <div class="clock"><time>7:30<small>am</small></time><span>The door opens</span></div>
+  <div class="body">
+    <h2>Open now, and until when.</h2>
+    <p class="intro">The first thing anyone checks. Morrow's site says whether it's open this minute, with today's hours, the way from the station, and a banner for the week that switches itself on and off: this week, pumpkin and sage soda bread for bonfire week.</p>
+    <div class="pair">
+      <div><p class="tag">Starter</p><h3>Hours and Plan your visit</h3><p>Open now or closed, today highlighted, the walk from Montpelier station step by step, step-free access and how to pay.</p></div>
+      <div><p class="tag">Starter</p><h3>Seasonal banners</h3><p>Bonfire week, Christmas, half-term: each with its dates, it appears on the first day and goes on the last, and tints the site to match.</p></div>
+      <div><p class="tag">Starter</p><h3>Questions before a first visit</h3><p>Oat milk, dogs, booking for brunch: answered on the home page in the café's own words.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="gut"><div class="wrap hour" id="h810">
+  <div class="clock"><time>8:10<small>am</small></time><span>A tray comes out</span></div>
+  <div class="body">
+    <h2>Fresh out of the oven.</h2>
+    <div class="feat">
+      <div class="figure">
+        <div class="phone"><video id="v1" src="media/case.mp4" poster="media/case.jpg" muted loop playsinline autoplay preload="none" aria-label="Morrow on a phone: the counter, then the glass case with each bake's baking time, and the cardamom knot opened to put one aside"></video></div>
+        <button class="pause" type="button" data-v="v1" aria-pressed="false">Pause the glass case clip</button>
+      </div>
+      <div class="tx">
+        <p class="tag sig">Signature</p>
+        <h3>The glass case</h3>
+        <p>The day's bakes on the café's own counter. When a tray comes out, staff add one line to the Google Sheet they already keep, and the bake lights up "Fresh out 8:10am". Sold out shows as sold out. Tap a bake for its allergens, and ask for one to be put aside.</p>
+        <div class="tray" aria-label="The glass case at noon, as the demo shows it">
+          <figure><img src="media/bake-croissant.webp" width="640" height="640" alt="" loading="lazy"><span class="tick">Baked 10:50am</span><figcaption><b>Butter croissant</b>£3.20</figcaption></figure>
+          <figure class="out"><img src="media/bake-almond.webp" width="640" height="640" alt="" loading="lazy"><span class="tick">Sold out</span><figcaption><b>Almond croissant</b>£3.90</figcaption></figure>
+          <figure class="fresh"><img src="media/bake-knot.webp" width="640" height="640" alt="" loading="lazy"><span class="tick">Baked 8:10am</span><figcaption><b>Cardamom knot</b>£3.60</figcaption></figure>
+        </div>
+        <p class="tag" style="margin-top:10px">Starter</p>
+        <p>Today's board comes from the same sheet: the soda bread special, and anything sold out is marked on the menu too.</p>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section class="gut"><div class="wrap hour" id="h830">
+  <div class="clock"><time>8:30<small>am</small></time><span>The queue, skipped</span></div>
+  <div class="body">
+    <h2>Your usual, ready when you walk in.</h2>
+    <div class="feat">
+      <div class="tx">
+        <p class="tag sig">Signature</p>
+        <h3>Your usual</h3>
+        <p>A cup fills as you build the drink: flat white, oat, an extra shot. The price comes from the café's own list, each milk's allergens from its chart, and a ready time from how long it takes to make. Save it, and next time it's one tap. It goes as an order ahead on WhatsApp, with a bake from the case.</p>
+        <ul><li>Remembered on the phone; no account</li><li>Closed for orders after closing, with when orders open again</li></ul>
+      </div>
+      <div class="figure">
+        <div class="phone"><video id="v2" src="media/usual.mp4" poster="media/usual.jpg" muted loop playsinline autoplay preload="none" aria-label="Your usual on a phone: a flat white with oat milk and an extra shot, the price going from £3.50 to £4.50, then saved as the usual"></video></div>
+        <button class="pause" type="button" data-v="v2" aria-pressed="false">Pause the Your usual clip</button>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section class="gut"><div class="wrap hour" id="h1000">
+  <div class="clock"><time>10:00<small>am</small></time><span>Laptops out</span></div>
+  <div class="body">
+    <h2>Can I work here?</h2>
+    <div class="feat">
+      <div class="tx">
+        <p class="tag plus">Plus</p>
+        <h3>Yes, no, or which</h3>
+        <p>Wifi, sockets, laptops, dogs, kids, buggies, step-free, toilets: answered plainly, with today's quiet stretches for laptops worked out from the café's own numbers.</p>
+        <ul class="yesno" aria-label="Morrow's answers">
+          <li>Wifi<b>Yes</b></li><li>Sockets<b>Some</b></li><li>Laptops<b>Some</b></li><li>Dogs<b>Yes</b></li><li>Buggies<b>Yes</b></li><li>Step-free<b>Yes</b></li>
+        </ul>
+      </div>
+      <img class="photo" src="media/wh-laptop.webp" width="720" height="900" alt="A laptop and a latte on a round café table" loading="lazy">
+    </div>
+    <div class="feat">
+      <div class="figure">
+        <div class="phone"><video id="v3" src="media/seats.mp4" poster="media/seats.jpg" muted loop playsinline autoplay preload="none" aria-label="The seat finder on a phone: asking for a socket by the window lights the window bench, which is then chosen"></video></div>
+        <button class="pause" type="button" data-v="v3" aria-pressed="false">Pause the seat finder clip</button>
+      </div>
+      <div class="tx">
+        <p class="tag sig">Signature</p>
+        <h3>The seat finder</h3>
+        <p>Morrow drawn from its own floor plan. Ask for a socket and the window, and the window bench lights up. The choice goes with an order or a table request, as a preference.</p>
+        <p class="tag sig" style="margin-top:12px">Signature</p>
+        <h3>How busy is it now?</h3>
+        <p>Staff's own word from the sheet while it's fresh; otherwise how busy Morrow usually is at this hour, said as usual, and when it gets quieter today. The chart at the top of this page uses the same numbers.</p>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section class="gut"><div class="wrap hour" id="h1200">
+  <div class="clock"><time>12:00</time><span>Lunch</span></div>
+  <div class="body">
+    <h2>Lunch, with every allergen.</h2>
+    <div class="pair">
+      <div><p class="tag">Starter</p><h3>The menu, by sitting</h3><p>Breakfast, brunch or lunch, whichever is on now. Every dish carries the fourteen allergens from the café's chart, with diet filters, and the menu prints as a PDF.</p></div>
+      <div><p class="tag plus">Plus</p><h3>The full menu, and takeaway</h3><p>A menu page with the allergen chart and "hide dishes containing…". A takeaway page with a running total and the allergens in the order, sent on WhatsApp.</p></div>
+      <div><p class="tag">Starter</p><h3>Delivery</h3><p>Links to the café's own pages on the delivery apps it already uses.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="gut"><div class="wrap hour" id="hsat">
+  <div class="clock"><time>9:00<small>am</small></time><span>Saturday</span></div>
+  <div class="body">
+    <h2>Brunch for six, ordered on the way.</h2>
+    <div class="feat">
+      <div class="tx">
+        <p class="tag sig">Signature</p>
+        <h3>The brunch builder</h3>
+        <p>A plate for each person from the brunch dishes, with the sides they want, a running total and the allergens. It goes as a pre-order with the table request, so the kitchen is ready when they sit down.</p>
+        <p class="tag" style="margin-top:12px">Starter</p>
+        <h3>The table request</h3>
+        <p>Party size, day and time within the sittings, sent on WhatsApp as one message. A request the café confirms; never a promise.</p>
+      </div>
+      <div class="tray" aria-label="The brunch plates">
+        <figure><img src="media/brunch-avo.webp" width="1000" height="1000" alt="" loading="lazy"><figcaption><b>Poached eggs, smashed avocado</b></figcaption></figure>
+        <figure><img src="media/brunch-royale.webp" width="1000" height="1000" alt="" loading="lazy"><figcaption><b>Eggs royale</b></figcaption></figure>
+        <figure><img src="media/brunch-egg.webp" width="1000" height="1000" alt="" loading="lazy"><figcaption><b>Fried eggs, chilli butter</b></figcaption></figure>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section class="gut"><div class="wrap hour" id="h1500">
+  <div class="clock"><time>3:00<small>pm</small></time><span>The regulars</span></div>
+  <div class="body">
+    <h2>The ones who come every day.</h2>
+    <div class="feat">
+      <div class="tx">
+        <p class="tag">Starter</p>
+        <h3>The stamp card</h3>
+        <p>Morrow's own rules on its own card, and a slider that works out what coming in is worth over a year, from the café's own flat white price. Try it.</p>
+      </div>
+      <div class="card">
+        <h4>Morrow · the eighth is on us</h4>
+        <div class="stamps" id="stamps" aria-hidden="true"></div>
+        <label for="often">How often do you come in? <span><b id="oftenN">5</b> <span id="oftenU">times</span> a week</span>
+          <input type="range" id="often" min="1" max="7" value="5" step="1"></label>
+        <output id="oftenOut" for="often" aria-live="polite"></output>
+      </div>
+    </div>
+    <div class="pair">
+      <div><p class="tag plus">Plus</p><h3>The regulars' board</h3><p>The guest roaster, what's playing, the dog of the week: whatever the café pins on its sheet, each card dated and gone after a week.</p></div>
+      <div><p class="tag plus">Plus</p><h3>What's on</h3><p>Latte art classes, cuppings with the guest roaster: dated events that drop off once they've passed, with add to calendar and booking on WhatsApp.</p></div>
+      <div><p class="tag plus">Plus</p><h3>Gift vouchers</h3><p>Pick an amount, add the names and a message, see the voucher, and order it on WhatsApp.</p></div>
+      <div><p class="tag">Starter</p><h3>Reviews and photos</h3><p>On a café's own site, reviews are copied from Google with the name and date, and the latest photos come from its Instagram.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="gut"><div class="wrap hour" id="h1600">
+  <div class="clock"><time>4:00<small>pm</small></time><span>Chairs up</span></div>
+  <div class="body">
+    <h2>Quick on a phone, all day.</h2>
+    <p class="intro">Measured on the Morrow demo's home page.</p>
+    <ul class="figs">
+      <li><b>24.6<small> KB</small></b><span>of script for the whole site, compressed, with every feature on</span></li>
+      <li><b>97</b><span>Lighthouse speed on a phone (90 on the very first, cold load)</span></li>
+      <li><b>100</b><span>Lighthouse accessibility on a phone; layout shift 0</span></li>
+      <li><b>2<small> s</small></b><span>or so until the largest part of the page shows, on Lighthouse's simulated phone connection</span></li>
+      <li><b>160<small> KB</small></b><span>of photographs on the first screen</span></li>
+      <li><b>£0</b><span>a month to run beyond hosting: the café's own Google Sheet and WhatsApp</span></li>
+    </ul>
+    <div class="plans">
+      <div class="pl"><h3>Starter</h3><p class="pr"><b>£99</b> to set up, then £25 a month</p><ul><li>Home and Plan your visit</li><li>Open now, hours, seasonal banners</li><li>Menu with all 14 allergens, and its PDF</li><li>Today's board and sold-out</li><li>Table request and delivery links</li><li>Stamp card, reviews, photos</li></ul></div>
+      <div class="pl"><h3>Plus</h3><p class="pr"><b>£199</b> to set up, then £30 a month</p><ul><li>Up to 5 pages</li><li>Everything in Starter</li><li>Can I work here?</li><li>The regulars' board</li><li>Menu page and takeaway</li><li>What's on and gift vouchers</li></ul></div>
+      <div class="pl sig"><h3>Signature</h3><p class="pr"><b>£349</b> to set up, then £35 a month</p><ul><li>Up to 20 pages</li><li>Everything in Plus</li><li>Your usual</li><li>The glass case</li><li>How busy is it now?</li><li>The seat finder</li><li>The brunch builder</li></ul></div>
+    </div>
+    <p class="fine">Twelve-month minimum. Any feature can be added to any plan on its own, and extra pages one at a time.</p>
+  </div>
+</div></section>
+
+<section class="gut close" id="mockup"><div class="wrap" style="display:grid;justify-items:center;gap:18px">
+  <h2>Put the kettle on.</h2>
+  <p>Run a café, a coffee shop or a bakery counter? Send us your Instagram or Google listing and we'll make a free mockup with your name, your menu and your photos.</p>
+  <div class="cta">
+    <a class="btn fill" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#free">Get a free mockup</a>
+    <a class="btn line" href="https://claude.ai/artifact/BieXTaWEqq2Koj9p6J7b7Z">Try the Morrow demo</a>
+  </div>
+  <span class="mail">hello@sitefloor.com</span>
+</div></section>
+</main>
+
+<footer class="gut"><div class="wrap">
+  <p>Morrow is a fictional coffee house made to show the Sitefloor restaurant kit. Its menu, prices, hours, busy numbers, seats, events, reviews and today's board are demo data. Its photographs are from Unsplash, of other cafés' coffee, bakes and rooms, each photographer credited by name in Sitefloor's records. Client sites use the café's own photographs.</p>
+  <span>© 2026 Sitefloor</span>
+</div></footer>
+
+<script>
+(() => {
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.querySelectorAll(".pause").forEach((b) => {
+    const v = document.getElementById(b.dataset.v);
+    const name = b.textContent.replace(/^(Pause|Play) /, "");
+    const set = (paused) => { b.setAttribute("aria-pressed", String(paused)); b.textContent = (paused ? "Play " : "Pause ") + name; };
+    if (reduce) { v.removeAttribute("autoplay"); v.pause(); set(true); }
+    b.addEventListener("click", () => { if (v.paused) { v.play(); set(false); } else { v.pause(); set(true); } });
+  });
+
+  // The day: Morrow's demo numbers (0 quiet … 3 queue at the door), 7am to 4pm; null is closed.
+  const WEEK = { mon: [1,3,2,1,1,2,2,1,0], tue: [1,3,2,1,0,2,2,1,0], wed: [1,3,2,1,1,2,2,1,0], thu: [1,3,2,1,1,2,2,1,1], fri: [1,3,3,2,2,3,2,1,1], sat: [null,1,3,3,3,3,2,1,0], sun: [null,null,2,3,3,3,2,1,null] };
+  const WORDS = ["Quiet", "Steady", "Busy", "Queue at the door"];
+  const KEYS = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+  const LABEL = ["7am", "8am", "9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm"];
+  const parts = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", weekday: "short", hour: "2-digit", hourCycle: "h23" }).formatToParts(new Date());
+  const today = parts.find((p) => p.type === "weekday").value.slice(0, 3).toLowerCase();
+  const hourNow = Number(parts.find((p) => p.type === "hour").value);
+  const bars = document.getElementById("bars"), dayNow = document.getElementById("dayNow");
+  const draw = (key) => {
+    const vals = WEEK[key];
+    bars.replaceChildren(...vals.map((v, i) => {
+      const a = Object.assign(document.createElement("div"), { className: "bar" + (v === null ? " closed" : "") });
+      a.dataset.l = v ?? "";
+      a.setAttribute("role", "img");
+      a.setAttribute("aria-label", `${LABEL[i]}: ${v === null ? "closed" : WORDS[v].toLowerCase()}`);
+      const bar = document.createElement("i");
+      bar.style.setProperty("--h", "4%");
+      a.append(bar);
+      if (key === today && hourNow === 7 + i) { a.classList.add("now"); a.append(Object.assign(document.createElement("b"), { textContent: "Now" })); }
+      requestAnimationFrame(() => requestAnimationFrame(() => bar.style.setProperty("--h", v === null ? "100%" : `${18 + v * 26}%`)));
+      return a;
+    }));
+    document.querySelectorAll(".days button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.d === key)));
+    const i = hourNow - 7, v = key === today && i >= 0 && i < 9 ? vals[i] : undefined;
+    dayNow.replaceChildren(v === undefined || v === null ? "Hour by hour, from the café's own till receipts (demo numbers)." : Object.assign(document.createElement("span"), { innerHTML: `Usually <span class="word">${WORDS[v].toLowerCase()}</span> at this hour, by London time (demo numbers).` }));
+  };
+  document.querySelectorAll(".days button").forEach((b) => b.addEventListener("click", () => draw(b.dataset.d)));
+  draw(WEEK[today] ? today : "wed");
+
+  // The stamp card: eight stamps, the eighth free; from the café's flat white at £3.50.
+  const stamps = document.getElementById("stamps"), often = document.getElementById("often"), n = document.getElementById("oftenN"), out = document.getElementById("oftenOut");
+  for (let i = 1; i <= 8; i++) stamps.append(Object.assign(document.createElement("i"), { className: "stamp" + (i === 8 ? " free" : ""), textContent: i === 8 ? "Free" : "" }));
+  const card = () => {
+    const w = Number(often.value), year = w * 52, free = Math.floor(year / 8);
+    n.textContent = String(w);
+    document.getElementById("oftenU").textContent = w === 1 ? "time" : "times";
+    [...stamps.children].forEach((s, i) => s.classList.toggle("on", i < Math.min(w, 7)));
+    out.replaceChildren(`A flat white ${w === 1 ? "once" : `${w} times`} a week is ${year} a year: `, Object.assign(document.createElement("b"), { textContent: `${free} free` }), `, worth £${(free * 3.5).toFixed(2).replace(/\.00$/, "")}.`);
+    often.setAttribute("aria-valuetext", `${w} ${w === 1 ? "time" : "times"} a week`);
+  };
+  often.addEventListener("input", card);
+  card();
+})();
+</script>

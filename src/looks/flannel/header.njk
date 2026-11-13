@@ -1,0 +1,24 @@
+{#- Flannel header: the house's name in Della Respira on the left; the first five pages on the right in Commissioner,
+    and the booking line underlined with the pigeon's stitch. "Menu" opens every page: always on phones, and on wide
+    screens too when the house has more than five. -#}
+<header class="nav fl-nav"><div class="wrap fl-nav-in">
+  <a class="fl-name" href="{{ 'index' | href }}" aria-label="{{ site.business.name }}, home">
+    {%- if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="{{ site.business.name }}" height="28">{% else %}{{ site.business.name }}{% endif %}</a>
+  <nav class="fl-links" aria-label="Main">
+    {%- for item in site.nav | navItems(pageId) %}{% if loop.index <= 5 %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endif %}{% endfor %}
+  </nav>
+  <a class="fl-book" href="{{ (site.garments.message if site.garments else site.messages.general) | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.garments.message if site.garments else site.messages.general }}"{% endif %} target="_blank" rel="noopener">Book a fitting</a>
+  <button class="burger fl-menu{% if (site.nav | navItems(pageId)).length > 5 %} fl-menu-all{% endif %}" type="button" aria-expanded="false" aria-controls="mnav"><span class="fl-open">Menu</span><span class="fl-close">Close</span></button>
+</div></header>
+<div class="mnav fl-sheet" id="mnav" hidden>
+  <nav aria-label="Pages">
+    <a href="{{ 'index' | href }}"{% if pageId == "index" %} aria-current="page"{% endif %}>The house</a>
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+  </nav>
+  <p class="fl-sheet-now" data-live-status><span class="dot" aria-hidden="true"></span> <span data-status-text>Opening hours</span></p>
+  <p class="fl-sheet-addr">{{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}</p>
+</div>

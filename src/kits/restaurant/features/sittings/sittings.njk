@@ -1,0 +1,18 @@
+{#- The day's sittings, with the one being served now marked and when the kitchen closes. Without JavaScript the
+    sittings and their times still show; only "now" needs the clock. -#}
+{%- set sec = site.sections.sittings %}
+<section id="sittings" class="si" data-feature="sittings" aria-labelledby="si-h"{{ "sittings" | tierAttr | safe }}><div class="wrap">
+  <h2 id="si-h" class="si-h">{{ sec.title | markup | safe }}</h2>
+  {%- if sec.intro %}<p class="si-intro">{{ sec.intro }}</p>{% endif %}
+  <ol class="si-list">
+    {%- for s in site.menu.sittings %}
+    <li class="si-item" data-si="{{ s.id }}">
+      <span class="si-now" data-si-now></span>
+      <span class="si-name">{{ s.name }}</span>
+      <span class="si-when">{{ s.from | t12 }}–{{ s.to | t12 }}</span>
+      <span class="si-days">{{ s.days | sittingDays }}</span>
+    </li>
+    {%- endfor %}
+  </ol>
+  <p class="si-line" data-si-line data-js-only aria-live="polite">&nbsp;</p>
+</div></section>

@@ -1,0 +1,161 @@
+/* =========================================================================
+   Look: Almanac. A gardener's almanac. Ivory ground and ink; the photographs carry every other colour (the plants, the
+   stone, the light). The one natural object is a rose hip: its red is the accent, used for one word a screen, the
+   chosen month and focus; low sun on Cotswold stone gives the warm tone of the sun study. One serif, Alegreya, for
+   everything: italic for months, labels and plant names, never small capitals. One hero idea: the year in twelve plants,
+   the visitor's month open. Square edges, hairline rules, no pills. Motion is slow and never tied to the scroll.
+   Design notes: sitefloor-internal/docs/design/landscaping.md.
+   ========================================================================= */
+:root {
+  --bg: #F7F4EC; --surface: #EFEADF; --surface-2: #E3DCCD;
+  --text: #1D1B16; --muted: #615C52; --dim: #6C665B;
+  --accent: #B4372A; --accent-2: #8E2A20; --on-accent: #FFFFFF; --accent-soft: #D98A7E;
+  --sun-warm: #D9A441;
+  --line: rgba(29,27,22,.13); --line-2: rgba(29,27,22,.3);
+  --ok: #3F6A43; --busy: #8A6420; --closed: #6C665B;
+  --font-display: "Alegreya", "Alegreya Fallback", Georgia, "Times New Roman", serif;
+  --font-body: "Alegreya", "Alegreya Fallback", Georgia, serif;
+  --on-photo: #FBF8F1; --photo-scrim: rgba(20,19,15,.5); --shadow: rgba(29,27,22,.3);
+  --season-bg: #1D1B16; --season-fg: #F7F4EC;
+  --pad: max(16px, env(safe-area-inset-left, 0px));
+  --s4: clamp(80px, 9vw, 128px);
+  --nav-h: 76px;
+  color-scheme: light;
+}
+html { background: var(--bg); }
+body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-weight: 400; font-size: 19px; line-height: 1.5; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 400; letter-spacing: -.008em; text-wrap: balance; }
+b, strong { font-weight: 500; }
+::selection { background: var(--text); color: var(--bg); }
+.wrap { width: min(1440px, 100% - 2 * var(--pad)); }
+main section { padding-block: var(--s4); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* actions: an ink button (square), a word underlined with the rose hip; choices are italic words, never pills */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 50px; padding: 0 24px; border: 0; border-radius: 0; background: var(--text); color: var(--bg); font-family: var(--font-body); font-size: 18px; font-weight: 400; text-decoration: none; cursor: pointer; box-shadow: none; }
+.btn:hover { background: var(--accent-2); color: var(--on-accent); }
+.btn.ghost { background: none; color: var(--text); box-shadow: inset 0 0 0 1px var(--line-2); }
+.btn .ico { display: none; }
+.go { display: inline-flex; align-items: center; min-height: 44px; padding: 0; border: 0; background: none; color: var(--text); font: inherit; font-size: 18px; font-style: italic; text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 1.5px; text-underline-offset: 7px; cursor: pointer; }
+.go:hover { color: var(--accent-2); }
+
+/* ---------------------------------------------------------------- header */
+.nav.al-nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: color-mix(in srgb, var(--bg) 96%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 0; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 31; background: var(--bg); }
+.al-nav-in { display: flex; align-items: center; gap: clamp(18px, 2.4vw, 40px); height: var(--nav-h); }
+.al-name { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 30px; line-height: 1; text-decoration: none; white-space: nowrap; letter-spacing: -.01em; }
+.al-name img { display: block; height: 30px; width: auto; }
+.al-links { display: flex; gap: clamp(16px, 2.2vw, 30px); margin-left: auto; font-size: 18px; }
+.al-links a { text-decoration: none; padding-block: 6px; }
+.al-links a:hover, .al-links a[aria-current="page"] { text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 1.5px; text-underline-offset: 7px; }
+.al-start { font-size: 18px; text-decoration: none; padding: 9px 18px; box-shadow: inset 0 0 0 1px var(--text); white-space: nowrap; }
+.al-start:hover { background: var(--text); color: var(--bg); }
+.al-menu { display: none; width: auto; height: 44px; padding: 0; border: 0; background: none; font: inherit; font-size: 18px; font-style: italic; color: var(--text); cursor: pointer; }
+.al-menu span { position: static; height: auto; background: none; transition: none; }
+.al-menu .al-close, .al-menu[aria-expanded="true"] .al-open { display: none; }
+.al-menu[aria-expanded="true"] .al-close { display: inline; }
+.al-menu.al-menu-all { display: block; }
+@media (max-width: 1000px) { .al-links { display: none; } .al-start { margin-left: auto; } .al-menu { display: block; } }
+@media (max-width: 560px) { .al-name { font-size: 27px; } .al-start { display: none; } .al-menu { margin-left: auto; } }
+.mnav.al-sheet { top: calc(var(--nav-h) + env(safe-area-inset-top, 0px)); background: var(--bg); }
+.al-sheet a { font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: 34px; border-bottom-color: var(--line); }
+.al-sheet p { font-style: italic; }
+
+/* ---------------------------------------------------------------- the hero: the year in twelve plants */
+main section.al-hero { padding-block: 0 0; }
+.al-hero .gd-year { --year-h: min(calc(86vh - var(--nav-h) - 72px), 680px); }
+.al-under { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 32px; padding-block: 16px; border-bottom: 1px solid var(--line); }
+.al-h1 { margin: 0; font-family: var(--font-body); font-size: 17px; line-height: 1.4; color: var(--muted); letter-spacing: 0; }
+.al-intro { margin: 0; font-size: 17px; color: var(--muted); }
+.al-intro em { color: var(--text); }
+@media (max-width: 760px) {
+  .al-hero .gd-year { --year-h-phone: min(calc(78vh - var(--nav-h) - 60px), 620px); }
+  .al-under { flex-direction: column; gap: 2px; }
+  .al-h1, .al-intro { font-size: 16px; }
+}
+
+/* ---------------------------------------------------------------- section openings and inner pages */
+.al-sh { padding-top: 18px; border-top: 1px solid var(--text); margin-bottom: clamp(32px, 4vw, 56px); max-width: 980px; }
+.al-sh-t { margin: 0; font-size: clamp(38px, 4.6vw, 68px); line-height: 1.02; }
+.al-sh-t em { color: var(--accent); }
+.al-sh-i { margin: 14px 0 0; font-style: italic; color: var(--muted); max-width: 40ch; }
+.gd-ph { padding-block: clamp(44px, 6vw, 96px) clamp(32px, 3.6vw, 56px); }
+.gd-ph-k { margin: 0 0 14px; font-style: italic; color: var(--muted); }
+.gd-ph-k a { text-decoration-color: var(--line-2); text-underline-offset: 4px; }
+.gd-ph-t { margin: 0; font-size: clamp(46px, 7vw, 110px); line-height: .98; letter-spacing: -.015em; }
+.gd-ph-t em { color: var(--accent); }
+.gd-ph-i { margin: 20px 0 0; color: var(--muted); max-width: 44ch; font-size: 20px; }
+.gd-nf { padding-bottom: var(--s4); }
+main section.gd-ss, main section.gd-pp, main section.gd-mp, main section.gd-mt, main section.gd-pg, main section.gd-dp, main section.gd-jn, main section.gd-svp, main section.gd-sty, main section.gd-yr, main section.gd-gp { padding-top: 0; }
+main section.gd-sb { padding-block: 40px; margin-bottom: 0; }
+article.gd-st, article.gd-ar { padding-bottom: var(--s4); }
+
+/* the home page's rhythm: the month on ivory straight after the year; the gardens on the paler stone */
+main section.gd-cal { padding-top: clamp(64px, 7vw, 112px); }
+main section.gd-gs { background: var(--surface); }
+main section.gd-ty { padding-bottom: clamp(64px, 7vw, 104px); }
+
+/* general pages (custom pages): the page head and blocks in the almanac's hand */
+.phero { padding-block: clamp(44px, 6vw, 96px) clamp(24px, 3vw, 40px); border-bottom: 0; background: none; }
+.phero h1 { margin: 10px 0 0; font-size: clamp(46px, 7vw, 110px); line-height: .98; font-weight: 400; }
+.phero p { color: var(--muted); max-width: 44ch; font-size: 20px; }
+.crumb { font-style: italic; color: var(--muted); }
+.cpg { padding-bottom: var(--s4); }
+.cpg-text { max-width: 40em; }
+.cpg-text h2, .cpg-list h2 { margin: 0 0 12px; font-size: clamp(30px, 3vw, 44px); line-height: 1.1; font-style: italic; }
+.cpg-text p { margin: 0 0 12px; color: var(--text); }
+.cpg h2 { font-weight: 400; }
+.cpg-photo img { box-shadow: none; aspect-ratio: 16 / 9; }
+.cpg-photo figcaption { margin-top: 8px; color: var(--muted); font-size: 15px; font-style: italic; }
+.cpg-list ul { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--text); }
+.cpg-list li { padding-block: 12px; border-bottom: 1px solid var(--line); }
+.cpg-list li::before { display: none; }
+.cpg-book { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; border-top: 1px solid var(--text); padding-top: 24px; }
+.cpg-book p { margin: 0; font-size: 19px; }
+
+/* ---------------------------------------------------------------- shared features in the almanac's hand */
+.revs { gap: clamp(20px, 3vw, 40px); }
+.rev, .qa, .tz, .pv-card, .pv-panel, .pv-board, .hours, .where, .ba { border-radius: 0; box-shadow: none; }
+.rev { background: none; border: 0; border-top: 1px solid var(--text); padding-inline: 0; }
+.rev p { font-style: italic; font-size: 21px; line-height: 1.4; }
+.qa { border-color: var(--line-2); }
+.qa summary, .qa h3 { font-weight: 500; font-family: var(--font-body); }
+.tz, .pv-card, .pv-panel, .pv-board { background: var(--surface); border-color: transparent; }
+.tz img { border-radius: 0; }
+.kick { font-size: 16px; letter-spacing: 0; text-transform: none; color: var(--muted); font-weight: 400; font-style: italic; }
+.prose h2 { font-weight: 400; }
+.prose p { color: var(--muted); }
+.where address b { font-family: var(--font-display); font-size: 22px; font-weight: 500; }
+.ba-label { border-radius: 0; font-style: italic; }
+
+/* ---------------------------------------------------------------- footer and phone bar */
+.foot.al-foot { background: var(--bg); color: var(--text); border-top: 1px solid var(--text); padding: 18px 0 calc(104px + env(safe-area-inset-bottom, 0px)); }
+.al-foot-year { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); margin: 0 0 clamp(40px, 6vw, 80px); font-style: italic; color: var(--muted); font-size: 16px; }
+.al-foot-in { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 3fr) minmax(0, 3fr) minmax(0, 2fr); gap: 32px; align-items: start; }
+.al-foot-name { margin: 0; font-family: var(--font-display); font-style: italic; font-size: clamp(42px, 5.4vw, 80px); line-height: .95; }
+.al-foot-a { font-style: normal; line-height: 1.7; }
+.al-foot-a a { text-decoration-color: var(--line-2); }
+.al-foot-hours { list-style: none; margin: 0; padding: 0; font-size: 16px; line-height: 1.85; font-variant-numeric: tabular-nums; }
+.al-foot-hours span { display: inline-block; min-width: 7em; font-style: italic; color: var(--muted); }
+.al-foot-links { display: grid; gap: 4px; font-size: 17px; }
+.al-foot-links a { text-decoration: none; }
+.al-foot-links a:hover { text-decoration: underline; text-decoration-color: var(--accent); }
+.al-foot-by { margin: 48px 0 0; font-size: 14px; color: var(--muted); }
+.al-foot-by b { color: inherit; font-weight: 500; }
+@media (max-width: 900px) { .al-foot-in { grid-template-columns: 1fr 1fr; } .al-foot-name { grid-column: 1 / -1; } }
+@media (max-width: 560px) { main section:not(.al-hero) { padding-block: 64px; } .al-foot-in { grid-template-columns: 1fr; gap: 24px; } .al-foot-links { grid-template-columns: 1fr 1fr; gap: 6px 16px; } }
+@media (min-width: 761px) { .foot.al-foot { padding-bottom: clamp(48px, 5vw, 72px); } }
+
+/* the phone bar: ivory, a hairline, two italic words apart; the month on the left, the start underlined on the right */
+.mbar.al-bar { background: var(--bg); border-top: 1px solid var(--line-2); backdrop-filter: none; align-items: center; justify-content: space-between; gap: 16px; padding: 4px max(16px, env(safe-area-inset-right, 0px)) calc(4px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+.al-bar-month { display: inline-flex; align-items: baseline; gap: 6px; min-height: 52px; align-items: center; font-family: var(--font-display); font-style: italic; font-size: 22px; text-decoration: none; }
+.al-bar-sub { font-size: 15px; color: var(--muted); }
+.al-bar-go { display: inline-flex; align-items: center; min-height: 52px; font-size: 18px; text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 7px; }
+
+/* Before/after: the heading beside one wide frame (3:2), so a pair takes one screen, not two. */
+.sec-ba .wrap { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 32px clamp(32px, 5vw, 80px); align-items: end; }
+.sec-ba .ba-list { grid-template-columns: minmax(0, 1fr); gap: 48px; }
+.sec-ba .ba-side { aspect-ratio: 3 / 4; }
+.sec-ba [data-ba-ready] .ba-frame { aspect-ratio: 3 / 2; }
+.sec-ba .ba-lab { background: none; color: var(--on-photo); font-family: var(--font-display); font-size: 17px; font-weight: 400; font-style: italic; letter-spacing: 0; text-transform: none; text-shadow: 0 1px 8px var(--photo-scrim); }
+@media (max-width: 760px) { .sec-ba .wrap { grid-template-columns: minmax(0, 1fr); } .sec-ba [data-ba-ready] .ba-frame { aspect-ratio: 4 / 5; } }

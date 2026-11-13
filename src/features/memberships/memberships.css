@@ -1,0 +1,22 @@
+/* Memberships: a "how often?" slider that re-scores every plan against paying each time. */
+.mb-calc { background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); padding: 22px 24px; margin-bottom: 14px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 24px; align-items: center; }
+.mb-q { font-weight: 800; font-size: 18px; }
+.mb-q output { color: var(--accent); }
+.mb-calc input[type="range"] { grid-column: 1; width: 100%; accent-color: var(--accent); }
+.mb-payg { grid-column: 2; grid-row: 1 / span 2; margin: 0; text-align: right; color: var(--muted); }
+.mb-payg b { display: block; font-family: var(--font-display); font-size: 34px; color: var(--text); }
+.mb-plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+.mb-plan { position: relative; display: flex; flex-direction: column; gap: 8px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); padding: 24px; transition: box-shadow .3s, transform .3s; }
+.mb-plan.best { box-shadow: inset 0 0 0 3px var(--accent); transform: translateY(-4px); }
+.mb-tag { margin: 0; min-height: 1.4em; font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+.mb-plan h3 { margin: 0; font-family: var(--font-display); font-size: 26px; }
+.mb-price { margin: 0; display: flex; align-items: baseline; gap: 8px; }
+.mb-price b { font-family: var(--font-display); font-size: 44px; line-height: 1; }
+.mb-price span, .mb-cuts { color: var(--muted); }
+.mb-cuts { margin: 0; font-weight: 700; }
+.mb-plan ul { margin: 4px 0 0; padding-left: 18px; font-size: 15px; }
+.mb-save { margin: auto 0 4px; padding-top: 10px; font-weight: 800; min-height: 2.8em; }
+.mb-plan .btn { justify-content: center; }
+.mb-terms { margin: 14px 0 0; font-size: 13px; color: var(--dim); max-width: 80ch; }
+@media (max-width: 600px) { .mb-calc { grid-template-columns: minmax(0, 1fr); } .mb-payg { grid-column: 1; grid-row: auto; text-align: left; } }
+@media (prefers-reduced-motion: reduce) { .mb-plan { transition: none; } }

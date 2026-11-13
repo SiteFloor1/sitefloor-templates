@@ -1,0 +1,50 @@
+{#- Salon: the menu as a carte. The sitting being served shows (chosen before the first paint); the others are a
+    word away. Diet and allergy filters sit quietly under the title. Keeps the menu script's hooks. -#}
+{%- set m = site.menu %}
+{%- set sec = site.sections.menu %}
+<style>{% for s in m.sittings %}:root[data-sitting="{{ s.id }}"] [data-mn-sitting]:not([data-mn-sitting="{{ s.id }}"]){display:none}:root[data-sitting="{{ s.id }}"] [data-mn-tab="{{ s.id }}"]{color:var(--text);border-bottom-color:var(--gilt)}{% endfor %}</style>
+<section id="menu" class="mn sa-carte" data-feature="menu" aria-labelledby="menu-h">
+  <header class="sa-carte-top">
+    <h2 id="menu-h">{{ sec.title | markup | safe }}</h2>
+    <p class="sa-kitchen" data-mn-kitchen aria-live="polite">&nbsp;</p>
+  </header>
+  {%- if m.sittings | length > 1 %}
+  <div class="sa-tabs" role="tablist" aria-label="Menus">
+    {%- for s in m.sittings %}<button type="button" role="tab" id="mn-tab-{{ s.id }}" aria-controls="mn-{{ s.id }}" aria-selected="{{ 'true' if loop.first else 'false' }}" data-mn-tab="{{ s.id }}">{{ s.name }}</button>{% endfor %}
+  </div>
+  {%- endif %}
+  <div class="sa-filters">
+    <div class="sa-diets" role="group" aria-label="Diet">
+      <label><input type="radio" name="mn-diet" value="" checked><span>Everything</span></label>
+      {%- for dt in food.diets %}<label><input type="radio" name="mn-diet" value="{{ dt.id }}"><span>{{ dt.name }}</span></label>{% endfor %}
+    </div>
+    <details class="sa-avoid">
+      <summary>Allergies</summary>
+      <div class="sa-chips">{% for a in food.allergens %}<label><input type="checkbox" name="mn-avoid" value="{{ a.id }}"><span>{{ a.name }}</span></label>{% endfor %}</div>
+    </details>
+    <p class="sa-small" data-mn-hidden aria-live="polite"></p>
+  </div>
+  {%- for s in m.sittings %}
+  <div class="sa-sitting" id="mn-{{ s.id }}" role="tabpanel" aria-labelledby="mn-tab-{{ s.id }}" data-mn-sitting="{{ s.id }}" data-mn-mood="{{ s.mood }}">
+    <p class="sa-when">{{ s.days | sittingDays }} · {{ s.from | t12 }}–{{ s.to | t12 }}{% if s.lastOrders %} · last orders {{ s.lastOrders | t12 }}{% endif %}</p>
+    <div class="sa-cols">
+    {%- for sc in m | sectionsFor(s.id) %}{% if not sc.drinks %}
+      <div class="mn-sec sa-msec">
+        <h3>{{ sc.name }}</h3>
+        {%- if sc.note %}<p class="sa-mnote">{{ sc.note }}</p>{% endif %}
+        <ul class="mn-list sa-dishes">{% for d in sc.dishes %}{% include "kits/restaurant/features/menu/dish.njk" %}{% endfor %}</ul>
+        <p class="sa-small" data-mn-none hidden>Nothing here fits. Ask us: the kitchen can often adapt a dish.</p>
+      </div>
+    {%- endif %}{% endfor %}
+    </div>
+  </div>
+  {%- endfor %}
+  <footer class="sa-carte-foot">
+    <p>{{ m.statement }}</p>
+    <p class="sa-small">Allergens are from our allergen chart, last checked {{ m.chartChecked | longDate }}. Please tell us about any allergy when you order.</p>
+    <p class="sa-links">
+      {%- if "menu-page" | enabled %}<a href="{{ 'menu' | href }}"{{ "menu-page" | tierAttr | safe }}>The whole carte, drinks and allergen chart</a>{% endif %}
+      {%- if "menu-pdf" | enabled %}{% include "kits/restaurant/features/menu-pdf/menu-pdf.njk" %}{% endif %}
+    </p>
+  </footer>
+</section>

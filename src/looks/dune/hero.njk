@@ -1,0 +1,17 @@
+{#- Dune hero: one reformer photograph in sunlight, cut for the phone separately so the person is always in frame,
+    and today's classes running along its foot (the timetable's rail, with the room's reformers when places are
+    known). The photograph settles in once on load; never with reduced motion. -#}
+{%- set hp = site.hero.photo %}
+<section class="hero du-hero" aria-label="{{ site.business.name }}">
+  <h1 class="sr-only">{{ site.business.name }}: {{ site.hero.title | plain }}</h1>
+  <figure class="du-hero-f">
+    <picture>
+      {%- if site.hero.phonePhoto %}<source media="(max-width: 820px)" srcset="{{ site.hero.phonePhoto.src | img }}" width="{{ site.hero.phonePhoto.width }}" height="{{ site.hero.phonePhoto.height }}">{% endif %}
+      <img src="{{ hp.src | img }}" alt="{{ hp.alt }}" width="{{ hp.width }}" height="{{ hp.height }}" fetchpriority="high" decoding="async">
+    </picture>
+  </figure>
+  <div class="wrap">
+    {%- if 'timetable' | enabled %}{% include "kits/pilates/features/timetable/today.njk" %}
+    {%- else %}<p class="du-hero-line">{{ site.hero.intro }}</p>{% endif %}
+  </div>
+</section>

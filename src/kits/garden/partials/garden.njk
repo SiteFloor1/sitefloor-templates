@@ -1,0 +1,24 @@
+{#- A garden's story: `gp` = a gardenPages item. The brief, the garden, its plants and materials. -#}
+{%- set g = site.gardens.items | byId(gp.garden) %}
+{%- set ph = gp %}
+{% include "kits/garden/partials/page-head.njk" %}
+<article class="wrap gd-st" aria-label="{{ gp.title | plain }}">
+  <figure class="gd-st-hero"><img src="{{ g.photo.src | img }}" alt="{{ g.photo.alt }}" width="{{ g.photo.width }}" height="{{ g.photo.height }}" fetchpriority="high" decoding="async"></figure>
+  <p class="gd-st-facts">{% for f in [g.place, g.size, (g.facing | facingWords), (("Finished " + g.year) if g.year else "")] | select %}<span>{{ f }}</span>{% endfor %}</p>
+  <div class="gd-st-body">
+    <p class="gd-st-brief">{{ gp.brief }}</p>
+    <div class="gd-st-tx">{% for p in gp.body | paras %}<p>{{ p }}</p>{% endfor %}</div>
+  </div>
+  {%- if gp.photos and gp.photos.length %}
+  <div class="gd-st-more">{% for p in gp.photos %}<img src="{{ p.src | img }}" alt="{{ p.alt }}" width="{{ p.width }}" height="{{ p.height }}" loading="lazy" decoding="async">{% endfor %}</div>
+  {%- endif %}
+  {%- set plants = site.palette.items | byIds(gp.plants) if site.palette else [] %}
+  {%- set mats = site.materials.items | byIds(gp.materials) if site.materials else [] %}
+  {%- if plants.length or mats.length %}
+  <div class="gd-st-lists">
+    {%- if plants.length %}<div><h2>Planted with</h2><ul>{% for p in plants %}<li>{{ p.name }}<span>{{ p.months | monthsWords }}</span></li>{% endfor %}</ul></div>{% endif %}
+    {%- if mats.length %}<div><h2>Built with</h2><ul>{% for m in mats %}<li>{{ m.name }}{% if m.detail %}<span>{{ m.detail }}</span>{% endif %}</li>{% endfor %}</ul></div>{% endif %}
+  </div>
+  {%- endif %}
+  <p class="gd-st-go"><a class="btn" href="{{ site.messages.general | book }}" target="_blank" rel="noopener">Start your garden</a> <a class="go" href="{{ 'gardens' | href }}">Every garden</a></p>
+</article>

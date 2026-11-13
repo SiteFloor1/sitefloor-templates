@@ -1,0 +1,10 @@
+{#- What happens at an appointment, in the house's own steps; how long it takes and what to bring. -#}
+{%- set V = site.prepared %}
+{%- set sec = { title: site.sections.prepared.title, intro: V.length or site.sections.prepared.intro } %}
+<section class="nc-sec jw-prep" data-feature="visit-prepared"><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <ol class="jw-prep-l">
+    {%- for s in V.steps %}<li class="rv"><span class="jw-prep-n" aria-hidden="true">{{ loop.index }}</span><h3 class="jw-name">{{ s.title }}</h3><p class="nc-body">{{ s.text }}</p></li>{% endfor %}
+  </ol>
+  {%- if V.bring %}<p class="jw-bring rv"><span class="nc-label nc-muted">Bring, if you like</span> {% for b in V.bring %}<span class="nc-label">{{ b }}</span>{% endfor %}</p>{% endif %}
+</div></section>

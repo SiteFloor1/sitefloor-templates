@@ -1,0 +1,34 @@
+/* Price by length: the photograph is the whole first screen, sized to cover it (wide screens fill the width; narrow
+   ones fill the height and centre on --fx), so the marks, the line and the tag are placed from the same numbers. The
+   photograph is raised, if it must be, so the longest mark always sits above --res, the band at the foot the look keeps
+   for other things (chairs free today). Tokens only; the look places the words and sets type and colour. */
+.hr-lp-stage { --sh: calc(100svh - var(--nav-h)); --fw: max(100vw, calc(var(--sh) * var(--ar))); --fh: calc(var(--fw) / var(--ar)); --fy: .12;
+  --res: 0px; --ftop: max(calc(var(--sh) - var(--fh)), calc(var(--fh) * var(--high) * -1), min(calc((var(--sh) - var(--fh)) * var(--fy)), calc(var(--sh) - var(--res) - var(--fh) * var(--low)))); position: relative; height: var(--sh); min-height: 560px; overflow: hidden; background: var(--surface); }
+.hr-lp-frame { position: absolute; width: var(--fw); height: var(--fh); top: var(--ftop); left: clamp(calc(100vw - var(--fw)), calc(50vw - var(--fw) * var(--fx)), 0px); }
+.hr-lp-plate { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.hr-lp-hair { position: absolute; inset: 0; pointer-events: none; }
+.hr-lp-frame .hr-lp-hair img { position: absolute; left: 0; top: calc(var(--top) * 100%); width: 100%; height: calc(var(--h) * 100%); max-width: none; display: block; }
+/* The kept hair above the line (--keep, set by the script so a fade can finish first; --y without it), a faint trace of
+   the hair below it, and the band that fades between them. Nothing moves but the line. */
+.hr-lp-keep { clip-path: inset(0 0 calc((1 - var(--keep, var(--y))) * 100%) 0); }
+.hr-lp-rest { opacity: .3; clip-path: inset(calc(var(--keep, var(--y)) * 100%) 0 0 0); }
+.hr-lp-fall { opacity: 0; transition: opacity .8s cubic-bezier(.4, 0, .2, 1); } /* fades over the trace: out to 0 (leaving 30%), in to 1 */
+.hr-lp-fall.is-out { opacity: 0 !important; }
+.hr-lp-fall.is-in { opacity: 1 !important; }
+.hr-lp-line, .hr-lp-tag, .hr-lp-mark { position: absolute; top: calc(var(--ftop) + var(--fh) * var(--y)); transition: top .8s cubic-bezier(.4, 0, .2, 1); }
+.hr-lp-line { left: var(--line-from, 0px); right: 0; height: 2px; margin-top: -1px; background: var(--accent); z-index: 2; pointer-events: none; }
+.hr-lp-tag { z-index: 3; margin: 0; transform: translateY(calc(-100% - 8px)); background: var(--bg); color: var(--text); text-align: right; font-variant-numeric: tabular-nums; }
+.hr-lp-tag::before { content: ""; position: absolute; left: -7px; bottom: -14px; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); }
+.hr-lp-tag strong, .hr-lp-tag span { display: block; }
+.hr-lp-marks { position: absolute; inset: 0; z-index: 4; pointer-events: none; }
+.hr-lp-mark { top: calc(var(--ftop) + var(--fh) * var(--m)); pointer-events: auto; transform: translateY(-50%); display: flex; align-items: center; gap: 10px; min-height: 44px; border: 0; background: none; cursor: pointer; white-space: nowrap; }
+.hr-lp-copy { position: absolute; z-index: 3; }
+.hr-lp-copy { pointer-events: none; }
+.hr-lp-copy a, .hr-lp-copy button { pointer-events: auto; }
+.hr-lp-pick { display: grid; gap: 0; }
+.hr-lp-opts { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 16px; }
+.hr-lp-veil, .hr-lp-tape { position: absolute; pointer-events: none; z-index: 1; }
+.hr-lp-veil { inset: 0; }
+.hr-lp-tape { top: 0; bottom: 0; left: 0; }
+.hr-lp-go { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; }
+@media (prefers-reduced-motion: reduce) { .hr-lp-line, .hr-lp-tag, .hr-lp-mark { transition: none; } .hr-lp-fall { display: none; } }

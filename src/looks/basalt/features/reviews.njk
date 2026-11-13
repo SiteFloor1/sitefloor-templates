@@ -1,0 +1,14 @@
+{#- Basalt reviews: three short quotes in a row, light and large; who and when under each. -#}
+{%- set sec = site.sections.reviews %}
+<section id="reviews" class="sec-reviews bs-reviews" data-feature="reviews"{{ "reviews" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="bs-quotes">
+    {%- for r in site.reviews.items %}
+    <figure class="rev">
+      <blockquote><p>{{ r.text }}</p></blockquote>
+      <figcaption>{{ r.author }}, {{ r.date | monthYear }} <span class="st bs-st"><span aria-hidden="true">{{ r.rating | stars }}</span><span class="sr-only">Rated {{ r.rating }} out of 5</span></span></figcaption>
+    </figure>
+    {%- endfor %}
+  </div>
+  {%- if site.reviews.source == "sample" %}<p class="wr-fine">Sample reviews for the demo. On a live site these are the brand's own Google reviews, with the name and month.</p>{% endif %}
+</div></section>

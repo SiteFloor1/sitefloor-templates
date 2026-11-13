@@ -1,0 +1,10 @@
+{#- Nacre photo band: one photograph across the full width, still (nothing here moves with the scroll), its line
+    beneath as one label. -#}
+{%- set p = site.photoBand %}
+<section class="nc-band"{{ "photo-band" | tierAttr | safe }} aria-label="{{ p.kicker }}">
+  <picture>
+    {%- if p.srcMobile %}<source media="(max-width:700px)" srcset="{{ p.srcMobile | img }}">{% endif %}
+    <img src="{{ p.src | img }}" alt="{{ p.alt }}" loading="lazy" decoding="async" width="{{ p.width }}" height="{{ p.height }}">
+  </picture>
+  <p class="nc-band-cap nc-label nc-muted">{{ p.caption }}</p>
+</section>

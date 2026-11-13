@@ -1,0 +1,5 @@
+{#- Handover section opening: the section's name with one word in italic, its line under it in the quieter ink. -#}
+<div class="hv-sh">
+  <h2 class="bd-h2">{{ sec.title | markup | safe }}</h2>
+  {%- if sec.intro %}<p>{{ sec.intro }}</p>{% endif %}
+</div>

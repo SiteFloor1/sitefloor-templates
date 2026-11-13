@@ -1,0 +1,11 @@
+{#- The brand moment: one full-width band of the house's signature colour. In it, the client's own box photographed,
+    the monogram large, and one line. -#}
+{%- set B = site.box %}
+<section class="nc-sec jw-brand" data-feature="in-the-box" aria-labelledby="jw-box-h"><div class="wrap jw-brand-in">
+  <figure class="jw-brand-ph rv"><img src="{{ B.photo.src | img }}" width="{{ B.photo.width }}" height="{{ B.photo.height }}" loading="lazy" decoding="async" alt="{{ B.photo.alt }}"></figure>
+  <div class="jw-brand-t rv">
+    {% set cartoucheClass = "jw-brand-mark" %}{% include "looks/" + site.look + "/parts/cartouche.njk" %}
+    <h2 class="jw-h" id="jw-box-h">{{ site.sections.box.title }}</h2>
+    <p class="jw-say">{{ B.line }}</p>
+  </div>
+</div></section>

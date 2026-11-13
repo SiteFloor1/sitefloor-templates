@@ -1,0 +1,13 @@
+.wm-wg { padding-bottom: clamp(80px, 9vw, 128px); }
+.wm-wg-in { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: 48px 72px; align-items: start; }
+.wm-wg-body { max-width: 720px; }
+.wm-wg-s { padding-block: 24px; border-top: 1px solid var(--line); }
+.wm-wg-s:first-child { border-top: 1px solid var(--accent); }
+.wm-wg h2 { font: 300 clamp(1.4rem, 2.2vw, 1.9rem)/1.2 var(--font-display); margin: 0 0 12px; }
+.wm-wg-s p { margin: 0 0 10px; }
+.wm-wg-from { color: var(--muted); font-size: 13px; }
+.wm-wg-from a { color: inherit; }
+.wm-wg-not { color: var(--muted); font-size: 14px; border-left: 1px solid var(--accent); padding-left: 14px; margin-top: 24px; }
+.wm-wg-side { position: sticky; top: calc(var(--nav-h) + 32px); display: grid; gap: 8px; }
+.wm-wg-side p { margin: 0; }
+@media (max-width: 900px) { .wm-wg-in { grid-template-columns: 1fr; } .wm-wg-side { position: static; } }

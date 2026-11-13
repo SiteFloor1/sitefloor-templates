@@ -1,0 +1,17 @@
+{#- The bridal page: the bride by the window beside the trial; before we arrive; travel; then packages and the date. -#}
+{%- set b = site.bridalPage %}
+{%- set ph = { kicker: b.kicker, title: b.title, intro: b.intro } %}
+{% include "kits/mehndi/partials/page-head.njk" %}
+<section class="mh-br" data-feature="bridal-mehndi" aria-label="The trial and the day"><div class="wrap mh-br-in">
+  <figure class="mh-br-ph"><img src="{{ b.photo.src | img }}" alt="{{ b.photo.alt }}" width="{{ b.photo.width }}" height="{{ b.photo.height }}" fetchpriority="high" decoding="async"></figure>
+  <div class="mh-br-text">
+    <h2>The trial</h2>
+    {%- for para in b.trial | paragraphs %}<p>{{ para }}</p>{% endfor %}
+    <h2>Before we arrive</h2>
+    <ul>{% for x in b.before %}<li>{{ x }}</li>{% endfor %}</ul>
+    <h2>Travel</h2>
+    {%- for para in b.travel | paragraphs %}<p>{{ para }}</p>{% endfor %}
+  </div>
+</div></section>
+{%- if "mehndi-packages" | enabled %}{% include "kits/mehndi/features/mehndi-packages/mehndi-packages.njk" %}{% endif %}
+{%- if "mehndi-dates" | enabled %}{% include "kits/mehndi/features/mehndi-dates/mehndi-dates.njk" %}{% endif %}

@@ -1,0 +1,233 @@
+{
+  "schemaVersion": 4,
+  "id": "REPLACE_ME",
+  "mode": "client",
+  "plan": "REPLACE_ME",
+  "kit": "restaurant",
+  "look": "carte",
+  "url": "https://REPLACE_ME.co.uk",
+  "indexable": true,
+  "lang": "en-GB",
+  "business": {
+    "name": "REPLACE_ME",
+    "schemaType": "Restaurant",
+    "description": "REPLACE_ME one sentence: what you cook, where.",
+    "priceRange": "££",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "REPLACE_ME",
+    "phone": "REPLACE_ME",
+    "email": "REPLACE_ME"
+  },
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "location": {
+    "streetAddress": "REPLACE_ME",
+    "locality": "REPLACE_ME",
+    "postcode": "REPLACE_ME",
+    "country": "GB",
+    "area": "REPLACE_ME how to find us, parking",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=REPLACE_ME"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": "REPLACE_ME opening times, e.g. [[\"09:00\",\"18:00\"]], or [] if closed",
+      "tue": "REPLACE_ME opening times, e.g. [[\"09:00\",\"18:00\"]], or [] if closed",
+      "wed": "REPLACE_ME opening times, e.g. [[\"09:00\",\"18:00\"]], or [] if closed",
+      "thu": "REPLACE_ME opening times, e.g. [[\"09:00\",\"18:00\"]], or [] if closed",
+      "fri": "REPLACE_ME opening times, e.g. [[\"09:00\",\"18:00\"]], or [] if closed",
+      "sat": "REPLACE_ME opening times, e.g. [[\"09:00\",\"18:00\"]], or [] if closed",
+      "sun": "REPLACE_ME opening times, e.g. [[\"09:00\",\"18:00\"]], or [] if closed"
+    },
+    "exceptions": []
+  },
+  "nav": [
+    {
+      "label": "Menu",
+      "page": "menu",
+      "feature": "menu-page",
+      "fallback": "#menu"
+    },
+    {
+      "label": "Visit",
+      "page": "visit",
+      "feature": "plan-visit",
+      "fallback": "#visit"
+    }
+  ],
+  "features": [
+    "menu",
+    "specials",
+    "table-request",
+    "visit",
+    "questions",
+    "plan-visit"
+  ],
+  "hero": {
+    "kicker": "REPLACE_ME e.g. Grill · Neighbourhood",
+    "title": "REPLACE_ME first line|*second line.*",
+    "intro": "REPLACE_ME one sentence"
+  },
+  "sections": {
+    "menu": {
+      "kicker": "REPLACE_ME restaurant name",
+      "title": "The menu"
+    },
+    "specials": {
+      "kicker": "On the board",
+      "title": "Today",
+      "intro": "Ask us what's on the board today."
+    },
+    "tableRequest": {
+      "kicker": "Book",
+      "title": "Ask for a *table.*",
+      "intro": "Pick a day and a time. We reply on WhatsApp."
+    },
+    "gallery": {
+      "kicker": "On Instagram",
+      "title": "From the kitchen",
+      "intro": "Straight from our Instagram."
+    },
+    "reviews": {
+      "kicker": "Google reviews",
+      "title": "Reviews",
+      "intro": "Copied from Google with the reviewer's name and month."
+    },
+    "visit": {
+      "kicker": "Visit",
+      "title": "Find us"
+    },
+    "questions": {
+      "kicker": "Before you come",
+      "title": "Good to *know.*",
+      "intro": ""
+    }
+  },
+  "messages": {
+    "general": "Hi, can I book a table?"
+  },
+  "questions": [
+    {
+      "topic": "Getting here",
+      "q": "Where can I park?",
+      "a": "REPLACE_ME (street, pay and display or free, how far)",
+      "home": true
+    },
+    {
+      "topic": "Food",
+      "q": "Is the food halal?",
+      "a": "REPLACE_ME (or delete if it doesn't apply)",
+      "home": true
+    },
+    {
+      "topic": "Allergies",
+      "q": "Can you cater for allergies?",
+      "a": "REPLACE_ME what the kitchen handles and how to tell you",
+      "home": true
+    },
+    {
+      "topic": "Booking",
+      "q": "Do you take walk-ins?",
+      "a": "REPLACE_ME",
+      "home": true
+    }
+  ],
+  "visitInfo": {
+    "kicker": "Plan your visit",
+    "title": "Before you|come in*.*",
+    "intro": "Parking, the quickest way here and what to expect.",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "REPLACE_ME (nearest station)",
+        "origin": "REPLACE_ME, Town",
+        "minutes": "REPLACE_ME whole minutes, timed on foot",
+        "steps": [
+          "REPLACE_ME",
+          "REPLACE_ME"
+        ]
+      }
+    ],
+    "parking": [
+      {
+        "name": "REPLACE_ME",
+        "walk": "REPLACE_ME whole minutes on foot to the door",
+        "price": "REPLACE_ME",
+        "paid": "REPLACE_ME \"always\", \"never\", or the hours you pay, like opening hours: {\"mon\": [[\"08:00\",\"18:00\"]], …, \"sun\": []}"
+      }
+    ],
+    "access": [
+      {
+        "label": "Step-free entrance",
+        "yes": "REPLACE_ME true or false, checked with the client"
+      },
+      {
+        "label": "Accessible toilet",
+        "yes": "REPLACE_ME true or false, checked with the client"
+      }
+    ],
+    "payment": "REPLACE_ME",
+    "checked": "REPLACE_ME month you checked these facts with the client, YYYY-MM"
+  },
+  "menu": {
+    "sittings": [
+      {
+        "id": "lunch",
+        "name": "Lunch",
+        "days": [
+          "REPLACE_ME e.g. tue"
+        ],
+        "from": "REPLACE_ME HH:MM",
+        "to": "REPLACE_ME HH:MM",
+        "lastOrders": "REPLACE_ME HH:MM",
+        "mood": "day"
+      },
+      {
+        "id": "dinner",
+        "name": "Dinner",
+        "days": [
+          "REPLACE_ME e.g. tue"
+        ],
+        "from": "REPLACE_ME HH:MM",
+        "to": "REPLACE_ME HH:MM",
+        "lastOrders": "REPLACE_ME HH:MM",
+        "mood": "evening"
+      }
+    ],
+    "statement": "REPLACE_ME the restaurant's own words: halal or not, alcohol, which allergens the kitchen handles, and to tell staff about allergies",
+    "chartChecked": "REPLACE_ME YYYY-MM-DD the day the restaurant checked its allergen chart with you",
+    "sections": [
+      {
+        "id": "mains",
+        "name": "REPLACE_ME section name",
+        "sittings": [
+          "lunch",
+          "dinner"
+        ],
+        "dishes": [
+          {
+            "id": "REPLACE_ME-dish-id",
+            "name": "REPLACE_ME",
+            "desc": "REPLACE_ME",
+            "price": "REPLACE_ME pounds as a number",
+            "diets": [],
+            "allergens": "REPLACE_ME from the restaurant's allergen chart, [] only if it has none of the 14"
+          }
+        ]
+      }
+    ]
+  },
+  "tonight": {
+    "source": "sheet",
+    "csvUrl": "REPLACE_ME published Google Sheet CSV link (kind,name,price,note,updated_at)",
+    "staleAfterMinutes": 45
+  },
+  "tableRequest": {
+    "message": "Hi, can I book a table?",
+    "maxGuests": "REPLACE_ME largest table, e.g. 10",
+    "walkIns": "REPLACE_ME or delete this line"
+  }
+}

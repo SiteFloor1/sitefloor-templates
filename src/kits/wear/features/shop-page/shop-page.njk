@@ -1,0 +1,29 @@
+{#- The shop page: one piece per row, its photographs large, the price and what's left in every size. -#}
+{%- import "kits/wear/partials/macros.njk" as m with context %}
+{%- set ph = { kicker: site.shellsPage.kicker, title: site.shellsPage.title, intro: site.shellsPage.intro } %}
+{% include "kits/wear/partials/page-head.njk" %}
+<div class="wr-shop" data-feature="shop-page">
+<script type="application/json" data-wear-stock>{{ site | wearStockJson(build.today) | safe }}</script>
+{%- for p in site.pieces %}
+{%- set st = site | wearStockWords(p, build.today) %}
+<article class="wr-shop-row rv{% if loop.index0 % 2 %} is-flip{% endif %}" id="{{ p.id }}" data-stock="{{ p.id }}" data-state="{{ st.state }}"><div class="wrap wr-shop-in">
+  <div class="wr-shop-ph">
+    {%- for ph in p.photos %}{% if loop.index0 < 2 %}<img src="{{ ph.src | img }}" alt="{{ ph.alt }}" width="{{ ph.width }}" height="{{ ph.height }}" loading="{{ 'eager' if loop.first and loop.parent.first else 'lazy' }}" decoding="async">{% endif %}{% endfor %}
+  </div>
+  <div class="wr-shop-t">
+    <p class="wr-shop-k">{{ p.kind }}</p>
+    <h2>{{ p.name }} <span>{{ p.colour }}</span></h2>
+    {%- if p.line %}<p class="wr-shop-line">{{ p.line }}</p>{% endif %}
+    <p class="wr-shop-price">{{ p.price | gbpWhole }}</p>
+    <p class="wr-stock"><b data-stock-lead>{{ st.lead }}</b> <span data-stock-rest>{{ st.rest }}</span></p>
+    <ul class="wr-sizes" aria-label="Sizes" data-size-row>
+      {%- for s in p.sizes %}<li data-size="{{ s }}">{{ s }}</li>{% endfor %}
+    </ul>
+    <p class="wr-shop-acts">{{ m.buyLink(p, "wr-buy") }}
+      {%- if "piece-pages" | enabled %}<a class="wr-link" href="{{ p.id | href }}"{{ "piece-pages" | tierAttr | safe }}>Fit, fabric and looks</a>{% elif "fit-room" | enabled %}<a class="wr-link" href="{{ 'fit' | href }}#fit-{{ p.id }}">Fit and fabric</a>{% endif %}</p>
+    {%- if site.drop and site.drop.restockForm %}<div class="wr-restock">{{ m.formLink(site.drop.restockForm, "Tell me when it's back", "Opens the brand's Google Form for this piece: it messages you first if it's made again.", "wr-link") }}</div>{% endif %}
+  </div>
+</div></article>
+{%- endfor %}
+{%- if site.mode == "demo" %}<p class="wrap wr-fine">{{ site.shop.note }}</p>{% endif %}
+</div>

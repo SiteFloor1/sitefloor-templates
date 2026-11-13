@@ -1,0 +1,34 @@
+{#- Every light has a reason: the lights numbered on a photograph of a finished room. Tap a number (on the photo or in
+    the list) for the fitting, why it's there, its scene, colour and control. Without JavaScript every light is listed
+    with its reason. -#}
+{%- set sec = site.sections.lights %}
+{%- set f = site.fittings %}
+<section id="lights" class="el-lights" data-feature="light-reasons" aria-label="{{ sec.title | plain }}"><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="el-lights-in">
+    <div class="el-stage" data-stage>
+      <figure class="el-photo">
+        <img src="{{ f.photo.src | img }}" alt="{{ f.photo.alt }}" width="{{ f.photo.width }}" height="{{ f.photo.height }}" loading="lazy" decoding="async">
+        {%- for x in f.items %}<button class="el-pin" type="button" data-light="{{ loop.index0 }}" aria-pressed="{{ 'true' if loop.first else 'false' }}" aria-label="Light {{ loop.index }}: {{ x.name }}" style="left:{{ x.x }}%;top:{{ x.y }}%" data-js-only>{{ loop.index }}</button>{% endfor %}
+        {%- if f.photo.caption %}<figcaption>{{ f.photo.caption }}</figcaption>{% endif %}
+      </figure>
+    </div>
+    <div class="el-fit-side" data-fit-side>
+      <div class="el-fit" data-fit aria-live="polite" data-js-only>
+        <p class="el-fit-n" data-fit-n>1</p>
+        <h3 data-fit-name>{{ f.items[0].name }}</h3>
+        <p class="el-fit-why" data-fit-why>{{ f.items[0].why }}</p>
+        <dl class="el-fit-dl">
+          <div><dt>Scene</dt><dd data-fit-scene>{{ f.items[0].scene }}</dd></div>
+          <div><dt>Colour</dt><dd data-fit-colour>{{ f.items[0].colour }}</dd></div>
+          <div><dt>Control</dt><dd data-fit-control>{{ f.items[0].control }}</dd></div>
+        </dl>
+      </div>
+      <ol class="el-fit-list">
+        {%- for x in f.items %}
+        <li><button type="button" data-light="{{ loop.index0 }}" aria-pressed="{{ 'true' if loop.first else 'false' }}"><span class="el-fit-ln">{{ loop.index }}</span><span>{{ x.name }}</span></button><p class="el-fit-nojs" data-no-js>{{ x.why }}</p></li>
+        {%- endfor %}
+      </ol>
+    </div>
+  </div>
+</div></section>

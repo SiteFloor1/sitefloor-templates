@@ -1,0 +1,23 @@
+{#- On the home page: two or three gowns, each filling the screen as an editorial photograph, with its name, house,
+    fabric and "from" price set quietly as a credit; then the way to every gown. A gown leads here when it has an
+    `editorial` photograph (wide for large screens, tall for phones); `layout` is "full", "left" or "right". -#}
+<section id="gowns" class="bd-eds" aria-label="Gowns"{{ 'gowns-page' | tierAttr | safe }}>
+  {%- for g in site.gowns | homeGowns %}
+  {%- set h = site.designers | house(g.house) %}
+  {%- set ed = g.editorial %}
+  <article class="bd-ed" data-layout="{{ ed.layout or 'full' }}" aria-label="{{ g.name }} by {{ h.name }}">
+    <picture class="bd-ed-img">
+      <source media="(max-width: 760px)" srcset="{{ ed.tall.src | img }}" width="{{ ed.tall.width }}" height="{{ ed.tall.height }}">
+      <img src="{{ ed.wide.src | img }}" alt="{{ ed.wide.alt }}" width="{{ ed.wide.width }}" height="{{ ed.wide.height }}" loading="lazy" decoding="async">
+    </picture>
+    <div class="bd-ed-credit">
+      <p class="bd-ed-n">{{ g.name }}</p>
+      <p class="bd-ed-h">{{ h.name }}</p>
+      <p class="bd-ed-f">{{ g.fabric }}</p>
+      <p class="bd-ed-p">{{ ("From " + (g.price | gownPrice)) if g.price else "Price on request" }}</p>
+      <a class="bd-ed-a" href="{{ 'gowns' | href }}#g-{{ g.id }}">See the gown</a>
+    </div>
+  </article>
+  {%- endfor %}
+  <p class="wrap bd-eds-all"><a class="bd-go" href="{{ 'gowns' | href }}">All {{ site.gowns.items.length }} gowns</a></p>
+</section>

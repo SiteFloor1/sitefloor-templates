@@ -1,0 +1,6 @@
+{#- Cacao section opening: the section's name in the display face, large; on the right, small, its line or today's date.
+    `sec` = { kicker, title, intro }; a title of "today" shows the date instead (filled by the counter's script). -#}
+<div class="cc-head">
+  <h2 class="cc-h">{{ sec.title | markup | safe }}</h2>
+  {%- if sec.intro == "today" %}<p class="cc-hr" data-today>{{ build.today | longDay }}</p>{% elif sec.intro %}<p class="cc-hr">{{ sec.intro }}</p>{% endif %}
+</div>

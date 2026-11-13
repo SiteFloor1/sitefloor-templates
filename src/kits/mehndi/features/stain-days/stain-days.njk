@@ -1,0 +1,19 @@
+{#- Your stain, day by day: one stain photographed each day from the mehndi evening; dated from her wedding. -#}
+{%- set sec = site.sections.stain %}
+{%- set sd = site.stainDays %}
+<section id="stain" class="mh-sd" data-feature="stain-days"{{ "stain-days" | tierAttr | safe }} aria-labelledby="mh-sd-h"><div class="wrap">
+  <div class="mh-sd-head">
+    <h2 class="mh-sd-h" id="mh-sd-h">{{ sec.title | markup | safe }}</h2>
+    <p class="mh-sd-line" data-sd-line aria-live="polite">{{ sd.text or "Choose your wedding date above, and each day gets its date." }}</p>
+  </div>
+  <ol class="mh-sd-days">
+    {%- for st in sd.stages %}
+    <li>
+      <img src="{{ st.photo.src | img }}" alt="{{ st.photo.alt }}" width="{{ st.photo.width }}" height="{{ st.photo.height }}" loading="lazy" decoding="async">
+      <span class="mh-sd-when" data-sd-date="{{ st.day }}">{{ "The evening" if st.day == 0 else "Day " + st.day }}</span>
+      <b>{{ st.label }}</b>
+      <p>{{ st.text }}</p>
+    </li>
+    {%- endfor %}
+  </ol>
+</div></section>

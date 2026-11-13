@@ -1,0 +1,10 @@
+{#- A chapter opener: a close crop (a strap, a hip, a lace edge) full width, a few words very large, one line and a link.
+    Placed on the home page before the section named in its "before". Set `ch`. -#}
+<section class="lc-ch bleed" aria-label="{{ ch.title | plain }}">
+  <figure class="lc-ch-ph">{% set ph = ch.photo %}{% include "kits/lingerie/partials/photo.njk" %}</figure>
+  <div class="lc-ch-t">
+    <h2>{{ ch.title | markup | safe }}</h2>
+    {%- if ch.line %}<p>{{ ch.line }}</p>{% endif %}
+    {%- if ch.link | linkOn(site) %}<a class="lc-ch-go" href="{{ (ch.link.page | href) if ch.link.page else ch.link.href }}">{{ ch.link.label }}</a>{% endif %}
+  </div>
+</section>

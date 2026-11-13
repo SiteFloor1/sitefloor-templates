@@ -1,0 +1,8 @@
+{#- Blue hour phone bar: the keypad again, three engraved keys: Call, WhatsApp, and the estimate (or the fault guide). -#}
+<div class="mbar bh-bar">
+  <a class="bh-bar-k" href="tel:{{ site.contact.phone | replace(' ', '') }}">Call</a>
+  <a class="bh-bar-k" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">WhatsApp</a>
+  {%- if "estimate" | enabled %}<a class="bh-bar-k bh-bar-go" href="{{ (('your-project' | href) + '#estimate') if ('project-page' | enabled) else ((('index' | href) if pageId != 'index' else '') + '#estimate') }}"{{ "estimate" | tierAttr | safe }}>Estimate</a>
+  {%- elif "fault-guide" | enabled %}<a class="bh-bar-k bh-bar-go" href="{{ ('index' | href) if pageId != 'index' else '' }}#fault">Fault?</a>
+  {%- else %}<a class="bh-bar-k bh-bar-go" href="{{ ('visit' | href) if ('plan-visit' | enabled) else '#visit' }}">Visit</a>{% endif %}
+</div>

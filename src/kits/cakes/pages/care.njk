@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: care
+permalink: care.html
+feature: cake-care-page
+eleventyComputed:
+  title: "{{ site.cakePages.care.title | plain }}"
+  description: "Looking after a {{ site.business.name }} cake: carrying, storing, cutting and keeping the top tier."
+---
+{% include "kits/cakes/features/cake-care-page/cake-care-page.njk" %}
+{%- set hostPage = "cake-care-page" %}{% include "kits/cakes/partials/hosted.njk" %}

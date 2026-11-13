@@ -1,0 +1,35 @@
+{#- Blue hour voucher: the card is a brushed keypad plate (square, the name engraved, the amount large and light, a
+    small light in the corner); the choices beside it are square keys. Paid by the client's own link after a message. -#}
+{%- set sec = site.sections.vouchers %}
+{%- set v = site.vouchers %}
+<section id="vouchers" class="bh-vc-sec" data-feature="vouchers"{{ "vouchers" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="bh-vc">
+    <div class="bh-vc-plate" aria-live="polite">
+      <span class="bh-led" aria-hidden="true"></span>
+      <p class="bh-eng">{{ site.business.name }}</p>
+      <p class="bh-vc-amt" data-vc-show-amount>{{ (v.amounts[1] or v.amounts[0]) | pounds }}</p>
+      <p class="bh-vc-to" data-vc-show-to>A voucher</p>
+      <p class="bh-vc-note" data-vc-show-note></p>
+      <p class="bh-vc-small">Valid {{ v.validMonths }} months · {{ site.location.streetAddress }}, {{ site.location.locality }}</p>
+    </div>
+    <form class="bh-vc-form" data-vc-form>
+      <div data-js-only>
+        <fieldset class="bh-vc-amts">
+          <legend class="bh-eng">Amount</legend>
+          {%- for a in v.amounts %}<label><input type="radio" name="vc-amount" value="{{ a }}"{% if loop.index0 == 1 or v.amounts.length == 1 and loop.first %} checked{% endif %}><span>{{ a | pounds }}</span></label>{% endfor %}
+          {%- if v.custom %}<label><input type="radio" name="vc-amount" value="custom"><span>Other</span></label>
+          <input class="bh-vc-custom" type="number" inputmode="numeric" min="{{ v.custom.min }}" max="{{ v.custom.max }}" step="1" placeholder="£{{ v.custom.min }}–{{ v.custom.max }}" aria-label="Other amount in pounds" data-vc-custom hidden>{% endif %}
+        </fieldset>
+        <label class="bh-vc-f"><span class="bh-eng">For</span><input type="text" maxlength="40" autocomplete="off" data-vc-to placeholder="Their name"></label>
+        <label class="bh-vc-f"><span class="bh-eng">From</span><input type="text" maxlength="40" autocomplete="name" data-vc-from placeholder="Your name"></label>
+        <label class="bh-vc-f"><span class="bh-eng">Message</span><input type="text" maxlength="90" autocomplete="off" data-vc-note placeholder="For the new kitchen"></label>
+        <p class="bh-vc-err" data-vc-err role="alert" hidden></p>
+      </div>
+      <p class="bh-vc-how" data-no-js>Message us the amount, who it's for and any words for the card.</p>
+      <a class="go" href="{{ 'Hello, I would like to buy a voucher. How can I pay?' | wa }}" target="_blank" rel="noopener" data-vc-order>Order on WhatsApp</a>
+      <p class="bh-vc-how">{{ v.howToBuy }}</p>
+      <p class="bh-vc-how">{{ v.terms }}</p>
+    </form>
+  </div>
+</div></section>

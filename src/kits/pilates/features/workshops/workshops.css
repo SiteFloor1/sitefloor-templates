@@ -1,0 +1,15 @@
+/* Workshops: one wide photograph, then each workshop as a row: its day, its words, its two actions. */
+.pl-ws-ph { margin: 0 0 clamp(32px, 4vw, 56px); }
+.pl-ws-ph img { display: block; width: 100%; height: auto; aspect-ratio: 21 / 9; object-fit: cover; }
+.pl-ws-list { list-style: none; margin: 0; padding: 0; }
+.pl-ws-i { display: grid; grid-template-columns: 3fr 6fr 3fr; gap: 12px clamp(20px, 4vw, 56px); padding-block: 26px; border-top: 1px solid var(--line); align-items: start; }
+.pl-ws-i[hidden] { display: none; }
+.pl-ws-d { margin: 0; display: grid; gap: 2px; }
+.pl-ws-d time { font-family: var(--font-display); font-style: italic; font-weight: 300; font-size: 24px; line-height: 1.15; }
+.pl-ws-d span { color: var(--muted); font-variant-numeric: tabular-nums; }
+.pl-ws-t { margin: 0 0 6px; font-family: var(--font-display); font-weight: 300; font-size: clamp(26px, 2.4vw, 34px); line-height: 1.1; }
+.pl-ws-x { margin: 0 0 6px; max-width: 54ch; }
+.pl-ws-m { margin: 0; font-size: 14px; color: var(--muted); }
+.pl-ws-go { margin: 0; display: grid; gap: 10px; justify-items: start; }
+.pl-ws-pay { display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px; border-radius: 999px; background: var(--text); color: var(--bg); font-weight: 500; text-decoration: none; }
+@media (max-width: 860px) { .pl-ws-i { grid-template-columns: 1fr; } .pl-ws-ph img { aspect-ratio: 3 / 2; } .pl-ws-go { grid-auto-flow: column; justify-content: start; align-items: center; gap: 22px; } }

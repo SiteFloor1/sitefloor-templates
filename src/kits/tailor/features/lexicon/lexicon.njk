@@ -1,0 +1,20 @@
+{#- The style lexicon: the words a cutter uses, one plain sentence each, with a photograph where the house has one,
+    filtered by kind. Without JavaScript every word is listed. -#}
+{%- set lx = site.lexicon %}
+{%- set ph = lx %}
+{% include "kits/tailor/partials/page-head.njk" %}
+<section class="wrap tl-lx" data-feature="lexicon" aria-label="{{ lx.title | plain }}">
+  <div class="tl-lx-kinds" role="group" aria-label="Show" data-js-only>
+    <button type="button" class="tl-pick" data-lx-kind="" aria-pressed="true">Every word</button>
+    {%- for k in lx.items | usedKinds %}<button type="button" class="tl-pick" data-lx-kind="{{ k.id }}" aria-pressed="false">{{ k.label }}</button>{% endfor %}
+  </div>
+  <ul class="tl-lx-list">
+    {%- for w in lx.items %}
+    <li class="tl-lx-w{% if w.photo %} has-ph{% endif %}" id="{{ w.id }}" data-kind="{{ w.kind }}">
+      {%- if w.photo %}<figure class="tl-lx-ph"><img src="{{ w.photo.src | img }}" alt="{{ w.photo.alt }}" width="{{ w.photo.width }}" height="{{ w.photo.height }}" loading="lazy" decoding="async"></figure>{% endif %}
+      <h2 class="tl-lx-t">{{ w.term }}</h2>
+      <p class="tl-lx-d">{{ w.text }}</p>
+    </li>
+    {%- endfor %}
+  </ul>
+</section>

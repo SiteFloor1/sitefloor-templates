@@ -1,0 +1,8 @@
+/* Private fitting: the facts beside the request. */
+.fit-in { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--s3); align-items: start; }
+.lx-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px var(--gap); }
+.lx-f { display: grid; gap: 6px; min-width: 0; }
+.lx-f select, .lx-f input, .lx-f textarea { width: 100%; min-height: 44px; font: inherit; }
+.fit-tray ol { margin: 6px 0 0; padding-left: 1.2em; }
+.lx-go { margin-top: 22px; }
+@media (max-width: 860px) { .fit-in { grid-template-columns: 1fr; } }

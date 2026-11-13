@@ -1,0 +1,5 @@
+{#- Salon phone bar: two words on the page's own ground under a gilt rule. -#}
+<div class="mbar sa-bar">
+  <a href="tel:{{ site.contact.phone | replace(' ', '') }}">Telephone</a>
+  <a class="sa-bar-res" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">Reserve a table</a>
+</div>

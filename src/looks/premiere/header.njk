@@ -1,0 +1,25 @@
+{#- Première header: the studio's name in Goudy italic on the left; the pages on the right, "Check your date"
+    underlined in amber, and WhatsApp quietly after it. On phones, "Menu" opens the pages. -#}
+{%- set dateHref = ("#date" if pageId == "index" else ('index' | href) ~ "#date") %}
+<header class="nav pr-nav"><div class="wrap pr-nav-in">
+  <a class="pr-mark" href="{{ 'index' | href }}" aria-label="{{ site.business.name }}, home">{% if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="{{ site.business.name }}" height="28">{% else %}{{ site.business.name }}{% endif %}</a>
+  <nav class="pr-links" aria-label="Main">
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+    {%- if "date-check" | enabled %}<a class="pr-date" href="{{ dateHref }}">Check your date</a>{% endif %}
+    <a class="pr-wa" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{{ "WhatsApp" if build.booking.whatsapp else build.booking.label }}</a>
+  </nav>
+  <button class="burger pr-menu" type="button" aria-expanded="false" aria-controls="mnav"><span class="pr-open">Menu</span><span class="pr-close">Close</span></button>
+</div></header>
+<div class="mnav pr-sheet" id="mnav" hidden>
+  <nav aria-label="Pages">
+    <a href="{{ 'index' | href }}"{% if pageId == "index" %} aria-current="page"{% endif %}>Home</a>
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+    {%- if "date-check" | enabled %}<a href="{{ dateHref }}">Check your date</a>{% endif %}
+  </nav>
+  <p class="pr-sheet-now" data-live-status><span class="dot" aria-hidden="true"></span> <span data-status-text>Opening hours</span></p>
+  <p class="pr-sheet-addr">{{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}</p>
+</div>

@@ -1,0 +1,10 @@
+/* The journal: a list of pieces, the date and title large; one piece reads in a single column. */
+.sm-jn, .sm-art { padding-block: 16px 96px; }
+.sm-jn-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--text); }
+.sm-jn-item a { display: grid; gap: 6px; padding: 24px 0; border-bottom: 1px solid var(--line); text-decoration: none; }
+.sm-jn-item a:hover .sm-jn-title { text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 6px; }
+.sm-jn-date, .sm-jn-by { color: var(--muted); }
+.sm-jn-title { font-family: var(--font-display); font-weight: 300; font-size: 1.75rem; line-height: 1.15; }
+.sm-art-in { display: grid; gap: 28px; max-width: 720px; margin-inline: auto; }
+.sm-art-meta, .sm-art-note { margin: 0; }
+@media (min-width: 900px) { .sm-jn-item a { grid-template-columns: 10em 2fr 2fr auto; align-items: baseline; gap: 24px; } }

@@ -1,0 +1,15 @@
+{#- Do I need permission? England's rules for fences, decking, garden rooms and front gardens in plain words, from
+    GOV.UK, with the day it was checked, the sources, and "a guide, not a decision". -#}
+{%- set pl = site.planning %}
+{%- set ph = pl %}
+{% include "kits/garden/partials/page-head.njk" %}
+<section class="wrap gd-pg" aria-label="{{ pl.title | plain }}">
+  <p class="gd-pg-when">England only. Checked {{ pl.checked | ukDay }} against GOV.UK. A guide, not a decision.</p>
+  <dl class="gd-pg-dl">
+    {%- for r in pl.rows %}<div><dt>{{ r.q }}</dt><dd>{{ r.a }}</dd></div>{% endfor %}
+  </dl>
+  <p class="gd-pg-note">{{ pl.note or "Rules are different for a listed building, a flat or maisonette, a conservation area and anywhere with an Article 4 direction. If in doubt, ask your council before you build." }}</p>
+  <p class="gd-pg-src">Sources:
+    {%- for s in pl.sources %} <a href="{{ s.url }}" rel="noopener">{{ s.label }}</a>{% if not loop.last %};{% endif %}{% endfor %}.</p>
+  <p class="gd-pg-go"><a class="btn" href="{{ site.messages.general | book }}" target="_blank" rel="noopener">Ask about your garden</a></p>
+</section>

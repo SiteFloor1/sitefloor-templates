@@ -1,0 +1,7 @@
+---
+layout: core/layouts/base.njk
+pageId: index
+permalink: index.html
+---
+{% include "looks/" + site.look + "/hero.njk" %}
+{%- for id in (build.homeOrder or homeParts.order) %}{% if (id | enabled) and not (id in (build.heroParts or [])) and not (homeParts.elsewhere[id] and (homeParts.elsewhere[id] | enabled)) %}{% include homeParts.paths[id] %}{% endif %}{% endfor %}

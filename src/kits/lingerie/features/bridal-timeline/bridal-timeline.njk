@@ -1,0 +1,17 @@
+{#- Wedding dates: one date in, the shop's own steps out (each a number of weeks before), past ones marked, one calendar
+    file, and the dates sent to the shop. Without a date, each step shows its weeks before. -#}
+{%- set sec = site.sections.bridalDates %}
+{%- set bt = site.bridalTimeline %}
+<section id="dates" class="ls-dates" data-feature="bridal-timeline"{{ "bridal-timeline" | tierAttr | safe }}><div class="wrap dates-in">
+  <script type="application/json" data-lx>{{ { steps: bt.steps, late: bt.late, place: site.business.name + ", " + site.location.streetAddress + ", " + site.location.locality } | jsonData | safe }}</script>
+  <div>{% include "core/partials/section-head.njk" %}
+    <label class="lx-f dates-pick" data-js-only>Your wedding<input type="date" data-dates-day></label>
+    <p class="lx-small" data-dates-left></p>
+  </div>
+  <div>
+    <ol class="dates-list" data-dates-list>{% for s in bt.steps %}<li><span class="dates-when">{{ s.weeksBefore }} weeks before</span><span class="dates-what">{{ s.label }}{% if s.note %}<small>{{ s.note }}</small>{% endif %}</span></li>{% endfor %}</ol>
+    <p class="dates-late lx-small" data-dates-late hidden>{{ bt.late }}</p>
+    <p class="dates-acts" data-js-only><button type="button" class="lx-go" data-dates-ics disabled>Add every date to my calendar</button>
+    <a class="lx-go lx-quiet" href="{{ ('Hello ' + site.business.name + ', I would like to plan my wedding lingerie.') | wa }}" target="_blank" rel="noopener" data-dates-send>Send my dates</a></p>
+  </div>
+</div></section>

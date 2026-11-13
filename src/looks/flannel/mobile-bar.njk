@@ -1,0 +1,5 @@
+{#- Flannel phone bar: ivory with an ink hairline; "By appointment" (to the visit page) and the ink Book button. -#}
+<div class="mbar fl-bar">
+  <a class="fl-bar-where" href="{{ ('visit' | href) if ('plan-visit' | enabled) else '#visit' }}">By appointment</a>
+  <a class="tl-btn fl-bar-go" href="{{ (site.garments.message if site.garments else site.messages.general) | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.garments.message if site.garments else site.messages.general }}"{% endif %} target="_blank" rel="noopener">Book a fitting</a>
+</div>

@@ -1,0 +1,9 @@
+/* The smile gallery: large, close photographs two to a row, the facts beneath each at body size. */
+.sm-gal { padding-block: 16px 96px; }
+.sm-gal-list { list-style: none; margin: 0 0 32px; padding: 0; display: grid; gap: 40px 24px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); }
+.sm-gal-ph { display: grid; gap: 8px; }
+.sm-gal-pair { grid-template-columns: 1fr 1fr; }
+.sm-gal-ph figure { position: relative; margin: 0; aspect-ratio: 4 / 5; overflow: hidden; background: var(--surface); }
+.sm-gal-ph img { width: 100%; height: 100%; object-fit: cover; }
+.sm-gal-ph figcaption { position: absolute; left: 10px; bottom: 8px; padding: 2px 8px; background: var(--bg); color: var(--text); }
+.sm-gal-cap { margin: 12px 0 0; }

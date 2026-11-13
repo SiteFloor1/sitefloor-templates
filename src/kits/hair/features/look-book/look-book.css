@@ -1,0 +1,9 @@
+/* The look book: an uneven three-column hang of the salon's work. Tokens only. */
+.hr-lb-f { display: flex; flex-wrap: wrap; gap: 6px 22px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+.hr-lb-grid { list-style: none; margin: 36px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px 28px; }
+.hr-lb-one:nth-child(3n + 2) { margin-top: 64px; }
+.hr-lb-one figure { margin: 0 0 14px; aspect-ratio: 4 / 5; overflow: hidden; background: var(--surface); }
+.hr-lb-one img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hr-lb-n { margin: 0; font-size: 22px; }
+.hr-lb-w { margin: 4px 0 0; color: var(--muted); font-size: 14px; }
+@media (max-width: 860px) { .hr-lb-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 14px; } .hr-lb-one:nth-child(3n + 2) { margin-top: 0; } .hr-lb-one:nth-child(even) { margin-top: 40px; } }

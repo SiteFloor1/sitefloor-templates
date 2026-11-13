@@ -1,0 +1,22 @@
+{#- The documents to gather: choose a moment and see exactly what to find before a first meeting, grouped, to tick,
+    print or copy. A list of papers, never advice and never figures. Without scripts every moment's list shows. -#}
+{%- set d = site.documents %}
+{%- set ph = { title: d.title, intro: d.intro } %}
+{% include "kits/wealth/partials/page-head.njk" %}
+<section class="wm-doc" data-feature="documents"><div class="wrap">
+  <p class="wm-doc-pick" data-js-only><label for="doc-for">Documents for</label>
+    <select id="doc-for">{% for ev in site.lifeEvents.items %}{% if ev.documents %}<option value="{{ ev.id }}">{{ (ev.title[0] | lower) + ev.title.slice(1) }}</option>{% endif %}{% endfor %}</select></p>
+  {%- for ev in site.lifeEvents.items %}{% if ev.documents %}
+  <div class="wm-doc-set" id="{{ ev.id }}" data-doc-set="{{ ev.id }}">
+    <h2>{{ ev.title }}</h2>
+    {%- for g in ev.documents %}
+    <fieldset class="wm-doc-g"><legend>{{ g.group }}</legend>
+      {%- set gi = loop.index %}
+      {%- for item in g.items %}<label><input type="checkbox" id="doc-{{ ev.id }}-{{ gi }}-{{ loop.index }}"> <span>{{ item }}</span></label>{% endfor %}
+    </fieldset>
+    {%- endfor %}
+  </div>
+  {%- endif %}{% endfor %}
+  <p class="wm-doc-act" data-js-only><button class="wm-go" type="button" data-doc-print>Print this list</button> <button class="wm-go" type="button" data-doc-copy>Copy as text</button> <span data-doc-said role="status"></span></p>
+  <p class="wm-doc-note">A list of papers to find, not advice. Bring what you have; we'll help with the rest.</p>
+</div></section>

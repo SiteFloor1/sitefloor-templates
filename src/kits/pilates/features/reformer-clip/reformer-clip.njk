@@ -1,0 +1,19 @@
+{#- The reformer, explained: a real clip of a teacher showing someone onto the reformer. The picture shows first; the
+    film loads and plays only when tapped, with the studio's captions timed to it. The credit sits underneath. -#}
+{%- set sec = site.sections.reformerClip %}
+{%- set rc = site.reformerClip %}
+<section id="reformer" class="pl-clip" data-feature="reformer-clip" aria-labelledby="pl-clip-h"{{ 'reformer-clip' | tierAttr | safe }}><div class="wrap">
+  <div class="pl-clip-head"><h2 class="pl-clip-h" id="pl-clip-h">{{ sec.title | markup | safe }}</h2>{% if sec.intro %}<p>{{ sec.intro }}</p>{% endif %}</div>
+  <figure class="pl-clip-f">
+    <div class="pl-clip-box" style="aspect-ratio: {{ rc.video.width }} / {{ rc.video.height }}">
+      <img class="pl-clip-poster" src="{{ rc.poster.src | img }}" alt="{{ rc.poster.alt }}" width="{{ rc.poster.width }}" height="{{ rc.poster.height }}" loading="lazy" decoding="async" data-rc-poster>
+      <video class="pl-clip-v" preload="none" playsinline muted width="{{ rc.video.width }}" height="{{ rc.video.height }}" data-rc-video data-src="{{ rc.video.src | img }}" hidden></video>
+      <p class="pl-clip-cap" aria-live="polite" data-rc-cap></p>
+      <button class="pl-clip-play" type="button" data-rc-play><span class="pl-clip-tri" aria-hidden="true"></span><span data-rc-label>Watch, {{ rc.video.seconds | round }} seconds</span></button>
+    </div>
+    <ol class="pl-clip-list" data-rc-list>
+      {%- for c in rc.captions %}<li data-from="{{ c.from }}" data-to="{{ c.to }}">{{ c.text }}</li>{% endfor %}
+    </ol>
+    <figcaption class="pl-clip-credit">{{ rc.credit }}</figcaption>
+  </figure>
+</div></section>

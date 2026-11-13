@@ -1,0 +1,26 @@
+{#- Every texture side by side: tall photographs of straight, waves, curls, coils and braids. Choose one and it widens;
+    the line under the strip names who cuts it, the price from and the time, and what to arrive with. Without
+    JavaScript every texture's line shows in a list. -#}
+{%- set sec = site.sections.textures %}
+{%- set tx = site.textures.items %}
+{%- set on = 2 if tx.length > 2 else 0 %}
+<section id="textures" class="hr-tx" data-feature="textures" aria-labelledby="tx-h"><div class="wrap">
+  {%- set secId = "tx-h" %}{% include "core/partials/section-head.njk" %}
+  <div class="hr-tx-strip" role="group" aria-label="Textures">
+    {%- for t in tx %}
+    <button type="button" class="hr-tx-slice" data-tx="{{ t.id }}" aria-pressed="{{ 'true' if loop.index0 == on else 'false' }}" aria-controls="tx-d-{{ t.id }}">
+      <img src="{{ t.photo.src | img }}" alt="{{ t.photo.alt }}" width="{{ t.photo.width }}" height="{{ t.photo.height }}" loading="lazy" decoding="async">
+      <span class="hr-tx-n">{{ t.name }}</span>
+    </button>
+    {%- endfor %}
+  </div>
+  <div class="hr-tx-details">
+    {%- for t in tx %}
+    {%- set s = site.menu.services | idOf(t.service) %}
+    <div class="hr-tx-d" id="tx-d-{{ t.id }}" data-tx-d="{{ t.id }}"{% if loop.index0 != on %} data-off{% endif %}>
+      <p><b>{{ t.name }}</b> · {{ site.stylists.items | firstNames(t.stylists) }} · {{ s | fromWords }}. {{ t.arrive }}</p>
+      <a class="hr-go" href="{{ (site.menu.message + ' ' + s.name + '. Texture: ' + (t.name | lower) + '.') | book }}" target="_blank" rel="noopener">Book {{ s.name | lower }}</a>
+    </div>
+    {%- endfor %}
+  </div>
+</div></section>

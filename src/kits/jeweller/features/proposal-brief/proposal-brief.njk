@@ -1,0 +1,26 @@
+{#- Planning a proposal: the date, their size if known, what they wear and a budget, sent privately so the house can
+    help choose. A request on WhatsApp; nothing is shared. Without JavaScript, a plain WhatsApp link. -#}
+{%- set PR = site.proposal %}
+{%- set sec = { title: site.sections.proposal.title, intro: site.sections.proposal.intro } %}
+{%- set first = "Hello " + site.business.name + ", I'm planning a proposal and would like your help, privately." %}
+<section id="proposal" class="nc-sec jw-prop" data-feature="proposal-brief"{{ "proposal-brief" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="jw-prop-in">
+    <p class="jw-say rv">{{ PR.line }}</p>
+    <form class="nc-form" data-prop-form>
+      <div data-js-only>
+        <label class="nc-field"><span class="nc-label">The day you'll ask</span><input class="nc-in" type="date" data-prop-date></label>
+        <label class="nc-field"><span class="nc-label">Their ring size, if you know it</span><input class="nc-in nc-in-s" type="text" maxlength="3" autocomplete="off" placeholder="e.g. L" data-prop-size></label>
+        <fieldset class="nc-choice"><legend class="nc-label">What they wear</legend>
+          {%- for s in PR.styles %}<label><input type="radio" name="prop-style" value="{{ s }}"><span>{{ s }}</span></label>{% endfor %}
+        </fieldset>
+        <fieldset class="nc-choice"><legend class="nc-label">Budget</legend>
+          {%- for b in PR.budgets %}<label><input type="radio" name="prop-budget" value="{{ b }}"><span>{{ b }}</span></label>{% endfor %}
+        </fieldset>
+        <label class="nc-field"><span class="nc-label">Anything else</span><input class="nc-in" type="text" maxlength="160" autocomplete="off" data-prop-note></label>
+      </div>
+      <a class="nc-u nc-label jw-send" href="{{ first | wa }}" data-wa-text="{{ first }}" target="_blank" rel="noopener" data-prop-send>Send it privately</a>
+      {%- if "ring-sizer" | enabled %}<p class="nc-fine">Not sure of their size? <a class="nc-u" href="{{ 'ring-size' | href }}"{{ "ring-sizer" | tierAttr | safe }}>Ways to find it quietly</a>.</p>{% endif %}
+    </form>
+  </div>
+</div></section>

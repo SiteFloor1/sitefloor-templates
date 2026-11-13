@@ -1,0 +1,37 @@
+/* Today's specials: a slip clipped to the menu. Tokens only. */
+.sp { padding: 22px 22px 20px; background: var(--card); color: var(--card-ink); transition: background-color var(--mood-fade), color var(--mood-fade); }
+main section.sp { padding-block: 22px 20px; }
+.sp-h { font-family: var(--font-display); font-weight: 400; font-size: 30px; line-height: 1; margin: 4px 0 2px; }
+.sp-date { margin: 0 0 6px; font-size: 13px; color: var(--dim); min-height: 1.55em; }
+.sp-list { list-style: none; margin: 0; padding: 0; min-height: 4.4em; }
+.sp-list li { padding: 8px 0; border-top: 1px solid var(--line); }
+.sp-wait { color: var(--dim); font-size: 14px; }
+.sp-out { margin: 10px 0 0; font-size: 13.5px; color: var(--accent); font-weight: 600; }
+.sp-off { margin: 8px 0 0; font-size: 14.5px; color: var(--muted); }
+[data-feature="specials"]:not([data-ready]) .sp-off { display: block; }
+.sp-upd { margin: 8px 0 0; min-height: 1.4em; }
+.today-band { padding-block: clamp(26px, 4vw, 48px); }
+.today-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 16px; align-items: start; }
+.mn-home { padding-block: clamp(20px, 3vw, 40px) clamp(60px, 8vw, 110px); }
+.mn-home .mn-card { max-width: 1000px; margin-inline: auto; }
+/* a café's counter: each bake with its tag from the sheet (fresh out / baked / sold out) */
+.sp-bakes { list-style: none; margin: 10px 0 4px; padding: 0; }
+.sp-bakes li { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: 10px; padding: 9px 0; border-top: 1px solid var(--line); }
+.sp-bname { font-family: var(--font-display); font-size: 1.08em; line-height: 1.25; }
+.sp-bprice { font-variant-numeric: tabular-nums lining-nums; font-weight: 600; }
+.sp-btag:empty { display: none; }
+.sp-btag { padding: 3px 9px; border-radius: 999px; font-size: 11.5px; font-weight: 700; letter-spacing: .02em; white-space: nowrap; background: var(--surface-2); color: var(--muted); }
+[data-state="fresh"] > .sp-btag { background: var(--fresh); color: var(--on-fresh); }
+[data-state="out"] > .sp-btag { background: transparent; color: var(--dim); box-shadow: inset 0 0 0 1px var(--line-2); }
+[data-state="out"] > .sp-bname, [data-state="out"] > .sp-bprice { color: var(--dim); text-decoration: line-through; text-decoration-thickness: 1px; }
+/* a café's coffee board beside the slip (counter.board): the look gives it its colours through --board-* */
+.today-cafe { grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); }
+.sp-board { --board-bg: var(--text); --board-ink: var(--bg); --board-rule: var(--line-2); padding: 22px 22px 20px; background: var(--board-bg); color: var(--board-ink); }
+.sp-board-k { margin: 0 0 12px; font-size: 11px; font-weight: 700; letter-spacing: .24em; text-transform: uppercase; }
+.sp-board ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.sp-board li { display: flex; align-items: baseline; gap: 8px; }
+.sp-board li span { font-family: var(--font-display); font-size: 18px; line-height: 1.25; }
+.sp-board li i { flex: 1; min-width: 16px; border-bottom: 1.5px dotted var(--board-rule); translate: 0 -4px; }
+.sp-board li b { font-weight: 600; font-variant-numeric: tabular-nums; }
+.sp-board-n { margin: 14px 0 0; font-size: 12.5px; opacity: .8; }
+@media (max-width: 760px) { .today-cafe { grid-template-columns: minmax(0, 1fr); } }

@@ -1,0 +1,11 @@
+/* The photographs: each wedding a sequence; landscapes span two columns. */
+.wf-ph-w { display: grid; gap: 22px; margin-bottom: clamp(64px, 9vw, 140px); }
+.wf-ph-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; align-items: baseline; border-top: 1px solid var(--line); padding-top: 16px; }
+.wf-ph-h, .wf-ph-v { margin: 0; }
+.wf-ph-v { color: var(--muted); }
+.wf-ph-set { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(12px, 2vw, 28px); align-items: start; }
+.wf-ph-f { margin: 0; }
+.wf-ph-f.wf-wide { grid-column: span 2; }
+.wf-ph-f img { display: block; width: 100%; height: auto; }
+.wf-ph-f figcaption { font-size: 13px; color: var(--muted); margin-top: 8px; }
+@media (max-width: 640px) { .wf-ph-set { grid-template-columns: minmax(0, 1fr); } .wf-ph-f.wf-wide { grid-column: auto; } }

@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: build
+permalink: build.html
+feature: bouquet-builder
+eleventyComputed:
+  title: "{{ site.builder.title | plain }}"
+  description: "Build a bouquet from {{ site.business.name }}'s own stems: choose a palette and a size and see the real bouquet with its price."
+---
+{% include "kits/florist/features/bouquet-builder/bouquet-builder.njk" %}

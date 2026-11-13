@@ -1,0 +1,12 @@
+.wm-ppl { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.wm-ppl li { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 5fr) minmax(0, 4fr); gap: 8px 24px; padding-block: 20px; border-bottom: 1px solid var(--line); align-items: baseline; }
+.wm-ppl p { margin: 0; }
+.wm-ppl-n { font: 300 clamp(1.3rem, 2vw, 1.7rem)/1.2 var(--font-display); }
+.wm-ppl-r { color: var(--muted); }
+.wm-ppl-note { display: block; color: var(--text); margin-top: 6px; max-width: 52ch; }
+.wm-ppl-f { font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.wm-ppl-f b { font-weight: 400; color: var(--text); }
+.wm-ppl-f a { color: var(--accent); }
+@media (max-width: 760px) { .wm-ppl li { grid-template-columns: 1fr; } }
+.wm-ppl-n a { text-decoration: none; }
+.wm-ppl-n a:hover { color: var(--accent); }

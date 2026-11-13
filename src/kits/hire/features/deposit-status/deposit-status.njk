@@ -1,0 +1,20 @@
+{#- Where's my deposit: unlisted, reached by the link the business sends (…/deposit?ref=DH-4821). The status comes from
+    the client's Sheet by reference only, never a name: held, car checked or returned, with the date. -#}
+{%- set dp = site.depositPage %}
+{%- set pt = { title: dp.title, intro: dp.intro, kicker: dp.kicker } %}{% include "kits/hire/parts/page-top.njk" %}
+<section class="hr-dep" data-feature="deposit-status" aria-label="{{ dp.title | plain }}">
+  <div class="wrap hr-dep-grid">
+    <form class="hr-dep-form" data-dep-form>
+      <label class="hr-field" for="dep-ref"><span>Your reference</span><input id="dep-ref" name="ref" autocomplete="off" spellcheck="false" maxlength="32" data-dep-ref></label>
+      <button type="submit" class="dt-go">Check</button>
+      {%- if site.mode == "demo" %}<p class="hr-demo-note">Demo: try {{ site.hire.deposits.example }}.</p>{% endif %}
+    </form>
+    <ol class="hr-dep-steps" aria-label="Your deposit" data-dep-steps>
+      <li data-step="0"><span>Held</span><small data-step-date></small></li>
+      <li data-step="1"><span>Car checked</span><small data-step-date></small></li>
+      <li data-step="2"><span>Returned</span><small data-step-date></small></li>
+    </ol>
+    <p class="hr-dep-out" role="status" aria-live="polite" data-dep-out><span data-no-js>Ask us on WhatsApp and we'll tell you where your deposit is.</span></p>
+    <p class="hr-dep-how">{{ site.hire.deposit.how }} {{ site.hire.deposit.when }}</p>
+  </div>
+</section>

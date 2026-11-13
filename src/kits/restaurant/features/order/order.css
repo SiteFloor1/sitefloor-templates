@@ -1,0 +1,24 @@
+/* Takeaway. Tokens only. */
+main section.od { padding-block: clamp(30px, 4vw, 60px) clamp(60px, 8vw, 110px); }
+.od-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 60px); align-items: start; }
+@media (max-width: 900px) { .od-grid { grid-template-columns: minmax(0, 1fr); } }
+.od-sec + .od-sec { margin-top: 34px; }
+.od-sec h2 { margin: 0 0 6px; font-size: 12px; font-weight: 600; letter-spacing: .26em; text-transform: uppercase; color: var(--accent); }
+.od-list { list-style: none; margin: 0; padding: 0; }
+.od-item { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px; align-items: center; padding: 12px 0; border-top: 1px solid var(--line); }
+.od-item.on .rs-name { color: var(--accent); }
+.od-qty { display: inline-flex; align-items: center; gap: 2px; }
+.od-btn { width: 40px; height: 40px; border: 1px solid var(--line-2); background: var(--bg); color: var(--text); font-size: 20px; line-height: 1; cursor: pointer; }
+.od-btn:disabled { opacity: .35; cursor: default; }
+.od-n { min-width: 28px; text-align: center; font-variant-numeric: tabular-nums; font-weight: 600; }
+.od-tray { position: sticky; top: calc(var(--nav-h) + 16px); padding: clamp(20px, 3vw, 30px); background: var(--card); color: var(--card-ink); border: 1px solid var(--line); }
+.od-h { font-family: var(--font-display); font-weight: 400; font-size: 32px; margin: 0 0 12px; }
+.od-lines { list-style: none; margin: 0; padding: 0; min-height: 44px; }
+.od-lines li { display: flex; justify-content: space-between; gap: 10px; padding: 6px 0; border-bottom: 1px dotted var(--leader); font-size: 14.5px; }
+.od-lines li.rs-small { border: 0; }
+.od-total { display: flex; justify-content: space-between; align-items: baseline; margin: 14px 0 4px; font-size: 15px; }
+.od-total b { font-size: 26px; font-variant-numeric: tabular-nums; }
+.od-all { min-height: 2.8em; margin: 0 0 12px; }
+.od-form { display: grid; gap: 12px; margin-bottom: 16px; }
+.od-send { width: 100%; justify-content: center; margin-bottom: 10px; }
+.od-send[aria-disabled="true"] { opacity: .45; pointer-events: auto; }

@@ -1,0 +1,10 @@
+/* Trunk shows and sample sales: each a column with its kind, name, dates and a line. */
+.bd-show-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: clamp(20px, 3vw, 40px); }
+.bd-show { display: grid; gap: 8px; align-content: start; padding-top: 18px; border-top: 1px solid var(--line-2); }
+.bd-show p, .bd-show h3 { margin: 0; }
+.bd-show-kind { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+.bd-show-t { font-size: clamp(22px, 2vw, 28px); line-height: 1.15; }
+.bd-show-d { font-variant-numeric: tabular-nums; }
+.bd-show-x, .bd-show-none { color: var(--muted); }
+.bd-show-none { margin: 0; }
+.bd-show-join { margin: 28px 0 0; }

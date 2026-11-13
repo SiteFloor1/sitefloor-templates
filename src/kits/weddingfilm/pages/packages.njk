@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: packages
+permalink: packages.html
+feature: packages-page
+eleventyComputed:
+  title: "{{ site.packagesPage.title | plain }}"
+  description: "Packages, prices and what you receive from {{ site.business.name }}."
+---
+{%- set ph = site.packagesPage %}{% include "kits/weddingfilm/partials/page-head.njk" %}
+{% include "kits/weddingfilm/features/wf-packages-page/wf-packages-page.njk" %}

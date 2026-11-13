@@ -1,0 +1,330 @@
+{
+  "schemaVersion": 4,
+  "id": "test-mehndi-client",
+  "mode": "client",
+  "plan": "signature",
+  "kit": "mehndi",
+  "look": "loupe",
+  "url": "https://noor-henna-test.co.uk",
+  "indexable": true,
+  "lang": "en-GB",
+  "business": {
+    "name": "Noor Henna",
+    "schemaType": "BeautySalon",
+    "description": "Bridal and guest mehndi in Leicester, natural henna only.",
+    "priceRange": "££",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "447911123461",
+    "phone": "+44 7911 123461",
+    "email": "hello@noor-henna-test.co.uk"
+  },
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "location": {
+    "streetAddress": "2 Test Yard",
+    "locality": "Leicester",
+    "postcode": "LE4 6AA",
+    "country": "GB",
+    "area": "Off Belgrave Road. Bridal mehndi comes to you."
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [],
+      "tue": [
+        [
+          "11:00",
+          "19:00"
+        ]
+      ],
+      "wed": [
+        [
+          "11:00",
+          "19:00"
+        ]
+      ],
+      "thu": [
+        [
+          "11:00",
+          "20:00"
+        ]
+      ],
+      "fri": [
+        [
+          "11:00",
+          "19:00"
+        ]
+      ],
+      "sat": [
+        [
+          "10:00",
+          "18:00"
+        ]
+      ],
+      "sun": [
+        [
+          "12:00",
+          "17:00"
+        ]
+      ]
+    },
+    "exceptions": [
+      {
+        "date": "2026-12-25",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2027-01-01",
+        "ranges": [],
+        "note": "Closed on New Year's Day"
+      }
+    ]
+  },
+  "nav": [
+    {
+      "label": "Bridal",
+      "page": "bridal",
+      "feature": "bridal-mehndi"
+    },
+    {
+      "label": "Designs",
+      "page": "designs",
+      "feature": "mehndi-designs"
+    },
+    {
+      "label": "The studio",
+      "page": "visit",
+      "feature": "plan-visit",
+      "fallback": "#visit"
+    }
+  ],
+  "features": [
+    "name-find",
+    "mehndi-packages",
+    "mehndi-dates",
+    "darkest-day",
+    "natural-henna",
+    "visit",
+    "plan-visit",
+    "questions",
+    "bridal-mehndi",
+    "mehndi-designs",
+    "stain-days"
+  ],
+  "hero": {
+    "kicker": "Bridal mehndi, Leicester",
+    "title": "A name,|in your hand.",
+    "intro": "Natural henna for brides and their guests.",
+    "palm": {
+      "src": "img/palm.webp",
+      "width": 400,
+      "height": 475,
+      "alt": "A bride's stained palm with a name in the design"
+    },
+    "find": {
+      "x": 45,
+      "y": 55,
+      "width": 34,
+      "line": "Across the base of the fingers."
+    }
+  },
+  "sections": {
+    "packages": {
+      "title": "For the bride"
+    },
+    "dates": {
+      "title": "Is your date free?"
+    },
+    "natural": {
+      "title": "Natural henna only"
+    },
+    "questions": {
+      "title": "Before you book"
+    },
+    "visit": {
+      "title": "The studio"
+    },
+    "stain": {
+      "title": "Your stain, day by day"
+    }
+  },
+  "messages": {
+    "general": "Hello Noor, I have a question."
+  },
+  "packages": {
+    "message": "Hello Noor,",
+    "items": [
+      {
+        "id": "wrist",
+        "name": "Hands to the wrist",
+        "text": "Both sides",
+        "hours": 3.5,
+        "price": 200,
+        "from": true
+      },
+      {
+        "id": "elbow",
+        "name": "Hands to the elbow",
+        "text": "With a trial",
+        "hours": 5,
+        "price": 300,
+        "from": true
+      }
+    ],
+    "photos": [
+      {
+        "src": "img/kaleere.webp",
+        "width": 400,
+        "height": 500,
+        "alt": "A bride's hennaed hand over red velvet, kaleere below"
+      }
+    ]
+  },
+  "dateCheck": {
+    "source": "sheet",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/TEST/pub?output=csv",
+    "staleAfterDays": 14,
+    "message": "Hello Noor,"
+  },
+  "darkest": {
+    "daysBefore": 2,
+    "when": "in the evening",
+    "text": "The stain deepens for two days."
+  },
+  "natural": {
+    "paste": "Henna leaf, lemon and oils.",
+    "stain": "Orange at first, brown in two days."
+  },
+  "bridalPage": {
+    "kicker": "Bridal",
+    "title": "Bridal mehndi",
+    "intro": "A trial, then the evening.",
+    "photo": {
+      "src": "img/window.webp",
+      "width": 400,
+      "height": 600,
+      "alt": "A bride by a window, turned away"
+    },
+    "trial": "An hour, six weeks before.",
+    "before": [
+      "Nails done the day before."
+    ],
+    "travel": "We travel across Leicestershire."
+  },
+  "designs": {
+    "message": "Hello Noor,",
+    "items": [
+      {
+        "id": "palms",
+        "name": "Both palms",
+        "style": "traditional",
+        "coverage": "palms",
+        "for": "guest",
+        "hours": 1.5,
+        "price": 50,
+        "from": true,
+        "photo": {
+          "src": "img/d-palms.webp",
+          "width": 400,
+          "height": 500,
+          "alt": "Two palms, paste still wet"
+        }
+      },
+      {
+        "id": "arabic",
+        "name": "Arabic trail",
+        "style": "arabic",
+        "coverage": "back-hand",
+        "for": "guest",
+        "hours": 0.5,
+        "price": 20,
+        "from": true,
+        "photo": {
+          "src": "img/d-arabic.webp",
+          "width": 400,
+          "height": 500,
+          "alt": "Cupped hands with a trailing design"
+        }
+      }
+    ]
+  },
+  "designsPage": {
+    "kicker": "Designs",
+    "title": "Designs",
+    "intro": "Our own work."
+  },
+  "questions": [
+    {
+      "topic": "Bridal",
+      "q": "Do you travel?",
+      "a": "Yes, across Leicestershire.",
+      "home": true
+    }
+  ],
+  "visitInfo": {
+    "kicker": "The studio",
+    "title": "The studio",
+    "intro": "Off Belgrave Road.",
+    "checked": "2026-11",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "Leicester station",
+        "origin": "Leicester station",
+        "minutes": 20,
+        "steps": [
+          "Walk north up Belgrave Gate",
+          "The yard is on the left"
+        ]
+      }
+    ],
+    "parking": [],
+    "access": [
+      {
+        "label": "Step-free",
+        "yes": true
+      }
+    ]
+  },
+  "stainDays": {
+    "stages": [
+      {
+        "day": 0,
+        "label": "Paste on",
+        "text": "Test fixture photo.",
+        "photo": {
+          "src": "img/d-palms.webp",
+          "width": 400,
+          "height": 500,
+          "alt": "Test photo: fresh paste on two palms"
+        }
+      },
+      {
+        "day": 1,
+        "label": "Orange",
+        "text": "Test fixture photo.",
+        "photo": {
+          "src": "img/d-arabic.webp",
+          "width": 400,
+          "height": 500,
+          "alt": "Test photo: a stain on cupped hands"
+        }
+      },
+      {
+        "day": 2,
+        "label": "Darkest",
+        "text": "Test fixture photo.",
+        "photo": {
+          "src": "img/palm.webp",
+          "width": 400,
+          "height": 475,
+          "alt": "Test photo: a deep red-brown stain"
+        }
+      }
+    ]
+  }
+}

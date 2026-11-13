@@ -1,0 +1,64 @@
+{#- Your table: afternoon tea set guest by guest. Each guest's stand is the kitchen's own photos of each tier, with every
+    piece that isn't right for that guest marked and why (from the menu's diet marks and allergen chart); how they take
+    tea; a name for their place card; the champagne table (a bottle opened and poured at the table); and an occasion
+    with the words for the plate. It goes with the table request as the group. Without JavaScript, the stand and every
+    piece's allergens still show. -#}
+{%- set sec = site.sections.yourTable %}
+{%- set st = site.stand %}
+<section id="your-table" class="yt" data-feature="your-table" aria-labelledby="yt-h"{{ "your-table" | tierAttr | safe }}><div class="wrap">
+  <header class="yt-head">
+    <h2 id="yt-h" class="yt-h">{{ sec.title | markup | safe }}</h2>
+    {%- if sec.intro %}<p class="yt-intro">{{ sec.intro }}</p>{% endif %}
+  </header>
+  <div class="yt-who" data-js-only>
+    <div class="yt-guests" role="group" aria-label="Guests" data-yt-guests></div>
+    <div class="yt-set">
+      <label class="yt-l" for="yt-name">Name for the place card<input id="yt-name" type="text" maxlength="24" autocomplete="off" placeholder="Guest 1" data-yt-name></label>
+      <fieldset class="yt-f"><legend>Tea, for <span data-yt-whose>Guest 1</span></legend>
+        {%- for sv in site.tea.services %}<label class="yt-opt"><input type="radio" name="yt-svc" value="{{ sv.id }}"{% if loop.first %} checked{% endif %}><span>{{ sv.name }}</span></label>{% endfor %}
+      </fieldset>
+      <fieldset class="yt-f"><legend>Diet</legend>
+        <label class="yt-opt"><input type="radio" name="yt-diet" value="" checked><span>As served</span></label>
+        {%- for dt in food.diets %}<label class="yt-opt"><input type="radio" name="yt-diet" value="{{ dt.id }}"><span>{{ dt.name }}</span></label>{% endfor %}
+      </fieldset>
+      <details class="yt-avoid"><summary>Allergies</summary>
+        <div class="yt-chips">{% for a in food.allergens %}<label class="yt-chip"><input type="checkbox" name="yt-avoid" value="{{ a.id }}"><span>{{ a.name }}</span></label>{% endfor %}</div>
+      </details>
+    </div>
+  </div>
+  <ol class="yt-stand" aria-label="The stand">
+    {%- for id in site.tea.tiers | reverse %}{% set sc = site.menu | menuSection(id) %}{% set ph = st.photos[id] %}
+    <li class="yt-tier" data-yt-tier="{{ id }}">
+      <figure class="yt-ph"><img src="{{ ph.src | img }}" width="{{ ph.width }}" height="{{ ph.height }}" alt="{{ ph.alt }}" loading="lazy"></figure>
+      <div class="yt-tx">
+        <h3 class="yt-th">{{ sc.name }}</h3>
+        <ul class="yt-items">
+          {%- for d in sc.dishes %}{% set an = d | allergenNames %}
+          <li data-dish="{{ d.id }}" data-diets="{{ (d.diets or []) | join(' ') }}" data-allergens="{{ d.allergens | join(' ') }}"><span class="yt-n">{{ d.name }}</span><span class="yt-why" data-yt-why>{% if an.length %}Contains {{ an | join(", ") | lower }}{% else %}None of the 14 allergens{% endif %}</span></li>
+          {%- endfor %}
+        </ul>
+      </div>
+    </li>
+    {%- endfor %}
+  </ol>
+  <p class="yt-note" data-yt-note data-js-only aria-live="polite"></p>
+  {%- set ch = st.champagne %}
+  {%- if ch %}
+  <div class="yt-champ" data-js-only>
+    {%- if ch.photo %}<figure class="yt-champ-ph"><img src="{{ ch.photo.src | img }}" width="{{ ch.photo.width }}" height="{{ ch.photo.height }}" alt="{{ ch.photo.alt }}" loading="lazy"></figure>{% endif %}
+    <fieldset class="yt-f yt-champ-f"><legend>The champagne table</legend>
+      <label class="yt-opt"><input type="radio" name="yt-champ" value="" checked><span>None</span></label>
+      {%- for id in ch.bottles %}{% set b = site.menu | dish(id) %}<label class="yt-opt"><input type="radio" name="yt-champ" value="{{ id }}"><span>{{ b.name }}</span><b>{{ b.price | gbp }}</b></label>{% endfor %}
+      {%- if ch.note %}<p class="yt-champ-n">{{ ch.note }}</p>{% endif %}
+    </fieldset>
+  </div>
+  {%- endif %}
+  <div class="yt-occ" data-js-only>
+    <div class="yt-occ-f">
+      <label class="yt-l" for="yt-occ">The occasion<select id="yt-occ" data-yt-occ><option value="">None</option>{% for o in occasions %}<option value="{{ o.id }}">{{ o.name }}</option>{% endfor %}</select></label>
+      <label class="yt-l" for="yt-ins">Words for the plate<input id="yt-ins" type="text" maxlength="{{ inscriptionMax }}" autocomplete="off" data-yt-ins disabled></label>
+    </div>
+    <div class="yt-cards" data-yt-cards aria-label="Place cards"></div>
+  </div>
+  <p class="yt-sent" data-js-only>Each guest goes with your request{% if "table-request" | enabled %}: <a href="#book">see it above</a>{% endif %}.{% if st.note %} {{ st.note }}{% endif %}</p>
+</div></section>

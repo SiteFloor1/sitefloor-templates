@@ -1,0 +1,13 @@
+{#- The journal: the salon's own dated articles, newest first, each opening to its own page. -#}
+{%- set j = site.journal %}
+{%- set ph = { title: j.title, intro: j.intro } %}
+{% include "kits/hair/partials/page-head.njk" %}
+<section class="hr-jn" aria-label="Articles"><div class="wrap">
+  <ul class="hr-jn-list">
+    {%- for a in j.items | newestFirst %}
+    <li class="hr-jn-one"><a href="{{ a.slug | href }}">
+      <img src="{{ a.photo.src | img }}" alt="{{ a.photo.alt }}" width="{{ a.photo.width }}" height="{{ a.photo.height }}" loading="lazy" decoding="async">
+      <span class="hr-jn-d">{{ a.date | ukDay }}</span><span class="hr-jn-t">{{ a.title }}</span><span class="hr-jn-x">{{ a.description }}</span></a></li>
+    {%- endfor %}
+  </ul>
+</div></section>

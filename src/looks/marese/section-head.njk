@@ -1,0 +1,5 @@
+{#- Marese section opening: the name in Bellefair, large, on the left; on the right, small, its line. `sec` = { title, intro }. -#}
+<div class="mr-sh">
+  <h2 class="mr-sh-t">{{ sec.title | markup | safe }}</h2>
+  {%- if sec.intro %}<p class="mr-sh-i">{{ sec.intro }}</p>{% endif %}
+</div>

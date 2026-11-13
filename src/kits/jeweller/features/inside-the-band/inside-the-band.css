@@ -1,0 +1,13 @@
+/* inside-the-band: layout in tokens only; the look sets type and colour. */
+.jw-eng-in { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(24px, 5vw, 80px); align-items: center; }
+.jw-eng-ph { position: relative; margin: 0; }
+.jw-eng-ph img { display: block; width: 100%; height: auto; }
+.jw-eng-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.jw-eng-w { fill: var(--text); opacity: .62; font-size: 26px; letter-spacing: .06em; }
+.jw-eng-w[data-style="roman"] { font-family: var(--font-display); letter-spacing: .14em; }
+.jw-eng-w[data-style="block"] { font-family: var(--font-body); font-weight: 400; font-size: 21px; letter-spacing: .22em; text-transform: uppercase; }
+.jw-eng-w[data-style="script"] { font-family: "Snell Roundhand", "Apple Chancery", "URW Chancery L", var(--font-display); font-style: italic; font-size: 28px; }
+@media (max-width: 700px) {
+  .jw-eng-in { grid-template-columns: 1fr; }
+}
+.jw-eng-t > .nc-body { margin-bottom: 28px; }

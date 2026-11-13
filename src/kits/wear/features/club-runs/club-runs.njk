@@ -1,0 +1,24 @@
+{#- Run club on the home page: the club photographed across the width, the week's runs in columns, "I'm in" on WhatsApp. -#}
+{%- set sec = site.sections.club %}
+{%- set c = site.club %}
+<section id="club" class="wr-club" data-feature="club-runs"{{ "club-runs" | tierAttr | safe }}><div class="wrap">
+  {%- if c.photo %}
+  <picture class="wr-club-ph">
+    {%- if c.photoTall %}<source media="(max-width: 759px)" srcset="{{ c.photoTall.src | img }}" width="{{ c.photoTall.width }}" height="{{ c.photoTall.height }}">{% endif %}
+    <img src="{{ c.photo.src | img }}" alt="{{ c.photo.alt }}" width="{{ c.photo.width }}" height="{{ c.photo.height }}" loading="lazy" decoding="async">
+  </picture>
+  {%- endif %}
+  {% include "core/partials/section-head.njk" %}
+  <ol class="wr-runs">
+    {%- for r in c.runs %}
+    {%- set when = r | runWhen %}
+    <li class="wr-run">
+      <h3>{{ when }}</h3>
+      <p><b>{{ r.title }}.</b> {{ r.text }}</p>
+      <p class="wr-run-m">From {{ r.meet }}</p>
+      <a class="wr-link" href="{{ (c.rsvp or "Hi, I'm in for {run}.") | replace('{run}', r.title + ', ' + when) | wa }}" target="_blank" rel="noopener">I'm in</a>
+    </li>
+    {%- endfor %}
+  </ol>
+  {%- if "club-page" | enabled %}<p class="wr-more"><a class="wr-link" href="{{ 'club' | href }}"{{ "club-page" | tierAttr | safe }}>Routes and calendar</a></p>{% endif %}
+</div></section>

@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: cakes
+permalink: cakes.html
+feature: celebration-cakes
+eleventyComputed:
+  title: "{{ site.cakesPage.title | plain }}"
+  description: "{{ site.cakesPage.description or ('Celebration cakes from ' + site.business.name + ', ' + site.location.locality + ': sizes, prices, flavours and the earliest day we can make yours.') }}"
+---
+{% include "kits/bakery/features/celebration-cakes/celebration-cakes.njk" %}

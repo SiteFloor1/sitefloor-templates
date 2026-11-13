@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: bridal
+permalink: bridal.html
+feature: bridal
+eleventyComputed:
+  title: "{{ site.bridal.title | plain }}"
+  description: "{{ site.bridal.description or ('Engagement rings and wedding bands from ' + site.business.name + ', ' + site.location.locality + ', seen by private appointment.') }}"
+---
+{% include "kits/jeweller/features/bridal/bridal.njk" %}

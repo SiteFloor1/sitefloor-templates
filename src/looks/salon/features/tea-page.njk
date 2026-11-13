@@ -1,0 +1,10 @@
+{#- Salon: the afternoon tea page. The title set large; then the spread and the concierge card, and the tea room's
+    showpieces in the order a guest plans a sitting: who is coming, where they sit, the season, the tea. -#}
+{%- set tp = site.teaPage %}
+<section class="sa-page-head"><div class="wrap">
+  <h1>{{ tp.title | markup | safe }}</h1>
+  {%- if tp.intro %}<p>{{ tp.intro }}</p>{% endif %}
+  <div class="sa-crowns" aria-hidden="true"></div>
+</div></section>
+{% include "kits/restaurant/features/table-request/table-request.njk" %}
+{%- for id in ["your-table", "salon-plan", "seasonal-tea", "tea-sommelier"] %}{% if id | enabled %}{% include "kits/restaurant/features/" + id + "/" + id + ".njk" %}{% endif %}{% endfor %}

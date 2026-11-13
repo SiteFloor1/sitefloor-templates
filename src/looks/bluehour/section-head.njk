@@ -1,0 +1,6 @@
+{#- Blue hour section opening: the heading large on the left with one phrase in bloom (*like this* in
+    site.json), the section's line small on the right, bottom-aligned. No label above it, no rule. -#}
+<div class="bh-sh rv">
+  <h2 class="bh-sh-t">{{ sec.title | markup | safe }}</h2>
+  {%- if sec.intro %}<p class="bh-sh-i">{{ sec.intro }}</p>{% endif %}
+</div>

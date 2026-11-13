@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: insights
+permalink: insights.html
+feature: insights-page
+eleventyComputed:
+  title: "{{ site.insights.title | plain }}"
+  description: "{{ site.insights.intro or ('Notes from ' + site.business.name + ', dated and signed.') }}"
+---
+{% include "kits/law/features/insights-page/insights-page.njk" %}

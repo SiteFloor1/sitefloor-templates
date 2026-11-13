@@ -1,0 +1,16 @@
+{#- Your first class: which class to book, then what happens, step by step, beside a photograph of the room. The steps
+    are a real order, so they are numbered. -#}
+{%- set sec = site.sections.firstClass %}
+{%- set fc = site.firstClass %}
+{%- set ct = site | classOf(fc.class) %}
+<section id="first-class" class="pl-first" data-feature="first-class" aria-labelledby="pl-first-h"><div class="wrap pl-first-in">
+  {%- if fc.photo %}<figure class="pl-first-ph rv"><img src="{{ fc.photo.src | img }}" alt="{{ fc.photo.alt }}" width="{{ fc.photo.width }}" height="{{ fc.photo.height }}" loading="lazy" decoding="async"></figure>{% endif %}
+  <div>
+    <h2 class="pl-first-h" id="pl-first-h">{{ sec.title | markup | safe }}</h2>
+    {%- if sec.intro %}<p class="pl-first-i">{{ sec.intro }}</p>{% endif %}
+    <ol class="pl-steps">
+      {%- for s in fc.steps %}<li class="rv"><b>{{ s.title }}</b><span>{{ s.text }}</span></li>{% endfor %}
+    </ol>
+    <p class="pl-first-go"><a href="#timetable">Find a {{ ct.name }} class</a></p>
+  </div>
+</div></section>

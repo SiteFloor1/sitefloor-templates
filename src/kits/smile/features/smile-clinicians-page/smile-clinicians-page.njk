@@ -1,0 +1,17 @@
+{#- The clinicians page: each clinician with a portrait (or none), their own note and the register line. -#}
+{%- set sec = site.sections.clinicians %}
+{%- set ph = { kicker: "Clinicians", title: sec.title, intro: sec.intro } %}
+{%- include "kits/smile/partials/page-head.njk" %}
+<div class="sm-cp2" data-feature="smile-clinicians-page"><div class="wrap">
+  {%- for p in site.clinicians.items %}
+  <article class="sm-cp2-p rv">
+    {%- if p.photo %}<figure class="sm-cl-ph"><img src="{{ p.photo.src | img }}" alt="{{ p.photo.alt }}" width="{{ p.photo.width }}" height="{{ p.photo.height }}" loading="lazy" decoding="async"></figure>{% endif %}
+    <div>
+      <h2 class="sm-cp2-n">{{ p.name }}</h2>
+      {%- if p.bio %}<p class="sm-voice sm-cp2-bio">{{ p.bio }}</p>{% endif %}
+      <p>{% include "kits/smile/partials/clinician-line.njk" %}</p>
+    </div>
+  </article>
+  {%- endfor %}
+  {%- include "kits/smile/partials/rules.njk" %}
+</div></div>

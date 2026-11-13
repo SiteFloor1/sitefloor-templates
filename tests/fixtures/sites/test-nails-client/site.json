@@ -1,0 +1,329 @@
+{
+  "schemaVersion": 4,
+  "id": "test-nails-client",
+  "mode": "client",
+  "plan": "plus",
+  "kit": "nails",
+  "look": "quail",
+  "url": "https://lacquer-and-lune-test.co.uk",
+  "indexable": true,
+  "lang": "en-GB",
+  "business": {
+    "name": "Lacquer and Lune",
+    "schemaType": "NailSalon",
+    "description": "Nail salon in Leeds: gel, BIAB and nail art.",
+    "priceRange": "££",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "447911123458",
+    "phone": "+44 7911 123458",
+    "email": "hello@lacquer-and-lune-test.co.uk"
+  },
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "location": {
+    "streetAddress": "3 Test Arcade",
+    "locality": "Leeds",
+    "postcode": "LS1 6AA",
+    "country": "GB",
+    "area": "In the arcade off Briggate."
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [
+        [
+          "09:00",
+          "18:00"
+        ]
+      ],
+      "tue": [
+        [
+          "09:00",
+          "18:00"
+        ]
+      ],
+      "wed": [
+        [
+          "09:00",
+          "18:00"
+        ]
+      ],
+      "thu": [
+        [
+          "09:00",
+          "20:00"
+        ]
+      ],
+      "fri": [
+        [
+          "09:00",
+          "18:00"
+        ]
+      ],
+      "sat": [
+        [
+          "09:00",
+          "17:00"
+        ]
+      ],
+      "sun": []
+    }
+  },
+  "nav": [
+    {
+      "label": "Menu",
+      "page": "menu",
+      "feature": "nail-menu",
+      "fallback": "#menu"
+    },
+    {
+      "label": "Shades",
+      "page": "shades",
+      "feature": "shades-page"
+    },
+    {
+      "label": "Nail art",
+      "page": "art",
+      "feature": "art-page"
+    },
+    {
+      "label": "Visit",
+      "page": "visit",
+      "feature": "plan-visit",
+      "fallback": "#visit"
+    }
+  ],
+  "features": [
+    "shade-hand",
+    "next-slot",
+    "menu-hours",
+    "gel-biab",
+    "salon",
+    "visit",
+    "plan-visit",
+    "questions",
+    "nail-menu",
+    "shades-page",
+    "art-page"
+  ],
+  "hero": {
+    "kicker": "Nail salon, Leeds",
+    "title": "Nails, done|properly.",
+    "intro": "Gel, BIAB and nail art in the arcade.",
+    "hands": [
+      {
+        "src": "img/hand.webp",
+        "width": 400,
+        "height": 500,
+        "alt": "A hand with sheer pink nails on linen",
+        "id": "one",
+        "label": "Hand",
+        "wearing": "blush",
+        "shots": [
+          {
+            "shade": "red",
+            "src": "img/hand-red.webp"
+          },
+          {
+            "shade": "black",
+            "src": "img/hand-black.webp"
+          }
+        ]
+      }
+    ]
+  },
+  "shades": {
+    "items": [
+      {
+        "id": "blush",
+        "no": 2,
+        "name": "Blush",
+        "hex": "#E2B4AE",
+        "system": "gel",
+        "finish": "sheer",
+        "family": "pink"
+      },
+      {
+        "id": "red",
+        "no": 5,
+        "name": "Post Box",
+        "hex": "#B3121B",
+        "system": "gel",
+        "finish": "gloss",
+        "family": "red"
+      },
+      {
+        "id": "black",
+        "no": 9,
+        "name": "Jet",
+        "hex": "#151415",
+        "system": "gel",
+        "finish": "gloss",
+        "family": "dark"
+      }
+    ]
+  },
+  "shadesPage": {
+    "title": "Our shades"
+  },
+  "nextSlot": {
+    "source": "sheet",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/TEST/pub?output=csv",
+    "staleAfterMinutes": 120
+  },
+  "sections": {
+    "menu": {
+      "title": "The menu"
+    },
+    "gelBiab": {
+      "title": "Gel or BIAB"
+    },
+    "salon": {
+      "title": "The salon"
+    },
+    "questions": {
+      "title": "Questions"
+    },
+    "visit": {
+      "title": "Visit"
+    }
+  },
+  "messages": {
+    "general": "Hello, I have a question."
+  },
+  "menu": {
+    "message": "Hello,",
+    "bands": [
+      {
+        "minutes": 30,
+        "items": [
+          {
+            "id": "polish",
+            "name": "Polish",
+            "price": 20
+          }
+        ]
+      },
+      {
+        "minutes": 60,
+        "items": [
+          {
+            "id": "gel",
+            "name": "Gel manicure",
+            "price": 35
+          },
+          {
+            "id": "biab",
+            "name": "BIAB",
+            "price": 42
+          }
+        ]
+      }
+    ]
+  },
+  "menuPage": {
+    "title": "The menu"
+  },
+  "gelBiab": {
+    "options": [
+      {
+        "id": "gel",
+        "name": "Gel"
+      },
+      {
+        "id": "biab",
+        "name": "BIAB"
+      }
+    ],
+    "rows": [
+      {
+        "label": "Lasts",
+        "values": {
+          "gel": "Two to three weeks",
+          "biab": "Three to four weeks"
+        }
+      }
+    ]
+  },
+  "salon": {
+    "wall": {
+      "src": "img/wall.webp",
+      "width": 600,
+      "height": 260,
+      "alt": "The polish wall"
+    },
+    "detail": {
+      "src": "img/tray.webp",
+      "width": 300,
+      "height": 375,
+      "alt": "Polish at the counter"
+    },
+    "caption": "In the arcade."
+  },
+  "art": {
+    "message": "Hello,",
+    "levels": [
+      {
+        "id": "one",
+        "name": "Simple",
+        "text": "A line or a dot."
+      }
+    ],
+    "items": [
+      {
+        "id": "pearl",
+        "name": "Pearl",
+        "level": "one",
+        "shape": "almond",
+        "length": "medium",
+        "minutes": 75,
+        "price": 55,
+        "photo": {
+          "src": "img/art.webp",
+          "width": 400,
+          "height": 500,
+          "alt": "Almond nails with pearls"
+        }
+      }
+    ]
+  },
+  "artPage": {
+    "title": "Nail art"
+  },
+  "questions": [
+    {
+      "topic": "Booking",
+      "q": "Is removal included?",
+      "a": "No, book it separately.",
+      "home": true
+    }
+  ],
+  "visitInfo": {
+    "kicker": "Plan your visit",
+    "title": "Finding us",
+    "intro": "In the arcade.",
+    "checked": "2026-10",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "Leeds station",
+        "origin": "Leeds station",
+        "minutes": 9,
+        "steps": [
+          "Walk up Briggate",
+          "The arcade is on the right"
+        ]
+      }
+    ],
+    "parking": [],
+    "access": [
+      {
+        "label": "Step-free",
+        "yes": true
+      }
+    ]
+  }
+}

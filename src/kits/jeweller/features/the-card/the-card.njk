@@ -1,0 +1,34 @@
+{#- The gift, arranged: on an occasion's page. The house's card, with its monogram, takes the words as they're typed;
+    beside it the piece, the day it's needed and a name. Sent on WhatsApp as a request the house answers; nothing is
+    ordered or paid here. Without JavaScript, a plain WhatsApp link. Set `o` (the occasion's page) first. -#}
+{%- if "the-card" | enabled %}
+{%- set GN = site.giftNote %}
+{%- set tcPieces = site.pieces.items | piecesById(o.pieces) %}
+{%- set plain = "Hello " + site.business.name + ", I'd like you to arrange a gift for " + o.name + "." %}
+<section class="nc-sec jw-tc" data-feature="the-card" data-tc-occasion="{{ o.name }}" aria-labelledby="tc-h"{{ "the-card" | tierAttr | safe }}><div class="wrap jw-tc-in">
+  <div class="jw-tc-stage rv" aria-hidden="true">
+    <div class="jw-tc-card">
+      <span class="jw-tc-mono">{{ site.business.name | monogram }}</span>
+      <p class="jw-tc-words" data-tc-show>{{ GN.sample or "" }}</p>
+      <span class="jw-tc-from">{{ site.business.name }}</span>
+    </div>
+  </div>
+  <div class="jw-tc-f rv">
+    <h2 class="jw-h" id="tc-h">The gift, arranged</h2>
+    <p class="jw-say">{{ GN.line }}</p>
+    <form class="nc-form" data-tc-form data-js-only>
+      {%- if tcPieces.length > 1 %}
+      <fieldset class="nc-choice"><legend class="nc-label">The piece</legend>
+        {%- for p in tcPieces %}<label><input type="radio" name="tc-piece" value="{{ p.name }}"{% if loop.first %} checked{% endif %}><span>{{ p.name }}</span></label>{% endfor %}
+      </fieldset>
+      {%- elif tcPieces.length %}<input type="hidden" name="tc-piece" value="{{ tcPieces[0].name }}">{% endif %}
+      <label class="nc-field"><span class="nc-label">The card in the box</span><textarea class="nc-in jw-tc-in-t" rows="3" maxlength="{{ GN.max }}" data-tc-text aria-describedby="tc-left"></textarea></label>
+      <p class="nc-fine" id="tc-left" data-tc-left>Up to {{ GN.max }} letters.</p>
+      <label class="nc-field"><span class="nc-label">Needed by</span><input class="nc-in" type="date" data-tc-by></label>
+      <label class="nc-field"><span class="nc-label">Your name</span><input class="nc-in" type="text" maxlength="60" autocomplete="name" data-tc-name></label>
+    </form>
+    <a class="nc-btn" href="{{ plain | wa }}" data-wa-text="{{ plain }}" target="_blank" rel="noopener" data-tc-send>Ask us to arrange it</a>
+    <p class="nc-fine">A request: we reply to say it can be ready, and how to pay. Nothing is ordered until then.</p>
+  </div>
+</div></section>
+{%- endif %}

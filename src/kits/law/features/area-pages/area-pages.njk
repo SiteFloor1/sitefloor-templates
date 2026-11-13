@@ -1,0 +1,37 @@
+{#- One practice area's own page (set `a` first): what the firm does, who leads it and who works in it, the guides and
+    notes on it, the matters the clients have approved for publication, and the prices page when rule 1 applies. -#}
+{%- set lead = site.people | person(a.lead) %}
+{%- set ph = { title: a.name, intro: a.line, crumbHref: ('practice' | href), crumbLabel: "Practice" } %}
+{% include "kits/law/partials/page-head.njk" %}
+<div class="wrap lw-area">
+  <div class="lw-area-main">
+    {%- if a.photo %}<figure class="lw-area-fig"><img src="{{ a.photo.src | img }}" alt="{{ a.photo.alt }}" width="{{ a.photo.width }}" height="{{ a.photo.height }}" decoding="async"{% if a.photo.position %} style="object-position:{{ a.photo.position }}"{% endif %}></figure>{% endif %}
+    <p class="lw-area-about">{{ a.about }}</p>
+    <h2 class="lw-area-h">What we do</h2>
+    <ul class="lw-area-does">{% for d in a.does %}<li>{{ d }}</li>{% endfor %}</ul>
+    {%- set f = a | areaFacts(site) %}{% if f.price or f.asked %}
+    <dl class="lw-pp-facts">
+      {%- if f.price %}<div><dt>{{ f.name }}</dt><dd>{{ f.price }} before VAT · <a href="{{ 'pricing' | href }}#{{ f.service }}">what's included</a></dd></div><div><dt>Usually takes</dt><dd>{{ f.timescale }}</dd></div>{% endif %}
+      {%- if f.asked %}<div><dt>{{ f.asked.q }}</dt><dd>{{ f.asked.a }}</dd></div>{% endif %}
+    </dl>{% endif %}
+    {%- if "matter-steps" | enabled %}{% set stepsArea = a.id %}{% include "kits/law/features/matter-steps/matter-steps.njk" %}{% endif %}
+    {%- if ("estimator" | enabled) and f.service and site.estimator.service == f.service %}{% include "kits/law/features/estimator/estimator.njk" %}{% endif %}
+    {%- if ("will-reminder" | enabled) and site.willReminder.practice == a.id %}{% include "kits/law/features/will-reminder/will-reminder.njk" %}{% endif %}
+    {%- if ("matters" | enabled) %}{% set ms = site.matters.items | byArea(a.id) %}{% if ms.length %}
+    <h2 class="lw-area-h">Matters we can name</h2>
+    {%- set mlist = ms %}{% include "kits/law/features/matters/list.njk" %}
+    {%- endif %}{% endif %}
+  </div>
+  <aside class="lw-area-side">
+    <p class="lw-area-k">Leads this practice</p>
+    <p class="lw-area-n">{{ lead.name }}</p>
+    <p class="lw-area-r">{{ lead.role }}{% if lead.solicitor %} · SRA ID {{ lead.sraId }}{% endif %}</p>
+    <p class="lw-area-c">{% if lead.phone %}<a href="tel:{{ lead.phone | replace(' ', '') }}">{{ lead.phone }}</a><br>{% endif %}<a href="mailto:{{ lead.email }}">{{ lead.email }}</a></p>
+    {%- set others = site.people | peopleIn(a.id, a.lead) %}{% if others.length %}<p class="lw-area-w">With {{ others | names | andList }}.</p>{% endif %}
+    {%- if "first-contact" | enabled %}<p><a class="go" href="{{ 'contact' | href }}">Tell us who is involved</a></p>{% endif %}
+    {%- set gl = (site.guides.items | byArea(a.id)) if ("guides-page" | enabled) else [] %}
+    {%- set il = (site.insights.items | byArea(a.id)) if ("insights-page" | enabled) else [] %}
+    {%- if gl.length or il.length %}<p class="lw-area-k">To read</p><ul class="lw-area-reads">{% for r in gl %}<li><a href="{{ r.id | href }}">{{ r.title }}</a></li>{% endfor %}{% for r in il %}<li><a href="{{ r.id | href }}">{{ r.title }}</a></li>{% endfor %}</ul>{% endif %}
+    {%- if a.sraServices and a.sraServices.length and ("pricing" | enabled) %}<p class="lw-area-k">Prices</p><p><a href="{{ 'pricing' | href }}#{{ a.sraServices[0] }}">Prices and service information</a></p>{% endif %}
+  </aside>
+</div>

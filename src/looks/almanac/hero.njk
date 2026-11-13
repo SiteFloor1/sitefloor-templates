@@ -1,0 +1,10 @@
+{#- Almanac hero: the year in twelve plants, the visitor's month open (the-year), and one line under it: what the studio
+    is and where, and the invitation to choose a month. On sites without the-year, a single photograph stands in. -#}
+{%- set h = site.hero %}
+<section class="hero al-hero" aria-labelledby="al-h1"><div class="wrap">
+  {%- if "the-year" | enabled %}{% include "kits/garden/features/the-year/the-year.njk" %}{% endif %}
+  <div class="al-under">
+    <h1 class="al-h1" id="al-h1">{{ h.title | plain }}</h1>
+    {%- if h.intro %}<p class="al-intro">{{ h.intro | markup | safe }}</p>{% endif %}
+  </div>
+</div></section>

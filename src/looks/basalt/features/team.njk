@@ -1,0 +1,24 @@
+{#- Basalt team ("The studio"): each person at work, photographed tall, name and role under it, then their line. -#}
+{%- set ph = { kicker: site.team.kicker, title: site.team.title, intro: site.team.intro } %}
+{% include "kits/wear/partials/page-head.njk" %}
+<div class="wrap bs-team" data-feature="team">
+  {%- if site.team.filters %}
+  <div class="bs-chips" role="group" aria-label="{{ site.team.filtersLabel or 'Who does' }}" data-team-chips>
+    <button type="button" aria-pressed="true" data-tag="">Everyone</button>
+    {%- for f in site.team.filters %}<button type="button" aria-pressed="false" data-tag="{{ f.tag }}">{{ f.label }}</button>{% endfor %}
+  </div>
+  <p class="wr-fine" data-team-count role="status"></p>
+  {%- endif %}
+  <div class="bs-team-row">
+  {%- for s in site.staff %}
+  <article class="bs-person" id="{{ s.name | slug }}" data-tags="{{ (s.tags or []) | join(' ') }}">
+    {%- if s.photo %}<img src="{{ s.photo | img }}" alt="{{ s.name }} at work" loading="{{ 'eager' if loop.first else 'lazy' }}" decoding="async" width="1000" height="1250">{% endif %}
+    <h2>{{ s.name }} <span>{{ s.role }}</span></h2>
+    {%- if s.bio %}<p>{{ s.bio }}</p>{% endif %}
+    <p class="wr-fine">{% if s.days %}{{ s.days }}{% endif %}{% if s.years %}{{ " · " if s.days }}{{ s.years }} {{ site.team.yearsLabel or "years" }}{% endif %}{% if s.knownFor %} · {{ s.knownFor | join(", ") }}{% endif %}</p>
+  </article>
+  {%- endfor %}
+  </div>
+  {%- if site.mode == "demo" %}<p class="wr-fine">Example team for the demo. The photographs are stock.</p>{% endif %}
+  <p class="bs-more"><a class="wr-link" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{{ site.team.bookLine or "Message us" }}</a></p>
+</div>

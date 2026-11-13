@@ -1,0 +1,14 @@
+---
+layout: core/layouts/base.njk
+feature: work-stories
+pagination:
+  data: site.stories.items
+  size: 1
+  alias: st
+permalink: "story-{{ st.id }}.html"
+eleventyComputed:
+  pageId: "story-{{ st.id }}"
+  title: "{{ st.title }}"
+  description: "{{ st.title }}, {{ st.venue }}: flowers by {{ site.business.name }}. {{ st.line }}"
+---
+{% include "kits/florist/features/work-stories/story.njk" %}

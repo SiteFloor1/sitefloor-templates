@@ -1,0 +1,8 @@
+{#- Quail seasons: one line under the header, a small flat swatch in the season's tint before it. -#}
+<div class="ql-seasons" data-feature="seasonal">
+  {%- for s in site.seasons %}
+  <p class="season ql-season" data-from="{{ s.from }}" data-to="{{ s.to }}" data-tint="{{ s.tint or '' }}"{% if loop.index0 != build.seasonIndex %} hidden{% endif %}>
+    <i aria-hidden="true"></i><b>{{ s.name }}</b> <span>{{ s.banner }}</span>{% if s.link %} <a href="{{ s.link.href }}">{{ s.link.label }}</a>{% endif %}
+  </p>
+  {%- endfor %}
+</div>

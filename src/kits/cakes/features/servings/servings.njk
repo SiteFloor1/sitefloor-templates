@@ -1,0 +1,33 @@
+{#- How many are you feeding? The number large, a slider and steps; the answer builds the cake in type, one line per
+    tier sized to its width, from the studio's own portion chart. Rendered for 120 guests at build time, so it reads
+    the same before the script runs. -#}
+{%- set sec = site.sections.servings %}
+{%- set start = 120 %}
+{%- set plan = site | planFor(start, "finger") %}
+{%- set biggest = site | biggestCake("finger") %}
+<section id="servings" class="ck-serve" data-feature="servings" aria-label="{{ sec.title | plain }}"{{ 'servings' | tierAttr | safe }}><div class="wrap ck-serve-wrap">
+  <form class="ck-serve-f" data-sv-form>
+    <h2 class="ck-serve-q"><label for="sv-guests">{{ sec.title | plain }}</label></h2>
+    {%- if sec.intro %}<p class="ck-serve-i">{{ sec.intro }}</p>{% endif %}
+    <div class="ck-serve-count">
+      <output class="ck-serve-n" for="sv-guests" data-sv-n>{{ start }}</output>
+      <span class="ck-serve-step"><button type="button" data-sv-step="10" aria-label="Ten more guests">+</button><button type="button" data-sv-step="-10" aria-label="Ten fewer guests">−</button></span>
+    </div>
+    <input class="ck-serve-r" id="sv-guests" name="guests" type="range" min="10" max="{{ ((biggest / 10) | round(0, 'ceil')) * 10 + 20 }}" step="5" value="{{ start }}" data-sv-range>
+    <fieldset class="ck-serve-how"><legend class="sr-only">How it is served</legend>
+      <label><input type="radio" name="sv-portion" id="sv-finger" value="finger" checked> With coffee</label>
+      <label><input type="radio" name="sv-portion" id="sv-dessert" value="dessert"> As the dessert</label>
+    </fieldset>
+    <div class="ck-serve-out">
+      <p class="ck-tiers" data-sv-tiers role="img" aria-label="{{ plan.sizes.length | tiersWords }}: {{ plan.sizes | sizesWords }}">
+        {%- for s in plan.sizes %}<span class="ck-tier" style="--d:{{ s }}">{{ s }} in</span>{% endfor %}
+      </p>
+      <dl class="ck-serve-facts">
+        <div><dt>Cake</dt><dd data-sv-cake>{{ plan.sizes.length | tiersWords }}</dd></div>
+        <div><dt>Portions</dt><dd data-sv-portions>{{ plan.portions }} finger</dd></div>
+        <div><dt>From</dt><dd data-sv-from>{% if plan.from %}{{ plan.from | gbp }}{% else %}Ask us{% endif %}</dd></div>
+      </dl>
+    </div>
+    {%- if 'brief-builder' | enabled %}<a class="go ck-serve-go" href="{{ 'order' | href }}" data-sv-go>Order a cake for {{ start }}</a>{% endif %}
+  </form>
+</div></section>

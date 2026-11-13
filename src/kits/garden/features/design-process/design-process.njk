@@ -1,0 +1,24 @@
+{#- How a design runs: each stage in order, what the client receives at it, the studio's typical weeks, and the stages
+    after which a client can stop and take the drawings to their own builder. -#}
+{%- set pr = site.process %}
+{%- set ph = pr %}
+{% include "kits/garden/partials/page-head.njk" %}
+<section class="wrap gd-dp" aria-label="The stages">
+  <ol class="gd-dp-list">
+    {%- for s in pr.stages %}
+    <li class="gd-dp-s">
+      <h2 class="gd-dp-n"><span class="gd-dp-no">{{ loop.index }}</span> {{ s.name }}</h2>
+      <div class="gd-dp-tx">
+        <p>{{ s.text }}</p>
+        <dl class="gd-dp-dl">
+          {%- if s.receive %}<div><dt>You receive</dt><dd>{{ s.receive }}</dd></div>{% endif %}
+          {%- if s.weeks %}<div><dt>Usually</dt><dd>{{ s.weeks }}</dd></div>{% endif %}
+        </dl>
+        {%- if s.stop %}<p class="gd-dp-stop">You can stop here and take the drawings to your own builder.</p>{% endif %}
+      </div>
+    </li>
+    {%- endfor %}
+  </ol>
+  {%- if pr.fee %}<p class="gd-dp-fee">{{ pr.fee }}</p>{% endif %}
+  <p class="gd-dp-go"><a class="btn" href="{{ site.messages.general | book }}" target="_blank" rel="noopener">Start your garden</a></p>
+</section>

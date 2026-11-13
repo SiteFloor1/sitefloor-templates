@@ -1,0 +1,24 @@
+{#- Send us your paint: the car, its colour, what bothers you and how it's kept go to the studio on WhatsApp, with
+    the photographs to send next (a pre-filled message can't carry photos). -#}
+{%- set sec = site.sections.paintRequest %}
+{%- set r = site.paintRequest %}
+<section id="send-your-paint" class="dt-pr" data-feature="paint-request" aria-label="{{ sec.title | plain }}"><div class="wrap dt-pr-in">
+  <div>
+    {%- include "core/partials/section-head.njk" %}
+    <ol class="dt-pr-photos" aria-label="The photographs to send">{% for p in r.photos %}<li>{{ p }}</li>{% endfor %}</ol>
+    {%- if r.photo %}<img class="dt-pr-ph" src="{{ r.photo.src | img }}" alt="{{ r.photo.alt }}" width="{{ r.photo.width }}" height="{{ r.photo.height }}" loading="lazy" decoding="async">{% endif %}
+  </div>
+  <form class="dt-pr-f" data-pr-form>
+    <label class="dt-field" for="dt-pr-car"><span>Make and model</span><input id="dt-pr-car" maxlength="60" autocomplete="off" data-pr-car></label>
+    <label class="dt-field" for="dt-pr-colour"><span>Colour</span><input id="dt-pr-colour" maxlength="30" autocomplete="off" data-pr-colour></label>
+    <fieldset class="dt-pr-set"><legend>What bothers you</legend>
+      {%- for c in r.concerns %}<label class="dt-chip"><input type="checkbox" name="dt-concern" value="{{ c }}"><span>{{ c }}</span></label>{% endfor %}
+    </fieldset>
+    <fieldset class="dt-pr-set"><legend>Where it's kept</legend>
+      {%- for k in ["In a garage", "Outside", "Both"] %}<label class="dt-chip"><input type="radio" name="dt-kept" value="{{ k }}"><span>{{ k }}</span></label>{% endfor %}
+    </fieldset>
+    <label class="dt-field" for="dt-pr-note"><span>Anything else (optional)</span><textarea id="dt-pr-note" maxlength="280" data-pr-note></textarea></label>
+    <a class="go" data-pr-go href="{{ r.message | wa }}" target="_blank" rel="noopener">Send on WhatsApp</a>
+    <p class="dt-note">Then send the photographs in the same chat. We reply with what the paint needs.</p>
+  </form>
+</div></section>

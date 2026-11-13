@@ -1,0 +1,18 @@
+{#- Loupe footer: the name, light and very large; the studio's address, the week's hours and the pages in three
+    columns beneath; the Sitefloor credit last. -#}
+<footer class="foot lp-foot"><div class="wrap">
+  <p class="lp-foot-word">{{ site.business.name }}</p>
+  <div class="lp-foot-in">
+    <address class="lp-foot-a">{{ site.location.streetAddress }}<br>{{ site.location.locality }} {{ site.location.postcode }}<br>
+      <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a>{% if site.contact.email %}<br><a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>{% endif %}</address>
+    <ul class="lp-foot-hours" aria-label="Studio hours">
+      {%- for row in site.hours | hoursRows %}<li data-day="{{ row.dayIndex }}"><span>{{ row.day }}</span> {{ row.label }}</li>{% endfor %}
+    </ul>
+    <nav class="lp-foot-links" aria-label="Footer">
+      <a href="{{ 'index' | href }}">Home</a>
+      {%- for item in site.nav | navItems(pageId) %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}>{{ item.label }}</a>{% endfor %}
+      <a href="{{ 'privacy' | href }}">Privacy</a>
+    </nav>
+  </div>
+  <p class="lp-foot-by"><a class="by" href="https://sitefloor.com" rel="noopener">Website by <b>Sitefloor</b></a></p>
+</div></footer>

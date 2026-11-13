@@ -1,0 +1,23 @@
+{#- Allergens before anyone orders: each flavour's allergens from the studio's own chart, what its kitchen handles,
+    its own answer on severe allergies, and the FSA guidance. The site never calls a cake allergen-free. -#}
+{%- set sec = site.sections.allergens %}
+{%- set al = site.allergens %}
+<section id="allergens" class="ck-alg" data-feature="allergens" aria-label="{{ sec.title | plain }}"{{ 'allergens' | tierAttr | safe }}><div class="wrap">
+  {%- include "core/partials/section-head.njk" %}
+  <div class="ck-alg-in">
+    <div class="ck-alg-tbl" role="region" aria-label="Allergens in each flavour" tabindex="0">
+      <table>
+        <thead><tr><th scope="col">Flavour</th><th scope="col">Contains</th></tr></thead>
+        <tbody>
+          {%- for f in site.flavours.items %}<tr><th scope="row">{{ f.name }}</th><td>{{ f.allergens | allergenWords }}{% if f.diets and f.diets.length %} · <span class="ck-diet">{{ f.diets | dietWords }}</span>{% endif %}</td></tr>{% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="ck-alg-say">
+      <p><b>In our kitchen:</b> {{ al.kitchen | allergenWords }}.</p>
+      <p>{{ al.severe }}</p>
+      <p>{{ al.ingredients }}</p>
+      <p class="ck-note">The 14 allergens and how we tell you about them follow the Food Standards Agency's <a href="{{ cakeAllergens.guidance.url }}" rel="noopener">allergen guidance for food businesses</a>. Ask us before you order, and tell us about any allergy when you do.</p>
+    </div>
+  </div>
+</div></section>

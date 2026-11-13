@@ -1,0 +1,7 @@
+/* Pairings. Tokens only. */
+.pr-grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(24px, 5vw, 72px); align-items: start; }
+@media (max-width: 860px) { .pr-grid { grid-template-columns: minmax(0, 1fr); } }
+.pr-set { padding: clamp(20px, 3vw, 32px); background: var(--card); color: var(--card-ink); transition: background-color var(--mood-fade); }
+.pr-set + .pr-set { margin-top: 12px; }
+.pr-drinks { list-style: none; margin: 10px 0 0; padding: 0; }
+.pr-drinks li { padding: 12px 0; border-top: 1px solid var(--line); }

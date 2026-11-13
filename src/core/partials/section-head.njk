@@ -1,0 +1,5 @@
+{#- Section heading block. Expects `sec` = { kicker, title, intro } from site.sections. -#}
+<div class="sh rv">
+  <div>{% if sec.kicker %}<span class="kick">{{ sec.kicker }}</span>{% endif %}<h2>{{ sec.title | markup | safe }}</h2></div>
+  {%- if sec.intro %}<p>{{ sec.intro }}</p>{% endif %}
+</div>

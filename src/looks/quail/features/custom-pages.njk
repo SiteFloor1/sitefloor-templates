@@ -1,0 +1,23 @@
+{#- Quail general page: the page head, then one narrow column; lists as numbered steps with large numerals, photos at
+    the column's full width, and the booking line as the house's chip. -#}
+{%- set ph = { kicker: cp.kicker or site.business.name, title: cp.title, intro: cp.intro } %}
+{% include "kits/nails/partials/page-head.njk" %}
+<div class="ql-cp" data-feature="custom-pages"><div class="wrap ql-cp-in">
+  {%- for b in cp.blocks %}
+  {%- if b.type == "text" %}
+  <section class="ql-cp-text rv">
+    {%- if b.heading %}<h2>{{ b.heading }}</h2>{% endif %}
+    {%- for para in b.body | paragraphs %}<p>{{ para }}</p>{% endfor %}
+  </section>
+  {%- elif b.type == "photo" %}
+  <figure class="ql-cp-photo rv"><img src="{{ b.src | img }}" alt="{{ b.alt }}" loading="lazy" decoding="async">{% if b.caption %}<figcaption>{{ b.caption }}</figcaption>{% endif %}</figure>
+  {%- elif b.type == "list" %}
+  <section class="ql-cp-list rv">
+    {%- if b.heading %}<h2>{{ b.heading }}</h2>{% endif %}
+    <ol>{% for item in b.items %}<li>{{ item }}</li>{% endfor %}</ol>
+  </section>
+  {%- elif b.type == "book" %}
+  <p class="ql-cp-book rv"><span>{{ b.text }}</span> <a class="ql-led-book" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{{ b.label or build.booking.label }}</a></p>
+  {%- endif %}
+  {%- endfor %}
+</div></div>

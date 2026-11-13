@@ -1,0 +1,9 @@
+---
+layout: core/layouts/base.njk
+pageId: "404"
+permalink: 404.html
+title: Page not found
+---
+{%- set ph = { kicker: "Not found", title: "This page isn't here.", intro: "It may have moved. The designs and your date are on the home page." } %}
+{% include "kits/mehndi/partials/page-head.njk" %}
+<p class="wrap mh-back"><a class="mh-text" href="{{ 'index' | href }}">Back to the home page</a></p>

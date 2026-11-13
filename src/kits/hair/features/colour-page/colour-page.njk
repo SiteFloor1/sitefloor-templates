@@ -1,0 +1,27 @@
+{#- Colour: the colour room's photograph, how a first colour runs (consultation, skin test, colour), the colour prices
+    by length and level, the colourists, and any home section the look moved here (the skin test). -#}
+{%- set cp = site.colourPage %}
+{%- set ph = { title: cp.title, intro: cp.intro, photo: cp.photo } %}
+{% include "kits/hair/partials/page-head.njk" %}
+<section class="hr-cp-first" aria-labelledby="cp-first"><div class="wrap">
+  <h2 id="cp-first">A first colour</h2>
+  <ol class="hr-steps">
+    <li><b>The consultation</b><span>Fifteen minutes with your colourist, free.{% if "colour-consult" | enabled %} <a href="{{ 'colour-consultation' | href }}"{{ "colour-consult" | tierAttr | safe }}>Start it here</a>.{% endif %}</span></li>
+    {%- if site.skinTest %}<li><b>The skin test</b><span>{{ site.skinTest.walkIn }} At least {{ site.skinTest.hoursBefore }} hours before.</span></li>{% endif %}
+    <li><b>Your colour</b><span>The time for your length is beside each price below.</span></li>
+  </ol>
+</div></section>
+<section class="hr-cp-prices" aria-labelledby="cp-prices"><div class="wrap">
+  <h2 id="cp-prices">Colour prices</h2>
+  {%- set lpId = "cp" %}{% include "kits/hair/partials/level-pick.njk" %}
+  {%- set ptGroup = "colour" %}{% include "kits/hair/partials/price-table.njk" %}
+</div></section>
+<section class="hr-cp-who" aria-labelledby="cp-who"><div class="wrap">
+  <h2 id="cp-who">The colourists</h2>
+  <ul class="hr-who">
+    {%- for x in site.stylists.items %}{% if "colour" in x.does %}
+    <li>{% if x.work %}<img src="{{ x.work.src | img }}" alt="{{ x.work.alt }}" width="{{ x.work.width }}" height="{{ x.work.height }}" loading="lazy" decoding="async">{% endif %}<b>{{ x.name }}</b><span>{{ (site.menu.levels | idOf(x.level)).name }} · {{ x.line }}</span></li>
+    {%- endif %}{% endfor %}
+  </ul>
+</div></section>
+{%- set hostPage = "colour-page" %}{% include "kits/hair/partials/hosted.njk" %}

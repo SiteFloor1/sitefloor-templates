@@ -1,0 +1,23 @@
+{#- Basalt general page: text in a narrow column, photographs wide between. -#}
+{%- set ph = { kicker: cp.kicker or cp.title | plain, title: cp.title, intro: cp.intro } %}
+{% include "kits/wear/partials/page-head.njk" %}
+<div class="bs-page" data-feature="custom-pages">
+  {%- for b in cp.blocks %}
+  {%- if b.type == "text" %}
+  <section class="wrap bs-page-t">
+    {%- if b.heading %}<h2>{{ b.heading }}</h2>{% endif %}
+    <div>{%- for para in b.body | paragraphs %}<p>{{ para }}</p>{% endfor %}</div>
+  </section>
+  {%- elif b.type == "photo" %}
+  <figure class="wrap bs-page-p"><img src="{{ b.src | img }}" alt="{{ b.alt }}" loading="lazy" decoding="async">{% if b.caption %}<figcaption>{{ b.caption }}</figcaption>{% endif %}</figure>
+  {%- elif b.type == "list" %}
+  <section class="wrap bs-page-t">
+    {%- if b.heading %}<h2>{{ b.heading }}</h2>{% endif %}
+    <ul>{% for item in b.items %}<li>{{ item }}</li>{% endfor %}</ul>
+  </section>
+  {%- elif b.type == "book" %}
+  <p class="wrap bs-page-o">{{ b.text }} <a class="wr-link" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{{ b.label or "Ask us" }}</a></p>
+  {%- endif %}
+  {%- endfor %}
+  {%- if site.mode == "demo" %}<p class="wrap wr-fine">Example page for a fictional brand. The photographs are stock.</p>{% endif %}
+</div>

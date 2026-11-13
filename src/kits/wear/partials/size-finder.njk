@@ -1,0 +1,57 @@
+{#- The size finder: height, weight, the size they wear in a kind of brand, how they like it to sit and (optionally)
+    their chest, read against the brand's own chart (site.sizeGuide). Without JavaScript the chart itself shows. -#}
+{%- set g = site.sizeGuide %}
+<section class="wr-sf rv" id="size-finder" data-size-finder aria-labelledby="size-finder-h"><div class="wrap wr-sf-in">
+  <h2 id="size-finder-h">Find your size</h2>
+  <form class="wr-sf-form" data-sf-form novalidate>
+    <fieldset class="wr-sf-q">
+      <legend>Height</legend>
+      <div class="wr-sf-row" data-unit-cm><input id="sf-h" type="number" inputmode="numeric" min="120" max="230" placeholder="cm" aria-label="Height in cm" data-sf-h></div>
+      <div class="wr-sf-row" data-unit-ft hidden><input type="number" inputmode="numeric" min="4" max="7" placeholder="ft" aria-label="Height, feet" data-sf-ft><input type="number" inputmode="numeric" min="0" max="11" placeholder="in" aria-label="Height, inches" data-sf-in></div>
+      <button type="button" class="wr-sf-unit" data-sf-unit="h" aria-pressed="false">ft and in</button>
+    </fieldset>
+    <fieldset class="wr-sf-q">
+      <legend>Weight</legend>
+      <div class="wr-sf-row" data-unit-kg><input type="number" inputmode="numeric" min="35" max="200" placeholder="kg" aria-label="Weight in kg" data-sf-w></div>
+      <div class="wr-sf-row" data-unit-st hidden><input type="number" inputmode="numeric" min="5" max="30" placeholder="st" aria-label="Weight, stone" data-sf-st><input type="number" inputmode="numeric" min="0" max="13" placeholder="lb" aria-label="Weight, pounds" data-sf-lb></div>
+      <button type="button" class="wr-sf-unit" data-sf-unit="w" aria-pressed="false">stone and lb</button>
+    </fieldset>
+    <fieldset class="wr-sf-q">
+      <legend>The size you wear in</legend>
+      <div class="wr-sf-row">
+        <select aria-label="Kind of brand" data-sf-brand>{% for b in g.brands %}<option value="{{ b.shift }}">{{ b.label }}</option>{% endfor %}</select>
+        <select aria-label="Your size there" data-sf-usual><option value="">Size</option>{% for r in g.sizes %}<option>{{ r.size }}</option>{% endfor %}</select>
+      </div>
+    </fieldset>
+    <fieldset class="wr-sf-q wr-sf-prefer">
+      <legend>How you like it</legend>
+      <div class="wr-sf-row" role="radiogroup">
+        <label><input type="radio" name="sf-prefer" value="close" data-sf-prefer> Closer</label>
+        <label><input type="radio" name="sf-prefer" value="regular" data-sf-prefer checked> As cut</label>
+        <label><input type="radio" name="sf-prefer" value="roomy" data-sf-prefer> Room for a layer</label>
+      </div>
+    </fieldset>
+    {%- if g.sizes[0].chest %}
+    <fieldset class="wr-sf-q">
+      <legend>Chest, round <span>if you have a tape</span></legend>
+      <div class="wr-sf-row"><input type="number" inputmode="numeric" min="60" max="160" placeholder="cm" aria-label="Chest, round, in cm" data-sf-c></div>
+    </fieldset>
+    {%- endif %}
+  </form>
+  <div class="wr-sf-out" aria-live="polite">
+    <p class="wr-sf-size" data-sf-size>Your answers, read against our chart.</p>
+    <ul class="wr-sf-why" data-sf-why></ul>
+  </div>
+  <details class="wr-sf-chart">
+    <summary>The chart it reads from</summary>
+    <table>
+      <caption>What each size is cut for{% if site.mode == "demo" %}. Example figures{% endif %}.</caption>
+      <tr><th scope="col">Size</th><th scope="col">Height, cm</th><th scope="col">Weight, kg</th>{% if g.sizes[0].chest %}<th scope="col">Chest, cm</th>{% endif %}</tr>
+      {%- for r in g.sizes %}
+      <tr><th scope="row">{{ r.size }}</th><td>{{ r.height[0] }}–{{ r.height[1] }}</td><td>{{ r.weight[0] }}–{{ r.weight[1] }}</td>{% if r.chest %}<td>{{ r.chest[0] }}–{{ r.chest[1] }}</td>{% endif %}</tr>
+      {%- endfor %}
+    </table>
+    {%- if g.note %}<p>{{ g.note }}</p>{% endif %}
+  </details>
+  <script type="application/json" data-sf-guide>{{ g | wearJson | safe }}</script>
+</div></section>

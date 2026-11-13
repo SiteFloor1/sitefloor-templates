@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: club
+permalink: club.html
+feature: club-page
+eleventyComputed:
+  title: "{{ site.clubPage.title | plain }}"
+  description: "{{ site.clubPage.description or (site.clubPage.kicker + ' at ' + site.business.name) }}"
+---
+{% include "kits/wear/features/club-page/club-page.njk" %}

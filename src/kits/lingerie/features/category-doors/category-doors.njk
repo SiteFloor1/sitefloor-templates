@@ -1,0 +1,19 @@
+{#- Shop by category: tall doors, a woman wearing each category. A door opens that category's pieces below the doors
+    (CSS :target, no script), or the brand's own shop when it gives a link. -#}
+{%- set sec = site.sections.doors %}
+<section id="doors" class="ls-doors"><div class="wrap">
+  {%- if sec %}{% include "core/partials/section-head.njk" %}{% endif %}
+  <nav class="cd-row" aria-label="Shop by category">
+    {%- for c in site.categories %}
+    <a class="cd-door" href="#cat-{{ c.id }}">{% set ph = c.photo %}{% include "kits/lingerie/partials/photo.njk" %}<span>{{ c.label }}</span></a>
+    {%- endfor %}
+  </nav>
+  {%- for c in site.categories %}
+  {%- set list = site.pieces | piecesWhere({ category: c.id }) %}
+  <div class="cd-shelf" id="cat-{{ c.id }}" tabindex="-1">
+    <p class="cd-shelf-h">{{ c.label }}{% if list.length %} <span>{{ list.length }} piece{% if list.length != 1 %}s{% endif %}</span>{% endif %}</p>
+    {%- if list.length %}<ul class="cd-list">{% for p in list %}<li>{% if "piece-detail" | enabled %}<a href="{{ ('piece-' + p.id) | href }}">{{ p | pieceName(site) }}</a>{% else %}<a href="{{ (p | setAside(site)) | wa }}" target="_blank" rel="noopener">{{ p | pieceName(site) }}</a>{% endif %}<span class="sw">{% for c in p | swatches(site) %}<i style="--sw:{{ c.hex }}" title="{{ c.name }}"></i>{% endfor %}</span><span class="cd-pr">{{ p.price | pounds }}</span></li>{% endfor %}</ul>
+    {%- else %}<p class="cd-ask"><a href="{{ ('Hello ' + site.business.name + ', what do you have in ' + (c.label | lower) + '?') | wa }}" target="_blank" rel="noopener">Ask what's in</a></p>{% endif %}
+  </div>
+  {%- endfor %}
+</div></section>

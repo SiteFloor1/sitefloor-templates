@@ -1,0 +1,24 @@
+/* The menu page. Tokens only. */
+main section.mp { padding-block: clamp(30px, 4vw, 60px) clamp(80px, 10vw, 140px); }
+.mp-bar { position: sticky; top: var(--nav-h); z-index: 5; display: grid; gap: 8px; padding: 10px 0; background: var(--bg); border-bottom: 1px solid var(--line); transition: background-color var(--mood-fade); }
+.mp-avoid summary { cursor: pointer; font-size: 13.5px; color: var(--muted); min-height: 32px; display: inline-flex; align-items: center; }
+.mp-avoid .rs-chips { margin-top: 8px; }
+.mp-hidden { margin: 0; min-height: 1.4em; }
+.mp-panel { padding-top: 34px; }
+.mp-h { font-family: var(--font-display); font-weight: 400; font-size: clamp(34px, 4.4vw, 56px); line-height: 1; margin: 0 0 18px; }
+.mp-h small { display: block; margin-top: 10px; font-family: var(--font-body); font-size: 14px; color: var(--muted); }
+.mp-cols { columns: 2 340px; column-gap: clamp(28px, 5vw, 72px); }
+.mp-sec { break-inside: avoid; margin-bottom: 34px; padding: 22px clamp(16px, 2.5vw, 28px) 8px; background: var(--card); color: var(--card-ink); transition: background-color var(--mood-fade); }
+.mp-sec h3 { margin: 0 0 4px; font-size: 12px; font-weight: 600; letter-spacing: .26em; text-transform: uppercase; color: var(--accent); }
+.mp-chart-wrap { overflow-x: auto; background: var(--card); color: var(--card-ink); border: 1px solid var(--line); }
+.mp-chart { border-collapse: collapse; min-width: 860px; width: 100%; font-size: 13px; }
+.mp-chart th, .mp-chart td { padding: 7px 6px; border-bottom: 1px solid var(--line); text-align: center; }
+.mp-chart tbody th { text-align: left; font-weight: 500; white-space: nowrap; padding-left: 14px; }
+.mp-chart thead th { vertical-align: bottom; height: 120px; font-weight: 500; color: var(--muted); }
+.mp-chart thead th span { writing-mode: vertical-rl; transform: rotate(180deg); white-space: nowrap; }
+.mp-chart thead th:first-child { text-align: left; padding-left: 14px; }
+.mp-group th { text-align: left !important; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); background: var(--surface-2); padding-left: 14px !important; }
+.mp-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--text); }
+.mp-foot { margin-top: 40px; display: grid; gap: 8px; max-width: 76ch; color: var(--muted); }
+.mp-foot p { margin: 0; }
+.mp-pdf { margin-top: 22px !important; }

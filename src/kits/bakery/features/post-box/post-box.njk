@@ -1,0 +1,24 @@
+{#- Posted boxes: what the shop posts and what posting costs, with the next "order by … there …" worked out live from
+    its posting days and cut-off; the order, who it's for and the address on WhatsApp. -#}
+{%- set sec = site.sections.post %}
+{%- set p = site.post %}
+<section id="post" class="sec-post" data-feature="post-box"{{ "post-box" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="pb">
+    <div class="pb-when">
+      <p class="pb-big" data-pb-when>Posted {% for dd in p.days %}{{ {mon: "Mondays", tue: "Tuesdays", wed: "Wednesdays", thu: "Thursdays", fri: "Fridays", sat: "Saturdays"}[dd] }}{{ " and " if loop.revindex == 2 else (", " if not loop.last) }}{% endfor %}, usually there the next day.</p>
+      <p class="pb-sub">Posting {{ p.price | pounds }}{% if p.service %}, {{ p.service }}{% endif %}.{% if p.note %} {{ p.note }}{% endif %}</p>
+    </div>
+    <form class="pb-form" data-js-only onsubmit="return false">
+      <fieldset class="pb-boxes"><legend class="bx-field">The box</legend>
+        {%- for b in p.boxes %}<label class="pb-box"><input type="radio" name="pb-box" value="{{ loop.index0 }}" data-name="{{ b.name }}" data-price="{{ b.price }}"{% if loop.first %} checked{% endif %}><b>{{ b.name }}</b><span>{{ b.price | pounds }} + {{ p.price | pounds }}</span></label>{% endfor %}
+      </fieldset>
+      <label class="bx-field" for="pb-to">For<input id="pb-to" type="text" maxlength="60" autocomplete="off" data-pb-to></label>
+      <label class="bx-field" for="pb-addr">Their address<textarea id="pb-addr" rows="3" maxlength="200" autocomplete="off" data-pb-addr></textarea></label>
+      <label class="bx-field" for="pb-card">The card <small>(optional)</small><input id="pb-card" type="text" maxlength="140" data-pb-card></label>
+      <p class="pb-total"><span>With posting</span> <b data-pb-total></b></p>
+      <a class="bx-go" href="{{ ('Hi ' + site.business.name + ', I would like a box posted.') | wa }}" target="_blank" rel="noopener" data-pb-send>Send the order</a>
+    </form>
+    <p class="bx-nojs" data-no-js><a class="bx-go" href="{{ ('Hi ' + site.business.name + ', I would like a box posted.') | wa }}" target="_blank" rel="noopener">Order a box by post on WhatsApp</a></p>
+  </div>
+</div></section>

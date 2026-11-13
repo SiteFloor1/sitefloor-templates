@@ -1,0 +1,23 @@
+{#- Datum header: lies over the first picture of every page. The datum mark and the tracked name on the left; the pages,
+    then Request with the bloom line under it. On phones, Menu opens the pages full screen. -#}
+<header class="nav dt-nav"><div class="wrap dt-nav-in">
+  <a class="dt-brand" href="{{ 'index' | href }}" aria-label="{{ site.business.name }}, home">
+    {%- if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="" height="24">{% else %}{% include "looks/datum/parts/mark.njk" %}<span class="dt-word">{{ site.business.name.split(" ")[0] | upper }}</span>{% endif %}
+  </a>
+  <nav class="dt-links" aria-label="Main">
+    {%- for item in site.nav | navItems(pageId) %}{% if not item.foot %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endif %}{% endfor %}
+  </nav>
+  <a class="dt-req" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">Request</a>
+  <button class="burger dt-menu" type="button" aria-expanded="false" aria-controls="mnav"><span class="dt-open">Menu</span><span class="dt-close">Close</span></button>
+</div></header>
+<div class="mnav dt-sheet" id="mnav" hidden>
+  <nav aria-label="Pages">
+    <a href="{{ 'index' | href }}"{% if pageId == "index" %} aria-current="page"{% endif %}>Home</a>
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+  </nav>
+  <p class="dt-sheet-now" data-live-status><span class="dot" aria-hidden="true"></span> <span data-status-text>Opening hours</span></p>
+</div>

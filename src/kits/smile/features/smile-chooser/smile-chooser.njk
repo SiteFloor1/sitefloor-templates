@@ -1,0 +1,22 @@
+{#- Tell me what you'd change: the clinician's own line in their voice, then the choices; tapping one writes the message
+    to the studio, sent on WhatsApp (or the studio's booking channel). Without JavaScript the first message is ready in
+    the link. Nothing clinical is asked, and the note says not to send photos of teeth. -#}
+{%- set c = site.chooser %}
+{%- set p = site.clinicians | clinician(c.by) %}
+{%- set first = c.options[0] %}
+<section id="chooser" class="sm-ch" data-feature="smile-chooser" aria-label="Message {{ p.name }}"{{ 'smile-chooser' | tierAttr | safe }}><div class="wrap sm-ch-in">
+  {%- if c.photo %}<figure class="sm-ch-ph"><img src="{{ c.photo.src | img }}" alt="{{ c.photo.alt }}" width="{{ c.photo.width }}" height="{{ c.photo.height }}" loading="lazy" decoding="async"></figure>{% endif %}
+  <div class="sm-ch-body">
+    <blockquote class="sm-voice sm-ch-q"><p>{{ c.quote }}</p></blockquote>
+    <p class="sm-ch-sig">{% include "kits/smile/partials/clinician-line.njk" %}</p>
+    <div class="sm-chips" role="group" aria-label="What would you like?" data-js-only>
+      {%- for o in c.options %}<button type="button" class="sm-chip" aria-pressed="{{ 'true' if loop.first else 'false' }}" data-ch="{{ loop.index0 }}">{{ o.label }}</button>{% endfor %}
+    </div>
+    <p class="sm-bubble" aria-live="polite" data-ch-text>{{ first.message }}</p>
+    <div class="sm-ch-send">
+      <a class="sm-btn" data-ch-send href="{{ first.message | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ first.message }}"{% endif %} target="_blank" rel="noopener">{{ "Send on WhatsApp" if build.booking.whatsapp else "Send" }}</a>
+      {%- if c.note %}<p class="sm-ch-note">{{ c.note }}</p>{% endif %}
+    </div>
+    {%- include "kits/smile/partials/rules.njk" %}
+  </div>
+</div></section>

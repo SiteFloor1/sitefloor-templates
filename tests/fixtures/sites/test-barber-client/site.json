@@ -1,0 +1,377 @@
+{
+  "schemaVersion": 4,
+  "id": "test-barber-client",
+  "mode": "client",
+  "plan": "signature",
+  "kit": "barber",
+  "look": "barber-noir",
+  "url": "https://northgate-barbers.example.co.uk",
+  "indexable": true,
+  "lang": "en-GB",
+  "business": {
+    "name": "Northgate Barbers",
+    "schemaType": "BarberShop",
+    "description": "Test fixture: a client-mode barber used by the automated tests.",
+    "priceRange": "££"
+  },
+  "contact": {
+    "whatsapp": "447911123456",
+    "phone": "+44 7911 123456",
+    "email": "hello@northgate-barbers.example.co.uk"
+  },
+  "booking": {
+    "provider": "booksy",
+    "url": "https://booksy.com/en-gb/000000_northgate-test_barber-shop_0_testford"
+  },
+  "location": {
+    "streetAddress": "2 Northgate",
+    "locality": "Testford",
+    "postcode": "TE1 1ST",
+    "country": "GB",
+    "area": "Test fixture location."
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [
+        [
+          "09:00",
+          "18:00"
+        ]
+      ],
+      "tue": [
+        [
+          "09:00",
+          "18:00"
+        ]
+      ],
+      "wed": [
+        [
+          "09:00",
+          "18:00"
+        ]
+      ],
+      "thu": [
+        [
+          "09:00",
+          "18:00"
+        ]
+      ],
+      "fri": [
+        [
+          "09:00",
+          "18:00"
+        ]
+      ],
+      "sat": [
+        [
+          "09:00",
+          "17:00"
+        ]
+      ],
+      "sun": []
+    }
+  },
+  "nav": [
+    {
+      "label": "Who's free",
+      "href": "#chairs",
+      "feature": "chair-board"
+    },
+    {
+      "label": "Team",
+      "page": "team",
+      "feature": "team"
+    },
+    {
+      "label": "Prices",
+      "href": "#prices"
+    },
+    {
+      "label": "Visit",
+      "href": "#visit"
+    }
+  ],
+  "features": [
+    "price-list",
+    "visit",
+    "gallery",
+    "work",
+    "reviews",
+    "team",
+    "chair-board",
+    "build-your-cut",
+    "questions",
+    "plan-visit",
+    "price-page",
+    "custom-pages"
+  ],
+  "hero": {
+    "kicker": "Barbers · Testford",
+    "title": "Northgate|*test.*",
+    "intro": "Fixture copy for automated tests."
+  },
+  "sections": {
+    "chairs": {
+      "kicker": "Live",
+      "title": "Who's free"
+    },
+    "cut": {
+      "kicker": "Builder",
+      "title": "Build your cut"
+    },
+    "prices": {
+      "kicker": "Prices",
+      "title": "Prices"
+    },
+    "gallery": {
+      "kicker": "Work",
+      "title": "Recent work"
+    },
+    "reviews": {
+      "kicker": "Google",
+      "title": "Reviews"
+    },
+    "visit": {
+      "kicker": "Visit",
+      "title": "Find us"
+    },
+    "questions": {
+      "kicker": "Questions",
+      "title": "Good to know"
+    }
+  },
+  "messages": {
+    "general": "Hi Northgate, can I book a cut?"
+  },
+  "staff": [
+    {
+      "name": "Sam",
+      "role": "Owner",
+      "speciality": "Fades",
+      "photo": "img/cut-1.webp",
+      "tags": [
+        "afro"
+      ]
+    },
+    {
+      "name": "Lee",
+      "role": "Barber",
+      "speciality": "Beards",
+      "tags": [
+        "kids"
+      ]
+    }
+  ],
+  "team": {
+    "kicker": "Team",
+    "title": "The team",
+    "intro": "Fixture team page.",
+    "filters": [
+      {
+        "tag": "afro",
+        "label": "Afro and textured hair"
+      },
+      {
+        "tag": "kids",
+        "label": "Kids"
+      }
+    ]
+  },
+  "services": [
+    {
+      "id": "skin",
+      "name": "Skin fade",
+      "price": 20,
+      "minutes": 40,
+      "fade": true
+    },
+    {
+      "id": "kids",
+      "name": "Kids cut",
+      "price": 12,
+      "minutes": 25,
+      "fade": true,
+      "kids": true
+    }
+  ],
+  "extras": [
+    {
+      "id": "beard",
+      "name": "Beard shape-up",
+      "price": 10,
+      "minutes": 15,
+      "adultOnly": true
+    },
+    {
+      "id": "wash",
+      "name": "Wash",
+      "price": 4,
+      "minutes": 10
+    }
+  ],
+  "priceList": [
+    {
+      "group": "Cuts",
+      "items": [
+        {
+          "service": "skin"
+        },
+        {
+          "service": "kids"
+        }
+      ]
+    }
+  ],
+  "chairBoard": {
+    "source": "sheet",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/TEST-FIXTURE/pub?output=csv",
+    "staleAfterMinutes": 20
+  },
+  "gallery": {
+    "source": "behold",
+    "feedUrl": "https://feeds.behold.so/TestFeed123",
+    "profile": "https://www.instagram.com/northgate.test",
+    "handle": "northgate.test",
+    "filters": [
+      {
+        "tag": "skinfade",
+        "label": "Skin fades"
+      },
+      {
+        "tag": "kidscut",
+        "label": "Kids"
+      },
+      {
+        "tag": "beard",
+        "label": "Beards"
+      }
+    ],
+    "photos": [
+      {
+        "src": "img/cut-1.webp",
+        "alt": "Fixture photo",
+        "caption": "Fixture",
+        "width": 720,
+        "height": 900,
+        "tags": [
+          "skinfade"
+        ]
+      }
+    ]
+  },
+  "reviews": {
+    "source": "google",
+    "items": [
+      {
+        "text": "Fixture review text.",
+        "author": "A. Tester",
+        "rating": 4,
+        "date": "2026-10-05"
+      }
+    ]
+  },
+  "work": {
+    "kicker": "Work",
+    "title": "Our work"
+  },
+  "questions": [
+    {
+      "topic": "Getting here",
+      "q": "Where can I park?",
+      "a": "Fixture answer about parking.",
+      "home": true
+    },
+    {
+      "topic": "Paying",
+      "q": "Do you take card?",
+      "a": "Fixture answer about cards."
+    }
+  ],
+  "visitInfo": {
+    "kicker": "Visit",
+    "title": "Plan your visit",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "Testford station",
+        "minutes": 8,
+        "steps": [
+          "Fixture step one",
+          "Fixture step two"
+        ]
+      },
+      {
+        "mode": "bus",
+        "from": "Bus 7",
+        "minutes": 3,
+        "stop": "High Street",
+        "steps": [
+          "Fixture bus step"
+        ]
+      }
+    ],
+    "parking": [
+      {
+        "name": "Fixture car park",
+        "walk": 3,
+        "price": "£1 an hour",
+        "paid": {
+          "mon": [
+            [
+              "09:00",
+              "17:00"
+            ]
+          ]
+        },
+        "note": "Fixture note.",
+        "bankHolidays": "sunday"
+      }
+    ],
+    "access": [
+      {
+        "label": "Step-free entrance",
+        "yes": true
+      },
+      {
+        "label": "Accessible toilet",
+        "yes": false
+      }
+    ],
+    "checked": "2026-10"
+  },
+  "pricesPage": {
+    "kicker": "Prices",
+    "title": "All prices"
+  },
+  "brand": {
+    "accent": "#8FBF9F",
+    "type": "garamond",
+    "logo": "img/logo.svg"
+  },
+  "pages": [
+    {
+      "slug": "gift-vouchers",
+      "title": "Gift|vouchers*.*",
+      "description": "Northgate Barbers gift vouchers: any amount, valid for a year.",
+      "blocks": [
+        {
+          "type": "text",
+          "body": "Vouchers come in any amount and are valid for twelve months.\n\nBuy one in the shop."
+        },
+        {
+          "type": "list",
+          "heading": "Good to know",
+          "items": [
+            "Use it for any service",
+            "No cash refunds"
+          ]
+        },
+        {
+          "type": "book",
+          "text": "Got a voucher? Book your cut."
+        }
+      ]
+    }
+  ]
+}

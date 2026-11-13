@@ -1,0 +1,14 @@
+---
+layout: core/layouts/base.njk
+feature: jewel-pages
+pagination:
+  data: site.pieces.collections
+  size: 1
+  alias: col
+permalink: "collection-{{ col.id }}.html"
+eleventyComputed:
+  pageId: "collection-{{ col.id }}"
+  title: "{{ col.name }}"
+  description: "{{ col.name }} from {{ site.business.name }}, {{ site.location.locality }}{% if col.line %}: {{ col.line }}{% endif %} Seen by private appointment."
+---
+{% include "kits/jeweller/features/jewel-pages/collection.njk" %}

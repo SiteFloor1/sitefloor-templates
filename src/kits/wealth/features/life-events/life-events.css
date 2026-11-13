@@ -1,0 +1,12 @@
+.wm-le-h .wm-ph-t { max-width: 18ch; }
+.wm-le-fig { margin: 0; }
+.wm-le-fig img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 7; object-fit: cover; }
+.wm-le-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 72px; padding-block: clamp(56px, 7vw, 96px); }
+.wm-le h2 { font: 300 clamp(1.5rem, 2.4vw, 2.1rem)/1.2 var(--font-display); margin: 0 0 16px; }
+.wm-le-l { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--accent); }
+.wm-le-l li { padding-block: 12px; border-bottom: 1px solid var(--line); }
+.wm-le-who { margin: 20px 0 0; color: var(--muted); }
+.wm-le-rel { padding-bottom: clamp(48px, 6vw, 80px); }
+.wm-le-go { padding-bottom: clamp(80px, 9vw, 128px); }
+@media (max-width: 900px) { .wm-le-cols { grid-template-columns: 1fr; } .wm-le-fig img { aspect-ratio: 4 / 3; } }
+.wm-le-doc { margin: 16px 0 0; }

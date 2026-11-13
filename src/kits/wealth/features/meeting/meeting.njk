@@ -1,0 +1,29 @@
+{#- Arrange a meeting: who you are, how to reach you, what it is about and where. Sent as the visitor's own email or
+    WhatsApp message; nothing is stored. It asks nothing about money and stops account or card numbers. -#}
+{%- set m = site.meeting %}
+{%- set ph = { title: m.title, intro: m.intro } %}
+{% include "kits/wealth/partials/page-head.njk" %}
+<section class="wm-meet" data-feature="meeting"><div class="wrap wm-meet-in">
+  <form class="wm-meet-f" id="meet-form" novalidate data-js-only>
+    <p class="wm-field"><label for="meet-name">Your name</label><input id="meet-name" name="name" autocomplete="name" required></p>
+    <p class="wm-field"><label for="meet-reach">A phone number or email for our reply</label><input id="meet-reach" name="reach" autocomplete="email" required></p>
+    {%- if "situations" | enabled %}
+    <p class="wm-field"><label for="meet-about">What it's about</label><select id="meet-about" name="about"><option value="">I'd rather say when we speak</option>{% for x in site.situations.items %}<option value="{{ x.label | replace('receiving ', '') }}">{{ x.label | capitalize }}</option>{% endfor %}<option value="something else">Something else</option></select></p>
+    {%- endif %}
+    <fieldset class="wm-field wm-meet-where"><legend>Where would suit you</legend>
+      {%- for w in m.where %}<label><input type="radio" name="where" id="meet-where-{{ loop.index }}" value="{{ w }}"{% if loop.first %} checked{% endif %}> {{ w }}</label>{% endfor %}
+    </fieldset>
+    {%- if "advisers" | enabled %}
+    <p class="wm-field"><label for="meet-adviser">Someone in particular</label><select id="meet-adviser" name="adviser"><option value="">Whoever is best placed</option>{% for p in site.advisers.items %}<option data-id="{{ p.id }}">{{ p.name }}</option>{% endfor %}</select></p>
+    {%- endif %}
+    <p class="wm-field"><label for="meet-when">When suits you</label><input id="meet-when" name="when" placeholder="Weekday mornings, or after 4pm"></p>
+    <p class="wm-meet-warn">{{ m.note }}</p>
+    <p class="wm-meet-err" data-meet-err role="alert" hidden></p>
+    <p class="wm-meet-send"><button type="submit" class="wm-btn" data-meet-mail>Send by email</button> <button type="button" class="wm-go" data-meet-wa>Send on WhatsApp</button></p>
+    <p class="wm-meet-done" data-meet-done hidden>Your email app should now be open with your message. If it didn't open, call us on <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone | replace('+44 ', '0') }}</a>.</p>
+  </form>
+  <div class="wm-meet-alt" data-no-js><p>Call us on <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone | replace('+44 ', '0') }}</a>{% if site.meeting.email or site.contact.email %} or email <a href="mailto:{{ site.meeting.email or site.contact.email }}">{{ site.meeting.email or site.contact.email }}</a>{% endif %}.</p></div>
+  <aside class="wm-meet-side">
+    {%- if "bring" | enabled %}{% include "kits/wealth/features/bring/bring.njk" %}{% endif %}
+  </aside>
+</div></section>

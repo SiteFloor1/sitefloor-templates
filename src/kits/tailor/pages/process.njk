@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: process
+permalink: process.html
+feature: process-page
+eleventyComputed:
+  title: "{{ site.processPage.title | plain }}"
+  description: "How a bespoke commission runs at {{ site.business.name }}, {{ site.location.locality }}: from the first appointment to the finished coat."
+---
+{% include "kits/tailor/features/process-page/process-page.njk" %}
+{%- set hostPage = "process-page" %}{% include "kits/tailor/partials/hosted.njk" %}

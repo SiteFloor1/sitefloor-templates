@@ -1,0 +1,9 @@
+{#- One garden: its photograph, its name and where it is, its size and facing. `g` = a gardens item; `gpage` = its story
+    page when garden-pages is on. -#}
+<li class="gd-gc" data-style="{{ g.style }}">
+  {%- if gpage %}<a class="gd-gc-a" href="{{ gpage.slug | href }}"{{ 'garden-pages' | tierAttr | safe }}>{% endif %}
+  <img src="{{ g.photo.src | img }}" alt="{{ g.photo.alt }}" width="{{ g.photo.width }}" height="{{ g.photo.height }}"{{ " fetchpriority=\"high\"" | safe if eager else " loading=\"lazy\"" | safe }} decoding="async">
+  <span class="gd-gc-n">{{ g.name }}</span>
+  <span class="gd-gc-m">{{ [g.place, g.size, (g.facing | facingWords)] | select | join(" · ") }}</span>
+  {%- if gpage %}</a>{% endif %}
+</li>

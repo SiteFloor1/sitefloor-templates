@@ -1,0 +1,14 @@
+{#- One journal article: `a` = a journal item. -#}
+<article class="wrap gd-ar">
+  <header class="gd-ar-h">
+    <p class="gd-ph-k"><a href="{{ 'journal' | href }}">{{ site.journal.title | plain }}</a> · <time datetime="{{ a.date }}">{{ a.date | ukDay }}</time></p>
+    <h1 class="gd-ph-t">{{ a.title }}</h1>
+    <p class="gd-ph-i">{{ a.summary }}</p>
+  </header>
+  <figure class="gd-ar-ph"><img src="{{ a.photo.src | img }}" alt="{{ a.photo.alt }}" width="{{ a.photo.width }}" height="{{ a.photo.height }}" fetchpriority="high" decoding="async"></figure>
+  <div class="gd-ar-tx">{% for p in a.body | paras %}<p>{{ p }}</p>{% endfor %}
+    {%- if a.sources and a.sources.length %}
+    <p class="gd-small">Sources: {% for s in a.sources %}<a href="{{ s.url }}" rel="noopener">{{ s.label }}</a>{% if not loop.last %}; {% endif %}{% endfor %}.</p>
+    {%- endif %}
+  </div>
+</article>

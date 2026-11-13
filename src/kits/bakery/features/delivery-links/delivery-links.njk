@@ -1,0 +1,11 @@
+{#- Delivery and collection: the shop's own pages on the delivery apps it uses. -#}
+{%- set sec = site.sections.delivery %}
+<section id="delivery" class="sec-dl" data-feature="delivery-links"{{ "delivery-links" | tierAttr | safe }}><div class="wrap dl-in">
+  {% include "core/partials/section-head.njk" %}
+  <ul class="dl-apps">
+    {%- for a in site.delivery.apps %}
+    <li><a class="dl-app" href="{{ a.url }}" target="_blank" rel="noopener"><span>{{ a.name }}</span><small>Order on {{ a.name }}</small><i aria-hidden="true">→</i></a></li>
+    {%- endfor %}
+  </ul>
+  {%- if site.delivery.collection %}<p class="dl-note">{{ site.delivery.collection }}{% if "collect" | enabled %} <a href="#collect"{{ "collect" | tierAttr | safe }}>Ask for a collection time</a>.{% endif %}</p>{% endif %}
+</div></section>

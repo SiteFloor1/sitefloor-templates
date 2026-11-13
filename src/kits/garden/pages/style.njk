@@ -1,0 +1,14 @@
+---
+layout: core/layouts/base.njk
+feature: style-pages
+pagination:
+  data: site.stylePages.items
+  size: 1
+  alias: st
+permalink: "{{ st.slug }}.html"
+eleventyComputed:
+  pageId: "{{ st.slug }}"
+  title: "{{ st.title | plain }}"
+  description: "{{ st.description }}"
+---
+{% include "kits/garden/features/style-pages/style-pages.njk" %}

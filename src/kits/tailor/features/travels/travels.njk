@@ -1,0 +1,18 @@
+{#- Trunk shows by city: where the cutter will be and when, soonest first; each to the calendar and a request for a
+    slot on WhatsApp. Ones that have finished drop off at the build and, until the next build, in the browser. -#}
+{%- set ph = site.travelsPage %}
+{% include "kits/tailor/partials/page-head.njk" %}
+{%- set list = site.travels.items | upcomingTravels(build.today) %}
+<section class="wrap tl-tv" data-feature="travels" aria-label="{{ site.travelsPage.title | plain }}">
+  <ol class="tl-tv-list" data-tv-list>
+    {%- for t in list %}
+    <li class="tl-tv-row" data-tv="{{ t.id }}" data-from="{{ t.from }}" data-to="{{ t.to }}" data-city="{{ t.city }}" data-venue="{{ t.venue }}">
+      <h2 class="tl-tv-city">{{ t.city }}</h2>
+      <p class="tl-tv-when">{{ t | showDates }}</p>
+      <p class="tl-tv-where">{{ t.venue }}{% if t.text %}<span>{{ t.text }}</span>{% endif %}</p>
+      <p class="tl-tv-acts"><a class="tl-go" href="{{ site.travels.message | travelText(t) | book }}" target="_blank" rel="noopener">Ask for a slot</a><button type="button" class="tl-quiet" data-tv-ics data-js-only>Add to calendar</button></p>
+    </li>
+    {%- endfor %}
+  </ol>
+  <p class="tl-tv-none" data-tv-none{% if list.length %} hidden{% endif %}>No trips announced just now. <a href="{{ site.travels.message | book }}" target="_blank" rel="noopener">Ask where we're going next</a>.</p>
+</section>

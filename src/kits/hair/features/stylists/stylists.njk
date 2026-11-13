@@ -1,0 +1,22 @@
+{#- The stylists through their work, not their faces: one photograph of each one's signature cut or colour, and under
+    it the name, their level and what they're known for, their next free day when the salon's sheet is fresh (an empty
+    line until then, so nothing moves) and "Book Ines". Without photographs it is a ruled list. -#}
+{%- set sec = site.sections.stylists %}
+{%- set st = site.stylists %}
+{%- set withWork = (st.items | selectattr("work") | list | length) == st.items.length %}
+<section id="stylists" class="hr-st{% if stFull %} hr-st-full{% endif %}{% if withWork %} hr-st-w{% endif %}" data-feature="stylists" aria-labelledby="st-h"><div class="wrap">
+  {%- if not stFull %}{% set secId = "st-h" %}{% include "core/partials/section-head.njk" %}{% else %}<h2 class="sr-only" id="st-h">Who's who</h2>{% endif %}
+  <ul class="hr-st-list">
+    {%- for x in st.items %}
+    {%- set lv = site.menu.levels | idOf(x.level) %}
+    <li class="hr-st-one">
+      {%- if withWork %}<figure class="hr-st-work"><img src="{{ x.work.src | img }}" alt="{{ x.work.alt }}" width="{{ x.work.width }}" height="{{ x.work.height }}" loading="lazy" decoding="async"></figure>{% endif %}
+      <h3 class="hr-st-n">{{ x.name }}</h3>
+      <p class="hr-st-l">{{ lv.name }} · {{ x.line }}</p>
+      <p class="hr-st-free" data-st-free="{{ x.id }}" aria-live="polite">&nbsp;</p>
+      <a class="hr-go" href="{{ (st.message + " I'd like to book with " + x.name + ".") | book }}" data-st-book="{{ x.id }}" target="_blank" rel="noopener">Book {{ x.name.split(' ')[0] }}</a>
+    </li>
+    {%- endfor %}
+  </ul>
+  {%- if not stFull and ("stylists-page" | enabled) %}<p class="hr-st-more"{{ "stylists-page" | tierAttr | safe }}><a class="hr-go" href="{{ 'stylists' | href }}">The stylists and their levels</a></p>{% endif %}
+</div></section>

@@ -1,0 +1,14 @@
+/* Occasion pages: structure only. */
+.fl-ops-l { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 40px 24px; }
+.fl-ops-a { display: flex; flex-direction: column; gap: 4px; text-decoration: none; color: inherit; height: 100%; }
+.fl-ops-ph { display: block; aspect-ratio: 4 / 5; overflow: hidden; margin-bottom: 10px; }
+.fl-ops-ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.fl-op-in { display: grid; gap: clamp(28px, 5vw, 80px); }
+@media (min-width: 900px) { .fl-op-in { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); align-items: start; } }
+.fl-op-ph { margin: 0; }
+.fl-op-ph img { width: 100%; height: auto; display: block; }
+.fl-op-items { list-style: none; margin: 0; padding: 0; }
+.fl-op-i { display: grid; gap: 8px; justify-items: start; }
+.fl-op-h { display: flex; justify-content: space-between; gap: 16px; width: 100%; margin: 0; }
+.fl-op-words ul { list-style: none; margin: 0; padding: 0; }
+.fl-op-more .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; }

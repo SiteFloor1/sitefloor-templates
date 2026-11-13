@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: before-and-after
+permalink: before-and-after.html
+feature: results-page
+eleventyComputed:
+  title: "{{ site.resultsPage.title | plain }}"
+  description: "Before and after at {{ site.business.name }}, {{ site.location.locality }}: our own pairs, each of one car."
+---
+{% include "kits/detailing/features/results-page/results-page.njk" %}

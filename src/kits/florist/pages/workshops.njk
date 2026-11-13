@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: workshops
+permalink: workshops.html
+feature: flower-workshops
+eleventyComputed:
+  title: "{{ site.workshops.title | plain }}"
+  description: "Flower workshops at {{ site.business.name }}, {{ site.location.locality }}: dates, what you make, the price and places left."
+---
+{% include "kits/florist/features/flower-workshops/flower-workshops.njk" %}

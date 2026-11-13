@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: flower-care
+permalink: flower-care.html
+feature: care-card
+noindex: true
+eleventyComputed:
+  title: "{{ site.care.title | plain }}"
+  description: "How to keep flowers from {{ site.business.name }} at their best."
+---
+{% include "kits/florist/features/care-card/care-card.njk" %}

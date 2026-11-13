@@ -1,0 +1,18 @@
+{%- set sec = site.sections.chairs %}
+<section id="chairs" class="sec-chairs" data-feature="chair-board"{{ "chair-board" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="board" data-board aria-live="polite">
+    {%- for s in site.staff %}
+    <article class="chair" data-chair="{{ s.name }}">
+      <span class="bar" aria-hidden="true"></span>
+      <div class="c-top"><span class="mono" aria-hidden="true">{{ s.name | first }}</span><div><h3 class="c-name">{{ s.name }}</h3><p class="c-spec">{{ s.speciality }}</p></div></div>
+      <p class="c-stat"><i aria-hidden="true"></i><span data-chair-status>Checking…</span></p>
+      <p class="c-next"><span>Next free</span><b data-chair-time>–</b></p>
+      <p class="c-upd" data-chair-updated></p>
+      <a class="take btn-take" href="{{ ('Hi, can I book in with ' + s.name + '?') | wa }}" data-chair-take target="_blank" rel="noopener">Message {{ s.name }}</a>
+    </article>
+    {%- endfor %}
+  </div>
+  <p class="board-fallback" data-board-fallback hidden>The live board is taking a break. Message us on WhatsApp and we'll tell you the next free chair.</p>
+  <p class="boardfoot"><span>Updated <b data-board-updated>–</b> · refreshes on its own</span>{% if site.chairBoard.source == "simulated" %}<span>Demo data. On a live site, each barber updates their card from a three-tap form on their phone</span>{% endif %}</p>
+</div></section>

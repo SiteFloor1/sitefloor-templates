@@ -1,0 +1,15 @@
+/* The chapters as a programme: a thin line over each that fills as it plays. The look sets type and spacing. */
+.wf-ch-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); gap: var(--ch-gap, 2.4vw); }
+.wf-ch { all: unset; box-sizing: border-box; display: grid; gap: 10px; width: 100%; cursor: pointer; color: var(--dim); }
+.wf-ch-t { display: block; height: 1px; background: var(--line); position: relative; overflow: hidden; }
+.wf-ch-t i { position: absolute; inset: 0; background: var(--accent); transform-origin: left; transform: scaleX(0); }
+.wf-ch-n { display: flex; gap: 12px; align-items: baseline; }
+.wf-ch[aria-current="true"] { color: var(--text); }
+.wf-ch:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
+.wf-full { all: unset; cursor: pointer; color: var(--text); text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px; white-space: nowrap; }
+.wf-full:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+[data-stage]:fullscreen { background: var(--text); display: grid; grid-template-rows: 1fr auto; padding: 24px; }
+[data-stage]:fullscreen .wf-film { aspect-ratio: auto; height: 100%; }
+[data-stage]:fullscreen .wf-film video { object-fit: contain; opacity: 1; }
+[data-stage]:fullscreen .wf-ch, [data-stage]:fullscreen .wf-full { color: var(--bg); }
+[data-stage]:fullscreen .wf-full { display: none; }

@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: engagement
+permalink: engagement.html
+feature: engagement-guide
+eleventyComputed:
+  title: "{{ site.engagementGuide.title | plain }}"
+  description: "{{ site.engagementGuide.description or ('Choosing an engagement ring at ' + site.business.name + ': shapes, metals, settings and sizes, in the house’s own words.') }}"
+---
+{% include "kits/jeweller/features/engagement-guide/engagement-guide.njk" %}

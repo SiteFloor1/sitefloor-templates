@@ -1,0 +1,4 @@
+{#- Nacre phone bar: one line of text, underlined in rose, on pearl under a hairline. No buttons, icons or pills. -#}
+<div class="mbar nc-bar">
+  <a href="{{ (site.messages.appointment or site.messages.general) | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.appointment or site.messages.general }}"{% endif %} target="_blank" rel="noopener">Request a private appointment</a>
+</div>

@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: menu
+permalink: menu.html
+feature: nail-menu
+eleventyComputed:
+  title: "{{ site.menuPage.title | plain }}"
+  description: "The menu at {{ site.business.name }}, {{ site.location.locality }}: every treatment by how long it takes, with its price."
+---
+{% include "kits/nails/features/nail-menu/nail-menu.njk" %}
+{%- set hostPage = "nail-menu" %}{% include "kits/nails/partials/hosted.njk" %}

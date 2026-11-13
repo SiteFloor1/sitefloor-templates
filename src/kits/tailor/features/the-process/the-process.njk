@@ -1,0 +1,9 @@
+{#- How a commission runs, a line a step, in the house's own words. With the process page on, the steps link there. -#}
+{%- set sec = site.sections.process %}
+<section id="process" class="tl-process" aria-labelledby="pr-h"><div class="wrap">
+  {%- set secId = "pr-h" %}{% include "core/partials/section-head.njk" %}
+  <ol class="tl-pr-list">
+    {%- for s in site.process.steps %}<li class="tl-pr"><b class="tl-pr-n">{{ s.name }}</b><span class="tl-pr-t">{{ s.text }}</span></li>{% endfor %}
+  </ol>
+  {%- if "process-page" | enabled %}<p class="tl-pr-more"><a class="tl-go" href="{{ 'process' | href }}"{{ 'process-page' | tierAttr | safe }}>Each step in full</a></p>{% endif %}
+</div></section>

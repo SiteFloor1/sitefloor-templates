@@ -1,0 +1,16 @@
+{#- One service's page: `sp` = a servicePages item. -#}
+{%- set ph = sp %}
+{% include "kits/garden/partials/page-head.njk" %}
+<section class="wrap gd-svp" aria-label="{{ sp.title | plain }}">
+  <figure class="gd-svp-ph"><img src="{{ sp.photo.src | img }}" alt="{{ sp.photo.alt }}" width="{{ sp.photo.width }}" height="{{ sp.photo.height }}" fetchpriority="high" decoding="async"></figure>
+  <div class="gd-svp-tx">
+    {%- for p in sp.body | paras %}<p>{{ p }}</p>{% endfor %}
+    {%- if sp.points and sp.points.length %}
+    <dl class="gd-svp-dl">{% for d in sp.points %}<div><dt>{{ d.label }}</dt><dd>{{ d.value }}</dd></div>{% endfor %}</dl>
+    {%- endif %}
+    <p class="gd-svp-go"><a class="btn" href="{{ site.messages.general | book }}" target="_blank" rel="noopener">Start your garden</a>
+      {%- if sp.service == "design" and ("design-process" | enabled) %} <a class="go" href="{{ 'design-process' | href }}"{{ 'design-process' | tierAttr | safe }}>How a design runs</a>{% endif %}
+      {%- if sp.service == "care" and ("maintenance-plans" | enabled) %} <a class="go" href="{{ 'maintenance' | href }}"{{ 'maintenance-plans' | tierAttr | safe }}>Maintenance plans</a>{% endif %}
+      {%- if sp.service == "build" and ("materials" | enabled) %} <a class="go" href="{{ 'materials' | href }}"{{ 'materials' | tierAttr | safe }}>What we build with</a>{% endif %}</p>
+  </div>
+</section>

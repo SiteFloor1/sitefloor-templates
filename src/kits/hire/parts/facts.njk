@@ -1,0 +1,13 @@
+{#- A car's rules as a quiet list under a hairline. `car` set; `short` true for the compact side cards (deposit, driver,
+    mileage). Every line is the client's own figure. -#}
+<dl class="hr-facts{% if short %} is-short{% endif %}">
+  {%- if car.chauffeurOnly %}
+  <dt>With a chauffeur</dt><dd>{{ car.chauffeur.hourly | money }} an hour, {{ car.chauffeur.minHours | words }} hours at least</dd>
+  {%- else %}
+  <dt>Deposit</dt><dd>{{ car.deposit | money }}{% if not short %}, {{ site.hire.deposit.when | lower }}{% endif %}</dd>
+  <dt>Driver</dt><dd>{{ car.driver | driverLine }}</dd>
+  {%- if not short %}<dt>Insurance</dt><dd>{{ car | excessLine }}</dd>{% endif %}
+  <dt>Mileage</dt><dd>{{ car | mileLine }}</dd>
+  {%- if not short %}<dt>Delivery</dt><dd>{{ car | deliveryLine(site.hire) }}</dd>{% endif %}
+  {%- endif %}
+</dl>

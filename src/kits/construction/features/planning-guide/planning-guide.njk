@@ -1,0 +1,19 @@
+{#- The planning guide on the 3D model: where a rear extension of the chosen depth sits against the GOV.UK
+    permitted-development limits for the chosen house, drawn on the model's garden and set out here, with the source and
+    the date it was checked. A guide, never a decision. -#}
+{%- set pg = site.planningGuide %}{% set z = site.visualiser | extensionStart | rearZoneOf %}
+<section class="wrap bd-pg" data-feature="planning-guide" aria-labelledby="pg-h">
+  <div class="bd-pg-head"><h2 id="pg-h" class="bd-h2">{{ pg.title | markup | safe }}</h2>{% if pg.intro %}<p>{{ pg.intro }}</p>{% endif %}</div>
+  <div class="bd-pg-scale" aria-hidden="true" data-pg-scale data-zone="{{ z.zone }}">
+    <span class="bd-pg-band pd" data-pg-band="pd"><b>Permitted development</b><i data-pg-pd>up to {{ z.limits.pd }} m</i></span>
+    <span class="bd-pg-band prior" data-pg-band="prior"><b>Prior approval</b><i data-pg-prior>{{ z.limits.pd }} to {{ z.limits.prior }} m</i></span>
+    <span class="bd-pg-band permission" data-pg-band="permission"><b>Planning permission</b><i data-pg-over>over {{ z.limits.prior }} m</i></span>
+    <span class="bd-pg-mark" data-pg-mark style="left:{{ z.mark }}%"></span>
+  </div>
+  <p class="bd-pg-now" data-pg-now aria-live="polite">{{ z.words }}</p>
+  <ul class="bd-pg-rules">
+    {%- for r in planningFacts.guideRules %}<li>{{ r }}</li>{% endfor %}
+  </ul>
+  <p class="bd-pg-not"><b>{{ planningFacts.notADecision }}</b></p>
+  <p class="bd-pg-src">The rules for England, from <a href="{{ planningFacts.sources.pd.url }}" rel="noopener" target="_blank">{{ planningFacts.sources.pd.label }}</a> and <a href="{{ planningFacts.sources.ldc.url }}" rel="noopener" target="_blank">{{ planningFacts.sources.ldc.label }}</a> on GOV.UK, checked {{ planningFacts.checked | ukDate }}.{% if "planning-page" | enabled %} <a href="{{ 'planning' | href }}"{{ 'planning-page' | tierAttr | safe }}>Planning and party walls, in full</a>{% endif %}</p>
+</section>

@@ -1,0 +1,27 @@
+{#- Regulatory information: the firm's FCA status (checkable on the register), what the FCA doesn't regulate, the risk
+    wording, compensation if the firm gives it, and how to complain: to the firm first, then the Financial Ombudsman. -#}
+{%- set r = site.regulation %}
+{%- set ph = { title: "Regulatory information", intro: "Who regulates us, how to check, and how to complain." } %}
+{% include "kits/wealth/partials/page-head.njk" %}
+<section class="wm-regp" data-feature="regulation"><div class="wrap wm-regp-in">
+  <div class="wm-regp-block">
+    <h2>Our authorisation</h2>
+    <p>{{ r.legalName }} is authorised and regulated by the Financial Conduct Authority. Our firm reference number is <b>{{ r.frn }}</b>{{ site.mode | demoTag }}. You can check this on the <a href="{{ fca.register }}" target="_blank" rel="noopener">FCA's Financial Services Register</a> by searching for that number.</p>
+    <p>{{ r.entity }}.{% if r.office %} Registered office: {{ r.office }}.{% endif %}</p>
+    <p>{{ r.unregulated }}</p>
+  </div>
+  <div class="wm-regp-block">
+    <h2>Risk</h2>
+    <p>{{ r.capitalAtRisk or fca.capitalAtRisk }}</p>
+    <p>Nothing on this website is advice or a recommendation to buy or sell an investment. Our insights are general information.</p>
+    {%- if r.fscs %}<p>{{ r.fscs }}</p>{% endif %}
+  </div>
+  <div class="wm-regp-block">
+    <h2>If you have a complaint</h2>
+    <ol class="wm-regp-steps">{% for s in r.complaints.steps %}<li>{{ s }}</li>{% endfor %}</ol>
+    <p>Write to <a href="mailto:{{ r.complaints.email }}">{{ r.complaints.email }}</a> or {{ r.complaints.address }}.</p>
+    <p>If we haven't resolved your complaint within {{ fca.ombudsman.weeks }} weeks, or you aren't happy with our final response, you can refer it to the {{ fca.ombudsman.name }} free of charge, within {{ fca.ombudsman.months }} months of our final response. Call {{ fca.ombudsman.phone }} or visit <a href="{{ fca.ombudsman.url }}" target="_blank" rel="noopener">financial-ombudsman.org.uk</a>.</p>
+  </div>
+  {%- if "check" | enabled %}<p class="wm-regp-more"><a class="wm-go" href="{{ 'check' | href }}">Is this really us? How to check a call or an email</a></p>{% endif %}
+  <p class="wm-regp-checked">Last checked {{ fca.checked | ukDate }}.</p>
+</div></section>

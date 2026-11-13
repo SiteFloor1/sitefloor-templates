@@ -1,0 +1,19 @@
+{#- Dove hero: the gown in the salon's three-way mirror. The front in the middle pane, two other views angled in at
+    either side (three different photographs of one gown, from one shoot); beside it, the one line,
+    the request, and where the salon is. The side panes settle into their angle once, after the page loads; never
+    with reduced motion. -#}
+{%- set mi = site.hero.mirror %}
+<section class="hero dv-hero" aria-label="{{ site.business.name }}"><div class="wrap dv-hero-in">
+  <div class="dv-mirror" role="group" aria-label="{{ mi.label }}">
+    <figure class="dv-pane dv-pane-l"><img src="{{ mi.left.src | img }}" alt="{{ mi.left.alt }}" width="{{ mi.left.width }}" height="{{ mi.left.height }}" decoding="async" fetchpriority="low"><figcaption>{{ mi.left.label }}</figcaption></figure>
+    <figure class="dv-pane dv-pane-c"><img src="{{ mi.centre.src | img }}" alt="{{ mi.centre.alt }}" width="{{ mi.centre.width }}" height="{{ mi.centre.height }}" fetchpriority="high" decoding="async"><figcaption>{{ mi.centre.label }}</figcaption></figure>
+    <figure class="dv-pane dv-pane-r"><img src="{{ mi.right.src | img }}" alt="{{ mi.right.alt }}" width="{{ mi.right.width }}" height="{{ mi.right.height }}" decoding="async" fetchpriority="low"><figcaption>{{ mi.right.label }}</figcaption></figure>
+  </div>
+  <div class="dv-side">
+    <h1 class="dv-h1">{% for l in site.hero.title.split("|") %}{{ l | plain }}{% if not loop.last %}<br>{% endif %}{% endfor %}</h1>
+    <p class="dv-intro">{{ site.hero.intro }}</p>
+    <a class="dv-cta" href="{{ ('#appointment' if ('appointment' | enabled) else (site.messages.general | book)) }}">Request an appointment</a>
+    <p class="dv-now" data-live-status><span class="dot" aria-hidden="true"></span><span data-status-text>Opening hours</span></p>
+    <p class="dv-where">{{ site.location.area }}</p>
+  </div>
+</div></section>

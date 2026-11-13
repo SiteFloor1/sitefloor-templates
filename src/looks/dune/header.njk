@@ -1,0 +1,25 @@
+{#- Dune header: the six-reformer mark beside the studio's name, large, in italic; the pages to the right and
+    "Book a reformer" underlined in the dune's shadow brown. On phones, "Menu" opens the pages. -#}
+<header class="nav du-nav"><div class="wrap du-nav-in">
+  <a class="du-brand" href="{{ 'index' | href }}" aria-label="{{ site.business.name }}, home">
+    <span class="du-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+    {%- if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="{{ site.business.name }}" height="40">{% else %}<span class="du-word">{{ site.business.name }}</span>{% endif %}
+  </a>
+  <nav class="du-links" aria-label="Main">
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+  </nav>
+  <a class="du-book" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">Book a reformer</a>
+  <button class="burger du-menu" type="button" aria-expanded="false" aria-controls="mnav"><span class="du-open">Menu</span><span class="du-close">Close</span></button>
+</div></header>
+<div class="mnav du-sheet" id="mnav" hidden>
+  <nav aria-label="Pages">
+    <a href="{{ 'index' | href }}"{% if pageId == "index" %} aria-current="page"{% endif %}>The studio</a>
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+  </nav>
+  <p class="du-sheet-now" data-live-status><span class="dot" aria-hidden="true"></span> <span data-status-text>Opening hours</span></p>
+  <p class="du-sheet-addr">{{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}</p>
+</div>

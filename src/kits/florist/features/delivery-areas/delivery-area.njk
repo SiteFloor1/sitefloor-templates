@@ -1,0 +1,22 @@
+{#- One delivery area: the florist's own cut-off and charge for it, the streets they know, the postcode check (which
+    answers with this area's own cut-off) and the way to order. -#}
+{%- set fee = a.fee if a.fee is defined else site.delivery.fee %}
+<header class="fl-ph"><div class="wrap fl-ph-in">
+  <p class="fl-ph-k"><a href="{{ 'index' | href }}">{{ site.business.name }}</a> <span aria-hidden="true">/</span> <a href="{{ 'delivery' | href }}">{{ site.deliveryAreas.kicker or "Delivery" }}</a></p>
+  <h1 class="fl-ph-t">{{ a.district }} <span class="fl-ph-sub">{{ a.name }}</span></h1>
+  <p class="fl-ph-i">{{ a.line }}</p>
+</div></header>
+<section class="fl-area"><div class="wrap fl-area-in">
+  <dl class="fl-area-facts">
+    <div><dt>Same-day cut-off</dt><dd>{{ site.delivery | areaCutoffs(a) | cutoffGroups }}</dd></div>
+    {%- if fee is defined %}<div><dt>Delivery</dt><dd>{{ "Free" if fee == 0 else (fee | pounds) }}</dd></div>{% endif %}
+    {%- if a.streets %}<div><dt>Streets we know well</dt><dd>{{ a.streets }}</dd></div>{% endif %}
+  </dl>
+  <div class="fl-area-go">
+    {%- set sdId = "area" %}{% set sdArea = a %}{% include "kits/florist/features/same-day/same-day.njk" %}
+    <a class="fl-btn" href="{{ 'index' | href }}#week">See this week's flowers</a>
+  </div>
+</div></section>
+<nav class="fl-op-more" aria-label="Other areas"><div class="wrap">
+  {%- for o in site.deliveryAreas.areas %}{% if o.district != a.district %}<a href="{{ ('delivery-' + (o.district | lower)) | href }}">{{ o.district }} {{ o.name }}</a>{% endif %}{% endfor %}
+</div></nav>

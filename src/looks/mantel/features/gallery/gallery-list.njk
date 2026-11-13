@@ -1,0 +1,13 @@
+{#- Mantel contact sheet: square prints with the caption beneath in the serif. gallery.js adds tiles the same way. -#}
+{%- set photos = site.gallery.photos or [] %}
+{%- set limit = 12 if galleryPage else 6 %}
+<ul class="mt-prints" data-gallery-list>
+  {%- if photos.length %}
+  {%- for p in photos | batch(limit) | first %}
+  <li class="tile"><figure><img class="ph" src="{{ p.src | img }}" alt="{{ p.alt }}" loading="lazy" decoding="async" width="{{ p.width }}" height="{{ p.height }}">{% if p.caption %}<figcaption class="cap"><span>{{ p.caption }}</span>{% if p.by %}<small>by {{ p.by }}</small>{% endif %}</figcaption>{% endif %}</figure></li>
+  {%- endfor %}
+  {%- else %}
+  {%- for i in range(0, 6) %}<li class="tile skel" aria-hidden="true"></li>{% endfor %}
+  {%- endif %}
+</ul>
+<p class="mt-fine" data-gallery-empty hidden>Our latest photographs are on Instagram.{% if site.gallery.profile %} <a href="{{ site.gallery.profile }}" target="_blank" rel="noopener">See them there</a>.{% endif %}</p>

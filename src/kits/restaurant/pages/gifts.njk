@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: gifts
+permalink: gifts.html
+feature: gifts-page
+eleventyComputed:
+  title: "{{ site.giftsPage.title | plain }}"
+  description: "Gifts from {{ site.business.name }}, {{ site.location.locality }}: a sitting given, paid online and sent with a card."
+---
+{% include "kits/restaurant/features/gifts-page/gifts-page.njk" %}

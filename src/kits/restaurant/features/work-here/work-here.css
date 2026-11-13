@@ -1,0 +1,28 @@
+/* Can I work here: a card of answers, like a hotel's, with today's laptop hours; photos beside it. Tokens only. */
+.wh-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: clamp(20px, 4vw, 56px); align-items: start; }
+.wh-card { padding: clamp(20px, 3vw, 36px); border-radius: 20px; background: var(--surface); border: 1px solid var(--line-2); display: grid; gap: 26px; }
+.wh-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: 0 28px; }
+.wh-list li { display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; column-gap: 12px; align-items: center; padding: 13px 0; border-bottom: 1px solid var(--line); }
+.wh-ico { width: 24px; height: 24px; fill: none; stroke: var(--accent); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.wh-t { font-family: var(--font-display); font-size: 1.08em; }
+.wh-a { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; padding: 3px 8px; border-radius: 6px; background: color-mix(in srgb, var(--ok) 16%, transparent); color: var(--text); }
+.wh-no .wh-a { background: var(--surface-2); color: var(--muted); }
+.wh-some .wh-a { background: color-mix(in srgb, var(--fresh) 40%, transparent); }
+.wh-no .wh-ico { stroke: var(--dim); }
+.wh-n { grid-column: 2 / -1; font-size: 13.5px; color: var(--muted); margin-top: 3px; }
+.wh-today { padding-top: 4px; }
+.wh-win { margin: 4px 0 12px; font-family: var(--font-display); font-size: clamp(22px, 2.4vw, 28px); line-height: 1.2; }
+.wh-strip { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 3px; margin-bottom: 26px; }
+.wh-b { position: relative; height: 18px; border-radius: 4px; background: color-mix(in srgb, var(--accent) 10%, var(--surface-2)); }
+.wh-b.wh-l1 { background: color-mix(in srgb, var(--accent) 34%, var(--surface)); }
+.wh-b.wh-l2 { background: color-mix(in srgb, var(--accent) 64%, var(--surface)); }
+.wh-b.wh-l3 { background: var(--accent); }
+.wh-b::after { content: attr(data-t); position: absolute; left: 0; top: 22px; font-size: 10px; color: var(--dim); white-space: nowrap; }
+.wh-b:nth-child(even)::after { content: none; }
+.wh-b.is-now { outline: 2px solid var(--text); outline-offset: 1px; }
+.wh-rules ul { margin: 8px 0 0; padding-left: 1.1em; color: var(--muted); display: grid; gap: 4px; }
+.wh-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.wh-photos img { width: 100%; height: 100%; object-fit: cover; border-radius: 16px; display: block; }
+.wh-photos img:first-child { grid-column: 1 / -1; aspect-ratio: 4 / 3; }
+.wh-photos img:not(:first-child) { aspect-ratio: 4 / 5; }
+@media (max-width: 860px) { .wh-grid { grid-template-columns: minmax(0, 1fr); } .wh-photos { order: -1; } }

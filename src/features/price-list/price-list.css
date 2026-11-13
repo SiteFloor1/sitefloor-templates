@@ -1,0 +1,11 @@
+/* Price list: groups of name · dotted leader · price. */
+.sec-prices { background: var(--surface); }
+.menu { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 44px; }
+@media (max-width: 900px) { .menu { grid-template-columns: minmax(0, 1fr); gap: 30px; } }
+.menu h3 { font-family: var(--font-display); font-size: 26px; font-weight: 600; margin: 0 0 12px; padding-bottom: 12px; border-bottom: 1px solid var(--line-2); }
+.mi { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: baseline; padding: 11px 0; }
+.mi b { font-weight: 700; }
+.mi i { border-bottom: 1px dotted var(--line-2); transform: translateY(-4px); }
+.mi span { font-variant-numeric: tabular-nums; font-weight: 700; color: var(--accent); }
+.mi small { grid-column: 1 / -1; color: var(--dim); font-size: 13px; margin-top: -6px; }
+.upd { margin-top: 28px; font-size: 13px; color: var(--dim); display: flex; align-items: center; gap: 8px; }

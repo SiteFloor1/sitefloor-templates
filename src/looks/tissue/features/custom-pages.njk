@@ -1,0 +1,17 @@
+{#- Tissue general page: the opening, then each block in a single readable column; photos at the column's width with
+    an italic line beneath; the way to order as one underlined ask. -#}
+{%- set ph = { title: cp.title, intro: cp.intro } %}
+{% include "looks/tissue/parts/page-head.njk" %}
+<div class="ts-cp" data-feature="custom-pages"><div class="wrap ts-cp-in">
+  {%- for b in cp.blocks %}
+  {%- if b.type == "text" %}
+  <section>{% if b.heading %}<h2 class="ts-h2">{{ b.heading }}</h2>{% endif %}{% for para in b.body | paragraphs %}<p>{{ para }}</p>{% endfor %}</section>
+  {%- elif b.type == "photo" %}
+  <figure><img src="{{ b.src | img }}" alt="{{ b.alt }}" loading="lazy" decoding="async">{% if b.caption %}<figcaption>{{ b.caption }}</figcaption>{% endif %}</figure>
+  {%- elif b.type == "list" %}
+  <section>{% if b.heading %}<h2 class="ts-h2">{{ b.heading }}</h2>{% endif %}<ul>{% for item in b.items %}<li>{{ item }}</li>{% endfor %}</ul></section>
+  {%- elif b.type == "book" %}
+  <p class="ts-cp-go"><span>{{ b.text }}</span> <a class="ts-ask" href="{{ site.messages.order | book }}" target="_blank" rel="noopener">{{ b.label or build.booking.label }}</a></p>
+  {%- endif %}
+  {%- endfor %}
+</div></div>

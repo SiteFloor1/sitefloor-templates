@@ -1,0 +1,61 @@
+/* Window tint page. */
+.tp-ladder { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 900px) { .tp-ladder { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .tp-ladder { grid-template-columns: minmax(0, 1fr); } }
+.tp-ladder figure { margin: 0; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line-2); }
+.tp-win { position: relative; aspect-ratio: 3 / 2; overflow: hidden; }
+.tp-win img, .tp-win svg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.tp-ladder figcaption { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 10px; padding: 14px 16px 16px; }
+.tp-ladder figcaption b { font-family: var(--font-display); font-weight: 300; font-size: 28px; letter-spacing: -.02em; margin-right: auto; }
+.tp-ok, .tp-no { font-size: 11px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; padding: 5px 8px; }
+.tp-ok { background: color-mix(in srgb, var(--ok) 12%, transparent); color: var(--ok); }
+.tp-no { background: color-mix(in srgb, var(--accent) 10%, transparent); color: var(--accent); }
+.tp-law-in { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: clamp(18px, 4vw, 56px); align-items: center; }
+.tp-car { padding: clamp(30px, 5vw, 70px) clamp(10px, 3vw, 40px) 24px; }
+.tp-car svg { position: absolute; inset: clamp(30px, 5vw, 70px) clamp(10px, 3vw, 40px) 24px; width: calc(100% - 2 * clamp(10px, 3vw, 40px)); height: auto; }
+.tp-car img { display: block; width: 100%; height: auto; }
+.tp-g { fill-opacity: .55; stroke-width: 3; vector-effect: non-scaling-stroke; }
+.tp-g-front { fill: var(--accent); stroke: var(--accent); }
+.tp-g-rear { fill: var(--ok); stroke: var(--ok); }
+.tp-rules { margin: 0; border-top: 1px solid var(--text); }
+.tp-rules div { padding: 16px 0 16px 22px; border-bottom: 1px solid var(--line-2); position: relative; }
+.tp-rules div::before { content: ""; position: absolute; left: 0; top: 22px; width: 10px; height: 10px; background: var(--line-2); }
+.tp-rules .tp-r-front::before { background: var(--accent); }
+.tp-rules .tp-r-rear::before { background: var(--ok); }
+.tp-rules .tp-r-screen::before { background: var(--text); }
+.tp-rules dt { font-size: 11px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.tp-rules dd { margin: 0; }
+.tp-rules b { font-family: var(--font-display); font-weight: 400; font-size: 20px; }
+.tp-rules a { color: inherit; }
+.tp-steplist { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 0; border-top: 1px solid var(--text); }
+.tp-steplist li { padding: 22px 22px 22px 0; border-bottom: 1px solid var(--line-2); }
+.tp-n { display: block; font-family: var(--font-display); font-weight: 300; font-size: 44px; line-height: 1; color: var(--accent); margin-bottom: 14px; }
+.tp-steplist b { display: block; font-weight: 600; margin-bottom: 6px; }
+.tp-steplist p { margin: 0; color: var(--muted); font-size: 15px; }
+.tp-filmgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 14px; }
+.tp-filmgrid article { background: var(--surface); box-shadow: inset 0 0 0 1px var(--line-2); padding: 24px; }
+.tp-filmgrid h3 { font-family: var(--font-display); font-weight: 400; font-size: 22px; margin: 0 0 8px; letter-spacing: -.01em; }
+.tp-filmgrid p { margin: 0; color: var(--muted); }
+.tp-filmgrid .tp-best { margin-top: 12px; color: var(--text); font-size: 14px; }
+.tp-table { overflow-x: auto; }
+.tp-table .cp-table { min-width: 620px; }
+.tp-cta { text-align: left; }
+.tp-cta-line { font-family: var(--font-display); font-weight: 300; font-size: clamp(26px, 3.4vw, 46px); letter-spacing: -.025em; margin: 0 0 22px; max-width: 22ch; }
+@media (max-width: 860px) { .tp-law-in { grid-template-columns: minmax(0, 1fr); } }
+/* Chameleon films: the colour cast over the glass. */
+.tp-defs { position: absolute; }
+.tp-s1 { stop-color: var(--sheen, transparent); }
+.tp-s2 { stop-color: var(--sheen, transparent); stop-opacity: 0; }
+.tp-sheen { fill: url(#tp-sheen); opacity: .5; mix-blend-mode: color; }
+.tp-sheened .film { fill: color-mix(in srgb, var(--sheen) 35%, var(--film)); }
+/* The windscreen and lights. */
+.tp-screen-in { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(260px, 1fr); gap: clamp(18px, 3vw, 44px); align-items: start; }
+.tp-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.tp-pair figure { margin: 0; }
+.tp-pair figcaption { margin-top: 8px; font-size: 14px; }
+.tp-copy { display: grid; gap: 12px; max-width: 60ch; }
+.tp-copy p { margin: 0; }
+.tp-copy ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; color: var(--muted); }
+.tp-small { font-size: 13px; color: var(--dim); }
+.tp-small a { color: inherit; }
+@media (max-width: 860px) { .tp-screen-in { grid-template-columns: minmax(0, 1fr); } }

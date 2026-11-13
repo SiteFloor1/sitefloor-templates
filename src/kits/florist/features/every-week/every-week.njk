@@ -1,0 +1,24 @@
+{#- Flowers every week (Plus): the florist's plans with their prices, each paid by their own Payment Link, and how
+    pausing, skipping and changing work in their words. Gift a season sits here when it's on. -#}
+{%- set E = site.everyWeek %}
+{%- set ph = { kicker: E.kicker or "Every week", title: E.title, intro: E.intro } %}
+{% include "kits/florist/partials/page-head.njk" %}
+<section class="fl-ew" aria-label="Plans"><div class="wrap fl-ew-in">
+  <figure class="fl-ew-ph"><img src="{{ E.photo.src | img }}" alt="{{ E.photo.alt }}" width="{{ E.photo.width }}" height="{{ E.photo.height }}" decoding="async"></figure>
+  <ul class="fl-plans" role="list">
+    {%- for p in E.plans %}
+    <li class="fl-plan">
+      <p class="fl-plan-h"><b>{{ p.label }}</b><span>{{ p.price | pounds }} a {{ p.every }}</span></p>
+      <p class="fl-plan-l">{{ p.line }}</p>
+      <a class="fl-btn" href="{{ p.payLink }}" target="_blank" rel="noopener"{% if site.mode == "demo" %} data-demo-note="On a live site this opens the florist's own Stripe Payment Link. This demo's link is a test link: nothing is charged."{% endif %}>Start {{ p.label | lower }}</a>
+    </li>
+    {%- endfor %}
+  </ul>
+</div></section>
+<section class="fl-how" aria-labelledby="how-h"><div class="wrap">
+  <h2 id="how-h">How it works</h2>
+  <dl class="fl-how-l">{% for h in E.how %}<div><dt>{{ h.q }}</dt><dd>{{ h.a }}</dd></div>{% endfor %}</dl>
+</div></section>
+{%- if "gift-a-season" | enabled %}{% include "kits/florist/features/gift-a-season/gift-a-season.njk" %}{% endif %}
+{%- if "remember-date" | enabled %}{% include "kits/florist/features/remember-date/remember-date.njk" %}{% endif %}
+{%- if "vouchers" | enabled %}{% include "features/vouchers/vouchers.njk" %}{% endif %}

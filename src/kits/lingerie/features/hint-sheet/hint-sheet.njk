@@ -1,0 +1,14 @@
+{#- Drop a hint: a quiet sheet for any piece's "Drop a hint". She adds her size if she likes and a line, and WhatsApp
+    asks whom to send it to. Placed once per page by the look's footer. -#}
+<dialog class="hint-sheet" data-feature="hint-sheet" aria-labelledby="hint-h"{{ "hint-sheet" | tierAttr | safe }}>
+  <script type="application/json" data-lx>{{ { base: site.url, pages: ("piece-detail" | enabled), note: site.hint.note } | jsonData | safe }}</script>
+  <form method="dialog" class="hint-in">
+    <p class="lp-k" id="hint-h">Drop a hint</p>
+    <p class="hint-piece" data-hint-piece></p>
+    <label class="lx-f">Your size, if you'd like them to know<input type="text" maxlength="20" placeholder="e.g. 32D, small" data-hint-size></label>
+    <label class="lx-f">A line from you<input type="text" maxlength="80" data-hint-note></label>
+    <a class="lx-go" target="_blank" rel="noopener" data-hint-send>Send the hint</a>
+    <p class="lx-small">WhatsApp asks who to send it to. Nothing is sent to {{ site.business.name }}.</p>
+    <button class="hint-x" value="close" aria-label="Close">Close</button>
+  </form>
+</dialog>

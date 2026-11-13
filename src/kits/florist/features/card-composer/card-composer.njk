@@ -1,0 +1,17 @@
+{#- The card (Plus): "Add a card" opens a box to write in; the florist's card shows the words as they're typed, held to
+    the florist's own length. The words go with the order. A few starting lines for when words are hard. -#}
+{%- set C = site.card %}
+<details class="fl-card" data-feature="card-composer">
+  <summary>Add a card</summary>
+  <div class="fl-card-in">
+    <div class="fl-card-write">
+      <label class="sr-only" for="card-text">Your message</label>
+      <textarea id="card-text" data-card-input rows="4" maxlength="{{ C.max }}" placeholder="Your message"></textarea>
+      <p class="fl-card-count"><span data-card-left>{{ C.max }}</span> characters left</p>
+      {%- if C.starters %}
+      <p class="fl-card-starters"><span>Start with:</span>{% for s in C.starters %} <button type="button" class="fl-chip" data-card-start>{{ s }}</button>{% endfor %}</p>
+      {%- endif %}
+    </div>
+    <figure class="fl-card-paper" aria-hidden="true"><p data-card-preview></p><figcaption>{{ C.from }}</figcaption></figure>
+  </div>
+</details>

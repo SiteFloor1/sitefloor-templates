@@ -1,0 +1,11 @@
+{#- Mantel doors: the other pages as ruled rows, a small photograph, the page's name large and where it leads. -#}
+{%- set links = site.pageLinks | enabledLinks %}
+{%- if links.length %}
+<section class="sec-more mt-doors" data-feature="page-links"{{ "page-links" | tierAttr | safe }} aria-label="More from the studio"><div class="wrap">
+  <ul class="mt-doors-l" role="list">
+    {%- for l in links %}
+    <li><a class="mt-door-row" href="{{ l.page | href }}"><img src="{{ l.image | img }}" alt="" loading="lazy" decoding="async" width="720" height="900"><span class="mt-door-k">{{ l.kicker }}</span><b>{{ l.title | markup | safe }}</b><span class="mt-door-go">{{ l.cta }}</span></a></li>
+    {%- endfor %}
+  </ul>
+</div></section>
+{%- endif %}

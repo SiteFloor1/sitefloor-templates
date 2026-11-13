@@ -1,0 +1,10 @@
+/* Weddings: structure only. */
+.fl-wd-hero { margin: 0 auto; aspect-ratio: 16 / 9; overflow: hidden; }
+.fl-wd-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.fl-wd-pieces { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); gap: clamp(14px, 2vw, 24px); }
+.fl-wd-pieces li { display: flex; flex-direction: column; gap: 4px; }
+.fl-wd-ph { display: block; aspect-ratio: 4 / 5; max-width: 100%; overflow: hidden; margin-bottom: 8px; }
+.fl-wd-ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.fl-wd-ask-in { display: grid; gap: clamp(24px, 4vw, 48px); }
+@media (min-width: 900px) { .fl-wd-ask-in { grid-template-columns: 1fr 1fr; align-items: start; } }
+.fl-wd-f { display: grid; gap: 14px; }

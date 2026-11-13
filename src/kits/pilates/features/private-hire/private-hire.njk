@@ -1,0 +1,22 @@
+{#- Private hire and team classes: the kinds, what's included, how many, and a request sent on WhatsApp. -#}
+{%- set h = site.studioHire %}
+{%- set ph = h %}
+{% include "kits/pilates/partials/page-head.njk" %}
+<section class="pl-hire" data-feature="private-hire" aria-label="{{ h.title | plain }}"><div class="wrap pl-priv-in">
+  <div>
+    {%- if h.photo %}<figure class="pl-priv-ph"><img src="{{ h.photo.src | img }}" alt="{{ h.photo.alt }}" width="{{ h.photo.width }}" height="{{ h.photo.height }}" fetchpriority="high" decoding="async"></figure>{% endif %}
+    <ul class="pl-kinds">{% for k in h.kinds %}<li><b>{{ k.name }}</b><p>{{ k.text }}</p></li>{% endfor %}</ul>
+    <div class="pl-assess"><h2>Included</h2><ul class="pl-hire-inc">{% for s in h.includes %}<li>{{ s }}</li>{% endfor %}</ul></div>
+  </div>
+  <form class="pl-req" data-hire-form aria-labelledby="pl-hire-h">
+    <h2 id="pl-hire-h">Ask about a date</h2>
+    <fieldset><legend>Which?</legend>
+      {%- for k in h.kinds %}<label class="pl-chip"><input type="radio" name="hr-kind" id="hr-{{ k.id }}" value="{{ k.name }}"{% if loop.first %} checked{% endif %}>{{ k.name }}</label>{% endfor %}
+    </fieldset>
+    <label class="pl-field" for="hr-date">The date you have in mind<input id="hr-date" name="hr-date" type="date"></label>
+    <label class="pl-field" for="hr-n">How many people (up to {{ h.maxPeople }} at once)<input id="hr-n" name="hr-n" type="number" min="1" max="200" inputmode="numeric"></label>
+    <label class="pl-field" for="hr-org">Company or occasion (optional)<input id="hr-org" name="hr-org" maxlength="60" autocomplete="organization"></label>
+    <a class="pl-req-go" href="{{ h.message | wa }}" target="_blank" rel="noopener" data-hire-send>Send on WhatsApp</a>
+    <p class="pl-req-n">The studio replies with what's free. Nothing is booked until you agree it.</p>
+  </form>
+</div></section>

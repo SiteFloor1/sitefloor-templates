@@ -1,0 +1,14 @@
+---
+layout: core/layouts/base.njk
+pageId: under-the-dress
+permalink: under-the-dress.html
+feature: under-the-dress
+eleventyComputed:
+  title: "{{ site.guides['under-the-dress'].title | plain }}"
+  description: "{{ site.guides['under-the-dress'].description }}"
+---
+{%- set g = site.guides["under-the-dress"] %}
+{% include "kits/lingerie/partials/page-head.njk" %}
+{% include "kits/lingerie/features/under-the-dress/under-the-dress.njk" %}
+{% include "kits/lingerie/partials/guide.njk" %}
+

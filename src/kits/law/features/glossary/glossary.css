@@ -1,0 +1,9 @@
+/* Words we use: a ruled two-column list, the word in the display face, the meaning beside it. */
+.lw-gl { padding-block: 0 var(--s4, 96px); }
+.lw-gl-find { display: grid; gap: 6px; max-width: 360px; margin-bottom: 28px; font-size: 14px; color: var(--muted); }
+.lw-gl-find input { font: inherit; color: var(--text); background: var(--bg); border: 1px solid var(--line-2); border-radius: 0; padding: 12px; min-height: 48px; }
+.lw-gl-list { margin: 0; border-bottom: 1px solid var(--line-2); }
+.lw-gl-t { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 8px clamp(20px, 4vw, 64px); padding-block: 18px; border-top: 1px solid var(--line-2); }
+.lw-gl-t dt { font-family: var(--font-display); font-size: clamp(20px, 2vw, 26px); line-height: 1.2; }
+.lw-gl-t dd { margin: 0; max-width: 62ch; }
+@media (max-width: 760px) { .lw-gl-t { grid-template-columns: 1fr; } }

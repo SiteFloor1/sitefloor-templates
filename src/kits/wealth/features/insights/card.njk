@@ -1,0 +1,10 @@
+{#- One insight on the home page: photograph, subject and date, title, and the not-advice line. `x` is the insight. -#}
+{%- set p = site.insights | insightPhoto(x.photo) %}
+<article class="wm-ins-card">
+  <a class="wm-ins-a"{% if "insight-library" | enabled %} href="{{ 'insights' | href }}#{{ x.id }}"{% endif %}>
+    <img src="{{ p.src | img }}" alt="{{ p.alt }}" width="{{ p.width }}" height="{{ p.height }}" loading="lazy" decoding="async">
+    <span class="wm-ins-meta"><span>{{ x.category }}</span><time datetime="{{ x.date }}">{{ x.date | ukDate }}</time></span>
+    <h3>{{ x.title }}</h3>
+  </a>
+  <span class="wm-ins-tag">{{ fca.notAdvice }}</span>
+</article>

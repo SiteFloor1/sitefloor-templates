@@ -1,0 +1,8 @@
+{#- Cacao season line: a slim band of the bean under the ribbon, the season in the display face. -#}
+<div class="seasons cc-season" data-feature="seasonal">
+  {%- for s in site.seasons %}
+  <p class="season" data-from="{{ s.from }}" data-to="{{ s.to }}" data-tint="{{ s.tint or '' }}"{% if loop.index0 != build.seasonIndex %} hidden{% endif %}>
+    <i>{{ s.name }}</i> <span>{{ s.banner }}</span>{% if s.link %} <a href="{{ s.link.href }}">{{ s.link.label }}</a>{% endif %}
+  </p>
+  {%- endfor %}
+</div>

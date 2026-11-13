@@ -1,0 +1,15 @@
+{#- Who treats you: every clinician as the GDC asks (name, registered role, qualification and country, GDC number
+    linked to the register). The lead clinician's own note comes first, in their voice. -#}
+{%- set sec = site.sections.clinicians %}
+{%- set lead = (site.clinicians.items | selectattr("lead") | first) or site.clinicians.items[0] %}
+<section id="clinicians" class="sm-cl" data-feature="smile-clinicians" aria-label="{{ sec.title | plain }}"{{ 'smile-clinicians' | tierAttr | safe }}><div class="wrap sm-cl-in">
+  {%- if lead.photo %}<figure class="sm-cl-ph rv"><img src="{{ lead.photo.src | img }}" alt="{{ lead.photo.alt }}" width="{{ lead.photo.width }}" height="{{ lead.photo.height }}" loading="lazy" decoding="async"></figure>{% endif %}
+  <div class="sm-cl-body">
+    {%- include "core/partials/section-head.njk" %}
+    {%- if lead.bio %}<p class="sm-voice sm-cl-bio rv">{{ lead.bio }}</p>{% endif %}
+    <ul class="sm-cl-list">
+      {%- for p in site.clinicians.items %}<li>{% include "kits/smile/partials/clinician-line.njk" %}</li>{% endfor %}
+    </ul>
+    {%- if "smile-clinicians-page" | enabled %}<p class="sm-more"><a class="go" href="{{ 'clinicians' | href }}"{{ 'smile-clinicians-page' | tierAttr | safe }}>About {{ lead.name }}</a></p>{% endif %}
+  </div>
+</div></section>

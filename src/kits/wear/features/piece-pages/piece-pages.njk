@@ -1,0 +1,35 @@
+{#- A piece's own page: every photograph, the price and what's left in each size, Buy, its line; the fit block; the
+    looks it appears in. `piece` comes from the page's pagination. -#}
+{%- import "kits/wear/partials/macros.njk" as m with context %}
+{%- set p = piece %}
+{%- set st = site | wearStockWords(p, build.today) %}
+<div class="wr-pp" data-feature="piece-pages">
+<script type="application/json" data-wear-stock>{{ site | wearStockJson(build.today) | safe }}</script>
+<div class="wrap wr-pp-in" data-stock="{{ p.id }}" data-state="{{ st.state }}">
+  <div class="wr-pp-ph">
+    {%- for ph in p.photos %}<img src="{{ ph.src | img }}" alt="{{ ph.alt }}" width="{{ ph.width }}" height="{{ ph.height }}" loading="{{ 'eager' if loop.first else 'lazy' }}"{% if loop.first %} fetchpriority="high"{% endif %} decoding="async">{% endfor %}
+  </div>
+  <div class="wr-pp-t">
+    <p class="wr-pp-k"><a href="{{ 'index' | href }}">{{ site.business.name }}</a> <span aria-hidden="true">/</span> {{ p.kind }}</p>
+    <h1>{{ p.name }} <span>{{ p.colour }}</span></h1>
+    <p class="wr-pp-price">{{ p.price | gbpWhole }}</p>
+    <p class="wr-stock"><b data-stock-lead>{{ st.lead }}</b> <span data-stock-rest>{{ st.rest }}</span></p>
+    <ul class="wr-sizes" aria-label="Sizes">{% for s in p.sizes %}<li data-size="{{ s }}">{{ s }}</li>{% endfor %}</ul>
+    <p class="wr-shop-acts">{{ m.buyLink(p, "wr-buy") }}<a class="wr-link" href="#fit-{{ p.id }}">Size and fit</a></p>
+    {%- if site.drop and site.drop.restockForm %}<div class="wr-restock">{{ m.formLink(site.drop.restockForm, "Tell me when it's back", "Opens the brand's Google Form for this piece: it messages you first if it's made again.", "wr-link") }}</div>{% endif %}
+    {%- if p.line %}<p class="wr-pp-line">{{ p.line }}</p>{% endif %}
+    {%- if site.mode == "demo" %}<p class="wr-fine">{{ site.shop.note }}</p>{% endif %}
+  </div>
+</div>
+{%- if p.fit %}{% include "kits/wear/partials/fit-block.njk" %}{% endif %}
+{%- set looks = site.lookbook | looksWith(p.id) if site.lookbook else [] %}
+{%- if looks.length and ("lookbook" | enabled) %}
+<section class="wr-pp-looks wrap" aria-labelledby="looks-h">
+  <h2 id="looks-h">In the lookbook</h2>
+  <ul>{% for l in looks %}<li><a href="{{ 'lookbook' | href }}#look-{{ l.n }}"><img src="{{ l.photo.src | img }}" alt="{{ l.photo.alt }}" width="{{ l.photo.width }}" height="{{ l.photo.height }}" loading="lazy" decoding="async"><span>Look {{ l.n | pad2 }}{% if l.caption %}, {{ l.caption }}{% endif %}</span></a></li>{% endfor %}</ul>
+</section>
+{%- endif %}
+<nav class="wr-pp-more wrap" aria-label="Other pieces">
+  {%- for o in site.pieces %}{% if o.id != p.id %}<a href="{{ o.id | href }}"><img src="{{ o.photos[0].src | img }}" alt="" width="{{ o.photos[0].width }}" height="{{ o.photos[0].height }}" loading="lazy" decoding="async"><span>{{ o.name }} {{ o.colour }}</span></a>{% endif %}{% endfor %}
+</nav>
+</div>

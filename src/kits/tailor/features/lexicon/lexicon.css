@@ -1,0 +1,11 @@
+/* the style lexicon: words with photographs in a grid of tall crops, words without as ruled lines beneath. */
+.tl-lx { padding-block: 8px 96px; }
+.tl-lx-kinds { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-bottom: 36px; }
+.tl-lx-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 40px 24px; }
+.tl-lx-w { min-width: 0; }
+.tl-lx-w[hidden] { display: none; }
+.tl-lx-w:not(.has-ph) { order: 1; border-top: 1px solid var(--line-2); padding-top: 14px; }
+.tl-lx-ph { margin: 0 0 14px; }
+.tl-lx-ph img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+.tl-lx-t { margin: 0; font-family: var(--font-body); font-weight: 500; font-size: 17px; line-height: 1.4; }
+.tl-lx-d { margin: 4px 0 0; color: var(--muted); font-size: 15px; }

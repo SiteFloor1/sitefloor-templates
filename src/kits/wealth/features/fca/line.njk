@@ -1,0 +1,4 @@
+{#- The FCA line every promotion carries: who the firm is, that the FCA authorises and regulates it, its FRN, and that
+    capital is at risk. Used under the hero's chooser and at the foot of every page. -#}
+{%- set r = site.regulation %}
+<p class="wm-reg-line">{{ r.legalName }} is authorised and regulated by the Financial Conduct Authority, FRN {{ r.frn }}{{ site.mode | demoTag }}. {{ r.capitalAtRisk or fca.capitalAtRisk }}{% if "fca" | enabled %} <a href="{{ 'regulatory' | href }}">Regulatory information</a>{% endif %}</p>

@@ -1,0 +1,36 @@
+{#- The menu page: every section with photos, prices, marks and allergens, the filters, and the allergen chart. -#}
+{%- set mp = site.menuPage %}
+{%- set ph = site.menuPage %}
+{% include "kits/bakery/partials/page-head.njk" %}
+<section class="sec-menu-page" data-feature="dessert-menu"><div class="wrap">
+  {% include "kits/bakery/features/desserts/filters.njk" %}
+  <nav class="bk-jump" aria-label="Menu sections">
+    {%- for s in site.desserts.sections %}<a href="#p-{{ s.id }}">{{ s.name }}</a>{% endfor %}
+    <a href="#chart">Allergen chart</a>
+  </nav>
+  {%- for s in site.desserts.sections %}
+  <section class="bk-sec mp-sec" id="p-{{ s.id }}" aria-labelledby="ph-{{ s.id }}" data-bk-sec>
+    <h2 class="bk-sec-h" id="ph-{{ s.id }}">{{ s.name }}</h2>
+    {%- if s.intro %}<p class="bk-sec-i">{{ s.intro }}</p>{% endif %}
+    <ul class="bk-list mp-list">
+      {%- for it in s.items %}{% set withPhoto = true %}{% include "kits/bakery/features/desserts/item.njk" %}{% endfor %}
+    </ul>
+    <p class="bk-none" data-bk-none hidden>Nothing in this section fits those filters.</p>
+  </section>
+  {%- endfor %}
+  {% include "kits/bakery/features/desserts/statement.njk" %}
+  <section class="mp-chart" id="chart" aria-labelledby="chart-h">
+    <h2 id="chart-h" class="bk-sec-h">Allergen chart</h2>
+    <p class="bk-small">● contains. Ask us about anything not listed, and tell us about any allergy when you order.</p>
+    <div class="mp-scroll" tabindex="0" role="region" aria-label="Allergen chart, scrolls sideways">
+      <table class="mp-table">
+        <thead><tr><th scope="col">Item</th>{% for a in sweets.allergens %}<th scope="col"><span>{{ a.name }}</span></th>{% endfor %}</tr></thead>
+        <tbody>
+          {%- for it in site.desserts | sweetItems %}
+          <tr><th scope="row">{{ it.name }}</th>{% for a in sweets.allergens %}<td>{% if a.id in it.allergens %}<span aria-label="contains {{ a.name | lower }}">●</span>{% else %}<span class="sr-only">no</span>{% endif %}</td>{% endfor %}</tr>
+          {%- endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div></section>

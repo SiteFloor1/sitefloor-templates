@@ -1,0 +1,114 @@
+/* The Menu Book: a leather-bound menu that opens full screen and turns its pages. Tokens only.
+   Kit tokens (a look sets them): --book-cover (leather), --book-foil, --paper, --paper-ink, --paper-dim. */
+.mb-stage { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(30px, 6vw, 90px); align-items: center; }
+@media (max-width: 860px) { .mb-stage { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; } }
+.mb-copy h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(38px, 5vw, 68px); line-height: 1; margin: 14px 0 16px; }
+.mb-copy p { color: var(--muted); max-width: 46ch; margin: 0; }
+@media (max-width: 860px) { .mb-copy p { margin-inline: auto; } }
+.mb-cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 24px; }
+@media (max-width: 860px) { .mb-cta { justify-content: center; } }
+
+/* the closed book on the table */
+.mb-closed { position: relative; display: block; width: min(78vw, 340px); aspect-ratio: 1 / 1.414; text-decoration: none; perspective: 1400px; transform: rotate(-4deg); transition: transform .6s cubic-bezier(.2,.8,.2,1); }
+.mb-closed:hover, .mb-closed:focus-visible { transform: rotate(-2deg) translateY(-6px); }
+.mb-closed .mb-cover { position: absolute; inset: 0; transform-origin: left center; transition: transform .7s cubic-bezier(.2,.8,.2,1); box-shadow: 0 40px 60px -30px var(--shadow), 0 2px 0 var(--shadow); }
+.mb-closed:hover .mb-cover { transform: rotateY(-14deg); }
+.mb-edge { position: absolute; inset: 6px -7px 6px 6px; z-index: -1; border-radius: 0 3px 3px 0; background: repeating-linear-gradient(90deg, var(--paper) 0 1px, var(--paper-dim) 1px 2px); }
+.mb-cover, .mbp-cover { display: grid; place-content: center; justify-items: center; gap: 4%; overflow: hidden; border-radius: 2px 6px 6px 2px; color: var(--book-foil); text-align: center;
+  background: radial-gradient(120% 90% at 30% 20%, color-mix(in srgb, var(--book-cover) 80%, var(--paper)) 0%, var(--book-cover) 55%, color-mix(in srgb, var(--book-cover) 70%, var(--shadow)) 100%); container-type: inline-size; }
+.mb-cover::before, .mbp-cover::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 7%; background: linear-gradient(90deg, color-mix(in srgb, var(--book-cover) 60%, var(--shadow)), transparent); }
+.mb-grain { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .32; mix-blend-mode: overlay; pointer-events: none; }
+.mb-frame { position: absolute; inset: 6%; border: 1px solid color-mix(in srgb, var(--book-foil) 60%, transparent); outline: 1px solid color-mix(in srgb, var(--book-foil) 35%, transparent); outline-offset: -5px; pointer-events: none; }
+.mb-foil { position: relative; max-width: 78%; font-family: var(--font-display); font-style: italic; font-size: 11.5cqw; line-height: 1; letter-spacing: -.01em;
+  background: linear-gradient(170deg, var(--book-foil) 20%, color-mix(in srgb, var(--book-foil) 55%, var(--paper)) 48%, var(--book-foil) 70%); -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 1px 0 color-mix(in srgb, var(--shadow) 70%, transparent)); }
+.mb-sub { position: relative; max-width: 78%; text-align: center; line-height: 1.8; font-size: 3.2cqw; letter-spacing: .32em; text-transform: uppercase; padding-left: .5em; }
+
+/* the full-screen book */
+.mb-dlg { width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: transparent; color: var(--on-photo); overflow: hidden; }
+.mb-dlg::backdrop { background: radial-gradient(80% 70% at 50% 45%, color-mix(in srgb, var(--book-cover) 35%, var(--shadow)) 0%, var(--shadow) 100%); backdrop-filter: blur(6px); }
+.mb-dlg[open] { display: grid; grid-template-rows: minmax(0, 1fr) auto auto; }
+body.mb-lock { overflow: hidden; }
+.mb-room { display: grid; place-items: center; perspective: 2200px; padding: 16px 14px 0; min-height: 0; }
+.mb-book { position: relative; width: var(--pw); height: var(--ph); transform-style: preserve-3d; transition: transform .6s cubic-bezier(.2,.8,.2,1); touch-action: pan-y; user-select: none; }
+.mb-book.spread { width: calc(var(--pw) * 2); }
+.mb-book.spread:not(.open) { transform: translateX(-25%); }
+.mb-book.spread.end { transform: translateX(25%); }
+.mb-leaf { position: absolute; top: 0; left: 0; width: var(--pw); height: var(--ph); transform-origin: left center; transform-style: preserve-3d; cursor: grab; }
+.mb-book.spread .mb-leaf { left: 50%; }
+.mb-leaf.anim { transition: transform .9s cubic-bezier(.3,.1,.2,1); }
+.mb-leaf:active { cursor: grabbing; }
+.mb-book:not(.spread) .mb-leaf.over:not(.anim) { visibility: hidden; }
+.mb-book:not(.spread) .mb-leaf.over { pointer-events: none; }
+.mb-face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; overflow: hidden; }
+.mb-back { transform: rotateY(180deg); }
+/* the shading that sweeps across a page as it lifts */
+.mb-shade { position: absolute; inset: 0; pointer-events: none; opacity: var(--lift, 0); background: linear-gradient(90deg, color-mix(in srgb, var(--shadow) 55%, transparent) 0%, transparent 35%, color-mix(in srgb, var(--paper) 30%, transparent) 70%, transparent 100%); }
+.mb-face { box-shadow: calc(-18px * var(--lift, 0)) 10px calc(24px * var(--lift, 0)) -4px var(--shadow); }
+
+/* a page */
+.mbp { position: relative; width: var(--pw); height: var(--ph); overflow: hidden; container-type: inline-size; background: var(--paper); color: var(--paper-ink); font-size: calc(var(--pw) * .0305); line-height: 1.32; padding: 9% 9% 8%;
+  background-image: linear-gradient(90deg, color-mix(in srgb, var(--paper-dim) 70%, transparent) 0%, transparent 6%), radial-gradient(130% 100% at 60% 40%, transparent 60%, color-mix(in srgb, var(--paper-dim) 60%, transparent) 100%); }
+.mb-back .mbp { background-image: linear-gradient(270deg, color-mix(in srgb, var(--paper-dim) 70%, transparent) 0%, transparent 6%), radial-gradient(130% 100% at 40% 40%, transparent 60%, color-mix(in srgb, var(--paper-dim) 60%, transparent) 100%); }
+.mbp p { margin: 0; }
+.mbp-cover { position: absolute; inset: 0; padding: 0; }
+.mbp-cover, .mbp.mbp-cover { border-radius: 0; }
+.mbp.mbp-image { padding: 0; }
+.mbp-image img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.mbp-k { font-size: .62em; letter-spacing: .32em; text-transform: uppercase; color: var(--paper-dim-ink, var(--paper-ink)); text-align: center; opacity: .7; }
+.mbp-big { font-family: var(--font-display); font-style: italic; font-size: 2.5em; line-height: 1.05; text-align: center; margin: .5em 0 .3em !important; }
+.mbp-rule { width: 30%; height: 4px; margin: .4em auto 1.4em; border-block: 1px solid currentColor; opacity: .5; }
+.mbp-sit { text-align: center; font-size: .82em; margin: .2em 0 !important; }
+.mbp-sit b { font-weight: 600; letter-spacing: .12em; text-transform: uppercase; font-size: .86em; margin-right: .4em; }
+.mbp-note { font-size: .74em; opacity: .78; text-align: center; margin: 1.6em auto 0 !important; max-width: 90%; }
+.mbp-key { font-size: .7em; text-align: center; margin-top: .9em !important; opacity: .78; }
+.mbp-slip { position: absolute; left: 14%; right: 14%; bottom: 7%; padding: 1em 1.2em; transform: rotate(-2.4deg); background: color-mix(in srgb, var(--paper) 88%, var(--book-foil)); box-shadow: 0 .6em 1.4em -0.8em var(--shadow); }
+.mbp-slip-h { font-family: var(--font-display); font-style: italic; font-size: 1.5em; line-height: 1; margin-bottom: .3em !important; }
+.mbp-slip ul { list-style: none; margin: 0; padding: 0; font-size: .86em; white-space: pre-wrap; }
+.mbp-title { font-family: var(--font-display); font-size: 2.2em; line-height: 1; text-align: center; }
+.mbp-sub { text-align: center; font-size: .66em; letter-spacing: .24em; text-transform: uppercase; opacity: .7; margin: .5em 0 .9em !important; }
+.mbp-cont { font-family: var(--font-display); font-style: italic; font-size: 1.1em; text-align: center; opacity: .7; margin-bottom: .6em !important; }
+.mbp-sec { margin-top: .5em; }
+.mbp-sec-h { text-align: center; font-size: .66em; font-weight: 600; letter-spacing: .3em; text-transform: uppercase; color: var(--book-cover); margin: .9em 0 .2em !important; }
+.mbp-sec-n { text-align: center; font-family: var(--font-display); font-style: italic; font-size: .8em; opacity: .75; }
+.mbp-dish { padding: .42em 0; }
+.mbp-row { display: flex; align-items: baseline; gap: .4em; font-family: var(--font-display); font-size: 1.12em; line-height: 1.15; }
+.mbp-row i { flex: 1 1 1em; min-width: 1em; border-bottom: 1px dotted currentColor; opacity: .45; transform: translateY(-.25em); }
+.mbp-row b { font-weight: 400; }
+.mbp-desc { font-size: .78em; opacity: .8; margin-top: .15em !important; }
+.mbp-meta { font-size: .64em; opacity: .62; font-style: italic; margin-top: .15em !important; }
+.mbp-back, .mbp-welcome { display: flex; flex-direction: column; justify-content: center; }
+.mbp-addr { text-align: center; font-size: .86em; }
+.mb-measure { position: absolute; left: -9999px; top: 0; visibility: hidden; }
+
+/* controls */
+.mb-ctl { display: flex; align-items: center; justify-content: center; gap: 14px; padding: 14px 16px calc(10px + env(safe-area-inset-bottom, 0px)); }
+.mb-btn { width: 46px; height: 46px; display: grid; place-items: center; border-radius: 50%; border: 1px solid color-mix(in srgb, var(--on-photo) 40%, transparent); background: transparent; color: var(--on-photo); cursor: pointer; }
+.mb-btn svg { width: 22px; height: 22px; }
+.mb-btn:disabled { opacity: .3; cursor: default; }
+.mb-x { position: absolute; top: calc(12px + env(safe-area-inset-top, 0px)); right: calc(12px + env(safe-area-inset-right, 0px)); }
+.mb-count { margin: 0; min-width: 9em; text-align: center; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--on-photo); opacity: .8; }
+.mb-hint { margin: 0 0 10px; text-align: center; font-size: 12px; color: var(--on-photo); opacity: .6; }
+@media (prefers-reduced-motion: reduce) { .mb-leaf.anim, .mb-book, .mb-closed, .mb-closed .mb-cover { transition: none; } }
+
+/* the season on the cover (its name comes from the head script as --season-name; colours from the look) */
+.mb-season { position: relative; display: none; font-size: 2.9cqw; letter-spacing: .32em; text-transform: uppercase; padding: .55em 0 .45em .32em; border-block: 1px solid color-mix(in srgb, var(--book-foil) 55%, transparent); }
+:root[style*="--season-name"] .mb-season { display: block; }
+.mb-season::before { content: var(--season-name, ""); }
+
+/* a dish with a photo: a camera beside its name; tap and the photo drops onto the page */
+.mbp-ph { all: unset; cursor: pointer; display: inline; text-decoration: underline dotted color-mix(in srgb, var(--paper-ink) 45%, transparent); text-underline-offset: .25em; }
+.mbp-ph svg { width: .8em; height: .8em; margin-left: .3em; vertical-align: -.05em; opacity: .65; }
+.mbp-ph:focus-visible { outline: 2px solid var(--book-cover); outline-offset: 2px; }
+.mb-pol { position: fixed; left: 50%; top: 46%; z-index: 5; width: min(74vw, 420px); margin: 0; padding: 4% 4% 0; background: var(--paper); color: var(--paper-ink); cursor: pointer;
+  transform: translate(-50%, -50%) rotate(var(--tilt, -3deg)); box-shadow: 0 30px 60px -20px var(--shadow), 0 2px 6px var(--shadow); }
+.mb-pol img { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; background: var(--paper-dim); }
+.mb-pol figcaption { padding: 4% 2% 6%; text-align: center; font-family: var(--font-display); font-style: italic; font-size: clamp(18px, 2.4vw, 24px); }
+.mb-pol:focus { outline: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .mb-pol.in { animation: mb-drop .55s cubic-bezier(.2,.9,.25,1.15) both; }
+  @keyframes mb-drop { from { transform: translate(-50%, -62%) rotate(calc(var(--tilt, -3deg) * -2)) scale(1.18); opacity: 0; box-shadow: 0 80px 90px -30px var(--shadow); } }
+}
+
+/* in a look's hero: just the book on the table */
+.mb-hero { display: grid; place-items: center; }

@@ -1,0 +1,61 @@
+{#- Style guide article. All diagrams are rendered at build time; JS only switches face-shape tabs and highlights the contents list. -#}
+<header class="phero"><div class="wrap">
+  <nav class="crumb" aria-label="Breadcrumb"><a href="{{ 'index' | href }}">Home</a> / Style guide</nav>
+  <span class="kick">Style guide · 6 minute read</span>
+  <h1>{{ "Which fade suits|your head*?*" | markup | safe }}</h1>
+  <p>Face shape, fade height, clipper grades and exactly what to say in the chair.</p>
+  <p class="byline"><span class="mono" aria-hidden="true">{{ site.business.name | first }}</span><span>{{ site.business.name }} · Updated {{ site.styleGuide.updated }}{% if site.styleGuide.reviewedBy %} · Checked by {{ site.styleGuide.reviewedBy }}{% endif %}</span></p>
+</div></header>
+
+<div class="wrap art" data-feature="style-guide">
+  <article class="art-body">
+    <p class="lead">Most bad haircuts aren't badly cut. They're the right cut on the wrong head. Here's how to pick the one that works for yours.</p>
+
+    <h2 id="shape">Start with your face shape</h2>
+    <p>Pull your hair back, look straight into a mirror and compare three widths: forehead, cheekbones and jaw. Then look at length. Pick the shape that matches.</p>
+    <div class="faces rv">
+      <div class="f-tabs" role="tablist" aria-label="Face shapes">
+        {%- for f in styleGuide.FACE_SHAPES %}
+        <button type="button" role="tab" id="tab-{{ f.id }}" aria-controls="panel-{{ f.id }}" aria-selected="{{ 'true' if loop.first else 'false' }}" tabindex="{{ '0' if loop.first else '-1' }}">{{ f.name }}</button>
+        {%- endfor %}
+      </div>
+      {%- for f in styleGuide.FACE_SHAPES %}
+      {%- set ask = "Hi, I've got a " + (f.name | lower) + " face. Can I book: " + f.askFor %}
+      <div class="f-body" role="tabpanel" id="panel-{{ f.id }}" aria-labelledby="tab-{{ f.id }}"{% if not loop.first %} hidden{% endif %}>
+        {{ f.shape | faceSvg(f.name + " face shape") | safe }}
+        <div class="f-txt">
+          <h3>{{ f.name }}</h3>
+          <p class="tag">{{ f.tag }}</p>
+          <dl>
+            <div class="f-row"><dt>Go for</dt><dd>{{ f.goFor }}</dd></div>
+            <div class="f-row"><dt>Avoid</dt><dd>{{ f.avoid }}</dd></div>
+            <div class="f-row"><dt>Ask for</dt><dd>“{{ f.askFor }}”</dd></div>
+          </dl>
+          <a class="btn" href="{{ ask | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ ask }}"{% endif %} target="_blank" rel="noopener">{% if build.booking.whatsapp %}{% include "core/partials/icon-whatsapp.njk" %}{% endif %}Book this cut</a>
+        </div>
+      </div>
+      {%- endfor %}
+    </div>
+
+    <h2 id="fades">The six fades, explained</h2>
+    <p>"Fade" just means the hair gets shorter as it goes down. Where it starts, and how it's shaped, changes everything.</p>
+    <ul class="fcards">
+      {%- for f in styleGuide.FADE_TYPES %}
+      <li class="fcard rv"><div class="chart">{{ { id: "fade-" + loop.index, fade: f.fade, height: f.height, label: f.name + " diagram" } | fadeSvg | safe }}</div><h3>{{ f.name }}</h3><p>{{ f.text }}</p></li>
+      {%- endfor %}
+    </ul>
+
+    <h2 id="grades">Clipper grades in plain English</h2>
+    <p>Barbers talk in grades. Each one is an eighth of an inch, roughly 3mm. Bring this table if you're not sure.</p>
+    <table class="grades">
+      <thead><tr><th scope="col">Grade</th><th scope="col">Length</th><th scope="col">Looks like</th></tr></thead>
+      <tbody>{% for g in styleGuide.GRADES %}<tr><td>{{ g[0] }}</td><td>{{ g[1] }}</td><td>{{ g[2] }}</td></tr>{% endfor %}</tbody>
+    </table>
+
+    <h2 id="ask">How to ask for it</h2>
+    <ul>{% for t in styleGuide.ASK_TIPS %}<li><strong>{{ t[0] }}</strong> {{ t[1] }}</li>{% endfor %}</ul>
+    {%- set selfie = "Hi, I'm not sure which cut suits me. Can I send you a couple of photos?" %}
+    <aside class="askbox rv"><h3>Still not sure? Send us a selfie.</h3><p>Message a front and side photo on WhatsApp and one of us will tell you what we'd do. No booking needed.</p><a class="btn" href="{{ selfie | wa }}" data-wa-text="{{ selfie }}" target="_blank" rel="noopener">Ask a barber on WhatsApp</a></aside>
+  </article>
+  <nav class="toc" aria-label="On this page"><span>On this page</span><a href="#shape">Face shapes</a><a href="#fades">The six fades</a><a href="#grades">Clipper grades</a><a href="#ask">How to ask for it</a></nav>
+</div>

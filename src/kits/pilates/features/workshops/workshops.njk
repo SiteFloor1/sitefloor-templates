@@ -1,0 +1,28 @@
+{#- Workshops and events: each with its date, time, teacher, places and the studio's price; into the calendar in one
+    tap; a place by the studio's Stripe link (or WhatsApp). Finished ones drop off. -#}
+{%- set w = site.workshops %}
+{%- set ph = w %}
+{%- set list = w.items | upcomingWorkshops(build.today) %}
+{% include "kits/pilates/partials/page-head.njk" %}
+<section class="pl-ws" data-feature="workshops" aria-label="{{ w.title | plain }}"><div class="wrap">
+  {%- if w.photo %}<figure class="pl-ws-ph"><img src="{{ w.photo.src | img }}" alt="{{ w.photo.alt }}" width="{{ w.photo.width }}" height="{{ w.photo.height }}" fetchpriority="high" decoding="async"></figure>{% endif %}
+  <ol class="pl-ws-list">
+    {%- for x in list %}
+    <li class="pl-ws-i rv" data-ws="{{ x.id }}" data-date="{{ x.date }}" data-from="{{ x.from }}" data-to="{{ x.to }}" data-title="{{ x.title }}">
+      <p class="pl-ws-d"><time datetime="{{ x.date }}T{{ x.from }}">{{ x.date | ukDay }}</time><span>{{ x.from | said }}–{{ x.to | said }}</span></p>
+      <div class="pl-ws-b">
+        <h2 class="pl-ws-t">{{ x.title }}</h2>
+        <p class="pl-ws-x">{{ x.text }}</p>
+        <p class="pl-ws-m">{% if x.teacher %}With {{ x.teacher }}{% endif %}{% if x.places %} · {{ x.places }} places{% endif %}{% if x.price %} · {{ x.price | gbpWhole }}{% elif site.mode == "demo" %} · Demo: the studio sets the price{% endif %}</p>
+      </div>
+      <p class="pl-ws-go">
+        {%- if x.payLink %}<a class="pl-ws-pay" href="{{ x.payLink }}" target="_blank" rel="noopener"{% if site.mode == "demo" %} data-demo-note="On a live site this opens the studio's own Stripe page for a place. This demo's link is a Stripe test link, so nothing is charged."{% endif %}>Book a place</a>
+        {%- else %}{% set m = site.messages.general + " A place at " + x.title + ", " + (x.date | ukDay) + ", please." %}<a class="pl-ws-pay" href="{{ m | wa }}" target="_blank" rel="noopener">Ask for a place</a>{% endif %}
+        <button class="pl-ws-cal" type="button" data-ws-ics>Add to calendar</button>
+      </p>
+    </li>
+    {%- endfor %}
+  </ol>
+  <p class="pl-ret-none" data-ws-none{% if list.length %} hidden{% endif %}>No workshops announced just now.{% if w.formUrl %} Join the list to hear first.{% endif %}</p>
+  {%- if w.formUrl %}<p class="pl-ret-join"><a href="{{ w.formUrl }}" target="_blank" rel="noopener"{% if site.mode == "demo" %} data-demo-note="On a live site this opens the studio's own Google Form. This demo's form isn't real."{% endif %}>Join the workshop list</a></p>{% endif %}
+</div></section>

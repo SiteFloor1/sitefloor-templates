@@ -1,0 +1,16 @@
+/* What we build: a ruled index, a small photograph at the start of each row. */
+.bd-types { padding-block: clamp(72px, 10vw, 112px); }
+.bd-types-intro { margin: 12px 0 0; max-width: 44ch; color: var(--muted); }
+.bd-types-list { list-style: none; margin: 32px 0 0; padding: 0; border-top: 1px solid var(--line); }
+.bd-types-list li > a, .bd-types-list li { display: grid; grid-template-columns: 120px minmax(0, 1fr) minmax(0, 1.4fr); gap: 24px; align-items: center; padding: 14px 0; color: inherit; text-decoration: none; }
+.bd-types-list li { border-bottom: 1px solid var(--line); }
+.bd-types-list li > a { padding: 0; }
+.bd-types-list img { width: 120px; aspect-ratio: 3 / 2; object-fit: cover; display: block; }
+.bd-types-list b { font-family: var(--font-display); font-weight: 400; font-size: clamp(22px, 2.4vw, 30px); line-height: 1.1; }
+.bd-types-list span { color: var(--muted); font-size: 15px; }
+.bd-types-list a:hover b { font-style: italic; }
+@media (max-width: 700px) {
+  .bd-types-list li > a, .bd-types-list li { grid-template-columns: 88px minmax(0, 1fr); gap: 4px 16px; }
+  .bd-types-list img { width: 88px; grid-row: span 2; }
+  .bd-types-list span { font-size: 14px; }
+}

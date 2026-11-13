@@ -1,0 +1,18 @@
+/* Private dining. Tokens only. */
+main section.pd { padding-block: clamp(30px, 4vw, 60px) clamp(60px, 8vw, 110px); }
+.pd-rooms { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 16px; }
+.pd-room { background: var(--card); color: var(--card-ink); }
+.pd-room img { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; display: block; }
+.pd-text { padding: clamp(18px, 3vw, 28px); }
+.pd-text h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(28px, 3vw, 38px); margin: 0 0 8px; }
+.pd-facts { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 0 0 10px; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.pd-menus { margin-top: clamp(40px, 6vw, 80px); }
+.pd-h { font-family: var(--font-display); font-weight: 400; font-size: clamp(30px, 3.6vw, 46px); margin: 0 0 16px; }
+.pd-menu-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 16px; }
+.pd-menu-list > li { padding: 22px; border: 1px solid var(--line); }
+.pd-courses { margin: 10px 0 0; padding-left: 18px; color: var(--muted); font-size: 14.5px; }
+.pd-ask { margin-top: clamp(40px, 6vw, 80px); padding: clamp(20px, 3vw, 34px); background: var(--card); color: var(--card-ink); display: grid; gap: 16px; max-width: 860px; }
+.pd-ask .pd-h { margin: 0; }
+.pd-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: 12px; }
+.pd-sum { margin: 0; min-height: 2.8em; color: var(--muted); }
+.pd-ask .btn { justify-self: start; }

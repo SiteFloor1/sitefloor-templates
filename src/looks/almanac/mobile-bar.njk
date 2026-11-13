@@ -1,0 +1,11 @@
+{#- Almanac phone bar: on the left, the month in italic on the home page ("November at the studio", to the studio's
+    month; the month follows the visitor's clock), "The garden year" elsewhere; on the right, "Start your garden"
+    underlined with the rose hip. No buttons, no boxes. -#}
+<div class="mbar al-bar">
+  {%- if pageId == "index" and ("garden-calendar" | enabled) %}
+  <a class="al-bar-month" href="#month"><span data-month-name>{{ gardenWords.months[(build.today | monthOf) - 1] }}</span> <span class="al-bar-sub">at the studio</span></a>
+  {%- else %}
+  <a class="al-bar-month" href="{{ 'index' | href }}#month">The garden year</a>
+  {%- endif %}
+  <a class="al-bar-go" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">Start your garden</a>
+</div>

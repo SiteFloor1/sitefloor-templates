@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: takeaway
+permalink: takeaway.html
+feature: order
+eleventyComputed:
+  title: "{{ site.order.title | plain }}"
+  description: "Order takeaway from {{ site.business.name }}, {{ site.location.locality }}, for collection: see the total and the allergens before you send it."
+---
+{% include "kits/restaurant/features/order/order.njk" %}

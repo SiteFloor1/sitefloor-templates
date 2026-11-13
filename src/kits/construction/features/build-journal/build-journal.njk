@@ -1,0 +1,14 @@
+{#- The journal: the builder's own dated articles, newest first. -#}
+{%- set j = site.journal %}
+{%- set ph = { title: j.title, intro: j.intro } %}
+{% include "kits/construction/partials/page-head.njk" %}
+<div class="wrap bd-jn">
+  <ul class="bd-jn-list">
+    {%- for a in j.items | newestFirst %}
+    <li><a href="{{ a.id | href }}">
+      <img src="{{ a.photo.src | img }}" alt="{{ a.photo.alt }}" width="{{ a.photo.width }}" height="{{ a.photo.height }}"{% if not loop.first %} loading="lazy"{% endif %} decoding="async">
+      <time datetime="{{ a.date }}">{{ a.date | ukDate }}</time><b>{{ a.title }}</b><span>{{ a.summary }}</span>
+    </a></li>
+    {%- endfor %}
+  </ul>
+</div>

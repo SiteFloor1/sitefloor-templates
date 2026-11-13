@@ -1,0 +1,751 @@
+{
+  "schemaVersion": 4,
+  "id": "test-cafe-client",
+  "mode": "client",
+  "plan": "plus",
+  "kit": "restaurant",
+  "look": "counter",
+  "url": "https://little-wren.example.co.uk",
+  "indexable": true,
+  "lang": "en-GB",
+  "business": {
+    "name": "Little Wren",
+    "schemaType": "CafeOrCoffeeShop",
+    "description": "Test fixture: a neighbourhood café on the Counter look, Plus plan, with Your usual as an add-on and a live sheet.",
+    "priceRange": "£",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "447911654889",
+    "phone": "+44 7911 654889",
+    "email": "hello@little-wren.example.co.uk"
+  },
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "location": {
+    "streetAddress": "3 Test Row",
+    "locality": "Bristol",
+    "postcode": "BS6 5AA",
+    "country": "GB",
+    "area": "Test fixture address.",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=Bristol%20BS6"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [
+        [
+          "08:00",
+          "15:00"
+        ]
+      ],
+      "tue": [
+        [
+          "08:00",
+          "15:00"
+        ]
+      ],
+      "wed": [
+        [
+          "08:00",
+          "15:00"
+        ]
+      ],
+      "thu": [
+        [
+          "08:00",
+          "15:00"
+        ]
+      ],
+      "fri": [
+        [
+          "08:00",
+          "15:00"
+        ]
+      ],
+      "sat": [
+        [
+          "09:00",
+          "15:00"
+        ]
+      ],
+      "sun": []
+    },
+    "exceptions": []
+  },
+  "nav": [
+    {
+      "label": "Order",
+      "page": "takeaway",
+      "feature": "order",
+      "fallback": "#usual"
+    },
+    {
+      "label": "Visit",
+      "page": "visit",
+      "feature": "plan-visit",
+      "fallback": "#visit"
+    }
+  ],
+  "features": [
+    "menu",
+    "specials",
+    "delivery",
+    "visit",
+    "questions",
+    "plan-visit",
+    "order",
+    "work-here",
+    "regulars-board",
+    "your-usual"
+  ],
+  "addons": [
+    "your-usual"
+  ],
+  "brand": {
+    "accent": "#7A2335"
+  },
+  "hero": {
+    "kicker": "Café · Test Row",
+    "title": "Coffee and|*a bun.*",
+    "intro": "Test fixture for the Counter look without a counter photo."
+  },
+  "sections": {
+    "menu": {
+      "kicker": "Little Wren",
+      "title": "The menu"
+    },
+    "specials": {
+      "kicker": "On the counter",
+      "title": "Today",
+      "intro": "Ask us what's fresh."
+    },
+    "usual": {
+      "kicker": "Order ahead",
+      "title": "Your *usual.*"
+    },
+    "workHere": {
+      "kicker": "Laptops",
+      "title": "Can I *work here?*"
+    },
+    "board": {
+      "kicker": "The board",
+      "title": "This *week.*"
+    },
+    "delivery": {
+      "kicker": "At home",
+      "title": "Delivery"
+    },
+    "questions": {
+      "kicker": "Good to know",
+      "title": "Questions"
+    },
+    "visit": {
+      "kicker": "Visit",
+      "title": "Find us"
+    }
+  },
+  "messages": {
+    "general": "Hi Little Wren, I have a question."
+  },
+  "menu": {
+    "sittings": [
+      {
+        "id": "breakfast",
+        "name": "Breakfast",
+        "days": [
+          "mon",
+          "tue",
+          "wed",
+          "thu",
+          "fri"
+        ],
+        "from": "07:30",
+        "to": "11:30",
+        "mood": "day"
+      },
+      {
+        "id": "lunch",
+        "name": "Lunch",
+        "days": [
+          "mon",
+          "tue",
+          "wed",
+          "thu",
+          "fri"
+        ],
+        "from": "11:30",
+        "to": "15:30",
+        "lastOrders": "15:00",
+        "mood": "day"
+      }
+    ],
+    "statement": "Our kitchen and bakery handle gluten, milk, eggs, tree nuts, sesame, soya, fish and mustard every day, so we can't promise anything is free from traces. Our oat milk is made from oats and isn't labelled gluten-free. Please tell us about any allergy when you order.",
+    "chartChecked": "2026-10-26",
+    "sections": [
+      {
+        "id": "coffee",
+        "name": "The coffee board",
+        "note": "Oat, soy or almond milk 40p. Extra shot 60p. Decaf on anything, no extra.",
+        "sittings": [
+          "breakfast",
+          "lunch"
+        ],
+        "drinks": true,
+        "dishes": [
+          {
+            "id": "espresso",
+            "name": "Espresso",
+            "desc": "A double, as it comes.",
+            "price": 2.6,
+            "diets": [
+              "vegan"
+            ],
+            "allergens": [],
+            "takeaway": true
+          },
+          {
+            "id": "cortado",
+            "name": "Cortado",
+            "price": 3.2,
+            "allergens": [
+              "milk"
+            ],
+            "takeaway": true
+          },
+          {
+            "id": "flat-white",
+            "name": "Flat white",
+            "price": 3.5,
+            "allergens": [
+              "milk"
+            ],
+            "takeaway": true
+          },
+          {
+            "id": "cappuccino",
+            "name": "Cappuccino",
+            "price": 3.5,
+            "allergens": [
+              "milk"
+            ],
+            "takeaway": true
+          },
+          {
+            "id": "latte",
+            "name": "Latte",
+            "price": 3.6,
+            "allergens": [
+              "milk"
+            ],
+            "takeaway": true
+          },
+          {
+            "id": "long-black",
+            "name": "Long black",
+            "price": 3.0,
+            "diets": [
+              "vegan"
+            ],
+            "allergens": [],
+            "takeaway": true
+          },
+          {
+            "id": "batch-filter",
+            "name": "Filter",
+            "desc": "This week's guest beans.",
+            "price": 3.0,
+            "diets": [
+              "vegan"
+            ],
+            "allergens": [],
+            "takeaway": true
+          },
+          {
+            "id": "mocha",
+            "name": "Mocha",
+            "price": 3.9,
+            "allergens": [
+              "milk",
+              "soya"
+            ],
+            "takeaway": true
+          }
+        ]
+      },
+      {
+        "id": "bakes",
+        "name": "On the counter",
+        "note": "Baked here from 6am. Out until they're gone.",
+        "sittings": [
+          "breakfast",
+          "lunch"
+        ],
+        "dishes": [
+          {
+            "id": "butter-croissant",
+            "name": "Butter croissant",
+            "desc": "Laminated over three days with French butter.",
+            "price": 3.2,
+            "diets": [
+              "vegetarian"
+            ],
+            "allergens": [
+              "gluten",
+              "milk",
+              "eggs"
+            ],
+            "takeaway": true
+          },
+          {
+            "id": "almond-croissant",
+            "name": "Almond croissant",
+            "desc": "Yesterday's croissants, filled with frangipane and baked again.",
+            "price": 3.9,
+            "diets": [
+              "vegetarian"
+            ],
+            "allergens": [
+              "gluten",
+              "milk",
+              "eggs",
+              "nuts"
+            ],
+            "takeaway": true
+          },
+          {
+            "id": "pain-au-chocolat",
+            "name": "Pain au chocolat",
+            "price": 3.5,
+            "diets": [
+              "vegetarian"
+            ],
+            "allergens": [
+              "gluten",
+              "milk",
+              "eggs",
+              "soya"
+            ],
+            "takeaway": true
+          },
+          {
+            "id": "cardamom-knot",
+            "name": "Cardamom knot",
+            "desc": "Swedish-style, with cardamom sugar.",
+            "price": 3.6,
+            "diets": [
+              "vegetarian"
+            ],
+            "allergens": [
+              "gluten",
+              "milk",
+              "eggs"
+            ],
+            "takeaway": true
+          },
+          {
+            "id": "banana-bread",
+            "name": "Banana & walnut bread",
+            "desc": "Made without eggs or butter.",
+            "price": 3.4,
+            "diets": [
+              "vegan"
+            ],
+            "allergens": [
+              "gluten",
+              "nuts"
+            ],
+            "takeaway": true
+          },
+          {
+            "id": "scone",
+            "name": "Scone, jam & clotted cream",
+            "price": 4.2,
+            "diets": [
+              "vegetarian"
+            ],
+            "allergens": [
+              "gluten",
+              "milk",
+              "eggs"
+            ],
+            "takeaway": true
+          }
+        ]
+      },
+      {
+        "id": "lunch",
+        "name": "Lunch",
+        "sittings": [
+          "lunch"
+        ],
+        "dishes": [
+          {
+            "id": "soup",
+            "name": "Soup of the day, sourdough",
+            "desc": "Ask what's on; it's on the counter board.",
+            "price": 7,
+            "allergens": [
+              "gluten",
+              "celery",
+              "milk"
+            ]
+          },
+          {
+            "id": "ham-toastie",
+            "name": "Ham hock & mustard toastie",
+            "price": 8.5,
+            "allergens": [
+              "gluten",
+              "milk",
+              "mustard"
+            ],
+            "takeaway": true
+          },
+          {
+            "id": "brie-toastie",
+            "name": "Brie, fig & walnut toastie",
+            "price": 8,
+            "diets": [
+              "vegetarian"
+            ],
+            "allergens": [
+              "gluten",
+              "milk",
+              "nuts"
+            ],
+            "takeaway": true
+          },
+          {
+            "id": "grain-bowl",
+            "name": "Roast squash, feta & grains",
+            "desc": "Spelt, chilli honey and toasted seeds.",
+            "price": 10,
+            "diets": [
+              "vegetarian"
+            ],
+            "allergens": [
+              "milk",
+              "sesame",
+              "gluten"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "counter": {
+    "sections": [
+      "bakes"
+    ],
+    "board": "coffee"
+  },
+  "tonight": {
+    "source": "sheet",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-test-wren/pub?output=csv",
+    "staleAfterMinutes": 30
+  },
+  "usual": {
+    "message": "Hi Little Wren, I'd like to order ahead for collection.",
+    "prepMinutes": 6,
+    "sizes": [
+      {
+        "id": "small",
+        "name": "Small",
+        "ml": 180
+      },
+      {
+        "id": "regular",
+        "name": "Regular",
+        "ml": 240
+      },
+      {
+        "id": "large",
+        "name": "Large",
+        "ml": 340
+      }
+    ],
+    "drinks": [
+      {
+        "id": "flat-white",
+        "name": "Flat white",
+        "pour": "flat-white",
+        "prices": {
+          "regular": 3.5
+        },
+        "milk": true,
+        "allergens": []
+      },
+      {
+        "id": "latte",
+        "name": "Latte",
+        "pour": "latte",
+        "prices": {
+          "regular": 3.6,
+          "large": 4.0
+        },
+        "milk": true,
+        "allergens": []
+      },
+      {
+        "id": "cappuccino",
+        "name": "Cappuccino",
+        "pour": "cappuccino",
+        "prices": {
+          "regular": 3.5,
+          "large": 3.9
+        },
+        "milk": true,
+        "allergens": []
+      },
+      {
+        "id": "cortado",
+        "name": "Cortado",
+        "pour": "cortado",
+        "prices": {
+          "small": 3.2
+        },
+        "milk": true,
+        "allergens": []
+      },
+      {
+        "id": "espresso",
+        "name": "Espresso",
+        "pour": "espresso",
+        "prices": {
+          "small": 2.6
+        },
+        "allergens": []
+      },
+      {
+        "id": "long-black",
+        "name": "Long black",
+        "pour": "long-black",
+        "prices": {
+          "regular": 3.0,
+          "large": 3.4
+        },
+        "allergens": []
+      },
+      {
+        "id": "filter",
+        "name": "Filter",
+        "pour": "filter",
+        "prices": {
+          "regular": 3.0,
+          "large": 3.4
+        },
+        "allergens": []
+      },
+      {
+        "id": "mocha",
+        "name": "Mocha",
+        "pour": "mocha",
+        "prices": {
+          "regular": 3.9,
+          "large": 4.3
+        },
+        "milk": true,
+        "allergens": [
+          "soya"
+        ]
+      },
+      {
+        "id": "chai",
+        "name": "Chai latte",
+        "pour": "chai",
+        "prices": {
+          "regular": 3.8,
+          "large": 4.2
+        },
+        "milk": true,
+        "allergens": []
+      },
+      {
+        "id": "hot-chocolate",
+        "name": "Hot chocolate",
+        "pour": "hot-chocolate",
+        "prices": {
+          "regular": 3.7,
+          "large": 4.1
+        },
+        "milk": true,
+        "allergens": [
+          "soya"
+        ]
+      },
+      {
+        "id": "matcha",
+        "name": "Matcha latte",
+        "pour": "matcha",
+        "prices": {
+          "regular": 3.9,
+          "large": 4.3
+        },
+        "milk": true,
+        "allergens": []
+      }
+    ],
+    "milks": [
+      {
+        "id": "whole",
+        "name": "Whole milk",
+        "price": 0,
+        "allergens": [
+          "milk"
+        ],
+        "shade": "white"
+      },
+      {
+        "id": "oat",
+        "name": "Oat milk",
+        "price": 0.4,
+        "allergens": [
+          "gluten"
+        ],
+        "shade": "oat",
+        "note": "made from oats; not labelled gluten-free.",
+        "diets": [
+          "vegan"
+        ]
+      },
+      {
+        "id": "soy",
+        "name": "Soy milk",
+        "price": 0.4,
+        "allergens": [
+          "soya"
+        ],
+        "shade": "cream",
+        "diets": [
+          "vegan"
+        ]
+      },
+      {
+        "id": "almond",
+        "name": "Almond milk",
+        "price": 0.4,
+        "allergens": [
+          "nuts"
+        ],
+        "shade": "nut",
+        "diets": [
+          "vegan"
+        ]
+      }
+    ],
+    "defaultMilk": "whole",
+    "extraShot": 0.6,
+    "maxShots": 3,
+    "syrups": [
+      {
+        "id": "vanilla",
+        "name": "Vanilla",
+        "price": 0.5,
+        "allergens": []
+      },
+      {
+        "id": "caramel",
+        "name": "Salted caramel",
+        "price": 0.5,
+        "allergens": []
+      },
+      {
+        "id": "hazelnut",
+        "name": "Hazelnut",
+        "price": 0.5,
+        "allergens": []
+      }
+    ],
+    "decaf": 0,
+    "ownCup": 0.25
+  },
+  "busy": {
+    "basis": "From our till, October 2026 (test)",
+    "from": "08:00",
+    "week": {
+      "mon": [
+        2,
+        1,
+        1,
+        0,
+        2,
+        1,
+        0
+      ],
+      "tue": [
+        2,
+        1,
+        1,
+        0,
+        2,
+        1,
+        0
+      ]
+    }
+  },
+  "workHere": {
+    "answers": [
+      {
+        "topic": "wifi",
+        "answer": "yes"
+      },
+      {
+        "topic": "sockets",
+        "answer": "no"
+      },
+      {
+        "topic": "dogs",
+        "answer": "some",
+        "note": "Outside only"
+      }
+    ]
+  },
+  "delivery": {
+    "apps": [
+      {
+        "name": "Deliveroo",
+        "url": "https://deliveroo.co.uk/"
+      }
+    ]
+  },
+  "order": {
+    "kicker": "Order",
+    "title": "To *collect.*",
+    "message": "Hi Little Wren, I'd like to order for collection.",
+    "readyMinutes": 10
+  },
+  "questions": [
+    {
+      "topic": "Coffee",
+      "q": "Do you do oat milk?",
+      "a": "Yes, 40p extra.",
+      "home": true
+    }
+  ],
+  "visitInfo": {
+    "kicker": "Plan your visit",
+    "title": "Getting here",
+    "intro": "Test fixture.",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "Bristol Temple Meads",
+        "origin": "Bristol Temple Meads",
+        "minutes": 25,
+        "steps": [
+          "Walk north"
+        ]
+      }
+    ],
+    "access": [
+      {
+        "label": "Step-free entrance",
+        "yes": true
+      }
+    ],
+    "payment": "Card only.",
+    "checked": "2026-10"
+  }
+}

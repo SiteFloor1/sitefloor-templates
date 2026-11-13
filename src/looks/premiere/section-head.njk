@@ -1,0 +1,5 @@
+{#- Première section opening: the section's name in Goudy, its line beneath in a quieter colour. No kicker, no rule. -#}
+<div class="pr-sh">
+  <h2 class="pr-sh-t">{{ sec.title | markup | safe }}</h2>
+  {%- if sec.intro %}<p class="pr-sh-i">{{ sec.intro }}</p>{% endif %}
+</div>

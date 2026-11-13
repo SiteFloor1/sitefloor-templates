@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: funeral
+permalink: funeral.html
+feature: funeral-flowers
+eleventyComputed:
+  title: "{{ site.funeral.title | plain }}"
+  description: "Funeral flowers from {{ site.business.name }}, {{ site.location.locality }}: wreaths, sprays and tributes, prices and the notice we need."
+---
+{% include "kits/florist/features/funeral-flowers/funeral-flowers.njk" %}

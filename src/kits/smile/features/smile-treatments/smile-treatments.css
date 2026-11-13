@@ -1,0 +1,18 @@
+/* Treatments and prices: one row per treatment, the name and price at the ends, the line and who between. */
+.sm-tx-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--text); }
+.sm-tx-row { display: grid; grid-template-columns: 1fr auto; gap: 6px 20px; padding: 20px 0; border-bottom: 1px solid var(--line); }
+.sm-tx-name { margin: 0; font-size: 1.25rem; font-weight: 400; }
+.sm-tx-name a { text-decoration: none; }
+.sm-tx-name a:hover { text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 5px; }
+.sm-tx-line, .sm-tx-by { grid-column: 1 / -1; margin: 0; }
+.sm-tx-line { color: var(--muted); }
+.sm-tx-by { font-size: inherit; }
+.sm-tx-price { grid-row: 1; grid-column: 2; margin: 0; font-size: 1.25rem; text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.sm-more { margin: 28px 0 0; }
+@media (min-width: 900px) {
+  .sm-tx-row { grid-template-columns: 1.1fr 1.6fr 1.3fr auto; align-items: baseline; }
+  .sm-tx-name { grid-column: 1; grid-row: 1; }
+  .sm-tx-line { grid-column: 2; grid-row: 1; }
+  .sm-tx-by { grid-column: 3; grid-row: 1; }
+  .sm-tx-price { grid-column: 4; grid-row: 1; }
+}

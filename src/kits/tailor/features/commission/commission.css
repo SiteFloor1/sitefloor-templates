@@ -1,0 +1,32 @@
+/* your commission: the code field beside the heading; the stages as photographs in a row on one rule; done in full,
+   the current one stitched underneath in the accent, the rest faded until they come. */
+.tl-cm-head { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 20px 48px; align-items: end; margin-bottom: 40px; }
+.tl-cm-t { margin: 0; }
+.tl-cm-form { display: grid; gap: 8px; }
+.tl-cm-row { display: flex; gap: 10px; }
+.tl-cm-row input { flex: 1; min-width: 0; height: 48px; padding: 0 14px; border: 1px solid var(--line-2); border-radius: 0; background: var(--bg); color: var(--text); font: inherit; letter-spacing: .12em; text-transform: uppercase; }
+.tl-cm-stages { list-style: none; margin: 0; padding: 18px 0 0; display: grid; grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr)); gap: 0 18px; border-top: 1px solid var(--text); counter-reset: none; }
+.tl-cm-stages { --n: 4; }
+.tl-cm-st { min-width: 0; transition: opacity .8s ease; }
+.tl-cm-ph { margin: 0 0 14px; }
+.tl-cm-ph img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; }
+.tl-cm-n { margin: 0; font-weight: 500; }
+.tl-cm-w { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
+.tl-cm-st.todo { opacity: .38; }
+.tl-cm-st.now .tl-cm-n { text-decoration: underline; text-decoration-style: dashed; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 7px; }
+.tl-cm-st.now .tl-cm-w { color: var(--text); }
+.tl-cm-out { margin-top: 32px; }
+.tl-cm-next { font-size: 18px; margin: 0 0 8px; }
+.tl-cm-acts { display: flex; flex-wrap: wrap; gap: 6px 24px; margin: 0 0 6px; }
+.tl-cm-off { margin-top: 28px; }
+.tl-cm-note { margin-top: 24px; }
+@media (max-width: 760px) {
+  .tl-cm-head { grid-template-columns: 1fr; }
+  .tl-cm-stages { grid-template-columns: 1fr; gap: 10px; }
+  .tl-cm-st { display: grid; grid-template-columns: 60px 1fr; gap: 0 14px; align-items: center; }
+  .tl-cm-st .tl-cm-n { margin: 0; }
+  .tl-cm-st .tl-cm-w { margin: 0; font-size: 14px; }
+  .tl-cm-ph { grid-row: span 2; margin: 0; }
+  .tl-cm-row { flex-direction: column; }
+}
+@media (prefers-reduced-motion: reduce) { .tl-cm-st { transition: none; } }

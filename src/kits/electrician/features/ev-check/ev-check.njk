@@ -1,0 +1,35 @@
+{#- Will a charger go in easily? Four answers give a standard install at the client's own price, or what needs a look
+    first. Never a grant amount (it changes): a link to gov.uk. Without JavaScript the standard install and its price
+    show with a WhatsApp link. -#}
+{%- set ev = site.ev %}
+<section id="ev" class="el-ev" data-feature="ev-check" aria-label="Will a charger go in easily?"><div class="wrap el-ev-in">
+  {%- if ev.photo %}<figure class="el-ev-photo"><img src="{{ ev.photo.src | img }}" alt="{{ ev.photo.alt }}" width="{{ ev.photo.width }}" height="{{ ev.photo.height }}" loading="lazy" decoding="async">{% if ev.photo.caption %}<figcaption>{{ ev.photo.caption }}</figcaption>{% endif %}</figure>{% endif %}
+  <div class="el-ev-t">
+    <div class="el-ev-std">
+      <p class="el-ev-k">A standard install</p>
+      <p class="el-ev-price">{{ ev.standard.price | pounds }}</p>
+      <p class="el-ev-what">{{ ev.standard.what }} Up to {{ ev.standard.includedMetres }} metres of cable from your fuse board; {{ ev.perMetre | pounds }} a metre after that.</p>
+    </div>
+    <form class="el-ev-form" data-ev-form data-js-only>
+      <fieldset><legend>Where do you park?</legend>
+        <label><input type="radio" name="ev-park" value="drive" checked> On my own drive or in my garage</label>
+        <label><input type="radio" name="ev-park" value="shared"> In a shared car park</label>
+        <label><input type="radio" name="ev-park" value="street"> On the street</label>
+      </fieldset>
+      <label class="el-ev-range" for="ev-metres"><span>From your fuse board to where the charger goes <output data-ev-m>{{ ev.standard.includedMetres }} m</output></span>
+        <input id="ev-metres" type="range" min="1" max="{{ ev.maxMetres + 10 }}" value="{{ ev.standard.includedMetres }}" data-ev-metres></label>
+      <label for="ev-fuse"><span>Your main fuse</span>
+        <select id="ev-fuse" data-ev-fuse><option value="0">I don't know</option><option value="60">60A</option><option value="80">80A</option><option value="100" selected>100A</option></select></label>
+      <label class="el-ev-check"><input type="checkbox" data-ev-loads> A heat pump, an electric shower or another charger is already on the supply</label>
+      <div class="el-ev-out" aria-live="polite">
+        <p class="el-ev-verdict" data-ev-verdict></p>
+        <ul class="el-ev-why" data-ev-why></ul>
+      </div>
+    </form>
+    <div class="el-ev-act">
+      <a class="go" data-ev-send href="{{ ev.message | wa }}" target="_blank" rel="noopener">Send this on WhatsApp</a>
+      {%- if ev.grantUrl %}<a class="el-ev-grant" href="{{ ev.grantUrl }}" target="_blank" rel="noopener">Can I get a grant? (gov.uk)</a>{% endif %}
+    </div>
+  </div>
+</div></section>
+{%- if "ev-3d" | enabled %}{% include "kits/electrician/features/ev-3d/ev-3d.njk" %}{% endif %}

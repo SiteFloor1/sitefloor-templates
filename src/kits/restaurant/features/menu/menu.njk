@@ -1,0 +1,56 @@
+{#- The menu on the home page: the sitting being served now (without JavaScript every sitting shows,
+    one after another), diet and allergy filters, the 14 allergens on every dish from the restaurant's
+    own chart, and today's sold-out dishes from the specials sheet. -#}
+{%- set m = site.menu %}
+{%- set sec = site.sections.menu %}
+{#- The head script (src/core/lib/daypart.js) picks the sitting before the first paint; these rules show only it,
+    so nothing jumps when the menu's script starts. Without JavaScript there's no data-sitting and every sitting shows. #}
+<style>{% for s in m.sittings %}:root[data-sitting="{{ s.id }}"] [data-mn-sitting]:not([data-mn-sitting="{{ s.id }}"]){display:none}:root[data-sitting="{{ s.id }}"] [data-mn-tab="{{ s.id }}"]{color:var(--text);border-bottom-color:var(--accent)}{% endfor %}</style>
+<section id="menu" class="mn" data-feature="menu" aria-labelledby="menu-h">
+  <div class="mn-card">
+    <header class="mn-top">
+      <p class="rs-k">{{ sec.kicker }}</p>
+      <h2 id="menu-h" class="mn-title">{{ sec.title | markup | safe }}</h2>
+      <p class="mn-kitchen" data-mn-kitchen aria-live="polite">&nbsp;</p>
+      {%- if m.sittings | length > 1 %}
+      <div class="rs-tabs mn-tabs" role="tablist" aria-label="Menus">
+        {%- for s in m.sittings %}<button type="button" class="rs-tab" role="tab" id="mn-tab-{{ s.id }}" aria-controls="mn-{{ s.id }}" aria-selected="{{ 'true' if loop.first else 'false' }}" data-mn-tab="{{ s.id }}">{{ s.name }}<small>{{ s.from | t12 }}–{{ s.to | t12 }}</small></button>{% endfor %}
+      </div>
+      {%- endif %}
+    </header>
+    <div class="mn-filters">
+      <div class="rs-chips" role="group" aria-label="Diet">
+        <label class="rs-chip"><input type="radio" name="mn-diet" value="" checked>Everything</label>
+        {%- for dt in food.diets %}<label class="rs-chip"><input type="radio" name="mn-diet" value="{{ dt.id }}">{{ dt.name }}</label>{% endfor %}
+      </div>
+      <details class="mn-avoid">
+        <summary>Allergies? Hide dishes containing…</summary>
+        <div class="rs-chips">{% for a in food.allergens %}<label class="rs-chip no"><input type="checkbox" name="mn-avoid" value="{{ a.id }}">{{ a.name }}</label>{% endfor %}</div>
+      </details>
+      <p class="mn-hidden rs-small" data-mn-hidden aria-live="polite"></p>
+    </div>
+    {%- for s in m.sittings %}
+    <div class="mn-sitting" id="mn-{{ s.id }}" role="tabpanel" aria-labelledby="mn-tab-{{ s.id }}" data-mn-sitting="{{ s.id }}" data-mn-mood="{{ s.mood }}">
+      <p class="mn-when">{{ s.name }} · {{ s.days | sittingDays }} · {{ s.from | t12 }}–{{ s.to | t12 }}{% if s.lastOrders %} (last orders {{ s.lastOrders | t12 }}){% endif %}</p>
+      {%- for sc in m | sectionsFor(s.id) %}{% if not sc.drinks %}
+      <div class="mn-sec">
+        <h3>{{ sc.name }}</h3>
+        {%- if sc.note %}<p class="mn-note">{{ sc.note }}</p>{% endif %}
+        <ul class="mn-list">{% for d in sc.dishes %}{% include "kits/restaurant/features/menu/dish.njk" %}{% endfor %}</ul>
+        <p class="mn-none rs-small" data-mn-none hidden>Nothing here fits. Ask us: the kitchen can often adapt a dish.</p>
+      </div>
+      {%- endif %}{% endfor %}
+    </div>
+    {%- endfor %}
+    <footer class="mn-foot">
+      <p class="mn-key"><span>{% for dt in food.diets %}<abbr class="rs-mark" title="{{ dt.name }}">{{ dt.mark }}</abbr> {{ dt.name | lower }}{% if not loop.last %} · {% endif %}{% endfor %}</span></p>
+      <p>{{ m.statement }}</p>
+      <p class="rs-small">Allergens are from our allergen chart, last checked {{ m.chartChecked | longDate }}. Recipes and suppliers can change, so please tell us about any allergy when you order.</p>
+      <div class="mn-links">
+        {%- if "menu-book" | enabled %}<a class="mn-more" href="#menu-book" data-mb-open{{ "menu-book" | tierAttr | safe }}>Open the menu book</a>{% endif %}
+        {%- if "menu-page" | enabled %}<a class="mn-more" href="{{ 'menu' | href }}"{{ "menu-page" | tierAttr | safe }}>Full menu, drinks and allergen chart</a>{% endif %}
+        {%- if "menu-pdf" | enabled %}{% include "kits/restaurant/features/menu-pdf/menu-pdf.njk" %}{% endif %}
+      </div>
+    </footer>
+  </div>
+</section>

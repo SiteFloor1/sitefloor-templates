@@ -1,0 +1,20 @@
+{#- How we help: the firm's services as calm columns (photograph, a fine line, a title, one sentence), then who the
+    firm works with and its minimum, when it has one. Each column opens that moment's page or the approach page. -#}
+{%- set sv = site.help %}
+{%- set sec = { title: site.sections.help.title, intro: site.sections.help.intro } %}
+<section id="services" class="wm-svc" data-feature="services"><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="wm-svc-cols">
+    {%- for x in sv.items %}
+    {%- set to = (x.event | href) if (x.event and ('life-events' | enabled)) else ((('approach' | href) + '#' + x.id) if ('approach' | enabled) else '') %}
+    <article class="wm-svc-col">
+      {%- if to %}<a class="wm-svc-a" href="{{ to }}">{% endif %}
+      <img src="{{ x.photo.src | img }}" alt="{{ x.photo.alt }}" width="{{ x.photo.width }}" height="{{ x.photo.height }}" loading="lazy" decoding="async"{% if x.photo.position %} style="object-position:{{ x.photo.position }}"{% endif %}>
+      <h3>{{ x.title }}</h3>
+      {%- if to %}</a>{% endif %}
+      <p>{{ x.line }}</p>
+    </article>
+    {%- endfor %}
+  </div>
+  {%- if sv.audience or sv.minimum %}<p class="wm-svc-who">{{ sv.audience }}{% if sv.audience and sv.minimum %} {% endif %}{{ sv.minimum }}</p>{% endif %}
+</div></section>

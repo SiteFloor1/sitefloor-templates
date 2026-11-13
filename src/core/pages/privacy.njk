@@ -1,0 +1,45 @@
+---
+layout: core/layouts/base.njk
+pageId: privacy
+permalink: privacy.html
+title: Privacy
+description: How this website handles your information.
+---
+{#- Plain-English privacy notice every site gets. Facts come from site.json, so it only
+    mentions what this site actually does (e.g. Google only if the chair board reads a sheet).
+    A starting point, not legal advice; reviewed in each client's Scope B audit. -#}
+{%- set bookingName = build.booking.label | replace("Book on ", "") %}
+<section class="phero"><div class="wrap">
+  <span class="kick">Privacy</span>
+  <h1>Your information*.*</h1>
+  <p>What this website collects, why, and what you can ask us to do with it.</p>
+</div></section>
+<section class="prose"><div class="wrap">
+  <h2>Who we are</h2>
+  <p>{{ site.business.name }}, {{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}. We are responsible for your information on this website. Contact us at {% if site.contact.email %}<a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a> or {% endif %}<a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a>.</p>
+
+  <h2>What this website collects</h2>
+  <p>This website has no accounts, no forms, no advertising and no analytics, and it sets no cookies.</p>
+  {%- if site.mode == "demo" %}
+  <p>This is a demo: the plan switcher at the top remembers the plan you picked in your browser's local storage. It never leaves your device. Client websites don't have it.</p>
+  {%- endif %}
+  <p>Like every website, the service that hosts it (Cloudflare) receives your IP address and basic details of each request so it can deliver the pages and protect the site from attacks. We rely on our legitimate interest in running a secure website for this.</p>
+  {%- if site.gallery and site.gallery.source == "behold" %}
+  <p>Our latest Instagram photos are loaded from Behold, a service that shows them on this site for us, so your browser contacts Behold, which receives your IP address. Instagram itself isn't contacted unless you follow a link to it.</p>
+  {%- endif %}
+  {%- if site.chairBoard and site.chairBoard.source == "sheet" %}
+  <p>The live chair board on the home page is loaded from a Google Sheet, so your browser contacts Google, which receives your IP address. It receives nothing else from this site.</p>
+  {%- endif %}
+  {%- if site.kit == "wear" and ((site.stock and site.stock.source == "sheet") or (site.dropQueue and site.dropQueue.source == "sheet" and "drop-queue" | enabled)) %}
+  <p>What's left in each size{% if site.dropQueue and site.dropQueue.source == "sheet" and "drop-queue" | enabled %}, and the queue number on drop day,{% endif %} is loaded from a Google Sheet, so your browser contacts Google, which receives your IP address. It receives nothing else from this site.</p>
+  {%- endif %}
+  {%- if site.kit == "wear" and site.weather and site.mode != "demo" and "wear-today" | enabled %}
+  <p>Today's weather on the home page is loaded from Open-Meteo, a weather service, so your browser contacts Open-Meteo, which receives your IP address. It receives nothing else from this site.</p>
+  {%- endif %}
+
+  <h2>When you contact or book with us</h2>
+  <p>Buttons on this site open WhatsApp, your phone{% if site.contact.email %}, your email{% endif %}{% if not build.booking.whatsapp and build.booking.provider != "phone" %} or {{ bookingName }}{% endif %}. Those services handle your message or booking under their own privacy policies. We use what you send us only to reply and to manage your appointment, and we don't share it with anyone else.</p>
+
+  <h2>Your rights</h2>
+  <p>You can ask us for a copy of the information we hold about you, or ask us to correct or delete it. Contact us using the details above. If you're unhappy with how we've handled your information, you can complain to the Information Commissioner's Office at <a href="https://ico.org.uk/make-a-complaint/" rel="noopener">ico.org.uk</a>.</p>
+</div></section>

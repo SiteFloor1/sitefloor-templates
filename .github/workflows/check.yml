@@ -1,0 +1,199 @@
+name: check
+
+# Lint, house rules, types, unit tests, every build, the size budget and the browser + accessibility tests,
+# on pull requests and on main. A green main is then promoted to the `production` branch, the only branch
+# Cloudflare deploys live sites from, so a commit that fails here can never reach a client's site.
+#
+# Billed minutes (docs/platform/speed.md, "CI minutes"): static checks and every build run each time; the browser tests
+# are narrowed by scripts/ci-plan.js.
+# - Pull request: the kits it changes (plus a smoke test of every site); shared code runs everything. They run when
+#   the PR is opened or marked ready; after that a push reruns them only if what changed since the PR's last green
+#   commit reaches its kits or shared code (reports, docs and merges of main that bring in only other kits' files don't).
+# - Push to main: the plan for everything since `production` (normally just the merged PR's files, already tested on
+#   the merge result), then promote. nightly.yml runs every browser test once a day when main has changed.
+# Draft pull requests don't run at all, and a newer push to a pull request cancels the older run.
+on:
+  push:
+    branches: [main]
+    paths-ignore: ["audits/**"]
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+    paths-ignore: ["audits/**"]
+  # nightly.yml: the daily full run.
+  workflow_call:
+
+concurrency:
+  group: check-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+env:
+  # Browser tests per shard machine. Fewer, fuller machines cost fewer billed minutes (each one spends about
+  # a minute starting up): the full suite (about 1,860) splits into 4, a one-kit pull request usually fits in 1.
+  TESTS_PER_SHARD: 470
+  MAX_SHARDS: 4
+
+jobs:
+  static:
+    if: github.event_name == 'push' || !github.event.pull_request.draft
+    runs-on: ubuntu-latest
+    timeout-minutes: 60 # safety net only; this takes about a minute
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run rules
+      - run: npm run typecheck
+      - run: npm run test:unit
+
+  build:
+    if: github.event_name == 'push' || !github.event.pull_request.draft
+    runs-on: ubuntu-latest
+    timeout-minutes: 60 # safety net only
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      specs: ${{ steps.plan.outputs.specs }}
+      kits: ${{ steps.plan.outputs.kits }}
+      shards: ${{ steps.count.outputs.shards }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2 # on a pull request, HEAD^1 is the base the package files are compared with
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      # Same builds the browser tests use: every demo (preview), budget, then the client fixtures as production.
+      - run: npm run build:all
+      - run: npm run budget
+      - run: node scripts/build.js --fixtures --env production
+      - name: Which browser tests this run needs
+        id: plan
+        env:
+          GH_TOKEN: ${{ github.token }}
+          R: ${{ github.repository }}
+          EVENT: ${{ github.event_name }}
+          ACTION: ${{ github.event.action }}
+          PR: ${{ github.event.pull_request.number }}
+          HEAD_REF: ${{ github.head_ref }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          # Any failed lookup or a list of 250+ files runs everything.
+          if [ "$EVENT" = pull_request ]; then
+            gh api --paginate "repos/$R/pulls/$PR/files" --jq '.[].filename' > changed.txt
+            args="--files changed.txt --base HEAD^1"
+            # A later push: compare with the PR's last commit whose whole `check` was green.
+            if [ "$ACTION" = synchronize ]; then
+              run=$(gh api "repos/$R/actions/workflows/check.yml/runs?event=pull_request&branch=$HEAD_REF&status=success&per_page=1" \
+                --jq '.workflow_runs[0] | "\(.id) \(.head_sha)"' 2>/dev/null || true)
+              id=${run%% *}; since=${run#* }
+              if [ -n "$id" ] && [ "$id" != null ] \
+                && [ "$(gh api "repos/$R/actions/runs/$id/jobs" --jq '.jobs[] | select(.name == "check") | .conclusion')" = success ] \
+                && gh api "repos/$R/compare/$since...$HEAD_SHA" --jq '.files[].filename' > pushed.txt \
+                && [ "$(wc -l < pushed.txt)" -lt 250 ] && git fetch -q --depth=1 origin "$since"; then
+                args="$args --since pushed.txt --since-base $since"
+              fi
+            fi
+            node scripts/ci-plan.js $args
+          elif [ "$EVENT" = push ]; then
+            # Everything not yet promoted: normally just the merged PR, also covers a run that was cancelled or failed.
+            prod=$(git ls-remote origin refs/heads/production | cut -f1)
+            if [ -n "$prod" ] && git fetch -q --depth=1 origin "$prod" \
+              && gh api "repos/$R/compare/$prod...${{ github.sha }}" --jq '.files[].filename' > changed.txt \
+              && [ "$(wc -l < changed.txt)" -lt 250 ]; then
+              node scripts/ci-plan.js --files changed.txt --base "$prod"
+            else
+              node scripts/ci-plan.js --all
+            fi
+          else
+            node scripts/ci-plan.js --all
+          fi
+      - name: Split them into shards
+        id: count
+        env:
+          E2E_PREBUILT: "1"
+          E2E_KITS: ${{ steps.plan.outputs.kits }}
+        run: |
+          if [ -z "${{ steps.plan.outputs.specs }}" ]; then echo "shards=[]" >> "$GITHUB_OUTPUT"; echo "No browser tests needed."; exit 0; fi
+          n=$(npx playwright test --list ${{ steps.plan.outputs.specs }} | sed -n 's/^Total: \([0-9]*\) test.*/\1/p')
+          s=$(( (n + TESTS_PER_SHARD - 1) / TESTS_PER_SHARD )); [ "$s" -gt "$MAX_SHARDS" ] && s=$MAX_SHARDS; [ "$s" -lt 1 ] && s=1
+          echo "$n browser tests in $s shard(s)"
+          echo "shards=$(node -e "console.log(JSON.stringify(Array.from({length:$s},(_,i)=>i+1)))")" >> "$GITHUB_OUTPUT"
+      - run: tar -cf site-build.tar dist .build/manifests
+      - uses: actions/upload-artifact@v4
+        with:
+          name: site-build
+          path: site-build.tar
+          retention-days: 1
+          compression-level: 1
+
+  e2e:
+    needs: build
+    if: needs.build.outputs.shards != '[]' && needs.build.outputs.shards != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 60 # safety net only; a shard takes about 10 minutes
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: ${{ fromJSON(needs.build.outputs.shards) }}
+    # Playwright's own image has Chromium and its system libraries already installed.
+    # Keep the tag equal to @playwright/test in package.json (a unit test checks this).
+    container:
+      image: mcr.microsoft.com/playwright:v1.56.0-noble
+      options: --user 1001
+    env:
+      E2E_PREBUILT: "1"
+      E2E_KITS: ${{ needs.build.outputs.kits }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - uses: actions/download-artifact@v4
+        with:
+          name: site-build
+      - run: tar -xf site-build.tar && rm site-build.tar
+      - run: npx playwright test ${{ needs.build.outputs.specs }} --shard ${{ matrix.shard }}/${{ strategy.job-total }}
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report-${{ matrix.shard }}
+          path: playwright-report/
+          retention-days: 7
+
+  # One result for the whole run, so "check" stays the name to look for.
+  check:
+    needs: [static, build, e2e]
+    if: always() && (github.event_name == 'push' || !github.event.pull_request.draft)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - run: |
+          echo "static=${{ needs.static.result }} build=${{ needs.build.result }} e2e=${{ needs.e2e.result }}"
+          [ "${{ needs.static.result }}" = success ] && [ "${{ needs.build.result }}" = success ] \
+            && { [ "${{ needs.e2e.result }}" = success ] || [ "${{ needs.e2e.result }}" = skipped ]; }
+
+  promote:
+    needs: check
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.check.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      # Fast-forward only: if production has diverged from main, this fails and nothing deploys.
+      - run: git push origin "HEAD:refs/heads/production"

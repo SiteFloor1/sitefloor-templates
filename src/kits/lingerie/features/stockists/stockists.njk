@@ -1,0 +1,8 @@
+{#- Stockists (online brands): the shops that carry the brand, grouped by city. -#}
+{%- set sec = site.sections.stockists %}
+<section id="stockists" class="ls-stock"><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <ul class="st-list">
+    {%- for s in site.stockists %}<li><span class="st-city">{{ s.city }}</span>{% if s.url %}<a href="{{ s.url }}" target="_blank" rel="noopener">{{ s.name }}</a>{% else %}{{ s.name }}{% endif %}</li>{% endfor %}
+  </ul>
+</div></section>

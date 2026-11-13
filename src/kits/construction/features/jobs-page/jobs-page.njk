@@ -1,0 +1,14 @@
+{#- Projects: every finished project, each opening its own page; the map of districts follows when it is on. -#}
+{%- set p = site.projects %}
+{%- set ph = { title: p.title or "Recently *handed over*", intro: p.intro } %}
+{% include "kits/construction/partials/page-head.njk" %}
+<div class="wrap bd-pp">
+  <ul class="bd-pp-list">
+    {%- for x in p.items %}{% set f = x.photos[0] %}{% set t = site | buildTypeOf(x.type) %}
+    <li><a href="{{ x.id | href }}">
+      <img src="{{ f.src | img }}" alt="{{ f.alt }}" width="{{ f.width }}" height="{{ f.height }}"{% if loop.index > 2 %} loading="lazy"{% endif %} decoding="async"{% if f.position %} style="object-position:{{ f.position }}"{% endif %}>
+      <b>{{ x.place }}</b><span>{{ x.scope }}</span>{% if t or x.year %}<small>{{ t.name if t }}{% if t and x.year %} · {% endif %}{{ x.year if x.year }}</small>{% endif %}
+    </a></li>
+    {%- endfor %}
+  </ul>
+</div>

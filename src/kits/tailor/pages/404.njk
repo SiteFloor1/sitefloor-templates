@@ -1,0 +1,9 @@
+---
+layout: core/layouts/base.njk
+pageId: "404"
+permalink: 404.html
+title: Page not found
+---
+{%- set ph = { kicker: "Not found", title: "This page isn't here.", intro: "It may have moved. The cloth and the cutting room are on the home page." } %}
+{% include "kits/tailor/partials/page-head.njk" %}
+<p class="wrap tl-nf"><a class="tl-go" href="{{ 'index' | href }}">Back to the house</a></p>

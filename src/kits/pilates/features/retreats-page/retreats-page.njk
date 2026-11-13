@@ -1,0 +1,26 @@
+{#- Retreats: each one's place, dates, what's included, places and the studio's deposit link. A retreat that has
+    finished drops off (at the build, and in the browser after). A waiting list by the studio's own Google Form. -#}
+{%- set rt = site.retreats %}
+{%- set ph = rt %}
+{%- set list = rt.items | upcomingRetreats(build.today) %}
+{% include "kits/pilates/partials/page-head.njk" %}
+<section class="pl-ret" data-feature="retreats-page" aria-label="Retreats"><div class="wrap">
+  {%- if rt.photo %}<figure class="pl-ret-hero"><img src="{{ rt.photo.src | img }}" alt="{{ rt.photo.alt }}" width="{{ rt.photo.width }}" height="{{ rt.photo.height }}" fetchpriority="high" decoding="async">{% if rt.photo.caption %}<figcaption>{{ rt.photo.caption }}</figcaption>{% endif %}</figure>{% endif %}
+  <ol class="pl-ret-list">
+    {%- for r in list %}
+    <li class="pl-ret-i rv" data-to="{{ r.to }}">
+      <p class="pl-ret-d"><time datetime="{{ r.from }}">{{ r | retreatDates }}</time> · {{ r.place }}</p>
+      <h2 class="pl-ret-n">{% if r.days or r.rooms %}<a href="{{ ('retreat-' + r.id) | href }}">{{ r.name }}</a>{% else %}{{ r.name }}{% endif %}</h2>
+      <p class="pl-ret-x">{{ r.text }}</p>
+      <ul class="pl-ret-inc">{% for s in r.includes %}<li>{{ s }}</li>{% endfor %}</ul>
+      <p class="pl-ret-row">
+        <span>{% if r.price %}{{ r.price | gbpWhole }} per person{% elif site.mode == "demo" %}Demo: the studio sets the price{% endif %}{% if r.places %} · {{ r.places }} places{% endif %}</span>
+        {%- if r.days or r.rooms %}<a class="pl-ret-go" href="{{ ('retreat-' + r.id) | href }}">The days and the rooms</a>{% endif %}
+        {%- if r.depositLink %}<a class="pl-ret-go" href="{{ r.depositLink }}" target="_blank" rel="noopener"{% if site.mode == "demo" %} data-demo-note="On a live site this opens the studio's own Stripe page for the deposit. This demo's link is a Stripe test link, so nothing is charged."{% endif %}>Pay the deposit</a>{% endif %}
+      </p>
+    </li>
+    {%- endfor %}
+  </ol>
+  <p class="pl-ret-none" data-rt-none{% if list.length %} hidden{% endif %}>No retreats announced just now.{% if rt.formUrl %} Join the list to hear first.{% endif %}</p>
+  {%- if rt.formUrl %}<p class="pl-ret-join"><a href="{{ rt.formUrl }}" target="_blank" rel="noopener"{% if site.mode == "demo" %} data-demo-note="On a live site this opens the studio's own Google Form for the retreat list. This demo's form isn't real."{% endif %}>Join the retreat list</a></p>{% endif %}
+</div></section>

@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: afternoon-tea
+permalink: afternoon-tea.html
+feature: tea-page
+eleventyComputed:
+  title: "{{ site.teaPage.title | plain }}"
+  description: "Afternoon tea at {{ site.business.name }}, {{ site.location.locality }}: the stand, the teas, prices and allergens, and how to ask for a table."
+---
+{% include "kits/restaurant/features/tea-page/tea-page.njk" %}

@@ -1,0 +1,16 @@
+/* Events. Tokens only. */
+main section.evs { padding-block: clamp(30px, 4vw, 60px) clamp(80px, 10vw, 140px); }
+.ev-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.ev { display: grid; grid-template-columns: 110px minmax(0, 260px) minmax(0, 1fr); gap: clamp(16px, 3vw, 36px); align-items: start; padding: clamp(18px, 3vw, 28px); background: var(--card); color: var(--card-ink); }
+.ev:not(:has(.ev-img)) { grid-template-columns: 110px minmax(0, 1fr); }
+@media (max-width: 760px) { .ev, .ev:not(:has(.ev-img)) { grid-template-columns: 76px minmax(0, 1fr); } .ev-img { grid-column: 1 / -1; order: -1; } }
+.ev-date { margin: 0; display: grid; justify-items: start; line-height: 1; }
+.ev-date b { font-family: var(--font-display); font-weight: 400; font-size: clamp(48px, 6vw, 72px); }
+.ev-date span { font-size: 13px; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); margin-top: 6px; }
+.ev-date small { font-size: 12.5px; color: var(--dim); margin-top: 6px; }
+.ev-img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+.ev-body h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(26px, 3vw, 36px); line-height: 1.05; margin: 0 0 6px; }
+.ev-when { margin: 0 0 10px; color: var(--muted); font-size: 14px; }
+.ev-body > p { max-width: 60ch; }
+.ev-cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.ev-none { color: var(--muted); }

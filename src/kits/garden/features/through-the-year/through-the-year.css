@@ -1,0 +1,21 @@
+/* A garden through the year: one view, one photograph at a time, crossfading; the month scale under it. The photographs
+   are stacked from the start (the first one showing), so the script only fades between them and nothing ever moves.
+   Without JavaScript the first photograph and its caption show. */
+.gd-ty-stage { display: grid; }
+.gd-ty-f { grid-area: 1 / 1; margin: 0; }
+.gd-ty-f[data-ty-later] { visibility: hidden; }
+.gd-ty-f img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+.gd-ty-js .gd-ty-f { opacity: 0; visibility: hidden; transition: opacity 1.2s ease, visibility 0s 1.2s; }
+.gd-ty-js .gd-ty-f[data-ty-on] { opacity: 1; visibility: visible; transition: opacity 1.2s ease; }
+.gd-ty-cap { display: flex; flex-wrap: wrap; gap: 4px 20px; align-items: baseline; padding-top: 14px; }
+.gd-ty-mo { font-family: var(--font-display); font-style: italic; font-size: 30px; line-height: 1; }
+.gd-ty-line { color: var(--muted); }
+.gd-ty-scale { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); margin-top: 28px; border-top: 1px solid var(--text); }
+.gd-ty-tick { min-height: 44px; padding: 10px 0 0; border: 0; background: none; font: inherit; font-size: 15px; color: var(--muted); text-align: left; cursor: pointer; }
+.gd-ty-tick[aria-pressed="true"] { color: var(--text); box-shadow: inset 0 3px 0 var(--accent); font-style: italic; }
+.gd-ty-tick:hover { color: var(--text); }
+.gd-ty-gap { color: var(--line-2); cursor: default; }
+.gd-ty-where { margin: 20px 0 0; color: var(--muted); font-size: 15px; }
+@media (prefers-reduced-motion: reduce) { .gd-ty-js .gd-ty-f, .gd-ty-js .gd-ty-f[data-ty-on] { transition: none; } }
+/* the scale keeps its place before the script starts (nothing moves), and is only shown once it works */
+.gd-ty-scale[data-ty-wait] { visibility: hidden; }

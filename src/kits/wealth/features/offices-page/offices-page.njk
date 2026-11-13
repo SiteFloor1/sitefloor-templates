@@ -1,0 +1,18 @@
+{#- Discreet offices: each office's way in, the rooms, its time now, and the offer to meet at home or by video. -#}
+{%- set ph = { title: site.sections.office.title, intro: site.location.area } %}
+{% include "kits/wealth/partials/page-head.njk" %}
+<section class="wm-offp" data-feature="offices-page"><div class="wrap">
+  {%- for o in site.offices.items %}
+  <article class="wm-offp-o" id="{{ o.id }}">
+    <div class="wm-offp-t">
+      <h2>{{ o.name }}</h2>
+      <p class="wm-offp-a">{% if loop.first %}{{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}{% else %}{{ o.streetAddress }}, {{ o.locality }}{% endif %}</p>
+      <p class="wm-offp-now" data-js-only><b data-office-time="{{ loop.index0 }}">00:00</b> <span data-office-state="{{ loop.index0 }}"></span></p>
+      {%- if o.arrival %}<ul class="wm-le-l">{% for a in o.arrival %}<li>{{ a }}</li>{% endfor %}</ul>{% endif %}
+      <dl class="wm-offp-f">{% for f in o.facts %}<dt>{{ f.label }}</dt><dd>{{ f.text }}</dd>{% endfor %}</dl>
+      {%- if loop.first %}<p><a class="wm-go" href="{{ site.location | directions }}" target="_blank" rel="noopener">Directions</a></p>{% endif %}
+    </div>
+    {%- if o.photo %}<figure class="wm-offp-fig"><img src="{{ o.photo.src | img }}" alt="{{ o.photo.alt }}" width="{{ o.photo.width }}" height="{{ o.photo.height }}" loading="lazy" decoding="async"></figure>{% endif %}
+  </article>
+  {%- endfor %}
+</div></section>

@@ -1,0 +1,26 @@
+{#- Atelier header: the mark (three tier rules, the smallest on top) and the name in heavy type; the pages, then
+    Order and WhatsApp. On the home page it sits over the right-hand column only, beside the cake; elsewhere it runs
+    the full width. On phones, "Menu" opens the pages. -#}
+<header class="nav at-nav"><div class="wrap at-nav-in">
+  <a class="at-brand" href="{{ 'index' | href }}" aria-label="{{ site.business.name }}, home">
+    <span class="at-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+    {%- if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="{{ site.business.name }}" height="36">{% else %}<span class="at-word">{{ site.business.name }}</span>{% endif %}
+  </a>
+  <nav class="at-links" aria-label="Main">
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+  </nav>
+  <a class="at-wa" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">WhatsApp</a>
+  <button class="burger at-menu" type="button" aria-expanded="false" aria-controls="mnav"><span class="at-open">Menu</span><span class="at-close">Close</span></button>
+</div></header>
+<div class="mnav at-sheet" id="mnav" hidden>
+  <nav aria-label="Pages">
+    <a href="{{ 'index' | href }}"{% if pageId == "index" %} aria-current="page"{% endif %}>The cakes</a>
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+  </nav>
+  <p class="at-sheet-now" data-live-status><span class="dot" aria-hidden="true"></span> <span data-status-text>Studio hours</span></p>
+  <p class="at-sheet-addr">{{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}</p>
+</div>

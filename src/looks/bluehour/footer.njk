@@ -1,0 +1,20 @@
+{#- Blue hour footer: the deep blue of the evening. The name, what they do and the registers; the address and how to
+    reach them; the hours; the pages. The Sitefloor credit last. -#}
+<footer class="foot bh-foot"><div class="wrap bh-foot-in">
+  <div class="bh-foot-name">
+    <p class="bh-foot-word">{{ site.mark.word if site.mark else site.business.name }}</p>
+    <p class="bh-foot-what">{{ site.hero.kicker }}</p>
+    {%- if "registers" | enabled %}<ul class="bh-foot-regs">{% for r in site.registers %}<li><a href="{{ r.url }}" target="_blank" rel="noopener">{{ r.label }}</a></li>{% endfor %}</ul>{% endif %}
+  </div>
+  <address class="bh-foot-a">{{ site.location.streetAddress }}<br>{{ site.location.locality }} {{ site.location.postcode }}<br>
+    <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a>{% if site.contact.email %}<br><a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>{% endif %}</address>
+  <ul class="bh-foot-hours" aria-label="Opening hours">
+    {%- for row in site.hours | hoursRows %}<li data-day="{{ row.dayIndex }}"><span>{{ row.day }}</span> {{ row.label }}</li>{% endfor %}
+  </ul>
+  <nav class="bh-foot-links" aria-label="Footer">
+    <a href="{{ 'index' | href }}">Home</a>
+    {%- for item in site.nav | navItems(pageId) %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}>{{ item.label }}</a>{% endfor %}
+    <a href="{{ 'privacy' | href }}">Privacy</a>
+  </nav>
+  <p class="bh-foot-by"><a class="by" href="https://sitefloor.com" rel="noopener">Website by <b>Sitefloor</b></a></p>
+</div></footer>

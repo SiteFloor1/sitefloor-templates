@@ -1,0 +1,645 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Corbel Case Study</title>
+<meta name="description" content="How a Sitefloor site sells an electrician's best work, drawn as the lighting plan of a house: every light on the drawing is a feature of the site, and the page starts dark until you turn the dial.">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@200;400&family=Encode+Sans:wght@300;400;500&family=Manrope:wght@600;700&display=swap">
+<style>
+/* Layout: the lighting plan of a house. The page opens on the drawing film: Corbel's house at dusk as one framed view, with one rotary dimmer; turn it
+   and the photograph, and every light drawn further down the page, come up together. Below, a reflected ceiling plan:
+   each room is a page of Corbel's site and each light drawn in it is one of the site's features, numbered L01 to L17,
+   its symbol saying which plan it comes on. The chapters are the plan's schedule of fittings. The plans are three
+   positions on the dial: Low, Evening, Full. Ground: drafting film; the ink is Corbel's blue; the one warm colour is
+   the light itself. Type: Encode Sans Expanded, hairline and engraved; Encode Sans to read. */
+:root {
+  --film: #EDEFEA; --film-2: #E2E5DF; --night: #0C1322; --night-2: #152137;
+  --ink: #1C2B43; --soft: #56627A; --rule: rgba(28,43,67,.16); --rule-2: rgba(28,43,67,.32);
+  --bloom: #B3BFE6; --bloom-ink: #46559A;
+  --warm: #F3B062; --warm-2: #E58E33;
+  --lux: .72;
+  --display: "Encode Sans Expanded", "Helvetica Neue", Arial, sans-serif;
+  --body: "Encode Sans", "Helvetica Neue", Arial, sans-serif;
+  --brand: "Manrope", Arial, sans-serif;
+  --sf-paper: #FBFAF7; --sf-ink: #0E0F11; --sf-tomato: #E8613C; --sf-line: rgba(14,15,17,.12);
+  --s: clamp(80px, 10vw, 152px);
+  color-scheme: light;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--film); -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--film); color: var(--ink); font: 400 16px/1.6 var(--body); }
+img, video, svg { display: block; max-width: 100%; }
+a { color: inherit; }
+h1, h2, h3 { margin: 0; font-family: var(--display); font-weight: 200; letter-spacing: -.035em; line-height: 1; text-wrap: balance; }
+h2 em, h1 em { font-style: normal; color: var(--bloom-ink); }
+p { margin: 0; }
+:focus-visible { outline: 2px solid var(--bloom-ink); outline-offset: 3px; }
+.gut { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { width: min(1280px, 100%); margin-inline: auto; }
+.eng { font-family: var(--display); font-weight: 400; font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Sitefloor's bar, as on every case study */
+.sfbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--sf-paper); color: var(--sf-ink); border-bottom: 1px solid var(--sf-line); }
+.sfbar .wrap { display: flex; justify-content: space-between; align-items: center; height: 66px; gap: 16px; }
+.wm { display: flex; align-items: baseline; font-family: var(--brand); font-weight: 600; font-size: 24px; letter-spacing: -.045em; text-decoration: none; color: var(--sf-ink); }
+.wm svg { margin: 0 1px; overflow: visible; }
+.sfbar nav { display: flex; gap: 28px; font-family: var(--brand); font-size: 14px; font-weight: 600; }
+.sfbar nav a { text-decoration: none; color: var(--sf-ink); }
+.sfbar nav a[aria-current] { box-shadow: inset 0 -1.5px 0 var(--sf-ink); }
+.sfbtn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 20px; background: var(--sf-ink); color: var(--sf-paper); font: 700 12px var(--brand); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; }
+.sfbtn:hover { background: var(--sf-tomato); }
+@media (max-width: 760px) { .sfbar nav { display: none; } }
+@media (max-width: 420px) { .sfbar .sfbtn { display: none; } }
+
+/* ------------------------------------------------------------------ the switch: the house at dusk and one dial */
+.dusk { position: relative; isolation: isolate; background: var(--film); color: var(--ink); overflow-x: clip; }
+.dusk .wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); grid-template-areas: "title view" "dial view"; gap: 40px clamp(40px, 6vw, 96px); align-items: start; padding-block: clamp(36px, 4vw, 64px) clamp(56px, 7vw, 104px); }
+.dusk-t { grid-area: title; padding-top: 8px; }
+.dusk h1 { margin-top: 22px; font-size: clamp(44px, 6.2vw, 104px); line-height: .94; letter-spacing: -.05em; }
+.dusk h1 span { display: block; }
+.dusk h1 span + span { color: var(--bloom-ink); }
+.dusk-line { margin-top: 26px; max-width: 34ch; font-size: 16px; color: var(--soft); }
+/* the house as one view on the sheet: a thin frame, corner marks, a caption; its light follows the dial */
+.view { grid-area: view; position: relative; margin: 0; padding: 12px; border: 1px solid var(--rule-2); background: var(--film); }
+.view::before { content: ""; position: absolute; z-index: -1; inset: 8% -6% -10%; background: radial-gradient(closest-side, rgba(243,176,98,.55), rgba(243,176,98,0)); opacity: var(--lux); filter: blur(30px); pointer-events: none; }
+.view i { position: absolute; width: 14px; height: 14px; border: 0 solid var(--ink); }
+.view i:nth-of-type(1) { left: -8px; top: -8px; border-width: 1px 0 0 1px; } .view i:nth-of-type(2) { right: -8px; top: -8px; border-width: 1px 1px 0 0; }
+.view i:nth-of-type(3) { left: -8px; bottom: -8px; border-width: 0 0 1px 1px; } .view i:nth-of-type(4) { right: -8px; bottom: -8px; border-width: 0 1px 1px 0; }
+.dusk-ph { position: relative; aspect-ratio: 4 / 5; max-height: calc(100svh - 250px); min-height: 420px; width: 100%; overflow: hidden; background: var(--night); isolation: isolate; }
+.dusk-ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(calc(.3 + .78 * var(--lux))) saturate(calc(.35 + .65 * var(--lux))) contrast(calc(1.12 - .12 * var(--lux))); }
+.dusk-ph::after { content: ""; position: absolute; inset: 0; background: #0C1A3A; mix-blend-mode: color; opacity: calc(.75 * (1 - var(--lux))); }
+.view figcaption { display: flex; justify-content: space-between; gap: 16px; padding-top: 12px; color: var(--soft); }
+/* the dimmer: a plate, a knob, a light that says where it's set */
+.dial { grid-area: dial; display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-areas: "plate read" "plate hint"; align-items: end; gap: 6px 28px; }
+.dial .plate { grid-area: plate; } .dial .readout { grid-area: read; } .dial .dial-hint { grid-area: hint; align-self: start; }
+.plate { position: relative; width: 248px; height: 248px; display: grid; place-items: center; background: linear-gradient(145deg, #2B3A55, #172238); box-shadow: inset 0 0 0 1px rgba(255,255,255,.08), inset 0 1px 0 rgba(255,255,255,.12), 0 40px 80px -40px rgba(0,0,0,.8); }
+.plate::before, .plate::after { content: ""; position: absolute; left: 50%; width: 9px; height: 9px; margin-left: -4.5px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #8D97AB, #3A465E); }
+.plate::before { top: 14px; } .plate::after { bottom: 14px; }
+.ticks { position: absolute; inset: 22px; }
+.knob { position: relative; width: 150px; height: 150px; border-radius: 50%; border: 0; padding: 0; cursor: grab; touch-action: none; background: radial-gradient(circle at 38% 30%, #485673 0, #26324A 55%, #18223A 100%); box-shadow: 0 18px 30px -12px rgba(0,0,0,.75), inset 0 1px 0 rgba(255,255,255,.16), inset 0 -2px 6px rgba(0,0,0,.5); }
+.knob:active { cursor: grabbing; }
+.knob .grip { position: absolute; inset: 0; border-radius: 50%; background: repeating-conic-gradient(from 0deg, rgba(255,255,255,.05) 0 2deg, transparent 2deg 6deg); transform: rotate(var(--turn, 0deg)); }
+.knob .mark { position: absolute; left: 50%; top: 12px; width: 6px; height: 6px; margin-left: -3px; border-radius: 50%; background: var(--bloom); box-shadow: 0 0 calc(4px + 14px * var(--lux)) var(--bloom); transform-origin: 3px 63px; transform: rotate(var(--turn, 0deg)); }
+.knob:focus-visible { outline: 2px solid var(--bloom); outline-offset: 8px; }
+.readout { display: flex; gap: 14px; align-items: baseline; color: var(--soft); }
+.readout b { font-family: var(--display); font-weight: 200; font-size: 30px; letter-spacing: -.02em; color: var(--ink); font-variant-numeric: tabular-nums; min-width: 3.2ch; text-align: right; }
+.dial-hint { color: var(--soft); font-size: 12px; }
+@media (max-width: 860px) {
+  .dusk .wrap { grid-template-columns: minmax(0, 1fr); grid-template-areas: "title" "view" "dial"; gap: 36px; padding-top: 36px; }
+  .view { padding: 8px; } .dusk-ph { aspect-ratio: 4 / 3; min-height: 0; } .view figcaption span + span { display: none; }
+  .plate { width: 168px; height: 168px; } .knob { width: 104px; height: 104px; } .knob .mark { transform-origin: 3px 40px; }
+  .dial { gap: 6px 20px; }
+}
+
+/* ------------------------------------------------------------------ the drawing */
+.plan { padding-block: var(--s) calc(var(--s) * .6); }
+.plan-h { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 24px 64px; align-items: end; margin-bottom: clamp(32px, 4vw, 56px); }
+.plan-h h2 { font-size: clamp(36px, 5vw, 80px); }
+.plan-h p { color: var(--soft); max-width: 46ch; }
+.sheet { position: relative; display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: 0; border: 1px solid var(--rule-2); background: var(--film); }
+.sheet::before { content: ""; position: absolute; inset: 8px; border: 1px solid var(--rule); pointer-events: none; }
+.draw { padding: clamp(14px, 2vw, 28px); border-right: 1px solid var(--rule-2); }
+.draw svg { width: 100%; height: auto; }
+.draw .wall { fill: none; stroke: var(--ink); stroke-width: 6; }
+.draw .iwall { fill: none; stroke: var(--ink); stroke-width: 3; }
+.draw .door { fill: none; stroke: var(--ink); stroke-width: 1; }
+.draw .room { font-family: var(--display); font-size: 11px; letter-spacing: .2em; fill: var(--soft); text-transform: uppercase; }
+.draw .page { font-family: var(--body); font-size: 12px; fill: var(--ink); }
+.draw .sw { fill: none; stroke: var(--ink); stroke-width: 1; stroke-dasharray: 4 4; opacity: .55; }
+.draw .fit { cursor: pointer; }
+.draw .fit .pool { fill: url(#pool); opacity: calc(var(--lux) * .55); transition: opacity .6s; }
+.draw .fit .sym { fill: var(--film); stroke: var(--ink); stroke-width: 1.6; }
+.draw .fit .x { stroke: var(--ink); stroke-width: 1.3; }
+.draw .fit .dot { fill: var(--ink); }
+.draw .fit text { font-family: var(--display); font-size: 10px; letter-spacing: .12em; fill: var(--ink); }
+.draw .fit:hover .pool, .draw .fit:focus .pool, .draw .fit.on .pool { opacity: calc(.35 + var(--lux) * .65); }
+.draw .fit:hover .sym, .draw .fit.on .sym { fill: #FFF6E6; }
+.draw .fit:focus { outline: none; } .draw .fit:focus-visible .sym { stroke: var(--bloom-ink); stroke-width: 3; }
+.key { padding: clamp(18px, 2vw, 28px); display: grid; align-content: start; gap: 18px; }
+.key-sym { display: grid; gap: 10px; padding-bottom: 18px; border-bottom: 1px solid var(--rule); }
+.key-sym li, .sched li { list-style: none; }
+.key-sym ul, .sched { margin: 0; padding: 0; }
+.key-sym li { display: flex; gap: 12px; align-items: center; font-size: 14px; }
+.key-sym svg { width: 26px; height: 26px; flex: none; }
+.sched { display: grid; }
+.sched a { display: grid; grid-template-columns: 3.4em minmax(0, 1fr) auto; gap: 10px; align-items: baseline; padding: 7px 0; border-bottom: 1px solid var(--rule); text-decoration: none; font-size: 14px; }
+.sched a:hover, .sched a.on { color: var(--bloom-ink); }
+.sched .eng { font-size: 9.5px; color: var(--soft); }
+.sched .code { font-family: var(--display); font-size: 11px; letter-spacing: .14em; }
+.title-block { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--rule-2); grid-column: 1 / -1; }
+.title-block div { padding: 10px 14px; border-right: 1px solid var(--rule); font-size: 13px; }
+.title-block div:last-child { border-right: 0; }
+.title-block .eng { display: block; margin-bottom: 2px; font-size: 9px; color: var(--soft); }
+@media (max-width: 960px) { .plan-h, .sheet { grid-template-columns: minmax(0, 1fr); } .draw { border-right: 0; border-bottom: 1px solid var(--rule-2); } .title-block { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* ------------------------------------------------------------------ the schedule of fittings (chapters) */
+.fitting { padding-block: var(--s); border-top: 1px solid var(--rule-2); overflow-x: clip; }
+.showpiece, .plans, .speed, .close, .plan { overflow-x: clip; }
+.fitting .wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 40px clamp(32px, 6vw, 96px); align-items: center; }
+.fitting.flip .wrap > .say { order: 2; }
+.tag { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-bottom: 26px; }
+.tag svg { width: 44px; height: 44px; }
+.tag .code { font-family: var(--display); font-weight: 200; font-size: 34px; letter-spacing: -.02em; }
+.tag .eng { color: var(--soft); }
+.say h2 { font-size: clamp(32px, 4.2vw, 64px); margin-bottom: 26px; }
+.say p + p { margin-top: 14px; }
+.say p { max-width: 52ch; }
+.say strong { font-weight: 500; }
+.lit { position: relative; display: grid; justify-items: center; }
+.lit::before { content: ""; position: absolute; z-index: 0; left: 50%; top: 48%; width: min(760px, 120%); aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; background: radial-gradient(circle, rgba(243,176,98,.62) 0, rgba(243,176,98,.22) 36%, rgba(243,176,98,0) 68%); opacity: var(--lux); pointer-events: none; transition: opacity .6s; }
+.phone { position: relative; z-index: 1; width: min(340px, 78vw); margin: 0; padding: 10px; border-radius: 46px; background: #10161F; box-shadow: 0 50px 80px -46px rgba(12,19,34,.7), inset 0 0 0 1px rgba(255,255,255,.08); }
+.phone video, .phone img { width: 100%; height: auto; aspect-ratio: 390 / 844; object-fit: cover; border-radius: 36px; background: var(--night-2); }
+.phone figcaption, .wide figcaption, .still figcaption { margin-top: 16px; text-align: center; font-size: 13px; color: var(--soft); }
+.pause { position: absolute; z-index: 2; right: 22px; top: 22px; display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 12px; border: 0; background: rgba(12,19,34,.74); color: #EEF0EA; font: 500 12px var(--body); cursor: pointer; }
+.pause svg { width: 12px; height: 12px; }
+.wide { position: relative; z-index: 1; width: 100%; margin: 0; }
+.wide video, .wide img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; background: var(--night); box-shadow: 0 50px 90px -50px rgba(12,19,34,.75); }
+.showpiece { padding-block: 0 var(--s); }
+.showpiece .lit::before { width: 130%; }
+.stills { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.still { margin: 0; position: relative; }
+.still img { width: 100%; height: auto; aspect-ratio: 390 / 844; object-fit: cover; object-position: top; border-radius: 26px; box-shadow: 0 40px 70px -46px rgba(12,19,34,.7); }
+@media (max-width: 860px) { .fitting .wrap { grid-template-columns: minmax(0, 1fr); } .fitting.flip .wrap > .say { order: 0; } .stills { grid-template-columns: minmax(0, 1fr); max-width: 340px; margin-inline: auto; } }
+
+/* live: the fault guide and the estimate, with the demo's own words and figures */
+.panel { position: relative; z-index: 1; width: min(560px, 100%); padding: clamp(20px, 3vw, 32px); background: var(--night-2); color: #EEF0EA; box-shadow: 0 50px 80px -46px rgba(12,19,34,.75); }
+.panel .eng { color: rgba(238,240,234,.66); }
+.picks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; margin: 14px 0 20px; }
+.picks button { min-height: 46px; padding: 0 12px; border: 0; background: #243653; color: #EEF0EA; font: 400 14px var(--body); text-align: left; cursor: pointer; box-shadow: inset 0 0 0 1px rgba(255,255,255,.08); }
+.picks button[aria-pressed="true"] { background: #EEF0EA; color: var(--night-2); }
+.tell { margin: 0; padding: 0 0 0 1.3em; display: grid; gap: 8px; font-size: 15px; }
+.safe { margin-top: 20px; padding: 14px 16px; background: #243653; font-size: 14px; }
+.safe b { font-weight: 500; }
+.est-row { display: grid; gap: 8px; margin-bottom: 16px; }
+.seg { display: flex; flex-wrap: wrap; gap: 6px; }
+.seg button { min-height: 42px; padding: 0 14px; border: 0; background: #243653; color: #EEF0EA; font: 400 14px var(--body); cursor: pointer; box-shadow: inset 0 0 0 1px rgba(255,255,255,.08); }
+.seg button[aria-pressed="true"] { background: #EEF0EA; color: var(--night-2); }
+.beds { display: flex; align-items: center; gap: 14px; }
+.beds input { flex: 1; accent-color: var(--bloom); }
+.beds output { min-width: 2ch; font-family: var(--display); font-size: 22px; font-weight: 200; }
+.range { margin-top: 10px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.14); }
+.range b { display: block; font-family: var(--display); font-weight: 200; font-size: clamp(30px, 4vw, 46px); letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+.range small { display: block; margin-top: 6px; font-size: 13px; color: rgba(238,240,234,.66); }
+
+/* ------------------------------------------------------------------ the plans: three positions on the dial */
+.plans { padding-block: var(--s); background: var(--night); color: #EEF0EA; }
+.plans-h { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 24px 64px; align-items: end; margin-bottom: clamp(40px, 5vw, 64px); }
+.plans-h h2 { font-size: clamp(36px, 5vw, 80px); }
+.plans-h h2 em { color: var(--bloom); }
+.plans-h p { color: rgba(238,240,234,.75); max-width: 46ch; }
+.cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.card { position: relative; overflow: hidden; padding: 28px; background: var(--night-2); box-shadow: inset 0 0 0 1px rgba(255,255,255,.08); }
+.card::before { content: ""; position: absolute; left: 50%; top: -40%; width: 160%; aspect-ratio: 1; transform: translateX(-50%); border-radius: 50%; background: radial-gradient(circle, rgba(243,176,98,.55) 0, rgba(243,176,98,0) 60%); opacity: calc(var(--level) * (.4 + .6 * var(--lux))); pointer-events: none; }
+.card > * { position: relative; }
+.mini { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; }
+.mini svg { width: 56px; height: 56px; }
+.card h3 { font-size: 30px; }
+.card .eng { color: rgba(238,240,234,.66); }
+.pr { margin: 18px 0 16px; font-family: var(--display); font-weight: 200; font-size: 34px; letter-spacing: -.02em; }
+.pr small { font-family: var(--body); font-size: 14px; letter-spacing: 0; color: rgba(238,240,234,.7); }
+.card ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; font-size: 14px; }
+.card li { padding-left: 18px; position: relative; }
+.card li::before { content: ""; position: absolute; left: 0; top: .58em; width: 6px; height: 6px; border-radius: 50%; background: var(--warm); opacity: calc(.4 + .6 * var(--lux)); }
+.small { margin-top: 28px; max-width: 80ch; font-size: 14px; color: rgba(238,240,234,.7); }
+@media (max-width: 960px) { .plans-h, .cards { grid-template-columns: minmax(0, 1fr); } }
+
+/* ------------------------------------------------------------------ the speed: from switch to light */
+.speed { padding-block: var(--s); }
+.speed-h { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 24px 64px; align-items: end; margin-bottom: 40px; }
+.speed-h h2 { font-size: clamp(36px, 5vw, 80px); }
+.speed-h p { color: var(--soft); max-width: 46ch; }
+.tests { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--rule-2); }
+.tests div { padding: 22px 20px 22px 0; border-bottom: 1px solid var(--rule); }
+.tests div + div { padding-left: 20px; border-left: 1px solid var(--rule); }
+.tests .eng { display: block; color: var(--soft); font-size: 9.5px; margin-bottom: 10px; }
+.tests b { font-family: var(--display); font-weight: 200; font-size: clamp(30px, 3.6vw, 52px); letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+.tests p { margin-top: 6px; font-size: 13px; color: var(--soft); }
+@media (max-width: 860px) { .tests { grid-template-columns: repeat(2, minmax(0, 1fr)); } .tests div:nth-child(odd) { padding-left: 0; border-left: 0; } .speed-h { grid-template-columns: minmax(0, 1fr); } }
+
+/* ------------------------------------------------------------------ the close */
+.close { padding-block: var(--s); border-top: 1px solid var(--rule-2); }
+.close .wrap { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: 40px clamp(32px, 6vw, 96px); align-items: center; }
+.close h2 { font-size: clamp(44px, 6.4vw, 104px); }
+.close p { margin-top: 24px; max-width: 46ch; color: var(--soft); }
+.acts { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.btn { display: inline-flex; align-items: center; min-height: 50px; padding: 0 26px; background: var(--ink); color: var(--film); font: 500 15px var(--body); text-decoration: none; }
+.btn:hover { background: var(--bloom-ink); }
+.btn.line { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.mail { display: block; margin-top: 18px; font-size: 14px; color: var(--soft); }
+.close-ph { margin: 0; position: relative; }
+.close-ph img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+@media (max-width: 860px) { .close .wrap { grid-template-columns: minmax(0, 1fr); } }
+
+footer { background: var(--film-2); color: var(--soft); font-size: 13px; line-height: 1.6; border-top: 1px solid var(--rule); }
+footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px 32px; padding-block: 28px; }
+footer p { max-width: 100ch; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="sfbar gut"><div class="wrap">
+  <a class="wm" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su" aria-label="Sitefloor home">sitefl<svg width="28" height="14" viewBox="0 0 42 21" aria-hidden="true"><rect x="1.9" y="1.9" width="38.2" height="17.2" rx="8.6" fill="none" stroke="#0E0F11" stroke-width="3.8"/><circle cx="31.5" cy="10.5" r="5.2" fill="#E8613C"/></svg>r</a>
+  <nav aria-label="Main"><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#live">Features</a><a href="#top" aria-current="page">Work</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#pricing">Pricing</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#guides">Guides</a></nav>
+  <a class="sfbtn" href="#mockup"><span>Free mockup</span><span aria-hidden="true">→</span></a>
+</div></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <radialGradient id="pool"><stop offset="0" stop-color="#F3B062" stop-opacity=".95"/><stop offset=".45" stop-color="#F3B062" stop-opacity=".35"/><stop offset="1" stop-color="#F3B062" stop-opacity="0"/></radialGradient>
+  </defs>
+  <!-- the drawing's three symbols: a downlight (Starter), a luminaire (Plus), a decorative pendant (Signature) -->
+  <symbol id="s-starter" viewBox="-16 -16 32 32"><circle r="11" fill="var(--film, #EDEFEA)" stroke="currentColor" stroke-width="1.6"/><circle r="3" fill="currentColor"/></symbol>
+  <symbol id="s-plus" viewBox="-16 -16 32 32"><circle r="11" fill="var(--film, #EDEFEA)" stroke="currentColor" stroke-width="1.6"/><path d="M-7.8 -7.8 7.8 7.8M7.8 -7.8 -7.8 7.8" stroke="currentColor" stroke-width="1.3"/></symbol>
+  <symbol id="s-signature" viewBox="-16 -16 32 32"><circle r="11" fill="var(--film, #EDEFEA)" stroke="currentColor" stroke-width="1.6"/><circle r="6" fill="currentColor"/><path d="M0 -15V-11M0 11V15M-15 0H-11M11 0H15M-10.6 -10.6-7.8 -7.8M7.8 7.8 10.6 10.6M10.6 -10.6 7.8 -7.8M-7.8 7.8-10.6 10.6" stroke="currentColor" stroke-width="1.3"/></symbol>
+</svg>
+
+<main id="top">
+
+<section class="dusk gut" aria-labelledby="h1">
+  <div class="wrap">
+    <figure class="view"><i></i><i></i><i></i><i></i>
+      <div class="dusk-ph"><picture><source media="(min-width:861px)" srcset="media/evening-tall.webp" width="900" height="1125"><img src="media/evening-wide.webp" width="1920" height="1080" alt="Corbel's demo house at dusk, its rooms and garden lit"></picture></div>
+      <figcaption><span class="eng">View 01 · The house at dusk</span><span class="eng">Corbel's home page</span></figcaption>
+    </figure>
+    <div class="dusk-t">
+      <p class="eng">Case study · Electricians and lighting designers</p>
+      <h1 id="h1"><span>Corbel</span><span>Light &amp; Power</span></h1>
+      <p class="dusk-line">A lighting plan for an electrician's website. Turn the dial: the house and every light drawn below are on one circuit.</p>
+    </div>
+    <div class="dial">
+      <div class="plate">
+        <svg class="ticks" viewBox="-100 -100 200 200" aria-hidden="true" id="ticks"></svg>
+        <button class="knob" type="button" role="slider" aria-label="Dimmer for this page" aria-valuemin="0" aria-valuemax="100" aria-valuenow="72" aria-valuetext="Evening, 72 per cent" id="knob"><span class="grip"></span><span class="mark"></span></button>
+      </div>
+      <p class="readout"><b id="lv">72</b><span class="eng" id="lv-name">Evening</span></p>
+      <p class="dial-hint">Drag round, or use the arrow keys.</p>
+    </div>
+  </div>
+</section>
+
+<section class="plan gut" aria-labelledby="h-plan"><div class="wrap">
+  <div class="plan-h">
+    <h2 id="h-plan">The lighting plan <em>of a website.</em></h2>
+    <p>Each room is one of Corbel's pages. Each light drawn in it is something the site does, numbered as an electrician numbers fittings, its symbol showing which plan it comes on. Tap one.</p>
+  </div>
+  <div class="sheet">
+    <div class="draw">
+      <svg viewBox="0 0 1000 640" role="group" aria-labelledby="draw-t" id="draw">
+        <title id="draw-t">A floor plan of Corbel's site: seven rooms, one per page, with seventeen lights drawn in them, each a feature</title>
+        <rect class="wall" x="40" y="40" width="920" height="560"/>
+        <path class="iwall" d="M420 40V300M420 330V360M700 40V160M700 190V360M40 360H150M180 360H520M550 360H960M300 360V600M620 360V470M620 500V600M760 360V600"/>
+        <path class="door" d="M420 300A30 30 0 0 1 450 330M700 160A30 30 0 0 0 730 190M150 360A30 30 0 0 0 180 390M520 360A30 30 0 0 1 550 390M620 470A30 30 0 0 0 650 500M850 600V570A30 30 0 0 1 880 600"/>
+        <g id="rooms">
+          <text class="room" x="62" y="72">Hall</text><text class="page" x="62" y="90">Home page</text>
+          <text class="room" x="442" y="72">Living room</text><text class="page" x="442" y="90">Lighting</text>
+          <text class="room" x="722" y="72">Garage</text><text class="page" x="722" y="90">Car chargers</text>
+          <text class="room" x="62" y="392">Study</text><text class="page" x="62" y="410">Your project</text>
+          <text class="room" x="322" y="392">Gallery</text><text class="page" x="322" y="410">Projects</text>
+          <text class="room" x="642" y="392">Board</text><text class="page" x="642" y="410">Your home</text>
+          <text class="room" x="782" y="392">Porch</text><text class="page" x="782" y="410">Plan your visit</text>
+        </g>
+        <g id="wires"></g>
+        <g id="fits"></g>
+      </svg>
+    </div>
+    <div class="key">
+      <div class="key-sym">
+        <p class="eng">Symbols</p>
+        <ul>
+          <li><svg viewBox="-16 -16 32 32" style="color:var(--ink)"><use href="#s-starter" x="-16" y="-16" width="32" height="32"/></svg>Downlight: on Starter and up</li>
+          <li><svg viewBox="-16 -16 32 32" style="color:var(--ink)"><use href="#s-plus" x="-16" y="-16" width="32" height="32"/></svg>Luminaire: on Plus and Signature</li>
+          <li><svg viewBox="-16 -16 32 32" style="color:var(--ink)"><use href="#s-signature" x="-16" y="-16" width="32" height="32"/></svg>Pendant: on Signature</li>
+        </ul>
+      </div>
+      <p class="eng">Schedule of fittings</p>
+      <ul class="sched" id="sched"></ul>
+    </div>
+    <div class="title-block">
+      <div><span class="eng">Client</span>Corbel Light &amp; Power</div>
+      <div><span class="eng">Site</span>Electricians, North London</div>
+      <div><span class="eng">Drawn by</span>Sitefloor</div>
+      <div><span class="eng">Sheet</span>1 of 1 · Not to scale</div>
+    </div>
+  </div>
+</div></section>
+
+<section class="fitting gut" id="c-keypad" aria-labelledby="h-c1"><div class="wrap">
+  <div class="say">
+    <div class="tag"><svg viewBox="-16 -16 32 32"><use href="#s-signature" x="-16" y="-16" width="32" height="32"/></svg><span class="code">L01</span><span class="eng">Hall · Home page · Signature</span></div>
+    <h2 id="h-c1">One keypad, <em>three evenings.</em></h2>
+    <p><strong>The first thing anyone sees is the house itself, at dusk, edge to edge.</strong> Beside it sit three engraved keys: Evening, Cinema and Away. Each one swaps the photograph for the same house in that scene, with one line saying what the scene does.</p>
+    <p>It sells what an electrician actually leaves behind. Nobody buys cable; they buy a house that looks like this at eight o'clock.</p>
+  </div>
+  <div class="lit">
+    <figure class="phone"><video id="v-keypad" data-clip muted playsinline loop preload="none" poster="media/keypad-poster.jpg" width="780" height="1688" aria-label="Corbel's home page on a phone: the house at dusk, and the keys Evening, Cinema and Away changing the photograph"><source src="media/keypad.mp4" type="video/mp4"></video><button class="pause" type="button" data-pause="v-keypad" data-name="keypad clip"><svg viewBox="0 0 12 12" aria-hidden="true"></svg><span>Pause</span></button><figcaption>Evening, Cinema, Away</figcaption></figure>
+  </div>
+</div></section>
+
+<section class="showpiece gut" id="c-house" aria-labelledby="h-c3"><div class="wrap">
+  <div class="say" style="max-width: 760px; margin-bottom: 40px">
+    <div class="tag"><svg viewBox="-16 -16 32 32"><use href="#s-signature" x="-16" y="-16" width="32" height="32"/></svg><span class="code">L03</span><span class="eng">Hall · Home page · Signature</span></div>
+    <h2 id="h-c3">Light the house, <em>room by room.</em></h2>
+    <p><strong>Further down the home page, a whole house in 3D waits in the dark,</strong> its garden and pool lit. One tap and it comes on: the landing first, then the living room, the kitchen, the glass garden room, the floor above, the cinema below. Lights warm as they dim, the way good fittings do.</p>
+    <p>Every light drawn is one Corbel lists, at Corbel's own prices. Tap a room to light it and the camera goes there. The total of everything lit sits in the corner, ready to send on WhatsApp. Nothing heavy loads until the tap.</p>
+  </div>
+  <div class="lit">
+    <figure class="wide"><video id="v-house" data-clip muted playsinline loop preload="none" poster="media/house-poster.jpg" width="960" height="540" aria-label="The house in 3D on Corbel's home page: a glass house at blue hour lights up room by room, then the Cinema scene dims it for a film"><source src="media/house-desk.mp4" type="video/mp4"></video><button class="pause" type="button" data-pause="v-house" data-name="house in 3D clip"><svg viewBox="0 0 12 12" aria-hidden="true"></svg><span>Pause</span></button><figcaption>The house in 3D, from the first tap to the Cinema key</figcaption></figure>
+  </div>
+</div></section>
+
+<section class="fitting flip gut" id="c-reasons" aria-labelledby="h-c2"><div class="wrap">
+  <div class="say">
+    <div class="tag"><svg viewBox="-16 -16 32 32"><use href="#s-plus" x="-16" y="-16" width="32" height="32"/></svg><span class="code">L02</span><span class="eng">Hall · Home page · Plus</span></div>
+    <h2 id="h-c2">Every light <em>has a reason.</em></h2>
+    <p><strong>A finished room, with each light numbered on the photograph.</strong> Tap a number and the fitting, why it's there, its scene, its colour and how it's controlled appear beside it, in Corbel's words.</p>
+    <p>It's the conversation a lighting designer has on a first visit, already had. People arrive knowing why a wall glows instead of a ceiling glaring.</p>
+    <p>Below it, the rooms at night (a kitchen, a living room, a cinema, a bathroom), each with its scene and what was done. (Every light's reason on Plus; the lit rooms on Starter, as L04.)</p>
+  </div>
+  <div class="lit">
+    <figure class="phone"><video id="v-reasons" data-clip muted playsinline loop preload="none" poster="media/reasons-poster.jpg" width="780" height="1688" aria-label="Corbel's home page on a phone: numbered lights on a photograph of a garden room, each opening the fitting and its reason"><source src="media/reasons.mp4" type="video/mp4"></video><button class="pause" type="button" data-pause="v-reasons" data-name="lights clip"><svg viewBox="0 0 12 12" aria-hidden="true"></svg><span>Pause</span></button><figcaption>Four lights, four reasons</figcaption></figure>
+  </div>
+</div></section>
+
+<section class="fitting gut" id="c-fault" aria-labelledby="h-c6"><div class="wrap">
+  <div class="say">
+    <div class="tag"><svg viewBox="-16 -16 32 32"><use href="#s-starter" x="-16" y="-16" width="32" height="32"/></svg><span class="code">L06</span><span class="eng">Hall · Home page · Starter</span></div>
+    <h2 id="h-c6">Something's wrong? <em>Tell us this.</em></h2>
+    <p><strong>The guide never says how to fix anything.</strong> Pick what happened and it lists what Corbel needs to hear when you call, with one safety line, and the message is ready for WhatsApp. The emergency number sits above every page.</p>
+    <p>The site won't take a repair instruction: wording that tells someone to reset, swap or switch something back on is refused before it can be published.</p>
+  </div>
+  <div class="lit">
+    <div class="panel" id="fault">
+      <p class="eng">Try it: Corbel's own guide</p>
+      <div class="picks" role="group" aria-label="What's happened" id="picks"></div>
+      <p class="eng" style="margin-bottom:10px">What to tell us when you call</p>
+      <ol class="tell" id="tell" aria-live="polite"></ol>
+      <p class="safe" id="safe"></p>
+    </div>
+  </div>
+</div></section>
+
+<section class="fitting flip gut" id="c-ev" aria-labelledby="h-c10"><div class="wrap">
+  <div class="say">
+    <div class="tag"><svg viewBox="-16 -16 32 32"><use href="#s-plus" x="-16" y="-16" width="32" height="32"/></svg><span class="code">L10</span><svg viewBox="-16 -16 32 32"><use href="#s-signature" x="-16" y="-16" width="32" height="32"/></svg><span class="code">L11</span><span class="eng">Garage · Car chargers</span></div>
+    <h2 id="h-c10">Will a charger <em>go on my drive?</em></h2>
+    <p><strong>Four answers give a straight verdict:</strong> a standard install at Corbel's price, a survey first and why, or not as a home install. A street space is never a yes. The grant link goes to gov.uk and never names an amount. (Plus.)</p>
+    <p>On Signature the drive comes in 3D: slide the charger along the wall and the cable from the fuse board, the lead to the car's port and the price all follow, from Corbel's own figures.</p>
+  </div>
+  <div class="lit">
+    <figure class="wide"><video id="v-ev" data-clip muted playsinline loop preload="none" poster="media/ev-poster.jpg" width="960" height="540" aria-label="The charger on a driveway in 3D: the charger slides along a brick wall and the cable run and lead are measured as it moves"><source src="media/ev-desk.mp4" type="video/mp4"></video><button class="pause" type="button" data-pause="v-ev" data-name="charger in 3D clip"><svg viewBox="0 0 12 12" aria-hidden="true"></svg><span>Pause</span></button><figcaption>The charger, moved along the wall</figcaption></figure>
+  </div>
+</div></section>
+
+<section class="fitting gut" id="c-project" aria-labelledby="h-c14"><div class="wrap">
+  <div class="say">
+    <div class="tag"><svg viewBox="-16 -16 32 32"><use href="#s-plus" x="-16" y="-16" width="32" height="32"/></svg><span class="code">L12 · L13</span><svg viewBox="-16 -16 32 32"><use href="#s-signature" x="-16" y="-16" width="32" height="32"/></svg><span class="code">L14</span><span class="eng">Study · Your project</span></div>
+    <h2 id="h-c14">The whole house, <em>roughly.</em></h2>
+    <p><strong>Before anyone visits, a range from Corbel's own figures.</strong> The kind of home, the bedrooms and the work give a low and a high, rounded outwards, never a single price. (Signature.)</p>
+    <p>Beside it, how a job runs from first visit to certificates, and "Before you call": four answers and a photo of the fuse board in one tidy WhatsApp message, so the first visit can bring a quote. (Plus.)</p>
+  </div>
+  <div class="lit">
+    <div class="panel" id="est">
+      <p class="eng">Try it: the demo's own figures</p>
+      <div class="est-row" style="margin-top:14px"><span class="eng">The home</span><div class="seg" id="homes"></div></div>
+      <div class="est-row"><span class="eng">Bedrooms</span><label class="beds"><span class="sr">Bedrooms</span><input type="range" min="1" max="7" step="1" value="3" id="beds"><output id="beds-o">3</output></label></div>
+      <div class="est-row"><span class="eng">The work</span><div class="seg" id="works"></div></div>
+      <p class="range" aria-live="polite"><b id="range">£6,500 – £8,700</b><small>Likely to come to, before a visit. The survey sets the price.</small></p>
+    </div>
+  </div>
+</div></section>
+
+<section class="fitting flip gut" id="c-light" aria-labelledby="h-c8"><div class="wrap">
+  <div class="say">
+    <div class="tag"><svg viewBox="-16 -16 32 32"><use href="#s-plus" x="-16" y="-16" width="32" height="32"/></svg><span class="code">L08 · L09 · L15</span><span class="eng">Living room, gallery · Plus</span></div>
+    <h2 id="h-c8">A room, <em>designed on the phone.</em></h2>
+    <p><strong>Choose a room, its size and the layers of light</strong>, and the fittings and the price come from Corbel's own list, with a keypad added once there's more than one layer. Under it, a fader moves between the client's own photographs of one room, low to full.</p>
+    <p>The projects page files every finished job by kind of work, each with where it is and what was done, so a period house finds the period houses.</p>
+  </div>
+  <div class="lit">
+    <figure class="phone"><img src="media/designer.jpg" width="780" height="1688" loading="lazy" alt="Corbel's lighting page on a phone: a room, its size and the layers of light, with each fitting and the price"><figcaption>The room designer</figcaption></figure>
+  </div>
+</div></section>
+
+<section class="fitting gut" id="c-board" aria-labelledby="h-c16"><div class="wrap" style="grid-template-columns: minmax(0, 1fr)">
+  <div class="say" style="max-width: 760px">
+    <div class="tag"><svg viewBox="-16 -16 32 32"><use href="#s-starter" x="-16" y="-16" width="32" height="32"/></svg><span class="code">L05 · L17</span><svg viewBox="-16 -16 32 32"><use href="#s-signature" x="-16" y="-16" width="32" height="32"/></svg><span class="code">L16</span><span class="eng">Board, porch</span></div>
+    <h2 id="h-c16">The paperwork, <em>and the way in.</em></h2>
+    <p><strong>The services read as the chart inside a fuse board's door</strong>, each circuit opening to what's included, with the registers beside them, each linked to the scheme's own public register (Starter). A homeowner's certificates come up by the code Corbel sent, with the next inspection and a reminder for the calendar (Signature). Plan your visit reads like a schedule, the week drawn as a time switch (Starter).</p>
+  </div>
+  <div class="stills">
+    <figure class="still"><img src="media/circuits.jpg" width="780" height="1688" loading="lazy" alt="Corbel's services as a fuse board's circuit chart on a phone, one circuit open"><figcaption>The circuit chart and registers</figcaption></figure>
+    <figure class="still"><img src="media/certs.jpg" width="780" height="1688" loading="lazy" alt="Certificates for one home on a phone: the electrical report, notifications and the next inspection date"><figcaption>Certificates, by code</figcaption></figure>
+    <figure class="still"><img src="media/visit.jpg" width="780" height="1688" loading="lazy" alt="Opening hours on a phone, drawn as a time switch: a track for each day with the hours lit, today's glowing"><figcaption>The week, as a time switch</figcaption></figure>
+  </div>
+</div></section>
+
+<section class="plans gut" id="mockup" aria-labelledby="h-p"><div class="wrap">
+  <div class="plans-h">
+    <h2 id="h-p">Three positions <em>on the dial.</em></h2>
+    <p>Each plan runs on a 12-month minimum, then a month's notice. Any single feature can be added to a smaller plan, and extra pages come one at a time.</p>
+  </div>
+  <div class="cards">
+    <div class="card" style="--level:.35"><div class="mini"><svg viewBox="-30 -30 60 60" data-mini="30" aria-hidden="true"></svg><div><h3>Starter</h3><p class="eng">Low</p></div></div>
+      <p class="pr">£99 <small>+ £25 a month</small></p>
+      <ul><li>The home page and Plan your visit</li><li>Services as the circuit chart, with the registers</li><li>The emergency line on every page</li><li>Rooms, lit</li><li>The fault guide</li></ul></div>
+    <div class="card" style="--level:.7"><div class="mini"><svg viewBox="-30 -30 60 60" data-mini="70" aria-hidden="true"></svg><div><h3>Plus</h3><p class="eng">Evening</p></div></div>
+      <p class="pr">£199 <small>+ £30 a month</small></p>
+      <ul><li>Up to five pages</li><li>Every light has a reason</li><li>The room designer and the dimmer</li><li>The EV check</li><li>Projects, how a job runs, and Before you call</li></ul></div>
+    <div class="card" style="--level:1"><div class="mini"><svg viewBox="-30 -30 60 60" data-mini="100" aria-hidden="true"></svg><div><h3>Signature</h3><p class="eng">Full</p></div></div>
+      <p class="pr">£349 <small>+ £35 a month</small></p>
+      <ul><li>Up to 20 pages</li><li>The scene keypad on the house</li><li>The house in 3D, lit room by room</li><li>The charger on your drive in 3D</li><li>The whole-house estimate</li><li>Certificates by code, with the reminder</li></ul></div>
+  </div>
+  <p class="small">Running costs stay at nothing beyond hosting. Certificates live in the electrician's own Google Sheet, prices and registers in the site's settings, and every enquiry arrives on WhatsApp.</p>
+</div></section>
+
+<section class="speed gut" aria-labelledby="h-sp"><div class="wrap">
+  <div class="speed-h">
+    <h2 id="h-sp">From the switch <em>to the light.</em></h2>
+    <p>Measured on Corbel's home page with Lighthouse on a mobile setting, three runs from a fresh server, the first one cold.</p>
+  </div>
+  <div class="tests">
+    <div><span class="eng">Performance</span><b>96 · 99 · 100</b><p>The first run cold</p></div>
+    <div><span class="eng">First paint</span><b>1.2 s</b><p>The largest, 1.5 to 2.7 s</p></div>
+    <div><span class="eng">Layout shift</span><b>0</b><p>Accessibility 100</p></div>
+    <div><span class="eng">The 3D, on tap</span><b>180.9 KB</b><p>Compressed, under a 200 KB cap; nothing before the tap</p></div>
+  </div>
+</div></section>
+
+<section class="close gut" aria-labelledby="h-cl"><div class="wrap">
+  <div>
+    <h2 id="h-cl">Your best room, <em>after dark.</em></h2>
+    <p>Send us a photograph of a house you've lit and your price list, and we'll make a free mockup of your home page with your own work on it.</p>
+    <div class="acts">
+      <a class="btn" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#free">Get a free mockup</a>
+      <a class="btn line" href="https://claude.ai/artifact/VuUkftwgffnh7B5m7BThdP">Try the demo first</a>
+    </div>
+    <span class="mail">hello@sitefloor.com</span>
+  </div>
+  <figure class="close-ph"><img src="media/garden-room.webp" width="1488" height="960" alt="A brick and glass garden room at dusk, its vaulted ceiling and wall lights on" loading="lazy"></figure>
+</div></section>
+
+</main>
+
+<footer class="gut"><div class="wrap">
+  <p>Corbel Light &amp; Power is a fictional electrician and lighting studio made to show the Sitefloor electrician kit. Its prices, registers, certificates, projects, reviews and address are demo data. Its photographs are free stock from Pexels and Unsplash, of other houses and rooms, each credited in our records; the house and the drive in 3D are Sitefloor's own models, and the car is a licensed model, credited on the demo. Client sites use the electrician's own photographs, prices and registers.</p>
+  <span>© 2026 Sitefloor</span>
+</div></footer>
+
+<script>
+(() => {
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const root = document.documentElement;
+
+  // ---------------------------------------------------------------- the dial: one value lights the whole page
+  const knob = document.getElementById("knob"), lv = document.getElementById("lv"), lvName = document.getElementById("lv-name");
+  const ticks = document.getElementById("ticks");
+  for (let i = 0; i <= 20; i++) {
+    const a = (-135 + i * 13.5) * Math.PI / 180, r1 = i % 5 ? 92 : 86;
+    const l = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    l.setAttribute("x1", String(Math.sin(a) * r1)); l.setAttribute("y1", String(-Math.cos(a) * r1));
+    l.setAttribute("x2", String(Math.sin(a) * 98)); l.setAttribute("y2", String(-Math.cos(a) * 98));
+    l.setAttribute("stroke", "rgba(238,240,234,.45)"); l.setAttribute("stroke-width", i % 5 ? "1" : "1.6");
+    ticks.append(l);
+  }
+  const name = (v) => (v < 3 ? "Off" : v < 35 ? "Away" : v < 60 ? "Cinema" : v < 90 ? "Evening" : "Full");
+  let value = 72;
+  const set = (v) => {
+    value = Math.max(0, Math.min(100, Math.round(v)));
+    root.style.setProperty("--lux", String(value / 100));
+    knob.style.setProperty("--turn", `${-135 + value * 2.7}deg`);
+    lv.textContent = String(value); lvName.textContent = name(value);
+    knob.setAttribute("aria-valuenow", String(value)); knob.setAttribute("aria-valuetext", `${name(value)}, ${value} per cent`);
+  };
+  const angleAt = (e) => { const r = knob.getBoundingClientRect(); const dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2); let a = Math.atan2(dx, -dy) * 180 / Math.PI; return Math.max(-135, Math.min(135, a)); };
+  let dragging = false;
+  knob.addEventListener("pointerdown", (e) => { dragging = true; knob.setPointerCapture(e.pointerId); set((angleAt(e) + 135) / 2.7); });
+  knob.addEventListener("pointermove", (e) => { if (dragging) set((angleAt(e) + 135) / 2.7); });
+  knob.addEventListener("pointerup", () => { dragging = false; });
+  knob.addEventListener("keydown", (e) => {
+    const step = { ArrowRight: 5, ArrowUp: 5, ArrowLeft: -5, ArrowDown: -5, PageUp: 20, PageDown: -20 }[e.key];
+    if (step) { e.preventDefault(); set(value + step); } else if (e.key === "Home") { e.preventDefault(); set(0); } else if (e.key === "End") { e.preventDefault(); set(100); }
+  });
+  knob.addEventListener("wheel", (e) => { e.preventDefault(); set(value - Math.sign(e.deltaY) * 4); }, { passive: false });
+  // On arrival the page comes up from dark, slowly, once (instantly with reduced motion).
+  if (reduce) set(72);
+  else { set(0); const t0 = performance.now() + 500; const up = (t) => { const k = Math.min(1, Math.max(0, (t - t0) / 2600)); set(72 * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(up); }; requestAnimationFrame(up); }
+
+  // ---------------------------------------------------------------- the drawing: seventeen lights in seven rooms
+  const F = [
+    ["L01", "Scene keypad", "signature", 120, 150, "c-keypad", "Hall"],
+    ["L02", "Every light has a reason", "plus", 220, 120, "c-reasons", "Hall"],
+    ["L03", "The house in 3D", "signature", 320, 170, "c-house", "Hall"],
+    ["L04", "Rooms, lit", "starter", 120, 260, "c-reasons", "Hall"],
+    ["L05", "The circuit chart and registers", "starter", 230, 250, "c-board", "Hall"],
+    ["L06", "The fault guide", "starter", 340, 270, "c-fault", "Hall"],
+    ["L07", "The emergency line", "starter", 360, 90, "c-fault", "Hall"],
+    ["L08", "The room designer", "plus", 520, 160, "c-light", "Living room"],
+    ["L09", "The dimmer", "plus", 620, 260, "c-light", "Living room"],
+    ["L10", "The EV check", "plus", 780, 170, "c-ev", "Garage"],
+    ["L11", "The charger in 3D", "signature", 880, 270, "c-ev", "Garage"],
+    ["L12", "How a project runs", "plus", 110, 480, "c-project", "Study"],
+    ["L13", "Before you call", "plus", 200, 540, "c-project", "Study"],
+    ["L14", "The whole-house estimate", "signature", 230, 450, "c-project", "Study"],
+    ["L15", "Projects, by kind of work", "plus", 460, 500, "c-light", "Gallery"],
+    ["L16", "Certificates by code", "signature", 690, 520, "c-board", "Board"],
+    ["L17", "Plan your visit", "starter", 860, 480, "c-board", "Porch"],
+  ];
+  const SW = { Hall: [405, 315], "Living room": [435, 315], Garage: [715, 205], Study: [165, 375], Gallery: [535, 375], Board: [635, 515], Porch: [865, 585] };
+  const ns = "http://www.w3.org/2000/svg";
+  const el = (t, a) => { const n = document.createElementNS(ns, t); for (const [k, v] of Object.entries(a)) n.setAttribute(k, String(v)); return n; };
+  const fits = document.getElementById("fits"), wires = document.getElementById("wires"), sched = document.getElementById("sched");
+  for (const [room, [sx, sy]] of Object.entries(SW)) {
+    const g = el("g", {}); g.append(el("circle", { cx: sx, cy: sy, r: 4, fill: "#1C2B43" }), el("text", { x: sx + 7, y: sy + 4, "font-size": 10, "font-family": "Encode Sans Expanded, sans-serif", fill: "#1C2B43" }));
+    g.lastChild.textContent = "S"; wires.append(g);
+  }
+  const plans = { starter: "Starter", plus: "Plus", signature: "Signature" };
+  const links = [];
+  for (const [code, label, plan, x, y, to, room] of F) {
+    const [sx, sy] = SW[room];
+    wires.append(el("path", { class: "sw", d: `M${sx} ${sy}Q${(sx + x) / 2 + 30} ${(sy + y) / 2 - 40} ${x} ${y}` }));
+    const a = el("a", { class: "fit", href: `#${to}`, tabindex: 0, "aria-label": `${code}: ${label}, on ${plans[plan]}` });
+    a.append(el("circle", { class: "pool", cx: x, cy: y, r: 46 }));
+    const u = el("use", { href: `#s-${plan}`, x: x - 16, y: y - 16, width: 32, height: 32, style: "color:#1C2B43" }); a.append(u);
+    const t = el("text", { x: x + 18, y: y - 12 }); t.textContent = code; a.append(t);
+    fits.append(a);
+    const li = document.createElement("li"); const row = document.createElement("a"); row.href = `#${to}`;
+    row.innerHTML = `<span class="code"></span><span></span><span class="eng"></span>`;
+    row.children[0].textContent = code; row.children[1].textContent = label; row.children[2].textContent = plans[plan];
+    li.append(row); sched.append(li);
+    const on = (v) => { a.classList.toggle("on", v); row.classList.toggle("on", v); };
+    for (const n of [a, row]) { n.addEventListener("mouseenter", () => on(true)); n.addEventListener("mouseleave", () => on(false)); n.addEventListener("focus", () => on(true)); n.addEventListener("blur", () => on(false)); }
+    links.push(a);
+  }
+
+  // ---------------------------------------------------------------- the plans' dials
+  for (const svg of document.querySelectorAll("[data-mini]")) {
+    const v = Number(svg.getAttribute("data-mini")), ang = (-135 + v * 2.7) * Math.PI / 180;
+    svg.append(el("circle", { r: 26, fill: "none", stroke: "rgba(238,240,234,.25)", "stroke-width": 1 }), el("circle", { r: 18, fill: "#243653", stroke: "rgba(238,240,234,.18)" }));
+    svg.append(el("circle", { cx: Math.sin(ang) * 12, cy: -Math.cos(ang) * 12, r: 2.6, fill: "#B3BFE6" }));
+  }
+
+  // ---------------------------------------------------------------- live: the fault guide, in the demo's own words
+  const guide = {"safety":"Please don't open or repair anything yourself. If you smell burning, see scorch marks or hear crackling, keep clear and call us now.","cases":[{"id":"trip","label":"Keeps tripping","tell":["When it trips: straight away, or after something is switched on.","What was running at the time.","Whether it happens in wet weather.","A photo of the board with its door open, if it's easy to reach."]},{"id":"off","label":"Part of the house is off","tell":["Which rooms or sockets are off, and which still work.","When you first noticed.","Whether your neighbours have power.","Anything new fitted or plugged in lately."]},{"id":"smell","label":"Burning smell or buzzing","tell":["Where the smell or sound is coming from.","When it started, and whether it comes and goes.","Whether anything looks scorched or discoloured.","Keep clear of it while you call."]},{"id":"warm","label":"Socket or switch feels warm","tell":["Which socket or switch, and in which room.","What is plugged in or switched on there.","How long it has felt warm.","Stop using it while you call."]}]};
+  const picks = document.getElementById("picks"), tell = document.getElementById("tell");
+  document.getElementById("safe").innerHTML = "<b>Safety.</b> ";
+  document.getElementById("safe").append(guide.safety);
+  const showCase = (id) => {
+    for (const b of picks.children) b.setAttribute("aria-pressed", String(b.dataset.id === id));
+    tell.replaceChildren(...guide.cases.find((c) => c.id === id).tell.map((t) => { const li = document.createElement("li"); li.textContent = t; return li; }));
+  };
+  for (const c of guide.cases) { const b = document.createElement("button"); b.type = "button"; b.dataset.id = c.id; b.textContent = c.label; b.addEventListener("click", () => showCase(c.id)); picks.append(b); }
+  showCase("trip");
+
+  // ---------------------------------------------------------------- live: the estimate, with the demo's own figures
+  const E = {"bedroomsMax":7,"homes":[{"id":"flat","label":"Flat","factor":0.8},{"id":"terrace","label":"Terraced","factor":1},{"id":"semi","label":"Semi-detached","factor":1.1},{"id":"detached","label":"Detached","factor":1.25}],"works":[{"id":"rewire","name":"A full rewire","base":{"min":3200,"max":4200},"perBedroom":{"min":1100,"max":1500}},{"id":"lighting","name":"Lighting design and control","base":{"min":2400,"max":3600},"perBedroom":{"min":900,"max":1600}},{"id":"smart","name":"Smart home and Wi-Fi","base":{"min":1800,"max":3000},"perBedroom":{"min":400,"max":800}},{"id":"ev","name":"A car charger","base":{"min":1195,"max":1600},"perBedroom":{"min":0,"max":0}}]};
+  const st = { home: "terrace", works: new Set(["rewire"]) };
+  const homes = document.getElementById("homes"), works = document.getElementById("works"), beds = document.getElementById("beds");
+  const gbp = (n) => `£${n.toLocaleString("en-GB")}`;
+  const paint = () => {
+    for (const b of homes.children) b.setAttribute("aria-pressed", String(b.dataset.id === st.home));
+    for (const b of works.children) b.setAttribute("aria-pressed", String(st.works.has(b.dataset.id)));
+    document.getElementById("beds-o").textContent = beds.value;
+    const home = E.homes.find((h) => h.id === st.home), ws = E.works.filter((w) => st.works.has(w.id));
+    if (!ws.length) { document.getElementById("range").textContent = "Choose the work"; return; }
+    const n = Math.min(Number(beds.value), E.bedroomsMax);
+    const lo = ws.reduce((s, w) => s + Math.floor((w.base.min + w.perBedroom.min * n) * home.factor / 50) * 50, 0);
+    const hi = ws.reduce((s, w) => s + Math.ceil((w.base.max + w.perBedroom.max * n) * home.factor / 50) * 50, 0);
+    document.getElementById("range").textContent = `${gbp(lo)} – ${gbp(hi)}`;
+  };
+  for (const h of E.homes) { const b = document.createElement("button"); b.type = "button"; b.dataset.id = h.id; b.textContent = h.label; b.addEventListener("click", () => { st.home = h.id; paint(); }); homes.append(b); }
+  for (const w of E.works) { const b = document.createElement("button"); b.type = "button"; b.dataset.id = w.id; b.textContent = w.name; b.addEventListener("click", () => { st.works.has(w.id) ? st.works.delete(w.id) : st.works.add(w.id); paint(); }); works.append(b); }
+  beds.addEventListener("input", paint); paint();
+
+  // ---------------------------------------------------------------- clips: only on screen, never with reduced motion, each with Pause
+  const clips = [...document.querySelectorAll("video[data-clip]")];
+  const paused = new Set(reduce ? clips.map((v) => v.id) : []);
+  const seen = new Map();
+  const label = (id) => {
+    const btn = document.querySelector(`[data-pause="${id}"]`); if (!btn) return;
+    const p = paused.has(id);
+    btn.querySelector("span").textContent = p ? "Play" : "Pause";
+    btn.setAttribute("aria-label", `${p ? "Play" : "Pause"} the ${btn.dataset.name}`);
+    btn.querySelector("svg").innerHTML = p ? '<path d="M3 1.5v9l7-4.5z" fill="currentColor"/>' : '<rect x="2" y="1" width="3" height="10" fill="currentColor"/><rect x="7" y="1" width="3" height="10" fill="currentColor"/>';
+  };
+  const sync = (v) => { if (seen.get(v) && !paused.has(v.id)) { if (v.preload === "none") v.preload = "auto"; v.play().catch(() => {}); } else v.pause(); };
+  for (const v of clips) {
+    label(v.id);
+    document.querySelector(`[data-pause="${v.id}"]`)?.addEventListener("click", () => { paused.has(v.id) ? paused.delete(v.id) : paused.add(v.id); label(v.id); sync(v); });
+  }
+  const start = () => {
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver((es) => es.forEach((e) => { seen.set(e.target, e.isIntersecting); sync(e.target); }), { threshold: 0.35 });
+      clips.forEach((v) => io.observe(v));
+    }
+  };
+  if (document.readyState === "complete") start(); else addEventListener("load", start);
+})();
+</script>
+</body>
+</html>

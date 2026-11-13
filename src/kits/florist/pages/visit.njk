@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: visit
+permalink: visit.html
+feature: plan-visit
+eleventyComputed:
+  title: "{{ site.visitInfo.title | plain }}"
+  description: "Finding the studio, collecting, delivery days and answers to common questions about flowers from {{ site.business.name }}, {{ site.location.locality }}."
+---
+{% include "features/plan-visit/plan-visit.njk" %}
+{%- if "reviews" | enabled %}{% include "features/reviews/reviews.njk" %}{% endif %}

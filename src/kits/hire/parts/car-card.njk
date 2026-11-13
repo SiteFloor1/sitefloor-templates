@@ -1,0 +1,17 @@
+{#- One car as the home page shows it: the photograph, the model name with its from price, the trim line, the facts,
+    "free this weekend?" from the Sheet and the way in. `car`, `kind` ("lead"|"side"|"range") set. -#}
+{%- if kind == "lead" %}{% set pic = car.photos.card %}{% elif kind == "side" %}{% set pic = car.photos.square or car.photos.card %}{% else %}{% set pic = car.photos.small or car.photos.card %}{% endif %}
+<article class="hr-car is-{{ kind }}" data-car="{{ car.id }}">
+  <div class="hr-pic"><img src="{{ pic.src | img }}" alt="{{ pic.alt }}" width="{{ pic.width }}" height="{{ pic.height }}" loading="lazy" decoding="async"></div>
+  <div class="hr-car-name"><h3>{{ car | carName }}</h3><span class="hr-from">{{ car | fromLine }}</span></div>
+  {%- if kind != "range" %}
+  <p class="hr-trim">{{ car | trimLine }}</p>
+  {%- set short = kind == "side" %}{% include "kits/hire/parts/facts.njk" %}
+  {%- if not car.chauffeurOnly %}<p class="hr-free" data-weekend="{{ car.id }}" data-js-only>This weekend: <span data-weekend-state>checking our calendar</span></p>{% endif %}
+  {%- endif %}
+  {%- set waText = (site.messages.carRequest or "I'd like to request the {car}.") | replace("{car}", car | carName) %}
+  <p class="hr-ways">
+    {%- if "fleet-page" | enabled %}<a class="hr-more" href="{{ car.id | carUrl(build.links) }}"{{ "fleet-page" | tierAttr | safe }}><span class="sr-only">{{ car | carName }}: </span>The car in detail</a>{% endif %}
+    {%- if kind != "range" or not ("fleet-page" | enabled) %}<a class="hr-ask" href="{{ waText | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ waText }}"{% endif %} target="_blank" rel="noopener"><span class="sr-only">{{ car | carName }}: </span>Request</a>{% endif %}
+  </p>
+</article>

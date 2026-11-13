@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: wheels-and-calipers
+permalink: wheels-and-calipers.html
+feature: wheels-page
+eleventyComputed:
+  title: "{{ site.wheelsPage.title | plain }}"
+  description: "Wheels and calipers at {{ site.business.name }}, {{ site.location.locality }}: what we do and prices by car size."
+---
+{% include "kits/detailing/features/wheels-page/wheels-page.njk" %}

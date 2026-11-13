@@ -1,0 +1,26 @@
+{#- Foreshore header: a thin top line (where the firm is, its number, and the quiet fraud check), then the firm's name, the services
+    by plain names, the pages, and a small navy "Arrange a meeting". On phones, "Menu" opens everything. -#}
+{%- include "kits/wealth/partials/meet-href.njk" %}
+<header class="nav fs-nav">
+<div class="fs-top"><div class="wrap fs-top-in"><span>{{ site.hero.kicker }}</span><a class="fs-tel" href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone | replace('+44 ', '0') }}</a>{% if "check" | enabled %}<a href="{{ 'check' | href }}">Is this really us? Check a call or email</a>{% endif %}</div></div>
+<div class="wrap fs-nav-in">
+  <a class="fs-mark" href="{{ 'index' | href }}" aria-label="{{ site.business.name }}, home">
+    {%- if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="{{ site.business.name }}" height="24">{% else %}{{ site.business.name }}{% endif %}</a>
+  <nav class="fs-links" aria-label="Main">
+    {%- for x in (site.help.items if ("help" | enabled) else []) %}{% if x.navLabel %}{% set to = (x.event | href) if (x.event and ('life-events' | enabled)) else ((('approach' | href) + '#' + x.id) if ('approach' | enabled) else ('#services' if pageId == 'index' else ('index' | href) + '#services')) %}<a href="{{ to }}"{% if x.event and x.event == pageId and ('life-events' | enabled) %} aria-current="page"{% endif %}>{{ x.navLabel }}</a>{% endif %}{% endfor %}
+    {%- for item in site.nav | navItems(pageId) %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>{% endfor %}
+  </nav>
+  <a class="fs-meet" href="{{ meetHref }}">Arrange a meeting</a>
+  <button class="burger fs-menu" type="button" aria-expanded="false" aria-controls="mnav"><span class="fs-open">Menu</span><span class="fs-close">Close</span></button>
+</div>
+</header>
+<div class="mnav fs-sheet" id="mnav" hidden>
+  <nav aria-label="Pages">
+    <a href="{{ 'index' | href }}"{% if pageId == "index" %} aria-current="page"{% endif %}>{{ site.business.name }}</a>
+    {%- for x in (site.help.items if ("help" | enabled) else []) %}{% if x.navLabel %}{% set to = (x.event | href) if (x.event and ('life-events' | enabled)) else ((('approach' | href) + '#' + x.id) if ('approach' | enabled) else ('#services' if pageId == 'index' else ('index' | href) + '#services')) %}<a href="{{ to }}"{% if x.event and x.event == pageId and ('life-events' | enabled) %} aria-current="page"{% endif %}>{{ x.navLabel }}</a>{% endif %}{% endfor %}
+    {%- for item in site.nav | navItems(pageId) %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}>{{ item.label }}</a>{% endfor %}
+    <a href="{{ meetHref }}">Arrange a meeting</a>
+  </nav>
+  <p class="fs-sheet-now" data-live-status><span class="dot" aria-hidden="true"></span> <span data-status-text>Opening hours</span></p>
+  <p class="fs-sheet-addr">{{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}</p>
+</div>

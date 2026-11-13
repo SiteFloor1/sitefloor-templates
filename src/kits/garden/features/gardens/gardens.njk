@@ -1,0 +1,25 @@
+{#- The studio's gardens by kind: a choice of kinds over the gardens (only kinds it has made), each garden with where it
+    is, its size and which way it faces. With a gardens page, home shows the first four (`gardens.onHome`, default 4)
+    and "Every garden" goes to the rest; the choice of kinds is then on that page. Without JavaScript every garden shows. -#}
+{%- set sec = site.sections.gardens %}
+{%- set gd = site.gardens %}
+<section id="gardens" class="gd-gs" data-feature="gardens" aria-labelledby="gs-h"><div class="wrap">
+  {%- set secId = "gs-h" %}{% include "core/partials/section-head.njk" %}
+  {%- set short = "garden-pages" | enabled %}
+  {%- set used = gd | usedStyles %}
+  {%- if used.length > 1 and not short %}
+  <div class="gd-pick-row" role="group" aria-label="Kind of garden" data-gs-filter data-wait>
+    <button class="gd-pick" type="button" data-style="" aria-pressed="true">All</button>
+    {%- for s in used %}<button class="gd-pick" type="button" data-style="{{ s.id }}" aria-pressed="false">{{ s.name }}</button>{% endfor %}
+  </div>
+  {%- endif %}
+  <ul class="gd-gs-list{{ " gd-gs-four" if short }}">
+    {%- for g in (gd.items.slice(0, gd.onHome or 4) if short else gd.items) %}
+    {%- set gpage = (site.gardenPages.items | pageFor("garden", g.id)) if ("garden-pages" | enabled) else null %}{% set eager = false %}
+    {% include "kits/garden/partials/garden-card.njk" %}
+    {%- endfor %}
+  </ul>
+  <p class="gd-gs-none" data-gs-none hidden>No gardens of that kind yet.</p>
+  {%- if gd.note %}<p class="gd-small">{{ gd.note }}</p>{% endif %}
+  {%- if "garden-pages" | enabled %}<p class="gd-gs-all"><a class="go" href="{{ 'gardens' | href }}"{{ 'garden-pages' | tierAttr | safe }}>Every garden</a></p>{% endif %}
+</div></section>

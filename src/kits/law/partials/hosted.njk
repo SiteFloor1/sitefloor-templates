@@ -1,0 +1,2 @@
+{#- The home sections a look moved to this page (look.json "onPages"). Set `hostPage` to the page's feature id first. -#}
+{%- for id in (build.onPages | hosted(hostPage)) %}{% if (id | enabled) and id != (hostSkip or "") %}{% include homeParts.paths[id] %}{% endif %}{% endfor %}

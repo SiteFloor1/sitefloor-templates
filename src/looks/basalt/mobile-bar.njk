@@ -1,0 +1,9 @@
+{#- Basalt phone bar: the next drop on the left (or the showroom's status), "Ask us" on the right. -#}
+<div class="mbar bs-bar">
+  {%- if site.drop and ("drop-line" | enabled) %}{% set d = site | wearDrop(build.today) %}
+  <a class="bs-bar-l" href="{{ ('drops' | href) if ('drops-page' | enabled) else '#pieces' }}"><b>{{ d.name }}</b> {{ d.words }}</a>
+  {%- else %}
+  <p class="bs-bar-l" data-live-status><span class="dot" aria-hidden="true"></span> <span data-status-text>Showroom hours</span></p>
+  {%- endif %}
+  <a class="bs-bar-go" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">Ask us</a>
+</div>

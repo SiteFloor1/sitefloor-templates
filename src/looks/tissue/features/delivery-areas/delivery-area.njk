@@ -1,0 +1,19 @@
+{#- Tissue, one delivery area: its cut-off and charge, the streets we know, the postcode check answering with this
+    area's own cut-off, and back to today's bouquets. -#}
+{%- set fee = a.fee if a.fee is defined else site.delivery.fee %}
+{%- set ph = { back: site.deliveryAreas.kicker or "Delivery", backHref: ('delivery' | href), title: a.district + ' *' + a.name + '*', intro: a.line } %}
+{% include "looks/tissue/parts/page-head.njk" %}
+<section class="ts-area"><div class="wrap ts-area-in">
+  <dl class="ts-facts">
+    <div><dt>Order by</dt><dd>{{ site.delivery | areaCutoffs(a) | cutoffGroups }}</dd></div>
+    {%- if fee is defined %}<div><dt>Delivery</dt><dd>{{ "Free" if fee == 0 else (fee | pounds) }}</dd></div>{% endif %}
+    {%- if a.streets %}<div><dt>Streets we know well</dt><dd>{{ a.streets }}</dd></div>{% endif %}
+  </dl>
+  <div class="ts-area-go">
+    {%- set sdId = "area" %}{% set sdArea = a %}{% include "kits/florist/features/same-day/same-day.njk" %}
+    <a class="ts-btn" href="{{ 'index' | href }}#bouquets">See today's bouquets</a>
+  </div>
+</div></section>
+<nav class="ts-more" aria-label="Other areas"><div class="wrap">
+  {%- for o in site.deliveryAreas.areas %}{% if o.district != a.district %}<a href="{{ ('delivery-' + (o.district | lower)) | href }}">{{ o.district }} {{ o.name }}</a>{% endif %}{% endfor %}
+</div></nav>

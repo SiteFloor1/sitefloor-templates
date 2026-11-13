@@ -1,0 +1,63 @@
+/* The house in 3D: a full-width chapter. A still first; the model takes its place; the tools sit quietly on it. Tokens only. */
+main section.el-villa { position: relative; padding: 0; background: var(--deep); }
+.el-villa-stage { position: relative; width: 100%; aspect-ratio: 16 / 9; min-height: 560px; max-height: 100svh; overflow: hidden; background: var(--deep); isolation: isolate; }
+.el-villa-poster, .el-villa-poster img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
+.el-villa-poster { transition: opacity 1.4s ease; }
+.el-villa-canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; touch-action: none; cursor: grab; opacity: 0; visibility: hidden; transition: opacity 1.4s ease; }
+.el-villa-canvas:active { cursor: grabbing; }
+.is-live .el-villa-canvas { visibility: visible; }
+.is-3d .el-villa-canvas { opacity: 1; }
+.is-3d .el-villa-poster { opacity: 0; pointer-events: none; }
+.el-villa-stage::after { content: ""; position: absolute; inset: 0 0 auto; height: 46%; z-index: 1; pointer-events: none; background: linear-gradient(180deg, var(--photo-scrim), transparent); }
+.el-villa-head { position: absolute; z-index: 2; left: var(--pad); top: clamp(36px, 5.5vw, 84px); max-width: min(34ch, 80%); }
+.el-villa-t { margin: 0; font-size: clamp(32px, 4.2vw, 68px); line-height: 1.02; color: var(--on-photo); }
+.el-villa-i { margin: 16px 0 0; max-width: 38ch; font-size: 15px; color: var(--on-photo); opacity: .8; }
+.el-villa-open { display: inline-grid; gap: 4px; justify-items: start; margin-top: 28px; padding: 14px 22px; border: 0; border-radius: 0; background: var(--text); color: var(--deep); font: inherit; cursor: pointer; text-align: left; }
+.el-villa-open span { font-family: var(--font-label, var(--font-display)); font-size: 11px; font-weight: 400; letter-spacing: .2em; text-transform: uppercase; }
+.el-villa-open small { font-size: 12px; opacity: .7; }
+.el-villa-open:hover { background: var(--accent); color: var(--on-accent); }
+.el-villa-open:disabled { opacity: .7; cursor: progress; }
+.el-villa-load { margin: 14px 0 0; font-size: 14px; color: var(--on-photo); }
+.el-villa-hint { position: absolute; z-index: 2; right: var(--pad); top: clamp(36px, 5.5vw, 84px); margin: 0; font-size: 12px; color: var(--on-photo); opacity: .7; pointer-events: none; }
+.el-villa-bar { position: absolute; z-index: 3; left: var(--pad); right: var(--pad); bottom: clamp(16px, 2.4vw, 32px); display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px; padding: 10px; background: color-mix(in srgb, var(--deep) 72%, transparent); box-shadow: inset 0 0 0 1px var(--line); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+.el-villa-bar[hidden] { display: none; }
+.el-villa-keys { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+.el-villa-key { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 46px; padding: 0 18px; border: 0; border-radius: 0; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); color: var(--text); font-family: var(--font-label, var(--font-body)); font-size: 9.5px; letter-spacing: .2em; text-transform: uppercase; cursor: pointer; }
+.el-villa-key:hover { box-shadow: inset 0 0 0 1px var(--line-2); }
+.el-villa-led { width: 6px; height: 6px; border-radius: 50%; background: var(--surface-2); box-shadow: inset 0 0 0 1px var(--line); transition: background .6s, box-shadow .6s; }
+.el-villa-key[aria-pressed="true"] .el-villa-led { background: var(--accent); box-shadow: 0 0 10px var(--accent); }
+.el-villa-warm { display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--muted); }
+.el-villa-warm span { font-family: var(--font-label, var(--font-body)); font-size: 9.5px; letter-spacing: .2em; text-transform: uppercase; }
+.el-villa-warm input { width: clamp(110px, 12vw, 180px); accent-color: var(--accent); }
+.el-villa-warm output { min-width: 5.5ch; color: var(--text); font-variant-numeric: tabular-nums; }
+.el-villa-whole, .el-villa-qt { min-height: 46px; padding: 0 16px; border: 0; border-radius: 0; background: transparent; box-shadow: inset 0 0 0 1px var(--line-2); color: var(--text); font: inherit; font-size: 13px; cursor: pointer; }
+.el-villa-qt { display: inline-flex; align-items: center; gap: 14px; margin-left: auto; }
+.el-villa-qt span { font-family: var(--font-label, var(--font-body)); font-size: 9.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+.el-villa-qt b { font-weight: 500; font-variant-numeric: tabular-nums; }
+.el-villa-qt[aria-expanded="true"] { background: var(--text); color: var(--deep); }
+.el-villa-qt[aria-expanded="true"] span { color: inherit; }
+.el-h3-tags { position: absolute; inset: 0; z-index: 2; pointer-events: none; overflow: hidden; }
+.el-h3-tag { position: absolute; left: 0; top: 0; padding: 6px 10px; background: color-mix(in srgb, var(--deep) 80%, transparent); color: var(--text); font-size: 12px; white-space: nowrap; opacity: 0; transition: opacity .4s; }
+.el-h3-tag.on { opacity: 1; }
+/* the quote: a drawer over the model's right side; below the model on phones */
+.el-h3-panel { position: absolute; z-index: 4; right: var(--pad); bottom: calc(clamp(16px, 2.4vw, 32px) + 76px); width: min(380px, 40vw); max-height: 68%; overflow: auto; display: grid; gap: 18px; padding: 22px; background: color-mix(in srgb, var(--deep) 92%, transparent); box-shadow: inset 0 0 0 1px var(--line); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+.el-h3-panel[hidden] { display: none; }
+.el-h3-rooms { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+.el-h3-rooms button { width: 100%; min-height: 42px; display: flex; align-items: center; gap: 10px; padding: 0 12px; border: 0; border-radius: 0; background: transparent; box-shadow: inset 0 0 0 1px var(--line-2); color: var(--text); font: inherit; font-size: 13px; text-align: left; cursor: pointer; }
+.el-h3-dot { flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--line-2); transition: background .5s, box-shadow .5s; }
+.el-h3-rooms button[aria-pressed="true"] .el-h3-dot { background: var(--accent); box-shadow: 0 0 10px var(--accent); }
+.el-h3-lines { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 13.5px; color: var(--muted); }
+.el-h3-lines li { display: flex; justify-content: space-between; gap: 12px; }
+.el-h3-lines b, .el-h3-total b { font-weight: 500; color: var(--text); font-variant-numeric: tabular-nums; }
+.el-h3-total { display: flex; justify-content: space-between; margin: 12px 0 0; padding-top: 12px; border-top: 1px solid var(--line); }
+.el-h3-note { margin: 8px 0 0; font-size: 12px; color: var(--muted); }
+@media (max-width: 760px) {
+  .el-villa-stage { aspect-ratio: 4 / 5; min-height: 0; max-height: none; }
+  .el-villa-head { top: 28px; right: var(--pad); max-width: none; }
+  .el-villa-hint { display: none; }
+  .el-villa-bar { left: 10px; right: 10px; bottom: 10px; gap: 8px; padding: 8px; }
+  .el-villa-keys { width: 100%; gap: 4px; }
+  .el-villa-key { padding: 0 6px; gap: 6px; font-size: 8.5px; letter-spacing: .14em; }
+  .el-villa-warm input { width: 96px; }
+  .el-h3-panel { position: static; width: auto; max-height: none; padding: 22px var(--pad); backdrop-filter: none; -webkit-backdrop-filter: none; background: var(--deep); box-shadow: none; }
+}

@@ -1,0 +1,9 @@
+{#- The method library: every exercise as a photograph with its name and one line, each opening its own page. -#}
+{%- set m = site.method %}
+{%- set ph = m %}
+{% include "kits/pilates/partials/page-head.njk" %}
+<section class="pl-mv" data-feature="method-library" aria-label="Exercises"><div class="wrap">
+  <ul class="pl-mv-grid pl-mv-lib">
+    {%- for x in m.items %}<li class="rv"><a href="{{ ('exercise-' + x.id) | href }}"><img src="{{ x.photo.src | img }}" alt="{{ x.photo.alt }}" width="{{ x.photo.width }}" height="{{ x.photo.height }}" {% if loop.first %}fetchpriority="high"{% else %}loading="lazy"{% endif %} decoding="async"><b>{{ x.name }}</b><span>{{ x.line }}</span></a></li>{% endfor %}
+  </ul>
+</div></section>

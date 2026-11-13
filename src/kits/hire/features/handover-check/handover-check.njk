@@ -1,0 +1,46 @@
+{#- The handover checklist (Signature): an unlisted page the business sends at the handover (…/handover-check?ref=DH-4821
+    &car=bmw-m5). At collection, and again at return, the customer and the driver go round the car together: each panel
+    marked or "nothing seen", the fuel or charge, the mileage, dated on the business's clock. It stays on the customer's
+    phone; they save a copy and send it on WhatsApp, with photos of any marks in the same chat. It records what was
+    seen; it never judges damage or decides a deposit. -#}
+{%- set cp = site.checkPage %}{% set ck = site.hire.check %}
+{%- set pt = { title: cp.title, intro: cp.intro, kicker: cp.kicker } %}{% include "kits/hire/parts/page-top.njk" %}
+<section class="hr-hc" data-feature="handover-check" aria-label="{{ cp.title | plain }}">
+  <div class="wrap hr-hc-grid">
+    <div class="hr-hc-who">
+      <label class="hr-field" for="hc-car"><span>The car</span>
+        <select id="hc-car" data-hc-car>{% for c in site.fleet.cars | fleetSorted %}<option value="{{ c.id }}">{{ c | carName }}</option>{% endfor %}</select></label>
+      <label class="hr-field" for="hc-ref"><span>Your reference</span><input id="hc-ref" maxlength="32" autocomplete="off" spellcheck="false" data-hc-ref></label>
+      <fieldset class="hr-seg hr-hc-when" data-js-only><legend>Now</legend>
+        <input type="radio" name="hc-when" id="hc-when-out" value="collection" checked data-hc-when><label for="hc-when-out">At collection</label>
+        <input type="radio" name="hc-when" id="hc-when-back" value="back" data-hc-when><label for="hc-when-back">At return</label>
+      </fieldset>
+      <figure class="hr-hc-pic"><img src="" alt="" width="960" height="640" data-hc-photo hidden></figure>
+    </div>
+    <form class="hr-hc-form" data-hc-form>
+      <ol class="hr-hc-panels">
+        {%- for p in ck.panels %}
+        <li><label class="hr-field" for="hc-p{{ loop.index }}"><span>{{ p }}</span><input id="hc-p{{ loop.index }}" maxlength="120" placeholder="Nothing seen" data-hc-panel="{{ p }}"></label></li>
+        {%- endfor %}
+      </ol>
+      <div class="hr-hc-gauges" data-js-only>
+        <label class="hr-field hr-hc-fuel" for="hc-fuel"><span>Fuel or charge</span><input id="hc-fuel" type="range" min="0" max="8" step="1" value="8" data-hc-fuel aria-valuetext="Full"><output for="hc-fuel" data-hc-fuel-out>Full</output></label>
+        <label class="hr-field" for="hc-miles"><span>Mileage on the dash</span><input id="hc-miles" inputmode="numeric" maxlength="9" data-hc-miles></label>
+      </div>
+      <p class="hr-hc-go" data-js-only><button type="submit" class="dt-go" data-hc-save>Record this moment</button><span class="hr-hc-saved" role="status" aria-live="polite" data-hc-saved></span></p>
+      <p class="hr-hc-nojs" data-no-js>Go round the car with us at the handover: we note each mark, the fuel and the mileage, and send you the record.</p>
+    </form>
+    <div class="hr-hc-out" data-js-only>
+      <h2 class="hr-cp-sh">Your record</h2>
+      <dl class="hr-facts" data-hc-summary><dt>At collection</dt><dd data-hc-sum="collection">Not recorded yet</dd><dt>At return</dt><dd data-hc-sum="back">Not recorded yet</dd></dl>
+      <div class="hr-hc-diff" aria-live="polite" data-hc-diff></div>
+      <p class="hr-hc-acts">
+        <a class="dt-go" href="{{ ck.message | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ ck.message }}"{% endif %} target="_blank" rel="noopener" data-hc-send>Send it to us on WhatsApp</a>
+        <button type="button" class="dt-quiet" data-hc-copy>Save a copy</button>
+        <button type="button" class="dt-quiet" data-hc-clear>Start again</button>
+      </p>
+      <p class="hr-hc-note">This stays on your phone; we only see it when you send it. Take a photo of any mark and send it in the same chat.</p>
+    </div>
+  </div>
+  <script type="application/json" data-hc-cars>{{ site.fleet.cars | checkCars | dump | safe }}</script>
+</section>

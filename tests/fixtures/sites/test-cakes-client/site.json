@@ -1,0 +1,672 @@
+{
+  "schemaVersion": 4,
+  "id": "test-cakes-client",
+  "mode": "client",
+  "plan": "plus",
+  "kit": "cakes",
+  "look": "atelier",
+  "url": "https://tiered-test.co.uk",
+  "indexable": true,
+  "lang": "en-GB",
+  "business": {
+    "name": "Tiered Test",
+    "schemaType": "Bakery",
+    "description": "Celebration cakes to order in Harrogate: weddings and birthdays.",
+    "priceRange": "£££",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "447911123461",
+    "phone": "+44 7911 123461",
+    "email": "hello@tiered-test.co.uk"
+  },
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "location": {
+    "streetAddress": "2 Test Yard",
+    "locality": "Harrogate",
+    "postcode": "HG1 1AA",
+    "country": "GB",
+    "area": "Behind the station.",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=Harrogate"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [],
+      "tue": [
+        [
+          "10:00",
+          "17:00"
+        ]
+      ],
+      "wed": [
+        [
+          "10:00",
+          "17:00"
+        ]
+      ],
+      "thu": [
+        [
+          "10:00",
+          "19:00"
+        ]
+      ],
+      "fri": [
+        [
+          "10:00",
+          "17:00"
+        ]
+      ],
+      "sat": [
+        [
+          "10:00",
+          "14:00"
+        ]
+      ],
+      "sun": []
+    },
+    "exceptions": [
+      {
+        "date": "2026-12-24",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2026-12-25",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2026-12-26",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2026-12-27",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2026-12-28",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2026-12-29",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2027-01-01",
+        "ranges": [],
+        "note": "Closed for New Year's Day"
+      }
+    ]
+  },
+  "nav": [
+    {
+      "label": "Flavours",
+      "page": "flavours",
+      "feature": "flavours-page",
+      "fallback": "#flavours"
+    },
+    {
+      "label": "Order",
+      "page": "order",
+      "feature": "brief-builder"
+    },
+    {
+      "label": "Visit",
+      "page": "visit",
+      "feature": "plan-visit",
+      "fallback": "#visit"
+    }
+  ],
+  "features": [
+    "commissions",
+    "lead-time",
+    "cake-date-check",
+    "allergens",
+    "visit",
+    "plan-visit",
+    "questions",
+    "servings",
+    "flavours",
+    "tasting-box",
+    "cake-care",
+    "brief-builder",
+    "flavours-page",
+    "allergens-page"
+  ],
+  "hero": {
+    "kicker": "Celebration cakes, Harrogate",
+    "title": "Cakes to order",
+    "intro": "Weddings and birthdays.",
+    "piece": "gilt",
+    "photo": {
+      "src": "img/hero.webp",
+      "width": 900,
+      "height": 1350,
+      "alt": "A three-tier white cake streaked with gold"
+    }
+  },
+  "sections": {
+    "leadTime": {
+      "title": "How far ahead"
+    },
+    "dateCheck": {
+      "title": "Is your date free?",
+      "intro": "Most summer Saturdays go a year ahead."
+    },
+    "allergens": {
+      "title": "Allergens",
+      "intro": "Ask before you order, and tell us about any allergy when you do."
+    },
+    "servings": {
+      "title": "How many are you feeding?"
+    },
+    "flavours": {
+      "title": "Choose by the slice.",
+      "intro": "Six flavours this season. Every tier can be a different one."
+    },
+    "tasting": {
+      "title": "Taste first"
+    },
+    "care": {
+      "title": "After it arrives"
+    },
+    "questions": {
+      "title": "Before you order"
+    },
+    "visit": {
+      "title": "The studio",
+      "intro": "Consultations and collections by appointment."
+    },
+    "pieces": {
+      "title": "Commissions"
+    }
+  },
+  "messages": {
+    "general": "Hello Tiered Test, I have a question about a cake."
+  },
+  "leadTime": {
+    "rows": [
+      {
+        "label": "Weddings",
+        "value": "6 to 12 months"
+      },
+      {
+        "label": "Birthdays and parties",
+        "value": "3 weeks"
+      },
+      {
+        "label": "Corporate",
+        "value": "2 weeks"
+      },
+      {
+        "label": "Tasting box",
+        "value": "Posted the first Monday of the month"
+      }
+    ],
+    "note": "Hold your date first; the design can wait until three months before."
+  },
+  "dates": {
+    "source": "sheet",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-test-cakes/pub?output=csv",
+    "staleAfterDays": 7,
+    "minDays": 21,
+    "words": {
+      "free": "{date} is free.",
+      "one": "One place left on {date}.",
+      "booked": "{date} is taken. Ask us about the day before or after.",
+      "soon": "That's under three weeks away. Message us and we'll see what we can do.",
+      "unknown": "Message us to check {date}."
+    }
+  },
+  "allergens": {
+    "kitchen": [
+      "gluten",
+      "eggs",
+      "milk",
+      "nuts",
+      "peanuts",
+      "soya",
+      "sesame"
+    ],
+    "severe": "Our kitchen handles all of these every week, so we can't promise a cake for a severe allergy. We'll tell you exactly what's in yours.",
+    "ingredients": "The full ingredient list comes with every cake, written for the venue."
+  },
+  "servings": {
+    "tiers": [
+      {
+        "size": 4,
+        "finger": 10,
+        "dessert": 5
+      },
+      {
+        "size": 6,
+        "finger": 24,
+        "dessert": 12
+      },
+      {
+        "size": 8,
+        "finger": 44,
+        "dessert": 22
+      },
+      {
+        "size": 10,
+        "finger": 68,
+        "dessert": 34
+      },
+      {
+        "size": 12,
+        "finger": 100,
+        "dessert": 50
+      },
+      {
+        "size": 14,
+        "finger": 136,
+        "dessert": 68
+      }
+    ],
+    "maxTiers": 4,
+    "prices": [
+      {
+        "tiers": 1,
+        "from": 240
+      },
+      {
+        "tiers": 2,
+        "from": 520
+      },
+      {
+        "tiers": 3,
+        "from": 780
+      },
+      {
+        "tiers": 4,
+        "from": 1050
+      }
+    ],
+    "height": "about 5 in",
+    "note": "Finger portions are 1 in by 1 in; dessert portions twice that."
+  },
+  "flavours": {
+    "photo": {
+      "src": "img/slices.webp",
+      "width": 600,
+      "height": 900,
+      "alt": "Six cake slices stacked on a stand"
+    },
+    "note": "Every flavour is made with Swiss meringue buttercream, softer and less sweet than the usual kind.",
+    "items": [
+      {
+        "id": "honey",
+        "name": "Honey & burnt butter",
+        "what": "Brown butter sponge, honey caramel, Swiss meringue buttercream.",
+        "allergens": [
+          "gluten",
+          "eggs",
+          "milk"
+        ],
+        "layer": {
+          "top": 26.3,
+          "height": 8.4
+        }
+      },
+      {
+        "id": "hazelnut",
+        "name": "Hazelnut & coffee",
+        "what": "Hazelnut sponge, praline, espresso buttercream.",
+        "allergens": [
+          "gluten",
+          "eggs",
+          "milk",
+          "nuts"
+        ],
+        "layer": {
+          "top": 34.7,
+          "height": 8.3
+        }
+      },
+      {
+        "id": "blood-orange",
+        "name": "Chocolate & blood orange",
+        "what": "Cocoa sponge, blood orange curd, dark ganache.",
+        "months": [
+          1,
+          2,
+          3
+        ],
+        "allergens": [
+          "gluten",
+          "eggs",
+          "milk",
+          "soya"
+        ],
+        "layer": {
+          "top": 43,
+          "height": 7.8
+        }
+      },
+      {
+        "id": "vanilla",
+        "name": "Vanilla & berries",
+        "what": "Vanilla bean sponge, whole berries, raspberry jam.",
+        "allergens": [
+          "gluten",
+          "eggs",
+          "milk"
+        ],
+        "diets": [
+          "vegan",
+          "gluten-free-flour"
+        ],
+        "layer": {
+          "top": 50.8,
+          "height": 8.3
+        }
+      },
+      {
+        "id": "passion-fruit",
+        "name": "Passion fruit & mango",
+        "what": "Coconut sponge, passion fruit curd, mango.",
+        "months": [
+          6,
+          7,
+          8,
+          9
+        ],
+        "allergens": [
+          "gluten",
+          "eggs",
+          "milk"
+        ],
+        "layer": {
+          "top": 59.1,
+          "height": 9.2
+        }
+      },
+      {
+        "id": "dark-chocolate",
+        "name": "Dark chocolate & raspberry",
+        "what": "Dark chocolate sponge, raspberries, ganache.",
+        "allergens": [
+          "gluten",
+          "eggs",
+          "milk",
+          "soya"
+        ],
+        "layer": {
+          "top": 68.3,
+          "height": 9.2
+        }
+      }
+    ]
+  },
+  "tasting": {
+    "name": "The tasting box",
+    "contents": [
+      "Six flavours, a generous slice of each",
+      "The flavour card, with each one's allergens",
+      "A note of our dates for the season"
+    ],
+    "price": 35,
+    "payLink": "https://buy.stripe.com/cakes00live",
+    "posting": "Posted the first Monday of the month, by tracked post.",
+    "note": "Book your cake within two months and the £35 comes off it."
+  },
+  "care": {
+    "steps": [
+      {
+        "title": "Carry it flat",
+        "text": "In the footwell or the boot, on a flat surface, with the air conditioning on. Never on a lap or a seat."
+      },
+      {
+        "title": "Keep it cool",
+        "text": "A cool room out of the sun until it's served. Not the fridge: it dulls sugar flowers."
+      },
+      {
+        "title": "Cut it from the edge",
+        "text": "Lift off the top tier first. Cut each tier in strips, then strips into fingers, with a long knife dipped in hot water."
+      },
+      {
+        "title": "Eat it in two days",
+        "text": "Wrapped, at room temperature. Take out any wires and stems before serving."
+      }
+    ],
+    "keep": "Keeping the top tier? Take off the flowers, wrap it twice in cling film and once in foil, and freeze it for up to three months."
+  },
+  "brief": {
+    "intro": "Hello Tiered Test, we'd like a cake.",
+    "finishes": [
+      "Buttercream, smooth or combed",
+      "Painted or marbled icing",
+      "Sugar flowers",
+      "Fresh flowers from our florist",
+      "Not sure: show us"
+    ]
+  },
+  "cakePages": {
+    "order": {
+      "title": "Order a cake",
+      "intro": "Tell us the date and the numbers; we'll come back with a sketch and a price."
+    },
+    "flavours": {
+      "title": "Flavours",
+      "intro": "Every tier can be a different one."
+    },
+    "allergens": {
+      "title": "Allergens",
+      "intro": "Flavour by flavour, before you order."
+    }
+  },
+  "visitInfo": {
+    "kicker": "Visit",
+    "title": "Finding *the studio*",
+    "intro": "In a yard off Farringdon Road, six minutes from Farringdon station. By appointment.",
+    "checked": "2026-11",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "Farringdon station",
+        "origin": "Farringdon station, London",
+        "minutes": 6,
+        "steps": [
+          "Leave by the Turnmill Street exit",
+          "Walk north up Farringdon Road",
+          "Coldbath Yard is on the right after the post office"
+        ]
+      },
+      {
+        "mode": "bus",
+        "from": "Buses 19, 38 and 341",
+        "stop": "Rosebery Avenue",
+        "minutes": 4,
+        "steps": [
+          "Get off at Rosebery Avenue",
+          "Walk south to Farringdon Road"
+        ]
+      }
+    ],
+    "parking": [
+      {
+        "name": "Pay-by-phone bays nearby",
+        "walk": 4,
+        "price": "check the signs on the street",
+        "paid": {
+          "mon": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "tue": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "wed": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "thu": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "fri": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "sat": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ]
+        },
+        "note": "Collecting a cake? Tell us and we'll bring it down to the yard.",
+        "bankHolidays": "sunday"
+      }
+    ],
+    "access": [
+      {
+        "label": "Step-free entrance",
+        "yes": true
+      },
+      {
+        "label": "Studio on the ground floor",
+        "yes": true
+      },
+      {
+        "label": "Accessible toilet",
+        "yes": false
+      }
+    ],
+    "accessNote": "The studio is on the ground floor of the yard, through a step-free door.",
+    "payment": "Bank transfer or card."
+  },
+  "questions": [
+    {
+      "topic": "Ordering",
+      "q": "How far ahead should we book?",
+      "a": "For a wedding, six to twelve months; summer Saturdays go first. Three weeks for a birthday cake.",
+      "home": true
+    },
+    {
+      "topic": "Ordering",
+      "q": "Do we need the design when we book?",
+      "a": "No. Hold the date first; we draw the cake three months before.",
+      "home": true
+    },
+    {
+      "topic": "Ordering",
+      "q": "Can each tier be a different flavour?",
+      "a": "Yes, any of the season's flavours, one per tier.",
+      "home": true
+    },
+    {
+      "topic": "Weddings",
+      "q": "Can some tiers be dummies?",
+      "a": "Yes, iced to match. They cost about the same to decorate, so they rarely save much."
+    },
+    {
+      "topic": "Weddings",
+      "q": "Can our florist put fresh flowers on the cake?",
+      "a": "Yes. Send us their list first: many florists' flowers aren't safe near food, and we'll suggest swaps."
+    },
+    {
+      "topic": "Weddings",
+      "q": "Is it served as dessert or in the evening?",
+      "a": "Either. For the evening, most couples plan finger portions for about three quarters of their guests."
+    },
+    {
+      "topic": "Celebrations",
+      "q": "Can you put a name or an age on it?",
+      "a": "Yes, piped or in sugar letters."
+    },
+    {
+      "topic": "Celebrations",
+      "q": "Can we collect it?",
+      "a": "Yes, from the studio by appointment, in a box with carrying advice."
+    },
+    {
+      "topic": "Corporate",
+      "q": "Can you match our brand colours?",
+      "a": "Yes. Send us the colour codes and we'll match them in icing and show you a sample."
+    },
+    {
+      "topic": "Dessert tables",
+      "q": "How many pieces per guest?",
+      "a": "We plan three, with the cake. Four if there's no cake."
+    },
+    {
+      "topic": "Delivery",
+      "q": "Do you deliver and set up?",
+      "a": "Yes, across London and the Home Counties. We stack and finish the cake at the venue.",
+      "home": true
+    },
+    {
+      "topic": "Allergens",
+      "q": "Can you make a vegan cake, or one without wheat flour?",
+      "a": "Vanilla and berries can be made vegan, or with gluten-free flour. Our kitchen handles gluten, so it's not for coeliacs.",
+      "home": true
+    }
+  ],
+  "pieces": {
+    "items": [
+      {
+        "id": "gilt",
+        "no": 1,
+        "name": "Gilt",
+        "kinds": [
+          "wedding"
+        ],
+        "sizes": [
+          6,
+          8,
+          10
+        ],
+        "serves": 136,
+        "from": 900,
+        "made": "Buttercream brushed with gold.",
+        "photo": {
+          "src": "img/hero.webp",
+          "width": 900,
+          "height": 1350,
+          "alt": "A three-tier white cake streaked with gold"
+        }
+      },
+      {
+        "id": "marigold",
+        "no": 2,
+        "name": "Marigold",
+        "kinds": [
+          "wedding"
+        ],
+        "sizes": [
+          8,
+          10
+        ],
+        "serves": 112,
+        "from": 650,
+        "made": "Combed buttercream with apricot roses.",
+        "photo": {
+          "src": "img/piece.webp",
+          "width": 900,
+          "height": 1350,
+          "alt": "A two-tier cake with apricot roses"
+        }
+      }
+    ]
+  }
+}

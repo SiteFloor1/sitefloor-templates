@@ -1,0 +1,12 @@
+{#- The team: the people a client will meet, by name and role, in their own words. A portrait only if they want one. -#}
+{%- set c = site.crew %}
+{%- set ph = { title: c.title, intro: c.intro } %}
+{% include "kits/construction/partials/page-head.njk" %}
+<div class="wrap bd-crew">
+  <ul class="bd-crew-list">
+    {%- for x in c.people %}
+    <li>{% if x.photo %}<img src="{{ x.photo.src | img }}" alt="{{ x.photo.alt }}" width="{{ x.photo.width }}" height="{{ x.photo.height }}" loading="lazy" decoding="async">{% endif %}
+      <b>{{ x.name }}</b><span class="bd-crew-role">{{ x.role }}</span>{% if x.line %}<p>{{ x.line }}</p>{% endif %}</li>
+    {%- endfor %}
+  </ul>
+</div>

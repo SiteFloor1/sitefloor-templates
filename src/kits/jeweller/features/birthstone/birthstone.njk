@@ -1,0 +1,21 @@
+{#- The Birthstones page: twelve months down the page, each a hairline row: the month in hairline capitals, the stone,
+    the house's line, and its piece for the month when it has one. This month is marked. -#}
+{%- set BS = site.birthstones %}
+{%- set now = build.today | monthOf %}
+{%- set ph = { title: BS.title, intro: BS.intro } %}
+{% include "kits/jeweller/partials/page-head.njk" %}
+<section class="nc-sec jw-months" data-feature="birthstone" aria-label="Month by month"><div class="wrap">
+  <ol class="jw-months-l">
+    {%- for m in BS.months %}
+    {%- set mi = loop.index %}
+    {%- set mine = site.pieces.items | forMonth(mi) %}
+    <li class="jw-month rv{% if mi == now %} is-now{% endif %}" id="m-{{ mi }}" data-month-row="{{ mi }}">
+      <h2 class="jw-month-n">{{ mi | monthName }}</h2>
+      <p class="nc-label">{{ m.stone }}<span class="jw-now nc-muted"> · this month</span></p>
+      <p class="nc-body">{{ m.line or "" }}</p>
+      <div class="jw-month-p">{% for p in mine %}<a class="nc-u nc-label" href="{{ (p.id | pieceHref | href) if ('jewel-pages' | enabled) else '#' + p.collection }}" data-open="{{ p.id }}">{{ p.name }}</a>{% endfor %}</div>
+    </li>
+    {%- endfor %}
+  </ol>
+</div></section>
+{% include "kits/jeweller/partials/invite.njk" %}

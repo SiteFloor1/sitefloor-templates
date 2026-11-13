@@ -1,0 +1,27 @@
+{#- A moment's page: the wide photograph, what the firm does, what to have ready, who leads it, the timeline (when on),
+    the related insights and the next step. `ev` is the moment. -#}
+{%- include "kits/wealth/partials/meet-href.njk" %}
+<article class="wm-le" data-feature="life-events">
+  <header class="wm-le-h"><div class="wrap">
+    <p class="wm-crumb"><a href="{{ 'index' | href }}">{{ site.business.name }}</a></p>
+    <h1 class="wm-ph-t">{{ ev.title }}</h1>
+    <p class="wm-ph-i">{{ ev.intro }}</p>
+  </div></header>
+  <div class="wrap"><figure class="wm-le-fig"><img src="{{ ev.photo.src | img }}" alt="{{ ev.photo.alt }}" width="{{ ev.photo.width }}" height="{{ ev.photo.height }}" fetchpriority="high" decoding="async"{% if ev.photo.position %} style="object-position:{{ ev.photo.position }}"{% endif %}></figure></div>
+  <div class="wrap wm-le-cols">
+    <div><h2>What we do</h2><ul class="wm-le-l">{% for w in ev.we %}<li>{{ w }}</li>{% endfor %}</ul></div>
+    <div><h2>Have ready</h2><ul class="wm-le-l">{% for w in ev.ready %}<li>{{ w }}</li>{% endfor %}</ul>
+      {%- if ev.documents and ("documents" | enabled) %}<p class="wm-le-doc"><a class="wm-go" href="{{ 'documents' | href }}#{{ ev.id }}">The documents to gather, to tick and print</a></p>{% endif %}
+      {%- set leads = site.advisers | advisersFor(ev.id) if ("advisers" | enabled) else [] %}
+      {%- if leads.length %}<p class="wm-le-who">Led by {% for p in leads %}<a href="{{ (p.id | href) if ('adviser-pages' | enabled) else (('people' | href) + '#' + p.id if ('advisers-page' | enabled) else '#') }}">{{ p.name }}</a>{% if not loop.last %} and {% endif %}{% endfor %}.</p>{% endif %}
+    </div>
+  </div>
+  {%- if ev.timeline and ("timeline" | enabled) %}{% include "kits/wealth/features/timeline/timeline.njk" %}{% endif %}
+  {%- set rel = site.insights | insightsById(ev.insights) if ("insights" | enabled) else [] %}
+  {%- if rel.length %}
+  <div class="wrap wm-le-rel" role="region" aria-labelledby="rel-h"><h2 id="rel-h">Related insights</h2>
+    <div class="wm-ins-cards">{% for x in rel %}{% include "kits/wealth/features/insights/card.njk" %}{% endfor %}</div>
+  </div>
+  {%- endif %}
+  <p class="wrap wm-le-go"><a class="wm-btn" href="{{ meetHref }}">Arrange a first meeting</a></p>
+</article>

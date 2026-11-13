@@ -1,0 +1,8 @@
+/* Questions by topic: the topic in a narrow column, its answers open beside it. */
+.wf-faq-g { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.4fr); gap: 16px clamp(24px, 4vw, 72px); padding-block: 28px; border-top: 1px solid var(--line); }
+.wf-faq-t { margin: 0; }
+.wf-faq-l { margin: 0; display: grid; gap: 22px; }
+.wf-faq-l dt { font-weight: 600; }
+.wf-faq-l dd { margin: 4px 0 0; color: var(--muted); max-width: 64ch; }
+.wf-faq-go { margin-top: 32px; }
+@media (max-width: 760px) { .wf-faq-g { grid-template-columns: minmax(0, 1fr); } }

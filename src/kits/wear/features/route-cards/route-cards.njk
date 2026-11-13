@@ -1,0 +1,15 @@
+{#- A run's route card: the route drawn from the club's own GPX points, its real distance and climb, saved as a picture.
+    Included by the club page for each run with a route; `route` and `r` are set there. -#}
+{%- set rt = route | wearRoute(600, 600) %}
+<figure class="wr-route" data-feature="route-cards" data-route-name="{{ route.name }}" data-km="{{ rt.km }}" data-climb="{{ rt.climb if rt.climb != null else '' }}" data-when="{{ r | runWhen }}" data-brand="{{ site.business.name }}">
+  <svg viewBox="0 0 600 600" role="img" aria-label="{{ route.name }}: a {{ rt.km }} km route{% if rt.climb != null %} with {{ rt.climb }} m of climb{% endif %}" data-route-svg>
+    <rect class="wr-route-bg" width="600" height="600"/>
+    <path class="wr-route-line" d="{{ rt.d }}"/>
+    <circle class="wr-route-start" cx="{{ rt.start[0] }}" cy="{{ rt.start[1] }}" r="9"/>
+  </svg>
+  <figcaption>
+    <span class="wr-route-n">{{ route.name }}</span>
+    <span class="wr-route-s"><b>{{ rt.km }} km</b>{% if rt.climb != null %} · {{ rt.climb }} m climb{% endif %}{% if route.note %} · {{ route.note }}{% endif %}</span>
+    <button type="button" class="wr-link" data-route-save hidden>Save as a picture</button>
+  </figcaption>
+</figure>

@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: insights
+permalink: insights.html
+feature: insight-library
+eleventyComputed:
+  title: "{{ site.insights.title }}"
+  description: "{{ site.insights.intro or ('Insights from ' + site.business.name + '. General information, not advice.') }}"
+---
+{% include "kits/wealth/features/insight-library/insight-library.njk" %}

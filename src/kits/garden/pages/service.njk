@@ -1,0 +1,14 @@
+---
+layout: core/layouts/base.njk
+feature: design-build-care
+pagination:
+  data: site.servicePages.items
+  size: 1
+  alias: sp
+permalink: "{{ sp.slug }}.html"
+eleventyComputed:
+  pageId: "{{ sp.slug }}"
+  title: "{{ sp.title | plain }}"
+  description: "{{ sp.description }}"
+---
+{% include "kits/garden/features/design-build-care/design-build-care.njk" %}

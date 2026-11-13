@@ -1,0 +1,3 @@
+{#- Salon: today's board as a quiet band between the tea room and the carte, with candlelight tonight beside it. -#}
+<div class="sa-today-band"><div class="wrap{% if 'tonight' | enabled %} sa-today-two{% endif %}">{% include "kits/restaurant/features/specials/specials.njk" %}
+{%- if "tonight" | enabled %}{% include "kits/restaurant/features/tonight/tonight.njk" %}{% endif %}</div></div>

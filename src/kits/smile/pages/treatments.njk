@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: treatments
+permalink: treatments.html
+feature: smile-treatments-page
+eleventyComputed:
+  title: "{{ site.sections.treatments.title | plain }}"
+  description: "Treatments and prices at {{ site.business.name }}, {{ site.location.locality }}, with who carries out each one."
+---
+{% include "kits/smile/features/smile-treatments-page/smile-treatments-page.njk" %}

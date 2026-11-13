@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: gardens
+permalink: gardens.html
+feature: garden-pages
+eleventyComputed:
+  title: "{{ site.gardenPages.title | plain }}"
+  description: "Gardens by {{ site.business.name }}, {{ site.location.locality }}: courtyards, roof terraces, family and country gardens."
+---
+{% include "kits/garden/features/garden-pages/garden-pages.njk" %}
+{%- set hostPage = "garden-pages" %}{% include "kits/garden/partials/hosted.njk" %}

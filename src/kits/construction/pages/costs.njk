@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: costs
+permalink: costs.html
+feature: costs-page
+eleventyComputed:
+  title: "{{ site.costs.title | plain }}"
+  description: "How {{ site.business.name }} prices a build, what decides the price and what is paid to others."
+---
+{% include "kits/construction/features/costs-page/costs-page.njk" %}

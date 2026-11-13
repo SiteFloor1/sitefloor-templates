@@ -1,0 +1,31 @@
+{#- Today's counter, as shelves: one per menu section with counter pieces, the pieces edge to edge with a ticket under
+    each (name, price). From the sheet: "A few left", a count, or "Sold out today" on the piece; rows from another day
+    never show; without the sheet the shelves show unmarked with a line to ask. When the gelato wall is on, it opens
+    the counter, so these shelves carry on under it without a heading of their own. -#}
+{%- set sec = site.sections.bakes %}
+<section id="tonight" class="sec-bakes{% if 'gelato-wall' | enabled %} is-cont{% endif %}" data-feature="bakes"{{ "bakes" | tierAttr | safe }}><div class="wrap">
+  {%- if not ("gelato-wall" | enabled) %}{% include "core/partials/section-head.njk" %}{% if "kitchen-line" | enabled %}{% include "kits/bakery/features/kitchen-line/kitchen-line.njk" %}{% endif %}{% endif %}
+  {%- for s in site.desserts | shelves %}
+  <div class="shelf">
+    <div class="shelf-head"><h3>{{ s.name }}</h3>{% if s.intro %}<p class="shelf-note">{{ s.intro }}</p>{% endif %}</div>
+    <ul class="shelf-row" style="--n:{{ s.items.length }}">
+      {%- for it in s.items %}
+      <li class="piece" data-item="{{ it.id }}" data-name="{{ it.name }}">
+        <div class="piece-ph"><img src="{{ it.photo.src | img }}" alt="{{ it.photo.alt }}" width="{{ it.photo.width }}" height="{{ it.photo.height }}" loading="lazy" decoding="async"><span class="piece-state" data-item-status hidden></span></div>
+        <p class="ticket"><b>{{ it.name }}</b><span>{{ it.price | pounds }}</span></p>
+        {%- if it.desc %}<p class="piece-all">{{ it.desc }}</p>{% endif %}
+        <p class="piece-note" data-item-note hidden></p>
+      </li>
+      {%- endfor %}
+    </ul>
+  </div>
+  {%- endfor %}
+  {%- set plain = site.desserts | counterItems | rejectattr("photo") %}
+  {%- if plain.length %}
+  <ul class="shelf-list">
+    {%- for it in plain %}<li class="piece-line" data-item="{{ it.id }}" data-name="{{ it.name }}"><b>{{ it.name }}</b> <span>{{ it.price | pounds }}</span> <span class="piece-state" data-item-status hidden></span><span class="piece-note" data-item-note hidden></span></li>{% endfor %}
+  </ul>
+  {%- endif %}
+  <p class="bk-live" aria-live="polite"><span data-bk-upd></span></p>
+  <p class="bk-off" data-bk-off hidden>We couldn't load today's counter just now. Ask us what's left, or message us.</p>
+</div></section>

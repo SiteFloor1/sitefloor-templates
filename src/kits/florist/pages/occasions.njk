@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: occasions
+permalink: occasions.html
+feature: occasion-pages
+eleventyComputed:
+  title: "{{ site.occasionPages.title | plain }}"
+  description: "Flowers for every occasion from {{ site.business.name }}, {{ site.location.locality }}: birthdays, anniversaries, new babies, thank you, get well and more."
+---
+{% include "kits/florist/features/occasion-pages/occasion-pages.njk" %}

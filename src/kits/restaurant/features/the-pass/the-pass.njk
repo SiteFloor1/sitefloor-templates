@@ -1,0 +1,41 @@
+{#- The Pass: the restaurant's own photos of its plates under the lamp, with what's on the plate marked,
+    a kitchen ticket with the allergens, spice and what to drink with it, and who at your table can eat it.
+    Without JavaScript every plate shows, one after another. -#}
+{%- set sec = site.sections.thePass %}
+<section id="pass" class="ps" data-feature="the-pass" aria-labelledby="ps-h"{{ "the-pass" | tierAttr | safe }}><div class="wrap">
+  <div class="sh rv"><div>{% if sec.kicker %}<span class="kick">{{ sec.kicker }}</span>{% endif %}<h2 id="ps-h">{{ sec.title | markup | safe }}</h2></div>{% if sec.intro %}<p>{{ sec.intro }}</p>{% endif %}</div>
+  <div class="ps-rail rs-tabs" role="tablist" aria-label="Plates" data-js-only>
+    {%- for id in site.pass.dishes %}{% set d = site.menu | dish(id) %}
+    <button type="button" class="ps-thumb" role="tab" id="ps-tab-{{ d.id }}" aria-controls="ps-{{ d.id }}" aria-selected="{{ 'true' if loop.first else 'false' }}" data-ps-tab="{{ d.id }}"><img src="{{ (d.pass.thumb or d.pass.src) | img }}" width="64" height="64" alt="" loading="lazy"><span>{{ d.name }}</span></button>
+    {%- endfor %}
+  </div>
+  <div class="ps-bars" data-js-only aria-hidden="true">{% for id in site.pass.dishes %}<i data-ps-bar></i>{% endfor %}<span>Swipe for the next plate</span></div>
+  {%- for id in site.pass.dishes %}{% set d = site.menu | dish(id) %}
+  <div class="ps-dish" id="ps-{{ d.id }}" role="tabpanel" aria-labelledby="ps-tab-{{ d.id }}" data-ps-dish="{{ d.id }}" data-dish="{{ d.id }}" data-name="{{ d.name }}" data-diets="{{ (d.diets or []) | join(' ') }}" data-allergens="{{ d.allergens | join(' ') }}">
+    <figure class="ps-plate{% if not loop.first %} ps-later{% endif %}">
+      <div class="ps-lamp" aria-hidden="true"></div>
+      <div class="ps-photo">
+        {%- if loop.first %}<img src="{{ d.pass.src | img }}" width="{{ d.pass.width }}" height="{{ d.pass.height }}" alt="{{ d.pass.alt }}" loading="lazy">{% else %}<img data-src="{{ d.pass.src | img }}" width="{{ d.pass.width }}" height="{{ d.pass.height }}" alt="{{ d.pass.alt }}">{% endif %}
+        <ol class="ps-pins">{% for n in d.pass.notes %}<li style="left:{{ n.x | pct }};top:{{ n.y | pct }}"><button type="button" class="ps-pin" data-ps-pin="{{ loop.index }}" aria-label="{{ loop.index }}: {{ n.text }}"><span>{{ loop.index }}</span></button></li>{% endfor %}</ol>
+      </div>
+    </figure>
+    <div class="ps-ticket">
+      <p class="ps-tk-top"><span>The pass</span><span>{{ loop.index }} / {{ site.pass.dishes | length }}</span></p>
+      <h3 class="ps-name">{{ d.name }}</h3>
+      <p class="ps-price">{{ d.price | gbp }}</p>
+      {%- if d.desc %}<p class="ps-desc">{{ d.desc }}</p>{% endif %}
+      <ol class="ps-notes">{% for n in d.pass.notes %}<li data-ps-note="{{ loop.index }}"><span>{{ loop.index }}</span>{{ n.text }}</li>{% endfor %}</ol>
+      <dl class="ps-facts">
+        {%- set marks = d | dietMarks %}
+        <div><dt>Marked</dt><dd>{% if marks.length %}{% for mk in marks %}{{ mk.name }}{% if not loop.last %}, {% endif %}{% endfor %}{% else %}No diet marks{% endif %}</dd></div>
+        <div><dt>Spice</dt><dd>{% if d.spice %}{{ food.spice[d.spice] }}{% else %}None{% endif %}</dd></div>
+        {%- set an = d | allergenNames %}
+        <div><dt>Allergens</dt><dd>{% if an.length %}{{ an | join(", ") }}{% else %}None of the 14{% endif %}</dd></div>
+        {%- if d.pairs %}<div><dt>Drink with it</dt><dd>{% for p in d.pairs %}{% set dr = site.menu | dish(p) %}{{ dr.name }} ({{ dr.price | gbp }}){% if not loop.last %}, {% endif %}{% endfor %}</dd></div>{% endif %}
+      </dl>
+      <p class="ps-who" data-ps-who hidden></p>
+      {%- if site.pass.note %}<p class="rs-small ps-small">{{ site.pass.note }}</p>{% endif %}
+    </div>
+  </div>
+  {%- endfor %}
+</div></section>

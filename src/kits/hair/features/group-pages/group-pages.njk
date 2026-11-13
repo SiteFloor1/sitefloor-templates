@@ -1,0 +1,20 @@
+{#- A page for one kind of service (one page of the group-pages collection): its photograph and line, the prices by
+    length and level, a few notes in the salon's words, and who does it. Set by pages/group.njk (`gp`). -#}
+{%- set grp = site.menu.groups | idOf(gp.group) %}
+{%- set ph = { title: gp.title, intro: gp.intro, photo: gp.photo } %}
+{% include "kits/hair/partials/page-head.njk" %}
+<section class="hr-gp" aria-labelledby="gp-prices"><div class="wrap">
+  <h2 id="gp-prices">Prices</h2>
+  {% include "kits/hair/partials/level-pick.njk" %}
+  {%- set ptGroup = gp.group %}{% include "kits/hair/partials/price-table.njk" %}
+  {%- if gp.notes %}<ul class="hr-notes">{% for n in gp.notes %}<li>{{ n }}</li>{% endfor %}</ul>{% endif %}
+</div></section>
+<section class="hr-gp-who" aria-labelledby="gp-who"><div class="wrap">
+  <h2 id="gp-who">Who does it</h2>
+  <ul class="hr-who">
+    {%- for x in site.stylists.items %}{% if gp.group in x.does %}
+    <li>{% if x.work %}<img src="{{ x.work.src | img }}" alt="{{ x.work.alt }}" width="{{ x.work.width }}" height="{{ x.work.height }}" loading="lazy" decoding="async">{% endif %}<b>{{ x.name }}</b><span>{{ (site.menu.levels | idOf(x.level)).name }} · {{ x.line }}</span></li>
+    {%- endif %}{% endfor %}
+  </ul>
+  <p class="hr-gp-go"><a class="hr-btn" href="{{ (site.menu.message + ' ' + grp.name + '.') | book }}" target="_blank" rel="noopener">Ask on WhatsApp</a></p>
+</div></section>

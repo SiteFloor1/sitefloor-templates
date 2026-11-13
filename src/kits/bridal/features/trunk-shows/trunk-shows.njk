@@ -1,0 +1,19 @@
+{#- Trunk shows and sample sales: what's coming, with its dates; a show that has finished drops off by itself (at the
+    build, and in the browser after it). A waiting list by the salon's own Google Form. -#}
+{%- set sec = site.sections.trunkShows %}
+{%- set shows = site.trunkShows.items | upcomingShows(build.today) %}
+<section id="trunk-shows" class="bd-shows" data-feature="trunk-shows" aria-label="{{ sec.title | plain }}"{{ 'trunk-shows' | tierAttr | safe }}><div class="wrap">
+  {%- include "core/partials/section-head.njk" %}
+  <ol class="bd-show-list" data-ts-list>
+    {%- for e in shows %}
+    <li class="bd-show rv" data-to="{{ e.to }}">
+      <p class="bd-show-kind">{{ "Sample sale" if e.kind == "sample-sale" else "Trunk show" }}</p>
+      <h3 class="bd-show-t">{{ e.title }}</h3>
+      <p class="bd-show-d"><time datetime="{{ e.from }}">{{ e | showDates }}</time></p>
+      <p class="bd-show-x">{{ e.text }}</p>
+    </li>
+    {%- endfor %}
+  </ol>
+  <p class="bd-show-none" data-ts-none{% if shows.length %} hidden{% endif %}>Nothing announced just now.{% if site.trunkShows.formUrl %} Join the list and we'll tell you first.{% endif %}</p>
+  {%- if site.trunkShows.formUrl %}<p class="bd-show-join"><a class="bd-go" href="{{ site.trunkShows.formUrl }}" target="_blank" rel="noopener"{% if site.mode == "demo" %} data-demo-note="On a live site this opens the salon's own Google Form to join the waiting list. This demo's form isn't real."{% endif %}>Join the list</a></p>{% endif %}
+</div></section>

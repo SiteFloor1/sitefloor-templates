@@ -1,0 +1,14 @@
+/* Book a table. Tokens only. */
+.tr-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); gap: clamp(24px, 5vw, 72px); align-items: start; }
+@media (max-width: 860px) { .tr-grid { grid-template-columns: minmax(0, 1fr); } }
+.tr-form { display: grid; gap: 18px; padding: clamp(20px, 3vw, 34px); background: var(--card); color: var(--card-ink); transition: background-color var(--mood-fade); }
+.tr-two { display: grid; grid-template-columns: minmax(0, .6fr) minmax(0, 1fr); gap: 12px; }
+.tr-times { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; min-width: 0; }
+.tr-times legend { margin-bottom: 8px; }
+.tr-times [data-tr-times] { display: grid; gap: 12px; }
+.tr-sit-h { margin: 0 0 6px; font-size: 13px; color: var(--muted); }
+.tr-from { margin: 0; padding: 10px 12px; border-left: 2px solid var(--accent); background: var(--surface-2); font-size: 14px; }
+.tr-send { justify-content: center; }
+.tr-side { display: grid; gap: 22px; font-size: 15px; }
+.tr-side p { margin: 0; }
+.tr-side .rs-k { margin-bottom: 6px; }

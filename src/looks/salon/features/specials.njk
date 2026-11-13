@@ -1,0 +1,10 @@
+{#- Salon: today, from the café's sheet: what the pâtisserie has made and what has gone. Keeps the specials hooks. -#}
+{%- set sec = site.sections.specials %}
+<section id="specials" class="sp sa-today" data-feature="specials" aria-labelledby="sp-h">
+  <h2 id="sp-h">{{ sec.title | markup | safe }}</h2>
+  <p class="sa-date" data-sp-date data-js-only>&nbsp;</p>
+  <ul class="sa-today-list" data-sp-list data-js-only aria-live="polite"><li>Reading today’s board…</li></ul>
+  <p class="sa-today-out" data-sp-out hidden></p>
+  <p class="sa-today-off" data-sp-off>{{ sec.intro or "Ask us what the pâtisserie has made today." }}</p>
+  <p class="sa-small" data-sp-upd data-js-only></p>
+</section>

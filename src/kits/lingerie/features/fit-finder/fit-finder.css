@@ -1,0 +1,7 @@
+.ff-in { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: var(--s3); }
+.ff-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+.ff-chip { min-height: 44px; font: inherit; cursor: pointer; }
+[data-ready] .ff-ans:not(.on) { display: none; }
+.ff-ans + .ff-ans { margin-top: 26px; }
+[data-ready] .ff-ans + .ff-ans { margin-top: 0; }
+@media (max-width: 860px) { .ff-in { grid-template-columns: 1fr; } }

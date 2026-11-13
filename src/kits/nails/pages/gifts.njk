@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: gifts
+permalink: gifts.html
+feature: nail-gifts
+eleventyComputed:
+  title: "{{ site.giftPage.title | plain }}"
+  description: "Gift vouchers for {{ site.business.name }}, {{ site.location.locality }}."
+---
+{% include "kits/nails/features/nail-gifts/nail-gifts.njk" %}
+{%- set hostPage = "nail-gifts" %}{% include "kits/nails/partials/hosted.njk" %}

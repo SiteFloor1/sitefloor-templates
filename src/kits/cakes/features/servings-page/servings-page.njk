@@ -1,0 +1,14 @@
+{#- The servings guide: the calculator, then the studio's own portion chart for every tier. -#}
+{%- set pg = site.cakePages.servings %}
+{%- set ph = { title: pg.title, intro: pg.intro } %}{% include "kits/cakes/partials/page-head.njk" %}
+{%- set hostPage = "servings-page" %}{% include "kits/cakes/partials/hosted.njk" %}
+<section class="ck-chart" data-feature="servings-page" aria-label="Portions from each tier"><div class="wrap">
+  <h2 class="ck-chart-h">Portions from each tier</h2>
+  <div class="ck-fltbl-w" role="region" aria-label="Portions from each tier" tabindex="0">
+    <table class="ck-chart-t">
+      <thead><tr><th scope="col">Round tier</th><th scope="col">With coffee (finger)</th><th scope="col">As the dessert</th></tr></thead>
+      <tbody>{% for t in site.servings.tiers %}<tr><th scope="row">{{ t.size }} in</th><td>{{ t.finger }}</td><td>{{ t.dessert }}</td></tr>{% endfor %}</tbody>
+    </table>
+  </div>
+  <p class="ck-note">Each tier is {{ site.servings.height }} tall. Up to {{ site.servings.maxTiers | tiersWords }}.{% if site.servings.note %} {{ site.servings.note }}{% endif %}</p>
+</div></section>

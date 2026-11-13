@@ -1,0 +1,10 @@
+{#- The studio's classes: name, length, level, one line each. The title sits beside the list. -#}
+{%- set sec = site.sections.classTypes %}
+<section id="classes" class="pl-types" data-feature="class-types" aria-labelledby="pl-types-h"><div class="wrap pl-types-in">
+  <div class="pl-types-head"><h2 class="pl-types-h" id="pl-types-h">{{ sec.title | markup | safe }}</h2>{% if sec.intro %}<p>{{ sec.intro }}</p>{% endif %}</div>
+  <ul class="pl-types-list">
+    {%- for c in site.classTypes.items %}
+    <li class="rv"><b>{% if 'class-pages' | enabled %}<a href="{{ ('class-' + c.id) | href }}">{{ c.name }}</a>{% else %}{{ c.name }}{% endif %}</b><span>{{ c.minutes }} min{% if c.level %} · {{ c.level }}{% endif %}</span><p>{{ c.text }}</p></li>
+    {%- endfor %}
+  </ul>
+</div></section>

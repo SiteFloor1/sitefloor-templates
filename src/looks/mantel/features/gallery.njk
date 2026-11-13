@@ -1,0 +1,9 @@
+{#- Mantel home strip: the latest photographs as an even sheet, the handle and the link in one line beneath. -#}
+{%- set sec = site.sections.gallery %}
+{%- set g = site.gallery %}
+<section id="work" class="mt-strip" data-feature="gallery" data-gallery-limit="6"{{ "gallery" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  {% include "features/gallery/gallery-list.njk" %}
+  <p class="mt-strip-foot">{% if g.handle %}<span>@{{ g.handle }}</span>{% endif %}
+    {%- if "work" | enabled %}<a class="fl-link" href="{{ 'work' | href }}"{{ "work" | tierAttr | safe }}>Every photograph</a>{% elif g.profile %}<a class="fl-link" href="{{ g.profile }}" target="_blank" rel="noopener">On Instagram</a>{% endif %}</p>
+</div></section>

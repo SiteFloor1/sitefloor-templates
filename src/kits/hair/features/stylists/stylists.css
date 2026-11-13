@@ -1,0 +1,28 @@
+/* The stylists: with photographs, a row of their work with a ruled label under each; without, a ruled list. Tokens only. */
+.hr-st-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--text); }
+.hr-st-one { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 5fr) minmax(0, 3fr) auto; align-items: baseline; gap: 4px 28px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+.hr-st-n, .hr-st-l, .hr-st-free { margin: 0; }
+.hr-st-l { color: var(--muted); }
+.hr-st-free { min-height: 1.6em; font-size: 14px; color: var(--muted); }
+.hr-st-free[data-on]::before { content: ""; display: inline-block; width: 7px; height: 7px; margin-right: 8px; background: var(--accent); vertical-align: 1px; }
+.hr-st-more { margin: 28px 0 0; }
+.hr-st-w .hr-st-list, .hr-st-full .hr-st-list { border-top: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 40px 24px; }
+.hr-st-w .hr-st-one, .hr-st-full .hr-st-one { grid-template-columns: minmax(0, 1fr); align-content: start; border-top: 1px solid var(--text); border-bottom: 0; padding: 14px 0 0; }
+.hr-st-work { margin: 0 0 12px; aspect-ratio: 4 / 5; overflow: hidden; background: var(--surface); }
+.hr-st-work img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hr-st-w .hr-st-list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.hr-st-w .hr-st-n { font-family: var(--font-display); font-weight: 300; font-size: 34px; line-height: 1; }
+.hr-st-w .hr-st-l { font-size: 14px; }
+@media (max-width: 860px) {
+  .hr-st-w .hr-st-list { display: grid; grid-auto-flow: column; grid-template-columns: none; grid-auto-columns: 68%; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; scrollbar-width: none; }
+  .hr-st-w .hr-st-one { scroll-snap-align: start; grid-template-columns: minmax(0, 1fr); }
+  .hr-st-w .hr-st-one > * { grid-column: 1; grid-row: auto; }
+  .hr-st-w .hr-st-n { font-size: 28px; }
+}
+@media (max-width: 860px) {
+  .hr-st:not(.hr-st-w) .hr-st-one { grid-template-columns: minmax(0, 1fr) auto; gap: 2px 16px; padding: 10px 0; }
+  .hr-st:not(.hr-st-w) .hr-st-n { grid-column: 1; }
+  .hr-st:not(.hr-st-w) .hr-st-l { grid-column: 1 / -1; font-size: 14px; }
+  .hr-st:not(.hr-st-w) .hr-st-free { grid-column: 1; grid-row: 3; }
+  .hr-st:not(.hr-st-w) .hr-st-one .hr-go { grid-column: 2; grid-row: 1; min-height: 36px; }
+}

@@ -1,0 +1,513 @@
+<meta charset="utf-8">
+<title>Wexley Case Study</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prata&family=Libre+Franklin:wght@300;400;500;600&family=Manrope:wght@600;700&display=swap">
+<style>
+/* Layout: the case study is a gown's fittings. The first appointment, the first fitting and the final fitting are the
+   three plans, in the order a bride meets them; then the gown is measured (the speed) and collected (the plans).
+   Ground: the inside of a pearl oyster: ivory nacre, a warm champagne lip, and a soft dark-brown edge for the ink.
+   Screens sit on it in white, like gowns on an ivory carpet. A white fitting card carries the salon's facts. */
+:root {
+  --shell: #F6F1EA; --shell-2: #EFE8DE; --shell-3: #E6DDD1; --rule: #DCD2C5;
+  --ivory: #2B2622; --mist: #6A6158; --nacre: #7F6242; --nacre-2: #7A6144;
+  --card: #FFFFFF; --card-2: #EAE2D7; --card-ink: #2B2622; --card-soft: #6A6158;
+  --display: "Prata", "Didot", "Bodoni 72", Georgia, serif;
+  --body: "Libre Franklin", "Franklin Gothic", "Helvetica Neue", Arial, sans-serif;
+  --brand: "Manrope", Arial, sans-serif;
+  --sf-paper: #FBFAF7; --sf-ink: #0E0F11; --sf-tomato: #E8613C; --sf-line: rgba(14,15,17,.12);
+  --s: clamp(80px, 11vw, 168px);
+  color-scheme: light;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--shell); }
+body { background: var(--shell); color: var(--ivory); font: 300 17px/1.65 var(--body); -webkit-font-smoothing: antialiased; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--sf-paper); }
+a { color: inherit; }
+img, video { display: block; max-width: 100%; height: auto; }
+.gut { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { width: min(1240px, 100%); margin-inline: auto; }
+h1, h2, h3 { font-family: var(--display); font-weight: 400; text-wrap: balance; margin: 0; }
+p { margin: 0; }
+b, strong { font-weight: 500; }
+.lab { font-size: 11px; font-weight: 500; letter-spacing: .26em; text-transform: uppercase; color: var(--nacre-2); }
+:focus-visible { outline: 2px solid var(--nacre); outline-offset: 3px; }
+
+/* Sitefloor's own bar, as on the Sitefloor site and the other case studies */
+.sfbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--sf-paper); color: var(--sf-ink); border-bottom: 1px solid var(--sf-line); }
+.sfbar .wrap { display: flex; justify-content: space-between; align-items: center; height: 66px; gap: 16px; }
+.wm { display: flex; align-items: baseline; font-family: var(--brand); font-weight: 600; font-size: 24px; letter-spacing: -.045em; text-decoration: none; color: var(--sf-ink); }
+.wm svg { margin: 0 1px; overflow: visible; }
+.sfbar nav { display: flex; gap: 28px; font-family: var(--brand); font-size: 14px; font-weight: 600; }
+.sfbar nav a { text-decoration: none; color: var(--sf-ink); }
+.sfbar nav a[aria-current] { box-shadow: inset 0 -1.5px 0 var(--sf-ink); }
+.sfbtn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 20px; background: var(--sf-ink); color: var(--sf-paper); font: 700 12px var(--brand); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; }
+.sfbtn:hover { background: var(--sf-tomato); }
+@media (max-width: 760px) { .sfbar nav { display: none; } }
+@media (max-width: 420px) { .sfbar .sfbtn { display: none; } }
+
+/* actions */
+.acts { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 30px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 28px; border: 1px solid var(--ivory); background: var(--ivory); color: var(--shell); font: 500 12.5px var(--body); letter-spacing: .2em; text-transform: uppercase; text-decoration: none; }
+.btn:hover { background: var(--nacre); border-color: var(--nacre); }
+.btn.line { background: none; color: var(--ivory); }
+.btn.line:hover { background: var(--ivory); color: var(--shell); }
+.txt { display: inline-flex; align-items: center; min-height: 44px; font: 500 12.5px var(--body); letter-spacing: .2em; text-transform: uppercase; text-decoration: underline; text-decoration-color: var(--nacre-2); text-underline-offset: 8px; }
+
+/* a phone: the screen in a hairline case, nothing more */
+.phone { position: relative; width: min(320px, 78vw); padding: 10px; border: 1px solid var(--rule); border-radius: 38px; background: var(--shell-2); box-shadow: 0 50px 90px -50px rgba(70,52,34,.35); }
+.phone video, .phone img { width: 100%; aspect-ratio: 720 / 1558; object-fit: cover; border-radius: 28px; background: #FFFFFF; }
+.pause { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; margin-top: 14px; padding: 0 14px; border: 1px solid var(--rule); border-radius: 999px; background: none; color: var(--mist); font: 400 12px var(--body); letter-spacing: .1em; cursor: pointer; }
+.pause:hover { color: var(--ivory); border-color: var(--mist); }
+.pause svg { width: 11px; height: 11px; }
+
+/* ---- the hero */
+.hero { padding-block: clamp(48px, 7vw, 110px) var(--s); overflow-x: clip; }
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: clamp(40px, 6vw, 110px); align-items: center; }
+.hero-t { display: grid; gap: 30px; min-width: 0; }
+.hero h1 { font-size: clamp(50px, 7.4vw, 118px); line-height: .98; letter-spacing: -.012em; }
+.hero h1 i { font-style: normal; color: var(--nacre); }
+.hero-t > p:not(.lab) { max-width: 36em; color: var(--mist); font-size: 18.5px; }
+.hero-p { justify-self: center; display: grid; justify-items: center; }
+@media (max-width: 860px) { .hero .wrap { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---- the fitting card: the salon's facts, as a couture house writes them */
+.cardsec { padding-bottom: var(--s); }
+.fcard { position: relative; box-shadow: 0 40px 80px -60px rgba(70,52,34,.35); display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(28px, 5vw, 80px); padding: clamp(28px, 5vw, 72px); background: var(--card); color: var(--card-ink); }
+.fcard::before { content: ""; position: absolute; inset: 12px; border: 1px dashed #24232A40; pointer-events: none; }
+.pin { position: absolute; top: -14px; right: clamp(40px, 12%, 140px); width: 3px; height: 64px; background: linear-gradient(#B8B8BE, #6E6E76); transform: rotate(18deg); }
+.pin::before { content: ""; position: absolute; top: -8px; left: -6px; width: 15px; height: 15px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #F6F2FA, #B6ACC7 55%, #776E86); }
+.fcard h2 { font-size: clamp(34px, 4vw, 58px); line-height: 1.05; }
+.fcard .lab { color: var(--card-soft); margin-bottom: 18px; display: block; }
+.facts { display: grid; margin: 0; font-variant-numeric: tabular-nums; }
+.facts div { display: grid; grid-template-columns: 9em minmax(0, 1fr); gap: 20px; padding-block: 13px; border-bottom: 1px solid #24232A22; }
+.facts div:first-child { border-top: 1px solid #24232A22; }
+.facts dt { font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--card-soft); padding-top: 4px; }
+.facts dd { margin: 0; font-size: 16.5px; font-weight: 400; }
+@media (max-width: 860px) { .fcard { grid-template-columns: minmax(0, 1fr); } .facts div { grid-template-columns: 7.5em minmax(0, 1fr); gap: 14px; } }
+
+/* ---- a fitting (one plan): its name large, the plan and price on a ticket */
+.fit { padding-block: var(--s) 0; border-top: 1px solid var(--rule); }
+.fit-h { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: 20px 48px; align-items: end; margin-bottom: clamp(44px, 6vw, 88px); }
+.fit-h .when { grid-column: 1 / -1; }
+.fit-h h2 { font-size: clamp(46px, 7vw, 108px); line-height: .98; }
+.fit-h > p:last-child { color: var(--mist); max-width: 34em; }
+.ticket { display: inline-grid; grid-auto-flow: column; gap: 14px; align-items: baseline; justify-self: start; margin-top: 18px; padding: 10px 16px; border: 1px solid var(--nacre-2); color: var(--nacre); font-size: 13px; letter-spacing: .14em; text-transform: uppercase; font-variant-numeric: tabular-nums; }
+.ticket b { font-family: var(--display); font-weight: 400; font-size: 20px; letter-spacing: 0; text-transform: none; color: var(--ivory); }
+@media (max-width: 860px) { .fit-h { grid-template-columns: minmax(0, 1fr); } }
+
+/* a list of what the plan does: name, then what it does for the salon */
+.does { list-style: none; margin: 0; padding: 0; display: grid; }
+.does li { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 10px 40px; padding-block: 24px; border-top: 1px solid var(--rule); }
+.does li:last-child { border-bottom: 1px solid var(--rule); }
+.does h3 { font-size: clamp(22px, 2.1vw, 28px); line-height: 1.2; }
+.does p { color: var(--mist); }
+@media (max-width: 760px) { .does li { grid-template-columns: minmax(0, 1fr); } }
+
+/* chapter I: the request */
+.req { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(36px, 6vw, 100px); align-items: start; }
+.req-p { display: grid; justify-items: center; position: sticky; top: 96px; }
+.msg { margin-top: clamp(36px, 5vw, 64px); display: grid; gap: 14px; max-width: 520px; }
+.msg pre { margin: 0; padding: 22px 24px; background: var(--card); color: var(--card-ink); font: 400 15px/1.6 var(--body); white-space: pre-wrap; overflow-wrap: anywhere; border-left: 3px solid var(--nacre-2); }
+.msg p { color: var(--mist); font-size: 14.5px; }
+@media (max-width: 860px) { .req { grid-template-columns: minmax(0, 1fr); } .req-p { position: static; } }
+figure { margin: 0; }
+figcaption { margin-top: 14px; font-size: 13px; letter-spacing: .04em; color: var(--mist); }
+.shot img { width: 100%; background: #FFFFFF; box-shadow: 0 40px 80px -50px rgba(70,52,34,.3); outline: 1px solid var(--rule); }
+.wide { margin-top: clamp(56px, 8vw, 120px); }
+
+/* chapter II: a gown, one screen */
+.bleed { margin-top: clamp(56px, 8vw, 120px); }
+.bleed img { width: 100%; height: auto; }
+.bleed figcaption { padding-inline: max(16px, env(safe-area-inset-left, 0px)); text-align: center; }
+.pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(12px, 2vw, 28px); margin-top: clamp(12px, 2vw, 28px); }
+@media (max-width: 760px) { .pair { grid-template-columns: minmax(0, 1fr); } }
+.rows { display: grid; gap: clamp(64px, 9vw, 130px); margin-top: clamp(64px, 9vw, 130px); }
+.row { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: clamp(28px, 5vw, 72px); align-items: center; }
+.row.flip { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); }
+.row.flip figure { order: 2; }
+.row h3 { font-size: clamp(28px, 3vw, 42px); line-height: 1.1; margin-bottom: 16px; }
+.row p { color: var(--mist); }
+.row .lab { display: block; margin-bottom: 14px; }
+@media (max-width: 860px) { .row, .row.flip { grid-template-columns: minmax(0, 1fr); } .row.flip figure { order: 0; } }
+
+/* chapter III: the diary, live */
+.diary { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(32px, 5vw, 88px); padding: clamp(28px, 4.5vw, 64px); background: var(--shell-2); border: 1px solid var(--rule); }
+.diary h3 { font-size: clamp(30px, 3.4vw, 48px); line-height: 1.08; margin-bottom: 18px; }
+.diary-side { display: grid; gap: 22px; align-content: start; }
+.diary-side > p { color: var(--mist); }
+.date { display: grid; grid-template-columns: 1fr 1.7fr 1.2fr; gap: 8px; border: 0; padding: 0; margin: 0; }
+.date legend { padding: 0; margin-bottom: 10px; }
+.date select { width: 100%; min-height: 48px; padding: 0 12px; border: 1px solid var(--rule); border-radius: 0; background: var(--shell); color: var(--ivory); font: 400 15px var(--body); }
+.order { font-family: var(--display); font-size: clamp(24px, 2.4vw, 32px); line-height: 1.2; color: var(--ivory); }
+.away { color: var(--nacre); font-size: 14px; letter-spacing: .06em; font-variant-numeric: tabular-nums; }
+.late { color: var(--mist); font-size: 14px; }
+.steps { list-style: none; margin: 0; padding: 0; }
+.steps li { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 5fr); gap: 16px; padding-block: 14px; border-top: 1px solid var(--rule); font-variant-numeric: tabular-nums; }
+.steps li:last-child { border-bottom: 1px solid var(--rule); }
+.steps .w { color: var(--mist); font-size: 14.5px; }
+.steps li.past { opacity: .45; }
+.steps li.day b { font-family: var(--display); font-weight: 400; font-size: 1.2em; }
+@media (max-width: 860px) { .diary { grid-template-columns: minmax(0, 1fr); } .steps li { grid-template-columns: minmax(0, 1fr); gap: 2px; } }
+
+/* chapter III: the mirror */
+.mirror-row { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: clamp(32px, 5vw, 88px); align-items: center; }
+.mirror { display: grid; grid-template-columns: 1fr 2fr 1fr; gap: clamp(6px, .8vw, 12px); perspective: 1800px; }
+.pane { margin: 0; display: grid; gap: 10px; }
+.pane img { width: 100%; height: 100%; aspect-ratio: 9 / 25; object-fit: cover; padding: 8px; background: var(--card); }
+.pane.c img { aspect-ratio: 9 / 13; height: auto; }
+.pane span { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--mist); text-align: center; }
+.pane.l { transform: rotateY(20deg); transform-origin: right center; }
+.pane.r { transform: rotateY(-20deg); transform-origin: left center; }
+@media (prefers-reduced-motion: no-preference) { .mirror.in .pane.l, .mirror.in .pane.r { animation: settle 1.8s cubic-bezier(.2,.7,.2,1) both; } }
+@keyframes settle { from { transform: rotateY(0); } }
+.mirror-t h3 { font-size: clamp(30px, 3.4vw, 48px); line-height: 1.08; margin-bottom: 18px; }
+.mirror-t p { color: var(--mist); }
+.mirror-t .clip { margin-top: 28px; }
+.mirror-t .clip video { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; background: #FFFFFF; }
+@media (max-width: 860px) { .mirror-row { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---- measured: the speed, written like a measurement card */
+.meas { padding-block: var(--s); border-top: 1px solid var(--rule); }
+.meas .wrap { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(32px, 6vw, 100px); }
+.meas h2 { font-size: clamp(44px, 6vw, 92px); line-height: 1; margin-bottom: 22px; }
+.meas-t > p { color: var(--mist); max-width: 30em; }
+.chart { display: grid; margin: 0; font-variant-numeric: tabular-nums; }
+.chart div { display: grid; grid-template-columns: auto minmax(20px, 1fr) auto; gap: 14px; align-items: baseline; padding-block: 15px; }
+.chart div::after { content: ""; grid-column: 2; grid-row: 1; align-self: center; border-bottom: 1px dotted var(--rule); }
+.chart dt { grid-column: 1; font-size: 15px; color: var(--mist); }
+.chart dd { grid-column: 3; margin: 0; font-family: var(--display); font-size: clamp(22px, 2.2vw, 30px); color: var(--ivory); text-align: right; }
+.chart small { font: 300 13px var(--body); color: var(--mist); }
+.meas-note { margin-top: 24px; font-size: 13.5px; color: var(--mist); max-width: 52em; }
+@media (max-width: 860px) { .meas .wrap { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---- the plans: three fittings */
+.plans { padding-block: 0 var(--s); }
+.plans-h { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: 20px 48px; align-items: end; margin-bottom: clamp(40px, 5vw, 72px); padding-top: var(--s); border-top: 1px solid var(--rule); }
+.plans-h h2 { font-size: clamp(44px, 6vw, 92px); line-height: 1; }
+.plans-h p { color: var(--mist); }
+.three { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(12px, 2vw, 24px); }
+.plan { display: grid; gap: 18px; align-content: start; padding: clamp(24px, 3vw, 40px); border: 1px solid var(--rule); background: var(--shell-2); }
+.plan.sig { background: var(--ivory); color: var(--shell); border-color: var(--ivory); }
+.plan .lab { color: inherit; opacity: .7; }
+.plan h3 { font-size: clamp(30px, 3vw, 42px); }
+.pr { font-family: var(--display); font-size: 26px; font-variant-numeric: tabular-nums; }
+.pr small { font: 300 14px var(--body); opacity: .75; }
+.plan ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; font-size: 15px; }
+.plan li { padding-top: 10px; border-top: 1px solid var(--rule); }
+.plan.sig li { border-top-color: #F6F1EA33; }
+@media (max-width: 960px) { .three { grid-template-columns: minmax(0, 1fr); } .plans-h { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---- the close */
+.close { padding-block: var(--s); background: var(--card-2); color: var(--card-ink); }
+.close .wrap { display: grid; gap: 28px; justify-items: start; }
+.close h2 { font-size: clamp(46px, 7vw, 108px); line-height: .98; max-width: 12em; }
+.close p { color: var(--card-soft); max-width: 36em; font-size: 18px; }
+.close .btn { background: var(--card-ink); border-color: var(--card-ink); color: var(--card); }
+.close .btn:hover { background: var(--sf-ink); }
+.close .btn.line { background: none; color: var(--card-ink); }
+.close .btn.line:hover { background: var(--card-ink); color: var(--card); }
+.mail { font-size: 15px; letter-spacing: .04em; color: var(--card-soft); user-select: all; }
+
+footer { background: var(--shell); color: var(--mist); font-size: 13px; line-height: 1.6; border-top: 1px solid var(--rule); }
+footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px 32px; padding-block: 28px; }
+footer p { max-width: 96ch; }
+@media (max-width: 700px) { footer .wrap { grid-template-columns: minmax(0, 1fr); } }
+</style>
+
+<div class="sfbar gut"><div class="wrap">
+  <a class="wm" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su" aria-label="Sitefloor home">sitefl<svg width="28" height="14" viewBox="0 0 42 21" aria-hidden="true"><rect x="1.9" y="1.9" width="38.2" height="17.2" rx="8.6" fill="none" stroke="#0E0F11" stroke-width="3.8"/><circle cx="31.5" cy="10.5" r="5.2" fill="#E8613C"/></svg>r</a>
+  <nav aria-label="Main"><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#live">Features</a><a href="#top" aria-current="page">Work</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#pricing">Pricing</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#guides">Guides</a></nav>
+  <a class="sfbtn" href="#mockup"><span>Free mockup</span><span aria-hidden="true">→</span></a>
+</div></div>
+
+<main id="top">
+
+<section class="hero gut" aria-labelledby="h1"><div class="wrap">
+  <div class="hero-t">
+    <p class="lab">Case study · Bridal salon, Chelsea</p>
+    <h1 id="h1">The first appointment happens <i>here.</i></h1>
+    <p>Wexley sells wedding gowns from £3,200 to £28,000, one bride at a time. Before she books, a bride wants to know three things: is this salon at my level, do they have gowns I'd wear, and am I too late. The website answers all three, in that order, before she has said a word.</p>
+    <div class="acts">
+      <a class="btn" href="https://claude.ai/artifact/V4zUgDK79z3VdVXZGpmTGF">See Wexley</a>
+      <a class="txt" href="#mockup">Get a free mockup</a>
+    </div>
+  </div>
+  <div class="hero-p">
+    <div class="phone"><video id="v-home" muted loop playsinline preload="none" poster="media/phone-home-poster.webp" aria-label="Wexley on a phone: the three-way mirror, then three gowns, each a full screen, then the salon" data-clip><source src="media/phone-home.mp4" type="video/mp4"></video></div>
+    <button type="button" class="pause" data-pause="v-home" data-name="phone clip"><svg viewBox="0 0 12 12" aria-hidden="true"><rect x="2" y="1" width="3" height="10" fill="currentColor"/><rect x="7" y="1" width="3" height="10" fill="currentColor"/></svg><span>Pause</span></button>
+  </div>
+</div></section>
+
+<section class="cardsec gut" aria-labelledby="ch-card"><div class="wrap">
+  <div class="fcard">
+    <span class="pin" aria-hidden="true"></span>
+    <div><span class="lab">The fitting card</span><h2 id="ch-card">Wexley, as the salon would write it down.</h2></div>
+    <dl class="facts">
+      <div><dt>Salon</dt><dd>Wexley, a bridal salon in a Chelsea mews (fictional)</dd></div>
+      <div><dt>Gowns</dt><dd>Twelve, from five houses, £3,200 to £28,000</dd></div>
+      <div><dt>Seen</dt><dd>By appointment, ninety minutes, up to three guests</dd></div>
+      <div><dt>Plan shown</dt><dd>Signature, ten pages</dd></div>
+      <div><dt>Home page</dt><dd>Six sections: the mirror, three gowns, the salon, the diary, trunk shows, find us</dd></div>
+      <div><dt>Design</dt><dd>White and ivory, so white silk reads white; Gilda Display and Mulish; the violet of a dove's neck on one word, Request</dd></div>
+    </dl>
+  </div>
+</div></section>
+
+<!-- I. The first appointment: Starter -->
+<section class="fit gut" aria-labelledby="ch-1"><div class="wrap">
+  <div class="fit-h">
+    <p class="lab when">The first appointment</p>
+    <div>
+      <h2 id="ch-1">The salon, before the salon.</h2>
+      <p class="ticket">Starter <b>£99</b> + £25 a month</p>
+    </div>
+    <p>Every salon starts here: the room, what the first appointment is, and one quiet way to ask for one. No forms on the page itself, and nothing that says "booked". The salon replies with the times it has.</p>
+  </div>
+
+  <div class="req">
+    <div class="req-p">
+      <div class="phone"><video id="v-req" muted loop playsinline preload="none" poster="media/phone-request-poster.webp" aria-label="On a phone: the appointment card, then Request an appointment opens a sheet; the wedding date, two guests, a Saturday and two designers are chosen" data-clip><source src="media/phone-request.mp4" type="video/mp4"></video></div>
+      <button type="button" class="pause" data-pause="v-req" data-name="request clip"><svg viewBox="0 0 12 12" aria-hidden="true"><rect x="2" y="1" width="3" height="10" fill="currentColor"/><rect x="7" y="1" width="3" height="10" fill="currentColor"/></svg><span>Pause</span></button>
+    </div>
+    <div>
+      <ul class="does">
+        <li><h3>The salon and the first appointment</h3><p>A photograph of the room, then a card in the salon's own words: how long, how many guests, the fee and whether it comes off the gown, the price range, when to order, what to bring.</p></li>
+        <li><h3>One request</h3><p>"Request an appointment" opens a calm sheet: the wedding date, always day, month, year; who's coming; when suits; the designers to have ready. It arrives as a WhatsApp message, or goes to the salon's booking app if it has one.</p></li>
+        <li><h3>The houses</h3><p>Every designer the salon stocks, what each is known for, and its price band, in the salon's own figures.</p></li>
+        <li><h3>Plan your visit</h3><p>Free on every plan: the walk from the station, the bus, parking with its charges for the hour she arrives, step-free access, the hours, and every question a bride asks.</p></li>
+        <li><h3>Brides' words and the salon's Instagram</h3><p>Real Google reviews, quoted without stars, and the latest posts. On Plus they move to a page of their own and the home page stays quiet.</p></li>
+      </ul>
+      <div class="msg">
+        <p class="lab">What the salon receives</p>
+        <pre>Hello Wexley, I'd like to book a first appointment.
+
+Wedding: Saturday 18 September 2027
+Coming: me and 2 guests
+Best for me: A Saturday
+Designers I'd like to see: Maison Vérane, Teodora Kast</pre>
+        <p>The rail is ready before she arrives, because the message already says what she wants to see.</p>
+      </div>
+    </div>
+  </div>
+
+  <figure class="shot wide"><img src="media/d-salon.webp" alt="The salon section on a desktop: a panelled fitting room with a chandelier, the first-appointment card and one Request an appointment" width="1500" height="1174" loading="lazy" decoding="async"><figcaption>The salon section. The appointment card answers before anyone has to ask.</figcaption></figure>
+</div></section>
+
+<!-- II. The first fitting: Plus -->
+<section class="fit gut" aria-labelledby="ch-2"><div class="wrap">
+  <div class="fit-h">
+    <p class="lab when">The first fitting</p>
+    <div>
+      <h2 id="ch-2">Every gown, seen properly.</h2>
+      <p class="ticket">Plus <b>£199</b> + £30 a month</p>
+    </div>
+    <p>A gown at this price is bought on a photograph before it is ever tried on. On Plus the home page gives two or three gowns a full screen each, like an editorial, and the Gowns page holds the rest.</p>
+  </div>
+</div>
+<figure class="bleed"><img src="media/d-ed1.webp" alt="Odile on the Wexley home page: a bride framed by drawn-back white silk, the full width of the screen, with her name, house, fabric and price as a quiet credit" width="1600" height="1113" loading="lazy" decoding="async"><figcaption>Odile by Vale &amp; Oriel, as the home page shows her: one gown, one screen, a credit and no button.</figcaption></figure>
+<div class="wrap">
+  <div class="pair">
+    <figure class="shot"><img src="media/d-ed2.webp" alt="Isadora, a beaded lace fishtail on a stone plinth, beside her credit" width="1400" height="1114" loading="lazy" decoding="async"></figure>
+    <figure class="shot"><img src="media/d-ed3.webp" alt="Nocturne, a silk ballgown lit in a garden at night, beside her credit" width="1400" height="1115" loading="lazy" decoding="async"></figure>
+  </div>
+
+  <div class="rows">
+    <div class="row">
+      <figure class="shot"><img src="media/d-gowns.webp" alt="The Gowns page: Every gown in the salon, the finder by silhouette, neckline, sleeves and designer, and the first gowns" width="1400" height="875" loading="lazy" decoding="async"></figure>
+      <div><span class="lab">The Gowns page</span><h3>Twelve gowns, found four ways.</h3><p>By silhouette, neckline, sleeve and designer. It only offers choices the salon's gowns have, so the rail is never empty by accident. "Ask to try" sends that one gown on WhatsApp. A designer's link opens the page already filtered.</p></div>
+    </div>
+    <div class="row flip">
+      <figure class="shot"><img src="media/d-shows.webp" alt="Trunk shows and sample sales: the winter sample sale, Maison Vérane and Teodora Kast, each with its dates" width="1400" height="667" loading="lazy" decoding="async"></figure>
+      <div><span class="lab">Trunk shows and sample sales</span><h3>The weekends brides plan around.</h3><p>Each with its dates. A show takes itself down when it ends, so a bride never travels for one that's over. "Join the list" opens the salon's own Google Form.</p></div>
+    </div>
+    <div class="row">
+      <figure class="shot"><img src="media/d-fittings.webp" alt="The Fittings and veils page: three fittings in order beside a photograph of corded lace" width="1400" height="875" loading="lazy" decoding="async"></figure>
+      <div><span class="lab">Fittings and veils</span><h3>What happens after the order.</h3><p>Each fitting, when it falls and what it's for; what alterations include and what they cost; every veil length with its price. The questions brides ask after paying a deposit, answered before they ask.</p></div>
+    </div>
+    <div class="row flip">
+      <figure class="shot"><img src="media/d-brides.webp" alt="The Brides page: brides' words set large as quotes, without stars" width="1400" height="1215" loading="lazy" decoding="async"></figure>
+      <div><span class="lab">Brides, and gift vouchers</span><h3>Their words, set like a quote in a magazine.</h3><p>Real Google reviews with name and month, no stars, on a page of their own with the salon's latest photographs. Gift vouchers get their own page too: towards a veil, a fitting or the gown.</p></div>
+    </div>
+  </div>
+  <ul class="does wide">
+    <li><h3>Also on Plus</h3><p>Up to five pages, the team, the salon's story, and a photograph band from the workroom. Any of them can also be added to Starter on its own.</p></li>
+  </ul>
+</div></section>
+
+<!-- III. The final fitting: Signature -->
+<section class="fit gut" aria-labelledby="ch-3"><div class="wrap">
+  <div class="fit-h">
+    <p class="lab when">The final fitting</p>
+    <div>
+      <h2 id="ch-3">Made to her measurements.</h2>
+      <p class="ticket">Signature <b>£349</b> + £35 a month</p>
+    </div>
+    <p>Three things only Signature does. Each one works from what the bride tells it, and none of it stores anything about her anywhere.</p>
+  </div>
+
+  <div class="diary" id="diary">
+    <div class="diary-side">
+      <div><span class="lab">The gown diary</span><h3>One date in. The whole year out.</h3></div>
+      <p>She enters her wedding date and the diary works back by the salon's own timings: the last day to order first, then the gown arriving, each fitting and collection. One tap puts every date in her calendar; another sends them to the salon. Try it.</p>
+      <fieldset class="date" aria-describedby="d-order">
+        <legend class="lab">Your wedding</legend>
+        <label class="sr" for="dd" hidden>Day</label><select id="dd" aria-label="Day"></select>
+        <label class="sr" for="dm" hidden>Month</label><select id="dm" aria-label="Month"></select>
+        <label class="sr" for="dy" hidden>Year</label><select id="dy" aria-label="Year"></select>
+      </fieldset>
+      <p class="order" id="d-order" aria-live="polite">Order your gown by Saturday 12 December 2026.</p>
+      <p class="away" id="d-away">Saturday 18 September 2027</p>
+      <p class="late" id="d-late" hidden>That day has passed. On Wexley this note is in the salon's own words: some gowns can be made sooner.</p>
+    </div>
+    <ol class="steps" id="d-steps" aria-label="The diary">
+      <li data-w="40"><span class="w">40 weeks before</span><b>Order your gown</b></li>
+      <li data-w="16"><span class="w">16 weeks before</span><b>Choose your veil</b></li>
+      <li data-w="10"><span class="w">10 weeks before</span><b>Your gown arrives</b></li>
+      <li data-w="8"><span class="w">8 weeks before</span><b>First fitting</b></li>
+      <li data-w="5"><span class="w">5 weeks before</span><b>Second fitting</b></li>
+      <li data-w="2"><span class="w">2 weeks before</span><b>Final fitting</b></li>
+      <li data-w="1"><span class="w">1 week before</span><b>Collect your gown</b></li>
+      <li data-w="0" class="day"><span class="w">The day</span><b>Your wedding</b></li>
+    </ol>
+  </div>
+
+  <div class="rows">
+    <div class="mirror-row">
+      <div class="mirror" id="mirror" aria-label="Aurèle by Maison Vérane in the three-way mirror">
+        <figure class="pane l"><img src="media/mirror-side.webp" alt="Aurèle from the side: the bride's profile, the crystal collar and veil" width="460" height="1278" loading="lazy" decoding="async"><span>Side</span></figure>
+        <figure class="pane c"><img src="media/mirror-front.webp" alt="Aurèle, a strapless silk mikado ballgown with sculpted sleeves and a crystal collar" width="900" height="1304" loading="lazy" decoding="async"><span>Front</span></figure>
+        <figure class="pane r"><img src="media/mirror-collar.webp" alt="Aurèle close: the folded bodice and the hand-set crystal collar" width="460" height="1278" loading="lazy" decoding="async"><span>The collar</span></figure>
+      </div>
+      <div class="mirror-t">
+        <span class="lab">The mirror</span>
+        <h3>Every side, as in the fitting room.</h3>
+        <p>The home page opens on it, and on the Gowns page "Every side" opens any gown the same way: the front in the middle, the salon's other photographs angled in either side, each named. It is how she will see the gown on the day she tries it.</p>
+        <div class="clip"><video id="v-desk" muted loop playsinline preload="none" poster="media/desk-gowns-poster.webp" aria-label="On a desktop: the gowns finder narrows to long sleeves, then to Maison Vérane, then Aurèle opens in the mirror" data-clip><source src="media/desk-gowns.mp4" type="video/mp4"></video></div>
+        <button type="button" class="pause" data-pause="v-desk" data-name="gowns clip"><svg viewBox="0 0 12 12" aria-hidden="true"><rect x="2" y="1" width="3" height="10" fill="currentColor"/><rect x="7" y="1" width="3" height="10" fill="currentColor"/></svg><span>Pause</span></button>
+      </div>
+    </div>
+    <div class="row">
+      <figure class="shot"><img src="media/d-shortlist.webp" alt="The Gowns page opened from a shared link: three gowns kept, Aurèle, Isadora and Hélène, with Send to Wexley, Copy the link and Keep these on my phone" width="1400" height="875" loading="lazy" decoding="async"></figure>
+      <div><span class="lab">The shortlist</span><h3>For her, and for her mother.</h3><p>"Keep" on any gown builds a shortlist. She sends it to the salon so the gowns are on the rail when she arrives, and copies a link that opens the same list on her mother's phone. The list travels in the link itself; a shared list never replaces the one on the phone that opens it.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- Measured -->
+<section class="meas gut" aria-labelledby="ch-m"><div class="wrap">
+  <div class="meas-t">
+    <p class="lab">Measured</p>
+    <h2 id="ch-m">Light as silk organza.</h2>
+    <p>A gown photographed this well has to arrive quickly on a phone. These are Wexley's own figures, measured on the finished site.</p>
+  </div>
+  <div>
+    <dl class="chart">
+      <div><dt>Speed on a phone (Lighthouse, three runs)</dt><dd>97 · 97 · 97</dd></div>
+      <div><dt>Accessibility</dt><dd>100</dd></div>
+      <div><dt>First words on screen</dt><dd>1.5–1.6 <small>s</small></dd></div>
+      <div><dt>The mirror, fully drawn</dt><dd>2.2–2.3 <small>s</small></dd></div>
+      <div><dt>Page held up by scripts</dt><dd>120–130 <small>ms</small></dd></div>
+      <div><dt>Movement while loading</dt><dd>0</dd></div>
+      <div><dt>Scripts, styles, fonts</dt><dd>12.9 · 12.6 · 58.7 <small>KB</small></dd></div>
+      <div><dt>Photographs on the first screen</dt><dd>133 <small>KB</small></dd></div>
+    </dl>
+    <p class="meas-note">Lighthouse mobile on the home page, three runs from a fresh server, the first one cold. Script and style sizes are compressed. The three full-screen gowns and the salon load as she scrolls.</p>
+  </div>
+</div></section>
+
+<!-- The plans -->
+<section class="plans gut" id="mockup" aria-labelledby="ch-p"><div class="wrap">
+  <div class="plans-h">
+    <div><p class="lab">Collected</p><h2 id="ch-p">Three fittings. Choose where to stop.</h2></div>
+    <p>Every plan is on a 12-month minimum, then a month's notice. Any single feature can be added to a smaller plan.</p>
+  </div>
+  <div class="three">
+    <div class="plan"><span class="lab">The first appointment</span><h3>Starter</h3><p class="pr">£99 <small>+ £25 a month</small></p><ul><li>The home page and Plan your visit</li><li>The salon, the appointment card and one request</li><li>The houses with their price bands</li><li>Brides' words and the salon's Instagram</li></ul></div>
+    <div class="plan"><span class="lab">The first fitting</span><h3>Plus</h3><p class="pr">£199 <small>+ £30 a month</small></p><ul><li>Up to five pages</li><li>Gowns full screen on the home page, and the Gowns page with its finder</li><li>Trunk shows and sample sales; fittings and veils</li><li>Brides, gift vouchers, the team</li></ul></div>
+    <div class="plan sig"><span class="lab">The final fitting</span><h3>Signature</h3><p class="pr">£349 <small>+ £35 a month</small></p><ul><li>Up to 20 pages</li><li>The gown diary</li><li>The mirror for every gown</li><li>The shortlist, and one thing made only for your salon</li></ul></div>
+  </div>
+</div></section>
+
+<section class="close gut" aria-labelledby="ch-c"><div class="wrap">
+  <p class="lab" style="color:var(--card-soft)">Your appointment</p>
+  <h2 id="ch-c">Your gowns, seen properly.</h2>
+  <p>Send us your Instagram and we'll make a free mockup of your home page, with your own photographs and your own gowns.</p>
+  <div class="acts">
+    <a class="btn" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#free">Get a free mockup</a>
+    <a class="btn line" href="https://claude.ai/artifact/V4zUgDK79z3VdVXZGpmTGF">Try the demo first</a>
+  </div>
+  <span class="mail">hello@sitefloor.com</span>
+</div></section>
+
+</main>
+
+<footer class="gut"><div class="wrap">
+  <p>Wexley is a fictional bridal salon made to show the Sitefloor bridal kit. Its houses, gowns, prices, dates and brides' words are demo data. Its photographs are free stock from Unsplash, of other gowns and rooms, each credited in our records. Client sites use the salon's own photographs.</p>
+  <span>© 2026 Sitefloor</span>
+</div></footer>
+
+<script>
+(() => {
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Clips play only while on screen, never with reduced motion; each has a Pause (or Play) button.
+  const clips = [...document.querySelectorAll("video[data-clip]")];
+  const paused = new Set(reduce ? clips.map((v) => v.id) : []);
+  const label = (id) => { const btn = document.querySelector(`[data-pause="${id}"]`); if (!btn) return; const p = paused.has(id); btn.querySelector("span").textContent = p ? "Play" : "Pause"; btn.setAttribute("aria-label", `${p ? "Play" : "Pause"} the ${btn.dataset.name || "clip"}`); btn.querySelector("svg").innerHTML = p ? '<path d="M3 1.5v9l7-4.5z" fill="currentColor"/>' : '<rect x="2" y="1" width="3" height="10" fill="currentColor"/><rect x="7" y="1" width="3" height="10" fill="currentColor"/>'; };
+  const seen = new Map();
+  const sync = (v) => { if (seen.get(v) && !paused.has(v.id)) v.play().catch(() => {}); else v.pause(); };
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver((es) => es.forEach((e) => { seen.set(e.target, e.isIntersecting); sync(e.target); }), { threshold: .35 });
+    clips.forEach((v) => io.observe(v));
+  }
+  document.querySelectorAll("[data-pause]").forEach((btn) => {
+    const v = document.getElementById(btn.dataset.pause); if (!v) return;
+    label(v.id);
+    btn.addEventListener("click", () => { paused.has(v.id) ? paused.delete(v.id) : paused.add(v.id); label(v.id); if (!paused.has(v.id)) seen.set(v, true); sync(v); });
+  });
+
+  // The mirror's side panes settle into their angle once, when it comes into view.
+  const mirror = document.getElementById("mirror");
+  if (mirror && "IntersectionObserver" in window && !reduce) {
+    const mo = new IntersectionObserver((es) => { if (es[0].isIntersecting) { mirror.classList.add("in"); mo.disconnect(); } }, { threshold: .3 });
+    mo.observe(mirror);
+  }
+
+  // The gown diary, live: Wexley's own timings, dates in UK order, worked in whole days so a clock change can't move one.
+  const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const $ = (id) => document.getElementById(id);
+  const dd = $("dd"), dm = $("dm"), dy = $("dy");
+  const opt = (s, v, t) => s.append(new Option(t, v));
+  for (let d = 1; d <= 31; d++) opt(dd, d, d);
+  MONTHS.forEach((m, i) => opt(dm, i + 1, m));
+  const now = new Date();
+  const todayUTC = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+  for (let y = now.getFullYear(); y < now.getFullYear() + 4; y++) opt(dy, y, y);
+  // Starts on a wedding about eleven months away, on a Saturday, so the diary is full the moment it's seen.
+  const start = new Date(todayUTC + 330 * 864e5); start.setUTCDate(start.getUTCDate() + ((6 - start.getUTCDay() + 7) % 7));
+  dd.value = start.getUTCDate(); dm.value = start.getUTCMonth() + 1; dy.value = start.getUTCFullYear();
+  const uk = (t) => { const d = new Date(t); return `${DAYS[d.getUTCDay()]} ${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}`; };
+  const render = () => {
+    const y = +dy.value, m = +dm.value - 1, d = +dd.value;
+    const t = Date.UTC(y, m, d); const real = new Date(t).getUTCDate() === d;
+    const steps = [...$("d-steps").children];
+    const blank = () => steps.forEach((li) => { li.querySelector(".w").textContent = "—"; li.classList.add("past"); });
+    const nth = (n) => n + (n % 100 >= 11 && n % 100 <= 13 ? "th" : ["th", "st", "nd", "rd"][n % 10] || "th");
+    if (!real) { $("d-order").textContent = `${MONTHS[m]} ${y} has no ${nth(d)}. Choose another day.`; $("d-away").hidden = true; $("d-late").hidden = true; blank(); return; }
+    const days = Math.round((t - todayUTC) / 864e5);
+    if (days < 0) { $("d-order").textContent = "That date has passed. Choose your wedding date."; $("d-away").hidden = true; $("d-late").hidden = true; blank(); return; }
+    const order = t - 40 * 7 * 864e5;
+    $("d-order").textContent = `Order your gown by ${uk(order)}.`;
+    $("d-late").hidden = order >= todayUTC;
+    const w = Math.floor(days / 7);
+    $("d-away").hidden = false;
+    $("d-away").textContent = `${uk(t)} · ${w >= 1 ? `${w} ${w === 1 ? "week" : "weeks"} to go` : days === 0 ? "today" : `${days} ${days === 1 ? "day" : "days"} to go`}`;
+    steps.forEach((li) => { const at = t - (+li.dataset.w) * 7 * 864e5; li.querySelector(".w").textContent = uk(at); li.classList.toggle("past", at < todayUTC); });
+  };
+  [dd, dm, dy].forEach((s) => s.addEventListener("change", render));
+  render();
+})();
+</script>

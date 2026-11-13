@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: fittings
+permalink: fittings.html
+feature: fittings-page
+eleventyComputed:
+  title: "{{ site.fittingsPage.title | plain }}"
+  description: "Fittings, alterations and veils at {{ site.business.name }}, {{ site.location.locality }}."
+---
+{% include "kits/bridal/features/fittings-page/fittings-page.njk" %}
+{%- set hostPage = "fittings-page" %}{% include "kits/bridal/partials/hosted.njk" %}

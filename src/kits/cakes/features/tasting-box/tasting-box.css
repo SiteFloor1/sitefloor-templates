@@ -1,0 +1,10 @@
+/* The tasting box: name and price on one line, its contents, when it's posted, the pay button. */
+.ck-taste-in { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(24px, 5vw, 80px); align-items: center; }
+.ck-taste-n { margin: 0 0 12px; font-family: var(--font-display); font-size: clamp(28px, 3vw, 40px); line-height: 1.05; }
+.ck-taste-n span { color: var(--accent); }
+.ck-taste-c { margin: 0 0 14px; padding-left: 1.1em; }
+.ck-taste-c li { margin: 4px 0; }
+.ck-taste-p { margin: 0 0 18px; font-weight: 600; }
+.ck-taste-f { margin: 0; }
+.ck-taste-f img { display: block; width: 100%; height: auto; }
+@media (max-width: 900px) { .ck-taste-in { grid-template-columns: minmax(0, 1fr); } }

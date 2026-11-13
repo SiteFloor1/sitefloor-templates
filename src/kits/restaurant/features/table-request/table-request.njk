@@ -1,0 +1,29 @@
+{#- Book a table: a request on WhatsApp with party size, day, a time inside the sittings and notes.
+    The Table and The Room add the group's diets and where they'd like to sit. Without JavaScript,
+    a plain WhatsApp link. -#}
+{%- set sec = site.sections.tableRequest %}
+{%- set tr = site.tableRequest %}
+<section id="book" class="tr" data-feature="table-request" aria-labelledby="tr-h"><div class="wrap">
+  <div class="sh rv"><div>{% if sec.kicker %}<span class="kick">{{ sec.kicker }}</span>{% endif %}<h2 id="tr-h">{{ sec.title | markup | safe }}</h2></div>{% if sec.intro %}<p>{{ sec.intro }}</p>{% endif %}</div>
+  <div class="tr-grid">
+    <form class="tr-form" data-tr-form data-js-only>
+      <div class="tr-two">
+        <label class="rs-field">Guests<select name="guests" data-tr-guests>{% for n in range(1, tr.maxGuests + 1) %}<option value="{{ n }}"{% if n == 2 %} selected{% endif %}>{{ n }}</option>{% endfor %}</select></label>
+        <label class="rs-field">Day<select name="day" data-tr-day></select></label>
+      </div>
+      <fieldset class="tr-times"><legend class="rs-k">Time</legend><div data-tr-times></div></fieldset>
+      <p class="tr-from" data-tr-seat hidden></p>
+      <p class="tr-from" data-tr-group hidden></p>
+      <p class="tr-from" data-tr-brunch hidden></p>
+      <label class="rs-field">Anything we should know? <span class="rs-small">(a birthday, a pram, a step-free table)</span><textarea name="notes" maxlength="300" data-tr-notes></textarea></label>
+      <a class="btn tr-send" data-tr-send href="{{ tr.message | wa }}" target="_blank" rel="noopener">{% include "core/partials/icon-whatsapp.njk" %}Send the request</a>
+      <p class="rs-small">This sends a request to us on WhatsApp. We reply to confirm your table.</p>
+    </form>
+    <div class="tr-side">
+      <p class="tr-nojs" data-no-js><a class="btn" href="{{ tr.message | wa }}" target="_blank" rel="noopener">Message us to book</a></p>
+      {%- if tr.walkIns %}<div><p class="rs-k">Walk-ins</p><p>{{ tr.walkIns }}</p></div>{% endif %}
+      {%- if tr.largeGroups %}<div><p class="rs-k">Bigger groups</p><p>{{ tr.largeGroups }}</p></div>{% endif %}
+      <div><p class="rs-k">Times</p>{% for s in site.menu.sittings %}{% if not tr.sittings or (s.id in tr.sittings) %}<p>{{ s.name }}: {{ s.days | sittingDays }}, {{ s.from | t12 }}–{{ s.to | t12 }}</p>{% endif %}{% endfor %}</div>
+    </div>
+  </div>
+</div></section>

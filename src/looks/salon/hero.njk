@@ -1,0 +1,22 @@
+{#- Salon hero: the room in a gilt frame with cut corners, like a salon mirror. By day the room in daylight, by
+    candlelight the evening room: the head script sets <html data-mood> before the first paint, so only the photo
+    for the hour is fetched and nothing flashes. The house's name sits in the frame; under it, open now and one line. -#}
+{%- set rm = site.hero.room %}
+{#- The photos are set here, in the page, so their paths resolve against the page wherever it's served. -#}
+{%- macro set(p, small) -%}
+{%- set a = (p.srcSmall if small else p.src) | img %}{% set b = (p.srcSmall2x if small else p.src2x) %}
+url("{{ a }}"){% if b %};background-image:image-set(url("{{ a }}") 1x,url("{{ b | img }}") 2x){% endif %}
+{%- endmacro %}
+<style>.sa-room{background-image:{{ set(rm.day, false) }}}:root[data-mood="evening"] .sa-room{background-image:{{ set(rm.evening, false) }}}@media (max-width:820px){.sa-room{background-image:{{ set(rm.day, true) }}}:root[data-mood="evening"] .sa-room{background-image:{{ set(rm.evening, true) }}}}</style>
+<section class="hero sa-hero" aria-labelledby="sa-name"><div class="wrap">
+  <div class="sa-frame">
+    <div class="sa-room">
+      <span class="sr-only sa-alt-day" role="img" aria-label="{{ rm.day.alt }}"></span><span class="sr-only sa-alt-eve" role="img" aria-label="{{ rm.evening.alt }}"></span>
+      <h1 class="sa-name" id="sa-name">{{ site.business.name }}</h1>
+    </div>
+  </div>
+  <div class="sa-under">
+    <p class="sa-st" data-live-status><span class="dot" aria-hidden="true"></span><span data-status-text>Opening hours</span></p>
+    <p class="sa-line">{{ site.hero.intro }}</p>
+  </div>
+</div></section>

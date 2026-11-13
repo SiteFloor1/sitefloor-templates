@@ -1,0 +1,14 @@
+---
+layout: core/layouts/base.njk
+feature: custom-pages
+pagination:
+  data: site.pages
+  size: 1
+  alias: cp
+permalink: "{{ cp.slug }}.html"
+eleventyComputed:
+  pageId: "{{ cp.slug }}"
+  title: "{{ cp.title | plain }}"
+  description: "{{ cp.description }}"
+---
+{% include "features/custom-pages/custom-pages.njk" %}

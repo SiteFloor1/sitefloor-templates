@@ -1,0 +1,19 @@
+{#- Fit finder: what's wrong with the bra she wears now; what the fitters say that usually means and what to ask.
+    Never a size. Without JavaScript every answer shows. -#}
+{%- set sec = site.sections.fitFinder %}
+<section id="fit-finder" class="ls-ff" data-feature="fit-finder"{{ "fit-finder" | tierAttr | safe }}><div class="wrap ff-in">
+  <div>{% include "core/partials/section-head.njk" %}<p class="lx-small">{{ site.fitFinder.note }}</p></div>
+  <div class="ff-body">
+    <div class="ff-chips" role="group" aria-label="What happens" data-js-only>
+      {%- for p in site.fitFinder.problems %}<button type="button" class="ff-chip" data-ff="{{ p.id }}" aria-pressed="{{ 'true' if loop.first else 'false' }}">{{ p.label }}</button>{% endfor %}
+    </div>
+    {%- for p in site.fitFinder.problems %}
+    <div class="ff-ans" data-ff-ans="{{ p.id }}">
+      <p class="ff-q">{{ p.label }}</p>
+      <p class="ff-means">{{ p.means }}</p>
+      <p class="ff-ask"><span>Ask your fitter:</span> {{ p.ask }}</p>
+      <a class="lx-go" href="{{ ('Hello ' + site.business.name + ', with the bra I wear now ' + (p.label | lower) + '. Could a fitter help?') | wa }}" target="_blank" rel="noopener">Ask a fitter about this</a>
+    </div>
+    {%- endfor %}
+  </div>
+</div></section>

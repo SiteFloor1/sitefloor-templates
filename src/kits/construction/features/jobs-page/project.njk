@@ -1,0 +1,37 @@
+{#- One project: its place and scope, the facts the builder gives (kind, year, weeks on site, district), the
+    photographs large, a before photo where the client agreed in writing, and the story in the builder's words. -#}
+{%- set t = site | buildTypeOf(x.type) %}
+{%- set ph = { title: x.place, intro: x.scope } %}
+{% include "kits/construction/partials/page-head.njk" %}
+<article class="wrap bd-pj">
+  <dl class="bd-pj-facts">
+    {%- if t %}<div><dt>Work</dt><dd>{% if "service-pages" | enabled %}<a href="{{ t.id | href }}"{{ 'service-pages' | tierAttr | safe }}>{{ t.name }}</a>{% else %}{{ t.name }}{% endif %}</dd></div>{% endif %}
+    {%- if x.year %}<div><dt>Handed over</dt><dd>{{ x.year }}</dd></div>{% endif %}
+    {%- if x.weeks %}<div><dt>On site</dt><dd>{{ x.weeks }} weeks</dd></div>{% endif %}
+    {%- if x.district %}<div><dt>District</dt><dd>{{ x.district.code }}</dd></div>{% endif %}
+  </dl>
+  {%- set f = x.photos[0] %}
+  <figure class="bd-pj-lead"><img src="{{ f.src | img }}" alt="{{ f.alt }}" width="{{ f.width }}" height="{{ f.height }}" fetchpriority="high" decoding="async"{% if f.position %} style="object-position:{{ f.position }}"{% endif %}></figure>
+  {%- if x.story %}<div class="bd-pj-story">{% for para in x.story %}<p>{{ para }}</p>{% endfor %}</div>{% endif %}
+  {%- if (x.before and x.consent) or x.during %}
+  <section class="bd-pj-stages" aria-label="Before, during and after">
+    {%- if x.before and x.consent %}
+    <figure class="bd-pj-step"><figcaption><b>Before</b>Shown with the owners' permission.</figcaption><img src="{{ x.before.src | img }}" alt="{{ x.before.alt }}" width="{{ x.before.width }}" height="{{ x.before.height }}" loading="lazy" decoding="async"></figure>
+    {%- endif %}
+    {%- for g in x.during or [] %}
+    <figure class="bd-pj-step"><figcaption>{% if loop.first %}<b>During</b>{% endif %}{{ g.caption if g.caption }}</figcaption><img src="{{ g.src | img }}" alt="{{ g.alt }}" width="{{ g.width }}" height="{{ g.height }}" loading="lazy" decoding="async"></figure>
+    {%- endfor %}
+    {%- set a = x.photos[1] or x.photos[0] %}
+    <figure class="bd-pj-step"><figcaption><b>After</b></figcaption><img src="{{ a.src | img }}" alt="{{ a.alt }}" width="{{ a.width }}" height="{{ a.height }}" loading="lazy" decoding="async"></figure>
+  </section>
+  {%- endif %}
+  {%- set rest = x.photos.slice(2) if ((x.before and x.consent) or x.during) else x.photos.slice(1) %}
+  {%- if rest.length %}
+  <div class="bd-pj-more">{% for g in rest %}<img src="{{ g.src | img }}" alt="{{ g.alt }}" width="{{ g.width }}" height="{{ g.height }}" loading="lazy" decoding="async"{% if g.position %} style="object-position:{{ g.position }}"{% endif %}>{% endfor %}</div>
+  {%- endif %}
+  {%- set i = site.projects.items.indexOf(x) %}{% set nx = site.projects.items[(i + 1) % site.projects.items.length] %}
+  <nav class="bd-pj-nav" aria-label="Projects">
+    <a href="{{ 'projects' | href }}">All projects</a>
+    {%- if nx.id != x.id %}<a href="{{ nx.id | href }}">Next: {{ nx.place }}</a>{% endif %}
+  </nav>
+</article>

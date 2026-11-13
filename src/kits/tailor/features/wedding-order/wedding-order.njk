@@ -1,0 +1,37 @@
+{#- For a wedding party: the date and how many are being dressed, and one cloth chosen for everyone; the last day to
+    start first (earlier for a larger party, by the house's own rule), then every fitting worked back from the house's
+    own weeks in UK date order, all of it to the calendar in one file and to the house on WhatsApp. Without a date (or
+    without JavaScript) each step shows how many weeks before the wedding it falls. -#}
+{%- set w = site.weddingOrder %}
+{%- set ph = w %}
+{% include "kits/tailor/partials/page-head.njk" %}
+{%- set first = w | orderStep %}
+<section class="wrap tl-wo" data-feature="wedding-order" aria-label="{{ w.title | plain }}">
+  <div class="tl-wo-side">
+    {%- set df = "wo" %}{% set dfLabel = "Your wedding" %}<div data-js-only>{% include "kits/tailor/partials/date-field.njk" %}</div>
+    {%- if w.party %}
+    <div class="tl-wo-party" data-js-only>
+      <label class="tl-label" for="wo-size">How many are we dressing</label>
+      <select id="wo-size" data-wo-size>{% for n in range(1, w.party.max + 1) %}<option value="{{ n }}">{{ "Just me" if n == 1 else (n ~ " of us") }}</option>{% endfor %}</select>
+    </div>
+    {%- if site.cloths and ("cloth-book" | enabled) %}
+    <fieldset class="tl-wo-cloth" data-js-only><legend class="tl-label">One cloth for everyone</legend><div class="tl-wo-cl">
+      {%- for c in site.cloths.items %}<label class="tl-wo-c"><input type="radio" name="wo-cloth" value="{{ c.name }}"{% if loop.first %} checked{% endif %}><img src="{{ c.length.src | img }}" alt="" width="{{ c.length.width }}" height="{{ c.length.height }}" loading="lazy" decoding="async"><span>{{ c.name }}</span></label>{% endfor %}
+    </div></fieldset>
+    {%- endif %}
+    {%- endif %}
+    <p class="tl-wo-first" data-wo-first aria-live="polite">{{ first.label }} {{ first.weeksBefore }} weeks before your wedding.</p>
+    <p class="tl-small" data-wo-party-note hidden></p>
+    <p class="tl-small" data-wo-late hidden>{{ w.late }}</p>
+    {%- if site.fittingReminder and site.fittingReminder.weddingSteps %}<p class="tl-small" data-wo-remind hidden>Each fitting in the file reminds you at {{ site.fittingReminder.at | clockWords }} the evening before. {{ site.fittingReminder.items | bringLine }}</p>{% endif %}
+    <p class="tl-wo-acts" data-js-only><button type="button" class="tl-go" data-wo-ics hidden>Add every date to my calendar</button>
+      <a class="tl-quiet" data-wo-send href="{{ (site.garments.message if site.garments else site.messages.general) | book }}" target="_blank" rel="noopener" hidden>Send my dates to {{ site.business.name }}</a></p>
+  </div>
+  {%- if w.photo %}<figure class="tl-wo-ph"><img src="{{ w.photo.src | img }}" alt="{{ w.photo.alt }}" width="{{ w.photo.width }}" height="{{ w.photo.height }}" decoding="async"></figure>{% endif %}
+  <ol class="tl-wo-steps" data-wo-steps>
+    {%- for s in w.steps | byWeeks %}
+    <li class="tl-wo-step" data-step="{{ s.id }}"><span class="tl-wo-when" data-when>{{ s.weeksBefore }} {{ "week" if s.weeksBefore == 1 else "weeks" }} before</span><span class="tl-wo-what"><b>{{ s.label }}</b>{% if s.note %}<span>{{ s.note }}</span>{% endif %}</span></li>
+    {%- endfor %}
+    <li class="tl-wo-step tl-wo-day"><span class="tl-wo-when" data-wo-day>The day</span><span class="tl-wo-what"><b>Your wedding</b></span></li>
+  </ol>
+</section>

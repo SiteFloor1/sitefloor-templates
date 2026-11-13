@@ -1,0 +1,7 @@
+{#- Portland phone bar: two halves on the full-sun stone, "Speak to a partner" and the telephone number. The page keeps
+    room for it at the bottom, so it never covers text. -#}
+{%- set speak = ('contact' | href) if ('first-contact' | enabled) else (('#enquiry' if pageId == 'index' else ('index' | href) + '#enquiry') if ('enquiry' | enabled) else 'tel:' + (site.contact.phone | replace(' ', ''))) %}
+<div class="mbar pt-bar">
+  <a class="pt-bar-speak" href="{{ speak }}">Speak to a partner</a>
+  <a class="pt-bar-tel" href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone | replace('+44 ', '0') }}</a>
+</div>

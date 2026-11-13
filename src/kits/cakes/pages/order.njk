@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: order
+permalink: order.html
+feature: brief-builder
+eleventyComputed:
+  title: "{{ site.cakePages.order.title | plain }}"
+  description: "Order a cake from {{ site.business.name }}: date, guests, a flavour for each tier, the finish and the venue, sent on WhatsApp."
+---
+{% include "kits/cakes/features/brief-builder/brief-builder.njk" %}

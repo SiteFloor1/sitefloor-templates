@@ -1,0 +1,8 @@
+{#- The regulars' board: whatever the café pins on its sheet (the guest roaster, what's playing, the dog of the week),
+    each card saying since when; a card drops off after a week. Nothing from the sheet: a line to ask instead. -#}
+{%- set sec = site.sections.board %}
+<section id="board" class="rb" data-feature="regulars-board" aria-labelledby="rb-h"{{ "regulars-board" | tierAttr | safe }}><div class="wrap">
+  <div class="sh rv"><div>{% if sec.kicker %}<span class="kick">{{ sec.kicker }}</span>{% endif %}<h2 id="rb-h">{{ sec.title | markup | safe }}</h2></div>{% if sec.intro %}<p>{{ sec.intro }}</p>{% endif %}</div>
+  <ul class="rb-cards" data-rb-cards aria-live="polite"></ul>
+  <p class="rb-off" data-rb-off>Ask us what's on the board this week.</p>
+</div></section>

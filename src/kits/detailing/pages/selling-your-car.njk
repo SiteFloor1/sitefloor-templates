@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: selling-your-car
+permalink: selling-your-car.html
+feature: selling-page
+eleventyComputed:
+  title: "{{ site.sellingPage.title | plain }}"
+  description: "Preparing a car for sale at {{ site.business.name }}, {{ site.location.locality }}: what we do before the photographs, and prices."
+---
+{% include "kits/detailing/features/selling-page/selling-page.njk" %}

@@ -1,0 +1,22 @@
+{#- Length footer: a tape-measure rule across the top (the trade's own scale), then every page as a ruled index, where
+    the salon is and the week's hours, and the name; the Sitefloor credit last. -#}
+<footer class="foot ln-foot"><div class="wrap">
+  <div class="ln-rule" aria-hidden="true"></div>
+  <div class="ln-foot-in">
+    <nav class="ln-foot-links" aria-label="Footer">
+      <a href="{{ 'index' | href }}">Home</a>
+      {%- for item in site.nav | navItems(pageId) %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}>{{ item.label }}</a>{% endfor %}
+      {%- if "group-pages" | enabled %}{% for g in site.groupPages.items %}<a href="{{ g.slug | href }}"{{ "group-pages" | tierAttr | safe }}>{{ g.title }}</a>{% endfor %}{% endif %}
+      <a href="{{ 'privacy' | href }}">Privacy</a>
+    </nav>
+    <address class="ln-foot-a">{{ site.location.streetAddress }}<br>{{ site.location.locality }} {{ site.location.postcode }}<br>
+      <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a>{% if site.contact.email %}<br><a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>{% endif %}</address>
+    <ul class="ln-foot-hours" aria-label="Opening hours">
+      {%- for row in site.hours | hoursRows %}<li data-day="{{ row.dayIndex }}"><span>{{ row.day }}</span> {{ row.label }}</li>{% endfor %}
+    </ul>
+  </div>
+  <div class="ln-foot-end">
+    <p class="ln-foot-name">{{ site.business.name }}</p>
+    <p class="ln-foot-by"><a class="by" href="https://sitefloor.com" rel="noopener">Website by <b>Sitefloor</b></a></p>
+  </div>
+</div></footer>

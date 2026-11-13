@@ -1,0 +1,18 @@
+/* Tell me what you'd change: a photograph beside the clinician's words, the choices, the message as a bubble. */
+.sm-ch-in { display: grid; gap: 28px; }
+.sm-ch-ph { margin: 0; aspect-ratio: 4 / 5; max-width: 100%; overflow: hidden; order: 2; background: var(--surface); }
+.sm-ch-ph img { width: 100%; height: 100%; object-fit: cover; }
+.sm-ch-q { margin: 0; }
+.sm-ch-q p { margin: 0; }
+.sm-ch-sig { margin: 14px 0 26px; }
+.sm-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
+.sm-chip { min-height: 44px; padding: 8px 14px; border: 1px solid var(--line-2); border-radius: 3px; background: var(--bg); color: var(--text); font: inherit; cursor: pointer; }
+.sm-chip:hover { border-color: var(--text); }
+.sm-chip[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent-soft); color: var(--text); }
+.sm-bubble { max-width: 46ch; min-height: 4.6em; margin: 0; padding: 14px 16px; border-radius: 14px 14px 14px 3px; background: var(--surface); }
+.sm-ch-send { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; margin-top: 16px; }
+.sm-ch-note { margin: 0; max-width: 40ch; }
+@media (min-width: 900px) {
+  .sm-ch-in { grid-template-columns: 4fr 7fr; gap: 72px; align-items: center; }
+  .sm-ch-ph { order: 0; }
+}

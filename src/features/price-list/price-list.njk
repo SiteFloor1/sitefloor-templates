@@ -1,0 +1,17 @@
+{%- set sec = site.sections.prices %}
+<section id="prices" class="sec-prices" data-feature="price-list"{{ "price-list" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="menu rv">
+    {%- set short = "price-page" | enabled %}
+    {%- for group in site.priceList %}
+    <div>
+      <h3>{{ group.group }}</h3>
+      {%- for line in (group.items | batch(2) | first if short else group.items) %}{% set item = line | priceItem %}
+      <div class="mi"><b>{{ item.name }}</b><i aria-hidden="true"></i><span>{{ item.price }}</span>{% if item.note %}<small>{{ item.note }}</small>{% endif %}</div>
+      {%- endfor %}
+    </div>
+    {%- endfor %}
+  </div>
+  {%- if short %}<p class="h-cta"><a class="btn ghost" href="{{ 'prices' | href }}"{{ "price-page" | tierAttr | safe }}>Every price, with times <span aria-hidden="true">→</span></a></p>{% endif %}
+  {%- if sec.footnote %}<p class="upd"><span class="dot" aria-hidden="true"></span><span>{{ sec.footnote }}</span></p>{% endif %}
+</div></section>

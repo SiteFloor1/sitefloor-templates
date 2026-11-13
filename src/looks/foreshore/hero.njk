@@ -1,0 +1,17 @@
+{#- Foreshore hero: a short headline in light Mona Sans with air around it, the plain line of what the firm does, one
+    wide photograph of people at a distance (taller on phones), then the quiet "I am …" row and the FCA line. -#}
+{%- set h = site.hero %}
+<section class="hero fs-hero" aria-labelledby="fs-h1">
+  <div class="wrap fs-hero-say">
+    <h1 class="fs-h1" id="fs-h1">{% for line in h.title.split("|") %}<span class="fs-l">{{ line | trim }}</span>{% if not loop.last %} {% endif %}{% endfor %}</h1>
+    <p class="fs-plain">{{ h.intro }}</p>
+  </div>
+  <div class="wrap">
+    <figure class="fs-hero-fig"><picture>
+      {%- if h.photoTall %}<source media="(max-width: 760px)" srcset="{{ h.photoTall.src | img }}" width="{{ h.photoTall.width }}" height="{{ h.photoTall.height }}">{% endif %}
+      <img src="{{ h.photo.src | img }}" alt="{{ h.photo.alt }}" width="{{ h.photo.width }}" height="{{ h.photo.height }}" fetchpriority="high" decoding="async"{% if h.photo.position %} style="object-position:{{ h.photo.position }}"{% endif %}>
+    </picture></figure>
+    {%- if "situations" | enabled %}{% include "kits/wealth/features/situations/situations.njk" %}{% endif %}
+    <div class="fs-hero-reg">{% include "kits/wealth/features/fca/line.njk" %}</div>
+  </div>
+</section>

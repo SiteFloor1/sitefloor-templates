@@ -1,0 +1,77 @@
+{#- Paint protection film page: the studio's films as rendered samples (gloss, stealth, coloured), its packs and
+    single parts, from headlights and rear lights to the grille, with "from" prices from its own jobs, close-ups of
+    its work, good-to-know points and PPF questions. No JavaScript needed. -#}
+{%- set p = site.ppfPage %}
+{%- set pr = site.protection %}
+<header class="phero pf-hero"><div class="wrap">
+  <nav class="crumb" aria-label="Breadcrumb"><a href="{{ 'index' | href }}">Home</a> / {{ p.title | plain | replace(r/\.$/, "") }}</nav>
+  <span class="kick">{{ p.kicker }}</span>
+  <h1>{{ p.title | markup | safe }}</h1>
+  {%- if p.intro %}<p>{{ p.intro }}</p>{% endif %}
+</div></header>
+
+<section class="pf-films" data-feature="ppf-page"><div class="wrap">
+  <div class="sh rv"><div><span class="kick">The films</span><h2>Which film<br><em>is which.</em></h2></div>{% if p.filmsNote %}<p>{{ p.filmsNote }}</p>{% endif %}</div>
+  <div class="pf-filmgrid">
+    {%- for f in p.films %}
+    <article class="rv" data-finish="{{ f.finish }}">
+      {%- if f.src %}<img class="pf-photo" src="{{ f.src | img }}" width="800" height="600" alt="{{ f.alt }}" loading="lazy">{% else %}<span class="sw-tile" style="--c:{{ f.hex or '#8A8E90' }}"></span>{% endif %}
+      <h3>{{ f.name }}</h3>
+      <p>{{ f.about }}</p>
+      {%- if f.best %}<p class="pf-best">{{ f.best }}</p>{% endif %}
+    </article>
+    {%- endfor %}
+  </div>
+  <p class="pf-small rv">Photos show each kind of finish, not our film on a customer's car.</p>
+</div></section>
+
+<section class="pf-cover"><div class="wrap">
+  <div class="sh rv"><div><span class="kick">What we cover</span><h2>A pack, or<br><em>piece by piece.</em></h2></div><p>Our "from" prices, for the smallest size of car. {% if "protection-planner" | enabled %}<a href="{{ 'index' | href }}#protection"{{ "protection-planner" | tierAttr | safe }}>Tap the panels on your size of car</a> for your price.{% endif %}</p></div>
+  <div class="pf-packs rv">
+    {%- for pk in pr.packs %}{% set j = site.jobs | job(pk.job) %}
+    <article>
+      <h3>{{ pk.name }}</h3>
+      <p class="pf-price">from {{ j | fromPrice | money }}</p>
+      <ul>{% for id in pk.panels %}{% for pn in pr.panels %}{% if pn.id == id %}<li>{{ pn.name }}</li>{% endif %}{% endfor %}{% endfor %}</ul>
+    </article>
+    {%- endfor %}
+  </div>
+  <div class="pf-parts rv">
+    <h3>Single parts</h3>
+    <dl>{% for pn in pr.panels %}{% set j = site.jobs | job(pn.job) %}<div><dt>{{ pn.name }}</dt><dd>from {{ j | fromPrice | money }}</dd></div>{% endfor %}</dl>
+  </div>
+</div></section>
+
+{%- if p.details %}
+<section class="pf-details"><div class="wrap">
+  <div class="sh rv"><div><span class="kick">The detail</span><h2>Edges, lights<br><em>and grilles.</em></h2></div></div>
+  <div class="pf-photos">
+    {%- for x in p.details %}
+    <figure class="rv"><img src="{{ x.src | img }}" width="800" height="600" alt="{{ x.alt }}" loading="lazy">{% if x.caption %}<figcaption>{{ x.caption }}</figcaption>{% endif %}</figure>
+    {%- endfor %}
+  </div>
+</div></section>
+{%- endif %}
+
+{%- if p.points %}
+<section class="pf-points"><div class="wrap">
+  <div class="sh rv"><div><span class="kick">Good to know</span><h2>Before you <em>book.</em></h2></div></div>
+  <ul class="pf-list rv">{% for x in p.points %}<li>{{ x }}</li>{% endfor %}</ul>
+</div></section>
+{%- endif %}
+
+{%- set pq = [] %}{% for q in site.questions %}{% if q.topic == "PPF" %}{% set _ = pq.push(q) %}{% endif %}{% endfor %}
+{%- if pq | length %}
+<section class="pf-qs"><div class="wrap">
+  <div class="sh rv"><div><span class="kick">Questions</span><h2>Good to <em>know.</em></h2></div></div>
+  <div class="qs rv">{% for q in pq %}<details class="qa"><summary>{{ q.q }}</summary><p>{{ q.a }}</p></details>{% endfor %}</div>
+</div></section>
+{%- endif %}
+
+<section class="pf-cta"><div class="wrap">
+  <p class="pf-cta-line">Tell us your car and how you drive, and we'll say which panels make sense.</p>
+  <div class="h-cta">
+    {%- if "protection-planner" | enabled %}<a class="btn" href="{{ 'index' | href }}#protection"{{ "protection-planner" | tierAttr | safe }}>Plan your film</a>{% endif %}
+    <a class="btn{% if 'protection-planner' | enabled %} ghost{% endif %}" href="{{ p.message | wa }}" target="_blank" rel="noopener">{% include "core/partials/icon-whatsapp.njk" %}Ask about PPF</a>
+  </div>
+</div></section>

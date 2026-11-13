@@ -1,0 +1,5 @@
+{#- Gift vouchers on their own page: the page head, then the shared voucher section (moved here by the look's onPages). -#}
+{%- set vp = site.voucherPage %}
+{%- set ph = { title: vp.title, intro: vp.intro, photo: vp.photo } %}
+{% include "kits/hair/partials/page-head.njk" %}
+{%- set hostPage = "hair-vouchers" %}{% include "kits/hair/partials/hosted.njk" %}

@@ -1,0 +1,26 @@
+{#- This week's flowers: the band under the hero. The week's colours as dots, the arrangement's name and stems, the
+    sizes with the florist's prices, the same-day line, the delivery day, a note from the florist, gifts and the card (Plus) and one button that sends it all on WhatsApp.
+    Without JavaScript the button still opens WhatsApp with the arrangement's name. -#}
+{%- set W = site.week %}
+{%- set sec = site.sections.week or {} %}
+<section id="week" class="fl-week" data-feature="this-week" aria-labelledby="week-h"><div class="wrap fl-week-in">
+  <div class="fl-week-t">
+    <p class="fl-week-k"><span class="fl-dots" aria-hidden="true"><i></i>{% for d in W.dots or [] %}<i></i>{% endfor %}</span><span>{{ W.kicker or "This week's flowers, and this week's colour:" }} <span data-week-colour-name>{{ W.colourName }}</span></span></p>
+    <h1 id="week-h" class="fl-week-h" data-week-name>{{ W.name }}</h1>
+    <p class="fl-week-s" data-week-stems>{{ W.stems }}</p>
+    {%- if "weekly-note" | enabled %}{% include "kits/florist/features/weekly-note/weekly-note.njk" %}{% endif %}
+  </div>
+  <div class="fl-week-buy">
+    <fieldset class="fl-sizes"><legend class="sr-only">Size</legend>
+      {%- for s in W.sizes %}
+      <label class="fl-size"><input type="radio" name="week-size" value="{{ s.id }}"{% if loop.first %} checked{% endif %}><span class="fl-size-l">{{ s.label }}</span><span class="fl-size-p" data-size-price="{{ s.id }}">{{ s.price | pounds }}</span></label>
+      {%- endfor %}
+    </fieldset>
+    {%- if "same-day" | enabled %}{% include "kits/florist/features/same-day/same-day.njk" %}{% endif %}
+    {%- if "deliver-on" | enabled %}{% include "kits/florist/features/deliver-on/deliver-on.njk" %}{% endif %}
+    {%- if "gifts-to-add" | enabled %}{% include "kits/florist/features/gifts-to-add/gifts-to-add.njk" %}{% endif %}
+    {%- if "card-composer" | enabled %}{% include "kits/florist/features/card-composer/card-composer.njk" %}{% endif %}
+    <a class="fl-send" data-week-send href="{{ (W.message + ' ' + W.name) | book }}" target="_blank" rel="noopener">Send this week's flowers</a>
+    <p class="fl-say" data-week-say role="status"></p>
+  </div>
+</div></section>

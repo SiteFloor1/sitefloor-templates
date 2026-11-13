@@ -1,0 +1,30 @@
+{#- The advent box: the shop's lid with 24 numbered windows in shuffled places, a chocolate behind each (its own
+    photos). Before December every window opens as a preview; in December one more each day; after the 24th, all.
+    Windows a visitor has opened stay open on their device. Pre-order for collection on WhatsApp. Without JavaScript the
+    windows are plain items showing what's behind each; the script turns them into buttons. -#}
+{%- set sec = site.sections.advent %}
+{%- set a = site.advent %}
+<section id="advent" class="sec-advent" data-feature="advent-box"{{ "advent-box" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="av">
+    <ol class="av-lid" aria-label="The advent box, 24 windows">
+      {%- for w in site.desserts | adventDoors(a) %}
+      <li class="av-w" style="--i:{{ loop.index0 }}">
+        <span class="av-door" data-av="{{ w.day }}" data-name="{{ w.piece.name }}">
+          <span class="av-in"><img src="{{ w.piece.tile.src | img }}" alt="{{ w.day }}: {{ w.piece.name }}" width="{{ w.piece.tile.width }}" height="{{ w.piece.tile.height }}" loading="lazy" decoding="async"></span>
+          <span class="av-front" aria-hidden="true"><b>{{ w.day }}</b></span>
+        </span>
+      </li>
+      {%- endfor %}
+    </ol>
+    <div class="av-side">
+      <p class="av-state" data-av-state aria-live="polite" data-js-only>Every window opens before December, so you can see inside.</p>
+      <p class="av-state" data-no-js>Twenty-four chocolates, one behind each window.</p>
+      <p class="av-picked" data-av-picked aria-live="polite" data-js-only></p>
+      <p class="av-price"><b>{{ a.price | pounds }}</b> · Order by {{ a.orderBy | longDay }} · collect from {{ a.collectFrom | longDay }}</p>
+      <a class="bx-go" href="{{ ('Hi ' + site.business.name + ', I would like to order an advent box for ' + a.year + ' (' + (a.price | pounds) + '), to collect from ' + (a.collectFrom | longDay) + '. Please confirm.') | wa }}" target="_blank" rel="noopener">Order the advent box</a>
+      {%- if a.payLink %}{% set pay = a.payLink %}{% set payLabel = "Pay for it now" %}{% include "features/pay-link/button.njk" %}{% endif %}
+      {%- if a.note %}<p class="bx-note">{{ a.note }}</p>{% endif %}
+    </div>
+  </div>
+</div></section>

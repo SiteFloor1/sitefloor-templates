@@ -1,0 +1,18 @@
+{#- The cloth lengths hanging from the spine. Set `cbItems` first. Each button carries what the weave sheet shows. -#}
+{%- set widths = [1.3, 0.8, 1.05, 0.62, 1.18, 0.9, 1.1, 0.72] %}
+<div class="tl-book" data-cb-book>
+  <div class="tl-book-in">
+    <div class="tl-spine" aria-hidden="true"></div>
+    <ul class="tl-lengths" data-cb-lengths>
+      {%- for c in cbItems %}
+      <li class="tl-len-li" style="--w:{{ widths[loop.index0 % 8] }};--d:{{ c.drop or 0.9 }}" data-seasons="{{ c.seasons | join(' ') }}">
+        <a class="tl-len" href="{{ c.weave.src | img }}" data-cb-open="{{ c.id }}" data-name="{{ c.name }}" data-cloth="{{ c.cloth }}" data-weight="{% if c.weight %}{{ c.weight }} g{% endif %}" data-season="{{ c.seasons | seasonWords }}" data-wide="{{ c.weave.src | img }}" data-tall="{{ c.weavePhone.src | img }}" data-alt="{{ c.length.alt }}" data-ask="{{ site.cloths.message | swatchText(c) | book }}">
+          <span class="tl-len-cl"><img src="{{ c.length.src | img }}" alt="{{ c.length.alt }}" width="{{ c.length.width }}" height="{{ c.length.height }}" loading="lazy" decoding="async"></span>
+          <span class="tl-len-n">{{ c.name }}<span class="tl-len-in" data-cb-in hidden> · in your set</span></span>
+          <span class="tl-len-s">{{ c.cloth }}{% if c.weight %}, {{ c.weight }} g{% endif %}</span>
+        </a>
+      </li>
+      {%- endfor %}
+    </ul>
+  </div>
+</div>

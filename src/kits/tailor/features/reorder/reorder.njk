@@ -1,0 +1,39 @@
+{#- From your pattern: a returning client re-orders from the pattern the house keeps, by the code on their order card.
+    A ruled order slip: the code, the garment, the cloth and any change, sent from the client's own WhatsApp. Nothing
+    is kept on the site and no measurement is ever asked for. Without JavaScript the slip is a plain WhatsApp link. -#}
+{%- set ro = site.reorder %}
+{%- set ph = ro %}
+{% include "kits/tailor/partials/page-head.njk" %}
+<section class="wrap tl-ro" data-feature="reorder" aria-label="{{ ro.title | plain }}">
+  <form class="tl-ro-slip" data-ro-form novalidate>
+    <div class="tl-ro-row">
+      <label class="tl-ro-k" for="ro-code">Order code</label>
+      <div class="tl-ro-v"><input id="ro-code" class="tl-ro-code" data-ro-code autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="16" placeholder="8 to 12 letters and numbers" aria-describedby="ro-code-help">
+        <p class="tl-small" id="ro-code-help" data-ro-help>On your order card, and on the first message we sent you.</p></div>
+    </div>
+    {%- if site.garments %}
+    <div class="tl-ro-row" role="radiogroup" aria-labelledby="ro-garment-k"><p class="tl-ro-k" id="ro-garment-k">The garment</p>
+      <div class="tl-ro-v tl-chips">{%- for x in site.garments.items %}<label class="tl-chip"><input type="radio" name="ro-garment" value="{{ x.name }}"{% if loop.first %} checked{% endif %}>{{ x.name }}</label>{% endfor %}</div>
+    </div>
+    {%- endif %}
+    {%- if site.cloths and ("cloth-book" | enabled) %}
+    <div class="tl-ro-row">
+      <label class="tl-ro-k" for="ro-cloth">Cloth</label>
+      <div class="tl-ro-v"><select id="ro-cloth" class="tl-ro-sel" data-ro-cloth>
+        <option value="">Help me choose at the house</option>
+        <option value="same">The same cloth as last time</option>
+        {%- for c in site.cloths.items %}<option value="{{ c.id }}" data-label="{{ c.name }} ({{ c.cloth | lower }})">{{ c.name }}, {{ c.cloth | lower }}</option>{% endfor %}
+      </select></div>
+    </div>
+    {%- endif %}
+    <div class="tl-ro-row">
+      <label class="tl-ro-k" for="ro-changes">Any change</label>
+      <div class="tl-ro-v"><textarea id="ro-changes" class="tl-ro-txt" data-ro-changes rows="3" maxlength="300" placeholder="For example: the trousers a touch longer"></textarea></div>
+    </div>
+    <div class="tl-ro-end">
+      <a class="tl-btn" data-ro-send href="{{ ro.message | book }}" target="_blank" rel="noopener">Send on WhatsApp</a>
+      <p class="tl-small">{{ ro.note }}</p>
+    </div>
+  </form>
+  {%- if ro.photo %}<figure class="tl-ro-ph"><img src="{{ ro.photo.src | img }}" alt="{{ ro.photo.alt }}" width="{{ ro.photo.width }}" height="{{ ro.photo.height }}" decoding="async"></figure>{% endif %}
+</section>

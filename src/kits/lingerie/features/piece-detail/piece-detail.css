@@ -1,0 +1,17 @@
+/* A piece: the photographs stacked on the left, the details held beside them. */
+.pp { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--s3); align-items: start; }
+.pp-ph { display: grid; gap: 4px; }
+.pp-ph figure { margin: 0; }
+.pp-ph img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+.pp-t { position: sticky; top: calc(var(--nav-h) + 24px); min-width: 0; }
+.pp-dl { margin: 22px 0 0; display: grid; gap: 12px; }
+.pp-dl dd { margin: 2px 0 0; }
+.pp-acts { display: flex; flex-wrap: wrap; gap: 12px 22px; align-items: center; margin-top: 26px; }
+.pp-more .pc-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gap); }
+@media (max-width: 860px) {
+  .pp { grid-template-columns: 1fr; }
+  .pp-ph { grid-auto-flow: column; grid-auto-columns: 86%; overflow-x: auto; scroll-snap-type: x mandatory; }
+  .pp-ph figure { scroll-snap-align: start; }
+  .pp-t { position: static; }
+  .pp-more .pc-row { grid-template-columns: 1fr 1fr; }
+}

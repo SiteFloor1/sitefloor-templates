@@ -1,0 +1,14 @@
+{#- Loupe questions: no accordion. Each question light and large on the left, the answer in the reading face on the
+    right, a hairline between; the ways on as two underlined lines. -#}
+{%- set sec = site.sections.questions %}
+{%- set qs = site | homeQuestions %}
+<section id="questions" class="lp-qa" data-feature="questions"{{ "questions" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <dl class="lp-qa-list">
+    {%- for item in qs %}<div class="rv"><dt>{{ item.q }}</dt><dd>{{ item.a }}</dd></div>{% endfor %}
+  </dl>
+  <p class="lp-acts">
+    {%- if "plan-visit" | enabled and pageId != "visit" %}<a class="mh-text" href="{{ 'visit' | href }}"{{ "plan-visit" | tierAttr | safe }}>Every question, and the studio</a>{% endif %}
+    <a class="mh-text" href="{{ site.messages.general | wa }}" data-wa-text="{{ site.messages.general }}" target="_blank" rel="noopener">Ask us anything else</a>
+  </p>
+</div></section>

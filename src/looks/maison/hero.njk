@@ -1,0 +1,44 @@
+{#- Maison hero: the restaurant after dark. The Menu Book lies on the table, lit warm, with the grill burning out of focus
+    behind it (hero-film: a short loop or the restaurant's photos, under a deep veil). The line, a very large Cormorant
+    headline, two hairline buttons and the live status sit to its left (below it on a phone). Tap the book to open it.
+    Without the Menu Book: the sittings run down the right instead. -#}
+{%- set m = site.menu %}
+{%- set withBook = "menu-book" | enabled %}
+<section class="hero mx{% if withBook %} mx-withbook{% endif %}">
+  {%- if "hero-film" | enabled %}{% include "kits/restaurant/features/hero-film/hero-film.njk" %}{% endif %}
+  <div class="mx-veil" aria-hidden="true"></div>
+  {%- if "hero-film" | enabled %}{% include "core/partials/motion-pause.njk" %}{% endif %}
+  <div class="wrap mx-in">
+    <div class="mx-main">
+      <p class="mx-kick">{{ site.hero.kicker }}</p>
+      <h1>{{ site.hero.title | markup | safe }}</h1>
+      <p class="mx-intro">{{ site.hero.intro }}</p>
+      <div class="h-cta">
+        {%- if "table-request" | enabled %}
+        <a class="btn" href="#book">Book a table</a>
+        {%- else %}
+        <a class="btn" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{{ build.booking.label }}</a>
+        {%- endif %}
+        {%- if withBook %}
+        <a class="btn ghost" href="{{ 'menu' | href if ('menu-page' | enabled) else '#menu' }}" data-mb-open>Open the menu</a>
+        {%- elif "menu" | enabled %}
+        <a class="btn ghost" href="{{ 'menu' | href if ('menu-page' | enabled) else '#menu' }}">See the menu</a>
+        {%- endif %}
+      </div>
+      <div class="mx-foot">
+        <p class="mx-now" data-live-status><span class="dot" aria-hidden="true"></span><span data-status-text>Opening hours</span></p>
+        {%- if "menu-pdf" | enabled %}{% include "kits/restaurant/features/menu-pdf/menu-pdf.njk" %}{% endif %}
+      </div>
+    </div>
+    {%- if withBook %}
+    <div class="mx-table">
+      <div class="mx-glow" data-motion aria-hidden="true"></div>
+      {%- set mbHero = true %}{% include "kits/restaurant/features/menu-book/menu-book.njk" %}{% set mbHero = false %}
+    </div>
+    {%- elif m and m.sittings %}
+    <ul class="mx-sits" aria-label="When we serve">
+      {%- for s in m.sittings %}<li><span>{{ s.name }}</span><b>{{ s.from | t12 }}–{{ s.to | t12 }}</b><small>{{ s.days | sittingDays }}</small></li>{% endfor %}
+    </ul>
+    {%- endif %}
+  </div>
+</section>

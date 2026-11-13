@@ -1,0 +1,40 @@
+{#- The pâtisserie window: the day's pieces photographed large, each with its price and allergens; pieces sold out on
+    the sheet are marked. Fill the house box piece by piece; pay by the shop's own Stripe link for that box; then send
+    the box on WhatsApp to collect. Without JavaScript the window and every piece's allergens still show. -#}
+{%- set sec = site.sections.window %}
+{%- set w = site.window %}
+<section id="window" class="wn" data-feature="the-window"{{ "the-window" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <ul class="wn-pieces">
+    {%- for id in w.sections %}{% set sc = site.menu | menuSection(id) %}{% for d in sc.dishes %}{% set an = d | allergenNames %}
+    <li class="wn-piece" data-dish="{{ d.id }}" data-name="{{ d.name }}" data-price="{{ d.price }}">
+      <figure class="wn-ph"><img src="{{ d.photo.src | img }}" width="{{ d.photo.width }}" height="{{ d.photo.height }}" alt="{{ d.photo.alt }}" loading="lazy"></figure>
+      <p class="wn-n"><span>{{ d.name }}</span><span class="wn-p">{{ d.price | gbp }}</span></p>
+      {%- if d.desc %}<p class="wn-d">{{ d.desc }}</p>{% endif %}
+      <p class="wn-a">{% if an.length %}Contains {{ an | join(", ") | lower }}{% else %}None of the 14 allergens{% endif %}</p>
+      <p class="wn-out" data-out hidden>Gone for today</p>
+      <div class="wn-q" data-js-only>
+        <button type="button" data-wn-minus aria-label="One fewer {{ d.name }} in the box" disabled>−</button>
+        <output data-wn-n aria-live="polite">0</output>
+        <button type="button" data-wn-plus aria-label="Add {{ d.name }} to the box">+</button>
+      </div>
+    </li>
+    {%- endfor %}{% endfor %}
+  </ul>
+  <aside class="wn-box" aria-labelledby="wn-box-h" data-js-only>
+    <h3 id="wn-box-h" class="wn-box-h">The box</h3>
+    <fieldset class="wn-sizes"><legend class="sr-only">Box size</legend>
+      {%- for b in w.boxes %}<label><input type="radio" name="wn-box" value="{{ b.id }}"{% if loop.first %} checked{% endif %}><span>{{ b.name }}</span><b>{{ b.price | gbp }}</b></label>{% endfor %}
+    </fieldset>
+    <ul class="wn-lines" data-wn-lines></ul>
+    <p class="wn-left" data-wn-left aria-live="polite"></p>
+    <label class="wn-l" for="wn-when">To collect<select id="wn-when" data-wn-when></select></label>
+    <label class="wn-l" for="wn-name">Name for the box<input id="wn-name" type="text" maxlength="40" autocomplete="given-name" data-wn-name></label>
+    <ol class="wn-steps">
+      <li><a class="wn-pay" data-wn-pay href="{{ w.boxes[0].link }}" target="_blank" rel="noopener" aria-disabled="true">Pay {{ w.boxes[0].price | gbp }} by card</a></li>
+      <li><a class="wn-send" data-wn-send href="{{ w.message | wa }}" target="_blank" rel="noopener" aria-disabled="true">Send the box</a></li>
+    </ol>
+    {%- if w.note %}<p class="wn-note">{{ w.note }}</p>{% endif %}
+  </aside>
+  <p class="wn-plain" data-no-js><a href="{{ w.message | wa }}" target="_blank" rel="noopener">Message us to order a box</a></p>
+</div></section>

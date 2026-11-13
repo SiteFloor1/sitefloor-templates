@@ -1,0 +1,126 @@
+{#- Window tint page: every shade on a real window, what the law allows on each window, the windscreen
+    (chameleon films and the 75% rule), tinting and protecting lights (and the MOT), how the studio fits it, its
+    films, its prices for every size of car and the questions people ask. No JavaScript needed. -#}
+{%- set p = site.tintPage %}
+{%- set t = site.tint %}
+{%- set side = carKit.POV["fronts-day"] %}{% set screen = carKit.POV["windscreen-day"] %}
+
+{%- set ph = carKit.saloon %}
+<header class="phero tp-hero"><div class="wrap">
+  <nav class="crumb" aria-label="Breadcrumb"><a href="{{ 'index' | href }}">Home</a> / {{ p.title | plain | replace(r/\.$/, "") }}</nav>
+  <span class="kick">{{ p.kicker }}</span>
+  <h1>{{ p.title | markup | safe }}</h1>
+  {%- if p.intro %}<p>{{ p.intro }}</p>{% endif %}
+</div></header>
+
+<section class="tp-shades" data-feature="tint-page"><div class="wrap">
+  <div class="sh rv"><div><span class="kick">Every shade</span><h2>Looking out<br>through each <em>film.</em></h2></div><p>The same window, with each film we fit. Percentages are the light that gets through once it's on the glass, as we measure it.</p></div>
+  <svg class="tp-defs" aria-hidden="true" width="0" height="0"><defs><linearGradient id="tp-sheen" x1="0" y1="0" x2="1" y2=".6"><stop offset="0" class="tp-s1"/><stop offset=".5" class="tp-s2"/><stop offset="1" class="tp-s1"/></linearGradient></defs></svg>
+  <ol class="tp-ladder">
+    {%- for s in t.shades %}
+    <li class="rv"{% if s.sheen %} style="--sheen:{{ s.sheen }}"{% endif %}>
+      <figure>
+        <div class="tp-win{% if s.sheen %} tp-sheened{% endif %}"><img src="{{ ('img/kit/' + side.file + '.webp') | img }}" width="{{ side.w }}" height="{{ side.h }}" alt="" loading="lazy"><svg viewBox="0 0 {{ side.w }} {{ side.h }}" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path class="film" fill-opacity="{{ ((1 - s.light / 100) * 0.85) | round(2) }}" d="{{ side.glass | polyPath }}"/>{% if s.sheen %}<path class="tp-sheen" d="{{ side.glass | polyPath }}"/>{% endif %}</svg></div>
+        <figcaption><b>{{ s.name }}</b>
+          <span class="tp-ok">Rear windows</span>
+          {%- if s.light >= ("fronts" | minLight(false)) %}<span class="tp-ok">Front side windows</span>{% else %}<span class="tp-no">Not on the front</span>{% endif %}
+          {%- if s.light >= ("windscreen" | minLight(false)) %}<span class="tp-ok">Windscreen</span>{% endif %}
+        </figcaption>
+      </figure>
+    </li>
+    {%- endfor %}
+  </ol>
+</div></section>
+
+<section class="tp-law"><div class="wrap">
+  <div class="sh rv"><div><span class="kick">The law</span><h2>What you can have<br><em>on which window.</em></h2></div><p>From the gov.uk rules, checked {{ tintLaw.checked }}. We measure your glass after fitting and won't fit a front shade that breaks them.</p></div>
+  <div class="tp-law-in rv">
+    <div class="tp-car studio car-shot"><img src="{{ ph.src | img }}" width="{{ ph.w }}" height="{{ ph.h }}" alt="A car from the side with its front and rear side windows marked" loading="lazy">
+      <svg viewBox="0 0 {{ ph.w }} {{ ph.h }}" aria-hidden="true"><path class="tp-g tp-g-front" d="{{ carKit.saloonGlass.fronts | polyPath }}"/><path class="tp-g tp-g-rear" d="{{ carKit.saloonGlass.rear | polyPath }}"/></svg>
+    </div>
+    <dl class="tp-rules">
+      <div class="tp-r-front"><dt>Front side windows</dt><dd><b>At least {{ "fronts" | minLight(false) }}%</b> of light through.</dd></div>
+      <div class="tp-r-screen"><dt>Windscreen</dt><dd><b>At least {{ "windscreen" | minLight(false) }}%</b> of light through ({{ "windscreen" | minLight(true) }}% for cars first used before 1 April 1985).</dd></div>
+      <div class="tp-r-rear"><dt>Rear side windows and rear screen</dt><dd><b>No limit.</b> Any shade we fit.</dd></div>
+      <div><dt>If the front is too dark</dt><dd>The police can issue a prohibition notice, and it's illegal to fit or sell glass that breaks the rules. <a href="{{ tintLaw.url }}" target="_blank" rel="noopener">Read them on gov.uk</a>.</dd></div>
+    </dl>
+  </div>
+</div></section>
+
+{%- if p.windscreen %}
+<section class="tp-screen"><div class="wrap">
+  <div class="sh rv"><div><span class="kick">The windscreen</span><h2>Film on the <em>windscreen.</em></h2></div><p>The law needs at least {{ "windscreen" | minLight(false) }}% of light through a windscreen. Your glass already holds some back, and a film adds to it, so what counts is the reading with both together, on your car.</p></div>
+  <div class="tp-screen-in rv">
+    <div class="tp-pair">
+      {%- set shades = [null] %}
+      {%- for x in t.shades %}{% if x.sheen and x.light >= ("windscreen" | minLight(false)) %}{% set _ = shades.push(x) %}{% endif %}{% endfor %}
+      {%- for x in shades %}{% if loop.index <= 2 %}
+      <figure{% if x and x.sheen %} style="--sheen:{{ x.sheen }}"{% endif %}>
+        <div class="tp-win{% if x and x.sheen %} tp-sheened{% endif %}"><img src="{{ ('img/kit/' + screen.file + '.webp') | img }}" width="{{ screen.w }}" height="{{ screen.h }}" alt="" loading="lazy"><svg viewBox="0 0 {{ screen.w }} {{ screen.h }}" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path class="film" fill-rule="evenodd" fill-opacity="{{ (((1 - x.light / 100) * 0.85) | round(2)) if x else 0 }}" d="{{ screen.glass | polyPath }}"/>{% if x and x.sheen %}<path class="tp-sheen" fill-rule="evenodd" d="{{ screen.glass | polyPath }}"/>{% endif %}</svg></div>
+        <figcaption><b>{{ x.name if x else "No film" }}</b></figcaption>
+      </figure>
+      {%- endif %}{% endfor %}
+    </div>
+    <div class="tp-copy">
+      <p>{{ p.windscreen.body }}</p>
+      {%- if p.windscreen.points %}<ul>{% for x in p.windscreen.points %}<li>{{ x }}</li>{% endfor %}</ul>{% endif %}
+    </div>
+  </div>
+</div></section>
+{%- endif %}
+
+{%- if p.lights %}
+<section class="tp-lights"><div class="wrap">
+  <div class="sh rv"><div><span class="kick">Lights</span><h2>Headlights and <em>rear lights.</em></h2></div><p>Clear film protects a lamp without changing its light. Smoke film darkens it, and the MOT fails a headlight with anything on it that obviously dims the light or changes its colour, and a rear light that shows much less red.</p></div>
+  <div class="tp-copy tp-lights-in rv">
+    <p>{{ p.lights.body }}</p>
+    {%- if p.lights.points %}<ul>{% for x in p.lights.points %}<li>{{ x }}</li>{% endfor %}</ul>{% endif %}
+    <p class="tp-small"><a href="{{ tintLaw.lampsUrl }}" target="_blank" rel="noopener">The MOT rules for lamps on gov.uk</a>, checked {{ tintLaw.checked }}.</p>
+  </div>
+</div></section>
+{%- endif %}
+
+{%- if p.steps %}
+<section class="tp-steps"><div class="wrap">
+  <div class="sh rv"><div><span class="kick">On the day</span><h2>How we <em>fit it.</em></h2></div></div>
+  <ol class="tp-steplist">{% for s in p.steps %}<li class="rv"><span class="tp-n">{{ loop.index }}</span><b>{{ s.title }}</b><p>{{ s.body }}</p></li>{% endfor %}</ol>
+</div></section>
+{%- endif %}
+
+{%- if p.films %}
+<section class="tp-films"><div class="wrap">
+  <div class="sh rv"><div><span class="kick">Our films</span><h2>Which film <em>is which.</em></h2></div>{% if p.filmsNote %}<p>{{ p.filmsNote }}</p>{% endif %}</div>
+  <div class="tp-filmgrid">{% for f in p.films %}<article class="rv"><h3>{{ f.name }}</h3><p>{{ f.about }}</p>{% if f.best %}<p class="tp-best">{{ f.best }}</p>{% endif %}</article>{% endfor %}</div>
+</div></section>
+{%- endif %}
+
+<section class="tp-prices"><div class="wrap">
+  <div class="sh rv"><div><span class="kick">Prices</span><h2>Tint prices<br><em>for your car.</em></h2></div><p>Our prices and times for each size of vehicle.</p></div>
+  <div class="tp-table rv">
+    <table class="cp-table">
+      <caption class="sr-only">Window tint prices by vehicle</caption>
+      <thead><tr><th scope="col">Job</th>{% for v in site.vehicles %}<th scope="col">{{ v.name }}{% if v.example %}<small>{{ v.example }}</small>{% endif %}</th>{% endfor %}</tr></thead>
+      <tbody>
+        {%- for w, jobId in t.jobs %}{% set j = site.jobs | job(jobId) %}
+        <tr><th scope="row"><b>{{ j.name }}</b>{% if j.note %}<small>{{ j.note }}</small>{% endif %}</th>{% for v in site.vehicles %}<td><b>{{ j.prices[v.id] | money }}</b><small>{{ j.hours[v.id] | hoursText }}</small></td>{% endfor %}</tr>
+        {%- endfor %}
+      </tbody>
+    </table>
+  </div>
+</div></section>
+
+{%- set tq = [] %}{% for q in site.questions %}{% if q.topic == "Tint" %}{% set tq = (tq.push(q), tq) %}{% endif %}{% endfor %}
+{%- if tq | length %}
+<section class="tp-qs"><div class="wrap">
+  <div class="sh rv"><div><span class="kick">Questions</span><h2>Good to <em>know.</em></h2></div></div>
+  <div class="qs rv">{% for q in tq %}<details class="qa"><summary>{{ q.q }}</summary><p>{{ q.a }}</p></details>{% endfor %}</div>
+</div></section>
+{%- endif %}
+
+<section class="tp-cta"><div class="wrap">
+  <p class="tp-cta-line">See every shade on your own car's shape, priced.</p>
+  <div class="h-cta">
+    {%- if "showroom" | enabled %}<a class="btn" href="{{ 'index' | href }}#showroom"{{ "showroom" | tierAttr | safe }}>Open the Showroom</a>{% endif %}
+    <a class="btn{% if 'showroom' | enabled %} ghost{% endif %}" href="{{ p.message | wa }}" target="_blank" rel="noopener">{% include "core/partials/icon-whatsapp.njk" %}Ask about tint</a>
+  </div>
+</div></section>

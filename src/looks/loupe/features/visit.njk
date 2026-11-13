@@ -1,0 +1,26 @@
+{#- Loupe visit: the studio's postcode, light and very large, over the address; beside it the week as a ruled list with
+    today marked in the stain colour, the live status over it. On Plan your visit only the week shows. -#}
+{%- set sec = { title: site.sections.visit.title, intro: site.sections.visit.intro } %}
+<section id="visit" class="lp-v" data-feature="visit"><div class="wrap">
+  {%- if visitHeading == false %}<h2 class="lp-v-h">Studio hours</h2>{% else %}{% include "core/partials/section-head.njk" %}{% endif %}
+  <div class="lp-v-in{% if visitHeading == false %} lp-v-only{% endif %}">
+    {%- if visitHeading != false %}
+    <div class="lp-v-where rv">
+      <p class="lp-v-pc">{{ site.location.postcode }}</p>
+      <address>{{ site.location.streetAddress }}<br>{{ site.location.locality }}</address>
+      {%- if site.location.area %}<p class="lp-v-area">{{ site.location.area }}</p>{% endif %}
+      <a class="mh-text" href="{{ site.location | directions }}" target="_blank" rel="noopener">Directions</a>
+    </div>
+    {%- endif %}
+    <div class="lp-v-week rv" data-hours>
+      <p class="lp-now" data-live-status><span class="dot" aria-hidden="true"></span><span data-status-text>Studio hours</span></p>
+      <p class="mh-fine" data-status-detail></p>
+      <table class="lp-v-days">
+        <caption class="sr-only">Studio hours</caption>
+        <tbody>{% for row in site.hours | hoursRows %}<tr data-day="{{ row.dayIndex }}"><th scope="row">{{ row.day }}</th><td>{{ row.label }}</td></tr>{% endfor %}</tbody>
+      </table>
+      {%- set upcoming = site.hours | upcomingExceptions(build.today) %}
+      {%- if upcoming.length %}<ul class="lp-v-ex">{% for ex in upcoming %}<li><b>{{ ex.dateLabel }}</b> {{ ex.note or ex.label }}</li>{% endfor %}</ul>{% endif %}
+    </div>
+  </div>
+</div></section>

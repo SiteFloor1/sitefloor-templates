@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: team
+permalink: team.html
+feature: crew-page
+eleventyComputed:
+  title: "{{ site.crew.title | plain }}"
+  description: "The people at {{ site.business.name }} you will meet."
+---
+{% include "kits/construction/features/crew-page/crew-page.njk" %}

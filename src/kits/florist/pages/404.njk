@@ -1,0 +1,9 @@
+---
+layout: core/layouts/base.njk
+pageId: "404"
+permalink: 404.html
+title: Page not found
+---
+{%- set ph = { kicker: "Not found", title: "This page isn't here.", intro: "It may have moved. This week's flowers are on the home page." } %}
+{% include "kits/florist/partials/page-head.njk" %}
+<p class="wrap fl-back"><a class="fl-link" href="{{ 'index' | href }}">This week's flowers</a></p>

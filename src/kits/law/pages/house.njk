@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: house
+permalink: house.html
+feature: house-tour
+eleventyComputed:
+  title: "{{ site.house.title | plain }}"
+  description: "The rooms and doors of {{ site.business.name }}, room by room."
+---
+{% include "kits/law/features/house-tour/house-tour.njk" %}

@@ -1,0 +1,14 @@
+{#- The journal: the house's own dated writing, newest first, each to its own page. -#}
+{%- set jn = site.journal %}
+{%- set ph = jn %}
+{% include "kits/tailor/partials/page-head.njk" %}
+<section class="wrap tl-jn" aria-label="{{ jn.title | plain }}">
+  <ul class="tl-jn-list">
+    {%- for a in jn.items | newestFirst %}
+    <li class="tl-jn-i"><a href="{{ a.slug | href }}">
+      <img src="{{ a.photo.src | img }}" alt="{{ a.photo.alt }}" width="{{ a.photo.width }}" height="{{ a.photo.height }}" loading="{{ 'eager' if loop.first else 'lazy' }}" decoding="async">
+      <span class="tl-jn-d">{{ a.date | ukDay }}</span><span class="tl-jn-t">{{ a.title }}</span><span class="tl-jn-s">{{ a.summary }}</span></a></li>
+    {%- endfor %}
+  </ul>
+  {%- if jn.note %}<p class="tl-small">{{ jn.note }}</p>{% endif %}
+</section>

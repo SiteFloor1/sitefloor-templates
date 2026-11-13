@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: delivery
+permalink: delivery.html
+feature: delivery-areas
+eleventyComputed:
+  title: "{{ site.deliveryAreas.title | plain }}"
+  description: "Where {{ site.business.name }} delivers by hand, the cut-off for each area and what it costs."
+---
+{% include "kits/florist/features/delivery-areas/delivery-areas.njk" %}

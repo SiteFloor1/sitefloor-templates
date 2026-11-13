@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: colour-upkeep
+permalink: colour-upkeep.html
+feature: upkeep-page
+eleventyComputed:
+  title: "{{ site.upkeepPage.title | plain }}"
+  description: "{{ site.upkeepPage.description or site.upkeepPage.intro }}"
+---
+{% include "kits/hair/features/upkeep-page/upkeep-page.njk" %}

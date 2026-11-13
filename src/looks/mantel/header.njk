@@ -1,0 +1,27 @@
+{#- Mantel header: the seal and the name with where the studio is; the pages in one row; a square outlined Order.
+    The week's colour is set here (every page), so the frame follows this week's flowers from the first paint. -#}
+<style>:root{ {{ site.week | weekStyle(build.week) }} }</style>
+<header class="nav mt-nav"><div class="wrap mt-nav-in">
+  <a class="mt-brand" href="{{ 'index' | href }}">
+    {%- set sealClass = "" %}{% include "looks/mantel/parts/seal.njk" %}
+    {%- if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="{{ site.business.name }}" height="28">{% else %}<span class="mt-name"><b>{{ site.business.name }}</b><small>{{ site.hero.kicker }}</small></span>{% endif %}
+  </a>
+  <nav class="mt-links" aria-label="Main">
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+  </nav>
+  <a class="mt-order" href="{{ site.messages.order | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.order }}"{% endif %} target="_blank" rel="noopener">Order</a>
+  <button class="burger mt-menu" type="button" aria-expanded="false" aria-controls="mnav"><span class="mt-open">Menu</span><span class="mt-close">Close</span></button>
+</div></header>
+<div class="mnav mt-sheet" id="mnav" hidden>
+  <nav aria-label="Pages">
+    <a href="{{ 'index' | href }}"{% if pageId == "index" %} aria-current="page"{% endif %}>This week</a>
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+    {%- include "looks/mantel/parts/more-pages.njk" %}
+  </nav>
+  <p class="mt-sheet-now" data-live-status><span class="dot" aria-hidden="true"></span> <span data-status-text>Opening hours</span></p>
+  <p class="mt-sheet-addr">{{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}</p>
+</div>

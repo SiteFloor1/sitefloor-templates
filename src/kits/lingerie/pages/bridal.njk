@@ -1,0 +1,16 @@
+---
+layout: core/layouts/base.njk
+pageId: bridal
+permalink: bridal.html
+feature: bridal-page
+eleventyComputed:
+  title: "{{ site.guides['bridal'].title | plain }}"
+  description: "{{ site.guides['bridal'].description }}"
+---
+{%- set g = site.guides["bridal"] %}
+{% include "kits/lingerie/partials/page-head.njk" %}
+
+{% include "kits/lingerie/partials/guide.njk" %}
+{% if "bridal-timeline" | enabled %}{% include "kits/lingerie/features/bridal-timeline/bridal-timeline.njk" %}{% endif %}
+{% if "party-evening" | enabled %}{% include "kits/lingerie/features/party-evening/party-evening.njk" %}{% endif %}
+{% if "private-fitting" | enabled %}{% include "kits/lingerie/features/private-fitting/private-fitting.njk" %}{% endif %}

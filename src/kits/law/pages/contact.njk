@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: contact
+permalink: contact.html
+feature: first-contact
+eleventyComputed:
+  title: "{{ site.firstContact.title | plain }}"
+  description: "Contact {{ site.business.name }}: tell us who is involved first, so we can check we are free to act before you tell us more."
+---
+{% include "kits/law/features/first-contact/first-contact.njk" %}

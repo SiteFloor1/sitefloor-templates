@@ -1,0 +1,39 @@
+{#- Gift takeovers (Valentine's, Christmas): between its dates a takeover replaces the home page's opening: its
+    campaign photograph, a line, order-by (and collect-by) times counting down, the edit to give and to be given, and
+    the ways to buy for her. The build shows whichever was on when it was built; the script corrects it on the day. -#}
+{%- import "kits/lingerie/partials/mode.njk" as mode with context %}
+{%- set onIdx = site.takeovers | takeoverOn(site) %}
+<section class="ls-to" data-feature="gift-takeover"{{ "gift-takeover" | tierAttr | safe }}>
+  <script type="application/json" data-lx>{{ { area: site.shop.area, collect: mode.shows("boutique") == "true", items: site.takeovers | takeoverData } | jsonData | safe }}</script>
+  {%- for t in site.takeovers %}
+  <div class="to{% if loop.index0 == onIdx %} is-on{% endif %}" data-to="{{ t.id }}">
+    <figure class="to-ph">{% set ph = t.photo %}{% set eager = loop.index0 == onIdx %}{% include "kits/lingerie/partials/photo.njk" %}{% set eager = false %}</figure>
+    <div class="to-t">
+      <p class="to-k">{{ t.name }}</p>
+      <h2 class="to-h">{{ t.title | markup | safe }}</h2>
+      {%- if t.line %}<p class="to-lead">{{ t.line }}</p>{% endif %}
+      <p class="to-when" data-to-when>Order by {{ t.orderBy | wallLabel }} for delivery.{% if t.collectBy %}<span{{ mode.attr("boutique") }}> Collect in {{ site.shop.area }} until {{ t.collectBy | wallLabel }}.</span>{% endif %}</p>
+      {%- for ed in t.edits %}
+      <div class="to-edit">
+        <p class="to-ed-h">{{ ed.label }}</p>
+        <ul class="to-list">
+          {%- for p in site.pieces | piecesWhere({ ids: ed.pieces }) %}{% set pname = p | pieceName(site) %}
+          <li data-piece="{{ p.id }}" data-name="{{ pname }}" data-price="{{ p.price }}">
+            {%- if "piece-detail" | enabled %}<a href="{{ ('piece-' + p.id) | href }}">{{ pname }}</a>{% else %}<a href="{{ (p | setAside(site)) | wa }}" target="_blank" rel="noopener">{{ pname }}</a>{% endif %}
+            <span class="sw" aria-label="Colours">{% for c in p | swatches(site) %}<i style="--sw:{{ c.hex }}" title="{{ c.name }}"></i>{% endfor %}</span>
+            <span class="to-pr">{{ p.price | pounds }}</span>
+            {%- if "hint-sheet" | enabled %}<button type="button" class="pc-act" data-hint="{{ p.id }}" data-js-only>Hint</button>{% endif %}
+          </li>
+          {%- endfor %}
+        </ul>
+      </div>
+      {%- endfor %}
+      <p class="to-acts">
+        {%- if "tell-us-about-her" | enabled %}<a class="lx-go" href="{{ ('for-her' | href) + '#her' if ('for-her-page' | enabled) else '#her' }}">Tell us about her</a>{% endif %}
+        {%- if "gift-concierge" | enabled %}<a class="lx-go lx-quiet" href="{{ ('for-her' | href) + '#concierge' if ('for-her-page' | enabled) else '#concierge' }}">Her dates, in your diary</a>{% endif %}
+      </p>
+      {%- if t.wrap and site.giftWrap %}<p class="lx-small to-wrap">{{ site.giftWrap.text }}</p>{% endif %}
+    </div>
+  </div>
+  {%- endfor %}
+</section>

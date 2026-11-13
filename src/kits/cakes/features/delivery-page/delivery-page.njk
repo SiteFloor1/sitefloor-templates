@@ -1,0 +1,12 @@
+{#- Delivery and set-up: the venue check, what happens on the day, stands, marquees and who's responsible once it's set up. -#}
+{%- set pg = site.cakePages.delivery %}
+{%- set ph = { title: pg.title, intro: pg.intro } %}{% include "kits/cakes/partials/page-head.njk" %}
+{%- set hostPage = "delivery-page" %}{% include "kits/cakes/partials/hosted.njk" %}
+<section class="ck-day" data-feature="delivery-page" aria-label="On the day"><div class="wrap ck-day-in">
+  {%- if site.delivery.day %}<div><h2 class="ck-day-h">On the day</h2><ol class="ck-steps">{% for x in site.delivery.day %}<li><p>{{ x }}</p></li>{% endfor %}</ol></div>{% endif %}
+  <dl class="ck-day-dl">
+    {%- if site.delivery.stands %}<div><dt>Stands</dt><dd>{{ site.delivery.stands }}</dd></div>{% endif %}
+    {%- if site.delivery.marquee %}<div><dt>Marquees and heat</dt><dd>{{ site.delivery.marquee }}</dd></div>{% endif %}
+    {%- if site.delivery.after %}<div><dt>Once it's set up</dt><dd>{{ site.delivery.after }}</dd></div>{% endif %}
+  </dl>
+</div></section>

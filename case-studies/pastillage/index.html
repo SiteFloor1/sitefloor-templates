@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en-GB">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>On the Stand</title>
+<meta name="description" content="A Sitefloor case study: Pastillage, a Clerkenwell cake studio's website, opened one tier of a cake at a time.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chonburi&family=Golos+Text:wght@400;600&family=Manrope:wght@600;700&display=swap">
+<style>
+
+/* The stand at night: warm black, the cake lit; the one colour is the moss of Verdure's crushed velvet. */
+:root {
+  --bg: #13110F; --surface: #1B1815; --text: #F2EDE4; --quiet: #A79F93; --line: #34302A;
+  --accent: #B4B57C; --dim: #8A8378; --dim-line: #5E5850;
+  --display: "Chonburi", Georgia, serif; --body: "Golos Text", Arial, sans-serif;
+  --sf-paper: #FBFAF7; --sf-ink: #0E0F11; --sf-tomato: #E8613C; --sf-line: rgba(14,15,17,.12); --brand: "Manrope", system-ui, sans-serif;
+  --gut: clamp(16px, 4.4vw, 64px);
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #13110F; } }
+:root[data-theme="dark"] { --bg: #13110F; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 400 17px/1.5 var(--body); }
+h1, h2 { font-family: var(--display); font-weight: 400; margin: 0; letter-spacing: -.01em; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+img { display: block; max-width: 100%; height: auto; }
+
+html { -webkit-text-size-adjust: 100%; }
+a { color: inherit; }
+.gut { padding-left: max(var(--gut), env(safe-area-inset-left, 0px)); padding-right: max(var(--gut), env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 1520px; margin-inline: auto; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 40; background: var(--sf-paper); }
+
+/* Sitefloor's bar, as on every case study */
+.sfbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--sf-paper); color: var(--sf-ink); border-bottom: 1px solid var(--sf-line); }
+.sfbar .wrap { display: flex; justify-content: space-between; align-items: center; height: 66px; gap: 16px; }
+.wm { display: flex; align-items: baseline; font-family: var(--brand); font-weight: 600; font-size: 24px; letter-spacing: -.045em; text-decoration: none; color: var(--sf-ink); }
+.wm svg { margin: 0 1px; overflow: visible; }
+.sfbar nav { display: flex; gap: 28px; font-family: var(--brand); font-size: 14px; font-weight: 600; }
+.sfbar nav a { text-decoration: none; color: var(--sf-ink); }
+.sfbar nav a[aria-current] { box-shadow: inset 0 -1.5px 0 var(--sf-ink); }
+.sfbtn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 20px; background: var(--sf-ink); color: var(--sf-paper); font: 700 12px var(--brand); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; }
+.sfbtn:hover { background: var(--sf-tomato); }
+@media (max-width: 760px) { .sfbar nav { display: none; } }
+@media (max-width: 420px) { .sfbar .sfbtn { display: none; } }
+
+/* Hero: the cake is the contents */
+.stand { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(300px, 340px); grid-template-rows: 100%; gap: 0 56px; padding: 0 var(--gut); height: calc(100svh - 66px); min-height: 720px; max-height: 980px; }
+.cake { position: relative; height: 100%; aspect-ratio: 3 / 5; grid-column: 2; grid-row: 1; }
+.cake img { width: 100%; height: 100%; object-fit: cover; }
+.tier { color: inherit; text-decoration: none; position: absolute; display: flex; align-items: center; gap: 18px; transform: translateY(-50%); right: calc(100% - var(--x)); width: calc(var(--x) + 380px); text-align: left; }
+.tier-l { flex: none; width: 300px; display: grid; gap: 2px; }
+.tier-n { font-family: var(--display); font-size: 15px; color: var(--accent); }
+.tier-q { font-weight: 600; font-size: clamp(19px, 1.7vw, 24px); line-height: 1.15; letter-spacing: -.01em; }
+.tier-p { font-size: 14px; color: var(--quiet); }
+.tier-r { flex: 1; height: 1px; background: var(--accent); position: relative; }
+.tier-r::after { content: ""; position: absolute; right: -4px; top: -4px; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); }
+/* The checked plan lights its tiers from the top; the rest dim. CSS only, so it works without the script. */
+.stand:has(#plan-1:checked) .tier[data-tier="2"] .tier-r,
+.stand:has(#plan-1:checked) .tier[data-tier="3"] .tier-r,
+.stand:has(#plan-1:checked) .tier[data-tier="4"] .tier-r,
+.stand:has(#plan-2:checked) .tier[data-tier="3"] .tier-r,
+.stand:has(#plan-2:checked) .tier[data-tier="4"] .tier-r,
+.stand:has(#plan-3:checked) .tier[data-tier="4"] .tier-r { background: var(--dim-line); }
+.stand:has(#plan-1:checked) .tier[data-tier="2"] .tier-r::after,
+.stand:has(#plan-1:checked) .tier[data-tier="3"] .tier-r::after,
+.stand:has(#plan-1:checked) .tier[data-tier="4"] .tier-r::after,
+.stand:has(#plan-2:checked) .tier[data-tier="3"] .tier-r::after,
+.stand:has(#plan-2:checked) .tier[data-tier="4"] .tier-r::after,
+.stand:has(#plan-3:checked) .tier[data-tier="4"] .tier-r::after { background: var(--dim-line); }
+.stand:has(#plan-1:checked) .tier[data-tier="2"] .tier-q,
+.stand:has(#plan-1:checked) .tier[data-tier="3"] .tier-q,
+.stand:has(#plan-1:checked) .tier[data-tier="4"] .tier-q,
+.stand:has(#plan-2:checked) .tier[data-tier="3"] .tier-q,
+.stand:has(#plan-2:checked) .tier[data-tier="4"] .tier-q,
+.stand:has(#plan-3:checked) .tier[data-tier="4"] .tier-q { color: var(--quiet); }
+.stand:has(#plan-1:checked) .tier[data-tier="2"] .tier-n,
+.stand:has(#plan-1:checked) .tier[data-tier="3"] .tier-n,
+.stand:has(#plan-1:checked) .tier[data-tier="4"] .tier-n,
+.stand:has(#plan-2:checked) .tier[data-tier="3"] .tier-n,
+.stand:has(#plan-2:checked) .tier[data-tier="4"] .tier-n,
+.stand:has(#plan-3:checked) .tier[data-tier="4"] .tier-n { color: var(--dim); }
+.tier:focus-visible, .list a:focus-visible, .pin:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.tier-r, .tier-q, .tier-n, .pin { transition: color .5s ease, background-color .5s ease, border-color .5s ease; }
+.tier.open .tier-q { text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 6px; }
+
+.side { grid-column: 3; grid-row: 1; display: flex; flex-direction: column; justify-content: space-between; padding: 72px 0 40px; }
+.side h1 { font-size: clamp(44px, 3.7vw, 56px); line-height: .95; }
+.side .lede { margin: 20px 0 0; font-size: 18px; color: var(--quiet); max-width: 30ch; }
+.side .lede b { color: var(--text); font-weight: 600; }
+.plans { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.plans label { cursor: pointer; width: 100%; display: grid; grid-template-columns: 26px 1fr auto; gap: 4px 12px; align-items: baseline; padding: 14px 0; border-bottom: 1px solid var(--line); text-align: left; min-height: 44px; }
+.plans .t { font-family: var(--display); font-size: 15px; color: var(--dim); }
+.plans b { font-weight: 600; font-size: 18px; }
+.plans .pr { font-size: 15px; color: var(--quiet); text-align: right; }
+.plans .bespoke .pr { grid-column: 2 / -1; text-align: left; }
+.plans .what { grid-column: 2 / -1; font-size: 14px; color: var(--quiet); }
+.plans :checked + label b, .plans :checked + label .t { color: var(--accent); }
+.plans :focus-visible + label { outline: 2px solid var(--accent); outline-offset: 4px; }
+.plans-k { margin: 32px 0 10px; font-size: 14px; color: var(--quiet); }
+
+/* Phone: the stand stacks; numerals sit on the tiers, the questions underneath */
+.pin { display: none; }
+@media (max-width: 900px) {
+  .stand { display: flex; flex-direction: column; height: auto; max-height: none; min-height: 0; padding: 0; }
+  .side > div:first-child { order: 1; } .cake { order: 2; } .list { order: 3; } .plans-w { order: 4; }
+  .side { display: contents; }
+  .side > div:first-child { padding: 28px 16px 24px; }
+  .side h1 { font-size: 46px; }
+  .side .lede { font-size: 17px; margin-top: 12px; }
+  .cake { width: 100%; height: auto; }
+  .cake img { height: auto; }
+  .tier { display: none; }
+  .pin { display: grid; text-decoration: none; padding: 0; place-items: center; position: absolute; left: var(--px); top: var(--y); transform: translate(-50%, -50%); width: 44px; height: 44px; border-radius: 50%; background: rgba(19, 17, 15, .72); border: 1px solid var(--accent); font-family: var(--display); font-size: 15px; color: var(--accent); }
+  .stand:has(#plan-1:checked) .pin[data-tier="2"],
+.stand:has(#plan-1:checked) .pin[data-tier="3"],
+.stand:has(#plan-1:checked) .pin[data-tier="4"],
+.stand:has(#plan-2:checked) .pin[data-tier="3"],
+.stand:has(#plan-2:checked) .pin[data-tier="4"],
+.stand:has(#plan-3:checked) .pin[data-tier="4"] { border-color: var(--dim-line); color: var(--quiet); }
+  .list { display: block !important; margin: 0; padding: 8px 16px 0; list-style: none; }
+  .list a { text-decoration: none; color: inherit; width: 100%; display: grid; grid-template-columns: 32px 1fr auto; align-items: baseline; gap: 8px; padding: 14px 0; min-height: 44px; border-bottom: 1px solid var(--line); text-align: left; }
+  .list .n { font-family: var(--display); font-size: 15px; color: var(--accent); }
+  .list .q { font-weight: 600; font-size: 19px; line-height: 1.2; }
+  .list .p { font-size: 14px; color: var(--quiet); }
+  .stand:has(#plan-1:checked) .list [data-tier="2"] .n,
+.stand:has(#plan-1:checked) .list [data-tier="3"] .n,
+.stand:has(#plan-1:checked) .list [data-tier="4"] .n,
+.stand:has(#plan-2:checked) .list [data-tier="3"] .n,
+.stand:has(#plan-2:checked) .list [data-tier="4"] .n,
+.stand:has(#plan-3:checked) .list [data-tier="4"] .n { color: var(--dim); }
+  .stand:has(#plan-1:checked) .list [data-tier="2"] .q,
+.stand:has(#plan-1:checked) .list [data-tier="3"] .q,
+.stand:has(#plan-1:checked) .list [data-tier="4"] .q,
+.stand:has(#plan-2:checked) .list [data-tier="3"] .q,
+.stand:has(#plan-2:checked) .list [data-tier="4"] .q,
+.stand:has(#plan-3:checked) .list [data-tier="4"] .q { color: var(--quiet); }
+  .plans-w { padding: 32px 16px 8px; }
+}
+.list { display: none; }
+
+/* The open tier: its features large, each with its phone screen and one line */
+.open-tier { background: var(--surface); border-top: 1px solid var(--line); padding: 96px var(--gut) 112px; scroll-margin-top: 66px; }
+.js .open-tier[hidden] { display: none; }
+.ot-head .price { color: var(--text); font-weight: 600; }
+.bespoke-p { max-width: 44ch; margin: 0; font-size: 20px; color: var(--quiet); }
+.ot-head { display: grid; grid-template-columns: auto 1fr; gap: 0 28px; align-items: end; margin-bottom: 64px; }
+.ot-n { font-family: var(--display); font-size: clamp(88px, 9vw, 140px); line-height: .8; color: var(--accent); }
+.ot-head h2 { font-size: clamp(40px, 4.4vw, 68px); line-height: .98; }
+.ot-head p { margin: 14px 0 0; color: var(--quiet); font-size: 17px; }
+.feats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 40px; margin: 0; padding: 0; list-style: none; }
+.phone { border: 9px solid #050505; border-radius: 34px; overflow: hidden; background: #050505; box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .8); max-width: 320px; }
+.phone img { width: 100%; aspect-ratio: 390 / 844; object-fit: cover; object-position: top; }
+.feats h3 { margin: 26px 0 6px; font-weight: 600; font-size: 20px; letter-spacing: -.01em; }
+.feats p { margin: 0; color: var(--quiet); font-size: 16px; max-width: 30ch; }
+@media (max-width: 1100px) { .feats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 56px 32px; } }
+@media (max-width: 900px) {
+  .open-tier { padding: 56px 16px 72px; }
+  .ot-head { gap: 0 16px; margin-bottom: 40px; }
+  .ot-n { font-size: 76px; }
+  .ot-head h2 { font-size: 34px; }
+  .feats { grid-template-columns: minmax(0, 1fr); gap: 56px; }
+  .phone { max-width: 300px; margin: 0 auto; }
+  .feats li > div:last-child { max-width: 300px; margin: 0 auto; }
+}
+
+/* Speed, measured */
+.speed { border-top: 1px solid var(--line); padding-block: 72px; }
+.speed .wrap { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px 24px; align-items: end; }
+.speed h2 { grid-column: 1 / span 4; font-size: clamp(34px, 3.4vw, 52px); line-height: .98; }
+.speed dl { grid-column: 6 / -1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; margin: 0; }
+.speed dt { order: 2; font-size: 14px; color: var(--quiet); }
+.speed dl > div { display: flex; flex-direction: column; gap: 6px; border-top: 1px solid var(--accent); padding-top: 14px; }
+.speed dd { margin: 0; font-family: var(--display); font-size: clamp(30px, 2.8vw, 44px); line-height: 1; }
+@media (max-width: 900px) { .speed { padding-block: 56px; } .speed h2, .speed dl { grid-column: 1 / -1; } .speed dl { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* Next: the mockup offer */
+.order { background: var(--sf-paper); color: var(--sf-ink); padding-block: clamp(72px, 9vw, 128px); }
+.order .in { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; align-items: end; }
+.order h2 { grid-column: 1 / span 7; font-size: clamp(52px, 7vw, 112px); line-height: .9; }
+.order .side2 { grid-column: 9 / span 4; }
+.order p { margin: 0 0 18px; font-size: 17px; }
+.btn { display: inline-flex; align-items: center; min-height: 48px; padding: 0 22px; margin: 0 10px 10px 0; background: var(--sf-ink); color: var(--sf-paper); font: 600 15px var(--body); text-decoration: none; }
+.btn:hover { background: #3F4321; }
+.btn.line { background: transparent; color: var(--sf-ink); box-shadow: inset 0 0 0 1.5px var(--sf-ink); }
+.btn.line:hover { background: var(--sf-ink); color: var(--sf-paper); }
+.mail { display: block; margin-top: 8px; font-size: 14px; color: #55524C; }
+@media (max-width: 900px) { .order h2, .order .side2 { grid-column: 1 / -1; } }
+
+footer { padding-block: 32px 40px; border-top: 1px solid var(--sf-line); background: var(--sf-paper); color: var(--sf-ink); }
+footer .wrap { display: flex; justify-content: space-between; gap: 24px 48px; flex-wrap: wrap; font: 400 13px/1.6 var(--brand); }
+footer p { margin: 0; max-width: 92ch; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+<header class="sfbar gut"><div class="wrap">
+  <a class="wm" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su" aria-label="Sitefloor home">sitefl<svg width="28" height="14" viewBox="0 0 42 21" aria-hidden="true"><rect x="1.9" y="1.9" width="38.2" height="17.2" rx="8.6" fill="none" stroke="#0E0F11" stroke-width="3.8"/><circle cx="31.5" cy="10.5" r="5.2" fill="#E8613C"/></svg>r</a>
+  <nav aria-label="Main"><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#live">Features</a><a href="#top" aria-current="page">Work</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#pricing">Pricing</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#guides">Guides</a></nav>
+  <a class="sfbtn" href="#mockup"><span>Free mockup</span><span aria-hidden="true">→</span></a>
+</div></header>
+
+<main id="top">
+  <section class="stand" aria-label="Pastillage, tier by tier">
+    <div class="side">
+      <div>
+        <h1>Pastillage</h1>
+        <p class="lede">A cake studio in Clerkenwell. Every tier of No.&nbsp;22 answers one question couples ask before they message. <b>Tap a tier.</b></p>
+        <p class="lede" style="font-size:14px">Pastillage is fictional, and so are its prices and dates.</p>
+      </div>
+      <div class="plans-w">
+        <p class="plans-k" id="plans-k">The plans, tier by tier</p>
+        <ul class="plans" aria-labelledby="plans-k">
+          <li><input class="sr" type="radio" name="plan" id="plan-1" value="1"><label for="plan-1"><span class="t">I</span><b>Starter</b><span class="pr">£99, then £25 a month</span><span class="what">One tier lit · home and Plan your visit</span></label></li>
+          <li><input class="sr" type="radio" name="plan" id="plan-2" value="2" checked><label for="plan-2"><span class="t">II</span><b>Plus</b><span class="pr">£199, then £30 a month</span><span class="what">Two tiers lit · up to five pages</span></label></li>
+          <li><input class="sr" type="radio" name="plan" id="plan-3" value="3"><label for="plan-3"><span class="t">III</span><b>Signature</b><span class="pr">£349, then £35 a month</span><span class="what">Three tiers lit · up to twenty pages</span></label></li>
+          <li class="bespoke"><input class="sr" type="radio" name="plan" id="plan-4" value="4"><label for="plan-4"><span class="t">IV</span><b>Bespoke</b><span class="pr">From £1,399, quoted after a call</span><span class="what">The whole cake</span></label></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cake">
+      <picture>
+        <source media="(max-width: 900px)" srcset="media/verdure-720.webp">
+        <img src="media/verdure.webp" width="1080" height="1800" alt="No. 22 Verdure: four tiers in moss and bottle-green velvet with one large white sugar peony, on a silver stand" fetchpriority="high">
+      </picture>
+      <a class="tier" href="#tier-1" data-tier="1" aria-controls="tier-1" aria-expanded="false" style="--x:24.4%; top:21.6%"><span class="tier-l"><span class="tier-n">I</span><span class="tier-q">Is our date free?</span><span class="tier-p">Starter</span></span><span class="tier-r"></span></a>
+      <a class="tier open" href="#tier-2" data-tier="2" aria-controls="tier-2" aria-expanded="true" style="--x:19.5%; top:37.3%"><span class="tier-l"><span class="tier-n">II</span><span class="tier-q">How many are you feeding?</span><span class="tier-p">Plus</span></span><span class="tier-r"></span></a>
+      <a class="tier" href="#tier-3" data-tier="3" aria-controls="tier-3" aria-expanded="false" style="--x:14%; top:59.5%"><span class="tier-l"><span class="tier-n">III</span><span class="tier-q">Will you bring it to us?</span><span class="tier-p">Signature</span></span><span class="tier-r"></span></a>
+      <a class="tier" href="#tier-4" data-tier="4" aria-controls="tier-4" aria-expanded="false" style="--x:5.6%; top:83.4%"><span class="tier-l"><span class="tier-n">IV</span><span class="tier-q">Your own idea, built for you — quoted after a call</span><span class="tier-p">Bespoke</span></span><span class="tier-r"></span></a>
+      <a class="pin" href="#tier-1" data-tier="1" aria-controls="tier-1" tabindex="-1" aria-hidden="true" style="--px:31%; --y:21.6%">I</a>
+      <a class="pin" href="#tier-2" data-tier="2" aria-controls="tier-2" tabindex="-1" aria-hidden="true" style="--px:26%; --y:37.3%">II</a>
+      <a class="pin" href="#tier-3" data-tier="3" aria-controls="tier-3" tabindex="-1" aria-hidden="true" style="--px:21%; --y:59.5%">III</a>
+      <a class="pin" href="#tier-4" data-tier="4" aria-controls="tier-4" tabindex="-1" aria-hidden="true" style="--px:14%; --y:83.4%">IV</a>
+    </div>
+
+    <ol class="list">
+      <li><a href="#tier-1" data-tier="1" aria-controls="tier-1" aria-expanded="false"><span class="n">I</span><span class="q">Is our date free?</span><span class="p">Starter</span></a></li>
+      <li><a href="#tier-2" data-tier="2" aria-controls="tier-2" aria-expanded="true"><span class="n">II</span><span class="q">How many are you feeding?</span><span class="p">Plus</span></a></li>
+      <li><a href="#tier-3" data-tier="3" aria-controls="tier-3" aria-expanded="false"><span class="n">III</span><span class="q">Will you bring it to us?</span><span class="p">Signature</span></a></li>
+      <li><a href="#tier-4" data-tier="4" aria-controls="tier-4" aria-expanded="false"><span class="n">IV</span><span class="q">Your own idea, built for you — quoted after a call</span><span class="p">Bespoke</span></a></li>
+    </ol>
+  </section>
+
+  <section class="open-tier" id="tier-1" aria-labelledby="t1">
+    <div class="ot-head">
+      <span class="ot-n" aria-hidden="true">I</span>
+      <div>
+        <h2 id="t1">Is our date free?</h2>
+        <p>The first tier, on every plan.</p>
+      </div>
+    </div>
+    <ul class="feats">
+      <li><div class="phone"><img src="media/date.webp" width="780" height="1688" alt="Phone: Saturday 19 June 2027 checked, one place left, with a link to hold the date" loading="lazy" decoding="async"></div>
+        <div><h3>Your date, checked</h3><p>A couple picks a date and sees free, one place left or taken, from a Google Sheet the studio keeps.</p></div></li>
+      <li><div class="phone"><img src="media/commissions.webp" width="780" height="1688" alt="Phone: commissions No. 22 Verdure, No. 31 Marigold and No. 9 Drape, each with tiers, servings and a from-price" loading="lazy" decoding="async"></div>
+        <div><h3>The commissions</h3><p>Each cake numbered and named, with its tiers, how many it serves and a from-price.</p></div></li>
+      <li><div class="phone"><img src="media/lead.webp" width="780" height="1688" alt="Phone: how far ahead to book weddings, birthdays, corporate cakes and the tasting box" loading="lazy" decoding="async"></div>
+        <div><h3>How far ahead</h3><p>How far ahead to book each kind of cake, in the studio's own words.</p></div></li>
+      <li><div class="phone"><img src="media/allergens.webp" width="780" height="1688" alt="Phone: an allergen chart listing what each flavour contains" loading="lazy" decoding="async"></div>
+        <div><h3>Allergens, before the order</h3><p>The allergens in every flavour from the studio's own chart, and what its kitchen handles.</p></div></li>
+    </ul>
+  </section>
+  <section class="open-tier" id="tier-2" aria-labelledby="t2">
+    <div class="ot-head">
+      <span class="ot-n" aria-hidden="true">II</span>
+      <div>
+        <h2 id="t2">How many are you feeding?</h2>
+        <p>The second tier, from Plus.</p>
+      </div>
+    </div>
+    <ul class="feats">
+      <li><div class="phone"><img src="media/servings.webp" width="780" height="1688" alt="Phone: 120 guests with coffee, answered as a cake of 6, 8 and 10 inch tiers, 136 portions, from £780" loading="lazy" decoding="async"></div>
+        <div><h3>The cake, sized</h3><p>A couple types their guest count; the site answers in tiers, portions and a from-price, from the studio's own chart.</p></div></li>
+      <li><div class="phone"><img src="media/flavours.webp" width="780" height="1688" alt="Phone: six flavours listed with their seasons, honey and burnt butter chosen" loading="lazy" decoding="async"></div>
+        <div><h3>Choose by the slice</h3><p>Six flavours, each a layer of one cut slice with its season, so a couple chooses by looking.</p></div></li>
+      <li><div class="phone"><img src="media/tasting.webp" width="780" height="1688" alt="Phone: the tasting box, £35, six flavours posted, with a buy button" loading="lazy" decoding="async"></div>
+        <div><h3>The tasting box</h3><p>Sold through the studio's own Stripe link and posted out; no shop software to pay for.</p></div></li>
+      <li><div class="phone"><img src="media/brief.webp" width="780" height="1688" alt="Phone: the order brief with the date, guests, three tiers and a flavour for each" loading="lazy" decoding="async"></div>
+        <div><h3>The brief, on WhatsApp</h3><p>Date, guests, tiers, a flavour for each and the venue arrive as one message, ready to quote from.</p></div></li>
+    </ul>
+  </section>
+  <section class="open-tier" id="tier-3" aria-labelledby="t3">
+    <div class="ot-head">
+      <span class="ot-n" aria-hidden="true">III</span>
+      <div>
+        <h2 id="t3">Will you bring it to us?</h2>
+        <p>The third tier, on Signature.</p>
+      </div>
+    </div>
+    <ul class="feats">
+      <li><div class="phone"><img src="media/venue.webp" width="780" height="1688" alt="Phone: postcode RG9 1AA answered with Home Counties delivery and set-up from £90" loading="lazy" decoding="async"></div>
+        <div><h3>Delivery, by postcode</h3><p>A venue postcode gives the area, the delivery charge and when the studio arrives to set up.</p></div></li>
+      <li><div class="phone"><img src="media/consultation.webp" width="780" height="1688" alt="Phone: a design consultation at the studio or on a video call, with the days that suit" loading="lazy" decoding="async"></div>
+        <div><h3>Design it with us</h3><p>The way to meet, the days that suit and the event date arrive as one WhatsApp message; the studio offers a time.</p></div></li>
+      <li><div class="phone"><img src="media/seasonal.webp" width="780" height="1688" alt="Phone: flavours in season for November" loading="lazy" decoding="async"></div>
+        <div><h3>In season for your month</h3><p>Pick the month of the event and see which flavours are on then.</p></div></li>
+      <li><div class="phone"><img src="media/weddings.webp" width="780" height="1688" alt="Phone: the wedding cakes page with prices for two, three and four tiers" loading="lazy" decoding="async"></div>
+        <div><h3>A page for each kind of cake</h3><p>Weddings, celebrations, corporate and dessert tables, each with its own prices and commissions.</p></div></li>
+    </ul>
+  </section>
+  <section class="open-tier" id="tier-4" aria-labelledby="t4">
+    <div class="ot-head">
+      <span class="ot-n" aria-hidden="true">IV</span>
+      <div>
+        <h2 id="t4">Your own idea, built for you</h2>
+        <p><span class="price">From £1,399, quoted after a call.</span> The fourth tier, Bespoke.</p>
+      </div>
+    </div>
+    <p class="bespoke-p">Something no kit has yet, for your studio alone. Tell us the idea on a call; we design it, build it and quote it before we start.</p>
+  </section>
+
+  <section class="speed gut" aria-labelledby="h-speed"><div class="wrap">
+    <h2 id="h-speed">Measured on a phone</h2>
+    <dl>
+      <div><dt>First paint</dt><dd>1.2–1.3 s</dd></div>
+      <div><dt>Layout shift</dt><dd>0</dd></div>
+      <div><dt>Lighthouse, mobile</dt><dd>98–99</dd></div>
+      <div><dt>Accessibility</dt><dd>100</dd></div>
+    </dl>
+  </div></section>
+
+  <section class="order gut" id="mockup" aria-labelledby="h-order"><div class="wrap in">
+    <h2 id="h-order">Your cake next.</h2>
+    <div class="side2">
+      <p>Send us your Instagram or Google listing. You'll get a mockup of your new site within 72 hours. Free, no obligation.</p>
+      <a class="btn" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#free">Get a free mockup</a><a class="btn line" href="https://claude.ai/artifact/Js8b5tmvjG7X1MymbaFcnT">Try Pastillage's site</a>
+      <span class="mail">hello@sitefloor.com</span>
+    </div>
+  </div></section>
+</main>
+
+<footer class="gut"><div class="wrap">
+  <p>Pastillage is a fictional Clerkenwell cake studio made to show the Sitefloor cake kit. Its cakes' names, prices, flavours, dates and delivery areas are demo data. The photograph of No. 22 is by Matheus Bertelli (Pexels); the site's other photographs are free stock, each credited in our records. Client sites use the studio's own photographs and Google Sheets.</p>
+  <span>© 2026 Sitefloor</span>
+</div></footer>
+
+<script>
+(() => {
+  document.documentElement.classList.add("js");
+  const chapters = [...document.querySelectorAll(".open-tier")];
+  const openers = [...document.querySelectorAll("[data-tier]")];
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // One tier open at a time; the others wait, hidden, until their tier is tapped.
+  const open = (k, scroll) => {
+    chapters.forEach((c) => { c.hidden = c.id !== "tier-" + k; });
+    openers.forEach((b) => {
+      const on = b.dataset.tier === String(k);
+      b.classList.toggle("open", on && b.classList.contains("tier"));
+      if (b.hasAttribute("aria-expanded")) b.setAttribute("aria-expanded", String(on));
+    });
+    if (scroll) document.getElementById("tier-" + k).scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+  };
+  openers.forEach((b) => b.addEventListener("click", (e) => { e.preventDefault(); open(b.dataset.tier, true); history.replaceState(null, "", "#tier-" + b.dataset.tier); }));
+  const start = /^#tier-[1-4]$/.test(location.hash) ? location.hash.slice(6) : 2;
+  open(start, location.hash !== "");
+})();
+</script>
+</html>

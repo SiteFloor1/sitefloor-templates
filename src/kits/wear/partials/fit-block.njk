@@ -1,0 +1,34 @@
+{#- One piece's fit: size buttons, its flat measurements, how it sits, a size from the chest, fabric and care.
+    Set `p` (a piece with a fit block) first. Used by the fit page and each piece's page; bound by fit-room.js → bindFit. -#}
+{%- set chest = p.fit | fitChest %}
+<section class="wr-fit rv" id="fit-{{ p.id }}" data-fit data-sizes="{{ p.sizes | join(',') }}" data-ease="{{ p.fit.ease }}" aria-labelledby="fit-{{ p.id }}-h"><div class="wrap wr-fit-in">
+  <img class="wr-fit-ph" src="{{ p.photos[p.photos.length - 1].src | img }}" alt="{{ p.photos[p.photos.length - 1].alt }}" width="{{ p.photos[p.photos.length - 1].width }}" height="{{ p.photos[p.photos.length - 1].height }}" loading="lazy" decoding="async">
+  <div class="wr-fit-tool">
+    <h2 id="fit-{{ p.id }}-h">{{ p.name }} <span>{{ p.colour }}</span></h2>
+    <div class="wr-size-pick" role="group" aria-label="Size for {{ p.name }}">
+      {%- for s in p.sizes %}<button type="button" aria-pressed="{{ 'true' if loop.index == 2 or (p.sizes.length == 1) else 'false' }}" data-pick="{{ s }}">{{ s }}</button>{% endfor %}
+    </div>
+    <table class="wr-fit-t" aria-live="polite">
+      <caption>{{ p.name }}, measured flat, in cm{% if site.mode == "demo" %}. Example figures{% endif %}.</caption>
+      {%- for mm in p.fit.measures %}
+      <tr><th scope="row">{{ mm.label }}</th>{% for s in p.sizes %}<td data-size="{{ s }}"{% if loop.index != 2 %} hidden{% endif %}>{{ mm.values[s] }}</td>{% endfor %}</tr>
+      {%- endfor %}
+    </table>
+    {%- if p.fit.notes %}{% for s in p.sizes %}<p class="wr-fit-note" data-size="{{ s }}"{% if loop.index != 2 %} hidden{% endif %}>{{ p.fit.notes[s] }}</p>{% endfor %}{% endif %}
+    <form class="wr-finder" data-finder>
+      <label for="chest-{{ p.id }}">Your chest, round</label>
+      <input id="chest-{{ p.id }}" type="number" inputmode="numeric" min="60" max="160" step="1" placeholder="cm" data-chest-in>
+      <output for="chest-{{ p.id }}" data-chest-out aria-live="polite"></output>
+      <script type="application/json" data-chest-table>{{ chest | wearJson | safe }}</script>
+    </form>
+    {%- if site.sizeGuide and pageId != "fit" and "fit-room" | enabled %}
+    <p class="wr-sf-link"><a class="wr-link" href="{{ 'fit' | href }}#size-finder"{{ "fit-room" | tierAttr | safe }}>No tape? Find your size from height and weight</a></p>
+    {%- endif %}
+    {%- if p.fabric or p.care %}
+    <div class="wr-fabric">
+      {%- if p.fabric %}<div><h3>Fabric</h3>{% for l in p.fabric %}<p>{{ l }}</p>{% endfor %}</div>{% endif %}
+      {%- if p.care %}<div><h3>Care</h3>{% for l in p.care %}<p>{{ l }}</p>{% endfor %}</div>{% endif %}
+    </div>
+    {%- endif %}
+  </div>
+</div></section>

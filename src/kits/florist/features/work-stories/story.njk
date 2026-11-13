@@ -1,0 +1,27 @@
+{#- One story: the brief, the palette as swatches with the florist's names, the stems, three or four photographs and
+    the venue. Then the way to ask for something like it. -#}
+<header class="fl-ph"><div class="wrap fl-ph-in">
+  <p class="fl-ph-k"><a href="{{ 'index' | href }}">{{ site.business.name }}</a> <span aria-hidden="true">/</span> <a href="{{ 'stories' | href }}">{{ site.stories.kicker or "Our work" }}</a></p>
+  <h1 class="fl-ph-t">{{ st.title }}</h1>
+  <p class="fl-ph-i">{{ st.kind }} · {{ st.venue }} · {{ (st.when + "-01") | monthYear }}</p>
+</div></header>
+<section class="fl-st"><div class="wrap fl-st-in">
+  <figure class="fl-st-lead"><img src="{{ st.photos[0].src | img }}" alt="{{ st.photos[0].alt }}" width="{{ st.photos[0].width }}" height="{{ st.photos[0].height }}" fetchpriority="high" decoding="async"></figure>
+  <div class="fl-st-t">
+    <h2 class="fl-st-k">The brief</h2>
+    <p class="fl-st-brief">{{ st.brief }}</p>
+    <h2 class="fl-st-k">The palette</h2>
+    <ul class="fl-st-pal" role="list">{% for c in st.palette %}<li><span class="fl-st-sw" style="--sw:{{ c.colour }}" aria-hidden="true"></span>{{ c.name }}</li>{% endfor %}</ul>
+    <h2 class="fl-st-k">The stems</h2>
+    <p>{{ st.stems }}</p>
+  </div>
+</div></section>
+<section class="fl-st-more" aria-label="More photographs"><div class="wrap fl-st-grid">
+  {%- for p in st.photos %}{% if not loop.first %}<figure><img src="{{ p.src | img }}" alt="{{ p.alt }}" width="{{ p.width }}" height="{{ p.height }}" loading="lazy" decoding="async"></figure>{% endif %}{% endfor %}
+</div></section>
+<section class="fl-st-ask"><div class="wrap">
+  {%- if "weddings-planner" | enabled %}<a class="fl-btn" href="{{ 'weddings' | href }}">Plan your wedding or event</a>{% else %}<a class="fl-btn" href="{{ site.messages.general | book }}" target="_blank" rel="noopener">Ask about your event</a>{% endif %}
+</div></section>
+<nav class="fl-op-more" aria-label="More stories"><div class="wrap">
+  {%- for o in site.stories.items %}{% if o.id != st.id %}<a href="{{ ('story-' + o.id) | href }}">{{ o.title }}</a>{% endif %}{% endfor %}
+</div></nav>

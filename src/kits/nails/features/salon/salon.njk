@@ -1,0 +1,8 @@
+{#- The salon: the colour wall wide and a detail at the counter beside it, with one line. -#}
+{%- set sec = site.sections.salon %}
+{%- set s = site.salon %}
+<section id="salon" class="nl-salon" data-feature="salon" aria-labelledby="salon-h"><div class="wrap nl-salon-in">
+  <img class="nl-salon-wall" src="{{ s.wall.src | img }}" alt="{{ s.wall.alt }}" width="{{ s.wall.width }}" height="{{ s.wall.height }}" loading="lazy" decoding="async">
+  <img class="nl-salon-detail" src="{{ s.detail.src | img }}" alt="{{ s.detail.alt }}" width="{{ s.detail.width }}" height="{{ s.detail.height }}" loading="lazy" decoding="async">
+  <div class="nl-salon-cap"><h2 id="salon-h">{{ sec.title | markup | safe }}</h2><p>{{ s.caption }}</p></div>
+</div></section>

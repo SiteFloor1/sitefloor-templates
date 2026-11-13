@@ -1,0 +1,18 @@
+{#- "Before you come in": the questions customers ask before their first visit, answered on the
+    home page. The full list, grouped by topic, is on the Plan your visit page. -#}
+{%- set sec = site.sections.questions %}
+{%- set qs = site | homeQuestions %}
+<section id="questions" class="sec-questions" data-feature="questions"{{ "questions" | tierAttr | safe }}><div class="wrap qs-grid">
+  <div>
+    {% include "core/partials/section-head.njk" %}
+    <div class="qs-more">
+      {%- if "plan-visit" | enabled %}<a class="btn" href="{{ 'visit' | href }}"{{ "plan-visit" | tierAttr | safe }}>Plan your visit <span aria-hidden="true">→</span></a>{% endif %}
+      <a class="btn ghost" href="{{ site.messages.general | wa }}" data-wa-text="{{ site.messages.general }}" target="_blank" rel="noopener">Ask us something else</a>
+    </div>
+  </div>
+  <div class="qs">
+    {%- for item in qs %}
+    <details class="qa rv"{% if loop.first %} open{% endif %}><summary>{{ item.q }}</summary><p>{{ item.a }}</p></details>
+    {%- endfor %}
+  </div>
+</div></section>

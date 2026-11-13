@@ -1,0 +1,8 @@
+/* Packages as rows: name left, price right, what's in it beneath. */
+.wf-pk-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.wf-pk-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 24px; padding-block: 26px; border-bottom: 1px solid var(--line); }
+.wf-pk-n, .wf-pk-p { margin: 0; }
+.wf-pk-p { text-align: right; font-variant-numeric: tabular-nums; }
+.wf-pk-h, .wf-pk-w, .wf-pk-t { grid-column: 1 / -1; margin: 0; }
+.wf-pk-h { color: var(--muted); }
+.wf-pk-w { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 22px; }

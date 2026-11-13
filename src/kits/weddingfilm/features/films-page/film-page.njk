@@ -1,0 +1,26 @@
+{#- One film's page: the film large (the still first, the film on Play), the couple's day in a few lines, then the
+    facts: the venue, the season, the light that evening (calculated for the venue and the date), the photographs. -#}
+{%- set v = site | venueOf(f.venue) %}
+<section class="wf-one" data-feature="films-page" aria-label="{{ f.title }}"><div class="wrap">
+  <div class="wf-one-media wf-fl-media">
+    <img src="{{ f.poster.src | img }}" alt="{{ f.poster.alt }}" width="{{ f.poster.width }}" height="{{ f.poster.height }}" fetchpriority="high" decoding="async">
+    <video playsinline muted controls preload="none" width="{{ f.clip.width }}" height="{{ f.clip.height }}" data-src="{{ f.clip.src | img }}" aria-label="{{ f.title }}, a film from {{ v.name }}" hidden></video>
+    <button type="button" class="wf-play" data-fp-play>Play the film</button>
+  </div>
+  <div class="wf-one-body">
+    <div class="wf-one-story">
+      {%- for para in (f.story or [f.text]) %}<p>{{ para }}</p>{% endfor %}
+      <p class="wf-one-acts">{% if f.watch %}<a class="wf-go" href="{{ f.watch }}" target="_blank" rel="noopener">The whole film</a> {% endif %}<a class="wf-go" href="{{ (site.films.message ~ ' ' ~ f.title) | book }}" target="_blank" rel="noopener">Ask about a film like this</a></p>
+    </div>
+    <dl class="wf-one-facts">
+      <div><dt>Where</dt><dd>{% if "venues-page" | enabled %}<a href="{{ 'venues' | href }}#venue-{{ v.id }}"{{ "venues-page" | tierAttr | safe }}>{{ v.name }}</a>{% else %}{{ v.name }}{% endif %}, {{ v.area }}</dd></div>
+      <div><dt>When</dt><dd>{{ f.season }}</dd></div>
+      {%- if f.date %}{% set L = v | venueLight(f.date) %}{% if L.goldenFrom %}
+      <div><dt>The light that evening</dt><dd>Golden hour {{ L.goldenFrom }} to {{ L.goldenTo }}, sunset {{ L.sunset }}</dd></div>
+      {%- endif %}{% endif %}
+      {%- if f.photographs and ("photographs-page" | enabled) %}<div><dt>Photographs</dt><dd><a href="{{ 'photography' | href }}#ph-{{ f.photographs }}">From the same day</a></dd></div>{% endif %}
+    </dl>
+  </div>
+  {%- set nx = site.films.items | nextFilm(f.id) %}
+  {%- if nx.id != f.id %}<p class="wf-one-next"><a href="{{ ('film-' ~ nx.id) | href }}"><span class="wf-k">Next film</span> <span class="wf-one-nt">{{ nx.title }}</span></a></p>{% endif %}
+</div></section>

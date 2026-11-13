@@ -1,0 +1,27 @@
+{#- What it costs, honestly: how the builder prices, what decides the price, what is usually paid to others, VAT, and
+    the builder's own rates only if they publish them. No typical figures, ever. -#}
+{%- set c = site.costs %}{% set r = site.visualiser.rates if site.visualiser else null %}
+{%- set ph = { title: c.title, intro: c.intro } %}
+{% include "kits/construction/partials/page-head.njk" %}
+<div class="wrap bd-cost">
+  <section class="bd-cost-sec" aria-labelledby="cost-how"><h2 id="cost-how" class="bd-h3">How we <em>price</em></h2><div>{% for p in c.how %}<p>{{ p }}</p>{% endfor %}</div></section>
+  <section class="bd-cost-sec" aria-labelledby="cost-drv"><h2 id="cost-drv" class="bd-h3">What decides <em>the price</em></h2>
+    <dl class="bd-cost-list">{% for d in c.drivers %}<div><dt>{{ d.name }}</dt><dd>{{ d.line }}</dd></div>{% endfor %}</dl></section>
+  {%- if c.separate %}
+  <section class="bd-cost-sec" aria-labelledby="cost-sep"><h2 id="cost-sep" class="bd-h3">Usually paid <em>to others</em></h2>
+    <dl class="bd-cost-list">{% for d in c.separate %}<div><dt>{{ d.name }}</dt><dd>{{ d.line }}</dd></div>{% endfor %}</dl></section>
+  {%- endif %}
+  <section class="bd-cost-sec" aria-labelledby="cost-rates"><h2 id="cost-rates" class="bd-h3">Our <em>rates</em></h2><div>
+    {%- if r %}
+    <table class="bd-cost-rates"><caption>£ per square metre of new room, {{ "including" if r.vat == "included" else "plus" }} VAT, checked {{ r.checked | monthWords }}</caption>
+      <thead><tr><th scope="col">Extension roof</th><th scope="col">From</th><th scope="col">To</th></tr></thead>
+      <tbody>{% for id, pair in r.perM2 %}<tr><th scope="row">{{ extensionOptions.roofs[id].label }}</th><td>£{{ pair[0] | thousands }}</td><td>£{{ pair[1] | thousands }}</td></tr>{% endfor %}</tbody></table>
+    <p>A range from our recent jobs, not a quote. {% if "visualiser-page" | enabled %}<a href="{{ 'extension' | href }}"{{ 'visualiser-page' | tierAttr | safe }}>Try it on your house</a>.{% endif %}</p>
+    {%- elif site.mode == "demo" %}
+    <p>A real site shows the builder's own rates per square metre here, from their recent jobs. This demo is a fictional builder, so it shows none.</p>
+    {%- else %}
+    <p>{{ c.noRates }}</p>
+    {%- endif %}
+    {%- if c.vat %}<p>{{ c.vat }}</p>{% endif %}
+  </div></section>
+</div>

@@ -1,0 +1,13 @@
+/* Rooms we dress: tabs on wide screens (one room shown), a sideways strip on phones. */
+.fl-tabs { display: flex; flex-wrap: wrap; }
+.fl-room { margin: 0 0 32px; }
+.fl-room-f { margin: 0; }
+.fl-room-ph { aspect-ratio: 3 / 2; max-width: 100%; overflow: hidden; }
+.fl-room-ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
+@media (min-width: 861px) { .is-tabbed .fl-room:not(.is-on) { display: none; } .is-tabbed .fl-room { margin: 0; } }
+@media (max-width: 860px) {
+  .fl-tabs { display: none; }
+  .fl-strip { display: grid; grid-auto-flow: column; grid-auto-columns: 86%; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-inline: calc(-1 * var(--pad, 16px)); padding-inline: var(--pad, 16px); }
+  .fl-strip::-webkit-scrollbar { display: none; }
+  .fl-room { scroll-snap-align: start; margin: 0; min-width: 0; }
+}

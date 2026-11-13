@@ -1,0 +1,20 @@
+{#- The size run: every size of every piece, what's left in each, emptying as the brand updates its sheet. The drop's
+    pieces lead. Hidden when the sheet can't be read or is old. -#}
+{%- set sec = site.sections.sizeRun %}
+{%- set d = site | wearDrop(build.today) %}
+<section id="size-run" class="wr-run-grid" data-feature="size-run"{{ "size-run" | tierAttr | safe }} data-js-only hidden>
+<script type="application/json" data-wear-stock>{{ site | wearStockJson(build.today) | safe }}</script>
+<div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <table class="wr-sr">
+    <caption class="sr-only">Pieces left in each size</caption>
+    <thead><tr><th scope="col">Piece</th>{% for s in site.pieces[0].sizes %}<th scope="col">{{ s }}</th>{% endfor %}</tr></thead>
+    <tbody>
+      {%- for p in (site | wearPieces(d.pieces)).concat(site.pieces) %}{% if loop.index0 < d.pieces.length or not (p.id in d.pieces) %}
+      <tr data-sr="{{ p.id }}"{% if p.id in d.pieces %} class="is-drop"{% endif %}><th scope="row">{{ p.name }} <span>{{ p.colour }}</span></th>
+        {%- for s in site.pieces[0].sizes %}<td data-sr-size="{{ s }}"><span class="wr-sr-bar"><i></i></span><span class="wr-sr-n"></span></td>{% endfor %}</tr>
+      {%- endif %}{% endfor %}
+    </tbody>
+  </table>
+  <p class="wr-fine" data-sr-note></p>
+</div></section>

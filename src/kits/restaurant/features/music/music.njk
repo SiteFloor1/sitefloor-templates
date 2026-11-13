@@ -1,0 +1,15 @@
+{#- Live music: who plays, on which days and when, from the café's own times; the line at the top says who is playing
+    now or who is next. Without JavaScript the list of sets still shows. -#}
+{%- set sec = site.sections.music %}
+{%- set mu = site.music %}
+<section id="music" class="mu" data-feature="music" aria-labelledby="mu-h"{{ "music" | tierAttr | safe }}><div class="wrap">
+  {%- if mu.photo %}<figure class="mu-photo"><img src="{{ mu.photo.src | img }}" width="{{ mu.photo.width }}" height="{{ mu.photo.height }}" alt="{{ mu.photo.alt }}" loading="lazy"></figure>{% endif %}
+  <div class="mu-text">
+    <h2 id="mu-h" class="mu-h">{{ sec.title | markup | safe }}</h2>
+    <p class="mu-now" data-mu-now data-js-only aria-live="polite">&nbsp;</p>
+    <ul class="mu-sets">
+      {%- for x in mu.sets %}<li><span class="mu-who">{{ x.who }}</span><span class="mu-what">{{ x.what }}</span><span class="mu-when">{{ x.days | sittingDays }}, {{ x.from | t12 }}–{{ x.to | t12 }}</span></li>{% endfor %}
+    </ul>
+    {%- if mu.note %}<p class="mu-note">{{ mu.note }}</p>{% endif %}
+  </div>
+</div></section>

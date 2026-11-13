@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: guides
+permalink: guides.html
+feature: guides-page
+eleventyComputed:
+  title: "{{ site.guides.title | plain }}"
+  description: "{{ site.guides.intro or ('Guides for families from ' + site.business.name + '.') }}"
+---
+{% include "kits/law/features/guides-page/guides-page.njk" %}

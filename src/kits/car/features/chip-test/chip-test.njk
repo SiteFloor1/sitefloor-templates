@@ -1,0 +1,38 @@
+{#- Stone chip test: the front of a car, left half bare paint, right half under the studio's protection film.
+    Tap to throw a stone, or "Drive the motorway" for a shower of them: paint chips, the film takes the hit.
+    Then the studio's own price to protect the front. An illustration, said so on the page. -#}
+{%- set sec = site.sections.chip %}
+{%- set ct = site.chipTest %}
+{%- set j = site.jobs | job(ct.job) %}
+{%- set c = "saloon" | carFor %}
+<section id="chip-test" class="sec-chip" data-feature="chip-test"{{ "chip-test" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="ct rv" data-ct>
+    <figure class="ct-stage studio">
+      <div class="ct-car">
+        <img src="{{ 'img/kit/chip-car.webp' | img }}" width="694" height="779" alt="The front of a black saloon, the left half bare paint and the right half under clear film" loading="lazy" data-ct-img>
+        <canvas data-ct-canvas aria-hidden="true"></canvas>
+        <span class="ct-split" aria-hidden="true"></span>
+        <span class="ct-tag ct-tag-l">Paint</span><span class="ct-tag ct-tag-r">Paint + film</span>
+      </div>
+      <figcaption class="ct-credit"><a href="{{ c.credit.url }}" target="_blank" rel="noopener">{{ c.credit.text }}</a>, <a href="{{ c.credit.licenceUrl }}" target="_blank" rel="noopener">{{ c.credit.licence }}</a></figcaption>
+    </figure>
+    <div class="ct-side">
+      <div class="ct-score" aria-live="polite">
+        <p><b data-ct-paint>0</b><span>chips in the paint</span></p>
+        <p><b data-ct-film>0</b><span>through the film</span></p>
+      </div>
+      <div class="ct-go" data-js-only>
+        <button type="button" class="btn" data-ct-drive>Drive the motorway</button>
+        <button type="button" class="btn ghost" data-ct-reset>Wash it off</button>
+      </div>
+      <p class="ct-hint" data-js-only>Or tap anywhere on the car to throw a stone.</p>
+      <div class="ct-price">
+        <p class="ct-line">{{ ct.line }}</p>
+        <p><span>{{ j.name }}</span> <b>from {{ j | fromPrice | money }}</b></p>
+        {%- if "protection-planner" | enabled %}<a href="#protection"{{ "protection-planner" | tierAttr | safe }}>Pick the panels for your car</a>{% endif %}
+      </div>
+      <p class="ct-note">An illustration of what film is for, not a test of it. Film takes the stone chips that would otherwise mark the paint. A hard enough hit can still mark the film itself, and film can be replaced where paint would need repairing.</p>
+    </div>
+  </div>
+</div></section>

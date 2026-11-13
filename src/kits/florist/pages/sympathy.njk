@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: sympathy
+permalink: sympathy.html
+feature: sympathy-order
+eleventyComputed:
+  title: "{{ site.sympathy.title | plain }}"
+  description: "Funeral and sympathy flowers from {{ site.business.name }}, {{ site.location.locality }}: what to send, where, and the words for the card."
+---
+{% include "kits/florist/features/sympathy-order/sympathy-order.njk" %}

@@ -1,0 +1,14 @@
+{#- Première hero: the work first. The studio's film edge to edge at cinema ratio (4:5 on phones), muted, with a
+    pause; on Signature its chapters printed beneath like a programme. Then one statement in Goudy. -#}
+<section class="hero pr-hero" aria-label="{{ site.business.name }}">
+  <div class="pr-stage" data-stage>
+    {% include "kits/weddingfilm/features/studio-film/studio-film.njk" %}
+    <div class="wrap pr-prog">
+      {%- if "showreel" | enabled %}{% include "kits/weddingfilm/features/showreel/showreel.njk" %}{% endif %}
+      {% include "core/partials/motion-pause.njk" %}
+    </div>
+  </div>
+  {%- if site.mode == "demo" %}<p class="wrap pr-credit">Demo film: stock footage from Pexels, one wedding, one grade.</p>{% endif %}
+  <div class="wrap"><h1 class="pr-say">{% for l in site.hero.title.split("|") %}{{ l | plain }}{% if not loop.last %} {% endif %}{% endfor %}</h1>
+  {%- if site.hero.intro %}<p class="pr-intro">{{ site.hero.intro }}</p>{% endif %}</div>
+</section>

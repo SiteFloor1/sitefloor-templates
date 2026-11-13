@@ -1,0 +1,4 @@
+{#- Where, roughly: the place whose sunset the date check gives (the date check's script does the sums). -#}
+<label class="wf-field wf-place" for="dc-place"{{ "sunset-line" | tierAttr | safe }}><span class="wf-k">Where, roughly</span>
+  <select id="dc-place" data-dc-place>{% for p in site.places.items %}<option value="{{ p.id }}">{{ p.name }}</option>{% endfor %}</select>
+</label>

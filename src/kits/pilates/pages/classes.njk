@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: classes
+permalink: classes.html
+feature: classes-page
+eleventyComputed:
+  title: "{{ site.classesPage.title | plain }}"
+  description: "Reformer classes at {{ site.business.name }}, {{ site.location.locality }}: what each is like, and your first class."
+---
+{% include "kits/pilates/features/classes-page/classes-page.njk" %}
+{%- set hostPage = "classes-page" %}{% include "kits/pilates/partials/hosted.njk" %}

@@ -1,0 +1,6 @@
+{#- Length section opening: the section's name, light and very large, with its one line under it in the body face;
+    left-aligned, never centred. `sec` = { title, intro }; `secId` names the heading for aria-labelledby. -#}
+<div class="ln-sh">
+  <h2 class="ln-sh-t"{% if secId %} id="{{ secId }}"{% endif %}>{{ sec.title | markup | safe }}</h2>
+  {%- if sec.intro %}<p class="ln-sh-i">{{ sec.intro }}</p>{% endif %}
+</div>

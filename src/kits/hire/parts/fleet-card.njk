@@ -1,0 +1,11 @@
+{#- A car in a list (fleet page, class pages): whole car at night, name, from price, a few figures. Carries the filter
+    flags the plain CSS filters and the script read. `car` set. -#}
+{%- set pic = car.photos.small or car.photos.card %}
+<li class="hr-fc" data-car="{{ car.id }}" data-class="{{ car.class }}" data-flags="{{ car | carFlags }} class-{{ car.class }}" data-price="{{ car | fromAmount }}" data-name="{{ (car | carName) | lower }} {{ (car.trim or '') | lower }}">
+  <a href="{{ car.id | carUrl(build.links) }}">
+    <span class="hr-fc-pic"><img src="{{ pic.src | img }}" alt="{{ pic.alt }}" width="{{ pic.width }}" height="{{ pic.height }}" loading="lazy" decoding="async"></span>
+    <span class="hr-fc-name">{{ car | carName }}</span>
+  </a>
+  <span class="hr-fc-from">{{ car | fromLine }}</span>
+  <span class="hr-fc-line">{{ car.year }} · {{ car.seats | words }} seats{% if car.power %} · {{ car.power }} bhp{% endif %} · {% if car.chauffeurOnly %}With a chauffeur{% else %}{{ car.deposit | money }} deposit{% endif %}</span>
+</li>

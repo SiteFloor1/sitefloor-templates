@@ -1,0 +1,24 @@
+{#- "Have you done my car?": the studio's own jobs tagged with a make and model, and its prices for that size of vehicle. -#}
+{%- set sec = site.sections.finder %}
+<section id="finder" class="sec-finder" data-feature="model-finder"{{ "model-finder" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="mf rv" data-mf>
+    <div class="mf-pick" data-js-only>
+      <fieldset class="mf-set"><legend>Make</legend>
+        <div class="sr-chips">{% for m in site.models.makes %}<label class="sr-chip"><input type="radio" name="mf-make" value="{{ m.tag }}"{% if loop.first %} checked{% endif %}><span>{{ m.name }}</span></label>{% endfor %}</div>
+      </fieldset>
+      <fieldset class="mf-set"><legend>Model</legend><div class="sr-chips" data-mf-models></div></fieldset>
+    </div>
+    <div class="mf-out" data-js-only>
+      <p class="mf-verdict" data-mf-verdict aria-live="polite"></p>
+      <ul class="mf-posts" data-mf-posts></ul>
+      <div class="mf-side">
+        <p class="mf-k" data-mf-size></p>
+        <dl class="mf-prices" data-mf-prices></dl>
+        {%- if "work" | enabled %}<a class="mf-all" data-mf-all href="{{ 'work' | href }}"{{ "work" | tierAttr | safe }}>See every job <span aria-hidden="true">→</span></a>{% endif %}
+        <a class="btn" data-mf-ask href="{{ site.messages.general | wa }}" target="_blank" rel="noopener">{% include "core/partials/icon-whatsapp.njk" %}Ask about my car</a>
+      </div>
+    </div>
+    <p class="mf-nojs" data-no-js>{% if "work" | enabled %}See every job by make on <a href="{{ 'work' | href }}">our work</a>, or {% endif %}<a href="{{ site.messages.general | wa }}" target="_blank" rel="noopener">message us</a> with your make and model.</p>
+  </div>
+</div></section>

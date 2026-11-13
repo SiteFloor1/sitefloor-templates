@@ -1,0 +1,26 @@
+{#- Tissue, one occasion: the photo beside what we'd send for it, each a name, a price and an italic ask; the words for
+    the card as a handwritten-style card; the pre-order date when the day has one. -#}
+{%- set win = site.preorder | windowFor(g.id) if ("pre-order" | enabled) else null %}
+{%- set ph = { back: site.occasionPages.kicker or "Occasions", backHref: ('occasions' | href), title: g.title, intro: g.line } %}
+{% include "looks/tissue/parts/page-head.njk" %}
+<section class="ts-occ"><div class="wrap ts-occ-in">
+  <figure class="ts-occ-ph"><img src="{{ g.photo.src | img }}" alt="{{ g.photo.alt }}" width="{{ g.photo.width }}" height="{{ g.photo.height }}" fetchpriority="high" decoding="async"></figure>
+  <div class="ts-occ-t">
+    <p class="ts-lede">{{ g.intro }}</p>
+    {%- if win %}<p class="ts-note" data-feature="occasion-pages" data-pre-opens="{{ win.opens }}" data-pre-closes="{{ win.orderBy }}"{% if not (win.opens <= build.today and build.today <= win.orderBy) %} hidden{% endif %}>Pre-order: order by {{ win.orderBy | ukDate }} for {{ win.day | ukDate }}.</p>{% endif %}
+    <ul class="ts-rows" role="list">
+      {%- for x in g.items %}
+      <li><p class="ts-row-h"><b>{{ x.name }}</b><span>{{ x.price | pounds }}</span></p><p class="ts-row-l">{{ x.line }}</p>
+        <a class="ts-ask" href="{{ (g.message + ' ' + x.name + ' (' + (x.price | pounds) + ')') | book }}" target="_blank" rel="noopener">Ask for {{ x.name | lower }}</a></li>
+      {%- endfor %}
+    </ul>
+    {%- if g.words %}
+    <div class="ts-card ts-words">{% set pinClass = "ts-pin-card" %}{% include "looks/tissue/parts/pin.njk" %}<p class="ts-card-k">For the card</p>
+      <ul role="list">{% for w in g.words %}<li>{{ w }}</li>{% endfor %}</ul></div>
+    {%- endif %}
+    {%- if "same-day" | enabled %}<p class="ts-fine">Same-day delivery: {{ site.delivery.cutoffs | cutoffGroups }}{% if "delivery-areas" | enabled %}. <a href="{{ 'delivery' | href }}">Where we deliver</a>{% endif %}</p>{% endif %}
+  </div>
+</div></section>
+<nav class="ts-more" aria-label="Other occasions"><div class="wrap">
+  {%- for o in site.occasionPages.pages %}{% if o.id != g.id %}<a href="{{ ('for-' + o.id) | href }}">{{ o.title }}</a>{% endif %}{% endfor %}
+</div></nav>

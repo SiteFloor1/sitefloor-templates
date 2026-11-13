@@ -1,0 +1,9 @@
+{#- The key strip under the hero: a client types their site code and goes to this week's page. A plain form, so it
+    works without scripts too (the page reads ?code=). -#}
+{%- set kid = keyId or "site-code" %}
+<form class="bd-key" action="{{ 'your-build' | href }}" method="get"{{ 'site-progress' | tierAttr | safe }}>
+  <span class="bd-tag" aria-hidden="true"></span>
+  <label for="{{ kid }}">Building with us?</label>
+  <input id="{{ kid }}" name="code" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="14" placeholder="Site code">
+  <button type="submit">This week</button>
+</form>

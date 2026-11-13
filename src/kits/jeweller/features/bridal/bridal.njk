@@ -1,0 +1,32 @@
+{#- Bridal: engagement rings and wedding bands together. A photograph and the house's words on how a ring is chosen,
+    then each bridal collection as one long row, then the pair, and the appointment. -#}
+{%- set B = site.bridal %}
+{%- set P = site.pieces %}
+{%- set ph = { title: B.title, intro: B.intro } %}
+{% include "kits/jeweller/partials/page-head.njk" %}
+{%- if B.photo %}
+<figure class="jw-bridal-ph"><img src="{{ B.photo.src | img }}" width="{{ B.photo.width }}" height="{{ B.photo.height }}" fetchpriority="high" alt="{{ B.photo.alt }}"></figure>
+{%- endif %}
+{%- if B.words %}
+<section class="nc-sec jw-words" aria-label="How a ring is chosen"><div class="wrap">
+  <ol class="jw-words-l">{% for w in B.words %}<li class="rv"><h2 class="jw-name">{{ w.title }}</h2><p class="nc-body">{{ w.text }}</p></li>{% endfor %}</ol>
+</div></section>
+{%- endif %}
+{%- for cid in B.collections %}
+{%- set c = P | collectionById(cid) %}
+{%- set items = P.items | inCollection(cid) %}
+<section class="nc-sec jw-row-s" aria-labelledby="br-{{ cid }}"><div class="wrap">
+  {%- set sec = { title: c.name, intro: items.length | countWords, id: "br-" + cid } %}{% include "core/partials/section-head.njk" %}
+  <div class="jw-row" tabindex="0" role="region" aria-label="{{ c.name }}, scrolls sideways">
+    {%- for p in items %}{% set cardSize = "" %}{% include "kits/jeweller/partials/card.njk" %}{% endfor %}
+  </div>
+</div></section>
+{%- endfor %}
+{%- set paired = P.items | piecesWith("pairs") %}
+{%- if ("pair-it" | enabled) and paired.length %}{% set ring = paired[0] %}{% include "kits/jeweller/features/pair-it/pair-it.njk" %}{% endif %}
+<section class="nc-sec jw-next"><div class="wrap jw-next-in">
+  {%- if "engagement-guide" | enabled %}<a class="jw-next-a" href="{{ 'engagement' | href }}"{{ "engagement-guide" | tierAttr | safe }}><span class="jw-name-l">{{ site.engagementGuide.title | plain }}</span><span class="nc-label nc-muted">Shapes, metals, sizes</span></a>{% endif %}
+  {%- if "wedding-bands" | enabled %}<a class="jw-next-a" href="{{ 'wedding-bands' | href }}"{{ "wedding-bands" | tierAttr | safe }}><span class="jw-name-l">{{ site.weddingBands.title | plain }}</span><span class="nc-label nc-muted">Widths, finishes, engraving</span></a>{% endif %}
+  {%- if "ring-sizer" | enabled %}<a class="jw-next-a" href="{{ 'ring-size' | href }}"{{ "ring-sizer" | tierAttr | safe }}><span class="jw-name-l">{{ site.ringSizer.title | plain }}</span><span class="nc-label nc-muted">At home, or by post</span></a>{% endif %}
+</div></section>
+{% include "kits/jeweller/partials/invite.njk" %}

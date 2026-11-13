@@ -1,0 +1,32 @@
+{#- The day, planned: the date, the place, the ceremony time (and the venue, if they have one) in; the day's filming
+    timeline out, built from the studio's own block lengths with the portraits placed in that evening's golden hour.
+    Built with the studio's opening date, place and time already worked out, so it reads right before the script runs.
+    Then the day explained, in the studio's words. -#}
+{%- set D = site.dayPlanner %}
+{%- set P = site | dayPlanAt %}
+<section class="wf-day" data-feature="day-planner" aria-labelledby="dp-h"><div class="wrap wf-day-in">
+  <h2 id="dp-h" class="wf-h2">Plan your day</h2>
+  <form class="wf-day-f" data-dp-form>
+    <label class="wf-field" for="dp-date"><span class="wf-k">Your date</span><input id="dp-date" type="date" value="{{ P.date }}" data-dp-date></label>
+    <label class="wf-field" for="dp-place"><span class="wf-k">Where, roughly</span><select id="dp-place" data-dp-place>{% for p in site.places.items %}<option value="{{ p.id }}"{% if p.id == P.place.id %} selected{% endif %}>{{ p.name }}</option>{% endfor %}</select></label>
+    <label class="wf-field" for="dp-time"><span class="wf-k">Ceremony</span><input id="dp-time" type="time" value="{{ D.ceremony }}" min="09:00" max="18:00" step="900" data-dp-time></label>
+    <label class="wf-field wf-field-wide" for="dp-venue"><span class="wf-k">Venue, if you have one</span><input id="dp-venue" type="text" maxlength="80" autocomplete="off" data-dp-venue></label>
+  </form>
+  <p class="wf-day-note" data-dp-note aria-live="polite">{{ P.plan.portraitNote }}</p>
+  <ol class="wf-day-list" data-dp-list>
+    {%- for m in P.plan.moments %}
+    <li data-id="{{ m.id }}"{% if m.light %} data-light{% endif %}><span class="wf-day-time">{{ m.time }}</span><span class="wf-day-what">{{ m.label }}</span>{% if m.note %}<span class="wf-day-n">{{ m.note }}</span>{% endif %}</li>
+    {%- endfor %}
+  </ol>
+  <p class="wf-day-hours" data-dp-hours>About {{ P.plan.hours }} hours of filming.{% if "wf-packages-page" | enabled %} <a href="{{ 'packages' | href }}">See the packages</a>{% endif %}</p>
+  <p class="wf-day-acts"><a class="wf-go" data-dp-send href="{{ D.message | book }}" target="_blank" rel="noopener">Send us this plan on WhatsApp</a> <a class="wf-quiet" data-dp-ics href="#" hidden>Download it for your calendar</a></p>
+  <p class="wf-small">A starting point from our usual timings and the day's light, calculated for that date and place. We plan the real day with you and your venue.</p>
+</div></section>
+<section class="wf-ex" aria-label="The day, explained"><div class="wrap">
+  {%- for x in D.explained %}
+  <div class="wf-ex-i{% if x.photo %} wf-ex-ph{% endif %}">
+    {%- if x.photo %}<figure><img src="{{ x.photo.src | img }}" alt="{{ x.photo.alt }}" width="{{ x.photo.width }}" height="{{ x.photo.height }}" loading="lazy" decoding="async">{% if x.photo.caption %}<figcaption>{{ x.photo.caption }}</figcaption>{% endif %}</figure>{% endif %}
+    <div class="wf-ex-t"><h2 class="wf-ex-h">{{ x.heading }}</h2>{% for para in x.body.split("\n\n") %}<p>{{ para }}</p>{% endfor %}</div>
+  </div>
+  {%- endfor %}
+</div></section>

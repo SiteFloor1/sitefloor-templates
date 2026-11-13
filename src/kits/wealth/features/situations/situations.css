@@ -1,0 +1,9 @@
+/* The chooser: one row under the hero photograph, in the same light type as the page. */
+.wm-sit { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 12px 24px; align-items: baseline; padding-block: 26px 18px; border-bottom: 1px solid var(--line); }
+.wm-sit-say { margin: 0; font: 300 clamp(1.1rem, 1.6vw, 1.45rem)/1.5 var(--font-display); display: flex; flex-wrap: wrap; gap: .2em .4em; align-items: baseline; }
+.wm-sit-say select { appearance: none; -webkit-appearance: none; background: transparent; color: var(--text); font: inherit; border: 0; border-bottom: 1px solid var(--accent); border-radius: 0; padding: 0 1.2em 1px 0; min-height: 44px; cursor: pointer;
+  background-image: linear-gradient(45deg, transparent 50%, var(--accent) 50%), linear-gradient(135deg, var(--accent) 50%, transparent 50%);
+  background-size: 5px 5px; background-position: calc(100% - 8px) 58%, calc(100% - 3px) 58%; background-repeat: no-repeat; }
+.wm-sit-answer { margin: 0; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.wm-sit-meet { color: var(--muted); font-size: 14px; }
+@media (max-width: 900px) { .wm-sit { grid-template-columns: 1fr; padding-block: 20px 16px; } }

@@ -1,0 +1,13 @@
+{#- Is our date free? A date in, the studio's own answer out, from its diary sheet. Without the script (or before the
+    diary loads) it is a plain message to the studio. Fails closed: "ask us", never "free". -#}
+{%- set sec = site.sections.dateCheck %}
+{%- set ask = "Hello " + site.business.name + ", is our date free for a cake?" %}
+<section id="date" class="ck-date" data-feature="cake-date-check" aria-label="{{ sec.title | plain }}"{{ 'cake-date-check' | tierAttr | safe }}><div class="wrap ck-date-in">
+  {%- include "core/partials/section-head.njk" %}
+  <form class="ck-date-f" data-dc-form>
+    <label for="dc-date">Your date</label>
+    <input id="dc-date" name="date" type="date" required data-dc-input>
+  </form>
+  <p class="ck-date-r" aria-live="polite" data-dc-result data-state="idle">Choose a date to see if we're free.</p>
+  <a class="go ck-date-go" href="{{ ask | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ ask }}"{% endif %} target="_blank" rel="noopener" data-dc-go>Ask about your date</a>
+</div></section>

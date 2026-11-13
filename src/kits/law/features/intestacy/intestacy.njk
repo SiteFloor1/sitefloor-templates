@@ -1,0 +1,22 @@
+{#- If there's no will: tap who in the family is alive; see who would inherit under the intestacy rules of England and
+    Wales, dated and sourced. General information, not advice. -#}
+{%- set it = site.intestacy %}
+<section class="lw-int" id="no-will" data-feature="intestacy" aria-labelledby="int-t"{{ "intestacy" | tierAttr | safe }}>
+  <div class="lw-int-head">
+    <h2 id="int-t">{{ it.title }}</h2>
+    {%- if it.intro %}<p>{{ it.intro }}</p>{% endif %}
+  </div>
+  <fieldset class="lw-int-fam" data-js-only><legend>Who in your family is alive?</legend>
+    {%- for k in intestacyRules.first %}<label><input type="checkbox" value="{{ k[0] }}" data-int{% if k[0] == "spouse" or k[0] == "children" %} checked{% endif %}> <span>{{ k[1] }}</span></label>{% endfor %}
+    {%- for k in intestacyRules.relatives %}<label class="lw-int-far"><input type="checkbox" value="{{ k[0] }}" data-int> <span>{{ k[1] }}</span></label>{% endfor %}
+  </fieldset>
+  <div class="lw-int-out" data-js-only aria-live="polite">
+    <p class="lw-int-k">Without a will</p>
+    <ul class="lw-int-shares" data-int-shares></ul>
+    <ul class="lw-int-notes" data-int-notes></ul>
+  </div>
+  <div class="lw-int-plain" data-no-js>
+    <p>With a spouse or civil partner and no children, they inherit everything. With children too, the spouse or civil partner inherits personal possessions, the first £{{ intestacyRules.fixed }} (for deaths on or after 26 July 2023) and half of the rest; the children share the other half. With no spouse, the children share everything. An unmarried partner inherits nothing.</p>
+  </div>
+  <p class="lw-int-src">General information about England and Wales, not advice. Checked {{ intestacyRules.checked | ukDate }} against {% for s in intestacyRules.sources %}<a href="{{ s.url }}" rel="noopener">{{ s.name }}</a>{% if not loop.last %}{{ " and " if loop.revindex == 2 else ", " }}{% endif %}{% endfor %}.</p>
+</section>

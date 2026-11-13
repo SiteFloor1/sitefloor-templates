@@ -1,0 +1,14 @@
+/* Packs and memberships: the question beside the options, the cheapest one raised. */
+.pl-pk-in { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(24px, 5vw, 88px); align-items: start; }
+.pl-pk-q { margin-top: 24px; }
+.pl-pk-q > label { display: block; margin-bottom: 10px; font-weight: 500; }
+.pl-pk-n { display: flex; flex-wrap: wrap; gap: 8px; }
+.pl-pk-terms { margin: 22px 0 0; max-width: 46ch; font-size: 14px; color: var(--muted); }
+.pl-pk-list { list-style: none; margin: 0; padding: 0; }
+.pl-pk-list li { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 16px; padding: 16px 18px; border-top: 1px solid var(--line); }
+.pl-pk-list li[data-best] { border-top-color: transparent; border-radius: 4px; background: var(--surface); box-shadow: 0 20px 40px -30px var(--shadow); }
+.pl-pk-list b { font-weight: 500; }
+.pl-pk-c { font-family: var(--font-display); font-size: 22px; font-variant-numeric: lining-nums tabular-nums; }
+.pl-pk-list span:last-child { grid-column: 1 / -1; font-size: 14px; color: var(--muted); }
+.pl-pk-list em { grid-column: 1 / -1; font-style: normal; font-size: 13px; color: var(--accent); }
+@media (max-width: 860px) { .pl-pk-in { grid-template-columns: 1fr; } }

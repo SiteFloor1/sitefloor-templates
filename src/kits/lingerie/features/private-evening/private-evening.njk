@@ -1,0 +1,25 @@
+{#- The private evening: the shop closes for one client. Its free evenings from its sheet (hidden if the sheet is old),
+    choose one and ask on WhatsApp; the deposit by the shop's own Stripe link. -#}
+{%- set sec = site.sections.evening %}
+{%- set e = site.evenings %}
+{%- set dep = (site | payLinkOf(e.deposit.payLink)) if e.deposit else null %}
+<section id="evening" class="ls-eve" data-feature="private-evening"{{ "private-evening" | tierAttr | safe }}><div class="wrap eve-in">
+  <script type="application/json" data-lx>{{ { source: e.source, csvUrl: e.csvUrl, staleAfterHours: e.staleAfterHours, sample: e.sample if e.source == "sample" else null } | jsonData | safe }}</script>
+  <figure class="eve-ph">{% set ph = e.photo %}{% include "kits/lingerie/partials/photo.njk" %}</figure>
+  <div class="eve-t">
+    {% include "core/partials/section-head.njk" %}
+    <p class="lx-small">{{ e.minutes }} minutes{% if e.guestsMax %} · {{ "one guest" if e.guestsMax == 1 else ("up to " + e.guestsMax + " guests") }}{% endif %}{% if e.deposit %} · {{ e.deposit.amount | pounds }} deposit{% if e.deposit.note %}, {{ e.deposit.note }}{% endif %}{% endif %}</p>
+    <p>{{ e.note }}</p>
+    <div class="eve-list" role="radiogroup" aria-label="Free evenings" data-eve-list hidden></div>
+    <p class="lx-small" data-eve-none>{% if e.source == "sheet" %}Message us for the next free evening.{% else %}Loading the free evenings…{% endif %}</p>
+    <form class="lx-form" data-eve-form hidden>
+      <div class="lx-fields">
+        {%- if e.guestsMax %}<label class="lx-f">Guests<select data-eve-guests>{% for n in range(0, e.guestsMax + 1) %}<option value="{{ n }}">{{ "Just me" if n == 0 else n }}</option>{% endfor %}</select></label>{% endif %}
+        <label class="lx-f">It's for<input type="text" maxlength="60" placeholder="A birthday, a wedding, no reason" data-eve-occasion></label>
+        <label class="lx-f">Your name<input type="text" maxlength="40" autocomplete="given-name" data-eve-name></label>
+      </div>
+    </form>
+    <p class="eve-acts"><a class="lx-go" href="{{ ('Hello ' + site.business.name + ', I would like a private evening.') | wa }}" target="_blank" rel="noopener" data-eve-send>Ask for the evening</a>
+    {%- if dep %}<a class="lx-go lx-quiet" href="{{ dep.url }}" target="_blank" rel="noopener">Pay the {{ dep.amount | pounds }} deposit</a>{% endif %}</p>
+  </div>
+</div></section>

@@ -1,0 +1,14 @@
+---
+layout: core/layouts/base.njk
+feature: collection-pages
+pagination:
+  data: site.collections
+  size: 1
+  alias: col
+permalink: "collection-{{ col.id }}.html"
+eleventyComputed:
+  pageId: "collection-{{ col.id }}"
+  title: "{{ col.name }}"
+  description: "{{ col.name }}: {{ col.line }} From {{ site.business.name }}, {{ site.shop.area }}."
+---
+{% include "kits/lingerie/features/collection-pages/collection-pages.njk" %}

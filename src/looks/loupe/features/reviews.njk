@@ -1,0 +1,15 @@
+{#- Loupe reviews: the words only, light and large, one after another down the page, the bride's name and month in the
+    reading face beneath. No stars drawn: the rating is read out for screen readers. -#}
+{%- set sec = site.sections.reviews %}
+<section id="reviews" class="lp-rev" data-feature="reviews"{{ "reviews" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="lp-rev-list">
+    {%- for r in site.reviews.items %}
+    <figure class="rv">
+      <blockquote><p>“{{ r.text }}”</p></blockquote>
+      <figcaption>{{ r.author }} · {{ r.date | monthYear }}<span class="sr-only">, rated {{ r.rating }} out of 5</span></figcaption>
+    </figure>
+    {%- endfor %}
+  </div>
+  {%- if site.reviews.source == "sample" %}<p class="mh-fine">Sample reviews for the demo. On a live site these are the artist's real Google reviews.</p>{% endif %}
+</div></section>

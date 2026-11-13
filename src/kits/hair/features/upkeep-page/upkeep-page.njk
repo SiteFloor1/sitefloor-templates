@@ -1,0 +1,14 @@
+{#- Colour upkeep: each colour with how often it comes back and how to keep it between visits, then the colour year. -#}
+{%- set up = site.upkeepPage %}
+{%- set ph = { title: up.title, intro: up.intro, photo: up.photo } %}
+{% include "kits/hair/partials/page-head.njk" %}
+<section class="hr-up" aria-label="Each colour"><div class="wrap">
+  <ul class="hr-up-list">
+    {%- for x in site.upkeep.items %}
+    <li><h2 class="hr-up-n">{{ x.name }}</h2><p class="hr-up-w">Every {{ x.weeks }} weeks</p>
+      {%- if x.text %}<p>{{ x.text }}</p>{% endif %}
+      {%- if x.care %}<ul class="hr-notes">{% for c in x.care %}<li>{{ c }}</li>{% endfor %}</ul>{% endif %}</li>
+    {%- endfor %}
+  </ul>
+</div></section>
+{% include "kits/hair/features/colour-year/colour-year.njk" %}

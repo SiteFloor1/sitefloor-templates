@@ -1,0 +1,14 @@
+/* How a design runs: numbered stages, each a ruled row; the stage name large and italic, its facts beside it. */
+.gd-dp-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--text); }
+.gd-dp-s { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 12px clamp(32px, 6vw, 96px); padding: 36px 0; border-bottom: 1px solid var(--line); }
+.gd-dp-n { margin: 0; font-style: italic; font-weight: 400; font-size: clamp(30px, 3.2vw, 44px); line-height: 1.05; }
+.gd-dp-no { font-style: normal; color: var(--accent); margin-right: 6px; }
+.gd-dp-tx p { margin: 0; max-width: 56ch; }
+.gd-dp-dl { margin: 16px 0 0; }
+.gd-dp-dl div { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 16px; padding: 4px 0; }
+.gd-dp-dl dt { color: var(--muted); font-style: italic; }
+.gd-dp-dl dd { margin: 0; }
+.gd-dp-tx .gd-dp-stop { margin-top: 14px; color: var(--muted); font-style: italic; }
+.gd-dp-fee { margin: 32px 0 0; max-width: 60ch; }
+.gd-dp-go { margin: 32px 0 0; }
+@media (max-width: 760px) { .gd-dp-s { grid-template-columns: 1fr; } .gd-dp-dl div { grid-template-columns: 100px minmax(0, 1fr); } }

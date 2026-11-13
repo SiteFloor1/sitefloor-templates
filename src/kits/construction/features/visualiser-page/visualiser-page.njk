@@ -1,0 +1,13 @@
+{#- The extension visualiser as its own page: the model large, the price from the builder's own rates (or none), and
+    the design sent on WhatsApp. -#}
+{%- set vp = site.visualiserPage %}
+{%- set ph = { title: vp.title, intro: vp.intro } %}
+{% include "kits/construction/partials/page-head.njk" %}
+<div class="wrap bd-vp">{% set vzPage = true %}{% include "kits/construction/features/visualiser/visualiser.njk" %}
+</div>
+{%- if "light-study" | enabled %}{% include "kits/construction/features/light-study/light-study.njk" %}{% endif %}
+{%- if "planning-guide" | enabled %}{% include "kits/construction/features/planning-guide/planning-guide.njk" %}{% endif %}
+<div class="wrap bd-vp bd-vp-end">
+  {%- if site.visualiser.rates %}<p class="bd-vp-note">Our rates were last checked in {{ site.visualiser.rates.checked | monthWords }}. The model is a guide to size, not a drawing; we measure your house before we price it.</p>
+  {%- else %}<p class="bd-vp-note">The model is a guide to size, not a drawing; we measure your house before we price it.</p>{% endif %}
+</div>

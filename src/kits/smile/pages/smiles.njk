@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: smiles
+permalink: smiles.html
+feature: smile-gallery
+eleventyComputed:
+  title: "{{ site.smiles.title | plain }}"
+  description: "Smiles from {{ site.business.name }}, shown with consent."
+---
+{% include "kits/smile/features/smile-gallery/smile-gallery.njk" %}

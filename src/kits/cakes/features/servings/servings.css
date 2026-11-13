@@ -1,0 +1,24 @@
+/* How many are you feeding: a huge number, the tiers built in type (each line sized to its tier's width), the facts. */
+.ck-serve-q { margin: 0; font-size: clamp(26px, 2.4vw, 38px); line-height: 1.05; }
+.ck-serve-i { margin: 6px 0 0; color: var(--muted); }
+.ck-serve-count { display: flex; align-items: center; gap: 16px; margin-top: 6px; }
+.ck-serve-n { font-family: var(--font-display); font-weight: 900; font-size: clamp(104px, 10vw, 168px); line-height: .82; letter-spacing: -.045em; font-variant-numeric: tabular-nums; min-width: 2.7ch; }
+.ck-serve-step { display: grid; gap: 8px; }
+.ck-serve-step button { width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--text); background: none; color: var(--text); font: 600 26px/1 var(--font-body); cursor: pointer; }
+.ck-serve-step button:hover { background: var(--text); color: var(--bg); }
+.ck-serve-r { width: 100%; margin: 12px 0 8px; accent-color: var(--accent); }
+.ck-serve-how { border: 0; margin: 0 0 18px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 22px; }
+.ck-serve-how label { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; cursor: pointer; }
+.ck-serve-how input { accent-color: var(--accent); width: 18px; height: 18px; margin: 0; }
+.ck-serve-out { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 28px; align-items: end; padding-top: 18px; border-top: 1px solid var(--line); }
+/* A tier's line is set at a size proportional to its diameter (--d, inches), stacked like the cake. */
+.ck-tiers { --unit: 4.4px; margin: 0; display: flex; flex-direction: column; align-items: center; min-width: 9ch; }
+.ck-tier { display: block; font-family: var(--font-display); font-weight: 800; font-size: calc(var(--d) * var(--unit)); line-height: 1; letter-spacing: -.02em; padding: 0 .25em .07em; border-bottom: 2px solid var(--accent); font-variant-numeric: tabular-nums; white-space: nowrap; transition: font-size .5s ease; }
+.ck-tiers-ask { font-family: var(--font-display); font-weight: 800; font-size: 28px; }
+.ck-serve-facts { margin: 0; display: grid; gap: 4px; }
+.ck-serve-facts > div { display: flex; justify-content: space-between; gap: 12px; }
+.ck-serve-facts dt { color: var(--muted); }
+.ck-serve-facts dd { margin: 0; font-weight: 800; text-align: right; font-variant-numeric: tabular-nums; }
+.ck-serve-go { margin-top: 22px; }
+@media (max-width: 600px) { .ck-tiers { --unit: 3.5px; } }
+@media (prefers-reduced-motion: reduce) { .ck-tier { transition: none; } }

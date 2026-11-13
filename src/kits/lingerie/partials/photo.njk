@@ -1,0 +1,2 @@
+{#- One photograph: `ph` = { src, width, height, alt, position? }; `eager` for the first screen. -#}
+<img src="{{ ph.src | img }}" alt="{{ ph.alt }}" width="{{ ph.width }}" height="{{ ph.height }}"{% if ph.position %} style="object-position:{{ ph.position }}"{% endif %}{% if eager %} fetchpriority="high"{% else %} loading="lazy"{% endif %} decoding="async">

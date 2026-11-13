@@ -1,0 +1,8 @@
+/* Discreet packaging: photograph and words side by side, full width. */
+.ls-box { display: grid; grid-template-columns: 1fr 1fr; padding: 0; }
+.bx-ph { margin: 0; }
+.bx-ph img { display: block; width: 100%; height: 100%; aspect-ratio: 1; object-fit: cover; }
+.bx-t { padding: var(--s3) var(--pad); display: flex; flex-direction: column; justify-content: center; min-width: 0; }
+.bx-dl { margin: 24px 0 0; display: grid; gap: 14px; max-width: 46ch; }
+.bx-dl dd { margin: 2px 0 0; }
+@media (max-width: 760px) { .ls-box { grid-template-columns: 1fr; } }

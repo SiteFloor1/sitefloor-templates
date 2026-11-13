@@ -1,0 +1,17 @@
+{#- Tissue same-day: one line in italic (kept true by the script: a countdown before the cut-off, the next delivery
+    day after it), and "Check your postcode" opening a single underlined field. Same hooks as the kit's. -#}
+{%- set DL = site.delivery %}
+{%- set sdCut = (DL | areaCutoffs(sdArea)) if sdArea else DL.cutoffs %}
+<div class="ts-sd" data-feature="same-day"{% if sdArea %} data-area="{{ sdArea.district }}"{% endif %}>
+  <p class="ts-sd-state" data-sd-state><span data-sd-text>Same-day delivery: {{ sdCut | cutoffGroups }}</span></p>
+  <details class="ts-sd-check">
+    <summary>Check your postcode</summary>
+    <form class="ts-pc" data-sd-form novalidate>
+      <label class="sr-only" for="pc-{{ sdId or 'feed' }}">Postcode</label>
+      <input id="pc-{{ sdId or 'feed' }}" data-pc-input autocomplete="postal-code" inputmode="text" placeholder="e.g. B15 2TT" maxlength="9">
+      <button type="submit">Check</button>
+    </form>
+    <p class="ts-pc-say" data-sd-answer aria-live="polite"></p>
+  </details>
+  <noscript><p class="ts-sd-areas">We deliver to {{ DL.zones | join(", ") }}{% if DL.areas %}, {{ DL.areas }}{% endif %}. {{ DL.collect }}</p></noscript>
+</div>

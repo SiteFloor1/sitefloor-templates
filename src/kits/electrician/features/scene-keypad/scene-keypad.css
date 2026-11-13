@@ -1,0 +1,7 @@
+/* The keypad's mechanics; the look draws the keys. */
+.el-keypad { display: grid; grid-template-columns: repeat(var(--keys, 3), minmax(0, 1fr)); gap: 10px; }
+.el-key { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 10px; min-height: 44px; cursor: pointer; font: inherit; }
+.el-key-led { width: 7px; height: 7px; border-radius: 50%; transition: background .6s, box-shadow .6s; }
+[data-scene-pic] { opacity: 0; transition: opacity 1.4s ease; }
+[data-scene-pic].on { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { [data-scene-pic] { transition: none; } }

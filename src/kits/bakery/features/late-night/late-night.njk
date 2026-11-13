@@ -1,0 +1,18 @@
+{#- Open late: one sentence, very large: how late we're open tonight. Then last orders (a countdown in the final hour)
+    and whether there are seats inside now (from the sheet). The week in a single line. Without JavaScript: the week
+    and last orders as a rule. -#}
+{%- set sec = site.sections.lateNight %}
+{%- set ln = site.lateNight %}
+<section id="late" class="sec-late" data-feature="late-night"{{ "late-night" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <p class="ln-big" data-ln-close>Open late, every night.</p>
+  <div class="ln-row">
+    <p class="ln-last" data-ln-last>Last orders {{ ln.lastOrders }} minutes before we close.</p>
+    <p class="ln-seats" data-ln-seats hidden></p>
+    {%- if ln.dineIn %}<p class="ln-dine">{{ ln.dineIn }}</p>{% endif %}
+  </div>
+  <ul class="ln-week" aria-label="Opening hours">
+    {%- for row in site.hours | hoursRows %}<li data-day="{{ row.dayIndex }}"><span>{{ row.day | truncate(3, true, "") }}</span> {{ row.label }}</li>{% endfor %}
+  </ul>
+  {%- if ln.note %}<p class="ln-note">{{ ln.note }}</p>{% endif %}
+</div></section>

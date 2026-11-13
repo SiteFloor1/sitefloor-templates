@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: weddings
+permalink: weddings.html
+feature: weddings-planner
+eleventyComputed:
+  title: "{{ site.weddings.title | plain }}"
+  description: "Wedding and event flowers by {{ site.business.name }}, {{ site.location.locality }}: the pieces, starting prices and a date check."
+---
+{% include "kits/florist/features/weddings-planner/weddings-planner.njk" %}

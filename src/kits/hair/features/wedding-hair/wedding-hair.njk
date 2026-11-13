@@ -1,0 +1,25 @@
+{#- The wedding hair planner: from the wedding date, each of the salon's steps (consultation, trial, colour, final
+    trim) with its date, past steps marked; all of it to the calendar in one file, or to the salon on WhatsApp. Before
+    a date is chosen each step shows how many weeks before it falls. -#}
+{%- set w = site.wedding %}
+{%- set ph = { title: w.title, intro: w.intro, photo: w.photo } %}
+{% include "kits/hair/partials/page-head.njk" %}
+<section class="hr-wd" data-feature="wedding-hair" aria-labelledby="wd-h"><div class="wrap hr-wd-in">
+  <form class="hr-wd-form" data-wd-form>
+    <h2 id="wd-h">Your dates</h2>
+    {%- set df = "wd-date" %}{% set dfLabel = "The wedding" %}{% set dfYears = 3 %}{% include "kits/hair/partials/date-field.njk" %}{% set dfYears = 2 %}
+    <p class="hr-wd-late" data-wd-late hidden></p>
+    <div class="hr-wd-go">
+      <button type="button" class="hr-btn" data-wd-ics hidden>Add every date to my calendar</button>
+      <a class="hr-go" data-wd-send href="{{ w.message | book }}" target="_blank" rel="noopener">Send to the salon</a>
+    </div>
+    {%- if w.note %}<p class="hr-small">{{ w.note }}</p>{% endif %}
+  </form>
+  <ol class="hr-wd-steps" data-wd-steps>
+    {%- for s in w.steps | byWeeks %}
+    <li data-step="{{ s.id }}"><span class="hr-wd-when" data-when>{% if s.weeksBefore == 0 %}The week of the wedding{% elif s.weeksBefore == 1 %}A week before{% else %}{{ s.weeksBefore }} weeks before{% endif %}</span>
+      <b>{{ s.label }}</b>{% if s.note %}<span class="hr-wd-note">{{ s.note }}</span>{% endif %}</li>
+    {%- endfor %}
+    <li class="hr-wd-day"><span class="hr-wd-when" data-wd-day>The day</span><b>The wedding</b></li>
+  </ol>
+</div></section>

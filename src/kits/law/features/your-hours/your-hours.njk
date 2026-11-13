@@ -1,0 +1,13 @@
+{#- Our day in yours: the firm's opening hours this week, in the visitor's own time zone or one of the firm's usual
+    client cities. Sits inside Speak to a partner. -#}
+<div class="lw-yh" data-feature="your-hours" data-firm-zone="{{ site.hours.timezone }}"{{ "your-hours" | tierAttr | safe }}>
+  <p class="lw-yh-k">Our day in yours</p>
+  <label class="lw-yh-pick" data-js-only><span class="sr-only">Show our hours in</span>
+    <select id="yh-zone"><option value="">Your own time</option>{% for z in site.yourHours.zones %}<option value="{{ z.zone }}">{{ z.label }}</option>{% endfor %}</select>
+  </label>
+  <ul class="lw-yh-days">
+    {%- for row in site.hours | hoursRows %}{% if site.hours.weekly[["sun","mon","tue","wed","thu","fri","sat"][row.dayIndex]].length %}
+    <li data-yh-day="{{ row.dayIndex }}" data-ranges='{{ site.hours.weekly[["sun","mon","tue","wed","thu","fri","sat"][row.dayIndex]] | dump }}'><span>{{ row.day }}</span> <b data-yh-time>{{ row.label }} London</b></li>
+    {%- endif %}{% endfor %}
+  </ul>
+</div>

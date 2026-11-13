@@ -1,0 +1,72 @@
+{#- Loupe Plan your visit (the studio, for trials and guest mehndi). The page head; then the studio's postcode, light
+    and very large, with the live status and an "at a glance" list; every way here written out in full (no tabs), the
+    leave-by helper, parking and access as a ruled list, the hours and every question. Works without JavaScript. -#}
+{%- set v = site.visitInfo %}
+{%- set journeys = v.journeys or [] %}
+{%- set parking = v.parking or [] %}
+{%- set ph = { kicker: v.kicker, title: v.title, intro: v.intro } %}
+{% include "kits/mehndi/partials/page-head.njk" %}
+<div class="wrap lp-pv" data-feature="plan-visit">
+  <aside class="lp-pv-side">
+    <p class="lp-v-pc">{{ site.location.postcode }}</p>
+    <address>{{ site.location.streetAddress }}<br>{{ site.location.locality }}</address>
+    <p class="lp-now" data-live-status><span class="dot" aria-hidden="true"></span><span data-status-text>See the hours below</span></p>
+    <ul class="lp-pv-glance" aria-label="At a glance">
+      {%- for j in journeys %}<li><span>{{ j.from }}</span><b>{{ j | boardTime }}</b></li>{% endfor %}
+      {%- for c in parking %}<li><span>{{ c.name }}</span><b data-parking="{{ loop.index0 }}">{% if c.walk is defined %}{{ c.walk }} min walk{% endif %}</b></li>{% endfor %}
+    </ul>
+    {%- if site.mode == "demo" %}
+    <p class="mh-fine">Example journeys and parking for a fictional studio.</p>
+    {%- elif v.checked %}
+    <p class="mh-fine">Journey times, parking and access checked with {{ site.business.name }} in {{ v.checked | checkedText }}. Driving times are outside rush hour.</p>
+    {%- endif %}
+  </aside>
+  <div class="lp-pv-main">
+    {%- if journeys.length %}
+    <section aria-labelledby="pv-j-h">
+      <h2 class="lp-pv-h" id="pv-j-h">The way here</h2>
+      {%- for j in journeys %}
+      <div class="lp-pv-route" data-pv-panel>
+        <p class="lp-pv-from"><b>{{ j.from }}</b>{% if j.stop %}, get off at {{ j.stop }}{% endif %} · {% if (j.mode | modeWords).about %}about {% endif %}{{ j.minutes }} min {{ (j.mode | modeWords).verb }}</p>
+        <ol>
+          {%- for step in j.steps %}<li>{{ step }}</li>{% endfor %}
+          <li><b>{{ site.business.name }}</b>, {{ site.location.streetAddress }}</li>
+        </ol>
+        <a class="mh-text" href="{{ j | directionsFor }}" target="_blank" rel="noopener">This route in Google Maps</a>
+      </div>
+      {%- endfor %}
+      <div class="lp-pv-leave" data-pv-leave hidden>
+        <label for="pv-appt">Coming for a trial? Your time, and we'll say when to set off.</label>
+        <input type="time" id="pv-appt" step="900" data-pv-appt>
+        <ul data-pv-leave-list aria-live="polite"></ul>
+      </div>
+    </section>
+    {%- endif %}
+    {%- if parking.length or v.access or v.payment %}
+    <section aria-labelledby="pv-f-h">
+      <h2 class="lp-pv-h" id="pv-f-h">Parking and access</h2>
+      <dl class="lp-spec">
+        {%- for c in parking %}
+        <div><dt>{{ c.name }}</dt><dd><span data-parking-card="{{ loop.index0 }}" hidden></span>
+          {{ c | parkingSummary }}{% if c.walk is defined %} · {{ c.walk }} min walk{% endif %}{% if c.price %} · {{ c.price }}{% endif %}{% if c.note %}<br>{{ c.note }}{% endif %}</dd></div>
+        {%- endfor %}
+        {%- for a in v.access %}<div><dt>{{ a.label }}</dt><dd>{{ "Yes" if a.yes else "No" }}</dd></div>{% endfor %}
+        {%- if v.payment %}<div><dt>Paying</dt><dd>{{ v.payment }}</dd></div>{% endif %}
+      </dl>
+      {%- if v.accessNote %}<p class="mh-fine">{{ v.accessNote }}</p>{% endif %}
+    </section>
+    {%- endif %}
+  </div>
+</div>
+{%- set visitHeading = false %}
+{% include "features/visit/visit.njk" %}
+{%- set groups = site | questionTopics %}
+{%- if groups.length %}
+<section class="lp-qa" id="questions"><div class="wrap">
+  <h2 class="lp-pv-h">What people ask</h2>
+  {%- for g in groups %}
+  <h3 class="lp-qa-topic">{{ g.topic }}</h3>
+  <dl class="lp-qa-list">{% for item in g.items %}<div><dt>{{ item.q }}</dt><dd>{{ item.a }}</dd></div>{% endfor %}</dl>
+  {%- endfor %}
+</div></section>
+{%- endif %}

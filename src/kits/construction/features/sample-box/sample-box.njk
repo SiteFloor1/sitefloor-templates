@@ -1,0 +1,15 @@
+{#- The sample box: tick the finishes from the specification you'd like to see, give the postcode district, and send
+    the list on WhatsApp; the builder brings or posts them. -#}
+{%- set sb = site.sampleBox %}
+<section class="wrap bd-sb" id="samples" data-feature="sample-box" aria-labelledby="sb-h">
+  <div class="bd-sb-head"><h2 id="sb-h" class="bd-h2">{{ sb.title | markup | safe }}</h2>{% if sb.intro %}<p>{{ sb.intro }}</p>{% endif %}</div>
+  <form class="bd-sb-form" data-js-only novalidate>
+    <fieldset><legend>Up to {{ sb.max }} finishes</legend><div class="bd-chips">
+      {%- for x in site.spec.items %}<label><input type="checkbox" name="pick" value="{{ x.name }}"><span>{{ x.name }}</span></label>{% endfor %}
+    </div></fieldset>
+    <label class="bd-field bd-sb-where"><span>Postcode district</span><input name="where" maxlength="5" autocomplete="off" placeholder="e.g. N5"></label>
+    <div class="bd-brief-go"><button class="bd-btn" type="submit">Ask for these samples</button><p data-sb-count>None chosen yet.</p></div>
+    <p class="bd-brief-err" data-sb-err role="alert" hidden></p>
+  </form>
+  <p data-no-js><a class="bd-btn" href="{{ sb.message | wa }}" data-wa-text="{{ sb.message }}" target="_blank" rel="noopener">Ask for samples on WhatsApp</a></p>
+</section>

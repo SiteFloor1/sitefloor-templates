@@ -1,0 +1,39 @@
+{%- set sec = site.sections.cut %}
+<section id="cut" class="sec-cut" data-feature="build-your-cut"{{ "build-your-cut" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="cut rv">
+    <div class="cut-vis">
+      <div class="head" data-cut-diagram></div>
+      <p class="vis-cap" data-cut-caption></p>
+    </div>
+    <form class="cut-ctl" data-cut-form>
+      <fieldset class="grp"><legend>Cut</legend><div class="opts">
+        {%- for s in site.services %}
+        <label class="o"><input type="radio" name="service" value="{{ s.id }}"{% if loop.first %} checked{% endif %}><span>{{ s.name }}</span><small>£{{ s.price }}</small></label>
+        {%- endfor %}
+      </div></fieldset>
+      <fieldset class="grp" data-cut-fade><legend>Fade height</legend><div class="opts">
+        <label class="o"><input type="radio" name="fade" value="low"><span>Low</span></label>
+        <label class="o"><input type="radio" name="fade" value="mid" checked><span>Mid</span></label>
+        <label class="o"><input type="radio" name="fade" value="high"><span>High</span></label>
+      </div></fieldset>
+      <div class="grp"><label for="cut-length" class="grp-label">Length on top</label><div class="rng"><input type="range" id="cut-length" name="length" min="0" max="6" step="1" value="3"><output for="cut-length" data-cut-length></output></div></div>
+      <fieldset class="grp"><legend>Extras</legend><div class="opts">
+        {%- for e in site.extras %}
+        <label class="o" data-extra="{{ e.id }}"{% if e.adultOnly %} data-adult-only{% endif %}><input type="checkbox" name="extras" value="{{ e.id }}"><span>{{ e.name }}</span><small>+£{{ e.price }}</small></label>
+        {%- endfor %}
+      </div></fieldset>
+      <fieldset class="grp"><legend>Barber</legend><div class="opts">
+        <label class="o"><input type="radio" name="barber" value="any" checked><span>Anyone</span></label>
+        {%- for s in site.staff %}
+        <label class="o"><input type="radio" name="barber" value="{{ s.name }}"><span>{{ s.name }}</span></label>
+        {%- endfor %}
+      </div></fieldset>
+      <div class="total">
+        <div><p class="amt" data-cut-price aria-live="polite">£0</p><small data-cut-summary></small>{% if sec.priceNote %}<small>{{ sec.priceNote }}</small>{% endif %}</div>
+        <a class="btn" href="{{ site.messages.general | book }}" data-cut-book target="_blank" rel="noopener">{% if build.booking.whatsapp %}Book this cut{% else %}{{ build.booking.label }}{% endif %}</a>
+        {%- if not build.booking.whatsapp %}<p class="cut-note">Book your slot, then show this to your barber.</p>{% endif %}
+      </div>
+    </form>
+  </div>
+</div></section>

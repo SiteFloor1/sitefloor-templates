@@ -1,0 +1,6 @@
+{#- Dune phone bar: the crest. The next class with its reformers on the left, Book on the right; the page reserves
+    the bar's height so it never covers anything. Before the timetable's script runs it simply says Book a reformer. -#}
+<div class="mbar du-bar"{% if 'timetable' | enabled %} data-feature="timetable" data-tt="bar"{% endif %}>
+  <span class="du-bar-t"><span class="pl-six" data-tt-marks hidden></span><b data-tt-bar-name>{{ site.business.name }}</b></span>
+  <a class="du-bar-go" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener" data-tt-bar-go>Book a reformer</a>
+</div>

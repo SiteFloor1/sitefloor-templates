@@ -1,0 +1,8 @@
+{#- The scene keypad: three engraved keys that swap the hero to the client's photographs of the same home in each
+    light (the look's hero holds the photographs, marked data-scene-pic). The line under the headline says what the
+    scene does. Other scenes' photographs load once the page has finished loading, never before. -#}
+<div class="el-keypad" role="group" aria-label="Scenes" data-feature="scene-keypad"{{ "scene-keypad" | tierAttr | safe }}>
+  {%- for s in site.hero.scenes %}
+  <button class="el-key" type="button" data-key="{{ s.id }}" data-line="{{ s.line }}" aria-pressed="{{ 'true' if loop.first else 'false' }}"><span class="el-key-led" aria-hidden="true"></span><span>{{ s.label }}</span></button>
+  {%- endfor %}
+</div>

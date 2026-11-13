@@ -1,0 +1,9 @@
+/* Aftercare page: one block per kind of work, stages side by side on wide screens. */
+.acp-jump { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 30px; }
+.acp-jump a { font: 500 12px var(--font-mono, monospace); text-transform: uppercase; letter-spacing: .08em; text-decoration: none; padding: 10px 14px; border: 1px solid var(--line-2); }
+.acp { padding: 30px 0; border-top: 1px solid var(--line-2); scroll-margin-top: calc(var(--nav-h) + 12px); }
+.acp h2 { font-family: var(--font-display); font-weight: 400; text-transform: uppercase; font-size: clamp(20px, 2.4vw, 30px); margin: 0 0 22px; }
+.acp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 22px; }
+.acp-stage h3 { font: 500 12px var(--font-mono, monospace); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin: 0 0 12px; }
+.acp-go { margin-top: 20px; align-items: end; }
+.acp-go .ac-f { min-width: 200px; }

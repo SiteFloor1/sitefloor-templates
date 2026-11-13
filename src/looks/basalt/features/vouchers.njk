@@ -1,0 +1,31 @@
+{#- Basalt gift card: the card itself, plain basalt with the mark and the amount, made up as you type; the choices beside. -#}
+{%- set sec = site.sections.vouchers %}
+{%- set v = site.vouchers %}
+<section id="vouchers" class="sec-vouchers bs-gift" data-feature="vouchers"{{ "vouchers" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="bs-gift-in">
+    <div class="bs-gcard" aria-live="polite">
+      <p class="bs-gcard-brand"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 11c6-4 12 4 18 0s8-3 8-3M3 17c6-4 12 4 18 0s8-3 8-3M3 23c6-4 12 4 18 0s8-3 8-3"/></svg>{{ site.business.name }}</p>
+      <p class="bs-gcard-amt" data-vc-show-amount>{{ (v.amounts[1] or v.amounts[0]) | pounds }}</p>
+      <p class="bs-gcard-to" data-vc-show-to>A gift</p>
+      <p class="bs-gcard-note" data-vc-show-note></p>
+      <p class="bs-gcard-small">Valid {{ v.validMonths }} months · online and at the showroom</p>
+    </div>
+    <form class="bs-gift-form" data-vc-form>
+      <div class="vc-fields" data-js-only>
+        <fieldset class="bs-amts"><legend>Amount</legend>
+          {%- for a in v.amounts %}<label><input type="radio" name="vc-amount" value="{{ a }}"{% if loop.index0 == 1 or v.amounts.length == 1 and loop.first %} checked{% endif %}><span>{{ a | pounds }}</span></label>{% endfor %}
+          {%- if v.custom %}<label><input type="radio" name="vc-amount" value="custom"><span>Other</span></label>
+          <input class="bs-custom" type="number" inputmode="numeric" min="{{ v.custom.min }}" max="{{ v.custom.max }}" step="1" placeholder="£{{ v.custom.min }}–{{ v.custom.max }}" aria-label="Other amount in pounds" data-vc-custom hidden>{% endif %}
+        </fieldset>
+        <label class="bs-field">For<input type="text" maxlength="40" autocomplete="off" data-vc-to placeholder="Their name"></label>
+        <label class="bs-field">From<input type="text" maxlength="40" autocomplete="name" data-vc-from placeholder="Your name"></label>
+        <label class="bs-field">A line for the card<input type="text" maxlength="90" autocomplete="off" data-vc-note placeholder="For the long run"></label>
+        <p class="bs-err" data-vc-err role="alert" hidden></p>
+      </div>
+      <p data-no-js>Message us the amount, who it's for and a line for the card.</p>
+      <a class="wr-buy" href="{{ 'Hi, I would like to buy a gift card. How can I pay?' | wa }}" target="_blank" rel="noopener" data-vc-order>Order the gift card</a>
+      <p class="wr-fine">{{ v.howToBuy }} {{ v.terms }}</p>
+    </form>
+  </div>
+</div></section>

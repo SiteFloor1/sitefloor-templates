@@ -1,0 +1,32 @@
+/* How busy is it now: the word, four bars, and the usual week as a grid. Tokens only. */
+.bz-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(24px, 4vw, 56px); align-items: start; }
+.bz-now { padding: clamp(22px, 3vw, 34px); border-radius: 20px; background: var(--surface); border: 1px solid var(--line-2); }
+.bz-now p { margin: 0; }
+.bz-word { margin-top: 8px !important; font-family: var(--font-display); font-size: clamp(44px, 6vw, 76px); line-height: 1; letter-spacing: -.01em; }
+.bz-meter { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 18px 0 14px; }
+.bz-meter span { height: 10px; border-radius: 3px; background: var(--surface-2); box-shadow: inset 0 0 0 1px var(--line-2); transition: background .5s; }
+.bz-meter span.on { background: var(--accent); box-shadow: none; }
+.bz[data-level="0"] .bz-meter span.on { background: var(--ok); }
+.bz-line { color: var(--muted); min-height: 1.55em; }
+.bz-next { margin-top: 10px !important; font-weight: 600; min-height: 1.55em; }
+.bz-table { width: 100%; border-collapse: separate; border-spacing: 3px; table-layout: fixed; font-size: 11.5px; }
+.bz-table caption { text-align: left; margin-bottom: 8px; }
+.bz-table caption span { display: block; letter-spacing: 0; text-transform: none; font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+.bz-table th { font-weight: 500; color: var(--dim); }
+.bz-table thead th { text-align: left; white-space: nowrap; overflow: hidden; font-size: 10.5px; }
+.bz-table tbody th { width: 42px; text-align: left; }
+.bz-table td { height: 30px; border-radius: 5px; background: var(--surface-2); }
+.bz-table td.bz-l0 { background: color-mix(in srgb, var(--accent) 10%, var(--surface)); }
+.bz-table td.bz-l1 { background: color-mix(in srgb, var(--accent) 34%, var(--surface)); }
+.bz-table td.bz-l2 { background: color-mix(in srgb, var(--accent) 64%, var(--surface)); }
+.bz-table td.bz-l3 { background: var(--accent); }
+.bz-table tr.is-today th { color: var(--text); font-weight: 700; }
+.bz-table td.is-now { outline: 2.5px solid var(--text); outline-offset: 1px; }
+.bz-key { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 12px 0 0; font-size: 12.5px; color: var(--muted); }
+.bz-key span { display: inline-flex; align-items: center; gap: 6px; }
+.bz-key i { width: 14px; height: 14px; border-radius: 4px; background: var(--surface-2); }
+.bz-key .bz-l0 i { background: color-mix(in srgb, var(--accent) 10%, var(--surface)); }
+.bz-key .bz-l1 i { background: color-mix(in srgb, var(--accent) 34%, var(--surface)); }
+.bz-key .bz-l2 i { background: color-mix(in srgb, var(--accent) 64%, var(--surface)); }
+.bz-key .bz-l3 i { background: var(--accent); }
+@media (max-width: 860px) { .bz-grid { grid-template-columns: minmax(0, 1fr); } .bz-table thead th { font-size: 9.5px; } }

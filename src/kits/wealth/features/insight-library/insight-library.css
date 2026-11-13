@@ -1,0 +1,18 @@
+.wm-insp { padding-bottom: clamp(80px, 9vw, 128px); }
+.wm-insp-f { display: flex; flex-wrap: wrap; gap: 8px 24px; margin: 0 0 32px; }
+.wm-insp-f button { background: none; border: 0; border-bottom: 1px solid transparent; padding: 10px 0; min-height: 44px; font: 400 15px var(--font-body); color: var(--muted); cursor: pointer; }
+.wm-insp-f button[aria-pressed="true"] { color: var(--text); border-bottom-color: var(--accent); }
+.wm-insp-list { display: grid; gap: 0; border-top: 1px solid var(--line); }
+.wm-insp-e { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 24px 40px; padding-block: 32px; border-bottom: 1px solid var(--line); scroll-margin-top: calc(var(--nav-h) + 24px); }
+.wm-insp-e[hidden] { display: none; }
+.wm-insp-b .wm-ins-meta { margin-top: 0; }
+.wm-insp-b h2 { font: 300 clamp(1.5rem, 2.4vw, 2.1rem)/1.2 var(--font-display); margin: 0 0 10px; max-width: 30ch; }
+.wm-insp-s { margin: 0 0 14px; max-width: 62ch; }
+.wm-insp-d summary { cursor: pointer; color: var(--accent); min-height: 44px; display: flex; align-items: center; }
+.wm-insp-full { max-width: 66ch; padding-top: 8px; }
+.wm-insp-by { color: var(--muted); font-size: 14px; }
+@media (max-width: 760px) { .wm-insp-e { grid-template-columns: 1fr; } }
+
+/* Keep the space for the controls while the script starts, so the page below never jumps (CLS). Without
+   JavaScript the core rule still removes them. */
+@media (scripting: enabled) { [data-feature]:not([data-ready]) .wm-insp-f[data-js-only] { display: flex !important; min-height: 44px; } [data-feature]:not([data-ready]) .wm-insp-f[data-js-only] { visibility: hidden; } }

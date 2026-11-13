@@ -1,0 +1,13 @@
+{#- Discreet packaging: the shop's packaging photograph beside what arrives and what the bank statement says. -#}
+{%- set d = site.discreet %}
+<section id="discreet" class="ls-box bleed">
+  <figure class="bx-ph">{% set ph = d.photo %}{% include "kits/lingerie/partials/photo.njk" %}</figure>
+  <div class="bx-t">
+    <h2>{{ d.title | markup | safe }}</h2>
+    <dl class="bx-dl">
+      <div><dt>The box</dt><dd>{{ d.box }}</dd></div>
+      <div><dt>On the doorstep</dt><dd>{{ d.outer }}</dd></div>
+      <div><dt>On the statement</dt><dd>{{ d.statement }}</dd></div>
+    </dl>
+  </div>
+</section>

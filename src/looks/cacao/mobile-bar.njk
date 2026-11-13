@@ -1,0 +1,5 @@
+{#- Cacao phone bar: the ribbon again, at the foot of the screen: order, and how to find the shop. -#}
+<div class="mbar cc-bar">
+  <a class="cc-bar-go" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">Order</a>
+  <a class="cc-bar-q" href="{{ ('visit' | href) if ('plan-visit' | enabled) else '#visit' }}">Find us</a>
+</div>

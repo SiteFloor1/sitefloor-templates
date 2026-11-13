@@ -1,0 +1,25 @@
+{#- Salon header: on the page, above the framed room. "Menu" opens the full menu panel, the monogram goes home,
+    "Reserve" is the booking channel. The brand mark is defined once here for the whole page. -#}
+<svg width="0" height="0" class="sa-defs" aria-hidden="true" focusable="false">
+  <symbol id="brand-mark" viewBox="0 0 46 58">
+    <path d="M14.5 13.6h17V10l2.6-6.6-4.8 3.6L26.5.5 23 6.3 19.5.5l-2.8 6.5-4.8-3.6 2.6 6.6z" fill="currentColor"/>
+    <circle cx="23" cy="36" r="20.5" fill="none" stroke="currentColor" stroke-width="1"/>
+    <circle cx="23" cy="36" r="17.6" fill="none" stroke="currentColor" stroke-width=".5"/>
+    <text x="23" y="45.5" text-anchor="middle" font-family="Libre Caslon Display, Georgia, serif" font-size="27" fill="currentColor">{{ site.business.name | first }}</text>
+  </symbol>
+</svg>
+<header class="nav sa-top"><div class="wrap sa-top-in">
+  <button class="burger sa-menu" type="button" aria-expanded="false" aria-controls="mnav">Menu</button>
+  <a class="sa-mark" href="{{ 'index' | href }}" aria-label="{{ site.business.name }}, home"><svg aria-hidden="true"><use href="#brand-mark"/></svg></a>
+  <a class="sa-res" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">Reserve</a>
+</div></header>
+<div class="mnav sa-panel" id="mnav" hidden>
+  <nav aria-label="Main">
+    <a href="{{ 'index' | href }}"{% if pageId == "index" %} aria-current="page"{% endif %}>{{ site.business.name }}</a>
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+  </nav>
+  <p class="sa-panel-st" data-live-status><span class="dot" aria-hidden="true"></span> <span data-status-text>Opening hours</span></p>
+  <address class="sa-panel-ad">{{ site.location.streetAddress }}, {{ site.location.locality }}<br><a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a></address>
+</div>

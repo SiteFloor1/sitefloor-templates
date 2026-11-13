@@ -1,0 +1,114 @@
+/* =========================================================================
+   Look: Barber Street — a daylight neighbourhood shop. Warm paper, enamel-sign
+   blue, a heavy grotesk, rounded cards outlined in ink, pill buttons with a hard
+   ink shadow, a street-name plate. Prices lead; sections are short and tight.
+   ========================================================================= */
+:root {
+  --bg: #F3EFE6; --surface: #FFFDF8; --surface-2: #EBE5D8;
+  --text: #15171C; --muted: #4F5361; --dim: #5A5E68;
+  --accent: #1F4BD1; --accent-2: #1A3FB0; --on-accent: #FFFFFF;
+  --line: rgba(21,23,28,.14); --line-2: rgba(21,23,28,.3);
+  --ok: #0E7350; --busy: #A45200; --closed: #64656B;
+  --font-display: "Bricolage Grotesque", "Bricolage Fallback", Arial, sans-serif;
+  --font-body: "Figtree", "Figtree Fallback", Arial, sans-serif;
+  --shadow: rgba(21,23,28,.35);
+  --edge: 2px; --round: 18px;
+  /* Diagrams: ink line art on white; face charts in ink and blue on paper. */
+  --chart-bg: #FFFDF8; --chart-ink: #15171C; --chart-muted: #5A5E68; --chart-guide: var(--accent);
+  --chart-skin: #FFFFFF; --chart-tan: #B9A88F; --chart-buzz: #8C8578;
+  --face-fill: #FFFDF8; --face-cheek: #EBE5D8; --face-label: #4F5361;
+  color-scheme: light;
+}
+/* Seasonal tints: a bright banner in the occasion's colour. */
+:root { --season-bg: #15171C; --season-fg: #FFFDF8; }
+:root[data-season="festive"] { --season-bg: #1D6B45; }
+:root[data-season="winter"] { --season-bg: #23466E; }
+:root[data-season="spring"] { --season-bg: #3F6A2E; }
+:root[data-season="summer"] { --season-bg: #F2B630; --season-fg: #15171C; }
+:root[data-season="autumn"] { --season-bg: #9A3C12; }
+:root[data-season="gold"] { --season-bg: #F2B630; --season-fg: #15171C; }
+
+/* buttons: pills with a hard ink shadow, pressed on hover */
+.btn { border-radius: 999px; box-shadow: inset 0 0 0 var(--edge) var(--text), 3px 3px 0 var(--text); }
+.btn:hover { transform: translate(-1px, -1px); box-shadow: inset 0 0 0 var(--edge) var(--text), 4px 4px 0 var(--text); }
+.btn:active { transform: translate(2px, 2px); box-shadow: inset 0 0 0 var(--edge) var(--text), 1px 1px 0 var(--text); }
+.btn.ghost { background: var(--surface); box-shadow: inset 0 0 0 var(--edge) var(--text), 3px 3px 0 var(--text); }
+.btn.ghost:hover { box-shadow: inset 0 0 0 var(--edge) var(--text), 4px 4px 0 var(--text); }
+.kick { letter-spacing: .12em; }
+:focus-visible { border-radius: 6px; }
+
+/* header: a solid paper bar with an ink rule */
+.nav { background: var(--bg); backdrop-filter: none; -webkit-backdrop-filter: none; border-bottom: var(--edge) solid var(--text); }
+.logo { font-weight: 800; letter-spacing: -.02em; }
+.links a[aria-current="page"] { box-shadow: 0 3px 0 var(--accent); }
+
+/* rhythm: tighter sections than other looks; every other section sits on a darker paper band */
+main section { padding-block: clamp(52px, 7vw, 92px); }
+main section:is(.sec-visit, .sec-reviews, .sec-more, .sec-cut) { padding-top: clamp(52px, 7vw, 92px) !important; } /* other looks run these on from the section above; Street bands every section */
+.sec-prices { background: transparent; }
+main > section:nth-of-type(odd):not(.hero) { background: var(--surface-2); border-block: var(--edge) solid var(--text); }
+.sh { grid-template-columns: minmax(0, 1fr); gap: 8px; margin-bottom: 28px; }
+.sh h2 { font-weight: 800; font-size: clamp(30px, 4.2vw, 54px); line-height: 1.02; letter-spacing: -.025em; }
+.sh h2 em, .phero h1 em, .hero h1 em { font-style: normal; color: var(--accent); }
+.sh p { justify-self: start; max-width: 56ch; font-size: 16px; }
+.phero { border-bottom: var(--edge) solid var(--text); }
+.crumb a { text-decoration: underline; text-underline-offset: 3px; }
+.phero h1 { font-weight: 800; font-size: clamp(40px, 6vw, 84px); line-height: 1; letter-spacing: -.03em; }
+.fbig { font-weight: 800; font-size: clamp(40px, 7vw, 96px); letter-spacing: -.035em; }
+.foot { border-top: var(--edge) solid var(--text); }
+
+/* cards: rounded, outlined in ink, flat */
+:is(.rev, .hours, .where, .chair, .cut, .menu > div, .qs, .tile, .tz, .q-live, .q-off, .q-week, .ly-calc, .mb-calc, .mb-plan, .ba-frame, .vc-form) { border-radius: var(--round); box-shadow: inset 0 0 0 var(--edge) var(--text); overflow: hidden; }
+.chair:hover { box-shadow: inset 0 0 0 var(--edge) var(--text), 4px 4px 0 var(--text); transform: translate(-1px, -1px); }
+.chair .bar { height: 5px; }
+.btn-take { border-radius: 999px; }
+.chair .mono { border-radius: 50%; background: var(--accent); color: var(--on-accent); box-shadow: none; }
+.menu { gap: 14px; }
+.menu > div { background: var(--surface); padding: 22px 22px 14px; }
+.menu h3 { font-weight: 800; font-size: 22px; border-bottom: var(--edge) solid var(--text); }
+.rev { padding: 22px; }
+.rev blockquote p { font-family: var(--font-body); font-size: 18px; font-weight: 600; line-height: 1.45; }
+.qs { background: var(--surface); border-top: 0; padding: 4px 22px; }
+.qa:last-child { border-bottom: 0; }
+.where address b { font-weight: 800; }
+.tz img { filter: brightness(.55); }
+.tz b { font-weight: 800; }
+main .shot { border-block: var(--edge) solid var(--text); }
+.shot::after { background: linear-gradient(180deg, transparent 30%, var(--photo-scrim)); }
+.shot-cap, .shot-cap .kick { color: var(--on-photo); }
+.shot-cap p { font-style: normal; font-weight: 800; letter-spacing: -.02em; }
+
+/* hero: plate, one plain sentence, and a "today" ticket with prices */
+main .hero { padding-block: clamp(28px, 5vw, 64px) clamp(40px, 6vw, 80px); border-bottom: var(--edge) solid var(--text); }
+.st-in { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: clamp(24px, 4vw, 56px); align-items: start; }
+.st-plate { display: inline-flex; align-items: baseline; gap: 10px; margin: 0 0 22px; padding: 7px 16px 8px; border-radius: 10px; background: var(--accent); color: var(--on-accent); box-shadow: inset 0 0 0 3px var(--accent), inset 0 0 0 5px var(--on-accent); font-family: var(--font-display); font-weight: 800; font-size: 19px; letter-spacing: .01em; text-transform: uppercase; }
+.st-plate small { font-family: var(--font-body); font-weight: 600; font-size: 12px; letter-spacing: .12em; opacity: .9; }
+.hero h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(36px, 5.4vw, 72px); line-height: 1.02; letter-spacing: -.03em; margin: 0 0 18px; max-width: 15ch; text-wrap: balance; }
+.h-sub { font-size: clamp(16px, 1.4vw, 19px); color: var(--muted); max-width: 42ch; margin: 0 0 26px; }
+.h-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+.st-ticket { background: var(--surface); border-radius: var(--round); box-shadow: inset 0 0 0 var(--edge) var(--text), 6px 6px 0 var(--accent); padding: 22px 24px; }
+.st-now { display: flex; align-items: center; gap: 10px; min-height: 28px; margin: 0 0 16px; padding-bottom: 14px; border-bottom: var(--edge) dashed var(--line-2); font-weight: 800; font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.st-now [data-status-text] { overflow: hidden; text-overflow: ellipsis; }
+.st-queue { display: flex; flex-direction: column; gap: 2px; margin: 0 0 16px; padding: 12px 16px; border-radius: 12px; background: var(--accent); color: var(--on-accent); text-decoration: none; }
+.st-qk { font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; opacity: .85; }
+.st-queue b { font-family: var(--font-display); font-size: clamp(22px, 2.4vw, 28px); font-weight: 800; line-height: 1.15; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.st-k { margin: 0 0 6px; font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.st-prices { list-style: none; margin: 0 0 14px; padding: 0; }
+.st-prices li { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--line); }
+.st-prices li:last-child { border-bottom: 0; }
+.st-prices span { font-weight: 600; }
+.st-prices small { color: var(--dim); font-size: 13px; font-weight: 400; margin-left: 4px; }
+.st-prices b { font-family: var(--font-display); font-size: 22px; font-weight: 800; }
+.st-all { font-weight: 800; color: var(--accent); text-decoration: none; }
+.st-all:hover { text-decoration: underline; text-underline-offset: 4px; }
+@media (max-width: 860px) { .st-in { grid-template-columns: minmax(0, 1fr); } .hero h1 { max-width: 18ch; } }
+@media (max-width: 520px) { .h-cta { flex-direction: column; align-items: stretch; } .h-cta .btn { justify-content: center; } }
+
+/* new kit features, Street style */
+.ly-card, .vc-card { border-radius: var(--round); box-shadow: inset 0 0 0 var(--edge) var(--text), 6px 6px 0 var(--text); }
+.mb-plan.best { box-shadow: inset 0 0 0 3px var(--accent), 5px 5px 0 var(--accent); }
+.vc-amounts span, .vc-custom, .vc-f input { border-radius: 999px; }
+.vc-amounts input:checked + span { box-shadow: 3px 3px 0 var(--text); }
+.q-line li { border-radius: 999px 999px 6px 6px; }
+.q-c { border-radius: 6px; }
+.ba-lab { border-radius: 999px; }

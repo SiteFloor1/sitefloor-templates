@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: clinicians
+permalink: clinicians.html
+feature: smile-clinicians-page
+eleventyComputed:
+  title: "{{ site.sections.clinicians.title | plain }}"
+  description: "The clinicians at {{ site.business.name }}, with their GDC numbers."
+---
+{% include "kits/smile/features/smile-clinicians-page/smile-clinicians-page.njk" %}

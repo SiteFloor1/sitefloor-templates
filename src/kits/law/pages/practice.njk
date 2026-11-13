@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: practice
+permalink: practice.html
+feature: practice-page
+title: Practice
+eleventyComputed:
+  description: "Where {{ site.business.name }} acts: {% for a in site.practice.items %}{{ a.name | lower }}{% if not loop.last %}, {% endif %}{% endfor %}."
+---
+{% include "kits/law/features/practice-page/practice-page.njk" %}
+{%- set hostPage = "practice-page" %}{% include "kits/law/partials/hosted.njk" %}

@@ -1,0 +1,68 @@
+{#- How dark is dark: a car of the visitor's size from the side (rendered from its 3D car), with only its glass darkened (front side
+    windows and rear windows each in their own shade, like a film maker's simulator), and the view from the
+    driver's seat through each window by day or at night (real photos, film laid over the glass). Every shade
+    the studio fits, chameleon films with their colour cast, and the UK rule per window. Only the pictures shown
+    first load with the page. -#}
+{%- set sec = site.sections.driverView %}
+{%- set t = site.tint %}
+{%- set plain = t.shades | plainShades %}
+{%- set legalFront = t.shades | darkestLegal("fronts") %}
+{%- set rearStart = plain[(plain | length) - 2] if (plain | length) > 1 else plain[0] %}
+{%- set wins = [] %}{% for w in ["fronts", "rear", "windscreen"] %}{% if t.jobs[w] %}{% set _ = wins.push(w) %}{% endif %}{% endfor %}
+{%- set bodies = site.vehicles | photoBodies %}
+{%- set startBody = "saloon" if "saloon" in bodies else bodies[0] %}
+{%- macro film(s) -%}{{ (((1 - s.light / 100) * 0.85) | round(2)) if s else 0 }}{%- endmacro %}
+<section id="driver-view" class="sec-driver" data-feature="driver-view"{{ "driver-view" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="dv rv" data-dv data-time="day" style="--f-fronts: {{ film(legalFront) }}; --f-rear: {{ film(rearStart) }}; --f-windscreen: 0">
+    <div class="dv-main">
+      <div class="dv-car studio">
+        {%- for b in bodies %}{% set ph = carKit.BODY[b] %}
+        <figure class="dv-body" data-dv-body="{{ b }}"{% if b != startBody %} hidden{% endif %} style="aspect-ratio: {{ ph.w }} / {{ ph.h }}">
+          <img {% if b == startBody %}src{% else %}data-src{% endif %}="{{ ph.src | img }}" width="{{ ph.w }}" height="{{ ph.h }}" alt="{{ ph.alt }}, its windows tinted to the shades chosen" loading="lazy">
+          <span class="dv-glass" data-w="fronts" style="-webkit-mask-image: url('{{ ph.front | img }}'); mask-image: url('{{ ph.front | img }}')"></span>
+          {%- if ph.rear %}<span class="dv-glass" data-w="rear" style="-webkit-mask-image: url('{{ ph.rear | img }}'); mask-image: url('{{ ph.rear | img }}')"></span>{% endif %}
+          {%- set cc = b | carFor %}<figcaption class="dv-credit"><a href="{{ cc.credit.url }}" target="_blank" rel="noopener">{{ cc.credit.text }}</a>, <a href="{{ cc.credit.licenceUrl }}" target="_blank" rel="noopener">{{ cc.credit.licence }}</a></figcaption>
+        </figure>
+        {%- endfor %}
+      </div>
+      <div class="dv-inside">
+        <div class="dv-inside-head"><span class="dv-label">From the driver's seat</span>
+          <div class="sr-chips" data-js-only><label class="sr-chip"><input type="radio" name="dv-time" value="day" checked><span>Day</span></label><label class="sr-chip"><input type="radio" name="dv-time" value="night"><span>Night</span></label></div>
+        </div>
+        <div class="dv-povs">
+          {%- for w in wins %}
+          <figure class="dv-pov" data-w="{{ w }}">
+            {%- for time in ["day", "night"] %}{% set s = carKit.POV[w + "-" + time] %}{% if s %}
+            <div class="dv-shot" data-time="{{ time }}">
+              <img {% if time == "day" %}src{% else %}data-src{% endif %}="{{ ('img/kit/' + s.file + '.webp') | img }}" width="{{ s.w }}" height="{{ s.h }}" alt="{{ s.alt }}" loading="lazy">
+              <svg viewBox="0 0 {{ s.w }} {{ s.h }}" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path class="film" fill-rule="evenodd" d="{{ s.glass | polyPath }}"/><path class="dv-sheen" fill-rule="evenodd" d="{{ s.glass | polyPath }}" style="fill: url(#dv-sheen-{{ w }})"/></svg>
+            </div>
+            {%- endif %}{% endfor %}
+            <figcaption>{{ w | windowShort }} <b data-dv-name="{{ w }}"></b></figcaption>
+          </figure>
+          {%- endfor %}
+        </div>
+      </div>
+      <svg class="dv-defs" aria-hidden="true" width="0" height="0"><defs>{% for w in wins %}<linearGradient id="dv-sheen-{{ w }}" x1="0" y1="0" x2="1" y2=".6" style="--sheen-c: var(--s-{{ w }}, transparent)"><stop offset="0" class="dv-s1"/><stop offset=".5" class="dv-s2"/><stop offset="1" class="dv-s1"/></linearGradient>{% endfor %}</defs></svg>
+    </div>
+    <div class="dv-side" data-js-only>
+      {%- if bodies | length > 1 %}
+      <fieldset class="dv-set"><legend>Your vehicle</legend><div class="sr-chips">
+        {%- for b in bodies %}<label class="sr-chip"><input type="radio" name="dv-body" value="{{ b }}"{% if b == startBody %} checked{% endif %}><span>{{ b | bodyName }}</span></label>{% endfor %}
+      </div></fieldset>
+      {%- endif %}
+      {%- for w in wins %}{% set min = w | minLight(false) %}
+      {%- set first = legalFront if w == "fronts" else (rearStart if w == "rear" else null) %}
+      <fieldset class="dv-set" data-dv-row="{{ w }}"><legend>{{ w | windowShort }}</legend><div class="sr-chips">
+        <label class="sr-chip"><input type="radio" name="dv-{{ w }}" value=""{% if not first %} checked{% endif %}><span>No film</span></label>
+        {%- for s in plain %}<label class="sr-chip{% if min and s.light < min %} nl{% endif %}" data-light="{{ s.light }}"><input type="radio" name="dv-{{ w }}" value="{{ s.id }}"{% if first and s.id == first.id %} checked{% endif %}><span>{{ s.name }}</span></label>{% endfor %}
+        {%- for s in t.shades %}{% if s.sheen %}<label class="sr-chip sheen{% if min and s.light < min %} nl{% endif %}" data-light="{{ s.light }}" style="--sheen:{{ s.sheen }}"><input type="radio" name="dv-{{ w }}" value="{{ s.id }}"><span>{{ s.name }}</span></label>{% endif %}{% endfor %}
+      </div></fieldset>
+      {%- endfor %}
+      <div class="dv-law" data-dv-law role="status"></div>
+      <p class="dv-note">Real photos with the film laid over the glass, to compare shades; not a measurement. Striped shades are darker than the law allows on that window: you can see them here, but we don't fit them there. <a href="{{ tintLaw.url }}" target="_blank" rel="noopener">The rules on gov.uk</a>, checked {{ tintLaw.checked }}.</p>
+    </div>
+    <ul class="dv-nojs" data-no-js>{% for w in ["fronts", "windscreen", "rear"] %}<li>{{ w | ruleText(false) }}</li>{% endfor %}</ul>
+  </div>
+</div></section>

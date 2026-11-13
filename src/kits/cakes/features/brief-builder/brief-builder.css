@@ -1,0 +1,14 @@
+/* Order a cake: the questions on the left, the message as it will be sent on the right, kept in view on desktop. */
+.ck-brief-in { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(24px, 5vw, 80px); align-items: start; }
+.ck-brief-f { display: grid; gap: 22px; }
+.ck-field-row { grid-template-columns: minmax(0, 160px) minmax(0, 1fr); gap: 22px; align-items: end; }
+.ck-field-row > span { display: grid; gap: 6px; }
+.ck-field-row .ck-serve-how { margin: 0; }
+.ck-brief-cake { margin: 0; font-family: var(--font-display); font-weight: 800; font-size: clamp(26px, 2.6vw, 36px); line-height: 1.05; }
+.ck-brief-fl { gap: 10px; }
+.ck-brief-fl label { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 12px; align-items: center; }
+.ck-brief-fl label span { font-family: var(--font-display); font-weight: 800; font-size: 20px; font-variant-numeric: tabular-nums; }
+.ck-brief-out { position: sticky; top: calc(var(--nav-h, 0px) + 24px); display: grid; gap: 14px; padding: 24px; background: var(--surface); }
+.ck-brief-k { margin: 0; color: var(--muted); }
+.ck-brief-pre { margin: 0; white-space: pre-wrap; font: inherit; font-size: 17px; line-height: 1.5; }
+@media (max-width: 900px) { .ck-brief-in { grid-template-columns: minmax(0, 1fr); } .ck-brief-out { position: static; } .ck-field-row { grid-template-columns: minmax(0, 1fr); } }

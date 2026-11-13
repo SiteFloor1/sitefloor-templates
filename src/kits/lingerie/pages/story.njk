@@ -1,0 +1,14 @@
+---
+layout: core/layouts/base.njk
+pageId: story
+permalink: story.html
+feature: founder-page
+eleventyComputed:
+  title: "{{ site.guides['story'].title | plain }}"
+  description: "{{ site.guides['story'].description }}"
+---
+{%- set g = site.guides["story"] %}
+{% include "kits/lingerie/partials/page-head.njk" %}
+
+{% include "kits/lingerie/partials/guide.njk" %}
+{% if "stockists" | enabled %}{% include "kits/lingerie/features/stockists/stockists.njk" %}{% endif %}

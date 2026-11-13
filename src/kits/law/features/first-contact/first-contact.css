@@ -1,0 +1,13 @@
+/* Conflict-safe first contact: the three steps, then the form, then the written message. */
+.lw-fc { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(24px, 5vw, 88px); padding-block: 0 var(--s4, 96px); align-items: start; }
+.lw-fc-why { margin: 0; padding-left: 1.2em; display: grid; gap: 14px; max-width: 46ch; }
+.lw-fc-form, .lw-fc-done { display: grid; gap: 8px; max-width: 560px; }
+.lw-fc-form label { font-size: 14px; margin-top: 10px; }
+.lw-fc-form label span { color: var(--muted); }
+.lw-fc-form input, .lw-fc-form select, .lw-fc-form textarea { font: inherit; color: var(--text); background: var(--bg); border: 1px solid var(--line-2); border-radius: 0; padding: 12px; min-height: 48px; }
+.lw-fc-hint { margin: 0; font-size: 14px; color: var(--muted); }
+.lw-fc-err { margin: 0; color: var(--text); font-weight: 500; }
+.lw-fc-form .go { justify-self: start; margin-top: 12px; }
+.lw-fc-msg { white-space: pre-wrap; font: inherit; font-size: 15px; background: var(--surface); padding: 16px; margin: 0; overflow-x: auto; }
+.lw-fc-plain { grid-column: 2; margin: 0; }
+@media (max-width: 760px) { .lw-fc { grid-template-columns: 1fr; } .lw-fc-plain { grid-column: auto; } }

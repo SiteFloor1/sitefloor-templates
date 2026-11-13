@@ -1,0 +1,52 @@
+{#- Tissue "Collect and visit": the studio's address with today's hours (live), how collection works in the florist's
+    words, the ways here as open-and-close rows, parking and getting in, and every question by topic. Same hooks as the
+    shared page (live status, parking). -#}
+{%- set v = site.visitInfo %}
+{%- set journeys = v.journeys or [] %}
+{%- set parking = v.parking or [] %}
+{%- set ph = { title: v.title, intro: v.intro } %}
+{% include "looks/tissue/parts/page-head.njk" %}
+<div data-feature="plan-visit">
+<section class="ts-visit"><div class="wrap ts-visit-in">
+  <div class="ts-visit-a">
+    <p class="ts-addr">{{ site.location.streetAddress }}<br>{{ site.location.locality }} {{ site.location.postcode }}</p>
+    <p class="ts-now" data-live-status><span data-status-text>Hours below</span></p>
+    <ul class="ts-hours" aria-label="Opening hours">{%- for g in site.hours | hoursGroups %}<li><span>{{ g.days }}</span> {{ g.label }}</li>{% endfor %}</ul>
+    <a class="ts-ask" href="{{ site.location | directions }}" target="_blank" rel="noopener">Open in Google Maps</a>
+  </div>
+  <div class="ts-visit-b">
+    {%- if site.delivery and site.delivery.collect %}<div class="ts-card">{% set pinClass = "ts-pin-card" %}{% include "looks/tissue/parts/pin.njk" %}<p>{{ site.delivery.collect }}</p></div>{% endif %}
+    {%- if journeys.length %}
+    <h2 class="ts-h2" id="pv-j-h">Getting here</h2>
+    <div class="ts-qa">
+      {%- for j in journeys %}
+      <details><summary>{{ j.from }} <span>{% if (j.mode | modeWords).about %}about {% endif %}{{ j.minutes }} min {{ (j.mode | modeWords).verb }}</span></summary>
+        <ol>{% for step in j.steps %}<li>{{ step }}</li>{% endfor %}</ol>
+        <a class="ts-ask" href="{{ j | directionsFor }}" target="_blank" rel="noopener">Directions from {{ j.from }}</a></details>
+      {%- endfor %}
+    </div>
+    {%- if site.mode == "demo" %}<p class="ts-fine">Example journeys and parking for a fictional studio.</p>
+    {%- elif v.checked %}<p class="ts-fine">Checked with {{ site.business.name }} in {{ v.checked | checkedText }}.</p>{% endif %}
+    {%- endif %}
+    {%- if parking.length or v.access or v.payment %}
+    <dl class="ts-facts">
+      {%- for c in parking %}<div><dt>{{ c.name }}</dt><dd><span data-parking="{{ loop.index0 }}">{% if c.walk is defined %}{{ c.walk }} min walk{% endif %}</span>. {{ c | parkingSummary }}{% if c.note %} {{ c.note }}{% endif %}</dd></div>{% endfor %}
+      {%- if v.access %}<div><dt>Getting in</dt><dd>{% for a in v.access %}{{ a.label }}: {{ "yes" if a.yes else "no" }}{% if not loop.last %}. {% endif %}{% endfor %}.{% if v.accessNote %} {{ v.accessNote }}{% endif %}</dd></div>{% endif %}
+      {%- if v.payment %}<div><dt>Paying</dt><dd>{{ v.payment }}</dd></div>{% endif %}
+    </dl>
+    {%- endif %}
+  </div>
+</div></section>
+</div>
+{%- set groups = site | questionTopics %}
+{%- if groups.length %}
+<section class="ts-qa-sec" id="questions" aria-labelledby="allq-h"><div class="wrap ts-qa-in">
+  <h2 class="ts-h2" id="allq-h">What people ask us</h2>
+  <div>
+  {%- for g in groups %}
+  <h3 class="ts-qa-k">{{ g.topic }}</h3>
+  <div class="ts-qa">{% for item in g.items %}<details><summary>{{ item.q }}</summary><p>{{ item.a }}</p></details>{% endfor %}</div>
+  {%- endfor %}
+  </div>
+</div></section>
+{%- endif %}

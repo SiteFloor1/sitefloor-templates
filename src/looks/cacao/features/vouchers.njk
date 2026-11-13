@@ -1,0 +1,32 @@
+{#- Cacao vouchers: the card as it will be tied to the box, made up as you type; the choices beside it. -#}
+{%- set sec = site.sections.vouchers %}
+{%- set v = site.vouchers %}
+<section id="vouchers" class="sec-vouchers cc-gift" data-feature="vouchers"{{ "vouchers" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="cc-gift-in">
+    <div class="cc-gcard" aria-live="polite">
+      <span class="cc-gcard-rib" aria-hidden="true"></span>
+      <p class="cc-gcard-shop">{{ site.business.name }}</p>
+      <p class="cc-gcard-amt" data-vc-show-amount>{{ (v.amounts[1] or v.amounts[0]) | pounds }}</p>
+      <p class="cc-gcard-to" data-vc-show-to>A gift</p>
+      <p class="cc-gcard-note" data-vc-show-note></p>
+      <p class="cc-gcard-small">Valid {{ v.validMonths }} months · {{ site.location.streetAddress }}</p>
+    </div>
+    <form class="cc-gift-form" data-vc-form>
+      <div class="vc-fields" data-js-only>
+        <fieldset class="cc-amts"><legend>Amount</legend>
+          {%- for a in v.amounts %}<label><input type="radio" name="vc-amount" value="{{ a }}"{% if loop.index0 == 1 or v.amounts.length == 1 and loop.first %} checked{% endif %}><span>{{ a | pounds }}</span></label>{% endfor %}
+          {%- if v.custom %}<label><input type="radio" name="vc-amount" value="custom"><span>Other</span></label>
+          <input class="cc-custom" type="number" inputmode="numeric" min="{{ v.custom.min }}" max="{{ v.custom.max }}" step="1" placeholder="£{{ v.custom.min }}–{{ v.custom.max }}" aria-label="Other amount in pounds" data-vc-custom hidden>{% endif %}
+        </fieldset>
+        <label class="bx-field">For<input type="text" maxlength="40" autocomplete="off" data-vc-to placeholder="Their name"></label>
+        <label class="bx-field">From<input type="text" maxlength="40" autocomplete="name" data-vc-from placeholder="Your name"></label>
+        <label class="bx-field">A line for the card<input type="text" maxlength="90" autocomplete="off" data-vc-note placeholder="Happy birthday"></label>
+        <p class="bk-err" data-vc-err role="alert" hidden></p>
+      </div>
+      <p data-no-js>Message us the amount, who it's for and a line for the card.</p>
+      <a class="go" href="{{ 'Hi, I would like to buy a gift voucher. How can I pay?' | wa }}" target="_blank" rel="noopener" data-vc-order>Order the voucher</a>
+      <p class="cc-fine">{{ v.howToBuy }} {{ v.terms }}</p>
+    </form>
+  </div>
+</div></section>

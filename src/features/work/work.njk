@@ -1,0 +1,36 @@
+{#- "Our work" page: the whole photo feed with filters, endless scrolling and an enlarged view. -#}
+{%- set g = site.gallery %}
+<header class="phero"><div class="wrap">
+  <nav class="crumb" aria-label="Breadcrumb"><a href="{{ 'index' | href }}">Home</a> / {{ site.work.title | plain }}</nav>
+  <span class="kick">{{ site.work.kicker }}</span>
+  <h1>{{ site.work.title | markup | safe }}</h1>
+  {%- if site.work.intro %}<p>{{ site.work.intro }}</p>{% endif %}
+</div></header>
+<section class="sec-work" data-feature="gallery" data-gallery-page><div class="wrap">
+  <div class="work-bar">
+    <div class="chips" role="group" aria-label="Show work by style" data-gallery-chips hidden>
+      <button type="button" class="chip" aria-pressed="true" data-tag="">All</button>
+      {%- for f in g.filters or [] %}<button type="button" class="chip" aria-pressed="false" data-tag="{{ f.tag }}">{{ f.label }}</button>{% endfor %}
+    </div>
+    <p class="work-count" data-gallery-count role="status"></p>
+  </div>
+  {%- set page = true %}
+  {% set galleryPage = true %}{% include "features/gallery/gallery-list.njk" %}
+  <div class="work-more">
+    <button type="button" class="btn ghost" data-gallery-more hidden>Show more</button>
+    {%- if g.profile %}<a class="btn ghost" href="{{ g.profile }}" target="_blank" rel="noopener" data-gallery-end hidden>See more on Instagram</a>{% endif %}
+  </div>
+  <span class="work-sentinel" data-gallery-sentinel aria-hidden="true"></span>
+</div></section>
+<dialog class="lb" data-gallery-dialog aria-label="Photo">
+  <div class="lb-in">
+    <figure class="lb-fig"><img data-lb-img alt=""><figcaption data-lb-cap></figcaption></figure>
+    <div class="lb-bar">
+      <button type="button" class="lb-nav" data-lb-prev aria-label="Previous photo">←</button>
+      <button type="button" class="lb-nav" data-lb-next aria-label="Next photo">→</button>
+      <a class="btn" data-lb-book target="_blank" rel="noopener">{{ "Ask for this look" if build.booking.whatsapp else build.booking.label }}</a>
+      <a class="btn ghost" data-lb-link target="_blank" rel="noopener" hidden>View on Instagram</a>
+      <button type="button" class="lb-close" data-lb-close aria-label="Close">×</button>
+    </div>
+  </div>
+</dialog>

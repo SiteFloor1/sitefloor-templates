@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: journal
+permalink: journal.html
+feature: hair-journal
+eleventyComputed:
+  title: "{{ site.journal.title | plain }}"
+  description: "{{ site.journal.intro or ('Articles from ' + site.business.name) }}"
+---
+{% include "kits/hair/features/hair-journal/hair-journal.njk" %}

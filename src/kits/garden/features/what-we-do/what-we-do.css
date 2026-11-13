@@ -1,0 +1,8 @@
+/* Design, build, care: three rows, the word large, its line beside it. */
+.gd-sv-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--text); }
+.gd-sv-i { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 24px clamp(32px, 6vw, 96px); align-items: baseline; padding: 28px 0; border-bottom: 1px solid var(--line); }
+.gd-sv-n { margin: 0; font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: clamp(36px, 4.4vw, 64px); line-height: 1; }
+.gd-sv-n a { text-decoration: none; }
+.gd-sv-n a:hover { text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 1.5px; text-underline-offset: 10px; }
+.gd-sv-t { margin: 0; max-width: 46ch; }
+@media (max-width: 760px) { .gd-sv-i { grid-template-columns: 1fr; gap: 10px; } }

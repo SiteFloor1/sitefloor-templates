@@ -1,0 +1,15 @@
+/* The gown diary: the date and its actions on the left; the year, step by step, on the right. */
+.bd-diary-in { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(28px, 6vw, 96px); align-items: start; }
+.bd-diary-side { display: grid; gap: 20px; }
+.bd-diary-order { margin: 0; font-family: var(--font-display); font-size: clamp(26px, 2.6vw, 38px); line-height: 1.15; }
+.bd-diary-away { margin: 0; color: var(--muted); font-variant-numeric: tabular-nums; }
+.bd-diary-acts { display: grid; gap: 10px; justify-items: start; }
+.bd-steps { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line-2); }
+.bd-step { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 20px; padding-block: 18px; border-bottom: 1px solid var(--line-2); font-variant-numeric: tabular-nums; }
+.bd-step-when { color: var(--muted); }
+.bd-step-what b { font-weight: 400; }
+.bd-step-note { display: block; color: var(--muted); font-size: 14px; margin-top: 4px; }
+.bd-step[data-past] { opacity: .5; }
+.bd-step[data-past] .bd-step-when::after { content: " (passed)"; }
+.bd-step-day .bd-step-what b { font-family: var(--font-display); font-size: 1.25em; }
+@media (max-width: 860px) { .bd-diary-in { grid-template-columns: minmax(0, 1fr); } .bd-step { grid-template-columns: minmax(0, 1fr); gap: 4px; } }

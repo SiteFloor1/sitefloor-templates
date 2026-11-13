@@ -1,0 +1,20 @@
+{#- A collection's page: its campaign photographs large, its line and story, every piece in it. Set `col`. -#}
+<header class="col-head">
+  <div class="col-camp">{%- set colPieces = site.pieces | piecesWhere({ collection: col.id }) %}{% for ph in col.campaign %}{% set worn = colPieces | pieceIn(ph.src) %}<figure>{% set eager = loop.first %}{% include "kits/lingerie/partials/photo.njk" %}{% if worn and ("piece-detail" | enabled) %}<figcaption><a href="{{ ('piece-' + worn.id) | href }}">{{ worn | pieceName(site) }}</a> <span>£{{ worn.price }}</span></figcaption>{% elif worn %}<figcaption>{{ worn | pieceName(site) }} <span>£{{ worn.price }}</span></figcaption>{% endif %}</figure>{% endfor %}{% set eager = false %}</div>
+  <div class="wrap col-t">
+    <p class="lp-k">The collection</p>
+    <h1 class="lp-title">{{ col.name }}</h1>
+    <p class="lp-intro">{{ col.line }}</p>
+    <p class="sw col-sw" aria-label="Colours">{% for c in col.colours %}<i style="--sw:{{ c.hex }}" title="{{ c.name }}"></i>{% endfor %}<span>{% for c in col.colours %}{{ c.name }}{% if not loop.last %} · {% endif %}{% endfor %}</span></p>
+  </div>
+</header>
+{%- if col.story %}<div class="wrap col-story">{% for para in col.story | paragraphs %}<p>{{ para }}</p>{% endfor %}</div>{% endif %}
+{%- set rest = colPieces | notShown(col.campaign | srcs) %}
+{%- if rest.length %}
+<section class="wrap col-pieces" aria-label="More in {{ col.name }}">
+  <div class="pc-row">{% for p in rest %}{% include "kits/lingerie/partials/piece-card.njk" %}{% endfor %}</div>
+</section>
+{%- endif %}
+<nav class="wrap col-more" aria-label="Other collections">
+  {%- for c in site.collections %}{% if c.id != col.id %}<a href="{{ ('collection-' + c.id) | href }}">{{ c.name }}</a>{% endif %}{% endfor %}
+</nav>

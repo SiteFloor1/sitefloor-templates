@@ -1,0 +1,28 @@
+{#- Prices page: the full menu with how long each service takes. Prices from the cut builder
+    come from the same numbers (see src/core/lib/prices.js), so they can't disagree. -#}
+{%- set p = site.pricesPage %}
+<header class="phero"><div class="wrap">
+  <nav class="crumb" aria-label="Breadcrumb"><a href="{{ 'index' | href }}">Home</a> / {{ p.title | plain }}</nav>
+  <span class="kick">{{ p.kicker }}</span>
+  <h1>{{ p.title | markup | safe }}</h1>
+  {%- if p.intro %}<p>{{ p.intro }}</p>{% endif %}
+</div></header>
+<section class="sec-fullprices" data-feature="price-page"><div class="wrap">
+  {%- for group in site.priceList %}
+  <div class="pp-group rv">
+    <h2>{{ group.group }}</h2>
+    <table class="pp-table">
+      <caption class="sr-only">{{ group.group }} prices</caption>
+      <thead class="sr-only"><tr><th scope="col">Service</th><th scope="col">Time</th><th scope="col">Price</th></tr></thead>
+      <tbody>
+      {%- for line in group.items %}{% set item = line | priceItem %}
+        <tr><th scope="row"><b>{{ item.name }}</b>{% if item.note %}<small>{{ item.note }}</small>{% endif %}</th><td class="pp-time">{% if item.minutes %}{{ item.minutes }} min{% endif %}</td><td class="pp-price">{{ item.price }}</td></tr>
+      {%- endfor %}
+      </tbody>
+    </table>
+  </div>
+  {%- endfor %}
+  {%- if p.footnote %}<p class="pp-foot">{{ p.footnote }}</p>{% endif %}
+  <div class="pp-cta"><a class="btn" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{% if build.booking.whatsapp %}{% include "core/partials/icon-whatsapp.njk" %}{% endif %}{{ build.booking.label }}</a>
+  {%- if "build-your-cut" | enabled %}<a class="btn ghost" href="{{ 'index' | href }}#cut"{{ "build-your-cut" | tierAttr | safe }}>Build your cut and see the total</a>{% endif %}</div>
+</div></section>

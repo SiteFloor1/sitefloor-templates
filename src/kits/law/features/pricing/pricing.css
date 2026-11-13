@@ -1,0 +1,21 @@
+/* Prices and service information: one section per service, the price large, the facts in four columns. */
+.lw-pricing { padding-block: 0 var(--s4, 96px); }
+.lw-pricing > * { max-width: 1100px; }
+.lw-pricing-vat { color: var(--muted); max-width: 70ch; }
+.lw-svc { border-top: 1px solid var(--line-2); padding-block: clamp(32px, 4vw, 56px); }
+.lw-svc-t { margin: 0; font-size: clamp(28px, 3vw, 44px); line-height: 1.1; }
+.lw-svc-k { margin: 6px 0 0; font-size: 14px; color: var(--muted); }
+.lw-svc-price { margin: 24px 0 8px; font-size: clamp(20px, 2vw, 26px); font-variant-numeric: tabular-nums; }
+.lw-svc-basis { margin: 0 0 28px; max-width: 70ch; color: var(--muted); }
+.lw-svc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 28px; }
+.lw-svc-grid h3, .lw-svc-h { margin: 0 0 8px; font-size: 15px; font-family: var(--font-body); font-weight: 500; }
+.lw-svc-h { margin-top: 32px; }
+.lw-svc-grid ul, .lw-svc-grid ol, .lw-svc-team { margin: 0; padding-left: 1.1em; }
+.lw-svc-grid li, .lw-svc-team li { margin-bottom: 4px; }
+.lw-svc-note { margin: 0 0 8px; font-size: 14px; color: var(--muted); }
+.lw-disb { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 15px; }
+.lw-disb th, .lw-disb td { text-align: left; padding: 10px 12px 10px 0; border-bottom: 1px solid var(--line-2); vertical-align: top; }
+.lw-disb thead th { font-weight: 500; font-size: 13px; color: var(--muted); }
+.lw-disb tbody th { font-weight: 400; }
+.lw-disb tbody th span { display: block; font-size: 13px; color: var(--muted); }
+.lw-pricing-other, .lw-pricing-more { max-width: 70ch; }

@@ -1,0 +1,9 @@
+{#- How far ahead to book, as the studio sets it. -#}
+{%- set sec = site.sections.leadTime %}
+<section id="lead-time" class="ck-lead" data-feature="lead-time" aria-label="{{ sec.title | plain }}"{{ 'lead-time' | tierAttr | safe }}><div class="wrap ck-lead-in">
+  {%- include "core/partials/section-head.njk" %}
+  <dl class="ck-rows">
+    {%- for r in site.leadTime.rows %}<div><dt>{{ r.label }}</dt><dd>{{ r.value }}</dd></div>{% endfor %}
+  </dl>
+  {%- if site.leadTime.note %}<p class="ck-note">{{ site.leadTime.note }}</p>{% endif %}
+</div></section>

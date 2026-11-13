@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: venues
+permalink: venues.html
+feature: venues-page
+eleventyComputed:
+  title: "{{ site.venues.title | plain }}"
+  description: "Venues {{ site.business.name }} has filmed, with the light there through the year."
+---
+{%- set ph = site.venues %}{% include "kits/weddingfilm/partials/page-head.njk" %}
+{% include "kits/weddingfilm/features/venues-page/venues-page.njk" %}

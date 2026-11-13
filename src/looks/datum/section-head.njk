@@ -1,0 +1,6 @@
+{#- Datum section opening: the section's name very light and large on the left, its line small and muted to the right on
+    the grid (no label above it). `sec` = { title, intro }. -#}
+<div class="dt-head">
+  <h2 class="dt-h">{{ sec.title | markup | safe }}</h2>
+  {%- if sec.intro %}<p class="dt-hr">{{ sec.intro }}</p>{% endif %}
+</div>

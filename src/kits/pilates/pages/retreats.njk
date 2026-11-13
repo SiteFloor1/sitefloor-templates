@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: retreats
+permalink: retreats.html
+feature: retreats-page
+eleventyComputed:
+  title: "{{ site.retreats.title | plain }}"
+  description: "Pilates retreats with {{ site.business.name }}: where, when and what's included."
+---
+{% include "kits/pilates/features/retreats-page/retreats-page.njk" %}

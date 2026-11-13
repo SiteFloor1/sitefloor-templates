@@ -1,0 +1,12 @@
+{#- An inner page's opening: the page's name very large in the display face, its one line beside it, and the page's
+    photograph when it has one. Set `ph` to { title, intro, photo } first. -#}
+<header class="ph hr-ph{% if ph.photo %} hr-ph-photo{% endif %}"><div class="wrap hr-ph-in">
+  <div class="hr-ph-words">
+    <p class="hr-ph-k"><a href="{{ 'index' | href }}">{{ site.business.name }}</a></p>
+    <h1 class="hr-ph-t">{{ ph.title | markup | safe }}</h1>
+    {%- if ph.intro %}<p class="hr-ph-i">{{ ph.intro }}</p>{% endif %}
+  </div>
+  {%- if ph.photo %}
+  <figure class="hr-ph-fig"><img src="{{ ph.photo.src | img }}" alt="{{ ph.photo.alt }}" width="{{ ph.photo.width }}" height="{{ ph.photo.height }}" fetchpriority="high" decoding="async"></figure>
+  {%- endif %}
+</div></header>

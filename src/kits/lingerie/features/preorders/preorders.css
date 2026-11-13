@@ -1,0 +1,5 @@
+/* Pre-orders: the heading and the payment note on the left, the pieces on the right. */
+.pre-in { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: var(--s3); align-items: start; }
+.ls-pre .pc-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--gap); }
+.pre-go { display: inline-block; margin-top: 12px; }
+@media (max-width: 760px) { .pre-in { grid-template-columns: 1fr; } .ls-pre .pc-row { grid-template-columns: 1fr 1fr; } }

@@ -1,0 +1,9 @@
+/* One commission: photograph and label side by side, like an object and its museum label. */
+.ck-one-in { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(24px, 5vw, 80px); align-items: center; padding-block: clamp(24px, 4vw, 56px); }
+.ck-one-f { margin: 0; }
+.ck-one-f img { display: block; width: 100%; height: auto; }
+.ck-one-k { margin: 0 0 8px; color: var(--muted); }
+.ck-one-t { margin: 0 0 12px; font-size: clamp(56px, 7vw, 112px); line-height: .88; }
+.ck-one-m { margin: 0 0 22px; max-width: 40ch; }
+.ck-one-l .ck-rows { margin-bottom: 24px; }
+@media (max-width: 900px) { .ck-one-in { grid-template-columns: minmax(0, 1fr); } }

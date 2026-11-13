@@ -1,0 +1,31 @@
+{#- Venues we've filmed: each venue large with its photograph, where it is, the golden hour there at midsummer and in
+    late September (calculated for its place), its own drone rule, and the films made there. The UK drone rules, with
+    their sources, close the page. -#}
+{%- set V = site.venues %}
+<section class="wf-vn" aria-label="Venues"><div class="wrap">
+  <ol class="wf-vn-list">
+    {%- for v in V.items %}
+    <li class="wf-vn-i" id="venue-{{ v.id }}">
+      {%- if v.photo %}<figure class="wf-vn-ph"><img src="{{ v.photo.src | img }}" alt="{{ v.photo.alt }}" width="{{ v.photo.width }}" height="{{ v.photo.height }}"{% if not loop.first %} loading="lazy"{% else %} fetchpriority="high"{% endif %} decoding="async">{% if v.photo.caption %}<figcaption>{{ v.photo.caption }}</figcaption>{% endif %}</figure>{% endif %}
+      <div class="wf-vn-t">
+        <h2 class="wf-vn-h">{{ v.name }}</h2>
+        <p class="wf-vn-a">{{ v.area }}</p>
+        {%- if v.text %}<p>{{ v.text }}</p>{% endif %}
+        <dl class="wf-vn-facts">
+          {%- for s in v | venueSeasons(build.today) %}{% if s.light.goldenFrom %}
+          <div><dt>{{ s.label }} ({{ s.ymd | ukDay }})</dt><dd>Golden hour {{ s.light.goldenFrom }} to {{ s.light.goldenTo }}, sunset {{ s.light.sunset }}</dd></div>
+          {%- endif %}{% endfor %}
+          {%- if v.drone %}<div><dt>Drone</dt><dd>{{ v.drone }}</dd></div>{% endif %}
+        </dl>
+        {%- set here = site | filmsAt(v.id) %}
+        {%- if here.length and ("films-page" | enabled) %}<p class="wf-vn-films">{% for f in here %}<a class="wf-go" href="{{ ('film-' ~ f.id) | href }}">{{ f.title }}</a>{% if not loop.last %} {% endif %}{% endfor %}</p>{% endif %}
+      </div>
+    </li>
+    {%- endfor %}
+  </ol>
+  {%- if V.drone %}
+  <div class="wf-vn-rules"><h2 class="wf-h2">Drones, and the rules</h2><p>{{ V.drone }}</p></div>
+  {%- endif %}
+  <p class="wf-small">Golden hour and sunset are calculated from the sun's position for each venue and date, to the nearest minute.</p>
+</div></section>
+{%- if V.sources and V.sources.length %}{% set srcs = V.sources %}{% include "kits/weddingfilm/partials/sources.njk" %}{% endif %}

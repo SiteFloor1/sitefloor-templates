@@ -1,0 +1,74 @@
+/* Detailing kit: what several features and pages share (tokens only): the small print, fields, the size switch,
+   ruled options, chips, the 3D stage, and an inner page's opening. The look adds the strip light (.tube) and refines. */
+.dt-ph { padding-top: clamp(28px, 4vw, 56px); }
+.dt-ph-in { display: grid; gap: 18px; padding-bottom: clamp(28px, 4vw, 56px); }
+.dt-ph-k { margin: 0; font-size: 13px; color: var(--muted); }
+.dt-ph-k a { color: inherit; text-decoration: underline; text-decoration-color: var(--line-2); text-decoration-thickness: 1px; text-underline-offset: 4px; }
+.dt-ph-k a:hover { color: var(--text); }
+.dt-ph-in .tube { width: 96px; }
+.dt-ph-t { margin: 0; font-family: var(--font-display); font-weight: 300; font-size: clamp(44px, 6vw, 96px); line-height: .96; letter-spacing: -.04em; max-width: 16ch; }
+.dt-ph-i { margin: 0; color: var(--muted); max-width: 52ch; font-size: 17px; }
+.dt-ph-f { margin: 0; }
+.dt-ph-f img { display: block; width: 100%; height: auto; max-height: 72vh; aspect-ratio: 21 / 9; object-fit: cover; }
+.dt-ph-f figcaption { margin-top: 10px; font-size: 12px; color: var(--muted); }
+.dt-body { max-width: 68ch; padding-block: clamp(28px, 4vw, 48px) 0; }
+.dt-body p { font-size: 17px; line-height: 1.7; }
+@media (max-width: 760px) { .dt-ph-f img { aspect-ratio: 4 / 3; } }
+.dt-sizes { display: flex; flex-wrap: wrap; gap: 4px 24px; margin: 0; padding: 0; border: 0; }
+.dt-sizes-l { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.dt-size { position: relative; display: inline-flex; align-items: center; min-height: 44px; color: var(--muted); font-size: 15px; cursor: pointer; }
+.dt-size input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+.dt-size:has(input:checked) { color: var(--text); }
+.dt-note { margin: 18px 0 0; font-size: 13px; color: var(--muted); max-width: 70ch; }
+.dt-field { display: grid; gap: 6px; font-size: 14px; color: var(--muted); }
+.dt-field input, .dt-field textarea, .dt-field select { min-height: 48px; padding: 10px 0; border: 0; border-bottom: 1px solid var(--line-2); border-radius: 0; background: transparent; color: var(--text); font: inherit; font-size: 16px; color-scheme: inherit; }
+.dt-field textarea { min-height: 88px; resize: vertical; }
+.dt-bd-l { margin-bottom: 8px; padding: 0; font-size: 13px; color: var(--muted); }
+.dt-bd-pk { margin: 0; padding: 0; border: 0; border-top: 1px solid var(--line); }
+.dt-opt { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: baseline; min-height: 56px; padding-block: 14px; border-bottom: 1px solid var(--line); cursor: pointer; color: var(--muted); }
+.dt-opt input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+.dt-opt:has(input:checked) { color: var(--text); }
+.dt-opt:has(input:focus-visible) { outline: 2px solid var(--text); outline-offset: 2px; }
+.dt-opt-n { display: grid; gap: 2px; font-size: 17px; }
+.dt-opt-n small { font-size: 13px; color: var(--muted); }
+.dt-opt b { font-weight: 400; font-variant-numeric: tabular-nums lining-nums; }
+.dt-chip { position: relative; display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border: 1px solid var(--line-2); font-size: 14px; cursor: pointer; }
+.dt-chip input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+.dt-chip:has(input:checked) { border-color: var(--text); background: var(--text); color: var(--bg); }
+.dt-chip:has(input:focus-visible) { outline: 2px solid var(--text); outline-offset: 3px; }
+.dt-3d { position: relative; aspect-ratio: 4 / 3; background: var(--bg); overflow: hidden; }
+.dt-3d-ph { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .9s ease; }
+.dt-3d-gl { position: absolute; inset: 0; opacity: 0; transition: opacity .9s ease; touch-action: pan-y; }
+.dt-3d-gl canvas { display: block; width: 100%; height: 100%; }
+.dt-3d.is-3d .dt-3d-gl { opacity: 1; }
+.dt-3d.is-3d .dt-3d-ph { opacity: 0; }
+.dt-3d-tag { position: absolute; left: 14px; top: 12px; padding: 3px 8px; font-size: 12px; color: var(--on-photo); background: var(--photo-scrim); }
+.dt-3d-bar { display: grid; gap: 10px; justify-items: start; margin-top: 14px; }
+.dt-3d-mb { margin-left: 8px; font-size: 13px; color: var(--muted); font-weight: 400; }
+.dt-3d-light { display: grid; gap: 6px; width: min(100%, 520px); font-size: 14px; color: var(--muted); }
+.dt-3d-light input { width: 100%; accent-color: var(--text); }
+.dt-3d-credit { margin: 0; font-size: 12px; color: var(--muted); }
+.dt-3d-credit a { color: inherit; }
+@media (prefers-reduced-motion: reduce) { .dt-3d-ph, .dt-3d-gl { transition: none; } }
+
+/* A service page (wheels, interior, new-car protection, selling): included and steps side by side, then the "from"
+   prices by size in a row under a lit line. */
+.dt-sv { padding-block: clamp(40px, 6vw, 88px) 0; }
+.dt-sv-in { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(28px, 5vw, 96px); align-items: start; }
+.dt-sv-h { margin: 0 0 16px; font-family: var(--font-display); font-weight: 300; font-size: clamp(24px, 2.4vw, 32px); letter-spacing: -.02em; }
+.dt-sv-inc, .dt-sv-steps { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.dt-sv-inc li, .dt-sv-steps li { padding-block: 14px; border-bottom: 1px solid var(--line); }
+.dt-sv-steps { counter-reset: sv; }
+.dt-sv-steps li { counter-increment: sv; display: grid; grid-template-columns: 2.5em minmax(0, 1fr); gap: 2px 16px; }
+.dt-sv-steps li::before { content: counter(sv, decimal-leading-zero); grid-row: span 2; color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; }
+.dt-sv-steps b { font-weight: 500; }
+.dt-sv-steps span { color: var(--muted); }
+.dt-sv-p { padding-block: clamp(40px, 6vw, 88px); }
+.dt-sv-p-in { display: grid; gap: 24px; justify-items: start; }
+.dt-sv-p-in .tube { width: 100%; }
+.dt-sv-dl { display: flex; flex-wrap: wrap; gap: 20px clamp(28px, 5vw, 72px); margin: 0; }
+.dt-sv-dl dt { font-size: 14px; color: var(--muted); }
+.dt-sv-dl dd { margin: 4px 0 0; font-family: var(--font-display); font-weight: 300; font-size: clamp(30px, 3.2vw, 44px); letter-spacing: -.02em; font-variant-numeric: tabular-nums lining-nums; }
+.dt-sv-dl dd span { font-family: var(--font-body, inherit); font-size: 14px; color: var(--muted); letter-spacing: 0; margin-right: 4px; }
+@media (max-width: 860px) { .dt-sv-in { grid-template-columns: 1fr; } }
+

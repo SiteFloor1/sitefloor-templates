@@ -1,0 +1,11 @@
+{#- Cacao gallery: the shop's latest photos as a shelf of their own, edge to edge, the handle as the ticket. -#}
+{%- set sec = site.sections.gallery %}
+{%- set g = site.gallery %}
+<section id="work" class="sec-gallery cc-gal" data-feature="gallery" data-gallery-limit="6"{{ "gallery" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  {% include "features/gallery/gallery-list.njk" %}
+  <p class="cc-gal-foot">
+    {%- if g.handle %}<span class="ticket"><b>@{{ g.handle }}</b><span>Instagram</span></span>{% endif %}
+    {%- if "work" | enabled %}<a class="go" href="{{ 'work' | href }}"{{ "work" | tierAttr | safe }}>Every photograph</a>{% elif g.profile %}<a class="go" href="{{ g.profile }}" target="_blank" rel="noopener">On Instagram</a>{% endif %}
+  </p>
+</div></section>

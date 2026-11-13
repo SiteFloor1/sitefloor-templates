@@ -1,0 +1,7 @@
+{#- Mackerel section opening: a short lit tube, then the section's name in the light display face, its line beneath in
+    the muted ink. No label above. -#}
+<div class="mk-sh">
+  <span class="tube" aria-hidden="true"></span>
+  <h2 class="mk-sh-t">{{ sec.title | markup | safe }}</h2>
+  {%- if sec.intro %}<p class="mk-sh-i">{{ sec.intro }}</p>{% endif %}
+</div>

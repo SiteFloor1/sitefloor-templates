@@ -1,0 +1,9 @@
+---
+layout: core/layouts/base.njk
+pageId: "404"
+permalink: 404.html
+title: Page not found
+---
+{%- set ph = { title: "This page isn't here.", intro: "It may have moved. The cakes are on the home page." } %}
+{% include "kits/cakes/partials/page-head.njk" %}
+<p class="wrap nf-back"><a class="go" href="{{ 'index' | href }}">Back to the cakes</a></p>

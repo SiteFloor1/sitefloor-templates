@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: vouchers
+permalink: vouchers.html
+feature: gift-page
+eleventyComputed:
+  title: "{{ site.giftPage.title | plain }}"
+  description: "Gift vouchers from {{ site.business.name }}, {{ site.location.locality }}."
+---
+{%- set ph = site.giftPage %}
+{% include "kits/bridal/partials/page-head.njk" %}
+{%- set hostPage = "gift-page" %}{% include "kits/bridal/partials/hosted.njk" %}

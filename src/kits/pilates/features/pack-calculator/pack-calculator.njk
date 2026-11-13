@@ -1,0 +1,22 @@
+{#- Packs and memberships: how often you come in, what each way of paying costs a month and a class, cheapest first.
+    The studio's own prices. Without JavaScript, the prices as a plain list. -#}
+{%- set sec = site.sections.packs %}
+{%- set p = site.packs %}
+<section id="packs" class="pl-pk" data-feature="pack-calculator" aria-labelledby="pl-pk-h"{{ 'pack-calculator' | tierAttr | safe }}><div class="wrap pl-pk-in">
+  <div>
+    <h2 class="pl-find-h" id="pl-pk-h">{{ sec.title | markup | safe }}</h2>
+    {%- if sec.intro %}<p class="pl-find-i">{{ sec.intro }}</p>{% endif %}
+    <div class="pl-pk-q" data-js-only>
+      <label for="pk-n">How often will you come?</label>
+      <div class="pl-pk-n" role="group" aria-label="Classes a week">
+        {%- for n in [1, 2, 3, 4] %}<label class="pl-chip"><input type="radio" name="pk-n" id="pk-n-{{ n }}" value="{{ n }}"{% if n == 2 %} checked{% endif %}>{{ n }} a week</label>{% endfor %}
+      </div>
+    </div>
+    <p class="pl-pk-terms">{{ p.terms }}{% if site.mode == "demo" %} Demo prices.{% endif %}</p>
+  </div>
+  <ol class="pl-pk-list" data-pk-list aria-live="polite">
+    <li><b>One class</b><span>{{ p.single | gbpWhole }}</span></li>
+    {%- for x in p.items %}<li><b>{{ x.name }}</b><span>{{ x.price | gbpWhole }} · use within {{ x.months }} {{ 'month' if x.months == 1 else 'months' }}</span></li>{% endfor %}
+    {%- for x in p.memberships %}<li><b>{{ x.name }}</b><span>{{ x.monthly | gbpWhole }} a month · {{ 'unlimited' if x.classes == 'unlimited' else (x.classes + ' classes') }}</span></li>{% endfor %}
+  </ol>
+</div></section>

@@ -1,0 +1,28 @@
+{#- Basalt header: the mark and the spaced wordmark on the left, the pages and "Ask us" on the right; over the hero on
+    the home page, on basalt elsewhere. On phones "Menu" opens the pages full screen. -#}
+<header class="nav bs-nav"><div class="wrap bs-nav-in">
+  <a class="bs-brand" href="{{ 'index' | href }}" aria-label="{{ site.business.name }}, home">
+    {%- if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="" height="22">
+    {%- else %}<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 11c6-4 12 4 18 0s8-3 8-3M3 17c6-4 12 4 18 0s8-3 8-3M3 23c6-4 12 4 18 0s8-3 8-3"/></svg>{% endif %}
+    <span>{{ site.business.name }}</span>
+  </a>
+  <nav class="bs-links" aria-label="Main">
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+    <a href="{{ ('visit' | href) if ('plan-visit' | enabled) else '#visit' }}"{% if pageId == "visit" %} aria-current="page"{% endif %}>Visit</a>
+  </nav>
+  <a class="bs-ask" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">Ask us</a>
+  <button class="burger bs-menu" type="button" aria-expanded="false" aria-controls="mnav"><span class="bs-open">Menu</span><span class="bs-close">Close</span></button>
+</div></header>
+<div class="mnav bs-sheet" id="mnav" hidden>
+  <nav aria-label="Pages">
+    <a href="{{ 'index' | href }}"{% if pageId == "index" %} aria-current="page"{% endif %}>Home</a>
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+    <a href="{{ ('visit' | href) if ('plan-visit' | enabled) else '#visit' }}">Visit</a>
+  </nav>
+  <p class="bs-sheet-now" data-live-status><span class="dot" aria-hidden="true"></span> <span data-status-text>Showroom hours</span></p>
+  <p class="bs-sheet-addr">{{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}</p>
+</div>

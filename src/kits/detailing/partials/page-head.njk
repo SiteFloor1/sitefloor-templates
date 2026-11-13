@@ -1,0 +1,13 @@
+{#- An inner page's opening: where you are, a lit line, the page's name large, its line, and the page's photograph wide
+    beneath. Set `pg` to the page's settings ({ kicker, title, intro, photo?, body? }). -#}
+<header class="dt-ph"><div class="wrap dt-ph-in">
+  <p class="dt-ph-k"><a href="{{ 'index' | href }}">{{ site.business.name }}</a><span aria-hidden="true"> / </span>{{ pg.kicker or (pg.title | plain) }}</p>
+  <span class="tube" aria-hidden="true"></span>
+  <h1 class="dt-ph-t">{{ pg.title | markup | safe }}</h1>
+  <p class="dt-ph-i">{{ pg.intro }}</p>
+</div>
+{%- if pg.photo %}
+<figure class="dt-ph-f"><img src="{{ pg.photo.src | img }}" alt="{{ pg.photo.alt }}" width="{{ pg.photo.width }}" height="{{ pg.photo.height }}" fetchpriority="high" decoding="async">{% if pg.photo.caption %}<figcaption class="wrap">{{ pg.photo.caption }}</figcaption>{% endif %}</figure>
+{%- endif %}
+</header>
+{%- if pg.body %}<div class="wrap dt-body">{% for p in pg.body %}<p>{{ p }}</p>{% endfor %}</div>{% endif %}

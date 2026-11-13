@@ -1,0 +1,16 @@
+{#- Atelier footer: written like a cake's label. The name heavy on the left; on the right, label-and-value rows:
+    the studio, by appointment hours, how to reach it, the pages; the Sitefloor credit last. -#}
+<footer class="foot at-foot"><div class="wrap at-foot-in">
+  <div class="at-foot-name">
+    <span class="at-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+    <p class="at-foot-word">{{ site.business.name }}</p>
+    <p class="at-foot-what">{{ site.hero.kicker }}</p>
+  </div>
+  <dl class="at-foot-dl">
+    <div><dt>Studio</dt><dd>{{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}</dd></div>
+    <div><dt>Hours</dt><dd><ul class="at-foot-hours" aria-label="Studio hours">{% for row in site.hours | hoursRows %}<li data-day="{{ row.dayIndex }}"><span>{{ row.day }}</span> {{ row.label }}</li>{% endfor %}</ul></dd></div>
+    <div><dt>Ask</dt><dd><a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a>{% if site.contact.email %} · <a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>{% endif %}</dd></div>
+    <div><dt>Pages</dt><dd class="at-foot-links"><a href="{{ 'index' | href }}">The cakes</a>{% for item in site.nav | navItems(pageId) %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}>{{ item.label }}</a>{% endfor %}{% if 'allergens-page' | enabled %}<a href="{{ 'allergens' | href }}">Allergens</a>{% endif %}{% if 'plan-visit' | enabled %}<a href="{{ 'visit' | href }}">Visit</a>{% endif %}<a href="{{ 'privacy' | href }}">Privacy</a></dd></div>
+  </dl>
+  <p class="at-foot-by"><a class="by" href="https://sitefloor.com" rel="noopener">Website by <b>Sitefloor</b></a></p>
+</div></footer>

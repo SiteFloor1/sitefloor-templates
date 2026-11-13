@@ -1,0 +1,24 @@
+{#- Booth hero: a light headline and the studio's facts (the lead clinician's GDC number at body size), then a
+    photo-booth strip of four smiles: laid flat across the page on desktop, upright on a phone and never taller than
+    the screen. Each frame develops in turn once the page loads, never with reduced motion. -#}
+{%- set st = site.hero.strip %}
+{%- set p = (site.clinicians.items | selectattr("lead") | first) or site.clinicians.items[0] %}
+<section class="hero bt-hero" aria-label="{{ site.business.name }}"><div class="wrap">
+  <div class="bt-intro">
+    <h1 class="bt-h1">{% for l in site.hero.title.split("|") %}{{ l | plain }}{% if not loop.last %}<br>{% endif %}{% endfor %}</h1>
+    <div class="bt-facts">
+      <p><b>{{ site.hero.kicker }}.</b> {{ site.hero.intro }}</p>
+      <p>{% include "kits/smile/partials/clinician-line.njk" %}</p>
+    </div>
+  </div>
+  <div class="bt-table">
+    <div class="bt-strip" role="img" aria-label="{{ st.label }}">
+      {%- for f in st.frames %}
+      <div class="bt-fr"><img src="{{ f.src | img }}" alt="" width="{{ f.width }}" height="{{ f.height }}" decoding="async"{% if loop.first %} fetchpriority="high"{% endif %}{% if f.focus %} style="object-position: {{ f.focus }}"{% endif %}></div>
+      {%- endfor %}
+      <p class="bt-tag"><i>{{ site.business.name }}</i><span>{{ build.today.slice(8, 10) }}.{{ build.today.slice(5, 7) }}.{{ build.today.slice(2, 4) }}</span></p>
+    </div>
+    {%- if site.mode == "demo" or st.models %}<p class="bt-note">Models, not patients.{% if st.note %} {{ st.note }}{% endif %}</p>
+    {%- elif st.note %}<p class="bt-note">{{ st.note }}</p>{% endif %}
+  </div>
+</div></section>

@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: offices
+permalink: offices.html
+feature: offices-page
+eleventyComputed:
+  title: "{{ site.sections.office.title }}"
+  description: "{{ site.location.area or ('Visiting ' + site.business.name + '.') }}"
+---
+{% include "kits/wealth/features/offices-page/offices-page.njk" %}

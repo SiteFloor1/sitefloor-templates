@@ -1,0 +1,24 @@
+{#- The build in 3D, stage by stage: a photograph first; one tap loads the same house the visualiser draws and steps
+    through the builder's stages, each with its own length beside it. -#}
+{%- set b3 = site.build3d %}{% set s = site.stages %}
+{%- set f = s.below %}
+<section class="bd-b3" aria-labelledby="b3-h" data-feature="build-3d"><div class="wrap">
+  <h2 id="b3-h" class="bd-h2">{{ b3.title | markup | safe }}</h2>
+  {%- if b3.intro %}<p class="bd-b3-intro">{{ b3.intro }}</p>{% endif %}
+  <div class="bd-b3-grid">
+    <div class="bd-vz-stage bd-b3-stage">
+      <img class="bd-vz-photo" src="{{ f.src | img }}" alt="{{ f.alt }}" width="{{ f.width }}" height="{{ f.height }}" loading="lazy" decoding="async">
+      <button class="bd-vz-try" type="button" data-b3-try data-js-only>
+        <svg viewBox="0 0 30 30" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 11 15 5l11 6v12l-11 6-11-6z"/><path d="M4 11l11 6 11-6M15 17v12"/></svg>
+        <span>See the build in 3D<small>Tap to load it, about {{ build.model3dKb }} KB</small></span>
+      </button>
+      <canvas class="bd-vz-canvas" data-b3-canvas tabindex="0" hidden aria-label="A 3D model of the extension at the chosen stage. Drag, or use the arrow keys, to turn it."></canvas>
+      <p class="bd-vz-status" data-b3-status role="status" hidden></p>
+    </div>
+    <ol class="bd-b3-steps">
+      {%- for st in s.items %}<li><button type="button" data-b3-step="{{ loop.index0 }}" aria-pressed="{{ 'true' if loop.last else 'false' }}"><b>{{ st.name }}</b>{% if st.weeks %}<span>{{ st.weeks | weeksWords }}</span>{% endif %}</button></li>{% endfor %}
+    </ol>
+  </div>
+  {%- set tw = s.items | totalWeeks %}
+  {%- if tw %}<p class="bd-b3-total">From survey to handover, {{ tw | weeksWords }} on our recent jobs. Every house is different; we give you a programme for yours before we start.</p>{% endif %}
+</div></section>

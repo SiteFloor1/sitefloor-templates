@@ -1,0 +1,18 @@
+{#- One insight or guide on its own page. Set `art` (the piece) and `kind` ("insight" or "guide") first. -#}
+{%- set by = site.people | person(art.author) %}
+<article class="lw-art">
+  <header class="wrap lw-art-head">
+    <p class="lw-crumb"><a href="{{ 'index' | href }}">{{ site.business.name }}</a> <span aria-hidden="true">/</span> <a href="{{ ('guides' if kind == 'guide' else 'insights') | href }}">{{ site.guides.title if kind == "guide" else site.insights.title }}</a></p>
+    <h1 class="lw-art-t">{{ art.title }}</h1>
+    <p class="lw-art-meta"><time datetime="{{ art.date }}">{{ art.date | ukDate }}</time> · {{ by.name }}, {{ by.role }}{% if art.practice %} · <a href="{{ (art.practice | href) if ('area-pages' | enabled) else (('practice' | href) if ('practice-page' | enabled) else ('index' | href) + '#practice') }}">{{ (site.practice | area(art.practice)).name }}</a>{% endif %}</p>
+  </header>
+  {%- if art.photo %}<figure class="lw-art-fig"><img src="{{ art.photo.src | img }}" alt="{{ art.photo.alt }}" width="{{ art.photo.width }}" height="{{ art.photo.height }}" fetchpriority="high" decoding="async"{% if art.photo.position %} style="object-position:{{ art.photo.position }}"{% endif %}></figure>{% endif %}
+  <div class="wrap lw-art-body">
+    <p class="lw-art-sum">{{ art.summary }}</p>
+    {%- for para in art.body %}<p>{{ para | markup | safe }}</p>{% endfor %}
+    <aside class="lw-art-note">
+      {%- if kind == "guide" %}{% set rv = site.people | person(art.reviewedBy) %}<p>Reviewed by {{ rv.name }}, {{ rv.role }}, on {{ art.reviewed | ukDate }}.</p>{% endif %}
+      <p>General information, not legal advice. Every situation differs; please speak to us before acting on it.</p>
+    </aside>
+  </div>
+</article>

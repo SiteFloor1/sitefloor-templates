@@ -1,0 +1,41 @@
+{#- Shared date picker: a start and an end date (or one date with `single`), with the business's own times.
+    Include it inside a kit's feature:
+      {% set dr = { id: "hire", region: "england-wales", rules: site.hire.dates, from: "Pick-up", to: "Return" } %}
+      {% include "features/date-range/date-range.njk" %}
+    Without JavaScript it is plain date inputs (and time lists), checked by the business when the request arrives.
+    With JavaScript a month calendar fills the space reserved for it (no layout shift), each day named for screen
+    readers ("Saturday 14 November, free"). A look can replace this markup with src/looks/<look>/features/date-range.njk,
+    keeping the data-dr-* hooks. See README.md. -#}
+{%- if "date-range" | enabled %}
+{%- set drRules = dr.rules %}
+{%- set drSingle = drRules.single %}
+<div class="dr" data-feature="date-range" data-dr="{{ dr.id }}" data-dr-region="{{ dr.region }}" data-dr-rules="{{ drRules | dump }}">
+  <fieldset class="dr-fields">
+    <legend class="dr-legend">{{ dr.legend or ("Your date" if drSingle else "Your dates") }}</legend>
+    <div class="dr-pair">
+      <label class="dr-field" for="{{ dr.id }}-from"><span>{{ dr.from or ("Date" if drSingle else "From") }}</span>
+        <input type="date" id="{{ dr.id }}-from" name="from" data-dr-from autocomplete="off"></label>
+      {%- if drRules.slots %}
+      <label class="dr-field" for="{{ dr.id }}-from-time"><span>Time</span>
+        <select id="{{ dr.id }}-from-time" name="fromTime" data-dr-from-time><option value="">Choose</option>{% for t in drRules.slots %}<option value="{{ t }}">{{ t }}</option>{% endfor %}</select></label>
+      {%- endif %}
+    </div>
+    {%- if not drSingle %}
+    <div class="dr-pair">
+      <label class="dr-field" for="{{ dr.id }}-to"><span>{{ dr.to or "To" }}</span>
+        <input type="date" id="{{ dr.id }}-to" name="to" data-dr-to autocomplete="off"></label>
+      {%- if drRules.slots %}
+      <label class="dr-field" for="{{ dr.id }}-to-time"><span>Time</span>
+        <select id="{{ dr.id }}-to-time" name="toTime" data-dr-to-time><option value="">Choose</option>{% for t in drRules.slots %}<option value="{{ t }}">{{ t }}</option>{% endfor %}</select></label>
+      {%- endif %}
+    </div>
+    {%- endif %}
+  </fieldset>
+  <div class="dr-calbox">
+    <div class="dr-cal" data-js-only data-dr-cal></div>
+    <p class="dr-sheet" data-js-only data-dr-sheet role="status"></p>
+    <p class="dr-nojs" data-no-js>Choose {{ "a date" if drSingle else "your dates" }} above. We check {{ "it" if drSingle else "them" }} against our calendar when your request arrives.</p>
+  </div>
+  <p class="dr-status" role="status" data-dr-status></p>
+</div>
+{%- endif %}

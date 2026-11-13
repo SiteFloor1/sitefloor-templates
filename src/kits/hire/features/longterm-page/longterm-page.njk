@@ -1,0 +1,20 @@
+{#- Long-term and corporate: the client's monthly rates per car, their terms, and an account request on WhatsApp. -#}
+{%- set lp = site.longTermPage %}{% set lt = site.hire.longTerm %}
+{%- set pt = { title: lp.title, intro: lp.intro, photo: lp.photo, photoTall: lp.photoTall, kicker: lp.kicker } %}{% include "kits/hire/parts/page-top.njk" %}
+<section class="hr-lt" data-feature="longterm-page" aria-label="{{ lp.title | plain }}">
+  <div class="wrap hr-lt-grid">
+    <div class="hr-lt-text"><p>{{ lt.text }}</p>{% if lt.minMonths %}<p class="hr-lt-min">{{ lt.minMonths | words | capitalize }} {{ "month" if lt.minMonths == 1 else "months" }} at least.</p>{% endif %}</div>
+    <table class="hr-lt-rates">
+      <caption>A month, by car</caption>
+      <thead><tr><th scope="col">Car</th><th scope="col">A month</th><th scope="col">Miles a day</th><th scope="col">Deposit</th></tr></thead>
+      <tbody>{% for car in site.fleet.cars | withMonth %}<tr><th scope="row"><a href="{{ car.id | carUrl(build.links) }}">{{ car | carName }}</a></th><td>{{ car.rates.month | money }}</td><td>{{ car.miles.perDay if car.miles.perDay != "unlimited" else "Unlimited" }}</td><td>{{ car.deposit | money }}</td></tr>{% endfor %}</tbody>
+    </table>
+  </div>
+  <form class="wrap hr-lt-form" data-lt-form>
+    <div class="dt-head is-stacked"><h2 class="dt-h">Open an account</h2><p class="dt-hr">For a company or a long hire. We reply to talk it through.</p></div>
+    <label class="hr-field is-wide" for="lt-co"><span>Company, if any</span><input id="lt-co" maxlength="80" autocomplete="organization" data-lt="company"></label>
+    <label class="hr-field" for="lt-months"><span>How many months</span><input id="lt-months" type="number" min="1" max="36" inputmode="numeric" data-lt="months"></label>
+    <label class="hr-field" for="lt-cars"><span>How many cars</span><input id="lt-cars" type="number" min="1" max="50" inputmode="numeric" data-lt="cars"></label>
+    <p class="hr-rq-go"><a class="dt-go" href="{{ lt.message | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ lt.message }}"{% endif %} target="_blank" rel="noopener" data-lt-send>Request an account on WhatsApp</a></p>
+  </form>
+</section>

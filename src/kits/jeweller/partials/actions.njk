@@ -1,0 +1,8 @@
+{#- What can be done with a piece, as underlined words: see it in person (WhatsApp, naming the piece), set it aside on
+    the tray, drop a hint. Set `p` first. -#}
+{%- set seeText = "Hello " + site.business.name + ", I'd like to see " + p.name + " in person. When could I come in?" %}
+<p class="jw-acts">
+  <a class="nc-u nc-label" href="{{ seeText | wa }}" data-wa-text="{{ seeText }}" target="_blank" rel="noopener" data-see="{{ p.id }}">See it in person</a>
+  {%- if "your-tray" | enabled %}<button type="button" class="nc-u nc-label nc-btnlink" data-tray="{{ p.id }}" data-tray-name="{{ p.name }}" aria-pressed="false"{{ "your-tray" | tierAttr | safe }}>Set aside</button>{% endif %}
+  {%- if "drop-a-hint" | enabled %}{% include "kits/jeweller/features/drop-a-hint/drop-a-hint.njk" %}{% endif %}
+</p>

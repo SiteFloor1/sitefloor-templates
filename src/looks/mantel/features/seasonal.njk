@@ -1,0 +1,6 @@
+{#- Mantel seasons: one quiet line under the header, the season's name in the serif. seasonal.js shows the right one. -#}
+<div class="seasons mt-seasons" data-feature="seasonal">
+  {%- for s in site.seasons %}
+  <p class="season" data-from="{{ s.from }}" data-to="{{ s.to }}" data-tint="{{ s.tint or '' }}"{% if loop.index0 != build.seasonIndex %} hidden{% endif %}><b>{{ s.name }}</b> <span>{{ s.banner }}</span>{% if s.link %} <a href="{{ s.link.href }}">{{ s.link.label }}</a>{% endif %}</p>
+  {%- endfor %}
+</div>

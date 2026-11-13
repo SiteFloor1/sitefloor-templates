@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: words
+permalink: words.html
+feature: glossary
+eleventyComputed:
+  title: "{{ site.glossary.title | plain }}"
+  description: "Plain-English meanings of the legal words you may meet, from {{ site.business.name }}."
+---
+{% include "kits/law/features/glossary/glossary.njk" %}

@@ -1,0 +1,10 @@
+/* The practice index: one ruled row per area, its name large, the line beside it. Looks set the type and spacing. */
+.lw-practice-in { display: grid; gap: clamp(24px, 6vw, 104px); }
+.lw-practice-in.has-photo { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); }
+.lw-practice-fig { margin: 0; aspect-ratio: 3 / 4; overflow: hidden; align-self: start; max-width: 100%; }
+.lw-practice-fig img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.lw-index { list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--line-2); }
+.lw-index-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: 24px; border-top: 1px solid var(--line-2); padding-block: clamp(10px, 1.2vw, 18px); color: inherit; text-decoration: none; }
+.lw-index-n { font-family: var(--font-display); font-size: clamp(30px, 4.2vw, 62px); line-height: 1.05; }
+.lw-index-l { font-size: 14px; color: var(--muted); text-align: right; max-width: 26ch; }
+@media (max-width: 760px) { .lw-practice-in.has-photo { grid-template-columns: 1fr; } .lw-practice-fig { aspect-ratio: 4 / 3; } .lw-index-l { display: none; } }

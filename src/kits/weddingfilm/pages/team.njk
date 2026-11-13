@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: team
+permalink: team.html
+feature: team
+eleventyComputed:
+  title: "{{ site.team.title | plain }}"
+  description: "The people who film and photograph your wedding at {{ site.business.name }}."
+---
+{% include "features/team/team.njk" %}

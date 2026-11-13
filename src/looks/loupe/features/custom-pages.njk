@@ -1,0 +1,23 @@
+{#- Loupe general page: the page head, then one reading column; photos at the column's full width, lists ruled, and
+    the booking line in the stain colour. -#}
+{%- set ph = { kicker: cp.kicker or site.business.name, title: cp.title, intro: cp.intro } %}
+{% include "kits/mehndi/partials/page-head.njk" %}
+<div class="lp-cp" data-feature="custom-pages"><div class="wrap"><div class="lp-cp-in">
+  {%- for b in cp.blocks %}
+  {%- if b.type == "text" %}
+  <section class="lp-cp-text rv">
+    {%- if b.heading %}<h2>{{ b.heading }}</h2>{% endif %}
+    {%- for para in b.body | paragraphs %}<p>{{ para }}</p>{% endfor %}
+  </section>
+  {%- elif b.type == "photo" %}
+  <figure class="lp-cp-photo rv"><img src="{{ b.src | img }}" alt="{{ b.alt }}" loading="lazy" decoding="async">{% if b.caption %}<figcaption>{{ b.caption }}</figcaption>{% endif %}</figure>
+  {%- elif b.type == "list" %}
+  <section class="lp-cp-list rv">
+    {%- if b.heading %}<h2>{{ b.heading }}</h2>{% endif %}
+    <ul>{% for item in b.items %}<li>{{ item }}</li>{% endfor %}</ul>
+  </section>
+  {%- elif b.type == "book" %}
+  <p class="lp-cp-book rv"><span>{{ b.text }}</span> <a class="mh-solid" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{{ b.label or build.booking.label }}</a></p>
+  {%- endif %}
+  {%- endfor %}
+</div></div></div>

@@ -1,0 +1,18 @@
+---
+layout: core/layouts/base.njk
+pageId: what-we-make
+permalink: what-we-make.html
+feature: garment-pages
+eleventyComputed:
+  title: "{{ site.garmentPages.title | plain }}"
+  description: "What {{ site.business.name }} makes: suits, overcoats, dinner suits and shirts, each cut from a pattern of your own."
+---
+{%- set ph = site.garmentPages %}
+{% include "kits/tailor/partials/page-head.njk" %}
+<section class="wrap tl-wm" aria-label="{{ site.garmentPages.title | plain }}">
+  <ul class="tl-wm-list">
+    {%- for gp in site.garmentPages.items %}
+    <li><a href="{{ gp.slug | href }}"><img src="{{ gp.photo.src | img }}" alt="{{ gp.photo.alt }}" width="{{ gp.photo.width }}" height="{{ gp.photo.height }}" loading="{{ 'eager' if loop.index <= 2 else 'lazy' }}" decoding="async"><span class="tl-wm-t">{{ gp.title }}</span><span class="tl-wm-i">{{ gp.intro }}</span></a></li>
+    {%- endfor %}
+  </ul>
+</section>

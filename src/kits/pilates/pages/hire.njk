@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: hire
+permalink: hire.html
+feature: private-hire
+eleventyComputed:
+  title: "{{ site.studioHire.title | plain }}"
+  description: "Private hire and team classes at {{ site.business.name }}, {{ site.location.locality }}."
+---
+{% include "kits/pilates/features/private-hire/private-hire.njk" %}

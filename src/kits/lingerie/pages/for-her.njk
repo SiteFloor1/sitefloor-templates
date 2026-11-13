@@ -1,0 +1,17 @@
+---
+layout: core/layouts/base.njk
+pageId: for-her
+permalink: for-her.html
+feature: for-her-page
+eleventyComputed:
+  title: "{{ site.guides['for-her'].title | plain }}"
+  description: "{{ site.guides['for-her'].description }}"
+---
+{%- set g = site.guides["for-her"] %}
+{% include "kits/lingerie/partials/page-head.njk" %}
+{% include "kits/lingerie/features/tell-us-about-her/tell-us-about-her.njk" %}
+{% if "gift-concierge" | enabled %}{% include "kits/lingerie/features/gift-concierge/gift-concierge.njk" %}{% endif %}
+{% if "gift-wrap" | enabled %}{% include "kits/lingerie/features/gift-wrap/gift-wrap.njk" %}{% endif %}
+{% if "vouchers" | enabled %}{% include "features/vouchers/vouchers.njk" %}{% endif %}
+{% include "kits/lingerie/partials/guide.njk" %}
+

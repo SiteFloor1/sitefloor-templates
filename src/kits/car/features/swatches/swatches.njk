@@ -1,0 +1,36 @@
+{#- Swatch library: the studio's wrap colours as sample panels, picked like a material sample book. A finish
+    (gloss, satin, matte, chrome) changes how light sits on every sample; a colour opens it large. The samples are
+    the studio's 3D lighting rendered onto a curved panel (src/kits/car/assets/CREDITS.md), coloured by CSS, so a
+    client's own colours need no new pictures. Without JavaScript every colour shows in the first finish. -#}
+{%- set sec = site.sections.finish %}
+{%- set w = site.wrap %}
+{%- set f0 = w.finishes[0] %}{% set c0 = w.colours[0] %}
+<section id="finish" class="sec-finish" data-feature="swatches"{{ "swatches" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="sw rv" data-finish="{{ f0.id }}" data-sw>
+    <figure class="sw-big">
+      <div class="sw-tile" data-sw-big style="--c:{{ c0.hex }}"></div>
+      <figcaption>
+        <span class="sw-now"><span data-sw-name>{{ c0.name }}</span> <b data-sw-fin>{{ f0.name }}</b></span>
+        <span class="sw-note" data-sw-note>{{ f0.note }}</span>
+      </figcaption>
+    </figure>
+    <div class="sw-pick">
+      <fieldset class="sw-set" data-js-only><legend>Finish</legend>
+        <div class="sr-chips">{% for f in w.finishes %}<label class="sr-chip"><input type="radio" name="sw-finish" value="{{ f.id }}" data-name="{{ f.name }}" data-note="{{ f.note }}"{% if loop.first %} checked{% endif %}><span>{{ f.name }}</span></label>{% endfor %}</div>
+      </fieldset>
+      <fieldset class="sw-set"><legend>Colour <small>{{ w.colours | length }} to see at the studio</small></legend>
+        <div class="sw-grid">
+          {%- for c in w.colours %}
+          <label class="sw-opt"><input type="radio" name="sw-colour" value="{{ c.id }}" data-name="{{ c.name }}" data-hex="{{ c.hex }}"{% if loop.first %} checked{% endif %}><span class="sw-tile" style="--c:{{ c.hex }}"></span><span class="sw-label">{{ c.name }}</span></label>
+          {%- endfor %}
+        </div>
+      </fieldset>
+      <ul class="sw-list" data-no-js>{% for f in w.finishes %}<li><b>{{ f.name }}</b>{% if f.note %}: {{ f.note }}{% endif %}</li>{% endfor %}</ul>
+      {%- if "showroom" | enabled %}
+      <p class="sw-try" data-js-only><a class="btn ghost" href="#showroom" data-sw-try>See it on the car</a></p>
+      {%- endif %}
+      <p class="sw-small">Samples are drawn under our studio lights, and screens vary. Come and see the real film swatches before you choose.</p>
+    </div>
+  </div>
+</div></section>

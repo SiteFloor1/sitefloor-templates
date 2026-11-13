@@ -1,0 +1,32 @@
+{#- The tasting flight: pick the shop's chocolates; the page lays them out in the order to taste them, lightest first,
+    each with the shop's one line, as a card to keep. Order the flight for collection. Without JavaScript: every piece
+    in tasting order with its line. -#}
+{%- set sec = site.sections.flight %}
+{%- set f = site.flight %}
+{%- set pieces = site.desserts | flightItems %}
+<section id="flight" class="sec-flight" data-feature="tasting-flight"{{ "tasting-flight" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="tf" data-js-only>
+    <ul class="tf-pick" aria-label="Choose {{ f.size }}">
+      {%- for it in pieces %}
+      <li><button type="button" class="tf-p" aria-pressed="false" data-tf="{{ it.id }}" data-name="{{ it.name }}" data-notes="{{ it.notes }}" data-order="{{ it.tasteOrder }}" data-src="{{ it.tile.src | img }}">
+        <img src="{{ it.tile.src | img }}" alt="" width="{{ it.tile.width }}" height="{{ it.tile.height }}" loading="lazy" decoding="async"><span>{{ it.name }}</span>
+      </button></li>
+      {%- endfor %}
+    </ul>
+    <div class="tf-board" aria-live="polite">
+      <p class="tf-k"><span data-tf-count>Choose {{ f.size }}</span> <b>{{ f.price | pounds }}</b></p>
+      <ol class="tf-steps" data-tf-steps style="--n:{{ f.size }}">{% for i in range(0, f.size) %}<li class="tf-step"><span class="tf-no">{{ loop.index }}</span></li>{% endfor %}</ol>
+      <label class="bx-field" for="tf-when">Collection<select id="tf-when" data-tf-when></select></label>
+      <div class="bx-acts">
+        <a class="bx-go" href="{{ ('Hi ' + site.business.name + ', I would like a tasting flight.') | wa }}" target="_blank" rel="noopener" data-tf-send aria-disabled="true">Order this flight</a>
+        {%- if f.payLink %}{% set pay = f.payLink %}{% set payLabel = "" %}{% include "features/pay-link/button.njk" %}{% endif %}
+        <button type="button" class="bx-quiet" data-tf-clear>Start again</button>
+      </div>
+      {%- if f.note %}<p class="bx-note">{{ f.note }}</p>{% endif %}
+    </div>
+  </div>
+  <ol class="tf-all" data-no-js>
+    {%- for it in pieces %}<li><b>{{ it.name }}</b> {{ it.notes }}</li>{% endfor %}
+  </ol>
+</div></section>

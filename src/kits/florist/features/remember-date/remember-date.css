@@ -1,0 +1,7 @@
+/* Remember the date: structure only. */
+.fl-remember-in { display: grid; gap: clamp(24px, 5vw, 80px); align-items: end; }
+@media (min-width: 900px) { .fl-remember-in { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); } }
+.fl-form { display: grid; gap: 14px; }
+@media (min-width: 700px) { .fl-form { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: end; } .fl-form .fl-btn, .fl-form .fl-say { grid-column: 1 / -1; } }
+.fl-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.fl-field input, .fl-field select, .fl-field textarea { font: inherit; min-width: 0; width: 100%; }

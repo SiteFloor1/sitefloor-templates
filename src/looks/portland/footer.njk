@@ -1,0 +1,23 @@
+{#- Portland footer: the soot band. The seal and the firm's name, the regulatory line every page carries, where and how
+    to reach the firm, the pages, and the Sitefloor credit last. -#}
+{%- set ini = "" %}{% for w in site.business.name.split(" ") %}{% if w and w[0] == (w[0] | upper) and w[0] != "&" %}{% set ini = ini + w[0] %}{% endif %}{% endfor %}
+{%- set r = site.regulation %}
+<footer class="foot pt-foot"><div class="wrap pt-foot-in">
+  <div class="pt-foot-name"><span class="pt-seal" aria-hidden="true">{{ ini | truncate(3, true, "") }}</span><p>{{ site.business.name }}</p></div>
+  <address class="pt-foot-a">{{ site.location.streetAddress }}<br>{{ site.location.locality }} {{ site.location.postcode }}<br>
+    <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone | replace('+44 ', '0') }}</a>{% if site.contact.email %}<br><a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>{% endif %}<br>
+    <a href="{{ site.messages.general | wa }}" data-wa-text="{{ site.messages.general }}" target="_blank" rel="noopener">Message us on WhatsApp</a></address>
+  <nav class="pt-foot-links" aria-label="Footer">
+    <a href="{{ 'index' | href }}">Home</a>
+    {%- for item in site.nav | navItems(pageId) %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}>{{ item.label }}</a>{% endfor %}
+    {%- if "pricing" | enabled %}<a href="{{ 'pricing' | href }}">Prices and service information</a>{% endif %}
+    {%- if "bereavement" | enabled %}<a href="{{ 'when-someone-dies' | href }}">When someone has died</a>{% endif %}
+    {%- if "gather" | enabled %}<a href="{{ 'gather' | href }}">What to gather</a>{% endif %}
+    {%- if "glossary" | enabled %}<a href="{{ 'words' | href }}">Words we use</a>{% endif %}
+    {%- if "succession-map" | enabled %}<a href="{{ 'succession' | href }}">How an estate can pass</a>{% endif %}
+    <a href="{{ 'complaints' | href }}">Complaints and regulation</a>
+    <a href="{{ 'privacy' | href }}">Privacy</a>
+  </nav>
+  <p class="pt-foot-reg">{{ r.legalName }} is authorised and regulated by the Solicitors Regulation Authority, SRA number {{ r.sraNumber }}{% if site.mode == "demo" %} (demo){% endif %}. {{ r.entity }}.{% if r.office %} Registered office: {{ r.office }}.{% endif %}</p>
+  <p class="pt-foot-by"><a class="by" href="https://sitefloor.com" rel="noopener">Website by <b>Sitefloor</b></a></p>
+</div></footer>

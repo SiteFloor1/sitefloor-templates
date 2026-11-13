@@ -1,0 +1,18 @@
+/* The planting palette: plants in a grid, each a portrait photograph, its names and three facts. */
+.gd-pp-filters { display: grid; gap: 4px; margin-bottom: 32px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+.gd-pp-months { gap: 4px 18px; }
+.gd-pp-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 48px 24px; }
+.gd-pp-i[hidden] { display: none; }
+.gd-pp-i img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+.gd-pp-n { margin: 14px 0 0; font-family: var(--font-display); font-size: 26px; line-height: 1.1; }
+.gd-pp-l { margin: 2px 0 0; font-style: italic; color: var(--muted); }
+.gd-pp-dl { margin: 12px 0 0; font-size: 15px; }
+.gd-pp-dl div { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 10px; padding: 3px 0; border-top: 1px solid var(--line); }
+.gd-pp-dl dt { color: var(--muted); font-style: italic; }
+.gd-pp-dl dd { margin: 0; }
+.gd-pp-t { margin: 10px 0 0; font-size: 15px; color: var(--muted); }
+.gd-pp-none { color: var(--muted); }
+@media (max-width: 1000px) { .gd-pp-list { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .gd-pp-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 12px; } .gd-pp-n { font-size: 21px; } }
+/* a choice row keeps its place until the script starts, then shows (same rule as gardens.css, for sites without it) */
+[data-wait] { visibility: hidden; }

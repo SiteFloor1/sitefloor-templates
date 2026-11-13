@@ -1,0 +1,9 @@
+/* Chapter: the photograph full width, the words over its shaded left side. */
+.lc-ch { position: relative; padding: 0; }
+.lc-ch-ph { margin: 0; }
+.lc-ch-ph img { display: block; width: 100%; height: auto; aspect-ratio: 21 / 9; object-fit: cover; }
+.lc-ch-t { position: absolute; z-index: 1; left: var(--pad); top: 50%; transform: translateY(-50%); max-width: 440px; }
+@media (max-width: 760px) {
+  .lc-ch-ph img { aspect-ratio: 4 / 5; }
+  .lc-ch-t { top: auto; bottom: 28px; transform: none; right: var(--pad); }
+}

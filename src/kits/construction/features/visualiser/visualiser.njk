@@ -1,0 +1,39 @@
+{#- The extension visualiser. A real photograph of a finished extension first; one tap loads the 3D house and the
+    controls (house type, depth, roof, before and after) with the size and new floor area. A price appears only from
+    the builder's own rates, on the plan with the visualiser page. Set `vzPage` true on the visualiser's own page. -#}
+{%- set v = site.visualiser %}
+{%- set vs = v | extensionStart %}
+{%- set ph = site.hero.photo %}{% set php = site.hero.photoPhone %}
+<div class="bd-vz{% if vzPage %} bd-vz-page{% endif %}" data-feature="{{ 'visualiser-page' if vzPage else 'visualiser' }}" data-show="after">
+  <div class="bd-vz-stage" data-vz-stage>
+    <picture>
+      {%- if php %}<source media="(max-width: 700px)" srcset="{{ php.src | img }}" width="{{ php.width }}" height="{{ php.height }}">{% endif %}
+      <img class="bd-vz-photo" src="{{ ph.src | img }}" alt="{{ ph.alt }}" width="{{ ph.width }}" height="{{ ph.height }}"{% if not vzPage %} fetchpriority="high"{% else %} loading="lazy"{% endif %} decoding="async"{% if ph.position %} style="object-position:{{ ph.position }}"{% endif %}>
+    </picture>
+    <button class="bd-vz-try" type="button" data-vz-try data-js-only>
+      <svg viewBox="0 0 30 30" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 11 15 5l11 6v12l-11 6-11-6z"/><path d="M4 11l11 6 11-6M15 17v12"/><path class="bd-vz-try-ext" d="M15 17l11-6v6l-11 6z" stroke="none"/></svg>
+      <span>See an extension on your house<small>Tap to load it in 3D, about {{ build.model3dKb }} KB</small></span>
+    </button>
+    <canvas class="bd-vz-canvas" data-vz-canvas tabindex="0" hidden aria-label="A 3D model of a house with a rear extension. Drag, or use the arrow keys, to turn it."></canvas>
+    <p class="bd-vz-hint" data-vz-hint hidden>Drag to turn</p>
+    <p class="bd-vz-status" data-vz-status role="status" hidden></p>
+  </div>
+  <div class="bd-vz-controls" data-vz-controls hidden>
+    <div class="bd-vz-ctl" role="group" aria-labelledby="vz-house-{{ 'p' if vzPage else 'h' }}"><span id="vz-house-{{ 'p' if vzPage else 'h' }}">House</span><div class="bd-seg">
+      {%- for id, h in extensionOptions.houses %}<button type="button" data-vz-set="house" data-v="{{ id }}" aria-pressed="{{ 'true' if id == vs.house else 'false' }}">{{ h.label }}</button>{% endfor %}
+    </div></div>
+    <div class="bd-vz-ctl"><label for="vz-depth-{{ 'p' if vzPage else 'h' }}">Depth</label><input id="vz-depth-{{ 'p' if vzPage else 'h' }}" type="range" data-vz-depth min="{{ vs.range.min }}" max="{{ vs.range.max }}" step="{{ vs.range.step }}" value="{{ vs.depth }}"><output data-vz-depth-out for="vz-depth-{{ 'p' if vzPage else 'h' }}">{{ vs.depthText }}</output></div>
+    <div class="bd-vz-ctl" role="group" aria-labelledby="vz-roof-{{ 'p' if vzPage else 'h' }}"><span id="vz-roof-{{ 'p' if vzPage else 'h' }}">Roof</span><div class="bd-seg">
+      {%- for id, r in extensionOptions.roofs %}<button type="button" data-vz-set="roof" data-v="{{ id }}" aria-pressed="{{ 'true' if id == vs.roof else 'false' }}">{{ r.label }}</button>{% endfor %}
+    </div></div>
+    <div class="bd-vz-ctl" role="group" aria-label="Before or after"><div class="bd-seg">
+      <button type="button" data-vz-set="show" data-v="before" aria-pressed="false">Before</button><button type="button" data-vz-set="show" data-v="after" aria-pressed="true">After</button>
+    </div></div>
+    <p class="bd-vz-read" aria-live="polite"><span data-vz-size>{{ vs.words.size }}</span> · <i data-vz-room>{{ vs.words.room }}</i></p>
+    {%- if "visualiser-page" | enabled %}
+    {%- if v.rates %}<p class="bd-vz-price" data-vz-price{{ 'visualiser-page' | tierAttr | safe }}></p>
+    {%- elif site.mode == "demo" %}<p class="bd-vz-price"{{ 'visualiser-page' | tierAttr | safe }}>Your price range shows here, worked out from {{ site.business.name }}'s own rates. Demo: no rates set.</p>{% endif %}
+    {%- endif %}
+    {%- if vzPage %}<a class="bd-vz-send" data-vz-send href="{{ v.message | wa }}" data-wa-text="{{ v.message }}" target="_blank" rel="noopener">Send this design on WhatsApp</a>{% endif %}
+  </div>
+</div>

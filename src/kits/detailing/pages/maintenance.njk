@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: maintenance
+permalink: maintenance.html
+feature: maintenance-page
+eleventyComputed:
+  title: "{{ site.maintenancePage.title | plain }}"
+  description: "Maintenance washes at {{ site.business.name }}, {{ site.location.locality }}: the plans and the reminders."
+---
+{% include "kits/detailing/features/maintenance-page/maintenance-page.njk" %}

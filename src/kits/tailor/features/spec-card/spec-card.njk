@@ -1,0 +1,50 @@
+{#- The specification card: choose each detail from the house's own photographs (lapel, fastening, pockets, a shirt's
+    collar, whatever the house lists; a group can be for some garments only), then the cloth from the cloth book; a one-page card builds beside the choices with the
+    photographs, ready to send on WhatsApp (with a link that opens the same card) or to print and bring to the first
+    fitting. Without JavaScript the choices are a plain form and the request a WhatsApp link. -#}
+{%- set sp = site.spec %}
+{%- set ph = sp %}
+{% include "kits/tailor/partials/page-head.njk" %}
+<section class="wrap tl-sp" data-feature="spec-card" aria-label="{{ sp.title | plain }}">
+  <form class="tl-sp-form" data-sp-form>
+    {%- if site.garments %}
+    <fieldset class="tl-sp-g"><legend class="tl-sp-h">For</legend><div class="tl-chips">
+      {%- for x in site.garments.items %}<label class="tl-chip"><input type="radio" name="sp-garment" value="{{ x.name }}" data-id="{{ x.id }}"{% if loop.first %} checked{% endif %}>{{ x.name }}</label>{% endfor %}
+    </div></fieldset>
+    {%- endif %}
+    {%- for g in sp.groups %}
+    <fieldset class="tl-sp-g" data-sp-group="{{ g.id }}" data-name="{{ g.name }}"{% if g.for %} data-sp-only="{{ g.for | join(' ') }}"{% endif %}>
+      <legend class="tl-sp-h">{{ g.name }}</legend>
+      <div class="tl-sp-opts">
+        {%- for o in g.options %}
+        <label class="tl-sp-o"><input type="radio" name="sp-{{ g.id }}" value="{{ o.id }}" data-label="{{ o.label }}" data-src="{{ o.photo.src | img }}" data-alt="{{ o.photo.alt }}"{% if loop.first %} checked{% endif %}>
+          <img src="{{ o.photo.src | img }}" alt="{{ o.photo.alt }}" width="{{ o.photo.width }}" height="{{ o.photo.height }}" loading="lazy" decoding="async">
+          <span class="tl-sp-ol">{{ o.label }}</span>{% if o.text %}<span class="tl-sp-ot">{{ o.text }}</span>{% endif %}</label>
+        {%- endfor %}
+      </div>
+    </fieldset>
+    {%- endfor %}
+    {%- if site.cloths and ("cloth-book" | enabled) %}
+    <fieldset class="tl-sp-g" data-sp-group="cloth" data-name="Cloth">
+      <legend class="tl-sp-h">Cloth</legend>
+      <div class="tl-sp-opts tl-sp-cloths">
+        {%- for c in site.cloths.items %}
+        <label class="tl-sp-o tl-sp-c"><input type="radio" name="sp-cloth" value="{{ c.id }}" data-label="{{ c.name }}" data-cloth="{{ c.cloth }}" data-src="{{ c.length.src | img }}" data-alt="{{ c.length.alt }}"{% if loop.first %} checked{% endif %}>
+          <img src="{{ c.length.src | img }}" alt="{{ c.length.alt }}" width="{{ c.length.width }}" height="{{ c.length.height }}" loading="lazy" decoding="async">
+          <span class="tl-sp-ol">{{ c.name }}</span><span class="tl-sp-ot">{{ c.cloth }}{% if c.weight %}, {{ c.weight }} g{% endif %}</span></label>
+        {%- endfor %}
+      </div>
+    </fieldset>
+    {%- endif %}
+  </form>
+  <aside class="tl-sp-side" aria-label="Your specification card">
+    <article class="tl-card" data-sp-card data-js-only>
+      <header class="tl-card-h"><p class="tl-card-house">{{ site.business.name }}</p><p class="tl-card-k">Specification · <span data-sp-date></span></p></header>
+      <p class="tl-card-for" data-sp-for></p>
+      <ul class="tl-card-list" data-sp-list></ul>
+      <p class="tl-card-note">{{ sp.note }}</p>
+    </article>
+    <p class="tl-sp-acts" data-js-only><a class="tl-btn" data-sp-send href="{{ sp.message | book }}" target="_blank" rel="noopener">Send my card on WhatsApp</a><button type="button" class="tl-go" data-sp-print>Print or save as PDF</button></p>
+    <p class="tl-sp-plain" data-no-js><a class="tl-go" href="{{ sp.message | book }}" target="_blank" rel="noopener">Send us your choices on WhatsApp</a></p>
+  </aside>
+</section>

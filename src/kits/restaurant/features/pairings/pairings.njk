@@ -1,0 +1,23 @@
+{#- What to drink with it: pick a dish, see the drinks from the restaurant's list that go with it. -#}
+{%- set sec = site.sections.pairings %}
+<section id="pairings" class="pr" data-feature="pairings" aria-labelledby="pr-h"{{ "pairings" | tierAttr | safe }}><div class="wrap">
+  <div class="sh rv"><div>{% if sec.kicker %}<span class="kick">{{ sec.kicker }}</span>{% endif %}<h2 id="pr-h">{{ sec.title | markup | safe }}</h2></div>{% if sec.intro %}<p>{{ sec.intro }}</p>{% endif %}</div>
+  <div class="pr-grid">
+    <div class="rs-chips pr-dishes" role="group" aria-label="Pick a dish">
+      {%- set firstDone = false %}
+      {%- for d in site.menu | dishes %}{% if d.pairs %}<label class="rs-chip"><input type="radio" name="pr-dish" value="{{ d.id }}"{% if not firstDone %} checked{% endif %}>{{ d.name }}</label>{% set firstDone = true %}{% endif %}{% endfor %}
+    </div>
+    <div class="pr-out" aria-live="polite">
+      {%- for d in site.menu | dishes %}{% if d.pairs %}
+      <div class="pr-set" data-pr-for="{{ d.id }}">
+        <p class="rs-k">With {{ d.name }}</p>
+        <ul class="pr-drinks">
+          {%- for p in d.pairs %}{% set dr = site.menu | dish(p) %}
+          <li><div class="rs-row"><span class="rs-name">{{ dr.name }}</span><span class="rs-dots" aria-hidden="true"></span><span class="rs-price">{{ dr.price | gbp }}</span></div>{% if dr.desc %}<p class="rs-desc">{{ dr.desc }}</p>{% endif %}{% set an = dr | allergenNames %}<p class="rs-meta"><span class="rs-all">{% if an.length %}Contains: {{ an | join(", ") | lower }}{% else %}None of the 14 allergens{% endif %}</span></p></li>
+          {%- endfor %}
+        </ul>
+      </div>
+      {%- endif %}{% endfor %}
+    </div>
+  </div>
+</div></section>

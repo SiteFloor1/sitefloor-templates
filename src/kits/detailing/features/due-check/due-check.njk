@@ -1,0 +1,27 @@
+{#- Is my car due? The studio's own intervals (a coating top-up, a maintenance wash, …), the day each was last done,
+    and the day it's next due: how long until, a reminder in the calendar and a WhatsApp to book it. Nothing is stored. -#}
+{%- set sec = site.sections.dueCheck %}
+{%- set dc = site.dueCheck %}
+<section id="due" class="dt-dc" data-feature="due-check" aria-label="{{ sec.title | plain }}"><div class="wrap dt-dc-in">
+  <div>
+    {%- include "core/partials/section-head.njk" %}
+    <form class="dt-dc-f" data-dc-form>
+      <fieldset class="dt-bd-pk"><legend class="dt-bd-l">What was done</legend>
+        {%- for x in dc.items %}
+        <label class="dt-opt"><input type="radio" name="dt-due" value="{{ x.id }}"{% if loop.first %} checked{% endif %}>
+          <span class="dt-opt-n">{{ x.name }}<small>{{ x.text }}</small></span>
+          <b>{% if x.months %}every {{ x.months }} {{ "month" if x.months == 1 else "months" }}{% else %}every {{ x.weeks }} {{ "week" if x.weeks == 1 else "weeks" }}{% endif %}</b></label>
+        {%- endfor %}
+      </fieldset>
+      <label class="dt-field" for="dt-dc-date"><span>When it was last done</span><input id="dt-dc-date" type="date" required data-dc-date></label>
+    </form>
+  </div>
+  <div class="dt-dc-out" aria-live="polite">
+    <span class="tube" aria-hidden="true"></span>
+    <p class="dt-dc-when" data-dc-when>Pick the day it was last done.</p>
+    <p class="dt-bd-days" data-dc-on>&nbsp;</p>
+    <button class="go" type="button" data-dc-cal disabled>Add a reminder to my calendar</button>
+    <a class="go" data-dc-go href="{{ dc.message | wa }}" target="_blank" rel="noopener">Book it on WhatsApp</a>
+    <p class="dt-note">From the intervals we recommend; your car's use may change them. Nothing is stored.</p>
+  </div>
+</div></section>

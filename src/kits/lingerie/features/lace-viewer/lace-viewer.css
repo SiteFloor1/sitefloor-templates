@@ -1,0 +1,6 @@
+.lace-in { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: var(--s3); align-items: center; }
+.lace-stage { position: relative; overflow: hidden; touch-action: none; cursor: crosshair; }
+.lace-stage img { display: block; width: 100%; height: auto; }
+.lace-loupe { position: absolute; width: 180px; height: 180px; border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%); background-repeat: no-repeat; }
+.lace-notes { margin: 18px 0 0; padding-left: 1.1em; display: grid; gap: 10px; }
+@media (max-width: 860px) { .lace-in { grid-template-columns: 1fr; } .lace-loupe { width: 130px; height: 130px; } }

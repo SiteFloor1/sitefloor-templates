@@ -1,0 +1,9 @@
+{#- An inner page's opening: the campaign photograph full width, the page's name over its lower edge. Set `g` (a guide). -#}
+<header class="lp-head">
+  <figure class="lp-head-ph">{% set ph = g.opener %}{% set eager = true %}{% include "kits/lingerie/partials/photo.njk" %}{% set eager = false %}</figure>
+  <div class="wrap lp-head-t">
+    <p class="lp-k">{{ g.kicker }}</p>
+    <h1 class="lp-title">{{ g.title | markup | safe }}</h1>
+    <p class="lp-intro">{{ g.intro }}</p>
+  </div>
+</header>

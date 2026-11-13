@@ -1,0 +1,17 @@
+/* Coating and film explained: the words and the two columns on the left, the photograph large and bled to the right
+   edge. "Doesn't" lines are muted and marked with a short dash, so the two lists read apart without labels. */
+.dt-ex-in { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(28px, 4vw, 64px); align-items: center; }
+.dt-ex-two { display: grid; grid-template-columns: 1fr 1fr; gap: 24px clamp(20px, 3vw, 40px); margin-top: clamp(20px, 3vw, 36px); }
+.dt-ex-col h3 { margin: 0 0 10px; font-family: var(--font-display); font-weight: 400; font-size: 20px; letter-spacing: -.01em; }
+.dt-ex-does, .dt-ex-not { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 14px; line-height: 1.5; }
+.dt-ex-not { margin-top: 12px; color: var(--muted); }
+.dt-ex-not li::before { content: "– "; }
+.dt-ex-ph { margin: 0 calc(-1 * var(--pad)) 0 0; }
+.dt-ex-ph img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
+.dt-ex-ph figcaption { margin-top: 10px; font-size: 12px; color: var(--muted); }
+@media (max-width: 900px) {
+  .dt-ex-in { grid-template-columns: 1fr; }
+  .dt-ex-ph { order: -1; margin: 0 calc(-1 * var(--pad)); }
+  .dt-ex-ph figcaption { padding-inline: var(--pad); }
+}
+@media (max-width: 480px) { .dt-ex-two { grid-template-columns: 1fr; } }

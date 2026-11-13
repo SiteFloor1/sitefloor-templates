@@ -1,0 +1,10 @@
+{#- Quail photo band: the photograph set in the stone with a margin round it, still (the shared script's parallax variable is not used), its caption on a
+    small cream card overlapping the lower corner, the way the shade card overlaps the hand. -#}
+{%- set p = site.photoBand %}
+<section class="ql-band" data-feature="photo-band" aria-label="{{ p.kicker }}"{{ "photo-band" | tierAttr | safe }}><div class="wrap ql-band-in">
+  <picture>
+    {%- if p.srcMobile %}<source media="(max-width:700px)" srcset="{{ p.srcMobile | img }}">{% endif %}
+    <img src="{{ p.src | img }}" alt="{{ p.alt }}" loading="lazy" decoding="async" width="{{ p.width }}" height="{{ p.height }}">
+  </picture>
+  <div class="ql-band-card rv"><p class="ql-band-k">{{ p.kicker }}</p><p class="ql-band-c">{{ p.caption }}</p></div>
+</div></section>

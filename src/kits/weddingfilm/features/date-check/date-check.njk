@@ -1,0 +1,16 @@
+{#- Is our date free? One date in; the answer from the studio's diary sheet; the date and venue sent on WhatsApp.
+    With sunset-line on, the place too, and the sunset that day. Without JavaScript the link goes straight to WhatsApp. -#}
+{%- set sec = site.sections.dateCheck %}
+{%- set dc = site.dateCheck %}
+<section id="date" class="wf-date" data-feature="date-check" aria-labelledby="dc-h"><div class="wrap wf-date-in">
+  <h2 id="dc-h" class="wf-date-h">{{ sec.title | markup | safe }}</h2>
+  {%- if sec.intro %}<p class="wf-date-i">{{ sec.intro }}</p>{% endif %}
+  <form class="wf-date-f" data-dc-form>
+    <label class="wf-field" for="dc-date"><span class="wf-k">Your date</span><input id="dc-date" type="date" data-dc-date min="{{ build.today }}" required></label>
+    {%- if "sunset-line" | enabled %}{% include "kits/weddingfilm/features/sunset-line/sunset-line.njk" %}{% endif %}
+    <label class="wf-field wf-field-wide" for="dc-venue"><span class="wf-k">Venue, if you have one</span><input id="dc-venue" type="text" maxlength="80" autocomplete="off" data-dc-venue></label>
+  </form>
+  <p class="wf-date-a" data-dc-answer aria-live="polite">Choose your date to see if it's free.</p>
+  <p class="wf-date-go"><a class="wf-go" data-dc-send href="{{ dc.message | book }}" target="_blank" rel="noopener">Send us your date</a></p>
+  <p class="wf-small">Nothing is held until we reply. The diary is updated by hand{% if dc.source == "simulated" %}; on this demo it's example data{% endif %}.</p>
+</div></section>

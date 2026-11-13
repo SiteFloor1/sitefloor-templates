@@ -1,0 +1,11 @@
+{#- The film's chapters, printed beneath it like a programme. Each is a button: tap to go to that chapter; a line fills
+    as it plays. "Watch full screen" makes the film and its programme fill the screen. Without JavaScript the chapters
+    are a plain list. Included by the look's hero, inside the element that holds the film. -#}
+<div class="wf-prog" data-feature="showreel" data-length="{{ site.chapters.length }}"{{ "showreel" | tierAttr | safe }}>
+  <ol class="wf-ch-list" aria-label="Chapters of the film">
+    {%- for c in site.chapters.items %}
+    <li><button class="wf-ch" type="button" data-at="{{ c.at }}"{% if loop.first %} aria-current="true"{% endif %}><span class="wf-ch-t" aria-hidden="true"><i></i></span><span class="wf-ch-n"><b>{{ loop.index | roman }}</b><span>{{ c.title }}</span></span></button></li>
+    {%- endfor %}
+  </ol>
+  <button class="wf-full" type="button" data-full hidden>Watch full screen</button>
+</div>

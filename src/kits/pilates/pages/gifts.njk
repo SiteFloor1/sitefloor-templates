@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: gifts
+permalink: gifts.html
+feature: studio-gifts
+eleventyComputed:
+  title: "{{ site.giftsPage.title | plain }}"
+  description: "Gift class cards and vouchers from {{ site.business.name }}, {{ site.location.locality }}."
+---
+{% include "kits/pilates/features/studio-gifts/studio-gifts.njk" %}
+{%- set hostPage = "studio-gifts" %}{% include "kits/pilates/partials/hosted.njk" %}

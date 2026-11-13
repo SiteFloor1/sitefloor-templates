@@ -1,0 +1,14 @@
+---
+layout: core/layouts/base.njk
+feature: commission-pages
+pagination:
+  data: site.pieces.items
+  size: 1
+  alias: p
+permalink: "commission-{{ p.id }}.html"
+eleventyComputed:
+  pageId: "commission-{{ p.id }}"
+  title: "{{ p.name }}"
+  description: "{{ p.name }} by {{ site.business.name }}: {{ p.made }}"
+---
+{% include "kits/cakes/features/commission-pages/piece.njk" %}

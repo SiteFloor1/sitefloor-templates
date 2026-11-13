@@ -1,0 +1,12 @@
+{#- The wrap: the bouquet handed over, large, beside the florist's words and the paper and ribbon as swatches named for
+    what the photograph shows. -#}
+{%- set Wr = site.wrap %}
+{%- set sec = site.sections.wrap %}
+<section id="wrap" class="fl-wrap" aria-labelledby="wrap-h"><div class="wrap fl-wrap-in">
+  <figure class="fl-wrap-ph rv"><img src="{{ Wr.photo.src | img }}" alt="{{ Wr.photo.alt }}" width="{{ Wr.photo.width }}" height="{{ Wr.photo.height }}" loading="lazy" decoding="async"></figure>
+  <div class="fl-wrap-t rv">
+    <h2 id="wrap-h">{{ sec.title | markup | safe }}</h2>
+    {%- for p in Wr.text %}<p>{{ p }}</p>{% endfor %}
+    <p class="fl-swatches"><span class="fl-sw"><i style="--sw:{{ Wr.paper.colour }}" aria-hidden="true"></i>{{ Wr.paper.name }}</span><span class="fl-sw"><i style="--sw:{{ Wr.ribbon.colour }}" aria-hidden="true"></i>{{ Wr.ribbon.name }}</span></p>
+  </div>
+</div></section>

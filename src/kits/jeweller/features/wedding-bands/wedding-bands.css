@@ -1,0 +1,8 @@
+/* wedding-bands: layout in tokens only; the look sets type and colour. */
+.jw-bands .wrap { border-top: 1px solid var(--line); }
+.jw-band { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(24px, 6vw, 96px); align-items: center; padding: clamp(28px, 4vw, 56px) 0; border-bottom: 1px solid var(--line); }
+.jw-band > div { display: grid; gap: 12px; }
+.jw-band-ph img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+@media (max-width: 700px) {
+  .jw-band { grid-template-columns: 1fr; }
+}

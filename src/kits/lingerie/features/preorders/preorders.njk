@@ -1,0 +1,15 @@
+{#- Pre-orders (online brands): pieces not yet made, when each ships, and the brand's own Stripe Payment Link. -#}
+{%- set sec = site.sections.preorders %}
+<section id="preorder" class="ls-pre"{{ "preorders" | tierAttr | safe }}><div class="wrap pre-in">
+  <div class="pre-head">{% include "core/partials/section-head.njk" %}<p class="lx-small">{{ site.payLinks.note }}</p></div>
+  <div class="pc-row">
+    {%- for p in site.pieces %}{% if p.preorder %}
+    <div class="pre-item">
+      {% include "kits/lingerie/partials/piece-card.njk" %}
+      {%- set link = site | payLinkOf(p.preorder.payLink) %}
+      {%- if link %}<a class="pre-go" href="{{ link.url }}" target="_blank" rel="noopener">Pre-order, {{ link.amount | pounds }}{% if link.kind == "deposit" %} deposit{% endif %}</a>
+      {%- else %}<a class="pre-go" href="{{ ('Hello ' + site.business.name + ', I would like to pre-order ' + (p | pieceName(site)) + '.') | wa }}" target="_blank" rel="noopener">Pre-order on WhatsApp</a>{% endif %}
+    </div>
+    {%- endif %}{% endfor %}
+  </div>
+</div></section>

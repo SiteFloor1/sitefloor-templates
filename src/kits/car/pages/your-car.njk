@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: your-car
+permalink: your-car.html
+feature: job-tracker
+noindex: true
+eleventyComputed:
+  title: "{{ site.jobTracker.title | plain }}"
+  description: "Where your car is at {{ site.business.name }}: the stage, the latest update and photo, from the code in our message."
+---
+{% include "kits/car/features/job-tracker/job-tracker.njk" %}

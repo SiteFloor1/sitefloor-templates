@@ -1,0 +1,29 @@
+{#- A general page (About us, Services, Gift vouchers…) built from simple blocks. `cp` is one entry of site.pages. -#}
+<header class="phero"><div class="wrap">
+  <nav class="crumb" aria-label="Breadcrumb"><a href="{{ 'index' | href }}">Home</a> / {{ cp.title | plain }}</nav>
+  {%- if cp.kicker %}<span class="kick">{{ cp.kicker }}</span>{% endif %}
+  <h1>{{ cp.title | markup | safe }}</h1>
+  {%- if cp.intro %}<p>{{ cp.intro }}</p>{% endif %}
+</div></header>
+<div class="cpg" data-feature="custom-pages"><div class="wrap cpg-in">
+  {%- for b in cp.blocks %}
+  {%- if b.type == "text" %}
+  <section class="cpg-text rv">
+    {%- if b.heading %}<h2>{{ b.heading }}</h2>{% endif %}
+    {%- for para in b.body | paragraphs %}<p>{{ para }}</p>{% endfor %}
+  </section>
+  {%- elif b.type == "photo" %}
+  <figure class="cpg-photo rv"><img src="{{ b.src | img }}" alt="{{ b.alt }}" loading="lazy" decoding="async">{% if b.caption %}<figcaption>{{ b.caption }}</figcaption>{% endif %}</figure>
+  {%- elif b.type == "list" %}
+  <section class="cpg-list rv">
+    {%- if b.heading %}<h2>{{ b.heading }}</h2>{% endif %}
+    <ul>{% for item in b.items %}<li>{{ item }}</li>{% endfor %}</ul>
+  </section>
+  {%- elif b.type == "book" %}
+  <section class="cpg-book rv">
+    <p>{{ b.text }}</p>
+    <a class="btn" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{{ b.label or build.booking.label }}</a>
+  </section>
+  {%- endif %}
+  {%- endfor %}
+</div></div>

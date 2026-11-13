@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: journal
+permalink: journal.html
+feature: garden-journal
+eleventyComputed:
+  title: "{{ site.journal.title | plain }}"
+  description: "Notes from {{ site.business.name }}: what to plant each season and how to look after a new garden."
+---
+{% include "kits/garden/features/garden-journal/garden-journal.njk" %}

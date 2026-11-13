@@ -1,0 +1,17 @@
+{#- Basalt hero: one campaign photograph of the piece worn and moving, full bleed; the piece's name in the light
+    grotesk at its foot, the next drop as one quiet line beside it. Nothing else. -#}
+{%- set h = site.hero %}
+<section class="hero bs-hero" aria-labelledby="bs-hero-t">
+  <picture class="bs-hero-ph">
+    {%- if h.photoTall %}<source media="(max-width: 759px)" srcset="{{ h.photoTall.src | img }}" width="{{ h.photoTall.width }}" height="{{ h.photoTall.height }}">{% endif %}
+    {%- if h.photo %}<img src="{{ h.photo.src | img }}" alt="{{ h.photo.alt }}" width="{{ h.photo.width }}" height="{{ h.photo.height }}" fetchpriority="high" decoding="async">{% endif %}
+  </picture>
+  <div class="wrap bs-hero-foot">
+    <h1 class="bs-hero-t" id="bs-hero-t">
+      {%- if h.piece and ("piece-pages" | enabled) %}<a href="{{ h.piece | href }}">{% endif %}
+      {%- for line in h.title.split("|") %}<span>{{ line | markup | safe }}</span>{% endfor %}
+      {%- if h.piece and ("piece-pages" | enabled) %}</a>{% endif %}
+    </h1>
+    {%- if "drop-line" | enabled %}{% include "kits/wear/features/drop-line/drop-line.njk" %}{% endif %}
+  </div>
+</section>

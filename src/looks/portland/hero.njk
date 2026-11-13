@@ -1,0 +1,13 @@
+{#- Portland hero: one carved sentence beside a tall photograph of the firm's own room (a panelled library or meeting
+    room); "Speak to a partner" under it, and directly under that the SRA digital badge with the words beside it. -#}
+{%- set h = site.hero %}
+{%- set speak = ('contact' | href) if ('first-contact' | enabled) else ('#enquiry' if ('enquiry' | enabled) else 'tel:' + (site.contact.phone | replace(' ', ''))) %}
+<section class="hero pt-hero" aria-label="{{ site.business.name }}"><div class="wrap pt-hero-in">
+  <div class="pt-hero-say">
+    <h1 class="pt-h1">{{ h.title | replace("|", " ") | plain }}</h1>
+    {%- if h.intro %}<p class="pt-intro">{{ h.intro }}</p>{% endif %}
+    <a class="pt-cta" href="{{ speak }}">Speak to a partner <span aria-hidden="true"></span></a>
+    {% include "kits/law/features/regulation/badge.njk" %}
+  </div>
+  <figure class="pt-hero-fig"><img src="{{ h.photo.src | img }}" alt="{{ h.photo.alt }}" width="{{ h.photo.width }}" height="{{ h.photo.height }}" fetchpriority="high" decoding="async"{% if h.photo.position %} style="object-position:{{ h.photo.position }}"{% endif %}></figure>
+</div></section>

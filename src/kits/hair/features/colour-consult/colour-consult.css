@@ -1,0 +1,15 @@
+/* The colour consultation: the steps, then the form. Shared chips for every hair form. Tokens only. */
+.hr-cc-in { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 40px clamp(32px, 6vw, 96px); align-items: start; }
+.hr-cc-steps { grid-template-columns: minmax(0, 1fr); }
+.hr-cc-form { display: grid; gap: 24px; padding: 28px; background: var(--surface); }
+.hr-chips-set { border: 0; margin: 0; padding: 0; min-width: 0; }
+.hr-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.hr-chip { position: relative; cursor: pointer; }
+.hr-chip input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.hr-chip span { display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border: 1px solid var(--line-2); background: var(--bg); }
+.hr-chip input:checked + span { background: var(--text); color: var(--bg); border-color: var(--text); }
+.hr-chip input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 3px; }
+.hr-cc-more { display: grid; gap: 6px; }
+.hr-cc-more textarea { width: 100%; padding: 10px 12px; border: 1px solid var(--line-2); border-radius: 0; background: var(--bg); color: var(--text); font: inherit; resize: vertical; }
+.hr-cc-form .hr-btn { justify-self: start; }
+@media (max-width: 860px) { .hr-cc-in { grid-template-columns: minmax(0, 1fr); } .hr-cc-form { padding: 20px; } }

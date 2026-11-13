@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: lease-return
+permalink: lease-return.html
+feature: lease-return
+eleventyComputed:
+  title: "{{ site.leaseReturn.title | plain }}"
+  description: "Handing a leased car back? What the return inspection usually looks at, and what {{ site.business.name }}, {{ site.location.locality }} can put right first."
+---
+{% include "kits/detailing/features/lease-return/lease-return.njk" %}

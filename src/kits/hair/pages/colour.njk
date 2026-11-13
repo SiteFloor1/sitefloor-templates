@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: colour
+permalink: colour.html
+feature: colour-page
+eleventyComputed:
+  title: "{{ site.colourPage.title | plain }}"
+  description: "{{ site.colourPage.description or site.colourPage.intro }}"
+---
+{% include "kits/hair/features/colour-page/colour-page.njk" %}

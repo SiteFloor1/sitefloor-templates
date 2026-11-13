@@ -1,0 +1,5 @@
+{#- Reviews: the client's own Google reviews (sample reviews on a demo, labelled), with a link to all of them. -#}
+{%- set rp = site.reviewsPage %}
+{%- set ph = { title: rp.title, intro: rp.intro } %}
+{% include "kits/construction/partials/page-head.njk" %}
+{%- if rp.photo %}<figure class="wrap bd-rv-fig"><img src="{{ rp.photo.src | img }}" alt="{{ rp.photo.alt }}" width="{{ rp.photo.width }}" height="{{ rp.photo.height }}" fetchpriority="high" decoding="async"></figure>{% endif %}

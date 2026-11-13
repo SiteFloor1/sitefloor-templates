@@ -1,0 +1,14 @@
+{#- Chairs free today: the blow-dry and walk-in slots the salon has put on its sheet for today, soonest first, each with
+    who and a WhatsApp message asking for it (never "booked"). Fails closed: an old or unreadable sheet, a slot already
+    started or outside today's hours shows nothing, and the box says so. The box keeps its height, so nothing moves. Inside the
+    hero (the look lists it in heroParts) it is set on the photograph with a short heading. -#}
+{%- set sec = site.sections.chairs %}
+<section id="chairs" class="hr-ch{% if chIn %} hr-ch-hero{% endif %}" data-feature="chairs-today" aria-labelledby="ch-h"><div class="wrap hr-ch-in">
+  {%- if chIn %}<h2 class="hr-ch-h" id="ch-h">{{ sec.title | plain }}</h2>{% else %}{% set secId = "ch-h" %}{% include "core/partials/section-head.njk" %}{% endif %}
+  <div class="hr-ch-box">
+    <ol class="hr-ch-list" data-ch-list aria-live="polite"></ol>
+    <p class="hr-ch-none" data-ch-none>Ask us on WhatsApp for a chair today. <a class="hr-go" href="{{ site.chairs.message | book }}" target="_blank" rel="noopener">Ask</a></p>
+  </div>
+  {%- if site.chairs.note and not chIn %}<p class="hr-small hr-ch-note">{{ site.chairs.note }}</p>{% endif %}
+  <ul hidden>{% for x in site.stylists.items %}<li data-ch-who="{{ x.id }}" data-name="{{ x.name.split(' ')[0] }}"></li>{% endfor %}</ul>
+</div></section>

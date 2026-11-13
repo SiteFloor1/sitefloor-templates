@@ -1,0 +1,18 @@
+{#- Foreshore general page (About the firm, Careers…): the inner-page opening, then text in one calm measure, a
+    photograph set wide, ruled lists, and a meeting link instead of a booking button. `cp` is one entry of site.pages. -#}
+{%- include "kits/wealth/partials/meet-href.njk" %}
+{%- set ph = { title: cp.title | plain, intro: cp.intro } %}
+{% include "kits/wealth/partials/page-head.njk" %}
+<div class="fs-cp" data-feature="custom-pages"><div class="wrap fs-cp-in">
+  {%- for b in cp.blocks %}
+  {%- if b.type == "text" %}
+  <div class="fs-cp-text">{% if b.heading %}<h2>{{ b.heading }}</h2>{% endif %}{% for para in b.body | paragraphs %}<p>{{ para }}</p>{% endfor %}</div>
+  {%- elif b.type == "photo" %}
+  <figure class="fs-cp-photo"><img src="{{ b.src | img }}" alt="{{ b.alt }}" loading="lazy" decoding="async">{% if b.caption %}<figcaption>{{ b.caption }}</figcaption>{% endif %}</figure>
+  {%- elif b.type == "list" %}
+  <div class="fs-cp-list">{% if b.heading %}<h2>{{ b.heading }}</h2>{% endif %}<ul class="wm-le-l">{% for item in b.items %}<li>{{ item }}</li>{% endfor %}</ul></div>
+  {%- elif b.type == "book" %}
+  <p class="fs-cp-book">{{ b.text }} <a class="wm-go" href="{{ meetHref }}">{{ b.label or "Arrange a meeting" }}</a></p>
+  {%- endif %}
+  {%- endfor %}
+</div></div>

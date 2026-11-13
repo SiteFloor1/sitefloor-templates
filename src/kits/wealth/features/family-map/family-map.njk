@@ -1,0 +1,30 @@
+{#- The family map: before a first meeting, sketch who is who across the generations and the advisers you already
+    have. Kept only in this browser; print it or copy it into an email to yourself. -#}
+{%- set fm = site.familyMap %}
+{%- set ph = { title: fm.title, intro: fm.intro } %}
+{% include "kits/wealth/partials/page-head.njk" %}
+<section class="wm-fm" data-feature="family-map"><div class="wrap wm-fm-in">
+  <div class="wm-fm-tools" data-js-only>
+    <form class="wm-fm-add" id="fm-person">
+      <h2>Add someone in the family</h2>
+      <p class="wm-field"><label for="fm-name">Name</label><input id="fm-name" name="name" maxlength="60" autocomplete="off" required></p>
+      <p class="wm-field"><label for="fm-gen">Generation</label><select id="fm-gen" name="gen">{% for g in ["Grandparents", "Parents", "Children", "Grandchildren"] %}<option value="{{ loop.index0 }}"{% if loop.index0 == 1 %} selected{% endif %}>{{ g }}</option>{% endfor %}</select></p>
+      <p class="wm-field"><label for="fm-note">A note (optional)</label><input id="fm-note" name="note" maxlength="80" placeholder="Runs the business, lives in Geneva" autocomplete="off"></p>
+      <p><button class="wm-btn" type="submit">Add to the map</button></p>
+    </form>
+    <form class="wm-fm-add" id="fm-adviser">
+      <h2>Add an adviser you already have</h2>
+      <p class="wm-field"><label for="fm-role">Role</label><select id="fm-role" name="role">{% for r in ["Solicitor", "Accountant", "Trustee", "Executor", "Another adviser"] %}<option>{{ r }}</option>{% endfor %}</select></p>
+      <p class="wm-field"><label for="fm-aname">Name or firm</label><input id="fm-aname" name="name" maxlength="60" autocomplete="off" required></p>
+      <p><button class="wm-go" type="submit">Add adviser</button></p>
+    </form>
+    <p class="wm-fm-private">This stays on this device. Nothing is sent to us.</p>
+  </div>
+  <div class="wm-fm-board" aria-live="polite">
+    <ol class="wm-fm-gens" data-fm-gens>{% for g in ["Grandparents", "Parents", "Children", "Grandchildren"] %}<li><h3>{{ g }}</h3><ul data-fm-gen="{{ loop.index0 }}"></ul></li>{% endfor %}</ol>
+    <div class="wm-fm-adv"><h3>Advisers you already have</h3><ul data-fm-adv></ul></div>
+    <p class="wm-fm-empty" data-fm-empty>Add the people in your family and the advisers you already work with. We'll go through it together at the first meeting.</p>
+    <p class="wm-fm-act" data-js-only><button class="wm-go" type="button" data-fm-copy>Copy as text</button> <button class="wm-go" type="button" data-fm-print>Print</button> <button class="wm-go" type="button" data-fm-clear>Start again</button> <span data-fm-said role="status"></span></p>
+  </div>
+  <p data-no-js>The family map needs JavaScript. You can bring a list of names to the first meeting instead.</p>
+</div></section>

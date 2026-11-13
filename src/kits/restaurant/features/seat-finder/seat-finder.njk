@@ -1,0 +1,37 @@
+{#- Seat finder: the café drawn from its own layout. Pick what you need and the seats that have all of it light up;
+    tap a seat and it goes with your order or table request as a preference, never a reservation. Drawn at build
+    time, so the plan and every seat's details show without JavaScript. -#}
+{%- set sec = site.sections.seats %}
+{%- set st = site.seats %}
+<section id="seats" class="sf" data-feature="seat-finder" aria-labelledby="sf-h"{{ "seat-finder" | tierAttr | safe }}><div class="wrap">
+  <div class="sh rv"><div>{% if sec.kicker %}<span class="kick">{{ sec.kicker }}</span>{% endif %}<h2 id="sf-h">{{ sec.title | markup | safe }}</h2></div>{% if sec.intro %}<p>{{ sec.intro }}</p>{% endif %}</div>
+  <div class="sf-needs" role="group" aria-label="What do you need?" data-js-only>
+    {%- for n in st.places | seatNeeds %}<button type="button" class="rs-chip sf-need" data-sf-need="{{ n.id }}" aria-pressed="false">{{ n.name }}</button>{% endfor %}
+  </div>
+  <div class="sf-grid">
+    <div class="sf-plan">
+      <svg class="sf-svg" viewBox="-4 -6 {{ st.width + 8 }} {{ st.height + 12 }}" role="group" aria-label="Plan of the café">
+        <rect class="sf-floor" x="0" y="0" width="{{ st.width }}" height="{{ st.height }}" rx="1.5"/>
+        {%- for mk in st.marks %}
+        <g class="sf-mark sf-{{ mk.kind }}"><rect x="{{ mk.x }}" y="{{ mk.y }}" width="{{ mk.w }}" height="{{ mk.h }}" rx=".6"/>{% if mk.label %}{% if mk.kind == "terrace" %}<text x="{{ mk.x + 1.5 }}" y="{{ mk.y + 3.4 }}">{{ mk.label }}</text>{% else %}<text x="{{ mk.x + mk.w / 2 }}" y="{% if mk.kind == 'window' %}{{ mk.y - 1.4 }}{% else %}{{ mk.y + mk.h / 2 + 1 }}{% endif %}" text-anchor="middle">{{ mk.label }}</text>{% endif %}{% endif %}</g>
+        {%- endfor %}
+        {%- for p in st.places %}
+        <g class="sf-seat sf-{{ p.shape }}" data-sf-seat="{{ p.id }}" data-has="{{ p.has | join(' ') }}" data-seats="{{ p.seats }}" tabindex="0" role="button" aria-pressed="false" aria-label="{{ p.label }}, {{ p.seats }} seat{% if p.seats != 1 %}s{% endif %}{% set hs = p | seatHas %}{% if hs.length %}: {{ hs | join(', ') }}{% endif %}">
+          {%- if p.shape == "round" or p.shape == "stool" %}<ellipse cx="{{ p.x + p.w / 2 }}" cy="{{ p.y + p.h / 2 }}" rx="{{ p.w / 2 }}" ry="{{ p.h / 2 }}"/>
+          {%- elif p.shape == "sofa" %}<rect x="{{ p.x }}" y="{{ p.y }}" width="{{ p.w }}" height="{{ p.h }}" rx="2.2"/><rect class="sf-back" x="{{ p.x + 0.8 }}" y="{{ p.y + 0.8 }}" width="{{ p.w - 1.6 }}" height="{{ (p.h * 0.3) if (p.h * 0.3) < 2.4 else 2.4 }}" rx="1"/>
+          {%- else %}<rect x="{{ p.x }}" y="{{ p.y }}" width="{{ p.w }}" height="{{ p.h }}" rx="{% if p.shape == 'bench' %}1.4{% else %}.8{% endif %}"/>{% endif %}
+          {%- if "socket" in p.has %}<circle class="sf-plug" cx="{{ p.x + p.w - 1.2 }}" cy="{{ p.y + 1.2 }}" r=".9"/>{% endif %}
+        </g>
+        {%- endfor %}
+      </svg>
+      <p class="rs-small sf-key"><span class="sf-plug-k" aria-hidden="true"></span> has a socket{% if st.note %} · {{ st.note }}{% endif %}</p>
+    </div>
+    <div class="sf-side">
+      <p class="rs-k">Your seat</p>
+      <p class="sf-choice" data-sf-choice aria-live="polite">Tap a seat, or pick what you need.</p>
+      <p class="sf-count rs-small" data-sf-count aria-live="polite"></p>
+      <p class="rs-small">A preference we pass on with your order{% if "table-request" | enabled %} or table request{% endif %}, not a reservation: we'll do our best.</p>
+      <ul class="sf-all">{% for p in st.places %}<li><b>{{ p.label }}</b> · {{ p.seats }} seat{% if p.seats != 1 %}s{% endif %}{% set hs = p | seatHas %}{% if hs.length %} · {{ hs | join(", ") }}{% endif %}</li>{% endfor %}</ul>
+    </div>
+  </div>
+</div></section>

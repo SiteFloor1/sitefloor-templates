@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: curly-and-textured
+permalink: curly-and-textured.html
+feature: textured-page
+eleventyComputed:
+  title: "{{ site.texturedPage.title | plain }}"
+  description: "{{ site.texturedPage.description or site.texturedPage.intro }}"
+---
+{% include "kits/hair/features/textured-page/textured-page.njk" %}

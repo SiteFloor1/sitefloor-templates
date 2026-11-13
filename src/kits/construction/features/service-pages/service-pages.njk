@@ -1,0 +1,27 @@
+{#- One kind of work: what it is in the builder's words, what it includes, and the projects of that kind. -#}
+{%- set ph = { title: t.name, intro: t.line } %}
+{% include "kits/construction/partials/page-head.njk" %}
+<article class="wrap bd-sv">
+  <figure class="bd-sv-fig"><img src="{{ t.photo.src | img }}" alt="{{ t.photo.alt }}" width="{{ t.photo.width }}" height="{{ t.photo.height }}" fetchpriority="high" decoding="async"{% if t.photo.position %} style="object-position:{{ t.photo.position }}"{% endif %}></figure>
+  <div class="bd-sv-text">
+    <div class="bd-sv-about">{% for para in t.about %}<p>{{ para }}</p>{% endfor %}</div>
+    {%- if t.includes %}<div><h2 class="bd-h3">What it <em>includes</em></h2><ul class="bd-sv-inc">{% for i in t.includes %}<li>{{ i }}</li>{% endfor %}</ul></div>{% endif %}
+  </div>
+  {%- if t.planning and t.planning.length %}
+  <section class="bd-sv-plan" aria-labelledby="svpl-h"><h2 id="svpl-h" class="bd-h3">Planning, <em>at a glance</em></h2>
+    {%- for key in t.planning %}{% set tp = planningFacts.topics[key] %}
+    <div><h3>{{ tp.title }}</h3><ul>{% for pt in tp.points %}<li>{{ pt }}</li>{% endfor %}</ul>
+      <p class="bd-pl-src">{% for sk in tp.sources %}{% set src = planningFacts.sources[sk] %}<a href="{{ src.url }}" rel="noopener" target="_blank">{{ src.label }}</a>{% if not loop.last %} · {% endif %}{% endfor %} <span>(GOV.UK, checked {{ planningFacts.checked | ukDate }})</span></p></div>
+    {%- endfor %}
+    <p class="bd-sv-not"><b>{{ planningFacts.notADecision }}</b>{% if "planning-page" | enabled %} <a href="{{ 'planning' | href }}"{{ 'planning-page' | tierAttr | safe }}>Planning and party walls</a>{% endif %}</p>
+  </section>
+  {%- endif %}
+  {%- set mine = site | projectsOfType(t.id) %}
+  {%- if mine.length and ("jobs-page" | enabled) %}
+  <section class="bd-sv-proj" aria-labelledby="svp-h"><h2 id="svp-h" class="bd-h3">{{ t.name }} we've <em>handed over</em></h2>
+    <ul class="bd-proj-list">{% for x in mine.slice(0, 4) %}{% set f = x.photos[0] %}<li><a href="{{ x.id | href }}"><img src="{{ f.src | img }}" alt="{{ f.alt }}" width="{{ f.width }}" height="{{ f.height }}" loading="lazy" decoding="async"><b>{{ x.place }}</b><span>{{ x.scope }}</span></a></li>{% endfor %}</ul>
+  </section>
+  {%- endif %}
+  {%- set waText = site.brief.opening if site.brief else site.messages.general %}
+  <p class="bd-sv-go">{% if "start-page" | enabled %}<a class="bd-btn" href="{{ 'start' | href }}">Start a project</a>{% else %}<a class="bd-btn" href="{{ waText | wa }}" data-wa-text="{{ waText }}" target="_blank" rel="noopener">Message us on WhatsApp</a>{% endif %}<a href="{{ 'services' | href }}">All services</a></p>
+</article>

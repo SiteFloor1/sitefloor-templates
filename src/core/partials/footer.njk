@@ -1,0 +1,17 @@
+{#- Site footer and the fixed mobile action bar are in separate partials so either can be swapped by a look. -#}
+<footer class="foot"><div class="wrap foot-in">
+  <div class="fbig">{{ site.business.name }}</div>
+  <nav class="flinks" aria-label="Footer">
+    <a href="{{ 'index' | href }}">Home</a>
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}>{{ item.label }}</a>
+    {%- endfor %}
+  </nav>
+  <address class="foot-legal">
+    {{ site.business.name }} · {{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}
+    · <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a>
+    {%- if site.contact.email %} · <a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>{% endif %}
+  </address>
+  <a class="flegal" href="{{ 'privacy' | href }}">Privacy</a>
+  <a class="by" href="https://sitefloor.com" rel="noopener">Website by <b>Sitefloor</b></a>
+</div></footer>

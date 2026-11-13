@@ -1,0 +1,21 @@
+{#- How a build runs: the builder's stages in a ruled list beside two photographs stacked like a section through the
+    house, the finished room above the ground line and the work below it. -#}
+{%- set s = site.stages %}
+<section class="bd-runs" id="how-a-build-runs" aria-labelledby="runs-h" data-feature="build-stages"><div class="wrap bd-runs-in">
+  <div class="bd-runs-side">
+    <h2 id="runs-h" class="bd-h2">{{ s.title | markup | safe }}</h2>
+    <p class="bd-runs-intro">{{ s.intro }}</p>
+    <ol class="bd-steps">
+      {%- for st in s.items %}<li><b>{{ st.name }}</b><span>{{ st.line }}</span></li>{% endfor %}
+    </ol>
+    {%- if s.items | totalWeeks %}
+    <p class="bd-when" data-js-only><label for="when-start">If we started in</label> <select id="when-start" data-when-start></select><span data-when-out aria-live="polite"></span></p>
+    {%- endif %}
+    {%- if "how-we-build" | enabled %}<p class="bd-more"><a href="{{ 'how-we-build' | href }}"{{ 'how-we-build' | tierAttr | safe }}>How we build</a></p>{% endif %}
+  </div>
+  <div class="bd-cut">
+    <figure class="bd-cut-above"><img src="{{ s.above.src | img }}" alt="{{ s.above.alt }}" width="{{ s.above.width }}" height="{{ s.above.height }}" loading="lazy" decoding="async"{% if s.above.position %} style="object-position:{{ s.above.position }}"{% endif %}><figcaption>Finished</figcaption></figure>
+    <div class="bd-ground" aria-hidden="true"><span>ground level</span></div>
+    <figure class="bd-cut-below"><img src="{{ s.below.src | img }}" alt="{{ s.below.alt }}" width="{{ s.below.width }}" height="{{ s.below.height }}" loading="lazy" decoding="async"{% if s.below.position %} style="object-position:{{ s.below.position }}"{% endif %}><figcaption>During the build</figcaption></figure>
+  </div>
+</div></section>

@@ -1,0 +1,22 @@
+/* The day planner: four fields, then the day as a timetable (time left, what right); golden-hour moments in amber.
+   The day explained follows as text beside photographs. */
+.wf-day-in { display: grid; gap: 22px; max-width: 1040px; }
+.wf-day-f { display: flex; flex-wrap: wrap; gap: 18px 32px; align-items: end; }
+.wf-day-note { margin: 0; }
+.wf-day-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.wf-day-list li { display: grid; grid-template-columns: 9.5em minmax(0, 1fr); gap: 2px 24px; padding-block: 14px; border-bottom: 1px solid var(--line); }
+.wf-day-time { font-variant-numeric: tabular-nums; color: var(--muted); }
+.wf-day-n { grid-column: 2; color: var(--muted); font-size: 14px; }
+.wf-day-list li[data-light] .wf-day-time, .wf-day-list li[data-light] .wf-day-what { color: var(--accent); }
+.wf-day-hours, .wf-day-acts { margin: 0; }
+.wf-day-acts { display: flex; flex-wrap: wrap; gap: 4px 28px; }
+.wf-ex .wrap { display: grid; gap: clamp(56px, 8vw, 110px); }
+.wf-ex-i { display: grid; gap: 24px clamp(28px, 4vw, 64px); max-width: 1100px; }
+.wf-ex-i.wf-ex-ph { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); align-items: center; }
+.wf-ex-i.wf-ex-ph:nth-child(even) figure { order: 2; }
+.wf-ex-i figure { margin: 0; }
+.wf-ex-i img { display: block; width: 100%; height: auto; }
+.wf-ex-i figcaption { font-size: 13px; color: var(--muted); margin-top: 8px; }
+.wf-ex-t { max-width: 62ch; }
+.wf-ex-t p { margin: 0 0 12px; }
+@media (max-width: 760px) { .wf-day-list li { grid-template-columns: minmax(0, 1fr); } .wf-day-n { grid-column: 1; } .wf-ex-i.wf-ex-ph { grid-template-columns: minmax(0, 1fr); } .wf-ex-i.wf-ex-ph:nth-child(even) figure { order: 0; } }

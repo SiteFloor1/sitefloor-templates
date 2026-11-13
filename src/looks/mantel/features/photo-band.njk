@@ -1,0 +1,6 @@
+{#- Mantel photo band: the photograph full width with no words on it; its line beneath, ruled. -#}
+{%- set p = site.photoBand %}
+<figure class="mt-band" data-feature="photo-band"{{ "photo-band" | tierAttr | safe }}>
+  <picture>{% if p.srcMobile %}<source media="(max-width:700px)" srcset="{{ p.srcMobile | img }}">{% endif %}<img src="{{ p.src | img }}" alt="{{ p.alt }}" loading="lazy" decoding="async" width="{{ p.width }}" height="{{ p.height }}"></picture>
+  <figcaption class="wrap"><b>{{ p.kicker }}</b> {{ p.caption }}</figcaption>
+</figure>

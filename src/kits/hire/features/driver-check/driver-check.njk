@@ -1,0 +1,13 @@
+{#- "You can request this car if…": three answers against the client's rules for this car. It reads the rules back; the
+    client checks the licence before any handover, so it's never a decision. `car` set. -#}
+<section class="hr-dc" data-feature="driver-check" data-dc-rule="{{ car.driver | dump }}"{{ "driver-check" | tierAttr | safe }} aria-labelledby="hr-dc-h">
+  <h2 class="hr-cp-sh" id="hr-dc-h">You can request this car if</h2>
+  <p class="hr-dc-rule">you're {{ car.driver | driverLine }}.</p>
+  <form class="hr-dc-form" data-js-only data-dc-form>
+    <label class="hr-field" for="dc-age"><span>Your age</span><input id="dc-age" type="number" min="17" max="99" inputmode="numeric" data-dc-age></label>
+    <label class="hr-field" for="dc-years"><span>Years with a full licence</span><input id="dc-years" type="number" min="0" max="80" inputmode="numeric" data-dc-years></label>
+    <label class="hr-field" for="dc-points"><span>Points on it</span><input id="dc-points" type="number" min="0" max="12" inputmode="numeric" data-dc-points></label>
+  </form>
+  <p class="hr-dc-out" role="status" aria-live="polite" data-dc-out></p>
+  <p class="hr-dc-note">This only reads our rules back to you. We check every licence before the handover.</p>
+</section>

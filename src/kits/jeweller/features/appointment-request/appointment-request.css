@@ -1,0 +1,20 @@
+/* appointment-request: where and when beside the request. Layout in tokens only; the look sets type and colour. */
+.jw-appt-in { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(32px, 7vw, 120px); align-items: start; border-top: 1px solid var(--line); padding-top: clamp(40px, 5vw, 72px); }
+.jw-appt-addr { margin: 0 0 18px; font: 400 clamp(26px, 3vw, 40px)/1.15 var(--font-display); letter-spacing: .05em; text-transform: uppercase; }
+.jw-appt-hours { list-style: none; margin: 14px 0 0; padding: 0; font-weight: 300; }
+.jw-appt-hours li { padding: 6px 0; }
+.jw-appt-hours span { display: inline-block; min-width: 92px; color: var(--muted); }
+.jw-appt-more { margin: 0 0 24px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 14px 0; }
+.jw-appt-more summary { cursor: pointer; list-style: none; }
+.jw-appt-more summary::-webkit-details-marker { display: none; }
+.jw-appt-more summary::after { content: " +"; }
+.jw-appt-more[open] summary::after { content: " –"; }
+.jw-appt-more[open] summary { margin-bottom: 22px; }
+.jw-appt-pieces { margin: 0 0 22px; }
+.jw-appt-list { list-style: none; margin: 8px 0 0; padding: 0; font: 400 18px/1.4 var(--font-display); letter-spacing: .06em; text-transform: uppercase; }
+.jw-appt-req .nc-fine { margin-top: 16px; }
+@media (max-width: 700px) {
+  .jw-appt-in { grid-template-columns: 1fr; }
+  .jw-appt-req { order: -1; }
+  .jw-appt .nc-btn { width: 100%; }
+}

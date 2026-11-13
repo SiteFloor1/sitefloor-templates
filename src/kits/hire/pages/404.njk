@@ -1,0 +1,9 @@
+---
+layout: core/layouts/base.njk
+pageId: "404"
+permalink: 404.html
+title: Page not found
+---
+{%- set pt = { title: "This page isn't here.", intro: "It may have moved. The fleet is a step away." } %}
+{% include "kits/hire/parts/page-top.njk" %}
+<p class="wrap hr-back"><a class="dt-go" href="{{ ('fleet' | href) if ('fleet-page' | enabled) else ('index' | href) }}">See the fleet</a></p>

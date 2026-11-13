@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="{{ site.lang }}" data-type="{{ (site.brand.type if site.brand else null) or 'classic' }}"{% if build.seasonTint %} data-season="{{ build.seasonTint }}"{% endif %}>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+{%- set fullTitle = (title | plain) + " · " + site.business.name if title else site.business.name + " · " + (site.hero.kicker | plain) %}
+{%- set desc = description or site.business.description %}
+<title>{{ fullTitle }}</title>
+<meta name="description" content="{{ desc }}">
+{%- if pageId != "404" %}
+<link rel="canonical" href="{{ pageId | canonical }}">
+{%- endif %}
+<link rel="icon" href="{{ 'favicon.svg' | img }}" type="image/svg+xml">
+{%- if not build.indexable or noindex %}
+<meta name="robots" content="noindex, nofollow">
+{%- endif %}
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{ site.business.name }}">
+<meta property="og:title" content="{{ fullTitle }}">
+<meta property="og:description" content="{{ desc }}">
+{%- if pageId != "404" %}
+<meta property="og:url" content="{{ pageId | canonical }}">
+{%- endif %}
+<meta property="og:locale" content="en_GB">
+{%- if site.photoBand %}
+<meta property="og:image" content="{{ site.url }}/{{ site.photoBand.src }}">
+<meta name="twitter:card" content="summary_large_image">
+{%- endif %}
+<meta name="theme-color" content="{{ build.themeColor }}">
+{%- if build.daypart %}
+<meta name="sf-daypart" content="{{ build.daypart }}">
+<script>{{ build.daypartScript | safe }}</script>
+{%- endif %}
+<link rel="stylesheet" href="{{ 'site.css' | asset }}">
+<script type="module" src="{{ 'site.js' | asset }}"></script>
+{%- if pageId == "index" %}
+<script type="application/ld+json">{{ jsonLd | safe }}</script>
+{%- endif %}
+</head>
+<body data-page="{{ pageId }}" data-mode="{{ site.mode }}"{% if site.mode == "demo" and feature %} data-page-plan="{{ feature | minPlan }}"{% endif %}>
+<a class="skip" href="#main">Skip to content</a>
+{% if site.mode == "demo" %}{% include "demo/ribbon.njk" %}{% endif %}
+{% if "seasonal" | enabled %}{% include "features/seasonal/seasonal.njk" %}{% endif %}
+{% include "core/partials/header.njk" %}
+<main id="main">
+{{ content | safe }}
+</main>
+{% include "core/partials/footer.njk" %}
+{% include "core/partials/mobile-bar.njk" %}
+{% if site.mode == "demo" %}{% include "demo/overlays.njk" %}{% endif %}
+<script type="application/json" id="site-data">{{ clientData | safe }}</script>
+</body>
+</html>

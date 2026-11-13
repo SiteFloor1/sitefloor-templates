@@ -1,0 +1,15 @@
+{#- What we build: each kind of work with a photograph and one line, as a ruled index. With service pages on, each
+    opens its own page; with the services page, the list moves there (look.json onPages). -#}
+{%- set b = site.buildTypes %}
+<section class="bd-types" id="what-we-build" aria-labelledby="types-h"><div class="wrap">
+  <h2 id="types-h" class="bd-h2">{{ (b.title or "What we *build*") | markup | safe }}</h2>
+  {%- if b.intro %}<p class="bd-types-intro">{{ b.intro }}</p>{% endif %}
+  <ul class="bd-types-list">
+    {%- for t in b.items %}
+    <li>{% if "service-pages" | enabled %}<a href="{{ t.id | href }}"{{ 'service-pages' | tierAttr | safe }}>{% endif %}
+      <img src="{{ t.photo.src | img }}" alt="{{ t.photo.alt }}" width="{{ t.photo.width }}" height="{{ t.photo.height }}" loading="lazy" decoding="async"{% if t.photo.position %} style="object-position:{{ t.photo.position }}"{% endif %}>
+      <b>{{ t.name }}</b><span>{{ t.line }}</span>
+    {% if "service-pages" | enabled %}</a>{% endif %}</li>
+    {%- endfor %}
+  </ul>
+</div></section>

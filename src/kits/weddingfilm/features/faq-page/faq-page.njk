@@ -1,0 +1,11 @@
+{#- Every question, by topic, in the studio's words: the topic left, its questions right as plain open answers (no
+    accordions: couples read this page through). -#}
+<section class="wf-faq" aria-label="Questions"><div class="wrap">
+  {%- for g in site.questions | byTopic %}
+  <div class="wf-faq-g">
+    <h2 class="wf-faq-t">{{ g.topic }}</h2>
+    <dl class="wf-faq-l">{% for q in g.items %}<div><dt>{{ q.q }}</dt><dd>{{ q.a }}</dd></div>{% endfor %}</dl>
+  </div>
+  {%- endfor %}
+  <p class="wf-faq-go"><a class="wf-go" href="{{ site.messages.general | book }}" target="_blank" rel="noopener">Ask us something else</a></p>
+</div></section>

@@ -1,0 +1,25 @@
+{#- Probate cost estimator: four answers, an estimate from the firm's own published range, with VAT and the
+    disbursements. Never outside the published range; no need to get in touch first. -#}
+{%- set es = site.estimator %}{% set svc = null %}{% for x in site.pricing.services %}{% if x.service == es.service %}{% set svc = x %}{% endif %}{% endfor %}
+<section class="lw-est" id="estimate" data-feature="estimator" data-from="{{ svc.price.from }}" data-vat="{{ 'yes' if site.pricing.vatRegistered else 'no' }}" aria-labelledby="est-t"{{ "estimator" | tierAttr | safe }}>
+  <div class="lw-est-head">
+    <h2 id="est-t">{{ es.title }}</h2>
+    {%- if es.intro %}<p>{{ es.intro }}</p>{% endif %}
+  </div>
+  <form class="lw-est-q" id="est-form" data-js-only>
+    {%- for q in es.questions %}
+    <fieldset data-est-q="{{ q.id }}"><legend>{{ q.label }}</legend>
+      {%- set qi = loop.index0 %}{% for o in q.options %}<label><input type="radio" name="est-{{ q.id }}" value="{{ loop.index0 }}" data-low="{{ o.low }}" data-high="{{ o.high }}"{% if loop.first %} checked{% endif %}> <span>{{ o.label }}</span></label>{% endfor %}
+    </fieldset>
+    {%- endfor %}
+  </form>
+  <div class="lw-est-out" data-js-only aria-live="polite">
+    <p class="lw-est-k">Our estimate</p>
+    <p class="lw-est-fee" data-est-fee></p>
+    <p class="lw-est-vat" data-est-vat></p>
+    <p class="lw-est-plus">Plus disbursements, paid to others at cost: {% for d in svc.disbursements %}{{ d.name | lower if not loop.first else d.name }}{% if not loop.last %}; {% endif %}{% endfor %}.</p>
+    <p class="lw-est-note">{{ es.note }}</p>
+    <p><a class="go" href="{{ 'pricing' | href }}#{{ es.service }}">What is included</a></p>
+  </div>
+  <p class="lw-est-plain" data-no-js>Our published range is {{ svc.price.from | gbp }} to {{ svc.price.to | gbp }} before VAT; <a href="{{ 'pricing' | href }}#{{ es.service }}">see what is included</a>.</p>
+</section>

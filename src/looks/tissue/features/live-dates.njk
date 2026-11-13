@@ -1,0 +1,24 @@
+{#- Tissue, LIVE dates: the florist's next TikTok or Instagram LIVE sessions as ruled rows (the date in Tenor, the
+    time and where in italic), each into the customer's own calendar. Sessions that have ended drop off. -#}
+{%- set L = site.live %}
+{%- set next = L.sessions | upcoming(build.today) %}
+{%- if next.length %}
+<section class="lv" id="live" data-feature="live-dates" aria-labelledby="lv-h"><div class="wrap lv-in">
+  <div class="lv-t">
+    <h2 class="lv-h" id="lv-h">{{ L.title }}</h2>
+    {%- if L.intro %}<p class="lv-i">{{ L.intro }}</p>{% endif %}
+  </div>
+  <ol class="lv-l" role="list">
+    {%- for s in next %}{% if loop.index <= 3 %}
+    <li class="lv-s" data-lv-session="{{ s.date }}T{{ s.time }}" data-lv-mins="{{ s.minutes or 60 }}">
+      <p class="lv-when"><b>{{ s.date | ukDate }}</b><span>{{ s.time | timeLabel }} on {{ s.where }}</span></p>
+      <p class="lv-what">{{ s.what }}</p>
+      <p class="lv-go">
+        <a href="{{ L.links.tiktok if s.where == 'TikTok' else L.links.instagram }}" target="_blank" rel="noopener">Follow on {{ s.where }}</a>
+        <button type="button" class="lv-cal" data-lv-cal data-js-only>Add to my calendar</button>
+      </p>
+    </li>
+    {%- endif %}{% endfor %}
+  </ol>
+</div></section>
+{%- endif %}

@@ -1,0 +1,19 @@
+{#- Bespoke, made to measure and ready to wear, side by side in plain words: how the pattern is made, the fittings,
+    the time, the hand work and what the house itself offers; each general fact linked to where it comes from. -#}
+{%- set ex = site.explained %}
+{%- set ph = ex %}
+{% include "kits/tailor/partials/page-head.njk" %}
+<article class="wrap tl-ex">
+  <div class="tl-ex-scroll" role="region" aria-label="Bespoke, made to measure and ready to wear compared" tabindex="0">
+    <table class="tl-ex-t">
+      <thead><tr><th scope="col"><span class="sr-only">What</span></th><th scope="col">Bespoke</th><th scope="col">Made to measure</th><th scope="col">Ready to wear</th></tr></thead>
+      <tbody>{% for r in ex.rows %}<tr><th scope="row">{{ r.label }}</th><td>{{ r.bespoke }}</td><td>{{ r.mtm }}</td><td>{{ r.rtw }}</td></tr>{% endfor %}</tbody>
+    </table>
+  </div>
+  {%- for s in ex.sections %}
+  <section class="tl-ex-s"><h2>{{ s.heading }}</h2>{% for para in s.body | paragraphs %}<p>{{ para }}</p>{% endfor %}</section>
+  {%- endfor %}
+  <section class="tl-ex-src" aria-labelledby="ex-src"><h2 id="ex-src" class="tl-label">Sources, checked {{ ex.checked | monthYear }}</h2>
+    <ol>{% for src in ex.sources %}<li><a href="{{ src.url }}" rel="noopener" target="_blank">{{ src.label }}</a>{% if src.note %}: {{ src.note }}{% endif %}</li>{% endfor %}</ol>
+  </section>
+</article>

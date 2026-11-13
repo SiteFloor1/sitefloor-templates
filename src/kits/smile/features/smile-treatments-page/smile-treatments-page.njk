@@ -1,0 +1,22 @@
+{#- The treatments page: every treatment with its price, its visits (how long each, the weeks between) and who carries
+    it out with their GDC number. -#}
+{%- set ph = { kicker: "Treatments", title: site.sections.treatments.title, intro: site.sections.treatments.intro } %}
+{%- include "kits/smile/partials/page-head.njk" %}
+<div class="sm-tp" data-feature="smile-treatments-page"><div class="wrap">
+  {%- for t in site.treatments.items %}
+  <article class="sm-tp-item rv" id="{{ t.id }}">
+    <div class="sm-tp-head">
+      <h2 class="sm-tp-name">{{ t.name }}</h2>
+      <p class="sm-tp-price">{{ t.price | price }}</p>
+    </div>
+    <p class="sm-tp-line">{{ t.line }}</p>
+    <p class="sm-tp-span">{{ t.visits | spanWords }}</p>
+    <ol class="sm-visits">
+      {%- for v in t.visits %}<li><span class="sm-v-what">{{ v.label }}</span><span class="sm-v-len">{{ v.minutes | duration }}{% if not loop.first %} · {{ "the same week" if v.after == 0 else (v.after ~ (" week" if v.after == 1 else " weeks") ~ " later") }}{% endif %}</span></li>{% endfor %}
+    </ol>
+    <p class="sm-tp-by">{% for p in site.clinicians | cliniciansOf(t.by) %}{% include "kits/smile/partials/clinician-line.njk" %}{% if not loop.last %}<br>{% endif %}{% endfor %}</p>
+    {%- if "smile-treatment-pages" | enabled and t.page %}<p class="sm-more"><a class="go" href="{{ t.id | href }}"{{ 'smile-treatment-pages' | tierAttr | safe }}>About {{ t.name | lower }}</a></p>{% endif %}
+  </article>
+  {%- endfor %}
+  {%- include "kits/smile/partials/rules.njk" %}
+</div></div>

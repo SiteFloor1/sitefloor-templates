@@ -1,0 +1,30 @@
+{#- Barber Street hero: a street-name plate, one plain sentence (no forced line breaks) and a
+    "today" ticket: live status, the live queue (when the walk-in queue is on) and the shop's own top prices. -#}
+<section class="hero"><div class="wrap st-in">
+  <div class="st-main">
+    {%- set street = (site.location.streetAddress or "") | replace(r/^\d+[a-z]?\s+/i, "") %}
+    <p class="st-plate"><span>{{ street or site.location.locality }}</span>{% if street and site.location.locality %}<small>{{ site.location.locality }}</small>{% endif %}</p>
+    <h1>{{ site.hero.title | replace("|", " ") | markup | safe }}</h1>
+    <p class="h-sub">{{ site.hero.intro }}</p>
+    <div class="h-cta">
+      <a class="btn" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{% if build.booking.whatsapp %}{% include "core/partials/icon-whatsapp.njk" %}{% endif %}{{ build.booking.label }}</a>
+      {%- set cta = site.hero.secondaryCta %}
+      {%- if cta and (not cta.feature or (cta.feature | enabled)) %}<a class="btn ghost" href="{{ cta.href }}"{{ cta.feature | tierAttr | safe }}>{{ cta.label }}</a>{% endif %}
+    </div>
+  </div>
+  <aside class="st-ticket" aria-label="Today">
+    <p class="st-now" data-live-status><span class="dot" aria-hidden="true"></span><span data-status-text>Opening hours</span></p>
+    {%- if "walk-in-queue" | enabled %}<a class="st-queue" href="#queue"><span class="st-qk">Queue now</span><b data-q-hero>See the live queue</b></a>{% endif %}
+    {%- set first = site.priceList[0] if site.priceList else null %}
+    {%- if first %}
+    <p class="st-k">{{ first.group }}</p>
+    <ul class="st-prices">
+      {%- for line in first.items | batch(4) | first %}{% set item = line | priceItem %}
+      <li><span>{{ item.name }}{% if item.minutes %} <small>{{ item.minutes }} min</small>{% endif %}</span><b>{{ item.price }}</b></li>
+      {%- endfor %}
+    </ul>
+    {%- if "price-page" | enabled %}<a class="st-all" href="{{ 'prices' | href }}"{{ "price-page" | tierAttr | safe }}>Every price <span aria-hidden="true">→</span></a>
+    {%- elif "price-list" | enabled %}<a class="st-all" href="#prices">All prices <span aria-hidden="true">→</span></a>{% endif %}
+    {%- endif %}
+  </aside>
+</div></section>

@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: flavours
+permalink: flavours.html
+feature: flavours-page
+eleventyComputed:
+  title: "{{ site.cakePages.flavours.title | plain }}"
+  description: "Flavours at {{ site.business.name }}, {{ site.location.locality }}: what's in each, when it's in season, and allergens."
+---
+{% include "kits/cakes/features/flavours-page/flavours-page.njk" %}
+{%- set hostPage = "flavours-page" %}{% include "kits/cakes/partials/hosted.njk" %}

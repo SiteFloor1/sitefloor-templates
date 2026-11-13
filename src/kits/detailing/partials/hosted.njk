@@ -1,0 +1,3 @@
+{#- The home sections a look moved to this page (look.json "onPages"), except those the page already shows. Set
+    `hostPage` to the page's feature id and `shown` to the sections already on the page. -#}
+{%- for id in (build.onPages | hosted(hostPage)) %}{% if (id | enabled) and not (id in (shown or [])) %}{% include homeParts.paths[id] %}{% endif %}{% endfor %}

@@ -1,0 +1,9 @@
+{#- Public matters on the home page: work the firm may name because the client approved it and it is already public. -#}
+{%- set mt = site.matters %}
+<section id="matters" class="lw-mats" aria-label="{{ (mt.title or 'Matters') | plain }}"{{ "matters" | tierAttr | safe }}><div class="wrap lw-mats-in">
+  <div>
+    <h2 class="lw-mats-t">{{ (mt.title or "Matters we can name") | markup | safe }}</h2>
+    {%- if mt.intro %}<p class="lw-mats-i">{{ mt.intro }}</p>{% endif %}
+  </div>
+  {%- set mlist = mt.items %}{% include "kits/law/features/matters/list.njk" %}
+</div></section>

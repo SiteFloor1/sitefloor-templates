@@ -1,0 +1,15 @@
+{#- One commission: its title and line, then its photographs in order with captions, as a sequence that runs across
+    the page (scrolls sideways on a phone). Set `s` first. -#}
+<div class="jw-story rv" id="story-{{ s.id }}">
+  <div class="jw-story-t">
+    <h3 class="jw-name-l">{{ s.title }}</h3>
+    <p class="nc-body">{{ s.line }}</p>
+    {%- if s.weeks %}<p class="nc-label nc-muted">{{ s.weeks }}</p>{% endif %}
+  </div>
+  <ol class="jw-story-steps" tabindex="0" aria-label="{{ s.title }}, from the drawing to the finished piece">
+    {%- for st in s.steps %}
+    <li><figure><img src="{{ st.photo.src | cardSrc | img }}" width="900" height="1125" loading="lazy" decoding="async" alt="{{ st.photo.alt }}"><figcaption><span class="nc-label nc-muted">{{ loop.index }} of {{ s.steps.length }}</span> {{ st.caption }}</figcaption></figure></li>
+    {%- endfor %}
+  </ol>
+  {%- if ST.demoNote %}<p class="nc-fine">{{ ST.demoNote }}</p>{% endif %}
+</div>

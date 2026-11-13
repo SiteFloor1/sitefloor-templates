@@ -1,0 +1,14 @@
+/* The commissions: large portrait photographs in a loose row, the number and name under each, then the facts. */
+.ck-pieces-l { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: clamp(24px, 3vw, 44px) clamp(16px, 2.4vw, 32px); }
+.ck-piece-a { display: grid; gap: 10px; color: inherit; text-decoration: none; }
+.ck-piece img { width: 100%; height: auto; aspect-ratio: 2 / 3; object-fit: cover; background: var(--surface-2); }
+.ck-piece-t { display: flex; align-items: baseline; gap: 10px; font-family: var(--font-display); font-size: 24px; line-height: 1.1; }
+.ck-no { font-size: 15px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.ck-piece-s { font-size: 16px; color: var(--muted); font-variant-numeric: tabular-nums; }
+a.ck-piece-a:hover b { text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 5px; }
+/* The home page's three: on a phone, compact rows (photo left, name and facts right) so they take one screen. */
+@media (max-width: 600px) {
+  .ck-pieces-home { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .ck-pieces-home .ck-piece-a { grid-template-columns: 96px minmax(0, 1fr); grid-template-rows: auto 1fr; gap: 4px 14px; align-items: start; }
+  .ck-pieces-home img { grid-row: span 2; }
+}

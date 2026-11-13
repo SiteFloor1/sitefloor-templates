@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: aftercare
+permalink: aftercare.html
+feature: aftercare-reminder
+eleventyComputed:
+  title: "{{ site.aftercare.title | plain }}"
+  description: "{{ site.aftercare.description or ('Aftercare at ' + site.business.name + ': cleaning, checks, repairs and a yearly reminder.') }}"
+---
+{% include "kits/jeweller/features/aftercare-reminder/aftercare-reminder.njk" %}

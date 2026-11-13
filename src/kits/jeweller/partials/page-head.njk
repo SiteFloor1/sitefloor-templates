@@ -1,0 +1,8 @@
+{#- An inner page's opening in Nacre: the page's name very large in hairline capitals, alone; one light line under
+    it to the right; a hairline. Optionally a small label above (the house's word for the page).
+    Set `ph` = { title, intro, label } first. -#}
+<header class="nc-ph"><div class="wrap">
+  {%- if ph.label %}<p class="nc-label nc-muted">{{ ph.label }}</p>{% endif %}
+  <h1 class="nc-ph-t">{{ ph.title | plain }}</h1>
+  {%- if ph.intro %}<p class="nc-ph-i">{{ ph.intro }}</p>{% endif %}
+</div></header>

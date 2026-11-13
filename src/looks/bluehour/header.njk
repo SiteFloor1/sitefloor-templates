@@ -1,0 +1,26 @@
+{#- Blue hour header: the emergency line above (call-out), then the name with "Light & Power" small beneath it, the
+    pages and "Request a visit". On the home page it lies over the house; elsewhere it sits on the dusk blue and
+    stays at the top. On phones, "Menu" opens the pages. -#}
+{%- if "call-out" | enabled %}{% include "kits/electrician/features/call-out/call-out.njk" %}{% endif %}
+<header class="nav bh-nav{% if pageId == 'index' %} bh-over{% endif %}"><div class="wrap bh-nav-in">
+  <a class="bh-mark" href="{{ 'index' | href }}" aria-label="{{ site.business.name }}, home">
+    {%- if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="{{ site.business.name }}" height="34">{% else %}<b>{{ site.mark.word if site.mark else site.business.name }}</b>{% if site.mark and site.mark.line %}<small>{{ site.mark.line }}</small>{% endif %}{% endif %}
+  </a>
+  <nav class="bh-links" aria-label="Main">
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+  </nav>
+  <a class="bh-req" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">Request a visit</a>
+  <button class="burger bh-menu" type="button" aria-expanded="false" aria-controls="mnav"><span class="bh-open">Menu</span><span class="bh-close">Close</span></button>
+</div></header>
+<div class="mnav bh-sheet" id="mnav" hidden>
+  <nav aria-label="Pages">
+    <a href="{{ 'index' | href }}"{% if pageId == "index" %} aria-current="page"{% endif %}>Home</a>
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+  </nav>
+  <p class="bh-sheet-now" data-live-status><span class="dot" aria-hidden="true"></span> <span data-status-text>Opening hours</span></p>
+  <p class="bh-sheet-call"><a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a></p>
+</div>

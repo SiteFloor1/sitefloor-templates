@@ -1,0 +1,52 @@
+{#- Team page body. Used by a kit's team page; one profile per site.staff entry. With team.showcase (trades where
+    you book the business, not a person, e.g. car studios) there is no "Book with" button per person, and
+    team.yearsLabel replaces "years in the chair". -#}
+<header class="phero"><div class="wrap">
+  <nav class="crumb" aria-label="Breadcrumb"><a href="{{ 'index' | href }}">Home</a> / {{ site.team.title | plain }}</nav>
+  <span class="kick">{{ site.team.kicker }}</span>
+  <h1>{{ site.team.title | markup | safe }}</h1>
+  <p>{{ site.team.intro }}</p>
+</div></header>
+<div class="wrap" data-feature="team">
+  {%- if site.team.filters %}
+  <div class="team-filter">
+    <span class="tf-label" id="tf-label">{{ site.team.filtersLabel or "Who's best for" }}</span>
+    <div class="chips" role="group" aria-labelledby="tf-label" data-team-chips>
+      <button type="button" class="chip" aria-pressed="true" data-tag="">Everyone</button>
+      {%- for f in site.team.filters %}<button type="button" class="chip" aria-pressed="false" data-tag="{{ f.tag }}">{{ f.label }}</button>{% endfor %}
+    </div>
+    <p class="tf-count" data-team-count role="status"></p>
+  </div>
+  {%- endif %}
+  {%- for s in site.staff %}
+  <article class="barber rv" id="{{ s.name | slug }}" data-tags="{{ (s.tags or []) | join(' ') }}">
+    <div class="b-img">
+      {%- if s.photo %}<img src="{{ s.photo | img }}" alt="Recent work by {{ s.name }}" loading="{{ 'eager' if loop.first else 'lazy' }}" decoding="async" width="720" height="900">{% endif %}
+      <span class="mono" aria-hidden="true">{{ s.name | first }}</span>
+      {%- if s.years %}<span class="yrs"><b>{{ s.years }}</b>{{ site.team.yearsLabel or "years in the chair" }}</span>{% endif %}
+    </div>
+    <div>
+      <span class="b-role">{{ s.role }}{% if s.days %} · {{ s.days }}{% endif %}</span>
+      <h2 class="b-name">{{ s.name }}</h2>
+      {%- if s.bio %}<p class="b-bio">{{ s.bio }}</p>{% endif %}
+      {%- if s.quote %}<blockquote class="b-q">“{{ s.quote }}”</blockquote>{% endif %}
+      {%- if s.knownFor %}<ul class="b-tags">{% for k in s.knownFor %}<li>{{ k }}</li>{% endfor %}</ul>{% endif %}
+      {%- set best = site.team.filters | withTags(s.tags) %}
+      {%- if best.length %}<p class="b-best"><span>{{ site.team.filtersLabel or "Best for" }}:</span> {% for f in best %}{{ f.label }}{% if not loop.last %} · {% endif %}{% endfor %}</p>{% endif %}
+      {%- if not site.team.showcase %}
+      {%- set msg = "Hi, can I book in with " + s.name + "? What's the next free slot?" %}
+      <div class="b-foot"><a class="btn" href="{{ msg | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ msg }}"{% endif %} target="_blank" rel="noopener">{% if build.booking.whatsapp %}{% include "core/partials/icon-whatsapp.njk" %}{% endif %}Book with {{ s.name }}</a></div>
+      {%- endif %}
+    </div>
+  </article>
+  {%- endfor %}
+  {%- if site.team.showcase %}
+  <div class="team-book rv"><p>{{ site.team.bookLine or "Book the work, and the right person for it does it." }}</p><a class="btn" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{% if build.booking.whatsapp %}{% include "core/partials/icon-whatsapp.njk" %}{% endif %}{{ build.booking.label }}</a></div>
+  {%- endif %}
+</div>
+{%- if site.team.hiring %}
+<section class="sec-hire"><div class="wrap">
+  <div class="hire rv"><div><span class="kick">{{ site.team.hiring.kicker }}</span><h2 class="hire-title">{{ site.team.hiring.title }}</h2><p>{{ site.team.hiring.text }}</p></div>
+  <a class="btn ghost" href="{{ site.team.hiring.message | wa }}" data-wa-text="{{ site.team.hiring.message }}" target="_blank" rel="noopener">Ask about the job</a></div>
+</div></section>
+{%- endif %}

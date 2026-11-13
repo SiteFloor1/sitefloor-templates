@@ -1,0 +1,12 @@
+{#- The studio, room by room: one photograph and one line each. Arriving (smile-arrival) follows on this page. -#}
+{%- set s = site.studio %}
+{%- set ph = { kicker: "The studio", title: s.title, intro: s.intro } %}
+{%- include "kits/smile/partials/page-head.njk" %}
+<div class="sm-st" data-feature="smile-studio"><div class="wrap">
+  <ul class="sm-st-rooms">
+    {%- for r in s.rooms %}
+    <li class="rv"><figure><img src="{{ r.photo.src | img }}" alt="{{ r.photo.alt }}" width="{{ r.photo.width }}" height="{{ r.photo.height }}" loading="lazy" decoding="async"></figure><p><b>{{ r.name }}</b>{% if r.text %} {{ r.text }}{% endif %}</p></li>
+    {%- endfor %}
+  </ul>
+</div></div>
+{%- if "smile-arrival" | enabled %}{% include "kits/smile/features/smile-arrival/smile-arrival.njk" %}{% endif %}

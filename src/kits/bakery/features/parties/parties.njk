@@ -1,0 +1,41 @@
+{#- Parties and groups page: the shop's options, a calculator from guests to the cakes or trays needed (from the shop's
+    own sizes and prices), an enquiry on WhatsApp and the deposit. -#}
+{%- set p = site.parties %}
+{%- set pp = site.partiesPage %}
+{%- set ph = pp %}
+{% include "kits/bakery/partials/page-head.njk" %}
+<section class="pa-options" aria-label="Party options"><div class="wrap">
+  <ul class="pa-list">
+    {%- for o in p.options %}
+    <li class="pa-card rv">
+      {%- if o.photo %}<div class="pa-ph"><img src="{{ o.photo.src | img }}" alt="{{ o.photo.alt }}" width="{{ o.photo.width }}" height="{{ o.photo.height }}" loading="lazy" decoding="async"></div>{% endif %}
+      <h2 class="pa-n">{{ o.name }}</h2>
+      <p class="pa-t">{{ o.text }}</p>
+      <p class="pa-facts">
+        {%- if o.perHead %}<span><b>{{ o.perHead | pounds }}</b> a head</span>{% endif %}
+        {%- if o.price %}<span><b>{{ o.price | pounds }}</b></span>{% endif %}
+        {%- if o.minGuests %}<span>From {{ o.minGuests }} guests</span>{% endif %}
+        {%- if o.notice %}<span>{{ o.notice }} days' notice</span>{% endif %}
+      </p>
+    </li>
+    {%- endfor %}
+  </ul>
+  {%- if p.note %}<p class="bk-small">{{ p.note }}</p>{% endif %}
+</div></section>
+<section class="pa-calc" id="calculator" data-feature="parties" aria-labelledby="pa-calc-h"><div class="wrap pa-calc-in">
+  <h2 class="part-h" id="pa-calc-h">How much for everyone</h2>
+  <p class="part-i">Our sizes and prices, for your number of guests: one portion each, as we cut them.</p>
+  <div class="pa-tool">
+    <label class="pa-guests" data-js-only><span>Guests</span><input type="range" min="5" max="{{ p.maxGuests }}" step="1" value="30" data-pa-guests aria-describedby="pa-guests-n"><output id="pa-guests-n" data-pa-n>30</output></label>
+    <ol class="pa-plans" data-pa-plans aria-live="polite" data-js-only></ol>
+    <table class="pa-serv" data-no-js>
+      <caption class="sr-only">What each size serves</caption>
+      <thead><tr><th scope="col">Size</th><th scope="col">Serves</th><th scope="col">Price</th></tr></thead>
+      <tbody>{% for s in p.servings %}<tr><th scope="row">{{ s.name }}</th><td>{{ s.servings }}</td><td>{{ s.price | pounds }}</td></tr>{% endfor %}</tbody>
+    </table>
+    <div class="pa-actions">
+      <a class="btn" href="{{ ('Hi ' + site.business.name + ', I am planning a party.') | wa }}" target="_blank" rel="noopener" data-pa-send>Ask about your party</a>
+      {%- if p.depositLink %}{% set pay = p.depositLink %}{% set payLabel = "" %}{% include "features/pay-link/button.njk" %}{% endif %}
+    </div>
+  </div>
+</div></section>

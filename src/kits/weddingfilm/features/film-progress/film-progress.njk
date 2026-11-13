@@ -1,0 +1,26 @@
+{#- Your film's progress: the code the studio gave the couple, then where the film is (footage in, edit, colour,
+    sound, delivered) as one line of five, the trailer's date, the studio's note. Codes and dates only, never
+    names or links (the sheet is public). Nothing shows until a code matches. -#}
+{%- set C = site.progress %}
+<section class="wf-pg" data-feature="film-progress" aria-labelledby="pg-h"><div class="wrap wf-pg-in">
+  <form class="wf-pg-f" data-pg-form>
+    <label class="wf-field" for="pg-code"><span class="wf-k">Your code</span><input id="pg-code" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="20" data-pg-code{% if C.example %} placeholder="{{ C.example }}"{% endif %}></label>
+    <button class="wf-go" type="submit">Open</button>
+  </form>
+  {%- if C.example %}<p class="wf-small">On this demo, try {{ C.example }}.</p>{% endif %}
+  <p class="wf-pg-msg" data-pg-msg aria-live="polite"></p>
+  <div class="wf-pg-out" data-pg-out hidden>
+    <h2 id="pg-h" class="wf-h2" data-pg-title>Your wedding</h2>
+    <ol class="wf-pg-line" aria-label="Where your film is">
+      {%- for s in progressStages %}
+      <li data-pg-stage="{{ loop.index0 }}"><span class="wf-pg-dot" aria-hidden="true"></span><span class="wf-pg-l">{{ s.label }}</span><span class="wf-pg-t">{{ s.text }}</span></li>
+      {%- endfor %}
+    </ol>
+    <dl class="wf-pg-parts">
+      <div data-pg-part="trailer"><dt>Your trailer</dt><dd data-pg-state></dd></div>
+      <div data-pg-part="photographs" hidden><dt>Your photographs</dt><dd data-pg-state></dd></div>
+    </dl>
+    <p class="wf-pg-note" data-pg-note hidden></p>
+    <p class="wf-small wf-pg-private">We send your film and your photographs to you directly, never through this page.</p>
+  </div>
+</div></section>

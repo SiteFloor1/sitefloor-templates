@@ -1,0 +1,15 @@
+{#- Bridal nails: the trial and the final set in the salon's words, the timings as the salon gives them, and a request.
+    The timeline that works the dates out (Signature) and the party booking follow when the look moves them here. -#}
+{%- set ph = site.bridalPage %}
+{%- set b = site.bridal %}
+{% include "kits/nails/partials/page-head.njk" %}
+<section id="bridal" class="nl-bridal"><div class="wrap nl-bridal-in">
+  {%- if b.photo %}<img class="nl-bridal-ph" src="{{ b.photo.src | img }}" alt="{{ b.photo.alt }}" width="{{ b.photo.width }}" height="{{ b.photo.height }}" decoding="async">{% endif %}
+  <div class="nl-bridal-t">
+    <p class="nl-bridal-p">{{ b.text }}</p>
+    {%- if not ("nail-bridal-timeline" | enabled) %}
+    <ol class="nl-steps" role="list">{% for s in b.steps %}<li><span class="nl-steps-w">{{ s.daysBefore | daysWords }}</span><b>{{ s.label }}</b>{% if s.text %}<span>{{ s.text }}</span>{% endif %}</li>{% endfor %}</ol>
+    {%- endif %}
+    <a class="nl-link" href="{{ (b.message + ' I would like to book a bridal trial.') | book }}" target="_blank" rel="noopener">Ask for a trial</a>
+  </div>
+</div></section>

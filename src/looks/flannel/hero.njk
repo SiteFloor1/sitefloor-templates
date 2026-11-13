@@ -1,0 +1,21 @@
+{#- Flannel hero: the cut on the board, edge to edge; the coat on its stand laid over the photograph's lower corner
+    like a second piece put down on the table (it settles into place once, after the page loads; never with reduced
+    motion); the one line under the photograph and the request beside it. -#}
+{%- set h = site.hero %}
+<section class="hero fl-hero" aria-labelledby="fl-h1">
+  <figure class="fl-plate">
+    <picture>
+      <source media="(max-width: 760px)" srcset="{{ h.cutPhone.src | img }}" width="{{ h.cutPhone.width }}" height="{{ h.cutPhone.height }}">
+      <img src="{{ h.cut.src | img }}" alt="{{ h.cut.alt }}" width="{{ h.cut.width }}" height="{{ h.cut.height }}" fetchpriority="high" decoding="async">
+    </picture>
+  </figure>
+  <div class="wrap fl-hero-under">
+    <figure class="fl-stand"><img src="{{ h.stand.src | img }}" alt="{{ h.stand.alt }}" width="{{ h.stand.width }}" height="{{ h.stand.height }}" decoding="async"></figure>
+    <div class="fl-line">
+      <h1 class="fl-h1" id="fl-h1">{{ h.title | plain }}</h1>
+      {%- if h.intro %}<p class="fl-intro">{{ h.intro }}</p>{% endif %}
+      <p class="fl-hero-go"><a class="tl-btn" href="{{ (site.garments.message if site.garments else site.messages.general) | book }}" target="_blank" rel="noopener">Book a first fitting</a>
+        <span class="fl-now" data-live-status><span class="dot" aria-hidden="true"></span><span data-status-text>Opening hours</span></span></p>
+    </div>
+  </div>
+</section>

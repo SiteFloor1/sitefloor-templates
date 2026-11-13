@@ -1,0 +1,13 @@
+---
+layout: core/layouts/base.njk
+pageId: ev-charging
+permalink: ev-charging.html
+feature: ev-check
+eleventyComputed:
+  title: "{{ site.evPage.title | plain }}"
+  description: "Home EV chargers from {{ site.business.name }}, {{ site.location.locality }}: will one go in easily, and what it costs."
+---
+{%- set ph = site.evPage %}
+{% include "kits/electrician/partials/page-head.njk" %}
+{% include "kits/electrician/features/ev-check/ev-check.njk" %}
+{%- set hostPage = "ev-check" %}{% include "kits/electrician/partials/hosted.njk" %}

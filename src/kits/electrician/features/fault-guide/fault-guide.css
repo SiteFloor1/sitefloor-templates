@@ -1,0 +1,15 @@
+.el-fault-in { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(28px, 5vw, 80px); align-items: start; }
+.el-picks { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
+.el-pick { min-height: 44px; padding: 0 16px; border: 1px solid var(--line-2); background: transparent; color: var(--text); font: inherit; font-size: 14px; cursor: pointer; }
+.el-pick[aria-checked="true"] { background: var(--text); color: var(--bg); border-color: var(--text); }
+.el-tell { display: grid; gap: 10px; }
+.el-tell + .el-tell { margin-top: 22px; }
+.el-tell h3 { margin: 0; }
+.el-tell ol { margin: 0; padding-left: 20px; color: var(--muted); display: grid; gap: 6px; max-width: 60ch; }
+[data-ready] .el-tell:not(.on) { display: none; }
+[data-ready] .el-tell + .el-tell { margin-top: 0; }
+.el-safe { margin: 26px 0 0; padding: 16px 18px; background: var(--surface); font-size: 14px; max-width: 62ch; }
+.el-safe b { font-weight: 500; }
+.el-fault-go { display: flex; flex-wrap: wrap; gap: 10px 20px; align-items: center; margin-top: 26px; color: var(--muted); font-size: 14px; }
+.el-fault-go span a { color: var(--text); font-variant-numeric: tabular-nums; }
+@media (max-width: 860px) { .el-fault-in { grid-template-columns: minmax(0, 1fr); } }

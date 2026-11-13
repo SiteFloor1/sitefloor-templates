@@ -1,0 +1,29 @@
+{#- Events: upcoming dated events (past ones are left out at build time and hidden by the browser after
+    the day), add to calendar (times in UTC) and book on WhatsApp. -#}
+{%- set ev = site.events %}
+<section class="phero"><div class="wrap">
+  <span class="kick">{{ ev.kicker }}</span>
+  <h1>{{ ev.title | markup | safe }}</h1>
+  {%- if ev.intro %}<p>{{ ev.intro }}</p>{% endif %}
+</div></section>
+<section class="evs" data-feature="events"><div class="wrap">
+  {%- set list = ev.items | upcomingEvents(build.today) %}
+  <ol class="ev-list">
+    {%- for e in list %}{% set dd = e.date | eventDay %}
+    <li class="ev" data-ev="{{ e.id }}" data-date="{{ e.date }}">
+      <p class="ev-date"><b>{{ dd.day }}</b><span>{{ dd.month }}</span><small>{{ dd.weekday }}</small></p>
+      {%- if e.photo %}<img class="ev-img" src="{{ e.photo.src | img }}" width="{{ e.photo.width }}" height="{{ e.photo.height }}" alt="{{ e.photo.alt }}" loading="lazy">{% endif %}
+      <div class="ev-body">
+        <h2>{{ e.title }}</h2>
+        <p class="ev-when">{{ e.start | t12 }}{% if e.end %}–{{ e.end | t12 }}{% endif %}{% if e.price %} · {{ e.price | gbp }} a head{% else %} · Free{% endif %}</p>
+        <p>{{ e.text }}</p>
+        <div class="ev-cta">
+          {%- if e.book %}<a class="btn" href="{{ ("Hi, I'd like to book for " + e.title + " on " + (e.date | eventDate) + ".") | wa }}" target="_blank" rel="noopener">{% include "core/partials/icon-whatsapp.njk" %}Book on WhatsApp</a>{% endif %}
+          <button type="button" class="btn ghost" data-ev-ics="{{ e.id }}" data-js-only>Add to calendar</button>
+        </div>
+      </div>
+    </li>
+    {%- endfor %}
+  </ol>
+  <p class="ev-none" data-ev-none{% if list.length %} hidden{% endif %}>Nothing on the calendar right now. Follow us or message us to hear about the next one.</p>
+</div></section>

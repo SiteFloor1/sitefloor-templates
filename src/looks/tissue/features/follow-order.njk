@@ -1,0 +1,24 @@
+{#- Tissue "Your order": the reference field, then the stages as a line of three with the one you're at, the note, and
+    the florist's photo of your bouquet before it left, framed like the pinned post. Same hooks as the kit's. -#}
+{%- set T = site.orderTracker %}
+{%- set ph = { title: T.title, intro: T.intro } %}
+{% include "looks/tissue/parts/page-head.njk" %}
+<section class="ts-track" data-feature="follow-order"><div class="wrap ts-track-in">
+  <form class="ts-track-f" data-track-form novalidate>
+    <label for="track-ref">Your reference <span>in our message, e.g. {{ T.example }}</span></label>
+    <div class="ts-track-row"><input id="track-ref" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="12"><button class="ts-btn" type="submit">Follow</button></div>
+  </form>
+  <div class="ts-track-card" data-track-card hidden aria-live="polite">
+    <ol class="ts-stages" role="list">
+      {%- for s in T.stages %}<li data-track-step="{{ loop.index0 }}"><b>{{ s.name }}</b><span>{{ s.about }}</span></li>{% endfor %}
+    </ol>
+    <p class="ts-fine" data-track-upd></p>
+    <div class="ts-card" data-track-note-wrap>{% set pinClass = "ts-pin-card" %}{% include "looks/tissue/parts/pin.njk" %}<p data-track-note hidden></p></div>
+    <figure class="ts-track-ph" data-track-fig hidden><img data-track-photo alt="Your flowers, photographed before they left the studio" width="800" height="1000" decoding="async"><figcaption>Your flowers, before they left.</figcaption></figure>
+  </div>
+  <div class="ts-track-off" data-track-off hidden aria-live="polite">
+    <p data-track-why></p>
+    <a class="ts-btn" data-track-ask href="{{ site.messages.general | book }}" target="_blank" rel="noopener">Message us</a>
+  </div>
+  <noscript><p>This page needs JavaScript. Message us with your reference and we'll tell you where your flowers are.</p></noscript>
+</div></section>

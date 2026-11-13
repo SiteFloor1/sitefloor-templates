@@ -1,0 +1,9 @@
+{#- One piece as a card: the photograph large (the card-sized file), the name in hairline capitals, the price as the
+    client sets it. Tapping it opens the piece one at a time (the pieces viewer); without it, the piece's page, or the
+    appointment. Set `p` first; `cardSize` "l" for the large one. -#}
+<figure class="jw-card{% if cardSize == 'l' %} jw-card-l{% endif %} rv">
+  <a class="jw-card-a" href="{{ (p.id | pieceHref | href) if ('jewel-pages' | enabled) else ('index' | href) + '#appointment' }}" data-open="{{ p.id }}" aria-label="{{ p.name }}{% set pl = p | priceLabel %}{% if pl %}, {{ pl }}{% endif %}">
+    <img src="{{ p.photo.src | cardSrc | img }}" width="900" height="1125" loading="lazy" decoding="async" alt="{{ p.photo.alt }}">
+  </a>
+  <figcaption><b class="jw-name">{{ p.name }}</b>{% if pl %}<span class="nc-label nc-muted">{{ pl }}</span>{% endif %}</figcaption>
+</figure>

@@ -1,0 +1,507 @@
+<title>Saffron &amp; Ash Case Study</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600&family=Manrope:wght@600;700&display=swap">
+<style>
+/* Layout: the case study is a tasting menu. A long ivory card runs down a dark walnut table; each feature is a course,
+   served in order with its pairing (the plan it comes on). On wide screens the menu card stays beside you and crosses
+   off each course as you reach the next; the real thing is shown on a phone between the words. One look, candlelit. */
+:root {
+  --table: #16100E; --table-2: #211816; --linen: #EDE3D3; --linen-dim: #B9AC9B;
+  --card: #F4EDE1; --card-2: #E9DFCE; --ink: #24150F; --ink-soft: #5E4B40; --rule: #CDBFAA;
+  --oxblood: #8A2328; --foil: #C99A4B; --ok: #3F7A55;
+  --display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --body: "Instrument Sans", "Segoe UI", Helvetica, Arial, sans-serif;
+  --brand: "Manrope", "Helvetica Neue", Arial, sans-serif;
+  --sf-paper: #FBFAF7; --sf-ink: #0E0F11; --sf-tomato: #E8613C; --sf-line: rgba(14,15,17,.12);
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+body { background: var(--table); color: var(--linen); font: 400 17px/1.6 var(--body); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--table); }
+a { color: inherit; }
+img, video { display: block; max-width: 100%; height: auto; }
+.gut { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { width: min(1240px, 100%); margin-inline: auto; }
+h1, h2, h3 { font-family: var(--display); font-weight: 400; text-wrap: balance; margin: 0; }
+p { margin: 0; }
+.cap { font-size: 11.5px; letter-spacing: .24em; text-transform: uppercase; }
+:focus-visible { outline: 2px solid var(--foil); outline-offset: 3px; }
+
+/* Sitefloor's own bar, as on the Sitefloor site and the other case studies */
+.sfbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--sf-paper); color: var(--sf-ink); border-bottom: 1px solid var(--sf-line); }
+.sfbar .wrap { display: flex; justify-content: space-between; align-items: center; height: 66px; gap: 16px; }
+.wm { display: flex; align-items: baseline; font-family: var(--brand); font-weight: 600; font-size: 24px; letter-spacing: -.045em; text-decoration: none; color: var(--sf-ink); }
+.wm svg { margin: 0 1px; overflow: visible; }
+.sfbar nav { display: flex; gap: 28px; font-family: var(--brand); font-size: 14px; font-weight: 600; }
+.sfbar nav a { text-decoration: none; color: var(--sf-ink); }
+.sfbar nav a[aria-current] { box-shadow: inset 0 -1.5px 0 var(--sf-ink); }
+.sfbtn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 20px; background: var(--sf-ink); color: var(--sf-paper); font: 700 12px var(--brand); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; }
+.sfbtn:hover { background: var(--sf-tomato); }
+@media (max-width: 760px) { .sfbar nav { display: none; } }
+@media (max-width: 420px) { .sfbar .sfbtn { display: none; } }
+.kicker-row { padding-top: clamp(26px, 4vw, 44px); }
+
+/* the hero: the menu's title on the table, the book on a phone beside it */
+.hero { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); gap: clamp(28px, 6vw, 90px); align-items: center; padding-block: clamp(30px, 6vw, 80px) clamp(50px, 7vw, 100px); }
+.hero .cap { color: var(--foil); }
+.hero h1 { font-size: clamp(54px, 8.4vw, 132px); line-height: .9; letter-spacing: -.01em; margin: 22px 0 26px; }
+.hero h1 em { color: var(--foil); }
+.lede { font-size: clamp(18px, 1.6vw, 21px); line-height: 1.55; color: var(--linen); max-width: 40ch; }
+.facts { display: flex; flex-wrap: wrap; gap: 10px 26px; margin-top: 30px; color: var(--linen-dim); font-size: 14px; }
+.facts b { color: var(--linen); font-weight: 500; }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.btn { display: inline-flex; align-items: center; gap: 10px; min-height: 50px; padding: 0 24px; border-radius: 999px; font: 600 14px var(--body); letter-spacing: .04em; text-decoration: none; }
+.btn.fill { background: var(--foil); color: var(--table); }
+.btn.line { border: 1px solid color-mix(in srgb, var(--linen) 40%, transparent); color: var(--linen); }
+.btn:hover { filter: brightness(1.08); }
+
+/* a phone on the table */
+.phone { position: relative; width: min(100%, 300px); margin-inline: auto; padding: 9px; border-radius: 48px; background: linear-gradient(160deg, #3a302b, #0d0a09 60%); box-shadow: 0 50px 80px -40px #000, inset 0 0 0 1px rgba(255,255,255,.08); }
+.phone > .screen { position: relative; overflow: hidden; border-radius: 39px; background: var(--table-2); aspect-ratio: 390 / 844; }
+.phone > .screen::before { content: ""; position: absolute; z-index: 3; top: 6px; left: 50%; translate: -50% 0; width: 25%; height: 19px; border-radius: 999px; background: #000; pointer-events: none; }
+.phone::before, .phone::after { content: ""; position: absolute; width: 3px; border-radius: 2px; background: #2a221f; }
+.phone::before { left: -3px; top: 21%; height: 11%; box-shadow: 0 -10% 0 #2a221f; }
+.phone::after { right: -3px; top: 27%; height: 15%; }
+.phone video, .phone img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.phone video { aspect-ratio: 600 / 1298; object-fit: cover; }
+.phone .play { position: absolute; left: 50%; bottom: -52px; translate: -50% 0; z-index: 2; display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 16px; border: 1px solid rgba(237,227,211,.4); border-radius: 999px; background: transparent; color: var(--linen); font: 500 12px var(--body); letter-spacing: .08em; cursor: pointer; }
+.phone:has(.play) { margin-bottom: 60px; }
+.glow { position: relative; isolation: isolate; }
+.glow::before { content: ""; position: absolute; inset: 10% -20% -6%; z-index: -1; background: radial-gradient(closest-side, rgba(201,154,75,.28), transparent 75%); }
+
+/* the card and the courses */
+.dinner { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: clamp(30px, 5vw, 70px); align-items: start; padding-bottom: 40px; }
+.menu-card { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 86px); background: var(--card); color: var(--ink); padding: 30px 26px 26px; border-radius: 2px; box-shadow: 0 30px 60px -30px #000; outline: 1px solid var(--rule); outline-offset: -9px; }
+.menu-card .cap { color: var(--oxblood); text-align: center; display: block; }
+.menu-card h2 { font-size: 34px; text-align: center; line-height: 1; margin: 8px 0 4px; }
+.menu-card .sub { text-align: center; font-family: var(--display); font-style: italic; color: var(--ink-soft); font-size: 16px; margin-bottom: 18px; }
+.courses { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; counter-reset: c; }
+.courses a { display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; align-items: baseline; gap: 6px; padding: 7px 4px; text-decoration: none; font-size: 15px; line-height: 1.25; position: relative; }
+.courses .n { font-family: var(--display); font-style: italic; color: var(--ink-soft); }
+.courses .p { font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--oxblood); white-space: nowrap; }
+.courses a::after { content: ""; position: absolute; left: 30px; right: 4px; top: 54%; height: 1.5px; background: var(--ink); opacity: .55; transform: scaleX(0); transform-origin: left; transition: transform .5s ease; }
+.courses a.served { color: var(--ink-soft); }
+.courses a.served::after { transform: scaleX(1); }
+.courses a.now { background: var(--card-2); }
+.courses a.now .n::before { content: "•"; color: var(--oxblood); position: absolute; left: -2px; }
+.menu-card .note { margin-top: 16px; padding-top: 12px; border-top: 1px dashed var(--rule); font-size: 12.5px; color: var(--ink-soft); line-height: 1.45; text-align: center; }
+
+.course { padding-block: clamp(40px, 6vw, 80px); border-top: 1px solid rgba(237,227,211,.12); scroll-margin-top: 110px; }
+.course:first-child { border-top: 0; padding-top: 0; }
+.c-head { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 18px; align-items: baseline; margin-bottom: 26px; }
+.c-num { font-family: var(--display); font-style: italic; font-size: clamp(44px, 5vw, 64px); line-height: 1; color: var(--foil); grid-row: span 2; }
+.c-head h2 { font-size: clamp(34px, 4.4vw, 58px); line-height: 1.02; }
+.pairing { font-size: 12.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--linen-dim); }
+.pairing b { color: var(--foil); font-weight: 500; }
+.c-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 300px); gap: clamp(24px, 4vw, 56px); align-items: start; }
+.c-body.wide { grid-template-columns: minmax(0, 1fr); }
+.copy { display: grid; gap: 16px; max-width: 62ch; color: var(--linen); }
+.copy p { color: color-mix(in srgb, var(--linen) 88%, var(--table)); }
+.copy strong { color: var(--linen); font-weight: 600; }
+.ticks { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.ticks li { position: relative; padding-left: 28px; font-size: 15.5px; color: color-mix(in srgb, var(--linen) 86%, var(--table)); }
+.ticks li::before { content: ""; position: absolute; left: 2px; top: .62em; width: 9px; height: 9px; border: 1px solid var(--foil); transform: rotate(45deg); }
+.shot { border-radius: 6px; overflow: hidden; box-shadow: 0 40px 70px -40px #000; outline: 1px solid rgba(237,227,211,.1); }
+figure { margin: 0; }
+figcaption { margin-top: 10px; font-size: 13px; color: var(--linen-dim); }
+.quote { font-family: var(--display); font-style: italic; font-size: clamp(22px, 2.4vw, 30px); line-height: 1.3; color: var(--linen); border-left: 1px solid var(--foil); padding-left: 18px; }
+
+/* course III: try it */
+.try { margin-top: 28px; background: var(--card); color: var(--ink); padding: 24px clamp(18px, 3vw, 30px); border-radius: 2px; }
+.try .cap { color: var(--oxblood); }
+.try h3 { font-size: 26px; margin: 6px 0 14px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { min-height: 36px; padding: 0 14px; border: 1px solid var(--rule); border-radius: 999px; background: transparent; color: var(--ink); font: 500 13.5px var(--body); cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--oxblood); border-color: var(--oxblood); color: var(--card); }
+.dishes { list-style: none; margin: 16px 0 0; padding: 0; display: grid; }
+.dish { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; padding: 10px 0; border-top: 1px dotted var(--rule); }
+.dish b { font-family: var(--display); font-weight: 400; font-size: 20px; }
+.dish span { font-variant-numeric: tabular-nums; font-family: var(--display); font-size: 19px; }
+.dish small { grid-column: 1 / -1; font-size: 12.5px; color: var(--ink-soft); font-style: italic; }
+.dish[hidden] { display: none; }
+.hidden-note { margin-top: 10px; font-size: 13px; color: var(--ink-soft); min-height: 1.4em; }
+
+/* course IX: the season */
+.covers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(10px, 2vw, 24px); margin-top: 28px; }
+.covers figure:nth-child(1) { transform: rotate(-3deg); } .covers figure:nth-child(3) { transform: rotate(3deg); }
+.covers figcaption { text-align: center; }
+.pdfs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.pdfs img { background: #fff; box-shadow: 0 30px 50px -30px #000; }
+
+/* petits fours: the numbers */
+.fours { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: rgba(237,227,211,.14); border: 1px solid rgba(237,227,211,.14); margin-top: 6px; }
+.fours div { background: var(--table); padding: 20px 18px; display: grid; gap: 4px; }
+.fours b { font-family: var(--display); font-weight: 400; font-size: clamp(34px, 4vw, 48px); line-height: 1; color: var(--foil); font-variant-numeric: tabular-nums; }
+.fours span { font-size: 13.5px; color: var(--linen-dim); line-height: 1.4; }
+
+/* the bill */
+.bill { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 8px; }
+.plan { background: var(--card); color: var(--ink); padding: 26px 22px 24px; display: grid; gap: 12px; align-content: start; border-radius: 2px; position: relative; }
+.plan::after { content: ""; position: absolute; left: 0; right: 0; bottom: -7px; height: 8px; background: radial-gradient(circle at 6px 0, transparent 5px, var(--card) 5.5px) 0 0 / 12px 8px repeat-x; }
+.plan .cap { color: var(--oxblood); }
+.plan h3 { font-size: 34px; line-height: 1; }
+.price { font-family: var(--display); font-size: 22px; font-variant-numeric: tabular-nums; }
+.price small { font-family: var(--body); font-size: 13px; color: var(--ink-soft); }
+.plan ul { list-style: none; margin: 0; padding: 12px 0 0; border-top: 1px dashed var(--rule); display: grid; gap: 7px; font-size: 14.5px; line-height: 1.35; }
+.plan li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; }
+.plan li i { font-style: normal; color: var(--ink-soft); font-size: 12px; white-space: nowrap; }
+.plan.sig { background: var(--card-2); }
+.small { font-size: 13.5px; color: var(--linen-dim); line-height: 1.55; max-width: 80ch; }
+
+/* close and footer */
+.close { padding-block: clamp(60px, 8vw, 110px); text-align: left; border-top: 1px solid rgba(237,227,211,.12); }
+.close h2 { font-size: clamp(44px, 6.4vw, 96px); line-height: .95; max-width: 14ch; }
+.close h2 em { color: var(--foil); }
+.close p { margin-top: 18px; max-width: 52ch; font-size: 18px; color: color-mix(in srgb, var(--linen) 88%, var(--table)); }
+.mail { display: inline-block; margin-top: 20px; color: var(--linen-dim); font-size: 14px; user-select: all; }
+footer { background: var(--table-2); color: var(--linen-dim); font-size: 13px; line-height: 1.6; border-top: 1px solid rgba(237,227,211,.12); }
+footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px 32px; padding-block: 28px; }
+footer p { max-width: 96ch; }
+@media (max-width: 700px) { footer .wrap { grid-template-columns: minmax(0, 1fr); } }
+
+/* phone bar: which course you're on */
+.now-bar { display: none; }
+@media (max-width: 900px) {
+  .hero { grid-template-columns: minmax(0, 1fr); }
+  .hero .phone { width: min(78%, 280px); }
+  .dinner { grid-template-columns: minmax(0, 1fr); }
+  .menu-card { position: static; }
+  .c-body { grid-template-columns: minmax(0, 1fr); }
+  .c-body .phone { width: min(78%, 280px); }
+  .fours { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .bill { grid-template-columns: minmax(0, 1fr); gap: 26px; }
+  .now-bar { display: flex; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 67px); z-index: 5; justify-content: space-between; gap: 12px; padding-block: 10px; background: color-mix(in srgb, var(--table) 92%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(237,227,211,.12); font-size: 13px; }
+  .now-bar[hidden] { display: none; }
+  .now-bar b { font-family: var(--display); font-style: italic; font-weight: 400; color: var(--foil); font-size: 16px; }
+}
+@media (max-width: 520px) { .covers { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; } .covers figcaption { font-size: 11.5px; } }
+@media (prefers-reduced-motion: reduce) { .courses a::after { transition: none; } }
+</style>
+
+<div class="sfbar gut"><div class="wrap">
+  <a class="wm" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su" aria-label="Sitefloor home">sitefl<svg width="28" height="14" viewBox="0 0 42 21" aria-hidden="true"><rect x="1.9" y="1.9" width="38.2" height="17.2" rx="8.6" fill="none" stroke="#0E0F11" stroke-width="3.8"/><circle cx="31.5" cy="10.5" r="5.2" fill="#E8613C"/></svg>r</a>
+  <nav aria-label="Main"><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#live">Features</a><a href="#top" aria-current="page">Work</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#pricing">Pricing</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#guides">Guides</a></nav>
+  <a class="sfbtn" href="#mockup"><span>Free mockup</span><span aria-hidden="true">→</span></a>
+</div></div>
+<div class="now-bar gut" id="nowBar" hidden><span class="cap">Now serving</span><b id="nowName">I · The Menu Book</b></div>
+
+<main id="top">
+<section class="gut"><div class="wrap hero">
+  <div>
+    <span class="cap">Case study · Restaurant kit · Maison look</span>
+    <h1>A website you read <em>like a menu.</em></h1>
+    <p class="lede">A restaurant's site gets three questions before anything else: what's on, can I eat it, and can I get a table. Saffron &amp; Ash answers all three on a phone, in a leather-bound menu you can turn, and makes the food look as good as it tastes.</p>
+    <div class="facts"><span><b>Fictional</b> demo restaurant</span><span><b>Signature</b> plan, every feature on</span><span><b>Maison</b> look</span></div>
+    <div class="hero-cta">
+      <a class="btn fill" href="https://claude.ai/artifact/PX7JHUXczJjqsuWnRGxQBP">Open the demo</a>
+      <a class="btn line" href="#courses">See tonight's menu</a>
+    </div>
+  </div>
+  <div class="glow">
+    <div class="phone"><div class="screen">
+      <video data-clip muted loop playsinline preload="none" poster="img/clip-book.jpg" width="600" height="1298" aria-label="On a phone: the Menu Book opens from the home page, its pages turn, and a dish's photo drops onto the page like a polaroid"><source src="img/clip-book.mp4" type="video/mp4"></video>
+      </div><button class="play" type="button" data-clip-btn data-clip-name="the Menu Book clip" aria-label="Pause the Menu Book clip">Pause</button></div>
+  </div>
+</div></section>
+
+<section class="gut" id="courses"><div class="wrap dinner">
+  <aside class="menu-card" aria-label="The courses">
+    <span class="cap">Tonight</span>
+    <h2>Ten courses</h2>
+    <p class="sub">each paired with the plan it comes on</p>
+    <ol class="courses" id="courseList">
+      <li><a href="#c1"><span class="n">i</span><span>The Menu Book</span><span class="p">Plus</span></a></li>
+      <li><a href="#c2"><span class="n">ii</span><span>The polaroid</span><span class="p">Plus</span></a></li>
+      <li><a href="#c3"><span class="n">iii</span><span>The allergens</span><span class="p">Every plan</span></a></li>
+      <li><a href="#c4"><span class="n">iv</span><span>Today's board</span><span class="p">Starter</span></a></li>
+      <li><a href="#c5"><span class="n">v</span><span>The Pass</span><span class="p">Signature</span></a></li>
+      <li><a href="#c6"><span class="n">vi</span><span>The Table</span><span class="p">Signature</span></a></li>
+      <li><a href="#c7"><span class="n">vii</span><span>The Room</span><span class="p">Signature</span></a></li>
+      <li><a href="#c8"><span class="n">viii</span><span>Takeaway and events</span><span class="p">Plus</span></a></li>
+      <li><a href="#c9"><span class="n">ix</span><span>The printed menu</span><span class="p">Starter</span></a></li>
+      <li><a href="#c10"><span class="n">x</span><span>The season</span><span class="p">Starter</span></a></li>
+    </ol>
+    <p class="note">Followed by petits fours (the numbers) and the bill (the plans).</p>
+  </aside>
+
+  <div>
+    <article class="course" id="c1" data-name="The Menu Book">
+      <div class="c-head"><span class="c-num">i</span><h2>The Menu Book</h2><p class="pairing">Paired with <b>Plus</b></p></div>
+      <div class="c-body">
+        <div class="copy">
+          <p>The first thing on the home page is the restaurant's menu, bound in leather and lying on the table, with the grill burning softly out of focus behind it. Tap it and it opens full screen. The cover lifts by itself, the way a waiter hands you a menu, and the pages turn like paper: drag a corner, swipe, or use the arrows.</p>
+          <p><strong>It is set from the same menu as the rest of the site.</strong> Change a price once and the book, the menu page and the PDF all change with it. Pages are laid out to fit the screen: one page at a time on a phone, a two-page spread on a laptop. Today's specials sit on a slip tucked inside the cover.</p>
+          <ul class="ticks">
+            <li>A restaurant with its own designed menu can use its pages instead, one picture per page.</li>
+            <li>Without JavaScript the book is simply a link to the menu, so nobody is ever stuck.</li>
+            <li>On a client's site, the fire behind it is a few seconds of their own grill, filmed on a phone. It starts only after the page has loaded, never plays for visitors who ask for less motion, and has a Pause button.</li>
+          </ul>
+        </div>
+        <figure><div class="phone"><div class="screen"><img src="img/hero-phone.webp" width="780" height="1688" alt="The home page on a phone: the leather menu lying on the table above the headline Cooked over the coals" loading="lazy"></div></div></figure>
+      </div>
+      <figure style="margin-top:34px"><div class="shot"><img src="img/hero-desktop.webp" width="1600" height="1000" alt="The home page on a laptop: the headline on the left, the leather Menu Book on the right, a fire glowing out of focus behind" loading="lazy"></div><figcaption>On a laptop, the book lies to the right of the headline.</figcaption></figure>
+    </article>
+
+    <article class="course" id="c2" data-name="The polaroid">
+      <div class="c-head"><span class="c-num">ii</span><h2>The polaroid</h2><p class="pairing">Paired with <b>Plus</b></p></div>
+      <div class="c-body">
+        <div class="copy">
+          <p class="quote">Tap a dish with a camera beside it, and its photo drops onto the page.</p>
+          <p>Inside the book, any dish with a photo has a small camera next to its name. Tap it and the photo falls onto the page like a polaroid, at a slight angle, with the dish's name written underneath. Tap anywhere and it lifts away.</p>
+          <p>This is what makes people order. A menu tells you "chicken in saffron and lemon"; the polaroid shows you the copper tray, the saffron rice and the barberries. The photos only download when someone taps, so the book stays fast.</p>
+          <ul class="ticks"><li>Works with the keyboard too: Enter shows the photo, Escape puts it away.</li><li>Uses the same photos as The Pass, or any dish's own photo.</li></ul>
+        </div>
+        <figure><div class="phone"><div class="screen"><img src="img/polaroid-phone.webp" width="780" height="1688" alt="Inside the book on a phone: a polaroid of a saffron chicken and rice platter lying across the lunch page" loading="lazy"></div></div></figure>
+      </div>
+      <figure style="margin-top:34px"><div class="shot"><img src="img/book-desktop.webp" width="1600" height="1000" alt="The Menu Book open as a two-page spread on a laptop, with a polaroid of the joojeh lying across the pages" loading="lazy"></div><figcaption>On a laptop the book opens as a spread; the polaroid lands across both pages.</figcaption></figure>
+    </article>
+
+    <article class="course" id="c3" data-name="The allergens">
+      <div class="c-head"><span class="c-num">iii</span><h2>The allergens</h2><p class="pairing">Paired with <b>every plan</b></p></div>
+      <div class="c-body">
+        <div class="copy">
+          <p>Every dish shows which of the <a href="https://www.gov.uk/government/publications/allergen-guidance-for-food-businesses/allergen-guidance-for-food-businesses">14 allergens in the Food Standards Agency's guidance</a> it contains, or says "none of the 14". <strong>The site won't publish a dish whose allergens haven't been filled in</strong>, so "none" can never come from a forgotten box. A dish marked vegan that lists milk or eggs is refused too.</p>
+          <p>Diners pick halal, vegetarian or vegan, or hide every dish containing what they can't eat. The menu, the book and every page of the PDF say "Please tell us about any allergy when you order" and give the date the restaurant last checked its allergen chart, because the site never calls a dish safe. That stays the restaurant's conversation with the guest.</p>
+        </div>
+        <figure><div class="phone"><div class="screen"><img src="img/menu-phone.webp" width="780" height="1688" alt="The menu on a phone with Vegan picked and Sesame hidden; a line says 18 dishes hidden on this menu" loading="lazy"></div></div></figure>
+      </div>
+      <div class="try" id="try">
+        <span class="cap">Try it here</span>
+        <h3>Hide dishes containing…</h3>
+        <div class="chips" id="allergenChips" role="group" aria-label="Allergens to avoid"></div>
+        <ul class="dishes" id="dishList"></ul>
+        <p class="hidden-note" id="hiddenNote" aria-live="polite"></p>
+      </div>
+    </article>
+
+    <article class="course" id="c4" data-name="Today's board">
+      <div class="c-head"><span class="c-num">iv</span><h2>Today's board</h2><p class="pairing">Paired with <b>Starter</b>; "right now" with <b>Plus</b></p></div>
+      <div class="c-body wide">
+        <div class="copy">
+          <p>The chef writes today's specials and anything sold out into a Google Sheet on their phone, and the site picks them up by itself a few minutes later: a sold-out dish is struck through on the menu and named on the board. Yesterday's rows never show, so a forgotten sheet can't advertise last week's special.</p>
+          <p>With Plus, a "right now" line says whether there are tables for walk-ins, and goes quiet by itself if nobody has updated it for a while, rather than promising a table that's gone.</p>
+          <p>The menu also knows the time. It opens on the sitting that's being served ("Lunch · kitchen open until 2:30pm"). In the café look, Carte, the whole site turns to candlelight colours for an evening sitting, chosen before the page appears so nothing flashes.</p>
+          <ul class="ticks"><li>Costs nothing to run: a free Google Sheet the restaurant already knows how to use.</li><li>If the sheet can't be read, the site says to ask, and never shows stale data.</li></ul>
+        </div>
+      </div>
+    </article>
+
+    <article class="course" id="c5" data-name="The Pass">
+      <div class="c-head"><span class="c-num">v</span><h2>The Pass</h2><p class="pairing">Paired with <b>Signature</b></p></div>
+      <div class="c-body">
+        <div class="copy">
+          <p>The restaurant's best plates, up close, the way the chef sees them at the pass. Each part of the plate is numbered: the saffron rice, the barberries, the pickled garlic. Beside it sits a kitchen ticket with the price, the allergens, the spice and what to drink with it.</p>
+          <p>On a phone the plates play like stories: a bar for each plate along the top, and a swipe or a tap on the edge for the next. Only the first plate's photo loads with the page.</p>
+          <p>Paired with The Table, the ticket says who at your table can eat it, and why not for anyone who can't.</p>
+        </div>
+        <div class="phone"><div class="screen">
+          <video data-clip muted loop playsinline preload="none" poster="img/clip-pass.jpg" width="600" height="1298" aria-label="On a phone: plates swiped like stories, with numbered notes on each photo"><source src="img/clip-pass.mp4" type="video/mp4"></video>
+          </div><button class="play" type="button" data-clip-btn data-clip-name="The Pass clip" aria-label="Pause The Pass clip">Pause</button></div>
+      </div>
+    </article>
+
+    <article class="course" id="c6" data-name="The Table">
+      <div class="c-head"><span class="c-num">vi</span><h2>The Table</h2><p class="pairing">Paired with <b>Signature</b></p></div>
+      <div class="c-body">
+        <div class="copy">
+          <p class="quote">"Six of us. One's vegan, one can't have milk. Where do we go?"</p>
+          <p>The Table answers that. Add each guest to a drawn table and tick what they eat and what they avoid. Every dish on the menu then shows a dot per seat, green for the guests who can eat it, and the dishes the whole table can share come first.</p>
+          <p>When they book, the request on WhatsApp carries the group: how many guests, their diets, and each allergy with how many people have it. The restaurant knows before anyone sits down.</p>
+          <ul class="ticks"><li>It folds away behind one line under "Book a table", so the home page stays short on a phone.</li><li>It uses the restaurant's own allergen chart, and still asks guests to mention every allergy.</li></ul>
+        </div>
+        <div class="phone"><div class="screen">
+          <video data-clip muted loop playsinline preload="none" poster="img/clip-table.jpg" width="600" height="1298" aria-label="On a phone: guests added to a drawn table, a guest avoiding milk, and each dish showing a dot per guest"><source src="img/clip-table.mp4" type="video/mp4"></video>
+          </div><button class="play" type="button" data-clip-btn data-clip-name="The Table clip" aria-label="Pause The Table clip">Pause</button></div>
+      </div>
+    </article>
+
+    <article class="course" id="c7" data-name="The Room">
+      <div class="c-head"><span class="c-num">vii</span><h2>The Room</h2><p class="pairing">Paired with <b>Signature</b></p></div>
+      <div class="c-body wide">
+        <div class="copy">
+          <p>The dining room, drawn from the restaurant's own layout: the window tables, the booths, the terrace, the kitchen. A guest picks an area or a table, and it goes into their request as a preference. The site never calls it a booking for that table.</p>
+          <p>If The Table says there are six of them, tables that seat four are dimmed and the choice says the table seats fewer than the group, so the restaurant can suggest another.</p>
+        </div>
+      </div>
+      <figure style="margin-top:28px"><div class="shot"><img src="img/room-desktop.webp" width="1400" height="640" alt="A drawn floor plan of the dining room with Booth 1 picked, and the choice Booth 1, booths, seats 4 beside it" loading="lazy"></div></figure>
+    </article>
+
+    <article class="course" id="c8" data-name="Takeaway and events">
+      <div class="c-head"><span class="c-num">viii</span><h2>Takeaway and events</h2><p class="pairing">Paired with <b>Plus</b></p></div>
+      <div class="c-body wide">
+        <div class="copy">
+          <ul class="ticks">
+            <li><strong>Takeaway for collection.</strong> Pick dishes and a collection time, see the total, and send the order to the restaurant on WhatsApp. The message lists every allergen in the order before it's sent and asks the restaurant to confirm. No app, no commission.</li>
+            <li><strong>Delivery.</strong> Links to the restaurant's Deliveroo, Uber Eats or Just Eat pages, for the nights people want it brought to them.</li>
+            <li><strong>Events.</strong> Bonfire night on the coals, Sunday sharing feasts. Past events disappear by themselves, and each one adds to a phone's calendar at the right time.</li>
+            <li><strong>Private dining.</strong> Pick a room and a set menu for the group; the enquiry shows the total against the room's minimum spend, so nobody is surprised.</li>
+            <li><strong>What to drink with it.</strong> Pairings on the dishes, which matter more when there's no wine list.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
+    <article class="course" id="c9" data-name="The printed menu">
+      <div class="c-head"><span class="c-num">ix</span><h2>The printed menu</h2><p class="pairing">Paired with <b>Starter</b></p></div>
+      <div class="c-body">
+        <div class="copy">
+          <p>Every restaurant gets asked for "the menu as a PDF". Saffron &amp; Ash's is made automatically from the site's own menu every time it changes, so it can never be out of date: A4, two columns, set in the same typefaces as the site, with the sittings, the drinks and the full allergen chart at the back.</p>
+          <p>A restaurant that already has a designed PDF can use that instead. And if its printed menu has seen better days, we can redo it to match the site.</p>
+        </div>
+        <div class="pdfs">
+          <img src="img/pdf1.webp" width="910" height="1287" alt="Page one of the generated PDF menu: the restaurant's name, the sittings, and brunch dishes with allergens" loading="lazy">
+          <img src="img/pdf5.webp" width="910" height="1287" alt="The last page of the PDF menu: the allergen chart, a grid of dishes against the 14 allergens" loading="lazy">
+        </div>
+      </div>
+    </article>
+
+    <article class="course" id="c10" data-name="The season">
+      <div class="c-head"><span class="c-num">x</span><h2>The season</h2><p class="pairing">Paired with <b>Starter</b></p></div>
+      <div class="c-body wide">
+        <div class="copy">
+          <p>The restaurant adds its seasons once a year: Bonfire Night, Christmas parties, Ramadan, summer on the terrace. A banner carries the offer on every plan; with the Menu Book (Plus) the book dresses for it too. The leather and foil change colour, and the season's name is stamped on the cover. It's set before the page appears, so the cover never changes colour in front of you.</p>
+        </div>
+      </div>
+      <div class="covers">
+        <figure><img src="img/cover-autumn.webp" width="720" height="942" alt="The book in brown leather with amber foil, stamped Bonfire Night" loading="lazy"><figcaption>Bonfire Night</figcaption></figure>
+        <figure><img src="img/cover-plain.webp" width="720" height="942" alt="The book in bottle-green leather with gold foil, no season" loading="lazy"><figcaption>The rest of the year</figcaption></figure>
+        <figure><img src="img/cover-christmas.webp" width="720" height="942" alt="The book in deep red leather with gold foil, stamped Christmas" loading="lazy"><figcaption>Christmas</figcaption></figure>
+      </div>
+    </article>
+
+    <section class="course" id="fours" data-name="Petits fours">
+      <div class="c-head"><span class="c-num">*</span><h2>Petits fours</h2><p class="pairing">The numbers, measured on the demo's home page</p></div>
+      <div class="fours">
+        <div><b>92–98</b><span>Lighthouse performance on a phone, three runs (the first, cold, lowest)</span></div>
+        <div><b>100</b><span>Lighthouse accessibility</span></div>
+        <div><b>0</b><span>layout shift: nothing jumps while it loads</span></div>
+        <div><b>£0</b><span>running cost beyond hosting: Google Sheet and WhatsApp</span></div>
+        <div><b>22 KB</b><span>JavaScript, compressed, for the whole site</span></div>
+        <div><b>2.0–2.3 s</b><span>until the main picture shows, on Lighthouse's simulated phone</span></div>
+        <div><b>178 KB</b><span>the fire loop, loaded only after the page</span></div>
+        <div><b>14</b><span>allergens on every dish, or "none of the 14"</span></div>
+      </div>
+    </section>
+
+    <section class="course" id="bill" data-name="The bill">
+      <div class="c-head"><span class="c-num">£</span><h2>The bill</h2><p class="pairing">What each plan includes for a restaurant or café</p></div>
+      <div class="bill">
+        <div class="plan">
+          <span class="cap">Starter</span><h3>The essentials</h3>
+          <p class="price">£99 <small>to set up, then</small> £25<small>/month</small></p>
+          <ul>
+            <li>The menu, with allergens and diet filters <i>iii</i></li>
+            <li>Today's specials and sold out <i>iv</i></li>
+            <li>Book a table on WhatsApp</li>
+            <li>Delivery links</li>
+            <li>The PDF menu <i>ix</i></li>
+            <li>The hero film and the season <i>x</i></li>
+            <li>Home page and Plan your visit</li>
+          </ul>
+        </div>
+        <div class="plan">
+          <span class="cap">Plus</span><h3>The full menu</h3>
+          <p class="price">£199 <small>to set up, then</small> £30<small>/month</small></p>
+          <ul>
+            <li>Everything in Starter</li>
+            <li>The Menu Book and polaroids <i>i, ii</i></li>
+            <li>Menu page with the allergen chart</li>
+            <li>"Right now" walk-in tables <i>iv</i></li>
+            <li>Takeaway, pairings, events, private dining <i>viii</i></li>
+            <li>Up to 5 pages</li>
+          </ul>
+        </div>
+        <div class="plan sig">
+          <span class="cap">Signature</span><h3>The showpieces</h3>
+          <p class="price">£349 <small>to set up, then</small> £35<small>/month</small></p>
+          <ul>
+            <li>Everything in Plus</li>
+            <li>The Pass <i>v</i></li>
+            <li>The Table <i>vi</i></li>
+            <li>The Room <i>vii</i></li>
+            <li>Up to 20 pages, and something bespoke</li>
+          </ul>
+        </div>
+      </div>
+      <p class="small" style="margin-top:30px">Prices are per site. 12-month minimum on monthly plans, then cancel any time with a month's notice. Any feature can be added to any plan on its own. The site runs on the restaurant's own free tools: a Google Sheet for the board, WhatsApp for bookings and orders, links to its delivery apps.</p>
+    </section>
+  </div>
+</div></section>
+
+<section class="gut close" id="mockup"><div class="wrap">
+  <h2>Run a restaurant <em>or a café?</em></h2>
+  <p>Send us your Instagram or Google listing. We'll make a free mockup of your site with your name, your menu and your photos.</p>
+  <div class="hero-cta">
+    <a class="btn fill" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#free">Get a free mockup</a>
+    <a class="btn line" href="https://claude.ai/artifact/PX7JHUXczJjqsuWnRGxQBP">Try the demo first</a>
+  </div>
+  <span class="mail">hello@sitefloor.com</span>
+</div></section>
+</main>
+
+<footer class="gut"><div class="wrap">
+  <p>Saffron &amp; Ash is a fictional restaurant made to show the Sitefloor restaurant kit. Its menu, prices, events and today's board are demo data. Its photos are from Unsplash, of other restaurants' food and rooms, credited in the demo; the fire behind the book is animated from one of those photos. Client sites use the restaurant's own photos and footage.</p>
+  <span>© 2026 Sitefloor</span>
+</div></footer>
+
+<script>
+(() => {
+  // Clips: play while on screen, with a Pause button each; never autoplay for reduced motion.
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  for (const v of document.querySelectorAll("[data-clip]")) {
+    const btn = v.closest(".phone").querySelector("[data-clip-btn]");
+    let paused = still;
+    const label = () => { btn.textContent = paused ? "Play" : "Pause"; btn.setAttribute("aria-label", `${paused ? "Play" : "Pause"} ${btn.dataset.clipName}`); };
+    label();
+    btn.addEventListener("click", () => { paused = !paused; label(); if (paused) v.pause(); else v.play().catch(() => {}); });
+    new IntersectionObserver(([e]) => { if (e.isIntersecting && !paused) v.play().catch(() => {}); else v.pause(); }, { threshold: .35 }).observe(v);
+  }
+
+  // Course III: the allergen filter, with real dishes from the demo menu.
+  const DISHES = [
+    ["Hummus", 7, ["sesame", "gluten"]], ["Baba ghanoush", 7.5, ["sesame", "gluten"]], ["Halloumi, honey and nigella", 8, ["milk"]],
+    ["Falafel, tahini, pickles", 7, ["sesame"]], ["Coal-roast king prawns", 11, ["crustaceans", "milk"]], ["Marinated olives", 4.5, []],
+    ["Joojeh with saffron rice", 17, ["milk"]], ["Sumac fries", 4, []], ["Pistachio and rose chocolate bark", 6.5, ["milk", "nuts", "soya"]],
+  ];
+  const NAMES = { sesame: "Sesame", gluten: "Gluten", milk: "Milk", crustaceans: "Crustaceans", nuts: "Tree nuts", soya: "Soya" };
+  const avoid = new Set();
+  const chips = document.getElementById("allergenChips"), list = document.getElementById("dishList"), note = document.getElementById("hiddenNote");
+  const price = (p) => Number.isInteger(p) ? `£${p}` : `£${p.toFixed(2)}`;
+  for (const [id, name] of Object.entries(NAMES)) {
+    const b = document.createElement("button"); b.type = "button"; b.className = "chip"; b.textContent = name; b.setAttribute("aria-pressed", "false");
+    b.addEventListener("click", () => { avoid.has(id) ? avoid.delete(id) : avoid.add(id); b.setAttribute("aria-pressed", String(avoid.has(id))); paint(); });
+    chips.append(b);
+  }
+  const rows = DISHES.map(([n, p, a]) => {
+    const li = document.createElement("li"); li.className = "dish";
+    li.innerHTML = `<b></b><span></span><small></small>`;
+    li.querySelector("b").textContent = n; li.querySelector("span").textContent = price(p);
+    li.querySelector("small").textContent = a.length ? `Contains: ${a.map((x) => NAMES[x].toLowerCase()).join(", ")}` : "None of the 14 allergens";
+    list.append(li); return [li, a];
+  });
+  const paint = () => {
+    let hidden = 0;
+    for (const [li, a] of rows) { li.hidden = a.some((x) => avoid.has(x)); if (li.hidden) hidden++; }
+    note.textContent = hidden ? `${hidden} of ${rows.length} dishes hidden. Please still tell us about any allergy when you order.` : "Tap an allergen to hide every dish that contains it.";
+  };
+  paint();
+
+  // The menu card crosses off each course as you reach the next one.
+  const links = [...document.querySelectorAll("#courseList a")];
+  const courses = links.map((a) => document.querySelector(a.getAttribute("href")));
+  const bar = document.getElementById("nowBar"), barName = document.getElementById("nowName");
+  const roman = ["i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix", "x"];
+  const update = () => {
+    const y = innerHeight * .4;
+    let cur = -1;
+    courses.forEach((c, i) => { if (c.getBoundingClientRect().top < y) cur = i; });
+    const past = document.getElementById("fours").getBoundingClientRect().top < y;
+    links.forEach((a, i) => { a.classList.toggle("served", i < cur || past); a.classList.toggle("now", i === cur && !past); });
+    bar.hidden = cur < 0 || past;
+    if (cur >= 0) barName.textContent = `${roman[cur].toUpperCase()} · ${courses[cur].dataset.name}`;
+  };
+  addEventListener("scroll", update, { passive: true }); addEventListener("resize", update); update();
+})();
+</script>

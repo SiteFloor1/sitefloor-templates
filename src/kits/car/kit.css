@@ -1,0 +1,67 @@
+/* =========================================================================
+   Car studio kit: shared parts every car feature uses. The car photographs
+   (img/kit/, from src/kits/car/assets) sit on a studio floor drawn here; looks
+   set --studio-hi, --studio-lo and --studio-floor.
+   ========================================================================= */
+:root { --studio-hi: #ffffff; --studio-lo: #dfe3e8; --studio-floor: rgba(10,12,15,.32); --film: #05070a; }
+.studio { position: relative; background: radial-gradient(85% 75% at 50% 35%, var(--studio-hi), var(--studio-lo) 100%); overflow: hidden; }
+.car-shot { position: relative; }
+.car-shot img, .car-shot canvas { display: block; width: 100%; height: auto; }
+.car-shot canvas { position: absolute; inset: 0; height: 100%; opacity: 0; transition: opacity .35s ease; }
+.car-shot.live canvas { opacity: 1; }
+.car-shot.live img { visibility: hidden; }
+.car-shot::after { content: ""; position: absolute; left: 6%; right: 6%; bottom: 1%; height: 7%; z-index: -1; border-radius: 50%;
+  background: radial-gradient(closest-side, var(--studio-floor), transparent); }
+.film { fill: var(--film); transition: fill-opacity .45s ease; }
+
+/* Chips and colour swatches: the radio controls every car feature uses (Showroom, finish test, planner, quote). */
+.sr-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.sr-chip, .sr-sw { position: relative; cursor: pointer; }
+.sr-chip input, .sr-sw input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.sr-chip span { display: inline-flex; align-items: center; min-height: 36px; padding: 0 10px; border: 1px solid var(--line-2); color: var(--text); background: var(--bg); transition: background .2s, color .2s, border-color .2s; }
+.sr-chip input:checked + span { background: var(--text); color: var(--bg); border-color: var(--text); }
+.sr-chip input:focus-visible + span, .sr-sw input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+.sr-chip.nl span { background-image: repeating-linear-gradient(135deg, transparent 0 5px, color-mix(in srgb, var(--accent) 22%, transparent) 5px 6px); }
+.sr-chip.nl input:checked + span { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+.sr-sw span { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 12px 0 6px; border: 1px solid var(--line-2); background: var(--bg); }
+.sr-sw span::before { content: ""; width: 24px; height: 24px; background: var(--sw, var(--car-paint)); box-shadow: inset 0 0 0 1px var(--line-2); }
+.sr-factory span::before { background: repeating-linear-gradient(45deg, var(--surface-2) 0 4px, var(--bg) 4px 8px); }
+.sr-sw input:checked + span { border-color: var(--text); box-shadow: inset 0 0 0 1px var(--text); }
+.sr-chip span, .sr-sw span { font: 500 11.5px/1 var(--font-mono, monospace); letter-spacing: .04em; text-transform: uppercase; }
+
+/* Prices page (car studios): jobs × vehicle sizes. On phones one size at a time, picked with the chips (CSS only). */
+.cp-pick { display: none; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; position: sticky; top: calc(var(--nav-h) + 8px); z-index: 2; }
+.cp-group { margin-bottom: 40px; }
+.cp-group h2 { font-family: var(--font-display); font-weight: 400; text-transform: uppercase; font-size: clamp(18px, 2vw, 24px); margin: 0 0 14px; }
+.cp-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.cp-table th, .cp-table td { text-align: left; padding: 12px 10px; border-bottom: 1px solid var(--line-2); vertical-align: top; }
+.cp-table thead th { font: 500 12px var(--font-mono, monospace); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); border-bottom: 1px solid var(--text); }
+.cp-table thead th:first-child { width: 34%; }
+.cp-table small { display: block; font-weight: 400; color: var(--dim); font-size: 12.5px; text-transform: none; letter-spacing: 0; }
+.cp-table td b { font-family: var(--font-mono, monospace); font-weight: 500; font-variant-numeric: tabular-nums; }
+@media (max-width: 760px) {
+  .cp-pick { display: flex; background: var(--bg); padding: 8px 0; }
+  .cp-table thead th:first-child { width: 58%; }
+  .cp-table :is(th, td)[class^="cp-c"] { display: none; }
+  .cp:has(input[value="1"]:checked) .cp-c1, .cp:has(input[value="2"]:checked) .cp-c2,
+  .cp:has(input[value="3"]:checked) .cp-c3, .cp:has(input[value="4"]:checked) .cp-c4,
+  .cp:has(input[value="5"]:checked) .cp-c5, .cp:has(input[value="6"]:checked) .cp-c6 { display: table-cell; }
+}
+/* Chameleon films: a colour cast on the chip, as on the glass. */
+.sr-chip.sheen span { background-image: linear-gradient(115deg, transparent 30%, color-mix(in srgb, var(--sheen) 35%, transparent), transparent 75%); }
+/* Material samples (wrap swatches, PPF films): a flat sample chip like a film maker's swatch book, the colour
+   (--c) with the light each finish gives it, drawn in CSS so any colour works. data-finish on the chip or any
+   parent picks the finish; gloss otherwise. */
+.sw-tile { --hi: color-mix(in srgb, var(--c) 72%, white); --lo: color-mix(in srgb, var(--c) 72%, black);
+  position: relative; display: block; aspect-ratio: 16 / 10; overflow: hidden; isolation: isolate;
+  background: linear-gradient(180deg, var(--hi), var(--c) 42%, var(--lo));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, black 10%, transparent); }
+.sw-tile::after { content: ""; position: absolute; inset: 0;
+  background: linear-gradient(118deg, transparent 0 30%, color-mix(in srgb, white 62%, transparent) 33%, color-mix(in srgb, white 14%, transparent) 40%, transparent 50%),
+    linear-gradient(118deg, transparent 0 56%, color-mix(in srgb, white 18%, transparent) 58%, transparent 61%); }
+[data-finish="satin"] .sw-tile, .sw-tile[data-finish="satin"] { --hi: color-mix(in srgb, var(--c) 86%, white); --lo: color-mix(in srgb, var(--c) 86%, black); }
+[data-finish="satin"] .sw-tile::after, .sw-tile[data-finish="satin"]::after { background: linear-gradient(118deg, transparent 0 18%, color-mix(in srgb, white 20%, transparent) 36%, transparent 58%); }
+[data-finish="matte"] .sw-tile, .sw-tile[data-finish="matte"] { background: radial-gradient(120% 90% at 30% 20%, color-mix(in srgb, var(--c) 94%, white), var(--c) 60%, color-mix(in srgb, var(--c) 94%, black)); }
+[data-finish="matte"] .sw-tile::after, .sw-tile[data-finish="matte"]::after { background: none; }
+[data-finish="chrome"] .sw-tile, .sw-tile[data-finish="chrome"] { background: linear-gradient(180deg, color-mix(in srgb, var(--c) 35%, white) 0%, color-mix(in srgb, var(--c) 75%, white) 30%, color-mix(in srgb, var(--c) 55%, black) 47%, color-mix(in srgb, var(--c) 45%, white) 52%, var(--c) 70%, color-mix(in srgb, var(--c) 50%, black) 100%); }
+[data-finish="chrome"] .sw-tile::after, .sw-tile[data-finish="chrome"]::after { background: linear-gradient(118deg, transparent 0 40%, color-mix(in srgb, white 70%, transparent) 42%, transparent 46%); }

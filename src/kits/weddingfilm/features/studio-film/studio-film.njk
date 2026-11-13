@@ -1,0 +1,10 @@
+{#- The studio's film: the still first (wide, or tall on phones), the film fading in over it once the page has loaded.
+    The look's hero places it and adds the Pause button and, on Signature, the chapters. -#}
+{%- set fm = site.hero.film %}
+<figure class="wf-film" data-feature="studio-film">
+  <picture>
+    <source media="(max-width: 640px)" srcset="{{ fm.tall.poster | img }}" width="{{ fm.tall.width }}" height="{{ fm.tall.height }}">
+    <img src="{{ fm.wide.poster | img }}" alt="" width="{{ fm.wide.width }}" height="{{ fm.wide.height }}" fetchpriority="high" decoding="async">
+  </picture>
+  <video muted loop playsinline preload="none" aria-label="{{ fm.label }}" data-wide="{{ fm.wide.src | img }}" data-tall="{{ fm.tall.src | img }}" width="{{ fm.wide.width }}" height="{{ fm.wide.height }}"></video>
+</figure>

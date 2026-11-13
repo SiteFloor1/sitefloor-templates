@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: materials
+permalink: materials.html
+feature: materials
+eleventyComputed:
+  title: "{{ site.materials.title | plain }}"
+  description: "The stone, brick, gravel, timber and steel {{ site.business.name }} builds with, and the gardens they were laid in."
+---
+{% include "kits/garden/features/materials/materials.njk" %}

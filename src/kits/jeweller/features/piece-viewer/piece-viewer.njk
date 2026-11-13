@@ -1,0 +1,34 @@
+{#- One piece at a time: every piece, full screen, with its facts and price exactly as the client gives them. Opened
+    from any card; steps to the next with a swipe, the arrow keys or Previous and Next. Photos load only when shown.
+    Without JavaScript the cards are plain links instead. Included once per page by the look's footer. -#}
+{%- set P = site.pieces %}
+<dialog class="jw-view" data-feature="piece-viewer" aria-label="Pieces">
+  <div class="jw-view-bar">
+    <p class="nc-label nc-muted" data-view-count aria-live="polite"></p>
+    <button type="button" class="nc-label nc-btnlink" data-view-close>Close</button>
+  </div>
+  <div class="jw-view-slides" data-view-slides>
+    {%- for p in P.items %}
+    {%- set c = P | collectionById(p.collection) %}
+    <article class="jw-slide" data-slide="{{ p.id }}" aria-labelledby="vs-{{ p.id }}" hidden>
+      <figure class="jw-slide-ph"><img data-src="{{ p.photo.src | img }}" width="{{ p.photo.width }}" height="{{ p.photo.height }}" alt="{{ p.photo.alt }}"></figure>
+      <div class="jw-slide-t">
+        <p class="nc-label nc-muted">{{ c.name }}</p>
+        <h2 class="jw-name-l" id="vs-{{ p.id }}">{{ p.name }}</h2>
+        {%- set sl = p | specLine %}{% if sl %}<p class="jw-spec">{{ sl }}</p>{% endif %}
+        {%- set pl = p | priceLabel %}{% if pl %}<p class="nc-label">{{ pl }}</p>{% endif %}
+        {%- if p.line %}<p class="nc-body">{{ p.line }}</p>{% endif %}
+        {%- set facts = p | factLines %}
+        {%- if facts.length %}<dl class="jw-facts">{% for f in facts %}<div><dt>{{ f[0] }}</dt><dd>{{ f[1] }}</dd></div>{% endfor %}</dl>{% endif %}
+        {% include "kits/jeweller/partials/actions.njk" %}
+        {%- if "jewel-pages" | enabled %}<p><a class="nc-u nc-label" href="{{ p.id | pieceHref | href }}"{{ "jewel-pages" | tierAttr | safe }}>Its story</a></p>{% endif %}
+      </div>
+    </article>
+    {%- endfor %}
+  </div>
+  <div class="jw-view-nav">
+    <button type="button" class="nc-label nc-btnlink" data-view-prev aria-label="Previous piece">Previous</button>
+    <button type="button" class="nc-label nc-btnlink" data-view-next aria-label="Next piece">Next</button>
+  </div>
+  {%- if P.demoData %}<p class="nc-fine jw-view-demo">Demo specs and prices for a fictional house; stock photographs of other makers' pieces. On a client's site, its own pieces and its own facts.</p>{% endif %}
+</dialog>

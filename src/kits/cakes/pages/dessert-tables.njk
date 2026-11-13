@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: dessert-tables
+permalink: dessert-tables.html
+feature: dessert-tables-page
+eleventyComputed:
+  title: "{{ site.ranges.dessertTables.title | plain }}"
+  description: "Dessert tables by {{ site.business.name }}, {{ site.location.locality }}: prices, cakes and questions."
+---
+{% include "kits/cakes/features/range-pages/dessert-tables-page.njk" %}

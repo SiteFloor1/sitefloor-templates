@@ -1,0 +1,5 @@
+{#- Fixed call / WhatsApp bar shown on phones only (see core.css .mbar). -#}
+<div class="mbar">
+  <a class="btn ghost" href="tel:{{ site.contact.phone | replace(' ', '') }}">Call</a>
+  <a class="btn" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{% if build.booking.whatsapp %}{% include "core/partials/icon-whatsapp.njk" %}{% endif %}{{ build.booking.label }}</a>
+</div>

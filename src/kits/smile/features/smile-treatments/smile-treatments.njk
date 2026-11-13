@@ -1,0 +1,19 @@
+{#- Treatments and prices on the home page: each treatment in one line, its "from" price, who carries it out with their
+    GDC number linked to the register. With the treatment pages on, each name opens its page. -#}
+{%- set sec = site.sections.treatments %}
+<section id="treatments" class="sm-tx" data-feature="smile-treatments" aria-label="{{ sec.title | plain }}"{{ 'smile-treatments' | tierAttr | safe }}><div class="wrap">
+  {%- include "core/partials/section-head.njk" %}
+  <ul class="sm-tx-list">
+    {%- for t in site.treatments.items %}
+    <li class="sm-tx-row rv">
+      <h3 class="sm-tx-name">{% if "smile-treatment-pages" | enabled %}<a href="{{ t.id | href }}"{{ 'smile-treatment-pages' | tierAttr | safe }}>{{ t.name }}</a>{% else %}{{ t.name }}{% endif %}</h3>
+      <p class="sm-tx-line">{{ t.line }}</p>
+      <p class="sm-tx-by">{% for p in site.clinicians | cliniciansOf(t.by) %}{{ p.name }} · {% include "kits/smile/partials/gdc.njk" %}{% if not loop.last %}<br>{% endif %}{% endfor %}</p>
+      <p class="sm-tx-price">{{ t.price | price }}</p>
+    </li>
+    {%- endfor %}
+  </ul>
+  {%- if "smile-treatments-page" | enabled %}
+  <p class="sm-more"><a class="go" href="{{ 'treatments' | href }}"{{ 'smile-treatments-page' | tierAttr | safe }}>Every treatment, visit by visit</a></p>
+  {%- endif %}
+</div></section>

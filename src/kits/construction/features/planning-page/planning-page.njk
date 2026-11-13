@@ -1,0 +1,19 @@
+{#- Planning and party walls: the rules for England in plain words, each topic with its GOV.UK pages and the date
+    checked (lib/planning.js holds the only copy), the builder's own words on how they help, and "a guide, not a
+    decision" at the top and the bottom. -#}
+{%- set pp = site.planningPage %}
+{%- set ph = { title: pp.title, intro: pp.intro } %}
+{% include "kits/construction/partials/page-head.njk" %}
+<div class="wrap bd-pl">
+  <p class="bd-pl-not"><b>{{ planningFacts.notADecision }}</b> These are the rules for England, checked {{ planningFacts.checked | ukDate }}.</p>
+  {%- for key in ["permission", "rear", "side", "loft", "certificate", "party", "regs"] %}{% set t = planningFacts.topics[key] %}
+  <section class="bd-pl-topic" id="{{ key }}" aria-labelledby="pl-{{ key }}">
+    <h2 id="pl-{{ key }}" class="bd-h3">{{ t.title }}</h2>
+    <div><ul>{% for p in t.points %}<li>{{ p }}</li>{% endfor %}</ul>
+      <p class="bd-pl-src">{% for s in t.sources %}{% set src = planningFacts.sources[s] %}<a href="{{ src.url }}" rel="noopener" target="_blank">{{ src.label }}</a>{% if not loop.last %} · {% endif %}{% endfor %} <span>(GOV.UK, checked {{ planningFacts.checked | ukDate }})</span></p></div>
+  </section>
+  {%- endfor %}
+  {%- if pp.help %}
+  <section class="bd-pl-topic" aria-labelledby="pl-help"><h2 id="pl-help" class="bd-h3">How we <em>help</em></h2><div>{% for p in pp.help %}<p>{{ p }}</p>{% endfor %}</div></section>
+  {%- endif %}
+</div>

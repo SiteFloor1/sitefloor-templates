@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: studio
+permalink: studio.html
+feature: smile-studio
+eleventyComputed:
+  title: "{{ site.studio.title | plain }}"
+  description: "The studio at {{ site.business.name }}, room by room, and arriving."
+---
+{% include "kits/smile/features/smile-studio/smile-studio.njk" %}

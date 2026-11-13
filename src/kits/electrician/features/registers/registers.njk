@@ -1,0 +1,7 @@
+{#- The client's accreditations, each a link to its own entry on the scheme's public register (checked by the
+    validator: only the scheme's own site). Shown beside the services. -#}
+<ul class="el-regs" aria-label="Accreditations">
+  {%- for r in site.registers %}
+  <li><b>{{ r.label }}</b> <a href="{{ r.url }}" target="_blank" rel="noopener">Check us on the {{ r.scheme | registerName }} register</a></li>
+  {%- endfor %}
+</ul>

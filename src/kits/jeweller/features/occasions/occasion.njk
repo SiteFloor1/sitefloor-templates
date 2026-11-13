@@ -1,0 +1,47 @@
+{#- An occasion's own page: the photograph full width with the name over it; a few words and when to ask by; the set
+    (one piece large, two beside it); three within a budget (or, on the anniversary page, the reminder that carries them) or the birthstones where they
+    belong; the gift, arranged; the closing line. Set `o` (an entry of occasions.pages). -#}
+{%- set P = site.pieces %}
+{%- set dated = site.occasions.items | occasionPage(o.id) %}
+{%- set ocSet = P.items | piecesById(o.pieces) %}
+<header class="jw-oc-hero">
+  <picture>
+    <source media="(max-width: 47.99em)" srcset="{{ o.photoPhone.src | img }}" width="{{ o.photoPhone.width }}" height="{{ o.photoPhone.height }}">
+    <img src="{{ o.photo.src | img }}" width="{{ o.photo.width }}" height="{{ o.photo.height }}" fetchpriority="high" decoding="async" alt="{{ o.photo.alt }}">
+  </picture>
+  <div class="wrap jw-oc-t">
+    <p class="nc-label">{% if dated %}{{ dated | shortRange }}{% else %}Every year{% endif %}</p>
+    <h1 class="jw-oc-n">{{ o.name }}</h1>
+    <p class="jw-oc-line">{{ o.line }}</p>
+  </div>
+</header>
+{%- if o.story or o.by %}
+<section class="nc-sec jw-oc-story"><div class="wrap jw-oc-story-in">
+  {%- if o.story %}<p class="jw-say rv">{{ o.story }}</p>{% endif %}
+  {%- if o.by %}<p class="jw-oc-by rv"><span class="nc-label nc-muted">In time</span>{{ o.by }}</p>{% endif %}
+</div></section>
+{%- endif %}
+<section class="nc-sec jw-oc-set" aria-label="Chosen for {{ o.name }}"><div class="wrap jw-oc-set-in">
+  {%- for p in ocSet %}{% set cardSize = "l" if loop.first else "" %}{% include "kits/jeweller/partials/card.njk" %}{% endfor %}
+</div></section>
+{%- set withReminder = o.reminder and ("anniversary-reminder" | enabled) %}
+{%- if ("gift-shortlist" | enabled) and not withReminder %}
+<section class="nc-sec jw-oc-sl"{{ "gift-shortlist" | tierAttr | safe }} aria-labelledby="oc-sl-h"><div class="wrap">
+  <h2 class="jw-h" id="oc-sl-h">Three within your budget</h2>
+  {%- set sl = { id: o.id, prefer: o.pieces, legend: "Spend" } %}
+  {% include "kits/jeweller/features/gift-shortlist/gift-shortlist.njk" %}
+</div></section>
+{%- endif %}
+{%- if withReminder %}{% include "kits/jeweller/features/anniversary-reminder/anniversary-reminder.njk" %}{% endif %}
+{%- if o.birthstones and ("birthstone" | enabled) %}
+{%- set BS = site.birthstones %}
+<section class="nc-sec jw-oc-bs"{{ "birthstone" | tierAttr | safe }}><div class="wrap jw-oc-bs-in">
+  <h2 class="jw-h">By the month they were born</h2>
+  <ol class="jw-oc-months">
+    {%- for m in BS.months %}<li><a href="{{ 'birthstones' | href }}#m-{{ loop.index }}"><span class="nc-label nc-muted">{{ loop.index | monthName }}</span>{{ m.stone }}</a></li>{% endfor %}
+  </ol>
+</div></section>
+{%- endif %}
+{% include "kits/jeweller/features/the-card/the-card.njk" %}
+{%- if P.demoData %}<p class="wrap nc-fine jw-demo">Demo pieces and prices for a fictional house; stock photographs.</p>{% endif %}
+{% include "kits/jeweller/partials/invite.njk" %}

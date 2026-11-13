@@ -1,0 +1,16 @@
+{#- Blue hour reviews, set like test results: each review a line with its rating as five small lights (lit for each
+    star), the words in the light display face, and who and when in engraved capitals. -#}
+{%- set sec = site.sections.reviews %}
+<section id="reviews" class="bh-revs-sec" data-feature="reviews"{{ "reviews" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="bh-revs">
+    {%- for r in site.reviews.items %}
+    <figure class="bh-rev">
+      <p class="bh-rev-st"><span aria-hidden="true">{% for i in range(0, 5) %}<i class="{{ 'on' if i < r.rating else '' }}"></i>{% endfor %}</span><span class="sr-only">Rated {{ r.rating }} out of 5</span></p>
+      <blockquote><p>{{ r.text }}</p></blockquote>
+      <figcaption class="bh-eng">{{ r.author }} · {{ r.date | monthYear }}</figcaption>
+    </figure>
+    {%- endfor %}
+  </div>
+  {%- if site.reviews.source == "sample" %}<p class="bh-checked">Sample reviews for the demo. On a live site these are the business's real Google reviews.</p>{% endif %}
+</div></section>

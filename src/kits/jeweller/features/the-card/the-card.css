@@ -1,0 +1,12 @@
+/* The gift, arranged: the house's card on a pale stage, the words in the display face; the form beside it. */
+.jw-tc-in { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 110px); align-items: center; }
+.jw-tc-stage { background: var(--surface-2); aspect-ratio: 5 / 4; display: grid; place-items: center; padding: 8%; position: relative; overflow: hidden; }
+.jw-tc-stage::before { content: ""; position: absolute; inset: 0 auto 0 62%; width: 22px; background: var(--brand); opacity: .9; }
+.jw-tc-card { position: relative; width: min(100%, 420px); aspect-ratio: 7 / 5; background: var(--bg); box-shadow: 0 30px 60px -30px var(--shadow), 0 1px 0 var(--line); display: grid; grid-template-rows: auto 1fr auto; justify-items: center; padding: 26px 30px 20px; text-align: center; transform: rotate(-2deg); }
+.jw-tc-mono { font: 400 22px/1 var(--font-display); letter-spacing: .3em; padding-left: .3em; color: var(--accent); }
+.jw-tc-words { align-self: center; margin: 0; font: 400 clamp(19px, 2vw, 25px)/1.4 var(--font-display); letter-spacing: .02em; overflow-wrap: anywhere; transition: opacity .5s; }
+.jw-tc-words.is-sample { opacity: .45; }
+.jw-tc-from { font: 300 11px/1 var(--font-body); letter-spacing: .24em; text-transform: uppercase; color: var(--muted); }
+.jw-tc-in-t { resize: vertical; min-height: 84px; }
+.jw-tc-f .nc-btn { margin-top: 8px; }
+@media (max-width: 47.99em) { .jw-tc-in { grid-template-columns: 1fr; } .jw-tc-stage { aspect-ratio: 4 / 3; } }

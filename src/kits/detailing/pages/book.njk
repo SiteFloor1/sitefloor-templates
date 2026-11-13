@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: book
+permalink: book.html
+feature: book-page
+eleventyComputed:
+  title: "{{ site.bookPage.title | plain }}"
+  description: "Book {{ site.business.name }}, {{ site.location.locality }}: the next start for each package, and sending us your paint."
+---
+{% include "kits/detailing/features/book-page/book-page.njk" %}

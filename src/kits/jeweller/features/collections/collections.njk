@@ -1,0 +1,17 @@
+{#- The collections as doors: one tall photograph each (a piece worn, or the piece), its name beneath. Each opens its
+    collection's page (with jewel-pages), or the pieces one at a time. One section, no headline device. -#}
+{%- set P = site.pieces %}
+<section class="nc-sec jw-doors" id="collections" aria-labelledby="jw-doors-h" data-feature="collections"><div class="wrap">
+  <h2 class="jw-doors-k" id="jw-doors-h">{{ site.sections.collections.title }}</h2>
+  <ul class="jw-doors-l">
+    {%- for c in P.collections %}
+    {%- set items = P.items | inCollection(c.id) %}
+    {%- set door = c.door or items[0].photo %}
+    {%- set doorSrc = c.door.src if c.door else (items[0].photo.src | cardSrc) %}
+    <li class="rv"><a class="jw-door" href="{{ ('collection-' + c.id) | href if ('jewel-pages' | enabled) else '#' + c.id }}"{% if not ("jewel-pages" | enabled) %} data-open="{{ items[0].id }}"{% endif %} id="{{ c.id }}">
+      <img src="{{ doorSrc | img }}" width="900" height="{{ 1200 if c.door else 1125 }}" loading="lazy" decoding="async" alt="{{ door.alt }}">
+      <span class="jw-door-n">{{ c.name }}</span>
+    </a></li>
+    {%- endfor %}
+  </ul>
+</div></section>

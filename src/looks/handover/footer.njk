@@ -1,0 +1,15 @@
+{#- Handover footer: under a hairline, the name, where and how to reach the builder, the pages, and the Sitefloor
+    credit last. -#}
+{%- set nm = site.business.name.split(" & ") %}
+<footer class="foot hv-foot"><div class="wrap hv-foot-in">
+  <p class="hv-foot-name">{% if nm.length == 2 %}{{ nm[0] }} <i>&amp;</i> {{ nm[1] }}{% else %}{{ site.business.name }}{% endif %}</p>
+  <address class="hv-foot-a">{{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}<br>
+    <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone | replace('+44 ', '0') }}</a>{% if site.contact.email %} · <a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>{% endif %} · <a href="{{ site.messages.general | wa }}" data-wa-text="{{ site.messages.general }}" target="_blank" rel="noopener">WhatsApp</a></address>
+  <nav class="hv-foot-links" aria-label="Footer">
+    {%- for item in site.nav | navItems(pageId) %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}>{{ item.label }}</a>{% endfor %}
+    {%- if "credentials-page" | enabled %}<a href="{{ 'accreditations' | href }}"{{ 'credentials-page' | tierAttr | safe }}>Accreditations and insurance</a>{% endif %}
+    {%- if "site-progress" | enabled %}<a href="{{ 'your-build' | href }}"{{ 'site-progress' | tierAttr | safe }}>Your house, this week</a>{% endif %}
+    <a href="{{ 'privacy' | href }}">Privacy</a>
+  </nav>
+  <p class="hv-foot-by">{% if site.mode == "demo" %}A demo site for a fictional builder. Photographs: see credits. {% endif %}<a class="by" href="https://sitefloor.com" rel="noopener">Website by <b>Sitefloor</b></a></p>
+</div></footer>

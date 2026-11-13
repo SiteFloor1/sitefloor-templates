@@ -1,0 +1,21 @@
+{#- Basalt footer: what's next (drop, run, showroom), the address and pages; the Sitefloor credit last. -#}
+<footer class="foot bs-foot"><div class="wrap">
+  <div class="bs-next">
+    {%- if site.drop and ("drop-line" | enabled) %}{% set d = site | wearDrop(build.today) %}<div><span>Next drop</span><b>{{ d.words }}</b><span>{{ d.name }}{% if d.title %}, {{ d.title }}{% endif %}</span></div>{% endif %}
+    {%- if site.club and ("club-runs" | enabled) %}{% set r0 = site.club.runs[0] %}<div><span>Run club</span><b>{{ r0 | runWhen }}</b><span>{{ r0.title }}, from {{ r0.meet }}</span></div>{% endif %}
+    <div data-live-status><span>Showroom</span><b data-status-text>Opening hours</b><span>{{ site.location.streetAddress }}, {{ site.location.postcode }}</span></div>
+  </div>
+  <div class="bs-foot-row">
+    <address>{{ site.business.name }}<br>{{ site.location.streetAddress }}<br>{{ site.location.locality }} {{ site.location.postcode }}<br>
+      <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a>{% if site.contact.email %}<br><a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>{% endif %}</address>
+    <nav class="bs-foot-links" aria-label="Footer">
+      <a href="{{ 'index' | href }}">Home</a>
+      {%- for item in site.nav | navItems(pageId) %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}>{{ item.label }}</a>{% endfor %}
+      {%- if "team" | enabled %}<a href="{{ 'team' | href }}"{{ "team" | tierAttr | safe }}>The studio</a>{% endif %}
+      {%- if "work" | enabled %}<a href="{{ 'work' | href }}"{{ "work" | tierAttr | safe }}>Worn</a>{% endif %}
+      {%- if "custom-pages" | enabled %}{% for cp in site.pages %}<a href="{{ cp.slug | href }}"{{ "custom-pages" | tierAttr | safe }}>{{ cp.kicker }}</a>{% endfor %}{% endif %}
+      <a href="{{ 'privacy' | href }}">Privacy</a>
+    </nav>
+    <p class="bs-by"><a class="by" href="https://sitefloor.com" rel="noopener">Website by <b>Sitefloor</b></a></p>
+  </div>
+</div></footer>

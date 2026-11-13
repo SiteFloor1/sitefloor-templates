@@ -1,0 +1,51 @@
+{#- Ring size, as a guide: three ways (string at home, a ring you own matched on the screen, a free sizer by post),
+    then the UK sizes with their measurements and where they come from. Confirmed at the appointment. -#}
+{%- set RS = site.ringSizer %}
+{%- set ph = { title: RS.title, intro: RS.intro } %}
+{% include "kits/jeweller/partials/page-head.njk" %}
+<div data-feature="ring-sizer">
+<section class="nc-sec jw-rs"><div class="wrap jw-rs-in">
+  <div class="jw-rs-w rv">
+    <p class="nc-label nc-muted">One</p>
+    <h2 class="jw-name-l">With a strip of paper</h2>
+    <p class="nc-body">Wrap a thin strip of paper or string around the base of the finger, snug but able to pass the knuckle. Mark where it meets, lay it flat and measure in millimetres.</p>
+    <label class="nc-field" data-js-only><span class="nc-label">The length, in mm</span><input class="nc-in nc-in-s" type="number" inputmode="decimal" min="30" max="90" step="0.5" data-rs-mm></label>
+    <p class="jw-rs-out" data-rs-out aria-live="polite"></p>
+  </div>
+  <div class="jw-rs-w rv" data-js-only>
+    <p class="nc-label nc-muted">Two</p>
+    <h2 class="jw-name-l">With a ring you own</h2>
+    <p class="nc-body" data-rs-step1>First, hold a bank card flat against the screen and move the slider until the outline is exactly as wide as the card.</p>
+    <div class="jw-cal" data-rs-cal>
+      <div class="jw-cal-card" data-cal-card aria-hidden="true"></div>
+      <input class="jw-range" type="range" min="200" max="900" step="1" value="320" data-cal-range aria-label="Width of the card outline">
+      <button type="button" class="nc-u nc-label nc-btnlink" data-cal-done>The outline matches my card</button>
+    </div>
+    <div class="jw-ringfit" data-rs-ring hidden>
+      <p class="nc-body">Now lay the ring on the screen and move the slider until the circle just fills the inside of the ring.</p>
+      <div class="jw-ringfit-c" data-rs-circle aria-hidden="true"></div>
+      <input class="jw-range" type="range" min="13" max="23" step="0.05" value="16.5" data-rs-dia aria-label="Inside diameter of your ring, in millimetres">
+      <p class="jw-rs-out" data-rs-ring-out aria-live="polite"></p>
+      <button type="button" class="nc-label nc-btnlink nc-u" data-rs-recal>Match the card again</button>
+    </div>
+  </div>
+  <div class="jw-rs-w rv">
+    <p class="nc-label nc-muted">Three</p>
+    <h2 class="jw-name-l">A sizer by post</h2>
+    <p class="nc-body">{{ RS.postal }}</p>
+    <a class="nc-u nc-label" href="{{ RS.message | wa }}" data-wa-text="{{ RS.message }}" target="_blank" rel="noopener">Ask for a sizer</a>
+  </div>
+</div></section>
+<section class="nc-sec jw-sizes" aria-labelledby="jw-sizes-h"><div class="wrap">
+  {%- set sec = { title: "UK sizes", intro: "H to Z", id: "jw-sizes-h" } %}{% include "core/partials/section-head.njk" %}
+  <div class="jw-sizes-t" tabindex="0" role="region" aria-label="UK ring sizes, scrolls sideways">
+    <table class="jw-tbl">
+      <caption class="sr-only">UK ring sizes with inside circumference and diameter</caption>
+      <thead><tr><th scope="col">Size</th><th scope="col">Inside circumference</th><th scope="col">Inside diameter</th></tr></thead>
+      <tbody>{% for z in ringSizes.sizes %}<tr data-size="{{ z.letter }}"><th scope="row">{{ z.letter }}</th><td>{{ z.circ }} mm</td><td>{{ z.dia }} mm</td></tr>{% endfor %}</tbody>
+    </table>
+  </div>
+  <p class="nc-fine">A guide. Measurements from a published UK ring size chart, checked {{ ringSizes.checked | longDate }}; jewellers' sizers differ by a fraction of a millimetre, so we confirm your size at the appointment. Screens differ too: matching the card first is what makes the circle true to size.</p>
+</div></section>
+</div>
+{% include "kits/jeweller/partials/invite.njk" %}

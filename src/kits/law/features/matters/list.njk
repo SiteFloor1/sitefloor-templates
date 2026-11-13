@@ -1,0 +1,6 @@
+{#- A list of public matters (set `mlist` first): the work in the firm's words, the year and where it is public. -#}
+<ul class="lw-mat-list">
+  {%- for m in mlist %}
+  <li class="lw-mat"><p class="lw-mat-t">{{ m.title }}</p><p class="lw-mat-x">{{ m.text }}</p><p class="lw-mat-s">{{ m.year }} · <a href="{{ m.source.url }}" rel="noopener">{{ m.source.name }}</a></p></li>
+  {%- endfor %}
+</ul>

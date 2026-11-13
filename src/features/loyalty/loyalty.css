@@ -1,0 +1,23 @@
+/* Loyalty card: a stamp card that fills as it scrolls into view, and a "how often?" slider. */
+.ly { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; align-items: start; }
+.ly-card { position: relative; background: var(--accent); color: var(--on-accent); padding: 26px; aspect-ratio: 1.586; display: flex; flex-direction: column; justify-content: space-between; max-width: 520px; }
+.ly-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.ly-top b { font-family: var(--font-display); font-size: 22px; }
+.ly-top span { font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; opacity: .85; }
+.ly-stamps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(44px, 1fr)); gap: 10px; }
+.ly-stamps li { aspect-ratio: 1; display: grid; place-items: center; border-radius: 50%; border: 2px dashed currentColor; font-weight: 800; font-size: 13px; opacity: .75; transition: background .3s, color .3s, transform .3s, opacity .3s; }
+.ly-stamps li.on { background: var(--on-accent); color: var(--accent); border-style: solid; opacity: 1; transform: rotate(-8deg); }
+.ly-stamps li.free { border-style: solid; opacity: 1; font-size: 12px; text-transform: uppercase; }
+.ly-stamps li.free.on { transform: scale(1.12); }
+.ly-reward { margin: 0; font-weight: 800; font-size: 18px; }
+.ly-calc { background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); padding: 24px; }
+.ly-q { display: block; font-weight: 800; font-size: 18px; margin-bottom: 12px; }
+.ly-q output { color: var(--accent); }
+.ly-calc input[type="range"] { width: 100%; accent-color: var(--accent); }
+.ly-out { font-size: 18px; margin: 16px 0 6px; min-height: 2.9em; }
+.ly-out b { color: var(--accent); }
+.ly-note { margin: 0 0 16px; font-size: 13px; color: var(--dim); }
+.ly-rules { margin: 0; padding-left: 18px; color: var(--muted); font-size: 15px; }
+.ly-rules li + li { margin-top: 4px; }
+@media (max-width: 860px) { .ly { grid-template-columns: minmax(0, 1fr); } }
+@media (prefers-reduced-motion: reduce) { .ly-stamps li { transition: none; } }

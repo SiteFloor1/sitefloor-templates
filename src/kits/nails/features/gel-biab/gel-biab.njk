@@ -1,0 +1,13 @@
+{#- Gel, BIAB or acrylic, side by side in the salon's words. -#}
+{%- set sec = site.sections.gelBiab %}
+{%- set g = site.gelBiab %}
+<section id="gel-or-biab" class="nl-cmp" data-feature="gel-biab"><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="nl-cmp-scroll" tabindex="0" role="region" aria-label="{{ sec.title | plain }}">
+  <table class="nl-cmp-t">
+    <thead><tr><td></td>{% for o in g.options %}<th scope="col">{{ o.name }}</th>{% endfor %}</tr></thead>
+    <tbody>{% for r in g.rows %}<tr><th scope="row">{{ r.label }}</th>{% for o in g.options %}<td>{{ r.values[o.id] }}</td>{% endfor %}</tr>{% endfor %}</tbody>
+  </table>
+  </div>
+  {%- if g.note %}<p class="nl-cmp-note">{{ g.note }}</p>{% endif %}
+</div></section>

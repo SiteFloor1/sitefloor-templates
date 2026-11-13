@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: private
+permalink: private.html
+feature: private-page
+eleventyComputed:
+  title: "{{ site.privatePage.title | plain }}"
+  description: "Private and duet reformer sessions at {{ site.business.name }}, {{ site.location.locality }}."
+---
+{% include "kits/pilates/features/private-page/private-page.njk" %}
+{%- set hostPage = "private-page" %}{% include "kits/pilates/partials/hosted.njk" %}

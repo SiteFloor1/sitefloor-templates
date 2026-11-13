@@ -1,0 +1,19 @@
+/* Venues: the photograph and the facts side by side, alternating, one venue to a band. */
+.wf-vn-list { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(64px, 9vw, 130px); }
+.wf-vn-i { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 28px clamp(28px, 4vw, 64px); align-items: end; }
+.wf-vn-i:nth-child(even) .wf-vn-ph { order: 2; }
+.wf-vn-ph { margin: 0; }
+.wf-vn-ph img { display: block; width: 100%; height: auto; }
+.wf-vn-ph figcaption { font-size: 13px; color: var(--muted); margin-top: 8px; }
+.wf-vn-t { display: grid; gap: 12px; }
+.wf-vn-h, .wf-vn-a, .wf-vn-t p { margin: 0; }
+.wf-vn-a { color: var(--muted); }
+.wf-vn-facts { margin: 0; display: grid; }
+.wf-vn-facts div { display: grid; gap: 2px; padding-block: 12px; border-bottom: 1px solid var(--line); }
+.wf-vn-facts dt { font-size: 13px; color: var(--muted); }
+.wf-vn-facts dd { margin: 0; font-variant-numeric: tabular-nums; }
+.wf-vn-films { display: flex; flex-wrap: wrap; gap: 4px 24px; }
+.wf-vn-rules { max-width: 70ch; margin-top: clamp(64px, 8vw, 120px); }
+.wf-src-list { margin: 0; padding-left: 1.4em; display: grid; gap: 8px; max-width: 80ch; }
+.wf-src-list a { color: var(--text); }
+@media (max-width: 760px) { .wf-vn-i { grid-template-columns: minmax(0, 1fr); } .wf-vn-i:nth-child(even) .wf-vn-ph { order: 0; } }

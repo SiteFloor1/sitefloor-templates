@@ -1,0 +1,5 @@
+/* Seasonal banner: a slim band above the header. Colours come from the look's season tokens. */
+.season { margin: 0; display: flex; justify-content: center; align-items: center; gap: 6px 14px; flex-wrap: wrap; padding: 10px var(--pad); background: var(--season-bg); color: var(--season-fg); font-size: 14px; line-height: 1.4; text-align: center; }
+.season b { font-weight: 800; letter-spacing: .04em; text-transform: uppercase; font-size: 12px; }
+.season a { color: inherit; font-weight: 700; text-underline-offset: 3px; }
+@media (max-width: 600px) { .season { display: block; padding-block: 8px; font-size: 13px; } .season b { margin-right: 6px; } .season a { margin-left: 6px; white-space: nowrap; } }

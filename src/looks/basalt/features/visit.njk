@@ -1,0 +1,25 @@
+{#- Basalt visit: the showroom's address set large on the left, the week's hours beside it with today marked and the
+    live status, and directions. -#}
+{%- set sec = { title: site.sections.visit.title, intro: site.sections.visit.intro } %}
+<section id="visit" class="sec-visit bs-visit" data-feature="visit"><div class="wrap">
+  {%- if visitHeading == false %}<h2 class="bs-pt">Opening hours</h2>{% else %}{% include "core/partials/section-head.njk" %}{% endif %}
+  <div class="bs-visit-in">
+    {%- if visitHeading != false %}
+    <div class="bs-addr">
+      <p class="bs-addr-l">{{ site.location.streetAddress }}<br>{{ site.location.locality }} {{ site.location.postcode }}</p>
+      {%- if site.location.area %}<p class="bs-addr-s">{{ site.location.area }}</p>{% endif %}
+      <p><a class="wr-link" href="{{ site.location | directions }}" target="_blank" rel="noopener">Directions</a>{% if "plan-visit" | enabled and visitHeading != false %} <a class="wr-link" href="{{ 'visit' | href }}"{{ "plan-visit" | tierAttr | safe }}>Getting here</a>{% endif %}</p>
+    </div>
+    {%- endif %}
+    <div class="bs-hours{% if visitHeading == false %} is-alone{% endif %}" data-hours>
+      <p class="bs-now" data-live-status><span class="dot" aria-hidden="true"></span><span data-status-text>Opening hours</span></p>
+      <p class="bs-sub" data-status-detail></p>
+      <table class="bs-hrs">
+        <caption class="sr-only">Opening hours</caption>
+        <tbody>{% for row in site.hours | hoursRows %}<tr data-day="{{ row.dayIndex }}"><th scope="row">{{ row.day }}</th><td>{{ row.label }}</td></tr>{% endfor %}</tbody>
+      </table>
+      {%- set upcoming = site.hours | upcomingExceptions(build.today) %}
+      {%- if upcoming.length %}<ul class="bs-ex">{% for ex in upcoming %}<li><b>{{ ex.dateLabel }}</b> {{ ex.note or ex.label }}</li>{% endfor %}</ul>{% endif %}
+    </div>
+  </div>
+</div></section>

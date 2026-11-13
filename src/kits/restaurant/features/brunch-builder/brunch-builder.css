@@ -1,0 +1,32 @@
+/* Brunch builder: the plates as round photos to choose from, sides as chips, the pre-order beside. Tokens only. */
+.bb-people { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 20px; }
+.bb-tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+.bb-tab, .bb-add { min-height: 40px; padding: 0 16px; border-radius: 999px; border: 1.5px solid var(--line-2); background: transparent; font: inherit; font-size: 14px; cursor: pointer; }
+.bb-tab[aria-pressed="true"] { background: var(--text); color: var(--bg); border-color: var(--text); }
+.bb-add { border-style: dashed; color: var(--muted); }
+.bb-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, .65fr); gap: clamp(20px, 4vw, 48px); align-items: start; }
+.bb-plates { border: 0; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 18px; }
+.bb-plates legend { margin-bottom: 10px; }
+.bb-plate { position: relative; display: grid; justify-items: center; gap: 4px; padding: 16px 14px 18px; border-radius: 20px; border: 1.5px solid var(--line); background: var(--surface); text-align: center; cursor: pointer; transition: border-color .25s, transform .25s, box-shadow .25s; }
+.bb-plate input { position: absolute; opacity: 0; pointer-events: none; }
+.bb-plate:has(input:checked) { border-color: var(--accent); box-shadow: 0 24px 40px -28px var(--shadow); transform: translateY(-3px); }
+.bb-plate:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 3px; }
+.bb-photo { display: block; width: min(100%, 210px); aspect-ratio: 1; border-radius: 50%; overflow: hidden; background: var(--surface-2); margin-bottom: 8px; box-shadow: 0 18px 24px -16px var(--shadow); }
+.bb-photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s; }
+.bb-plate:has(input:checked) .bb-photo img { transform: scale(1.06); }
+.bb-pname { font-family: var(--font-display); font-size: 1.15em; line-height: 1.2; }
+.bb-pprice { font-weight: 600; font-variant-numeric: tabular-nums; }
+.bb-pdesc { font-size: 13.5px; color: var(--muted); }
+.bb-pall { font-size: 12px; color: var(--dim); font-style: italic; }
+.bb-sides { border: 0; margin: 0 0 20px; padding: 0; }
+.bb-sides legend { margin-bottom: 10px; }
+.bb-chip small { color: var(--dim); }
+.bb-sum { display: grid; gap: 12px; padding: 20px; border-radius: 18px; background: var(--surface); border: 1px solid var(--line-2); }
+.bb-lines { margin: 0; padding: 0 0 0 1.2em; display: grid; gap: 8px; font-size: 14px; }
+.bb-lines li { padding-left: 4px; }
+.bb-lines li { display: list-item; }
+.bb-lines b { margin-left: 8px; font-variant-numeric: tabular-nums; }
+.bb-x { margin-left: 8px; min-height: 32px; padding: 0 9px; border: 1px solid var(--line-2); border-radius: 8px; background: transparent; font-size: 12px; cursor: pointer; }
+.bb-total { display: flex; justify-content: space-between; align-items: baseline; padding-top: 10px; border-top: 1.5px solid var(--text); font-family: var(--font-display); font-size: 22px; }
+.bb-go { justify-content: center; }
+@media (max-width: 860px) { .bb-grid { grid-template-columns: minmax(0, 1fr); } .bb-plates { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; } .bb-plate { padding: 10px 6px 12px; border-radius: 14px; } .bb-pdesc { display: none; } .bb-pname { font-size: 14.5px; } }

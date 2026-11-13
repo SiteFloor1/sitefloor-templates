@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hatheli Case Study</title>
+<meta name="description" content="A bridal mehndi artist's Sitefloor site, read as the bride's wedding week: pick a wedding date and every chapter dates itself to it, from the trial to darkest on the day.">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rozha+One&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&family=Manrope:wght@600;700&display=swap">
+<style>
+/* Layout: dated to your wedding. The page is the bride's wedding week, counted back from the date she picks at the
+   top: the day she finds the site, the trial, the outfit, the mehndi evening, paste off, the wedding. Every chapter
+   opens on its date, worked out live. The ground follows the stain through the week: the bare palm (bone), the mehndi
+   night (paste), the first orange the morning after, the darkest brown on the day. The plans are three shades of one
+   stain. Rozha One and Source Serif 4 are Hatheli's own. Nothing moves with scrolling; dates change only when she
+   changes hers. */
+:root {
+  --bone: #F3EEE7; --bone-2: #E8DFD3; --ink: #2A140C; --soft: #5E4638; --hair: rgba(42,20,12,.16);
+  --rust: #9A3F17; --orange: #DE7A40; --brown: #8E4220; --deep: #4E1A0E; --paste: #16130F; --glow: #EE9A62;
+  --display: "Rozha One", "Rozha Fallback", Georgia, serif;
+  --read: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --brand: "Manrope", Arial, sans-serif;
+  --sf-paper: #FBFAF7; --sf-ink: #0E0F11; --sf-tomato: #E8613C; --sf-line: rgba(14,15,17,.12);
+  --s: clamp(72px, 10vw, 150px);
+  color-scheme: light;
+}
+@font-face { font-family: "Rozha Fallback"; src: local("Times New Roman"), local("Liberation Serif"); size-adjust: 113.4%; ascent-override: 88%; descent-override: 37.2%; }
+* { box-sizing: border-box; }
+html { background: var(--bone); }
+body { margin: 0; background: var(--bone); color: var(--ink); font: 300 19px/1.6 var(--read); -webkit-font-smoothing: antialiased; }
+.gut { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { width: min(1280px, 100%); margin: 0 auto; }
+h1, h2, h3, p, ul, ol, figure, fieldset { margin: 0; padding: 0; }
+ul, ol { list-style: none; }
+h2, h3 { font-family: var(--display); font-weight: 400; line-height: 1.02; text-wrap: balance; letter-spacing: -.005em; }
+a { color: inherit; }
+img, video { display: block; max-width: 100%; height: auto; }
+:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 40; background: var(--sf-paper); }
+
+/* Sitefloor's bar, as on every case study */
+.sfbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--sf-paper); color: var(--sf-ink); border-bottom: 1px solid var(--sf-line); }
+.sfbar .wrap { display: flex; justify-content: space-between; align-items: center; height: 66px; gap: 16px; }
+.wm { display: flex; align-items: baseline; font-family: var(--brand); font-weight: 600; font-size: 24px; letter-spacing: -.045em; text-decoration: none; color: var(--sf-ink); }
+.wm svg { margin: 0 1px; overflow: visible; }
+.sfbar nav { display: flex; gap: 28px; font-family: var(--brand); font-size: 14px; font-weight: 600; }
+.sfbar nav a { text-decoration: none; color: var(--sf-ink); }
+.sfbar nav a[aria-current] { box-shadow: inset 0 -1.5px 0 var(--sf-ink); }
+.sfbtn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 20px; background: var(--sf-ink); color: var(--sf-paper); font: 700 12px var(--brand); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; }
+.sfbtn:hover { background: var(--sf-tomato); }
+@media (max-width: 760px) { .sfbar nav { display: none; } }
+@media (max-width: 420px) { .sfbar .sfbtn { display: none; } }
+
+/* ------------------------------------------------------------------ the hero: her date, set as a sentence */
+.hero { padding-block: clamp(36px, 6vw, 84px) var(--s); }
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(28px, 5vw, 80px); align-items: end; }
+.who { font-size: 17px; color: var(--soft); margin-bottom: clamp(28px, 4vw, 52px); }
+.who b { font-weight: 400; color: var(--ink); }
+.say { border: 0; font: 400 clamp(42px, 6.8vw, 116px)/.98 var(--display); letter-spacing: -.012em; }
+.say .ln { text-wrap: balance; }
+.say legend { padding: 0; }
+.say .ln { display: block; }
+.pick { display: inline-flex; flex-wrap: wrap; gap: 0 .22em; align-items: baseline; }
+.pick label { position: relative; display: inline-block; }
+.pick select {
+  appearance: none; -webkit-appearance: none; font: inherit; color: var(--rust); background: transparent; border: 0;
+  border-bottom: max(3px, .045em) solid currentColor; border-radius: 0; padding: 0 .04em; margin: 0; cursor: pointer;
+  line-height: 1.02; text-align: left;
+}
+.pick select:hover { color: var(--brown); }
+.pick select:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
+.pick select option { font: 400 18px var(--read); color: var(--ink); }
+.wd { color: var(--ink); }
+.ans { margin-top: clamp(32px, 4.4vw, 60px); border-top: 1px solid var(--hair); }
+.ans div { display: grid; grid-template-columns: 9.5em minmax(0, 1fr); gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--hair); font-size: clamp(18px, 1.6vw, 21px); }
+.ans dt { color: var(--soft); }
+.ans dd { margin: 0; }
+.ans dd b { font-weight: 400; color: var(--rust); }
+.hero figure { position: relative; }
+.hero figure img { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; }
+.cap { font-size: 15px; color: var(--soft); margin-top: 10px; line-height: 1.45; }
+.after { margin-top: 18px; font-size: 16px; color: var(--soft); font-style: italic; }
+@media (max-width: 860px) {
+  .hero .wrap { grid-template-columns: minmax(0, 1fr); }
+  .hero figure img { aspect-ratio: 4 / 5; object-position: 50% 30%; }
+  .ans div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+}
+
+/* ------------------------------------------------------------------ a day of the week: the date stamp */
+.day { padding-block: var(--s); }
+.day + .day.bone { border-top: 1px solid var(--hair); }
+.stamp { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0 clamp(18px, 2.4vw, 36px); align-items: end; }
+.dn { font: 400 clamp(150px, 22vw, 330px)/.74 var(--display); letter-spacing: -.04em; font-variant-numeric: lining-nums; }
+.dw { padding-bottom: .5em; font-size: clamp(18px, 1.7vw, 22px); line-height: 1.35; }
+.dw b { display: block; font-weight: 400; font-size: clamp(22px, 2.3vw, 32px); }
+.dw span { display: block; color: var(--muted, var(--soft)); }
+.stamp, .dn, .dw { transition: opacity .25s ease; }
+.redating .dn, .redating .dw b { opacity: .25; }
+.past .dw b::after { content: " · gone by"; font-size: .6em; color: var(--muted, var(--soft)); }
+.day h2 { font-size: clamp(38px, 5.4vw, 84px); max-width: 15ch; margin-top: clamp(36px, 5vw, 70px); }
+.lead { max-width: 40ch; margin-top: 22px; font-size: clamp(19px, 1.7vw, 22px); }
+
+/* the site's own pages, recorded on a phone */
+.ph { width: 100%; max-width: 300px; aspect-ratio: 390 / 844; background: #0C0B0A; border: 7px solid #0C0B0A; border-radius: 34px; overflow: hidden; box-shadow: 0 1px 0 rgba(255,255,255,.08) inset; }
+.ph video, .ph img { width: 100%; height: 100%; object-fit: cover; border-radius: 27px; }
+.tap { margin-top: 12px; min-height: 44px; padding: 0 16px; background: transparent; color: inherit; border: 1px solid currentColor; font: 300 15px var(--read); cursor: pointer; }
+.tap + figcaption { margin-top: 10px; }
+.phone figcaption { margin-top: 14px; font-size: 15px; line-height: 1.45; max-width: 30ch; }
+.phone figcaption b { font-weight: 400; display: block; font-size: 17px; }
+
+/* what each part does, and its plan */
+.does { border-top: 1px solid currentColor; }
+.does li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 20px; padding: 16px 0 18px; border-bottom: 1px solid var(--line, var(--hair)); }
+.does b { font-weight: 400; font-family: var(--display); font-size: clamp(22px, 2vw, 27px); line-height: 1.12; }
+.does p { grid-column: 1; color: var(--muted, var(--soft)); font-size: 17px; line-height: 1.5; max-width: 52ch; }
+.does .pl { grid-row: 1; grid-column: 2; font-size: 14px; letter-spacing: .02em; white-space: nowrap; padding-top: 6px; }
+
+.cols { display: grid; gap: clamp(28px, 4vw, 64px); margin-top: clamp(44px, 6vw, 90px); }
+
+/* today: the site she finds */
+.c-today { grid-template-columns: minmax(0, 300px) minmax(0, 300px) minmax(0, 1fr); align-items: start; }
+.c-today .phone:nth-child(2) { margin-top: clamp(0px, 9vw, 130px); }
+@media (max-width: 1000px) { .c-today { grid-template-columns: repeat(2, minmax(0, 1fr)); } .c-today .does { grid-column: 1 / -1; } }
+
+/* the trial */
+.c-trial { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.c-trial .phone:nth-child(2) { margin-top: clamp(0px, 5vw, 70px); }
+.c-trial .phone:nth-child(3) { margin-top: clamp(0px, 10vw, 140px); }
+.c-trial .does { grid-column: 1 / -1; }
+.nhs { margin-top: clamp(40px, 5vw, 70px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 20px clamp(28px, 4vw, 60px); padding-top: 22px; border-top: 3px solid var(--ink); }
+.nhs h3 { font-size: clamp(28px, 3vw, 42px); }
+.nhs p { max-width: 58ch; }
+.nhs small { display: block; margin-top: 12px; font-size: 15px; color: var(--soft); }
+@media (max-width: 760px) { .c-trial { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .c-trial .phone:nth-child(3) { display: none; } .nhs { grid-template-columns: minmax(0, 1fr); } }
+
+/* the outfit */
+.wide { margin-top: clamp(44px, 6vw, 90px); }
+.wide img { width: 100%; aspect-ratio: 21 / 9; object-fit: cover; }
+.c-outfit { grid-template-columns: minmax(0, 300px) minmax(0, 1fr); align-items: center; }
+.c-outfit .q { font: 400 clamp(30px, 3.6vw, 54px)/1.08 var(--display); max-width: 18ch; }
+.c-outfit .q + p { margin-top: 18px; max-width: 46ch; }
+.c-outfit .does { margin-top: 34px; }
+@media (max-width: 760px) { .c-outfit { grid-template-columns: minmax(0, 1fr); } .c-outfit .phone { order: 2; } }
+
+/* the mehndi night: paste dark */
+.night { background: var(--paste); color: var(--bone); --muted: #CDBFB1; --line: rgba(243,238,231,.18); }
+.night .dn { color: var(--glow); }
+.c-night { grid-template-columns: minmax(0, 1fr) minmax(0, 300px); align-items: start; }
+.sum { border-top: 1px solid var(--line); padding-top: 26px; }
+.sum .n { display: flex; align-items: center; gap: 20px; }
+.sum output.g { font: 400 clamp(110px, 14vw, 210px)/.8 var(--display); letter-spacing: -.03em; min-width: 2ch; }
+.step { display: flex; flex-direction: column; gap: 10px; }
+.step button { width: 52px; height: 52px; border: 1px solid rgba(243,238,231,.5); background: transparent; color: var(--bone); font: 300 28px/1 var(--read); cursor: pointer; }
+.step button:hover { background: rgba(243,238,231,.1); }
+.sum .k { margin-top: 14px; color: var(--muted); font-size: 17px; }
+.sizes { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+.sizes button { min-height: 46px; padding: 0 18px; border: 1px solid rgba(243,238,231,.4); background: transparent; color: var(--bone); font: 300 17px var(--read); cursor: pointer; }
+.sizes button[aria-pressed="true"] { background: var(--bone); color: var(--paste); border-color: var(--bone); }
+.res { margin-top: 30px; font: 400 clamp(30px, 3.4vw, 50px)/1.1 var(--display); }
+.res em { font-style: normal; color: var(--glow); }
+.res + p { margin-top: 12px; color: var(--muted); font-size: 17px; }
+.c-night .does { margin-top: 44px; }
+@media (max-width: 760px) { .c-night { grid-template-columns: minmax(0, 1fr); } }
+
+/* paste off: the first orange */
+.orange { background: var(--orange); color: var(--ink); --muted: #3D1D10; --line: rgba(42,20,12,.28); }
+.c-off { grid-template-columns: minmax(0, 300px) minmax(0, 1fr); align-items: start; }
+.steps { counter-reset: s; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 2.2em minmax(0, 1fr); padding: 14px 0; border-bottom: 1px solid var(--line); font-size: clamp(19px, 1.8vw, 23px); }
+.steps li::before { content: counter(s); font-family: var(--display); }
+.c-off .does { margin-top: 40px; }
+@media (max-width: 760px) { .c-off { grid-template-columns: minmax(0, 1fr); } .c-off .phone { order: 2; } }
+
+/* the wedding: darkest */
+.deep { background: var(--deep); color: var(--bone); --muted: #DCC9BA; --line: rgba(243,238,231,.2); }
+.deep .dn { color: var(--glow); }
+.c-day { grid-template-columns: minmax(0, 300px) minmax(0, 1fr); align-items: start; }
+.fam { margin-top: 6px; background: rgba(0,0,0,.24); padding: clamp(20px, 2.4vw, 32px); font-size: 17px; line-height: 1.7; white-space: pre-line; border-left: 3px solid var(--glow); }
+.fam-h { font-size: 15px; color: var(--muted); margin-bottom: 10px; }
+.c-day .does { margin-top: 40px; }
+.own { margin-top: clamp(52px, 7vw, 100px); display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 20px clamp(28px, 4vw, 64px); border-top: 1px solid var(--line); padding-top: 28px; }
+.own h3 { font-size: clamp(30px, 3.6vw, 54px); }
+.own p { max-width: 52ch; }
+.own .tri { display: flex; gap: 0; margin-top: 22px; height: 18px; }
+.own .tri i { flex: 1; }
+@media (max-width: 760px) { .c-day { grid-template-columns: minmax(0, 1fr); } .c-day .phone { order: 2; } .own { grid-template-columns: minmax(0, 1fr); } }
+
+/* ------------------------------------------------------------------ the plans: three shades of one stain */
+.plans { padding-block: var(--s); }
+.plans h2 { font-size: clamp(44px, 6.4vw, 100px); max-width: 12ch; }
+.plans .lead { margin-top: 18px; }
+.shades { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: clamp(44px, 6vw, 80px); }
+.shade { padding: clamp(24px, 2.6vw, 38px); min-height: 560px; display: flex; flex-direction: column; }
+.shade:nth-child(1) { background: var(--orange); color: var(--ink); --line: rgba(42,20,12,.3); }
+.shade:nth-child(2) { background: var(--brown); color: var(--bone); --line: rgba(243,238,231,.28); }
+.shade:nth-child(3) { background: var(--deep); color: var(--bone); --line: rgba(243,238,231,.24); }
+.shade .when { font-size: 16px; }
+.shade h3 { font-size: clamp(40px, 4.4vw, 66px); margin-top: 10px; }
+.shade .price { margin-top: 8px; font-size: 17px; }
+.shade ul { margin-top: auto; padding-top: 40px; }
+.shade li { padding: 10px 0; border-top: 1px solid var(--line); font-size: 17px; line-height: 1.45; }
+.plans .small { margin-top: 22px; font-size: 16px; color: var(--soft); max-width: 80ch; }
+@media (max-width: 860px) { .shades { grid-template-columns: minmax(0, 1fr); } .shade { min-height: 0; } }
+
+/* ------------------------------------------------------------------ speed */
+.speed { padding-block: 0 var(--s); }
+.speed .wrap { border-top: 3px solid var(--ink); padding-top: 26px; }
+.speed h2 { font-size: clamp(34px, 4.2vw, 64px); max-width: 18ch; }
+.meas { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: clamp(36px, 5vw, 64px); }
+.meas div { padding: 0 20px 0 0; }
+.meas div + div { padding-left: 20px; border-left: 1px solid var(--hair); }
+.meas b { display: block; font: 400 clamp(64px, 8vw, 120px)/.9 var(--display); color: var(--rust); }
+.meas span { display: block; margin-top: 12px; font-size: 16px; line-height: 1.45; color: var(--soft); max-width: 22ch; }
+@media (max-width: 760px) { .meas { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 32px; } .meas div:nth-child(3) { padding-left: 0; border-left: 0; } }
+
+/* ------------------------------------------------------------------ the close */
+.close { background: var(--bone-2); padding-block: var(--s); }
+.close .wrap { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 32px clamp(28px, 5vw, 80px); align-items: end; }
+.close h2 { font-size: clamp(44px, 6vw, 96px); max-width: 13ch; }
+.close p { max-width: 42ch; }
+.acts { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+.btn { display: inline-flex; align-items: center; min-height: 52px; padding: 0 24px; background: var(--deep); color: var(--bone); border: 1px solid var(--deep); font: 400 18px var(--read); text-decoration: none; }
+.btn:hover { background: var(--ink); }
+.btn.line { background: transparent; color: var(--ink); border-color: var(--ink); }
+.btn.line:hover { background: rgba(42,20,12,.06); }
+.mail { display: block; margin-top: 18px; font-size: 16px; color: var(--soft); }
+@media (max-width: 760px) { .close .wrap { grid-template-columns: minmax(0, 1fr); } }
+
+footer { background: var(--bone-2); color: var(--soft); font-size: 13px; line-height: 1.6; border-top: 1px solid var(--hair); }
+footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px 32px; padding-block: 28px; font-family: var(--brand); }
+footer p { max-width: 100ch; }
+@media (max-width: 600px) { footer .wrap { grid-template-columns: minmax(0, 1fr); } }
+@media (prefers-reduced-motion: reduce) { .stamp, .dn, .dw { transition: none; } }
+</style>
+</head>
+<body>
+
+<div class="sfbar gut"><div class="wrap">
+  <a class="wm" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su" aria-label="Sitefloor home">sitefl<svg width="28" height="14" viewBox="0 0 42 21" aria-hidden="true"><rect x="1.9" y="1.9" width="38.2" height="17.2" rx="8.6" fill="none" stroke="#0E0F11" stroke-width="3.8"/><circle cx="31.5" cy="10.5" r="5.2" fill="#E8613C"/></svg>r</a>
+  <nav aria-label="Main"><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#live">Features</a><a href="#top" aria-current="page">Work</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#pricing">Pricing</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#guides">Guides</a></nav>
+  <a class="sfbtn" href="#mockup"><span>Free mockup</span><span aria-hidden="true">→</span></a>
+</div></div>
+
+<main id="top">
+
+<section class="hero gut" aria-labelledby="h-top"><div class="wrap">
+  <div>
+    <h1 class="sr" id="h-top">Hatheli: a bridal mehndi artist's website, dated to your wedding</h1>
+    <p class="who"><b>Hatheli</b>, bridal mehndi in west London. A Sitefloor site.</p>
+    <fieldset class="say">
+      <legend class="sr">Your wedding date</legend>
+      <span class="ln"><span aria-hidden="true">My wedding is on </span><span class="wd" data-hero-wd>Saturday</span></span>
+      <span class="pick">
+        <label><span class="sr">Day</span><select id="w-d"></select></label>
+        <label><span class="sr">Month</span><select id="w-m"></select></label>
+        <label><span class="sr">Year</span><select id="w-y"></select></label>
+      </span>
+    </fieldset>
+    <dl class="ans" aria-live="polite">
+      <div><dt>Hatheli's diary</dt><dd data-a-diary>Free so far. Ask, and we'll hold it while you decide.</dd></div>
+      <div><dt>Your mehndi</dt><dd><b data-a-mehndi>Thursday 10 June</b>, in the evening</dd></div>
+      <div><dt>Darkest</dt><dd><b data-a-dark>Saturday 12 June</b>, on the day</dd></div>
+      <div><dt>From today</dt><dd data-a-left>211 days</dd></div>
+    </dl>
+    <p class="after">Every date below now follows yours.</p>
+  </div>
+  <figure>
+    <img src="media/window.webp" width="1100" height="1650" alt="A bride in a red lehenga by a tall window, turned away, one hand on the curtain" fetchpriority="high">
+    <figcaption class="cap">From Hatheli's bridal page. The bride is never shown face on.</figcaption>
+  </figure>
+</div></section>
+
+<!-- TODAY -->
+<section class="day bone gut" data-ch="today" aria-labelledby="h-today"><div class="wrap">
+  <div class="stamp"><span class="dn" data-dn>13</span><p class="dw"><b data-dwd>Friday</b><span data-dmy>November 2026</span><span>Today. She finds the site.</span></p></div>
+  <h2 id="h-today">A name in her hand. Her date in your diary.</h2>
+  <p class="lead">She came from Instagram wanting one thing: is my date free? The site answers that before she messages, then shows her something no feed can.</p>
+  <div class="cols c-today">
+    <figure class="phone"><div class="ph"><video src="media/hero.mp4" poster="media/hero.webp" muted loop playsinline preload="none" aria-label="Hatheli's home page on a phone: a finger moves a magnifier over a bride's palm, then Show me rings the name hidden in the design"></video></div><button class="tap" type="button" data-tap data-name="hidden name" hidden>Pause</button>
+      <figcaption><b>There is a name in this hand.</b>A real finished palm. Show me rings the name worked into it.</figcaption></figure>
+    <figure class="phone"><div class="ph"><video src="media/date.mp4" poster="media/date.webp" muted loop playsinline preload="none" aria-label="The date check on a phone: a June Saturday shows a few hours left, a March Wednesday shows free so far, and the mehndi evening is named under each"></video></div><button class="tap" type="button" data-tap data-name="date check" hidden>Pause</button>
+      <figcaption><b>Is your date free?</b>From the artist's own Google Sheet. It never says booked.</figcaption></figure>
+    <ul class="does">
+      <li><b>The hidden name</b><span class="pl">Starter</span><p>The palm, lit in a black case. A magnifier follows the finger; Show me rings what was hidden.</p></li>
+      <li><b>Bridal by how far it goes</b><span class="pl">Starter</span><p>To the wrist, to the elbow, the feet. Hours and a from price beside each, in her words.</p></li>
+      <li><b>Is your date free?</b><span class="pl">Starter</span><p>Free so far, a few hours left, or taken, from a sheet she updates on her phone. An old sheet asks the bride to message instead.</p></li>
+      <li><b>Darkest on the day</b><span class="pl">Plus</span><p>Under the answer, the evening to book her mehndi, from the artist's own number of days.</p></li>
+    </ul>
+  </div>
+</div></section>
+
+<!-- TRIAL -->
+<section class="day bone gut" data-ch="trial" data-days="42" aria-labelledby="h-trial"><div class="wrap">
+  <div class="stamp"><span class="dn" data-dn>1</span><p class="dw"><b data-dwd>Saturday</b><span data-dmy>May 2027</span><span>Six weeks before. The trial.</span></p></div>
+  <h2 id="h-trial">Everything she asks at the trial, already answered.</h2>
+  <p class="lead">Which style, how long it takes, whether it's safe on her skin. Her mother reads the same page.</p>
+  <div class="cols c-trial">
+    <figure class="phone"><div class="ph"><img src="media/phone-bridal.webp" width="780" height="1688" loading="lazy" alt="Hatheli's bridal page on a phone: the bride by the window under the heading Bridal mehndi"></div>
+      <figcaption><b>The bridal page</b>The trial, the patch test, travel to the venue.</figcaption></figure>
+    <figure class="phone"><div class="ph"><img src="media/phone-designs.webp" width="780" height="1688" loading="lazy" alt="The design library on a phone, filtered to Indo-Arabic: one design, a hand to the wrist on black"></div>
+      <figcaption><b>The design library</b>By style, and by bride or guest, each with its hours and a from price.</figcaption></figure>
+    <figure class="phone"><div class="ph"><img src="media/phone-natural.webp" width="780" height="1688" loading="lazy" alt="Natural henna only, on a phone: the paste, the stain, and the NHS line on black henna with its source and date"></div>
+      <figcaption><b>Natural henna only</b>With the NHS line on black henna, linked and dated.</figcaption></figure>
+    <ul class="does">
+      <li><b>The bridal page</b><span class="pl">Plus</span><p>The bride turned away by the window; the trial and patch test, what to do before the artist arrives, the packages and the date check again.</p></li>
+      <li><b>The design library</b><span class="pl">Plus</span><p>Traditional, Arabic, Indo-Arabic, contemporary. "Ask for this" sends the design's name on WhatsApp.</p></li>
+      <li><b>Natural henna only</b><span class="pl">Starter</span><p>What's in the paste, how the stain develops, and the line every bride's mother is looking for.</p></li>
+    </ul>
+  </div>
+  <div class="nhs">
+    <h3>"Black henna" is not henna.</h3>
+    <div><p>The NHS says it contains high levels of PPD, which can make a reaction to hair dye more likely later. Hatheli's site says so in the NHS's words, links the page and gives the date it was checked.</p>
+      <small>Source: <a href="https://www.nhs.uk/conditions/hair-dye-reactions/">NHS, Hair dye reactions</a>, checked 6 November 2026.</small></div>
+  </div>
+</div></section>
+
+<!-- OUTFIT -->
+<section class="day bone gut" data-ch="outfit" data-days="21" aria-labelledby="h-outfit"><div class="wrap">
+  <div class="stamp"><span class="dn" data-dn>22</span><p class="dw"><b data-dwd>Saturday</b><span data-dmy>May 2027</span><span>Three weeks before. The outfit.</span></p></div>
+  <h2 id="h-outfit">Hide our names in it.</h2>
+  <figure class="wide"><img src="media/chooda.webp" width="1400" height="934" loading="lazy" alt="Both hands crossed on a red and gold lehenga, red and white chooda to the forearm"></figure>
+  <div class="cols c-outfit">
+    <figure class="phone"><div class="ph"><video src="media/personal.mp4" poster="media/personal.webp" muted loop playsinline preload="none" aria-label="Personal details on a phone: Our names and Our wedding date ticked, the words typed in, The fingers chosen"></video></div><button class="tap" type="button" data-tap data-name="personal details" hidden>Pause</button>
+      <figcaption><b>Personal details</b>What to hide, the exact words, and where.</figcaption></figure>
+    <div>
+      <p class="q">Initials, a date, the city they met in. Then someone searches for them on the night.</p>
+      <p>She ticks what to hide, types the exact words and picks where. One WhatsApp message arrives with all of it, ready for her reference photos.</p>
+      <ul class="does">
+        <li><b>Personal details in your design</b><span class="pl">Signature</span><p>Names, initials, a date, a place, a symbol; the palm, the fingers, the wrist, the feet. Beside a real hand where the name can be found.</p></li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<!-- MEHNDI -->
+<section class="day night gut" data-ch="mehndi" data-days="2" aria-labelledby="h-night"><div class="wrap">
+  <div class="stamp"><span class="dn" data-dn>10</span><p class="dw"><b data-dwd>Thursday</b><span data-dmy>June 2027</span><span>Two days before, in the evening. The mehndi.</span></p></div>
+  <h2 id="h-night">And everyone else on the night.</h2>
+  <p class="lead">Mothers, sisters, aunties, friends. The family asks one question: how many artists, and how long?</p>
+  <div class="cols c-night">
+    <div>
+      <div class="sum">
+        <div class="n">
+          <output class="g" id="g-n" aria-live="polite">24</output>
+          <div class="step"><button type="button" id="g-up" aria-label="One more guest">+</button><button type="button" id="g-dn" aria-label="One guest fewer">−</button></div>
+        </div>
+        <p class="k">guests having mehndi</p>
+        <div class="sizes" role="group" aria-label="Design for each guest">
+          <button type="button" data-size="motif" aria-pressed="false">Small motif</button>
+          <button type="button" data-size="trail" aria-pressed="true">Floral trail</button>
+          <button type="button" data-size="full" aria-pressed="false">Full hand</button>
+        </div>
+        <p class="res" aria-live="polite" id="g-res">Two artists, about <em>2 hrs</em>.</p>
+        <p id="g-from">Floral trail each · from £360</p>
+      </div>
+      <ul class="does">
+        <li><b>The guest sum</b><span class="pl">Signature</span><p>From the artist's own minutes per design and her rates. It sends the night, with the wedding date, on WhatsApp for a quote, and says so when the night is more than her team can do.</p></li>
+      </ul>
+    </div>
+    <figure class="phone"><div class="ph"><video src="media/guests.mp4" poster="media/guests.webp" muted loop playsinline preload="none" aria-label="The guest sum on a phone: guests go up to 34, full hand is chosen, and it shows four artists for about 2 hours 50"></video></div><button class="tap" type="button" data-tap data-name="guest sum" hidden>Pause</button>
+      <figcaption><b>The same sum, on her site</b>Demo figures: Hatheli's minutes and rates.</figcaption></figure>
+  </div>
+</div></section>
+
+<!-- PASTE OFF -->
+<section class="day orange gut" data-ch="off" data-days="1" aria-labelledby="h-off"><div class="wrap">
+  <div class="stamp"><span class="dn" data-dn>11</span><p class="dw"><b data-dwd>Friday</b><span data-dmy>June 2027</span><span>The day before. Paste off.</span></p></div>
+  <h2 id="h-off">Scrape, don't wash.</h2>
+  <div class="cols c-off">
+    <figure class="phone"><div class="ph"><img src="media/phone-aftercare.webp" width="780" height="1688" loading="lazy" alt="Hatheli's stain and aftercare page on a phone"></div>
+      <figcaption><b>Stain and aftercare</b>Paste on, paste off, deepest, fading, on real photographs.</figcaption></figure>
+    <div>
+      <ol class="steps">
+        <li>Keep the paste on for six hours at least.</li>
+        <li>Scrape it off; never wash it off.</li>
+        <li>Keep water away until the next morning.</li>
+        <li>Keep your hands warm. A cup of tea in both hands helps.</li>
+      </ol>
+      <ul class="does">
+        <li><b>The stain and aftercare page</b><span class="pl">Plus</span><p>The artist's own aftercare, one line each, and how long it lasts. Read at midnight, with paste on both hands.</p></li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<!-- WEDDING -->
+<section class="day deep gut" data-ch="wedding" data-days="0" aria-labelledby="h-day"><div class="wrap">
+  <div class="stamp"><span class="dn" data-dn>12</span><p class="dw"><b data-dwd>Saturday</b><span data-dmy>June 2027</span><span>The wedding.</span></p></div>
+  <h2 id="h-day">Darkest on the day.</h2>
+  <p class="lead">Every step of her week, on its day, in one calendar file. And one message the family group actually reads.</p>
+  <div class="cols c-day">
+    <figure class="phone"><div class="ph"><video src="media/planner.mp4" poster="media/planner.webp" muted loop playsinline preload="none" aria-label="The wedding week planner on a phone: a June wedding date is picked and the trial, outfit, nails, mehndi and paste off each land on their day"></video></div><button class="tap" type="button" data-tap data-name="wedding week planner" hidden>Pause</button>
+      <figcaption><b>The wedding week planner</b>Her date in, every step out.</figcaption></figure>
+    <div>
+      <p class="fam-h">Send to the family, as the site writes it for your date:</p>
+      <p class="fam" data-fam aria-live="polite">Our mehndi week, from Hatheli:</p>
+      <ul class="does">
+        <li><b>The wedding week planner</b><span class="pl">Signature</span><p>The trial, nails and waxing, the mehndi evening and paste off, each from the artist's own days. A calendar file, "hold my mehndi day" to the artist, and this message for the family.</p></li>
+      </ul>
+    </div>
+  </div>
+  <div class="own">
+    <h3>Your stain, day by day.</h3>
+    <div><p>One stain, photographed by the artist on the mehndi evening and the two days after, each photograph dated from the bride's own wedding, with the darkest day named. It is built from each artist's own photographs, so it waits for hers.</p>
+      <div class="tri" aria-hidden="true"><i style="background:#2B1A10"></i><i style="background:var(--orange)"></i><i style="background:var(--brown)"></i><i style="background:#2A0F07"></i></div>
+      <p class="cap" style="color:var(--muted)">Signature. The evening, day one, day two.</p></div>
+  </div>
+</div></section>
+
+<!-- PLANS -->
+<section class="plans gut" id="plans" aria-labelledby="h-plans"><div class="wrap">
+  <h2 id="h-plans">Three shades of one stain.</h2>
+  <p class="lead">Every plan starts with her date. The darker the stain, the more of her week the site carries.</p>
+  <div class="shades">
+    <article class="shade">
+      <p class="when">Paste off</p>
+      <h3>Starter</h3>
+      <p class="price">£99, then £25 a month</p>
+      <ul><li>Home, and Plan your visit</li><li>The name hidden in the palm</li><li>Bridal by how far it goes</li><li>The date check, from her sheet</li><li>Natural henna, with the NHS line</li></ul>
+    </article>
+    <article class="shade">
+      <p class="when">Overnight</p>
+      <h3>Plus</h3>
+      <p class="price">£199, then £30 a month</p>
+      <ul><li>Up to five pages</li><li>The bridal page</li><li>The design library</li><li>Stain and aftercare</li><li>Darkest on the day</li></ul>
+    </article>
+    <article class="shade">
+      <p class="when">On the day</p>
+      <h3>Signature</h3>
+      <p class="price">£349, then £35 a month</p>
+      <ul><li>Up to 20 pages</li><li>The guest sum</li><li>The wedding week planner</li><li>Personal details in your design</li><li>Your stain, day by day, from her photographs</li></ul>
+    </article>
+  </div>
+  <p class="small">A 12-month minimum. Her diary lives in her own Google Sheet, every request arrives on WhatsApp, and nothing costs more to run than hosting.</p>
+</div></section>
+
+<section class="speed gut" aria-labelledby="h-sp"><div class="wrap">
+  <h2 id="h-sp">Open before her hands are dry.</h2>
+  <div class="meas">
+    <div><b>100</b><span>Lighthouse performance, mobile, Hatheli's home page</span></div>
+    <div><b>1.4 s</b><span>Until the palm, the largest picture, is on screen</span></div>
+    <div><b>0</b><span>Layout shift: nothing jumps while it loads</span></div>
+    <div><b>100</b><span>Accessibility, with its fonts served by the site itself</span></div>
+  </div>
+</div></section>
+
+<section class="close gut" id="mockup" aria-labelledby="h-cl"><div class="wrap">
+  <h2 id="h-cl">Your diary, on your own site.</h2>
+  <div>
+    <p>Send us your Instagram handle. We'll make a free mockup of your home page with your own work and your own prices on it.</p>
+    <div class="acts">
+      <a class="btn" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#free">Get a free mockup</a>
+      <a class="btn line" href="https://claude.ai/artifact/XpcdBjCkvT8odETKjQayFY">Try Hatheli's site</a>
+    </div>
+    <span class="mail">hello@sitefloor.com</span>
+  </div>
+</div></section>
+
+</main>
+
+<footer class="gut"><div class="wrap">
+  <p>Hatheli is a fictional mehndi artist made to show the Sitefloor mehndi kit. Its prices, diary, guest figures, address and phone number are demo data. Its photographs are free stock from Pexels, each credited in our records. Client sites use the artist's own photographs, prices and Google Sheet.</p>
+  <span>© 2026 Sitefloor</span>
+</div></footer>
+
+<script>
+(() => {
+  // Hatheli's own settings (sites/demos/mehndi/site.json) and the kit's logic (src/kits/mehndi/lib/mehndi.js),
+  // with the demo's simulated diary (src/demo/dates-provider.js), worked out on London's date.
+  const DARKEST = 2;
+  const STEPS = [
+    { id: "trial", label: "Your trial", days: 42 }, { id: "outfit", label: "Send outfit photos", days: 21 },
+    { id: "prep", label: "Nails, waxing and scrubs", days: 3 }, { id: "mehndi", label: "Your mehndi", days: 2 },
+    { id: "off", label: "Paste off", days: 1 },
+  ];
+  const SIZES = { motif: { name: "Small motif", min: 5, price: 8 }, trail: { name: "Floral trail", min: 10, price: 15 }, full: { name: "Full hand", min: 20, price: 28 } };
+  const PER_ARTIST = 180, ARTISTS = 4, MAX = 120;
+  const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const WORDS = ["One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight"];
+
+  const today = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/London", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
+  const utc = (ymd) => new Date(`${ymd}T12:00:00Z`);
+  const ymdOf = (d) => d.toISOString().slice(0, 10);
+  const addDays = (ymd, n) => { const d = utc(ymd); d.setUTCDate(d.getUTCDate() + n); return ymdOf(d); };
+  const long = (ymd, year = true) => { const d = utc(ymd); return `${DAYS[d.getUTCDay()]} ${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]}${year ? " " + d.getUTCFullYear() : ""}`; };
+
+  // the demo's diary: the same for every visitor on a given day
+  const diary = {};
+  for (let i = 0; i < 730; i++) {
+    const d = addDays(today, i), t = utc(d), dow = t.getUTCDay(), month = t.getUTCMonth() + 1, week = Math.floor(t.getTime() / 604800000);
+    if (i < 35 && (dow === 5 || dow === 6 || dow === 0)) diary[d] = "taken";
+    else if (dow === 6 && month >= 5 && month <= 9) diary[d] = week % 3 === 0 ? "few" : "taken";
+    else if (dow === 0 && month >= 6 && month <= 8 && week % 2 === 0) diary[d] = "few";
+    else if (dow === 6 && month === 12) diary[d] = "few";
+  }
+  const answer = (ymd) => {
+    if (ymd < today) return "That date has gone.";
+    const s = diary[ymd] ?? "open";
+    if (s === "taken") return "Taken for bridal mehndi. Guest mehndi, or the evening before, may still be free.";
+    if (s === "few") return "A few hours left on this day. Ask soon.";
+    return "Free so far. Ask, and we'll hold it while you decide.";
+  };
+
+  // the date fields: a Saturday in June next year to start
+  const sd = document.getElementById("w-d"), sm = document.getElementById("w-m"), sy = document.getElementById("w-y");
+  const ty = +today.slice(0, 4);
+  for (let y = ty; y <= ty + 2; y++) sy.add(new Option(String(y), String(y)));
+  MONTHS.forEach((m, i) => sm.add(new Option(m, String(i + 1))));
+  for (let d = 1; d <= 31; d++) sd.add(new Option(String(d), String(d)));
+  const start = (() => { const d = utc(`${ty + 1}-06-08`); d.setUTCDate(d.getUTCDate() + ((6 - d.getUTCDay() + 7) % 7)); return ymdOf(d); })();
+  sy.value = start.slice(0, 4); sm.value = String(+start.slice(5, 7)); sd.value = String(+start.slice(8));
+
+  // each select as wide as its words, so the sentence reads as one
+  const ruler = document.createElement("canvas").getContext("2d");
+  const fit = (s) => { const cs = getComputedStyle(s); ruler.font = `${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`; s.style.width = `${Math.ceil(ruler.measureText(s.options[s.selectedIndex].text).width + parseFloat(cs.fontSize) * .12)}px`; };
+  const fitAll = () => [sd, sm, sy].forEach(fit);
+
+  const wedding = () => {
+    const y = +sy.value, m = +sm.value, last = new Date(Date.UTC(y, m, 0)).getUTCDate();
+    if (+sd.value > last) sd.value = String(last);
+    return `${y}-${String(m).padStart(2, "0")}-${String(sd.value).padStart(2, "0")}`;
+  };
+
+  const stamp = (el, ymd) => {
+    const d = utc(ymd);
+    el.querySelector("[data-dn]").textContent = String(d.getUTCDate());
+    el.querySelector("[data-dwd]").textContent = DAYS[d.getUTCDay()];
+    el.querySelector("[data-dmy]").textContent = `${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
+    el.classList.toggle("past", ymd < today);
+  };
+
+  const fam = document.querySelector("[data-fam]");
+  const render = (animate) => {
+    const w = wedding();
+    document.querySelector("[data-hero-wd]").textContent = DAYS[utc(w).getUTCDay()];
+    document.querySelector("[data-a-diary]").textContent = answer(w);
+    document.querySelector("[data-a-mehndi]").textContent = long(addDays(w, -DARKEST), false);
+    document.querySelector("[data-a-dark]").textContent = long(w, false);
+    const left = Math.round((utc(w) - utc(today)) / 86400000);
+    document.querySelector("[data-a-left]").textContent = left < 0 ? "Already past." : left === 0 ? "Today." : `${left} day${left > 1 ? "s" : ""}. ${left > 42 ? "Time for the trial six weeks before." : "Inside the six weeks: message today."}`;
+    const chs = document.querySelectorAll("[data-ch]");
+    const go = () => chs.forEach((c) => stamp(c, c.dataset.ch === "today" ? today : addDays(w, -(+c.dataset.days))));
+    if (animate && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      chs.forEach((c) => c.classList.add("redating"));
+      setTimeout(() => { go(); chs.forEach((c) => c.classList.remove("redating")); }, 180);
+    } else go();
+    // as the site's planner: only the steps still ahead, and nothing for a wedding that has gone
+    const ahead = STEPS.filter((s) => addDays(w, -s.days) >= today);
+    fam.textContent = w < today ? "That date has gone." : ["Our mehndi week, from Hatheli:", ...ahead.map((s) => `${long(addDays(w, -s.days))}: ${s.label}`), `${long(w)}: the wedding`].join("\n");
+    fitAll();
+    guests();
+  };
+  [sd, sm, sy].forEach((s) => s.addEventListener("change", () => render(true)));
+
+  // the guest sum
+  let n = 24, size = "trail";
+  const gN = document.getElementById("g-n"), gRes = document.getElementById("g-res"), gFrom = document.getElementById("g-from");
+  const hours = (min) => { const h = Math.floor(min / 60), m = min % 60; return h ? `${h} hr${h > 1 ? "s" : ""}${m ? " " + m : ""}` : `${m} min`; };
+  function guests() {
+    const s = SIZES[size], total = n * s.min, need = Math.max(1, Math.ceil(total / PER_ARTIST)), artists = Math.min(need, ARTISTS);
+    const mins = Math.ceil(total / artists / 10) * 10;
+    gN.textContent = String(n);
+    gRes.innerHTML = need > ARTISTS ? "More than we can do in one night: we'd plan it with you." : `${WORDS[artists - 1]} artist${artists > 1 ? "s" : ""}, about <em>${hours(mins)}</em>.`;
+    gFrom.textContent = `${s.name} each · from £${(n * s.price).toLocaleString("en-GB")} · ${long(addDays(wedding(), -DARKEST), false)}`;
+  }
+  document.getElementById("g-up").addEventListener("click", () => { n = Math.min(MAX, n + 1); guests(); });
+  document.getElementById("g-dn").addEventListener("click", () => { n = Math.max(1, n - 1); guests(); });
+  document.querySelectorAll("[data-size]").forEach((b) => b.addEventListener("click", () => {
+    size = b.dataset.size; document.querySelectorAll("[data-size]").forEach((x) => x.setAttribute("aria-pressed", String(x === b))); guests();
+  }));
+
+  // recordings play while they're on screen, never on their own for reduced motion
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const vids = document.querySelectorAll("video");
+  if (still) vids.forEach((v) => { v.controls = true; });
+  else {
+    // a named Pause and Play for every clip; a paused clip stays paused
+    document.querySelectorAll("[data-tap]").forEach((b) => {
+      const v = b.previousElementSibling.querySelector("video"), name = b.dataset.name;
+      const label = () => { const off = v.dataset.held === "1"; b.textContent = off ? "Play" : "Pause"; b.setAttribute("aria-label", `${off ? "Play" : "Pause"} the ${name} clip`); };
+      b.hidden = false; label();
+      b.addEventListener("click", () => { if (v.dataset.held === "1") { delete v.dataset.held; v.play().catch(() => {}); } else { v.dataset.held = "1"; v.pause(); } label(); });
+    });
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting && e.target.dataset.held !== "1") e.target.play().catch(() => {}); else e.target.pause(); }), { threshold: .35 });
+      vids.forEach((v) => io.observe(v));
+    }
+  }
+
+  render(false);
+  if (document.fonts) document.fonts.ready.then(fitAll);
+})();
+</script>
+</body>
+</html>

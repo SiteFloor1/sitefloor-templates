@@ -1,0 +1,27 @@
+{#- Written pieces as a reading room: the newest leads with a wide photograph, the rest sit beneath in a grid of tall
+    photographs. Set `pieces` (the items, newest first) and `kind` ("insight" or "guide") first. -#}
+<div class="wrap lw-room">
+  {%- for x in pieces %}{% set by = site.people | person(x.reviewedBy if kind == "guide" else x.author) %}
+  {%- if loop.first %}
+  <a class="lw-lead" href="{{ x.id | href }}">
+    {%- if x.photo %}<figure class="lw-lead-fig"><img src="{{ x.photo.src | img }}" alt="{{ x.photo.alt }}" width="{{ x.photo.width }}" height="{{ x.photo.height }}" decoding="async"{% if x.photo.position %} style="object-position:{{ x.photo.position }}"{% endif %}></figure>{% endif %}
+    <div class="lw-lead-say">
+      <p class="lw-piece-meta">{% if kind == "guide" %}Reviewed {{ x.reviewed | ukDate }}{% else %}<time datetime="{{ x.date }}">{{ x.date | ukDate }}</time>{% endif %} · {{ by.name }}</p>
+      <h2 class="lw-lead-t">{{ x.title }}</h2>
+      <p class="lw-lead-s">{{ x.summary }}</p>
+      <span class="go">Read</span>
+    </div>
+  </a>
+  <ul class="lw-grid">
+  {%- else %}
+    <li><a class="lw-card" href="{{ x.id | href }}">
+      {%- if x.photo %}<figure class="lw-card-fig"><img src="{{ x.photo.src | img }}" alt="{{ x.photo.alt }}" width="{{ x.photo.width }}" height="{{ x.photo.height }}" loading="lazy" decoding="async"{% if x.photo.position %} style="object-position:{{ x.photo.position }}"{% endif %}></figure>{% endif %}
+      <p class="lw-piece-meta">{% if kind == "guide" %}Reviewed {{ x.reviewed | ukDate }}{% else %}<time datetime="{{ x.date }}">{{ x.date | ukDate }}</time>{% endif %} · {{ by.name }}</p>
+      <h2 class="lw-card-t">{{ x.title }}</h2>
+      <p class="lw-card-s">{{ x.summary }}</p>
+    </a></li>
+  {%- endif %}
+  {%- if loop.last %}</ul>{% endif %}
+  {%- endfor %}
+  <p class="lw-list-note">General information, not legal advice.</p>
+</div>

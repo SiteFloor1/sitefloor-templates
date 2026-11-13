@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: cloth
+permalink: cloth.html
+feature: cloth-page
+eleventyComputed:
+  title: "{{ site.clothPage.title | plain }}"
+  description: "The cloth library at {{ site.business.name }}, {{ site.location.locality }}: every cloth, by season, with its weave close."
+---
+{% include "kits/tailor/features/cloth-page/cloth-page.njk" %}

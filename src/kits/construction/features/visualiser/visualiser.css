@@ -1,0 +1,35 @@
+/* The extension visualiser: the photograph, the tap-to-load button, the canvas over the photograph, and the controls
+   underneath. Tokens only; the look sets the colours, type and edges. */
+.bd-vz-stage { position: relative; overflow: hidden; background: var(--surface); }
+.bd-vz-photo { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+.bd-vz-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: pan-y; cursor: grab; outline-offset: -4px; }
+.bd-vz-canvas:active { cursor: grabbing; }
+.bd-vz-try { position: absolute; z-index: 2; left: 24px; bottom: 24px; display: flex; align-items: center; gap: 14px; text-align: left;
+  background: var(--bg); color: var(--text); border: 0; padding: 16px 20px 16px 16px; cursor: pointer; font: inherit; font-weight: 500; }
+.bd-vz-try svg { width: 30px; height: 30px; flex: none; }
+.bd-vz-try-ext { fill: var(--accent-soft, var(--accent)); }
+.bd-vz-try small { display: block; font-weight: 400; color: var(--muted); font-size: 12px; margin-top: 5px; }
+.bd-vz-try[disabled] { cursor: progress; }
+.bd-vz-hint { position: absolute; right: 16px; top: 16px; margin: 0; font-size: 12px; color: var(--muted); background: color-mix(in srgb, var(--bg) 88%, transparent); padding: 6px 10px; pointer-events: none; }
+.bd-vz-status { position: absolute; left: 24px; bottom: 24px; margin: 0; background: var(--bg); padding: 14px 18px; font-size: 14px; max-width: calc(100% - 48px); }
+.bd-vz-controls { display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; padding-block: 16px; border-bottom: 1px solid var(--line); }
+.bd-vz-ctl { display: flex; align-items: center; gap: 10px; font-size: 13px; }
+.bd-vz-ctl > span, .bd-vz-ctl > label { color: var(--muted); }
+.bd-vz-ctl output { font-variant-numeric: tabular-nums; min-width: 3.4em; font-size: 13px; }
+.bd-vz-ctl input[type="range"] { accent-color: var(--accent); width: 140px; min-height: 32px; }
+.bd-seg { display: flex; border: 1px solid var(--line-2); }
+.bd-seg button { -webkit-tap-highlight-color: transparent; font: inherit; font-size: 13px; font-weight: 500; background: var(--bg); color: var(--text); border: 0; padding: 10px 13px; min-height: 40px; cursor: pointer; }
+.bd-seg button + button { border-left: 1px solid var(--line-2); }
+.bd-seg button[aria-pressed="true"] { background: var(--accent-soft, var(--surface-2)); color: var(--text); box-shadow: inset 0 -2px 0 var(--accent); }
+.bd-vz-read { margin: 0 0 0 auto; font-family: var(--font-display); font-size: 19px; line-height: 1.25; }
+.bd-vz-price { flex-basis: 100%; margin: 0; font-size: 12px; color: var(--muted); }
+.bd-vz-send { flex-basis: 100%; }
+@media (max-width: 760px) {
+  .bd-vz-photo { aspect-ratio: 4 / 5; }
+  .bd-vz-try { left: 12px; right: 12px; bottom: 12px; }
+  .bd-vz-status { left: 12px; bottom: 12px; max-width: calc(100% - 24px); }
+  .bd-vz-controls { gap: 12px 16px; }
+  .bd-vz-ctl { flex-wrap: wrap; }
+  .bd-vz-ctl input[type="range"] { width: min(220px, 52vw); }
+  .bd-vz-read { margin-left: 0; flex-basis: 100%; }
+}

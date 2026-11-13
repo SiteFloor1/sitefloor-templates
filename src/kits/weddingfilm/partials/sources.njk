@@ -1,0 +1,5 @@
+{#- Where the facts on this page come from. Set `srcs` to [{ label, url, checked }]; facts cite them by number. -#}
+<section class="wf-src" aria-labelledby="src-h"><div class="wrap">
+  <h2 id="src-h" class="wf-src-h">Sources</h2>
+  <ol class="wf-src-list">{% for s in srcs %}<li id="src-{{ loop.index }}"><a href="{{ s.url }}" target="_blank" rel="noopener">{{ s.label }}</a> <span class="wf-k">checked {{ s.checked }}</span></li>{% endfor %}</ol>
+</div></section>

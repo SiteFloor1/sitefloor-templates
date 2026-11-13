@@ -1,0 +1,31 @@
+/* Maintenance plans: the plan's name and facts, then its year as twelve columns; a visit month is marked and lists the
+   work. */
+.gd-mp-pick { margin-bottom: 24px; }
+.gd-mp-plan[hidden] { display: none; }
+.gd-mp-plan + .gd-mp-plan { margin-top: 64px; }
+.gd-mp-top { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 8px clamp(32px, 6vw, 96px); align-items: baseline; padding-bottom: 24px; }
+.gd-mp-n { grid-row: span 2; margin: 0; font-style: italic; font-size: clamp(36px, 4vw, 56px); line-height: 1; }
+.gd-mp-facts { display: flex; flex-wrap: wrap; gap: 4px 28px; margin: 0; font-size: 19px; }
+.gd-mp-t { margin: 0; color: var(--muted); max-width: 56ch; }
+.gd-mp-rota { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); border-top: 1px solid var(--text); }
+.gd-mp-m { min-width: 0; padding: 12px 10px 18px 0; border-right: 1px solid var(--line); }
+.gd-mp-m:last-child { border-right: 0; }
+.gd-mp-mo { display: block; font-style: italic; color: var(--muted); padding-bottom: 10px; }
+.gd-mp-on { box-shadow: inset 0 3px 0 var(--accent); }
+.gd-mp-on .gd-mp-mo { color: var(--text); }
+.gd-mp-tasks { list-style: none; margin: 0; padding: 0; font-size: 13.5px; line-height: 1.4; }
+.gd-mp-tasks li + li { margin-top: 6px; }
+.gd-mp-ask { margin-top: 72px; padding-top: 32px; border-top: 1px solid var(--line); display: grid; gap: 20px; }
+.gd-mp-ask-h { margin: 0; font-style: italic; font-size: 34px; }
+.gd-mp-fields { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; max-width: 900px; }
+.gd-input { width: 100%; min-height: 48px; padding: 0 14px; border: 1px solid var(--line-2); border-radius: 0; background: var(--bg); color: var(--text); font: inherit; font-size: 17px; }
+.gd-mp-ask .btn { justify-self: start; }
+@media (max-width: 900px) {
+  .gd-mp-top { grid-template-columns: 1fr; } .gd-mp-n { grid-row: auto; }
+  .gd-mp-rota { grid-template-columns: 1fr; }
+  .gd-mp-m { display: grid; grid-template-columns: 64px minmax(0, 1fr); padding: 10px 0; border-right: 0; border-bottom: 1px solid var(--line); }
+  .gd-mp-on { box-shadow: inset 3px 0 0 var(--accent); padding-left: 12px; }
+  .gd-mp-fields { grid-template-columns: 1fr; }
+}
+/* a choice row keeps its place until the script starts, then shows (same rule as gardens.css, for sites without it) */
+[data-wait] { visibility: hidden; }

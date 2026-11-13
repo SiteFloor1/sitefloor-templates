@@ -1,0 +1,11 @@
+{#- The menu page: the page's name, the menu by the hour, then the salon's policies (removal, lateness, chips) in its
+    own words. Sections the look moves here (gel or BIAB, build your set, infills, reviews) follow. -#}
+{%- set ph = site.menuPage %}
+{% include "kits/nails/partials/page-head.njk" %}
+{% include "kits/nails/features/menu-hours/menu-hours.njk" %}
+{%- if site.menuPage.policies and site.menuPage.policies.length %}
+<section id="policies" class="nl-pol" aria-labelledby="pol-h"><div class="wrap nl-pol-in">
+  <h2 id="pol-h" class="nl-pol-h">Before you book</h2>
+  <dl class="nl-pol-l">{% for p in site.menuPage.policies %}<div><dt>{{ p.title }}</dt><dd>{{ p.text }}</dd></div>{% endfor %}</dl>
+</div></section>
+{%- endif %}

@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: packages
+permalink: packages.html
+feature: packages-page
+eleventyComputed:
+  title: "{{ site.packagesPage.title | plain }}"
+  description: "{{ site.packagesPage.intro }} Car detailing packages at {{ site.business.name }}, {{ site.location.locality }}."
+---
+{% include "kits/detailing/features/packages-page/packages-page.njk" %}

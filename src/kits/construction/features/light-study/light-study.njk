@@ -1,0 +1,15 @@
+{#- The light study: pick a month and a time and which way the garden faces; the sun on the 3D model moves to where it
+    really is for the postcode district, and one sentence says whether it reaches the new room's glass. -#}
+{%- set ls = site.lightStudy %}
+<section class="wrap bd-ls" data-feature="light-study" aria-labelledby="ls-h">
+  <div class="bd-ls-head"><h2 id="ls-h" class="bd-h2">{{ ls.title | markup | safe }}</h2>{% if ls.intro %}<p>{{ ls.intro }}</p>{% endif %}</div>
+  <div class="bd-ls-ctl" data-js-only>
+    <label class="bd-field"><span>Month</span><select data-ls-month>{% for m in ["January","February","March","April","May","June","July","August","September","October","November","December"] %}<option value="{{ loop.index }}"{% if loop.index == 6 %} selected{% endif %}>{{ m }}</option>{% endfor %}</select></label>
+    <label class="bd-field bd-ls-time"><span>Time <output data-ls-time-out>3:00 pm</output></span><input type="range" data-ls-time min="300" max="1320" step="30" value="900"></label>
+    <div class="bd-field" role="group" aria-labelledby="ls-face-l"><span id="ls-face-l">Garden faces</span><div class="bd-seg bd-ls-face">{% for f in planningFacts.facings %}<button type="button" data-ls-face="{{ f }}" aria-pressed="{{ 'true' if f == (ls.facing or 'S') else 'false' }}">{{ f }}</button>{% endfor %}</div></div>
+    {%- if ls.places.length > 1 %}<label class="bd-field"><span>Where</span><select data-ls-place>{% for p in ls.places %}<option value="{{ loop.index0 }}">{{ p.code }}</option>{% endfor %}</select></label>{% endif %}
+  </div>
+  <p class="bd-ls-now" data-ls-now aria-live="polite">Pick a month and a time.</p>
+  <p class="bd-ls-hint" data-ls-hint>Open the 3D house above to watch the light move.</p>
+  <p class="bd-ls-note">The sun's position is worked out for {% if ls.places.length > 1 %}the chosen postcode district{% else %}{{ ls.places[0].code }}{% endif %} on the 21st of the month, in UK clock time. It doesn't know about your neighbours' houses or trees, which can shade a garden.</p>
+</section>

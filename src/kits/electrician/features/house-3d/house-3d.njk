@@ -1,0 +1,44 @@
+{#- The house in 3D (Signature): a full-width chapter of the home page. A still of the house at blue hour, every light
+    off, comes first; "Light the house" loads three.js and the model, and the house lights up room by room. The keypad
+    (Evening, Cinema, Away, Goodnight), the colour of the light and the quote for the lit rooms sit quietly on the
+    model. The rooms and the quote still work if 3D can't start. Nothing loads before the tap. -#}
+{%- set h = site.house3d %}
+{%- set sec = site.sections.house or { title: "Light *the house.*", intro: "Every fitting in this model is priced from our own list. Light a room and the total follows." } %}
+<section id="house" class="el-villa" data-feature="house-3d"{{ "house-3d" | tierAttr | safe }} aria-label="{{ sec.title | plain }}">
+  <div class="el-villa-stage" data-h3-stage>
+    <picture class="el-villa-poster" data-h3-poster>
+      <source media="(max-width:760px)" srcset="{{ 'img/kit/villa-tall.webp' | img }}" width="900" height="1125">
+      <img src="{{ 'img/kit/villa-wide.webp' | img }}" alt="A model of a glass house at blue hour with every light off: a stone first floor, a terrace and a pool, cypresses in the garden" width="1600" height="900" loading="lazy" decoding="async">
+    </picture>
+    <canvas class="el-villa-canvas" data-h3-canvas aria-label="The house in 3D. Drag to look around; tap a room to light it." tabindex="-1"></canvas>
+    <div class="el-h3-tags" data-h3-tags aria-hidden="true"></div>
+    <div class="el-villa-head">
+      <h2 class="el-villa-t">{{ sec.title | markup | safe }}</h2>
+      <p class="el-villa-i">{{ sec.intro }}</p>
+      <button class="el-villa-open" type="button" data-h3-open data-js-only><span>Light the house</span><small>3D, loads when you tap</small></button>
+      <p class="el-villa-load" data-h3-load hidden role="status"></p>
+    </div>
+    <div class="el-villa-bar" data-h3-bar hidden>
+      <div class="el-villa-keys" role="group" aria-label="Scenes">
+        {%- for k in [["evening", "Evening"], ["cinema", "Cinema"], ["away", "Away"], ["off", "Goodnight"]] %}
+        <button type="button" class="el-villa-key" data-h3-scene="{{ k[0] }}" aria-pressed="{{ 'true' if loop.first else 'false' }}"><span class="el-villa-led" aria-hidden="true"></span>{{ k[1] }}</button>
+        {%- endfor %}
+      </div>
+      <label class="el-villa-warm"><span>Colour</span><input type="range" min="2200" max="3500" step="100" value="2700" data-h3-warm aria-describedby="h3-warm-out"><output id="h3-warm-out" data-h3-warm-out>2700 K</output></label>
+      <button type="button" class="el-villa-whole" data-h3-whole hidden>Whole house</button>
+      <button type="button" class="el-villa-qt" data-h3-quote aria-expanded="false" aria-controls="h3-panel"><span>Lit now</span><b data-h3-mini>£0</b></button>
+    </div>
+    <p class="el-villa-hint" data-h3-hint hidden>Drag to look around. Tap a room to light it.</p>
+  </div>
+  <div class="el-h3-panel" id="h3-panel" data-h3-panel hidden>
+    <ul class="el-h3-rooms" aria-label="Rooms">
+      {%- for r in h.rooms %}<li><button type="button" data-h3-room="{{ r.id }}" aria-pressed="false"><span class="el-h3-dot" aria-hidden="true"></span><span data-h3-room-name>{{ r.id }}</span></button></li>{% endfor %}
+    </ul>
+    <div class="el-h3-quote" aria-live="polite">
+      <ul class="el-h3-lines" data-h3-lines></ul>
+      <p class="el-h3-total"><span>Fittings, fitted</span><b data-h3-total>£0</b></p>
+      <p class="el-h3-note">From our own prices for the rooms lit now. The design visit sets the final figure.</p>
+    </div>
+    <a class="go" data-h3-send href="{{ h.message | wa }}" target="_blank" rel="noopener">Send this on WhatsApp</a>
+  </div>
+</section>

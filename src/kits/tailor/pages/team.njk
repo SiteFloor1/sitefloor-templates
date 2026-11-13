@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: team
+permalink: team.html
+feature: team
+eleventyComputed:
+  title: "{{ site.team.title | plain }}"
+  description: "The cutters and coatmakers at {{ site.business.name }}, {{ site.location.locality }}."
+---
+{% include "features/team/team.njk" %}
+{%- set hostPage = "team" %}{% include "kits/tailor/partials/hosted.njk" %}

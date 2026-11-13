@@ -1,0 +1,58 @@
+{#- The menu page: every sitting and the drinks, each dish with its marks and allergens, and the whole
+    allergen chart with "hide dishes containing…". -#}
+{%- set m = site.menu %}
+{%- set mp = site.menuPage %}
+<section class="phero mp-hero"><div class="wrap">
+  <span class="kick">{{ mp.kicker }}</span>
+  <h1>{{ mp.title | markup | safe }}</h1>
+  {%- if mp.intro %}<p>{{ mp.intro }}</p>{% endif %}
+  {%- if "menu-pdf" | enabled %}<p class="mp-pdf">{% include "kits/restaurant/features/menu-pdf/menu-pdf.njk" %}</p>{% endif %}
+</div></section>
+<section class="mp" data-feature="menu-page"><div class="wrap">
+  <div class="mp-bar">
+    <div class="rs-tabs" role="tablist" aria-label="Menus" data-js-only>
+      {%- for s in m.sittings %}<button type="button" class="rs-tab" role="tab" id="mp-tab-{{ s.id }}" aria-controls="mp-{{ s.id }}" aria-selected="{{ 'true' if loop.first else 'false' }}" data-mp-tab="{{ s.id }}">{{ s.name }}<small>{{ s.from | t12 }}–{{ s.to | t12 }}</small></button>{% endfor %}
+      {%- if m | drinks | length %}<button type="button" class="rs-tab" role="tab" id="mp-tab-drinks" aria-controls="mp-drinks" aria-selected="false" data-mp-tab="drinks">Drinks<small>All day</small></button>{% endif %}
+      <button type="button" class="rs-tab" role="tab" id="mp-tab-chart" aria-controls="mp-chart" aria-selected="false" data-mp-tab="chart">Allergen chart<small>Every dish</small></button>
+    </div>
+    <details class="mp-avoid" data-js-only>
+      <summary>Hide dishes containing…</summary>
+      <div class="rs-chips">{% for a in food.allergens %}<label class="rs-chip no"><input type="checkbox" name="mp-avoid" value="{{ a.id }}">{{ a.name }}</label>{% endfor %}</div>
+    </details>
+    <p class="rs-small mp-hidden" data-mp-hidden aria-live="polite"></p>
+  </div>
+  {%- for s in m.sittings %}
+  <div class="mp-panel" id="mp-{{ s.id }}" role="tabpanel" aria-labelledby="mp-tab-{{ s.id }}" data-mp-panel="{{ s.id }}" data-mn-mood="{{ s.mood }}">
+    <h2 class="mp-h">{{ s.name }} <small>{{ s.days | sittingDays }} · {{ s.from | t12 }}–{{ s.to | t12 }}{% if s.lastOrders %} · last orders {{ s.lastOrders | t12 }}{% endif %}</small></h2>
+    <div class="mp-cols">
+    {%- for sc in m | sectionsFor(s.id) %}{% if not sc.drinks %}
+      <div class="mp-sec"><h3>{{ sc.name }}</h3>{% if sc.note %}<p class="mn-note">{{ sc.note }}</p>{% endif %}<ul class="mn-list">{% for d in sc.dishes %}{% include "kits/restaurant/features/menu/dish.njk" %}{% endfor %}</ul></div>
+    {%- endif %}{% endfor %}
+    </div>
+  </div>
+  {%- endfor %}
+  {%- if m | drinks | length %}
+  <div class="mp-panel" id="mp-drinks" role="tabpanel" aria-labelledby="mp-tab-drinks" data-mp-panel="drinks">
+    <h2 class="mp-h">Drinks</h2>
+    <div class="mp-cols">{% for sc in m.sections %}{% if sc.drinks %}<div class="mp-sec"><h3>{{ sc.name }}</h3>{% if sc.note %}<p class="mn-note">{{ sc.note }}</p>{% endif %}<ul class="mn-list">{% for d in sc.dishes %}{% include "kits/restaurant/features/menu/dish.njk" %}{% endfor %}</ul></div>{% endif %}{% endfor %}</div>
+  </div>
+  {%- endif %}
+  <div class="mp-panel" id="mp-chart" role="tabpanel" aria-labelledby="mp-tab-chart" data-mp-panel="chart">
+    <h2 class="mp-h">Allergen chart <small>checked {{ m.chartChecked | longDate }}</small></h2>
+    <div class="mp-chart-wrap">
+      <table class="mp-chart">
+        <caption class="sr-only">The 14 allergens in every dish and drink. A dot means the dish contains it.</caption>
+        <thead><tr><th scope="col">Dish</th>{% for a in food.allergens %}<th scope="col"><span>{{ a.name }}</span></th>{% endfor %}</tr></thead>
+        <tbody>
+          {%- for sc in m.sections %}<tr class="mp-group"><th scope="rowgroup" colspan="{{ food.allergens | length + 1 }}">{{ sc.name }}</th></tr>
+          {%- for d in sc.dishes %}<tr data-dish="{{ d.id }}" data-name="{{ d.name }}" data-diets="{{ (d.diets or []) | join(' ') }}" data-allergens="{{ d.allergens | join(' ') }}"><th scope="row">{{ d.name }}</th>{% for a in food.allergens %}<td>{% if a.id in d.allergens %}<span class="mp-dot" role="img" aria-label="contains {{ a.name | lower }}"></span>{% else %}<span class="sr-only">no</span>{% endif %}</td>{% endfor %}</tr>{% endfor %}
+          {%- endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="mp-foot">
+    <p>{{ m.statement }}</p>
+    <p class="rs-small">Allergens are from our allergen chart, last checked {{ m.chartChecked | longDate }}. Recipes and suppliers can change, so please tell us about any allergy when you order. The 14 allergens are the ones UK food businesses must tell you about (<a href="{{ food.guidance.url }}" target="_blank" rel="noopener">Food Standards Agency guidance</a>).</p>
+  </div>
+</div></section>

@@ -1,0 +1,34 @@
+/* Visuals every feature of the cakes kit shares: numbered steps (things that happen in order), the small note under
+   a section, the "more" link, and a form field (label above, an underlined input). Tokens only. */
+.ck-steps { list-style: none; counter-reset: ck; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 28px clamp(20px, 3vw, 40px); }
+.ck-steps li { counter-increment: ck; border-top: 2px solid var(--text); padding-top: 12px; }
+.ck-steps li::before { content: counter(ck); display: block; font-family: var(--font-display); font-weight: 800; font-size: 34px; line-height: 1; color: var(--accent); margin-bottom: 8px; }
+.ck-steps b { font-family: var(--font-display); font-size: 22px; line-height: 1.1; }
+.ck-steps p { margin: 6px 0 0; }
+.ck-note { margin: 16px 0 0; color: var(--muted); max-width: 60ch; }
+.ck-more { margin: 32px 0 0; }
+.ck-field { display: grid; gap: 6px; margin: 0; padding: 0; border: 0; }
+.ck-field > label, .ck-field legend, .ck-field-row label[for] { color: var(--muted); }
+.ck-field input[type="text"], .ck-field input[type="date"], .ck-field input[type="number"], .ck-field select, .ck-field textarea { font: inherit; font-size: 20px; color: var(--text); background: transparent; border: 0; border-bottom: 2px solid var(--text); border-radius: 0; padding: 6px 0; min-height: 44px; width: 100%; }
+.ck-field textarea { border: 2px solid var(--text); padding: 10px; }
+/* Label and value on one hairline row each; the value in the display face. */
+.ck-rows { margin: 0; display: grid; }
+.ck-rows > div { display: grid; grid-template-columns: minmax(0, 1fr) fit-content(60%); gap: 16px; align-items: baseline; padding-block: 14px; border-top: 1px solid var(--line); }
+.ck-rows > div:last-child { border-bottom: 1px solid var(--line); }
+.ck-rows dt { color: var(--muted); }
+.ck-rows dd { margin: 0; font-family: var(--font-display); font-size: 22px; text-align: right; font-variant-numeric: tabular-nums; }
+/* A wide table scrolls inside its own box on a phone. */
+.ck-fltbl-w { overflow-x: auto; }
+/* Range pages (weddings, celebrations, corporate, dessert tables). */
+.ck-range-in { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(24px, 5vw, 80px); align-items: start; }
+.ck-range-h { margin: 0 0 12px; }
+.ck-range-n { margin: 18px 0 0; padding-left: 1.1em; }
+.ck-range-n li { margin: 6px 0; }
+.ck-range-go { margin: 24px 0 0; }
+.ck-range-f { margin: 0; }
+.ck-range-f img { display: block; width: 100%; height: auto; }
+.ck-qa { margin: 0; display: grid; }
+.ck-qa > div { padding-block: 14px; border-top: 1px solid var(--line); }
+.ck-qa dt { font-family: var(--font-display); font-weight: 800; font-size: 21px; line-height: 1.15; }
+.ck-qa dd { margin: 6px 0 0; max-width: 64ch; }
+@media (max-width: 900px) { .ck-range-in { grid-template-columns: minmax(0, 1fr); } }

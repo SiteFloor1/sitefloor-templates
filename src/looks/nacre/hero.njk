@@ -1,0 +1,34 @@
+{#- Nacre hero: one piece, full width, with no headline. Beneath it, centred, the piece's name in hairline capitals,
+    one label (the client's own price, "From £…" or "Price on request") and one underlined invitation.
+    With the-piece (Signature), the house's turntable film replaces the still: its first frame shows at once, the film
+    starts after the page has loaded, with Pause; never with reduced motion or data saver. -#}
+{%- set hp = site.pieces.items | pieceById(site.hero.piece) %}
+{%- set film = ("the-piece" | enabled) and site.thePiece %}
+{%- set fp = (site.pieces.items | pieceById(site.thePiece.piece)) if film else null %}
+{%- set seeHref = "#appointment" if ("appointment-request" | enabled) else ((site.messages.appointment or site.messages.general) | book) %}
+<section class="nc-hero" aria-label="{{ site.business.name }}">
+  <div class="nc-still">
+    <figure class="nc-hero-fig">
+      <picture>
+        <source media="(max-width: 700px)" srcset="{{ site.hero.photoTall.src | img }}" width="{{ site.hero.photoTall.width }}" height="{{ site.hero.photoTall.height }}">
+        <img class="nc-fade" src="{{ site.hero.photo.src | img }}" width="{{ site.hero.photo.width }}" height="{{ site.hero.photo.height }}" fetchpriority="high" alt="{{ site.hero.photo.alt }}">
+      </picture>
+    </figure>
+    <div class="nc-hero-cap">
+      {%- if film %}<p class="nc-hero-name">{{ hp.name }}</p>{% else %}<h1 class="nc-hero-name">{{ hp.name }}</h1>{% endif %}
+      {%- set pl = hp | priceLabel %}{% if pl %}<span class="nc-label nc-muted">{{ pl }}</span>{% endif %}
+      <a class="nc-u nc-label" href="{{ seeHref }}" data-see="{{ hp.id }}">See it in person</a>
+    </div>
+  </div>
+  {%- if film %}
+  {%- set f = site.thePiece.film %}
+  <div class="nc-film" data-feature="the-piece"{{ "the-piece" | tierAttr | safe }}>
+    {% include "kits/jeweller/features/the-piece/the-piece.njk" %}
+    <div class="nc-hero-cap">
+      <h1 class="nc-hero-name">{{ fp.name }}</h1>
+      {%- set pl = fp | priceLabel %}{% if pl %}<span class="nc-label nc-muted">{{ pl }}</span>{% endif %}
+      <a class="nc-u nc-label" href="{{ seeHref }}" data-see="{{ fp.id }}">See it in person</a>
+    </div>
+  </div>
+  {%- endif %}
+</section>

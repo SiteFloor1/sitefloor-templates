@@ -1,0 +1,7 @@
+{#- Handover phone bar: white, two halves. Call, and the site code with its key tag (or WhatsApp when the site code
+    isn't on). The page keeps room for it, so it never covers anything. -#}
+<div class="mbar hv-bar">
+  <a href="tel:{{ site.contact.phone | replace(' ', '') }}">Call</a>
+  {%- if "site-progress" | enabled %}<a href="{{ 'your-build' | href }}"{{ 'site-progress' | tierAttr | safe }}><span class="bd-tag" aria-hidden="true"></span>Site code</a>
+  {%- else %}<a href="{{ site.messages.general | wa }}" data-wa-text="{{ site.messages.general }}" target="_blank" rel="noopener">WhatsApp</a>{% endif %}
+</div>

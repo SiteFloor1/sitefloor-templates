@@ -1,0 +1,13 @@
+{#- The consultation page: the facts, what happens in the studio's words, what to bring, and Book. -#}
+{%- set c = site.consultation %}
+{%- set ph = { kicker: "Consultation", title: c.title, intro: c.intro } %}
+{%- include "kits/smile/partials/page-head.njk" %}
+<div class="sm-cp" data-feature="smile-consultation-page"><div class="wrap sm-cp-in">
+  <dl class="sm-facts">{% for f in c.facts %}<div><dt>{{ f.label }}</dt><dd>{{ f.value }}</dd></div>{% endfor %}</dl>
+  {%- if c.steps %}
+  <ol class="sm-cp-steps">{% for s in c.steps %}<li><h2>{{ s.heading }}</h2><p>{{ s.text }}</p></li>{% endfor %}</ol>
+  {%- endif %}
+  {%- if c.bring %}<p><b>Bring</b> {{ c.bring | join(", ") }}.</p>{% endif %}
+  <p><a class="sm-btn" href="{{ c.message | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ c.message }}"{% endif %} target="_blank" rel="noopener">Book a consultation</a></p>
+  {%- include "kits/smile/partials/rules.njk" %}
+</div></div>

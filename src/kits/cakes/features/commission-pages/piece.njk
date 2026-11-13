@@ -1,0 +1,18 @@
+{#- One commission: the photograph large beside its label (number, name, how it's made, tiers, servings, flavours,
+    "from"), and a message to commission one like it. -#}
+<article class="ck-one" data-feature="commission-pages"><div class="wrap ck-one-in">
+  <figure class="ck-one-f"><img src="{{ p.photo.src | img }}" alt="{{ p.photo.alt }}" width="{{ p.photo.width }}" height="{{ p.photo.height }}" fetchpriority="high" decoding="async"></figure>
+  <div class="ck-one-l">
+    <p class="ck-one-k"><a href="{{ 'commissions' | href }}">Commissions</a>{% if p.no %} · No. {{ p.no }}{% endif %}</p>
+    <h1 class="ck-one-t">{{ p.name }}</h1>
+    <p class="ck-one-m">{{ p.made }}</p>
+    <dl class="ck-rows">
+      <div><dt>Tiers</dt><dd>{{ p.sizes | sizesWords }}</dd></div>
+      <div><dt>Served</dt><dd>{{ p.serves }}</dd></div>
+      {%- set fl = site | flavourNames(p.flavours) %}{% if fl.length %}<div><dt>Flavours</dt><dd>{{ fl | join(", ") }}</dd></div>{% endif %}
+      <div><dt>A cake like it, from</dt><dd>{{ p.from | gbp }}</dd></div>
+    </dl>
+    {%- set msg = site | pieceText(p) %}
+    <p><a class="btn" href="{{ msg | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ msg }}"{% endif %} target="_blank" rel="noopener">Commission one like it</a></p>
+  </div>
+</div></article>

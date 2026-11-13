@@ -1,0 +1,9 @@
+{#- One Payment Link button, for use inside any feature: set `pay` to an id from site.payLinks.items first, and
+    `payLabel` to change the words. Opens the shop's own Stripe page; on demos it shows a note instead. A deposit with
+    `"holds": "request"` says it holds a request the business confirms, and can carry a reference (see README). -#}
+{%- if site.payLinks and ("pay-link" | enabled) %}{% for pl in site.payLinks.items %}{% if pl.id == pay %}
+<span class="pl-wrap"{{ "pay-link" | tierAttr | safe }}>
+  <a class="btn ghost pl-btn" href="{{ pl.url }}" target="_blank" rel="noopener" data-feature="pay-link" data-pay="{{ pl.id }}"{% if pl.holds == "request" %} data-pay-url="{{ pl.url }}"{% endif %}>{{ payLabel or (("Pay the " + (pl.amount | pounds) + " deposit" + (" to hold your request" if pl.holds == "request" else "")) if pl.kind == "deposit" else ("Pay " + (pl.amount | pounds) + (" a month" if pl.kind == "monthly" else ""))) }}</a>
+  <small class="pl-on">Paid on Stripe's own secure page{% if pl.holds == "request" %} · Holds your request; {{ site.business.name }} confirms with you. It isn't a booking until they do.{% endif %}{% if pl.for %} · {{ pl.for }}{% endif %}</small>
+</span>
+{%- endif %}{% endfor %}{% endif %}

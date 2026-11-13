@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: visit
+permalink: visit.html
+feature: plan-visit
+eleventyComputed:
+  title: "{{ site.visitInfo.title | plain }}"
+  description: "Parking, getting here, opening hours and answers to common questions before you visit {{ site.business.name }}, {{ site.location.locality }}."
+---
+{% include "features/plan-visit/plan-visit.njk" %}
+{#- Plan your visit already lists every question; of the sections the look moves here, only the photograph is new. -#}
+{%- if ('photo-band' in (build.onPages | hosted('plan-visit'))) and ('photo-band' | enabled) %}{% include "features/photo-band/photo-band.njk" %}{% endif %}

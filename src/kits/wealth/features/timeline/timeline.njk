@@ -1,0 +1,17 @@
+{#- The timeline on a moment's page: who does what, roughly when, in three lanes (you, us, your other advisers).
+    An illustration: no figures, and it says so. `ev.timeline` = { title, steps: [{ when, you, us, others }] }. -#}
+{%- set t = ev.timeline %}
+<div class="wm-tl" data-feature="timeline" role="region" aria-labelledby="tl-h"><div class="wrap">
+  <h2 id="tl-h">{{ t.title }}</h2>
+  <p class="wm-tl-note">An illustration of how this usually runs. Every family's is different, and none of it is advice.</p>
+  <div class="wm-tl-scroll" tabindex="0" role="region" aria-labelledby="tl-h">
+    <table class="wm-tl-t">
+      <thead><tr><th scope="col"><span class="sr-only">Who</span></th>{% for s in t.steps %}<th scope="col">{{ s.when }}</th>{% endfor %}</tr></thead>
+      <tbody>
+        <tr><th scope="row">You</th>{% for s in t.steps %}<td>{{ s.you }}</td>{% endfor %}</tr>
+        <tr><th scope="row">{{ site.business.name }}</th>{% for s in t.steps %}<td>{{ s.us }}</td>{% endfor %}</tr>
+        <tr><th scope="row">Your solicitor and accountant</th>{% for s in t.steps %}<td>{{ s.others }}</td>{% endfor %}</tr>
+      </tbody>
+    </table>
+  </div>
+</div></div>

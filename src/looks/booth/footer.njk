@@ -1,0 +1,23 @@
+{#- Booth footer: espresso. The name in the clinician's italic, the address and how to reach the studio, the week's
+    hours, the pages and patient information; NHS or private and the lead clinician's GDC number at body size; the
+    Sitefloor credit last. -#}
+{%- set p = (site.clinicians.items | selectattr("lead") | first) or site.clinicians.items[0] %}
+<footer class="foot bt-foot"><div class="wrap bt-foot-in">
+  <div class="bt-foot-name">
+    <p class="bt-foot-word">{{ site.business.name }}</p>
+    <p>{{ site.hero.kicker }}</p>
+  </div>
+  <address class="bt-foot-a">{{ site.location.streetAddress }}<br>{{ site.location.locality }} {{ site.location.postcode }}<br>
+    <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a>{% if site.contact.email %}<br><a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>{% endif %}</address>
+  <ul class="bt-foot-hours" aria-label="Opening hours">
+    {%- for row in site.hours | hoursRows %}<li data-day="{{ row.dayIndex }}"><span>{{ row.day }}</span> {{ row.label }}</li>{% endfor %}
+  </ul>
+  <nav class="bt-foot-links" aria-label="Footer">
+    <a href="{{ 'index' | href }}">Home</a>
+    {%- for item in site.nav | navItems(pageId) %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}>{{ item.label }}</a>{% endfor %}
+    {%- if "smile-patient-info" | enabled %}<a href="{{ 'patient-information' | href }}">Patient information and complaints</a>{% endif %}
+    <a href="{{ 'privacy' | href }}">Privacy</a>
+  </nav>
+  <p class="bt-foot-reg">{{ gdc.status[site.patientInfo.status] if site.patientInfo else "" }} {% include "kits/smile/partials/clinician-line.njk" %}</p>
+  <p class="bt-foot-by"><a class="by" href="https://sitefloor.com" rel="noopener">Website by <b>Sitefloor</b></a></p>
+</div></footer>

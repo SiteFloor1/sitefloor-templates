@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: your-matter
+permalink: your-matter.html
+feature: matter-code
+noindex: true
+eleventyComputed:
+  title: "{{ site.matterCode.title | plain }}"
+  description: "Where your matter with {{ site.business.name }} has reached, by the code in our letter."
+---
+{% include "kits/law/features/matter-code/matter-code.njk" %}

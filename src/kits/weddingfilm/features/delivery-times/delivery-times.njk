@@ -1,0 +1,13 @@
+{#- What you receive and when: each part of the work a number of weeks after the wedding (the studio's timings). With a
+    wedding date (typed here, or chosen in the date check) the actual days appear beside each. -#}
+{%- set sec = site.sections.delivery %}
+<section id="delivery" class="wf-dl" data-feature="delivery-times" aria-labelledby="dl-h"><div class="wrap wf-dl-in">
+  <h2 id="dl-h" class="wf-h2">{{ sec.title | markup | safe }}</h2>
+  <label class="wf-field wf-dl-f" for="dl-date"><span class="wf-k">Your wedding</span><input id="dl-date" type="date" data-dl-date></label>
+  <ol class="wf-dl-list">
+    {%- for s in site.delivery.steps %}
+    <li data-step="{{ s.id }}"><span class="wf-dl-w">{% if s.weeksAfter == 0 %}On the day{% else %}{{ s.weeksAfter | weeksWord }} after{% endif %}</span><span class="wf-dl-l">{{ s.label }}</span><span class="wf-dl-d" data-when></span>{% if s.text %}<span class="wf-dl-t">{{ s.text }}</span>{% endif %}</li>
+    {%- endfor %}
+  </ol>
+  {%- if site.delivery.note %}<p class="wf-small">{{ site.delivery.note }}</p>{% endif %}
+</div></section>

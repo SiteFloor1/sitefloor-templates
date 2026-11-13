@@ -1,0 +1,33 @@
+{#- Order a cake: the brief a designer quotes from, sent as one WhatsApp message. Guests choose the tiers (the
+    studio's own chart), then a flavour for each tier, the finish and the venue. Without the script it is a plain
+    message link. -#}
+{%- set pg = site.cakePages.order %}
+{%- set ph = { title: pg.title, intro: pg.intro } %}{% include "kits/cakes/partials/page-head.njk" %}
+{%- set plan = site | planFor(120, "finger") %}
+<section class="ck-brief" data-feature="brief-builder" aria-label="{{ pg.title | plain }}"{{ 'brief-builder' | tierAttr | safe }}><div class="wrap ck-brief-in">
+  <form class="ck-brief-f" data-bb-form>
+    <div class="ck-field"><label for="bb-date">The date</label><input id="bb-date" name="date" type="date" data-bb-date></div>
+    <div class="ck-field ck-field-row">
+      <span><label for="bb-guests">Guests</label><input id="bb-guests" name="guests" type="number" min="1" max="2000" inputmode="numeric" value="120" data-bb-guests></span>
+      <fieldset class="ck-serve-how"><legend>Served</legend>
+        <label><input type="radio" name="bb-portion" id="bb-finger" value="finger" checked> With coffee</label>
+        <label><input type="radio" name="bb-portion" id="bb-dessert" value="dessert"> As the dessert</label>
+      </fieldset>
+    </div>
+    <p class="ck-brief-cake" aria-live="polite" data-bb-cake>{{ plan.sizes.length | tiersWords }}, {{ plan.sizes | sizesWords }}</p>
+    <fieldset class="ck-field ck-brief-fl" data-bb-flavours><legend>A flavour for each tier, top to bottom</legend>
+      {%- for s in plan.sizes %}
+      <label for="bb-fl-{{ loop.index0 }}"><span>{{ s }} in</span><select id="bb-fl-{{ loop.index0 }}" name="fl-{{ loop.index0 }}"><option value="">Not sure yet</option>{% for f in site.flavours.items %}<option>{{ f.name }}</option>{% endfor %}</select></label>
+      {%- endfor %}
+    </fieldset>
+    <div class="ck-field"><label for="bb-finish">The finish</label><select id="bb-finish" name="finish" data-bb-finish><option value="">Not sure yet</option>{% for f in site.brief.finishes %}<option>{{ f }}</option>{% endfor %}</select></div>
+    <div class="ck-field"><label for="bb-venue">The venue</label><input id="bb-venue" name="venue" type="text" autocomplete="off" placeholder="Name and town" data-bb-venue></div>
+    <div class="ck-field"><label for="bb-notes">Anything else</label><textarea id="bb-notes" name="notes" rows="4" placeholder="Colours, flowers, a picture you'll send, allergies" data-bb-notes></textarea></div>
+  </form>
+  <aside class="ck-brief-out" aria-label="Your brief">
+    <p class="ck-brief-k">Your brief</p>
+    <pre class="ck-brief-pre" data-bb-preview>{{ site.brief.intro }}</pre>
+    <a class="btn ck-brief-send" href="{{ site.brief.intro | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.brief.intro }}"{% endif %} target="_blank" rel="noopener" data-bb-send>Send on WhatsApp</a>
+    <p class="ck-note">It opens WhatsApp with the message written; nothing is sent until you press send there.</p>
+  </aside>
+</div></section>

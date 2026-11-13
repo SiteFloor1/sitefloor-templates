@@ -1,0 +1,27 @@
+{#- Wedding bands: each band as a long horizontal entry (the photograph, then its name, spec, price and actions),
+    a hairline between; the house's notes on widths and finishes; engraving inside; the pairs. -#}
+{%- set W = site.weddingBands %}
+{%- set P = site.pieces %}
+{%- set ph = { title: W.title, intro: W.intro } %}
+{% include "kits/jeweller/partials/page-head.njk" %}
+<section class="nc-sec jw-bands"><div class="wrap">
+  {%- for p in P.items | inCollection(W.collection) %}
+  <article class="jw-band rv" id="{{ p.id }}">
+    <a class="jw-band-ph" href="{{ (p.id | pieceHref | href) if ('jewel-pages' | enabled) else '#' + p.id }}" data-open="{{ p.id }}" tabindex="-1" aria-hidden="true"><img src="{{ p.photo.src | cardSrc | img }}" width="900" height="1125" loading="lazy" decoding="async" alt=""></a>
+    <div>
+      <h2 class="jw-name-l">{{ p.name }}</h2>
+      {%- set sl = p | specLine %}{% if sl %}<p class="jw-spec">{{ sl }}</p>{% endif %}
+      {%- set pl = p | priceLabel %}{% if pl %}<p class="nc-label">{{ pl }}</p>{% endif %}
+      {%- if p.line %}<p class="nc-body">{{ p.line }}</p>{% endif %}
+      {% include "kits/jeweller/partials/actions.njk" %}
+    </div>
+  </article>
+  {%- endfor %}
+</div></section>
+<section class="nc-sec jw-guide"><div class="wrap">
+  <dl class="jw-dl jw-dl-2">{% for n in W.notes %}<div class="rv"><dt class="jw-name">{{ n.title }}</dt><dd>{{ n.text }}</dd></div>{% endfor %}</dl>
+</div></section>
+{%- if "inside-the-band" | enabled %}{% set bandPiece = null %}{% include "kits/jeweller/features/inside-the-band/inside-the-band.njk" %}{% endif %}
+{%- set paired = P.items | piecesWith("pairs") %}
+{%- if ("pair-it" | enabled) and paired.length %}{% set ring = paired[paired.length - 1] %}{% include "kits/jeweller/features/pair-it/pair-it.njk" %}{% endif %}
+{% include "kits/jeweller/partials/invite.njk" %}

@@ -1,0 +1,23 @@
+/* When's the big day: a dark band on the home page; the date on the left, the steps across (stacked on phones). */
+.sm-wd { background: var(--band); color: var(--on-band); }
+.sm-wd a, .sm-wd .sm-quiet { color: var(--on-band); }
+.sm-wd-in { display: grid; gap: 28px; }
+.sm-wd-t { margin: 0; color: var(--on-band); }
+.sm-wd-i { margin: 12px 0 0; max-width: 40ch; }
+.sm-wd-date { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 22px; }
+.sm-wd-date input { min-height: 48px; padding: 6px 12px; border: 0; border-bottom: 2px solid var(--accent-soft); border-radius: 0; background: transparent; color: var(--on-band); font: inherit; font-size: 1.25rem; color-scheme: dark; }
+.sm-wd-away { margin: 12px 0 0; min-height: 1.6em; }
+.sm-wd-late { margin: 8px 0 0; }
+.sm-wd-plan { list-style: none; margin: 0; padding: 0; display: grid; }
+.sm-wd-plan li { display: grid; grid-template-columns: 8em 1fr; gap: 14px; padding: 14px 0; border-top: 1px solid var(--band-line); align-items: baseline; }
+.sm-wd-plan li[data-past] { opacity: .7; }
+.sm-wd-n { font-size: 1.6rem; font-weight: 300; color: var(--accent-soft); font-variant-numeric: tabular-nums; }
+.sm-wd-w small { display: block; font-size: inherit; }
+.sm-wd-fine { margin: 14px 0 0; }
+.sm-wd-acts { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 10px; }
+@media (min-width: 900px) {
+  .sm-wd-in { grid-template-columns: 5fr 7fr; gap: 72px; }
+  .sm-wd-plan { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0 20px; }
+  .sm-wd-plan li { grid-template-columns: 1fr; gap: 6px; }
+  .sm-wd-n { font-size: 2.1rem; }
+}

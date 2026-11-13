@@ -1,0 +1,21 @@
+{#- Barber Noir hero: headline, live status chip and a pure-CSS spinning barber pole. -#}
+<section class="hero"><div class="wrap hero-in">
+  <div>
+    <div class="h-kick"><span class="kick">{{ site.hero.kicker }}</span><span class="chip" data-live-status><span class="dot" aria-hidden="true"></span><span data-status-text>Opening hours</span></span></div>
+    <h1>{{ site.hero.title | markup | safe }}</h1>
+    <p class="h-sub">{{ site.hero.intro }}</p>
+    <div class="h-cta">
+      <a class="btn" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{% if build.booking.whatsapp %}{% include "core/partials/icon-whatsapp.njk" %}{% endif %}{{ build.booking.label }}</a>
+      {%- set cta = site.hero.secondaryCta %}
+      {%- if cta and (not cta.feature or (cta.feature | enabled)) %}<a class="btn ghost" href="{{ cta.href }}"{{ cta.feature | tierAttr | safe }}>{{ cta.label }}</a>{% endif %}
+    </div>
+    {%- if site.hero.stats %}
+    <dl class="h-meta">{% for s in site.hero.stats %}<div><dt>{{ s[1] }}</dt><dd>{{ s[0] }}</dd></div>{% endfor %}</dl>
+    {%- endif %}
+  </div>
+  <div class="pole-wrap" data-motion aria-hidden="true">
+    <div class="mirror"></div><div class="pole-glow"></div><div class="bracket"></div><div class="bracket b2"></div>
+    <div class="pole"><div class="cap top"></div><div class="tube"></div><div class="cap bot"></div><div class="glass"></div></div>
+  </div>
+  {% include "core/partials/motion-pause.njk" %}
+</div></section>

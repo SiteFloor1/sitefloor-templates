@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: stories
+permalink: stories.html
+feature: work-stories
+eleventyComputed:
+  title: "{{ site.stories.title | plain }}"
+  description: "Weddings and events by {{ site.business.name }}: the brief, the palette, the stems and the photographs."
+---
+{% include "kits/florist/features/work-stories/work-stories.njk" %}

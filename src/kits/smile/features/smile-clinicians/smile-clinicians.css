@@ -1,0 +1,8 @@
+/* Who treats you: the lead clinician's portrait beside their note and the register lines. */
+.sm-cl-in { display: grid; gap: 28px; }
+.sm-cl-ph { margin: 0; aspect-ratio: 4 / 5; max-width: 420px; overflow: hidden; background: var(--surface); }
+.sm-cl-ph img { width: 100%; height: 100%; object-fit: cover; }
+.sm-cl-bio { margin: 0 0 24px; }
+.sm-cl-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.sm-cl-list li { padding: 14px 0; border-bottom: 1px solid var(--line); }
+@media (min-width: 900px) { .sm-cl-in { grid-template-columns: 4fr 7fr; gap: 72px; align-items: center; } }

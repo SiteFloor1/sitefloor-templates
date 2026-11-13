@@ -1,0 +1,6 @@
+{#- The tray: up to three pieces for her fitting. Any piece's "Have it at my fitting" adds it; this chip says how many
+    and leads to the request. Placed once per page by the look's footer. -#}
+<div class="tray-chip" data-feature="the-tray" hidden{{ "the-tray" | tierAttr | safe }}>
+  <a href="{{ (('fitting' | href) + '#fitting') if ('fitting-page' | enabled) else (('index' | href) + '#fitting') }}"><span data-tray-count>0</span> for your fitting</a>
+  <button type="button" data-tray-clear aria-label="Empty the tray">Clear</button>
+</div>

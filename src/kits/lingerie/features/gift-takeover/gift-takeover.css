@@ -1,0 +1,27 @@
+/* A takeover: one campaign photograph and the edit beside it, edge to edge in the signature colour. Off unless on. */
+.ls-to { padding: 0; }
+.to { display: none; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); background: var(--accent); color: var(--surface); }
+.to.is-on { display: grid; }
+.to-ph { margin: 0; min-height: 100%; }
+.to-ph img { display: block; width: 100%; height: 100%; min-height: 520px; max-height: 92vh; object-fit: cover; }
+.to-t { padding: var(--s4) clamp(20px, 5vw, 72px); align-self: center; min-width: 0; }
+.to-k { margin: 0 0 14px; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; opacity: .8; }
+.to-h { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(2.4rem, 5vw, 4.6rem); line-height: 1.02; }
+.to-lead { margin: 18px 0 0; font-size: 1.05rem; max-width: 36ch; }
+.to-when { margin: 22px 0 0; font-size: .9rem; max-width: 46ch; opacity: .92; }
+.to-edit { margin-top: var(--s3); }
+.to-ed-h { margin: 0 0 6px; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; opacity: .8; }
+.to-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid color-mix(in srgb, var(--surface) 30%, transparent); }
+.to-list li { display: flex; align-items: baseline; gap: 12px; padding: 12px 0; border-bottom: 1px solid color-mix(in srgb, var(--surface) 30%, transparent); }
+.to-list a { flex: 1; color: inherit; text-decoration: none; font-family: var(--font-display); font-size: 1.12rem; }
+.to-list a:hover, .to-list a:focus-visible { text-decoration: underline; text-underline-offset: 4px; }
+.to-list .pc-act { color: inherit; opacity: .85; }
+.to-pr { font-variant-numeric: tabular-nums; }
+.to-acts { display: flex; flex-wrap: wrap; gap: 12px 24px; margin: var(--s3) 0 0; }
+.to .lx-go { background: var(--surface); color: var(--accent); border-color: var(--surface); }
+.to .lx-go.lx-quiet { background: transparent; color: var(--surface); }
+.to .to-wrap { margin-top: 18px; color: inherit; opacity: .85; }
+@media (max-width: 860px) {
+  .to.is-on { grid-template-columns: 1fr; }
+  .to-ph img { min-height: 0; aspect-ratio: 4 / 5; max-height: 78vh; }
+}

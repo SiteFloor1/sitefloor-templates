@@ -1,0 +1,13 @@
+{#- Ask the shop: each service one line that opens WhatsApp with its own message. Some only show in one mode. -#}
+{%- import "kits/lingerie/partials/mode.njk" as mode with context %}
+{%- set sec = site.sections.services %}
+<section id="ask" class="ls-ask"><div class="wrap ask-in">
+  {% include "core/partials/section-head.njk" %}
+  <ul class="ask-list">
+    {%- for s in site.asks %}
+    {%- if not s.modes or site.shop.previewModes or (site.shop.mode in s.modes) %}
+    <li{% if s.modes and s.modes.length == 1 %}{{ mode.attr(s.modes[0]) }}{% endif %}><a href="{{ s.message | wa }}" target="_blank" rel="noopener">{{ s.label }}</a><small>{{ s.line }}</small></li>
+    {%- endif %}
+    {%- endfor %}
+  </ul>
+</div></section>

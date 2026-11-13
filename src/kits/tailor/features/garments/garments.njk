@@ -1,0 +1,33 @@
+{#- What the house makes, each with its own "from" price (or none: priced at the appointment), and one Request that
+    opens a quiet sheet: the garments in mind and when suits, sent on WhatsApp. Without JavaScript the same link goes
+    straight to WhatsApp with the house's opening line. -#}
+{%- set sec = site.sections.garments %}
+{%- set g = site.garments %}
+<section id="garments" class="tl-garments" data-feature="garments" aria-labelledby="gm-h"><div class="wrap">
+  {%- set secId = "gm-h" %}{% include "core/partials/section-head.njk" %}
+  <ul class="tl-gm-list">
+    {%- for x in g.items %}
+    <li class="tl-gm"><span class="tl-gm-n">{{ x.name }}</span>{% if x.text %}<span class="tl-gm-t">{{ x.text }}</span>{% endif %}<span class="tl-gm-p">{{ x.from | fromPrice or "Priced at your first appointment" }}</span></li>
+    {%- endfor %}
+  </ul>
+  <div class="tl-gm-foot">
+    <a class="tl-go" data-gm-open href="{{ g.message | book }}" target="_blank" rel="noopener">Book a first appointment</a>
+    {%- if g.note %}<p class="tl-small">{{ g.note }}</p>{% endif %}
+  </div>
+</div>
+<dialog class="tl-sheet" data-gm-sheet aria-labelledby="gm-sheet-h">
+  <form class="tl-req" data-gm-form method="dialog">
+    <div class="tl-sheet-top"><h2 id="gm-sheet-h" class="tl-sheet-h">A first appointment</h2><button type="button" class="tl-quiet" data-gm-close>Close</button></div>
+    <fieldset class="tl-chips-set"><legend class="tl-label">What you have in mind</legend><div class="tl-chips">
+      {%- for x in g.items %}<label class="tl-chip"><input type="checkbox" name="gm-what" value="{{ x.name }}">{{ x.name }}</label>{% endfor %}
+    </div></fieldset>
+    {%- if g.times and g.times.length %}
+    <fieldset class="tl-chips-set"><legend class="tl-label">Best for you</legend><div class="tl-chips">
+      {%- for t in g.times %}<label class="tl-chip"><input type="radio" name="gm-when" value="{{ t }}"{% if loop.first %} checked{% endif %}>{{ t }}</label>{% endfor %}
+    </div></fieldset>
+    {%- endif %}
+    <a class="tl-go" data-gm-send href="{{ g.message | book }}" target="_blank" rel="noopener">Send on WhatsApp</a>
+    <p class="tl-small">We reply with the times we have.</p>
+  </form>
+</dialog>
+</section>

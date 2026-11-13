@@ -1,0 +1,20 @@
+{#- The drop (online brands): the next collection, a countdown in the shop's own time, the waitlist; while it's live,
+    the link to shop it. Without JavaScript, the date and the waitlist. -#}
+{%- set sec = site.sections.drop %}
+{%- set d = site.drop %}
+<section id="drop" class="ls-drop" data-feature="drop"{{ "drop" | tierAttr | safe }}>
+  <script type="application/json" data-lx>{{ { at: d.at, ends: d.ends } | jsonData | safe }}</script>
+  <figure class="dr-ph">{% set ph = d.photo %}{% include "kits/lingerie/partials/photo.njk" %}</figure>
+  <div class="dr-t">
+    <p class="lp-k">{{ sec.title if sec else "The next drop" }}</p>
+    <h2 class="dr-name">{{ d.name }}</h2>
+    <p class="dr-line">{{ d.line }}</p>
+    <p class="dr-when" data-drop-when>{{ d.at | replace("T", " ") }}</p>
+    <p class="dr-clock" data-drop-clock aria-live="off" hidden><span class="dr-u"><span data-u="days">0</span><small>days</small></span><span class="dr-u"><span data-u="hours">0</span><small>hours</small></span><span class="dr-u"><span data-u="minutes">0</span><small>min</small></span><span class="dr-u"><span data-u="seconds">0</span><small>sec</small></span></p>
+    <p class="dr-acts">
+      <a class="lx-go" data-drop-wait href="{{ d.waitlist.formUrl if d.waitlist.formUrl else (('Hello ' + site.business.name + ', please add me to the waitlist for ' + d.name + '.') | wa) }}" target="_blank" rel="noopener">Join the waitlist</a>
+      {%- if site.shop.shopUrl %}<a class="lx-go" data-drop-shop href="{{ site.shop.shopUrl }}" target="_blank" rel="noopener" hidden>Shop {{ d.name }}</a>{% endif %}
+    </p>
+    <p class="lx-small" data-drop-over hidden>{{ d.name }} has ended. The waitlist hears first about the next one.</p>
+  </div>
+</section>

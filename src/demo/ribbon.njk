@@ -1,0 +1,26 @@
+{#- DEMO ONLY. Never rendered for mode "client". -#}
+<div class="demo-ribbon" data-demo-ribbon{% for id, text in build.kitDemo.plans %} data-plan-{{ id }}="{{ text }}"{% endfor %}>
+  <b>Fictional business.</b> {{ site.business.name }} is a Sitefloor template demo.
+  <span class="tiers" role="group" aria-label="View this site as a plan">View as
+    <button type="button" data-tier-pick="starter">Starter</button><button type="button" data-tier-pick="plus">Plus</button><button type="button" data-tier-pick="signature" aria-pressed="true">Signature</button>
+  </span>
+  {%- if build.lookBrand %}
+  <button class="lookbtn" type="button" data-look-toggle aria-expanded="false" aria-controls="lookpanel" hidden>Try your colours</button>
+  {%- endif %}
+</div>
+{%- if build.lookBrand %}
+<div class="lookpanel" id="lookpanel" data-look-panel hidden>
+  <p><b>Make it yours.</b> Every client chooses their accent colour, headline type and logo. Try a few:</p>
+  <div class="lp-row" role="group" aria-label="Accent colour">
+    {%- for c in build.lookBrand.accent.suggested %}
+    <button type="button" class="lp-sw" data-accent="{{ c.hex }}" style="--sw:{{ c.hex }}" aria-pressed="{{ 'true' if loop.first else 'false' }}"><span>{{ c.name }}</span></button>
+    {%- endfor %}
+  </div>
+  <div class="lp-row" role="group" aria-label="Headline type">
+    {%- for id, t in build.lookBrand.types %}
+    <button type="button" class="lp-type" data-type-pick="{{ id }}" aria-pressed="{{ 'true' if id == 'classic' else 'false' }}">{{ t.label }}</button>
+    {%- endfor %}
+  </div>
+</div>
+{%- endif %}
+<div class="tiertoast" data-tier-toast role="status" aria-live="polite"></div>

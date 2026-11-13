@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: handover-check
+permalink: handover-check.html
+feature: handover-check
+noindex: true
+eleventyComputed:
+  title: "{{ site.checkPage.title | plain }}"
+  description: "The handover checklist for {{ site.business.name }}: what was seen at collection and at return."
+---
+{% include "kits/hire/features/handover-check/handover-check.njk" %}

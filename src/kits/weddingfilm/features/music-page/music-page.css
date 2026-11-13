@@ -1,0 +1,11 @@
+/* An explainer: one photograph beside a single readable column; source numbers small and quiet. */
+.wf-art-in { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 32px clamp(32px, 5vw, 96px); align-items: start; }
+.wf-art-ph { margin: 0; position: sticky; top: calc(var(--nav-h) + 24px); }
+.wf-art-ph img { display: block; width: 100%; height: auto; }
+.wf-art-ph figcaption { font-size: 13px; color: var(--muted); margin-top: 8px; }
+.wf-art-t { max-width: 64ch; }
+.wf-art-h { margin: 40px 0 10px; }
+.wf-art-h:first-child { margin-top: 0; }
+.wf-art-t p { margin: 0 0 14px; }
+.wf-ref { font-size: 12px; color: var(--muted); text-decoration: none; vertical-align: .2em; }
+@media (max-width: 760px) { .wf-art-in { grid-template-columns: minmax(0, 1fr); } .wf-art-ph { position: static; } }

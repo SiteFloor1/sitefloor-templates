@@ -1,0 +1,19 @@
+{#- Loupe hero: one light, very large line on the left over the artist's words; on the right a real finished palm in a
+    black case. A magnifier follows the finger; "Show me" rings the name hidden in it (name-find). -#}
+{%- set h = site.hero %}
+<section class="hero lp-hero" data-feature="name-find" aria-labelledby="lp-h1"><div class="wrap lp-hero-in">
+  <div class="lp-hero-text">
+    <h1 class="lp-h1" id="lp-h1">{% for l in h.title.split("|") %}{{ l | markup | safe }}{% if not loop.last %} <br>{% endif %}{% endfor %}</h1>
+    <p class="lp-lede">{{ h.intro }}</p>
+    <div class="lp-acts">
+      <button type="button" class="mh-solid" data-nf-show data-nf-line="{{ h.find.line }}" aria-pressed="false">Show me</button>
+      {%- if "hidden-details" | enabled %}
+      <a class="mh-text" href="{{ 'personal' | href }}"{{ "hidden-details" | tierAttr | safe }}>Ask for yours</a>
+      {%- else %}
+      <a class="mh-text" href="{{ site.messages.general | hideText | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general | hideText }}"{% endif %} target="_blank" rel="noopener">Ask for yours</a>
+      {%- endif %}
+    </div>
+    <p class="lp-hint" data-nf-hint aria-live="polite">Move over the palm to look closer.</p>
+  </div>
+  {%- set caseHero = true %}{% include "kits/mehndi/partials/name-case.njk" %}
+</div></section>

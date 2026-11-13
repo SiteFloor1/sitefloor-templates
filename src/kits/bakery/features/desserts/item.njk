@@ -1,0 +1,16 @@
+{#- One menu item: name, price, description, diet marks, allergens; a status line filled in from tonight's sheet.
+    Set `it` first; `withPhoto` shows its photo. Data attributes carry what the filters need. -#}
+<li class="bk-item{% if withPhoto and it.photo %} has-photo{% endif %}" data-item="{{ it.id }}" data-name="{{ it.name }}" data-allergens="{{ it.allergens | join(' ') }}" data-diets="{{ it.diets | join(' ') if it.diets else '' }}">
+  {%- if withPhoto and it.photo %}
+  <div class="bk-ph"><img src="{{ it.photo.src | img }}" alt="{{ it.photo.alt }}" width="{{ it.photo.width }}" height="{{ it.photo.height }}" loading="lazy" decoding="async"></div>
+  {%- endif %}
+  <div class="bk-txt">
+    <p class="bk-row"><span class="bk-name">{{ it.name }}</span><span class="bk-price">{{ it.price | pounds }}</span></p>
+    {%- if it.desc %}<p class="bk-desc">{{ it.desc }}</p>{% endif %}
+    <p class="bk-meta">
+      {%- for d in it | sweetMarks %}<abbr class="bk-mark" title="{{ d.name }}">{{ d.mark }}</abbr>{% endfor %}
+      <span class="bk-all">{% set names = it | allergenNames %}{{ ("Contains " + names | join(", ")) if names.length else "No listed allergens" }}</span>
+      <span class="bk-st" data-item-status hidden></span>
+    </p>
+  </div>
+</li>

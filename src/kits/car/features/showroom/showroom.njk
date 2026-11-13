@@ -1,0 +1,85 @@
+{#- The Showroom: the studio car in 3D (loaded when the visitor asks), with Wrap, Tint and Wheels views; drag to
+    turn it, tap a part to change it. A live price and time from the studio's own prices for the visitor's own
+    vehicle, the UK legality check and "Send this build". Placed in the look's hero. -#}
+{%- set sec = site.sections.showroom %}
+{%- set b = site | startBuild %}
+<div class="sr" id="showroom" data-feature="showroom"{{ "showroom" | tierAttr | safe }}>
+  <div class="sr-stage studio" data-sr-stage data-view="wrap">
+    <div class="sr-tabs" role="tablist" aria-label="What to change">
+      {%- for v in [["wrap", "Wrap"], ["tint", "Tint"], ["wheels", "Wheels"]] %}
+      <button type="button" role="tab" id="sr-tab-{{ v[0] }}" aria-controls="sr-p-{{ v[0] }}" aria-selected="{{ 'true' if loop.first else 'false' }}" data-sr-view="{{ v[0] }}">{{ v[1] }}</button>
+      {%- endfor %}
+    </div>
+    {%- set c = b.vehicle.body | carFor %}
+    {%- set cars = {} %}{% for v in site.vehicles %}{% set x = v.body | carFor %}{% set _ = cars | setKey(v.id, { "model": x.model | img, "poster": x.poster | img, "small": x.small | img, "mb": x.mb, "credit": x.credit }) %}{% endfor %}
+    <div class="sr-3d" data-sr-3d>
+      <img class="sr-poster" data-sr-poster src="{{ c.poster | img }}" srcset="{{ c.small | img }} 900w, {{ c.poster | img }} 1600w" sizes="(max-width: 960px) 100vw, 62vw" width="{{ c.w }}" height="{{ c.h }}" alt="A {{ b.vehicle.name | lower }} in the studio" fetchpriority="high">
+      <canvas data-sr-canvas aria-hidden="true" data-cars="{{ cars | dump }}"></canvas>
+      <button type="button" class="sr-go" data-sr-go data-js-only>Turn it in 3D <small data-sr-mb>{{ c.mb }} MB</small></button>
+      <p class="sr-tip" data-sr-tip>Drag to turn it · tap a part to change it</p>
+    </div>
+    <p class="sr-read" data-sr-read aria-live="polite">{% for s in b.summary %}<span>{{ s }}</span>{% else %}<span>As it left the factory</span>{% endfor %}</p>
+    <p class="sr-car-note">A car like yours, with no maker's badges; the price is for your vehicle. <a data-sr-credit href="{{ c.credit.url }}" target="_blank" rel="noopener">{{ c.credit.text }}</a>, <a data-sr-licence href="{{ c.credit.licenceUrl }}" target="_blank" rel="noopener">{{ c.credit.licence }}</a>.</p>
+  </div>
+  <form class="sr-panel" data-sr-form aria-label="{{ sec.title | plain }}">
+    <div class="sr-head"><span class="kick">{{ sec.kicker }}</span><h2>{{ sec.title | markup | safe }}</h2></div>
+    <fieldset class="sr-set"><legend>Your vehicle</legend>
+      <div class="sr-chips">{% for v in site.vehicles %}<label class="sr-chip"><input type="radio" name="vehicle" value="{{ v.id }}"{% if v.id == b.vehicle.id %} checked{% endif %}><span>{{ v.name }}</span></label>{% endfor %}</div>
+    </fieldset>
+
+    <div class="sr-p" id="sr-p-wrap" role="tabpanel" aria-labelledby="sr-tab-wrap" data-sr-panel="wrap">
+      <fieldset class="sr-set"><legend>Colour</legend>
+        <div class="sr-chips sr-swatches">
+          <label class="sr-sw sr-factory"><input type="radio" name="wrap" value=""{% if not b.wrap %} checked{% endif %}><span>Factory paint</span></label>
+          {%- for c in site.wrap.colours %}<label class="sr-sw" style="--sw:{{ c.hex }}"><input type="radio" name="wrap" value="{{ c.id }}"{% if b.wrap and b.wrap.colour == c.id %} checked{% endif %}><span>{{ c.name }}</span></label>{% endfor %}
+        </div>
+      </fieldset>
+      <fieldset class="sr-set" data-sr-finishes><legend>Finish</legend>
+        <div class="sr-chips">{% for fin in site.wrap.finishes %}<label class="sr-chip"><input type="radio" name="finish" value="{{ fin.id }}"{% if fin.id == b.finish %} checked{% endif %}><span>{{ fin.name }}</span></label>{% endfor %}</div>
+      </fieldset>
+      {%- if site.showroom.dechrome %}
+      <label class="sr-check"><input type="checkbox" name="dechrome"{% if b.dechrome %} checked{% endif %}><span>Add de-chrome <small>(trim, handles and grille surround in black; priced, not shown on the photo)</small></span></label>
+      {%- endif %}
+    </div>
+
+    <div class="sr-p" id="sr-p-tint" role="tabpanel" aria-labelledby="sr-tab-tint" data-sr-panel="tint" hidden>
+      <p class="sr-hint">Light through the glass once fitted, as we measure it on the car.</p>
+      {%- for w, jobId in site.tint.jobs %}
+      <fieldset class="sr-set sr-win" data-sr-win="{{ w }}"><legend>{{ w | windowShort }}</legend>
+        <div class="sr-chips">
+          <label class="sr-chip"><input type="radio" name="t-{{ w }}" value=""{% if not b.tint[w] %} checked{% endif %}><span>None</span></label>
+          {%- set min = w | minLight(false) %}
+          {%- for s in site.tint.shades %}{% if not s.sheen %}
+          <label class="sr-chip{% if min and s.light < min %} nl{% endif %}" data-light="{{ s.light }}"><input type="radio" name="t-{{ w }}" value="{{ s.id }}"{% if b.tint[w] == s.id %} checked{% endif %}><span>{{ s.name }}</span></label>
+          {%- endif %}{% endfor %}
+          {%- for s in site.tint.shades %}{% if s.sheen %}
+          <label class="sr-chip sheen{% if min and s.light < min %} nl{% endif %}" data-light="{{ s.light }}" style="--sheen:{{ s.sheen }}"><input type="radio" name="t-{{ w }}" value="{{ s.id }}"{% if b.tint[w] == s.id %} checked{% endif %}><span>{{ s.name }}</span></label>
+          {%- endif %}{% endfor %}
+        </div>
+      </fieldset>
+      {%- endfor %}
+      <label class="sr-check"><input type="checkbox" name="before1985"><span>First used before 1 April 1985</span></label>
+      <p class="sr-legal"><span data-sr-rule>{{ "fronts" | ruleText(false) }} {{ "windscreen" | ruleText(false) }}</span> <a href="{{ tintLaw.url }}" target="_blank" rel="noopener">The rules on gov.uk</a></p>
+    </div>
+
+    <div class="sr-p" id="sr-p-wheels" role="tabpanel" aria-labelledby="sr-tab-wheels" data-sr-panel="wheels" hidden>
+      {%- if site.showroom.wheels %}
+      <fieldset class="sr-set"><legend>Wheel colour</legend>
+        <div class="sr-chips sr-swatches">
+          <label class="sr-sw sr-factory"><input type="radio" name="wheels" value=""{% if not b.wheels %} checked{% endif %}><span>As they are</span></label>
+          {%- for c in site.showroom.wheels.colours %}<label class="sr-sw" style="--sw:{{ c.hex }}"><input type="radio" name="wheels" value="{{ c.id }}"{% if b.wheels == c.id %} checked{% endif %}><span>{{ c.name }}</span></label>{% endfor %}
+        </div>
+      </fieldset>
+      {%- endif %}
+    </div>
+
+    <label class="sr-make">Your car <small>(optional, goes in the message)</small><input type="text" name="make" maxlength="40" autocomplete="off" placeholder="e.g. BMW 320d"></label>
+    <div class="sr-total">
+      <p class="sr-sum"><span>Your build</span><b data-sr-price>{{ b.price | money }}</b><span data-sr-hours>{% if b.hours %}about {{ b.hours | hoursText }}{% else %}nothing chosen yet{% endif %}</span></p>
+      <p class="sr-refused" data-sr-refused role="status" hidden></p>
+      <a class="btn" data-sr-send href="{{ site.messages.general | wa }}" target="_blank" rel="noopener">{% include "core/partials/icon-whatsapp.njk" %}Send this build</a>
+      <p class="sr-note">{{ sec.note }}</p>
+    </div>
+  </form>
+  <p class="sr-nojs" data-no-js>The Showroom needs JavaScript. Every price is on <a href="#prices">our price list</a>, or <a href="{{ site.messages.general | wa }}" target="_blank" rel="noopener">message us</a> for a quote.</p>
+</div>

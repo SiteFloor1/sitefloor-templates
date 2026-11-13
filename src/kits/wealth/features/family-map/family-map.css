@@ -1,0 +1,25 @@
+.wm-fm { padding-bottom: clamp(80px, 9vw, 128px); }
+.wm-fm-in { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 48px 72px; align-items: start; }
+.wm-fm h2 { font: 300 1.4rem/1.2 var(--font-display); margin: 0 0 12px; }
+.wm-fm-add { display: grid; gap: 14px; margin-bottom: 40px; }
+.wm-fm-add p { margin: 0; }
+.wm-fm-private { color: var(--muted); font-size: 14px; border-left: 1px solid var(--accent); padding-left: 14px; }
+.wm-fm-gens { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--accent); }
+.wm-fm-gens > li { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 16px; padding-block: 18px; border-bottom: 1px solid var(--line); }
+.wm-fm h3 { font: 300 15px/1.4 var(--font-body); color: var(--muted); margin: 0; }
+.wm-fm-gens ul, .wm-fm-adv ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 12px; }
+.wm-fm-gens ul li, .wm-fm-adv ul li { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line-2); padding: 6px 4px 6px 12px; }
+.wm-fm-x { background: none; border: 0; color: var(--muted); font: 300 13px var(--font-body); cursor: pointer; min-height: 32px; padding: 0 8px; }
+.wm-fm-adv { padding-block: 24px; }
+.wm-fm-adv h3 { margin-bottom: 12px; }
+.wm-fm-empty { color: var(--muted); }
+.wm-fm-act { display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; }
+@media (max-width: 900px) { .wm-fm-in { grid-template-columns: 1fr; } .wm-fm-gens > li { grid-template-columns: 1fr; gap: 8px; } }
+@media print {
+  .wm-fm-tools, .wm-fm-act, .wm-fm-x, .wm-ph .wm-crumb { display: none !important; }
+  .wm-fm-in { grid-template-columns: 1fr; }
+}
+
+/* Keep the space for the controls while the script starts, so the page below never jumps (CLS). Without
+   JavaScript the core rule still removes them. */
+@media (scripting: enabled) { [data-feature]:not([data-ready]) .wm-fm-tools[data-js-only] { display: block !important; } [data-feature]:not([data-ready]) .wm-fm-act[data-js-only] { display: flex !important; } [data-feature]:not([data-ready]) :is(.wm-fm-tools, .wm-fm-act)[data-js-only] { visibility: hidden; } }

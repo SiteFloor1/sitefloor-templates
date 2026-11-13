@@ -1,0 +1,11 @@
+/* Will review reminder: a quiet panel of ticks and one answer. */
+.lw-wr { background: var(--surface); padding: clamp(24px, 4vw, 48px); display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 20px clamp(24px, 5vw, 72px); margin-block: 32px; }
+.lw-wr-head h2 { margin: 0 0 10px; font-size: clamp(24px, 2.4vw, 34px); line-height: 1.12; }
+.lw-wr-head p { margin: 0; color: var(--muted); }
+.lw-wr-ev { border: 0; margin: 0; padding: 0; display: grid; gap: 6px; }
+.lw-wr-ev legend { font-size: 14px; color: var(--muted); margin-bottom: 6px; }
+.lw-wr-ev label { display: flex; gap: 12px; align-items: center; min-height: 36px; cursor: pointer; }
+.lw-wr-ev input { width: 18px; height: 18px; accent-color: var(--accent); }
+.lw-wr-out, .lw-wr-plain { grid-column: 2; margin: 0; }
+.lw-wr-out p { margin: 0; }
+@media (max-width: 760px) { .lw-wr { grid-template-columns: 1fr; } .lw-wr-out, .lw-wr-plain { grid-column: auto; } }

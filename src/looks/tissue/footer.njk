@@ -1,0 +1,22 @@
+{#- Tissue footer: one hairline, then the studio in a sentence, the hours, the pages in two short columns and the
+    handle; the Sitefloor credit last. -#}
+<footer class="foot ts-foot"><div class="wrap">
+  <div class="ts-foot-in">
+    <div class="ts-foot-a">
+      <p class="ts-foot-name">{% set pinClass = "" %}{% include "looks/tissue/parts/pin.njk" %}{{ site.business.name }}</p>
+      <p>{{ site.location.area or (site.location.streetAddress + ", " + site.location.locality) }}</p>
+      {%- if site.bouquets and site.bouquets.instagram %}<p><a class="ts-it" href="https://www.instagram.com/{{ site.bouquets.instagram }}/" target="_blank" rel="noopener">@{{ site.bouquets.instagram }}</a></p>{% endif %}
+    </div>
+    <div class="ts-foot-h">
+      <p class="ts-foot-k">The studio</p>
+      <ul aria-label="Opening hours">{%- for g in site.hours | hoursGroups %}<li><span>{{ g.days }}</span> {{ g.label }}</li>{% endfor %}</ul>
+      {%- if site.delivery %}<p class="ts-foot-k">Same-day delivery</p><p>{{ site.delivery.cutoffs | cutoffGroups }}</p>{% endif %}
+    </div>
+    <nav class="ts-foot-l" aria-label="Footer">
+      {%- for item in site.nav | navItems(pageId) %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}>{{ item.label }}</a>{% endfor %}
+      {%- include "looks/tissue/parts/more-pages.njk" %}
+      <a href="{{ 'privacy' | href }}">Privacy</a>
+    </nav>
+  </div>
+  <p class="ts-foot-by"><a class="by" href="https://sitefloor.com" rel="noopener">Website by <b>Sitefloor</b></a></p>
+</div></footer>

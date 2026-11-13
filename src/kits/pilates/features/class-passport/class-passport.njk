@@ -1,0 +1,28 @@
+{#- The class passport: a member's code in, their card out: what's left, when it expires, classes this month and in all,
+    the next milestone. From the studio's sheet, which holds codes, never names. Fails closed. -#}
+{%- set pp = site.passport %}
+{%- set ph = { kicker: "Members", title: "Your class passport", intro: "Your card, your classes, your next milestone. Type the code on your welcome message." } %}
+{% include "kits/pilates/partials/page-head.njk" %}
+<section class="pl-pass" data-feature="class-passport" aria-label="Your class passport"><div class="wrap pl-set-in">
+  <div>
+    <form class="pl-pass-f" data-pp-form>
+      <label class="pl-field" for="pp-code">Your code<input id="pp-code" name="pp-code" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="14" placeholder="e.g. K7M2QX4P"></label>
+      <button class="pl-req-go" type="submit">Open my passport</button>
+    </form>
+    {%- if pp.example %}<p class="pl-set-demo">Demo: try <button type="button" class="pl-ws-cal" data-pp-try="{{ pp.example }}">{{ pp.example }}</button></p>{% endif %}
+    <p class="pl-pass-msg" data-pp-msg role="status"></p>
+    {%- if 'reformer-settings' | enabled %}<p class="pl-pass-set"><a href="{{ 'settings' | href }}">Your reformer settings</a></p>{% endif %}
+  </div>
+  <article class="pl-setcard pl-pass-card" data-pp-card hidden aria-live="polite">
+    <p class="pl-setcard-k" data-pp-card-name></p>
+    <div class="pl-holes pl-pass-holes" data-pp-holes></div>
+    <dl class="pl-setcard-l">
+      <div><dt>Left</dt><dd data-pp-left></dd></div>
+      <div><dt>Use by</dt><dd data-pp-expires></dd></div>
+      <div><dt>This month</dt><dd data-pp-month></dd></div>
+      <div><dt>In all</dt><dd data-pp-total></dd></div>
+      <div><dt>Next</dt><dd data-pp-next></dd></div>
+    </dl>
+    <p class="pl-req-n" data-pp-updated></p>
+  </article>
+</div></section>

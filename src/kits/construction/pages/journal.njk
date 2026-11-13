@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: journal
+permalink: journal.html
+feature: build-journal
+eleventyComputed:
+  title: "{{ site.journal.title | plain }}"
+  description: "Articles by {{ site.business.name }}: planning, building and living through the work."
+---
+{% include "kits/construction/features/build-journal/build-journal.njk" %}

@@ -1,0 +1,36 @@
+{#- Next free bay: the next drop-off day from the studio's sheet (never an old date), a deposit through the
+    studio's own Stripe Payment Link, and whether you can wait. -#}
+{%- set sec = site.sections.bay %}
+{%- set bay = site.bay %}
+<section id="bay" class="sec-bay" data-feature="next-bay"{{ "next-bay" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="nb rv">
+    <div class="nb-board">
+      <span class="nb-k">Next free drop-off</span>
+      <p class="nb-date" data-nb-date data-js-only aria-live="polite">Checking the diary…</p>
+      <p class="nb-upd" data-nb-upd data-js-only></p>
+      <p class="nb-off" data-nb-off>Message us for the next free day. We only show a date here when the diary has been updated recently.</p>
+      <a class="btn" data-nb-book href="{{ bay.message | wa }}" target="_blank" rel="noopener">{% include "core/partials/icon-whatsapp.njk" %}<span data-nb-ask>Ask for the next free day</span></a>
+    </div>
+    {%- if bay.deposit %}
+    <div class="nb-card">
+      <span class="nb-k">Deposit</span>
+      <p class="nb-big">{{ bay.deposit.amount | pounds }}</p>
+      <p>{{ bay.deposit.text }}</p>
+      <a class="btn ghost" href="{{ bay.deposit.link }}" target="_blank" rel="noopener">Pay the deposit</a>
+      <p class="nb-small">{{ bay.deposit.terms }}</p>
+    </div>
+    {%- endif %}
+    {%- if bay.wait %}
+    <div class="nb-card">
+      <span class="nb-k">Can I wait?</span>
+      <p>{{ bay.wait.text }}</p>
+      {%- if bay.wait.lounge %}<ul class="nb-lounge">{% for l in bay.wait.lounge %}<li>{{ l }}</li>{% endfor %}</ul>{% endif %}
+      {%- if bay.wait.upToHours and site.jobs %}
+      <p class="nb-k nb-fit">Usually done while you wait</p>
+      <ul class="nb-jobs">{% for j in site.jobs %}{% set h = j | minHours %}{% if h <= bay.wait.upToHours %}<li><span>{{ j.name }}</span><b>from {{ h | hoursText }}</b></li>{% endif %}{% endfor %}</ul>
+      {%- endif %}
+    </div>
+    {%- endif %}
+  </div>
+</div></section>

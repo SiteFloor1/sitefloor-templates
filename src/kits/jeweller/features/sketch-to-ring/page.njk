@@ -1,0 +1,12 @@
+{#- The Stories page: every commission, each told in its own photographs from the drawing to the finished piece. -#}
+{%- set ST = site.stories %}
+{%- set ph = { title: ST.title, intro: ST.intro } %}
+{% include "kits/jeweller/partials/page-head.njk" %}
+<div data-feature="sketch-to-ring">
+{%- for s in ST.items %}
+<section class="nc-sec jw-story-s" aria-label="{{ s.title }}"><div class="wrap">
+  {% include "kits/jeweller/features/sketch-to-ring/story.njk" %}
+</div></section>
+{%- endfor %}
+</div>
+{% include "kits/jeweller/partials/invite.njk" %}

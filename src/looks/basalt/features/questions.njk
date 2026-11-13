@@ -1,0 +1,10 @@
+{#- Basalt questions: one column, each question a plain row that opens to its answer. -#}
+{%- set sec = site.sections.questions %}
+{%- set qs = site | homeQuestions %}
+<section id="questions" class="sec-questions bs-qa" data-feature="questions"{{ "questions" | tierAttr | safe }}><div class="wrap bs-qa-in">
+  {% include "core/partials/section-head.njk" %}
+  <div class="bs-qa-list">
+    {%- for item in qs %}<details><summary>{{ item.q }}</summary><p>{{ item.a }}</p></details>{% endfor %}
+    <p class="bs-qa-more">{%- if "plan-visit" | enabled %}<a class="wr-link" href="{{ 'visit' | href }}#questions"{{ "plan-visit" | tierAttr | safe }}>Every question</a> {% endif %}<a class="wr-link" href="{{ site.messages.general | wa }}" data-wa-text="{{ site.messages.general }}" target="_blank" rel="noopener">Ask us</a></p>
+  </div>
+</div></section>

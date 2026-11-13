@@ -1,0 +1,9 @@
+/* The designers: one ruled line per house, its name large, what it's known for and the price band beside it. */
+.bd-house-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line-2); }
+.bd-house { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 5fr) minmax(0, 3fr) auto; gap: 24px; align-items: baseline; padding-block: 26px; border-bottom: 1px solid var(--line-2); }
+.bd-house-n { margin: 0; font-size: clamp(24px, 2.4vw, 34px); line-height: 1.1; }
+.bd-house-k, .bd-house-p { margin: 0; }
+.bd-house-k { color: var(--muted); }
+.bd-house-p { font-variant-numeric: tabular-nums; }
+.bd-house-a { font-size: 13px; white-space: nowrap; }
+@media (max-width: 860px) { .bd-house { grid-template-columns: minmax(0, 1fr) auto; gap: 6px 16px; } .bd-house-k { grid-column: 1 / -1; grid-row: 2; } .bd-house-p { grid-row: 3; } .bd-house-a { grid-row: 3; } }

@@ -1,0 +1,14 @@
+{#- Today: the specials slip and the live board side by side, as a home section (looks that don't put them in their hero).
+    A café with a coffee board (counter.board) shows it beside the slip, as its prices at a glance. -#}
+{%- set boardSec = (site.menu | menuSection(site.counter.board)) if (site.counter and site.counter.board) else null %}
+<div class="today-band"><div class="wrap today-row{% if boardSec %} today-cafe{% endif %}">
+  {%- include "kits/restaurant/features/specials/specials.njk" %}
+  {%- if "tonight" | enabled %}{% include "kits/restaurant/features/tonight/tonight.njk" %}{% endif %}
+  {%- if boardSec %}
+  <div class="sp-board" aria-labelledby="sp-board-h">
+    <p class="sp-board-k" id="sp-board-h">{{ boardSec.name }}</p>
+    <ul>{% for d in boardSec.dishes %}<li><span>{{ d.name }}</span><i aria-hidden="true"></i><b>{{ d.price | gbp }}</b></li>{% endfor %}</ul>
+    {%- if boardSec.note %}<p class="sp-board-n">{{ boardSec.note }}</p>{% endif %}
+  </div>
+  {%- endif %}
+</div></div>

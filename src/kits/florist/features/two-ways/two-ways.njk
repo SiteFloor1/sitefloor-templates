@@ -1,0 +1,10 @@
+{#- In the room / to your door: two tall photographs side by side, each captioned on a ruled line with where it leads. -#}
+{%- set T = site.twoWays %}
+<section id="two-ways" class="fl-two" aria-label="{{ (site.sections.twoWays.title if site.sections.twoWays else 'Two ways we work') | plain }}"><div class="wrap fl-two-in">
+  {%- for k in ["room", "door"] %}{% set s = T[k] %}
+  <figure class="fl-two-f rv">
+    <a class="fl-two-ph" href="{{ s.link.href }}" tabindex="-1" aria-hidden="true"><img src="{{ s.photo.src | img }}" alt="{{ s.photo.alt }}" width="{{ s.photo.width }}" height="{{ s.photo.height }}" loading="lazy" decoding="async"></a>
+    <figcaption><b>{{ s.title }}</b><a class="fl-link" href="{{ s.link.href }}">{{ s.link.label }}</a></figcaption>
+  </figure>
+  {%- endfor %}
+</div></section>

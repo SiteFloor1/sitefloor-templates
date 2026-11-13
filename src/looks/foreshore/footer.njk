@@ -1,0 +1,32 @@
+{#- Foreshore footer: white below a hairline. The firm, where and how to reach it, the pages (the moments, the rules,
+    privacy), the FCA line every page carries, and the Sitefloor credit last. -#}
+{%- set r = site.regulation %}
+<footer class="foot fs-foot"><div class="wrap">
+  <div class="fs-foot-in">
+    <p class="fs-foot-n">{{ site.business.name }}</p>
+    <address class="fs-foot-a">{{ site.location.streetAddress }}<br>{{ site.location.locality }} {{ site.location.postcode }}<br>
+      <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone | replace('+44 ', '0') }}</a>{% if site.contact.email %}<br><a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>{% endif %}<br>
+      <a href="{{ site.messages.general | wa }}" data-wa-text="{{ site.messages.general }}" target="_blank" rel="noopener">Message us on WhatsApp</a></address>
+    <nav class="fs-foot-l" aria-label="Footer">
+      <a href="{{ 'index' | href }}">Home</a>
+      {%- if "life-events" | enabled %}{% for ev in site.lifeEvents.items %}<a href="{{ ev.id | href }}">{{ ev.title }}</a>{% endfor %}{% endif %}
+      {%- if "approach" | enabled %}<a href="{{ 'approach' | href }}">How we work and our fees</a>{% endif %}
+      {%- if "advisers-page" | enabled %}<a href="{{ 'people' | href }}">People</a>{% endif %}
+      {%- if "plan-visit" | enabled %}<a href="{{ 'visit' | href }}">{{ site.visitInfo.title | plain }}</a>{% endif %}
+      {%- if "offices-page" | enabled %}<a href="{{ 'offices' | href }}">Visiting us</a>{% endif %}
+      {%- if "family-map" | enabled %}<a href="{{ 'family' | href }}">The family map</a>{% endif %}
+      {%- if "documents" | enabled %}<a href="{{ 'documents' | href }}">{{ site.documents.title }}</a>{% endif %}
+      {%- if "wishes-guide" | enabled %}<a href="{{ 'letter-of-wishes' | href }}">{{ site.wishesGuide.title }}</a>{% endif %}
+      {%- if "firm-events" | enabled %}<a href="{{ 'events' | href }}">{{ site.events.title }}</a>{% endif %}
+      {%- if "custom-pages" | enabled %}{% for cp in site.pages %}<a href="{{ cp.slug | href }}">{{ cp.title | plain }}</a>{% endfor %}{% endif %}
+    </nav>
+    <nav class="fs-foot-l" aria-label="Rules">
+      <a href="{{ 'regulatory' | href }}">Regulatory information</a>
+      {%- if "check" | enabled %}<a href="{{ 'check' | href }}">Is this really us?</a>{% endif %}
+      <a href="{{ 'privacy' | href }}">Privacy</a>
+    </nav>
+  </div>
+  {% include "kits/wealth/features/fca/line.njk" %}
+  {%- if r.office %}<p class="wm-reg-line">{{ r.entity }}. Registered office: {{ r.office }}.</p>{% endif %}
+  <p class="fs-foot-by"><a class="by" href="https://sitefloor.com" rel="noopener">Website by <b>Sitefloor</b></a></p>
+</div></footer>

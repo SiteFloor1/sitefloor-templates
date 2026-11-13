@@ -1,0 +1,16 @@
+{#- Nacre payments: a short list of lines, each its purpose, the amount and one underlined action. -#}
+{%- set sec = { title: site.sections.payLinks.title, intro: site.sections.payLinks.intro } %}
+<section id="pay" class="nc-sec nc-pay" data-feature="pay-link"{{ "pay-link" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <ul class="nc-rows">
+    {%- for p in site.payLinks.items %}
+    <li class="rv">
+      <span class="nc-label nc-muted">{{ "Deposit" if p.kind == "deposit" else ("Monthly" if p.kind == "monthly" else "In full") }}</span>
+      <span class="nc-rows-n">{{ p.label }}{% if p.holds == "request" %}<small>Holds your request; {{ site.business.name }} confirms with you. It isn't a booking until they do.</small>{% endif %}{% if p.for %}<small>{{ p.for }}</small>{% endif %}</span>
+      <span class="nc-rows-a">{{ p.amount | pounds }}</span>
+      <a class="nc-u nc-label pl-btn" href="{{ p.url }}" target="_blank" rel="noopener" data-pay="{{ p.id }}"{% if p.holds == "request" %} data-pay-url="{{ p.url }}"{% endif %} aria-label="{{ ('Pay the ' + (p.amount | pounds) + ' deposit' + (' to hold your request' if p.holds == 'request' else '') + ': ' + p.label) if p.kind == 'deposit' else ('Pay ' + (p.amount | pounds) + (' a month' if p.kind == 'monthly' else '') + ': ' + p.label) }}">{{ "Pay deposit" if p.kind == "deposit" else "Pay" }}</a>
+    </li>
+    {%- endfor %}
+  </ul>
+  <p class="nc-fine">{{ site.payLinks.note }}</p>
+</div></section>

@@ -1,0 +1,16 @@
+{#- Where the firm acts: each practice area set large as an index, with its one line; on Plus each opens the practice
+    page, on Signature its own page. An optional photograph of the firm sits beside it. -#}
+{%- set sec = site.sections.practice %}
+<section id="practice" class="lw-practice" aria-label="{{ sec.title | plain if sec else 'Practice' }}"><div class="wrap lw-practice-in{% if site.practice.photo %} has-photo{% endif %}">
+  {%- if site.practice.photo %}{% set ph = site.practice.photo %}
+  <figure class="lw-practice-fig"><img src="{{ ph.src | img }}" alt="{{ ph.alt }}" width="{{ ph.width }}" height="{{ ph.height }}" loading="lazy" decoding="async"{% if ph.position %} style="object-position:{{ ph.position }}"{% endif %}></figure>
+  {%- endif %}
+  <ul class="lw-index">
+    {%- for a in site.practice.items %}
+    {%- set to = (a.id | href) if ("area-pages" | enabled) else ((('practice' | href) + '#' + a.id) if ("practice-page" | enabled) else "") %}
+    <li>{% if to %}<a class="lw-index-row" href="{{ to }}"{{ ('area-pages' if ('area-pages' | enabled) else 'practice-page') | tierAttr | safe }}>{% else %}<div class="lw-index-row">{% endif %}
+      <span class="lw-index-n">{{ a.name }}</span><span class="lw-index-l">{{ a.line }}</span>
+    {% if to %}</a>{% else %}</div>{% endif %}</li>
+    {%- endfor %}
+  </ul>
+</div></section>

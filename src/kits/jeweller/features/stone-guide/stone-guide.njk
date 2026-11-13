@@ -1,0 +1,20 @@
+{#- The stone guide: each shape the house sets, in its own photograph, with its words and the pieces in that shape.
+    One shape at a time on a wide screen (tabs); a column on a phone or without JavaScript. -#}
+{%- set sec = { title: site.sections.stones.title, intro: site.sections.stones.intro } %}
+<section id="stones" class="nc-sec jw-stones" data-feature="stone-guide"{{ "stone-guide" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="nc-chips" role="tablist" aria-label="Shape" data-stone-tabs hidden>
+    {%- for s in site.stones %}<button type="button" role="tab" id="st-{{ s.id }}" aria-controls="sp-{{ s.id }}" aria-selected="{{ 'true' if loop.first else 'false' }}" tabindex="{{ '0' if loop.first else '-1' }}">{{ s.name }}</button>{% endfor %}
+  </div>
+  {%- for s in site.stones %}
+  {%- set inS = site.pieces.items | inShape(s.id) %}
+  <div class="jw-stone rv" id="sp-{{ s.id }}" role="tabpanel" aria-labelledby="st-{{ s.id }}" data-stone-panel>
+    <figure><img src="{{ s.photo.src | img }}" width="{{ s.photo.width }}" height="{{ s.photo.height }}" loading="lazy" decoding="async" alt="{{ s.photo.alt }}"></figure>
+    <div>
+      <h3 class="jw-name-l">{{ s.name }}</h3>
+      <p class="nc-body">{{ s.text }}</p>
+      {%- if inS.length %}<p class="jw-in-shape"><span class="nc-label nc-muted">In this shape</span>{% for p in inS %} <a class="nc-u nc-label" href="{{ (p.id | pieceHref | href) if ('jewel-pages' | enabled) else '#' + p.collection }}" data-open="{{ p.id }}">{{ p.name }}</a>{% endfor %}</p>{% endif %}
+    </div>
+  </div>
+  {%- endfor %}
+</div></section>

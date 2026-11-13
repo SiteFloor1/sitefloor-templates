@@ -1,0 +1,25 @@
+{#- The fleet calendar (Plus): which cars are free over the next fortnight, from the client's Sheet, a row per car and a
+    column per day, grouped by class. A free day links to the car's page. Unreadable or old data shows no days at all and
+    says "ask us", never "free". Without JavaScript, a line to ask. -#}
+<section class="hr-fcal" data-feature="fleet-calendar"{{ "fleet-calendar" | tierAttr | safe }} aria-labelledby="hr-fcal-h">
+  <div class="hr-fcal-head">
+    <h2 class="hr-cp-sh" id="hr-fcal-h">The fortnight</h2>
+    <p class="hr-fcal-nav" data-js-only><button type="button" class="dt-quiet" data-fcal-prev aria-label="Earlier fortnight" disabled>Earlier</button><button type="button" class="dt-quiet" data-fcal-next aria-label="Later fortnight">Later</button></p>
+  </div>
+  <p class="hr-fcal-status" role="status" data-fcal-status><span data-no-js>Ask us which cars are free on your dates.</span></p>
+  <div class="hr-fcal-scroll" data-js-only tabindex="0" aria-label="Fleet calendar, scrolls sideways">
+    <table class="hr-fcal-t" data-fcal-table>
+      <caption class="sr-only">Which cars are free on each day, from our calendar</caption>
+      <thead><tr><th scope="col">Car</th></tr></thead>
+      <tbody>
+        {%- for k in site.fleet | fleetClasses %}{% if (k.cars | selfDrive).length %}
+        <tr class="hr-fcal-cls"><th scope="rowgroup" colspan="15">{{ k.name }}</th></tr>
+        {%- for car in site.fleet | classCars(k.id) %}{% if not car.chauffeurOnly %}
+        <tr data-fcal-car="{{ car.id }}" data-fcal-url="{{ car.id | carUrl(build.links) }}"><th scope="row"><a href="{{ car.id | carUrl(build.links) }}">{{ car | carName }}</a></th></tr>
+        {%- endif %}{% endfor %}
+        {%- endif %}{% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <p class="hr-fcal-key" data-js-only><span class="is-free">Free on our calendar</span><span class="is-taken">Taken</span><span class="is-closed">Closed for handovers</span></p>
+</section>

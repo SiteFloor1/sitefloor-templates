@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: patient-information
+permalink: patient-information.html
+feature: smile-patient-info
+eleventyComputed:
+  title: "{{ site.patientInfo.title | plain }}"
+  description: "Patient information and complaints at {{ site.business.name }}: GDC numbers, who may whiten teeth, and what to do if you are unhappy."
+---
+{% include "kits/smile/features/smile-patient-info/smile-patient-info.njk" %}

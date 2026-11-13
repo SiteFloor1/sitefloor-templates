@@ -1,0 +1,18 @@
+/* Your film's progress: five stages on one line (stacked on phones); done ones filled, the current one ringed. */
+.wf-pg-in { max-width: 980px; display: grid; gap: 22px; }
+.wf-pg-f { display: flex; flex-wrap: wrap; gap: 18px 28px; align-items: end; }
+.wf-pg-f input { text-transform: uppercase; letter-spacing: .12em; }
+.wf-pg-msg:empty { display: none; }
+.wf-pg-line { list-style: none; margin: 0 0 28px; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
+.wf-pg-line li { display: grid; gap: 8px; align-content: start; padding-top: 14px; border-top: 2px solid var(--line); color: var(--muted); position: relative; }
+.wf-pg-dot { position: absolute; top: -7px; left: 0; width: 12px; height: 12px; border-radius: 50%; background: var(--bg); border: 2px solid var(--line-2); }
+.wf-pg-line li[data-state="done"] { border-top-color: var(--accent); color: var(--text); }
+.wf-pg-line li[data-state="done"] .wf-pg-dot { background: var(--accent); border-color: var(--accent); }
+.wf-pg-line li[data-state="now"] { color: var(--text); }
+.wf-pg-line li[data-state="now"] .wf-pg-dot { border-color: var(--accent); }
+.wf-pg-t { font-size: 13px; }
+.wf-pg-parts { margin: 0; display: grid; gap: 0; }
+.wf-pg-parts div { display: flex; justify-content: space-between; gap: 24px; padding-block: 14px; border-bottom: 1px solid var(--line); }
+.wf-pg-parts dt, .wf-pg-parts dd { margin: 0; }
+.wf-pg-parts dd { color: var(--muted); text-align: right; }
+@media (max-width: 640px) { .wf-pg-line { grid-template-columns: minmax(0, 1fr); gap: 0; } .wf-pg-line li { border-top: 0; border-left: 2px solid var(--line); padding: 4px 0 18px 20px; } .wf-pg-line li[data-state="done"] { border-left-color: var(--accent); } .wf-pg-dot { top: 6px; left: -7px; } }

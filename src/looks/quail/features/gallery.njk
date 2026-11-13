@@ -1,0 +1,12 @@
+{#- Quail gallery strip: one frame large, the rest small beside it, each numbered like a shade; the link underneath. -#}
+{%- set sec = site.sections.gallery %}
+{%- set g = site.gallery %}
+<section id="work" class="ql-strip" data-feature="gallery" data-gallery-limit="5"{{ "gallery" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="ql-contact ql-contact-strip">{% include "features/gallery/gallery-list.njk" %}</div>
+  <p class="ql-acts">
+    {%- if "work" | enabled %}<a class="ql-v-go" href="{{ 'work' | href }}"{{ "work" | tierAttr | safe }}>Every frame</a>
+    {%- elif g.profile %}<a class="ql-v-go" href="{{ g.profile }}" target="_blank" rel="noopener">On Instagram</a>{% endif %}
+    {%- if g.handle %}<span class="ql-acts-h">@{{ g.handle }}</span>{% endif %}
+  </p>
+</div></section>

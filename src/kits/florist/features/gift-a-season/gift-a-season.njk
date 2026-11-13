@@ -1,0 +1,24 @@
+{#- Gift a season (Signature): weeks of flowers for someone else. Choose how many weeks, the first delivery, their
+    postcode and the card; the details go on WhatsApp and the length is paid by the florist's own Payment Link. -#}
+{%- set G = site.giftSeason %}
+{%- set sec = site.sections.giftSeason %}
+<section id="gift-season" class="fl-gift" data-feature="gift-a-season" aria-labelledby="gift-h"><div class="wrap fl-gift-in">
+  <figure class="fl-gift-ph rv"><img src="{{ G.photo.src | img }}" alt="{{ G.photo.alt }}" width="{{ G.photo.width }}" height="{{ G.photo.height }}" loading="lazy" decoding="async"></figure>
+  <div class="fl-gift-t rv">
+    <h2 id="gift-h">{{ sec.title | markup | safe }}</h2>
+    {%- if sec.intro %}<p>{{ sec.intro }}</p>{% endif %}
+    <form class="fl-gift-f" data-gift-form novalidate>
+      <fieldset class="fl-lengths"><legend class="sr-only">How many weeks</legend>
+        {%- for l in G.lengths %}<label class="fl-size"><input type="radio" name="gift-weeks" value="{{ l.weeks }}" data-pay="{{ l.payLink }}" data-price="{{ l.price }}"{% if loop.first %} checked{% endif %}><span class="fl-size-l">{{ l.weeks }} weeks</span><span class="fl-size-p">{{ l.price | pounds }}</span></label>{% endfor %}
+      </fieldset>
+      <label class="fl-field" for="gift-start"><span>First delivery</span><input id="gift-start" type="date" data-gift-start></label>
+      <label class="fl-field" for="gift-to"><span>Their postcode</span><input id="gift-to" data-gift-to autocomplete="off" maxlength="9"></label>
+      <label class="fl-field" for="gift-card"><span>The card</span><textarea id="gift-card" data-gift-card rows="2" maxlength="{{ site.card.max if site.card else 200 }}"></textarea></label>
+      <div class="fl-gift-go">
+        <a class="fl-btn" data-gift-send href="{{ G.message | book }}" target="_blank" rel="noopener">Send the details</a>
+        <a class="fl-link" data-gift-pay href="{{ G.lengths[0].payLink }}" target="_blank" rel="noopener">Pay {{ G.lengths[0].price | pounds }}</a>
+      </div>
+      <p class="fl-say" data-gift-say role="status"></p>
+    </form>
+  </div>
+</div></section>

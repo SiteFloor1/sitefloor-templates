@@ -1,0 +1,14 @@
+---
+layout: core/layouts/base.njk
+pageId: the-lace
+permalink: the-lace.html
+feature: lace-page
+eleventyComputed:
+  title: "{{ site.guides['the-lace'].title | plain }}"
+  description: "{{ site.guides['the-lace'].description }}"
+---
+{%- set g = site.guides["the-lace"] %}
+{% include "kits/lingerie/partials/page-head.njk" %}
+{% if "lace-viewer" | enabled %}{% include "kits/lingerie/features/lace-viewer/lace-viewer.njk" %}{% endif %}
+{% include "kits/lingerie/partials/guide.njk" %}
+

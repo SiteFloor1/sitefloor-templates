@@ -1,0 +1,14 @@
+{#- Quail questions: no accordion. Each question in italic on the left, its answer on the right, a hairline between;
+    the way on to Plan your visit as one underlined line. -#}
+{%- set sec = site.sections.questions %}
+{%- set qs = site | homeQuestions %}
+<section id="questions" class="ql-qa" data-feature="questions"{{ "questions" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <dl class="ql-qa-list">
+    {%- for item in qs %}<div class="rv"><dt>{{ item.q }}</dt><dd>{{ item.a }}</dd></div>{% endfor %}
+  </dl>
+  <p class="ql-acts">
+    {%- if "plan-visit" | enabled and pageId != "visit" %}<a class="ql-v-go" href="{{ 'visit' | href }}"{{ "plan-visit" | tierAttr | safe }}>Plan your visit</a>{% endif %}
+    <a class="ql-v-go" href="{{ site.messages.general | wa }}" data-wa-text="{{ site.messages.general }}" target="_blank" rel="noopener">Ask us anything else</a>
+  </p>
+</div></section>

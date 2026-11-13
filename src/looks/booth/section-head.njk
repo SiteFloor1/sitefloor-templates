@@ -1,0 +1,6 @@
+{#- Booth section opening: the section's name in light type, its line beside it at body size. `sec` = { kicker,
+    title, intro }; the kicker is not shown (the name says it). -#}
+<div class="bt-sh rv">
+  <h2 class="bt-sh-t">{{ sec.title | markup | safe }}</h2>
+  {%- if sec.intro %}<p class="bt-sh-i">{{ sec.intro }}</p>{% endif %}
+</div>

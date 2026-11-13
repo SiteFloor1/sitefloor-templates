@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: services
+permalink: services.html
+feature: services-page
+eleventyComputed:
+  title: '{{ (site.buildTypes.title or "Services") | plain }}'
+  description: "What {{ site.business.name }} builds: {% for t in site.buildTypes.items %}{{ t.name | lower }}{% if not loop.last %}, {% endif %}{% endfor %}."
+---
+{% include "kits/construction/features/services-page/services-page.njk" %}

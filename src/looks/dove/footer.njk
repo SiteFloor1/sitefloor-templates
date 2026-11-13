@@ -1,0 +1,20 @@
+{#- Dove footer: the wing grey. The name and emblem, the address and how to reach the salon, the week's hours, the
+    pages; the Sitefloor credit last. -#}
+<footer class="foot dv-foot"><div class="wrap dv-foot-in">
+  <div class="dv-foot-name">
+    <svg class="dv-emblem dv-emblem-lg" viewBox="0 0 22 30" aria-hidden="true"><ellipse cx="11" cy="15" rx="10" ry="14" class="dv-em-o"/><path d="M5 10.5l3 11 3-8.2 3 8.2 3-11" class="dv-em-w"/></svg>
+    <p class="dv-foot-word">{{ site.business.name }}</p>
+    <p class="dv-foot-what">{{ site.hero.kicker }}</p>
+  </div>
+  <address class="dv-foot-a">{{ site.location.streetAddress }}<br>{{ site.location.locality }} {{ site.location.postcode }}<br>
+    <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a>{% if site.contact.email %}<br><a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>{% endif %}</address>
+  <ul class="dv-foot-hours" aria-label="Opening hours">
+    {%- for row in site.hours | hoursRows %}<li data-day="{{ row.dayIndex }}"><span>{{ row.day }}</span> {{ row.label }}</li>{% endfor %}
+  </ul>
+  <nav class="dv-foot-links" aria-label="Footer">
+    <a href="{{ 'index' | href }}">The salon</a>
+    {%- for item in site.nav | navItems(pageId) %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}>{{ item.label }}</a>{% endfor %}
+    <a href="{{ 'privacy' | href }}">Privacy</a>
+  </nav>
+  <p class="dv-foot-by"><a class="by" href="https://sitefloor.com" rel="noopener">Website by <b>Sitefloor</b></a></p>
+</div></footer>

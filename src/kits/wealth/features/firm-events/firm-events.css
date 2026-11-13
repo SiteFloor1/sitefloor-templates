@@ -1,0 +1,11 @@
+.wm-ev { padding-bottom: clamp(80px, 9vw, 128px); }
+.wm-ev-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--accent); }
+.wm-ev-e { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 6fr) minmax(0, 3fr); gap: 16px 40px; padding-block: 28px; border-bottom: 1px solid var(--line); scroll-margin-top: calc(var(--nav-h) + 24px); }
+.wm-ev-d { margin: 0; display: grid; gap: 4px; font-variant-numeric: tabular-nums; }
+.wm-ev-d time { font: 300 clamp(1.3rem, 2vw, 1.7rem)/1.2 var(--font-display); }
+.wm-ev-d span, .wm-ev-k, .wm-ev-p, .wm-ev-by { color: var(--muted); font-size: 14px; }
+.wm-ev-k { margin: 0 0 4px; }
+.wm-ev h2 { font: 300 clamp(1.4rem, 2.2vw, 1.9rem)/1.2 var(--font-display); margin: 0 0 8px; }
+.wm-ev-e p { margin: 0 0 8px; max-width: 58ch; }
+.wm-ev-act { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+@media (max-width: 900px) { .wm-ev-e { grid-template-columns: 1fr; } }

@@ -1,0 +1,17 @@
+{#- The photo grid as built: stored photos when there are any (so the page is complete without
+    JavaScript), otherwise placeholder tiles that gallery.js fills from the live feed. -#}
+{%- set photos = site.gallery.photos or [] %}
+{%- set limit = 12 if galleryPage else 6 %}{#- six on the home strip, twelve on the work page (which sets galleryPage); the script shows the rest as visitors scroll -#}
+<ul class="gal" data-gallery-list>
+  {%- if photos.length %}
+  {%- for p in photos | batch(limit) | first %}
+  <li class="tile"><figure>
+    <img class="ph" src="{{ p.src | img }}" alt="{{ p.alt }}" loading="lazy" decoding="async" width="{{ p.width }}" height="{{ p.height }}">
+    {%- if p.caption %}<figcaption class="cap"><span>{{ p.caption }}</span>{% if p.by %}<small>by {{ p.by }}</small>{% endif %}</figcaption>{% endif %}
+  </figure></li>
+  {%- endfor %}
+  {%- else %}
+  {%- for i in range(0, 6) %}<li class="tile skel" aria-hidden="true"></li>{% endfor %}
+  {%- endif %}
+</ul>
+<p class="gal-empty" data-gallery-empty hidden>Our latest photos are on Instagram.{% if site.gallery.profile %} <a href="{{ site.gallery.profile }}" target="_blank" rel="noopener">See them there</a>.{% endif %}</p>

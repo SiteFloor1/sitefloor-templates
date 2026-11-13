@@ -1,0 +1,28 @@
+{#- The charger on your driveway, in 3D: a still of the scene first; "See it on a driveway in 3D" loads three.js and
+    the car (the button says how big it is). Slide the charger along the wall and pick where the car's port is; the
+    cable run from the fuse board, whether the lead reaches and the price come from the client's own figures. -#}
+{%- set sec = site.sections.ev3d %}
+{%- set ev = site.ev %}
+<section id="ev-3d" class="el-ev3" data-feature="ev-3d"{{ "ev-3d" | tierAttr | safe }} aria-label="{{ sec.title | plain }}"><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="el-ev3-in">
+    <div class="el-ev3-stage">
+      <img class="el-ev3-still" src="{{ 'img/kit/ev-still.webp' | img }}" alt="The front of a house at dusk, a charger on the wall and a car on the drive" width="1600" height="1000" loading="lazy" decoding="async">
+      <button class="el-ev3-open" type="button" data-ev3-open data-js-only>See it on a driveway in 3D <span>about 1.9 MB</span></button>
+      <canvas class="el-ev3-canvas" data-ev3-canvas hidden aria-label="The front of a house in 3D. Drag the charger along the wall; drag elsewhere to turn the view."></canvas>
+      <p class="el-ev3-load" data-ev3-load hidden role="status"></p>
+      <p class="el-ev3-credit">Car: "Car Concept" by Eric Chadwick, © Darmstadt Graphics Group, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, adapted.</p>
+    </div>
+    <form class="el-ev3-side" data-ev3-form>
+      <label for="ev3-x"><span>Where the charger goes</span><input id="ev3-x" type="range" min="-6.2" max="6.2" step="0.1" value="0.2" data-ev3-x></label>
+      <label for="ev3-port"><span>Where your car's port is</span>
+        <select id="ev3-port" data-ev3-port><option value="front-left">Front, left</option><option value="front-right" selected>Front, right</option><option value="rear-left">Back, left</option><option value="rear-right">Back, right</option></select></label>
+      <dl class="el-ev3-dl" aria-live="polite">
+        <div><dt>Cable from your fuse board</dt><dd data-ev3-run>—</dd></div>
+        {%- if ev.leadMetres %}<div><dt>The charger's lead</dt><dd data-ev3-lead>—</dd></div>{% endif %}
+        <div><dt>The install</dt><dd data-ev3-price>{{ ev.standard.price | pounds }}</dd></div>
+      </dl>
+      <p class="el-ev3-note">The board's on the inside of the wall; we drew it where most are. We measure yours at the survey.</p>
+    </form>
+  </div>
+</div></section>

@@ -1,0 +1,8 @@
+{#- One journal piece: its photograph wide, the title, the date, the studio's words at reading width. -#}
+{%- set pg = { kicker: site.journal.title | plain, title: a.title, intro: a.line, photo: a.photo } %}
+{% include "kits/detailing/partials/page-head.njk" %}
+<article class="wrap dt-art">
+  <p class="dt-jn-d">{{ a.date | ukDay }}</p>
+  {%- for p in a.body %}<p>{{ p }}</p>{% endfor %}
+  <p><a class="go" href="{{ 'journal' | href }}">All of the journal</a></p>
+</article>

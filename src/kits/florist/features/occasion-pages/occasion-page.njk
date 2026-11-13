@@ -1,0 +1,30 @@
+{#- One occasion: the florist's photograph large, what they'd send and the price of each, the words for the card, and
+    the pre-order date when the day has one. Each piece opens WhatsApp with the occasion's own message. -#}
+{%- set win = site.preorder | windowFor(g.id) if ("pre-order" | enabled) else null %}
+{%- set ph = { kicker: site.occasionPages.kicker or "Occasions", title: g.title, intro: g.line } %}
+<header class="fl-ph"><div class="wrap fl-ph-in">
+  <p class="fl-ph-k"><a href="{{ 'index' | href }}">{{ site.business.name }}</a> <span aria-hidden="true">/</span> <a href="{{ 'occasions' | href }}">{{ ph.kicker }}</a></p>
+  <h1 class="fl-ph-t">{{ g.title }}</h1>
+  <p class="fl-ph-i">{{ g.line }}</p>
+</div></header>
+<section class="fl-op"><div class="wrap fl-op-in">
+  <figure class="fl-op-ph"><img src="{{ g.photo.src | img }}" alt="{{ g.photo.alt }}" width="{{ g.photo.width }}" height="{{ g.photo.height }}" fetchpriority="high" decoding="async"></figure>
+  <div class="fl-op-t">
+    <p class="fl-op-intro">{{ g.intro }}</p>
+    {%- if win %}<p class="fl-op-pre" data-feature="occasion-pages" data-pre-opens="{{ win.opens }}" data-pre-closes="{{ win.orderBy }}"{% if not (win.opens <= build.today and build.today <= win.orderBy) %} hidden{% endif %}>Pre-order: order by {{ win.orderBy | ukDate }} for {{ win.day | ukDate }}.</p>{% endif %}
+    <ul class="fl-op-items" role="list">
+      {%- for x in g.items %}
+      <li class="fl-op-i"><p class="fl-op-h"><b>{{ x.name }}</b><span>{{ x.price | pounds }}</span></p><p class="fl-op-l">{{ x.line }}</p>
+        <a class="fl-btn" href="{{ (g.message + ' ' + x.name + ' (' + (x.price | pounds) + ')') | book }}" target="_blank" rel="noopener">Order {{ x.name | lower }}</a></li>
+      {%- endfor %}
+    </ul>
+    {%- if g.words %}
+    <div class="fl-op-words"><p class="fl-op-wk">Words for the card</p>
+      <ul role="list">{% for w in g.words %}<li>{{ w }}</li>{% endfor %}</ul></div>
+    {%- endif %}
+    {%- if "same-day" | enabled %}<p class="fl-op-sd">Same-day delivery: {{ site.delivery.cutoffs | cutoffGroups }}{% if "delivery-areas" | enabled %}. <a href="{{ 'delivery' | href }}">Where we deliver</a>{% endif %}</p>{% endif %}
+  </div>
+</div></section>
+<nav class="fl-op-more" aria-label="Other occasions"><div class="wrap">
+  {%- for o in site.occasionPages.pages %}{% if o.id != g.id %}<a href="{{ ('for-' + o.id) | href }}">{{ o.title }}</a>{% endif %}{% endfor %}
+</div></nav>

@@ -1,0 +1,14 @@
+{#- The drop-day line at the showroom, as one band: the number being served from the staff's sheet, how many are
+    waiting, and where your ticket stands. Shown on drop day only, while the sheet is fresh; demos show it any day. -#}
+{%- set q = site.dropQueue %}
+{%- set d = site | wearDrop(build.today) %}
+<section id="line" class="wr-line" data-feature="drop-queue"{{ "drop-queue" | tierAttr | safe }} data-opens="{{ d.opens }}" data-tz="{{ site.hours.timezone }}"{% if d.rolling %} data-rolling-day="{{ d.rolling.day }}" data-rolling-time="{{ d.rolling.time }}"{% endif %} data-each="{{ q.minutesEach }}" data-source="{{ q.source }}"{% if q.csvUrl %} data-csv="{{ q.csvUrl }}"{% endif %} data-stale="{{ q.staleAfterMinutes }}"{% if q.fixed %} data-fixed="{{ q.fixed | wearJson }}"{% endif %} aria-label="The line at the showroom" data-js-only hidden><div class="wrap wr-line-in">
+  <p class="wr-line-k">{{ d.name }} at the showroom</p>
+  <p class="wr-line-say" aria-live="polite">Now serving <b data-line-serving></b>. <span data-line-waiting></span></p>
+  <form class="wr-finder" data-line-form>
+    <label for="ticket">Your ticket</label>
+    <input id="ticket" type="number" inputmode="numeric" min="1" step="1" data-line-ticket>
+    <output for="ticket" data-line-out aria-live="polite"></output>
+  </form>
+  <p class="wr-fine"><span data-line-note></span> {{ q.how }}</p>
+</div></section>

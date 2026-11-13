@@ -1,0 +1,30 @@
+{#- Cacao "our work": every photograph on a dark wall, three or four across, with a quiet enlarged view. -#}
+{%- set g = site.gallery %}
+{%- set ph = { kicker: site.work.kicker, title: site.work.title, intro: site.work.intro } %}
+{% include "kits/bakery/partials/page-head.njk" %}
+<section class="sec-work cc-wall" data-feature="gallery" data-gallery-page><div class="wrap">
+  <div class="cc-wall-bar">
+    <div class="cc-wall-chips" role="group" aria-label="Show photographs of" data-gallery-chips hidden>
+      <button type="button" aria-pressed="true" data-tag="">Everything</button>
+      {%- for f in g.filters or [] %}<button type="button" aria-pressed="false" data-tag="{{ f.tag }}">{{ f.label }}</button>{% endfor %}
+    </div>
+    <p class="cc-wall-n" data-gallery-count role="status"></p>
+  </div>
+  {%- set page = true %}
+  {% set galleryPage = true %}{% include "features/gallery/gallery-list.njk" %}
+  <p class="cc-wall-more">
+    <button type="button" class="quiet" data-gallery-more hidden>More photographs</button>
+    {%- if g.profile %}<a class="go" href="{{ g.profile }}" target="_blank" rel="noopener" data-gallery-end hidden>The rest are on Instagram</a>{% endif %}
+  </p>
+  <span class="work-sentinel" data-gallery-sentinel aria-hidden="true"></span>
+</div></section>
+<dialog class="cc-lb" data-gallery-dialog aria-label="Photograph">
+  <figure><img data-lb-img alt=""><figcaption data-lb-cap></figcaption></figure>
+  <div class="cc-lb-bar">
+    <button type="button" data-lb-prev aria-label="Previous photograph">Previous</button>
+    <button type="button" data-lb-next aria-label="Next photograph">Next</button>
+    <a class="go" data-lb-book target="_blank" rel="noopener">{{ "Order this" if build.booking.whatsapp else build.booking.label }}</a>
+    <a class="quiet" data-lb-link target="_blank" rel="noopener" hidden>On Instagram</a>
+    <button type="button" data-lb-close aria-label="Close">Close</button>
+  </div>
+</dialog>

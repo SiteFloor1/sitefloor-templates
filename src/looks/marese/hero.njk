@@ -1,0 +1,19 @@
+{#- Marese hero: two campaign photographs edge to edge (one on a phone, the second follows), the collection's name small
+    in oxblood, the line large beneath, two actions. Nothing laid over the lingerie. -#}
+{%- import "kits/lingerie/partials/mode.njk" as mode with context %}
+{%- set h = site.hero %}
+<section class="hero mr-hero" aria-labelledby="mr-h1">
+  <div class="mr-hero-ph">
+    {%- for ph in h.photos %}<figure>{% set eager = loop.first %}{% include "kits/lingerie/partials/photo.njk" %}</figure>{% endfor %}{% set eager = false %}
+  </div>
+  <div class="wrap mr-hero-t">
+    <p class="mr-kick">{{ h.kicker }}</p>
+    <h1 id="mr-h1" class="mr-line">{{ h.title | plain }}</h1>
+    <p class="mr-acts">
+      {%- if h.collection and ("collection-pages" | enabled) %}<a class="lx-go" href="{{ ('collection-' + h.collection) | href }}">{{ h.cta }}</a>{% else %}<a class="lx-go" href="#new">{{ h.cta }}</a>{% endif %}
+      {%- if mode.shows("boutique") == "true" %}<a class="lx-go lx-line"{{ mode.attr("boutique") }} href="{{ (('fitting' | href) if ('fitting-page' | enabled) else '#fitting') }}">Try it on in {{ site.shop.area }}</a>{% endif %}
+      {%- if site.shop.shopUrl and mode.shows("online") == "true" %}<a class="lx-go lx-line"{{ mode.attr("online") }} href="{{ site.shop.shopUrl }}" target="_blank" rel="noopener">Shop the collection</a>{% endif %}
+    </p>
+    <p class="mr-now" data-live-status{{ mode.attr("boutique") }}><span class="dot" aria-hidden="true"></span><span data-status-text>Opening hours</span></p>
+  </div>
+</section>

@@ -1,0 +1,5 @@
+{#- Première phone bar: ink. "Check your date" on the left, WhatsApp on the right in pale amber. -#}
+<div class="mbar pr-bar">
+  {%- if "date-check" | enabled %}<a class="pr-bar-date" href="{{ ('#date' if pageId == 'index' else ('index' | href) ~ '#date') }}">Check your date</a>{% else %}<a class="pr-bar-date" href="{{ ('visit' | href) if ('plan-visit' | enabled) else '#visit' }}">{{ site.location.locality }}</a>{% endif %}
+  <a class="pr-bar-wa" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{{ "WhatsApp" if build.booking.whatsapp else build.booking.label }}</a>
+</div>

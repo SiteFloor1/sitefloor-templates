@@ -1,0 +1,16 @@
+{#- The studio's other pages, for the footer and the menu: every florist page that's on and not already in the nav. -#}
+{%- set navPages = [] %}{% for n in site.nav %}{% if n.page %}{% set navPages = (navPages.push(n.page), navPages) %}{% endif %}{% endfor %}
+{%- set more = [
+  ["occasion-pages", "occasions", "Occasions"],
+  ["every-week", "every-week", "Every week"],
+  ["weddings-planner", "weddings", "Weddings and events"],
+  ["work-stories", "stories", "Our work"],
+  ["flower-calendar", "calendar", "The flower calendar"],
+  ["for-business", "for-business", "Hotels, restaurants and offices"],
+  ["flower-workshops", "workshops", "Workshops"],
+  ["bouquet-builder", "build", "Build a bouquet"],
+  ["delivery-areas", "delivery", "Delivery areas"],
+  ["sympathy-order", "sympathy", "Sympathy"],
+  ["funeral-flowers", "funeral", "Funeral flowers"]
+] %}
+{%- for m in more %}{% if (m[0] | enabled) and not (m[1] in navPages) %}<a href="{{ m[1] | href }}"{{ m[0] | tierAttr | safe }}{% if m[1] == pageId %} aria-current="page"{% endif %}>{{ m[2] }}</a>{% endif %}{% endfor %}

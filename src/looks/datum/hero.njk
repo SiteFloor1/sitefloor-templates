@@ -1,0 +1,21 @@
+{#- Datum hero: one car in detail at night, full bleed (16:9 desktop, 4:5 phone). One light line, two words to act.
+    The small line sits beneath, on the darkest part of the picture, so it reads over any light (owner's fix 4).
+    Signature: the client's own film loops muted over the still (poster first, Pause, never under reduced motion). -#}
+{%- set hp = site.hero.photo %}{% set ht = site.hero.photoTall or hp %}{% set fm = site.hire.film if ("hire-film" | enabled) else null %}
+<section class="dt-hero" aria-labelledby="dt-hero-h">
+  <div class="dt-hero-pic"{% if fm %} data-feature="hire-film"{{ "hire-film" | tierAttr | safe }}{% endif %}>
+    <picture><source media="(max-width: 820px)" srcset="{{ ht.src | img }}" width="{{ ht.width }}" height="{{ ht.height }}"><img src="{{ hp.src | img }}" alt="{{ hp.alt }}" width="{{ hp.width }}" height="{{ hp.height }}" fetchpriority="high" decoding="async"></picture>
+    {%- if fm %}
+    <video muted loop playsinline preload="none" aria-hidden="true" data-hire-film data-motion data-src="{{ fm.src | img }}" hidden></video>
+    {% include "core/partials/motion-pause.njk" %}
+    {%- endif %}
+  </div>
+  <div class="dt-hero-copy"><div class="wrap">
+    <h1 class="dt-hero-h" id="dt-hero-h">{{ site.hero.title | plain }}</h1>
+    <p class="dt-hero-go">
+      <a class="dt-go" href="{{ ('fleet' | href) if ('fleet-page' | enabled) else '#fleet' }}">See the fleet</a>
+      {%- if site.hero.secondaryCta %}<a class="dt-quiet" href="{{ ('chauffeur' | href) if ('chauffeur-page' | enabled) else site.hero.secondaryCta.href }}">{{ site.hero.secondaryCta.label }}</a>{% endif %}
+    </p>
+    <p class="dt-hero-k">{{ site.hero.kicker | plain }}{% if fm and fm.note %}<span class="dt-film-note"{{ "hire-film" | tierAttr | safe }}> · {{ fm.note }}</span>{% endif %}</p>
+  </div></div>
+</section>

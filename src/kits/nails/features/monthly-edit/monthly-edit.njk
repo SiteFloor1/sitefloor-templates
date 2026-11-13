@@ -1,0 +1,23 @@
+{#- The monthly edit: three or four sets for the month, large, each with its time and price and its own request. Shown
+    from a month before until two weeks after the month (build date); otherwise left out so last season never reads as new. -#}
+{%- set sec = site.sections.edit %}
+{%- set e = site.edit %}
+{%- if e | editLive(build.today) %}
+<section id="edit" class="nl-edit" data-feature="monthly-edit"{{ "monthly-edit" | tierAttr | safe }} aria-labelledby="edit-h"><div class="wrap">
+  <div class="nl-edit-head rv"><p class="nl-edit-m">{{ e.month | monthName }}</p><h2 id="edit-h">{{ sec.title | markup | safe }}</h2>{% if sec.intro %}<p class="nl-edit-i">{{ sec.intro }}</p>{% endif %}</div>
+  <ul class="nl-edit-sets" role="list">
+    {%- for x in e.sets %}
+    <li class="nl-set nl-set-{{ loop.index }}"><figure>
+      <img src="{{ x.photo.src | img }}" alt="{{ x.photo.alt }}" width="{{ x.photo.width }}" height="{{ x.photo.height }}" loading="lazy" decoding="async">
+      <figcaption>
+        <span class="nl-set-k">{{ nailWords.editKinds[x.kind] }}</span>
+        <b class="nl-set-n">{{ x.name }}</b>
+        {%- if x.text %}<span class="nl-set-t">{{ x.text }}</span>{% endif %}
+        <span class="nl-set-f">{{ x.minutes | timeWords }} · {{ x.price | price(x.from) }}</span>
+        <a class="nl-link nl-link-light" href="{{ (e.message + ' I would like the ' + x.name + ' set from your ' + (e.month | monthName) + ' edit.') | book }}" target="_blank" rel="noopener" data-usual="{{ x.name }}">Ask for {{ x.name }}</a>
+      </figcaption>
+    </figure></li>
+    {%- endfor %}
+  </ul>
+</div></section>
+{%- endif %}

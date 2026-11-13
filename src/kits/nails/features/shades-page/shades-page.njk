@@ -1,0 +1,22 @@
+{#- House shades: every colour as a flat swatch with its number, name, system and finish, filtered by family. Each books
+    in its own colour. Without JavaScript every shade shows. -#}
+{%- set ph = site.shadesPage %}
+{% include "kits/nails/partials/page-head.njk" %}
+<section id="shades" class="nl-lib" data-feature="shades-page"><div class="wrap">
+  <div class="nl-chips" role="group" aria-label="Shade families" data-sl-filter hidden>
+    <button type="button" class="nl-chip" aria-pressed="true" data-family="">All</button>
+    {%- for f in site.shades | families %}<button type="button" class="nl-chip" aria-pressed="false" data-family="{{ f.id }}">{{ f.label }}</button>{% endfor %}
+  </div>
+  <ul class="nl-lib-grid" role="list">
+    {%- for s in site.shades.items | byNumber %}
+    <li class="nl-lib-s" data-family="{{ s.family }}">
+      <span class="nl-lib-sw" style="--c: {{ s.hex }}" aria-hidden="true"></span>
+      <span class="nl-lib-no">No. {{ s.no }}</span>
+      <b class="nl-lib-n">{{ s.name }}</b>
+      <span class="nl-lib-l">{{ s | shadeLine }}</span>
+      <a class="nl-chipbook{% if s.hex | darkShade %} is-dark{% endif %}" style="--c: {{ s.hex }}" href="{{ site.menu.message | shadeText(s) | book }}" target="_blank" rel="noopener" data-usual="{{ s.name }} (No. {{ s.no }})" aria-label="Book in {{ s.name }}">Book</a>
+    </li>
+    {%- endfor %}
+  </ul>
+  <p class="nl-lib-note">Colours on a screen are close, not exact. Ask to see the bottle at the counter.</p>
+</div></section>

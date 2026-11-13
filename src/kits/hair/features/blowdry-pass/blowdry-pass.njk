@@ -1,0 +1,17 @@
+{#- The blow-dry pass: a pack of visits for one price, bought on the salon's own Stripe Payment Link. Every figure (how
+    many, the price, how long it lasts) is the salon's own; the salon keeps count, so the page never says it does. -#}
+{%- set sec = site.sections.pass %}
+{%- set ps = site.pass %}
+{%- set svc = site.menu.services | idOf(ps.service) %}
+<section id="pass" class="hr-ps" data-feature="blowdry-pass" aria-labelledby="ps-h"{{ "blowdry-pass" | tierAttr | safe }}><div class="wrap">
+  {%- set secId = "ps-h" %}{% include "core/partials/section-head.njk" %}
+  <div class="hr-ps-card">
+    <p class="hr-ps-n"><span class="hr-ps-big">{{ ps.visits }}</span><span>{{ (ps.name or svc.name) | lower }}s</span></p>
+    <div class="hr-ps-what">
+      <p class="hr-ps-price">{{ ps.price | money }}</p>
+      <p class="hr-ps-for">{{ ps.for }}{% if ps.months %} Use them within {{ ps.months }} months.{% endif %}</p>
+      {%- if ps.note %}<p class="hr-small">{{ ps.note }}</p>{% endif %}
+    </div>
+    <a class="hr-btn hr-ps-buy" href="{{ ps.stripeUrl }}" target="_blank" rel="noopener">Buy the pass</a>
+  </div>
+</div></section>

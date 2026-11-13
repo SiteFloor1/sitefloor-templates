@@ -1,0 +1,588 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Verrall Case Study</title>
+<meta name="description" content="How a Sitefloor site sells by colour for a fictional nail atelier in Marylebone: every house shade on her own hand, prices by the hour, the month's edit, a set built and priced, bridal dates and the next infill.">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&family=Be+Vietnam+Pro:wght@400;500;600&family=Manrope:wght@600;700&display=swap">
+<style>
+/* Layout: the swatch fan. A salon hands you a ring of painted tips to choose from; here the fan opens beside a real
+   hand and each tip paints it. Every chapter is then a field of one house shade, named and numbered like the bottle.
+   The plans are the three coats of a manicure; the speed is drying time. Ground: lacquer white. Type: Newsreader
+   at its display size and thinnest for the colour's name, Be Vietnam Pro for facts. */
+:root {
+  --lacquer: #F6F2EC; --lacquer-2: #EDE6DC; --ink: #16110F; --soft: #5C514A; --rule: rgba(22,17,15,.14);
+  --display: "Newsreader", "Didot", Georgia, serif;
+  --body: "Be Vietnam Pro", "Helvetica Neue", Arial, sans-serif;
+  --brand: "Manrope", Arial, sans-serif;
+  --sf-paper: #FBFAF7; --sf-ink: #0E0F11; --sf-tomato: #E8613C; --sf-line: rgba(14,15,17,.12);
+  --s: clamp(80px, 10vw, 150px);
+  color-scheme: light;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--lacquer); }
+body { margin: 0; background: var(--lacquer); color: var(--ink); font: 400 17px/1.65 var(--body); -webkit-font-smoothing: antialiased; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--sf-paper); }
+a { color: inherit; }
+img, video, canvas { display: block; max-width: 100%; height: auto; }
+figure { margin: 0; }
+h1, h2, h3 { font-family: var(--display); font-weight: 300; margin: 0; letter-spacing: -.02em; }
+p { margin: 0; }
+.gut { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { width: min(1260px, 100%); margin-inline: auto; }
+.lab { font: 600 12px/1.4 var(--body); letter-spacing: .2em; text-transform: uppercase; }
+:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* Sitefloor's bar: the same on every case study. */
+.sfbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--sf-paper); color: var(--sf-ink); border-bottom: 1px solid var(--sf-line); }
+.sfbar .wrap { display: flex; justify-content: space-between; align-items: center; height: 66px; gap: 16px; }
+.wm { display: flex; align-items: baseline; font-family: var(--brand); font-weight: 600; font-size: 24px; letter-spacing: -.045em; text-decoration: none; color: var(--sf-ink); }
+.wm svg { margin: 0 1px; overflow: visible; }
+.sfbar nav { display: flex; gap: 28px; font-family: var(--brand); font-size: 14px; font-weight: 600; }
+.sfbar nav a { text-decoration: none; color: var(--sf-ink); }
+.sfbar nav a[aria-current] { box-shadow: inset 0 -1.5px 0 var(--sf-ink); }
+.sfbtn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 20px; background: var(--sf-ink); color: var(--sf-paper); font: 700 12px var(--brand); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; }
+.sfbtn:hover { background: var(--sf-tomato); }
+@media (max-width: 760px) { .sfbar nav { display: none; } }
+@media (max-width: 420px) { .sfbar .sfbtn { display: none; } }
+
+/* ---------------------------------------------------------------- the fan */
+.hero { padding-block: clamp(32px, 4vw, 56px) clamp(40px, 5vw, 72px); overflow: hidden; }
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(28px, 4vw, 64px); align-items: center; }
+.hero-t .lab { color: var(--soft); }
+.hero h1 { margin-top: 22px; font-size: clamp(3.1rem, 6.6vw, 6.4rem); line-height: .98; }
+.hero h1 em { font-style: italic; }
+.hero-lede { margin-top: 26px; max-width: 34ch; font-size: 19px; color: var(--soft); }
+.chosen { margin-top: clamp(28px, 4vw, 48px); display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 18px; align-items: end; }
+.chosen-no::before, .ch-no::before { content: attr(data-n); }
+.chosen-no { grid-row: span 2; font-family: var(--display); font-weight: 300; font-size: clamp(4.5rem, 8vw, 7.5rem); line-height: .8; color: var(--shade, #E2B4AE); transition: color .6s ease; font-variant-numeric: lining-nums; -webkit-text-stroke: 1px rgba(22,17,15,.18); }
+.chosen-name { font-family: var(--display); font-style: italic; font-size: clamp(2rem, 3vw, 2.6rem); line-height: 1; }
+.chosen-line { color: var(--soft); font-size: 15px; }
+.hands { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 8px 22px; align-items: center; }
+.hands span { font-size: 14px; color: var(--soft); }
+.hands button { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0; border: 0; background: none; font: 500 15px/1 var(--body); color: var(--soft); cursor: pointer; }
+.hands button i { width: 16px; height: 16px; border-radius: 50%; background: var(--skin); box-shadow: inset 0 0 0 1px rgba(22,17,15,.2); }
+.hands button[aria-pressed="true"] { color: var(--ink); box-shadow: inset 0 -1.5px 0 var(--ink); }
+.stage { position: relative; display: flex; flex-direction: column; align-items: center; }
+.hand { position: relative; z-index: 2; width: min(340px, 74%); aspect-ratio: 4 / 5; overflow: hidden; background: var(--lacquer-2); box-shadow: 0 30px 60px -30px rgba(22,17,15,.35); }
+.hand img, .hand canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.hand canvas { opacity: 0; transition: opacity .55s ease; }
+.hand canvas.on { opacity: 1; }
+.hand figcaption { position: absolute; left: 12px; bottom: 12px; padding: 6px 10px; background: rgba(246,242,236,.92); font-size: 12.5px; color: var(--soft); }
+/* the sticks: one rivet, twenty-one tips. The pivot is a point; each stick hangs from it, turned by its own angle. */
+.fan { position: relative; width: 100%; height: calc(var(--r) + 46px); margin-top: -18px; --r: clamp(190px, 16vw, 225px); --start: -86deg; --step: 8.6deg; }
+.pivot { position: absolute; left: 50%; top: calc(var(--r) + 28px); }
+.rivet { position: absolute; left: -12px; top: -12px; width: 24px; height: 24px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff, #CFC6BC 55%, #9E948A); box-shadow: 0 2px 6px rgba(22,17,15,.3); z-index: 3; }
+.stick { position: absolute; left: -13px; top: 0; width: 26px; height: var(--r); padding: 0; border: 0; background: none; cursor: pointer; pointer-events: none; transform-origin: 50% 0; transform: rotate(calc(180deg + var(--start) + var(--i) * var(--step))); }
+.stick::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 56px; width: 3px; margin-left: -1.5px; background: linear-gradient(rgba(255,255,255,.7), rgba(214,205,195,.75)); box-shadow: 0 0 0 .5px rgba(22,17,15,.14); }
+.stick b { position: absolute; left: 0; right: 0; bottom: 0; height: 60px; border-radius: 3px 3px 13px 13px / 3px 3px 26px 26px; background: var(--c); box-shadow: inset 0 0 0 1px rgba(22,17,15,.14), inset 5px 0 7px -5px rgba(255,255,255,.75), 0 2px 5px rgba(22,17,15,.18); transition: transform .45s cubic-bezier(.2,.7,.2,1); pointer-events: auto; }
+.stick[aria-pressed="true"] b { transform: translateY(18px); box-shadow: inset 0 0 0 1px rgba(22,17,15,.25), inset 5px 0 7px -5px rgba(255,255,255,.8), 0 0 0 2px var(--lacquer), 0 0 0 3.5px var(--ink); }
+.stick:hover b { transform: translateY(10px); }
+.stick:focus-visible { outline: none; }
+.stick:focus-visible b { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+/* the index: seven shades, seven chapters */
+.idx { border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.idx ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
+.idx li + li { border-left: 1px solid var(--rule); }
+.idx a { display: grid; gap: 6px; padding: 18px 14px 20px; text-decoration: none; min-height: 100%; }
+.idx i { display: block; height: 10px; background: var(--c); box-shadow: inset 0 0 0 1px rgba(22,17,15,.12); }
+.idx small { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--soft); }
+.idx span { font-family: var(--display); font-style: italic; font-size: 19px; line-height: 1.15; }
+.idx a:hover span { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+
+/* ---------------------------------------------------------------- chapters: a field of one shade each */
+.ch { position: relative; overflow: hidden; background: var(--c); color: var(--t); padding-block: var(--s); }
+.ch .wrap { position: relative; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(32px, 5vw, 88px); align-items: center; }
+.ch.flip .ch-t { order: 2; } .ch.flip .ch-m { order: 1; }
+.ch-no { position: absolute; right: -2vw; top: 50%; transform: translateY(-50%); font-family: var(--display); font-style: italic; font-weight: 300; font-size: clamp(14rem, 34vw, 34rem); line-height: .8; color: var(--t); opacity: .09; pointer-events: none; user-select: none; }
+.ch.flip .ch-no { right: auto; left: -2vw; }
+.tag { display: inline-flex; align-items: baseline; gap: 12px; padding-bottom: 10px; border-bottom: 1px solid currentColor; }
+.tag b { font: 600 12px/1 var(--body); letter-spacing: .2em; text-transform: uppercase; }
+.tag em { font-family: var(--display); font-size: 22px; }
+.ch h2 { margin-top: 26px; font-size: clamp(2.6rem, 5.2vw, 5rem); line-height: 1; max-width: 13ch; }
+.ch h2 em { font-style: italic; }
+.ch-lede { margin-top: 24px; max-width: 44ch; font-size: 18px; opacity: .88; }
+.feat { list-style: none; margin: 34px 0 0; padding: 0; max-width: 52ch; }
+.feat li { display: grid; grid-template-columns: 8.5em minmax(0, 1fr); gap: 4px 18px; padding-block: 14px; border-top: 1px solid color-mix(in srgb, var(--t) 22%, transparent); font-size: 16px; }
+.feat li:last-child { border-bottom: 1px solid color-mix(in srgb, var(--t) 22%, transparent); }
+.feat .coat { font: 600 11.5px/1.5 var(--body); letter-spacing: .14em; text-transform: uppercase; opacity: .8; padding-top: 3px; }
+.feat b { font-weight: 600; }
+.ch-m { display: flex; justify-content: center; }
+.clip { position: relative; width: min(330px, 78vw); }
+.clip video, .clip img { width: 100%; aspect-ratio: 390 / 844; object-fit: cover; border-radius: 26px; background: rgba(0,0,0,.08); box-shadow: 0 0 0 7px color-mix(in srgb, var(--t) 12%, transparent), 0 40px 80px -36px rgba(0,0,0,.45); }
+.clip figcaption { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 18px; font-size: 14px; }
+.pause { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; border: 1px solid currentColor; background: transparent; color: inherit; font: 600 13px/1 var(--body); cursor: pointer; }
+.pause svg { width: 12px; height: 12px; }
+
+/* the bridal chapter: a live wedding-date planner */
+.plan-d { margin-top: 34px; padding: 26px 26px 22px; background: color-mix(in srgb, var(--lacquer) 72%, transparent); max-width: 52ch; }
+.plan-d label { display: block; font-weight: 600; margin-bottom: 10px; }
+.plan-d input { min-height: 48px; padding: 8px 12px; border: 1px solid rgba(22,17,15,.35); background: #fff; color: var(--ink); font: 500 17px/1 var(--body); }
+.plan-d ol { list-style: none; margin: 20px 0 0; padding: 0; counter-reset: d; }
+.plan-d li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 16px; padding-block: 12px; border-top: 1px solid var(--rule); }
+.plan-d li b { font-family: var(--display); font-style: italic; font-weight: 400; font-size: 21px; }
+.plan-d li span { color: var(--soft); font-size: 14px; grid-column: 1; }
+.plan-d li time { grid-column: 2; grid-row: 1 / span 2; align-self: center; font-weight: 600; text-align: right; }
+.plan-d li.past time { text-decoration: line-through; opacity: .6; }
+.plan-d p { margin-top: 14px; font-size: 13.5px; color: var(--soft); }
+.bridal-ph img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; box-shadow: 0 40px 80px -40px rgba(0,0,0,.4); }
+.bridal-ph figcaption { margin-top: 12px; font-size: 14px; opacity: .85; }
+
+/* the last chapter: arrival, and the finishes up close */
+.finishes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 30px; max-width: 520px; }
+.finishes figure img { width: 100%; aspect-ratio: 1; object-fit: cover; }
+.finishes figcaption { margin-top: 8px; font-family: var(--display); font-style: italic; font-size: 18px; }
+
+/* ---------------------------------------------------------------- the plans: three coats */
+.coats { padding-block: var(--s); }
+.coats-h { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px 64px; align-items: end; }
+.coats-h .lab { color: var(--soft); }
+.coats h2 { margin-top: 18px; font-size: clamp(2.8rem, 5.4vw, 5.2rem); line-height: 1; }
+.coats h2 em { font-style: italic; }
+.coats-h > p { color: var(--soft); max-width: 46ch; }
+.section-v { margin-top: clamp(40px, 6vw, 72px); }
+.section-v svg { width: 100%; height: auto; display: block; }
+.section-v .l { transition: opacity .35s ease; }
+.three { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin-top: 8px; border-top: 1px solid var(--ink); }
+.coat-c { padding: 26px 26px 30px 0; }
+.coat-c + .coat-c { padding-left: 26px; border-left: 1px solid var(--rule); }
+.coat-c .lab { color: var(--soft); }
+.coat-c h3 { margin-top: 12px; font-size: 40px; font-style: italic; line-height: 1; }
+.coat-c .pr { margin-top: 12px; font-weight: 600; font-size: 18px; }
+.coat-c .pr small { font-weight: 400; color: var(--soft); font-size: 15px; }
+.coat-c ul { margin: 18px 0 0; padding: 0 0 0 18px; color: var(--soft); }
+.coat-c li { margin-block: 6px; }
+.coats-small { margin-top: 30px; font-size: 14.5px; color: var(--soft); max-width: 92ch; }
+
+/* ---------------------------------------------------------------- drying time */
+.dry { background: var(--ink); color: var(--lacquer); padding-block: var(--s); }
+.dry .lab { color: #B9AEA4; }
+.dry h2 { margin-top: 18px; font-size: clamp(2.8rem, 5.4vw, 5.2rem); line-height: 1; }
+.dry h2 em { font-style: italic; }
+.dry-big { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 40px 64px; margin-top: clamp(36px, 5vw, 64px); align-items: end; }
+.dry-big b { display: block; font-family: var(--display); font-weight: 300; font-size: clamp(5rem, 13vw, 12rem); line-height: .85; letter-spacing: -.04em; }
+.dry-big b small { font-size: .32em; letter-spacing: 0; }
+.dry-big > div > span { display: block; margin-top: 14px; color: #CFC6BC; max-width: 34ch; }
+.runs { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-top: 1px solid rgba(246,242,236,.25); }
+.runs li { padding: 16px 0 0; }
+.runs b { display: block; font-family: var(--display); font-size: 44px; line-height: 1; }
+.runs span { font-size: 13px; color: #B9AEA4; }
+.dry-note { margin-top: 36px; max-width: 92ch; font-size: 14.5px; color: #CFC6BC; }
+
+/* ---------------------------------------------------------------- close */
+.close { padding-block: var(--s); }
+.close .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 40px 72px; align-items: center; }
+.close .lab { color: var(--soft); }
+.close h2 { margin-top: 18px; font-size: clamp(2.8rem, 5.6vw, 5.4rem); line-height: 1; }
+.close h2 em { font-style: italic; }
+.close p { margin-top: 22px; max-width: 40ch; color: var(--soft); font-size: 18px; }
+.acts { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.btn { display: inline-flex; align-items: center; min-height: 50px; padding: 0 24px; background: var(--ink); color: var(--lacquer); font: 600 15px/1 var(--body); text-decoration: none; }
+.btn:hover { background: #5E1222; }
+.btn.line { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.mail { display: block; margin-top: 22px; font-weight: 600; }
+.close-ph img { width: 100%; aspect-ratio: 16 / 11; object-fit: cover; }
+.close-ph figcaption { margin-top: 10px; font-size: 14px; color: var(--soft); }
+
+footer { background: var(--lacquer-2); color: var(--soft); font-size: 13px; line-height: 1.6; border-top: 1px solid var(--rule); }
+footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px 32px; padding-block: 28px; }
+footer p { max-width: 96ch; }
+
+@media (max-width: 960px) {
+  .hero .wrap { grid-template-columns: minmax(0, 1fr); }
+  .hand { width: 100%; }
+  .fan { --r: min(44vw, 190px); }
+  .idx ol { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .idx li + li { border-left: 0; }
+  .idx li { border-top: 1px solid var(--rule); }
+  .idx li:nth-child(even) { border-left: 1px solid var(--rule); }
+  .ch .wrap { grid-template-columns: minmax(0, 1fr); }
+  .ch.flip .ch-t, .ch.flip .ch-m { order: 0; }
+  .ch-no { top: 0; transform: none; font-size: 15rem; }
+  .coats-h, .dry-big, .close .wrap { grid-template-columns: minmax(0, 1fr); }
+  .three { grid-template-columns: minmax(0, 1fr); }
+  .coat-c, .coat-c + .coat-c { padding: 24px 0; border-left: 0; border-top: 1px solid var(--rule); }
+  .runs { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 18px; }
+  footer .wrap { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 560px) {
+  .feat li { grid-template-columns: minmax(0, 1fr); }
+  .finishes { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hand canvas, .chosen-no, .stick b, .section-v .l { transition: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="sfbar gut"><div class="wrap">
+  <a class="wm" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su" aria-label="Sitefloor home">sitefl<svg width="28" height="14" viewBox="0 0 42 21" aria-hidden="true"><rect x="1.9" y="1.9" width="38.2" height="17.2" rx="8.6" fill="none" stroke="#0E0F11" stroke-width="3.8"/><circle cx="31.5" cy="10.5" r="5.2" fill="#E8613C"/></svg>r</a>
+  <nav aria-label="Main"><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#live">Features</a><a href="#top" aria-current="page">Work</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#pricing">Pricing</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#guides">Guides</a></nav>
+  <a class="sfbtn" href="#mockup"><span>Free mockup</span><span aria-hidden="true">→</span></a>
+</div></div>
+
+<main id="top">
+
+<section class="hero gut" aria-labelledby="h1"><div class="wrap">
+  <div class="hero-t">
+    <p class="lab">Case study · Nail atelier, Marylebone</p>
+    <h1 id="h1">She tries every shade <em>before she books.</em></h1>
+    <p class="hero-lede">Verrall paints nails in a glass-roofed arcade off Marylebone High Street. Its clients choose by colour, so its site starts with colour: tap a tip on the fan and the hand wears it.</p>
+    <div class="chosen" aria-live="polite">
+      <span class="chosen-no" id="c-no" data-n="14" aria-hidden="true"></span>
+      <span class="chosen-name" id="c-name">Petal</span>
+      <span class="chosen-line" id="c-line">No. 14 · Gel, sheer gloss</span>
+    </div>
+    <div class="hands" role="group" aria-label="Hand">
+      <span>On</span>
+      <button type="button" aria-pressed="true" data-hand="light" style="--skin:#E9C9B4"><i></i>Fair</button>
+      <button type="button" aria-pressed="false" data-hand="medium" style="--skin:#B98263"><i></i>Medium</button>
+      <button type="button" aria-pressed="false" data-hand="deep" style="--skin:#6E4532"><i></i>Deep</button>
+    </div>
+  </div>
+  <div class="stage">
+    <figure class="hand" id="hand">
+      <img id="h-img" src="media/hand-light.webp" width="1200" height="1500" alt="A hand with almond nails, resting in a linen napkin" fetchpriority="high">
+      <canvas id="h-can" width="1200" height="1500" aria-hidden="true"></canvas>
+      <figcaption>Verrall is fictional. The colour is laid on the photograph's own light.</figcaption>
+    </figure>
+    <div class="fan" role="group" aria-label="House shades"><div class="pivot" id="fan"><span class="rivet" aria-hidden="true"></span></div></div>
+  </div>
+</div></section>
+
+<nav class="idx gut" aria-label="Seven shades, seven chapters"><div class="wrap"><ol>
+  <li><a href="#c-petal"><i style="--c:#E2B4AE"></i><small>No. 14 · Petal</small><span>Before the chair</span></a></li>
+  <li><a href="#c-claret"><i style="--c:#5E1222"></i><small>No. 45 · Claret</small><span>This month's three</span></a></li>
+  <li><a href="#c-milk"><i style="--c:#EEE7DD"></i><small>No. 3 · Milk</small><span>Priced by the hour</span></a></li>
+  <li><a href="#c-scarlet"><i style="--c:#B3121B"></i><small>No. 41 · Scarlet</small><span>Built and sent</span></a></li>
+  <li><a href="#c-lilac"><i style="--c:#E2DCEA"></i><small>No. 19 · Lilac milk</small><span>The wedding</span></a></li>
+  <li><a href="#c-sage"><i style="--c:#A9B49A"></i><small>No. 27 · Sage</small><span>Three weeks on</span></a></li>
+  <li><a href="#c-onyx"><i style="--c:#151415"></i><small>No. 60 · Onyx</small><span>Under the glass</span></a></li>
+</ol></div></nav>
+
+<section class="ch gut" id="c-petal" style="--c:#E2B4AE; --t:#16110F" aria-labelledby="h-1"><div class="wrap">
+  <span class="ch-no" data-n="14" aria-hidden="true"></span>
+  <div class="ch-t">
+    <p class="tag"><b>No. 14</b><em>Petal</em></p>
+    <h2 id="h-1">The colour <em>before the chair.</em></h2>
+    <p class="ch-lede">The hand fills the first screen and the house shades sit beside it. She taps one; the hand wears it, the card names it, and every Book button on the page turns that colour and carries its name into the message.</p>
+    <ul class="feat">
+      <li><span class="coat">Base coat · Starter</span><span><b>The shade on the hand.</b> The salon's own photographs of one hand in its shades, fading from one to the next.</span></li>
+      <li><span class="coat">Top coat · Signature</span><span><b>Shade on your hand.</b> Any house shade laid onto the nails, with the photograph's light and gloss kept, on three skin tones.</span></li>
+      <li><span class="coat">Base coat · Starter</span><span><b>The next free time.</b> Read from the salon's own Google Sheet. If the sheet is old, it says to message instead of showing a time.</span></li>
+    </ul>
+  </div>
+  <div class="ch-m"><figure class="clip"><video id="v-hero" data-clip muted playsinline loop preload="none" poster="media/hero-poster.webp" width="780" height="1688"><source src="media/hero.mp4" type="video/mp4"></video><figcaption><span>Scarlet, Claret, Milk, then two more hands</span><button type="button" class="pause" data-pause="v-hero" data-name="clip of the shades on three hands"><svg viewBox="0 0 12 12" aria-hidden="true"></svg><span>Pause</span></button></figcaption></figure></div>
+</div></section>
+
+<section class="ch flip gut" id="c-claret" style="--c:#5E1222; --t:#F6F2EC" aria-labelledby="h-2"><div class="wrap">
+  <span class="ch-no" data-n="45" aria-hidden="true"></span>
+  <div class="ch-t">
+    <p class="tag"><b>No. 45</b><em>Claret</em></p>
+    <h2 id="h-2">This month's <em>three.</em></h2>
+    <p class="ch-lede">Each month the salon picks three sets, an art set, a chrome and a French, and shows them large, with the time and the price. The month ends; two weeks later the edit steps aside by itself.</p>
+    <ul class="feat">
+      <li><span class="coat">Colour · Plus</span><span><b>The monthly edit.</b> Three or four sets, large, on the home page.</span></li>
+      <li><span class="coat">Colour · Plus</span><span><b>Nail art.</b> Every set by shape, length and level, each with its time and price, and Ask for this.</span></li>
+      <li><span class="coat">Colour · Plus</span><span><b>Shapes and shades.</b> The shapes the salon files, on real sets; every shade by family, each booking in its own colour.</span></li>
+    </ul>
+  </div>
+  <div class="ch-m"><figure class="clip"><video id="v-edit" data-clip muted playsinline loop preload="none" poster="media/edit-poster.webp" width="780" height="1688"><source src="media/edit.mp4" type="video/mp4"></video><figcaption><span>November: Pearl, Moonlight, Milk French</span><button type="button" class="pause" data-pause="v-edit" data-name="clip of the monthly edit"><svg viewBox="0 0 12 12" aria-hidden="true"></svg><span>Pause</span></button></figcaption></figure></div>
+</div></section>
+
+<section class="ch gut" id="c-milk" style="--c:#EEE7DD; --t:#16110F" aria-labelledby="h-3"><div class="wrap">
+  <span class="ch-no" data-n="3" aria-hidden="true"></span>
+  <div class="ch-t">
+    <p class="tag"><b>No. 3</b><em>Milk</em></p>
+    <h2 id="h-3">Priced <em>by the hour.</em></h2>
+    <p class="ch-lede">Thirty minutes, sixty, ninety. The menu is grouped by how long she has, each treatment with its price and one plain line, and a photograph of the work for each hour.</p>
+    <ul class="feat">
+      <li><span class="coat">Base coat · Starter</span><span><b>The menu by the hour.</b> From £30 for a shape and polish to £82 for the hand ritual, on this demo.</span></li>
+      <li><span class="coat">Base coat · Starter</span><span><b>Gel or BIAB.</b> Side by side in the salon's words: how long each lasts, removal and infills.</span></li>
+      <li><span class="coat">Base coat · Starter</span><span><b>The room.</b> The colour wall and the counter, with one line.</span></li>
+    </ul>
+  </div>
+  <div class="ch-m"><figure class="clip"><video id="v-menu" data-clip muted playsinline loop preload="none" poster="media/menu-poster.webp" width="780" height="1688"><source src="media/menu.mp4" type="video/mp4"></video><figcaption><span>The menu, then the room</span><button type="button" class="pause" data-pause="v-menu" data-name="clip of the menu by the hour"><svg viewBox="0 0 12 12" aria-hidden="true"></svg><span>Pause</span></button></figcaption></figure></div>
+</div></section>
+
+<section class="ch flip gut" id="c-scarlet" style="--c:#B3121B; --t:#FFFFFF" aria-labelledby="h-4"><div class="wrap">
+  <span class="ch-no" data-n="41" aria-hidden="true"></span>
+  <div class="ch-t">
+    <p class="tag"><b>No. 41</b><em>Scarlet</em></p>
+    <h2 id="h-4">Built, priced, <em>and sent.</em></h2>
+    <p class="ch-lede">Gel or BIAB, the shape, the length, the finish, the shade and how much art. The time and the price add up as she goes, from the salon's own figures, and the whole set arrives on its WhatsApp in one message.</p>
+    <ul class="feat">
+      <li><span class="coat">Top coat · Signature</span><span><b>Build your set.</b> Six choices in, the time and price out, sent with every choice named.</span></li>
+      <li><span class="coat">Colour · Plus</span><span><b>The menu page.</b> Every treatment, then removals, policies and the questions people ask before booking.</span></li>
+    </ul>
+  </div>
+  <div class="ch-m"><figure class="clip"><video id="v-build" data-clip muted playsinline loop preload="none" poster="media/build-poster.webp" width="780" height="1688"><source src="media/build.mp4" type="video/mp4"></video><figcaption><span>BIAB, coffin, long, chrome, Claret</span><button type="button" class="pause" data-pause="v-build" data-name="clip of building a set"><svg viewBox="0 0 12 12" aria-hidden="true"></svg><span>Pause</span></button></figcaption></figure></div>
+</div></section>
+
+<section class="ch gut" id="c-lilac" style="--c:#E2DCEA; --t:#16110F" aria-labelledby="h-5"><div class="wrap">
+  <span class="ch-no" data-n="19" aria-hidden="true"></span>
+  <div class="ch-t">
+    <p class="tag"><b>No. 19</b><em>Lilac milk</em></p>
+    <h2 id="h-5">One date in, <em>three out.</em></h2>
+    <p class="ch-lede">A bride gives one date. The site counts back from it: the trial with the dress and flowers, a strengthening set, the final set two days before. She saves all three to her calendar in one file.</p>
+    <form class="plan-d" id="bride" onsubmit="return false">
+      <label for="b-date">Try it: the wedding day</label>
+      <input type="date" id="b-date" value="2027-06-12" min="2026-01-01" max="2030-12-31">
+      <ol id="b-out" aria-live="polite"></ol>
+      <p>Verrall's own counts, from its demo: 42, 14 and 2 days before.</p>
+    </form>
+    <ul class="feat">
+      <li><span class="coat">Colour · Plus</span><span><b>Bridal nails.</b> The trial and the final set in the salon's words, with a request on WhatsApp.</span></li>
+      <li><span class="coat">Top coat · Signature</span><span><b>The bridal timeline.</b> One date in, every appointment out, in one calendar file.</span></li>
+      <li><span class="coat">Top coat · Signature</span><span><b>Hen and bridal parties.</b> The date, how many, and what everyone wants, in one message.</span></li>
+    </ul>
+  </div>
+  <div class="ch-m"><figure class="bridal-ph"><img src="media/bridal.webp" width="1200" height="900" alt="Soft pink oval nails, one hand over the other, on cream sheepskin" loading="lazy"><figcaption>The bridal page leads with the hands, not the dress.</figcaption></figure></div>
+</div></section>
+
+<section class="ch flip gut" id="c-sage" style="--c:#A9B49A; --t:#16110F" aria-labelledby="h-6"><div class="wrap">
+  <span class="ch-no" data-n="27" aria-hidden="true"></span>
+  <div class="ch-t">
+    <p class="tag"><b>No. 27</b><em>Sage</em></p>
+    <h2 id="h-6">Three weeks on, <em>she's back.</em></h2>
+    <p class="ch-lede">BIAB grows out. She gives the day of her set, the site gives the day of her infill and puts it in her calendar. Next time, her usual set is waiting on her own phone, one tap from the salon's WhatsApp.</p>
+    <ul class="feat">
+      <li><span class="coat">Colour · Plus</span><span><b>The infill reminder.</b> Two, three or four weeks on, worded as a date and saved to her calendar.</span></li>
+      <li><span class="coat">Colour · Plus</span><span><b>Your usual.</b> The set this phone last asked for, ready to send again. Remembered only on her phone.</span></li>
+      <li><span class="coat">Colour · Plus</span><span><b>Gift vouchers.</b> An amount, two names and a line, shown as the card, ordered on WhatsApp.</span></li>
+    </ul>
+  </div>
+  <div class="ch-m"><figure class="clip"><video id="v-infill" data-clip muted playsinline loop preload="none" poster="media/infill-poster.webp" width="780" height="1688"><source src="media/infill.mp4" type="video/mp4"></video><figcaption><span>Set on 20 October, infill in four weeks</span><button type="button" class="pause" data-pause="v-infill" data-name="clip of the infill reminder"><svg viewBox="0 0 12 12" aria-hidden="true"></svg><span>Pause</span></button></figcaption></figure></div>
+</div></section>
+
+<section class="ch gut" id="c-onyx" style="--c:#151415; --t:#F6F2EC" aria-labelledby="h-7"><div class="wrap">
+  <span class="ch-no" data-n="60" aria-hidden="true"></span>
+  <div class="ch-t">
+    <p class="tag"><b>No. 60</b><em>Onyx</em></p>
+    <h2 id="h-7">Under <em>the glass roof.</em></h2>
+    <p class="ch-lede">Which station, which turning, where to park, whether there's a step. Then the people who'll do her nails, the salon's latest work, and the finishes close enough to see the light move.</p>
+    <ul class="feat">
+      <li><span class="coat">Base coat · Starter</span><span><b>Plan your visit.</b> Every route, parking, access, the hours and every question, on every plan.</span></li>
+      <li><span class="coat">Colour · Plus</span><span><b>The team and the work.</b> Who does what, on which days, and the salon's feed.</span></li>
+      <li><span class="coat">Top coat · Signature</span><span><b>The finishes up close.</b> Chrome, cat-eye and matte as stills; on a client's site, her own macro clips play on a tap.</span></li>
+    </ul>
+    <div class="finishes">
+      <figure><img src="media/finish-chrome.webp" width="800" height="800" alt="Stiletto nails in pink and silver chrome, close" loading="lazy"><figcaption>Chrome</figcaption></figure>
+      <figure><img src="media/finish-cat-eye.webp" width="800" height="800" alt="Almond nails with a grey cat-eye shimmer, close" loading="lazy"><figcaption>Cat-eye</figcaption></figure>
+      <figure><img src="media/finish-matte.webp" width="800" height="800" alt="Square nails in a matte pink, close" loading="lazy"><figcaption>Matte</figcaption></figure>
+    </div>
+  </div>
+  <div class="ch-m"><figure class="clip"><video id="v-visit" data-clip muted playsinline loop preload="none" poster="media/visit-poster.webp" width="780" height="1688"><source src="media/visit.mp4" type="video/mp4"></video><figcaption><span>Plan your visit</span><button type="button" class="pause" data-pause="v-visit" data-name="clip of Plan your visit"><svg viewBox="0 0 12 12" aria-hidden="true"></svg><span>Pause</span></button></figcaption></figure></div>
+</div></section>
+
+<section class="coats gut" id="mockup" aria-labelledby="h-p"><div class="wrap">
+  <div class="coats-h">
+    <div><p class="lab">The plans</p><h2 id="h-p">In <em>three coats.</em></h2></div>
+    <p>A base that holds, the colour, then the shine. Every plan is on a 12-month minimum, then a month's notice, and any single feature can be added to a smaller plan.</p>
+  </div>
+  <figure class="section-v" aria-hidden="true">
+    <svg viewBox="0 0 1200 210" preserveAspectRatio="none">
+      <defs><linearGradient id="gl" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>
+      <path d="M0 210 L0 150 Q600 92 1200 150 L1200 210 Z" fill="#E7C9BE"/>
+      <path class="l" data-l="1" d="M0 150 Q600 92 1200 150 L1200 138 Q600 78 0 138 Z" fill="#EFE3DA" stroke="#16110F" stroke-opacity=".2"/>
+      <path class="l" data-l="2" d="M0 138 Q600 78 1200 138 L1200 84 Q600 20 0 84 Z" fill="#B3121B"/>
+      <path class="l" data-l="3" d="M0 84 Q600 20 1200 84 L1200 72 Q600 6 0 72 Z" fill="#7A0C13"/>
+      <path class="l" data-l="3" d="M80 70 Q600 14 1120 70 L1120 64 Q600 6 80 64 Z" fill="url(#gl)"/>
+    </svg>
+  </figure>
+  <div class="three">
+    <div class="coat-c" data-coat="1"><p class="lab">Base coat</p><h3>Starter</h3><p class="pr">£99 <small>+ £25 a month</small></p><ul><li>The home page and Plan your visit</li><li>The shade on the hand, with Book in its colour</li><li>The next free time from the salon's Google Sheet</li><li>The menu by the hour, gel or BIAB, the room</li></ul></div>
+    <div class="coat-c" data-coat="2"><p class="lab">Colour</p><h3>Plus</h3><p class="pr">£199 <small>+ £30 a month</small></p><ul><li>Up to five pages, chosen from the menu, shades, nail art, shapes, bridal and gifts</li><li>The month's edit on the home page</li><li>Your usual, and the infill reminder</li><li>The team and the salon's work</li></ul></div>
+    <div class="coat-c" data-coat="3"><p class="lab">Top coat</p><h3>Signature</h3><p class="pr">£349 <small>+ £35 a month</small></p><ul><li>Up to 20 pages</li><li>Shade on your hand, on three skin tones</li><li>Build your set, priced as she goes</li><li>The bridal timeline, parties, the finishes up close</li></ul></div>
+  </div>
+  <p class="coats-small">Running costs stay at nothing beyond hosting: the next free time lives in the salon's own Google Sheet, payments go through its own Stripe links, and every booking, set and voucher arrives on its WhatsApp.</p>
+</div></section>
+
+<section class="dry gut" aria-labelledby="h-d"><div class="wrap">
+  <p class="lab">On her phone</p>
+  <h2 id="h-d">Touch dry <em>in seconds.</em></h2>
+  <div class="dry-big">
+    <div><b>1.5<small>–2.4 s</small></b><span>Until the hand has drawn on a phone, the largest thing on the first screen.</span></div>
+    <ul class="runs" aria-label="Lighthouse performance, five runs">
+      <li><b>80</b><span>First, cold</span></li>
+      <li><b>97</b><span>Second</span></li>
+      <li><b>100</b><span>Third</span></li>
+      <li><b>100</b><span>Fourth</span></li>
+      <li><b>94</b><span>Fifth</span></li>
+    </ul>
+  </div>
+  <p class="dry-note">Lighthouse on a phone profile, five runs on Verrall's home page: performance 80 on the first, cold run, then 97, 100, 100 and 94; accessibility 100 on every run; layout shift 0 to 0.001. The whole site's script is 15.0 KB and its styles 14.8 KB, compressed, and the first screen's images are 37.5 KB. The hand's colours are worked out the first time she reaches for a shade, never while the page loads.</p>
+</div></section>
+
+<section class="close gut" aria-labelledby="h-cl"><div class="wrap">
+  <div>
+    <p class="lab">Your salon</p>
+    <h2 id="h-cl">Your shades, <em>on her hand.</em></h2>
+    <p>Send us your Instagram and your shade list, and we'll make a free mockup of your home page, with your own photographs and your own colours.</p>
+    <div class="acts">
+      <a class="btn" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#free">Get a free mockup</a>
+      <a class="btn line" href="https://claude.ai/artifact/LhksJVeyG8aEbnr4SHnyjW">Try the demo first</a>
+    </div>
+    <span class="mail">hello@sitefloor.com</span>
+  </div>
+  <figure class="close-ph"><img src="media/counter-wall.webp" width="1800" height="779" alt="A wall of polish bottles in rows, softly lit" loading="lazy"><figcaption>The colour wall at the counter.</figcaption></figure>
+</div></section>
+
+</main>
+
+<footer class="gut"><div class="wrap">
+  <p>Verrall is a fictional nail atelier made to show the Sitefloor nails kit. Its shades, menu, prices, sets, dates and next free times are demo data. Its photographs are free stock from Unsplash, of other people's hands and salons, each credited in our records; on this page and in the demo, the nails are recoloured on those photographs. Client sites use the salon's own photographs.</p>
+  <span>© 2026 Sitefloor</span>
+</div></footer>
+
+<script>
+(() => {
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // ---------------------------------------------------------------- the fan and the hand
+  const SHADES = [
+    ["milk", 3, "Milk", "#EEE7DD", "Gel, cream"], ["bare", 7, "Bare", "#D9B8A4", "BIAB, sheer gloss"], ["linen", 9, "Linen", "#E3CDBB", "Gel, sheer gloss"],
+    ["petal", 14, "Petal", "#E2B4AE", "Gel, sheer gloss"], ["ballet", 16, "Ballet", "#F0CFCB", "Gel, sheer gloss"], ["lilac-milk", 19, "Lilac milk", "#E2DCEA", "Gel, cream"],
+    ["lilac", 22, "Lilac", "#C9BAD6", "Gel, cream"], ["sage", 27, "Sage", "#A9B49A", "Gel, cream"], ["toffee", 29, "Toffee", "#A8775A", "Gel, shimmer"],
+    ["rosewood", 31, "Rosewood", "#9E5F58", "Gel, high gloss"], ["conker", 38, "Conker", "#6E3B22", "Gel, high gloss"], ["coral", 40, "Coral", "#E06A55", "Gel, high gloss"],
+    ["scarlet", 41, "Scarlet", "#B3121B", "Gel, high gloss"], ["claret", 45, "Claret", "#5E1222", "Gel, high gloss"], ["plum", 48, "Plum", "#4B2238", "Gel, high gloss"],
+    ["moss", 52, "Moss", "#3F4A33", "Gel, high gloss"], ["ink", 56, "Ink", "#1F2740", "Gel, high gloss"], ["onyx", 60, "Onyx", "#151415", "Gel, high gloss"],
+    ["pearl-chrome", 63, "Pearl chrome", "#DCD6CF", "Gel, chrome"], ["gilt", 66, "Gilt", "#B89A5A", "Gel, chrome"], ["smoke-matte", 70, "Smoke", "#8E8682", "Gel, matte"],
+  ];
+  const HANDS = {
+    light: { src: "media/hand-light.webp", mask: "media/hand-light-mask.png", wearing: "petal", alt: "A hand with almond nails, resting in a linen napkin" },
+    medium: { src: "media/hand-medium.webp", mask: "media/hand-medium-mask.png", wearing: "toffee", alt: "A hand with long coffin nails, resting on a linen suit" },
+    deep: { src: "media/hand-deep.webp", mask: "media/hand-deep-mask.png", wearing: "lilac-milk", alt: "Two hands with square nails, on a dark umber ground" },
+  };
+  const fan = document.getElementById("fan"), img = document.getElementById("h-img"), can = document.getElementById("h-can");
+  const cNo = document.getElementById("c-no"), cName = document.getElementById("c-name"), cLine = document.getElementById("c-line");
+  SHADES.forEach(([id, no, name, hex], i) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "stick"; b.dataset.shade = id; b.style.setProperty("--i", i); b.style.setProperty("--c", hex);
+    b.setAttribute("aria-pressed", String(id === "petal")); b.setAttribute("aria-label", `${name}, No. ${no}`);
+    b.innerHTML = "<b></b>";
+    fan.append(b);
+  });
+
+  // The recolour, as the kit does it: the photograph's light carried into the shade, broad light evened out, gloss kept.
+  const FLATTEN = 0.8, RADIUS = 16;
+  const rgb = (h) => [1, 3, 5].map((k) => parseInt(h.slice(k, k + 2), 16));
+  const base = (px, m) => { const hist = new Uint32Array(256); let n = 0; for (let i = 0; i < px.length; i += 4) { if (m[i] < 128) continue; hist[Math.round(0.299 * px[i] + 0.587 * px[i + 1] + 0.114 * px[i + 2])]++; n++; } let s = 0; for (let v = 0; v < 256; v++) { s += hist[v]; if (s >= n / 2) return Math.max(v, 8) / 255; } return 0.5; };
+  const tone = (px, mask, w, h) => {
+    let x0 = w, y0 = h, x1 = -1, y1 = -1;
+    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (mask[(y * w + x) * 4] > 0) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+    const out = new Float32Array(w * h); if (x1 < 0) return out;
+    const pad = 3 * RADIUS; x0 = Math.max(0, x0 - pad); y0 = Math.max(0, y0 - pad); x1 = Math.min(w - 1, x1 + pad); y1 = Math.min(h - 1, y1 + pad);
+    const bw = x1 - x0 + 1, bh = y1 - y0 + 1, n = bw * bh, lm = new Float32Array(n), m = new Float32Array(n), tmp = new Float32Array(n);
+    for (let y = 0; y < bh; y++) for (let x = 0; x < bw; x++) { const i = ((y + y0) * w + x + x0) * 4, a = mask[i] / 255; m[y * bw + x] = a; lm[y * bw + x] = a * (0.299 * px[i] + 0.587 * px[i + 1] + 0.114 * px[i + 2]) / 255; }
+    const box = (v) => { const r = RADIUS, sp = 2 * r + 1;
+      for (let y = 0; y < bh; y++) { const row = y * bw; let s = 0; for (let x = -r; x <= r; x++) s += v[row + Math.min(Math.max(x, 0), bw - 1)]; for (let x = 0; x < bw; x++) { tmp[row + x] = s / sp; s += v[row + Math.min(x + r + 1, bw - 1)] - v[row + Math.max(x - r, 0)]; } }
+      for (let x = 0; x < bw; x++) { let s = 0; for (let y = -r; y <= r; y++) s += tmp[Math.min(Math.max(y, 0), bh - 1) * bw + x]; for (let y = 0; y < bh; y++) { v[y * bw + x] = s / sp; s += tmp[Math.min(y + r + 1, bh - 1) * bw + x] - tmp[Math.max(y - r, 0) * bw + x]; } } };
+    for (let k = 0; k < 3; k++) { box(lm); box(m); }
+    for (let y = 0; y < bh; y++) for (let x = 0; x < bw; x++) { const q = y * bw + x, p = (y + y0) * w + x + x0; out[p] = m[q] > 1e-3 && mask[p * 4] > 0 ? lm[q] / m[q] : 0; }
+    return out;
+  };
+  const paint = (src, mask, out, hex, b, t) => {
+    const [cr, cg, cb] = rgb(hex).map((v) => v / 255), hf = Math.min(b * 1.22, 0.96), hs = Math.max(1e-6, 1 - hf);
+    for (let i = 0; i < src.length; i += 4) {
+      const a = mask[i] / 255;
+      if (a <= 0) { out[i] = src[i]; out[i + 1] = src[i + 1]; out[i + 2] = src[i + 2]; out[i + 3] = 255; continue; }
+      const r = src[i] / 255, g = src[i + 1] / 255, bl = src[i + 2] / 255, L0 = 0.299 * r + 0.587 * g + 0.114 * bl, tt = t[i >> 2];
+      const L = tt > 0.02 ? L0 * (b / tt) ** FLATTEN : L0, k = Math.min(L / b, 1.6) ** 0.85, hi = Math.min(Math.max((L - hf) / hs, 0), 1) ** 1.6;
+      out[i] = Math.round((r * (1 - a) + (Math.min(cr * k, 1) * (1 - hi) + hi) * a) * 255);
+      out[i + 1] = Math.round((g * (1 - a) + (Math.min(cg * k, 1) * (1 - hi) + hi) * a) * 255);
+      out[i + 2] = Math.round((bl * (1 - a) + (Math.min(cb * k, 1) * (1 - hi) + hi) * a) * 255);
+      out[i + 3] = 255;
+    }
+  };
+  const load = (src) => new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = src; });
+  const cache = new Map();
+  const pixels = (id) => {
+    if (!cache.has(id)) cache.set(id, Promise.all([load(HANDS[id].src), load(HANDS[id].mask)]).then(([a, m]) => {
+      const w = a.naturalWidth, h = a.naturalHeight, c = document.createElement("canvas"); c.width = w; c.height = h;
+      const g = c.getContext("2d", { willReadFrequently: true });
+      g.drawImage(a, 0, 0); const src = g.getImageData(0, 0, w, h).data;
+      g.clearRect(0, 0, w, h); g.drawImage(m, 0, 0, w, h); const mask = g.getImageData(0, 0, w, h).data;
+      return { w, h, src, mask, b: base(src, mask), t: tone(src, mask, w, h) };
+    }));
+    return cache.get(id);
+  };
+  let hand = "light", shade = "petal", ticket = 0;
+  const show = async () => {
+    const s = SHADES.find((x) => x[0] === shade);
+    cNo.dataset.n = s[1]; cNo.style.setProperty("--shade", s[3]); cName.textContent = s[2]; cLine.textContent = `No. ${s[1]} · ${s[4]}`;
+    const t = ++ticket;
+    if (shade === HANDS[hand].wearing) { can.classList.remove("on"); return; }
+    try {
+      const px = await pixels(hand); if (t !== ticket) return;
+      can.width = px.w; can.height = px.h;
+      const g = can.getContext("2d"), out = g.createImageData(px.w, px.h);
+      paint(px.src, px.mask, out.data, s[3], px.b, px.t); g.putImageData(out, 0, 0); can.classList.add("on");
+    } catch { can.classList.remove("on"); }
+  };
+  fan.addEventListener("click", (e) => {
+    const b = e.target.closest(".stick"); if (!b) return;
+    shade = b.dataset.shade; fan.querySelectorAll(".stick").forEach((x) => x.setAttribute("aria-pressed", String(x === b))); show();
+  });
+  document.querySelectorAll("[data-hand]").forEach((b) => b.addEventListener("click", () => {
+    hand = b.dataset.hand; document.querySelectorAll("[data-hand]").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+    can.classList.remove("on"); img.src = HANDS[hand].src; img.alt = HANDS[hand].alt;
+    if (shade === "petal" && hand !== "light") shade = HANDS[hand].wearing;
+    fan.querySelectorAll(".stick").forEach((x) => x.setAttribute("aria-pressed", String(x.dataset.shade === shade)));
+    show();
+  }));
+  // the pixels are read the first time someone reaches for the fan, never while the page loads
+  const warm = () => pixels(hand).catch(() => {});
+  fan.addEventListener("pointerover", warm, { once: true }); fan.addEventListener("focusin", warm, { once: true });
+  cNo.style.setProperty("--shade", "#E2B4AE");
+
+  // ---------------------------------------------------------------- the bridal dates, counted back from one day
+  const STEPS = [["Your trial", 42, "Bring a photo of the dress and flowers."], ["Strengthen and shape", 14, "A BIAB base so your nails grow even."], ["Your final set", 2, "The shade and shape from your trial."]];
+  const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const bIn = document.getElementById("b-date"), bOut = document.getElementById("b-out");
+  const today = new Date().toISOString().slice(0, 10);
+  const draw = () => {
+    const v = bIn.value; bOut.replaceChildren();
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(v)) return;
+    for (const [label, days, text] of STEPS) {
+      const d = new Date(`${v}T12:00:00Z`); d.setUTCDate(d.getUTCDate() - days);
+      const ymd = d.toISOString().slice(0, 10), past = ymd < today;
+      const li = document.createElement("li"); if (past) li.className = "past";
+      const day = d.toLocaleDateString("en-GB", { weekday: "long", timeZone: "UTC" });
+      li.innerHTML = "<b></b><span></span><time></time>";
+      li.querySelector("b").textContent = label; li.querySelector("span").textContent = past ? `${text} This day has passed.` : text;
+      const tm = li.querySelector("time"); tm.dateTime = ymd; tm.textContent = `${day} ${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
+      bOut.append(li);
+    }
+  };
+  bIn.addEventListener("input", draw); draw();
+
+  // ---------------------------------------------------------------- the three coats
+  const layers = document.querySelectorAll(".section-v .l");
+  document.querySelectorAll("[data-coat]").forEach((c) => {
+    const n = Number(c.dataset.coat);
+    const on = () => layers.forEach((l) => { l.style.opacity = Number(l.dataset.l) <= n ? "1" : ".18"; });
+    const off = () => layers.forEach((l) => { l.style.opacity = "1"; });
+    c.addEventListener("pointerenter", on); c.addEventListener("pointerleave", off);
+  });
+
+  // ---------------------------------------------------------------- clips: play on screen, Pause each, still for reduced motion
+  const clips = [...document.querySelectorAll("video[data-clip]")];
+  const paused = new Set(reduce ? clips.map((v) => v.id) : []);
+  const seen = new Map();
+  const PAUSE = '<rect x="2" y="1" width="3" height="10" fill="currentColor"/><rect x="7" y="1" width="3" height="10" fill="currentColor"/>', PLAY = '<path d="M3 1.5v9l7-4.5z" fill="currentColor"/>';
+  const label = (id) => { const btn = document.querySelector(`[data-pause="${id}"]`); if (!btn) return; const p = paused.has(id); btn.querySelector("span").textContent = p ? "Play" : "Pause"; btn.setAttribute("aria-label", `${p ? "Play" : "Pause"} the ${btn.dataset.name}`); btn.querySelector("svg").innerHTML = p ? PLAY : PAUSE; };
+  const sync = (v) => { if (seen.get(v) && !paused.has(v.id)) { if (v.preload === "none") v.preload = "auto"; v.play().catch(() => {}); } else v.pause(); };
+  if ("IntersectionObserver" in window) { const io = new IntersectionObserver((es) => es.forEach((e) => { seen.set(e.target, e.isIntersecting); sync(e.target); }), { threshold: .35 }); clips.forEach((v) => io.observe(v)); }
+  document.querySelectorAll("[data-pause]").forEach((btn) => { const v = document.getElementById(btn.dataset.pause); if (!v) return; label(v.id); btn.addEventListener("click", () => { paused.has(v.id) ? paused.delete(v.id) : paused.add(v.id); label(v.id); if (!paused.has(v.id)) seen.set(v, true); sync(v); }); });
+})();
+</script>
+</body>
+</html>

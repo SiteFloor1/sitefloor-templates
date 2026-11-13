@@ -1,0 +1,104 @@
+{#- The Menu Book: a bound menu that opens full screen and turns its pages, drag a page or tap the arrows.
+    Pages come from the menu itself (set like a printed menu, paginated in the browser) or from the
+    restaurant's own designed menu (menuBook.pages, one picture per page). Today's specials sit inside the
+    cover on a slip. Without JavaScript the button goes to the menu on the page. -#}
+{%- set sec = site.sections.menuBook %}
+{%- set mb = site.menuBook %}
+{%- set m = site.menu %}
+{%- set closedBook %}
+  <a class="mb-closed" href="{{ 'menu' | href if ('menu-page' | enabled) else '#menu' }}" data-mb-open aria-haspopup="dialog" aria-label="Open the menu book">
+    <span class="mb-cover">
+      <svg class="mb-grain" aria-hidden="true"><filter id="mb-grain-f"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#mb-grain-f)"/></svg>
+      <span class="mb-frame" aria-hidden="true"></span>
+      <span class="mb-season" aria-hidden="true"></span>
+      <span class="mb-foil">{{ (mb.cover.title if mb.cover and mb.cover.title) or site.business.name }}</span>
+      <span class="mb-sub">{{ (mb.cover.subtitle if mb.cover and mb.cover.subtitle) or "Menu" }}</span>
+    </span>
+    <span class="mb-edge" aria-hidden="true"></span>
+  </a>
+{%- endset %}
+{%- if mbHero %}
+{#- In a look's hero (Maison): just the book on the table; the hero carries the words and buttons. #}
+<div id="menu-book" class="mb mb-hero" data-feature="menu-book"{{ "menu-book" | tierAttr | safe }}>
+  {{ closedBook | safe }}
+{%- else %}
+<section id="menu-book" class="mb" data-feature="menu-book" aria-labelledby="mb-h"{{ "menu-book" | tierAttr | safe }}><div class="wrap mb-stage">
+  {{ closedBook | safe }}
+  <div class="mb-copy">
+    <span class="kick">{{ sec.kicker }}</span>
+    <h2 id="mb-h">{{ sec.title | markup | safe }}</h2>
+    {%- if sec.intro %}<p>{{ sec.intro }}</p>{% endif %}
+    <div class="mb-cta">
+      <a class="btn" href="{{ 'menu' | href if ('menu-page' | enabled) else '#menu' }}" data-mb-open>Open the menu</a>
+      {%- if "menu-pdf" | enabled %}{% include "kits/restaurant/features/menu-pdf/menu-pdf.njk" %}{% endif %}
+    </div>
+  </div>
+</div>
+{%- endif %}
+<dialog class="mb-dlg" data-mb-dlg aria-label="The menu">
+  <div class="mb-room">
+    <div class="mb-book" data-mb-book data-cover="{{ 'own' if mb.pages else 'set' }}"></div>
+  </div>
+  <div class="mb-ctl">
+    <button type="button" class="mb-btn" data-mb-prev aria-label="Previous page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 8 12l7 7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+    <p class="mb-count" data-mb-count aria-live="polite"></p>
+    <button type="button" class="mb-btn" data-mb-next aria-label="Next page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+    <button type="button" class="mb-btn mb-x" data-mb-close aria-label="Close the menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+  </div>
+  <p class="mb-hint" data-mb-hint>Drag the corner of a page, or swipe. Tap a dish marked with a camera to see it.</p>
+  <figure class="mb-pol" data-mb-pol hidden><img alt="" data-mb-pol-img><figcaption data-mb-pol-cap></figcaption></figure>
+</dialog>
+{#- What goes in the book: read by the script, which lays it out on pages of the right size. #}
+<template data-mb-src>
+  <div data-mb-kind="cover">
+    <div class="mbp-cover">
+      <svg class="mb-grain" aria-hidden="true"><rect width="100%" height="100%" filter="url(#mb-grain-f)"/></svg>
+      <span class="mb-frame" aria-hidden="true"></span>
+      <span class="mb-season" aria-hidden="true"></span>
+      <span class="mb-foil">{{ (mb.cover.title if mb.cover and mb.cover.title) or site.business.name }}</span>
+      <span class="mb-sub">{{ (mb.cover.subtitle if mb.cover and mb.cover.subtitle) or "Menu" }}</span>
+    </div>
+  </div>
+  {%- if mb.pages %}
+  {%- for p in mb.pages %}<div data-mb-kind="image"><img src="{{ p.src | img }}" width="{{ p.width }}" height="{{ p.height }}" alt="{{ p.alt }}" loading="lazy" decoding="async"></div>{% endfor %}
+  {%- else %}
+  <div data-mb-kind="welcome">
+    <p class="mbp-k">{{ site.hero.kicker }}</p>
+    <p class="mbp-big">{{ site.business.name }}</p>
+    <div class="mbp-rule" aria-hidden="true"></div>
+    {%- for s in m.sittings %}<p class="mbp-sit"><b>{{ s.name }}</b> {{ s.days | sittingDays }}, {{ s.from | t12 }}–{{ s.to | t12 }}</p>{% endfor %}
+    <p class="mbp-note">{{ m.statement }}</p>
+    <p class="mbp-key">{% for dt in food.diets %}<b>{{ dt.mark }}</b> {{ dt.name | lower }}{% if not loop.last %} · {% endif %}{% endfor %}</p>
+    <div class="mbp-slip" data-mb-slip hidden><p class="mbp-slip-h">Today</p><ul data-mb-slip-list></ul></div>
+  </div>
+  {%- for s in m.sittings %}{% set secs = m | sectionsFor(s.id) %}
+  <div data-mb-kind="part" data-title="{{ s.name }}" data-sub="{{ s.days | sittingDays }} · {{ s.from | t12 }}–{{ s.to | t12 }}">
+    {%- for sc in secs %}{% if not sc.drinks %}
+    <div class="mbp-sec" data-mb-sec>
+      <p class="mbp-sec-h">{{ sc.name }}</p>{% if sc.note %}<p class="mbp-sec-n">{{ sc.note }}</p>{% endif %}
+      {%- for d in sc.dishes %}
+      <div class="mbp-dish" data-mb-dish>{% set ph = d.photo or d.pass %}<p class="mbp-row">{% if ph %}<button type="button" class="mbp-ph" data-mb-ph="{{ ph.src | img }}" data-mb-alt="{{ ph.alt }}" data-mb-name="{{ d.name }}" aria-label="{{ d.name }}: see a photo">{{ d.name }}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l2-2.5h6L17 8h3v11H4z M12 16.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>{% else %}<span>{{ d.name }}</span>{% endif %}<i aria-hidden="true"></i><b>{{ d.price | menuPrice }}</b></p>{% if d.desc %}<p class="mbp-desc">{{ d.desc }}</p>{% endif %}{% set an = d | allergenNames %}<p class="mbp-meta">{% for mk in d | dietMarks %}{{ mk.mark }} · {% endfor %}{% if an.length %}{{ an | join(", ") | lower }}{% else %}none of the 14 allergens{% endif %}</p></div>
+      {%- endfor %}
+    </div>
+    {%- endif %}{% endfor %}
+  </div>
+  {%- endfor %}
+  {%- if m | drinks | length %}
+  <div data-mb-kind="part" data-title="To drink" data-sub="">
+    {%- for sc in m.sections %}{% if sc.drinks %}
+    <div class="mbp-sec" data-mb-sec>
+      <p class="mbp-sec-h">{{ sc.name }}</p>{% if sc.note %}<p class="mbp-sec-n">{{ sc.note }}</p>{% endif %}
+      {%- for d in sc.dishes %}<div class="mbp-dish" data-mb-dish><p class="mbp-row"><span>{{ d.name }}</span><i aria-hidden="true"></i><b>{{ d.price | menuPrice }}</b></p>{% if d.desc %}<p class="mbp-desc">{{ d.desc }}</p>{% endif %}</div>{% endfor %}
+    </div>
+    {%- endif %}{% endfor %}
+  </div>
+  {%- endif %}
+  {%- endif %}
+  <div data-mb-kind="back">
+    <p class="mbp-big">{{ site.business.name }}</p>
+    <p class="mbp-addr">{{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}</p>
+    <p class="mbp-addr">{{ site.contact.phone }}</p>
+    <p class="mbp-note">Please tell us about any allergy when you order. Allergens from our allergen chart, checked {{ m.chartChecked | longDate }}.</p>
+  </div>
+</template>
+{%- if mbHero %}</div>{% else %}</section>{% endif %}

@@ -1,0 +1,28 @@
+{#- The lease-return check: the page's opening, then what an end-of-lease inspection usually looks at, grouped, each
+    with the studio's "from" price (or "Ask us", or nothing for what a detailer doesn't fix); tick what your car has
+    and the total and the WhatsApp message follow. The source and the day it was checked sit under the list. -#}
+{%- set pg = site.leaseReturn %}
+{% include "kits/detailing/partials/page-head.njk" %}
+{%- set src = detailLease.source %}
+<section id="lease" class="dt-ls" data-feature="lease-return" aria-label="{{ pg.title | plain }}: the check"><div class="wrap dt-ls-in">
+  <form class="dt-ls-f" data-ls-form>
+    {%- for g in detailLease.groups %}
+    <fieldset class="dt-ls-g"><legend class="dt-sv-h">{{ g.name }}</legend>
+      {%- for x in g.items %}
+      <label class="dt-opt dt-ls-i"><input type="checkbox" value="{{ x.id }}" data-ls-item>
+        <span class="dt-opt-n">{{ x.name }}<small>{{ x.looks }}</small></span>
+        <b data-ls-for="{{ x.id }}"{% if not x.fix %} class="dt-ls-no"{% endif %}>{% if x.fix %}Ask us{% else %}Not ours to fix{% endif %}</b></label>
+      {%- endfor %}
+    </fieldset>
+    {%- endfor %}
+    <p class="dt-ls-src">What inspectors look at, in short: from the <a href="{{ src.url }}" target="_blank" rel="noopener">{{ src.name }}</a> ({{ src.edition }}), as UK lease companies publish it; checked {{ src.checked | ukDayShort }}. Your lease company's own guide and its inspector decide what's charged.</p>
+  </form>
+  <div class="dt-ls-sum" aria-live="polite">
+    <span class="tube" aria-hidden="true"></span>
+    <p class="dt-bd-total"><span data-ls-from>from</span> <b data-ls-total>£0</b></p>
+    <p class="dt-bd-days" data-ls-say>Tick what you've found on your car.</p>
+    <label class="dt-field" for="dt-ls-date"><span>When it goes back (optional)</span><input id="dt-ls-date" type="date" data-ls-date></label>
+    <a class="go" data-ls-go href="{{ pg.message | wa }}" target="_blank" rel="noopener">Send this on WhatsApp</a>
+    {%- if pg.note %}<p class="dt-note">{{ pg.note }}</p>{% endif %}
+  </div>
+</div></section>

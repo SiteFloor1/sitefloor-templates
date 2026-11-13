@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: weddings
+permalink: weddings.html
+feature: weddings-page
+eleventyComputed:
+  title: "{{ site.ranges.weddings.title | plain }}"
+  description: "Wedding cakes by {{ site.business.name }}, {{ site.location.locality }}: prices, cakes and questions."
+---
+{% include "kits/cakes/features/range-pages/weddings-page.njk" %}

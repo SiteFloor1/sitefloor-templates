@@ -1,0 +1,184 @@
+/* =========================================================================
+   Look: Flannel. A bespoke tailor's cutting room in daylight. Ivory ground and ink; the photographs carry every other
+   colour (wood, tweed, camel, the cloths). The one natural object is a wood pigeon: its breast gives the accent, used
+   only as a stitch, a hairline and the chosen cloth; its grey sets the photo grade's shadows. Della Respira is the
+   house's voice and is never set below 28px; Commissioner does everything else. One hero idea: the cut on the board
+   with the coat on its stand laid over it. Square edges. Motion is slow and never tied to the scroll.
+   Design notes: sitefloor-internal/docs/design/tailor.md.
+   ========================================================================= */
+:root {
+  --bg: #F3F2EE; --surface: #EAE8E2; --surface-2: #DEDBD3;
+  --text: #191817; --muted: #66645F; --dim: #6F6D67;
+  --accent: #8F4B58; --accent-2: #7A3E4A; --on-accent: #FFFFFF; --accent-soft: #C4848F;
+  --line: rgba(25,24,23,.12); --line-2: rgba(25,24,23,.28);
+  --ok: #3E6248; --busy: #7A5A22; --closed: #6F6D67;
+  --font-display: "Della Respira", "Della Respira Fallback", "Times New Roman", serif;
+  --font-body: "Commissioner", "Commissioner Fallback", Arial, sans-serif;
+  --on-photo: #FFFFFF; --photo-scrim: rgba(25,24,23,.5); --shadow: rgba(25,24,23,.32);
+  --season-bg: #191817; --season-fg: #F3F2EE;
+  --pad: max(16px, env(safe-area-inset-left, 0px));
+  --s4: clamp(80px, 9vw, 136px);
+  --nav-h: 76px;
+  color-scheme: light;
+}
+html { background: var(--bg); }
+body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-weight: 300; font-size: 16px; line-height: 1.6; }
+h1, h2 { font-family: var(--font-display); font-weight: 400; letter-spacing: -.005em; text-wrap: balance; }
+h3, b, strong { font-weight: 500; }
+::selection { background: var(--text); color: var(--bg); }
+.wrap { width: min(1440px, 100% - 2 * var(--pad)); }
+main section { padding-block: var(--s4); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.tl-small { font-size: 14px; color: var(--muted); margin: 0; }
+.tl-label { display: block; font-size: 14px; color: var(--muted); }
+
+/* actions: an ink button (square), a word underlined with the pigeon's stitch, a quiet word. */
+.tl-btn, .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 0 24px; border: 0; border-radius: 0; background: var(--text); color: var(--bg); font-family: var(--font-body); font-size: 15px; font-weight: 500; text-decoration: none; cursor: pointer; box-shadow: none; }
+.tl-btn:hover, .btn:hover { background: var(--accent-2); color: var(--on-accent); }
+.btn.ghost { background: none; color: var(--text); box-shadow: inset 0 0 0 1px var(--line-2); }
+.btn .ico { display: none; }
+.tl-go, .go { display: inline-flex; align-items: center; min-height: 44px; padding: 0; border: 0; background: none; color: var(--text); font: inherit; font-size: 15px; font-weight: 500; text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 1.5px; text-underline-offset: 7px; cursor: pointer; }
+.tl-go:hover, .go:hover { color: var(--accent-2); }
+.tl-quiet { display: inline-flex; align-items: center; min-height: 44px; padding: 0; border: 0; background: none; color: var(--muted); font: inherit; font-size: 15px; text-decoration: none; cursor: pointer; }
+.tl-quiet:hover { color: var(--text); text-decoration: underline; text-underline-offset: 6px; }
+.tl-pick { min-height: 44px; padding: 0; border: 0; background: none; color: var(--muted); font: inherit; font-size: 15px; cursor: pointer; text-decoration: none; }
+.tl-pick[aria-pressed="true"] { color: var(--text); text-decoration: underline; text-decoration-style: dashed; text-decoration-color: var(--accent); text-decoration-thickness: 1.5px; text-underline-offset: 8px; }
+
+/* ---------------------------------------------------------------- header */
+.nav.fl-nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: color-mix(in srgb, var(--bg) 95%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 31; background: var(--bg); }
+.fl-nav-in { display: flex; align-items: center; gap: clamp(18px, 2.6vw, 44px); height: var(--nav-h); }
+.fl-name { font-family: var(--font-display); font-size: 30px; line-height: 1; text-decoration: none; white-space: nowrap; }
+.fl-name img { display: block; height: 28px; width: auto; }
+.fl-links { display: flex; gap: clamp(16px, 2.2vw, 34px); margin-left: auto; font-size: 15px; }
+.fl-links a { text-decoration: none; padding-block: 6px; }
+.fl-links a:hover, .fl-links a[aria-current="page"] { text-decoration: underline; text-decoration-color: var(--line-2); text-underline-offset: 8px; }
+.fl-book { font-size: 15px; font-weight: 500; text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 1.5px; text-underline-offset: 7px; white-space: nowrap; }
+.fl-menu { display: none; width: auto; height: 44px; padding: 0; border: 0; background: none; font: inherit; font-size: 15px; color: var(--text); cursor: pointer; }
+.fl-menu span { position: static; height: auto; background: none; transition: none; }
+.fl-menu .fl-close, .fl-menu[aria-expanded="true"] .fl-open { display: none; }
+.fl-menu[aria-expanded="true"] .fl-close { display: inline; }
+.fl-menu.fl-menu-all { display: block; }
+@media (max-width: 960px) { .fl-links { display: none; } .fl-book { margin-left: auto; } .fl-menu { display: block; } }
+@media (max-width: 420px) { .fl-name { font-size: 28px; } .fl-book { display: none; } .fl-menu { margin-left: auto; } }
+.mnav.fl-sheet { top: calc(var(--nav-h) + env(safe-area-inset-top, 0px)); background: var(--bg); }
+.fl-sheet a { font-family: var(--font-display); font-weight: 400; font-size: 32px; border-bottom-color: var(--line); }
+.fl-sheet p { font-weight: 400; }
+
+/* ---------------------------------------------------------------- the hero: the cut, and the coat laid over it */
+main section.fl-hero { padding-block: 0 clamp(72px, 8vw, 120px); }
+.fl-plate { margin: 0; }
+.fl-plate img { display: block; width: 100%; height: auto; aspect-ratio: 1900 / 1393; max-height: calc(86vh - var(--nav-h)); object-fit: cover; object-position: 50% 45%; }
+.fl-hero-under { position: relative; display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 7fr); gap: 0 clamp(28px, 4vw, 72px); }
+.fl-stand { margin: 0; position: relative; z-index: 2; margin-top: clamp(-320px, -22vw, -150px); align-self: start; transform: rotate(-2.4deg); transform-origin: 30% 90%; box-shadow: 0 18px 40px -18px var(--shadow), 0 2px 6px -2px var(--shadow); outline: 10px solid var(--bg); }
+.fl-stand img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; }
+@media (prefers-reduced-motion: no-preference) {
+  .fl-stand { animation: fl-lay 1.8s cubic-bezier(.2,.7,.2,1) .2s both; }
+  @keyframes fl-lay { from { transform: translate(-10px, -26px) rotate(-6deg); box-shadow: 0 40px 60px -20px var(--shadow); } }
+}
+.fl-line { padding-top: clamp(28px, 3vw, 44px); display: grid; gap: 18px; align-content: start; }
+.fl-h1 { margin: 0; font-size: clamp(44px, 5.4vw, 88px); line-height: 1; }
+.fl-intro { margin: 0; color: var(--muted); max-width: 40ch; }
+.fl-hero-go { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; margin: 6px 0 0; }
+.fl-now { display: inline-flex; align-items: center; gap: 10px; font-size: 14px; color: var(--muted); }
+@media (max-width: 760px) {
+  .fl-plate img { aspect-ratio: 4 / 5; max-height: none; }
+  .fl-hero-under { grid-template-columns: minmax(0, 38fr) minmax(0, 62fr); column-gap: 18px; }
+  .fl-stand { margin-top: -38vw; outline-width: 7px; }
+  .fl-line { padding-top: 18px; gap: 14px; }
+  .fl-h1 { font-size: clamp(32px, 9vw, 44px); }
+  .fl-hero-go .tl-btn { display: none; }
+  .fl-now { font-size: 13px; }
+}
+
+/* ---------------------------------------------------------------- section openings and inner pages */
+.fl-sh { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 32px; margin-bottom: clamp(28px, 3.6vw, 52px); }
+.fl-sh-t, .tl-cb-t, .tl-cm-t { margin: 0; font-size: clamp(30px, 3.2vw, 50px); line-height: 1.08; }
+.fl-sh-i { margin: 0; color: var(--muted); font-size: 15px; max-width: 46ch; }
+.tl-ph { padding-block: clamp(44px, 6vw, 96px) clamp(28px, 3vw, 48px); }
+.tl-ph-k { margin: 0 0 14px; font-size: 14px; color: var(--muted); }
+.tl-ph-k a { text-decoration: none; }
+.tl-ph-t { margin: 0; font-size: clamp(40px, 6vw, 96px); line-height: 1; }
+.tl-ph-i { margin: 18px 0 0; color: var(--muted); max-width: 46ch; font-size: 17px; }
+.tl-nf { padding-bottom: var(--s4); }
+.tl-tv-city { font-size: clamp(30px, 3vw, 46px); line-height: 1.05; }
+.tl-weave-n { font-size: clamp(32px, 4vw, 60px); line-height: 1; }
+.tl-pp-n { margin: 0 0 12px; font-size: clamp(30px, 3.4vw, 52px); line-height: 1.05; }
+
+/* the home page's rhythm: the cloth book and the commission sit on ivory; what the house makes on the paler stone */
+main section.tl-cloth { padding-top: clamp(56px, 6vw, 96px); }
+main section.tl-cm { border-top: 1px solid var(--line); }
+main section.tl-garments { background: var(--surface); }
+main section.tl-process { padding-block: clamp(56px, 6vw, 96px); }
+
+/* general pages (the house's story, alterations and aftercare): the page head and blocks in the cutting room's hand */
+.phero { padding-block: clamp(44px, 6vw, 96px) clamp(24px, 3vw, 40px); border-bottom: 0; background: none; }
+.phero h1 { margin: 10px 0 0; font-size: clamp(40px, 6vw, 96px); line-height: 1; font-weight: 400; }
+.phero p { color: var(--muted); max-width: 46ch; font-size: 17px; }
+.crumb { font-size: 14px; color: var(--muted); }
+.cpg { padding-bottom: var(--s4); }
+.cpg-text { max-width: 40em; }
+.cpg-text h2, .cpg-list h2 { margin: 0 0 12px; font-size: clamp(30px, 3vw, 44px); line-height: 1.1; }
+.cpg-text p { margin: 0 0 12px; font-size: 17px; color: var(--text); }
+.cpg h2 { font-weight: 400; }
+.cpg-list li::before { height: 1.5px; }
+.cpg-photo img { box-shadow: none; aspect-ratio: 16 / 9; }
+.cpg-photo figcaption { margin-top: 8px; color: var(--muted); font-size: 14px; }
+.cpg-list ul { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line-2); }
+.cpg-list li { padding-block: 12px; border-bottom: 1px solid var(--line); }
+.cpg-book { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; border-top: 1px solid var(--text); padding-top: 24px; }
+.cpg-book p { margin: 0; font-size: 18px; }
+
+/* ---------------------------------------------------------------- sheets */
+.tl-sheet { width: min(560px, 100vw - 32px); max-height: min(88vh, 760px); padding: 0; border: 0; border-radius: 0; background: var(--bg); color: var(--text); box-shadow: 0 30px 80px -30px var(--shadow); }
+.tl-sheet::backdrop { background: var(--photo-scrim); }
+.tl-req { display: grid; gap: 22px; padding: 28px; }
+.tl-sheet-top { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
+.tl-sheet-h { margin: 0; font-size: 30px; line-height: 1.05; }
+.tl-chips-set { border: 0; margin: 0; padding: 0; }
+.tl-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.tl-chip { position: relative; display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border: 1px solid var(--line-2); font-size: 15px; cursor: pointer; }
+.tl-chip input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.tl-chip:has(input:checked) { border-color: var(--text); box-shadow: inset 0 -2px 0 var(--accent); }
+.tl-chip:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (max-width: 560px) { .tl-sheet { width: 100vw; max-width: 100vw; margin: auto 0 0; max-height: 92vh; } }
+
+/* ---------------------------------------------------------------- shared features in the cutting room's hand */
+.revs { gap: clamp(20px, 3vw, 40px); }
+.rev, .qa, .tz, .pv-card, .pv-panel, .pv-board, .hours, .where, .barber { border-radius: 0; box-shadow: none; }
+.rev { background: var(--surface); border-color: transparent; }
+.qa { border-color: var(--line-2); }
+.qa summary, .qa h3 { font-weight: 500; }
+.tz, .pv-card, .pv-panel, .pv-board { background: var(--surface); border-color: transparent; }
+.tz img, .b-img img { border-radius: 0; }
+.barber { border-color: var(--line-2); }
+.b-img { background: var(--surface); }
+.b-name { font-family: var(--font-body); font-weight: 500; }
+.kick { font-size: 14px; letter-spacing: 0; text-transform: none; color: var(--muted); font-weight: 400; }
+.season { background: var(--season-bg); color: var(--season-fg); font-size: 13px; }
+.prose h2 { font-weight: 400; }
+.prose p { color: var(--muted); }
+
+.where address b { font-family: var(--font-body); font-size: 17px; font-weight: 500; }
+.crumb a, .tl-ph-k a { text-decoration: underline; text-decoration-color: var(--line-2); text-underline-offset: 4px; }
+
+/* ---------------------------------------------------------------- footer and phone bar */
+.foot.fl-foot { background: var(--text); color: var(--bg); border-top: 0; padding: clamp(56px, 7vw, 96px) 0 calc(112px + env(safe-area-inset-bottom, 0px)); }
+.fl-foot a { color: var(--bg); }
+.fl-foot-in { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 3fr) minmax(0, 3fr) minmax(0, 2fr); gap: 32px; align-items: start; }
+.fl-foot-name { grid-column: 1 / -1; margin: 0 0 12px; font-family: var(--font-display); font-size: clamp(40px, 6vw, 88px); line-height: 1; }
+.fl-foot-a { font-style: normal; line-height: 1.8; }
+.fl-foot-hours { list-style: none; margin: 0; padding: 0; font-size: 14px; line-height: 1.9; font-variant-numeric: tabular-nums; }
+.fl-foot-hours span { display: inline-block; min-width: 7.5em; opacity: .7; }
+.fl-foot-links { display: grid; gap: 6px; font-size: 15px; }
+.fl-foot-links a { text-decoration: none; }
+.fl-foot-by b { color: inherit; }
+.fl-foot-by { grid-column: 1 / -1; margin: 24px 0 0; font-size: 13px; opacity: .8; }
+@media (max-width: 860px) { .fl-foot-in { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { main section:not(.fl-hero) { padding-block: 56px; } .foot.fl-foot { padding-top: 48px; } .fl-foot-in { grid-template-columns: 1fr; gap: 24px; } .fl-foot-links { grid-template-columns: 1fr 1fr; gap: 8px 16px; font-size: 14px; } .fl-foot-hours { line-height: 1.7; } }
+@media (min-width: 761px) { .foot.fl-foot { padding-bottom: clamp(48px, 5vw, 72px); } }
+
+.mbar.fl-bar { background: var(--bg); border-top: 1px solid var(--text); backdrop-filter: none; align-items: center; justify-content: space-between; gap: 16px; padding: 10px max(16px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+.fl-bar-where { font-size: 14px; color: var(--muted); text-decoration: none; }
+.mbar .fl-bar-go { flex: 0 0 auto; min-height: 48px; padding: 0 22px; }

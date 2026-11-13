@@ -1,0 +1,27 @@
+{#- The colour year: the colour you had and the day it was done mark the next visits on the coming twelve months, from
+    the salon's own weeks between visits; then to the calendar, or the next one booked on WhatsApp. It first paints with
+    the salon's default colour, done three weeks ago, marked as an example. -#}
+{%- set sec = site.sections.colourYear %}
+{%- set u = site.upkeep %}
+{%- set first = (u.items | idOf(u.default)) if u.default else u.items[0] %}
+<section id="colour-year" class="hr-cy" data-feature="colour-year" aria-labelledby="cy-h"><div class="wrap hr-cy-in">
+  {%- if u.photo %}<figure class="hr-cy-fig"><img src="{{ u.photo.src | img }}" alt="{{ u.photo.alt }}" width="{{ u.photo.width }}" height="{{ u.photo.height }}" loading="lazy" decoding="async"></figure>{% endif %}
+  <div class="hr-cy-main">
+    {%- set secId = "cy-h" %}{% include "core/partials/section-head.njk" %}
+    <div class="hr-cy-ctl">
+      <label class="hr-cy-kind"><span class="hr-label">Your colour</span>
+        <select data-cy-kind>{% for x in u.items %}<option value="{{ x.id }}"{% if x.id == first.id %} selected{% endif %}>{{ x.name }}</option>{% endfor %}</select></label>
+      {%- set df = "cy-last" %}{% set dfLabel = "Last done" %}{% set dfYears = 2 %}{% set dfFrom = -1 %}{% include "kits/hair/partials/date-field.njk" %}{% set dfFrom = 0 %}
+    </div>
+    <ol class="hr-cy-year" data-cy-year aria-label="The next twelve months">
+      {%- for mo in build.today | colourYear(first.weeks) %}
+      <li{% if mo.now %} class="hr-cy-now"{% endif %}><span>{{ mo.month }}</span>{% if mo.day %}<b>{{ first.name }} {{ mo.day }}</b>{% endif %}</li>
+      {%- endfor %}
+    </ol>
+    <p class="hr-small" data-cy-note>Example: {{ first.name | lower }} done three weeks ago. Every {{ first.weeks }} weeks is the salon's usual; yours may differ.</p>
+    <div class="hr-cy-go">
+      <button type="button" class="hr-btn" data-cy-ics hidden>Add these to my calendar</button>
+      <a class="hr-go" data-cy-send href="{{ u.message | book }}" target="_blank" rel="noopener">Book the next one</a>
+    </div>
+  </div>
+</div></section>

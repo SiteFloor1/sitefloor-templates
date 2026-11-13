@@ -1,0 +1,17 @@
+{#- The finish in motion: each finish a still first; where the salon has a clip, a tap plays it (silent, looping,
+    nothing loads before the tap). -#}
+{%- set sec = site.sections.finishes %}
+<section id="finishes" class="nl-fin" data-feature="finish-clips"{{ "finish-clips" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <ul class="nl-fin-l" role="list">
+    {%- for x in site.finishes.items %}
+    <li class="nl-fin-i"><figure>
+      <div class="nl-fin-m" data-fc-box>
+        <img src="{{ x.still.src | img }}" alt="{{ x.still.alt }}" width="{{ x.still.width }}" height="{{ x.still.height }}" loading="lazy" decoding="async">
+        {%- if x.clip %}<button type="button" class="nl-fin-play" data-fc-play{% if x.clip.webm %} data-webm="{{ x.clip.webm | img }}"{% endif %}{% if x.clip.mp4 %} data-mp4="{{ x.clip.mp4 | img }}"{% endif %} aria-label="Play {{ x.name }} in motion">Play</button>{% endif %}
+      </div>
+      <figcaption><b>{{ x.name }}</b><span>{{ x.text }}</span></figcaption>
+    </figure></li>
+    {%- endfor %}
+  </ul>
+</div></section>

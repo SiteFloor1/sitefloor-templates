@@ -1,0 +1,12 @@
+/* Services: alternate rows, a photograph and the words, ruled between. */
+.bd-svc { display: grid; padding-bottom: clamp(72px, 10vw, 112px); }
+.bd-svc-row { display: grid; gap: 24px; padding-block: 36px; border-top: 1px solid var(--line); }
+.bd-svc-row img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; display: block; }
+.bd-svc-say p { margin: 10px 0 0; color: var(--muted); max-width: 44ch; }
+.bd-svc-say ul { margin: 18px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--line); max-width: 52ch; }
+.bd-svc-say li { padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+.bd-svc-say a { display: inline-block; margin-top: 18px; font-size: 14px; }
+@media (min-width: 900px) {
+  .bd-svc-row { grid-template-columns: 7fr 5fr; gap: 56px; align-items: center; }
+  .bd-svc-row:nth-child(even) img { order: 2; }
+}

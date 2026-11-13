@@ -1,0 +1,18 @@
+{#- Datum footer: hairline above; the name and address, the week's hours, the pages; the independence line on every
+    page; the Sitefloor credit last. -#}
+<footer class="foot dt-foot"><div class="wrap dt-foot-in">
+  <div class="dt-foot-a">
+    <p class="dt-foot-name">{% include "looks/datum/parts/mark.njk" %} {{ site.business.name }}</p>
+    <address>{{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}<br>
+      <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a>{% if site.contact.email %} · <a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>{% endif %}</address>
+  </div>
+  <ul class="dt-foot-hours" aria-label="Opening hours">
+    {%- for row in site.hours | hoursRows %}<li data-day="{{ row.dayIndex }}"><span>{{ row.day }}</span> {{ row.label }}</li>{% endfor %}
+  </ul>
+  <nav class="dt-foot-links" aria-label="Footer">
+    {%- for item in site.nav | navItems(pageId) %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}>{{ item.label }}</a>{% endfor %}
+    <a href="{{ 'privacy' | href }}">Privacy</a>
+  </nav>
+  <p class="dt-indie">Independent hire company, not affiliated with any manufacturer.</p>
+  <p class="dt-by"><a class="by" href="https://sitefloor.com" rel="noopener">Website by <b>Sitefloor</b></a></p>
+</div></footer>

@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: products
+permalink: products.html
+feature: product-shelf
+eleventyComputed:
+  title: "{{ site.products.title | plain }}"
+  description: "{{ site.products.description or site.products.intro }}"
+---
+{% include "kits/hair/features/product-shelf/product-shelf.njk" %}

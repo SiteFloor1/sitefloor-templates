@@ -1,0 +1,34 @@
+{#- The design library: filters by style and by bridal or guests, then the work as gallery labels. -#}
+{%- set d = site.designs %}
+{%- set ph = { kicker: site.designsPage.kicker, title: site.designsPage.title, intro: site.designsPage.intro } %}
+{% include "kits/mehndi/partials/page-head.njk" %}
+<section class="mh-dl" data-feature="mehndi-designs" aria-label="Designs"><div class="wrap">
+  <div class="mh-dl-filters" data-dl-filters>
+    <div role="group" aria-label="Style">
+      <button type="button" data-dl-style="" aria-pressed="true">All</button>
+      {%- for s in d | usedStyles %}<button type="button" data-dl-style="{{ s.id }}" aria-pressed="false">{{ s.label }}</button>{% endfor %}
+    </div>
+    {%- set fors = d | usedFor %}
+    {%- if fors.length > 1 %}
+    <div role="group" aria-label="For">
+      <button type="button" data-dl-for="" aria-pressed="true">Everyone</button>
+      {%- for f in fors %}<button type="button" data-dl-for="{{ f.id }}" aria-pressed="false">{{ f.label }}</button>{% endfor %}
+    </div>
+    {%- endif %}
+  </div>
+  <p class="mh-fine" data-dl-count aria-live="polite"></p>
+  <ul class="mh-dl-grid">
+    {%- for x in d.items %}
+    <li data-dl-item data-style="{{ x.style }}" data-for="{{ x.for }}">
+      <figure>
+        <img src="{{ x.photo.src | img }}" alt="{{ x.photo.alt }}" width="{{ x.photo.width }}" height="{{ x.photo.height }}"{% if loop.index > 2 %} loading="lazy"{% endif %} decoding="async">
+        <figcaption>
+          <b>{{ x.name }}</b>
+          <span>{{ mehndiWords.styles[x.style] }}</span><span>{{ mehndiWords.coverage[x.coverage] }}</span><span>{{ x.hours | hrs }}</span><span>{{ x.price | gbp(x.from) }}</span>
+          <a class="mh-text" href="{{ d.message | designText(x.name) | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ d.message | designText(x.name) }}"{% endif %} target="_blank" rel="noopener">Ask for this</a>
+        </figcaption>
+      </figure>
+    </li>
+    {%- endfor %}
+  </ul>
+</div></section>

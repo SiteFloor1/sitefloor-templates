@@ -1,0 +1,11 @@
+{#- Which level's prices the tables on this page show. Radios, so it works without JavaScript; the tables read it
+    with :has(). The default level (or the first) is chosen. Set `lpId` to a prefix unique on the page. -#}
+{%- set dl = (site.menu.defaults.level if site.menu.defaults and site.menu.defaults.level else site.menu.levels[0].id) %}
+<fieldset class="hr-lvl" data-lvl-pick>
+  <legend class="hr-label">Prices with a</legend>
+  <div class="hr-lvl-opts">
+    {%- for l in site.menu.levels %}
+    <label class="hr-pick"><input type="radio" name="hr-level" value="{{ l.id }}" data-lvl="{{ l.id }}"{% if l.id == dl %} checked{% endif %}><span>{{ l.name }}</span></label>
+    {%- endfor %}
+  </div>
+</fieldset>

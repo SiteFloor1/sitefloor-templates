@@ -1,0 +1,14 @@
+/* The wedding hair planner: the date on the left, the steps as a ruled timeline on the right. Tokens only. */
+.hr-wd-in { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 40px clamp(32px, 6vw, 96px); align-items: start; }
+.hr-wd-form { display: grid; gap: 18px; padding: 28px; background: var(--surface); }
+.hr-wd-form h2 { margin: 0; }
+.hr-wd-late { margin: 0; color: var(--accent-2); }
+.hr-wd-go { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; }
+.hr-wd-steps { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--text); }
+.hr-wd-steps li { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 4px 20px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+.hr-wd-steps li[data-past] { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--line-2); }
+.hr-wd-when { grid-row: span 2; color: var(--muted); font-variant-numeric: tabular-nums; }
+.hr-wd-steps b { font-weight: 500; font-size: 18px; }
+.hr-wd-note { color: var(--muted); font-size: 14px; }
+.hr-wd-day b { font-family: var(--font-display); font-weight: 400; font-size: 32px; line-height: 1; }
+@media (max-width: 860px) { .hr-wd-in { grid-template-columns: minmax(0, 1fr); } .hr-wd-form { padding: 20px; } .hr-wd-steps li { grid-template-columns: minmax(0, 1fr); } .hr-wd-when { grid-row: auto; } }

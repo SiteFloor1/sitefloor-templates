@@ -1,0 +1,52 @@
+{#- The salon and the first appointment: the room, large; the appointment as a card in the salon's own words; one
+    "Request an appointment" that opens a quiet sheet (the wedding date, who's coming, when suits, the designers to
+    have ready), sent on WhatsApp. Without JavaScript the same link goes straight to WhatsApp. -#}
+{%- set sec = site.sections.appointment %}
+{%- set ap = site.appointment %}
+<section id="appointment" class="bd-salon" data-feature="appointment" aria-labelledby="ap-h"><div class="wrap bd-salon-in">
+  {%- if ap.room %}
+  <figure class="bd-salon-room"><img src="{{ ap.room.src | img }}" alt="{{ ap.room.alt }}" width="{{ ap.room.width }}" height="{{ ap.room.height }}" loading="lazy" decoding="async">{% if ap.room.caption %}<figcaption>{{ ap.room.caption }}</figcaption>{% endif %}</figure>
+  {%- endif %}
+  <div class="bd-salon-t">
+    <h2 id="ap-h" class="bd-salon-h">{{ sec.title | markup | safe }}</h2>
+    {%- if ap.intro %}<p class="bd-salon-i">{{ ap.intro }}</p>{% endif %}
+    <div class="bd-ticket">
+      <p class="bd-k">{{ sec.kicker or "Your first appointment" }}</p>
+      <dl class="bd-facts">
+        {%- for f in ap.facts %}<div><dt>{{ f.label }}</dt><dd>{{ f.value }}</dd></div>{% endfor %}
+      </dl>
+      {%- if ap.note %}<p class="bd-ticket-note">{{ ap.note }}</p>{% endif %}
+    </div>
+    <div class="bd-salon-act">
+      <p class="bd-salon-go"><a class="bd-go" data-ap-open href="{{ ap.message | book }}" target="_blank" rel="noopener">Request an appointment</a></p>
+      {%- if ap.detail %}<figure class="bd-salon-detail"><img src="{{ ap.detail.src | img }}" alt="{{ ap.detail.alt }}" width="{{ ap.detail.width }}" height="{{ ap.detail.height }}" loading="lazy" decoding="async">{% if ap.detail.caption %}<figcaption>{{ ap.detail.caption }}</figcaption>{% endif %}</figure>{% endif %}
+    </div>
+  </div>
+</div>
+<dialog class="bd-sheet" data-ap-sheet aria-labelledby="ap-sheet-h">
+  <form class="bd-req" data-ap-form method="dialog">
+    <div class="bd-sheet-top"><h2 id="ap-sheet-h" class="bd-sheet-h">Request an appointment</h2><button type="button" class="bd-quiet" data-ap-close>Close</button></div>
+    {%- set df = "ap" %}{% set dfLabel = "Your wedding" %}{% include "kits/bridal/partials/date-field.njk" %}
+    <label class="bd-field" for="ap-party"><span class="bd-k">Who's coming</span>
+      <select id="ap-party" data-ap-party>
+        <option value="1">Just me</option>
+        {%- for n in range(1, ap.maxGuests + 1) %}<option value="{{ n + 1 }}"{% if n == ap.maxGuests %} selected{% endif %}>Me and {{ n }}</option>{% endfor %}
+      </select>
+    </label>
+    {%- if ap.times and ap.times.length %}
+    <fieldset class="bd-chips-set"><legend class="bd-k">Best for you</legend><div class="bd-chips">
+      {%- for t in ap.times %}<label class="bd-chip"><input type="radio" name="ap-when" value="{{ t }}"{% if loop.first %} checked{% endif %}>{{ t }}</label>{% endfor %}
+    </div></fieldset>
+    {%- endif %}
+    {%- if site.designers %}
+    <fieldset class="bd-chips-set"><legend class="bd-k">Designers to have ready</legend><div class="bd-chips">
+      {%- for h in site.designers.items %}<label class="bd-chip"><input type="checkbox" name="ap-house" value="{{ h.id }}">{{ h.name }}</label>{% endfor %}
+    </div></fieldset>
+    {%- endif %}
+    <label class="bd-field" for="ap-notes"><span class="bd-k">Anything else</span><textarea id="ap-notes" rows="2" maxlength="300" data-ap-notes placeholder="A gown you've seen, a size, a question"></textarea></label>
+    <p class="bd-req-gowns" data-ap-gowns hidden></p>
+    <a class="bd-go" data-ap-send href="{{ ap.message | book }}" target="_blank" rel="noopener">Send the request</a>
+    <p class="bd-small">This sends your request on WhatsApp. We reply with the times we have.{% if ap.feeLink %} The appointment fee is taken when we confirm, by our <a href="{{ ap.feeLink }}" target="_blank" rel="noopener">secure payment link</a>.{% endif %}</p>
+  </form>
+</dialog>
+</section>

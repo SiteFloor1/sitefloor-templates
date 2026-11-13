@@ -1,0 +1,22 @@
+{#- Today's classes, along the foot of the hero: the next four classes from now (today's, then tomorrow's), each with
+    its time, its class and, when the studio's sheet says, the room's reformers (filled booked, open free). Rendered
+    at the build from the build date; the timetable's script redraws it from the visitor's own clock. -#}
+{%- set tt = site.timetable %}
+{%- set todays = site | todayClasses(build.today) %}
+<div class="pl-today" data-feature="timetable" data-tt="today" aria-label="Next classes">
+  <div class="pl-today-day"><strong class="pl-today-k" data-tt-label>Today</strong><span data-tt-date>{{ build.today | dayName }}</span><span class="pl-today-n">{{ tt.reformers }} reformers</span></div>
+  <ol class="pl-rail" data-tt-list>
+    {%- for c in todays %}{% if loop.index <= 4 %}
+    {%- set ct = site | classOf(c.class) %}
+    <li class="pl-slot" data-key="{{ c.key }}">
+      <a class="pl-slot-a" href="{{ site | bookText(ct.name, c.date, c.time) | book }}" target="_blank" rel="noopener">
+        <time class="pl-slot-t" datetime="{{ c.date }}T{{ c.time }}">{{ c.time | said }}</time>
+        <span class="pl-slot-c">{{ ct.name }}</span>
+        <span class="pl-six" data-tt-marks hidden></span>
+        <span class="pl-slot-l" data-tt-left>{{ ct.minutes }} min</span>
+      </a>
+    </li>
+    {%- endif %}{% endfor %}
+  </ol>
+  <p class="pl-today-under"><span data-tt-note>{% if site.mode == "demo" %}Demo timetable. {% endif %}{{ tt.note if tt.note else "" }}</span>{% if 'timetable' | enabled %}<a href="#timetable">The whole week</a>{% endif %}</p>
+</div>

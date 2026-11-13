@@ -1,0 +1,6 @@
+{#- Quail section opening: the name very large; its line beneath, set in from the left on the grid's fourth column.
+    `sec` = { kicker, title, intro }; the kicker is not shown. -#}
+<div class="ql-sh rv">
+  <h2 class="ql-sh-t">{{ sec.title | markup | safe }}</h2>
+  {%- if sec.intro %}<p class="ql-sh-i">{{ sec.intro }}</p>{% endif %}
+</div>

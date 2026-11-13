@@ -1,0 +1,326 @@
+{
+  "schemaVersion": 4,
+  "id": "test-jeweller-client",
+  "mode": "client",
+  "plan": "plus",
+  "kit": "jeweller",
+  "look": "nacre",
+  "url": "https://hartley-goldsmiths-test.co.uk",
+  "indexable": true,
+  "lang": "en-GB",
+  "business": {
+    "name": "Hartley Goldsmiths",
+    "schemaType": "JewelryStore",
+    "description": "Hartley Goldsmiths, a goldsmith in Bath making engagement rings and wedding bands, by appointment.",
+    "priceRange": "£££",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "447911234567",
+    "phone": "+44 7911 234567",
+    "email": "studio@hartley-goldsmiths-test.co.uk"
+  },
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "location": {
+    "streetAddress": "12 Margaret's Buildings",
+    "locality": "Bath",
+    "postcode": "BA1 2LP",
+    "country": "GB"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "sun": [],
+      "mon": [],
+      "tue": [
+        [
+          "10:00",
+          "17:30"
+        ]
+      ],
+      "wed": [
+        [
+          "10:00",
+          "17:30"
+        ]
+      ],
+      "thu": [
+        [
+          "10:00",
+          "17:30"
+        ]
+      ],
+      "fri": [
+        [
+          "10:00",
+          "17:30"
+        ]
+      ],
+      "sat": [
+        [
+          "10:00",
+          "16:00"
+        ]
+      ]
+    },
+    "exceptions": []
+  },
+  "nav": [
+    {
+      "label": "Pieces",
+      "page": "pieces",
+      "feature": "jewel-pages",
+      "fallback": "#engagement"
+    },
+    {
+      "label": "Bespoke",
+      "page": "bespoke",
+      "feature": "bespoke"
+    },
+    {
+      "label": "Ring size",
+      "page": "ring-size",
+      "feature": "ring-sizer"
+    },
+    {
+      "label": "Visit",
+      "page": "visit",
+      "feature": "plan-visit",
+      "fallback": "#visit"
+    }
+  ],
+  "features": [
+    "collections",
+    "piece-viewer",
+    "appointment-request",
+    "drop-a-hint",
+    "visit",
+    "questions",
+    "plan-visit",
+    "jewel-pages",
+    "bespoke",
+    "ring-sizer",
+    "your-tray",
+    "pay-link"
+  ],
+  "hero": {
+    "kicker": "Goldsmith, Bath",
+    "title": "Hartley Goldsmiths, rings made in Bath",
+    "intro": "Engagement rings and wedding bands, made on our bench.",
+    "piece": "ring-a",
+    "photo": {
+      "src": "img/hero.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "A ring on a bench"
+    },
+    "photoTall": {
+      "src": "img/hero-phone.webp",
+      "width": 780,
+      "height": 1040,
+      "alt": "A ring on a bench"
+    }
+  },
+  "sections": {
+    "collections": {
+      "title": "Collections",
+      "intro": ""
+    },
+    "appointment": {
+      "title": "By appointment",
+      "intro": "Tuesday to Saturday"
+    },
+    "questions": {
+      "title": "Questions",
+      "intro": ""
+    },
+    "visit": {
+      "title": "Margaret's Buildings",
+      "intro": ""
+    },
+    "payLinks": {
+      "title": "Deposits",
+      "intro": ""
+    }
+  },
+  "messages": {
+    "general": "Hello Hartley Goldsmiths, I have a question.",
+    "appointment": "Hello Hartley Goldsmiths, I'd like to request an appointment."
+  },
+  "pieces": {
+    "collections": [
+      {
+        "id": "engagement",
+        "name": "Engagement"
+      },
+      {
+        "id": "wedding",
+        "name": "Wedding bands"
+      }
+    ],
+    "items": [
+      {
+        "id": "ring-a",
+        "name": "The Bath Solitaire",
+        "collection": "engagement",
+        "photo": {
+          "src": "img/ring-a.webp",
+          "width": 1400,
+          "height": 1750,
+          "alt": "A solitaire ring"
+        },
+        "price": 4200,
+        "priceFrom": true,
+        "facts": {
+          "metal": "18ct yellow gold",
+          "stones": "Diamond",
+          "carat": "0.70 ct",
+          "hallmark": "Hallmarked at the Birmingham Assay Office",
+          "certificate": "GIA report supplied with the stone"
+        }
+      },
+      {
+        "id": "ring-b",
+        "name": "The Crescent",
+        "collection": "engagement",
+        "photo": {
+          "src": "img/ring-b.webp",
+          "width": 1400,
+          "height": 1750,
+          "alt": "A ring with a crescent of stones"
+        },
+        "onRequest": true
+      },
+      {
+        "id": "band-a",
+        "name": "Court Band",
+        "collection": "wedding",
+        "photo": {
+          "src": "img/band-a.webp",
+          "width": 1400,
+          "height": 1750,
+          "alt": "A plain court band"
+        },
+        "price": 650,
+        "band": true
+      }
+    ]
+  },
+  "piecesPage": {
+    "title": "The pieces",
+    "intro": "Every ring on our bench this season."
+  },
+  "appointments": {
+    "message": "Come to the workshop and try them on.",
+    "reasons": [
+      "An engagement ring",
+      "Wedding bands",
+      "Just to look"
+    ],
+    "when": [
+      "A weekday",
+      "A Saturday"
+    ]
+  },
+  "bespoke": {
+    "title": "Bespoke",
+    "intro": "Made for one person.",
+    "timing": "About eight weeks.",
+    "steps": [
+      {
+        "title": "Talk",
+        "text": "Bring ideas."
+      },
+      {
+        "title": "Make",
+        "text": "On our bench."
+      }
+    ],
+    "deposit": {
+      "text": "A deposit starts the drawing; it comes off the price.",
+      "pay": "bespoke-deposit"
+    },
+    "brief": {
+      "kinds": [
+        "A ring",
+        "Bands"
+      ],
+      "metals": [
+        "Gold",
+        "Platinum"
+      ],
+      "budgets": [
+        "Up to £3,000",
+        "Above £3,000"
+      ]
+    }
+  },
+  "ringSizer": {
+    "title": "Ring size",
+    "intro": "Find a size at home.",
+    "postal": "We post a sizer free.",
+    "message": "Hello Hartley Goldsmiths, could you post me a ring sizer?"
+  },
+  "payLinks": {
+    "note": "You pay on Stripe's own secure page.",
+    "items": [
+      {
+        "id": "bespoke-deposit",
+        "label": "A commission",
+        "amount": 300,
+        "kind": "deposit",
+        "url": "https://buy.stripe.com/test_hartleyDeposit01",
+        "for": "Starts the drawing."
+      }
+    ]
+  },
+  "questions": [
+    {
+      "topic": "Visiting",
+      "q": "Do I need an appointment?",
+      "a": "Yes, so we're at the bench to show you.",
+      "home": true
+    },
+    {
+      "topic": "Pieces",
+      "q": "Can you resize?",
+      "a": "Most rings, yes.",
+      "home": true
+    }
+  ],
+  "visitInfo": {
+    "kicker": "Plan your visit",
+    "title": "Margaret's Buildings",
+    "intro": "Five minutes from the Circus.",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "Bath Spa station",
+        "origin": "Bath Spa station",
+        "minutes": 18,
+        "steps": [
+          "Up Milsom Street",
+          "Left at the Circus"
+        ]
+      }
+    ],
+    "parking": [
+      {
+        "name": "Charlotte Street car park",
+        "walk": 6,
+        "price": "pay at the machine",
+        "paid": "always"
+      }
+    ],
+    "access": [
+      {
+        "label": "Step-free entrance",
+        "yes": false
+      }
+    ],
+    "payment": "Card or bank transfer.",
+    "checked": "2026-10"
+  }
+}

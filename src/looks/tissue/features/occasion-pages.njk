@@ -1,0 +1,18 @@
+{#- Tissue occasions: the same feed grid as the home page, one post per occasion with its starting price; sympathy and
+    funeral flowers as quiet text rows beneath. -#}
+{%- set OP = site.occasionPages %}
+{%- set ph = { title: OP.title, intro: OP.intro } %}
+{% include "looks/tissue/parts/page-head.njk" %}
+<section class="ts-grid-sec" aria-label="Occasions"><div class="wrap">
+  <ul class="ts-grid" role="list">
+    {%- for g in OP.pages %}
+    <li class="ts-post"><a href="{{ ('for-' + g.id) | href }}">
+      <span class="ts-ph"><img src="{{ g.photo.src | img }}" alt="{{ g.photo.alt }}" width="{{ g.photo.width }}" height="{{ g.photo.height }}"{% if loop.index > 3 %} loading="lazy"{% endif %} decoding="async"></span>
+      <span class="ts-cap"><b>{{ g.title }}</b><span>from {{ g.items | fromPrice | pounds }}</span></span>
+      <span class="ts-line">{{ g.line }}</span></a></li>
+    {%- endfor %}
+  </ul>
+  {%- if ("sympathy-order" | enabled) or ("funeral-flowers" | enabled) %}
+  <p class="ts-quiet">{% if "sympathy-order" | enabled %}<a href="{{ 'sympathy' | href }}">Sympathy flowers</a>{% endif %}{% if "funeral-flowers" | enabled %} <a href="{{ 'funeral' | href }}">Funeral flowers</a>{% endif %}</p>
+  {%- endif %}
+</div></section>

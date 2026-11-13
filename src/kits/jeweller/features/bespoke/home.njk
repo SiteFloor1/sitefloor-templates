@@ -1,0 +1,10 @@
+{#- Bespoke on the home page (when there are no commission stories to show): the bench, one line, the way in. -#}
+{%- set B = site.bespoke %}
+<section class="nc-sec jw-bench" data-feature="bespoke" aria-labelledby="jw-bench-h"><div class="wrap jw-bench-in">
+  {%- if B.photo %}<figure class="jw-bench-ph rv"><img src="{{ B.photo.src | img }}" width="{{ B.photo.width }}" height="{{ B.photo.height }}" loading="lazy" decoding="async" alt="{{ B.photo.alt }}"></figure>{% endif %}
+  <div class="jw-bench-t rv">
+    <h2 class="jw-h" id="jw-bench-h">{{ B.title }}</h2>
+    <p class="jw-say">{{ B.intro }}</p>
+    <a class="nc-u nc-label" href="{{ 'bespoke' | href }}">{{ B.timing }}</a>
+  </div>
+</div></section>

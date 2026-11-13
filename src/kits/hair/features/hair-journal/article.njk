@@ -1,0 +1,14 @@
+{#- One journal article (set by pages/article.njk as `ar`): the date, the title, its photograph, the body (paragraphs
+    and headings) and the sources for every general fact. -#}
+<article class="hr-ar"><div class="wrap hr-ar-in">
+  <header class="hr-ar-h">
+    <p class="hr-ph-k"><a href="{{ 'journal' | href }}">{{ site.journal.title }}</a> · <time datetime="{{ ar.date }}">{{ ar.date | ukDay }}</time></p>
+    <h1 class="hr-ph-t">{{ ar.title }}</h1>
+  </header>
+  <figure class="hr-ar-fig"><img src="{{ ar.photo.src | img }}" alt="{{ ar.photo.alt }}" width="{{ ar.photo.width }}" height="{{ ar.photo.height }}" fetchpriority="high" decoding="async"></figure>
+  <div class="hr-ar-body">
+    {%- for b in ar.body %}{% if b.heading %}<h2>{{ b.heading }}</h2>{% else %}<p>{{ b }}</p>{% endif %}{% endfor %}
+    {%- if ar.sources %}<p class="hr-small hr-ar-src">Sources: {% for s in ar.sources %}<a href="{{ s.url }}" rel="noopener">{{ s.name }}</a>{% if not loop.last %}; {% endif %}{% endfor %}.</p>{% endif %}
+    <p><a class="hr-go" href="{{ 'journal' | href }}">More from the journal</a></p>
+  </div>
+</div></article>

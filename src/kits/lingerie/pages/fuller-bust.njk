@@ -1,0 +1,14 @@
+---
+layout: core/layouts/base.njk
+pageId: fuller-bust
+permalink: fuller-bust.html
+feature: fuller-bust-page
+eleventyComputed:
+  title: "{{ site.guides['fuller-bust'].title | plain }}"
+  description: "{{ site.guides['fuller-bust'].description }}"
+---
+{%- set g = site.guides["fuller-bust"] %}
+{% include "kits/lingerie/partials/page-head.njk" %}
+
+{% include "kits/lingerie/partials/guide.njk" %}
+{% if "fit-finder" | enabled %}{% include "kits/lingerie/features/fit-finder/fit-finder.njk" %}{% endif %}

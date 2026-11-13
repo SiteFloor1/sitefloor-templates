@@ -1,0 +1,43 @@
+{#- A piece's own page: its story. The photograph large on the left; on the right the collection, the name, the spec
+    line and price as the client sets them, the story, the facts and what can be done. Then, as the plan allows: the
+    piece in detail, on a hand, by daylight and candlelight, in each metal, paired, engraved; the box; more of the
+    collection. Each part appears only when the client has given what it shows. -#}
+{%- set P = site.pieces %}
+{%- set c = P | collectionById(p.collection) %}
+<article class="jw-pp" data-piece-page="{{ p.id }}">
+  <div class="wrap jw-pp-top">
+    <div class="jw-pp-phs">
+      <figure class="jw-pp-ph"><img src="{{ p.photo.src | img }}" width="{{ p.photo.width }}" height="{{ p.photo.height }}" fetchpriority="high" alt="{{ p.photo.alt }}"></figure>
+      {%- if p.worn %}<figure class="jw-pp-ph jw-pp-worn"><img src="{{ p.worn.src | img }}" width="{{ p.worn.width }}" height="{{ p.worn.height }}" loading="lazy" decoding="async" alt="{{ p.worn.alt }}">{% if site.pieces.demoData %}<figcaption class="nc-fine">Worn: a stock photograph of a similar piece.</figcaption>{% endif %}</figure>{% endif %}
+    </div>
+    <div class="jw-pp-t">
+      <p class="nc-label nc-muted"><a href="{{ 'pieces' | href }}#{{ c.id }}">{{ c.name }}</a></p>
+      <h1 class="jw-name-xl">{{ p.name }}</h1>
+      {%- set sl = p | specLine %}{% if sl %}<p class="jw-spec">{{ sl }}</p>{% endif %}
+      {%- set pl = p | priceLabel %}{% if pl %}<p class="nc-label">{{ pl }}</p>{% endif %}
+      {%- if p.story %}<div class="jw-tale">{% for para in p.story | paragraphs %}<p>{{ para }}</p>{% endfor %}</div>{% elif p.line %}<p class="jw-tale">{{ p.line }}</p>{% endif %}
+      {%- set facts = p | factLines %}
+      {%- if facts.length %}<dl class="jw-facts">{% for f in facts %}<div><dt>{{ f[0] }}</dt><dd>{{ f[1] }}</dd></div>{% endfor %}</dl>{% endif %}
+      {% include "kits/jeweller/partials/actions.njk" %}
+      {%- if ("ring-sizer" | enabled) and (p.band or p.hand or (p.facts and p.facts.size)) %}<p class="jw-acts"><a class="nc-u nc-label" href="{{ 'ring-size' | href }}"{{ "ring-sizer" | tierAttr | safe }}>Find your ring size</a></p>{% endif %}
+      {%- if P.demoData %}<p class="nc-fine">Demo specs and price for a fictional house; a stock photograph of another maker's piece.</p>{% endif %}
+    </div>
+  </div>
+  {%- if ("the-piece" | enabled) and p.photos and p.photos.length %}{% include "kits/jeweller/features/the-piece/the-piece.njk" %}{% endif %}
+  {%- if ("on-a-hand" | enabled) and p.hand %}{% include "kits/jeweller/features/on-a-hand/on-a-hand.njk" %}{% endif %}
+  {%- if ("pair-it" | enabled) and p.pairs and p.pairs.length %}{% set ring = p %}{% include "kits/jeweller/features/pair-it/pair-it.njk" %}{% endif %}
+  {%- if ("inside-the-band" | enabled) and (p.band or p.engrave) %}{% set bandPiece = p %}{% include "kits/jeweller/features/inside-the-band/inside-the-band.njk" %}{% endif %}
+  {%- if "in-the-box" | enabled %}
+  <section class="nc-sec jw-pp-box"{{ "in-the-box" | tierAttr | safe }}><div class="wrap jw-pp-box-in">
+    <img src="{{ site.box.photo.src | img }}" width="{{ site.box.photo.width }}" height="{{ site.box.photo.height }}" loading="lazy" decoding="async" alt="{{ site.box.photo.alt }}">
+    <p class="nc-body"><span class="nc-label nc-muted">{{ site.sections.box.title }}</span><br>{{ site.box.line }}</p>
+  </div></section>
+  {%- endif %}
+  {%- set more = (P.items | inCollection(p.collection)) | rejectattr("id", "equalto", p.id) %}
+  {%- if more.length %}
+  <section class="nc-sec jw-more" aria-labelledby="jw-more-h"><div class="wrap">
+    {%- set sec = { title: "More " + (c.name | lower), intro: "", id: "jw-more-h" } %}{% include "core/partials/section-head.njk" %}
+    <div class="jw-cat jw-cat-3">{% for p in more | batch(3) | first %}{% set cardSize = "" %}{% include "kits/jeweller/partials/card.njk" %}{% endfor %}</div>
+  </div></section>
+  {%- endif %}
+</article>

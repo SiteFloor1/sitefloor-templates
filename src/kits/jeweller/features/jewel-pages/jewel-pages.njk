@@ -1,0 +1,26 @@
+{#- The pieces page: every collection under a quiet heading, its pieces three to a row; with the vitrine (Signature), a
+    cabinet of drawers instead (a demo keeps the grids for its plan switcher). -#}
+{%- set P = site.pieces %}
+{%- set ph = { title: site.piecesPage.title, intro: site.piecesPage.intro } %}
+{% include "kits/jeweller/partials/page-head.njk" %}
+{%- set vit = "vitrine" | enabled %}
+{%- if vit %}{% include "kits/jeweller/features/vitrine/vitrine.njk" %}{% endif %}
+{%- if not vit or site.mode == "demo" %}
+<div class="jw-cat-all">
+<nav class="wrap jw-index" aria-label="Collections">
+  {%- for c in P.collections %}<a class="nc-label" href="#{{ c.id }}">{{ c.name }} <span class="nc-muted">{{ (P.items | inCollection(c.id)).length }}</span></a>{% endfor %}
+</nav>
+{%- for c in P.collections %}
+{%- set items = P.items | inCollection(c.id) %}
+{%- set sec = { title: c.name, intro: "", id: "pc-" + c.id } %}
+<section class="nc-sec jw-cat-s" id="{{ c.id }}" aria-labelledby="pc-{{ c.id }}"><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  {%- if c.line %}<p class="jw-line rv">{{ c.line }} <a class="nc-u nc-label" href="{{ ('collection-' + c.id) | href }}">The collection</a></p>{% endif %}
+  <div class="jw-cat jw-cat-3">
+    {%- for p in items %}{% set cardSize = "" %}{% include "kits/jeweller/partials/card.njk" %}{% endfor %}
+  </div>
+</div></section>
+{%- endfor %}
+</div>
+{%- endif %}
+{%- if P.demoData %}<p class="wrap nc-fine jw-demo">Demo specs and prices for a fictional house; stock photographs of other makers' pieces. On a client's site, its own pieces and its own facts.</p>{% endif %}

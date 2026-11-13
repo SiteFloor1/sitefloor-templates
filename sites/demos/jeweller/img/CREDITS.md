@@ -1,0 +1,56 @@
+# Photo credits (Aldous Marr demo)
+
+All free licence (Unsplash licence unless marked Pexels licence), cropped and given one grade (sitefloor-internal/docs/design/aldous-marr.md).
+
+- hero.webp — Alfred Kenneally — https://unsplash.com/photos/cgNxpfoJSJU
+- hero-phone.webp — Alfred Kenneally — https://unsplash.com/photos/cgNxpfoJSJU
+- solitaire.webp — Alfred Kenneally — https://unsplash.com/photos/cgNxpfoJSJU
+- oval-halo.webp — Jenna Day — https://unsplash.com/photos/B-JtfqdHemU
+- pearl-studs.webp — Carmen Alarcón — https://unsplash.com/photos/xUDN8tHnUeg
+- starburst.webp — Sabrianna — https://unsplash.com/photos/CCpQ12CZ2Pc
+- emerald-cut.webp — Sabrianna — https://unsplash.com/photos/NhrcL_C0sFA
+- bands.webp — Alexis Antoine — https://unsplash.com/photos/r7JZGKGhrf0
+- pendant.webp — Sabrianna — https://unsplash.com/photos/u1Hv_erOQH0
+- pearl-strand.webp — Paige Johnson — https://unsplash.com/photos/QMBar9xvhMU
+- sapphire.webp — Sabrianna — https://unsplash.com/photos/mmCm6c2ru5A
+- tennis.webp — Sabrianna — https://unsplash.com/photos/2z7MxnXQs3k
+- loose-stones.webp — Jacek Dylag — https://unsplash.com/photos/agsdDgRW2Ps
+- vintage.webp — Gary Yost — https://unsplash.com/photos/Pxexdj3Q09g
+- box.webp — C. ISO (Pexels licence) — https://www.pexels.com/photo/15950900/
+- hand-1.webp — PRAHANT STUDIO — https://unsplash.com/photos/i017-NAW_xM
+- hand-2.webp — Sama Hosseini — https://unsplash.com/photos/02JOGVZ5gKg
+- hand-3.webp — Melody Zimmerman — https://unsplash.com/photos/hQoPy-YNfdI
+- bench.webp — Mazin Omron — https://unsplash.com/photos/w8kQvsdBaPw
+- wax.webp — Mazin Omron — https://unsplash.com/photos/RQRGW-lSLWk
+- sketch.webp — The New York Public Library — https://unsplash.com/photos/wxaScU0K5qY
+- solitaire-detail-1.webp — crop of hero.webp (Alfred Kenneally, above)
+- stone-oval.webp — crop of oval-halo.webp (Jenna Day, above)
+- stone-emerald.webp — crop of emerald-cut.webp (Sabrianna, above)
+- stone-cushion.webp — crop of pendant.webp (Sabrianna, above)
+- band-stones.webp — crop of loose-stones.webp (Jacek Dylag, above)
+- c/ — 900×1125 card copies of the photos above, same credits
+- room.webp — Katie Puzatova — https://unsplash.com/photos/F9WkNB0v0R8
+- court-band.webp — Imam Kurniawan — https://unsplash.com/photos/gRTSb2JVVZ4
+- band-inside.webp — crop of court-band.webp (Imam Kurniawan, above)
+- door-engagement.webp — crop of hand-1.webp (above)
+- door-wedding.webp — crop of hand-3.webp (above)
+- door-anniversary.webp — crop of worn-wrist.webp (credited below)
+- door-pearls.webp — crop of worn-pearls.webp (credited below)
+- worn-neck.webp — Amanda Hortiz — https://unsplash.com/photos/QafMBhBRYOY
+- worn-pearls.webp — elisadventure photographe — https://unsplash.com/photos/xoaL2dF-6VU
+- worn-ear.webp — Michiru Mori — https://unsplash.com/photos/yKoVKUDUET0
+- worn-wrist.webp — Oscar Ramirez — https://unsplash.com/photos/SAfrvrXLuY8
+- worn-hand.webp — PRAHANT STUDIO — https://unsplash.com/photos/-giwKqGwYC0
+- oval-halo-detail.webp, emerald-cut-detail.webp, sapphire-detail.webp, starburst-detail.webp, pendant-detail.webp — close crops of the photos of the same names (credits above)
+- occ-anniversary.webp — Samantha Gades — https://unsplash.com/photos/N1CZNuM_Fd8
+- occ-valentines.webp — Liz Fitch — https://unsplash.com/photos/lIHuN0IgE_k
+- occ-birthday.webp — Cristian Tejeda — https://unsplash.com/photos/0uy_ChDX--Y
+- occ-christmas.webp — Micah & Sammie Chaffin — https://unsplash.com/photos/a7u7z1Hwo7I
+- occ-mothers-day.webp — Hermes Rivera — https://unsplash.com/photos/ObJTi4eABTc
+- bridal-party.webp — Photos by Lanty — https://unsplash.com/photos/I16iuqe-9wc
+- occ-anniversary-p.webp — crop of occ-anniversary.webp (Samantha Gades, above)
+- occ-valentines-p.webp — crop of occ-valentines.webp (Liz Fitch, above)
+- occ-birthday-p.webp — crop of occ-birthday.webp (Cristian Tejeda, above)
+- occ-christmas-p.webp — crop of occ-christmas.webp (Micah & Sammie Chaffin, above)
+- occ-mothers-day-p.webp — crop of occ-mothers-day.webp (Hermes Rivera, above)
+- bridal-party-p.webp — crop of bridal-party.webp (Photos by Lanty, above)

@@ -1,0 +1,18 @@
+{#- The house, room by room: one large photograph and the list of rooms beside it; choosing a room brings its photograph
+    and line. Without scripts every room shows, stacked. -#}
+{%- set ho = site.house %}
+{%- set ph = { title: ho.title, intro: ho.intro } %}
+{% include "kits/law/partials/page-head.njk" %}
+<div class="wrap lw-ht" data-feature="house-tour">
+  <div class="lw-ht-stage" data-js-only>
+    {%- for r in ho.rooms %}
+    <figure class="lw-ht-fig{% if loop.first %} is-on{% endif %}" data-ht-fig="{{ r.id }}"><img src="{{ r.photo.src | img }}" alt="{{ r.photo.alt }}" width="{{ r.photo.width }}" height="{{ r.photo.height }}"{% if not loop.first %} loading="lazy"{% endif %} decoding="async"{% if r.photo.position %} style="object-position:{{ r.photo.position }}"{% endif %}></figure>
+    {%- endfor %}
+  </div>
+  <div class="lw-ht-rooms" role="tablist" aria-label="Rooms" data-js-only>
+    {%- for r in ho.rooms %}<button type="button" role="tab" aria-selected="{{ 'true' if loop.first else 'false' }}" data-ht="{{ r.id }}"><span class="lw-ht-n">{{ r.name }}</span><span class="lw-ht-l">{{ r.line }}</span></button>{% endfor %}
+  </div>
+  <ul class="lw-ht-plain" data-no-js>
+    {%- for r in ho.rooms %}<li><img src="{{ r.photo.src | img }}" alt="{{ r.photo.alt }}" width="{{ r.photo.width }}" height="{{ r.photo.height }}" loading="lazy"><p><b>{{ r.name }}</b> {{ r.line }}</p></li>{% endfor %}
+  </ul>
+</div>

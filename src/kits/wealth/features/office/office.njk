@@ -1,0 +1,22 @@
+{#- Our office: the deep band. The address, the time there now and whether it is open, plain facts (hours, getting
+    here, the rooms, that we come to you) and the front door. More offices follow as rows, each with its time now. -#}
+{%- set first = site.offices.items[0] %}
+{%- set l = site.location %}
+<section id="office" class="wm-office" data-feature="office"><div class="wrap wm-office-in">
+  <div class="wm-office-t">
+    <h2>{{ site.sections.office.title }}</h2>
+    <p class="wm-office-addr">{{ l.streetAddress }}<br>{{ l.locality }} {{ l.postcode }}</p>
+    <p class="wm-office-clock" data-js-only><b data-office-time="0">00:00</b><span data-office-state="0" data-office-name="{{ first.name }}">in {{ first.name }} now</span></p>
+    <table class="wm-office-hrs" data-no-js><caption class="sr-only">Opening hours</caption><tbody>{% for row in site.hours | hoursRows %}<tr><th scope="row">{{ row.day }}</th><td>{{ row.label }}</td></tr>{% endfor %}</tbody></table>
+    <dl class="wm-office-facts">{% for f in first.facts %}<dt>{{ f.label }}</dt><dd>{{ f.text }}</dd>{% endfor %}</dl>
+    {%- if site.offices.items | length > 1 %}
+    <ul class="wm-office-more">
+      {%- for o in site.offices.items %}{% if not loop.first %}
+      <li><b>{{ o.name }}</b><span>{{ o.streetAddress }}, {{ o.locality }}</span><span class="wm-office-t2" data-js-only><span data-office-time="{{ loop.index0 }}">00:00</span> <span data-office-state="{{ loop.index0 }}"></span></span></li>
+      {%- endif %}{% endfor %}
+    </ul>
+    {%- endif %}
+    <p class="wm-office-go"><a href="{{ l | directions }}" target="_blank" rel="noopener">Directions</a>{% if "offices-page" | enabled %} <a href="{{ 'offices' | href }}"{{ 'offices-page' | tierAttr | safe }}>Visiting us</a>{% endif %}</p>
+  </div>
+  {%- if first.photo %}<figure class="wm-office-fig"><img src="{{ first.photo.src | img }}" alt="{{ first.photo.alt }}" width="{{ first.photo.width }}" height="{{ first.photo.height }}" loading="lazy" decoding="async"></figure>{% endif %}
+</div></section>

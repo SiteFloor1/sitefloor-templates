@@ -1,0 +1,10 @@
+{#- Blue hour's warm band: one of the client's interior photographs, full width, still (no parallax: motion is never
+    tied to the scroll here), the caption small at its foot. Breaks the run of blue between sections. -#}
+{%- set p = site.photoBand %}
+<section class="shot bh-band"{{ "photo-band" | tierAttr | safe }} aria-label="{{ p.kicker }}">
+  <picture>
+    {%- if p.srcMobile %}<source media="(max-width:700px)" srcset="{{ p.srcMobile | img }}">{% endif %}
+    <img src="{{ p.src | img }}" alt="{{ p.alt }}" loading="lazy" decoding="async" width="{{ p.width }}" height="{{ p.height }}">
+  </picture>
+  <p class="wrap bh-band-cap"><span>{{ p.kicker }}</span> {{ p.caption }}</p>
+</section>

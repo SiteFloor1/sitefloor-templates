@@ -1,0 +1,31 @@
+/* Your car, in the bay: the code field on a single line, the stages as a rail of strip lights, then today's photograph
+   wide with the studio's note beside it in the display face. Heights are fixed before the car loads. */
+.dt-cp-top { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: 20px 48px; align-items: end; margin-bottom: clamp(32px, 4vw, 48px); }
+.dt-cp-code { display: flex; align-items: center; border-bottom: 1px solid var(--line-2); }
+.dt-cp-code input { flex: 1; min-width: 0; min-height: 48px; padding: 10px 0; border: 0; background: transparent; color: var(--text); font: 400 20px/1 var(--font-display); letter-spacing: .04em; text-transform: uppercase; }
+.dt-cp-code input::placeholder { color: var(--muted); text-transform: none; letter-spacing: 0; }
+.dt-cp-code button { min-height: 44px; padding: 0 0 0 16px; border: 0; background: none; color: var(--accent); font: 500 14px var(--font-body); cursor: pointer; }
+.dt-rail { list-style: none; margin: 0 0 clamp(32px, 4vw, 48px); padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 22px 20px; }
+.dt-st { display: grid; gap: 14px; align-content: start; min-width: 0; }
+.dt-st .tube { width: 100%; }
+.dt-st b { font-family: var(--font-display); font-weight: 400; font-size: 20px; letter-spacing: -.01em; color: var(--muted); }
+.dt-st-w { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.dt-st.is-done b { color: var(--text); }
+.dt-st.is-now b { color: var(--tube, var(--text)); }
+.dt-st.is-now .dt-st-w { color: var(--accent); }
+.dt-cp-today { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 3fr); gap: 24px clamp(24px, 4vw, 64px); }
+.dt-cp-ph { margin: 0; }
+.dt-cp-ph img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; background: var(--bg); }
+.dt-cp-ph figcaption { margin-top: 12px; font-size: 12px; color: var(--muted); }
+.dt-cp-note { display: grid; align-content: start; gap: 18px; min-height: 14em; }
+.dt-cp-q { margin: 0; font-family: var(--font-display); font-weight: 300; font-size: clamp(20px, 1.8vw, 26px); line-height: 1.25; letter-spacing: -.01em; }
+.dt-cp-when { margin: 0; font-size: 12px; color: var(--muted); }
+.dt-cp-facts { margin: 0; display: grid; gap: 14px; }
+.dt-cp-facts dt { font-size: 12px; color: var(--muted); }
+.dt-cp-facts dd { margin: 0; }
+@media (max-width: 860px) {
+  .dt-cp-top, .dt-cp-today { grid-template-columns: 1fr; }
+  .dt-rail { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dt-cp-ph img { aspect-ratio: 4 / 3; }
+  .dt-cp-note { min-height: 0; }
+}

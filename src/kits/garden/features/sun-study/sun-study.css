@@ -1,0 +1,89 @@
+/* Where the sun falls: the drawing large on the left, the answer and the settings beside it. Hours of sun run from the
+   page's ground to the look's warm sun tone (--sun-warm); shadows are the ink, thinned. */
+.gd-ss { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 32px clamp(32px, 5vw, 80px); align-items: start; }
+.gd-ss-pic { position: sticky; top: calc(var(--nav-h, 72px) + 16px); }
+.gd-ss-views { display: flex; gap: 24px; margin-bottom: 8px; }
+.gd-ss-svg { display: block; width: 100%; height: auto; max-height: 72vh; aspect-ratio: 4 / 5; cursor: crosshair; touch-action: manipulation; }
+.gd-ss-h0 { fill: var(--surface-2); }
+.gd-ss-h1 { fill: color-mix(in srgb, var(--sun-warm, var(--accent)) 12%, var(--surface)); }
+.gd-ss-h2 { fill: color-mix(in srgb, var(--sun-warm, var(--accent)) 26%, var(--surface)); }
+.gd-ss-h3 { fill: color-mix(in srgb, var(--sun-warm, var(--accent)) 40%, var(--surface)); }
+.gd-ss-h4 { fill: color-mix(in srgb, var(--sun-warm, var(--accent)) 56%, var(--surface)); }
+.gd-ss-h5 { fill: color-mix(in srgb, var(--sun-warm, var(--accent)) 74%, var(--surface)); }
+.gd-ss-h6 { fill: var(--sun-warm, var(--accent)); }
+.gd-ss-cells polygon { stroke: var(--bg); stroke-width: .04; }
+.gd-ss-shade { fill: var(--text); fill-opacity: .3; }
+.gd-ss-fence { fill: none; stroke: var(--text); stroke-width: .18; stroke-linejoin: round; }
+.gd-ss-fence3 { fill: var(--text); fill-opacity: .16; stroke: var(--text); stroke-width: .06; }
+.gd-ss-house { fill: var(--surface); stroke: var(--text); stroke-width: .08; }
+.gd-ss-house-side, .gd-ss-house-top { fill: var(--surface); fill-opacity: .55; stroke: var(--text); stroke-width: .06; }
+.gd-ss-house-edge { fill: none; stroke: var(--text); stroke-width: .06; stroke-dasharray: .3 .2; }
+.gd-ss-label { font-size: 1.1px; fill: var(--muted); font-family: var(--font-body); }
+.gd-ss-north line { stroke: var(--text); stroke-width: .1; }
+.gd-ss-north text { font-size: .9px; fill: var(--text); font-family: var(--font-body); }
+.gd-ss-spot { fill: var(--bg); stroke: var(--text); stroke-width: .16; }
+.gd-ss-key { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; color: var(--muted); }
+.gd-ss-key li { display: flex; align-items: center; gap: 6px; }
+.gd-ss-sw { display: inline-block; width: 14px; height: 14px; }
+.gd-ss-sw.gd-ss-h0 { background: var(--surface-2); }
+.gd-ss-sw.gd-ss-h1 { background: color-mix(in srgb, var(--sun-warm, var(--accent)) 12%, var(--surface)); }
+.gd-ss-sw.gd-ss-h2 { background: color-mix(in srgb, var(--sun-warm, var(--accent)) 26%, var(--surface)); }
+.gd-ss-sw.gd-ss-h3 { background: color-mix(in srgb, var(--sun-warm, var(--accent)) 40%, var(--surface)); }
+.gd-ss-sw.gd-ss-h4 { background: color-mix(in srgb, var(--sun-warm, var(--accent)) 56%, var(--surface)); }
+.gd-ss-sw.gd-ss-h5 { background: color-mix(in srgb, var(--sun-warm, var(--accent)) 74%, var(--surface)); }
+.gd-ss-sw.gd-ss-h6 { background: var(--sun-warm, var(--accent)); }
+.gd-ss-key-u { font-style: italic; }
+.gd-ss-day { margin: 0; font-family: var(--font-display); font-size: clamp(24px, 2.2vw, 30px); line-height: 1.25; }
+.gd-ss-moment { margin: 12px 0 0; color: var(--muted); min-height: 1.6em; }
+.gd-ss-form { display: grid; gap: 22px; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--text); }
+.gd-ss-fs { border: 0; margin: 0; padding: 0; min-width: 0; }
+.gd-ss-dial { position: relative; width: 210px; height: 210px; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--line-2); }
+.gd-ss-pt { position: absolute; width: 44px; height: 44px; margin: -22px 0 0 -22px; display: grid; place-items: center; cursor: pointer; font-size: 14px; }
+.gd-ss-pt input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.gd-ss-pt span:first-of-type { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; color: var(--muted); }
+.gd-ss-pt input:checked + span { background: var(--text); color: var(--bg); }
+.gd-ss-pt input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+.gd-ss-pt-n { left: 50%; top: 13%; } .gd-ss-pt-ne { left: 81%; top: 25%; } .gd-ss-pt-e { left: 87%; top: 50%; } .gd-ss-pt-se { left: 81%; top: 75%; }
+.gd-ss-pt-s { left: 50%; top: 87%; } .gd-ss-pt-sw { left: 19%; top: 75%; } .gd-ss-pt-w { left: 13%; top: 50%; } .gd-ss-pt-nw { left: 19%; top: 25%; }
+.gd-ss-dial-c { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; font-size: 12px; font-style: italic; color: var(--muted); pointer-events: none; }
+.gd-ss-months { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); border-top: 1px solid var(--line-2); }
+.gd-ss-mo { position: relative; display: grid; place-items: start center; min-height: 44px; padding-top: 10px; color: var(--muted); cursor: pointer; }
+.gd-ss-mo input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+.gd-ss-mo:has(input:checked) { color: var(--text); font-style: italic; box-shadow: inset 0 3px 0 var(--accent); }
+.gd-ss-mo:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: -2px; }
+.gd-ss-range { display: grid; gap: 4px; }
+.gd-ss-range output { color: var(--text); font-style: italic; margin-left: 6px; }
+.gd-ss-range input[type=range] { width: 100%; accent-color: var(--text); min-height: 32px; }
+.gd-ss-two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.gd-ss-two .gd-select { width: 100%; }
+.gd-ss-spot { margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--line); }
+.gd-ss-spot-h { margin: 0; font-size: 19px; }
+.gd-ss-plants { list-style: none; margin: 10px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 18px; font-style: italic; color: var(--muted); }
+.gd-ss-tap { margin: 20px 0 0; color: var(--muted); font-style: italic; }
+.gd-ss-go { margin: 28px 0 0; }
+.gd-ss-note { grid-column: 1 / -1; max-width: 80ch; }
+@media (max-width: 900px) {
+  .gd-ss { grid-template-columns: 1fr; }
+  .gd-ss-pic { position: static; }
+  .gd-ss-svg { max-height: 60vh; }
+}
+/* a choice row keeps its place until the script starts, then shows (same rule as gardens.css, for sites without it) */
+[data-wait] { visibility: hidden; }
+
+/* On the home page: the drawing and its answer side by side, the choices under the answer. */
+.gd-sh-in { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: 32px clamp(32px, 5vw, 80px); align-items: center; }
+.gd-sh-svg { display: block; width: 100%; height: auto; max-height: 76vh; aspect-ratio: 4 / 5; }
+.gd-sh-side { display: grid; gap: 16px; align-content: center; }
+.gd-sh-pick { display: grid; gap: 0; }
+.gd-sh-pick .gd-pick-row { gap: 0 16px; margin: 0; }
+.gd-sh-pick[data-wait] { visibility: hidden; }
+/* Phones: the heading, then the drawing with its choices right under it, then the answer, so a tap and its result
+   are on screen together. */
+@media (max-width: 760px) {
+  .gd-sh-in { display: flex; flex-direction: column; gap: 12px; align-items: stretch; }
+  .gd-sh-side { display: contents; }
+  .gd-sh-side > * { order: 3; }
+  .gd-sh-side > :first-child { order: 0; }
+  .gd-sh-svg { order: 1; max-height: 46vh; }
+  .gd-sh-pick { order: 2; }
+}

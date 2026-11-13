@@ -1,0 +1,9 @@
+/* Collection and delivery: the postcode and day on the left, the answer on the right under a lit line. */
+.dt-cl-in { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: clamp(28px, 5vw, 96px); align-items: start; }
+.dt-cl-f { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px 24px; align-items: end; margin-top: 8px; }
+.dt-cl-f .go { grid-column: 1 / -1; justify-self: start; }
+.dt-cl-out { display: grid; gap: 16px; justify-items: start; }
+.dt-cl-out .tube { width: 100%; }
+.dt-cl-a { margin: 8px 0 0; font-family: var(--font-display); font-weight: 300; font-size: clamp(24px, 2.6vw, 36px); line-height: 1.15; letter-spacing: -.02em; max-width: 24ch; }
+@media (max-width: 860px) { .dt-cl-in { grid-template-columns: 1fr; } }
+@media (max-width: 420px) { .dt-cl-f { grid-template-columns: 1fr; } }

@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: every-week
+permalink: every-week.html
+feature: every-week
+eleventyComputed:
+  title: "{{ site.everyWeek.title | plain }}"
+  description: "Flowers every week or fortnight from {{ site.business.name }}, {{ site.location.locality }}: sizes, prices and how pausing works."
+---
+{% include "kits/florist/features/every-week/every-week.njk" %}

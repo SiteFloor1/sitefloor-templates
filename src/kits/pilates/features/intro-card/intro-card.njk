@@ -1,0 +1,17 @@
+{#- The intro offer as a class card: its holes, one punched at the desk per class; bought with the studio's own
+    Stripe Payment Link. The card's title is the section's. -#}
+{%- set sec = site.sections.introCard %}
+{%- set ic = site.introCard %}
+<section id="intro" class="pl-intro" data-feature="intro-card" aria-labelledby="pl-intro-h"{{ 'intro-card' | tierAttr | safe }}><div class="wrap pl-intro-in">
+  <div class="pl-card rv">
+    <h2 class="pl-card-h" id="pl-intro-h">{{ sec.title | markup | safe }}</h2>
+    <p class="pl-card-x">{{ ic.text }}</p>
+    <div class="pl-holes" role="img" aria-label="A card for {{ ic.classes }} {{ 'class' if ic.classes == 1 else 'classes' }}, none used yet">{% for i in range(0, ic.classes) %}<span></span>{% endfor %}</div>
+    <div class="pl-card-row">
+      <span>{% if ic.price %}{{ ic.price | gbpWhole }}{% if ic.days %} · {{ ic.days }} days{% endif %}{% elif site.mode == "demo" %}Demo: the studio sets the price{% elif ic.days %}Use within {{ ic.days }} days{% endif %}</span>
+      <a class="pl-card-go" href="{{ ic.payLink }}" target="_blank" rel="noopener"{% if site.mode == "demo" %} data-demo-note="On a live site this opens the studio's own Stripe page to pay for the card. This demo's link is a Stripe test link, so nothing is charged."{% endif %}>Buy the card</a>
+    </div>
+    {%- if ic.note %}<p class="pl-card-n">{{ ic.note }}</p>{% endif %}
+  </div>
+  {%- if ic.photo %}<figure class="pl-intro-ph rv"><img src="{{ ic.photo.src | img }}" alt="{{ ic.photo.alt }}" width="{{ ic.photo.width }}" height="{{ ic.photo.height }}" loading="lazy" decoding="async"></figure>{% endif %}
+</div></section>

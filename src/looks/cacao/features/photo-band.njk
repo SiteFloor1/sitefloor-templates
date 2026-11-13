@@ -1,0 +1,9 @@
+{#- Cacao photo band: one photograph across the full width, its line set small in the corner. -#}
+{%- set p = site.photoBand %}
+<section class="cc-band" data-feature="photo-band"{{ "photo-band" | tierAttr | safe }} aria-label="{{ p.kicker }}">
+  <picture>
+    {%- if p.srcMobile %}<source media="(max-width:700px)" srcset="{{ p.srcMobile | img }}">{% endif %}
+    <img src="{{ p.src | img }}" alt="{{ p.alt }}" loading="lazy" decoding="async" width="{{ p.width }}" height="{{ p.height }}">
+  </picture>
+  <p class="cc-band-cap wrap"><b>{{ p.kicker }}</b> {{ p.caption }}</p>
+</section>

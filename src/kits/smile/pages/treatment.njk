@@ -1,0 +1,14 @@
+---
+layout: core/layouts/base.njk
+feature: smile-treatment-pages
+pagination:
+  data: site.treatments.items
+  size: 1
+  alias: t
+permalink: "{{ t.id }}.html"
+eleventyComputed:
+  pageId: "{{ t.id }}"
+  title: "{{ t.name }}"
+  description: "{{ t.name }} at {{ site.business.name }}: {{ t.line }}"
+---
+{% include "kits/smile/features/smile-treatment-pages/smile-treatment-pages.njk" %}

@@ -1,0 +1,24 @@
+{#- Choose by the slice: the studio's flavours as a list beside a photograph of their cut slices stacked up. Picking
+    one outlines its layer in the photo (when the studio has marked where it sits) and says what's in it. -#}
+{%- set sec = site.sections.flavours %}
+{%- set fl = site.flavours %}
+{%- set first = fl.items[0] %}
+<section id="flavours" class="ck-slice" data-feature="flavours" aria-label="{{ sec.title | plain }}"{{ 'flavours' | tierAttr | safe }}><div class="wrap ck-slice-in">
+  <div class="ck-slice-txt">
+    <h2 class="ck-slice-h">{{ sec.title | markup | safe }}</h2>
+    {%- if sec.intro %}<p class="ck-slice-i">{{ sec.intro }}</p>{% endif %}
+    <ul class="ck-slice-l" data-fl-list>
+      {%- for f in fl.items %}
+      <li{% if loop.first %} class="on"{% endif %}><button type="button" data-fl="{{ f.id }}" aria-pressed="{{ 'true' if loop.first else 'false' }}"><span>{{ f.name }}</span><span class="ck-slice-s">{{ f.months | seasonWords }}</span></button></li>
+      {%- endfor %}
+    </ul>
+    <p class="ck-slice-now" aria-live="polite" data-fl-now><b>{{ first.name }}.</b> {{ first.what }}</p>
+    {%- if ('flavours-page' | enabled) and pageId != "flavours" %}<p class="ck-more"><a class="go" href="{{ 'flavours' | href }}">Every flavour, with allergens</a></p>{% endif %}
+  </div>
+  {%- if fl.photo %}
+  <figure class="ck-slice-f">
+    <img src="{{ fl.photo.src | img }}" alt="{{ fl.photo.alt }}" width="{{ fl.photo.width }}" height="{{ fl.photo.height }}" loading="lazy" decoding="async">
+    <span class="ck-slice-band" data-fl-band hidden></span>
+  </figure>
+  {%- endif %}
+</div></section>

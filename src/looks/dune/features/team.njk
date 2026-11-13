@@ -1,0 +1,23 @@
+{#- Dune teachers: each teacher as a tall photograph with their name in italic, their role and days, one line, and
+    their own page when teacher pages are on. One booking line for the studio. -#}
+<header class="pl-ph"><div class="wrap pl-ph-in">
+  <p class="pl-ph-k"><a href="{{ 'index' | href }}">{{ site.business.name }}</a> <span aria-hidden="true">/</span> {{ site.team.kicker }}</p>
+  <h1 class="pl-ph-t">{{ site.team.title | markup | safe }}</h1>
+  {%- if site.team.intro %}<p class="pl-ph-i">{{ site.team.intro }}</p>{% endif %}
+</div></header>
+<section class="du-team" data-feature="team" aria-label="{{ site.team.title | plain }}"><div class="wrap">
+  <ul class="du-team-l">
+    {%- for s in site.staff %}
+    {%- set tp = site | teacherPageOf(s.name) %}
+    <li class="rv" id="{{ s.name | slug }}">
+      {%- if tp and ('teacher-pages' | enabled) %}<a class="du-team-a" href="{{ ('teacher-' + tp.id) | href }}">{% endif %}
+      {%- if s.photo %}<img src="{{ s.photo | img }}" alt="{{ s.name }} teaching" width="800" height="1000" loading="{{ 'eager' if loop.first else 'lazy' }}" decoding="async">{% endif %}
+      <b>{{ s.name }}</b>
+      {%- if tp and ('teacher-pages' | enabled) %}</a>{% endif %}
+      <span>{{ s.role }}{% if s.days %} · {{ s.days }}{% endif %}</span>
+      {%- if s.bio %}<p>{{ s.bio }}</p>{% endif %}
+    </li>
+    {%- endfor %}
+  </ul>
+  <p class="du-team-book"><a href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{{ site.team.bookLine or build.booking.label }}</a></p>
+</div></section>

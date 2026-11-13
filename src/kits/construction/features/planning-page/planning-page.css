@@ -1,0 +1,10 @@
+/* Planning and party walls: one ruled section per topic, the GOV.UK sources under each. */
+.bd-pl { display: grid; padding-bottom: clamp(72px, 10vw, 112px); }
+.bd-pl-not { margin: 0 0 24px; padding: 14px 18px; background: var(--surface); border-left: 3px solid var(--accent); max-width: 80ch; }
+.bd-pl-topic { display: grid; gap: 14px; padding-block: 28px; border-top: 1px solid var(--line); scroll-margin-top: 24px; }
+.bd-pl-topic ul { margin: 0; padding-left: 1.1em; max-width: 64ch; }
+.bd-pl-topic li { margin-bottom: 8px; }
+.bd-pl-topic p { margin: 0 0 .9em; max-width: 64ch; }
+.bd-pl-src { font-size: 13px; }
+.bd-pl-src span { color: var(--muted); }
+@media (min-width: 900px) { .bd-pl-topic { grid-template-columns: 4fr 8fr; gap: 40px; } }

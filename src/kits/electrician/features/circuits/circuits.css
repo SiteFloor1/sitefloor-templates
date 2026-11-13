@@ -1,0 +1,18 @@
+/* The circuit chart: numbered rows that open to what each service includes. Tokens only; the look sets the character. */
+.el-board-in { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(32px, 5vw, 80px); align-items: start; }
+.el-chart { border: 1px solid var(--line); }
+.el-chart-h { display: grid; grid-template-columns: 56px 1fr auto; gap: 16px; margin: 0; padding: 12px 22px; border-bottom: 1px solid var(--line); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.el-cct { border-bottom: 1px solid var(--line); }
+.el-cct:last-child { border-bottom: 0; }
+.el-cct summary { display: grid; grid-template-columns: 56px 1fr auto; gap: 16px; align-items: baseline; padding: 18px 22px; cursor: pointer; list-style: none; }
+.el-cct summary::-webkit-details-marker { display: none; }
+.el-cct-n { font-variant-numeric: tabular-nums; color: var(--accent); }
+.el-mcb { width: 30px; height: 16px; border-radius: 3px; border: 1px solid var(--line-2); position: relative; align-self: center; }
+.el-mcb::after { content: ""; position: absolute; top: 2px; left: 2px; width: 10px; height: 10px; border-radius: 2px; background: var(--muted); transition: left .5s ease, background .5s; }
+.el-cct[open] .el-mcb::after { left: 16px; background: var(--accent); }
+.el-cct-in { margin: 0; padding: 0 22px 20px calc(56px + 38px); color: var(--muted); display: grid; gap: 4px; max-width: 64ch; }
+@media (max-width: 860px) {
+  .el-board-in { grid-template-columns: minmax(0, 1fr); }
+  .el-chart-h, .el-cct summary { grid-template-columns: 34px 1fr auto; padding-inline: 16px; }
+  .el-cct-in { padding: 0 16px 18px 66px; }
+}

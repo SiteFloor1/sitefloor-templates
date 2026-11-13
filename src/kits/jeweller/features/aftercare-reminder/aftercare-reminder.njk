@@ -1,0 +1,20 @@
+{#- Aftercare: the house's own words on cleaning, checks and repairs, two columns; then a yearly clean-and-check
+    reminder for the customer's calendar. -#}
+{%- set AC = site.aftercare %}
+{%- set ph = { title: AC.title, intro: AC.intro } %}
+{% include "kits/jeweller/partials/page-head.njk" %}
+<section class="nc-sec jw-guide"><div class="wrap">
+  <dl class="jw-dl jw-dl-2">{% for n in AC.items %}<div class="rv"><dt class="jw-name">{{ n.title }}</dt><dd>{{ n.text }}</dd></div>{% endfor %}</dl>
+</div></section>
+<section class="nc-sec jw-anni" data-feature="aftercare-reminder" aria-labelledby="jw-ac-h"><div class="wrap jw-anni-in">
+  <h2 class="jw-h" id="jw-ac-h">A yearly reminder</h2>
+  <p class="jw-say">{{ AC.reminder }}</p>
+  <form class="nc-form jw-anni-f" data-ac-form data-js-only>
+    <label class="nc-field"><span class="nc-label">The piece</span><input class="nc-in" type="text" maxlength="60" value="My ring" data-ac-piece></label>
+    <label class="nc-field"><span class="nc-label">The day you collected it</span><input class="nc-in" type="date" required data-ac-date></label>
+    <button type="submit" class="nc-u nc-label nc-btnlink jw-send">Add to my calendar</button>
+    <p class="nc-fine" data-ac-say role="status"></p>
+  </form>
+  <p class="nc-body" data-no-js>Bring your piece once a year for a clean and a check of the claws and settings.</p>
+</div></section>
+{% include "kits/jeweller/partials/invite.njk" %}

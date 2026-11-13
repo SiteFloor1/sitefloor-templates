@@ -1,0 +1,5 @@
+{#- Dove phone bar: slate, where the salon is on the left, the request on the right, underlined in violet. -#}
+<div class="mbar dv-bar">
+  <a class="dv-bar-where" href="{{ ('visit' | href) if ('plan-visit' | enabled) else '#visit' }}">{{ site.location.locality }} · by appointment</a>
+  <a class="dv-bar-go" href="{{ (site.appointment.message if site.appointment else site.messages.general) | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.appointment.message if site.appointment else site.messages.general }}"{% endif %} target="_blank" rel="noopener">Request an appointment</a>
+</div>

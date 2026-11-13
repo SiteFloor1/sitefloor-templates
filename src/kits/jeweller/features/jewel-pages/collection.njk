@@ -1,0 +1,14 @@
+{#- A collection's own page: its name, its line, one photograph of a piece worn held beside the pieces, and every piece
+    in a calm grid of two; each opens one at a time, or its page. -#}
+{%- set P = site.pieces %}
+{%- set items = P.items | inCollection(col.id) %}
+{%- set ph = { title: col.name, intro: col.line } %}
+{% include "kits/jeweller/partials/page-head.njk" %}
+<section class="nc-sec jw-col"><div class="wrap jw-col-in">
+  {%- if col.door %}<figure class="jw-col-ph"><img src="{{ col.door.src | img }}" width="{{ col.door.width }}" height="{{ col.door.height }}" fetchpriority="high" alt="{{ col.door.alt }}"></figure>{% endif %}
+  <div class="jw-col-grid">
+    {%- for p in items %}{% set cardSize = "" %}{% include "kits/jeweller/partials/card.njk" %}{% endfor %}
+  </div>
+</div></section>
+{%- if P.demoData %}<p class="wrap nc-fine jw-demo">Demo specs and prices for a fictional house; stock photographs of other makers' pieces. On a client's site, its own pieces and its own facts.</p>{% endif %}
+{% include "kits/jeweller/partials/invite.njk" %}

@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: your-order
+permalink: your-order.html
+feature: follow-order
+noindex: true
+eleventyComputed:
+  title: "{{ site.orderTracker.title | plain }}"
+  description: "Where your flowers are with {{ site.business.name }}: being made, on the van or delivered, from the reference in our message."
+---
+{% include "kits/florist/features/follow-order/follow-order.njk" %}

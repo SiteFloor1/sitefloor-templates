@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ottoline Case Study</title>
+<meta name="description" content="How a Sitefloor site fills a reformer Pilates studio, told through the six people on its six reformers and the teacher at the front of the room.">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,200;0,300;1,200;1,300&family=Red+Hat+Text:wght@400;500&family=Manrope:wght@600;700&display=swap">
+<style>
+/* Layout: the studio's room, seen from above. Six reformers stand side by side with the teacher at the front; each
+   person on a reformer is one chapter, and each chapter opens on its own floor number. The plans are class cards,
+   one punched hole per page: Starter two, Plus five, Signature twenty. Ground: bone and crest in morning sun; the one
+   accent is the shadow side of a dune. Type: Noto Serif Display at its lightest against Red Hat Text. */
+:root {
+  --crest: #FBF4EA; --bone: #F4E8D8; --sand: #E9D7BF; --dune: #8A5D40; --dune-2: #6E4630;
+  --ink: #2B2019; --soft: #6B5848; --rule: rgba(43,32,25,.14);
+  --red: #B4533C; --blue: #4D6A86; --yellow: #C69B3E;
+  --display: "Noto Serif Display", "Didot", Georgia, serif;
+  --body: "Red Hat Text", "Helvetica Neue", Arial, sans-serif;
+  --brand: "Manrope", Arial, sans-serif;
+  --sf-paper: #FBFAF7; --sf-ink: #0E0F11; --sf-tomato: #E8613C; --sf-line: rgba(14,15,17,.12);
+  --s: clamp(80px, 10vw, 152px);
+  color-scheme: light;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--crest); scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; background: var(--crest); color: var(--ink); font: 400 17px/1.65 var(--body); -webkit-font-smoothing: antialiased; overflow-x: clip; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--sf-paper); }
+a { color: inherit; }
+img, video { display: block; max-width: 100%; height: auto; }
+figure { margin: 0; }
+h1, h2, h3 { font-family: var(--display); font-weight: 200; margin: 0; letter-spacing: -.02em; line-height: 1.02; }
+em, i { font-style: italic; }
+p { margin: 0; }
+.gut { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { width: min(1280px, 100%); margin-inline: auto; }
+:focus-visible { outline: 2px solid var(--dune); outline-offset: 3px; }
+.vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Sitefloor's bar: the same on every case study. */
+.sfbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--sf-paper); color: var(--sf-ink); border-bottom: 1px solid var(--sf-line); }
+.sfbar .wrap { display: flex; justify-content: space-between; align-items: center; height: 66px; gap: 16px; }
+.wm { display: flex; align-items: baseline; font-family: var(--brand); font-weight: 600; font-size: 24px; letter-spacing: -.045em; text-decoration: none; color: var(--sf-ink); }
+.wm svg { margin: 0 1px; overflow: visible; }
+.sfbar nav { display: flex; gap: 28px; font-family: var(--brand); font-size: 14px; font-weight: 600; }
+.sfbar nav a { text-decoration: none; color: var(--sf-ink); }
+.sfbar nav a[aria-current] { box-shadow: inset 0 -1.5px 0 var(--sf-ink); }
+.sfbtn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 20px; background: var(--sf-ink); color: var(--sf-paper); font: 700 12px var(--brand); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; }
+.sfbtn:hover { background: var(--sf-tomato); }
+@media (max-width: 760px) { .sfbar nav { display: none; } }
+@media (max-width: 420px) { .sfbar .sfbtn { display: none; } }
+
+/* ------------------------------------------------------------------ the room */
+.room { position: relative; padding-block: clamp(40px, 6vw, 88px) clamp(48px, 6vw, 96px); background: var(--bone); overflow: hidden; }
+/* Morning sun through three arched windows: soft light falling across the floor, drifting slowly. */
+.room::before { content: ""; position: absolute; inset: -20% -10%; pointer-events: none;
+  background: repeating-linear-gradient(112deg, transparent 0 9%, rgba(255,250,240,.75) 9% 15%, transparent 15% 24%);
+  filter: blur(18px); opacity: .9; animation: sun 60s ease-in-out infinite alternate; }
+@keyframes sun { from { transform: translateX(-3%); } to { transform: translateX(3%); } }
+.room .wrap { position: relative; }
+.room.still::before, .room.still .ref .car { animation-play-state: paused; }
+.still-btn { position: absolute; right: 0; top: 0; z-index: 2; display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 12px; border: 1px solid var(--rule); border-radius: 18px; background: rgba(251,244,234,.9); color: var(--ink); font: 500 12px var(--body); letter-spacing: .04em; cursor: pointer; }
+.still-btn svg { width: 12px; height: 12px; }
+.still-btn:hover { border-color: var(--dune); }
+.room-t { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, .7fr); gap: 24px clamp(32px, 5vw, 80px); align-items: end; }
+.kick { font: 500 13px/1.4 var(--body); color: var(--dune); letter-spacing: .02em; }
+.room h1 { margin-top: 18px; font-size: clamp(52px, 7.6vw, 124px); }
+.room h1 em { font-weight: 200; color: var(--dune); }
+.lede { max-width: 46ch; font-size: clamp(17px, 1.5vw, 19px); color: var(--soft); }
+.lede b { color: var(--ink); font-weight: 500; }
+
+.floor { position: relative; margin-top: clamp(40px, 6vw, 80px); }
+.front { display: flex; flex-direction: column; align-items: center; gap: 6px; margin-bottom: 18px; text-decoration: none; }
+.front i { display: block; width: 22px; height: 22px; border-radius: 50%; background: var(--dune); box-shadow: 0 0 0 7px rgba(138,93,64,.14); }
+.front span { font: italic 300 18px var(--display); color: var(--dune); }
+.front:hover i { box-shadow: 0 0 0 10px rgba(138,93,64,.2); }
+.six { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: clamp(8px, 2.4vw, 36px); list-style: none; margin: 0; padding: 0; }
+.ref { display: block; text-decoration: none; text-align: center; }
+.ref svg { margin-inline: auto; }
+.ref svg { display: block; width: 100%; max-width: 104px; height: auto; overflow: visible; }
+.ref .car { transform-box: view-box; animation: glide 7s cubic-bezier(.45,.05,.35,1) infinite; }
+.ref .car rect.pad { fill: var(--bone); stroke: var(--dune); stroke-width: 1.2; }
+.ref .car rect.head { fill: var(--bone); stroke: var(--dune); stroke-width: 1; }
+.ref .car rect.blk { fill: var(--dune); }
+.ref:nth-child(1) .car, li:nth-child(1) .ref .car { animation-delay: 0s; }
+li:nth-child(2) .ref .car { animation-delay: -.35s; }
+li:nth-child(3) .ref .car { animation-delay: -.9s; }
+li:nth-child(4) .ref .car { animation-delay: -.2s; }
+li:nth-child(5) .ref .car { animation-delay: -1.3s; }
+li:nth-child(6) .ref .car { animation-delay: -.6s; }
+/* Footwork in unison, a little out of time, the way a real class moves. */
+@keyframes glide { 0%, 12% { transform: translateY(0); } 46%, 58% { transform: translateY(36px); } 92%, 100% { transform: translateY(0); } }
+.ref .tag { display: block; margin-top: 14px; }
+.ref .n { display: block; font: 200 clamp(26px, 3.4vw, 48px)/1 var(--display); color: var(--dune); }
+.ref .who { display: block; margin-top: 6px; font-size: 14px; line-height: 1.35; color: var(--ink); }
+.ref .q { display: block; margin-top: 4px; font: italic 300 15px/1.35 var(--display); color: var(--soft); }
+.ref svg { transition: transform .6s ease; }
+.ref:hover svg, .ref:focus-visible svg { transform: translateY(-6px); }
+.ref:hover .n { color: var(--dune-2); }
+
+.now { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 12px 28px; align-items: center; margin-top: clamp(36px, 5vw, 64px); padding: 18px 22px; background: rgba(251,244,234,.86); border: 1px solid var(--rule); }
+.now-k { font: 500 12px/1.3 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--dune); }
+.now-k b { display: block; margin-top: 4px; font: italic 300 22px/1.1 var(--display); letter-spacing: 0; text-transform: none; color: var(--ink); }
+.now ol { display: flex; flex-wrap: wrap; gap: 14px clamp(16px, 3vw, 44px); list-style: none; margin: 0; padding: 0; }
+.now li { flex: none; }
+.now time { display: block; font: 200 30px/1 var(--display); color: var(--ink); }
+.now li span { display: block; margin-top: 4px; font-size: 13px; color: var(--soft); white-space: nowrap; }
+.now a { font: 500 14px var(--body); text-decoration-thickness: 1px; text-underline-offset: 4px; white-space: nowrap; }
+.now small { grid-column: 1 / -1; font-size: 12px; color: var(--soft); }
+
+/* ------------------------------------------------------------------ a reformer bay (one chapter) */
+.bay { position: relative; padding-block: var(--s); border-top: 1px solid var(--rule); }
+.bay.sun { background: var(--bone); }
+.bay-h { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 8px clamp(20px, 3vw, 48px); align-items: end; margin-bottom: clamp(36px, 5vw, 72px); }
+.floorno { font: 200 clamp(120px, 17vw, 260px)/.78 var(--display); color: var(--dune); letter-spacing: -.05em; }
+.bay-h h2 { font-size: clamp(36px, 5.2vw, 82px); }
+.bay-h h2 em { color: var(--dune); }
+.where { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; text-align: right; }
+.mark { display: inline-flex; gap: 4px; }
+.mark i { display: block; width: 7px; height: 26px; border-radius: 3.5px; border: 1.2px solid var(--dune); }
+.mark i.on { background: var(--dune); }
+.mark.t i { width: 8px; height: 8px; border-radius: 50%; }
+.tier { font: 500 12px/1 var(--body); letter-spacing: .16em; text-transform: uppercase; color: var(--dune); }
+
+.bay-b { display: grid; grid-template-columns: minmax(0, 330px) minmax(0, 1fr) minmax(0, .9fr); gap: clamp(28px, 4vw, 64px); align-items: start; }
+.bay-b.flip { grid-template-columns: minmax(0, .9fr) minmax(0, 1fr) minmax(0, 330px); }
+.bay-b.flip .ph { order: 3; }
+.bay-b.flip .pic { order: 1; }
+.bay-b.two { grid-template-columns: minmax(0, 300px) minmax(0, 300px) minmax(0, 1fr); }
+.bay-b.photo { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
+.copy { display: flex; flex-direction: column; gap: 18px; max-width: 48ch; }
+.copy p { color: var(--soft); }
+.copy p strong { color: var(--ink); font-weight: 500; }
+.on-site { margin: 6px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--rule); }
+.on-site li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--rule); font-size: 15px; }
+.on-site li span { font: 500 11px/1.9 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--dune); }
+
+.ph { position: relative; }
+.ph video, .ph > img { width: 100%; aspect-ratio: 390 / 844; object-fit: cover; object-position: top; background: var(--bone); border-radius: 30px; box-shadow: 0 1px 0 rgba(43,32,25,.08), 0 30px 60px -28px rgba(110,70,48,.45); }
+.ph figcaption, .pic figcaption { margin-top: 12px; font: italic 300 15px var(--display); color: var(--soft); }
+.pause { position: absolute; right: 12px; top: 12px; display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 12px; border: 0; border-radius: 18px; background: rgba(43,32,25,.72); color: var(--crest); font: 500 12px var(--body); letter-spacing: .04em; cursor: pointer; }
+.pause svg { width: 12px; height: 12px; }
+.pic img { width: 100%; object-fit: cover; }
+.pic.tall img { aspect-ratio: 4 / 5; }
+.pic.wide img { aspect-ratio: 3 / 2; }
+
+/* A full-width band of the room in sunlight, between chapters. */
+.band { position: relative; }
+.band img { width: 100%; height: clamp(300px, 52vw, 720px); object-fit: cover; }
+.band p { position: absolute; left: max(16px, 4vw); bottom: clamp(20px, 4vw, 48px); max-width: 22ch; font: italic 200 clamp(30px, 4.4vw, 64px)/1.05 var(--display); color: var(--crest); text-shadow: 0 2px 30px rgba(43,32,25,.35); }
+
+/* ------------------------------------------------------------------ figures */
+.figs { padding-block: var(--s); background: var(--ink); color: var(--crest); }
+.figs h2 { font-size: clamp(40px, 6vw, 96px); max-width: 14ch; }
+.figs h2 em { color: #D9B08F; }
+.nums { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; margin-top: clamp(40px, 5vw, 72px); border-top: 1px solid rgba(251,244,234,.2); }
+.nums div { padding-top: 22px; }
+.nums b { display: block; font: 200 clamp(56px, 7.6vw, 120px)/1 var(--display); letter-spacing: -.03em; }
+.nums span { display: block; margin-top: 10px; font-size: 14px; color: #CDB9A6; max-width: 24ch; }
+.figs .note { margin-top: 40px; max-width: 92ch; font-size: 14px; color: #CDB9A6; }
+
+/* ------------------------------------------------------------------ plans: class cards, a hole per page */
+.plans { padding-block: var(--s); background: var(--bone); }
+.plans-h { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .8fr); gap: 20px 48px; align-items: end; }
+.plans h2 { font-size: clamp(44px, 6.4vw, 104px); }
+.plans h2 em { color: var(--dune); }
+.plans-h p { color: var(--soft); max-width: 48ch; }
+.cards { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1fr) minmax(0, 1.35fr); gap: clamp(16px, 2.4vw, 32px); margin-top: clamp(40px, 5vw, 72px); align-items: start; }
+.card { position: relative; padding: clamp(22px, 2.6vw, 34px); background: var(--crest); border-radius: 6px; box-shadow: 0 1px 0 rgba(43,32,25,.06), 0 24px 50px -30px rgba(110,70,48,.5); }
+.card::after { content: ""; position: absolute; inset: 10px; border: 1px solid var(--rule); border-radius: 3px; pointer-events: none; }
+.card-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.card-top .mark { flex: none; }
+.card h3 { font-size: clamp(30px, 3vw, 44px); }
+.card .kind { margin-top: 4px; font: italic 300 17px var(--display); color: var(--soft); }
+.holes { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 8px; margin: 26px 0 22px; max-width: 360px; }
+.holes i { display: block; aspect-ratio: 1; border-radius: 50%; border: 1.3px dashed rgba(138,93,64,.55); transition: background-color .45s ease, border-color .45s ease, transform .45s cubic-bezier(.3,1.6,.5,1); }
+.holes i.p { background: var(--ink); border: 1.3px solid var(--ink); box-shadow: inset 0 2px 4px rgba(0,0,0,.5); transform: scale(.92); }
+.pr { font: 200 clamp(34px, 3.4vw, 52px)/1 var(--display); }
+.pr small { font: 400 14px var(--body); color: var(--soft); }
+.card ul { margin: 18px 0 0; padding: 0; list-style: none; font-size: 15px; }
+.card li { padding: 8px 0; border-top: 1px solid var(--rule); }
+.plans .small { margin-top: 28px; max-width: 90ch; font-size: 14px; color: var(--soft); }
+
+/* ------------------------------------------------------------------ close */
+.close { position: relative; padding-block: var(--s); }
+.close .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px clamp(32px, 6vw, 96px); align-items: center; }
+.close h2 { font-size: clamp(48px, 7vw, 116px); }
+.close h2 em { color: var(--dune); }
+.close p { margin-top: 22px; max-width: 42ch; color: var(--soft); }
+.acts { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.btn { display: inline-flex; align-items: center; min-height: 50px; padding: 0 26px; border-radius: 25px; background: var(--ink); color: var(--crest); font: 500 15px var(--body); text-decoration: none; }
+.btn:hover { background: var(--dune); }
+.btn.line { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.btn.line:hover { background: var(--ink); color: var(--crest); }
+.mail { display: block; margin-top: 22px; font-size: 14px; color: var(--soft); letter-spacing: .02em; }
+.close-ph img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 0 0 200px 200px; }
+
+footer { background: var(--crest); color: var(--soft); font-size: 13px; line-height: 1.6; border-top: 1px solid var(--rule); }
+footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px 32px; padding-block: 28px; }
+footer p { max-width: 100ch; }
+
+@media (max-width: 1080px) {
+  .bay-b, .bay-b.flip { grid-template-columns: minmax(0, 300px) minmax(0, 1fr); }
+  .bay-b .pic, .bay-b.flip .pic { grid-column: 1 / -1; order: 4; }
+  .bay-b.flip .ph { order: 0; }
+  .bay-b.two { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .bay-b.two .copy { grid-column: 1 / -1; }
+  .cards { grid-template-columns: minmax(0, 1fr); max-width: 640px; }
+}
+@media (max-width: 760px) {
+  .room-t { grid-template-columns: minmax(0, 1fr); }
+  .ref .q { display: none; }
+  .floor { display: flex; flex-direction: column; }
+  .still-btn { position: static; order: 3; align-self: flex-end; margin-top: 18px; }
+  .ref .who { font-size: 12px; }
+  .now { grid-template-columns: minmax(0, 1fr); }
+  .bay-h { grid-template-columns: auto minmax(0, 1fr); }
+  .where { grid-column: 1 / -1; flex-direction: row; align-items: center; justify-content: space-between; text-align: left; }
+  .bay-b, .bay-b.flip, .bay-b.photo { grid-template-columns: minmax(0, 1fr); }
+  .bay-b .ph { max-width: 300px; }
+  .bay-b.two { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; }
+  .bay-b.two .ph video { border-radius: 20px; }
+  .nums { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .plans-h, .close .wrap { grid-template-columns: minmax(0, 1fr); }
+  footer .wrap { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .room::before, .ref .car { animation: none; }
+  .still-btn { display: none; }
+  .holes i { transition: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="sfbar gut"><div class="wrap">
+  <a class="wm" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su" aria-label="Sitefloor home">sitefl<svg width="28" height="14" viewBox="0 0 42 21" aria-hidden="true"><rect x="1.9" y="1.9" width="38.2" height="17.2" rx="8.6" fill="none" stroke="#0E0F11" stroke-width="3.8"/><circle cx="31.5" cy="10.5" r="5.2" fill="#E8613C"/></svg>r</a>
+  <nav aria-label="Main"><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#live">Features</a><a href="#top" aria-current="page">Work</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#pricing">Pricing</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#guides">Guides</a></nav>
+  <a class="sfbtn" href="#mockup"><span>Free mockup</span><span aria-hidden="true">→</span></a>
+</div></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <!-- A reformer seen from above: the frame, its rails, the footbar and springs at the front, and the carriage. -->
+  <symbol id="reformer" viewBox="0 0 80 250">
+    <rect x="10" y="12" width="68" height="236" rx="12" fill="rgba(110,70,48,.10)"/>
+    <rect x="4" y="4" width="68" height="236" rx="12" fill="#FBF4EA" stroke="#8A5D40" stroke-width="1.4"/>
+    <line x1="18" y1="40" x2="18" y2="226" stroke="#E9D7BF" stroke-width="2"/><line x1="58" y1="40" x2="58" y2="226" stroke="#E9D7BF" stroke-width="2"/>
+    <line x1="12" y1="22" x2="64" y2="22" stroke="#8A5D40" stroke-width="3" stroke-linecap="round"/>
+    <g stroke-width="3" stroke-linecap="round"><line x1="24" y1="34" x2="24" y2="46" stroke="#B4533C"/><line x1="31" y1="34" x2="31" y2="46" stroke="#B4533C"/><line x1="38" y1="34" x2="38" y2="46" stroke="#4D6A86"/><line x1="45" y1="34" x2="45" y2="46" stroke="#4D6A86"/><line x1="52" y1="34" x2="52" y2="46" stroke="#C69B3E"/></g>
+  </symbol>
+</svg>
+
+<main id="top">
+
+<section class="room gut" aria-labelledby="h1"><div class="wrap">
+  <div class="room-t">
+    <div>
+      <p class="kick">Case study · Reformer Pilates, Marylebone</p>
+      <h1 id="h1">Six reformers. <em>Six questions.</em></h1>
+    </div>
+    <p class="lede">Ottoline teaches reformer Pilates in a sunlit room off Marylebone High Street. <b>Everyone on a reformer came in with a different question.</b> The site answers each one on a phone, before they think to ask.</p>
+  </div>
+
+  <div class="floor">
+    <button class="still-btn" type="button" data-still aria-pressed="false"><svg viewBox="0 0 12 12" aria-hidden="true"><rect x="2" y="1" width="3" height="10" fill="currentColor"/><rect x="7" y="1" width="3" height="10" fill="currentColor"/></svg><span>Pause the room</span></button>
+    <a class="front" href="#r7"><i aria-hidden="true"></i><span>The teacher, at the front</span></a>
+    <ol class="six" aria-label="The room: six reformers, one person on each">
+      <li><a class="ref" href="#r1"><svg viewBox="0 0 80 250" aria-hidden="true"><use href="#reformer"/><g class="car"><rect class="pad" x="15" y="96" width="46" height="92" rx="5"/><rect class="blk" x="17" y="166" width="14" height="5" rx="2"/><rect class="blk" x="45" y="166" width="14" height="5" rx="2"/><rect class="head" x="25" y="178" width="26" height="7" rx="3"/></g></svg><span class="tag"><span class="n">1</span><span class="who">The first-timer</span><span class="q">Is there a class I can make today?</span></span></a></li>
+      <li><a class="ref" href="#r2"><svg viewBox="0 0 80 250" aria-hidden="true"><use href="#reformer"/><g class="car"><rect class="pad" x="15" y="96" width="46" height="92" rx="5"/><rect class="blk" x="17" y="166" width="14" height="5" rx="2"/><rect class="blk" x="45" y="166" width="14" height="5" rx="2"/><rect class="head" x="25" y="178" width="26" height="7" rx="3"/></g></svg><span class="tag"><span class="n">2</span><span class="who">Not sure where to start</span><span class="q">Which class is for me?</span></span></a></li>
+      <li><a class="ref" href="#r3"><svg viewBox="0 0 80 250" aria-hidden="true"><use href="#reformer"/><g class="car"><rect class="pad" x="15" y="96" width="46" height="92" rx="5"/><rect class="blk" x="17" y="166" width="14" height="5" rx="2"/><rect class="blk" x="45" y="166" width="14" height="5" rx="2"/><rect class="head" x="25" y="178" width="26" height="7" rx="3"/></g></svg><span class="tag"><span class="n">3</span><span class="who">The 7am regular</span><span class="q">Is my class full?</span></span></a></li>
+      <li><a class="ref" href="#r4"><svg viewBox="0 0 80 250" aria-hidden="true"><use href="#reformer"/><g class="car"><rect class="pad" x="15" y="96" width="46" height="92" rx="5"/><rect class="blk" x="17" y="166" width="14" height="5" rx="2"/><rect class="blk" x="45" y="166" width="14" height="5" rx="2"/><rect class="head" x="25" y="178" width="26" height="7" rx="3"/></g></svg><span class="tag"><span class="n">4</span><span class="who">Expecting</span><span class="q">Which class, at which stage?</span></span></a></li>
+      <li><a class="ref" href="#r5"><svg viewBox="0 0 80 250" aria-hidden="true"><use href="#reformer"/><g class="car"><rect class="pad" x="15" y="96" width="46" height="92" rx="5"/><rect class="blk" x="17" y="166" width="14" height="5" rx="2"/><rect class="blk" x="45" y="166" width="14" height="5" rx="2"/><rect class="head" x="25" y="178" width="26" height="7" rx="3"/></g></svg><span class="tag"><span class="n">5</span><span class="who">The member</span><span class="q">How many classes have I left?</span></span></a></li>
+      <li><a class="ref" href="#r6"><svg viewBox="0 0 80 250" aria-hidden="true"><use href="#reformer"/><g class="car"><rect class="pad" x="15" y="96" width="46" height="92" rx="5"/><rect class="blk" x="17" y="166" width="14" height="5" rx="2"/><rect class="blk" x="45" y="166" width="14" height="5" rx="2"/><rect class="head" x="25" y="178" width="26" height="7" rx="3"/></g></svg><span class="tag"><span class="n">6</span><span class="who">Here as a gift</span><span class="q">Can I bring someone?</span></span></a></li>
+    </ol>
+  </div>
+
+  <div class="now" aria-live="polite">
+    <p class="now-k">In the room <b data-now-day>This week</b></p>
+    <ol data-now-list><li><time>9.15</time><span>Foundation · Anna</span></li></ol>
+    <a href="https://claude.ai/artifact/CXfMWwEjB2nzcew7kd6vXp">Open the studio's site</a>
+    <small>Ottoline's demo timetable, read on London time as you visit, just as the site reads it.</small>
+  </div>
+</div></section>
+
+<section class="bay gut" id="r1" aria-labelledby="h-r1"><div class="wrap">
+  <div class="bay-h">
+    <span class="floorno" aria-hidden="true">1</span>
+    <h2 id="h-r1">Is there a class <em>I can make today?</em></h2>
+    <div class="where"><span class="mark" role="img" aria-label="Reformer 1 of 6"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></span><span class="tier">The first-timer · Starter</span></div>
+  </div>
+  <div class="bay-b">
+    <figure class="ph"><video id="v-home" data-clip muted playsinline loop preload="none" poster="media/home-poster.webp" width="780" height="1688" aria-label="Ottoline's home page on a phone: today's next classes along the foot of the photograph, then the week with Book on every class and one full class on the waitlist"><source src="media/home.mp4" type="video/mp4"></video><button class="pause" type="button" data-pause="v-home" data-name="home page clip"><svg viewBox="0 0 12 12" aria-hidden="true"></svg><span>Pause</span></button><figcaption>The first screen, and the week</figcaption></figure>
+    <div class="copy">
+      <p><strong>She opens it on the bus at twenty to nine.</strong> Today's next four classes run along the foot of the photograph, each with its time, its name and its length. The week sits underneath, with Book on every class.</p>
+      <p>Book goes straight to the studio's own booking, or to WhatsApp with the class, the day and the time already written. A day the studio is closed shows no classes, and the times move on by themselves as the day goes.</p>
+      <p>Before she arrives she reads one page: which class to book first, to bring grip socks, to come ten minutes early and to tell the teacher about her back. In the studio's own words.</p>
+      <ul class="on-site"><li>Today along the photograph, the week below <span>Starter</span></li><li>The classes, each in one line <span>Starter</span></li><li>Your first class, step by step <span>Starter</span></li></ul>
+    </div>
+    <figure class="pic tall"><img src="media/reception.webp" width="1200" height="1500" alt="A woman walking past a curved reception desk in a pale, sunlit studio" loading="lazy"><figcaption>Ten minutes early, as the page asked.</figcaption></figure>
+  </div>
+</div></section>
+
+<section class="bay sun gut" id="r2" aria-labelledby="h-r2"><div class="wrap">
+  <div class="bay-h">
+    <span class="floorno" aria-hidden="true">2</span>
+    <h2 id="h-r2">Which class is <em>for someone like me?</em></h2>
+    <div class="where"><span class="mark" role="img" aria-label="Reformer 2 of 6"><i></i><i class="on"></i><i></i><i></i><i></i><i></i></span><span class="tier">Not sure where to start · Plus</span></div>
+  </div>
+  <div class="bay-b flip">
+    <figure class="ph"><video id="v-finder" data-clip muted playsinline loop preload="none" poster="media/finder-poster.webp" width="780" height="1688" aria-label="Find your first class on a phone: three taps change the answer from Sculpt to Foundation, then to Pre and postnatal, each with its next times"><source src="media/finder.mp4" type="video/mp4"></video><button class="pause" type="button" data-pause="v-finder" data-name="class finder clip"><svg viewBox="0 0 12 12" aria-hidden="true"></svg><span>Pause</span></button><figcaption>Three taps, one class</figcaption></figure>
+    <div class="copy">
+      <p><strong>Three taps.</strong> Has she done reformer before? How does she like it, slow or strong? Is she pregnant, or has she had a baby this year? The site names the class the studio would choose for her, and its next three times.</p>
+      <p>Then the intro offer, drawn as the class card she'll carry: three classes, punched at the desk one at a time, bought with the studio's own Stripe link. The price is the studio's, never ours.</p>
+      <ul class="on-site"><li>Find your first class <span>Plus</span></li><li>The intro card <span>Plus</span></li><li>A page for the classes <span>Plus</span></li></ul>
+    </div>
+    <figure class="pic tall"><img src="media/tower.webp" width="1200" height="1797" alt="A woman stretching with one leg in a strap on a Pilates tower, a teacher beside her" loading="lazy"><figcaption>Slower, longer stretches: Stretch &amp; release.</figcaption></figure>
+  </div>
+</div></section>
+
+<section class="bay gut" id="r3" aria-labelledby="h-r3"><div class="wrap">
+  <div class="bay-h">
+    <span class="floorno" aria-hidden="true">3</span>
+    <h2 id="h-r3">Is my class <em>already full?</em></h2>
+    <div class="where"><span class="mark" role="img" aria-label="Reformer 3 of 6"><i></i><i></i><i class="on"></i><i></i><i></i><i></i></span><span class="tier">The 7am regular · Plus</span></div>
+  </div>
+  <div class="bay-b two">
+    <figure class="ph"><video id="v-week" data-clip muted playsinline loop preload="none" poster="media/week-poster.webp" width="780" height="1688" aria-label="The week on a phone: two classes ticked, then Add to my calendar, below a class marked Full with Waitlist beside it"><source src="media/week.mp4" type="video/mp4"></video><button class="pause" type="button" data-pause="v-week" data-name="week clip"><svg viewBox="0 0 12 12" aria-hidden="true"></svg><span>Pause</span></button><figcaption>Places, the waitlist, her week</figcaption></figure>
+    <figure class="ph"><video id="v-packs" data-clip muted playsinline loop preload="none" poster="media/packs-poster.webp" width="780" height="1688" aria-label="Packs and memberships on a phone: choosing one class a week, then four, and the cheapest way to pay changes from Ten classes to Unlimited"><source src="media/packs.mp4" type="video/mp4"></video><button class="pause" type="button" data-pause="v-packs" data-name="packs clip"><svg viewBox="0 0 12 12" aria-hidden="true"></svg><span>Pause</span></button><figcaption>The cheapest way to pay</figcaption></figure>
+    <div class="copy">
+      <p><strong>Every class shows the room's six reformers:</strong> filled for booked, open for free. The numbers come from a Google Sheet the studio already keeps. An old count shows nothing at all, so the site never says "2 left" when it might be wrong.</p>
+      <p>A full class turns into Waitlist. One tap sends the studio a WhatsApp with the class, the day and the time written in; the studio decides who gets the place.</p>
+      <p>She ticks her classes for the week and adds them all to her phone's calendar in one file, at the studio's time. And she sees whether a pack or a membership is cheaper for how often she comes, with any classes a pack would lose to its expiry counted honestly.</p>
+      <ul class="on-site"><li>Places left, as reformers <span>Plus</span></li><li>The waitlist on WhatsApp <span>Plus</span></li><li>Your week in the calendar <span>Plus</span></li><li>Packs and memberships <span>Plus</span></li></ul>
+    </div>
+  </div>
+</div></section>
+
+<figure class="band"><img src="media/room.webp" width="1800" height="1200" alt="A row of reformers in a pale studio, morning light across the floor" loading="lazy"><p>Six reformers, every one spoken for.</p></figure>
+
+<section class="bay gut" id="r4" aria-labelledby="h-r4"><div class="wrap">
+  <div class="bay-h">
+    <span class="floorno" aria-hidden="true">4</span>
+    <h2 id="h-r4">Which class, <em>at which stage?</em></h2>
+    <div class="where"><span class="mark" role="img" aria-label="Reformer 4 of 6"><i></i><i></i><i></i><i class="on"></i><i></i><i></i></span><span class="tier">Expecting · Signature</span></div>
+  </div>
+  <div class="bay-b photo">
+    <figure class="pic wide"><img src="media/prenatal.webp" width="1200" height="1600" alt="A pregnant woman exercising with a ball in a light studio, smiling" loading="lazy"><figcaption>The go-ahead first, then the right class.</figcaption></figure>
+    <div class="copy">
+      <p><strong>A page for pregnancy and the year after.</strong> Which class suits each stage, written by the studio; the go-ahead from her GP or midwife first; and a question for the teacher on WhatsApp, if she has one.</p>
+      <p>Every class has its own page: who it's for, what happens in it, its next times with places, and who teaches it. From the pregnancy page she taps straight through to Pre &amp; postnatal and its next class.</p>
+      <ul class="on-site"><li>Pregnancy and after <span>Signature</span></li><li>A page for every class <span>Signature</span></li></ul>
+    </div>
+  </div>
+</div></section>
+
+<section class="bay sun gut" id="r5" aria-labelledby="h-r5"><div class="wrap">
+  <div class="bay-h">
+    <span class="floorno" aria-hidden="true">5</span>
+    <h2 id="h-r5">How many classes <em>have I left?</em></h2>
+    <div class="where"><span class="mark" role="img" aria-label="Reformer 5 of 6"><i></i><i></i><i></i><i></i><i class="on"></i><i></i></span><span class="tier">The member · Signature</span></div>
+  </div>
+  <div class="bay-b two">
+    <figure class="ph"><video id="v-passport" data-clip muted playsinline loop preload="none" poster="media/passport-poster.webp" width="780" height="1688" aria-label="The class passport on a phone: a code typed in, then her card with four classes left, the use-by date, six classes this month, forty-seven in all and her fiftieth three classes away"><source src="media/passport.mp4" type="video/mp4"></video><button class="pause" type="button" data-pause="v-passport" data-name="class passport clip"><svg viewBox="0 0 12 12" aria-hidden="true"></svg><span>Pause</span></button><figcaption>Her class passport</figcaption></figure>
+    <figure class="ph"><video id="v-settings" data-clip muted playsinline loop preload="none" poster="media/settings-poster.webp" width="780" height="1688" aria-label="Reformer settings on a phone: a card for one client with her springs, footbar, headrest, straps, gear and a note from her teacher"><source src="media/settings.mp4" type="video/mp4"></video><button class="pause" type="button" data-pause="v-settings" data-name="reformer settings clip"><svg viewBox="0 0 12 12" aria-hidden="true"></svg><span>Pause</span></button><figcaption>Her springs, from her teacher</figcaption></figure>
+    <div class="copy">
+      <p><strong>She types the code from her welcome message.</strong> Her card comes up with a hole for every class left, the date it runs out, her classes this month and in all, and how far she is from her fiftieth. It comes from the studio's own sheet, which holds codes and never names. If anything in it can't be read, the page says to ask at the desk.</p>
+      <p>After her first class the teacher sends her a link with her settings: her springs, the footbar, the headrest, the straps, the gear and a note. Nothing is stored anywhere. The settings live in the link, and she can keep them on her phone for the next class.</p>
+      <ul class="on-site"><li>The class passport <span>Signature</span></li><li>Your reformer settings <span>Signature</span></li></ul>
+    </div>
+  </div>
+</div></section>
+
+<section class="bay gut" id="r6" aria-labelledby="h-r6"><div class="wrap">
+  <div class="bay-h">
+    <span class="floorno" aria-hidden="true">6</span>
+    <h2 id="h-r6">Can I give it, <em>or bring them all?</em></h2>
+    <div class="where"><span class="mark" role="img" aria-label="Reformer 6 of 6"><i></i><i></i><i></i><i></i><i></i><i class="on"></i></span><span class="tier">Here as a gift · Plus and Signature</span></div>
+  </div>
+  <div class="bay-b photo">
+    <div class="copy">
+      <p><strong>She's on reformer six because her sister gave her a class card.</strong> On the gifts page her sister chose the card, wrote who it was for and a line, paid with the studio's own Stripe link and sent the details on WhatsApp, so the studio could write the card and hand it over.</p>
+      <p>The same site takes the bigger asks. Hiring the room for a team or a birthday, with what's included and how many at once, sent as a request and never taken as a booking. Workshops with their teacher and places, each into the calendar in one tap. Retreats with a page each: day by day, the rooms, the deposit link, the days left to pay the balance, and a list to hear about the next ones. Finished ones drop off by themselves.</p>
+      <ul class="on-site"><li>Gift class cards <span>Plus</span></li><li>Private hire and team classes <span>Signature</span></li><li>Workshops into the calendar <span>Signature</span></li><li>Retreats, a page each <span>Signature</span></li></ul>
+    </div>
+    <figure class="pic wide"><img src="media/retreat-cotswolds.webp" width="1400" height="933" alt="A stone house with a green roof in a garden, the Cotswolds retreat" loading="lazy"><figcaption>September in the Cotswolds, from the retreats page.</figcaption></figure>
+  </div>
+</div></section>
+
+<section class="bay sun gut" id="r7" aria-labelledby="h-r7"><div class="wrap">
+  <div class="bay-h">
+    <span class="floorno" aria-hidden="true">T</span>
+    <h2 id="h-r7">And at the front, <em>the teacher.</em></h2>
+    <div class="where"><span class="mark t" role="img" aria-label="The teacher, at the front of the room"><i class="on"></i></span><span class="tier">At the front · Signature</span></div>
+  </div>
+  <div class="bay-b photo">
+    <figure class="pic wide"><img src="media/teacher-cue.webp" width="1800" height="1202" alt="A teacher with her hand on a client's back as she works on the reformer" loading="lazy"><figcaption>A hand on the shoulder blade, a lighter spring.</figcaption></figure>
+    <div class="copy">
+      <p><strong>People choose a studio for its teachers.</strong> Each teacher has a page with their training in their own words, the classes they teach this week from the timetable, and a request for a private session.</p>
+      <p>The method library gives every core exercise a page: a photograph, what it works, the usual springs, easier and harder versions, and the classes it comes up in. A short real film shows a first-timer onto the reformer, with the studio's captions, and it loads only when someone taps Watch.</p>
+      <ul class="on-site"><li>A page for every teacher <span>Signature</span></li><li>The method library <span>Signature</span></li><li>Private and duet sessions <span>Signature</span></li><li>The reformer, explained on film <span>Signature</span></li></ul>
+    </div>
+  </div>
+</div></section>
+
+<section class="figs gut" aria-labelledby="h-f"><div class="wrap">
+  <h2 id="h-f">Light on the phone, <em>like the room.</em></h2>
+  <div class="nums">
+    <div><b>99</b><span>Lighthouse performance, phone, the home page</span></div>
+    <div><b>100</b><span>Lighthouse accessibility</span></div>
+    <div><b>1.4s</b><span>Until the reformer photograph has drawn</span></div>
+    <div><b>94 KB</b><span>Of images on the first screen</span></div>
+  </div>
+  <p class="note">Lighthouse on a phone profile, Ottoline's home page, two runs: performance 99 and 99, accessibility 100, largest paint 1.4 to 1.6 seconds, layout shift no more than 0.003. All 31 pages share 18.9 KB of script and 14.4 KB of styles, compressed. Every page passes the accessibility checks.</p>
+</div></section>
+
+<section class="plans gut" id="mockup" aria-labelledby="h-p"><div class="wrap">
+  <div class="plans-h">
+    <h2 id="h-p">Pick your <em>class card.</em></h2>
+    <p>One hole for every page. Each plan runs on a 12-month minimum, then a month's notice, and any single feature can be added to a smaller plan.</p>
+  </div>
+  <div class="cards">
+    <div class="card"><div class="card-top"><div><h3>Starter</h3><p class="kind">A two-class card</p></div></div>
+      <div class="holes" data-holes="2" role="img" aria-label="Two pages"></div>
+      <p class="pr">£99 <small>+ £25 a month</small></p>
+      <ul><li>The home page and Plan your visit</li><li>Today along the photograph, the week below</li><li>The classes and your first class</li><li>Book on every class</li></ul></div>
+    <div class="card"><div class="card-top"><div><h3>Plus</h3><p class="kind">A five-class card</p></div></div>
+      <div class="holes" data-holes="5" role="img" aria-label="Up to five pages"></div>
+      <p class="pr">£199 <small>+ £30 a month</small></p>
+      <ul><li>Up to five pages: classes and gifts among them</li><li>Places left as reformers, and the waitlist</li><li>Find your first class, and the intro card</li><li>Your week in the calendar, packs and memberships</li><li>Gift class cards</li></ul></div>
+    <div class="card"><div class="card-top"><div><h3>Signature</h3><p class="kind">A twenty-class card</p></div></div>
+      <div class="holes" data-holes="20" role="img" aria-label="Up to twenty pages"></div>
+      <p class="pr">£349 <small>+ £35 a month</small></p>
+      <ul><li>Up to 20 pages; a page for every class, teacher, exercise or retreat counts once</li><li>The class passport and reformer settings</li><li>The method library and teacher pages</li><li>Pregnancy and after, private sessions, private hire</li><li>Workshops, retreats, and the reformer on film</li></ul></div>
+  </div>
+  <p class="small">Running costs stay at nothing beyond hosting. Places and passports live in the studio's own Google Sheet, payments go through its own Stripe links, bookings stay in the booking app it already uses, and every request arrives on its WhatsApp.</p>
+</div></section>
+
+<section class="close gut" aria-labelledby="h-cl"><div class="wrap">
+  <div>
+    <h2 id="h-cl">Every reformer, <em>spoken for.</em></h2>
+    <p>Send us your Instagram and your timetable, and we'll make a free mockup of your home page with your own room and your own classes.</p>
+    <div class="acts">
+      <a class="btn" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#free">Get a free mockup</a>
+      <a class="btn line" href="https://claude.ai/artifact/CXfMWwEjB2nzcew7kd6vXp">Try the demo first</a>
+    </div>
+    <span class="mail">hello@sitefloor.com</span>
+  </div>
+  <figure class="close-ph"><img src="media/hero.webp" width="2400" height="1455" alt="A woman in a long stretch on a reformer in a pale, sunlit studio" loading="lazy"></figure>
+</div></section>
+
+</main>
+
+<footer class="gut"><div class="wrap">
+  <p>Ottoline is a fictional reformer Pilates studio made to show the Sitefloor Pilates kit. Its classes, teachers, timetable, places, prices, codes, retreats and address are demo data. Its photographs and film are free stock from Pexels and Unsplash, of other studios and people, each credited in our records. Client sites use the studio's own photographs, timetable and prices.</p>
+  <span>© 2026 Sitefloor</span>
+</div></footer>
+
+<script>
+(() => {
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Clips play only while on screen and never with reduced motion; each has a Pause (or Play) button.
+  const clips = [...document.querySelectorAll("video[data-clip]")];
+  const paused = new Set(reduce ? clips.map((v) => v.id) : []);
+  const seen = new Map();
+  const label = (id) => {
+    const btn = document.querySelector(`[data-pause="${id}"]`); if (!btn) return;
+    const p = paused.has(id);
+    btn.querySelector("span").textContent = p ? "Play" : "Pause";
+    btn.setAttribute("aria-label", `${p ? "Play" : "Pause"} the ${btn.dataset.name}`);
+    btn.querySelector("svg").innerHTML = p ? '<path d="M3 1.5v9l7-4.5z" fill="currentColor"/>' : '<rect x="2" y="1" width="3" height="10" fill="currentColor"/><rect x="7" y="1" width="3" height="10" fill="currentColor"/>';
+  };
+  const sync = (v) => { if (seen.get(v) && !paused.has(v.id)) { if (v.preload === "none") v.preload = "auto"; v.play().catch(() => {}); } else v.pause(); };
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver((es) => es.forEach((e) => { seen.set(e.target, e.isIntersecting); sync(e.target); }), { threshold: .35 });
+    clips.forEach((v) => io.observe(v));
+  }
+  document.querySelectorAll("[data-pause]").forEach((btn) => {
+    const v = document.getElementById(btn.dataset.pause); if (!v) return;
+    label(v.id);
+    btn.addEventListener("click", () => { paused.has(v.id) ? paused.delete(v.id) : paused.add(v.id); label(v.id); if (!paused.has(v.id)) seen.set(v, true); sync(v); });
+  });
+
+  // The room's moving carriages and sunlight: one button stops and restarts both, remembered for the visit.
+  const room = document.querySelector(".room"), still = document.querySelector("[data-still]");
+  const setStill = (on) => {
+    room.classList.toggle("still", on); still.setAttribute("aria-pressed", String(on));
+    still.querySelector("span").textContent = on ? "Play the room" : "Pause the room";
+    still.querySelector("svg").innerHTML = on ? '<path d="M3 1.5v9l7-4.5z" fill="currentColor"/>' : '<rect x="2" y="1" width="3" height="10" fill="currentColor"/><rect x="7" y="1" width="3" height="10" fill="currentColor"/>';
+  };
+  let kept = false; try { kept = sessionStorage.getItem("ottoline-still") === "1"; } catch {}
+  setStill(kept);
+  still.addEventListener("click", () => { const on = !room.classList.contains("still"); setStill(on); try { sessionStorage.setItem("ottoline-still", on ? "1" : "0"); } catch {} });
+
+  // In the room: Ottoline's demo timetable, read on London time, like the site's own rail (the next four classes).
+  const WEEK = {"mon":[["06:45","sculpt","Anna"],["08:00","foundation","Tom"],["12:30","tempo","Anna"],["18:00","sculpt","Tom"],["19:15","stretch","Anna"]],"tue":[["07:00","tempo","Tom"],["09:15","foundation","Anna"],["12:30","sculpt","Tom"],["18:30","sculpt","Anna"],["19:45","stretch","Tom"]],"wed":[["06:45","sculpt","Anna"],["09:15","prenatal","Anna"],["12:30","tempo","Tom"],["18:00","foundation","Tom"],["19:15","sculpt","Anna"]],"thu":[["07:00","sculpt","Tom"],["09:15","foundation","Anna"],["12:30","stretch","Anna"],["18:00","tempo","Tom"],["19:15","sculpt","Tom"]],"fri":[["06:45","tempo","Anna"],["09:15","sculpt","Tom"],["12:30","foundation","Anna"],["17:30","stretch","Tom"]],"sat":[["08:30","sculpt","Anna"],["09:45","foundation","Tom"],["11:00","prenatal","Anna"],["12:15","tempo","Tom"]],"sun":[["09:30","stretch","Tom"],["10:45","sculpt","Anna"]]};
+  const CLOSED = new Set(["2026-12-24", "2026-12-25", "2026-12-26", "2026-12-27", "2026-12-28", "2027-01-01"]);
+  const NAMES = { foundation: "Foundation", sculpt: "Sculpt", tempo: "Tempo", stretch: "Stretch & release", prenatal: "Pre & postnatal" };
+  const KEYS = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+  const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const said = (t) => { const [h, m] = t.split(":").map(Number); return `${h}.${String(m).padStart(2, "0")}`; };
+  const draw = () => {
+    const now = new Date();
+    const parts = Object.fromEntries(new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", weekday: "short", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).formatToParts(now).map((p) => [p.type, p.value]));
+    const dateOf = (d) => new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/London" }).format(new Date(now.getTime() + d * 86_400_000));
+    const today = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(parts.weekday);
+    const mins = Number(parts.hour) * 60 + Number(parts.minute);
+    const out = [];
+    for (let d = 0; d < 14 && out.length < 4; d++) {
+      const day = (today + d) % 7;
+      if (CLOSED.has(dateOf(d))) continue;
+      for (const [t, c, who] of WEEK[KEYS[day]] ?? []) {
+        const [h, m] = t.split(":").map(Number);
+        if (d === 0 && h * 60 + m <= mins) continue;
+        if (out.length < 4) out.push({ d, day, t, c, who });
+      }
+    }
+    if (!out.length) return;
+    const first = out[0];
+    document.querySelector("[data-now-day]").textContent = first.d === 0 ? `Today, ${DAYS[first.day]}` : first.d === 1 ? `Tomorrow, ${DAYS[first.day]}` : DAYS[first.day];
+    document.querySelector("[data-now-list]").innerHTML = out.map((s) => `<li><time>${said(s.t)}</time><span>${s.d === first.d ? "" : DAYS[s.day].slice(0, 3) + " · "}${NAMES[s.c]} · ${s.who}</span></li>`).join("");
+  };
+  draw();
+  setInterval(draw, 60_000);
+
+  // The class cards: one hole per page, punched one after another the first time a card comes into view.
+  document.querySelectorAll("[data-holes]").forEach((box) => {
+    const n = Number(box.dataset.holes);
+    box.innerHTML = Array.from({ length: n }, () => "<i></i>").join("");
+  });
+  const punch = (box) => [...box.children].forEach((h, i) => reduce ? h.classList.add("p") : setTimeout(() => h.classList.add("p"), 220 + i * 110));
+  if ("IntersectionObserver" in window) {
+    const io2 = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { punch(e.target); io2.unobserve(e.target); } }), { threshold: .6 });
+    document.querySelectorAll("[data-holes]").forEach((b) => io2.observe(b));
+  } else document.querySelectorAll("[data-holes]").forEach(punch);
+})();
+</script>
+</body>
+</html>

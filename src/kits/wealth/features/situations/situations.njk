@@ -1,0 +1,14 @@
+{#- Your situation: one quiet sentence the visitor completes, "I am [selling a business] and I live in [the UK]".
+    Choosing changes the line and the next step, nothing else. Without scripts the default line and step stand. -#}
+{%- set s = site.situations %}
+{%- include "kits/wealth/partials/meet-href.njk" %}
+<div class="wm-sit" data-feature="situations">
+  <p class="wm-sit-say" data-js-only><label for="sit-who">I am</label>
+    <select id="sit-who" name="who"><option value="" data-href="{{ meetHref }}">choose your situation</option>
+      {%- for x in s.items %}<option value="{{ x.id }}" data-href="{{ (x.event | href) if (x.event and ('life-events' | enabled)) else meetHref }}">{{ x.label }}</option>{% endfor %}</select>
+    <label for="sit-where">and I live in</label>
+    <select id="sit-where" name="where">{% for p in s.places %}<option value="{{ p.id }}">{{ p.label }}</option>{% endfor %}</select></p>
+  <p class="wm-sit-answer" aria-live="polite"><span data-sit-line>{{ s.line }}</span>
+    <a class="wm-go" data-sit-next href="{{ meetHref }}">{{ s.next }}</a>
+    <span class="wm-sit-meet" data-sit-meet>{{ s.places[0].meet }}</span></p>
+</div>

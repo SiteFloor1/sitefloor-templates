@@ -1,0 +1,12 @@
+{#- The advisers as ruled rows: name, role, what they lead, and the FCA reference with a link to check it. -#}
+<ul class="wm-ppl">
+  {%- for p in site.advisers.items %}
+  <li id="{{ p.id }}">
+    <p class="wm-ppl-n">{% if "adviser-pages" | enabled %}<a href="{{ p.id | href }}">{{ p.name }}</a>{% else %}{{ p.name }}{% endif %}</p>
+    <p class="wm-ppl-r">{{ p.role }}{% if p.note and full %}<span class="wm-ppl-note">{{ p.note }}</span>{% endif %}</p>
+    <p class="wm-ppl-f">{% if p.irn %}FCA reference <b>{{ p.irn }}</b>{{ site.mode | demoTag }} <a href="{{ fca.register }}" target="_blank" rel="noopener">Check the register</a>{% endif %}
+      {%- if full and p.phone %}<br><a href="tel:{{ p.phone | replace(' ', '') }}">{{ p.phone | replace('+44 ', '0') }}</a>{% endif %}
+      {%- if full and p.email %}<br><a href="mailto:{{ p.email }}">{{ p.email }}</a>{% endif %}</p>
+  </li>
+  {%- endfor %}
+</ul>

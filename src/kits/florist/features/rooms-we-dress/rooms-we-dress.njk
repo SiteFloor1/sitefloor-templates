@@ -1,0 +1,20 @@
+{#- Rooms we dress: one large photograph at a time. Tabs choose the room on a computer; on a phone the rooms sit in a
+    sideways strip, one per view. Without JavaScript every room shows, one under another. -#}
+{%- set R = site.rooms %}
+{%- set sec = site.sections.rooms %}
+<section id="rooms" class="fl-rooms" data-feature="rooms-we-dress" aria-labelledby="rooms-h"><div class="wrap">
+  <div class="fl-sec-top">
+    <h2 id="rooms-h">{{ sec.title | markup | safe }}</h2>
+    <div class="fl-tabs" role="tablist" aria-label="{{ sec.title | plain }}" data-js-only>
+      {%- for r in R.items %}<button type="button" role="tab" id="room-t-{{ r.id }}" aria-controls="room-{{ r.id }}" aria-selected="{{ 'true' if loop.first else 'false' }}" tabindex="{{ '0' if loop.first else '-1' }}" data-room-tab="{{ loop.index0 }}">{{ r.title }}</button>{% endfor %}
+    </div>
+  </div>
+  <div class="fl-strip" data-room-strip>
+    {%- for r in R.items %}
+    <div class="fl-room{% if loop.first %} is-on{% endif %}" id="room-{{ r.id }}" role="tabpanel" aria-labelledby="room-t-{{ r.id }}"><figure class="fl-room-f">
+      <div class="fl-room-ph"><img src="{{ r.photo.src | img }}" alt="{{ r.photo.alt }}" width="{{ r.photo.width }}" height="{{ r.photo.height }}" loading="lazy" decoding="async"></div>
+      <figcaption><b>{{ r.title }}</b> {{ r.line }}</figcaption>
+    </figure></div>
+    {%- endfor %}
+  </div>
+</div></section>

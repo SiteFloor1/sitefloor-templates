@@ -1,0 +1,10 @@
+{#- The SRA digital badge (SRA Transparency Rules 4.1), with the words beside it. A client site shows the live badge the
+    SRA's supplier serves; a demo, which has no real number, shows where it goes. -#}
+<div class="lw-badge">
+  {%- if site.regulation.badgeFrame %}
+  <div class="lw-badge-frame"><iframe src="{{ site.regulation.badgeFrame }}" title="SRA digital badge for {{ site.regulation.legalName }}" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+  {%- else %}
+  <div class="lw-badge-frame lw-badge-slot"><span>SRA digital badge</span><span>shown live on a client site</span></div>
+  {%- endif %}
+  <p class="lw-badge-t">Authorised and regulated by the Solicitors Regulation Authority. SRA number {{ site.regulation.sraNumber }}{% if site.mode == "demo" %} (demo){% endif %}.</p>
+</div>

@@ -1,0 +1,17 @@
+{#- Blue hour page links: long rows, not tiles. A small photograph, the page's name light and large, its line, and
+    an arrow; ruled like the lines of a schedule. -#}
+{%- set links = site.pageLinks | enabledLinks %}
+{%- if links.length %}
+<section class="bh-links-sec" data-feature="page-links"{{ "page-links" | tierAttr | safe }}><div class="wrap">
+  <ul class="bh-plinks">
+    {%- for l in links %}
+    <li><a href="{{ l.page | href }}">
+      <img src="{{ l.image | img }}" alt="" loading="lazy" decoding="async" width="720" height="900">
+      <span class="bh-eng">{{ l.kicker }}</span>
+      <b>{{ l.title | markup | safe }}</b>
+      <span class="bh-plinks-go">{{ l.cta }} <span aria-hidden="true">→</span></span>
+    </a></li>
+    {%- endfor %}
+  </ul>
+</div></section>
+{%- endif %}

@@ -1,0 +1,28 @@
+{#- The film-coverage builder: the visitor's car (SUV first) and one of the studio's film packages. On tap the 3D car
+    shows the covered paint lit, with the film's edges as lines of light. The price and days come from the studio's
+    price sheet for that package and car; the choice goes to the studio on WhatsApp. Before the sheet is read, or if
+    it can't be, the price says "Ask us" and the message still works. -#}
+{%- set sec = site.sections.protection3d %}
+{%- set pr = site.protection %}
+<section id="film" class="dt-p3" data-feature="protection-3d" aria-label="{{ sec.title | plain }}"><div class="wrap dt-c3-in dt-p3-in">
+  <div class="dt-c3-stage">
+    {%- set stg = { photo: pr.photo, note: "The covered paint lights up; the film's edges are drawn as lines of light." } %}{% set stgId = "p3" %}
+    {% include "kits/detailing/partials/stage-3d.njk" %}
+  </div>
+  <div class="dt-p3-pick">
+    {%- include "core/partials/section-head.njk" %}
+    <fieldset class="dt-bd-pk"><legend class="dt-bd-l">Package</legend>
+      {%- for c in pr.coverages %}
+      <label class="dt-opt"><input type="radio" name="dt-cover" value="{{ c.id }}" data-area="{{ c.area }}" data-name="{{ c.name }}"{% if c.id == (pr.coverages | defaultCover) %} checked{% endif %}>
+        <span class="dt-opt-n">{{ c.name }}<small>{{ c.line }}</small></span><b data-fp-for="{{ c.id }}"></b></label>
+      {%- endfor %}
+    </fieldset>
+    <div class="dt-p3-sum" aria-live="polite">
+      <span class="tube" aria-hidden="true"></span>
+      <p class="dt-bd-total"><span data-fp-from hidden>from</span> <b data-fp-total>Ask us</b></p>
+      <p class="dt-bd-days" data-fp-days>&nbsp;</p>
+      <a class="go" data-fp-go href="{{ pr.message | wa }}" target="_blank" rel="noopener">Send this on WhatsApp</a>
+      <p class="dt-note">{{ pr.note }}</p>
+    </div>
+  </div>
+</div></section>

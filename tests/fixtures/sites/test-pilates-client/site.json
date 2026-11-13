@@ -1,0 +1,600 @@
+{
+  "schemaVersion": 4,
+  "id": "test-pilates-client",
+  "mode": "client",
+  "plan": "plus",
+  "kit": "pilates",
+  "look": "dune",
+  "url": "https://core-and-carriage-test.co.uk",
+  "indexable": true,
+  "lang": "en-GB",
+  "business": {
+    "name": "Core and Carriage",
+    "schemaType": "SportsActivityLocation",
+    "description": "Reformer Pilates in Leeds: eight reformers and small classes.",
+    "priceRange": "££",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "447911123458",
+    "phone": "+44 7911 123458",
+    "email": "hello@core-and-carriage-test.co.uk"
+  },
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "location": {
+    "streetAddress": "3 Mill Yard",
+    "locality": "Leeds",
+    "postcode": "LS1 4AP",
+    "country": "GB",
+    "area": "In the courtyard behind the Corn Exchange.",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=Corn%20Exchange%20Leeds"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [
+        [
+          "06:30",
+          "20:30"
+        ]
+      ],
+      "tue": [
+        [
+          "06:30",
+          "21:00"
+        ]
+      ],
+      "wed": [
+        [
+          "06:30",
+          "20:30"
+        ]
+      ],
+      "thu": [
+        [
+          "06:30",
+          "20:30"
+        ]
+      ],
+      "fri": [
+        [
+          "06:30",
+          "19:00"
+        ]
+      ],
+      "sat": [
+        [
+          "08:00",
+          "14:00"
+        ]
+      ],
+      "sun": [
+        [
+          "09:00",
+          "12:30"
+        ]
+      ]
+    },
+    "exceptions": [
+      {
+        "date": "2026-12-24",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2026-12-25",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2026-12-26",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2026-12-27",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2026-12-28",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2027-01-01",
+        "ranges": [],
+        "note": "Closed for New Year's Day"
+      }
+    ]
+  },
+  "nav": [
+    {
+      "label": "Timetable",
+      "href": "#timetable",
+      "feature": "timetable"
+    },
+    {
+      "label": "Classes",
+      "page": "classes",
+      "feature": "classes-page",
+      "fallback": "#classes"
+    },
+    {
+      "label": "Visit",
+      "page": "visit",
+      "feature": "plan-visit",
+      "fallback": "#visit"
+    }
+  ],
+  "features": [
+    "timetable",
+    "class-types",
+    "first-class",
+    "visit",
+    "plan-visit",
+    "questions",
+    "spaces-left",
+    "waitlist",
+    "intro-card",
+    "your-week",
+    "class-finder",
+    "gift-cards",
+    "classes-page"
+  ],
+  "hero": {
+    "kicker": "Reformer Pilates, Leeds",
+    "title": "Eight reformers in Leeds",
+    "intro": "Small reformer classes, early and late.",
+    "photo": {
+      "src": "img/room.webp",
+      "width": 1800,
+      "height": 1200,
+      "alt": "Eight reformers under arched mirrors"
+    }
+  },
+  "sections": {
+    "timetable": {
+      "title": "The week",
+      "intro": "Six reformers in every class. Book in two taps."
+    },
+    "introCard": {
+      "title": "Your first three classes"
+    },
+    "classTypes": {
+      "title": "What each is like"
+    },
+    "firstClass": {
+      "title": "Your first class",
+      "intro": "New to the reformer, or back after a while."
+    },
+    "classFinder": {
+      "title": "Not sure where to start?",
+      "intro": "Three taps, and the class to book."
+    },
+    "giftCards": {
+      "title": "Give a class card",
+      "intro": "For a birthday, a new mother, or a friend who keeps meaning to."
+    },
+    "questions": {
+      "title": "Before you come"
+    },
+    "visit": {
+      "title": "Find us"
+    }
+  },
+  "messages": {
+    "general": "Hello Core and Carriage, I have a question.",
+    "book": "Hello, I'd like to book {class} on {day} at {time}."
+  },
+  "classTypes": {
+    "items": [
+      {
+        "id": "foundation",
+        "name": "Foundation",
+        "minutes": 50,
+        "level": "New or returning",
+        "text": "Your first weeks on the reformer, or a return after time away. Slow, spring by spring."
+      },
+      {
+        "id": "sculpt",
+        "name": "Sculpt",
+        "minutes": 50,
+        "level": "All levels",
+        "text": "Heavier springs, long holds, few transitions."
+      },
+      {
+        "id": "tempo",
+        "name": "Tempo",
+        "minutes": 45,
+        "level": "Some experience",
+        "text": "The same work, moving quicker between it. For when Sculpt feels easy."
+      },
+      {
+        "id": "stretch",
+        "name": "Stretch & release",
+        "minutes": 50,
+        "level": "All levels",
+        "text": "Lighter springs and longer reaches at the end of the day."
+      }
+    ]
+  },
+  "timetable": {
+    "reformers": 8,
+    "weekly": {
+      "mon": [
+        {
+          "time": "06:45",
+          "class": "sculpt",
+          "teacher": "Anna"
+        },
+        {
+          "time": "08:00",
+          "class": "foundation",
+          "teacher": "Tom"
+        },
+        {
+          "time": "12:30",
+          "class": "tempo",
+          "teacher": "Anna"
+        },
+        {
+          "time": "18:00",
+          "class": "sculpt",
+          "teacher": "Tom"
+        },
+        {
+          "time": "19:15",
+          "class": "stretch",
+          "teacher": "Anna"
+        }
+      ],
+      "tue": [
+        {
+          "time": "07:00",
+          "class": "tempo",
+          "teacher": "Tom"
+        },
+        {
+          "time": "09:15",
+          "class": "foundation",
+          "teacher": "Anna"
+        },
+        {
+          "time": "12:30",
+          "class": "sculpt",
+          "teacher": "Tom"
+        },
+        {
+          "time": "18:30",
+          "class": "sculpt",
+          "teacher": "Anna"
+        },
+        {
+          "time": "19:45",
+          "class": "stretch",
+          "teacher": "Tom"
+        }
+      ],
+      "wed": [
+        {
+          "time": "06:45",
+          "class": "sculpt",
+          "teacher": "Anna"
+        },
+        {
+          "time": "12:30",
+          "class": "tempo",
+          "teacher": "Tom"
+        },
+        {
+          "time": "18:00",
+          "class": "foundation",
+          "teacher": "Tom"
+        },
+        {
+          "time": "19:15",
+          "class": "sculpt",
+          "teacher": "Anna"
+        }
+      ],
+      "thu": [
+        {
+          "time": "07:00",
+          "class": "sculpt",
+          "teacher": "Tom"
+        },
+        {
+          "time": "09:15",
+          "class": "foundation",
+          "teacher": "Anna"
+        },
+        {
+          "time": "12:30",
+          "class": "stretch",
+          "teacher": "Anna"
+        },
+        {
+          "time": "18:00",
+          "class": "tempo",
+          "teacher": "Tom"
+        },
+        {
+          "time": "19:15",
+          "class": "sculpt",
+          "teacher": "Tom"
+        }
+      ],
+      "fri": [
+        {
+          "time": "06:45",
+          "class": "tempo",
+          "teacher": "Anna"
+        },
+        {
+          "time": "09:15",
+          "class": "sculpt",
+          "teacher": "Tom"
+        },
+        {
+          "time": "12:30",
+          "class": "foundation",
+          "teacher": "Anna"
+        },
+        {
+          "time": "17:30",
+          "class": "stretch",
+          "teacher": "Tom"
+        }
+      ],
+      "sat": [
+        {
+          "time": "08:30",
+          "class": "sculpt",
+          "teacher": "Anna"
+        },
+        {
+          "time": "09:45",
+          "class": "foundation",
+          "teacher": "Tom"
+        },
+        {
+          "time": "12:15",
+          "class": "tempo",
+          "teacher": "Tom"
+        }
+      ],
+      "sun": [
+        {
+          "time": "09:30",
+          "class": "stretch",
+          "teacher": "Tom"
+        },
+        {
+          "time": "10:45",
+          "class": "sculpt",
+          "teacher": "Anna"
+        }
+      ]
+    }
+  },
+  "places": {
+    "source": "sheet",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-test/pub?output=csv"
+  },
+  "waitlist": {
+    "message": "Hello, please add me to the waitlist for {class} on {day} at {time}."
+  },
+  "firstClass": {
+    "class": "foundation",
+    "photo": {
+      "src": "img/room.webp",
+      "width": 1800,
+      "height": 1200,
+      "alt": "Eight reformers under arched mirrors"
+    },
+    "steps": [
+      {
+        "title": "Book a Foundation class",
+        "text": "Fifty minutes, six of you at most, built for a first time on the reformer."
+      },
+      {
+        "title": "Arrive ten minutes early",
+        "text": "A short health form, a locker, and a walk through the springs before anyone starts."
+      },
+      {
+        "title": "Wear socks with grips",
+        "text": "Leggings or shorts you can move in. Feet go on the reformer in grip socks, never bare."
+      },
+      {
+        "title": "Tell your teacher anything",
+        "text": "An injury, a pregnancy, a bad night's sleep. They set your springs around it."
+      }
+    ]
+  },
+  "classFinder": {
+    "new": "foundation",
+    "slower": "stretch",
+    "steady": "sculpt",
+    "faster": "tempo"
+  },
+  "introCard": {
+    "text": "Any three classes within fourteen days.",
+    "classes": 3,
+    "days": 14,
+    "price": 45,
+    "payLink": "https://buy.stripe.com/live_coreandcarriage_intro"
+  },
+  "giftCards": {
+    "message": "Hello, I'd like a gift card.",
+    "howItWorks": "Pay by card, then send us the details and we post the card.",
+    "items": [
+      {
+        "id": "five",
+        "name": "Five classes",
+        "text": "Any five classes",
+        "price": 95,
+        "payLink": "https://buy.stripe.com/live_coreandcarriage_five"
+      }
+    ]
+  },
+  "visitInfo": {
+    "kicker": "Plan your visit",
+    "title": "Finding *the mews*",
+    "intro": "Off Marylebone High Street, seven minutes' walk from Baker Street.",
+    "checked": "2026-10",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "Baker Street station",
+        "origin": "Baker Street station, London",
+        "minutes": 7,
+        "steps": [
+          "Leave by the Marylebone Road exit",
+          "Walk east to Marylebone High Street and turn right",
+          "Hesketh Mews is the third opening on the left"
+        ]
+      },
+      {
+        "mode": "bus",
+        "from": "Buses 2, 13, 30 and 74",
+        "stop": "Baker Street / Marylebone Road",
+        "minutes": 6,
+        "steps": [
+          "Get off at Baker Street",
+          "Walk east along Marylebone Road to the High Street"
+        ]
+      },
+      {
+        "mode": "car",
+        "from": "By taxi",
+        "origin": "Oxford Circus, London",
+        "minutes": 12,
+        "steps": [
+          "Ask for Hesketh Mews, off Marylebone High Street, W1U",
+          "The studio is the cream door at the end"
+        ]
+      }
+    ],
+    "parking": [
+      {
+        "name": "Pay-by-phone bays nearby",
+        "walk": 3,
+        "price": "check the signs on the street",
+        "paid": {
+          "mon": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "tue": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "wed": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "thu": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "fri": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "sat": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ]
+        },
+        "note": "Residents' bays are marked; avoid those.",
+        "bankHolidays": "sunday"
+      }
+    ],
+    "access": [
+      {
+        "label": "Step-free entrance",
+        "yes": true
+      },
+      {
+        "label": "Studio on the ground floor",
+        "yes": true
+      },
+      {
+        "label": "Accessible toilet",
+        "yes": false
+      }
+    ],
+    "accessNote": "The studio and changing room are on the ground floor, through a step-free door.",
+    "payment": "Card, Apple Pay and Google Pay."
+  },
+  "questions": [
+    {
+      "topic": "Your first class",
+      "q": "I've never done reformer. Where do I start?",
+      "a": "Foundation. It's built for a first time, and your teacher shows you the reformer before anything moves.",
+      "home": true
+    },
+    {
+      "topic": "Your first class",
+      "q": "What do I wear?",
+      "a": "Leggings or shorts you can move in, and socks with grips. We sell grip socks at the desk.",
+      "home": true
+    },
+    {
+      "topic": "Your first class",
+      "q": "How many people are in a class?",
+      "a": "Six at most: there are six reformers.",
+      "home": true
+    },
+    {
+      "topic": "Your first class",
+      "q": "Do I need to be fit or flexible?",
+      "a": "No. The springs are set for you, lighter or heavier, and Foundation goes slowly."
+    },
+    {
+      "topic": "Your body",
+      "q": "I have an injury. Is it safe?",
+      "a": "Tell us before you book. Often a private session first is best, so we can see how you move."
+    },
+    {
+      "topic": "Booking",
+      "q": "What if I can't make it?",
+      "a": "Cancel twelve hours before and the class goes back on your card. Later than that, it's used."
+    },
+    {
+      "topic": "Booking",
+      "q": "What if a class is full?",
+      "a": "Tap Waitlist. If a reformer frees up, we message you."
+    },
+    {
+      "topic": "The studio",
+      "q": "Are there showers?",
+      "a": "One shower and a changing room with lockers, towels and hairdryers."
+    },
+    {
+      "topic": "The studio",
+      "q": "Do you sell gift cards?",
+      "a": "Yes: class cards, private sessions or any amount. Written by hand."
+    }
+  ],
+  "classesPage": {
+    "kicker": "Classes",
+    "title": "Classes",
+    "intro": "Four classes, eight reformers."
+  }
+}

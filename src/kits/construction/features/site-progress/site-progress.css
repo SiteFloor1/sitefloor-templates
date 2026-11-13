@@ -1,0 +1,27 @@
+/* Your house, this week: the key strip (also under the home hero) and the week's card. */
+.bd-tag { flex: none; display: inline-block; width: 13px; height: 19px; border: 1.5px solid var(--text); border-radius: 3px 3px 6px 6px; position: relative; background: var(--accent-soft, var(--accent)); }
+.bd-tag::before { content: ""; position: absolute; top: 3px; left: 50%; width: 4px; height: 4px; margin-left: -2px; border-radius: 50%; background: var(--bg); border: 1px solid var(--text); }
+.bd-key { display: flex; align-items: center; gap: 12px; background: var(--bg); padding: 12px 12px 12px 18px; border: 1px solid var(--line); }
+.bd-key label { font-family: var(--font-display); font-style: italic; font-size: 17px; line-height: 1.2; white-space: nowrap; }
+.bd-key input { width: 7.5em; min-width: 0; font: inherit; font-weight: 500; font-size: 16px; letter-spacing: .12em; text-transform: uppercase; border: 0; border-bottom: 1px solid var(--line-2); background: transparent; color: var(--text); padding: 8px 2px; }
+.bd-key input::placeholder { color: var(--muted); }
+.bd-key button { font: inherit; font-weight: 500; font-size: 13px; background: var(--text); color: var(--bg); border: 0; padding: 11px 14px; cursor: pointer; min-height: 40px; }
+.bd-sp { display: grid; gap: 20px; padding-bottom: clamp(80px, 11vw, 120px); }
+.bd-sp-form { justify-self: start; }
+.bd-sp-try { margin: 0; font-size: 13px; color: var(--muted); }
+.bd-sp-try button { font: inherit; font-weight: 500; letter-spacing: .08em; background: none; border: 0; border-bottom: 1px solid currentColor; color: var(--text); cursor: pointer; padding: 2px 0; }
+.bd-sp-card { display: grid; background: var(--surface); }
+.bd-sp-photo { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.bd-sp-body { padding: 28px; display: grid; gap: 14px; align-content: start; }
+.bd-sp-when { margin: 0; font-family: var(--font-display); font-style: italic; font-size: 18px; }
+.bd-sp-done { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(26px, 3vw, 34px); line-height: 1.1; }
+.bd-sp-bar { display: flex; gap: 6px; list-style: none; margin: 6px 0 0; padding: 0; }
+.bd-sp-bar li { flex: 1; height: 4px; background: var(--line-2); }
+.bd-sp-bar li.done { background: var(--text); }
+.bd-sp-bar span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.bd-sp-stage { margin: 0; font-size: 13px; }
+.bd-sp-next { margin: 0; border-top: 1px solid var(--line); padding-top: 14px; font-size: 14px; }
+.bd-sp-off, .bd-sp-plain { margin: 0; max-width: 56ch; }
+.bd-sp-note { margin: 0; font-size: 12px; color: var(--muted); max-width: 60ch; }
+@media (min-width: 900px) { .bd-sp-card.has-photo { grid-template-columns: 7fr 5fr; } .bd-sp-card.has-photo .bd-sp-photo { height: 100%; aspect-ratio: auto; } .bd-sp-card { max-width: 980px; } }
+@media (max-width: 600px) { .bd-key { flex-wrap: wrap; } .bd-key label { flex: 1; } }

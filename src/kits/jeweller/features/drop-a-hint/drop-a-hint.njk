@@ -1,0 +1,2 @@
+{#- Drop a hint, beside a piece. Set `p` first. Hidden until the script runs (it needs the share sheet or WhatsApp). -#}
+<button type="button" class="nc-u nc-label nc-btnlink" data-feature="drop-a-hint" data-hint-name="{{ p.name }}" data-hint-price="{{ p | priceLabel }}" data-hint-url="{{ site.url }}/{{ p.id | pieceHref if ('jewel-pages' | enabled) else '#' + p.id }}" hidden>Drop a hint</button>

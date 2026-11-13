@@ -1,0 +1,30 @@
+/* Build your cut: diagram on a bone "style chart" card, controls beside it. */
+.sec-cut { padding-top: 0 !important; }
+.cut { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); }
+@media (max-width: 900px) { .cut { grid-template-columns: minmax(0, 1fr); } }
+.cut-vis { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 24px; background: var(--chart-bg); color: var(--chart-ink); }
+@media (max-width: 900px) { .cut-vis { padding: 28px 16px; } }
+.head { width: min(380px, 86%); }
+.head svg, .diagram { width: 100%; height: auto; display: block; }
+.vis-cap { display: flex; gap: 18px; margin: 10px 0 0; font-size: 12px; color: var(--chart-muted); flex-wrap: wrap; justify-content: center; }
+.vis-cap b { color: var(--chart-ink); }
+.cut-ctl { padding: 34px 34px 30px; display: flex; flex-direction: column; gap: 22px; margin: 0; }
+@media (max-width: 600px) { .cut-ctl { padding: 24px 16px; } }
+.grp { border: 0; padding: 0; margin: 0; min-width: 0; }
+.grp legend, .grp-label { display: block; padding: 0; font-size: 11.5px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+.opts { display: flex; flex-wrap: wrap; gap: 8px; }
+.o { position: relative; min-height: 42px; padding: 0 14px; cursor: pointer; font-size: 14px; font-weight: 700; box-shadow: inset 0 0 0 1.5px var(--line-2); transition: background .2s, color .2s, box-shadow .2s; display: inline-flex; align-items: center; gap: 8px; }
+.o input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.o small { font-weight: 600; color: var(--muted); font-size: 12px; }
+.o:hover { box-shadow: inset 0 0 0 1.5px var(--text); }
+.o:has(input:checked) { background: var(--text); color: var(--bg); box-shadow: none; }
+.o:has(input:checked) small { color: color-mix(in srgb, var(--bg) 60%, var(--text)); }
+.o:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 3px; }
+.rng { display: flex; align-items: center; gap: 14px; }
+.rng input { flex: 1; accent-color: var(--accent); }
+.rng input:disabled { opacity: .4; }
+.rng output { min-width: 74px; text-align: right; font-weight: 800; font-variant-numeric: tabular-nums; }
+.total { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 22px; margin-top: 4px; }
+.total .amt { font-family: var(--font-display); font-size: 52px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; margin: 0; }
+.total small { display: block; color: var(--muted); font-size: 13px; margin-top: 6px; }
+.cut-note { flex-basis: 100%; margin: 0; font-size: 13px; color: var(--muted); }

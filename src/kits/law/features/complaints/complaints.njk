@@ -1,0 +1,35 @@
+{#- Complaints and regulation (SRA Transparency Rules 2.1 and 4.1): the firm's own procedure, then how and when to go
+    to the Legal Ombudsman and the SRA (the regulator's facts, checked; src/kits/law/lib/sra.js), the SRA number and
+    the firm's insurance. -#}
+{%- set c = site.complaints %}{% set r = site.regulation %}{% set lo = regulator.ombudsman %}
+{%- set ph = { title: "Complaints and regulation", intro: c.intro } %}
+{% include "kits/law/partials/page-head.njk" %}
+<div class="wrap lw-comp">
+  <section class="lw-comp-s" aria-labelledby="comp-us">
+    <h2 id="comp-us">Telling us</h2>
+    <ol class="lw-comp-steps">{% for s in c.steps %}<li><h3>{{ s.title }}</h3><p>{{ s.text }}</p></li>{% endfor %}</ol>
+    <address class="lw-comp-who">{{ c.contact.name }}, {{ c.contact.role }}<br>{{ c.contact.address }}<br><a href="mailto:{{ c.contact.email }}">{{ c.contact.email }}</a></address>
+    <p class="lw-comp-upd">Procedure last checked {{ c.updated | ukDate }}.</p>
+  </section>
+  <section class="lw-comp-s" aria-labelledby="comp-lo">
+    <h2 id="comp-lo">The Legal Ombudsman</h2>
+    <p>If we haven't put things right within {{ lo.firmWeeks }} weeks of your complaint, or you are unhappy with our final response, you can ask the Legal Ombudsman to look at it. It is free and independent.</p>
+    <p>You need to go to the Ombudsman {% for l in lo.limits %}{{ l }}{% if not loop.last %}, {% endif %}{% endfor %}.</p>
+    <p><a href="{{ lo.url }}" rel="noopener">legalombudsman.org.uk</a> · {{ lo.phone }}</p>
+  </section>
+  <section class="lw-comp-s" aria-labelledby="comp-sra">
+    <h2 id="comp-sra">The Solicitors Regulation Authority</h2>
+    <p>If you are worried about our behaviour (dishonesty, taking or losing your money, or treating you unfairly because of your age, a disability or another characteristic), you can raise it with the SRA.</p>
+    <p><a href="{{ regulator.sra.consumers }}" rel="noopener">The SRA's help for the public</a></p>
+  </section>
+  <section class="lw-comp-s" id="insurance" aria-labelledby="comp-reg">
+    <h2 id="comp-reg">Who we are</h2>
+    {% include "kits/law/features/regulation/badge.njk" %}
+    <dl class="lw-comp-dl">
+      <div><dt>Firm</dt><dd>{{ r.legalName }}, {{ r.entity }}</dd></div>
+      {%- if r.office %}<div><dt>Registered office</dt><dd>{{ r.office }}</dd></div>{% endif %}
+      <div><dt>Professional indemnity insurance</dt><dd>{{ r.insurance.insurer }}, {{ r.insurance.address }}. Cover: {{ r.insurance.coverage }}.</dd></div>
+    </dl>
+    <p class="lw-comp-upd">Regulator details checked {{ regulator.checked | ukDate }}.</p>
+  </section>
+</div>

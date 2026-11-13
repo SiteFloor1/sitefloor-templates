@@ -1,0 +1,15 @@
+{#- Design, build, care: what the studio does, a line each, so a visitor knows at once whether it designs, builds or
+    both; each goes to its own page when the studio has one. -#}
+{%- set sec = site.sections.whatWeDo %}
+<section id="services" class="gd-sv" aria-labelledby="sv-h"><div class="wrap">
+  {%- set secId = "sv-h" %}{% include "core/partials/section-head.njk" %}
+  <ul class="gd-sv-list">
+    {%- for s in site.whatWeDo.items %}
+    {%- set pg = (site.servicePages.items | pageFor("service", s.id)) if ("design-build-care" | enabled) else null %}
+    <li class="gd-sv-i">
+      <h3 class="gd-sv-n">{% if pg %}<a href="{{ pg.slug | href }}"{{ 'design-build-care' | tierAttr | safe }}>{{ s.name }}</a>{% else %}{{ s.name }}{% endif %}</h3>
+      <p class="gd-sv-t">{{ s.text }}</p>
+    </li>
+    {%- endfor %}
+  </ul>
+</div></section>

@@ -1,0 +1,25 @@
+{#- A class page: the class's own night photograph, then its cars. The first car leads large with its rules; the rest
+    follow in the grid. The volume of a 300-car fleet lives on these pages. `cls` set. -#}
+{%- set cars = site.fleet | classCars(cls.id) %}
+{%- set pt = { title: cls.name, intro: cls.line, photo: cls.photo, photoTall: cls.photoTall, kicker: (cars.length | words | capitalize) + (" car" if cars.length == 1 else " cars") } %}{% include "kits/hire/parts/page-top.njk" %}
+<section class="hr-cls" data-feature="fleet-page" aria-label="{{ cls.name }}">
+  <div class="wrap">
+    {%- set car = cars[0] %}
+    <article class="hr-cls-lead">
+      <a class="hr-cls-pic" href="{{ car.id | carUrl(build.links) }}"><img src="{{ car.photos.card.src | img }}" alt="{{ car.photos.card.alt }}" width="{{ car.photos.card.width }}" height="{{ car.photos.card.height }}" loading="lazy" decoding="async"></a>
+      <div class="hr-cls-copy">
+        <div class="hr-car-name"><h2>{{ car | carName }}</h2><span class="hr-from">{{ car | fromLine }}</span></div>
+        <p class="hr-trim">{{ car | trimLine }}</p>
+        {%- set short = false %}{% include "kits/hire/parts/facts.njk" %}
+        <p class="hr-ways"><a class="hr-more" href="{{ car.id | carUrl(build.links) }}">The car in detail</a></p>
+      </div>
+    </article>
+    {%- if cars.length > 1 %}
+    <ul class="hr-fl-list">{% for car in cars %}{% if not loop.first %}{% include "kits/hire/parts/fleet-card.njk" %}{% endif %}{% endfor %}</ul>
+    {%- endif %}
+    <nav class="hr-cls-nav" aria-label="Other classes">
+      <a href="{{ 'fleet' | href }}">The whole fleet</a>
+      {%- for k in site.fleet | fleetClasses %}{% if k.id != cls.id %}<a href="{{ k.id | classUrl(build.links) }}">{{ k.name }}</a>{% endif %}{% endfor %}
+    </nav>
+  </div>
+</section>

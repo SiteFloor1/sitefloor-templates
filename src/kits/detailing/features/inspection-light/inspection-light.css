@@ -1,0 +1,15 @@
+/* The inspection light: the after photograph shows only inside a soft beam around the light (the mask reads only
+   opacity, so any opaque token works); the lamp is a lit line
+   with a glow, the handle a round grip. Without JavaScript the beam rests where the page put it. */
+.dt-il { --beam: 17%; position: absolute; inset: 0; margin: 0; overflow: hidden; touch-action: pan-y; user-select: none; -webkit-user-select: none; cursor: ew-resize; }
+.dt-il img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.dt-il-a {
+  -webkit-mask-image: linear-gradient(90deg, transparent calc(var(--x) - var(--beam)), var(--bg) calc(var(--x) - var(--beam) + 6%), var(--bg) calc(var(--x) + var(--beam) - 6%), transparent calc(var(--x) + var(--beam)));
+  mask-image: linear-gradient(90deg, transparent calc(var(--x) - var(--beam)), var(--bg) calc(var(--x) - var(--beam) + 6%), var(--bg) calc(var(--x) + var(--beam) - 6%), transparent calc(var(--x) + var(--beam)));
+}
+.dt-il-lamp { position: absolute; top: 0; bottom: 0; left: var(--x); width: 2px; margin-left: -1px; background: var(--tube, var(--text)); box-shadow: 0 0 22px 6px color-mix(in srgb, var(--tube, var(--text)) 50%, transparent); pointer-events: none; }
+.dt-il-h { position: absolute; top: 50%; left: var(--x); transform: translate(-50%, -50%); display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; background: var(--tube, var(--text)); color: var(--bg); box-shadow: 0 2px 14px var(--shadow); }
+.dt-il-h svg { width: 22px; height: 22px; }
+.dt-il-h:focus-visible { outline: 2px solid var(--tube, var(--text)); outline-offset: 4px; }
+.dt-il-c { position: absolute; left: var(--pad); bottom: 14px; font-size: 12px; color: var(--on-photo); }
+@media (max-width: 860px) { .dt-il { --beam: 24%; } }

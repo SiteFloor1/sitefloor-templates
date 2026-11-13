@@ -1,0 +1,23 @@
+{#- Datum questions: the heading light and large on the left, the answers as hairline rows on the right (no boxes). On the
+    car hire kit, what to bring and the driver details form sit here too (owner's decision, 29 Oct). -#}
+{%- set sec = site.sections.questions %}
+{%- set qs = site | homeQuestions %}
+<section id="questions" class="dt-qs" data-feature="questions"{{ "questions" | tierAttr | safe }}><div class="wrap dt-qs-grid">
+  <div class="dt-qs-side">
+    <h2 class="dt-h">{{ sec.title | markup | safe }}</h2>
+    {%- if sec.intro %}<p class="dt-hr">{{ sec.intro }}</p>{% endif %}
+    <p class="dt-qs-more">
+      {%- if "plan-visit" | enabled %}<a class="dt-go" href="{{ 'visit' | href }}"{{ "plan-visit" | tierAttr | safe }}>Plan your visit</a>{% endif %}
+      <a class="dt-quiet" href="{{ site.messages.general | wa }}" data-wa-text="{{ site.messages.general }}" target="_blank" rel="noopener">Ask us something else</a>
+    </p>
+  </div>
+  <div class="dt-qs-list">
+    {%- for item in qs %}
+    <details class="dt-qa"{% if loop.first %} open{% endif %}><summary>{{ item.q }}</summary><p>{{ item.a }}</p></details>
+    {%- endfor %}
+    {%- if site.kit == "hire" %}
+    {%- include "kits/hire/features/bring-list/bring-list.njk" %}
+    {%- include "kits/hire/features/driver-form/driver-form.njk" %}
+    {%- endif %}
+  </div>
+</div></section>

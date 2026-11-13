@@ -1,0 +1,42 @@
+{#- Protection planner: tap the panels on a real car, from above or from the side; price and time from the
+    studio's own prices, with its packs (up to the whole car) used whenever they cost less. -#}
+{%- set sec = site.sections.protection %}
+{%- set p = site.protection %}
+<section id="protection" class="sec-protection" data-feature="protection-planner"{{ "protection-planner" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="pp rv" data-pp data-pp-view="top">
+    <div class="pp-stage studio">
+      <div class="pp-views" role="group" aria-label="Show the car" data-js-only>
+        <button type="button" data-pp-show="top" aria-pressed="true">From above</button><button type="button" data-pp-show="side" aria-pressed="false">From the side</button>
+      </div>
+      {%- for view in ["top", "side"] %}
+      {%- set ph = ({ src: "img/kit/plan.webp", w: 599, h: 1200 }) if view == "top" else carKit.saloon %}
+      <div class="pp-car pp-{{ view }}" data-pp-car="{{ view }}"{% if view == "side" %} hidden{% endif %}>
+        <img src="{{ ph.src | img }}" width="{{ ph.w }}" height="{{ ph.h }}" alt="A car seen {{ 'from above' if view == 'top' else 'from the side' }}, with the panels you can cover marked" loading="lazy">
+        <svg viewBox="0 0 {{ ph.w }} {{ ph.h }}" aria-hidden="true">
+          {%- for pn in p.panels %}{% set shape = carKit.panels[pn.id] %}{% if shape and shape[view] %}<path class="pp-shape" data-panel="{{ pn.id }}" d="{{ shape[view] | polyPath }}"><title>{{ pn.name }}</title></path>{% endif %}{% endfor %}
+        </svg>
+      </div>
+      {%- endfor %}
+    </div>
+    <form class="pp-panel" data-pp-form>
+      <fieldset class="pp-set"><legend>Your vehicle <small>(the photo is one car; prices follow your size)</small></legend>
+        <div class="sr-chips">{% for v in site.vehicles %}<label class="sr-chip"><input type="radio" name="vehicle" value="{{ v.id }}"{% if loop.first %} checked{% endif %}><span>{{ v.name }}</span></label>{% endfor %}</div>
+      </fieldset>
+      {%- if p.packs %}
+      <fieldset class="pp-set"><legend>Start from a pack</legend>
+        <div class="sr-chips">{% for k in p.packs %}<button type="button" class="pp-pack" data-pp-pack="{{ loop.index0 }}">{{ k.name }}</button>{% endfor %}<button type="button" class="pp-pack" data-pp-pack="clear">Clear</button></div>
+      </fieldset>
+      {%- endif %}
+      <fieldset class="pp-set"><legend>Tap the car, or pick panels</legend>
+        <div class="sr-chips">{% for x in p.panels %}<label class="sr-chip"><input type="checkbox" name="panel" value="{{ x.id }}"{% if x.id in (p.start or []) %} checked{% endif %}><span>{{ x.name }}</span></label>{% endfor %}</div>
+      </fieldset>
+      <ul class="pp-lines" data-pp-lines aria-live="polite"></ul>
+      <p class="pp-sum"><span>Total</span><b data-pp-price>£0</b><span data-pp-hours></span></p>
+      <p class="pp-save" data-pp-save></p>
+      <a class="btn" data-pp-send href="{{ site.messages.general | wa }}" target="_blank" rel="noopener">{% include "core/partials/icon-whatsapp.njk" %}Ask about this cover</a>
+      <p class="pp-note">{{ sec.note }}</p>
+      {%- if "ppf-page" | enabled %}<p class="pp-more"><a href="{{ 'ppf' | href }}"{{ "ppf-page" | tierAttr | safe }}>Gloss, stealth or coloured? Our films, packs and detail work &rarr;</a></p>{% endif %}
+    </form>
+  </div>
+</div></section>

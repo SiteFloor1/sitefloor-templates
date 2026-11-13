@@ -1,0 +1,28 @@
+{#- Sympathy flowers (Plus): gentle and plain. Who they're for, where they go, the piece, the date and the words for the
+    card, sent on WhatsApp so the florist can confirm by name. No countdowns, offers or the week's colour on this page. -#}
+{%- set Sy = site.sympathy %}
+{%- set ph = { kicker: Sy.kicker or "Sympathy", title: Sy.title, intro: Sy.intro } %}
+{% include "kits/florist/partials/page-head.njk" %}
+<section class="fl-sym" data-feature="sympathy-order"><div class="wrap">
+  <form class="fl-sym-f" data-sym-form novalidate>
+    <fieldset class="fl-sym-pieces"><legend>The flowers</legend>
+      {%- for p in Sy.pieces %}
+      <label class="fl-sym-p"><input type="radio" name="sym-piece" value="{{ p.title }}"{% if loop.first %} checked{% endif %}>
+        <span class="fl-sym-ph"><img src="{{ p.photo.src | img }}" alt="{{ p.photo.alt }}" width="{{ p.photo.width }}" height="{{ p.photo.height }}" loading="lazy" decoding="async"></span>
+        <b>{{ p.title }}</b><span>{{ p.line }}</span><span>From {{ p.from | pounds }}</span></label>
+      {%- endfor %}
+    </fieldset>
+    <div class="fl-sym-details">
+      <label class="fl-field" for="sym-for"><span>In memory of</span><input id="sym-for" data-sym-for maxlength="60"></label>
+      <fieldset class="fl-field fl-sym-where"><legend>Where they go</legend>
+        {%- for pl in Sy.places %}<label class="fl-chip"><input type="radio" name="sym-place" value="{{ pl }}"{% if loop.first %} checked{% endif %}>{{ pl }}</label>{% endfor %}
+      </fieldset>
+      <label class="fl-field" for="sym-date"><span>The day of the service</span><input id="sym-date" type="date" data-sym-date></label>
+      <label class="fl-field" for="sym-card"><span>For the card</span><textarea id="sym-card" data-sym-card rows="3" maxlength="{{ site.card.max if site.card else 200 }}"></textarea></label>
+      <p class="fl-sym-lines"><span>Words some people use:</span>{% for l in Sy.cardLines %} <button type="button" class="fl-chip" data-sym-line>{{ l }}</button>{% endfor %}</p>
+      <p class="fl-sym-note">{{ Sy.note }}</p>
+      <a class="fl-btn" data-sym-send href="{{ Sy.message | book }}" target="_blank" rel="noopener">Send to the florist</a>
+      <p class="fl-say" data-sym-say role="status"></p>
+    </div>
+  </form>
+</div></section>

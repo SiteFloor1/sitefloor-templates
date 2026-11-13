@@ -1,0 +1,33 @@
+{#- Chauffeur: its own service. What it covers, the chauffeur cars with the client's hourly rate and minimum hours, and a
+    quote request on WhatsApp. Signature adds the journey planner. -#}
+{%- set cp = site.chauffeurPage %}{% set ch = site.hire.chauffeur %}{% set cars = site.fleet.cars | withChauffeur %}
+{%- set pt = { title: cp.title, intro: cp.intro, photo: cp.photo, photoTall: cp.photoTall, kicker: cp.kicker } %}{% include "kits/hire/parts/page-top.njk" %}
+<section class="hr-ch" data-feature="chauffeur-page" aria-label="{{ cp.title | plain }}">
+  <div class="wrap">
+    <ul class="hr-svc">{% for s in ch.services %}<li><h2>{{ s.title }}</h2><p>{{ s.text }}</p></li>{% endfor %}</ul>
+    <div class="hr-ch-cars">
+      {%- for car in cars %}{% set pic = car.photos.small or car.photos.card %}
+      <article class="hr-ch-car">
+        <img src="{{ pic.src | img }}" alt="{{ pic.alt }}" width="{{ pic.width }}" height="{{ pic.height }}" loading="lazy" decoding="async">
+        <div class="hr-car-name"><h3>{{ car | carName }}</h3><span class="hr-from">{{ car.chauffeur.hourly | money }} an hour</span></div>
+        <p class="hr-trim">{{ car.chauffeur.minHours | words | capitalize }} hours at least · up to {{ (car.seats - 1) | words }} passengers{% if not car.chauffeurOnly %} · also self-drive{% endif %}</p>
+        <p class="hr-ways"><a class="hr-more" href="{{ car.id | carUrl(build.links) }}"><span class="sr-only">{{ car | carName }}: </span>The car in detail</a></p>
+      </article>
+      {%- endfor %}
+    </div>
+  </div>
+  {%- if "journey-planner" | enabled %}{% include "kits/hire/features/journey-planner/journey-planner.njk" %}{% endif %}
+  <div class="wrap hr-ch-ask" id="chauffeur-quote">
+    <div class="dt-head is-stacked"><h2 class="dt-h">Ask for a quote</h2><p class="dt-hr">Tell us where and when. We reply with the price and confirm the car.</p></div>
+    <form class="hr-ch-form" action="{{ ch.message | book }}" method="get" target="_blank" data-ch-form>
+      <label class="hr-field is-wide" for="ch-from"><span>Pick-up</span><input id="ch-from" maxlength="80" data-ch="from"></label>
+      <label class="hr-field is-wide" for="ch-to"><span>Drop-off</span><input id="ch-to" maxlength="80" data-ch="to"></label>
+      <label class="hr-field" for="ch-date"><span>Date</span><input id="ch-date" type="date" data-ch="date"></label>
+      <label class="hr-field" for="ch-time"><span>Time</span><input id="ch-time" type="time" data-ch="time"></label>
+      <label class="hr-field" for="ch-hours"><span>Hours</span><input id="ch-hours" type="number" min="1" max="24" inputmode="numeric" data-ch="hours"></label>
+      <label class="hr-field" for="ch-pax"><span>Passengers</span><input id="ch-pax" type="number" min="1" max="8" inputmode="numeric" data-ch="pax"></label>
+      <label class="hr-field is-wide" for="ch-car"><span>Car</span><select id="ch-car" data-ch="car"><option value="">Your suggestion</option>{% for car in cars %}<option value="{{ car | carName }}">{{ car | carName }}, {{ car.chauffeur.hourly | money }} an hour</option>{% endfor %}</select></label>
+      <p class="hr-rq-go"><button type="submit" class="dt-go">Request a quote on WhatsApp</button><span class="hr-rq-note">A request, not a booking.</span></p>
+    </form>
+  </div>
+</section>

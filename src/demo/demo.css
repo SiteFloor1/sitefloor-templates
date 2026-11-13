@@ -1,0 +1,44 @@
+/* DEMO ONLY: plan switcher ribbon, plan toast, "part of Plus" gate, WhatsApp preview. */
+/* The ribbon uses the device's own font, never the site's web font, so it never rewraps (and moves the page) when that arrives. */
+.demo-ribbon { position: relative; z-index: 31; background: #000; color: #bdb5a8; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; font-size: 12px; text-align: center; padding: 7px var(--pad); letter-spacing: .02em; }
+.demo-ribbon b { color: #fff; }
+.tiers { display: inline-flex; align-items: center; gap: 4px; margin-left: 12px; flex-wrap: wrap; }
+.demo-ribbon button { font-family: inherit; }
+.tiers button { border: 0; background: transparent; color: #bdb5a8; font-size: 12px; font-weight: 800; padding: 4px 9px; cursor: pointer; box-shadow: inset 0 0 0 1px rgba(255,255,255,.18); }
+.tiers button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); box-shadow: none; }
+.tier-off { display: none !important; }
+.tiertoast { position: fixed; left: 50%; bottom: calc(90px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); opacity: 0; z-index: 50; background: #000; color: #fff; padding: 12px 16px; font-size: 13.5px; max-width: min(520px, calc(100% - 32px)); box-shadow: 0 20px 50px rgba(0,0,0,.6), inset 0 0 0 1px rgba(255,255,255,.18); transition: opacity .35s, transform .35s; pointer-events: none; }
+.tiertoast.on { opacity: 1; transform: translate(-50%, 0); }
+.gate { position: fixed; inset: 0; z-index: 28; display: grid; place-items: center; padding: var(--pad); background: color-mix(in srgb, var(--bg) 72%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.gate-card { max-width: 520px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line-2), 0 40px 90px rgba(0,0,0,.6); padding: 34px 30px; }
+.gate-card h2 { font-family: var(--font-display); font-weight: 600; font-size: 40px; line-height: 1; margin: 12px 0 14px; }
+.gate-card p { color: var(--muted); margin: 0 0 24px; }
+.gate-cta { display: flex; gap: 10px; flex-wrap: wrap; }
+.sheet { position: fixed; inset: 0; z-index: 60; display: flex; align-items: flex-end; justify-content: center; background: rgba(0,0,0,.55); backdrop-filter: blur(4px); }
+@media (min-width: 761px) { .sheet { align-items: center; } }
+.wa { width: min(440px, 100%); background: #0b141a; color: #e9edef; box-shadow: 0 30px 80px rgba(0,0,0,.6); transform: translateY(30px); opacity: 0; transition: transform .45s cubic-bezier(.2,.8,.2,1), opacity .3s; }
+.sheet.on .wa { transform: none; opacity: 1; }
+.wa-top { display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: #202c33; }
+.wa-top .av { width: 38px; height: 38px; border-radius: 50%; background: var(--surface-2); display: grid; place-items: center; font-family: var(--font-display); color: var(--accent); font-weight: 700; }
+.wa-top b { display: block; font-size: 15px; } .wa-top small { color: #8696a0; font-size: 12px; }
+.wa-top button { margin-left: auto; background: none; border: 0; color: #8696a0; font-size: 22px; cursor: pointer; width: 44px; height: 44px; }
+.wa-body { padding: 22px 16px 16px; min-height: 200px; background: #0b141a radial-gradient(rgba(255,255,255,.03) 1px, transparent 1px) 0 0 / 14px 14px; }
+.bub { margin: 0 0 0 auto; max-width: 86%; background: #005c4b; padding: 9px 11px 20px; font-size: 14.5px; line-height: 1.45; position: relative; white-space: pre-line; border-radius: 8px 0 8px 8px; }
+.bub small { position: absolute; right: 8px; bottom: 3px; font-size: 10.5px; color: rgba(233,237,239,.6); }
+.wa-foot { display: flex; gap: 10px; padding: 10px 12px; background: #202c33; align-items: center; }
+.wa-foot .in { flex: 1; background: #2a3942; padding: 11px 14px; font-size: 14px; color: #8696a0; border-radius: 22px; }
+.wa-foot .send { width: 44px; height: 44px; border-radius: 50%; background: #00a884; display: grid; place-items: center; }
+.wa-note { margin: 0; padding: 12px 16px 16px; font-size: 12px; color: #8696a0; background: #111b21; }
+.lookbtn { margin-left: 12px; border: 0; background: transparent; color: #fff; font-size: 12px; font-weight: 800; padding: 4px 9px; cursor: pointer; box-shadow: inset 0 0 0 1px var(--accent); }
+.lookbtn[aria-expanded="true"] { background: var(--accent); color: var(--on-accent); }
+.lookpanel { position: relative; z-index: 31; background: #000; color: #bdb5a8; font-size: 13px; padding: 4px var(--pad) 14px; text-align: center; border-top: 1px solid rgba(255,255,255,.08); }
+.lookpanel p { margin: 8px 0 10px; }
+.lookpanel b { color: #fff; }
+.lp-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.lp-sw, .lp-type { border: 0; cursor: pointer; font: 700 12px var(--font-body); min-height: 32px; padding: 0 10px; background: transparent; color: #e8e2d8; box-shadow: inset 0 0 0 1px rgba(255,255,255,.18); display: inline-flex; align-items: center; gap: 7px; }
+.lp-sw::before { content: ""; width: 14px; height: 14px; background: var(--sw); }
+.lp-sw[aria-pressed="true"], .lp-type[aria-pressed="true"] { box-shadow: inset 0 0 0 2px #fff; color: #fff; }
+@media (max-width: 700px) { .lookbtn { display: block; margin: 6px auto 0; } }
+/* keep the colours button's space while the script starts, so the ribbon never changes height */
+.demo-ribbon .lookbtn[hidden] { display: inline-block !important; visibility: hidden; }
+@media (max-width: 700px) { .demo-ribbon .lookbtn[hidden] { display: block !important; } }

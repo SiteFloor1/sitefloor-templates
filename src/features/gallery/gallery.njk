@@ -1,0 +1,15 @@
+{#- Home-page gallery strip: the latest photos (Instagram through Behold, or photos stored with
+    the site). The page version is in work.njk; both are driven by gallery.js. -#}
+{%- set sec = site.sections.gallery %}
+{%- set g = site.gallery %}
+<section id="work" class="sec-gallery" data-feature="gallery" data-gallery-limit="6"{{ "gallery" | tierAttr | safe }}>
+  <div class="wrap">{% include "core/partials/section-head.njk" %}</div>
+  <div class="wrap">
+    {% include "features/gallery/gallery-list.njk" %}
+    <div class="gal-foot">
+      {%- if g.handle %}<span class="gal-handle">@{{ g.handle }} on Instagram</span>{% endif %}
+      {%- if "work" | enabled %}<a class="btn" href="{{ 'work' | href }}"{{ "work" | tierAttr | safe }}>See all our work <span aria-hidden="true">→</span></a>
+      {%- elif g.profile %}<a class="btn ghost" href="{{ g.profile }}" target="_blank" rel="noopener">Follow on Instagram</a>{% endif %}
+    </div>
+  </div>
+</section>

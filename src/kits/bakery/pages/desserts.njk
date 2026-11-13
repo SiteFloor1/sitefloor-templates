@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: desserts
+permalink: desserts.html
+feature: dessert-menu
+eleventyComputed:
+  title: "{{ site.menuPage.title | plain }}"
+  description: "{{ site.menuPage.description or ('The menu at ' + site.business.name + ', ' + site.location.locality + ': prices, photos and every allergen.') }}"
+---
+{% include "kits/bakery/features/dessert-menu/dessert-menu.njk" %}

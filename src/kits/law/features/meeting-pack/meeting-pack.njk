@@ -1,0 +1,51 @@
+{#- The first-meeting pack: a private page the firm sends before a first meeting. The details are in the link (after
+    #) and are read in the visitor's browser only, so nothing about the client is stored or sent anywhere. Every
+    person, way in and thing to bring is in the page; the link says which ones apply. #make opens the firm's own
+    form for writing a link. -#}
+{%- set mp = site.meetingPack %}
+<div class="lw-mp" data-feature="meeting-pack" data-place="{{ site.business.name }}, {{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}">
+  {%- set ph = { title: mp.title, intro: mp.intro } %}
+  {% include "kits/law/partials/page-head.njk" %}
+  <div class="wrap lw-mp-in">
+    <div class="lw-mp-none" id="mp-none">
+      <p data-mp-why>This page opens from the link we send before a first meeting. If yours doesn't open, call <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a> and we will send it again.</p>
+      {%- if site.mode == "demo" and mp.example %}<p><a class="go" href="#{{ mp.example }}" data-mp-example>Open an example pack</a></p>{% endif %}
+    </div>
+    <article class="lw-mp-card" id="mp-card" hidden>
+      <p class="lw-mp-for" data-mp-for hidden></p>
+      <p class="lw-mp-when" data-mp-when></p>
+      <p class="lw-mp-past" data-mp-past hidden>This meeting has already taken place. If you need another, call us on {{ site.contact.phone | replace('+44 ', '0') }}.</p>
+      <div class="lw-mp-grid">
+        <section aria-labelledby="mp-who-h"><h2 id="mp-who-h">You are meeting</h2>
+          {%- for p in site.people.items %}<div class="lw-mp-who" data-mp-person="{{ p.id }}" hidden>
+            {%- if p.photo %}<img src="{{ p.photo.src | img }}" alt="{{ p.photo.alt }}" width="{{ p.photo.width }}" height="{{ p.photo.height }}" loading="lazy" decoding="async"{% if p.photo.position %} style="object-position:{{ p.photo.position }}"{% endif %}>{% endif %}
+            <p><b>{{ p.name }}</b><br>{{ p.role }}</p></div>{% endfor %}
+        </section>
+        {%- if site.arrival %}
+        <section aria-labelledby="mp-way-h" data-mp-ways hidden><h2 id="mp-way-h">The way in</h2>
+          {%- for w in site.arrival.ways %}<div data-mp-way="{{ w.id }}" hidden><p><b>{{ w.label }}</b></p><p>{{ w.text }}</p></div>{% endfor %}
+        </section>
+        {%- endif %}
+        <section aria-labelledby="mp-bring-h" data-mp-bring hidden><h2 id="mp-bring-h">Please bring</h2>
+          <ul>{% for b in mp.bring %}<li data-mp-item="{{ b.id }}" hidden>{{ b.label }}</li>{% endfor %}</ul>
+        </section>
+        <section aria-labelledby="mp-fees-h"><h2 id="mp-fees-h">Fees</h2><p>{{ mp.fees }}</p></section>
+      </div>
+      {%- if mp.note %}<p class="lw-mp-note">{{ mp.note }}</p>{% endif %}
+      <p class="lw-mp-act"><button class="go" type="button" data-mp-ics>Add to my calendar</button> <a class="go" href="tel:{{ site.contact.phone | replace(' ', '') }}">Need to change it? {{ site.contact.phone }}</a></p>
+    </article>
+    <form class="lw-mp-make" id="mp-make" hidden>
+      <h2>Write a meeting link</h2>
+      <p>For the firm: fill this in and send the link to your client. Nothing is saved here.</p>
+      <label for="mk-d">Date</label><input id="mk-d" type="date" required>
+      <label for="mk-t">Time</label><input id="mk-t" type="time" required value="10:00">
+      <label for="mk-m">Length in minutes</label><input id="mk-m" type="number" min="15" max="240" step="15" value="60" required>
+      <label for="mk-p">Meeting with</label><select id="mk-p">{% for p in site.people.items %}<option value="{{ p.id }}">{{ p.name }}</option>{% endfor %}</select>
+      {%- if site.arrival %}<label for="mk-e">Way in</label><select id="mk-e"><option value="">Not shown</option>{% for w in site.arrival.ways %}<option value="{{ w.id }}">{{ w.label }}</option>{% endfor %}</select>{% endif %}
+      <fieldset><legend>Please bring</legend>{% for b in mp.bring %}<label class="lw-mp-tick"><input type="checkbox" value="{{ b.id }}" data-mk-bring> {{ b.label }}</label>{% endfor %}</fieldset>
+      <label for="mk-n">Client's first name <span>(optional)</span></label><input id="mk-n" maxlength="40" autocomplete="off">
+      <button class="go" type="submit">Make the link</button>
+      <p class="lw-mp-out" data-mk-out hidden><input id="mk-link" readonly aria-label="The link to send"> <button class="go" type="button" data-mk-copy>Copy</button></p>
+    </form>
+  </div>
+</div>

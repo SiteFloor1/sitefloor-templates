@@ -1,0 +1,22 @@
+{#- Cacao general page: one column of text set wide, photographs at full width between. -#}
+{%- set ph = { kicker: cp.kicker or cp.title | plain, title: cp.title, intro: cp.intro } %}
+{% include "kits/bakery/partials/page-head.njk" %}
+<div class="cc-page" data-feature="custom-pages">
+  {%- for b in cp.blocks %}
+  {%- if b.type == "text" %}
+  <section class="wrap cc-page-t">
+    {%- if b.heading %}<h2>{{ b.heading }}</h2>{% endif %}
+    <div>{%- for para in b.body | paragraphs %}<p>{{ para }}</p>{% endfor %}</div>
+  </section>
+  {%- elif b.type == "photo" %}
+  <figure class="cc-page-p"><img src="{{ b.src | img }}" alt="{{ b.alt }}" loading="lazy" decoding="async">{% if b.caption %}<figcaption class="wrap">{{ b.caption }}</figcaption>{% endif %}</figure>
+  {%- elif b.type == "list" %}
+  <section class="wrap cc-page-t">
+    {%- if b.heading %}<h2>{{ b.heading }}</h2>{% endif %}
+    <ul>{% for item in b.items %}<li>{{ item }}</li>{% endfor %}</ul>
+  </section>
+  {%- elif b.type == "book" %}
+  <p class="wrap cc-page-o">{{ b.text }} <a class="go" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{{ b.label or "Order" }}</a></p>
+  {%- endif %}
+  {%- endfor %}
+</div>

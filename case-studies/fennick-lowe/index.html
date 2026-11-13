@@ -1,0 +1,667 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fennick &amp; Lowe Case Study</title>
+<meta name="description" content="How a Sitefloor site sells a bespoke tailor, laid out as a cutter lays a paper pattern on the cloth: every piece is a page, the chalk goes round the one you choose, and the plans are garments by their pieces.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Della+Respira&family=Commissioner:wght@300;400;500;600&family=Manrope:wght@600;700&display=swap">
+<style>
+/* Layout: the lay of a paper pattern. A cutter lays manila pattern pieces on the cloth and chalks round them before a
+   single cut. Here the cloth is Fennick & Lowe's own charcoal flannel, each manila piece is a page of the site, and the
+   chalk goes round the piece you choose while the page itself shows, large, beside it. The plans are garments by their
+   pieces: trousers (two), a jacket (five), the three-piece (up to twenty), laid as a cutter's marker. Ground: the cloth,
+   then pressed bone; manila (from abacá, Manila hemp) the one colour; chalk the light. Type: Della Respira, display
+   only; Commissioner for everything else, and in capitals for the cutter's pencil. */
+:root {
+  --cloth: #1D1D1E; --cloth-2: #2A2A2B; --bone: #ECE9E2; --bone-2: #E2DED5;
+  --manila: #D7C196; --manila-2: #C9B080; --pencil: #3E3A33; --pencil-2: #4A443B;
+  --chalk: #F3F0E9; --chalk-2: rgba(243,240,233,.66); --chalk-3: rgba(243,240,233,.18);
+  --ink: #1D1D1E; --soft: #5E5A53; --rule: rgba(29,29,30,.14);
+  --display: "Della Respira", "Iowan Old Style", Georgia, serif;
+  --body: "Commissioner", "Helvetica Neue", Arial, sans-serif;
+  --brand: "Manrope", Arial, sans-serif;
+  --sf-paper: #FBFAF7; --sf-ink: #0E0F11; --sf-tomato: #E8613C; --sf-line: rgba(14,15,17,.12);
+  color-scheme: light;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--cloth); -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--cloth); color: var(--chalk); font: 300 16px/1.6 var(--body); }
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; }
+h1, h2, h3 { margin: 0; font-family: var(--display); font-weight: 400; line-height: .92; letter-spacing: -.01em; text-wrap: balance; }
+p { margin: 0; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--manila); outline-offset: 3px; }
+.gut { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { width: min(1360px, 100%); margin-inline: auto; }
+.pencil { font: 600 11px/1.4 var(--body); letter-spacing: .18em; text-transform: uppercase; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Sitefloor's bar, as on every case study */
+.sfbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--sf-paper); color: var(--sf-ink); border-bottom: 1px solid var(--sf-line); }
+.sfbar .wrap { display: flex; justify-content: space-between; align-items: center; height: 66px; gap: 16px; }
+.wm { display: inline-flex; align-items: center; font: 700 22px/1 var(--brand); letter-spacing: -.04em; color: var(--sf-ink); text-decoration: none; }
+.wm svg { margin: 0 1px; }
+.sfbar nav { display: flex; gap: 28px; font-family: var(--brand); font-size: 14px; font-weight: 600; }
+.sfbar nav a { text-decoration: none; color: var(--sf-ink); }
+.sfbar nav a[aria-current] { box-shadow: inset 0 -1.5px 0 var(--sf-ink); }
+.sfbtn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 20px; background: var(--sf-ink); color: var(--sf-paper); font: 700 12px var(--brand); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; }
+.sfbtn:hover { background: var(--sf-tomato); }
+@media (max-width: 760px) { .sfbar nav { display: none; } }
+
+/* The lay: the cloth full-bleed, the pieces on it, the page beside them */
+.lay { position: relative; min-height: calc(100svh - 66px); overflow: hidden; isolation: isolate; }
+.lay-cloth { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; filter: saturate(.7) brightness(.62) contrast(1.05); }
+.lay::after { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(120% 90% at 42% 40%, transparent 30%, rgba(10,10,11,.55) 100%); pointer-events: none; }
+.lay-in { position: relative; display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: 0 clamp(24px, 3vw, 56px); min-height: calc(100svh - 66px); padding-block: clamp(40px, 6vh, 72px) 40px; }
+.lay-words { position: relative; z-index: 2; align-self: start; max-width: 34rem; }
+.lay-words .pencil { color: var(--chalk-2); }
+.lay h1 { margin-top: 22px; font-size: clamp(64px, 9.4vw, 148px); color: var(--chalk); }
+.lay-lede { margin-top: 26px; max-width: 26rem; font-size: 17px; color: var(--chalk-2); }
+.lay-lede b { font-weight: 500; color: var(--chalk); }
+
+.pieces { position: absolute; left: 0; right: 0; bottom: 0; top: 0; width: 100%; height: 100%; z-index: 1; }
+.pieces-m { display: none; }
+.pc { cursor: pointer; outline: none; }
+.pc .card { fill: var(--manila); filter: url(#paper); transition: transform 900ms cubic-bezier(.2,.7,.2,1); transform-box: fill-box; transform-origin: center; }
+.pc:hover .card, .pc:focus-visible .card { transform: translateY(-3px); }
+.pc[aria-pressed="true"] .card { fill: #DEC9A0; }
+.pc .edge { fill: none; stroke: var(--manila-2); stroke-width: 1; }
+.pc .grain { stroke: var(--pencil-2); stroke-width: 1; fill: none; marker-start: url(#arrow); marker-end: url(#arrow); }
+.pc .hole { fill: var(--cloth); }
+.pc .lbl { fill: var(--pencil); font: 600 10px var(--body); letter-spacing: .2em; text-transform: uppercase; }
+.pc .pg { fill: var(--pencil); font: 400 17px var(--body); letter-spacing: -.005em; }
+.pc .chalk { fill: none; stroke: var(--chalk); stroke-width: 3.6; stroke-linecap: round; stroke-dasharray: 1 1; stroke-dashoffset: 1; filter: url(#chalky); transform-box: fill-box; transform-origin: center; transform: scale(1.055); opacity: 0; }
+.pc[aria-pressed="true"] .chalk { opacity: 1; animation: strike 1600ms cubic-bezier(.45,.05,.25,1) forwards; }
+@keyframes strike { to { stroke-dashoffset: 0; } }
+.pc:focus-visible .edge { stroke: var(--chalk); stroke-width: 2; }
+
+.lay-page { position: relative; z-index: 2; align-self: end; justify-self: end; width: min(100%, 330px); margin: 0 0 -96px; transform: rotate(4deg); transform-origin: 50% 100%; }
+.lay-page .lay-cap { transform: rotate(-4deg); transform-origin: left top; }
+.phone { position: relative; aspect-ratio: 390 / 844; border-radius: 30px; overflow: hidden; background: #F3F2EE; box-shadow: 0 0 0 1px rgba(243,240,233,.18), -18px 34px 60px -18px rgba(0,0,0,.8), -4px 10px 18px -8px rgba(0,0,0,.6); }
+.phone img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0; transition: opacity 700ms ease; }
+.phone img.on { opacity: 1; }
+.lay-cap { margin-top: 18px; display: flex; justify-content: space-between; gap: 16px; color: var(--chalk-2); }
+.lay-cap b { font: 400 22px/1.1 var(--display); color: var(--chalk); letter-spacing: 0; text-transform: none; }
+.lay-hint { margin-top: 26px; color: var(--chalk-2); }
+
+/* The plans, as garments by their pieces: one cutter's marker each */
+.cut { background: var(--bone); color: var(--ink); padding-block: clamp(88px, 11vw, 168px); }
+.cut-head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 24px 48px; align-items: end; }
+.cut h2 { font-size: clamp(52px, 7vw, 112px); }
+.cut-head p { max-width: 30rem; color: var(--soft); font-size: 17px; }
+.cut-head p b { color: var(--ink); font-weight: 500; }
+.cut-row { margin-top: clamp(56px, 7vw, 96px); display: grid; grid-template-columns: 2fr 3fr 5fr; border-top: 1px solid var(--ink); }
+.garment { padding: 28px 28px 0 0; display: grid; grid-template-rows: auto 1fr auto; gap: 28px; min-width: 0; }
+.garment + .garment { padding-left: 28px; border-left: 1px solid var(--rule); }
+.g-top { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+.g-top .pencil { color: var(--soft); }
+.garment h3 { font-size: clamp(34px, 3.4vw, 52px); }
+.marker { display: block; width: 100%; height: auto; background: var(--cloth); border-radius: 0; }
+.marker .card { fill: var(--manila); filter: url(#paper-s); }
+.marker .lbl { fill: var(--pencil); font: 600 9px var(--body); letter-spacing: .18em; text-transform: uppercase; }
+.g-n { font: 400 15px/1.55 var(--body); color: var(--soft); }
+.g-n b { color: var(--ink); font-weight: 500; }
+.g-price { display: flex; align-items: baseline; gap: 10px; padding-block: 20px 4px; border-top: 1px solid var(--rule); }
+.g-price b { font: 400 34px/1 var(--display); }
+.g-price span { color: var(--soft); font-size: 14px; }
+.cut-foot { margin-top: 36px; color: var(--soft); font-size: 14px; }
+
+/* The pattern ticket: the card tied to a client's pattern bundle, listing every piece */
+.tk { background: var(--bone); color: var(--ink); padding-block: clamp(96px, 12vw, 176px) clamp(72px, 9vw, 128px); }
+.tk-in { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 48px clamp(40px, 7vw, 120px); align-items: start; }
+.tk h2 { font-size: clamp(52px, 7vw, 112px); }
+.tk-lede { margin-top: 28px; max-width: 28rem; color: var(--soft); font-size: 17px; }
+.tk-lede b { color: var(--ink); font-weight: 500; }
+.ticket { position: relative; background: var(--manila); color: var(--pencil); padding: 64px clamp(24px, 3.4vw, 48px) 36px; box-shadow: 0 1px 0 var(--manila-2), 0 30px 60px -36px rgba(29,29,30,.55); transform: rotate(-1.2deg);
+  clip-path: polygon(0 18px, 18px 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%); }
+.ticket::before { content: ""; position: absolute; top: 22px; left: 50%; width: 16px; height: 16px; margin-left: -8px; border-radius: 50%; background: var(--bone); box-shadow: inset 0 0 0 3px var(--manila-2); }
+.ticket-h { display: flex; justify-content: space-between; gap: 16px; padding-bottom: 14px; border-bottom: 1.5px solid var(--pencil); }
+.ticket-h b { font: 400 26px/1 var(--display); color: var(--ink); }
+.ticket ol { list-style: none; margin: 0; padding: 0; }
+.ticket li { display: grid; grid-template-columns: 9.5em minmax(0, 1fr) auto; gap: 4px 18px; align-items: baseline; padding: 12px 0; border-bottom: 1px solid rgba(62,58,51,.22); }
+.ticket li .pencil { color: var(--pencil-2); }
+.ticket li span:nth-child(2) { font-size: 16px; color: var(--ink); }
+.ticket li i { font: 600 10.5px var(--body); letter-spacing: .16em; text-transform: uppercase; font-style: normal; color: var(--pencil-2); }
+.ticket-f { margin-top: 18px; display: flex; justify-content: space-between; gap: 16px; color: var(--pencil-2); }
+
+/* Chapters: each piece on the cloth, the page laid on it */
+.ch { background: var(--cloth); color: var(--chalk); padding-block: clamp(88px, 11vw, 160px); overflow: hidden; }
+.ch + .ch { padding-top: clamp(24px, 4vw, 64px); }
+.ch-in { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 48px clamp(40px, 7vw, 120px); align-items: center; }
+.ch.flip .ch-words { order: 2; }
+.ch-words .pencil { color: var(--chalk-2); }
+.ch h2 { margin-top: 20px; font-size: clamp(48px, 6vw, 96px); }
+.ch-words p.b { margin-top: 24px; max-width: 30rem; font-size: 17px; color: var(--chalk-2); }
+.ch-words p.b b { color: var(--chalk); font-weight: 500; }
+.plan-tag { display: inline-flex; gap: 10px; align-items: center; margin-top: 28px; padding-top: 14px; border-top: 1px solid var(--chalk-3); color: var(--chalk-2); }
+.plan-tag b { color: var(--manila); font-weight: 600; }
+.lv-tag { color: var(--soft); border-color: var(--rule); }
+.lv-tag b { color: var(--ink); }
+.ch-art { position: relative; display: grid; place-items: center; min-height: 640px; }
+.ch-art > svg { position: absolute; width: min(92%, 520px); height: auto; filter: url(#paper); }
+.ch-art > svg .card { fill: var(--manila); }
+.ch-art .phone { width: min(70%, 300px); transform: rotate(var(--tilt, 3deg)); }
+.phone video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.ch-note { position: absolute; right: 0; bottom: 4px; color: var(--chalk-2); }
+
+/* The collar, live: choose from the photographs, the card writes itself */
+.lv { background: var(--bone); color: var(--ink); padding-block: clamp(88px, 11vw, 160px); }
+.lv-head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 24px 48px; align-items: end; }
+.lv-head .pencil { color: var(--soft); }
+.lv h2 { margin-top: 18px; font-size: clamp(48px, 6vw, 96px); }
+.lv-head p { max-width: 30rem; color: var(--soft); font-size: 17px; }
+.lv-head p b { color: var(--ink); font-weight: 500; }
+.lv-in { margin-top: clamp(48px, 6vw, 80px); display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: 40px clamp(32px, 5vw, 80px); align-items: start; }
+.lv-g { border: 0; margin: 0 0 28px; padding: 0; min-width: 0; }
+.lv-g[hidden] { display: none; }
+.lv-g legend { padding: 0 0 12px; color: var(--soft); }
+.lv-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.lv-o { position: relative; width: 132px; cursor: pointer; }
+.lv-o input { position: absolute; opacity: 0; pointer-events: none; }
+.lv-o img { width: 132px; height: 165px; object-fit: cover; background: var(--bone-2); outline: 1px solid transparent; outline-offset: 3px; transition: outline-color 300ms; }
+.lv-o span { display: block; margin-top: 8px; font-size: 14px; }
+.lv-o input:checked + img { outline: 1.5px solid var(--ink); }
+.lv-o input:focus-visible + img { outline: 2px solid var(--manila-2); }
+.lv-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.lv-chip { position: relative; display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border: 1px solid var(--rule); cursor: pointer; font-size: 15px; }
+.lv-chip input { position: absolute; opacity: 0; pointer-events: none; }
+.lv-chip:has(input:checked) { border-color: var(--ink); background: var(--ink); color: var(--bone); }
+.lv-chip:has(input:focus-visible) { outline: 2px solid var(--manila-2); outline-offset: 2px; }
+.lv-cl { width: 64px; }
+.lv-cl img { width: 64px; height: 64px; }
+.lv-cl span { font-size: 12px; line-height: 1.3; }
+.lv-card { position: sticky; top: 96px; background: var(--manila); color: var(--pencil); padding: 40px 32px 32px; transform: rotate(1deg); box-shadow: 0 30px 60px -36px rgba(29,29,30,.55); clip-path: polygon(0 14px, 14px 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%); }
+.lv-card h3 { font-size: 36px; color: var(--ink); }
+.lv-card .pencil { color: var(--pencil-2); }
+.lv-card ul { list-style: none; margin: 20px 0 0; padding: 0; border-top: 1.5px solid var(--pencil); }
+.lv-card li { display: flex; justify-content: space-between; gap: 16px; padding: 11px 0; border-bottom: 1px solid rgba(62,58,51,.22); font-size: 15px; }
+.lv-card li span:first-child { color: var(--pencil-2); }
+.lv-card li b { font-weight: 500; color: var(--ink); text-align: right; }
+.lv-card p { margin-top: 18px; font-size: 14px; color: var(--pencil-2); }
+
+/* The rest of the cloth: Plus pages, laid out on the board */
+.rest { background: var(--cloth); color: var(--chalk); padding-block: clamp(88px, 11vw, 160px); }
+.rest-head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 24px 48px; align-items: end; }
+.rest h2 { font-size: clamp(48px, 6vw, 96px); }
+.rest-head p { max-width: 30rem; color: var(--chalk-2); font-size: 17px; }
+.rest-row { margin-top: clamp(56px, 7vw, 96px); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 4vw, 64px); }
+.rest-row figure { margin: 0; }
+.rest-row .phone { transform: rotate(var(--tilt, 0deg)); }
+.rest-row figcaption { margin-top: 26px; }
+.rest-row figcaption .pencil { color: var(--chalk-2); }
+.rest-row figcaption b { display: block; margin-top: 8px; font: 400 26px/1.1 var(--display); color: var(--chalk); }
+.rest-row figcaption p { margin-top: 8px; color: var(--chalk-2); font-size: 15px; }
+
+/* Measured twice: a cutter's measurement column */
+.ms { background: var(--bone-2); color: var(--ink); padding-block: clamp(88px, 11vw, 160px); }
+.tape { height: 34px; margin-bottom: clamp(48px, 6vw, 80px); background:
+  repeating-linear-gradient(90deg, var(--pencil) 0 1px, transparent 1px 96px) 0 0 / 100% 100% no-repeat,
+  repeating-linear-gradient(90deg, var(--pencil) 0 1px, transparent 1px 12px) 0 100% / 100% 10px no-repeat,
+  repeating-linear-gradient(90deg, var(--pencil) 0 1px, transparent 1px 48px) 0 100% / 100% 18px no-repeat, var(--manila); }
+.ms-in { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 40px clamp(40px, 7vw, 120px); }
+.ms h2 { font-size: clamp(52px, 7vw, 112px); }
+.ms-in > div > p { margin-top: 24px; max-width: 26rem; color: var(--soft); font-size: 16px; }
+.ms dl { margin: 0; border-top: 1.5px solid var(--ink); }
+.ms dl div { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 24px; align-items: baseline; padding: 18px 0; border-bottom: 1px solid var(--rule); }
+.ms dt { color: var(--soft); }
+.ms dd { margin: 0; font: 400 clamp(30px, 3.2vw, 44px)/1 var(--display); text-align: right; }
+.ms dd small { display: block; margin-top: 6px; font: 300 13px/1.4 var(--body); color: var(--soft); }
+
+/* Close */
+.close { background: var(--cloth); color: var(--chalk); padding-block: clamp(96px, 12vw, 176px); }
+.close-in { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: 48px clamp(40px, 7vw, 120px); align-items: center; }
+.close h2 { font-size: clamp(56px, 8vw, 128px); }
+.close p { margin-top: 28px; max-width: 30rem; color: var(--chalk-2); font-size: 17px; }
+.acts { margin-top: 36px; display: flex; flex-wrap: wrap; gap: 12px; }
+.btn { display: inline-flex; align-items: center; min-height: 52px; padding: 0 26px; background: var(--manila); color: var(--ink); font: 600 13px var(--body); letter-spacing: .14em; text-transform: uppercase; text-decoration: none; }
+.btn:hover { background: var(--chalk); }
+.btn.line { background: transparent; color: var(--chalk); box-shadow: inset 0 0 0 1px var(--chalk-3); }
+.btn.line:hover { box-shadow: inset 0 0 0 1px var(--chalk); }
+.mail { display: inline-block; margin-top: 28px; color: var(--chalk-2); }
+.close figure { margin: 0; transform: rotate(-2deg); }
+.close figure img { width: 100%; height: auto; box-shadow: -18px 34px 60px -18px rgba(0,0,0,.8); }
+
+footer { background: var(--bone-2); color: var(--soft); font-size: 13px; line-height: 1.6; border-top: 1px solid var(--rule); }
+footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px 32px; padding-block: 28px; }
+
+@media (max-width: 900px) {
+  .lay-in { grid-template-columns: 1fr; padding-block: 28px 32px; }
+  .lay h1 { font-size: clamp(56px, 17vw, 92px); margin-top: 14px; }
+  .lay-lede { font-size: 16px; margin-top: 16px; }
+  .pieces-d { display: none; }
+  .pieces-m { display: block; position: relative; width: calc(100% + 32px); height: auto; margin: 20px -16px 0; }
+  .lay-hint { margin-top: 4px; }
+  .lay-page { justify-self: center; width: min(78%, 310px); margin: 36px 0 0; transform: rotate(3deg); }
+  .cut-head { grid-template-columns: 1fr; }
+  .cut-row { grid-template-columns: 1fr; border-top: 0; }
+  .garment, .garment + .garment { padding: 32px 0 0; border-left: 0; border-top: 1px solid var(--ink); margin-top: 24px; }
+  footer .wrap { grid-template-columns: 1fr; }
+  .tk-in, .ch-in, .lv-head, .lv-in, .rest-head, .ms-in, .close-in { grid-template-columns: 1fr; }
+  .ch.flip .ch-words { order: 0; }
+  .ch-art { min-height: 0; padding-block: 24px; }
+  .ch-art > svg { width: auto; height: 100%; max-width: 100%; }
+  .ch-art .phone { width: min(72%, 290px); }
+  .ch-note { position: static; margin-top: 18px; }
+  .ticket { transform: none; padding-inline: 20px; }
+  .ticket li { grid-template-columns: minmax(0, 1fr) auto; }
+  .ticket li span:nth-child(2) { grid-column: 1; grid-row: 2; }
+  .ticket li i { grid-row: 1 / 3; grid-column: 2; align-self: center; }
+  .lv-o, .lv-o img { width: calc((100vw - 52px) / 3); }
+  .lv-o img { height: calc((100vw - 52px) / 3 * 1.25); }
+  .lv-cl, .lv-cl img { width: 52px; } .lv-cl img { height: 52px; }
+  .lv-card { position: static; transform: none; }
+  .rest-row { grid-template-columns: 1fr; gap: 56px; }
+  .rest-row .phone { width: min(80%, 300px); margin-inline: auto; }
+  .close figure { max-width: 320px; }
+  .ms dl div { grid-template-columns: 1fr; }
+  .ms dd { text-align: left; font-size: 34px; }
+}
+@media (prefers-reduced-motion: reduce) { .pc[aria-pressed="true"] .chalk { animation: none; stroke-dashoffset: 0; } .phone img, .pc .card, .lv-o img { transition: none; } }
+</style>
+</head>
+<body>
+
+<div class="sfbar gut"><div class="wrap">
+  <a class="wm" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su" aria-label="Sitefloor home">sitefl<svg width="28" height="14" viewBox="0 0 42 21" aria-hidden="true"><rect x="1.9" y="1.9" width="38.2" height="17.2" rx="8.6" fill="none" stroke="#0E0F11" stroke-width="3.8"/><circle cx="31.5" cy="10.5" r="5.2" fill="#E8613C"/></svg>r</a>
+  <nav aria-label="Main"><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#live">Features</a><a href="#top" aria-current="page">Work</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#pricing">Pricing</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#guides">Guides</a></nav>
+  <a class="sfbtn" href="#mockup"><span>Free mockup</span><span aria-hidden="true">→</span></a>
+</div></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="paper" x="-10%" y="-10%" width="120%" height="125%">
+      <feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="4" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 .35  0 0 0 0 .28  0 0 0 0 .16  0 0 0 .16 0" result="fleck"/>
+      <feComposite in="fleck" in2="SourceGraphic" operator="in" result="fl"/>
+      <feMerge result="card"><feMergeNode in="SourceGraphic"/><feMergeNode in="fl"/></feMerge>
+      <feDropShadow in="card" dx="0" dy="7" stdDeviation="9" flood-color="#000" flood-opacity=".55"/>
+    </filter>
+    <filter id="paper-s" x="-10%" y="-10%" width="120%" height="125%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000" flood-opacity=".5"/>
+    </filter>
+    <filter id="chalky" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="2" seed="9" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="3.2" xChannelSelector="R" yChannelSelector="G" result="d"/>
+      <feTurbulence type="fractalNoise" baseFrequency="2.4" numOctaves="1" seed="2" result="g"/>
+      <feColorMatrix in="g" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 -.9 1.2" result="grit"/>
+      <feComposite in="d" in2="grit" operator="in"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 1 9 5 0 9" fill="none" stroke="#4A443B" stroke-width="1.2"/></marker>
+    <!-- A jacket's block, the trousers and the waistcoat: each shape drawn as the cutter's card, in its own units -->
+    <path id="sh-front" pathLength="1" d="M100 20 L230 58 C246 112 240 162 266 198 L272 506 C198 522 118 526 52 512 L46 232 L6 110 L22 82 L42 90 L80 38 Z"/>
+    <path id="sh-back" pathLength="1" d="M0 18 C30 24 56 20 74 10 L206 42 C194 92 192 152 214 192 L226 502 L12 516 C16 380 8 252 0 18 Z"/>
+    <path id="sh-side" pathLength="1" d="M30 0 C62 12 92 10 114 0 L124 330 L0 342 C10 222 20 110 30 0 Z"/>
+    <path id="sh-top" pathLength="1" d="M10 122 C40 22 142 -8 202 42 C218 62 224 92 222 112 L192 560 L40 572 C30 402 24 262 10 122 Z"/>
+    <path id="sh-under" pathLength="1" d="M0 62 C40 92 102 92 132 52 L122 472 L10 482 Z"/>
+    <path id="sh-collar" pathLength="1" d="M0 42 C82 10 222 10 304 42 L294 84 C212 58 92 58 10 84 Z"/>
+    <path id="sh-flap" pathLength="1" d="M0 0 H186 V60 Q186 72 174 72 H12 Q0 72 0 60 Z"/>
+    <path id="sh-tfront" pathLength="1" d="M28 0 H182 C186 46 196 82 222 118 C196 122 182 136 176 152 L156 700 H54 L40 152 C34 96 28 52 28 0 Z"/>
+    <path id="sh-tback" pathLength="1" d="M20 0 L196 14 C202 60 222 104 266 132 C232 140 214 152 206 168 L184 712 H62 L36 168 C26 108 20 56 20 0 Z"/>
+    <path id="sh-wfront" pathLength="1" d="M44 0 L124 30 C130 82 144 122 174 152 L178 302 L104 332 L62 362 L0 330 L20 122 C30 82 38 42 44 0 Z"/>
+    <path id="sh-wback" pathLength="1" d="M0 20 C24 24 46 20 60 10 L170 34 C162 84 162 132 180 160 L186 330 L8 340 C10 240 4 130 0 20 Z"/>
+  </defs>
+</svg>
+
+<main id="top">
+
+<section class="lay" aria-labelledby="lay-h">
+  <picture>
+    <source media="(max-width: 900px)" srcset="media/cloth-phone.webp">
+    <img class="lay-cloth" src="media/cloth.webp" alt="" width="1800" height="1125">
+  </picture>
+
+  <!-- the pieces on the cloth, wide screens: one jacket's block, each piece a page -->
+  <svg class="pieces pieces-d" viewBox="0 0 1440 834" preserveAspectRatio="xMidYMid slice" role="group" aria-label="The pattern: each piece is a page of the site">
+    <g class="pc" tabindex="0" role="button" aria-pressed="true" data-page="home" transform="translate(548 236) rotate(-5) scale(.84)">
+      <use class="card" href="#sh-front"/><use class="edge" href="#sh-front"/><use class="chalk" href="#sh-front"/>
+      <circle class="hole" cx="150" cy="96" r="7"/><path class="grain" d="M150 150 V400"/>
+      <text class="lbl" x="88" y="446">Front · cut 2</text><text class="pg" x="88" y="472">The home page</text>
+    </g>
+    <g class="pc" tabindex="0" role="button" aria-pressed="false" data-page="weddings" transform="translate(806 286) rotate(5) scale(.82)">
+      <use class="card" href="#sh-back"/><use class="edge" href="#sh-back"/><use class="chalk" href="#sh-back"/>
+      <circle class="hole" cx="110" cy="80" r="7"/><path class="grain" d="M108 130 V390"/>
+      <text class="lbl" x="44" y="436">Back · cut 2</text><text class="pg" x="44" y="462">Weddings</text>
+    </g>
+    <g class="pc" tabindex="0" role="button" aria-pressed="false" data-page="weave" transform="translate(64 790) rotate(-84) scale(.8)">
+      <use class="card" href="#sh-top"/><use class="edge" href="#sh-top"/><use class="chalk" href="#sh-top"/>
+      <circle class="hole" cx="118" cy="118" r="7"/><path class="grain" d="M150 170 V500"/>
+      <g transform="rotate(84 90 330)"><text class="lbl" x="-30" y="330">Top sleeve · cut 2</text><text class="pg" x="-30" y="356">The cloth, full screen</text></g>
+    </g>
+    <g class="pc" tabindex="0" role="button" aria-pressed="false" data-page="spec" transform="translate(96 462) rotate(-4) scale(.86)">
+      <use class="card" href="#sh-collar"/><use class="edge" href="#sh-collar"/><use class="chalk" href="#sh-collar"/>
+      <text class="lbl" x="66" y="58">Collar · Your specification</text>
+    </g>
+    <g class="pc" tabindex="0" role="button" aria-pressed="false" data-page="pattern" transform="translate(372 594) rotate(-8) scale(.9)">
+      <use class="card" href="#sh-flap"/><use class="edge" href="#sh-flap"/><use class="chalk" href="#sh-flap"/>
+      <text class="lbl" x="16" y="30">Pocket flap · cut 2</text><text class="pg" x="16" y="56">From your pattern</text>
+    </g>
+    <g class="pc" tabindex="0" role="button" aria-pressed="false" data-page="commission" transform="translate(596 160) rotate(-82) scale(.72)">
+      <use class="card" href="#sh-side"/><use class="edge" href="#sh-side"/><use class="chalk" href="#sh-side"/>
+      <g transform="rotate(82 60 170)"><text class="lbl" x="-34" y="150">Side body</text><text class="pg" x="-34" y="176">Your commission</text></g>
+    </g>
+  </svg>
+
+  <div class="lay-in wrap gut">
+    <div class="lay-words">
+      <p class="pencil">Case study · Tailors · Fennick &amp; Lowe</p>
+      <h1 id="lay-h">Cut to pattern.</h1>
+      <p class="lay-lede">A Savile Row house's website, laid out the way its cutter lays a coat: <b>every piece is a page.</b> Choose one.</p>
+
+      <!-- the pieces on the cloth, phones -->
+      <svg class="pieces pieces-m" viewBox="0 0 390 372" role="group" aria-label="The pattern: each piece is a page of the site">
+        <g class="pc" tabindex="0" role="button" aria-pressed="true" data-page="home" transform="translate(4 24) rotate(-5) scale(.6)">
+          <use class="card" href="#sh-front"/><use class="edge" href="#sh-front"/><use class="chalk" href="#sh-front"/>
+          <circle class="hole" cx="150" cy="96" r="9"/><path class="grain" d="M150 150 V360"/><text class="lbl" x="84" y="430" style="font-size:16px">Front</text><text class="pg" x="84" y="466" style="font-size:28px">Home</text>
+        </g>
+        <g class="pc" tabindex="0" role="button" aria-pressed="false" data-page="weddings" transform="translate(190 36) rotate(5) scale(.56)">
+          <use class="card" href="#sh-back"/><use class="edge" href="#sh-back"/><use class="chalk" href="#sh-back"/>
+          <circle class="hole" cx="110" cy="80" r="9"/><path class="grain" d="M108 130 V350"/><text class="lbl" x="40" y="420" style="font-size:16px">Back</text><text class="pg" x="40" y="456" style="font-size:28px">Weddings</text>
+        </g>
+        <g class="pc" tabindex="0" role="button" aria-pressed="false" data-page="pattern" transform="translate(206 4) rotate(-6) scale(.78)">
+          <use class="card" href="#sh-flap"/><use class="edge" href="#sh-flap"/><use class="chalk" href="#sh-flap"/>
+          <text class="lbl" x="14" y="28" style="font-size:12px">Pocket flap</text><text class="pg" x="14" y="54" style="font-size:20px">Your pattern</text>
+        </g>
+        <g class="pc" tabindex="0" role="button" aria-pressed="false" data-page="spec" transform="translate(14 312) rotate(-3) scale(.62)">
+          <use class="card" href="#sh-collar"/><use class="edge" href="#sh-collar"/><use class="chalk" href="#sh-collar"/>
+          <text class="lbl" x="78" y="58" style="font-size:16px">Collar · Spec</text>
+        </g>
+        <g class="pc" tabindex="0" role="button" aria-pressed="false" data-page="commission" transform="translate(222 360) rotate(-86) scale(.48)">
+          <use class="card" href="#sh-side"/><use class="edge" href="#sh-side"/><use class="chalk" href="#sh-side"/>
+        </g>
+      </svg>
+      <p class="lay-hint pencil">Tap a piece · the chalk goes round it</p>
+    </div>
+
+    <figure class="lay-page" aria-live="polite">
+      <div class="phone">
+        <img class="on" data-p="home" src="media/home.webp" alt="Fennick &amp; Lowe's home page on a phone: the cutter's hands on the cloth, and a coat on its stand" width="780" height="1688">
+        <img data-p="weddings" src="media/weddings.webp" alt="For a wedding party: the date, how many of you and one cloth for everyone" width="780" height="1688" loading="lazy">
+        <img data-p="weave" src="media/weave.webp" alt="The charcoal flannel's weave filling the screen, with its weight, season and Ask for a swatch" width="780" height="1688" loading="lazy">
+        <img data-p="spec" src="media/spec.webp" alt="The specification card for a dinner suit: shawl lapel, single breasted, flap pockets, tobacco herringbone" width="780" height="1688" loading="lazy">
+        <img data-p="pattern" src="media/pattern.webp" alt="From your pattern: the order code, the garment and the cloth, to order again" width="780" height="1688" loading="lazy">
+        <img data-p="commission" src="media/commission.webp" alt="Your coat, between fittings: the code on the order card and the four stages as photographs" width="780" height="1688" loading="lazy">
+      </div>
+      <figcaption class="lay-cap pencil"><span data-cap-piece>Front</span><b data-cap-page>The home page</b></figcaption>
+    </figure>
+  </div>
+</section>
+
+
+<section class="tk gut" aria-labelledby="h-tk"><div class="wrap tk-in">
+  <div>
+    <h2 id="h-tk">Every piece, a page.</h2>
+    <p class="tk-lede">A house keeps each client's pattern tied with its ticket: the pieces, counted. This is the ticket for <b>Fennick &amp; Lowe's website</b>: every page it's cut from, and the plan each one comes on.</p>
+  </div>
+  <div class="ticket">
+    <div class="ticket-h"><b>Fennick &amp; Lowe</b><span class="pencil">Website · Signature</span></div>
+    <ol>
+      <li><span class="pencil">Front</span><span>The home page</span><i>Starter</i></li>
+      <li><span class="pencil">Waistband</span><span>Plan your visit</span><i>Starter</i></li>
+      <li><span class="pencil">Top sleeve</span><span>The cloth library</span><i>Plus</i></li>
+      <li><span class="pencil">Under sleeve</span><span>What we make, a page for each</span><i>Plus</i></li>
+      <li><span class="pencil">Facing</span><span>Bespoke or made to measure</span><i>Plus</i></li>
+      <li><span class="pencil">Ticket pocket</span><span>The journal</span><i>Plus</i></li>
+      <li><span class="pencil">Cuff</span><span>Trunk shows</span><i>Plus</i></li>
+      <li><span class="pencil">Lining</span><span>The cutters</span><i>Plus</i></li>
+      <li><span class="pencil">Side body</span><span>Your commission</span><i>Signature</i></li>
+      <li><span class="pencil">Collar</span><span>Your specification</span><i>Signature</i></li>
+      <li><span class="pencil">Back</span><span>Weddings</span><i>Signature</i></li>
+      <li><span class="pencil">Pocket flap</span><span>From your pattern</span><i>Signature</i></li>
+      <li><span class="pencil">Under collar</span><span>The style lexicon</span><i>Signature</i></li>
+    </ol>
+    <p class="ticket-f pencil"><span>Also cut: the process, gift vouchers, the house's story, alterations and care</span></p>
+  </div>
+</div></section>
+<section class="ch gut" aria-labelledby="h-cloth"><div class="wrap ch-in">
+  <div class="ch-words">
+    <p class="pencil">Front · cut 2 · The home page</p>
+    <h2 id="h-cloth">The cloth, opened.</h2>
+    <p class="b">Six lengths hang from one spine on the home page. <b>Tap one and its weave fills the screen</b>, with the cloth, its weight and its season. Add up to five to a set, and ask for every swatch in one WhatsApp message.</p>
+    <p class="plan-tag pencil"><b>Plus</b><span>The cloth book and the swatch set</span></p>
+  </div>
+  <div class="ch-art">
+    <svg viewBox="-20 -10 312 546" aria-hidden="true"><use class="card" href="#sh-front"/></svg>
+    <figure class="phone" style="--tilt:-3deg"><video data-clip muted playsinline loop preload="none" poster="media/cloth-poster.jpg" width="780" height="1688" aria-label="Fennick &amp; Lowe's home page on a phone: the cloth book's lengths, the tobacco herringbone filling the screen, then the midnight worsted, both added to a swatch set"><source src="media/cloth.mp4" type="video/mp4"></video></figure>
+  </div>
+</div></section>
+<section class="ch flip gut" aria-labelledby="h-commission"><div class="wrap ch-in">
+  <div class="ch-words">
+    <p class="pencil">Side body · Your commission</p>
+    <h2 id="h-commission">Between fittings.</h2>
+    <p class="b">The code on the order card shows <b>which stage the coat has reached, as photographs</b>, and the next fitting goes to the calendar with a reminder the evening before of what to bring. The house's published sheet holds only a code, a stage, a time and a cloth: never a name or a measurement.</p>
+    <p class="plan-tag pencil"><b>Signature</b><span>Your commission, by code</span></p>
+  </div>
+  <div class="ch-art">
+    <svg viewBox="-40 -20 204 382" aria-hidden="true"><use class="card" href="#sh-side"/></svg>
+    <figure class="phone" style="--tilt:3deg"><video data-clip muted playsinline loop preload="none" poster="media/commission-poster.jpg" width="780" height="1688" aria-label="Your coat, between fittings: the code FL4K7M2Q typed in, the cut and baste fitting done, the forward fitting next, on Thursday at 11:00"><source src="media/commission.mp4" type="video/mp4"></video></figure>
+  </div>
+</div></section>
+<section class="lv gut" id="live" aria-labelledby="h-lv"><div class="wrap">
+  <div class="lv-head">
+    <div><p class="pencil">Collar · Your specification · try it</p><h2 id="h-lv">Chosen from the coat.</h2></div>
+    <p>Every choice is a photograph of a real coat, never a drawing, and <b>the card writes itself</b>. On the site it goes to the house on WhatsApp with a link that opens it again, or prints to bring to the first fitting.</p>
+  </div>
+  <form class="lv-in" data-lv>
+    <div>
+      <fieldset class="lv-g"><legend class="pencil">For</legend><div class="lv-chips">
+        <label class="lv-chip"><input type="radio" name="lv-for" value="Two-piece suit" data-coat checked>Two-piece suit</label>
+        <label class="lv-chip"><input type="radio" name="lv-for" value="Dinner suit" data-coat>Dinner suit</label>
+        <label class="lv-chip"><input type="radio" name="lv-for" value="Overcoat" data-coat>Overcoat</label>
+        <label class="lv-chip"><input type="radio" name="lv-for" value="Shirt">Shirt</label>
+      </div></fieldset>
+      <fieldset class="lv-g" data-coat-only><legend class="pencil">Lapel</legend><div class="lv-row">
+        <label class="lv-o"><input type="radio" name="Lapel" value="Notch" checked><img src="media/o-lex-notch.webp" width="360" height="450" alt="A notch lapel" loading="lazy"><span>Notch</span></label>
+        <label class="lv-o"><input type="radio" name="Lapel" value="Peak"><img src="media/o-lex-peak.webp" width="360" height="450" alt="A peak lapel" loading="lazy"><span>Peak</span></label>
+        <label class="lv-o"><input type="radio" name="Lapel" value="Shawl"><img src="media/o-spec-shawl.webp" width="360" height="450" alt="A shawl lapel on a white dinner jacket" loading="lazy"><span>Shawl</span></label>
+      </div></fieldset>
+      <fieldset class="lv-g" data-coat-only><legend class="pencil">Fastening</legend><div class="lv-row">
+        <label class="lv-o"><input type="radio" name="Fastening" value="Single breasted" checked><img src="media/o-lex-button.webp" width="360" height="450" alt="A single-breasted coat, one button fastened" loading="lazy"><span>Single breasted</span></label>
+        <label class="lv-o"><input type="radio" name="Fastening" value="Double breasted"><img src="media/o-spec-double.webp" width="360" height="450" alt="A double-breasted coat's two rows of buttons" loading="lazy"><span>Double breasted</span></label>
+      </div></fieldset>
+      <fieldset class="lv-g" data-coat-only><legend class="pencil">Hip pockets</legend><div class="lv-row">
+        <label class="lv-o"><input type="radio" name="Hip pockets" value="Flap" checked><img src="media/o-lex-flap.webp" width="360" height="450" alt="A flap pocket" loading="lazy"><span>Flap</span></label>
+        <label class="lv-o"><input type="radio" name="Hip pockets" value="Jetted"><img src="media/o-spec-jetted.webp" width="360" height="450" alt="A jetted pocket, no flap" loading="lazy"><span>Jetted</span></label>
+      </div></fieldset>
+      <fieldset class="lv-g" data-shirt-only hidden><legend class="pencil">Collar</legend><div class="lv-row">
+        <label class="lv-o"><input type="radio" name="Collar" value="Spread" checked><img src="media/o-spec-spread.webp" width="360" height="450" alt="A white shirt with a spread collar" loading="lazy"><span>Spread</span></label>
+        <label class="lv-o"><input type="radio" name="Collar" value="Button-down"><img src="media/o-spec-buttondown.webp" width="360" height="450" alt="A pale blue button-down collar under a navy tie" loading="lazy"><span>Button-down</span></label>
+      </div></fieldset>
+      <fieldset class="lv-g"><legend class="pencil">Cloth</legend><div class="lv-row">
+        <label class="lv-o lv-cl"><input type="radio" name="Cloth" value="Tobacco herringbone, tweed" checked><img src="media/c-herringbone.webp" width="200" height="200" alt="" loading="lazy"><span>Tobacco herringbone</span></label>
+        <label class="lv-o lv-cl"><input type="radio" name="Cloth" value="Midnight, worsted"><img src="media/c-midnight.webp" width="200" height="200" alt="" loading="lazy"><span>Midnight</span></label>
+        <label class="lv-o lv-cl"><input type="radio" name="Cloth" value="Navy windowpane, worsted"><img src="media/c-windowpane.webp" width="200" height="200" alt="" loading="lazy"><span>Navy windowpane</span></label>
+        <label class="lv-o lv-cl"><input type="radio" name="Cloth" value="Charcoal, flannel"><img src="media/c-flannel.webp" width="200" height="200" alt="" loading="lazy"><span>Charcoal</span></label>
+        <label class="lv-o lv-cl"><input type="radio" name="Cloth" value="Rust hopsack"><img src="media/c-hopsack.webp" width="200" height="200" alt="" loading="lazy"><span>Rust hopsack</span></label>
+        <label class="lv-o lv-cl"><input type="radio" name="Cloth" value="Oat, linen"><img src="media/c-linen.webp" width="200" height="200" alt="" loading="lazy"><span>Oat</span></label>
+      </div></fieldset>
+    </div>
+    <aside class="lv-card" aria-live="polite">
+      <p class="pencil">Fennick &amp; Lowe · Specification</p>
+      <h3 data-lv-for>For a two-piece suit</h3>
+      <ul data-lv-list></ul>
+      <p>On the site this goes to the house on WhatsApp, or prints. Here it stays on the page.</p>
+    </aside>
+  </form>
+  <p class="plan-tag pencil lv-tag"><b>Signature</b><span>The specification card</span></p>
+</div></section>
+<section class="ch gut" aria-labelledby="h-weddings"><div class="wrap ch-in">
+  <div class="ch-words">
+    <p class="pencil">Back · cut 2 · Weddings</p>
+    <h2 id="h-weddings">Everyone, one cloth.</h2>
+    <p class="b">The wedding date and how many are being dressed. <b>A party of four or more starts earlier</b>, by the house's own rule; one cloth is chosen for everyone, and every fitting goes into the calendar in one file.</p>
+    <p class="plan-tag pencil"><b>Signature</b><span>The wedding party planner</span></p>
+  </div>
+  <div class="ch-art">
+    <svg viewBox="-20 -10 266 546" aria-hidden="true"><use class="card" href="#sh-back"/></svg>
+    <figure class="phone" style="--tilt:2.5deg"><video data-clip muted playsinline loop preload="none" poster="media/weddings-poster.jpg" width="780" height="1688" aria-label="For a wedding party: 12 June 2027, five of us, the midnight worsted for everyone, and the first appointment by Saturday 6 February"><source src="media/weddings.mp4" type="video/mp4"></video></figure>
+  </div>
+</div></section>
+<section class="ch flip gut" aria-labelledby="h-pattern"><div class="wrap ch-in">
+  <div class="ch-words">
+    <p class="pencil">Pocket flap · From your pattern</p>
+    <h2 id="h-pattern">Order again.</h2>
+    <p class="b">The house keeps the paper pattern. A returning client gives <b>the code on their order card</b>, the garment, the cloth or "the same as last time", and any change, and sends it from their own WhatsApp. The site never asks for a measurement and keeps nothing.</p>
+    <p class="plan-tag pencil"><b>Signature</b><span>Ordering again from your pattern</span></p>
+  </div>
+  <div class="ch-art">
+    <svg viewBox="-10 -10 242 720" aria-hidden="true"><use class="card" href="#sh-tfront"/></svg>
+    <figure class="phone" style="--tilt:-2.5deg"><video data-clip muted playsinline loop preload="none" poster="media/pattern-poster.jpg" width="780" height="1688" aria-label="From your pattern: the order code FL4K7M2Q, trousers, the charcoal flannel and a touch longer, ready to send"><source src="media/pattern.mp4" type="video/mp4"></video></figure>
+  </div>
+</div></section>
+<section class="rest gut" aria-labelledby="h-rest"><div class="wrap">
+  <div class="rest-head">
+    <h2 id="h-rest">And the rest of the cloth.</h2>
+    <p>The pages a client reads before the first appointment, each in the house's own words.</p>
+  </div>
+  <div class="rest-row">
+    <figure><div class="phone" style="--tilt:-2deg"><img class="on" src="media/make.webp" width="780" height="1688" alt="What we make: suits, overcoats, dinner suits and shirts, a photograph each" loading="lazy"></div>
+      <figcaption><span class="pencil">Under sleeve · Plus</span><b>What we make</b><p>A page for each garment, with its "from" price and the cloths it's made in.</p></figcaption></figure>
+    <figure><div class="phone" style="--tilt:1.5deg"><img class="on" src="media/bespoke.webp" width="780" height="1688" alt="Bespoke or made to measure, compared in plain words" loading="lazy"></div>
+      <figcaption><span class="pencil">Facing · Plus</span><b>Bespoke or made to measure</b><p>The difference in plain words, every general fact linked to its source and dated.</p></figcaption></figure>
+    <figure><div class="phone" style="--tilt:-1deg"><img class="on" src="media/journal.webp" width="780" height="1688" alt="The journal: choosing cloth by season, what to wear to a wedding, looking after a suit" loading="lazy"></div>
+      <figcaption><span class="pencil">Ticket pocket · Plus</span><b>The journal</b><p>Dated articles: cloth by season, what to wear to a wedding, caring for a suit.</p></figcaption></figure>
+  </div>
+</div></section>
+
+<section class="cut gut" aria-labelledby="cut-h">
+  <div class="wrap">
+    <div class="cut-head">
+      <h2 id="cut-h">By the piece.</h2>
+      <p>A cutter prices a garment by what goes into it. So do we: <b>each page of the site is one piece of card</b>, and the plans are the garments they make.</p>
+    </div>
+    <div class="cut-row">
+      <article class="garment">
+        <div><div class="g-top"><span class="pencil">Starter</span><span class="pencil">2 pieces</span></div><h3>Trousers</h3></div>
+        <div>
+          <svg class="marker" viewBox="0 0 300 260" aria-hidden="true">
+            <use class="card" href="#sh-tfront" transform="translate(28 18) scale(.32)"/><use class="card" href="#sh-tback" transform="translate(126 12) scale(.32)"/>
+            <text class="lbl" x="196" y="236" style="fill:var(--chalk-2)">Lay 1/2</text>
+          </svg>
+          <p class="g-n" style="margin-top:20px"><b>The home page and Plan your visit.</b> What the house makes from its "from" price, the process in five lines, where and when.</p>
+        </div>
+        <p class="g-price"><b>£99</b><span>then £25 a month</span></p>
+      </article>
+      <article class="garment">
+        <div><div class="g-top"><span class="pencil">Plus</span><span class="pencil">5 pieces</span></div><h3>A jacket</h3></div>
+        <div>
+          <svg class="marker" viewBox="0 0 440 260" aria-hidden="true">
+            <use class="card" href="#sh-front" transform="translate(6 20) scale(.4)"/><use class="card" href="#sh-side" transform="translate(120 34) scale(.48)"/>
+            <use class="card" href="#sh-back" transform="translate(186 18) scale(.42)"/><use class="card" href="#sh-top" transform="translate(286 10) scale(.4)"/>
+            <use class="card" href="#sh-under" transform="translate(378 30) scale(.4)"/>
+            <text class="lbl" x="350" y="250" style="fill:var(--chalk-2)">Lay 2/2</text>
+          </svg>
+          <p class="g-n" style="margin-top:20px"><b>Home and four of these pages:</b> the cloth library by season, what you make, the process, trunk shows, the journal. The cloth book opens on the home page; a set of five swatches goes in one message.</p>
+        </div>
+        <p class="g-price"><b>£199</b><span>then £30 a month</span></p>
+      </article>
+      <article class="garment">
+        <div><div class="g-top"><span class="pencil">Signature</span><span class="pencil">Up to 20 pieces</span></div><h3>The three-piece</h3></div>
+        <div>
+          <svg class="marker" viewBox="0 0 720 260" aria-hidden="true">
+            <use class="card" href="#sh-front" transform="translate(4 14) scale(.4)"/>
+            <use class="card" href="#sh-side" transform="translate(126 26) scale(.46)"/><use class="card" href="#sh-back" transform="translate(186 14) scale(.42)"/>
+            <use class="card" href="#sh-top" transform="translate(284 8) scale(.42)"/><use class="card" href="#sh-under" transform="translate(378 22) scale(.42)"/>
+            <use class="card" href="#sh-tfront" transform="translate(436 6) scale(.34)"/><use class="card" href="#sh-tback" transform="translate(514 4) scale(.34)"/>
+            <use class="card" href="#sh-wfront" transform="translate(616 10) scale(.36)"/><use class="card" href="#sh-wback" transform="translate(618 140) scale(.34)"/>
+            <use class="card" href="#sh-collar" transform="translate(426 230) scale(.34)"/><use class="card" href="#sh-flap" transform="translate(546 228) scale(.3)"/>
+            <text class="lbl" x="4" y="256" style="fill:var(--chalk-2)">Marker · one cloth, every piece</text>
+          </svg>
+          <p class="g-n" style="margin-top:20px"><b>Every page the house needs, and the showpieces:</b> your commission by code, stage by stage; the specification card from the house's own photographs; the wedding party planner, every fitting in one calendar file; ordering again from your pattern.</p>
+        </div>
+        <p class="g-price"><b>£349</b><span>then £35 a month</span></p>
+      </article>
+    </div>
+    <p class="cut-foot">Twelve months minimum on every plan. Any feature on its own as an add-on; extra pages one at a time.</p>
+  </div>
+</section>
+
+<section class="ms gut" aria-labelledby="h-ms"><div class="wrap">
+  <div class="tape" aria-hidden="true"></div>
+  <div class="ms-in">
+    <div>
+      <h2 id="h-ms">Measured twice.</h2>
+      <p>On Fennick &amp; Lowe's home page, with Lighthouse on a mobile setting: three runs from a fresh server, the first one cold.</p>
+    </div>
+    <dl>
+      <div><dt>Performance</dt><dd>93 to 99<small>Three runs: 99, 93, 93, the first cold</small></dd></div>
+      <div><dt>First paint</dt><dd>0.8 s</dd></div>
+      <div><dt>Largest paint</dt><dd>2.0 to 3.2 s</dd></div>
+      <div><dt>Layout shift</dt><dd>0</dd></div>
+      <div><dt>Accessibility</dt><dd>100</dd></div>
+      <div><dt>The home page on a phone</dt><dd>About 6 screens<small>The cloth book, the commission, what the house makes</small></dd></div>
+    </dl>
+  </div>
+</div></section>
+
+<section class="close gut" id="mockup" aria-labelledby="h-cl"><div class="wrap close-in">
+  <div>
+    <h2 id="h-cl">Your cloth, on their phone.</h2>
+    <p>Send us a photograph of your cutting room and your price list, and we'll make a free mockup of your home page with your own cloth on it.</p>
+    <div class="acts">
+      <a class="btn" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#free">Get a free mockup</a>
+      <a class="btn line" href="https://claude.ai/artifact/UsuRk74pyM7cCjpRp8uRs8">Try the demo first</a>
+    </div>
+    <span class="mail">hello@sitefloor.com</span>
+  </div>
+  <figure><img src="media/stand.webp" width="760" height="1014" alt="A camel coat on a tailor's stand over a navy waistcoat, a paper ticket pinned to the lapel" loading="lazy"></figure>
+</div></section>
+
+</main>
+
+<footer class="gut"><div class="wrap">
+  <p>Fennick &amp; Lowe is a fictional tailor made to show the Sitefloor tailor kit. Its address, prices, cloths, order codes, reviews and journal are demo data. Its photographs are free stock from Unsplash, of other coats and cutting rooms, each credited in our records.</p>
+  <span>© 2026 Sitefloor</span>
+</div></footer>
+
+<script>
+(() => {
+  const words = { home: ["Front", "The home page"], weddings: ["Back", "For a wedding party"], weave: ["Top sleeve", "The cloth, full screen"],
+    spec: ["Collar", "Your specification"], pattern: ["Pocket flap", "From your pattern"], commission: ["Side body", "Your commission"] };
+  const pieces = [...document.querySelectorAll(".pc")];
+  const shots = [...document.querySelectorAll(".phone img")];
+  const capPiece = document.querySelector("[data-cap-piece]"), capPage = document.querySelector("[data-cap-page]");
+  const choose = (page) => {
+    for (const p of pieces) p.setAttribute("aria-pressed", String(p.dataset.page === page));
+    for (const s of shots) s.classList.toggle("on", s.dataset.p === page);
+    const w = words[page]; capPiece.textContent = w[0]; capPage.textContent = w[1];
+    for (const p of pieces) { const c = p.querySelector(".chalk"); if (c && p.dataset.page === page) { c.style.animation = "none"; void c.getBoundingClientRect(); c.style.animation = ""; } }
+  };
+  for (const p of pieces) {
+    p.setAttribute("aria-label", `${words[p.dataset.page][0]}: ${words[p.dataset.page][1]}`);
+    p.addEventListener("click", () => choose(p.dataset.page));
+    p.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); choose(p.dataset.page); } });
+  }
+  // the specification card, live
+  const lv = document.querySelector("[data-lv]");
+  if (lv) {
+    const forEl = lv.querySelector("[data-lv-for]"), list = lv.querySelector("[data-lv-list]");
+    const a = (g) => { const x = g.toLowerCase(); return `${/^[aeiou]/.test(x) ? "an" : "a"} ${x}`; };
+    const render = () => {
+      const garment = lv.querySelector("input[name=lv-for]:checked");
+      const coat = garment.hasAttribute("data-coat");
+      for (const g of lv.querySelectorAll("[data-coat-only]")) g.hidden = !coat;
+      for (const g of lv.querySelectorAll("[data-shirt-only]")) g.hidden = coat;
+      forEl.textContent = `For ${a(garment.value)}`;
+      list.replaceChildren(...[...lv.querySelectorAll("fieldset.lv-g:not([hidden]) input:checked")].filter((i) => i.name !== "lv-for").map((i) => {
+        const li = document.createElement("li"), k = document.createElement("span"), v = document.createElement("b");
+        k.textContent = i.name; v.textContent = i.value; li.append(k, v); return li;
+      }));
+    };
+    lv.addEventListener("change", render); render();
+  }
+  // the clips play while on screen, and load only when they come near it
+  const clips = [...document.querySelectorAll("video[data-clip]")];
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!still && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver((es) => { for (const e of es) { const v = e.target; if (e.isIntersecting) { v.preload = "auto"; v.play().catch(() => {}); } else v.pause(); } }, { threshold: .35 });
+    clips.forEach((v) => io.observe(v));
+  }
+
+})();
+</script>
+</body>
+</html>

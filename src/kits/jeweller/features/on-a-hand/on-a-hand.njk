@@ -1,0 +1,24 @@
+{#- On a hand: the piece worn, in the house's photograph. Matched once to a bank card held against the screen, the
+    photograph is shown at its true size on this screen (when the client has measured the photo's real width). -#}
+{%- set H = p.hand %}
+<section class="nc-sec jw-hand" data-feature="on-a-hand"{{ "on-a-hand" | tierAttr | safe }} aria-labelledby="jw-hand-h"><div class="wrap jw-hand-in">
+  <div class="jw-hand-t">
+    <h2 class="jw-h" id="jw-hand-h">On a hand</h2>
+    {%- if H.size %}<p class="nc-label nc-muted">Worn on a size {{ H.size }} finger</p>{% endif %}
+    {%- if H.widthMm %}
+    <div data-js-only>
+      <p class="nc-body">See it at its real size, as if it were on the tray in front of you.</p>
+      <button type="button" class="nc-u nc-label nc-btnlink" data-hand-true aria-pressed="false">Show it at true size</button>
+      <div class="jw-cal" data-cal hidden>
+        <p class="nc-body">Hold any bank card flat against the screen, then move the slider until the outline is exactly as wide as the card.</p>
+        <div class="jw-cal-card" data-cal-card aria-hidden="true"></div>
+        <input class="jw-range" type="range" min="200" max="900" step="1" value="320" data-cal-range aria-label="Width of the card outline">
+        <button type="button" class="nc-u nc-label nc-btnlink" data-cal-done>The outline matches my card</button>
+      </div>
+      <p class="nc-fine" data-hand-say role="status"></p>
+    </div>
+    {%- if site.pieces.demoData %}<p class="nc-fine">Demo: this stock photograph's real width is estimated from the ring in it. On a client's site it is measured when the photo is taken.</p>{% endif %}
+    {%- endif %}
+  </div>
+  <figure class="jw-hand-ph" data-hand-fig><img src="{{ H.photo.src | img }}" width="{{ H.photo.width }}" height="{{ H.photo.height }}" loading="lazy" decoding="async" alt="{{ H.photo.alt }}"{% if H.widthMm %} data-width-mm="{{ H.widthMm }}"{% endif %}></figure>
+</div></section>

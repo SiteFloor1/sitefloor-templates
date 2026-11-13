@@ -1,0 +1,30 @@
+{#- Salon: what's on. A printed programme: the date set in large numerals, the evening's name, its hours and price,
+    a line, and how to book. Music in the salon follows. Keeps the events hooks. -#}
+{%- set ev = site.events %}
+<section class="sa-page-head"><div class="wrap">
+  <h1>{{ ev.title | markup | safe }}</h1>
+  {%- if ev.intro %}<p>{{ ev.intro }}</p>{% endif %}
+  <div class="sa-crowns" aria-hidden="true"></div>
+</div></section>
+<section class="sa-ev" data-feature="events"><div class="wrap">
+  {%- set list = ev.items | upcomingEvents(build.today) %}
+  <ol class="sa-ev-list">
+    {%- for e in list %}{% set dd = e.date | eventDay %}
+    <li class="sa-ev-i" data-ev="{{ e.id }}" data-date="{{ e.date }}">
+      <p class="sa-ev-d"><b>{{ dd.day }}</b><span>{{ dd.weekday }}, {{ e.date | dayMonth | replace(dd.day + " ", "") }}</span></p>
+      {%- if e.photo %}<img class="sa-ev-ph" src="{{ e.photo.src | img }}" width="{{ e.photo.width }}" height="{{ e.photo.height }}" alt="{{ e.photo.alt }}" loading="lazy">{% endif %}
+      <div class="sa-ev-tx">
+        <h2>{{ e.title }}</h2>
+        <p class="sa-when">{{ e.start | t12 }}{% if e.end %} until {{ e.end | t12 }}{% endif %} · {% if e.price %}{{ e.price | gbp }} a guest{% else %}no charge{% endif %}</p>
+        <p>{{ e.text }}</p>
+        <p class="sa-ev-cta">
+          {%- if e.book %}<a class="sa-send" href="{{ ('Good afternoon, I would like to book for ' + e.title + ' on ' + (e.date | eventDate) + '.') | wa }}" target="_blank" rel="noopener">Reserve</a>{% endif %}
+          <button type="button" class="sa-link" data-ev-ics="{{ e.id }}" data-js-only>Add to calendar</button>
+        </p>
+      </div>
+    </li>
+    {%- endfor %}
+  </ol>
+  <p class="sa-small" data-ev-none{% if list.length %} hidden{% endif %}>Nothing on the programme just now. Message us to hear of the next evening.</p>
+</div></section>
+{%- if "music" | enabled %}{% include "kits/restaurant/features/music/music.njk" %}{% endif %}

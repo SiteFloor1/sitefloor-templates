@@ -1,0 +1,19 @@
+{#- Products we use: each product's photograph, name, what it's for, size and shelf price, and "Put one by" on WhatsApp
+    with the product in the message. -#}
+{%- set p = site.products %}
+{%- set ph = { title: p.title, intro: p.intro } %}
+{% include "kits/hair/partials/page-head.njk" %}
+<section class="hr-ps" aria-label="Products"><div class="wrap">
+  <ul class="hr-ps-grid">
+    {%- for x in p.items %}
+    <li class="hr-ps-one">
+      <figure><img src="{{ x.photo.src | img }}" alt="{{ x.photo.alt }}" width="{{ x.photo.width }}" height="{{ x.photo.height }}" loading="lazy" decoding="async"></figure>
+      <h2 class="hr-ps-n">{{ x.name }}</h2>
+      <p class="hr-ps-f">{{ x.for }}</p>
+      <p class="hr-ps-p">{% if x.price %}{{ x.price | money }}{% endif %}{% if x.size %} · {{ x.size }}{% endif %}</p>
+      <a class="hr-go" href="{{ (p.message + ' ' + x.name + (', ' + x.size if x.size else '') + '.') | book }}" target="_blank" rel="noopener">Put one by</a>
+    </li>
+    {%- endfor %}
+  </ul>
+  {%- if p.note %}<p class="hr-small hr-ps-note">{{ p.note }}</p>{% endif %}
+</div></section>

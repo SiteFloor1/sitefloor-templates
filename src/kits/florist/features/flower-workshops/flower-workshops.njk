@@ -1,0 +1,23 @@
+{#- Workshops (Signature): dates, what you make, the price and places left (live from the florist's Sheet when set),
+    each booked by its own Payment Link. Past dates drop off at the build and in the browser. -#}
+{%- set Ws = site.workshops %}
+{%- set ph = { kicker: Ws.kicker or "Workshops", title: Ws.title, intro: Ws.intro } %}
+{% include "kits/florist/partials/page-head.njk" %}
+{%- set items = Ws.items | upcoming(build.today) %}
+<section class="fl-ws" data-feature="flower-workshops"><div class="wrap">
+  <ul class="fl-ws-list" role="list">
+    {%- for w in items %}
+    <li class="fl-ws-i rv" data-date="{{ w.date }}" data-ws="{{ w.id }}" data-places="{{ w.places }}">
+      <span class="fl-ws-ph"><img src="{{ w.photo.src | img }}" alt="{{ w.photo.alt }}" width="{{ w.photo.width }}" height="{{ w.photo.height }}" loading="lazy" decoding="async"></span>
+      <div class="fl-ws-t">
+        <p class="fl-ws-when"><time datetime="{{ w.date }}">{{ w.date | ukDate }}</time>, {{ w.start | timeLabel }} · {{ w.minutes | lengthLabel }}</p>
+        <h2 class="fl-ws-h">{{ w.title }}</h2>
+        <p>{{ w.text }}</p>
+        <p class="fl-ws-buy"><span class="fl-ws-price">{{ w.price | pounds }}</span><span class="fl-ws-left" data-ws-left>{{ "Full" if w.left == 0 else (w.left ~ " of " ~ w.places ~ " places left") }}</span>
+          {%- if w.left > 0 %}<a class="fl-btn" data-ws-pay href="{{ w.payLink }}" target="_blank" rel="noopener"{% if site.mode == "demo" %} data-demo-note="On a live site this opens the florist's own Stripe Payment Link. This demo's link is a test link: nothing is charged."{% endif %}>Book a place</a>{% endif %}</p>
+      </div>
+    </li>
+    {%- endfor %}
+  </ul>
+  <p class="fl-ws-none" data-ws-none{% if items.length %} hidden{% endif %}>{{ Ws.empty }}</p>
+</div></section>

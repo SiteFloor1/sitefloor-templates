@@ -1,0 +1,29 @@
+{#- When someone has died: the first steps in order, each with the official gov.uk link; the family can choose the day
+    they start and add gentle reminders to their calendar. Reminders are not legal deadlines; each step says the rule. -#}
+{%- set bv = site.bereavement %}
+{%- set ph = { title: bv.title, intro: bv.intro } %}
+{% include "kits/law/partials/page-head.njk" %}
+<div class="wrap lw-bv" data-feature="bereavement">
+  <ol class="lw-bv-steps">
+    {%- for st in bv.steps %}
+    <li class="lw-bv-step" data-bv-step="{{ st.id }}"{% if st.remindDays is number %} data-days="{{ st.remindDays }}"{% endif %} data-title="{{ st.title }}">
+      <h2>{{ st.title }}</h2>
+      <p>{{ st.text }}</p>
+      {%- if st.link %}<p><a href="{{ st.link.url }}" rel="noopener">{{ st.link.label }}</a></p>{% endif %}
+      {%- if st.remindDays is number %}<p class="lw-bv-when" data-bv-when hidden></p>{% endif %}
+    </li>
+    {%- endfor %}
+  </ol>
+  <aside class="lw-bv-side">
+    <div class="lw-bv-rem" data-js-only>
+      <h2>Reminders</h2>
+      <label for="bv-start">Starting from</label>
+      <input id="bv-start" type="date">
+      <p>We'll suggest a day for each step. They are reminders only; each step says the real time limit.</p>
+      <button class="go" type="button" id="bv-ics">Add the reminders to my calendar</button>
+    </div>
+    <p class="lw-bv-help">{{ bv.help }}</p>
+    <p><a class="go" href="{{ ('contact' | href) if ('first-contact' | enabled) else 'tel:' + (site.contact.phone | replace(' ', '')) }}">Speak to us</a></p>
+    <p class="lw-bv-checked">Checked against gov.uk, {{ bv.checked | ukDate }}.</p>
+  </aside>
+</div>

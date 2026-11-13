@@ -1,0 +1,6 @@
+{#- Almanac section opening: an ink rule, the section's name as a sentence under it, and its one line in italic beneath.
+    `sec` = { title, intro }; `secId` names the heading for the section's aria-labelledby. -#}
+<div class="al-sh">
+  <h2 class="al-sh-t"{% if secId %} id="{{ secId }}"{% endif %}>{{ sec.title | markup | safe }}</h2>
+  {%- if sec.intro %}<p class="al-sh-i">{{ sec.intro }}</p>{% endif %}
+</div>

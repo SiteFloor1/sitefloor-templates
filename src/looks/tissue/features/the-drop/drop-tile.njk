@@ -1,0 +1,11 @@
+{#- Tissue, the drop as one post in the feed, on blush: its name, the day and time, the countdown in peony, then
+    what's left while it's open. True without JavaScript (the day and time); the script keeps the clock and the count. -#}
+{%- set Dr = site.drop %}
+<div class="tb-post tb-droppost" data-feature="the-drop" data-drop-tile>
+  <a class="tb-drop" href="{{ 'drop' | href }}">
+    <p class="tb-drop-t">{{ Dr.name }}<em data-drop-line>Every {{ Dr.when.day | dayName }} at {{ Dr.when.time | timeLabel }}. {{ Dr.made }} made.</em></p>
+    <p class="tb-drop-clock" data-drop-clock aria-live="off" hidden><span><b data-d="d">00</b><small>days</small></span><span><b data-d="h">00</b><small>hours</small></span><span><b data-d="m">00</b><small>min</small></span><span><b data-d="s">00</b><small>sec</small></span></p>
+    <p class="tb-drop-now" data-drop-now hidden></p>
+    <span class="tb-drop-go">See the drop</span>
+  </a>
+</div>

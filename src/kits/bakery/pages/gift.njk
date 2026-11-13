@@ -1,0 +1,25 @@
+---
+layout: core/layouts/base.njk
+pageId: gift
+permalink: gift.html
+feature: dessert-box
+noindex: true
+eleventyComputed:
+  title: "{{ ('A box for you from ' + site.business.name) | plain }}"
+  description: "{{ ('A box of chocolates waiting at ' + site.business.name + ', ' + site.location.streetAddress + '.') | plain }}"
+---
+{#- The gift link: what someone sent, read from the link itself (nothing is stored anywhere). -#}
+<section class="gift" data-feature="dessert-box" data-bx-gift><div class="wrap gift-in">
+  <ul hidden data-bx-catalog>
+    {%- for it in site.desserts | boxItems %}<li data-id="{{ it.id }}" data-name="{{ it.name }}" data-src="{{ it.tile.src | img }}"></li>{% endfor %}
+  </ul>
+  <div class="gift-box bx-box" data-bx-box><ol class="bx-places" data-bx-places aria-label="The box"></ol></div>
+  <div class="gift-t" aria-live="polite">
+    <h1 class="gift-h" data-gift-h>A box for you</h1>
+    <p class="gift-card" data-gift-card hidden></p>
+    <p class="gift-from" data-gift-from hidden></p>
+    <p class="gift-when" data-gift-when hidden></p>
+    <p class="gift-where">{{ site.business.name }}, {{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}. <a href="{{ site.location | directions }}" target="_blank" rel="noopener">Directions</a></p>
+    <p class="gift-bad" data-gift-bad hidden>This link isn't complete. Ask whoever sent it to send it again, or message us.</p>
+  </div>
+</div></section>

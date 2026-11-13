@@ -1,0 +1,25 @@
+{#- The wedding week planner: the wedding date in, every step on its day; hold the day, the calendar, the family. -#}
+{%- set p = site.planner %}
+{%- set ph = { kicker: site.plannerPage.kicker, title: site.plannerPage.title, intro: site.plannerPage.intro } %}
+{% include "kits/mehndi/partials/page-head.njk" %}
+<section class="mh-wp" data-feature="mehndi-week"{{ "mehndi-week" | tierAttr | safe }} aria-label="Your wedding week"><div class="wrap mh-wp-in">
+  <div class="mh-wp-form">
+    {%- set df = "wp" %}{% set dfLabel = "Your wedding date" %}{% include "kits/mehndi/partials/date-field.njk" %}
+    <p class="mh-fine" data-wp-late hidden>Some of these days have gone. Ask, and we'll fit what we can.</p>
+    <div class="mh-wp-acts">
+      <a class="mh-solid" data-wp-ask href="{{ p.message | plannerText | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ p.message | plannerText }}"{% endif %} target="_blank" rel="noopener">Ask to hold my mehndi day</a>
+      <a class="mh-text" data-wp-ics download="mehndi-week.ics" href="#" hidden>Add to my calendar</a>
+      <a class="mh-text" data-wp-family href="#" target="_blank" rel="noopener" hidden>Send to the family</a>
+    </div>
+  </div>
+  <ol class="mh-wp-list" data-wp-list>
+    {%- for s in p.steps | sort(true, false, "daysBefore") %}
+    <li data-step="{{ s.id }}"{% if s.mehndi %} class="is-mehndi"{% endif %}>
+      <span class="mh-wp-date" data-wp-date>{{ s.daysBefore | daysWords }}</span>
+      <b>{{ s.label }}</b>
+      {%- if s.text %}<p>{{ s.text }}</p>{% endif %}
+    </li>
+    {%- endfor %}
+    <li class="is-day"><span class="mh-wp-date" data-wp-wedding>On the day</span><b>The wedding</b><p>Darkest now.</p></li>
+  </ol>
+</div></section>

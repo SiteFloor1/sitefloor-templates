@@ -1,0 +1,37 @@
+{#- One class's page: the photograph, who it's for, what happens, its next times (drawn from the visitor's clock, with
+    places when known), who teaches it, and the exercises it uses. Set `c` to the class first. -#}
+{%- set teachers = site | teachersOf(c.id) %}
+{%- set moves = site | exercisesIn(c.id) %}
+<header class="pl-ph pl-cls-h"><div class="wrap pl-ph-in">
+  <p class="pl-ph-k"><a href="{{ 'index' | href }}">{{ site.business.name }}</a> <span aria-hidden="true">/</span> {% if 'classes-page' | enabled %}<a href="{{ 'classes' | href }}">Classes</a>{% else %}Classes{% endif %}</p>
+  <h1 class="pl-ph-t">{{ c.name }}</h1>
+  <p class="pl-ph-i">{{ c.minutes }} minutes{% if c.level %} · {{ c.level }}{% endif %}</p>
+</div></header>
+<section class="pl-cls" data-feature="class-pages" data-class="{{ c.id }}" aria-label="{{ c.name }}"><div class="wrap pl-cls-in">
+  <figure class="pl-cls-ph"><img src="{{ c.photo.src | img }}" alt="{{ c.photo.alt }}" width="{{ c.photo.width }}" height="{{ c.photo.height }}" fetchpriority="high" decoding="async"></figure>
+  <div class="pl-cls-body">
+    <p class="pl-cls-who">{{ c.who }}</p>
+    <h2 class="pl-cls-sub">What happens</h2>
+    <ol class="pl-cls-exp">{% for e in c.expect %}<li>{{ e }}</li>{% endfor %}</ol>
+    {%- if teachers.length %}
+    <p class="pl-cls-t">Taught by {% for t in teachers %}{% set tp = site | teacherPageOf(t) %}{% if tp and ('teacher-pages' | enabled) %}<a href="{{ ('teacher-' + tp.id) | href }}">{{ t }}</a>{% else %}{{ t }}{% endif %}{% if not loop.last %}{% if loop.revindex == 2 %} and {% else %}, {% endif %}{% endif %}{% endfor %}</p>
+    {%- endif %}
+  </div>
+  <div class="pl-cls-next">
+    <h2 class="pl-cls-sub">Next {{ c.name }}</h2>
+    <ul class="pl-cls-times" data-cp-times>
+      {%- for s in site | nextOf(build.today, c.id, 5) %}
+      <li><span>{{ s.date | shortDay }}, {{ s.time | said }}</span><a href="{{ site | bookText(c.name, s.date, s.time) | book }}" target="_blank" rel="noopener">Book</a></li>
+      {%- endfor %}
+    </ul>
+    {%- if 'spaces-left' | enabled %}{% include "kits/pilates/features/spaces-left/spaces-left.njk" %}{% endif %}
+  </div>
+</div></section>
+{%- if moves.length and ('method-library' | enabled) %}
+<section class="pl-cls-moves" aria-labelledby="pl-cls-mv"><div class="wrap">
+  <h2 class="pl-cls-sub" id="pl-cls-mv">In this class</h2>
+  <ul class="pl-mv-grid">
+    {%- for x in moves %}<li><a href="{{ ('exercise-' + x.id) | href }}"><img src="{{ x.photo.src | img }}" alt="" width="{{ x.photo.width }}" height="{{ x.photo.height }}" loading="lazy" decoding="async"><b>{{ x.name }}</b><span>{{ x.line }}</span></a></li>{% endfor %}
+  </ul>
+</div></section>
+{%- endif %}

@@ -1,0 +1,15 @@
+/* The garden calendar: "ready by" first, then the year as twelve ruled months. */
+.gd-label { display: block; font-size: 15px; color: var(--muted); margin-bottom: 8px; }
+.gd-select { min-height: 48px; padding: 0 40px 0 14px; border: 1px solid var(--line-2); border-radius: 0; background: var(--bg); color: var(--text); font: inherit; font-size: 17px; }
+.gd-sb { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 16px clamp(32px, 6vw, 96px); padding-block: 48px; border-top: 1px solid var(--text); border-bottom: 1px solid var(--line); }
+.gd-sb-h { grid-row: span 3; margin: 0; font-style: italic; font-size: clamp(36px, 4vw, 56px); line-height: 1; }
+.gd-sb-out { margin: 8px 0 0; max-width: 52ch; font-size: 19px; }
+.gd-sb-go { margin: 8px 0 0; }
+.gd-yr-list { list-style: none; margin: 0; padding: 0; }
+.gd-yr-m { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 8px clamp(32px, 6vw, 96px); padding: 32px 0; border-bottom: 1px solid var(--line); scroll-margin-top: 96px; }
+.gd-yr-n { margin: 0; font-style: italic; font-weight: 400; font-size: clamp(32px, 3.4vw, 48px); line-height: 1; }
+.gd-yr-dl { margin: 0; }
+.gd-yr-dl div { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 16px; padding: 6px 0; }
+.gd-yr-dl dt { color: var(--muted); font-style: italic; }
+.gd-yr-dl dd { margin: 0; }
+@media (max-width: 760px) { .gd-sb, .gd-yr-m { grid-template-columns: 1fr; } .gd-sb-h { grid-row: auto; } .gd-yr-dl div { grid-template-columns: 90px minmax(0, 1fr); } }

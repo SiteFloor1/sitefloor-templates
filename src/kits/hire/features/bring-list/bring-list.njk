@@ -1,0 +1,9 @@
+{#- What to bring on the day, from the client, with a checklist to save to the phone (a small text file). Used inside the
+    home questions, on every car page and on Before your hire. `bringId` set to make ids unique. -#}
+{%- if "bring-list" | enabled %}
+<div class="hr-bring" data-feature="bring-list">
+  <h3 class="hr-bring-h">{{ site.sections.bring.title | plain }}</h3>
+  <ol class="hr-bring-list">{% for b in site.hire.bring %}<li>{{ b }}</li>{% endfor %}</ol>
+  <button type="button" class="dt-quiet" data-bring-save data-js-only>Save the checklist</button>
+</div>
+{%- endif %}

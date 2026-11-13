@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: commissions
+permalink: commissions.html
+feature: commission-pages
+eleventyComputed:
+  title: "{{ site.cakePages.commissions.title | plain }}"
+  description: "Cakes made by {{ site.business.name }}, {{ site.location.locality }}: tiers, servings and prices."
+---
+{% include "kits/cakes/features/commission-pages/commission-pages.njk" %}

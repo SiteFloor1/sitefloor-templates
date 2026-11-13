@@ -1,0 +1,14 @@
+{#- Mackerel's way to the other pages: a ruled index, each row the page's name large, its line, and a small photograph;
+    the row's tube lights on hover and focus. Short on a phone. -#}
+{%- set links = site.pageLinks | enabledLinks %}
+{%- if links.length %}
+{%- set sec = site.sections.pageLinks or { title: "More from the bay." } %}
+<section class="mk-more" data-feature="page-links"{{ "page-links" | tierAttr | safe }} aria-label="{{ sec.title | plain }}"><div class="wrap">
+  {%- include "core/partials/section-head.njk" %}
+  <ul class="mk-more-list">
+    {%- for l in links %}
+    <li><a href="{{ l.page | href }}"><span class="tube" aria-hidden="true"></span><b>{{ l.cta }}</b><span class="mk-more-l">{{ l.title | plain }}</span><img src="{{ l.image | img }}" alt="" loading="lazy" decoding="async" width="720" height="480"></a></li>
+    {%- endfor %}
+  </ul>
+</div></section>
+{%- endif %}

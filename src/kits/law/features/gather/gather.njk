@@ -1,0 +1,19 @@
+{#- What to gather: a checklist for each kind of matter. Ticks stay on the visitor's own device; the list can be copied
+    or emailed to themselves. Without scripts every list shows in full. -#}
+{%- set ga = site.gather %}
+{%- set ph = { title: ga.title, intro: ga.intro } %}
+{% include "kits/law/partials/page-head.njk" %}
+<div class="wrap lw-ga" data-feature="gather">
+  <div class="lw-ga-tabs" role="tablist" aria-label="Checklists" data-js-only>
+    {%- for l in ga.lists %}<button type="button" role="tab" id="ga-tab-{{ l.id }}" aria-controls="ga-{{ l.id }}" aria-selected="{{ 'true' if loop.first else 'false' }}" data-ga-tab="{{ l.id }}">{{ l.title }}</button>{% endfor %}
+  </div>
+  {%- for l in ga.lists %}
+  <section class="lw-ga-list" id="ga-{{ l.id }}" data-ga="{{ l.id }}" role="tabpanel" aria-labelledby="ga-tab-{{ l.id }}">
+    <h2>{{ l.title }}</h2>
+    <ul>{% for it in l.items %}<li><label><input type="checkbox" data-ga-item="{{ l.id }}-{{ loop.index0 }}"> <span>{{ it }}</span></label></li>{% endfor %}</ul>
+    <p class="lw-ga-act" data-js-only><button class="go" type="button" data-ga-copy>Copy this list</button> <a class="go" data-ga-mail href="mailto:?subject={{ l.title | urlencode }}">Email it to myself</a></p>
+    {%- if l.practice %}{% set a = site.practice | area(l.practice) %}<p class="lw-ga-who">Questions? <a href="{{ (a.id | href) if ('area-pages' | enabled) else ('practice' | href) + '#' + a.id }}">{{ a.name }}</a> is led by {{ (site.people | person(a.lead)).name }}.</p>{% endif %}
+  </section>
+  {%- endfor %}
+  <p class="lw-ga-note">Your ticks are kept only in this browser, on this device.</p>
+</div>

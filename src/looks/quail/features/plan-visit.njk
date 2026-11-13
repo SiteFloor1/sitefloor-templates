@@ -1,0 +1,91 @@
+{#- Quail Plan your visit. The page head; then two columns: on the left, kept in view, the address as the house's shade
+    card with the live status and a ruled "at a glance" list; on the right, the ways here as a column of plain tabs
+    (mode and minutes) with the chosen route's steps numbered large, the leave-by helper, then parking and access as a
+    specification list, the hours as seven tiles and every question. Works without JavaScript: every route is listed. -#}
+{%- set v = site.visitInfo %}
+{%- set journeys = v.journeys or [] %}
+{%- set parking = v.parking or [] %}
+{%- set ph = { kicker: v.kicker, title: v.title, intro: v.intro } %}
+{% include "kits/nails/partials/page-head.njk" %}
+{%- set words = site.location.streetAddress.split(" ") %}
+{%- set num = words[0] if (words[0] | int) > 0 else "" %}
+<div class="wrap ql-pv" data-feature="plan-visit">
+  <aside class="ql-pv-side">
+    <div class="ql-v-card">
+      {%- if num %}<p class="ql-v-no">No. {{ num }}</p>{% endif %}
+      <p class="ql-v-st">{{ words.slice(1).join(" ") if num else site.location.streetAddress }}</p>
+      <p class="ql-v-pc">{{ site.location.locality }} · {{ site.location.postcode }}</p>
+      <p class="ql-v-now" data-live-status><span class="dot" aria-hidden="true"></span><span data-status-text>See the hours below</span></p>
+    </div>
+    <ul class="ql-pv-glance" aria-label="At a glance">
+      {%- for j in journeys %}<li><span>{{ j.from }}</span><b>{{ j | boardTime }}</b></li>{% endfor %}
+      {%- for c in parking %}<li><span>{{ c.name }}</span><b data-parking="{{ loop.index0 }}">{% if c.walk is defined %}{{ c.walk }} min walk{% endif %}</b></li>{% endfor %}
+    </ul>
+    {%- if site.mode == "demo" %}
+    <p class="ql-fine">Example journeys and parking for a fictional salon.</p>
+    {%- elif v.checked %}
+    <p class="ql-fine">Journey times, parking and access checked with {{ site.business.name }} in {{ v.checked | checkedText }}. Driving times are outside rush hour.</p>
+    {%- endif %}
+  </aside>
+  <div class="ql-pv-main">
+    {%- if journeys.length %}
+    <section aria-labelledby="pv-j-h">
+      <h2 class="ql-pv-h" id="pv-j-h">The way here</h2>
+      <div class="ql-pv-routes">
+        <div class="ql-pv-tabs" role="tablist" aria-label="Ways to get here" aria-orientation="vertical" data-pv-tabs hidden>
+          {%- for j in journeys %}
+          <button type="button" role="tab" id="pv-tab-{{ loop.index0 }}" aria-controls="pv-panel-{{ loop.index0 }}" aria-selected="{{ 'true' if loop.first else 'false' }}" tabindex="{{ '0' if loop.first else '-1' }}"><span>{{ j.from }}</span><small>{{ j.minutes }} min {{ (j.mode | modeWords).verb }}</small></button>
+          {%- endfor %}
+        </div>
+        <div class="ql-pv-panels">
+        {%- for j in journeys %}
+        <div class="ql-pv-panel" id="pv-panel-{{ loop.index0 }}" data-pv-panel>
+          <p class="ql-pv-from"><b>{{ j.from }}</b>{% if j.stop %}, get off at {{ j.stop }}{% endif %} · {% if (j.mode | modeWords).about %}about {% endif %}{{ j.minutes }} min {{ (j.mode | modeWords).verb }}</p>
+          <ol class="ql-pv-steps">
+            {%- for step in j.steps %}<li>{{ step }}</li>{% endfor %}
+            <li><span><b>{{ site.business.name }}</b>, {{ site.location.streetAddress }}</span></li>
+          </ol>
+          <a class="ql-v-go" href="{{ j | directionsFor }}" target="_blank" rel="noopener">This route in Google Maps</a>
+        </div>
+        {%- endfor %}
+        </div>
+      </div>
+      <div class="ql-pv-leave" data-pv-leave hidden>
+        <label for="pv-appt">Booked in? Your time, and we'll say when to set off.</label>
+        <div class="ql-pv-leave-row">
+          <input type="time" id="pv-appt" step="900" data-pv-appt>
+          <ul class="ql-pv-leave-list" data-pv-leave-list aria-live="polite"></ul>
+        </div>
+      </div>
+    </section>
+    {%- endif %}
+    {%- if parking.length or v.access or v.payment %}
+    <section aria-labelledby="pv-f-h">
+      <h2 class="ql-pv-h" id="pv-f-h">Parking and access</h2>
+      <dl class="ql-spec ql-spec-wide">
+        {%- for c in parking %}
+        <div><dt>{{ c.name }}</dt><dd>
+          <span data-parking-card="{{ loop.index0 }}" hidden></span>
+          {{ c | parkingSummary }}{% if c.walk is defined %} · {{ c.walk }} min walk{% endif %}{% if c.price %} · {{ c.price }}{% endif %}{% if c.note %}<br>{{ c.note }}{% endif %}
+        </dd></div>
+        {%- endfor %}
+        {%- for a in v.access %}<div><dt>{{ a.label }}</dt><dd>{{ "Yes" if a.yes else "No" }}</dd></div>{% endfor %}
+        {%- if v.payment %}<div><dt>Paying</dt><dd>{{ v.payment }}</dd></div>{% endif %}
+      </dl>
+      {%- if v.accessNote %}<p class="ql-fine">{{ v.accessNote }}</p>{% endif %}
+    </section>
+    {%- endif %}
+  </div>
+</div>
+{%- set visitHeading = false %}
+{% include "features/visit/visit.njk" %}
+{%- set groups = site | questionTopics %}
+{%- if groups.length %}
+<section class="ql-qa" id="questions"><div class="wrap">
+  <h2 class="ql-pv-h">What people ask before they come</h2>
+  {%- for g in groups %}
+  <h3 class="ql-qa-topic">{{ g.topic }}</h3>
+  <dl class="ql-qa-list">{% for item in g.items %}<div><dt>{{ item.q }}</dt><dd>{{ item.a }}</dd></div>{% endfor %}</dl>
+  {%- endfor %}
+</div></section>
+{%- endif %}

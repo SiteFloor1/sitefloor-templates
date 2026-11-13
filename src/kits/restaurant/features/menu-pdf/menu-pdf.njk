@@ -1,0 +1,4 @@
+{#- "Download the menu": the printed menu as a PDF, made from the site's own menu at every build (so it
+    always matches), or the restaurant's own PDF (menuPdf.file). Included wherever the menu is. -#}
+{%- set pdf = (site.menuPdf.file if site.menuPdf and site.menuPdf.file else "menu.pdf") %}
+<a class="mpdf" href="{{ pdf | img }}" download="{{ site.business.name | replace('&', 'and') | replace(' ', '-') }}-menu.pdf" type="application/pdf"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v9m0 0-4-4m4 4 4-4M4 15h12" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>Download the menu</span><small>PDF{% if not (site.menuPdf and site.menuPdf.file) %}, with allergens{% endif %}</small></a>

@@ -1,0 +1,9 @@
+{#- Blue hour seasonal notice: one line on the deep blue, a small light and the season's name in engraved capitals,
+    then the notice. Every season is in the page; seasonal.js shows the one covering today. -#}
+<div class="seasons" data-feature="seasonal">
+  {%- for s in site.seasons %}
+  <p class="season bh-season" data-from="{{ s.from }}" data-to="{{ s.to }}" data-tint="{{ s.tint or '' }}"{% if loop.index0 != build.seasonIndex %} hidden{% endif %}>
+    <span class="bh-led" aria-hidden="true"></span><b class="bh-eng">{{ s.name }}</b><span>{{ s.banner }}</span>{% if s.link %}<a href="{{ s.link.href }}">{{ s.link.label }}</a>{% endif %}
+  </p>
+  {%- endfor %}
+</div>

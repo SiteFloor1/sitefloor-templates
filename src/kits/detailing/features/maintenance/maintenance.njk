@@ -1,0 +1,25 @@
+{#- Maintenance: the studio's wash plans as a ruled list (how often, what's done, its price a visit and a month if the
+    studio gives them), one chosen, and the day you collect: the visits go into your calendar as one repeating entry. A
+    plan with the studio's own Stripe Payment Link can be joined monthly there; booking a wash stays a WhatsApp message. -#}
+{%- set sec = site.sections.maintenance %}
+{%- set m = site.maintenance %}
+{%- set firstPlan = m.plans[0] %}
+<section id="maintenance" class="dt-mt" data-feature="maintenance" aria-label="{{ sec.title | plain }}"><div class="wrap">
+  {%- include "core/partials/section-head.njk" %}
+  <form class="dt-mt-f" data-mt-form>
+    <fieldset class="dt-bd-pk"><legend class="dt-bd-l">Plan</legend>
+      {%- for p in m.plans %}
+      <label class="dt-opt dt-mt-p"><input type="radio" name="dt-plan" value="{{ p.id }}"{% if loop.first %} checked{% endif %}>
+        <span class="dt-opt-n">{{ p.name }}<small>Every {{ p.every }} {{ "week" if p.every == 1 else "weeks" }}. {{ p.text }}</small></span>
+        <b>{% if p.monthly %}£{{ p.monthly }}<small> a month</small>{% elif p.price %}£{{ p.price }}<small> a visit</small>{% endif %}</b></label>
+      {%- endfor %}
+    </fieldset>
+    <div class="dt-mt-go">
+      <label class="dt-field" for="dt-mt-date"><span>The day you collect</span><input id="dt-mt-date" type="date" required data-mt-date></label>
+      <button class="go" type="submit">Add the visits to my calendar</button>
+      <a class="go" data-mt-join href="{{ firstPlan.payLink or '#' }}" target="_blank" rel="noopener"{% if site.mode == "demo" %} data-demo-note="On a live site this opens the studio's own Stripe page to join the plan, paid monthly. Nothing is charged in this demo."{% endif %}{% if not firstPlan.payLink %} hidden{% endif %}>Join monthly</a>
+      <a class="go" href="{{ m.message | wa }}" target="_blank" rel="noopener">Book a wash</a>
+      <p class="dt-note" data-mt-out aria-live="polite">{{ m.count or 12 }} reminders, one repeating entry. Nothing is booked until we reply.</p>
+    </div>
+  </form>
+</div></section>

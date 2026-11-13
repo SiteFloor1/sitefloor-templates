@@ -1,0 +1,25 @@
+{#- Follow your order (Signature): an unlisted page reached from the florist's message (your-order#AMB4K7). Reads the
+    order by reference only, never a name; shows the stage, when it was updated, the florist's note and their photo of
+    the actual bouquet before it left. Anything uncertain says "message us" instead. -#}
+{%- set T = site.orderTracker %}
+{%- set ph = { kicker: T.kicker, title: T.title, intro: T.intro } %}
+{% include "kits/florist/partials/page-head.njk" %}
+<section class="fl-track" data-feature="follow-order"><div class="wrap fl-track-in">
+  <form class="fl-track-f" data-track-form novalidate>
+    <label for="track-ref">Your reference <span>in our message, e.g. {{ T.example or "AMB4K7" }}</span></label>
+    <div class="fl-track-row"><input id="track-ref" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="12"><button class="fl-btn" type="submit">Follow</button></div>
+  </form>
+  <div class="fl-track-card" data-track-card hidden aria-live="polite">
+    <ol class="fl-track-steps" role="list">
+      {%- for s in T.stages %}<li data-track-step="{{ loop.index0 }}"><b>{{ s.name }}</b><span>{{ s.about }}</span></li>{% endfor %}
+    </ol>
+    <p class="fl-track-upd" data-track-upd></p>
+    <p class="fl-track-note" data-track-note hidden></p>
+    <figure class="fl-track-ph" data-track-fig hidden><img data-track-photo alt="Your flowers, photographed before they left the studio" width="800" height="1000" decoding="async"><figcaption>Your flowers, before they left.</figcaption></figure>
+  </div>
+  <div class="fl-track-off" data-track-off hidden aria-live="polite">
+    <p data-track-why></p>
+    <a class="fl-btn" data-track-ask href="{{ site.messages.general | book }}" target="_blank" rel="noopener">Message us</a>
+  </div>
+  <noscript><p>This page needs JavaScript. Message us with your reference and we'll tell you where your flowers are.</p></noscript>
+</div></section>

@@ -1,0 +1,35 @@
+{#- Collection request: desserts with a running total and their allergens, a day and a time within opening hours,
+    sent on WhatsApp for the shop to confirm. A plain WhatsApp link without JavaScript. -#}
+{%- set sec = site.sections.collect %}
+<section id="collect" class="sec-collect" data-feature="collect"{{ "collect" | tierAttr | safe }}><div class="wrap co-in">
+  <div class="co-head">
+    {% include "core/partials/section-head.njk" %}
+    {%- if site.collect.note %}<p class="bk-small">{{ site.collect.note }}</p>{% endif %}
+  </div>
+  <form class="co-form" data-co-form>
+    <ul class="co-items" data-js-only>
+      {%- for it in site.desserts | takeawayItems %}
+      <li class="co-item" data-co-item="{{ it.id }}" data-name="{{ it.name }}" data-price="{{ it.price }}" data-allergens="{{ it.allergens | join(' ') }}">
+        <span class="co-n">{{ it.name }}<small>{{ it.price | pounds }}</small></span>
+        <span class="co-step">
+          <button type="button" class="co-b" data-co-less aria-label="One fewer {{ it.name }}">−</button>
+          <output class="co-q" data-co-q aria-label="{{ it.name }}: how many">0</output>
+          <button type="button" class="co-b" data-co-more aria-label="One more {{ it.name }}">+</button>
+        </span>
+      </li>
+      {%- endfor %}
+    </ul>
+    <div class="co-when" data-js-only>
+      <label class="bk-field">Day<select data-co-day></select></label>
+      <label class="bk-field">Time<select data-co-time></select></label>
+      <label class="bk-field">Your name<input type="text" maxlength="40" autocomplete="name" data-co-name></label>
+    </div>
+    <div class="co-sum" aria-live="polite" data-js-only>
+      <p class="co-total"><span data-co-count>Nothing chosen yet</span> <b data-co-total></b></p>
+      <p class="bk-small" data-co-allergens></p>
+    </div>
+    <p data-no-js>Message us what you'd like and when you'll come; we'll confirm the time.</p>
+    <a class="btn" href="{{ ('Hi ' + site.business.name + ', can I collect an order?') | wa }}" target="_blank" rel="noopener" data-co-send>Ask for this collection</a>
+    <p class="bk-small">Please tell us about any allergy when you order.</p>
+  </form>
+</div></section>

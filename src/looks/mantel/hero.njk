@@ -1,0 +1,10 @@
+{#- Mantel hero: this week's arrangement, edge to edge, with no words on it (Name the stems adds fine rings and one small button). The band beneath names it. The photo
+    the florist's Sheet chooses replaces it in the browser ([data-week-photo]). -#}
+{%- set P = site.week | weekPhoto %}
+<figure class="mt-hero">
+  <picture>
+    {%- if P.phone %}<source media="(max-width: 760px)" srcset="{{ P.phone.src | img }}" width="{{ P.phone.width }}" height="{{ P.phone.height }}">{% endif %}
+    <img src="{{ P.src | img }}" alt="{{ P.alt }}" width="{{ P.width }}" height="{{ P.height }}" fetchpriority="high" decoding="async" data-week-photo="{{ P.id }}" data-base="{{ '' | img }}">
+  </picture>
+  {%- if "name-the-stems" | enabled %}{% include "kits/florist/features/name-the-stems/name-the-stems.njk" %}{% endif %}
+</figure>

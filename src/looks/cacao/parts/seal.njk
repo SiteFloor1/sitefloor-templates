@@ -1,0 +1,13 @@
+{#- The Velvet Spoon seal: the monogram in a ring with the shop's name and trades around it. Used on the ribbon, the
+    box's lid and the footer. Colours come from the look's tokens. -#}
+{%- set sealWords = (site.business.name + " · Chocolate · Gelato · " + site.location.locality + " ·") | upper %}
+{%- set mono = site.business.name | sealMonogram %}
+<svg class="seal-svg" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+  <defs><path id="seal-ring-{{ sealId or 'a' }}" d="M60 60 m-43 0 a43 43 0 1 1 86 0 a43 43 0 1 1 -86 0"/></defs>
+  <circle class="seal-bg" cx="60" cy="60" r="58"/>
+  <circle class="seal-line" cx="60" cy="60" r="54"/>
+  <circle class="seal-line" cx="60" cy="60" r="33"/>
+  <text class="seal-ring" font-size="8.2" letter-spacing="2"><textPath href="#seal-ring-{{ sealId or 'a' }}">{{ sealWords }}</textPath></text>
+  <text class="seal-m1" x="47" y="72" text-anchor="middle" font-size="34">{{ mono[0] }}</text>
+  <text class="seal-m2" x="71" y="75" text-anchor="middle" font-size="34">{{ mono[1] }}</text>
+</svg>

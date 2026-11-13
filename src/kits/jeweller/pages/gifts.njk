@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: gifts
+permalink: gifts.html
+feature: gifts
+eleventyComputed:
+  title: "{{ site.gifts.title | plain }}"
+  description: "{{ site.gifts.description or ('Gifts from ' + site.business.name + ', ' + site.location.locality + ': pieces by price, gift cards, wrapping and a hint to send.') }}"
+---
+{% include "kits/jeweller/features/gifts/gifts.njk" %}

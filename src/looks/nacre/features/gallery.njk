@@ -1,0 +1,10 @@
+{#- Nacre gallery: the house's latest photographs as a slow row, unevenly sized like pieces laid on a tray. -#}
+{%- set sec = { title: site.sections.gallery.title, intro: site.sections.gallery.intro } %}
+{%- set g = site.gallery %}
+<section id="gallery" class="nc-sec nc-gal" data-feature="gallery" data-gallery-limit="6"{{ "gallery" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  {% include "features/gallery/gallery-list.njk" %}
+  <p class="nc-acts">
+    {%- if "work" | enabled %}<a class="nc-u nc-label" href="{{ 'work' | href }}"{{ "work" | tierAttr | safe }}>{{ site.work.title | plain }}</a>{% elif g.profile %}<a class="nc-u nc-label" href="{{ g.profile }}" target="_blank" rel="noopener">On Instagram</a>{% endif %}
+  </p>
+</div></section>

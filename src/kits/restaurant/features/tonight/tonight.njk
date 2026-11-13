@@ -1,0 +1,17 @@
+{#- Right now: walk-in tables (from the restaurant's sheet, hidden once it's out of date), the kitchen's
+    last orders and the number of specials. An "on our way" message for walk-ins. -#}
+{%- set sec = site.sections.tonight %}
+<section id="tonight" class="tn" data-feature="tonight" aria-labelledby="tn-h"{{ "tonight" | tierAttr | safe }}>
+  <p class="rs-k">{{ sec.kicker }}</p>
+  <h2 id="tn-h" class="tn-h">{{ sec.title | markup | safe }}</h2>
+  <dl class="tn-board" data-js-only>
+    <div><dt>Walk-ins</dt><dd data-tn-tables aria-live="polite">Checking…</dd></div>
+    <div><dt>Kitchen</dt><dd data-tn-kitchen>&nbsp;</dd></div>
+  </dl>
+  <p class="tn-note rs-small" data-tn-note data-js-only>&nbsp;</p>
+  <div class="tn-walk" data-js-only>
+    <label class="rs-field tn-size">How many?<select data-tn-size>{% for n in range(1, 9) %}<option value="{{ n }}"{% if n == 2 %} selected{% endif %}>{{ n }}{% if n == 8 %}+{% endif %}</option>{% endfor %}</select></label>
+    <a class="btn ghost tn-go" data-tn-go href="{{ 'Hi, are you able to seat us for a walk-in?' | wa }}" target="_blank" rel="noopener">{% include "core/partials/icon-whatsapp.njk" %}On our way</a>
+  </div>
+  <p class="tn-off" data-tn-off>For a table now, call or message us and we'll tell you how it looks.</p>
+</section>

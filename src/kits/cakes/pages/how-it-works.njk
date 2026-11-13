@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: how-it-works
+permalink: how-it-works.html
+feature: how-it-works-page
+eleventyComputed:
+  title: "{{ site.cakePages.process.title | plain }}"
+  description: "How a commission with {{ site.business.name }} works: from holding the date to the cake set up."
+---
+{% include "kits/cakes/features/how-it-works-page/how-it-works-page.njk" %}
+{%- set hostPage = "how-it-works-page" %}{% include "kits/cakes/partials/hosted.njk" %}

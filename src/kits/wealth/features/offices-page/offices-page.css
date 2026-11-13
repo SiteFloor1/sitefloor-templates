@@ -1,0 +1,17 @@
+.wm-offp { padding-bottom: clamp(80px, 9vw, 128px); }
+.wm-offp-o { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 32px 56px; padding-block: 40px; border-top: 1px solid var(--line); scroll-margin-top: calc(var(--nav-h) + 24px); }
+.wm-offp h2 { font: 300 clamp(1.8rem, 3vw, 2.6rem)/1.15 var(--font-display); margin: 0 0 8px; }
+.wm-offp-a { margin: 0 0 20px; color: var(--muted); }
+.wm-offp-now { margin: 0 0 24px; font-variant-numeric: tabular-nums; }
+.wm-offp-now b { font: 300 2rem/1 var(--font-display); margin-right: 10px; }
+.wm-offp-now .is-open { color: var(--accent); }
+.wm-offp-f { margin: 24px 0; display: grid; grid-template-columns: 150px minmax(0, 1fr); row-gap: 10px; column-gap: 24px; font-size: 15px; }
+.wm-offp-f dt { color: var(--muted); }
+.wm-offp-f dd { margin: 0; }
+.wm-offp-fig { margin: 0; }
+.wm-offp-fig img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+@media (max-width: 900px) { .wm-offp-o { grid-template-columns: 1fr; } .wm-offp-f { grid-template-columns: 1fr; row-gap: 0; } .wm-offp-f dd { margin-bottom: 12px; } }
+
+/* Keep the space for the controls while the script starts, so the page below never jumps (CLS). Without
+   JavaScript the core rule still removes them. */
+@media (scripting: enabled) { [data-feature]:not([data-ready]) .wm-offp-now[data-js-only] { display: block !important; } [data-feature]:not([data-ready]) .wm-offp-now[data-js-only] { visibility: hidden; } }

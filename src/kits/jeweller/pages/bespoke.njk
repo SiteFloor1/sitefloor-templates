@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: bespoke
+permalink: bespoke.html
+feature: bespoke
+eleventyComputed:
+  title: "{{ site.bespoke.title | plain }}"
+  description: "{{ site.bespoke.description or ('Bespoke commissions at ' + site.business.name + ', ' + site.location.locality + ': the process, the timings and how to begin.') }}"
+---
+{% include "kits/jeweller/features/bespoke/bespoke.njk" %}

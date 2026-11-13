@@ -1,0 +1,16 @@
+/* The journal and its articles. Tokens only. */
+.hr-jn-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 48px 28px; }
+.hr-jn-one a { display: grid; gap: 6px; color: inherit; text-decoration: none; }
+.hr-jn-one img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; display: block; margin-bottom: 8px; }
+.hr-jn-d { color: var(--muted); font-size: 14px; }
+.hr-jn-t { font-family: var(--font-display); font-size: 32px; line-height: 1; }
+.hr-jn-one a:hover .hr-jn-t { text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 6px; }
+.hr-jn-x { color: var(--muted); }
+.hr-ar-in { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 32px clamp(32px, 6vw, 96px); padding-block: 40px var(--s4); }
+.hr-ar-h { grid-column: 1 / -1; }
+.hr-ar-fig { margin: 0; }
+.hr-ar-fig img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; display: block; }
+.hr-ar-body { max-width: 62ch; }
+.hr-ar-body h2 { margin: 32px 0 8px; }
+.hr-ar-body p { margin: 0 0 16px; }
+@media (max-width: 860px) { .hr-ar-in { grid-template-columns: minmax(0, 1fr); } }

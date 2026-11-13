@@ -1,0 +1,5 @@
+{#- The shop's allergen statement, under every list of items. -#}
+<div class="bk-statement">
+  <p><b>Please tell us about any allergy when you order.</b> {{ site.desserts.statement }}</p>
+  <p class="bk-small">Allergens from our chart, checked {{ site.desserts.chartChecked | longDate }}, using the FSA's 14 allergens. Marks: {% for d in sweets.diets %}<abbr title="{{ d.name }}">{{ d.mark }}</abbr> {{ d.name | lower }}{{ ", " if not loop.last }}{% endfor %}.</p>
+</div>

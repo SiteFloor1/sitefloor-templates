@@ -1,0 +1,30 @@
+{#- Gifts: the house's gift pieces by the price bands it sets, each band named large with its pieces beside; then
+    wrapping, a hint, the gift card and the anniversary reminder. -#}
+{%- set GI = site.gifts %}
+{%- set P = site.pieces %}
+{%- set ph = { title: GI.title, intro: GI.intro } %}
+{% include "kits/jeweller/partials/page-head.njk" %}
+{%- set odTitle = "By occasion" %}
+{% include "kits/jeweller/partials/occasion-doors.njk" %}
+{%- for b in GI.bands %}
+{%- set items = P.items | inBand(b) %}
+{%- if items.length %}
+<section class="nc-sec jw-band-s" aria-labelledby="gb-{{ loop.index }}"><div class="wrap jw-band-s-in">
+  <h2 class="jw-band-n rv" id="gb-{{ loop.index }}">{{ b.label }}</h2>
+  <div class="jw-row" tabindex="0" role="region" aria-label="{{ b.label }}, scrolls sideways">
+    {%- for p in items %}{% set cardSize = "" %}{% include "kits/jeweller/partials/card.njk" %}{% endfor %}
+  </div>
+</div></section>
+{%- endif %}
+{%- endfor %}
+<section class="nc-sec jw-wrap-s"><div class="wrap jw-wrap-in">
+  {%- if "in-the-box" | enabled %}<figure class="rv"{{ "in-the-box" | tierAttr | safe }}><img src="{{ site.box.photo.src | img }}" width="{{ site.box.photo.width }}" height="{{ site.box.photo.height }}" loading="lazy" decoding="async" alt="{{ site.box.photo.alt }}"></figure>{% endif %}
+  <div class="rv">
+    <h2 class="jw-h">Wrapped</h2>
+    <p class="jw-say">{{ GI.wrapping }}</p>
+    {%- if "drop-a-hint" | enabled %}<p class="nc-body">Hoping to be given something? Every piece has "Drop a hint": it sends the piece to whoever you choose.</p>{% endif %}
+  </div>
+</div></section>
+{%- if "vouchers" | enabled %}{% include "features/vouchers/vouchers.njk" %}{% endif %}
+{%- if "anniversary-reminder" | enabled %}{% include "kits/jeweller/features/anniversary-reminder/anniversary-reminder.njk" %}{% endif %}
+{% include "kits/jeweller/partials/invite.njk" %}

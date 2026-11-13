@@ -1,0 +1,28 @@
+{#- How busy is it now? Staff's own word from the sheet while it's fresh; otherwise how busy the café usually is at
+    this hour, from its own numbers, said as "usually". Then when it gets quieter, and the usual week as a grid
+    (which is all that shows without JavaScript). -#}
+{%- set sec = site.sections.busy %}
+{%- set b = site.busy %}
+{%- set hrs = b | busyHours %}
+<section id="busy" class="bz" data-feature="busy-now" aria-labelledby="bz-h"{{ "busy-now" | tierAttr | safe }}><div class="wrap">
+  <div class="sh rv"><div>{% if sec.kicker %}<span class="kick">{{ sec.kicker }}</span>{% endif %}<h2 id="bz-h">{{ sec.title | markup | safe }}</h2></div>{% if sec.intro %}<p>{{ sec.intro }}</p>{% endif %}</div>
+  <div class="bz-grid">
+    <div class="bz-now" data-js-only aria-live="polite">
+      <p class="rs-k" data-bz-src>Right now</p>
+      <p class="bz-word" data-bz-word>&nbsp;</p>
+      <div class="bz-meter" aria-hidden="true">{% for i in range(0, 4) %}<span data-bz-pip="{{ i }}"></span>{% endfor %}</div>
+      <p class="bz-line" data-bz-line>&nbsp;</p>
+      <p class="bz-next" data-bz-next></p>
+    </div>
+    <div class="bz-week">
+      <table class="bz-table">
+        <caption class="rs-k">The usual week <span>{{ b.basis }}</span></caption>
+        <thead><tr><td></td>{% for h in hrs %}<th scope="col">{{ h | t12short }}</th>{% endfor %}</tr></thead>
+        <tbody>{% for d in b | busyWeek %}<tr data-bz-day="{{ d.weekday }}"><th scope="row">{{ d.short }}<span class="sr-only">{{ d.rest }}</span></th>
+          {%- for h in hrs %}{% set bar = d.bars[loop.index0] %}<td{% if bar %} class="bz-l{{ bar.level }}" data-bz-at="{{ bar.start }}"{% endif %}>{% if bar %}<span class="sr-only">{{ bar.word }}</span>{% else %}<span class="sr-only">No number</span>{% endif %}</td>{% endfor %}</tr>
+        {%- endfor %}</tbody>
+      </table>
+      <p class="bz-key" aria-hidden="true">{% for w in ["Quiet", "Steady", "Busy", "Queue at the door"] %}<span class="bz-l{{ loop.index0 }}"><i></i>{{ w }}</span>{% endfor %}</p>
+    </div>
+  </div>
+</div></section>

@@ -1,0 +1,1447 @@
+{
+  "schemaVersion": 4,
+  "id": "test-hair-client",
+  "mode": "client",
+  "plan": "signature",
+  "kit": "hair",
+  "look": "length",
+  "url": "https://orme-hair-test.co.uk",
+  "indexable": true,
+  "lang": "en-GB",
+  "business": {
+    "name": "Orme Hair",
+    "schemaType": "HairSalon",
+    "description": "A test hair salon in Leeds.",
+    "priceRange": "£££",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "447911123462",
+    "phone": "+44 7911 123462",
+    "email": "hello@orme-hair-test.co.uk"
+  },
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "location": {
+    "streetAddress": "2 Test Row",
+    "locality": "Leeds",
+    "postcode": "LS1 4AB",
+    "country": "GB",
+    "area": "Off the main square.",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=Leeds%20LS1"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [
+        [
+          "10:00",
+          "18:00"
+        ]
+      ],
+      "tue": [
+        [
+          "09:00",
+          "20:00"
+        ]
+      ],
+      "wed": [
+        [
+          "09:00",
+          "20:00"
+        ]
+      ],
+      "thu": [
+        [
+          "09:00",
+          "20:00"
+        ]
+      ],
+      "fri": [
+        [
+          "09:00",
+          "19:00"
+        ]
+      ],
+      "sat": [
+        [
+          "09:00",
+          "18:00"
+        ]
+      ],
+      "sun": []
+    },
+    "exceptions": [
+      {
+        "date": "2026-12-24",
+        "ranges": [
+          [
+            "09:00",
+            "14:00"
+          ]
+        ],
+        "note": "Closing early"
+      },
+      {
+        "date": "2026-12-26",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2026-12-28",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2027-01-01",
+        "ranges": [],
+        "note": "Closed for the new year"
+      }
+    ]
+  },
+  "nav": [
+    {
+      "label": "Stylists",
+      "page": "stylists",
+      "feature": "stylists-page"
+    },
+    {
+      "label": "Look book",
+      "page": "look-book",
+      "feature": "look-book"
+    },
+    {
+      "label": "Bridal",
+      "page": "bridal-and-occasion",
+      "feature": "wedding-hair"
+    },
+    {
+      "label": "Visit",
+      "page": "visit",
+      "feature": "plan-visit",
+      "fallback": "#visit"
+    }
+  ],
+  "features": [
+    "length-price",
+    "stylists",
+    "skin-test",
+    "visit",
+    "plan-visit",
+    "questions",
+    "textures",
+    "colour-year",
+    "stylists-page",
+    "stylist-match",
+    "consent-pairs",
+    "wedding-hair",
+    "look-book",
+    "my-usual",
+    "chairs-today",
+    "blowdry-pass"
+  ],
+  "hero": {
+    "kicker": "Hair salon, Marylebone",
+    "title": "Priced by your length.",
+    "intro": "Show us where your hair falls. The price and the time follow.",
+    "cut": {
+      "plate": {
+        "src": "img/cut-plate.webp",
+        "width": 600,
+        "height": 400,
+        "alt": "A client in the chair, long hair from behind"
+      },
+      "hair": {
+        "src": "img/cut-hair.webp",
+        "width": 600,
+        "height": 178,
+        "top": 0.337
+      },
+      "marks": {
+        "short": 0.37,
+        "shoulder": 0.46,
+        "mid": 0.58,
+        "long": 0.78
+      },
+      "focus": 0.617
+    }
+  },
+  "sections": {
+    "prices": {
+      "title": "Priced by your length."
+    },
+    "stylists": {
+      "title": "The hands for your hair.",
+      "intro": "Three levels. The price follows the level, never the name."
+    },
+    "textures": {
+      "title": "Every texture, cut by someone who knows it.",
+      "intro": "Choose yours: who cuts it, how long it takes, what to arrive with."
+    },
+    "colourYear": {
+      "title": "When your colour wants you back.",
+      "intro": "Tell us what you had and when. We'll mark the year."
+    },
+    "skinTest": {
+      "title": "The skin test.",
+      "intro": "Five minutes, free, at least 48 hours before colour."
+    },
+    "match": {
+      "title": "Find your stylist.",
+      "intro": "Three answers. One stylist whose work fits yours."
+    },
+    "pairs": {
+      "title": "One client, one session.",
+      "intro": "Shown only with the client's written consent."
+    },
+    "reviews": {
+      "title": "In their words"
+    },
+    "gallery": {
+      "title": "Lately",
+      "intro": "On a live site these come from the salon's Instagram; here, from the demo."
+    },
+    "vouchers": {
+      "title": "A gift voucher",
+      "intro": "Towards any cut, colour or blow-dry."
+    },
+    "questions": {
+      "title": "Before you come"
+    },
+    "visit": {
+      "title": "Find us"
+    },
+    "chairs": {
+      "title": "Chairs free today."
+    },
+    "pass": {
+      "title": "The blow-dry pass."
+    }
+  },
+  "messages": {
+    "general": "Hello Orme Hair, I have a question."
+  },
+  "menu": {
+    "message": "Hello Orme Hair, I'd like to book.",
+    "lengths": [
+      {
+        "id": "short",
+        "name": "Short",
+        "line": "Above the jaw"
+      },
+      {
+        "id": "shoulder",
+        "name": "Shoulder",
+        "line": "Jaw to shoulder"
+      },
+      {
+        "id": "mid",
+        "name": "Mid-length",
+        "line": "To the shoulder blades"
+      },
+      {
+        "id": "long",
+        "name": "Long",
+        "line": "Below the shoulder blades"
+      }
+    ],
+    "levels": [
+      {
+        "id": "stylist",
+        "name": "Stylist",
+        "line": "Two years or more on our floor."
+      },
+      {
+        "id": "senior",
+        "name": "Senior",
+        "line": "Five years and more; most of our regulars book a senior."
+      },
+      {
+        "id": "director",
+        "name": "Director",
+        "line": "Twelve years and more; they also train the team."
+      }
+    ],
+    "groups": [
+      {
+        "id": "cuts",
+        "name": "Cuts and styling"
+      },
+      {
+        "id": "colour",
+        "name": "Colour"
+      },
+      {
+        "id": "textured",
+        "name": "Curly and textured"
+      },
+      {
+        "id": "treatments",
+        "name": "Treatments"
+      },
+      {
+        "id": "extensions",
+        "name": "Extensions"
+      },
+      {
+        "id": "mens",
+        "name": "Men's grooming"
+      },
+      {
+        "id": "occasion",
+        "name": "Bridal and occasion"
+      }
+    ],
+    "services": [
+      {
+        "id": "cut",
+        "name": "Cut and finish",
+        "group": "cuts",
+        "text": "Wash, cut and a finish to take home.",
+        "prices": {
+          "stylist": [
+            68,
+            74,
+            80,
+            88
+          ],
+          "senior": [
+            84,
+            92,
+            100,
+            110
+          ],
+          "director": [
+            110,
+            120,
+            130,
+            142
+          ]
+        },
+        "minutes": [
+          60,
+          60,
+          75,
+          90
+        ]
+      },
+      {
+        "id": "blowdry",
+        "name": "Wash and blow-dry",
+        "group": "cuts",
+        "prices": {
+          "stylist": [
+            38,
+            42,
+            48,
+            55
+          ],
+          "senior": [
+            45,
+            50,
+            56,
+            64
+          ],
+          "director": [
+            60,
+            66,
+            72,
+            80
+          ]
+        },
+        "minutes": [
+          45,
+          45,
+          60,
+          60
+        ]
+      },
+      {
+        "id": "fringe",
+        "name": "Fringe trim",
+        "group": "cuts",
+        "text": "Between cuts, ten minutes.",
+        "prices": {
+          "stylist": 12,
+          "senior": 15,
+          "director": 20
+        },
+        "minutes": 15
+      },
+      {
+        "id": "roots",
+        "name": "Root colour",
+        "group": "colour",
+        "text": "Roots only, with a gloss through the lengths.",
+        "prices": {
+          "stylist": [
+            78,
+            84,
+            90,
+            96
+          ],
+          "senior": [
+            92,
+            98,
+            106,
+            114
+          ],
+          "director": [
+            115,
+            122,
+            132,
+            142
+          ]
+        },
+        "minutes": [
+          90,
+          90,
+          105,
+          120
+        ],
+        "skinTest": true
+      },
+      {
+        "id": "full-colour",
+        "name": "Full head colour",
+        "group": "colour",
+        "prices": {
+          "stylist": [
+            95,
+            105,
+            115,
+            125
+          ],
+          "senior": [
+            112,
+            124,
+            136,
+            148
+          ],
+          "director": [
+            140,
+            152,
+            166,
+            180
+          ]
+        },
+        "minutes": [
+          105,
+          120,
+          135,
+          150
+        ],
+        "skinTest": true
+      },
+      {
+        "id": "balayage",
+        "name": "Balayage",
+        "group": "colour",
+        "text": "Painted by hand, grown out softly.",
+        "prices": {
+          "stylist": [
+            160,
+            185,
+            210,
+            240
+          ],
+          "senior": [
+            190,
+            215,
+            245,
+            280
+          ],
+          "director": [
+            240,
+            270,
+            305,
+            345
+          ]
+        },
+        "minutes": [
+          150,
+          180,
+          210,
+          240
+        ],
+        "skinTest": true
+      },
+      {
+        "id": "highlights",
+        "name": "Full head highlights",
+        "group": "colour",
+        "prices": {
+          "stylist": [
+            130,
+            150,
+            170,
+            190
+          ],
+          "senior": [
+            155,
+            175,
+            198,
+            220
+          ],
+          "director": [
+            190,
+            215,
+            240,
+            265
+          ]
+        },
+        "minutes": [
+          120,
+          150,
+          180,
+          195
+        ],
+        "skinTest": true
+      },
+      {
+        "id": "gloss",
+        "name": "Gloss",
+        "group": "colour",
+        "text": "Tone and shine between colours.",
+        "prices": {
+          "stylist": [
+            45,
+            50,
+            55,
+            60
+          ],
+          "senior": [
+            55,
+            60,
+            66,
+            72
+          ],
+          "director": [
+            70,
+            76,
+            82,
+            88
+          ]
+        },
+        "minutes": [
+          30,
+          30,
+          45,
+          45
+        ],
+        "skinTest": true
+      },
+      {
+        "id": "correction",
+        "name": "Colour correction",
+        "group": "colour",
+        "text": "After box colour, or a colour that went wrong elsewhere.",
+        "prices": null,
+        "minutes": 180,
+        "skinTest": true
+      },
+      {
+        "id": "curl-cut",
+        "name": "Dry curl cut",
+        "group": "textured",
+        "text": "Cut dry, curl by curl.",
+        "prices": {
+          "stylist": [
+            85,
+            92,
+            100,
+            110
+          ],
+          "senior": [
+            100,
+            110,
+            120,
+            132
+          ],
+          "director": [
+            125,
+            135,
+            148,
+            160
+          ]
+        },
+        "minutes": [
+          75,
+          90,
+          90,
+          105
+        ]
+      },
+      {
+        "id": "define",
+        "name": "Shape and define",
+        "group": "textured",
+        "text": "Cut, wash, and a styled curl set.",
+        "prices": {
+          "senior": [
+            115,
+            125,
+            135,
+            148
+          ],
+          "director": [
+            135,
+            145,
+            158,
+            172
+          ]
+        },
+        "minutes": [
+          90,
+          105,
+          105,
+          120
+        ]
+      },
+      {
+        "id": "braids",
+        "name": "Braids and twists",
+        "group": "textured",
+        "prices": null,
+        "minutes": 240
+      },
+      {
+        "id": "bond",
+        "name": "Bond repair",
+        "group": "treatments",
+        "text": "After bleach or heat, at the basin.",
+        "prices": {
+          "stylist": 35,
+          "senior": 35,
+          "director": 35
+        },
+        "minutes": 20
+      },
+      {
+        "id": "scalp",
+        "name": "Scalp treatment and massage",
+        "group": "treatments",
+        "prices": {
+          "stylist": 30,
+          "senior": 30,
+          "director": 30
+        },
+        "minutes": 30
+      },
+      {
+        "id": "ext-consult",
+        "name": "Extensions consultation",
+        "group": "extensions",
+        "text": "Colour match and a strand test.",
+        "prices": null,
+        "minutes": 30
+      },
+      {
+        "id": "tapes",
+        "name": "Tape-in extensions, fitted",
+        "group": "extensions",
+        "prices": null,
+        "minutes": 120
+      },
+      {
+        "id": "refit",
+        "name": "Refit and tighten",
+        "group": "extensions",
+        "prices": {
+          "senior": 120,
+          "director": 140
+        },
+        "minutes": 90
+      },
+      {
+        "id": "mens-cut",
+        "name": "Men's cut",
+        "group": "mens",
+        "prices": {
+          "stylist": 42,
+          "senior": 52,
+          "director": 70
+        },
+        "minutes": 45
+      },
+      {
+        "id": "beard",
+        "name": "Beard shape",
+        "group": "mens",
+        "prices": {
+          "stylist": 18,
+          "senior": 22,
+          "director": 28
+        },
+        "minutes": 20
+      },
+      {
+        "id": "updo",
+        "name": "Occasion hair, up or down",
+        "group": "occasion",
+        "prices": {
+          "stylist": [
+            70,
+            75,
+            85,
+            95
+          ],
+          "senior": [
+            85,
+            90,
+            100,
+            110
+          ],
+          "director": [
+            110,
+            118,
+            128,
+            140
+          ]
+        },
+        "minutes": [
+          60,
+          60,
+          75,
+          90
+        ]
+      },
+      {
+        "id": "bridal-trial",
+        "name": "Bridal trial",
+        "group": "occasion",
+        "prices": {
+          "senior": 120,
+          "director": 160
+        },
+        "minutes": 120
+      },
+      {
+        "id": "bridal-day",
+        "name": "Wedding morning, in the salon",
+        "group": "occasion",
+        "prices": {
+          "senior": 180,
+          "director": 240
+        },
+        "minutes": 120
+      }
+    ],
+    "hero": [
+      "cut",
+      "roots",
+      "balayage"
+    ],
+    "defaults": {
+      "service": "cut",
+      "level": "senior",
+      "length": "long"
+    },
+    "note": "Prices include VAT. Very thick hair can take longer; we always say before we start."
+  },
+  "stylists": {
+    "message": "Hello Orme Hair.",
+    "freeDays": {
+      "source": "sheet",
+      "csvUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-orme-test/pub?gid=0&single=true&output=csv",
+      "staleAfterDays": 2
+    },
+    "items": [
+      {
+        "id": "ines",
+        "name": "Ines Varga",
+        "level": "senior",
+        "line": "Precision cuts, short to mid.",
+        "does": [
+          "cuts",
+          "mens"
+        ],
+        "textures": [
+          "straight",
+          "waves"
+        ],
+        "work": {
+          "src": "img/look-bob.webp",
+          "width": 960,
+          "height": 1200,
+          "alt": "A blonde jaw-length bob with a soft fringe, in profile"
+        }
+      },
+      {
+        "id": "rae",
+        "name": "Rae Linden",
+        "level": "stylist",
+        "line": "Long layers and soft shape.",
+        "does": [
+          "cuts",
+          "occasion"
+        ],
+        "textures": [
+          "straight",
+          "waves"
+        ],
+        "work": {
+          "src": "img/look-layers.webp",
+          "width": 960,
+          "height": 1200,
+          "alt": "Long dark layers, held at the ends"
+        }
+      },
+      {
+        "id": "marcus",
+        "name": "Marcus Bello",
+        "level": "director",
+        "line": "Curls, coils and shape.",
+        "does": [
+          "textured",
+          "cuts",
+          "mens"
+        ],
+        "textures": [
+          "waves",
+          "curls",
+          "coils"
+        ],
+        "work": {
+          "src": "img/look-coils.webp",
+          "width": 960,
+          "height": 1200,
+          "alt": "Full natural coils shaped into a rounded silhouette"
+        }
+      },
+      {
+        "id": "ada",
+        "name": "Ada Nwosu",
+        "level": "senior",
+        "line": "Braids, twists and curls.",
+        "does": [
+          "textured",
+          "cuts",
+          "extensions"
+        ],
+        "textures": [
+          "curls",
+          "coils",
+          "braids"
+        ],
+        "work": {
+          "src": "img/look-curls.webp",
+          "width": 960,
+          "height": 1200,
+          "alt": "Long copper ringlet curls, loose in the wind"
+        }
+      },
+      {
+        "id": "hana",
+        "name": "Hana Ostrow",
+        "level": "director",
+        "line": "Copper, vivid and colour correction.",
+        "does": [
+          "colour",
+          "occasion"
+        ],
+        "work": {
+          "src": "img/look-copper.webp",
+          "width": 960,
+          "height": 1200,
+          "alt": "A graphic copper bob with a blunt fringe"
+        }
+      },
+      {
+        "id": "liv",
+        "name": "Liv Mercer",
+        "level": "senior",
+        "line": "Lived-in blonde and grey blending.",
+        "does": [
+          "colour",
+          "treatments",
+          "extensions"
+        ],
+        "work": {
+          "src": "img/look-blonde.webp",
+          "width": 960,
+          "height": 1200,
+          "alt": "Two heads of wavy hair from behind, bright blonde and honey"
+        }
+      }
+    ]
+  },
+  "textures": {
+    "items": [
+      {
+        "id": "straight",
+        "name": "Straight",
+        "photo": {
+          "src": "img/texture-straight.webp",
+          "width": 560,
+          "height": 1120,
+          "alt": "Straight, pale blonde hair"
+        },
+        "stylists": [
+          "ines",
+          "rae"
+        ],
+        "service": "cut",
+        "arrive": "Arrive with your hair clean and dry, as you usually wear it."
+      },
+      {
+        "id": "waves",
+        "name": "Waves",
+        "photo": {
+          "src": "img/texture-waves.webp",
+          "width": 560,
+          "height": 1120,
+          "alt": "Loose brown waves"
+        },
+        "stylists": [
+          "rae",
+          "marcus"
+        ],
+        "service": "cut",
+        "arrive": "Wear it as you normally do, so we can see the wave."
+      },
+      {
+        "id": "curls",
+        "name": "Curls",
+        "photo": {
+          "src": "img/texture-curls.webp",
+          "width": 560,
+          "height": 1120,
+          "alt": "Copper ringlet curls"
+        },
+        "stylists": [
+          "marcus",
+          "ada"
+        ],
+        "service": "curl-cut",
+        "arrive": "Come with curls unbrushed and dry, and no product the day before."
+      },
+      {
+        "id": "coils",
+        "name": "Coils",
+        "photo": {
+          "src": "img/texture-coils.webp",
+          "width": 560,
+          "height": 1120,
+          "alt": "Tight natural coils"
+        },
+        "stylists": [
+          "marcus",
+          "ada"
+        ],
+        "service": "define",
+        "arrive": "Come with your hair in its natural shape, or stretched if that's how you wear it."
+      },
+      {
+        "id": "braids",
+        "name": "Braids",
+        "photo": {
+          "src": "img/texture-braids.webp",
+          "width": 560,
+          "height": 1120,
+          "alt": "Fine plum-toned twists"
+        },
+        "stylists": [
+          "ada"
+        ],
+        "service": "braids",
+        "arrive": "Bring a photo of the style; we'll agree the length first."
+      }
+    ]
+  },
+  "upkeep": {
+    "message": "Hello Orme Hair, I'd like to book my colour.",
+    "default": "balayage",
+    "items": [
+      {
+        "id": "roots",
+        "name": "Root tint",
+        "weeks": 6,
+        "text": "Regrowth shows from about five weeks.",
+        "care": [
+          "Wash in cool water, two or three times a week.",
+          "A colour-safe shampoo keeps the tone longer."
+        ]
+      },
+      {
+        "id": "balayage",
+        "name": "Balayage",
+        "weeks": 14,
+        "text": "Painted to grow out softly, so it can wait.",
+        "care": [
+          "A gloss halfway keeps the blonde from turning warm.",
+          "Purple shampoo once a week, no more."
+        ]
+      },
+      {
+        "id": "highlights",
+        "name": "Highlights",
+        "weeks": 10,
+        "text": "Foils show a clear line as they grow.",
+        "care": [
+          "Bond repair at every second visit.",
+          "Heat protection before every blow-dry."
+        ]
+      },
+      {
+        "id": "gloss",
+        "name": "Gloss",
+        "weeks": 8,
+        "text": "Fades a little with every wash.",
+        "care": [
+          "Fewer washes keep the shine.",
+          "Book it with a cut to save a visit."
+        ]
+      },
+      {
+        "id": "grey",
+        "name": "Grey blending",
+        "weeks": 5,
+        "text": "Softer than a full tint, so the line shows less.",
+        "care": [
+          "A tinted dry shampoo between visits.",
+          "Ask about growing out to your own grey."
+        ]
+      }
+    ],
+    "photo": {
+      "src": "img/upkeep.webp",
+      "width": 960,
+      "height": 1200,
+      "alt": "Silver balayage over dark roots, softly curled"
+    }
+  },
+  "skinTest": {
+    "hoursBefore": 48,
+    "who": "New colour clients, and anyone who hasn't had colour with us for six months.",
+    "walkIn": "Walk in any time we're open. It takes five minutes and it's free.",
+    "message": "Hello Orme Hair, I'd like to come in for a skin test."
+  },
+  "looks": {
+    "message": "Hello Orme Hair, I'd like this look:",
+    "filters": [
+      {
+        "id": "cut",
+        "name": "Cuts"
+      },
+      {
+        "id": "colour",
+        "name": "Colour"
+      },
+      {
+        "id": "texture",
+        "name": "Texture"
+      },
+      {
+        "id": "occasion",
+        "name": "Occasion"
+      }
+    ],
+    "items": [
+      {
+        "id": "jaw-bob",
+        "name": "Jaw bob, soft fringe",
+        "tags": [
+          "cut"
+        ],
+        "stylist": "ines",
+        "service": "cut",
+        "photo": {
+          "src": "img/look-bob.webp",
+          "width": 960,
+          "height": 1200,
+          "alt": "A blonde jaw-length bob with a soft fringe, in profile"
+        }
+      },
+      {
+        "id": "copper",
+        "name": "Copper, blunt line",
+        "tags": [
+          "colour",
+          "cut"
+        ],
+        "stylist": "hana",
+        "service": "full-colour",
+        "photo": {
+          "src": "img/look-copper.webp",
+          "width": 960,
+          "height": 1200,
+          "alt": "A graphic copper bob with a blunt fringe"
+        }
+      },
+      {
+        "id": "silver",
+        "name": "Silver over dark",
+        "tags": [
+          "colour"
+        ],
+        "stylist": "liv",
+        "service": "highlights",
+        "photo": {
+          "src": "img/look-silver.webp",
+          "width": 960,
+          "height": 1200,
+          "alt": "Silver balayage over dark roots, softly curled"
+        }
+      },
+      {
+        "id": "coils",
+        "name": "Shaped coils",
+        "tags": [
+          "texture",
+          "cut"
+        ],
+        "stylist": "marcus",
+        "service": "define",
+        "photo": {
+          "src": "img/look-coils.webp",
+          "width": 960,
+          "height": 1200,
+          "alt": "Full natural coils shaped into a rounded silhouette"
+        }
+      },
+      {
+        "id": "layers",
+        "name": "Long layers",
+        "tags": [
+          "cut"
+        ],
+        "stylist": "rae",
+        "service": "cut",
+        "photo": {
+          "src": "img/look-layers.webp",
+          "width": 960,
+          "height": 1200,
+          "alt": "Long dark layers, held at the ends"
+        }
+      },
+      {
+        "id": "blonde",
+        "name": "Lived-in blonde",
+        "tags": [
+          "colour"
+        ],
+        "stylist": "liv",
+        "service": "balayage",
+        "photo": {
+          "src": "img/look-blonde.webp",
+          "width": 960,
+          "height": 1200,
+          "alt": "Two heads of wavy hair from behind, bright blonde and honey"
+        }
+      },
+      {
+        "id": "curls",
+        "name": "Copper curls, cut dry",
+        "tags": [
+          "texture",
+          "colour"
+        ],
+        "stylist": "ada",
+        "service": "curl-cut",
+        "photo": {
+          "src": "img/look-curls.webp",
+          "width": 960,
+          "height": 1200,
+          "alt": "Long copper ringlet curls, loose in the wind"
+        }
+      },
+      {
+        "id": "waves",
+        "name": "Brunette waves",
+        "tags": [
+          "texture"
+        ],
+        "stylist": "rae",
+        "service": "blowdry",
+        "photo": {
+          "src": "img/look-waves.webp",
+          "width": 960,
+          "height": 1200,
+          "alt": "Loose brown waves with lighter ends"
+        }
+      },
+      {
+        "id": "set",
+        "name": "Set curls for an evening",
+        "tags": [
+          "occasion"
+        ],
+        "stylist": "hana",
+        "service": "updo",
+        "photo": {
+          "src": "img/look-glam.webp",
+          "width": 960,
+          "height": 1200,
+          "alt": "Long hair set in polished ringlets, dark to blonde"
+        }
+      },
+      {
+        "id": "emerald",
+        "name": "Emerald panels",
+        "tags": [
+          "colour"
+        ],
+        "stylist": "hana",
+        "service": "highlights",
+        "photo": {
+          "src": "img/look-green.webp",
+          "width": 960,
+          "height": 1200,
+          "alt": "Dark hair with emerald panels at the front, in profile"
+        }
+      }
+    ]
+  },
+  "pairs": {
+    "items": [
+      {
+        "id": "waves",
+        "before": "img/pair-during.webp",
+        "after": "img/pair-finished.webp",
+        "beforeLabel": "During the cut",
+        "afterLabel": "Finished",
+        "alt": "One client with dark hair: sectioned and combed during the cut, then finished in soft waves",
+        "caption": "Cut and blow-dry, mid-length",
+        "stylist": "rae",
+        "consent": "2026-10-12"
+      }
+    ]
+  },
+  "stylistsPage": {
+    "title": "The stylists",
+    "intro": "Every stylist works at one of three levels. The price follows the level, never the person.",
+    "description": "The stylists at Orme Hair, Marylebone: their work, their level and their next free day."
+  },
+  "match": {
+    "doing": [
+      {
+        "id": "cuts",
+        "name": "A new cut"
+      },
+      {
+        "id": "colour",
+        "name": "Colour"
+      },
+      {
+        "id": "textured",
+        "name": "Curls, coils or braids"
+      },
+      {
+        "id": "extensions",
+        "name": "Extensions"
+      },
+      {
+        "id": "occasion",
+        "name": "An occasion"
+      }
+    ]
+  },
+  "wedding": {
+    "title": "Bridal and occasion",
+    "intro": "Book the trial early. Everything else follows from the date.",
+    "description": "Wedding hair at Orme Hair, Marylebone: your consultation, trial, colour and final trim from your date.",
+    "photo": {
+      "src": "img/bridal.webp",
+      "width": 960,
+      "height": 1200,
+      "alt": "Long hair set in polished ringlets, dark to blonde"
+    },
+    "message": "Hello Orme Hair, I'd like to talk about my wedding hair.",
+    "steps": [
+      {
+        "id": "consult",
+        "label": "Consultation",
+        "weeksBefore": 20,
+        "note": "Bring photos, the dress if you have one, and any headpiece."
+      },
+      {
+        "id": "trial",
+        "label": "Trial",
+        "weeksBefore": 12,
+        "note": "Two hours in the salon. Wear something with the dress's neckline."
+      },
+      {
+        "id": "colour",
+        "label": "Colour",
+        "weeksBefore": 2,
+        "note": "Two weeks before, so it settles."
+      },
+      {
+        "id": "trim",
+        "label": "Final trim",
+        "weeksBefore": 1
+      }
+    ],
+    "note": "We take four weddings a month, so the date is what fills first."
+  },
+  "visitInfo": {
+    "kicker": "Plan your visit",
+    "title": "Finding the mews",
+    "intro": "Off Marylebone High Street, ten minutes from Baker Street.",
+    "checked": "2026-11",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "Baker Street station",
+        "origin": "Baker Street station, London",
+        "minutes": 10,
+        "steps": [
+          "Leave by the Marylebone Road exit",
+          "Walk east and turn right into Marylebone High Street",
+          "Vane Mews is the fourth turning on the left"
+        ]
+      },
+      {
+        "mode": "walk",
+        "from": "Bond Street station",
+        "origin": "Bond Street station, London",
+        "minutes": 10,
+        "steps": [
+          "Leave by the Oxford Street north exit",
+          "Walk up James Street and Thayer Street into Marylebone High Street",
+          "Vane Mews is on the right after the church"
+        ]
+      }
+    ],
+    "parking": [
+      {
+        "name": "Pay-by-phone bays nearby",
+        "walk": 4,
+        "price": "check the signs on the street",
+        "paid": {
+          "mon": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "tue": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "wed": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "thu": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "fri": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "sat": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ]
+        },
+        "note": "Bays on the side streets fill by mid-morning.",
+        "bankHolidays": "sunday"
+      }
+    ],
+    "access": [
+      {
+        "label": "Step-free entrance",
+        "yes": true
+      },
+      {
+        "label": "Every chair on the ground floor",
+        "yes": true
+      },
+      {
+        "label": "Accessible toilet",
+        "yes": true
+      }
+    ],
+    "accessNote": "The basins are on the ground floor too.",
+    "payment": "Card or Apple Pay. A deposit holds colour appointments of two hours or more."
+  },
+  "questions": [
+    {
+      "topic": "Booking",
+      "q": "How do I know what it will cost?",
+      "a": "Choose your length and the stylist's level at the top of the home page: that's the price. Very thick hair can take longer, and we say before we start.",
+      "home": true
+    },
+    {
+      "topic": "Booking",
+      "q": "Why does the price change with the stylist?",
+      "a": "Each stylist works at one of three levels: stylist, senior or director. The price follows the level, so two seniors cost the same.",
+      "home": true
+    },
+    {
+      "topic": "Booking",
+      "q": "Do you take a deposit?",
+      "a": "For colour appointments of two hours or more, £30, taken off the bill. Give us 48 hours' notice to move or cancel and it's returned.",
+      "home": true
+    },
+    {
+      "topic": "Booking",
+      "q": "What if I'm late?",
+      "a": "Up to fifteen minutes, we'll still do everything we can. Later than that, we may need to shorten or move the appointment."
+    },
+    {
+      "topic": "Colour",
+      "q": "Do I need a skin test?",
+      "a": "Yes, if you're new to colour with us or it's been six months. Walk in any time we're open, at least 48 hours before; it takes five minutes.",
+      "home": true
+    },
+    {
+      "topic": "Colour",
+      "q": "Do I need a consultation first?",
+      "a": "For a big change, yes. It's fifteen minutes and free. Start it on WhatsApp from the colour consultation page."
+    },
+    {
+      "topic": "Colour",
+      "q": "Can I have colour while pregnant?",
+      "a": "Ask your midwife or GP first, and talk to your colourist. The NHS has guidance on hair dye in pregnancy."
+    },
+    {
+      "topic": "On the day",
+      "q": "How long will balayage take?",
+      "a": "From two and a half hours for short hair to four for long. The price by length shows the time for yours."
+    },
+    {
+      "topic": "On the day",
+      "q": "What if I'm not happy?",
+      "a": "Tell us within seven days and we'll put it right, free."
+    },
+    {
+      "topic": "On the day",
+      "q": "Can I bring a friend?",
+      "a": "Yes. There's coffee and a seat by the window."
+    }
+  ],
+  "chairs": {
+    "message": "Hello Orme Hair.",
+    "source": "sheet",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-orme-chairs/pub?gid=0&single=true&output=csv",
+    "services": [
+      {
+        "id": "blow-dry",
+        "name": "Blow-dry",
+        "service": "blowdry"
+      }
+    ]
+  },
+  "pass": {
+    "service": "blowdry",
+    "visits": 5,
+    "price": 200,
+    "for": "Any length, with a stylist.",
+    "stripeUrl": "https://buy.stripe.com/orme5pass"
+  }
+}

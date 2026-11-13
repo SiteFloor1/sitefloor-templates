@@ -1,0 +1,14 @@
+{#- Handover hero: the extension visualiser (a photograph of a finished extension that becomes a 3D house on tap),
+    then the name of the thing in a few words, one line under it, and the site code's key strip beside. -#}
+{%- set h = site.hero %}
+<section class="hero hv-hero" aria-label="{{ site.business.name }}"><div class="wrap">
+  {%- if "visualiser" | enabled %}{% include "kits/construction/features/visualiser/visualiser.njk" %}
+  {%- else %}<div class="bd-vz-stage"><img class="bd-vz-photo" src="{{ h.photo.src | img }}" alt="{{ h.photo.alt }}" width="{{ h.photo.width }}" height="{{ h.photo.height }}" fetchpriority="high" decoding="async"></div>{% endif %}
+  <div class="hv-intro">
+    <div class="hv-lead">
+      <h1 class="hv-h1">{{ h.title | markup | safe }}</h1>
+      <p>{{ h.intro }}</p>
+    </div>
+    {%- if "site-progress" | enabled %}{% include "kits/construction/features/site-progress/key.njk" %}{% endif %}
+  </div>
+</div></section>

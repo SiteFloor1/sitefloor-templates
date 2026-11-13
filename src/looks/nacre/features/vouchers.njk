@@ -1,0 +1,32 @@
+{#- Nacre gift card: the card itself, pearl with one rose hairline and the monogram, made up as you type; the choices
+    beside it as hairline fields. -#}
+{%- set sec = { title: site.sections.vouchers.title, intro: site.sections.vouchers.intro } %}
+{%- set v = site.vouchers %}
+<section id="vouchers" class="nc-sec nc-gift" data-feature="vouchers"{{ "vouchers" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="nc-gift-in">
+    <div class="nc-gcard rv" aria-live="polite">
+      {% set cartoucheClass = "nc-cartouche-s" %}{% include "looks/nacre/parts/cartouche.njk" %}
+      <p class="nc-gcard-amt" data-vc-show-amount>{{ (v.amounts[1] or v.amounts[0]) | pounds }}</p>
+      <p class="nc-label" data-vc-show-to>A gift</p>
+      <p class="nc-gcard-note" data-vc-show-note></p>
+      <p class="nc-fine">{{ site.business.name }} · valid {{ v.validMonths }} months</p>
+    </div>
+    <form class="nc-form" data-vc-form>
+      <div class="vc-fields" data-js-only>
+        <fieldset class="nc-choice"><legend class="nc-label">Amount</legend>
+          {%- for a in v.amounts %}<label><input type="radio" name="vc-amount" value="{{ a }}"{% if loop.index0 == 1 or v.amounts.length == 1 and loop.first %} checked{% endif %}><span>{{ a | pounds }}</span></label>{% endfor %}
+          {%- if v.custom %}<label><input type="radio" name="vc-amount" value="custom"><span>Other</span></label>
+          <input class="nc-in nc-in-s" type="number" inputmode="numeric" min="{{ v.custom.min }}" max="{{ v.custom.max }}" step="1" placeholder="£{{ v.custom.min }}–{{ v.custom.max }}" aria-label="Other amount in pounds" data-vc-custom hidden>{% endif %}
+        </fieldset>
+        <label class="nc-field"><span class="nc-label">For</span><input class="nc-in" type="text" maxlength="40" autocomplete="off" data-vc-to placeholder="Their name"></label>
+        <label class="nc-field"><span class="nc-label">From</span><input class="nc-in" type="text" maxlength="40" autocomplete="name" data-vc-from placeholder="Your name"></label>
+        <label class="nc-field"><span class="nc-label">A line for the card</span><input class="nc-in" type="text" maxlength="90" autocomplete="off" data-vc-note></label>
+        <p class="nc-err" data-vc-err role="alert" hidden></p>
+      </div>
+      <p class="nc-body" data-no-js>Message us the amount, who it's for and a line for the card.</p>
+      <a class="nc-u nc-label" href="{{ 'Hello, I would like to buy a gift voucher. How can I pay?' | wa }}" target="_blank" rel="noopener" data-vc-order>Order the gift card</a>
+      <p class="nc-fine">{{ v.howToBuy }} {{ v.terms }}</p>
+    </form>
+  </div>
+</div></section>

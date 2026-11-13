@@ -1,0 +1,14 @@
+{#- Nacre questions: a quiet index. Each question in hairline capitals, its answer beneath in light text; a hairline
+    between. The full list is on Plan your visit. -#}
+{%- set sec = { title: site.sections.questions.title, intro: site.sections.questions.intro } %}
+{%- set qs = site | homeQuestions %}
+<section id="questions" class="nc-sec nc-qa" data-feature="questions"{{ "questions" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <dl class="nc-qa-dl">
+    {%- for item in qs %}<div class="rv"><dt>{{ item.q }}</dt><dd>{{ item.a }}</dd></div>{% endfor %}
+  </dl>
+  <p class="nc-acts">
+    {%- if "plan-visit" | enabled %}<a class="nc-u nc-label" href="{{ 'visit' | href }}"{{ "plan-visit" | tierAttr | safe }}>Every question</a>{% endif %}
+    <a class="nc-u nc-label" href="{{ site.messages.general | wa }}" data-wa-text="{{ site.messages.general }}" target="_blank" rel="noopener">Ask the house</a>
+  </p>
+</div></section>

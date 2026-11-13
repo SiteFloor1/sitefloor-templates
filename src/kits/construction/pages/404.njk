@@ -1,0 +1,9 @@
+---
+layout: core/layouts/base.njk
+pageId: "404"
+permalink: 404.html
+title: Page not found
+---
+{%- set ph = { title: "This page isn't *here.*", intro: "It may have moved. Our projects, how we build and how to reach us start from the home page." } %}
+{% include "kits/construction/partials/page-head.njk" %}
+<p class="wrap bd-back"><a class="bd-btn" href="{{ 'index' | href }}">Back to {{ site.business.name }}</a></p>

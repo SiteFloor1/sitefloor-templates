@@ -1,0 +1,24 @@
+{#- Where the sun falls, on the home page: the studio's example garden drawn at build time (hours of sun on 21 June),
+    with which way it faces and midsummer or midwinter to change, and the way to the full tool for your own garden.
+    Without JavaScript the drawing and its words stay as built. -#}
+{%- set ss = site.sun %}
+{%- set sec = site.sections.sun or { title: ss.title, intro: ss.intro } %}
+{%- set pic = ss | sunPicture(site.hours.timezone, build.today) %}
+<section id="sun" class="gd-sh" data-feature="sun-study" data-ss-home aria-labelledby="sh-h"><div class="wrap gd-sh-in">
+  <svg class="gd-sh-svg" data-ss-svg viewBox="{{ pic.viewBox }}" role="img" aria-labelledby="sh-day" preserveAspectRatio="xMidYMid meet">{{ pic.svg | safe }}</svg>
+  <div class="gd-sh-side">
+    {%- set secId = "sh-h" %}{% include "core/partials/section-head.njk" %}
+    <p class="gd-ss-day" id="sh-day" data-ss-day aria-live="polite">{{ pic.words }}</p>
+    <p class="gd-small">{{ ss.garden.width }} × {{ ss.garden.length }} m, {{ ss.place }}, a house of {{ ss.garden.house }} m and fences of {{ ss.garden.fence }} m.</p>
+    <div class="gd-sh-pick" data-wait>
+      <div class="gd-pick-row" role="group" aria-label="The garden faces" data-ss-facings>
+        {%- for id in ["N", "NE", "E", "SE", "S", "SW", "W", "NW"] %}<button class="gd-pick" type="button" data-ss-facing="{{ id }}" aria-pressed="{{ 'true' if id == ss.garden.facing else 'false' }}">{{ id }}</button>{% endfor %}
+      </div>
+      <div class="gd-pick-row" role="group" aria-label="Day" data-ss-days>
+        <button class="gd-pick" type="button" data-ss-month="6" aria-pressed="true">21 June</button>
+        <button class="gd-pick" type="button" data-ss-month="12" aria-pressed="false">21 December</button>
+      </div>
+    </div>
+    <p><a class="go" href="{{ 'where-the-sun-falls' | href }}">Try your own garden</a></p>
+  </div>
+</div></section>

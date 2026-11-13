@@ -1,0 +1,27 @@
+.el-lights-in { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: clamp(28px, 4vw, 56px); align-items: start; }
+.el-stage { position: relative; }
+.el-photo { position: relative; margin: 0; }
+.el-photo img { display: block; width: 100%; height: auto; }
+.el-photo figcaption { margin-top: 10px; font-size: 12px; color: var(--muted); }
+.el-pin { position: absolute; width: 32px; height: 32px; margin: -16px 0 0 -16px; border-radius: 50%; border: 1px solid var(--on-photo); background: var(--photo-scrim); color: var(--on-photo); display: grid; place-items: center; font: inherit; font-size: 13px; font-weight: 500; cursor: pointer; transition: background .4s, color .4s; }
+.el-pin[aria-pressed="true"] { background: var(--on-photo); color: var(--bg); }
+.el-fit { border-top: 1px solid var(--line); padding-top: 22px; }
+.el-fit-n { margin: 0; color: var(--accent); }
+.el-fit h3 { margin: 10px 0 6px; }
+.el-fit-why { margin: 0; color: var(--muted); max-width: 42ch; }
+.el-fit-dl { margin: 18px 0 0; display: grid; gap: 8px; font-size: 14px; }
+.el-fit-dl div { display: grid; grid-template-columns: 6em minmax(0, 1fr); gap: 12px; }
+.el-fit-dl dt { color: var(--muted); }
+.el-fit-dl dd { margin: 0; }
+.el-fit-list { list-style: none; margin: 26px 0 0; padding: 0; border-top: 1px solid var(--line); }
+.el-fit-list li { border-bottom: 1px solid var(--line); }
+.el-fit-list button { width: 100%; display: grid; grid-template-columns: 28px 1fr; gap: 12px; text-align: left; padding: 12px 0; border: 0; background: none; color: var(--muted); font: inherit; font-size: 14px; cursor: pointer; }
+.el-fit-list button[aria-pressed="true"] { color: var(--text); }
+.el-fit-ln { font-variant-numeric: tabular-nums; color: var(--accent); }
+.el-fit-nojs { margin: 0 0 12px 40px; color: var(--muted); font-size: 14px; }
+[data-feature]:not([data-ready]) .el-fit-list button { cursor: default; color: var(--text); }
+@media (max-width: 860px) {
+  .el-lights-in { grid-template-columns: minmax(0, 1fr); gap: 22px; }
+  .el-stage { margin-inline: calc(-1 * var(--pad)); }
+  .el-photo figcaption { padding-inline: var(--pad); }
+}

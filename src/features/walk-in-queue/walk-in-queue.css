@@ -1,0 +1,33 @@
+/* Walk-in queue: live count with a little line of people, and a week heatmap of usual busyness. */
+.q-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 14px; align-items: stretch; }
+.q-live, .q-off, .q-week { background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); padding: 24px; }
+.q-k { margin: 0 0 10px; font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.q-num { display: flex; align-items: baseline; gap: 12px; margin: 0; min-height: 1.1em; font-family: var(--font-display); }
+.q-num b { font-size: clamp(64px, 9vw, 112px); line-height: .9; letter-spacing: -.04em; }
+.q-num span { font-size: 20px; font-weight: 700; color: var(--muted); }
+.q-line { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; min-height: 30px; margin: 16px 0; padding: 0; }
+.q-line li { width: 18px; height: 28px; border-radius: 9px 9px 4px 4px; background: var(--text); opacity: .85; animation: q-in .4s both; }
+.q-line li.you { background: var(--accent); opacity: 1; }
+@keyframes q-in { from { transform: translateY(6px); opacity: 0; } }
+.q-wait { margin: 0; font-size: 18px; font-weight: 700; }
+.q-upd { margin: 8px 0 0; font-size: 13px; color: var(--dim); min-height: 1.3em; }
+.q-off .btn { margin-top: 16px; }
+.q-best { text-transform: none; letter-spacing: 0; color: var(--text); margin-left: 6px; }
+.q-heat { display: grid; gap: 4px; overflow-x: auto; }
+.q-row { display: grid; grid-template-columns: 38px; grid-auto-flow: column; grid-auto-columns: minmax(14px, 1fr); gap: 4px; align-items: center; font-size: 12px; }
+.q-row > span:first-child { font-weight: 800; color: var(--muted); }
+.q-head > span { font-size: 11px; color: var(--dim); white-space: nowrap; }
+.q-c { display: block; height: 22px; border-radius: 4px; }
+.q-l0 { background: color-mix(in srgb, var(--ok) 22%, var(--surface)); }
+.q-l1 { background: color-mix(in srgb, var(--ok) 55%, var(--surface)); }
+.q-l2 { background: color-mix(in srgb, var(--busy) 60%, var(--surface)); }
+.q-l3 { background: var(--busy); }
+.q-x { background: repeating-linear-gradient(45deg, transparent 0 4px, var(--line) 4px 5px); }
+.q-row.today > span:first-child { color: var(--accent); }
+.q-row.today .q-c:not(.q-x) { box-shadow: inset 0 0 0 1.5px var(--text); }
+.q-c.now { outline: 2px solid var(--accent); outline-offset: 1px; }
+.q-key { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; margin: 14px 0 0; font-size: 12px; color: var(--muted); }
+.q-key i { display: inline-block; width: 14px; height: 14px; margin-right: -8px; }
+.q-foot { margin: 14px 0 0; font-size: 13px; color: var(--dim); }
+@media (max-width: 860px) { .q-grid { grid-template-columns: minmax(0, 1fr); } }
+@media (prefers-reduced-motion: reduce) { .q-line li { animation: none; } }

@@ -1,0 +1,14 @@
+/* The lease-return check: the groups as ruled lists on the left, the total on the right under a lit line, sticky on
+   wide screens; the source in small type under the list. */
+.dt-ls { padding-block: clamp(40px, 6vw, 88px); }
+.dt-ls-in { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: clamp(28px, 5vw, 96px); align-items: start; }
+.dt-ls-f { display: grid; gap: clamp(28px, 4vw, 48px); }
+.dt-ls-g { margin: 0; padding: 0; border: 0; min-width: 0; }
+.dt-ls-g .dt-sv-h { padding: 0; }
+.dt-ls-i b { font-size: 15px; }
+.dt-ls-i b.dt-ls-no { font-size: 13px; color: var(--muted); }
+.dt-ls-src { margin: 0; font-size: 13px; color: var(--muted); max-width: 70ch; }
+.dt-ls-src a { color: inherit; }
+.dt-ls-sum { position: sticky; top: calc(var(--nav-h, 72px) + 24px); display: grid; gap: 14px; justify-items: start; }
+.dt-ls-sum .tube { width: 100%; }
+@media (max-width: 900px) { .dt-ls-in { grid-template-columns: 1fr; } .dt-ls-sum { position: static; } }

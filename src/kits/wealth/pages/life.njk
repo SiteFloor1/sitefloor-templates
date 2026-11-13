@@ -1,0 +1,14 @@
+---
+layout: core/layouts/base.njk
+feature: life-events
+pagination:
+  data: site.lifeEvents.items
+  size: 1
+  alias: ev
+permalink: "{{ ev.id }}.html"
+eleventyComputed:
+  pageId: "{{ ev.id }}"
+  title: "{{ ev.title }}"
+  description: "{{ ev.intro }}"
+---
+{% include "kits/wealth/features/life-events/life-events.njk" %}

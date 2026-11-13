@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: planting
+permalink: planting.html
+feature: planting-palette
+eleventyComputed:
+  title: "{{ site.palette.title | plain }}"
+  description: "The plants {{ site.business.name }} uses, by month and by sun or shade, with how much care each needs."
+---
+{% include "kits/garden/features/planting-palette/planting-palette.njk" %}

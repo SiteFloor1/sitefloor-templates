@@ -1,0 +1,47 @@
+/* The glass case: a brass-framed cabinet of the day's bakes on round plates, each with an engraved card; a tray
+   just out glows warm; a sold-out plate goes pale. Tokens only (the look sets --case-* to its own brass and glass). */
+.tc { --case-frame: var(--accent); --case-glass: var(--surface); --case-shelf: var(--line-2); --case-base: var(--surface-2); --case-glow: var(--fresh); }
+.tc-case { position: relative; padding: clamp(20px, 3vw, 34px) clamp(12px, 3vw, 34px) 0; border-radius: 26px 26px 10px 10px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--case-glass) 88%, transparent), var(--case-glass));
+  box-shadow: inset 0 0 0 2px var(--case-frame), inset 0 0 0 7px var(--case-glass), inset 0 0 0 8px color-mix(in srgb, var(--case-frame) 50%, transparent), 0 40px 60px -40px var(--shadow); overflow: hidden; }
+.tc-case::before { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 2;
+  background: linear-gradient(105deg, transparent 0 18%, color-mix(in srgb, var(--bg) 40%, transparent) 22%, transparent 30%, transparent 64%, color-mix(in srgb, var(--bg) 22%, transparent) 68%, transparent 73%); }
+.tc-light { position: absolute; left: 8%; right: 8%; top: 10px; height: 4px; border-radius: 4px; background: var(--case-glow); box-shadow: 0 0 28px 8px color-mix(in srgb, var(--case-glow) 45%, transparent); opacity: .8; }
+.tc-shelf { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: auto; gap: 0 clamp(8px, 2vw, 24px); }
+.tc-shelf > li { position: relative; padding-bottom: 26px; }
+.tc-shelf > li::after { content: ""; position: absolute; left: -40px; right: -40px; bottom: 10px; height: 8px; background: linear-gradient(180deg, color-mix(in srgb, var(--case-frame) 30%, var(--case-shelf)), transparent); opacity: .65; }
+.tc-item { position: relative; width: 100%; display: grid; justify-items: center; gap: 10px; padding: 18px 6px 0; border: 0; background: none; color: inherit; font: inherit; }
+button.tc-item { cursor: pointer; }
+.tc-item:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 14px; }
+.tc-plate { position: relative; display: block; width: min(100%, 168px); aspect-ratio: 1; border-radius: 50%; background: var(--case-base);
+  box-shadow: 0 0 0 6px var(--bg), 0 0 0 7px var(--case-shelf), 0 22px 26px -14px var(--shadow); transition: transform .35s, filter .35s; }
+.tc-plate img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; }
+.tc-plate::before { content: ""; position: absolute; inset: -26%; z-index: -1; border-radius: 50%; background: radial-gradient(closest-side, color-mix(in srgb, var(--case-glow) 70%, transparent), transparent); opacity: 0; transition: opacity .6s; }
+.tc-item:hover .tc-plate, .tc-item[aria-pressed="true"] .tc-plate { transform: translateY(-4px); }
+.tc-item[aria-pressed="true"] .tc-plate { box-shadow: 0 0 0 6px var(--bg), 0 0 0 8px var(--accent), 0 22px 26px -14px var(--shadow); }
+.tc-item[data-state="fresh"] .tc-plate::before { opacity: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  .tc-item[data-state="fresh"] .tc-plate::before { animation: tc-warm 2.6s ease-in-out 3 alternate; }
+  @keyframes tc-warm { from { opacity: .55; transform: scale(.94); } to { opacity: 1; transform: scale(1.04); } }
+}
+.tc-item[data-state="out"] .tc-plate { filter: grayscale(.85) brightness(1.06); opacity: .62; }
+.tc-card { display: grid; justify-items: center; gap: 1px; padding: 6px 12px 7px; min-width: 70%; border-radius: 4px; background: var(--bg); box-shadow: inset 0 0 0 1px var(--case-shelf); }
+.tc-name { font-family: var(--font-display); font-size: clamp(15px, 1.6vw, 18px); line-height: 1.2; text-align: center; }
+.tc-price { font-size: 12.5px; font-variant-numeric: tabular-nums; color: var(--muted); }
+.tc-tag { position: absolute; top: 6px; right: 6%; z-index: 3; padding: 4px 9px; border-radius: 4px; font-size: 11px; font-weight: 700; letter-spacing: .03em; background: var(--fresh); color: var(--on-fresh); box-shadow: 0 6px 12px -6px var(--shadow); transform: rotate(4deg); }
+.tc-tag:empty { display: none; }
+.tc-item[data-state="baked"] .tc-tag { background: var(--bg); color: var(--muted); box-shadow: inset 0 0 0 1px var(--case-shelf); }
+.tc-item[data-state="out"] .tc-tag { background: var(--text); color: var(--bg); transform: rotate(-3deg); }
+.tc-base { height: 22px; margin: 0 calc(-1 * clamp(12px, 3vw, 34px)); background: linear-gradient(180deg, var(--case-frame), color-mix(in srgb, var(--case-frame) 60%, var(--text))); }
+.tc-info { margin-top: 22px; padding: 20px 22px; min-height: 84px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line-2); }
+.tc-hint { margin: 0; color: var(--muted); }
+.tc-ih { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(24px, 2.6vw, 32px); }
+.tc-ip { margin: 4px 0 0; font-weight: 600; font-variant-numeric: tabular-nums; }
+.tc-id { margin: 8px 0 0; color: var(--muted); max-width: 60ch; }
+.tc-ia { margin: 8px 0 0; font-size: 14px; font-style: italic; }
+.tc-io { margin: 10px 0 0; font-weight: 600; }
+.tc-hold { display: flex; flex-wrap: wrap; align-items: end; gap: 12px 16px; margin-top: 14px; }
+.tc-hold .rs-field { min-width: 190px; }
+.tc-hold .rs-small { flex-basis: 100%; margin: 0; }
+.tc-note { margin-top: 12px; }
+@media (max-width: 640px) { .tc-shelf { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: lexicon
+permalink: lexicon.html
+feature: lexicon
+eleventyComputed:
+  title: "{{ site.lexicon.title | plain }}"
+  description: "The words a cutter uses at {{ site.business.name }}, each in one plain sentence."
+---
+{% include "kits/tailor/features/lexicon/lexicon.njk" %}

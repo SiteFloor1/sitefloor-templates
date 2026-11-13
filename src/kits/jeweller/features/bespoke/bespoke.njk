@@ -1,0 +1,37 @@
+{#- Bespoke: the house's process, step by step with its timings, down a single hairline; the deposit; a brief on
+    WhatsApp; a past commission. -#}
+{%- set B = site.bespoke %}
+{%- set ph = { title: B.title, intro: B.intro } %}
+{% include "kits/jeweller/partials/page-head.njk" %}
+<section class="nc-sec jw-bsp"><div class="wrap jw-bsp-in">
+  {%- if B.photo %}<figure class="jw-bsp-ph rv"><img src="{{ B.photo.src | img }}" width="{{ B.photo.width }}" height="{{ B.photo.height }}" fetchpriority="high" alt="{{ B.photo.alt }}"></figure>{% endif %}
+  <div class="jw-bsp-t">
+    <p class="jw-say rv">{{ B.timing }}</p>
+    <ol class="jw-steps">
+      {%- for s in B.steps %}<li class="rv"><span class="nc-label nc-muted">{{ s.when or loop.index }}</span><h2 class="jw-name">{{ s.title }}</h2><p class="nc-body">{{ s.text }}</p></li>{% endfor %}
+    </ol>
+  </div>
+</div></section>
+{%- if B.deposit %}
+<section class="nc-sec jw-dep"><div class="wrap jw-dep-in rv">
+  <h2 class="jw-h">The deposit</h2>
+  <p class="nc-body">{{ B.deposit.text }}</p>
+  {%- if B.deposit.pay %}{% set pay = B.deposit.pay %}{% set payLabel = "" %}{% include "features/pay-link/button.njk" %}{% endif %}
+</div></section>
+{%- endif %}
+{%- set first = "Hello " + site.business.name + ", I'd like to talk about a bespoke commission." %}
+<section id="brief" class="nc-sec jw-brief" data-feature="bespoke"><div class="wrap">
+  {%- set sec = { title: "Begin", intro: "A brief on WhatsApp" } %}{% include "core/partials/section-head.njk" %}
+  <form class="nc-form jw-brief-f" data-brief-form>
+    <div data-js-only class="jw-brief-g">
+      <fieldset class="nc-choice"><legend class="nc-label">The piece</legend>{% for k in B.brief.kinds %}<label><input type="radio" name="b-kind" value="{{ k }}"{% if loop.first %} checked{% endif %}><span>{{ k }}</span></label>{% endfor %}</fieldset>
+      <fieldset class="nc-choice"><legend class="nc-label">Metal</legend>{% for k in B.brief.metals %}<label><input type="radio" name="b-metal" value="{{ k }}"><span>{{ k }}</span></label>{% endfor %}</fieldset>
+      <fieldset class="nc-choice"><legend class="nc-label">Budget</legend>{% for k in B.brief.budgets %}<label><input type="radio" name="b-budget" value="{{ k }}"><span>{{ k }}</span></label>{% endfor %}</fieldset>
+      <label class="nc-field"><span class="nc-label">A stone in mind</span><input class="nc-in" type="text" maxlength="80" autocomplete="off" data-b-stone></label>
+      <label class="nc-field"><span class="nc-label">Wanted by</span><input class="nc-in" type="date" data-b-by></label>
+      <label class="nc-field jw-brief-w"><span class="nc-label">The story behind it</span><textarea class="nc-in" rows="3" maxlength="400" data-b-story></textarea></label>
+    </div>
+    <a class="nc-u nc-label jw-send" href="{{ first | wa }}" data-wa-text="{{ first }}" target="_blank" rel="noopener" data-brief-send>Send the brief</a>
+  </form>
+</div></section>
+{%- if "sketch-to-ring" | enabled %}{% include "kits/jeweller/features/sketch-to-ring/sketch-to-ring.njk" %}{% endif %}

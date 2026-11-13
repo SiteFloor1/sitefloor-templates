@@ -1,0 +1,28 @@
+{#- Occasions: the next one leads, very large, with its dates, the house's line and its pieces; the rest follow as a
+    quiet list. Past dates drop off by themselves (also between builds). -#}
+{%- set O = site.occasions %}
+{%- set P = site.pieces %}
+{%- set ord = O.items | occasionOrder(build.today) %}
+{%- set ph = { title: O.title, intro: O.intro } %}
+{% include "kits/jeweller/partials/page-head.njk" %}
+<div data-feature="occasions">
+{%- for o in ord.all %}
+{%- set items = P.items | forOccasion(o) %}
+<section class="nc-sec jw-occ{% if loop.first %} is-lead{% endif %}" data-from="{{ o.from }}" data-to="{{ o.to }}" aria-labelledby="oc-{{ o.id }}"><div class="wrap jw-occ-in">
+  <div class="jw-occ-t">
+    {%- set op = O.pages | occasionPage(o.id) %}
+    <h2 class="jw-occ-n" id="oc-{{ o.id }}">{% if op %}<a href="{{ ('occasion-' + o.id) | href }}">{{ o.name }}</a>{% else %}{{ o.name }}{% endif %}</h2>
+    <p class="nc-label nc-muted">{{ o | shortRange }}</p>
+    <p class="nc-body">{{ o.line }}</p>
+  </div>
+  {%- if items.length %}
+  <div class="jw-row" tabindex="0" role="region" aria-label="Pieces for {{ o.name }}, scrolls sideways">
+    {%- for p in items %}{% set cardSize = "" %}{% include "kits/jeweller/partials/card.njk" %}{% endfor %}
+  </div>
+  {%- endif %}
+</div></section>
+{%- endfor %}
+</div>
+{%- set odTitle = "Every year" %}
+{% include "kits/jeweller/partials/occasion-doors.njk" %}
+{% include "kits/jeweller/partials/invite.njk" %}

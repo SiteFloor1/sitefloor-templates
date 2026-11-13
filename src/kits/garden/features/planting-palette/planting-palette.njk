@@ -1,0 +1,34 @@
+{#- The planting palette: the studio's plants, each with the months it looks its best, the light it wants and the care
+    it needs; found by month and by sun or shade. Without JavaScript every plant shows. -#}
+{%- set pl = site.palette %}
+{%- set ph = pl %}
+{% include "kits/garden/partials/page-head.njk" %}
+<section class="wrap gd-pp" data-feature="planting-palette" aria-label="{{ pl.title | plain }}">
+  <div class="gd-pp-filters" data-pp-filters data-wait>
+    <div class="gd-pick-row gd-pp-months" role="group" aria-label="At its best in">
+      <button class="gd-pick" type="button" data-pp-month="0" aria-pressed="true">Any month</button>
+      {%- for name in gardenWords.short %}<button class="gd-pick" type="button" data-pp-month="{{ loop.index }}" aria-pressed="false" aria-label="{{ gardenWords.months[loop.index0] }}">{{ name }}</button>{% endfor %}
+    </div>
+    <div class="gd-pick-row" role="group" aria-label="Light">
+      <button class="gd-pick" type="button" data-pp-light="" aria-pressed="true">Sun or shade</button>
+      {%- for id, label in gardenWords.light %}<button class="gd-pick" type="button" data-pp-light="{{ id }}" aria-pressed="false">{{ label }}</button>{% endfor %}
+    </div>
+  </div>
+  <ul class="gd-pp-list">
+    {%- for p in pl.items %}
+    <li class="gd-pp-i" data-months="{{ p.months | join(' ') }}" data-light="{{ p.light | join(' ') }}">
+      <img src="{{ p.photo.src | img }}" alt="{{ p.photo.alt }}" width="{{ p.photo.width }}" height="{{ p.photo.height }}" loading="{{ 'eager' if loop.index <= 3 else 'lazy' }}" decoding="async">
+      <h2 class="gd-pp-n">{{ p.name }}</h2>
+      {%- if p.latin %}<p class="gd-pp-l" lang="la">{{ p.latin }}</p>{% endif %}
+      <dl class="gd-pp-dl">
+        <div><dt>Best</dt><dd>{{ p.months | monthsWords }}</dd></div>
+        <div><dt>Light</dt><dd>{% for l in p.light %}{{ gardenWords.light[l] }}{% if not loop.last %}, {% endif %}{% endfor %}</dd></div>
+        <div><dt>Care</dt><dd>{{ gardenWords.care[p.care] }}</dd></div>
+      </dl>
+      {%- if p.text %}<p class="gd-pp-t">{{ p.text }}</p>{% endif %}
+    </li>
+    {%- endfor %}
+  </ul>
+  <p class="gd-pp-none" data-pp-none hidden>Nothing in the palette for that. Try another month, or sun or shade.</p>
+  {%- if pl.note %}<p class="gd-small">{{ pl.note }}</p>{% endif %}
+</section>

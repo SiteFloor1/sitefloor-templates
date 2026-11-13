@@ -1,0 +1,18 @@
+{#- The shortlist: gowns kept while browsing, sent to the salon so they're on the rail at the appointment, and a link
+    that opens the same list on another phone. The list lives in the link itself; nothing is stored on a server. A
+    list opened from someone's link is shown on its own and never replaces the list this phone has kept, unless the
+    visitor chooses "Keep these on my phone". -#}
+<aside class="bd-list" data-feature="shortlist" aria-label="Your shortlist" data-sl-bar hidden>
+  <div class="wrap bd-list-in">
+    <p class="bd-list-n" aria-live="polite"><b data-sl-count>0</b> <span data-sl-word>gowns</span> kept<span class="bd-list-from" data-sl-shared hidden>, from a shared link</span></p>
+    <p class="bd-list-names" data-sl-names></p>
+    <div class="bd-list-acts">
+      <a class="bd-go" data-sl-send href="{{ site.shortlist.message | book }}" target="_blank" rel="noopener">Send to {{ site.business.name }}</a>
+      <button type="button" class="bd-quiet" data-sl-copy>Copy the link</button>
+      <button type="button" class="bd-quiet" data-sl-adopt hidden>Keep these on my phone</button>
+      <button type="button" class="bd-quiet" data-sl-mine hidden>My own list</button>
+      <button type="button" class="bd-quiet" data-sl-clear>Clear</button>
+    </div>
+    <p class="bd-small bd-list-link" data-sl-linkbox hidden><span class="sr-only">Link: </span><span data-sl-link></span></p>
+  </div>
+</aside>

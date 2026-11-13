@@ -1,0 +1,6 @@
+{#- The close of an inner page: one sentence and the private appointment, centred, with silence around it. -#}
+{%- set invText = site.messages.appointment or site.messages.general %}
+<section class="nc-sec jw-invite"><div class="wrap">
+  <p class="jw-invite-t">{{ site.sections.appointment.closing or "Every piece is shown in person, by appointment." }}</p>
+  <a class="nc-btn" href="{{ invText | wa }}" data-wa-text="{{ invText }}" target="_blank" rel="noopener">Request a private appointment</a>
+</div></section>

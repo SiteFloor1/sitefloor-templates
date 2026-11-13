@@ -1,0 +1,13 @@
+{#- Insights on the home page: the three newest the firm's compliance has approved, with photographs. The risk line
+    sits once above them. When the firm publishes from its sheet, the script replaces these with the sheet's newest. -#}
+{%- set ins = site.insights %}
+{%- set sec = { title: site.sections.insights.title, intro: site.sections.insights.intro } %}
+<section id="insights" class="wm-ins" data-feature="insights"{% if "insight-library" | enabled %} data-ins-page="{{ 'insights' | href }}"{% endif %}><div class="wrap">
+  <div class="wm-ins-head">{% include "core/partials/section-head.njk" %}{% if "insight-library" | enabled %}<a class="wm-go" href="{{ 'insights' | href }}"{{ 'insight-library' | tierAttr | safe }}>All insights</a>{% endif %}</div>
+  <p class="wm-ins-risk">{{ fca.notAdvice }}. {{ site.regulation.capitalAtRisk or fca.capitalAtRisk }}</p>
+  <div class="wm-ins-cards" data-ins-list data-ins-max="3">
+    {%- for x in (ins.items | newestFirst) %}{% if loop.index <= 3 %}{% include "kits/wealth/features/insights/card.njk" %}{% endif %}{% endfor %}
+  </div>
+  <p class="wm-ins-off" data-ins-off hidden>Our insights aren't loading just now. Please try again shortly.</p>
+  {% include "kits/wealth/features/insights/photos.njk" %}
+</div></section>

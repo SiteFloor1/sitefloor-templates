@@ -1,0 +1,23 @@
+{#- Première footer: the name in Goudy italic, large; where the studio is and how to reach it; the hours; the pages;
+    the Sitefloor credit last. Ivory, with one hairline above. -#}
+<footer class="foot pr-foot"><div class="wrap pr-foot-in">
+  <p class="pr-foot-name">{{ site.business.name }}</p>
+  <address class="pr-foot-a">{{ site.location.streetAddress }}<br>{{ site.location.locality }} {{ site.location.postcode }}<br>
+    <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a>{% if site.contact.email %}<br><a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>{% endif %}</address>
+  <ul class="pr-foot-hours" aria-label="Opening hours">
+    {%- for row in site.hours | hoursRows %}<li data-day="{{ row.dayIndex }}"><span>{{ row.day }}</span> {{ row.label }}</li>{% endfor %}
+  </ul>
+  <nav class="pr-foot-links" aria-label="Footer">
+    <a href="{{ 'index' | href }}">Home</a>
+    {%- for item in site.nav | navItems(pageId) %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}>{{ item.label }}</a>{% endfor %}
+    {%- if "venues-page" | enabled %}<a href="{{ 'venues' | href }}"{{ "venues-page" | tierAttr | safe }}>Venues</a>{% endif %}
+    {%- if "team" | enabled %}<a href="{{ 'team' | href }}"{{ "team" | tierAttr | safe }}>The team</a>{% endif %}
+    {%- if "music-page" | enabled %}<a href="{{ 'music' | href }}"{{ "music-page" | tierAttr | safe }}>Music</a>{% endif %}
+    {%- if "faq-page" | enabled %}<a href="{{ 'faq' | href }}"{{ "faq-page" | tierAttr | safe }}>Questions</a>{% endif %}
+    {%- if "plan-visit" | enabled %}<a href="{{ 'visit' | href }}">Meet us</a>{% endif %}
+    {%- if "custom-pages" | enabled %}{% for pg in site.pages %}<a href="{{ pg.slug | href }}"{{ "custom-pages" | tierAttr | safe }}>{{ pg.kicker or pg.title }}</a>{% endfor %}{% endif %}
+    {%- if "film-progress" | enabled %}<a href="{{ 'your-film' | href }}"{{ "film-progress" | tierAttr | safe }}>Your film</a>{% endif %}
+    <a href="{{ 'privacy' | href }}">Privacy</a>
+  </nav>
+  <p class="pr-foot-by"><a class="by" href="https://sitefloor.com" rel="noopener">Website by <b>Sitefloor</b></a></p>
+</div></footer>

@@ -1,0 +1,7 @@
+{#- An inner page's opening: the studio's name small, the page's name large in Goudy, its line beneath. Set `ph` to
+    { kicker, title, intro }. -#}
+<header class="wf-ph-top"><div class="wrap">
+  <p class="wf-crumb"><a href="{{ 'index' | href }}">{{ site.business.name }}</a> <span aria-hidden="true">·</span> {{ ph.kicker }}</p>
+  <h1 class="wf-ph-t">{{ ph.title | markup | safe }}</h1>
+  {%- if ph.intro %}<p class="wf-ph-i">{{ ph.intro }}</p>{% endif %}
+</div></header>

@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: shades
+permalink: shades.html
+feature: shades-page
+eleventyComputed:
+  title: "{{ site.shadesPage.title | plain }}"
+  description: "The house shades at {{ site.business.name }}: every colour with its number, finish and system."
+---
+{% include "kits/nails/features/shades-page/shades-page.njk" %}
+{%- set hostPage = "shades-page" %}{% include "kits/nails/partials/hosted.njk" %}

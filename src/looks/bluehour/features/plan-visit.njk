@@ -1,0 +1,78 @@
+{#- Blue hour Plan your visit, read like an installation schedule: the page's name, then every way here and every fact
+    as numbered lines (C01, C02…) with an engraved label beside each. Each journey opens on its own (native, so it works
+    without JavaScript) to show its steps as one run with the studio at the end; the "leave by" helper, parking and
+    access follow as more lines; then the week as a time switch and the questions by topic. -#}
+{%- set v = site.visitInfo %}
+{%- set journeys = v.journeys or [] %}
+{%- set parking = v.parking or [] %}
+{%- set ph = { kicker: v.kicker or "Visit", title: v.title, intro: v.intro } %}
+{% include "kits/electrician/partials/page-head.njk" %}
+<div data-feature="plan-visit">
+<section class="bh-sched-sec"><div class="wrap">
+  <ol class="bh-sched" aria-label="Getting here">
+    <li class="bh-line-row"><span class="bh-cno" aria-hidden="true">C01</span><span class="bh-what">The studio</span><span class="bh-val" data-live-status><span data-status-text>{{ site.location.streetAddress }}, {{ site.location.postcode }}</span></span></li>
+    {%- for c in parking %}
+    <li class="bh-line-row"><span class="bh-cno" aria-hidden="true">C{{ (loop.index + 1) | pad2 }}</span><span class="bh-what">{{ c.name }}</span><span class="bh-val" data-parking="{{ loop.index0 }}">{{ c | parkingSummary }}</span></li>
+    {%- endfor %}
+    {%- for j in journeys %}
+    <li class="bh-line-row bh-run-row">
+      <span class="bh-cno" aria-hidden="true">C{{ (loop.index + parking.length + 1) | pad2 }}</span>
+      <details class="bh-run"{% if loop.first %} open{% endif %}>
+        <summary><span class="bh-what">From {{ j.from }}{% if j.stop %}, to {{ j.stop }}{% endif %}</span><span class="bh-val">{{ j.minutes }} min {{ (j.mode | modeWords).verb }}</span></summary>
+        <ol class="bh-steps">
+          {%- for step in j.steps %}<li>{{ step }}</li>{% endfor %}
+          <li class="bh-steps-end"><b>{{ site.business.name }}</b> {{ site.location.streetAddress }}</li>
+        </ol>
+        <a class="bh-under" href="{{ j | directionsFor }}" target="_blank" rel="noopener">Directions in Google Maps</a>
+      </details>
+    </li>
+    {%- endfor %}
+  </ol>
+  {%- if journeys.length %}
+  <div class="bh-leave" data-pv-leave hidden>
+    <label for="pv-appt">Booked in? Your time, and when to set off</label>
+    <input type="time" id="pv-appt" step="900" data-pv-appt>
+    <ul class="bh-leave-l" data-pv-leave-list aria-live="polite"></ul>
+  </div>
+  {%- endif %}
+  {%- if site.mode == "demo" %}<p class="bh-checked">Example journeys and parking for a fictional business.</p>
+  {%- elif v.checked %}<p class="bh-checked">Checked with {{ site.business.name }} in {{ v.checked | checkedText }}. Driving times are outside rush hour.</p>{% endif %}
+</div></section>
+
+{%- if parking.length or v.access or v.payment %}
+<section class="bh-spec-sec"><div class="wrap bh-spec">
+  {%- for c in parking %}
+  <div class="bh-spec-b">
+    <h2 class="bh-spec-h">Parking</h2>
+    <p class="bh-spec-big">{{ c.name }}</p>
+    <p class="bh-spec-s" data-parking-card="{{ loop.index0 }}" hidden></p>
+    <p>{% if c.walk is defined %}{{ c.walk }} min walk{% endif %}{% if c.walk is defined and c.price %}, {% endif %}{{ c.price }}</p>
+    {%- if c.note %}<p class="bh-spec-n">{{ c.note }}</p>{% endif %}
+  </div>
+  {%- endfor %}
+  {%- if v.access %}
+  <div class="bh-spec-b">
+    <h2 class="bh-spec-h">Access</h2>
+    <ul class="bh-leds">{% for a in v.access %}<li class="{{ 'on' if a.yes else 'off' }}"><span class="bh-led" aria-hidden="true"></span><span class="sr-only">{{ "Yes:" if a.yes else "No:" }}</span>{{ a.label }}</li>{% endfor %}</ul>
+    {%- if v.accessNote %}<p class="bh-spec-n">{{ v.accessNote }}</p>{% endif %}
+  </div>
+  {%- endif %}
+  {%- if v.payment %}<div class="bh-spec-b"><h2 class="bh-spec-h">Paying</h2><p>{{ v.payment }}</p></div>{% endif %}
+</div></section>
+{%- endif %}
+</div>
+
+{%- set visitHeading = false %}
+{% include "features/visit/visit.njk" %}
+{%- set groups = site | questionTopics %}
+{%- if groups.length %}
+<section class="bh-allq" id="questions"><div class="wrap">
+  <h2 class="bh-vis-h">Questions people ask</h2>
+  {%- for g in groups %}
+  <div class="bh-allq-g">
+    <h3 class="bh-allq-t">{{ g.topic }}</h3>
+    <div>{% for item in g.items %}<details class="bh-qa"><summary>{{ item.q }}</summary><p>{{ item.a }}</p></details>{% endfor %}</div>
+  </div>
+  {%- endfor %}
+</div></section>
+{%- endif %}

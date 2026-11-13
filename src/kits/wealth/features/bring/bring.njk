@@ -1,0 +1,5 @@
+{#- What to bring to a first meeting: a short list to tick or print. Nothing is stored. -#}
+<section class="wm-bring" data-feature="bring" aria-labelledby="bring-h">
+  <h2 id="bring-h">{{ site.bring.title }}</h2>
+  <ul>{% for b in site.bring.items %}<li><label><input type="checkbox" id="bring-{{ loop.index }}"> {{ b }}</label></li>{% endfor %}</ul>
+</section>

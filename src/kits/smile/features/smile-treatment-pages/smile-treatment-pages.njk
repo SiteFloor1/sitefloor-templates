@@ -1,0 +1,18 @@
+{#- One treatment's page: what it is in the clinician's words, its visits, its price and who carries it out. Set `t`. -#}
+{%- set ph = { kicker: "Treatments", title: t.name, intro: t.page.intro if t.page else t.line } %}
+{%- include "kits/smile/partials/page-head.njk" %}
+<div class="sm-tp sm-one" data-feature="smile-treatment-pages"><div class="wrap sm-one-in">
+  <div class="sm-one-text">
+    {%- for s in (t.page.sections if t.page else []) %}<section class="sm-one-part"><h2>{{ s.heading }}</h2><p>{{ s.text }}</p></section>{% endfor %}
+  </div>
+  <aside class="sm-one-facts" aria-label="Price, visits and who">
+    <p class="sm-tp-price">{{ t.price | price }}</p>
+    <p class="sm-tp-span">{{ t.visits | spanWords }}</p>
+    <ol class="sm-visits">
+      {%- for v in t.visits %}<li><span class="sm-v-what">{{ v.label }}</span><span class="sm-v-len">{{ v.minutes | duration }}</span></li>{% endfor %}
+    </ol>
+    <p class="sm-tp-by">{% for p in site.clinicians | cliniciansOf(t.by) %}{% include "kits/smile/partials/clinician-line.njk" %}{% if not loop.last %}<br>{% endif %}{% endfor %}</p>
+    <p class="sm-more"><a class="go" href="{{ site.consultation.message | book if site.consultation else site.messages.general | book }}" target="_blank" rel="noopener">Book a consultation</a></p>
+  </aside>
+</div>
+<div class="wrap">{% include "kits/smile/partials/rules.njk" %}</div></div>

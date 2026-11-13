@@ -1,0 +1,8 @@
+{#- Words that differ between a boutique and an online brand. On a demo with shop.previewModes, both are written and the
+    strip's switch shows one (CSS only); a client site writes only its own. Usage: {{ mode.say("The salon", "Shop") }} -#}
+{%- macro say(boutique, online) -%}
+{%- if site.shop.previewModes -%}<span data-shop="boutique">{{ boutique }}</span><span data-shop="online">{{ online }}</span>
+{%- elif site.shop.mode == "online" -%}{{ online }}{%- else -%}{{ boutique }}{%- endif -%}
+{%- endmacro %}
+{%- macro attr(m) -%}{% if site.shop.previewModes %} data-shop="{{ m }}"{% endif %}{%- endmacro %}
+{%- macro shows(m) -%}{{ site.shop.previewModes or site.shop.mode == m }}{%- endmacro %}

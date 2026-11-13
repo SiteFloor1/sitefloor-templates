@@ -1,0 +1,14 @@
+{#- Recently handed over: the newest finished projects, photographed large, by place and scope. On a phone they
+    swipe sideways. Each opens its own page when the projects page is on. -#}
+{%- set p = site.projects %}
+<section class="bd-proj" id="projects" aria-labelledby="proj-h"><div class="wrap">
+  <div class="bd-proj-head"><h2 id="proj-h" class="bd-h2">{{ (p.title or "Recently *handed over*") | markup | safe }}</h2>{% if "jobs-page" | enabled %}<a href="{{ 'projects' | href }}"{{ 'jobs-page' | tierAttr | safe }}>All projects</a>{% endif %}</div>
+  <ul class="bd-proj-list">
+    {%- for x in p.items.slice(0, 4) %}{% set f = x.photos[0] %}
+    <li>{% if "jobs-page" | enabled %}<a href="{{ x.id | href }}"{{ 'jobs-page' | tierAttr | safe }}>{% endif %}
+      <img src="{{ f.src | img }}" alt="{{ f.alt }}" width="{{ f.width }}" height="{{ f.height }}" loading="lazy" decoding="async"{% if f.position %} style="object-position:{{ f.position }}"{% endif %}>
+      <b>{{ x.place }}</b><span>{{ x.scope }}</span>
+    {% if "jobs-page" | enabled %}</a>{% endif %}</li>
+    {%- endfor %}
+  </ul>
+</div></section>

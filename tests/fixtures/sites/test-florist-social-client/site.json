@@ -1,0 +1,379 @@
+{
+  "schemaVersion": 4,
+  "id": "test-florist-social-client",
+  "mode": "client",
+  "plan": "signature",
+  "kit": "florist",
+  "look": "tissue",
+  "url": "https://petal-post-test.co.uk",
+  "indexable": true,
+  "lang": "en-GB",
+  "business": {
+    "name": "Petal Post",
+    "schemaType": "Florist",
+    "description": "Bouquets made to order in Manchester: fresh flowers delivered the same day, and forever bouquets posted UK-wide.",
+    "priceRange": "££",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "447911123462",
+    "phone": "+44 7911 123462",
+    "email": "hello@petal-post-test.co.uk"
+  },
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "location": {
+    "streetAddress": "12 Mill Lane",
+    "locality": "Manchester",
+    "postcode": "M4 6BU",
+    "country": "GB",
+    "area": "A small studio in Ancoats, Manchester. Collection by arrangement.",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=Ancoats%2C%20Manchester"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [
+        [
+          "10:00",
+          "17:00"
+        ]
+      ],
+      "tue": [
+        [
+          "10:00",
+          "17:00"
+        ]
+      ],
+      "wed": [
+        [
+          "10:00",
+          "17:00"
+        ]
+      ],
+      "thu": [
+        [
+          "10:00",
+          "17:00"
+        ]
+      ],
+      "fri": [
+        [
+          "10:00",
+          "19:00"
+        ]
+      ],
+      "sat": [
+        [
+          "10:00",
+          "15:00"
+        ]
+      ],
+      "sun": []
+    }
+  },
+  "nav": [
+    {
+      "label": "Bouquets",
+      "href": "#bouquets",
+      "feature": "todays-bouquets"
+    },
+    {
+      "label": "The drop",
+      "page": "drop",
+      "feature": "the-drop"
+    },
+    {
+      "label": "Collect",
+      "page": "visit",
+      "feature": "plan-visit",
+      "fallback": "#visit"
+    }
+  ],
+  "features": [
+    "todays-bouquets",
+    "same-day",
+    "make-this",
+    "live-dates",
+    "the-drop",
+    "plan-visit",
+    "questions",
+    "visit"
+  ],
+  "hero": {
+    "kicker": "Bouquets, Manchester",
+    "title": "Today's bouquets",
+    "intro": "Fresh flowers delivered in Manchester the same day."
+  },
+  "messages": {
+    "general": "Hi Petal Post, I have a question.",
+    "order": "Hi Petal Post, I'd like to order a bouquet."
+  },
+  "studioSheet": {
+    "source": "sheet",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-petalposttest/pub?gid=0&single=true&output=csv"
+  },
+  "sections": {
+    "bouquets": {
+      "title": "Our bouquets"
+    },
+    "questions": {
+      "title": "Before you order"
+    },
+    "visit": {
+      "title": "The studio"
+    },
+    "live": {
+      "title": "Come to a LIVE"
+    },
+    "makeThis": {
+      "title": "Seen it somewhere? Send the link."
+    }
+  },
+  "bouquets": {
+    "message": "Hi Petal Post, I'd like",
+    "instagram": "petalposttest",
+    "staleMinutes": 120,
+    "ranges": [
+      {
+        "id": "fresh",
+        "label": "Fresh",
+        "line": "Delivered in Manchester today"
+      },
+      {
+        "id": "forever",
+        "label": "Forever",
+        "line": "Posted UK-wide"
+      }
+    ],
+    "pinned": {
+      "name": "Tied by hand",
+      "priceFrom": 35,
+      "photo": {
+        "src": "img/pinned.webp",
+        "width": 1100,
+        "height": 1375,
+        "alt": "Hands tying a ribbon round a bouquet's stems"
+      }
+    },
+    "items": [
+      {
+        "id": "peonies",
+        "range": "fresh",
+        "name": "Peonies",
+        "price": 55,
+        "photo": {
+          "src": "img/peony-hand.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "Pink peonies held against a white wall"
+        }
+      },
+      {
+        "id": "blush-sage",
+        "range": "fresh",
+        "name": "Blush and sage",
+        "price": 48,
+        "photo": {
+          "src": "img/blush-sage.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "Blush roses and sage with a pale ribbon"
+        }
+      },
+      {
+        "id": "in-white",
+        "range": "fresh",
+        "name": "Peonies in white",
+        "price": 42,
+        "photo": {
+          "src": "img/peonies-white.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "Pink peonies in white paper"
+        }
+      },
+      {
+        "id": "one-peony",
+        "range": "fresh",
+        "name": "One peony",
+        "price": 12,
+        "photo": {
+          "src": "img/one-peony.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "Hands holding one pink peony"
+        }
+      },
+      {
+        "id": "ivory",
+        "range": "forever",
+        "name": "Ivory roses",
+        "price": 65,
+        "photo": {
+          "src": "img/ivory-dome.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "A dome of ivory roses"
+        }
+      },
+      {
+        "id": "dusty",
+        "range": "forever",
+        "name": "Dusty rose",
+        "price": 52,
+        "photo": {
+          "src": "img/dusty-rose.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "Dusty blush roses with dried grasses"
+        }
+      },
+      {
+        "id": "organza",
+        "range": "forever",
+        "name": "Kraft and organza",
+        "price": 40,
+        "photo": {
+          "src": "img/kraft-organza.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "Pale roses in kraft with an organza bow"
+        }
+      },
+      {
+        "id": "one-rose",
+        "range": "forever",
+        "name": "One rose",
+        "price": 18,
+        "photo": {
+          "src": "img/forever-rose.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "Hands holding one pink rose"
+        }
+      }
+    ],
+    "card": {
+      "max": 160
+    }
+  },
+  "delivery": {
+    "zones": [
+      "M1",
+      "M4",
+      "M15",
+      "M20"
+    ],
+    "cutoffs": {
+      "mon": "14:00",
+      "tue": "14:00",
+      "wed": "14:00",
+      "thu": "14:00",
+      "fri": "16:00",
+      "sat": "12:00",
+      "sun": null
+    },
+    "bankHolidays": "closed",
+    "fee": 8,
+    "collect": "Collect from the studio in Ancoats, by arrangement."
+  },
+  "makeThis": {
+    "title": "Seen it somewhere? Send the link.",
+    "intro": "TikTok, Instagram or Pinterest, with your budget and day.",
+    "message": "Hi Petal Post, can you do this one?",
+    "budgets": [
+      "£30",
+      "£45",
+      "£60"
+    ],
+    "photo": {
+      "src": "img/card.webp",
+      "width": 800,
+      "height": 1000,
+      "alt": "Blush roses with a card tucked in"
+    }
+  },
+  "live": {
+    "title": "Come to a LIVE",
+    "sessions": [
+      {
+        "date": "2026-10-22",
+        "time": "19:00",
+        "where": "TikTok",
+        "what": "Pre-orders, live"
+      },
+      {
+        "date": "2026-11-05",
+        "time": "19:00",
+        "where": "Instagram",
+        "what": "The next drop, shown first"
+      }
+    ],
+    "links": {
+      "tiktok": "https://www.tiktok.com/@petalposttest",
+      "instagram": "https://www.instagram.com/petalposttest/"
+    }
+  },
+  "drop": {
+    "name": "The Friday drop",
+    "intro": "Twelve bouquets, made once, every Friday evening.",
+    "when": {
+      "day": "fri",
+      "time": "19:00",
+      "hours": 48
+    },
+    "made": 12,
+    "staleMinutes": 10,
+    "items": [
+      {
+        "name": "Rose and blush",
+        "price": 48,
+        "photo": {
+          "src": "img/drop-rose.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "Pink roses in pink tissue"
+        }
+      },
+      {
+        "name": "Winter white",
+        "price": 45,
+        "photo": {
+          "src": "img/drop-white.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "White flowers held against a white wall"
+        }
+      }
+    ]
+  },
+  "visitInfo": {
+    "kicker": "Collect",
+    "title": "Collect from the studio",
+    "intro": "Collection by arrangement.",
+    "checked": "2026-11",
+    "payment": "Card or bank transfer, before collection.",
+    "access": [
+      {
+        "label": "Step-free entrance",
+        "yes": true
+      }
+    ]
+  },
+  "questions": [
+    {
+      "topic": "Delivery",
+      "q": "Can you deliver today?",
+      "a": "Yes, in our Manchester areas, if you order by 2pm on a weekday, 4pm on Friday or noon on Saturday.",
+      "home": true
+    },
+    {
+      "topic": "Ordering",
+      "q": "How do I pay?",
+      "a": "Message us your order; we reply with a payment link.",
+      "home": true
+    }
+  ]
+}

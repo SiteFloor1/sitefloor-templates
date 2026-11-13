@@ -1,0 +1,14 @@
+{#- Rooms, lit: the client's photographs of finished rooms at night, side by side (a row that scrolls sideways on a
+    phone), each with the room, its scene and what was done. -#}
+{%- set sec = site.sections.litRooms %}
+<section id="rooms" class="el-rooms" data-feature="lit-rooms" aria-label="{{ sec.title | plain }}"><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <ul class="el-rooms-row">
+    {%- for r in site.rooms.items %}
+    <li class="el-room">
+      <figure><img src="{{ r.photo.src | img }}" alt="{{ r.photo.alt }}" width="{{ r.photo.width }}" height="{{ r.photo.height }}" loading="lazy" decoding="async"></figure>
+      <div class="el-room-t"><h3>{{ r.name }}</h3><p class="el-room-s">{{ r.scene }}</p><p class="el-room-d">{{ r.did }}</p></div>
+    </li>
+    {%- endfor %}
+  </ul>
+</div></section>

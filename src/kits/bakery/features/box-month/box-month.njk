@@ -1,0 +1,12 @@
+{#- A box a month: a gift subscription through the shop's own Stripe subscription link. -#}
+{%- set sec = site.sections.boxMonth %}
+{%- set m = site.boxMonth %}
+<section id="box-month" class="sec-box-month" data-feature="box-month"{{ "box-month" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="bm">
+    <p class="bm-what">{{ m.what }}</p>
+    <p class="bm-price"><b>{{ m.price | pounds }}</b> a month</p>
+    {% set pay = m.payLink %}{% set payLabel = "Start the box a month" %}{% include "features/pay-link/button.njk" %}
+    {%- if m.note %}<p class="bx-note">{{ m.note }}</p>{% endif %}
+  </div>
+</div></section>

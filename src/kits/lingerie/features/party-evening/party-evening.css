@@ -1,0 +1,8 @@
+/* The bridal party evening: the words and the evenings left, the photograph right (the private evening is the mirror). */
+.party-in { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: var(--s3); align-items: center; }
+.party-ph { margin: 0; }
+.party-ph img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; }
+.party-t { min-width: 0; }
+.party-names { grid-column: 1 / -1; }
+.party-names textarea { width: 100%; font: inherit; resize: vertical; }
+@media (max-width: 860px) { .party-in { grid-template-columns: 1fr; } .party-ph { order: -1; } }

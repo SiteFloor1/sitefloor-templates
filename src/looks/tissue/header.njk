@@ -1,0 +1,25 @@
+{#- Tissue header: the pearl pin and the name in Tenor (normal case), the pages as plain words, Order as one underlined
+    word. On a phone: the name, Order and Menu. -#}
+<header class="nav ts-nav"><div class="wrap ts-nav-in">
+  <a class="ts-brand" href="{{ 'index' | href }}">
+    {%- if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="{{ site.business.name }}" height="28">{% else %}{% set pinClass = "" %}{% include "looks/tissue/parts/pin.njk" %}<span>{{ site.business.name }}</span>{% endif %}
+  </a>
+  <nav class="ts-links" aria-label="Main">
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+  </nav>
+  <a class="ts-order" href="{{ site.messages.order | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.order }}"{% endif %} target="_blank" rel="noopener">Order</a>
+  <button class="burger ts-menu" type="button" aria-expanded="false" aria-controls="mnav"><span class="ts-open">Menu</span><span class="ts-close">Close</span></button>
+</div></header>
+<div class="mnav ts-sheet" id="mnav" hidden>
+  <nav aria-label="Pages">
+    <a href="{{ 'index' | href }}"{% if pageId == "index" %} aria-current="page"{% endif %}>Home</a>
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+    {%- include "looks/tissue/parts/more-pages.njk" %}
+  </nav>
+  <p class="ts-sheet-now" data-live-status><span data-status-text>Studio hours</span></p>
+  {%- if site.bouquets and site.bouquets.instagram %}<p class="ts-sheet-ig"><a href="https://www.instagram.com/{{ site.bouquets.instagram }}/" target="_blank" rel="noopener">@{{ site.bouquets.instagram }}</a></p>{% endif %}
+</div>

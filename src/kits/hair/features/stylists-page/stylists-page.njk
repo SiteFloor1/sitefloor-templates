@@ -1,0 +1,11 @@
+{#- The stylists: the three levels in a line each (the price follows the level), every stylist with their work and next
+    free day, and the stylist match when it's on. -#}
+{%- set sp = site.stylistsPage %}
+{%- set ph = { title: sp.title, intro: sp.intro, photo: sp.photo } %}
+{% include "kits/hair/partials/page-head.njk" %}
+<section class="hr-levels" aria-labelledby="lv-h"><div class="wrap">
+  <h2 id="lv-h" class="sr-only">The levels</h2>
+  <dl class="hr-levels-l">{% for l in site.menu.levels %}<div><dt>{{ l.name }}</dt><dd>{{ l.line }}</dd></div>{% endfor %}</dl>
+</div></section>
+{%- if "stylist-match" | enabled %}{% include "kits/hair/features/stylist-match/stylist-match.njk" %}{% endif %}
+{%- set stFull = true %}{% include "kits/hair/features/stylists/stylists.njk" %}{% set stFull = false %}

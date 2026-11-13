@@ -1,0 +1,38 @@
+{#- For our neighbours: one page per live site (the link on the builder's letter). The postcode district and the work,
+    the builder's working hours and promises, how to reach them, and this week at the site from the builder's sheet.
+    No address: the district only. -#}
+{%- set nb = site.neighbours %}
+{%- set ph = { title: nb.title, intro: nb.intro } %}
+{% include "kits/construction/partials/page-head.njk" %}
+<div class="wrap bd-nb" data-feature="neighbours-page" data-nb-site="{{ x.id }}">
+  <div class="bd-nb-where">
+    <p class="bd-nb-code">{{ x.district.code }}</p>
+    <p class="bd-nb-work">{{ x.work }}<span>{{ x.from | monthWords }} to {{ x.to | monthWords }}</span></p>
+  </div>
+  <section class="bd-nb-week" aria-labelledby="nb-week-h">
+    <h2 id="nb-week-h" class="bd-h2">This week</h2>
+    <div data-nb-out hidden>
+      <p class="bd-nb-when" data-nb-when></p>
+      <p class="bd-nb-line" data-nb-week></p>
+      <dl class="bd-nb-dl">
+        <div data-nb-noisy-row><dt>Noisy work</dt><dd data-nb-noisy></dd></div>
+        <div data-nb-del-row><dt>Deliveries</dt><dd data-nb-del></dd></div>
+      </dl>
+    </div>
+    <p class="bd-nb-off" data-nb-off>This week's news loads here. If it doesn't, call us and we'll tell you.</p>
+  </section>
+  <section class="bd-nb-hours" aria-labelledby="nb-hours-h">
+    <h2 id="nb-hours-h" class="bd-h2">When we <em>work</em></h2>
+    <ul>{% for h in nb.hours %}<li>{{ h }}</li>{% endfor %}</ul>
+    {%- if nb.promises %}<ul class="bd-nb-promise">{% for p in nb.promises %}<li>{{ p }}</li>{% endfor %}</ul>{% endif %}
+  </section>
+  <section class="bd-nb-reach" aria-labelledby="nb-reach-h">
+    <h2 id="nb-reach-h" class="bd-h2">Reach <em>us</em></h2>
+    <p>{{ nb.reach }}</p>
+    <div class="bd-nb-acts">
+      <a class="bd-btn" href="tel:{{ site.contact.phone | replace(' ', '') }}">Call {{ site.contact.phone }}</a>
+      {%- set msg = nb.message | replace("{district}", x.district.code) %}
+      <a class="bd-btn bd-btn-q" href="{{ msg | wa }}" data-wa-text="{{ msg }}" target="_blank" rel="noopener">Message us on WhatsApp</a>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: work
+permalink: work.html
+feature: work
+eleventyComputed:
+  title: "{{ site.work.title | plain }}"
+  description: "Recent work from {{ site.business.name }}, {{ site.location.locality }}. Filter by style and see the latest from our Instagram."
+---
+{% include "features/work/work.njk" %}

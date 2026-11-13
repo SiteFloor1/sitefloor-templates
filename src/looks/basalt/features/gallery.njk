@@ -1,0 +1,11 @@
+{#- Basalt gallery ("Worn"): the brand's latest photographs in an uneven row, the handle under them. -#}
+{%- set sec = site.sections.gallery %}
+{%- set g = site.gallery %}
+<section id="work" class="sec-gallery bs-gal" data-feature="gallery" data-gallery-limit="6"{{ "gallery" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  {% include "features/gallery/gallery-list.njk" %}
+  <p class="bs-gal-foot">
+    {%- if g.handle %}<span>@{{ g.handle }}</span>{% endif %}
+    {%- if "work" | enabled %}<a class="wr-link" href="{{ 'work' | href }}"{{ "work" | tierAttr | safe }}>Every photograph</a>{% elif g.profile %}<a class="wr-link" href="{{ g.profile }}" target="_blank" rel="noopener">On Instagram</a>{% endif %}
+  </p>
+</div></section>

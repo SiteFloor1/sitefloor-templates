@@ -1,0 +1,14 @@
+/* Recently handed over: tall photographs with the place and the scope under each; a sideways swipe on phones. */
+.bd-proj { padding-block: 0 clamp(88px, 11vw, 120px); }
+.bd-proj-head { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; border-top: 1px solid var(--line); padding-top: 22px; margin-bottom: 32px; }
+.bd-proj-head a { font-size: 14px; }
+.bd-proj-list { list-style: none; margin: 0; padding: 0; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 24px; }
+.bd-proj-list li > a, .bd-proj-list li { display: grid; gap: 6px; text-decoration: none; color: inherit; align-content: start; }
+.bd-proj-list img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block; margin-bottom: 10px; }
+.bd-proj-list b { font-family: var(--font-display); font-weight: 400; font-size: 21px; line-height: 1.2; }
+.bd-proj-list span { font-size: 14px; color: var(--muted); }
+.bd-proj-list a:hover b { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+@media (max-width: 899px) {
+  .bd-proj-list { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 74%; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; gap: 16px; }
+  .bd-proj-list li { scroll-snap-align: start; }
+}

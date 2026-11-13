@@ -1,0 +1,21 @@
+{#- Today's specials and sold-out dishes, from the restaurant's sheet. Only rows updated today show;
+    if the sheet can't be read, it says to ask instead. A café with a counter (site.counter) also lists its bakes,
+    each tagged from the sheet: "Fresh out 8:10am", "Baked 8:10am" or "Sold out". -#}
+{%- set sec = site.sections.specials %}
+{%- set ctr = site.counter %}
+<section id="specials" class="sp" data-feature="specials" aria-labelledby="sp-h">
+  <p class="rs-k">{{ sec.kicker }}</p>
+  <h2 id="sp-h" class="sp-h">{{ sec.title | markup | safe }}</h2>
+  <p class="sp-date" data-sp-date data-js-only>&nbsp;</p>
+  {%- if ctr %}
+  <ul class="sp-bakes" aria-label="On the counter">
+    {%- for sc in site.menu.sections %}{% if sc.id in ctr.sections %}{% for d in sc.dishes %}
+    <li data-bake="{{ d.id }}"><span class="sp-bname">{{ d.name }}</span><span class="sp-btag" data-bake-tag></span><span class="sp-bprice">{{ d.price | gbp }}</span></li>
+    {%- endfor %}{% endif %}{% endfor %}
+  </ul>
+  {%- endif %}
+  <ul class="sp-list" data-sp-list data-js-only aria-live="polite"><li class="sp-wait">Reading today's board…</li></ul>
+  <p class="sp-out" data-sp-out hidden></p>
+  <p class="sp-off" data-sp-off>{{ sec.intro or "Ask us what's on today." }}</p>
+  <p class="sp-upd rs-small" data-sp-upd data-js-only></p>
+</section>

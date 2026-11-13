@@ -1,0 +1,1370 @@
+{
+  "schemaVersion": 4,
+  "id": "electrician",
+  "mode": "demo",
+  "plan": "signature",
+  "kit": "electrician",
+  "look": "bluehour",
+  "url": "https://electrician.demo.sitefloor.com",
+  "indexable": false,
+  "lang": "en-GB",
+  "business": {
+    "name": "Corbel Light & Power",
+    "schemaType": "Electrician",
+    "description": "Electricians and lighting designers in North London: rewires, lighting design and control, smart homes and car chargers, certified and notified.",
+    "priceRange": "£££",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "447700900137",
+    "phone": "+44 7700 900137",
+    "email": "studio@corbel.example"
+  },
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "location": {
+    "streetAddress": "2 Ashgrove Yard",
+    "locality": "London",
+    "postcode": "N6 4QX",
+    "country": "GB",
+    "area": "Our studio is a yard off Highgate Road. We come to you; the studio is for seeing fittings and meeting about a design.",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=Highgate%20Road%2C%20London"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [
+        [
+          "08:00",
+          "18:00"
+        ]
+      ],
+      "tue": [
+        [
+          "08:00",
+          "18:00"
+        ]
+      ],
+      "wed": [
+        [
+          "08:00",
+          "18:00"
+        ]
+      ],
+      "thu": [
+        [
+          "08:00",
+          "18:00"
+        ]
+      ],
+      "fri": [
+        [
+          "08:00",
+          "17:00"
+        ]
+      ],
+      "sat": [
+        [
+          "09:00",
+          "13:00"
+        ]
+      ],
+      "sun": []
+    },
+    "exceptions": [
+      {
+        "date": "2026-12-25",
+        "ranges": [],
+        "note": "Christmas Day: emergency line only"
+      },
+      {
+        "date": "2026-12-26",
+        "ranges": [],
+        "note": "Boxing Day: emergency line only"
+      }
+    ]
+  },
+  "mark": {
+    "word": "Corbel",
+    "line": "Light & Power"
+  },
+  "nav": [
+    {
+      "label": "Lighting",
+      "page": "lighting",
+      "feature": "room-designer",
+      "fallback": "#lights"
+    },
+    {
+      "label": "Projects",
+      "page": "projects",
+      "feature": "projects-page"
+    },
+    {
+      "label": "Car chargers",
+      "page": "ev-charging",
+      "feature": "ev-check"
+    },
+    {
+      "label": "Your project",
+      "page": "your-project",
+      "feature": "project-page"
+    },
+    {
+      "label": "About",
+      "page": "about",
+      "feature": "custom-pages"
+    },
+    {
+      "label": "Studio",
+      "page": "visit",
+      "feature": "plan-visit",
+      "fallback": "#visit"
+    }
+  ],
+  "features": [
+    "circuits",
+    "call-out",
+    "registers",
+    "lit-rooms",
+    "fault-guide",
+    "visit",
+    "plan-visit",
+    "questions",
+    "reviews",
+    "seasonal",
+    "light-reasons",
+    "projects-page",
+    "ev-check",
+    "room-designer",
+    "dimmer",
+    "project-steps",
+    "before-you-call",
+    "project-page",
+    "photo-band",
+    "gallery",
+    "work",
+    "page-links",
+    "team",
+    "custom-pages",
+    "vouchers",
+    "scene-keypad",
+    "estimate",
+    "house-3d",
+    "ev-3d",
+    "certificates"
+  ],
+  "hero": {
+    "kicker": "Electricians and lighting designers, North London",
+    "title": "Lit to be lived in.",
+    "intro": "We design the light, wire it and sign it off.",
+    "scenes": [
+      {
+        "id": "evening",
+        "label": "EVENING",
+        "line": "Evening. Garden room, wall lights and the drive, all at full.",
+        "wide": {
+          "src": "img/evening-wide.webp",
+          "width": 1920,
+          "height": 1080,
+          "alt": "A brick and glass garden room at blue hour, every light on, beside a stone house"
+        },
+        "tall": {
+          "src": "img/evening-tall.webp",
+          "width": 900,
+          "height": 1125
+        }
+      },
+      {
+        "id": "cinema",
+        "label": "CINEMA",
+        "line": "Cinema. The garden room down low; the front of the house carries on.",
+        "wide": {
+          "src": "img/cinema-wide.webp",
+          "width": 1920,
+          "height": 1080,
+          "alt": "The same house later in the evening, the garden room dimmed and the front rooms lit"
+        },
+        "tall": {
+          "src": "img/cinema-tall.webp",
+          "width": 900,
+          "height": 1125
+        }
+      },
+      {
+        "id": "away",
+        "label": "AWAY",
+        "line": "Away. The porch and two front rooms on a timer, as if someone is home.",
+        "wide": {
+          "src": "img/away-wide.webp",
+          "width": 1920,
+          "height": 1080,
+          "alt": "The front of the same house after dark, the porch and two windows lit"
+        },
+        "tall": {
+          "src": "img/away-tall.webp",
+          "width": 900,
+          "height": 1125
+        }
+      }
+    ]
+  },
+  "sections": {
+    "lights": {
+      "title": "Every light *has a reason.*",
+      "intro": "Tap a number to see the fitting and why it's there."
+    },
+    "house": {
+      "title": "Light *the house.*",
+      "intro": "Every fitting in this model is priced from our own list. Light a room and the total follows."
+    },
+    "litRooms": {
+      "title": "Rooms, *at night.*",
+      "intro": "Each one on its own scene, from one keypad by the door."
+    },
+    "circuits": {
+      "title": "Everything we do, *as it reads on the board.*",
+      "intro": "Every fuse board has a chart inside its door. This is ours. Switch a circuit on to see what's included."
+    },
+    "fault": {
+      "title": "Something's wrong? *Tell us this.*",
+      "intro": "What helps us most when you call, and one thing not to do."
+    },
+    "steps": {
+      "title": "How your project *runs.*",
+      "intro": "From the first visit to the certificates in your hand."
+    },
+    "beforeCall": {
+      "title": "Before *you call.*",
+      "intro": "Send four answers and a photo of your fuse board, and we can bring a quote to the first visit."
+    },
+    "estimate": {
+      "title": "The whole house, *roughly.*",
+      "intro": "A range from homes we've done, before anyone visits."
+    },
+    "dimmer": {
+      "title": "Turn it *down.*",
+      "intro": "The same garden room, photographed from one spot as the lights come up."
+    },
+    "ev3d": {
+      "title": "On your drive, *in 3D.*",
+      "intro": "Slide the charger along the wall and see where the cable runs."
+    },
+    "reviews": {
+      "title": "In *their* words"
+    },
+    "gallery": {
+      "title": "Lately",
+      "intro": "On a live site these come from our Instagram; here, stock photos."
+    },
+    "vouchers": {
+      "title": "Give a *lighting design*",
+      "intro": "A voucher towards a design visit, or the work itself."
+    },
+    "questions": {
+      "title": "Before *we start*"
+    },
+    "visit": {
+      "title": "The *studio*"
+    }
+  },
+  "messages": {
+    "general": "Hello Corbel, I'd like to talk about some work at home."
+  },
+  "callOut": {
+    "line": "Lost power, or a burning smell?",
+    "when": "Emergency call-outs, day and night.",
+    "message": "Hello Corbel, I have an electrical emergency."
+  },
+  "registers": [
+    {
+      "scheme": "niceic",
+      "label": "NICEIC Approved Contractor (demo)",
+      "url": "https://www.niceic.com/find-a-contractor"
+    },
+    {
+      "scheme": "trustmark",
+      "label": "TrustMark registered (demo)",
+      "url": "https://www.trustmark.org.uk/find-a-tradesperson"
+    }
+  ],
+  "circuits": {
+    "items": [
+      {
+        "id": "lighting",
+        "name": "Lighting design and control",
+        "included": [
+          "A lighting plan for every room, drawn before a wall is opened",
+          "Scenes on one keypad: Evening, Cinema, Away",
+          "Wired or wireless control, so finished walls can stay finished"
+        ]
+      },
+      {
+        "id": "rewire",
+        "name": "Rewires and new circuits",
+        "included": [
+          "Whole and part rewires, room by room so you can stay in",
+          "A new consumer unit with surge protection",
+          "Notified under Part P; certificates at the end"
+        ]
+      },
+      {
+        "id": "smart",
+        "name": "Smart home and Wi-Fi",
+        "included": [
+          "Heating, blinds, music and cameras on one system",
+          "Wi-Fi that reaches the garden room",
+          "Set up on your phones, and shown to everyone at home"
+        ]
+      },
+      {
+        "id": "ev",
+        "name": "Car chargers",
+        "included": [
+          "A survey of your supply first",
+          "A charger sited where the lead reaches",
+          "Load management with a heat pump or shower"
+        ]
+      },
+      {
+        "id": "testing",
+        "name": "Testing and certificates",
+        "included": [
+          "Electrical Installation Condition Reports (EICR)",
+          "For owners, landlords and buyers",
+          "Explained in plain English, observation by observation"
+        ]
+      },
+      {
+        "id": "faults",
+        "name": "Faults and call-outs",
+        "included": [
+          "Day and night",
+          "Tell us what happened; we'll tell you when we can be there",
+          "Made safe first, repaired after"
+        ]
+      }
+    ]
+  },
+  "rooms": {
+    "items": [
+      {
+        "id": "kitchen",
+        "name": "Kitchen",
+        "scene": "Evening",
+        "did": "Pendants on their own dimmer, light under the wall cupboards.",
+        "photo": {
+          "src": "img/room-kitchen.webp",
+          "width": 960,
+          "height": 1200,
+          "alt": "A kitchen at night: two globe pendants over a stone island, lit cupboards behind"
+        }
+      },
+      {
+        "id": "living",
+        "name": "Living room",
+        "scene": "Evening",
+        "did": "Lamps on the keypad with the ceiling light, so one press sets the room.",
+        "photo": {
+          "src": "img/room-living.webp",
+          "width": 960,
+          "height": 1200,
+          "alt": "A living room at dusk lit by lamps, rain-blue windows behind the sofa"
+        }
+      },
+      {
+        "id": "cinema",
+        "name": "Cinema",
+        "scene": "Cinema",
+        "did": "Step lights, a star ceiling and lights that fade when the film starts.",
+        "photo": {
+          "src": "img/room-cinema.webp",
+          "width": 960,
+          "height": 1201,
+          "alt": "A home cinema: red reclining seats on lit risers, a starry ceiling"
+        }
+      },
+      {
+        "id": "bathroom",
+        "name": "Bathroom",
+        "scene": "Late",
+        "did": "Mirror lights for the morning, a low glow for the bath.",
+        "photo": {
+          "src": "img/room-bath.webp",
+          "width": 960,
+          "height": 1200,
+          "alt": "A marble bathroom: brass wall lights either side of the mirror, a lit vanity"
+        }
+      }
+    ]
+  },
+  "photoBand": {
+    "src": "img/band-terrace.webp",
+    "srcMobile": "img/band-terrace-tall.webp",
+    "width": 2400,
+    "height": 1000,
+    "alt": "A long dining room open to a lit terrace and a pool at night",
+    "kicker": "Inside and out",
+    "caption": "Light that carries from the room to the terrace."
+  },
+  "faultGuide": {
+    "message": "Hello Corbel, something's wrong with our electrics.",
+    "safety": "Please don't open or repair anything yourself. If you smell burning, see scorch marks or hear crackling, keep clear and call us now.",
+    "cases": [
+      {
+        "id": "trip",
+        "label": "Keeps tripping",
+        "tell": [
+          "When it trips: straight away, or after something is switched on.",
+          "What was running at the time.",
+          "Whether it happens in wet weather.",
+          "A photo of the board with its door open, if it's easy to reach."
+        ]
+      },
+      {
+        "id": "off",
+        "label": "Part of the house is off",
+        "tell": [
+          "Which rooms or sockets are off, and which still work.",
+          "When you first noticed.",
+          "Whether your neighbours have power.",
+          "Anything new fitted or plugged in lately."
+        ]
+      },
+      {
+        "id": "smell",
+        "label": "Burning smell or buzzing",
+        "tell": [
+          "Where the smell or sound is coming from.",
+          "When it started, and whether it comes and goes.",
+          "Whether anything looks scorched or discoloured.",
+          "Keep clear of it while you call."
+        ]
+      },
+      {
+        "id": "warm",
+        "label": "Socket or switch feels warm",
+        "tell": [
+          "Which socket or switch, and in which room.",
+          "What is plugged in or switched on there.",
+          "How long it has felt warm.",
+          "Stop using it while you call."
+        ]
+      }
+    ]
+  },
+  "fittings": {
+    "photo": {
+      "src": "img/garden-room.webp",
+      "width": 1488,
+      "height": 960,
+      "alt": "The garden room at dusk: a vaulted ceiling lit, wall lights on the brick, lights over the garage door",
+      "caption": "Fittings named for illustration."
+    },
+    "items": [
+      {
+        "x": 36.7,
+        "y": 58.8,
+        "name": "Wall lights, up and down",
+        "why": "Two beams graze the brick, so the wall glows instead of the room glaring.",
+        "scene": "Evening, Cinema",
+        "colour": "Warm white, 2700K",
+        "control": "Dimmed from the keypad by the doors"
+      },
+      {
+        "x": 33,
+        "y": 24,
+        "name": "Light washing the vaulted ceiling",
+        "why": "Hidden along the beam, it lights the ceiling and makes the room feel taller.",
+        "scene": "Evening",
+        "colour": "Warm white, 2700K",
+        "control": "Its own circuit, so it can fade alone"
+      },
+      {
+        "x": 52.7,
+        "y": 26.5,
+        "name": "Downlight in the tall window",
+        "why": "One narrow beam on the table, nothing in your eyes from the sofa.",
+        "scene": "Evening",
+        "colour": "Warm white, 2700K",
+        "control": "Narrow beam, glare-free"
+      },
+      {
+        "x": 68.5,
+        "y": 75.3,
+        "name": "Lights over the garage door",
+        "why": "Light where you park and where you walk, on a timer and a sensor.",
+        "scene": "Away, and on arrival",
+        "colour": "Warm white, 3000K",
+        "control": "Sunset to midnight, then on movement"
+      }
+    ]
+  },
+  "projectsPage": {
+    "kicker": "Projects",
+    "title": "Finished *work*",
+    "intro": "Houses we've lit, rewired and wired for cars, by kind of job."
+  },
+  "projects": {
+    "types": [
+      {
+        "id": "lighting",
+        "label": "Lighting"
+      },
+      {
+        "id": "rewire",
+        "label": "Rewires"
+      },
+      {
+        "id": "smart",
+        "label": "Smart home"
+      },
+      {
+        "id": "ev",
+        "label": "Car chargers"
+      }
+    ],
+    "items": [
+      {
+        "id": "garden-room",
+        "title": "A garden room that glows at dusk",
+        "area": "Highgate",
+        "type": "lighting",
+        "did": [
+          "Ceiling wash along the beam",
+          "Wall lights up and down on the brick",
+          "Three scenes on one keypad"
+        ],
+        "photo": {
+          "src": "img/p-dusk.webp",
+          "width": 1200,
+          "height": 800,
+          "alt": "A brick and glass garden room lit at dusk"
+        }
+      },
+      {
+        "id": "period",
+        "title": "A Victorian front room, relit",
+        "area": "Islington",
+        "type": "lighting",
+        "did": [
+          "Picture lights and lamps on one circuit",
+          "The chandelier on its own dimmer",
+          "Original switches kept, new wiring behind"
+        ],
+        "photo": {
+          "src": "img/p-period.webp",
+          "width": 1200,
+          "height": 800,
+          "alt": "A dark blue Victorian sitting room with a candlelit fireplace and a chandelier"
+        }
+      },
+      {
+        "id": "townhouse",
+        "title": "A townhouse, rewired floor by floor",
+        "area": "Primrose Hill",
+        "type": "rewire",
+        "did": [
+          "Rewired a floor at a time, the family at home",
+          "A new consumer unit with surge protection",
+          "Part P notified; EICR at the end"
+        ],
+        "photo": {
+          "src": "img/p-townhouse.webp",
+          "width": 1200,
+          "height": 1500,
+          "alt": "A Georgian townhouse at dusk, its windows lit"
+        }
+      },
+      {
+        "id": "pool",
+        "title": "Terrace, pool and garden on one app",
+        "area": "Hampstead",
+        "type": "smart",
+        "did": [
+          "Pool and terrace lights on scenes",
+          "Heating, blinds and music together",
+          "Wi-Fi to the end of the garden"
+        ],
+        "photo": {
+          "src": "img/p-pool.webp",
+          "width": 1200,
+          "height": 800,
+          "alt": "A terrace beside a long lit pool at night"
+        }
+      },
+      {
+        "id": "media",
+        "title": "A media room that dims itself",
+        "area": "Muswell Hill",
+        "type": "smart",
+        "did": [
+          "Lights fade when the film starts",
+          "Projector, screen and sound on one remote",
+          "Blackout blinds on the scene"
+        ],
+        "photo": {
+          "src": "img/p-media.webp",
+          "width": 1200,
+          "height": 800,
+          "alt": "A living room at night with a projector screen and a fire"
+        }
+      },
+      {
+        "id": "bath",
+        "title": "A bathroom lit like a hotel's",
+        "area": "Hampstead",
+        "type": "lighting",
+        "did": [
+          "Mirror lights for the morning",
+          "A low glow for the bath, on a sensor at night",
+          "Zones and IP ratings checked"
+        ],
+        "photo": {
+          "src": "img/p-bath.webp",
+          "width": 1200,
+          "height": 1500,
+          "alt": "A bathroom with a copper bath by a tall curtained window"
+        }
+      },
+      {
+        "id": "chandelier",
+        "title": "A double-height hall and its chandeliers",
+        "area": "Belsize Park",
+        "type": "lighting",
+        "did": [
+          "Two chandeliers on a winch for cleaning",
+          "Scene dimming from the hall and the landing"
+        ],
+        "photo": {
+          "src": "img/p-chandelier.webp",
+          "width": 1200,
+          "height": 1500,
+          "alt": "Two crystal chandeliers lit against a dark ceiling"
+        }
+      },
+      {
+        "id": "charger",
+        "title": "A charger on the garage wall",
+        "area": "Highgate",
+        "type": "ev",
+        "did": [
+          "7 kW, load managed with the heat pump",
+          "Sited where the lead reaches both cars"
+        ],
+        "photo": {
+          "src": "img/ev-driveway.webp",
+          "width": 1000,
+          "height": 1250,
+          "alt": "A wall-mounted car charger on a brick garage"
+        }
+      }
+    ]
+  },
+  "evPage": {
+    "kicker": "Car chargers",
+    "title": "A charger *on your drive*",
+    "intro": "Four answers tell you whether it's a standard install, and what it costs."
+  },
+  "ev": {
+    "message": "Hello Corbel, about a car charger.",
+    "standard": {
+      "price": 1195,
+      "includedMetres": 10,
+      "what": "A 7 kW charger, fitted, tested and set up on your phone."
+    },
+    "perMetre": 28,
+    "maxMetres": 30,
+    "minFuse": 80,
+    "leadMetres": 7.5,
+    "grantUrl": "https://www.gov.uk/government/collections/government-grants-for-low-emission-vehicles",
+    "photo": {
+      "src": "img/ev-driveway.webp",
+      "width": 1000,
+      "height": 1250,
+      "alt": "A wall-mounted charger on a brick garage, the lead plugged into a white car",
+      "caption": "A charger we'd fit (stock photo)."
+    }
+  },
+  "lightingPage": {
+    "kicker": "Lighting",
+    "title": "Light, *in layers*",
+    "intro": "Choose a room, its size and the layers of light. The price is ours, for fittings we supply and fit."
+  },
+  "designer": {
+    "message": "Hello Corbel, I've designed a room on your website.",
+    "sizes": [
+      {
+        "id": "s",
+        "label": "Up to 12 m²"
+      },
+      {
+        "id": "m",
+        "label": "12–25 m²"
+      },
+      {
+        "id": "l",
+        "label": "Over 25 m²"
+      }
+    ],
+    "rooms": [
+      {
+        "id": "kitchen",
+        "name": "Kitchen"
+      },
+      {
+        "id": "living",
+        "name": "Living room"
+      },
+      {
+        "id": "bedroom",
+        "name": "Bedroom"
+      },
+      {
+        "id": "bathroom",
+        "name": "Bathroom"
+      },
+      {
+        "id": "hall",
+        "name": "Hall and stairs"
+      }
+    ],
+    "layers": [
+      {
+        "id": "down",
+        "name": "Downlights",
+        "about": "Even light to work and clean by.",
+        "price": 145,
+        "per": {
+          "s": 4,
+          "m": 8,
+          "l": 12
+        }
+      },
+      {
+        "id": "wall",
+        "name": "Wall lights",
+        "about": "Light on the walls, so the room feels bigger and softer.",
+        "price": 260,
+        "per": {
+          "s": 2,
+          "m": 4,
+          "l": 6
+        }
+      },
+      {
+        "id": "pendant",
+        "name": "Pendants",
+        "about": "Over a table or an island, on their own dimmer.",
+        "price": 340,
+        "per": {
+          "s": 1,
+          "m": 2,
+          "l": 3
+        }
+      },
+      {
+        "id": "plinth",
+        "name": "A lit plinth or shelf",
+        "about": "A low line of light for the evening and the night.",
+        "price": 220,
+        "per": {
+          "s": 1,
+          "m": 2,
+          "l": 3
+        }
+      }
+    ],
+    "control": {
+      "name": "A scene keypad",
+      "price": 420
+    }
+  },
+  "dimmer": {
+    "label": "Dim the garden room",
+    "note": "On a client's site, their own photographs from one spot as the lights come up. This demo uses two stock photographs of one house.",
+    "frames": [
+      {
+        "src": "img/dim-low.webp",
+        "width": 1500,
+        "height": 1000,
+        "alt": "The garden room with its lights low, the sky still light",
+        "label": "Low"
+      },
+      {
+        "src": "img/dim-full.webp",
+        "width": 1500,
+        "height": 1000,
+        "alt": "The garden room with every light up at dusk",
+        "label": "Full"
+      }
+    ]
+  },
+  "yourProjectPage": {
+    "kicker": "Your project",
+    "title": "From the first visit *to your certificates*",
+    "intro": "How a job runs with us, what to send before we speak, and a range for the whole house."
+  },
+  "steps": {
+    "items": [
+      {
+        "title": "First visit",
+        "when": "Within a week",
+        "text": "We walk the house with you, look at the board and talk about how you live in it."
+      },
+      {
+        "title": "The design",
+        "when": "Two weeks later",
+        "text": "A lighting plan for each room and a fixed quote, line by line."
+      },
+      {
+        "title": "The work",
+        "when": "Days, not weeks",
+        "text": "Room by room, dust sheets down, everything back as we found it."
+      },
+      {
+        "title": "Tested and certified",
+        "when": "The last day",
+        "text": "Every circuit tested, notified under Part P, and the certificates in your hand."
+      }
+    ]
+  },
+  "beforeYouCall": {
+    "message": "Hello Corbel, before we speak:",
+    "ages": [
+      "Before 1919",
+      "1919–1960",
+      "1960–2000",
+      "Since 2000",
+      "Not sure"
+    ],
+    "goals": [
+      "Lighting design",
+      "A rewire",
+      "Smart home",
+      "A car charger",
+      "An EICR"
+    ]
+  },
+  "estimate": {
+    "message": "Hello Corbel, I'd like a proper quote.",
+    "bedroomsMax": 7,
+    "homes": [
+      {
+        "id": "flat",
+        "label": "Flat",
+        "factor": 0.8
+      },
+      {
+        "id": "terrace",
+        "label": "Terraced",
+        "factor": 1
+      },
+      {
+        "id": "semi",
+        "label": "Semi-detached",
+        "factor": 1.1
+      },
+      {
+        "id": "detached",
+        "label": "Detached",
+        "factor": 1.25
+      }
+    ],
+    "works": [
+      {
+        "id": "rewire",
+        "name": "A full rewire",
+        "base": {
+          "min": 3200,
+          "max": 4200
+        },
+        "perBedroom": {
+          "min": 1100,
+          "max": 1500
+        }
+      },
+      {
+        "id": "lighting",
+        "name": "Lighting design and control",
+        "base": {
+          "min": 2400,
+          "max": 3600
+        },
+        "perBedroom": {
+          "min": 900,
+          "max": 1600
+        }
+      },
+      {
+        "id": "smart",
+        "name": "Smart home and Wi-Fi",
+        "base": {
+          "min": 1800,
+          "max": 3000
+        },
+        "perBedroom": {
+          "min": 400,
+          "max": 800
+        }
+      },
+      {
+        "id": "ev",
+        "name": "A car charger",
+        "base": {
+          "min": 1195,
+          "max": 1600
+        },
+        "perBedroom": {
+          "min": 0,
+          "max": 0
+        }
+      }
+    ]
+  },
+  "house3d": {
+    "message": "Hello Corbel, I've been lighting the house on your website.",
+    "types": [
+      {
+        "id": "downlight",
+        "name": "Downlight",
+        "price": 145
+      },
+      {
+        "id": "wall",
+        "name": "Wall light",
+        "price": 260
+      },
+      {
+        "id": "pendant",
+        "name": "Pendant",
+        "price": 340
+      },
+      {
+        "id": "strip",
+        "name": "Lit strip",
+        "price": 220
+      },
+      {
+        "id": "uplight",
+        "name": "Uplight",
+        "price": 180
+      },
+      {
+        "id": "keypad",
+        "name": "Scene keypad",
+        "price": 420
+      },
+      {
+        "id": "bollard",
+        "name": "Path light",
+        "price": 195
+      },
+      {
+        "id": "underwater",
+        "name": "Pool light",
+        "price": 360
+      },
+      {
+        "id": "starlight",
+        "name": "Star ceiling",
+        "price": 1850
+      }
+    ],
+    "rooms": [
+      {
+        "id": "living",
+        "fittings": {
+          "downlight": 6,
+          "wall": 2,
+          "uplight": 2,
+          "keypad": 1
+        }
+      },
+      {
+        "id": "kitchen",
+        "fittings": {
+          "downlight": 6,
+          "pendant": 2,
+          "strip": 1,
+          "keypad": 1
+        }
+      },
+      {
+        "id": "garden-room",
+        "fittings": {
+          "wall": 2,
+          "pendant": 2,
+          "strip": 1
+        }
+      },
+      {
+        "id": "hall",
+        "fittings": {
+          "wall": 1,
+          "strip": 1
+        }
+      },
+      {
+        "id": "bedroom",
+        "fittings": {
+          "downlight": 4,
+          "wall": 2,
+          "strip": 1,
+          "keypad": 1
+        }
+      },
+      {
+        "id": "bathroom",
+        "fittings": {
+          "downlight": 3,
+          "wall": 2,
+          "strip": 1
+        }
+      },
+      {
+        "id": "cinema",
+        "fittings": {
+          "downlight": 4,
+          "strip": 1,
+          "keypad": 1,
+          "starlight": 1
+        }
+      },
+      {
+        "id": "garden",
+        "fittings": {
+          "downlight": 6,
+          "uplight": 3,
+          "bollard": 6,
+          "wall": 4
+        }
+      },
+      {
+        "id": "pool",
+        "fittings": {
+          "underwater": 4
+        }
+      }
+    ]
+  },
+  "certificates": {
+    "kicker": "Your home",
+    "title": "Your *certificates*",
+    "intro": "The code is in the message we sent with your certificates.",
+    "source": "simulated",
+    "example": "HX7Q2M",
+    "intervalYears": 10,
+    "weeksBefore": 6,
+    "landlord": {
+      "text": "Letting the home? In England the electrics must be inspected and tested at least every five years, and tenants given proof that they have been.",
+      "source": "https://www.gov.uk/government/publications/electrical-safety-standards-in-the-private-rented-sector-guidance-for-landlords-tenants-and-local-authorities/guide-for-landlords-electrical-safety-standards-in-the-private-rented-sector",
+      "checked": "2026-10-29"
+    }
+  },
+  "reviews": {
+    "source": "sample",
+    "items": [
+      {
+        "text": "They drew every room first. The keypad by the door does exactly what they said it would.",
+        "author": "Anna L.",
+        "rating": 5,
+        "date": "2026-09"
+      },
+      {
+        "text": "Rewired a floor at a time with three children at home. The certificates were in my inbox the same day.",
+        "author": "Tom R.",
+        "rating": 5,
+        "date": "2026-07"
+      },
+      {
+        "text": "The charger went where they said, with the lead reaching both cars.",
+        "author": "Priya M.",
+        "rating": 5,
+        "date": "2026-06"
+      }
+    ]
+  },
+  "gallery": {
+    "source": "photos",
+    "handle": "corbel.sitefloordemo",
+    "filters": [
+      {
+        "tag": "rooms",
+        "label": "Rooms"
+      },
+      {
+        "tag": "outside",
+        "label": "Outside"
+      }
+    ],
+    "photos": [
+      {
+        "src": "img/room-kitchen.webp",
+        "width": 960,
+        "height": 1200,
+        "alt": "A kitchen at night, pendants over the island",
+        "caption": "Kitchen pendants",
+        "tags": [
+          "rooms"
+        ]
+      },
+      {
+        "src": "img/p-twilight.webp",
+        "width": 1200,
+        "height": 800,
+        "alt": "A garden room lit at twilight",
+        "caption": "The garden room",
+        "tags": [
+          "outside"
+        ]
+      },
+      {
+        "src": "img/room-cinema.webp",
+        "width": 960,
+        "height": 1201,
+        "alt": "A home cinema with lit risers",
+        "caption": "Step lights",
+        "tags": [
+          "rooms"
+        ]
+      },
+      {
+        "src": "img/p-pool.webp",
+        "width": 1200,
+        "height": 800,
+        "alt": "A lit pool beside a terrace at night",
+        "caption": "Pool and terrace",
+        "tags": [
+          "outside"
+        ]
+      },
+      {
+        "src": "img/room-bath.webp",
+        "width": 960,
+        "height": 1200,
+        "alt": "A bathroom with lit mirror",
+        "caption": "Mirror lights",
+        "tags": [
+          "rooms"
+        ]
+      },
+      {
+        "src": "img/p-townhouse.webp",
+        "width": 1200,
+        "height": 1500,
+        "alt": "A townhouse at dusk",
+        "caption": "Rewired",
+        "tags": [
+          "outside"
+        ]
+      }
+    ]
+  },
+  "work": {
+    "kicker": "Lately",
+    "title": "From our jobs",
+    "intro": "On a live site these come straight from our Instagram; this demo uses stock photos."
+  },
+  "pageLinks": [
+    {
+      "page": "lighting",
+      "image": "img/room-living.webp",
+      "kicker": "Lighting",
+      "title": "Design a room's light",
+      "cta": "The room designer"
+    },
+    {
+      "page": "ev-charging",
+      "image": "img/ev-driveway.webp",
+      "kicker": "Car chargers",
+      "title": "Will one go on your drive?",
+      "cta": "Check in a minute"
+    }
+  ],
+  "staff": [
+    {
+      "name": "Tom",
+      "role": "Lighting designer",
+      "years": 16,
+      "days": "Mon–Fri",
+      "photo": "img/p-period.webp",
+      "knownFor": [
+        "Period houses",
+        "Lighting control"
+      ],
+      "bio": "Draws the lighting plan for every room."
+    },
+    {
+      "name": "Asha",
+      "role": "Electrician, approved",
+      "years": 11,
+      "days": "Mon–Sat",
+      "photo": "img/room-kitchen.webp",
+      "knownFor": [
+        "Rewires",
+        "Testing and certificates"
+      ],
+      "bio": "Runs the job on site and signs the certificates."
+    }
+  ],
+  "team": {
+    "kicker": "The team",
+    "title": "Who does *the work*",
+    "intro": "A lighting designer and the electricians who wire what's drawn.",
+    "showcase": true,
+    "yearsLabel": "years",
+    "bookLine": "Request a visit"
+  },
+  "pages": [
+    {
+      "slug": "about",
+      "kicker": "About",
+      "title": "Light, *and the wiring behind it*",
+      "description": "About Corbel Light & Power, electricians and lighting designers in North London.",
+      "intro": "A small studio of electricians and one lighting designer.",
+      "blocks": [
+        {
+          "type": "text",
+          "heading": "Why we draw first",
+          "body": "Most rooms are lit from the middle of the ceiling. We start from how you use the room in the evening, and draw it before any wall is opened.\n\nThe same people design it, wire it and test it."
+        },
+        {
+          "type": "photo",
+          "src": "img/p-twilight.webp",
+          "alt": "A garden room lit at twilight beside a stone house",
+          "caption": "A garden room, finished at dusk."
+        },
+        {
+          "type": "book",
+          "text": "Tell us about your house.",
+          "label": "Request a visit"
+        }
+      ]
+    }
+  ],
+  "vouchers": {
+    "amounts": [
+      250,
+      500,
+      1000
+    ],
+    "custom": {
+      "min": 100,
+      "max": 3000
+    },
+    "validMonths": 24,
+    "howToBuy": "We reply with a payment link. The voucher comes as a card in the post or a picture on WhatsApp.",
+    "terms": "Towards a design visit or any work. Not exchangeable for cash."
+  },
+  "seasons": [
+    {
+      "name": "Christmas",
+      "from": "2026-11-30",
+      "to": "2027-01-03",
+      "tint": "festive",
+      "banner": "Studio closed 24 December to 2 January. The emergency line stays open.",
+      "link": {
+        "label": "Call",
+        "href": "#fault"
+      }
+    }
+  ],
+  "visitInfo": {
+    "kicker": "The studio",
+    "title": "Seeing the *fittings*",
+    "intro": "Come and see the fittings and the keypads before you choose. By appointment.",
+    "checked": "2026-11",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "Tufnell Park station",
+        "origin": "Tufnell Park station, London",
+        "minutes": 9,
+        "steps": [
+          "Leave the station and turn up Brecknock Road",
+          "Turn left onto Highgate Road",
+          "Ashgrove Yard is the gated yard on the right"
+        ]
+      },
+      {
+        "mode": "bus",
+        "from": "Buses C2 and 214",
+        "stop": "Highgate Road",
+        "minutes": 3,
+        "steps": [
+          "Get off at the Highgate Road stop",
+          "Walk on fifty metres to the yard gate"
+        ]
+      }
+    ],
+    "parking": [
+      {
+        "name": "Two spaces in the yard",
+        "price": "free for visitors",
+        "paid": "never",
+        "note": "Tell us your registration when you book.",
+        "bankHolidays": "free"
+      }
+    ],
+    "access": [
+      {
+        "label": "Step-free entrance",
+        "yes": true
+      },
+      {
+        "label": "Studio on the ground floor",
+        "yes": true
+      },
+      {
+        "label": "Accessible toilet",
+        "yes": false
+      }
+    ],
+    "accessNote": "The studio is on the ground floor of the yard.",
+    "payment": "Card and bank transfer."
+  },
+  "questions": [
+    {
+      "topic": "Before we start",
+      "q": "Are you registered, and can I check?",
+      "a": "Yes. Our registers are linked under the services; each link goes to the scheme's own public register.",
+      "home": true
+    },
+    {
+      "topic": "Before we start",
+      "q": "Will the work be notified, and do I get certificates?",
+      "a": "Yes. Notifiable work is notified under Part P and you get the certificates when we finish. Keep them: you'll need them when you sell.",
+      "home": true
+    },
+    {
+      "topic": "Lighting",
+      "q": "Can you add lighting control without chasing walls?",
+      "a": "Often, yes: wireless control replaces the switch in its own box. In a new build or a full rewire we wire it in. We'll say which suits your house at the first visit.",
+      "home": true
+    },
+    {
+      "topic": "Lighting",
+      "q": "What happens if the Wi-Fi drops?",
+      "a": "The keypads keep working. They talk to each other on their own system; the app is the extra.",
+      "home": true
+    },
+    {
+      "topic": "Rewires",
+      "q": "Can we stay in the house during a rewire?",
+      "a": "Usually, yes. We work a floor or a few rooms at a time and leave power on where we can each evening.",
+      "home": true
+    },
+    {
+      "topic": "Chargers",
+      "q": "Can I get a grant for a charger?",
+      "a": "Some renters and flat owners can. The amounts change, so check gov.uk; the link is on our car charger page."
+    },
+    {
+      "topic": "Testing",
+      "q": "How often do I need an EICR?",
+      "a": "For a home you own, we suggest every ten years. If you let it, in England the law asks for every five years; see the rules on gov.uk."
+    }
+  ]
+}
