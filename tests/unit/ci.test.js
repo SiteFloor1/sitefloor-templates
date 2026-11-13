@@ -72,3 +72,19 @@ test("a later push reruns a PR's browser tests only when it reaches that PR's ki
   assert.equal(sincePlan(sharedPr, other, sha).all, true); // a shared change meets a newly merged kit
   assert.equal(sincePlan(sharedPr, none, sha).all, false);
 });
+
+test("production is promoted only from a green run: nightly checks main's own push run first, and never moves back", () => {
+  const wf = readFileSync(new URL("../../.github/workflows/check.yml", import.meta.url), "utf8");
+  const promote = wf.slice(wf.indexOf("\n  promote:"));
+  assert.match(promote, /permissions:\n\s+contents: write\n\s+actions: read/);
+  // The gate runs for every event but a push, reads check.yml's push run for this very commit, and fails on a failed one.
+  assert.match(promote, /id: gate\n\s+if: github\.event_name != 'push'/);
+  assert.match(promote, /workflows\/check\.yml\/runs\?event=push&head_sha=\$\{\{ github\.sha \}\}/);
+  assert.match(promote, /none\|"completed success"\)/);
+  assert.match(promote, /completed\*\) echo "::error::.*exit 1/);
+  // Every later step obeys the gate, and the push is skipped when production already includes the commit.
+  assert.equal((promote.match(/if: steps\.gate\.outputs\.go != 'false'/g) ?? []).length, 2);
+  assert.ok(promote.indexOf("merge-base --is-ancestor HEAD FETCH_HEAD") < promote.indexOf('git push origin "HEAD:refs/heads/production"'));
+  const nightly = readFileSync(new URL("../../.github/workflows/nightly.yml", import.meta.url), "utf8");
+  assert.match(nightly, /uses: \.\/\.github\/workflows\/check\.yml[\s\S]*actions: read/);
+});

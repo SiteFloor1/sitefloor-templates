@@ -109,7 +109,7 @@ Kit-scoped as well: a `src/demo` file wired in only by kits' own files, a `src/c
 load them). Shared code (`src/core/lib`, `src/features`, `scripts`, test helpers, CI, any other package change) runs
 everything. A pull request runs them when opened or marked ready; a later push only if what changed since its last green
 commit reaches its kits or shared code. A push to main runs the plan for everything since `production`, then promotes;
-`nightly.yml` runs every browser test daily when main has changed and promotes when green (a safety net for a push to main that started no run). Locally, `npm run check` still runs it all;
+`nightly.yml` runs every browser test daily when main has changed and promotes when green, only if main's own run for that commit was green or never started (a failed one waits for a re-run). Locally, `npm run check` still runs it all;
 `E2E_KITS=bridal npx playwright test` narrows the cross-site specs the same way.
 
 ## Docs: one file per trade, generated indexes
