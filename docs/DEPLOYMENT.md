@@ -21,7 +21,8 @@ pull request ──► GitHub Actions: npm run check (all tests, all sites)
 - If the Cloudflare build fails, the live site keeps serving its last good build.
 - Never push to `production` by hand. It only moves when main is green.
 - `main` is protected (pull request and the `check` status required); the `production` branch stays the
-  deploy gate.
+  deploy gate. Merge through the pull request (button or `PUT …/pulls/N/merge`): a push made with an automation
+  token starts no workflow, so it would never be checked or promoted until the nightly run.
 
 ## Create the project for a site
 Cloudflare dashboard → Workers & Pages → Create → Pages → Connect to Git → `SiteFloor1/sitefloor-templates`.

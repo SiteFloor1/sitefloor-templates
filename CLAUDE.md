@@ -65,7 +65,7 @@ Not a template shop: each trade gets its own kit, each design looks unrecognisab
     After an APPROVED verdict with no findings: commit the audit report to `sitefloor-internal/audits/reports/` first
     (not on the PR branch), then merge `main` into the branch,
     and wait for a CI `check` that **started after `main`'s latest commit** and is green on the PR's head commit.
-    Never merge while a run is still going. Then check `git diff origin/main...HEAD`: outside the PR's own kit or
+    Never merge while a run is still going. Never `git push` to main: only the merge API starts main's run. Then check `git diff origin/main...HEAD`: outside the PR's own kit or
     case-study files it may only ADD the PR's own lines (no removed or changed lines in shared files). If all of
     that holds, merge (`PUT .../pulls/N/merge`, `merge_method=merge`) without asking the owner and without a
     re-audit, even if `main` moved after the approval. A conflict resolved by keeping both sides: list the files in

@@ -2,8 +2,9 @@ name: nightly
 
 # Every browser test on main once a day, so nothing a narrowed run skipped can slip through (CLAUDE.md, golden rule 2).
 # Daily because Actions minutes are free on a public repository. Skipped when main hasn't changed since the last
-# green nightly run. Runs check.yml in full; it doesn't promote (pushes to main do that). A failure shows on main's
-# commit and GitHub emails the repo admin.
+# green nightly run. Runs check.yml in full and, when green, fast-forwards `production` to main (normally a no-op:
+# the push run already did; it catches a push to main that started no run). A failure shows on main's commit and
+# GitHub emails the repo admin.
 # Run it by hand from the Actions tab (Run workflow) for a full check at any time.
 
 on:
@@ -39,7 +40,7 @@ jobs:
     needs: changed
     if: needs.changed.outputs.run == 'true'
     uses: ./.github/workflows/check.yml
-    # check.yml's jobs declare these; its promote job never runs here (push only).
+    # check.yml's jobs declare these; its promote job runs here too when the full check is green.
     permissions:
       contents: write
       pull-requests: read
