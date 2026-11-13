@@ -43,6 +43,7 @@ const WORK = path.join(ROOT, ".build");
  * @param {{ outDir: string, env: "production"|"preview", links: "pretty"|"html", label: string }} o
  */
 export async function buildSite(siteDir, o) {
+  assertOutsideSources(o.outDir, siteDir);
   const site = JSON.parse(await readFile(path.join(siteDir, "site.json"), "utf8"));
   const errors = validateSite(site, {
     catalog: loadCatalog(ROOT),
@@ -99,6 +100,24 @@ export async function buildSite(siteDir, o) {
   await mkdir(path.join(WORK, "manifests"), { recursive: true });
   await writeFile(path.join(WORK, "manifests", `${o.label.replace(/[\\/]/g, "__")}.json`), JSON.stringify(manifest, null, 2));
   return manifest;
+}
+
+/** Whether `child` is `parent` or inside it. @param {string} child @param {string} parent */
+const within = (child, parent) => { const r = path.relative(parent, child); return r === "" || (!r.startsWith("..") && !path.isAbsolute(r)); };
+
+/**
+ * The build empties its output folder first, so it must never point at site sources: not inside `sites/` or the
+ * test fixtures, and not a folder that holds them (`--site ../sites/demos/barber` would otherwise delete that demo).
+ * @param {string} outDir @param {string} siteDir
+ */
+export function assertOutsideSources(outDir, siteDir) {
+  const out = path.resolve(outDir);
+  for (const src of [SITES_DIR, FIXTURES_DIR, path.resolve(siteDir)]) {
+    if (within(out, src) || within(src, out)) {
+      throw new Error(`Refusing to build into ${path.relative(ROOT, out) || "."}: it is or holds site sources (${path.relative(ROOT, src)}), `
+        + "and the build empties its output folder. Build into dist/ (e.g. npm run build -- --site demos/barber).");
+    }
+  }
 }
 
 /** @param {string} dir @returns {Promise<string[]>} folders (relative to dir) that contain site.json */
