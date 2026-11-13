@@ -157,8 +157,8 @@ test("where the sun falls: the answer follows the facing and month, in plan and 
   await page.goto(srv.base + "/where-the-sun-falls.html");
   await expect(page.locator("[data-ss-day]")).toContainText("On 21 October");
   await expect(page.locator("[data-ss-form]")).toBeVisible();
-  await page.check('input[name=ss-facing][value="S"]', { force: true });
-  await page.check('input[name=ss-month][value="12"]', { force: true });
+  await page.check('input[name=ss-facing][value="S"]');
+  await page.check('input[name=ss-month][value="12"]');
   await expect(page.locator("[data-ss-day]")).toHaveText(/^On 21 December the part by the house gets about [\d.]+ hours? of sun, the far end (no direct sun|about half an hour)\./);
   await expect(page.locator(".gd-ss-svg .gd-ss-cells polygon")).toHaveCount(8 * 18);
   await page.click('[data-ss-view="3d"]');

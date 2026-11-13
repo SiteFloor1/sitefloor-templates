@@ -10,7 +10,12 @@ name: check
 #   the PR is opened or marked ready; after that a push reruns them only if what changed since the PR's last green
 #   commit reaches its kits or shared code (reports, docs and merges of main that bring in only other kits' files don't).
 # - Push to main: the plan for everything since `production` (normally just the merged PR's files, already tested on
-#   the merge result), then promote. nightly.yml runs every browser test once a day when main has changed.
+#   the merge result), then promote. nightly.yml runs every browser test once a day when main has changed, and
+#   promotes too when it's green, so main still reaches `production` if a push to main started no run.
+# Not every push to main starts this workflow: pushes made with some automation tokens (GitHub Actions' own
+# GITHUB_TOKEN; an agent session's git proxy, 13 Nov: the repo's first two pushes started no run) start none, while
+# merges through the pull request API always have. So main is protected and agents merge only with
+# `PUT /repos/{owner}/{repo}/pulls/N/merge` (CLAUDE.md rule 12), never `git push origin main`.
 # Draft pull requests don't run at all, and a newer push to a pull request cancels the older run.
 on:
   push:
@@ -186,7 +191,10 @@ jobs:
 
   promote:
     needs: check
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.check.result == 'success'
+    # Push to main, or the nightly run on main (schedule or "Run workflow"): never a pull request.
+    if: >-
+      contains(fromJSON('["push","schedule","workflow_dispatch"]'), github.event_name)
+      && github.ref == 'refs/heads/main' && needs.check.result == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
