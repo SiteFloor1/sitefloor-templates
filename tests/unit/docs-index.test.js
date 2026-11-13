@@ -86,3 +86,20 @@ test("a font family claimed on another open branch counts; main and the branch's
   // Checked on main, open branches never fail it.
   assert.deepEqual(branchFontClaims(root, "main"), []);
 });
+
+test("open branches leave out production and branches main already contains, but keep main itself", async () => {
+  const { openBranches } = await import("../../scripts/docs-index.js");
+  const root = mkdtempSync(path.join(tmpdir(), "sf-open-"));
+  const git = (...a) => execFileSync("git", ["-C", root, "-c", "user.name=t", "-c", "user.email=t@t.example", ...a], { encoding: "utf8" });
+  git("init", "-q", "-b", "work");
+  git("commit", "-q", "--allow-empty", "-m", "a");
+  git("update-ref", "refs/remotes/origin/old-merged", "HEAD");
+  git("commit", "-q", "--allow-empty", "-m", "b");
+  git("update-ref", "refs/remotes/origin/main", "HEAD");
+  git("update-ref", "refs/remotes/origin/production", "HEAD");
+  git("commit", "-q", "--allow-empty", "-m", "c");
+  git("update-ref", "refs/remotes/origin/trade/open", "HEAD");
+  git("update-ref", "refs/remotes/origin/work", "HEAD");
+  assert.deepEqual(openBranches(root, "work").sort(), ["origin/main", "origin/trade/open"]);
+  assert.deepEqual(openBranches(root, "main"), []);
+});
