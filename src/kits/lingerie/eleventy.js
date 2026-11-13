@@ -5,7 +5,7 @@ import { pieceName, swatches, piecesWhere, collectionOf, colourOf } from "./lib/
 import { sizeGrid } from "./lib/fit.js";
 import { activeTakeover, takeoverPhase, wallLabel } from "./lib/takeover.js";
 import { setAsideText } from "./lib/pieces.js";
-import { featuresFor } from "../../features/registry.js";
+import { FEATURES } from "../../features/registry.js";
 
 /** @param {any} eleventyConfig */
 export default function lingerieKit(eleventyConfig) {
@@ -37,7 +37,7 @@ export default function lingerieKit(eleventyConfig) {
     if (!l) return false;
     if (l.href) return true;
     const page = String(l.page ?? "");
-    const by = page.startsWith("collection-") ? "collection-pages" : page.startsWith("piece-") ? "piece-detail" : featuresFor("lingerie").find((f) => f.page === page)?.id;
+    const by = page.startsWith("collection-") ? "collection-pages" : page.startsWith("piece-") ? "piece-detail" : FEATURES.find((f) => f.page === page)?.id;
     return page === "index" || (by !== undefined && site.features.includes(by));
   });
   eleventyConfig.addFilter("setAside", (/** @type {any} */ p, /** @type {any} */ site) => setAsideText({ business: site.business.name, piece: pieceName(site.collections, p), price: p.price }));
