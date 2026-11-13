@@ -118,7 +118,9 @@ trade (`docs/trades/<trade>/`: `trade.json`, `speed.md`, `fonts.md`, `demo-map.m
 case study (`case-studies/<slug>/README.md` and `fonts.md`) and the shared parts in `docs/platform/`. Generated:
 `docs/SPEED-LOG.md`, `docs/CLAIMED-FONTS.md`, `docs/DEMO-MAP.md`, `docs/trades/README.md`, `case-studies/README.md`
 and the trade link lists in `docs/CUSTOMER-QUESTIONS.md` and `docs/TRADE-PLAYBOOK.md`. `npm run rules` fails if any is
-stale or if two trades or case studies claim the same font family (other cuts count as the same family). A case
+stale or if two trades or case studies claim the same font family (other cuts count as the same family), including a
+claim in `fonts.md` on any other open branch (`origin/*`: agents `git fetch --all --prune` first, CI fetches every branch;
+skipped on main, so an open branch never fails main). A case
 study may use its own demo's fonts (the `Trade` column of its `fonts.md`); the few older pages that share a font with
 another trade are named as historical exceptions in `docs/platform/fonts.md`, and nothing new may be added there. Two parallel
 pull requests then only meet in generated files: after merging `main`, run `npm run docs` and commit; never resolve a
