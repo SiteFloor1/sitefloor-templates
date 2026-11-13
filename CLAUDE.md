@@ -129,7 +129,7 @@ Not a template shop: each trade gets its own kit, each design looks unrecognisab
 |---|---|
 | Logic with no DOM (time, prices, parsing) | `src/core/lib/` (shared) or `src/kits/<kit>/lib/` (trade-specific), with unit tests |
 | A feature any trade can use | `src/features/<id>/` (`<id>.njk`, `<id>.css`, optional `<id>.js`, `README.md`) + register in `src/features/registry.js` |
-| A feature for one trade | `src/kits/<kit>/features/<id>/` + an entry in `features` in `src/kits/<kit>/kit.js` |
+| A feature for one trade | `src/kits/<kit>/features/<id>/` + an entry in `features` in `src/kits/<kit>/kit.js`. A NEW kit feature's id starts with the kit's name (`hair-services`, not `services`; existing ids stay as they are). Ids must be unique across the shared features and every kit, on main and every open branch: `npm run rules` fails naming the other kit (run `git fetch --all --prune` first) |
 | A trade's settings checks, page data, live data | `src/kits/<kit>/config.js` and the kit's `kit.js` (never a shared file: `npm run rules` checks) |
 | Page layout for a trade | `src/kits/<kit>/pages/*.njk` |
 | A page every site gets (privacy) | `src/core/pages/*.njk` |

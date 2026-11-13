@@ -39,9 +39,9 @@ function readers(root) {
  * Readers over a git ref (another branch) instead of the working tree: one `ls-tree` for the file list, then one
  * `git show` per file read. @param {string} root @param {string} ref @returns {Readers}
  */
-function refReaders(root, ref) {
+export function refReaders(root, ref) {
   const git = (/** @type {string[]} */ ...a) => execFileSync("git", ["-C", root, ...a], { encoding: "utf8", maxBuffer: 64 * 1024 * 1024, stdio: ["ignore", "pipe", "ignore"] });
-  const files = new Set(git("ls-tree", "-r", "--name-only", ref, "--", "docs/trades", "case-studies").split("\n").filter(Boolean));
+  const files = new Set(git("ls-tree", "-r", "--name-only", ref, "--", "docs/trades", "case-studies", "src/kits", "src/features/registry.js").split("\n").filter(Boolean));
   return {
     read: (rel) => git("show", `${ref}:${rel}`),
     has: (rel) => files.has(rel),
@@ -133,10 +133,23 @@ export function family(font) {
 }
 
 /** The branch being checked: a pull request's head in CI, else the checked-out branch ("" when detached). @param {string} root */
-function currentBranch(root) {
+export function currentBranch(root) {
   if (process.env.GITHUB_HEAD_REF) return process.env.GITHUB_HEAD_REF;
   try { return execFileSync("git", ["-C", root, "branch", "--show-current"], { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }).trim() || (process.env.GITHUB_REF_NAME ?? ""); }
   catch { return process.env.GITHUB_REF_NAME ?? ""; }
+}
+
+/**
+ * The other open branches this clone has fetched (`origin/*`, without this branch). None on main (main never fails
+ * because of an open branch: the branch must choose again) or outside a git clone. @param {string} root @param {string} current
+ * @returns {string[]}
+ */
+export function openBranches(root, current) {
+  if (current === "main") return [];
+  try {
+    return execFileSync("git", ["-C", root, "for-each-ref", "--format=%(refname:short)", "refs/remotes/origin/"], { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] })
+      .split("\n").filter((r) => r && r !== "origin/HEAD" && r !== "origin" && r !== `origin/${current}`);
+  } catch { return []; }
 }
 
 /**
@@ -146,13 +159,7 @@ function currentBranch(root) {
  * git clone. @param {string} root @param {string} [current] @returns {FontClaim[]}
  */
 export function branchFontClaims(root, current = currentBranch(root)) {
-  if (current === "main") return [];
-  let refs;
-  try {
-    refs = execFileSync("git", ["-C", root, "for-each-ref", "--format=%(refname:short)", "refs/remotes/origin/"], { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] })
-      .split("\n").filter((r) => r && r !== "origin/HEAD" && r !== "origin" && r !== `origin/${current}`);
-  } catch { return []; }
-  return refs.flatMap((ref) => {
+  return openBranches(root, current).flatMap((ref) => {
     try { return fontClaims(refReaders(root, ref)).map((c) => ({ ...c, file: `${c.file} on ${ref}` })); }
     catch { return []; } // a branch whose fonts tables don't parse is that branch's own rules failure
   });

@@ -86,6 +86,10 @@ and `npm run rules` fails if `scripts/lib/bundle.js`, `scripts/lib/render.js`, `
 | `settings` | `config.js` | top-level site.json keys the trade's sites may carry that no feature lists in `requires` or `optional` (any other key is refused) |
 | `savingsItem` | `config-extras.js` | what the loyalty card's savings example compares against when the trade sells something other than services (a café's dish) |
 
+Feature ids are one flat list, so a kit's own ids must be unique across the shared features and every kit, on main and on
+every other open branch (`scripts/lib/feature-ids.js`, part of `npm run rules`; CI fetches every branch). New kit features
+start with the kit's name (`<kit>-services`); older ids keep theirs.
+
 Shared features stay in `registry.js`. A shared feature open to every trade has `kits: ["*"]`; one only some trades
 offer has `kits: []` and each of those trades lists it in `uses`. `bundle.js` keeps the providers that existed when
 kits started registering themselves in their old order (so every bundle stayed byte-identical); new ones follow,
