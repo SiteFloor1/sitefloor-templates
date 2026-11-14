@@ -2,7 +2,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
-import { rollDemoDates, slots, FORWARD, PAST, IGNORED } from "../../src/demo/dates.js";
+import { rollDemoDates, slots, FORWARD, PAST, IGNORED, PAST_EXAMPLE } from "../../src/demo/dates.js";
 
 const DEMOS = readdirSync("sites/demos").sort().map((d) => ({ d, site: JSON.parse(readFileSync(`sites/demos/${d}/site.json`, "utf8")) }));
 const FIXTURES = readdirSync("tests/fixtures/sites").sort().map((d) => JSON.parse(readFileSync(`tests/fixtures/sites/${d}/site.json`, "utf8")));
@@ -19,7 +19,7 @@ function dated(v, p, out) {
   return out;
 }
 const classified = new Set([
-  ...FORWARD.flatMap((r) => ("paths" in r ? r.paths : "path" in r ? [r.path] : r.keys.map((k) => `${r.list}[].${k}`))),
+  ...FORWARD.flatMap((r) => ("paths" in r ? r.paths : "path" in r ? [r.path] : r.keys.flatMap((k) => [`${r.list}[].${k}`, `${r.list}.${k}`]))),
   ...PAST, ...IGNORED,
 ]);
 
@@ -28,42 +28,57 @@ test("every dated field a demo carries is classed in src/demo/dates.js (forward,
   assert.deepEqual(unknown, [], "class each one in FORWARD, PAST or IGNORED");
 });
 
-/** A rule's date sets, each a list of values that move together. @param {any} site @param {import("../../src/demo/dates.js").Rule} r */
+/**
+ * A rule's date sets, each a list of values that move together, read straight from the rolled site.json. A sample
+ * sheet's rows marked "Already happened" are left out: they are meant to be past.
+ * @param {any} site @param {import("../../src/demo/dates.js").Rule} r
+ */
 function sets(site, r) {
-  if (r.kind === "season") return slots(site, r.list).flatMap(([h, k]) => (Array.isArray(h[k]) ? h[k] : [])).map((item) => r.keys.map((key) => item?.[key]).filter((v) => typeof v === "string"));
+  if (r.kind === "season") {
+    return slots(site, r.list).flatMap(([h, k]) => (Array.isArray(h[k]) ? h[k] : h[k] && typeof h[k] === "object" ? [h[k]] : []))
+      .map((item) => r.keys.map((key) => item?.[key]).filter((v) => typeof v === "string"));
+  }
   if (r.kind === "csv-week") {
     return slots(site, r.path).map(([h, k]) => {
       const [head, ...rows] = String(h[k]).split("\n");
       const at = r.columns.map((c) => head.split(",").indexOf(c));
-      return rows.flatMap((row) => at.map((i) => row.split(",")[i])).filter((v) => DATE.test(v ?? ""));
+      return rows.filter((row) => !PAST_EXAMPLE.test(row)).flatMap((row) => at.map((i) => row.split(",")[i])).filter((v) => DATE.test(v ?? ""));
     });
   }
   const values = r.paths.flatMap((p) => slots(site, p)).map(([h, k]) => h[k]).filter((v) => typeof v === "string");
   return r.kind === "week" ? [values] : values.map((v) => [v]);
 }
 
-/** What "ahead of today" means for each kind of rule. @param {import("../../src/demo/dates.js").Rule} r @param {string[]} set @param {string} on */
-function problem(r, set, on) {
+/**
+ * The test's own rule, not the code's: what a visitor reads must not be in the past. One-off dates (every one, a
+ * retreat's balance date included) and calendar days are today or later; a window (a season, a pre-order, the advent)
+ * still ends today or later and keeps its dates in their written order; a "last updated" stamp is within the week; a
+ * month is this month. @param {import("../../src/demo/dates.js").Rule} r @param {string[]} set @param {string} on
+ * @param {string[]} [written] the same set before rolling, for the order of a window's dates
+ */
+function problem(r, set, on, written) {
   if (!set.length) return null;
-  const days = set.map(day).sort();
-  if (r.kind === "season") return days[days.length - 1] < on ? `window ended ${days[days.length - 1]}` : null;
+  const days = set.map(day);
+  if (r.kind === "season") {
+    if ([...days].sort().at(-1) < on) return `window ended ${[...days].sort().at(-1)}`;
+    const order = (/** @type {string[]} */ ds) => ds.map((_, i) => i).sort((x, y) => ds[x].localeCompare(ds[y]) || x - y).join();
+    return written && order(days) !== order(written.map(day)) ? `dates out of their written order: ${days.join(", ")}` : null;
+  }
   if (r.kind === "recent") return days[0] > on || days[0] <= addDays(on, -8) ? `stamp ${days[0]} isn't within the last week` : null;
   if (r.kind === "month") return set[0] !== on.slice(0, 7) ? `month ${set[0]} isn't this month` : null;
-  // A date more than four weeks before the rest is a deliberately past example; everything else must be ahead.
-  let i = 0;
-  while ((r.kind === "week" || r.kind === "csv-week") && i < days.length - 1 && (Date.parse(days[i + 1]) - Date.parse(days[i])) / 86400000 > 28) i++;
-  const past = days.slice(i).filter((d) => d < on);
+  const past = days.filter((d) => d < on);
   return past.length ? `past: ${past.join(", ")}` : null;
 }
 
-test("no demo shows a forward-looking date in the past: today, and on days up to five years ahead", () => {
-  const days = [today, ...Array.from({ length: 24 }, (_, n) => addDays(today, 17 + n * 79))];
+test("no demo shows a forward-looking date in the past: every other day for four years from today", () => {
+  // Every other day for four years from today (a window or a pull-back can go wrong on only a few days a year).
+  const days = Array.from({ length: 731 }, (_, n) => addDays(today, n * 2));
   const bad = [];
   const name = (/** @type {import("../../src/demo/dates.js").Rule} */ r) => ("paths" in r ? r.paths[0] : "list" in r ? r.list : r.path);
   for (const on of days) {
     for (const { d, site } of DEMOS) {
       const rolled = rollDemoDates(site, on);
-      bad.push(...FORWARD.flatMap((r) => sets(rolled, r).map((set) => problem(r, set, on)).filter(Boolean).map((p) => `${on} ${d} ${name(r)}: ${p}`)));
+      bad.push(...FORWARD.flatMap((r) => { const before = sets(site, r); return sets(rolled, r).map((set, i) => problem(r, set, on, before[i])).filter(Boolean).map((p) => `${on} ${d} ${name(r)}: ${p}`); }));
     }
   }
   assert.deepEqual(bad.slice(0, 20), []);
@@ -115,5 +130,20 @@ test("every demo, with its dates moved, still passes its site.json checks: today
       if (errors.length) bad.push(`${on} ${d}: ${errors[0]}`);
     }
   }
+  assert.deepEqual(bad.slice(0, 10), []);
+});
+
+test("dates written together keep their order after a move (order by before collect from, balance before the start…)", () => {
+  /** Pairs of date keys on one object whose order changed. @param {any} a @param {any} b @param {string} p @param {string[]} out */
+  const walk = (a, b, p, out) => {
+    if (Array.isArray(a)) { a.forEach((x, i) => walk(x, b?.[i], `${p}[${i}]`, out)); return out; }
+    if (!a || typeof a !== "object") return out;
+    const keys = Object.keys(a).filter((k) => typeof a[k] === "string" && /^\d{4}-\d\d-\d\d/.test(a[k]));
+    for (const x of keys) for (const y of keys) if (day(a[x]) < day(a[y]) && !(day(b[x]) <= day(b[y]))) out.push(`${p}: ${x} ${b[x]} is now after ${y} ${b[y]}`);
+    for (const k of Object.keys(a)) if (a[k] && typeof a[k] === "object") walk(a[k], b?.[k], `${p}.${k}`, out);
+    return out;
+  };
+  const bad = [];
+  for (let n = 0; n < 1461; n += 3) for (const { d, site } of DEMOS) bad.push(...walk(site, rollDemoDates(site, addDays(today, n)), d, []).map((x) => `${addDays(today, n)} ${x}`));
   assert.deepEqual(bad.slice(0, 10), []);
 });

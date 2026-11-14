@@ -6,8 +6,9 @@
  *
  * Every dated field a demo carries is listed below, in one of three groups:
  *  - FORWARD: dates that must be ahead of today. Each rule moves its dates the same way:
- *      week      a set of one-off dates (events, trunk shows, workshops): moved together by whole weeks, so weekdays and
- *                the gaps between them stay, until the earliest is today or later. An item on a fixed calendar day
+ *      week      a set of one-off dates (events, trunk shows, workshops, a retreat's start, end and balance date):
+ *                moved together by whole weeks, so weekdays and the gaps between them stay, until every one of them is
+ *                today or later (so a retreat's balance date is never past while it's open to book). An item on a fixed calendar day
  *                (Christmas Eve, New Year's Eve, Valentine's Day…) or named after an occasion ("The first Christmas
  *                tea") moves by whole years instead, so it keeps its time of year.
  *      annual    a calendar day (a Christmas closure, a bank-holiday opening): moved by whole years until it's ahead.
@@ -51,7 +52,8 @@ export const FORWARD = [
   { kind: "week", paths: ["lightPlanner.date"] },
   { kind: "week", paths: ["vote.closes"] },
   { kind: "week", paths: ["drop.at", "drop.ends"] },
-  { kind: "annual", paths: ["advent.orderBy", "advent.collectFrom"] },
+  // One window: order by and collect from move together, by whole years, until the later of them is ahead.
+  { kind: "season", list: "advent", keys: ["orderBy", "collectFrom"], name: "name" },
   { kind: "csv-week", path: "events.sample", columns: ["Date"] },
   { kind: "recent", paths: ["calendar.nextStart.updated"] },
   { kind: "month", paths: ["edit.month"] },
@@ -71,6 +73,8 @@ export const IGNORED = ["events.items[].id"];
 
 /** Calendar days an event keeps whatever the year (its name usually says so). */
 const FIXED_DAYS = new Set(["12-24", "12-25", "12-26", "12-31", "01-01", "02-14", "10-31", "11-05"]);
+/** The marker of a sample sheet's deliberately past row. */
+export const PAST_EXAMPLE = /\bAlready happened\b/;
 /** An event named after an occasion ("The first Christmas tea") keeps its time of year. */
 const OCCASION = /christmas|new year|valentine|halloween|bonfire|easter|mother'?s day|father'?s day|diwali|eid|advent/i;
 /** Names a demo uses for an occasion that seasons.js calls something else. */
@@ -115,17 +119,8 @@ export function slots(root, path) {
   return at;
 }
 
-/**
- * Whole weeks to add so a set's earliest date is today or later. A date set more than four weeks before the rest is a
- * deliberately past example (an event that already happened, to show it drops off the page): it moves with the set
- * but doesn't count as the earliest, so it stays in the past. @param {string[]} dates @param {string} today
- */
-const weeksToCatchUp = (dates, today) => {
-  const sorted = dates.map(day).sort();
-  let i = 0;
-  while (i < sorted.length - 1 && daysBetween(sorted[i], sorted[i + 1]) > 28) i++;
-  return Math.max(0, Math.ceil(daysBetween(sorted[i], today) / 7));
-};
+/** Whole weeks to add so every one of a set's dates is today or later. @param {string[]} dates @param {string} today */
+const weeksToCatchUp = (dates, today) => Math.max(0, Math.ceil(daysBetween(dates.map(day).sort()[0], today) / 7));
 
 /** The occasion a window is named after, if seasons.js knows it. @param {unknown} name */
 function preset(name) {
@@ -168,7 +163,8 @@ export function rollDemoDates(site, today) {
   const out = structuredClone(site);
   for (const rule of FORWARD) {
     if (rule.kind === "season") {
-      const items = slots(out, rule.list).flatMap(([h, k]) => (Array.isArray(h[k]) ? h[k] : []));
+      // A list of windows, or one window on its own (the advent).
+      const items = slots(out, rule.list).flatMap(([h, k]) => (Array.isArray(h[k]) ? h[k] : h[k] && typeof h[k] === "object" ? [h[k]] : []));
       for (const item of items) rollWindow(item, rule, today);
     } else if (rule.kind === "csv-week") {
       for (const [h, k] of slots(out, rule.path)) if (typeof h[k] === "string") h[k] = rollCsv(h[k], rule.columns, today);
@@ -206,25 +202,35 @@ const ROLL = {
 function rollWindow(item, rule, today) {
   const keys = rule.keys.filter((key) => isDate(item?.[key]));
   if (!keys.length) return;
-  let moved = nextOccasion(keys.map((key) => item[key]), item[rule.name] ?? item.id ?? item.name, today);
+  const name = item[rule.name] ?? item.id ?? item.name;
+  let moved = nextOccasion(keys.map((key) => item[key]), name, today);
   const anchor = rule.sameWeekday ? keys.indexOf(rule.sameWeekday) : -1;
   if (rule.sameWeekday && anchor >= 0) {
     // The nearest earlier day (or the same) on the original weekday: a delivery is never moved past the occasion.
     const want = new Date(ms(day(item[rule.sameWeekday]))).getUTCDay();
-    const by = [0, -1, -2, -3, -4, -5, -6].find((n) => new Date(ms(day(addDays(moved[anchor], n)))).getUTCDay() === want) ?? 0;
-    moved = moved.map((d) => addDays(d, by));
+    const pull = (/** @type {string[]} */ ds) => {
+      const by = [0, -1, -2, -3, -4, -5, -6].find((n) => new Date(ms(day(addDays(ds[anchor], n)))).getUTCDay() === want) ?? 0;
+      return ds.map((d) => addDays(d, by));
+    };
+    moved = pull(moved);
+    // Pulled back behind today (the occasion is days away): take its next occurrence instead.
+    for (let n = 0; n < 3 && latest(moved) < today; n++) moved = pull(nextOccasion(moved, name, today));
   }
   keys.forEach((key, i) => { item[key] = moved[i]; });
 }
 
-/** A sample sheet (CSV text) with the named date columns moved together by whole weeks. @param {string} csv @param {string[]} columns @param {string} today */
+/**
+ * A sample sheet (CSV text) with the named date columns moved together by whole weeks. A row whose text says
+ * "Already happened" is the sheet's deliberately past example (it shows a past event dropping off the page): it moves
+ * with the rest but isn't counted, so it stays in the past. @param {string} csv @param {string[]} columns @param {string} today
+ */
 function rollCsv(csv, columns, today) {
   const lines = csv.split("\n");
   const head = lines[0].split(",").map((c) => c.trim());
   const at = columns.map((c) => head.indexOf(c)).filter((i) => i >= 0);
   // Only columns before the first quoted cell are read by position; the sample's date columns come first.
   const cells = lines.slice(1).map((l) => l.split(","));
-  const dates = cells.flatMap((c) => at.map((i) => c[i]).filter(isDate));
+  const dates = cells.filter((c) => !PAST_EXAMPLE.test(c.join(","))).flatMap((c) => at.map((i) => c[i]).filter(isDate));
   if (!dates.length) return csv;
   const w = weeksToCatchUp(dates, today);
   return [lines[0], ...cells.map((c) => c.map((v, i) => (at.includes(i) && isDate(v) ? addDays(v, 7 * w) : v)).join(","))].join("\n");

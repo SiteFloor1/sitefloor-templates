@@ -7,7 +7,8 @@
  * doesn't. robots.txt allows crawling on purpose: a crawler that may not fetch a page never sees its noindex.
  * Demo dates are worked out for the day it runs (src/demo/dates.js), which is why it runs daily.
  * A case study is published only when every file it uses is in the repo (some media still live only in their old
- * claude.ai artifacts); the others are listed as skipped.
+ * claude.ai artifacts); the others are listed as skipped. The build also fails on any local link that leads nowhere,
+ * and leaves PDFs out (they can't say noindex). CI runs it on every pull request (check.yml, build job).
  *   node scripts/pages.js --out _site [--only barber,cafe] [--today YYYY-MM-DD]
  */
 import { readFile, writeFile, readdir, rm, mkdir, cp } from "node:fs/promises";
@@ -41,6 +42,41 @@ export function localRefs(html) {
     .map((r) => r.split("#")[0].split("?")[0])
     .filter((r) => r && !/^(?:[a-z]+:|\/\/|#)/i.test(r) && !r.includes("${"));
   return [...new Set(refs)];
+}
+
+/**
+ * Local links and files that lead nowhere: every href, src, poster and srcset on every page, resolved from the page's
+ * own folder ("x/" means "x/index.html"). @param {string} out @returns {Promise<string[]>} "page: target"
+ */
+export async function brokenLinks(out) {
+  const bad = [];
+  for (const f of (await files(out)).filter((x) => x.endsWith(".html"))) {
+    const html = await readFile(f, "utf8");
+    for (const ref of localRefs(html)) {
+      const target = path.resolve(path.dirname(f), ref.endsWith("/") ? `${ref}index.html` : ref);
+      if (!target.startsWith(out + path.sep) || !existsSync(target)) bad.push(`${path.relative(out, f)}: ${ref}`);
+    }
+  }
+  return [...new Set(bad)];
+}
+
+/**
+ * A PDF can't carry noindex and GitHub Pages can't send an X-Robots-Tag header, so the published demos have none:
+ * each is removed and links to it point at the page of the same name (menu.pdf → menu.html) or at the demo's home.
+ * @param {string} dir a demo's folder
+ */
+async function dropPdfs(dir) {
+  const pdfs = (await files(dir)).filter((f) => f.endsWith(".pdf")).map((f) => path.relative(dir, f));
+  if (!pdfs.length) return;
+  for (const pdf of pdfs) await rm(path.join(dir, pdf), { force: true });
+  for (const f of (await files(dir)).filter((x) => x.endsWith(".html"))) {
+    let html = await readFile(f, "utf8");
+    for (const pdf of pdfs) {
+      const page = pdf.replace(/\.pdf$/, ".html"), to = existsSync(path.join(dir, page)) ? page : "index.html";
+      html = html.split(`href="${pdf}"`).join(`href="${to}"`);
+    }
+    await writeFile(f, html);
+  }
 }
 
 /** A page with a robots noindex tag (added after <head> if it has none). @param {string} html */
@@ -94,6 +130,7 @@ export async function buildPages(o) {
     // would hide its noindex; crawlers read only the one at the domain's root anyway.
     await rm(path.join(out, slug, "_headers"), { force: true });
     await rm(path.join(out, slug, "robots.txt"), { force: true });
+    await dropPdfs(path.join(out, slug));
     list.push({ slug, name: m.name, kit: m.kit });
   }
   const cases = o.caseStudies === false ? { published: [], skipped: [] } : await caseStudies(out);
@@ -110,6 +147,8 @@ ${cases.published.length ? `<h2>Case studies</h2><ul>${cases.published.map((c) =
 `);
   const bad = await indexablePages(out);
   if (bad.length) throw new Error(`pages without noindex (demos must never be indexed): ${bad.join(", ")}`);
+  const broken = await brokenLinks(out);
+  if (broken.length) throw new Error(`links to nothing on the published site:\n  ${broken.slice(0, 40).join("\n  ")}`);
   return { demos: list.map((d) => d.slug), caseStudies: cases.published, skipped: cases.skipped };
 }
 

@@ -121,7 +121,9 @@ commit reaches its kits or shared code. A push to main runs the plan for everyth
 Demos are published to GitHub Pages by `.github/workflows/demos.yml`, from `production`, every day and after each green
 run on main: `scripts/pages.js` builds each demo into its own folder (relative links), the case studies whose files are
 all in the repo (`case-studies/<slug>/`, noindex added; the rest are listed as skipped), an index and a robots.txt that
-allows crawling (so crawlers can read the noindex), and fails if any page lacks `noindex` (demos are fictional businesses). Their address comes from one
+allows crawling (so crawlers can read the noindex), leaves PDFs out (they can't say noindex), and fails if any page lacks
+`noindex` (demos are fictional businesses) or any local link leads nowhere. CI's build job runs it on every pull request.
+With `--links html`, links a site.json writes from the root ("/visit") are rewritten to the page inside the site. Their address comes from one
 setting, `demo-hosting.json` (`npm run demo-links` moves every link when it changes; `npm run rules` fails on a link
 left on an old address). Before a demo is checked and built, `src/demo/dates.js` moves its forward-looking sample dates
 (events, trunk shows, closures, seasonal windows…) ahead of the build day; client sites are never touched. Demo

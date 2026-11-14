@@ -71,6 +71,7 @@ export async function buildSite(siteDir, o) {
   const indexable = shouldIndex(site, o.env);
   const today = o.today ?? new Date().toISOString().slice(0, 10);
   await renderPages(site, { root: ROOT, work, outDir: o.outDir, assets, links: o.links, env: o.env, indexable, today });
+  if (o.links === "html") await relativeRootLinks(o.outDir);
 
   if (existsSync(path.join(siteDir, "img"))) {
     await cp(path.join(siteDir, "img"), path.join(o.outDir, "img"), { recursive: true, filter: (src) => !src.endsWith("CREDITS.md") });
@@ -111,6 +112,27 @@ export async function buildSite(siteDir, o) {
     await writeFile(path.join(WORK, "manifests", `${o.label.replace(/[\\/]/g, "__")}.json`), JSON.stringify(manifest, null, 2));
   }
   return manifest;
+}
+
+/**
+ * With `--links html` a site is a folder of flat pages that may sit anywhere (a demo in a folder on GitHub Pages), so a
+ * link written in site.json as "/visit" or "/" would leave it. Rewrites such hrefs to the page they name ("visit.html",
+ * "index.html", "fleet-suv.html" for "/fleet/suv"), keeping any #anchor or ?query. A link to no page is left as it is
+ * (scripts/pages.js fails on it). @param {string} outDir
+ */
+export async function relativeRootLinks(outDir) {
+  const pages = (await readdir(outDir)).filter((f) => f.endsWith(".html"));
+  const has = new Set(await readdir(outDir));
+  /** @param {string} p e.g. "visit", "fleet/suv", "" */
+  const pageFor = (p) => [p === "" ? "index.html" : `${p}.html`, `${p.replace(/\//g, "-")}.html`, `${p}/index.html`].find((f) => has.has(f) || existsSync(path.join(outDir, f)));
+  for (const f of pages) {
+    const file = path.join(outDir, f), html = await readFile(file, "utf8");
+    const next = html.replace(/(\shref=")\/(?!\/)([^"#?]*?)\/?([#?][^"]*)?"/g, (m, pre, p, tail = "") => {
+      const page = pageFor(p);
+      return page ? `${pre}${page}${tail}"` : m;
+    });
+    if (next !== html) await writeFile(file, next);
+  }
 }
 
 /** Whether `child` is `parent` or inside it. @param {string} child @param {string} parent */

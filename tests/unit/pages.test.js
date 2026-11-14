@@ -1,10 +1,11 @@
 // @ts-check
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { mkdtempSync, readFileSync, writeFileSync, existsSync, readdirSync, mkdirSync } from "node:fs";
+import { mkdtempSync, readFileSync, writeFileSync, existsSync, readdirSync, mkdirSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
-import { buildPages, indexablePages, localRefs, ROBOTS } from "../../scripts/pages.js";
+import { buildPages, indexablePages, localRefs, brokenLinks, ROBOTS } from "../../scripts/pages.js";
+import { relativeRootLinks } from "../../scripts/build.js";
 import { hosting, demoUrl, demoLinkProblems, rewriteDemoLinks } from "../../scripts/demo-links.js";
 
 test("the published site: noindex on every page (demos and case studies), crawling allowed so it's seen, no Cloudflare files", async () => {
@@ -29,9 +30,24 @@ test("the published site: noindex on every page (demos and case studies), crawli
   }
   for (const c of r.skipped) assert.ok(c.missing.length > 0 && !existsSync(path.join(out, "case-studies", c.slug)));
   assert.deepEqual(await indexablePages(out), []);
+  // No PDFs (they can't say noindex); the café's menu button goes to its menu page instead; nothing links to nothing.
+  assert.ok(!existsSync(path.join(out, "cafe", "menu.pdf")));
+  assert.doesNotMatch(readFileSync(path.join(out, "cafe", "index.html"), "utf8"), /href="menu\.pdf"/);
+  assert.deepEqual(await brokenLinks(out), []);
+  writeFileSync(path.join(out, "wealth", "stray-link.html"), '<meta name="robots" content="noindex"><a href="nowhere.html">x</a><a href="/visit">y</a><img src="img/none.webp">');
+  assert.deepEqual((await brokenLinks(out)).sort(), ["wealth/stray-link.html: /visit", "wealth/stray-link.html: img/none.webp", "wealth/stray-link.html: nowhere.html"].map((x) => x.replace("/", path.sep)).sort());
+  rmSync(path.join(out, "wealth", "stray-link.html"));
   // A page without the tag is caught, so the build can't publish it.
   writeFileSync(path.join(out, "cafe", "stray.html"), "<!doctype html><title>x</title>");
   assert.deepEqual(await indexablePages(out), [path.join("cafe", "stray.html")]);
+});
+
+test("with --links html, site.json links written from the root ('/visit', '/') point at the page inside the site", async () => {
+  const dir = mkdtempSync(path.join(tmpdir(), "sf-rel-"));
+  for (const f of ["index.html", "visit.html", "fleet-suv.html"]) writeFileSync(path.join(dir, f), "");
+  writeFileSync(path.join(dir, "visit.html"), '<a href="/">Home</a> <a href="/visit#map">Map</a> <a href="/fleet/suv">SUVs</a> <a href="/gone">x</a> <a href="//cdn.example/a">c</a> <a href="https://x.example/">e</a>');
+  await relativeRootLinks(dir);
+  assert.equal(readFileSync(path.join(dir, "visit.html"), "utf8"), '<a href="index.html">Home</a> <a href="visit.html#map">Map</a> <a href="fleet-suv.html">SUVs</a> <a href="/gone">x</a> <a href="//cdn.example/a">c</a> <a href="https://x.example/">e</a>');
 });
 
 test("local files a page uses: links out, anchors and script-built names aren't files", () => {
