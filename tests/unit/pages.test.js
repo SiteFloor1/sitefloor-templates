@@ -4,24 +4,39 @@ import assert from "node:assert/strict";
 import { mkdtempSync, readFileSync, writeFileSync, existsSync, readdirSync, mkdirSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
-import { buildPages, indexablePages, ROBOTS } from "../../scripts/pages.js";
+import { buildPages, indexablePages, localRefs, ROBOTS } from "../../scripts/pages.js";
 import { hosting, demoUrl, demoLinkProblems, rewriteDemoLinks } from "../../scripts/demo-links.js";
 
-test("the published demo site: noindex on every page, robots.txt blocks crawling, no Cloudflare files", async () => {
+test("the published site: noindex on every page (demos and case studies), crawling allowed so it's seen, no Cloudflare files", async () => {
   const out = mkdtempSync(path.join(tmpdir(), "sf-pages-"));
   const r = await buildPages({ out, only: ["cafe", "wealth"] });
   assert.deepEqual(r.demos, ["cafe", "wealth"]);
+  // A Disallow would stop a crawler reading the noindex, so robots.txt allows everything.
   assert.equal(readFileSync(path.join(out, "robots.txt"), "utf8"), ROBOTS);
-  assert.match(ROBOTS, /^User-agent: \*\nDisallow: \/\n$/);
+  assert.doesNotMatch(ROBOTS, /Disallow/);
   for (const d of r.demos) {
-    assert.match(readFileSync(path.join(out, d, "robots.txt"), "utf8"), /Disallow: \//);
     assert.ok(!existsSync(path.join(out, d, "_headers")));
+    assert.ok(!existsSync(path.join(out, d, "robots.txt")), "the build's own Disallow robots.txt is left out");
     assert.ok(readdirSync(path.join(out, d)).some((f) => f.endsWith(".html")));
   }
+  // Case studies: every one published has all its files and noindex; the rest are listed with what's missing.
+  assert.ok(r.caseStudies.length > 0);
+  for (const c of r.caseStudies) {
+    const html = readFileSync(path.join(out, "case-studies", c, "index.html"), "utf8");
+    assert.match(html, /<meta name="robots" content="noindex/);
+    for (const ref of localRefs(html)) assert.ok(existsSync(path.join(out, "case-studies", c, ref)), `${c}: ${ref}`);
+    assert.ok(!existsSync(path.join(out, "case-studies", c, "README.md")));
+  }
+  for (const c of r.skipped) assert.ok(c.missing.length > 0 && !existsSync(path.join(out, "case-studies", c.slug)));
   assert.deepEqual(await indexablePages(out), []);
   // A page without the tag is caught, so the build can't publish it.
   writeFileSync(path.join(out, "cafe", "stray.html"), "<!doctype html><title>x</title>");
   assert.deepEqual(await indexablePages(out), [path.join("cafe", "stray.html")]);
+});
+
+test("local files a page uses: links out, anchors and script-built names aren't files", () => {
+  assert.deepEqual(localRefs('<img src="media/a.webp" srcset="media/a.webp 1x, media/b.webp 2x"><a href="https://x.example/">x</a><a href="#top">t</a><video poster="media/p.jpg"></video><img src="${T(pic)}"><a href="mailto:a@b.example">m</a>'),
+    ["media/a.webp", "media/b.webp", "media/p.jpg"]);
 });
 
 test("demo links come from one setting, and moving it is one command that rules enforces", () => {

@@ -1,1 +1,4 @@
-{ "day": "2026-11-13", "note": "The day the browser tests build every site as (node scripts/build.js --today): with demo sample dates as written (--as-written), so tests with a pinned clock see the data they were written for. src/demo/dates.js is tested against real and future days in tests/unit/demo-dates.test.js." }
+{
+  "day": "2026-11-13",
+  "note": "The day the browser tests build every site as (node scripts/build.js --today), with demo sample dates as written (--as-written), so tests with a pinned clock see the data they were written for. With every page's clock fixed (helpers.js) and build-time 'now' pinned (src/core/lib/build-day.js), the dates written in the tests (12 June 2027 and the like) can never expire. src/demo/dates.js is tested against real and future days in tests/unit/demo-dates.test.js."
+}

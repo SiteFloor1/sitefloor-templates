@@ -6,6 +6,7 @@ import { sizeGrid } from "./lib/fit.js";
 import { activeTakeover, takeoverPhase, wallLabel } from "./lib/takeover.js";
 import { setAsideText } from "./lib/pieces.js";
 import { FEATURES } from "../../features/registry.js";
+import { buildNow } from "../../core/lib/build-day.js";
 
 /** @param {any} eleventyConfig */
 export default function lingerieKit(eleventyConfig) {
@@ -25,9 +26,9 @@ export default function lingerieKit(eleventyConfig) {
   // Gift takeovers: the one on when the site is built (the script corrects it on the day), and what the script needs.
   eleventyConfig.addFilter("takeoverOn", (/** @type {any[]} */ list, /** @type {any} */ site) => {
     const tz = site.hours?.timezone ?? "Europe/London";
-    const today = new Intl.DateTimeFormat("en-CA", { timeZone: tz, year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
+    const today = new Intl.DateTimeFormat("en-CA", { timeZone: tz, year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date(buildNow()));
     const i = activeTakeover(list ?? [], today);
-    return i !== -1 && takeoverPhase(list[i], tz, Date.now()).phase !== "over" ? i : -1;
+    return i !== -1 && takeoverPhase(list[i], tz, buildNow()).phase !== "over" ? i : -1;
   });
   eleventyConfig.addFilter("takeoverData", (/** @type {any[]} */ list) => (list ?? []).map((t) => ({ from: t.from, to: t.to, orderBy: t.orderBy, collectBy: t.collectBy })));
   eleventyConfig.addFilter("wallLabel", wallLabel);

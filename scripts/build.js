@@ -49,6 +49,8 @@ const WORK = path.join(ROOT, ".build");
  */
 export async function buildSite(siteDir, o) {
   assertOutsideSources(o.outDir, siteDir);
+  // Build-time code that needs "now" reads it from here (src/core/lib/build-day.js), so --today pins all of it.
+  if (o.today) process.env.SITEFLOOR_BUILD_DAY = o.today; else delete process.env.SITEFLOOR_BUILD_DAY;
   // A demo's forward-looking sample dates are moved ahead of today (src/demo/dates.js); a client's are its own.
   const raw = JSON.parse(await readFile(path.join(siteDir, "site.json"), "utf8"));
   const site = o.asWritten ? raw : rollDemoDates(raw, o.today ?? new Date().toISOString().slice(0, 10));

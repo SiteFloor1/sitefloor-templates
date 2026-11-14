@@ -119,14 +119,17 @@ commit reaches its kits or shared code. A push to main runs the plan for everyth
 
 ## Demos: published daily, dates always ahead
 Demos are published to GitHub Pages by `.github/workflows/demos.yml`, from `production`, every day and after each green
-run on main: `scripts/pages.js` builds each demo into its own folder (relative links), an index and a robots.txt that
-blocks crawling, and fails if any page lacks `noindex` (demos are fictional businesses). Their address comes from one
+run on main: `scripts/pages.js` builds each demo into its own folder (relative links), the case studies whose files are
+all in the repo (`case-studies/<slug>/`, noindex added; the rest are listed as skipped), an index and a robots.txt that
+allows crawling (so crawlers can read the noindex), and fails if any page lacks `noindex` (demos are fictional businesses). Their address comes from one
 setting, `demo-hosting.json` (`npm run demo-links` moves every link when it changes; `npm run rules` fails on a link
 left on an old address). Before a demo is checked and built, `src/demo/dates.js` moves its forward-looking sample dates
 (events, trunk shows, closures, seasonal windows…) ahead of the build day; client sites are never touched. Demo
 providers in `src/demo/` work their dates out in the browser on the day. `node scripts/build.js --today YYYY-MM-DD`
 builds as if on another day. The browser tests build every site as on one fixed day with demo dates as written
-(`--today` from `tests/e2e/test-day.json`, `--as-written`), so pinned-clock tests stay deterministic; the moved dates are
+(`--today` from `tests/e2e/test-day.json`, `--as-written`; build-time kit code reads "now" through
+`src/core/lib/build-day.js`, so that pins it too) and every page's clock is fixed (`tests/e2e/helpers.js`), so no date in
+a test can expire: a build made in 2028 is byte-for-byte the build made today; the moved dates are
 checked by `tests/unit/demo-dates.test.js` (classified, ahead of today, valid site.json, for today and five years on).
 
 ## Docs: one file per trade, generated indexes

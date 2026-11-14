@@ -3,8 +3,9 @@ name: demos
 # Publishes every demo to GitHub Pages (demo-hosting.json `base`), built from `production` (the tested code) every day,
 # so a demo's dates are always the coming ones (src/demo/dates.js) even when nothing merges for weeks. Also after each
 # green run on main, so a merge shows within minutes, and by hand from the Actions tab (Run workflow).
-# Every page is noindex and robots.txt blocks crawling (scripts/pages.js fails the build otherwise): the businesses
-# are fictional. GitHub turns scheduled workflows off in a public repo after 60 days with no commits; a merge, or
+# The case studies go up too (case-studies/, while their public home is still to come on the Sitefloor site).
+# Every page is noindex (scripts/pages.js fails the build otherwise): the businesses are fictional. robots.txt allows
+# crawling on purpose, so crawlers can read that noindex. GitHub turns scheduled workflows off in a public repo after 60 days with no commits; a merge, or
 # "Enable workflow" in the Actions tab, turns it back on.
 
 on:
