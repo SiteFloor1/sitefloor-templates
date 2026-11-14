@@ -1,7 +1,6 @@
 // The grand café (the Salon look and the Grenat demo): the room by day and by candlelight, afternoon tea's concierge
 // card with Your table, the salon plan, the seasonal stands, the tea sommelier, Give a sitting, the pâtisserie window
 // and its box, candlelight tonight, cakes to order, the sittings and live music, and the pages they live on.
-import { readFileSync } from "node:fs";
 import { test, expect, site, start } from "./helpers.js";
 
 const demo = site("demos/grand-cafe");
@@ -231,12 +230,8 @@ test.describe("the pages", () => {
     await expect(page.locator(".dc")).toContainText("Smart, never stiff.");
     await expect(page.locator("#questions")).toContainText("Do I need to book?");
     await page.goto(srv.base + "/events");
-    // The page lists the evenings from the build's day on (UTC, as the build counts it), so the first one depends on
-    // when this runs: compare with the demo's own list rather than a fixed title.
-    const items = JSON.parse(readFileSync(new URL("../../sites/demos/grand-cafe/site.json", import.meta.url), "utf8")).events.items;
-    const today = new Date().toISOString().slice(0, 10);
-    const next = items.filter((e) => e.date >= today).sort((a, b) => a.date.localeCompare(b.date))[0];
-    if (next) await expect(page.locator("[data-ev]").first()).toContainText(next.title);
+    // Built as on the test day (test-day.json): the 13 November evening is the first.
+    await expect(page.locator("[data-ev]").first()).toContainText("Champagne and the piano");
     await srv.close();
   });
 });

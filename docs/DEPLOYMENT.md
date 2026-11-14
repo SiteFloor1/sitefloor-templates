@@ -26,6 +26,13 @@ pull request ──► GitHub Actions: npm run check (all tests, all sites)
   first push started none; cause not established). If main's run failed, press "Re-run failed jobs" on it: a green
   re-run promotes.
 
+## Demos
+Demos aren't Cloudflare projects: `.github/workflows/demos.yml` publishes every demo to GitHub Pages each day (and after
+each green run on main), at `demo-hosting.json` `base` + `/<demo folder>/`. Every page is noindex. A robots.txt at the
+site's root blocks crawling, but crawlers read robots.txt only at a domain's root, so it takes effect once the demos have
+their own domain (e.g. demos.sitefloor.com: add it in Settings → Pages → Custom domain, then change `base` and run
+`npm run demo-links`). Until then the noindex tag on every page is what keeps them out of search.
+
 ## Create the project for a site
 Cloudflare dashboard → Workers & Pages → Create → Pages → Connect to Git → `SiteFloor1/sitefloor-templates`.
 
