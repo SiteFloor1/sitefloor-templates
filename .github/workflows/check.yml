@@ -11,11 +11,10 @@ name: check
 #   commit reaches its kits or shared code (reports, docs and merges of main that bring in only other kits' files don't).
 # - Push to main: the plan for everything since `production` (normally just the merged PR's files, already tested on
 #   the merge result), then promote. nightly.yml runs every browser test once a day when main has changed, and
-#   promotes too when it's green, so main still reaches `production` if a push to main started no run.
-# Not every push to main starts this workflow: pushes made with some automation tokens (GitHub Actions' own
-# GITHUB_TOKEN; an agent session's git proxy, 13 Nov: the repo's first two pushes started no run) start none, while
-# merges through the pull request API always have. So main is protected and agents merge only with
-# `PUT /repos/{owner}/{repo}/pulls/N/merge` (CLAUDE.md rule 12), never `git push origin main`.
+#   promotes too when green, but only if main's own push run for that commit was green or never started: a commit
+#   whose push run failed waits for someone to press "Re-run failed jobs" on that run, which then promotes it.
+# The repository's first push (13 Nov) started no run; cause not established. main is protected, so changes arrive
+# only as pull-request merges, which start a run (CLAUDE.md rule 12).
 # Draft pull requests don't run at all, and a newer push to a pull request cancels the older run.
 on:
   push:
@@ -201,9 +200,31 @@ jobs:
     timeout-minutes: 5
     permissions:
       contents: write
+      actions: read
     steps:
+      # Nightly (or "Run workflow") only: never promote past main's own push run for this commit unless it was green
+      # or never started. A failed one stops here, red, until someone re-runs it; one still going is left to finish.
+      - name: Main's own run for this commit was green or never started
+        id: gate
+        if: github.event_name != 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          run=$(gh api "repos/${{ github.repository }}/actions/workflows/check.yml/runs?event=push&head_sha=${{ github.sha }}&per_page=1" \
+            --jq '.workflow_runs[0] | if . == null then "none" else "\(.status) \(.conclusion)" end')
+          case "$run" in
+            none|"completed success") echo "main's push run for ${{ github.sha }}: ${run}; promoting." ;;
+            completed*) echo "::error::main's own run for this commit ended '${run#completed }'. Re-run its failed jobs; that run promotes."; exit 1 ;;
+            *) echo "main's push run for this commit is still going (${run}); it promotes when green."; echo "go=false" >> "$GITHUB_OUTPUT" ;;
+          esac
       - uses: actions/checkout@v4
+        if: steps.gate.outputs.go != 'false'
         with:
           fetch-depth: 0
-      # Fast-forward only: if production has diverged from main, this fails and nothing deploys.
-      - run: git push origin "HEAD:refs/heads/production"
+      # Fast-forward only: if production has diverged from main, this fails and nothing deploys. If production already
+      # includes this commit (a later merge promoted first, e.g. during a by-hand nightly run), there is nothing to do.
+      - if: steps.gate.outputs.go != 'false'
+        run: |
+          git fetch -q origin production
+          if git merge-base --is-ancestor HEAD FETCH_HEAD; then echo "production already includes ${{ github.sha }}."; exit 0; fi
+          git push origin "HEAD:refs/heads/production"

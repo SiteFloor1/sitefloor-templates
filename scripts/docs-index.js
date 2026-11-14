@@ -140,15 +140,19 @@ export function currentBranch(root) {
 }
 
 /**
- * The other open branches this clone has fetched (`origin/*`, without this branch). None on main (main never fails
+ * The other open branches this clone has fetched (`origin/*`, without this branch, `production` or any branch already
+ * contained in `origin/main`, e.g. merged but not yet pruned; `origin/main` itself counts, for a branch behind it). None on main (main never fails
  * because of an open branch: the branch must choose again) or outside a git clone. @param {string} root @param {string} current
  * @returns {string[]}
  */
 export function openBranches(root, current) {
   if (current === "main") return [];
+  const git = (/** @type {string[]} */ ...a) => execFileSync("git", ["-C", root, ...a], { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] });
+  /** Already part of main (merged, or `production`, which only trails main): not an open branch. @param {string} ref */
+  const merged = (ref) => { try { git("merge-base", "--is-ancestor", ref, "origin/main"); return true; } catch { return false; } };
   try {
-    return execFileSync("git", ["-C", root, "for-each-ref", "--format=%(refname:short)", "refs/remotes/origin/"], { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] })
-      .split("\n").filter((r) => r && r !== "origin/HEAD" && r !== "origin" && r !== `origin/${current}`);
+    return git("for-each-ref", "--format=%(refname:short)", "refs/remotes/origin/")
+      .split("\n").filter((r) => r && !["origin/HEAD", "origin", "origin/production", `origin/${current}`].includes(r) && (r === "origin/main" || !merged(r)));
   } catch { return []; }
 }
 
