@@ -11,6 +11,8 @@
  *   --site <path>     folder under sites/ (or tests/fixtures/sites/ with --fixtures)
  *   --all             build every site.json under sites/
  *   --fixtures        also build tests/fixtures/sites/* into dist/_fixtures/
+ *   --today <date>    build as if on that day (YYYY-MM-DD): a demo's sample dates are moved ahead of it
+ *   --as-written      keep demo sample dates as written (the browser tests use this with --today, see test-day.json)
  *   --env <name>      production | preview (default: $SITE_ENV or "preview").
  *                     Only production builds of indexable client sites are indexable.
  *   --links <style>   pretty (/team, for Cloudflare) | html (team.html, for file previews)
@@ -30,6 +32,7 @@ import { shouldIndex, robotsTxt, sitemapXml, headersFile, unlistedPages } from "
 import { bundleAssets } from "./lib/bundle.js";
 import { renderPages } from "./lib/render.js";
 import { verifyOutput } from "./lib/verify.js";
+import { rollDemoDates } from "../src/demo/dates.js";
 import { FEATURES, KITS } from "../src/features/registry.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -40,11 +43,17 @@ const WORK = path.join(ROOT, ".build");
 
 /**
  * @param {string} siteDir absolute path to a folder containing site.json
- * @param {{ outDir: string, env: "production"|"preview", links: "pretty"|"html", label: string }} o
+ * @param {{ outDir: string, env: "production"|"preview", links: "pretty"|"html", label: string, today?: string, manifest?: boolean, asWritten?: boolean }} o
+ *   `today` (YYYY-MM-DD, default the real day) is what a demo's sample dates are moved ahead of; `asWritten` keeps them
+ *   as the demo's site.json has them (the browser tests, which pin their clocks to the days those dates were written for)
  */
 export async function buildSite(siteDir, o) {
   assertOutsideSources(o.outDir, siteDir);
-  const site = JSON.parse(await readFile(path.join(siteDir, "site.json"), "utf8"));
+  // Build-time code that needs "now" reads it from here (src/core/lib/build-day.js), so --today pins all of it.
+  if (o.today) process.env.SITEFLOOR_BUILD_DAY = o.today; else delete process.env.SITEFLOOR_BUILD_DAY;
+  // A demo's forward-looking sample dates are moved ahead of today (src/demo/dates.js); a client's are its own.
+  const raw = JSON.parse(await readFile(path.join(siteDir, "site.json"), "utf8"));
+  const site = o.asWritten ? raw : rollDemoDates(raw, o.today ?? new Date().toISOString().slice(0, 10));
   const errors = validateSite(site, {
     catalog: loadCatalog(ROOT),
     fileExists: (rel) => existsSync(path.join(siteDir, rel)),
@@ -60,8 +69,9 @@ export async function buildSite(siteDir, o) {
 
   const assets = await bundleAssets(site, { root: ROOT, work, outDir: o.outDir, catalog: loadCatalog(ROOT) });
   const indexable = shouldIndex(site, o.env);
-  const today = new Date().toISOString().slice(0, 10);
+  const today = o.today ?? new Date().toISOString().slice(0, 10);
   await renderPages(site, { root: ROOT, work, outDir: o.outDir, assets, links: o.links, env: o.env, indexable, today });
+  if (o.links === "html") await relativeRootLinks(o.outDir);
 
   if (existsSync(path.join(siteDir, "img"))) {
     await cp(path.join(siteDir, "img"), path.join(o.outDir, "img"), { recursive: true, filter: (src) => !src.endsWith("CREDITS.md") });
@@ -97,9 +107,32 @@ export async function buildSite(siteDir, o) {
   const manifest = { id: site.id, label: o.label, mode: site.mode, plan: site.plan, kit: site.kit, url: site.url, name: site.business.name,
     whatsapp: site.contact.whatsapp, phone: site.contact.phone, booking: site.booking ?? { provider: "whatsapp" }, indexable, pages, unlisted, features: site.features, links: o.links,
     outDir: path.relative(ROOT, o.outDir) };
-  await mkdir(path.join(WORK, "manifests"), { recursive: true });
-  await writeFile(path.join(WORK, "manifests", `${o.label.replace(/[\\/]/g, "__")}.json`), JSON.stringify(manifest, null, 2));
+  if (o.manifest !== false) { // the browser tests find built sites by these; the published demo site doesn't add any
+    await mkdir(path.join(WORK, "manifests"), { recursive: true });
+    await writeFile(path.join(WORK, "manifests", `${o.label.replace(/[\\/]/g, "__")}.json`), JSON.stringify(manifest, null, 2));
+  }
   return manifest;
+}
+
+/**
+ * With `--links html` a site is a folder of flat pages that may sit anywhere (a demo in a folder on GitHub Pages), so a
+ * link written in site.json as "/visit" or "/" would leave it. Rewrites such hrefs to the page they name ("visit.html",
+ * "index.html", "fleet-suv.html" for "/fleet/suv"), keeping any #anchor or ?query. A link to no page is left as it is
+ * (scripts/pages.js fails on it). @param {string} outDir
+ */
+export async function relativeRootLinks(outDir) {
+  const pages = (await readdir(outDir)).filter((f) => f.endsWith(".html"));
+  const has = new Set(await readdir(outDir));
+  /** @param {string} p e.g. "visit", "fleet/suv", "" */
+  const pageFor = (p) => [p === "" ? "index.html" : `${p}.html`, `${p.replace(/\//g, "-")}.html`, `${p}/index.html`].find((f) => has.has(f) || existsSync(path.join(outDir, f)));
+  for (const f of pages) {
+    const file = path.join(outDir, f), html = await readFile(file, "utf8");
+    const next = html.replace(/(\shref=")\/(?!\/)([^"#?]*?)\/?([#?][^"]*)?"/g, (m, pre, p, tail = "") => {
+      const page = pageFor(p);
+      return page ? `${pre}${page}${tail}"` : m;
+    });
+    if (next !== html) await writeFile(file, next);
+  }
 }
 
 /** Whether `child` is `parent` or inside it. @param {string} child @param {string} parent */
@@ -141,8 +174,10 @@ async function findSites(dir) {
 async function main() {
   const { values } = parseArgs({ options: {
     site: { type: "string" }, all: { type: "boolean" }, fixtures: { type: "boolean" },
-    env: { type: "string" }, links: { type: "string" },
+    env: { type: "string" }, links: { type: "string" }, today: { type: "string" }, "as-written": { type: "boolean" },
   } });
+  // --today YYYY-MM-DD: build as if on that day (demo dates, "upcoming" lists); for checking a demo's dates ahead.
+  if (values.today !== undefined && !/^\d{4}-\d\d-\d\d$/.test(values.today)) throw new Error(`--today must be YYYY-MM-DD, got "${values.today}"`);
   const env = /** @type {"production"|"preview"} */ (values.env ?? process.env.SITE_ENV ?? "preview");
   if (!["production", "preview"].includes(env)) throw new Error(`--env must be production or preview, got "${env}"`);
   const links = /** @type {"pretty"|"html"} */ (values.links ?? "pretty");
@@ -158,7 +193,7 @@ async function main() {
   if (values.all) await rm(path.join(WORK, "manifests"), { recursive: true, force: true });
   for (const t of targets) {
     if (!existsSync(path.join(t.dir, "site.json"))) throw new Error(`No site.json in ${path.relative(ROOT, t.dir)}`);
-    const m = await buildSite(t.dir, { outDir: t.out, env, links, label: t.label });
+    const m = await buildSite(t.dir, { outDir: t.out, env, links, label: t.label, today: values.today, asWritten: values["as-written"] });
     console.log(`✓ ${t.label}  (${m.mode}, ${m.plan}, ${m.pages.length} pages, ${m.indexable ? "indexable" : "noindex"}) → ${path.relative(ROOT, t.out)}`);
   }
 }

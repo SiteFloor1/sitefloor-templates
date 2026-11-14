@@ -7,7 +7,7 @@ Design directions: [`directions.md`](https://github.com/SiteFloor1/sitefloor-int
 
 Status: built 9 Nov 2026 on `trade/cakes`: kit `cakes`, look `atelier` (the owner's pick), demo Pastillage
 (`sites/demos/cakes`, Signature, 22 pages), client fixture `tests/fixtures/sites/test-cakes-client` (Plus).
-Demo link (published copy with `.html` links): https://claude.ai/artifact/Js8b5tmvjG7X1MymbaFcnT
+Demo link (published copy with `.html` links): https://sitefloor1.github.io/sitefloor-templates/cakes/
 
 ## What makes it sell or fail
 - The cake is the product: one cake shown huge on the first screen, never a drawn or 3D cake.

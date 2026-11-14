@@ -4,6 +4,7 @@
  * in one file. src/features/registry.js finds this file by itself (every src/kits/<kit>/kit.js), so adding or changing
  * this kit never edits a shared file. What each export is for: docs/ARCHITECTURE.md, "A kit registers itself".
  */
+import { buildNow } from "../../core/lib/build-day.js";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { checkFlorist } from "./config.js";
@@ -127,7 +128,7 @@ export function buildData(site) {
 export function pageData(site) {
   const on = (/** @type {string[]} */ ...ids) => ids.some((id) => site.features.includes(id));
   const region = site.location.region ?? regionFromPostcode(site.location.postcode ?? "");
-  const y = new Date().getUTCFullYear(); // bank holidays for this year and next, worked out at build time
+  const y = new Date(buildNow()).getUTCFullYear(); // bank holidays for this year and next, worked out at build time
   const t = site.orderTracker, acc = site.contract?.accounts;
   return {
     florist: {

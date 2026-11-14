@@ -46,7 +46,8 @@ Not a template shop: each trade gets its own kit, each design looks unrecognisab
    Demo brand names: one short, real-sounding word or name a real owner might choose (e.g. "Laleh", "Kestle");
    never the "Surname & Surname" pattern (an AI tell), and check no UK business uses it.
 5. Measure: budget, phone layout-shift test, accessibility, Lighthouse; numbers in `docs/trades/<trade>/speed.md`.
-6. Finish properly: tests, README, a published demo link, then a short plain-English update for the owner
+6. Finish properly: tests, README, the demo's published link (`<base in demo-hosting.json>/<demo folder>/`: GitHub Pages,
+   rebuilt every day by `.github/workflows/demos.yml`; never republish a demo by hand), then a short plain-English update for the owner
    (what changed, why, one thing to check) and a short ready-to-send message for the auditor.
 7. Keep usage low: read only the files involved, let CI run the full check (not locally) and summarise, no screenshots unless
    asked (the owner reviews published links), and offer a handover when a chat gets long.
@@ -140,6 +141,7 @@ Not a template shop: each trade gets its own kit, each design looks unrecognisab
 | Anything in `docs/SPEED-LOG.md`, `CLAIMED-FONTS.md`, `DEMO-MAP.md`, `docs/trades/README.md`, `case-studies/README.md` | never by hand: they are generated. Edit the sources above, then `npm run docs` (`npm run rules` fails if stale) |
 | A client's content | `sites/clients/<slug>/site.json` + `img/` |
 | Demo-only behaviour | `src/demo/` |
+| A dated sample in a demo (an event, a trunk show, a closure) | the demo's `site.json`, and its field classed in `src/demo/dates.js` (moved ahead of today on every build; `tests/unit/demo-dates.test.js` fails on an unclassed or past date). A demo provider works its dates out on the day, never a fixed date |
 
 ## Commands
 - `npm run build -- --site demos/barber` — build one site to `dist/`
