@@ -18,3 +18,5 @@ What to build for this trade (kit `restaurant`). The ground rules and the steps 
 - **Setting up a client:** a Google Sheet with `kind,name,price,note,updated_at` (special, soldout, fresh, busy, board);
   the café's price list for Your usual (with each milk's allergens from its label); its busyness from its till; a floor
   sketch for the seat finder; its counter photo for the hero (we mark where each bake sits).
+
+**Published demos (GitHub Pages):** the PDF menu is left out, with its download button, because a PDF can't carry noindex there. It comes back when demos move to demos.sitefloor.com on Cloudflare, whose `_headers` can mark PDFs noindex (`docs/platform/demos.md`).

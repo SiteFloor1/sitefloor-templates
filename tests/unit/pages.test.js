@@ -30,9 +30,9 @@ test("the published site: noindex on every page (demos and case studies), crawli
   }
   for (const c of r.skipped) assert.ok(c.missing.length > 0 && !existsSync(path.join(out, "case-studies", c.slug)));
   assert.deepEqual(await indexablePages(out), []);
-  // No PDFs (they can't say noindex); the café's menu button goes to its menu page instead; nothing links to nothing.
+  // No PDFs (they can't say noindex), and no link to one: no button left that saves a page as ".pdf".
   assert.ok(!existsSync(path.join(out, "cafe", "menu.pdf")));
-  assert.doesNotMatch(readFileSync(path.join(out, "cafe", "index.html"), "utf8"), /href="menu\.pdf"/);
+  for (const f of ["index.html", "menu.html"]) assert.doesNotMatch(readFileSync(path.join(out, "cafe", f), "utf8"), /\.pdf"|download="[^"]*\.pdf"|\(PDF\)/);
   assert.deepEqual(await brokenLinks(out), []);
   writeFileSync(path.join(out, "wealth", "stray-link.html"), '<meta name="robots" content="noindex"><a href="nowhere.html">x</a><a href="/visit">y</a><img src="img/none.webp">');
   assert.deepEqual((await brokenLinks(out)).sort(), ["wealth/stray-link.html: /visit", "wealth/stray-link.html: img/none.webp", "wealth/stray-link.html: nowhere.html"].map((x) => x.replace("/", path.sep)).sort());

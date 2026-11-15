@@ -62,7 +62,9 @@ export async function brokenLinks(out) {
 
 /**
  * A PDF can't carry noindex and GitHub Pages can't send an X-Robots-Tag header, so the published demos have none:
- * each is removed and links to it point at the page of the same name (menu.pdf → menu.html) or at the demo's home.
+ * each is removed, and so is every link to it (a "download the PDF" button would otherwise save a web page as .pdf).
+ * They come back when demos move to demos.sitefloor.com on Cloudflare, whose _headers can mark PDFs noindex
+ * (docs/DEPLOYMENT.md, "Demos").
  * @param {string} dir a demo's folder
  */
 async function dropPdfs(dir) {
@@ -72,8 +74,8 @@ async function dropPdfs(dir) {
   for (const f of (await files(dir)).filter((x) => x.endsWith(".html"))) {
     let html = await readFile(f, "utf8");
     for (const pdf of pdfs) {
-      const page = pdf.replace(/\.pdf$/, ".html"), to = existsSync(path.join(dir, page)) ? page : "index.html";
-      html = html.split(`href="${pdf}"`).join(`href="${to}"`);
+      const href = pdf.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      html = html.replace(new RegExp(`<a\\b[^>]*\\shref="${href}"[^>]*>[\\s\\S]*?</a>`, "g"), "");
     }
     await writeFile(f, html);
   }
