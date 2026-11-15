@@ -5,7 +5,8 @@ What to build for this trade (kit `letting`). The ground rules and the steps for
 
 ## Independent letting agent (kit `letting`) — plan, 15 Nov 2026 (stage 1: awaiting the owner's pick of a design)
 
-An independent agent for long lets in England: calm and professional, never a portal clone. The site answers the four
+An agent for luxury residences on long lets in England, hotel-grade rather than high street: calm, generous space,
+real interior and architectural photography in one warm grade, few confident words; never a portal clone. The site answers the four
 things people ring about (what's available, can I see it, what does it cost, what do landlords get) and shows the
 legal basics plainly, because an agent that shows its fees and schemes up front looks more trustworthy than one that
 hides them.
@@ -36,17 +37,24 @@ the Act doesn't permit, or that has no redress scheme.
 
 **Signature** (17 pages; the homes count as one)
 Showpieces, 2 to 3 of these:
-1. `letting-homes` as a collection: a page per home from the agent's sheet: lead photograph, Part A on the card, Parts
+1. `letting-building` the building, homes lit: a real photograph first; on tap, a 3D illustration of the building,
+   built in code and labelled "Illustration" (three.js, loaded only on tap, about 150 KB compressed). Pick a floor and
+   the homes available now light up from the agent's sheet; tap one (or its line in the list beside it) for rent, size,
+   availability, the Part A facts and "Book a viewing". Three building types to start: a mansion block, a tower and a
+   stucco terrace, sized from the sheet (floors and homes per floor). Fails closed: a stale or broken sheet lights
+   nothing and says the list is being updated. No WebGL or reduced data: the photograph and the list stay. Reduced
+   motion: no arrival turn.
+2. `letting-homes` as a collection: a page per home from the agent's sheet: lead photograph, Part A on the card, Parts
    B and C on the home's page ("no more than one click away"), status, available from, how to view, share. Let agreed
    homes stay for 14 days marked as let, then go. Stale sheet: no home is shown as available.
-2. `letting-net` "what you'd receive", for landlords: type a monthly rent, choose a service; the agent's own rates (with
-   VAT) give the monthly fee, what reaches the landlord, and the one-off charges in the first year. Labelled an
-   illustration using our published fees, not advice; never estimates a rent, never mentions yields, tax or mortgage
-   figures; "send me this" copies a WhatsApp summary. Reads the same numbers as the fees page, so they can't disagree.
-3. `letting-viewings` open viewings: the agent's slots per home from the sheet (time, places left), book one by
-   WhatsApp or email with a calendar file; past and stale slots never show.
+3. `letting-net` both sides of one rent, a home-page section: what a tenant pays before the keys (the legal caps,
+   worked out live, including six weeks' deposit from £50,000 a year and "by agreement" from £100,000) and what a
+   landlord receives (the agent's own published fees with VAT, chosen service). Labelled an illustration, not advice;
+   never estimates a rent; reads the same numbers as the fees page.
 
 Alternative showpieces (alongside or instead):
+- `letting-viewings` open viewings: the agent's slots per home from the sheet (time, places left), book by WhatsApp or
+  email with a calendar file; past and stale slots never show.
 - `letting-compliance` your home's year, by code (landlord): gas safety, EICR, EPC expiry, deposit protected date,
   next inspection, from the agent's sheet, with calendar reminders. No photos needed.
 - `letting-timeline` from holding deposit to keys (tenant): the 15-day deadline worked out from the date paid,

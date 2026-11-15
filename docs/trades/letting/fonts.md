@@ -5,6 +5,6 @@ Three directions are mocked up for the owner; the two not chosen are removed onc
 
 | Look or design | Status | Branch | Display | Body |
 |---|---|---|---|---|
-| Ostley, Ledger (A) | approved | trade/letting | League Gothic | Epilogue |
-| Ostley, Index (B) | approved | trade/letting | Domine | Inclusive Sans |
-| Ostley, Saturday (C) | approved | trade/letting | Familjen Grotesk | Petrona |
+| Halvern, The stair (A) | approved | trade/letting | Petrona | Petrona |
+| Halvern, The tower (B) | approved | trade/letting | Familjen Grotesk | Martian Mono |
+| Halvern, The terrace (C) | approved | trade/letting | Epilogue | Fanwood Text |

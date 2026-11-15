@@ -60,9 +60,9 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 | Trade / design | Branch | Display | Body |
 |---|---|---|---|
 | Landscaping, Almanac | trade/landscaping | Alegreya | Alegreya |
-| Ostley, Ledger (A) | trade/letting | League Gothic | Epilogue |
-| Ostley, Index (B) | trade/letting | Domine | Inclusive Sans |
-| Ostley, Saturday (C) | trade/letting | Familjen Grotesk | Petrona |
+| Halvern, The stair (A) | trade/letting | Petrona | Petrona |
+| Halvern, The tower (B) | trade/letting | Familjen Grotesk | Martian Mono |
+| Halvern, The terrace (C) | trade/letting | Epilogue | Fanwood Text |
 | Tailor, Flannel (A) | trade/tailor | Della Respira | Commissioner |
 | Wedding films, Première (A) | trade/wedding-film | Sorts Mill Goudy | Urbanist |
 
