@@ -36,9 +36,10 @@ main section { padding-block: var(--s4); }
 .pl-links { display: flex; gap: 26px; font-weight: 600; font-size: 1rem; }
 .pl-links a { text-decoration: none; padding: 10px 0; }
 .pl-links a:hover, .pl-links a[aria-current="page"] { text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 8px; }
-.pl-go { margin-left: auto; display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; background: var(--text); color: var(--bg); font-weight: 600; text-decoration: none; }
+.pl-go { margin-left: 18px; display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; background: var(--text); color: var(--bg); font-weight: 600; text-decoration: none; }
 .pl-go:hover { background: var(--accent-2); }
-.pl-wa { display: none; }
+.pl-wa { margin-left: auto; display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; color: var(--text); text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+.pl-wa:hover { color: var(--accent-2); }
 .pl-menu { display: none; margin-left: auto; min-height: 44px; padding: 0 4px; border: 0; background: none; font: inherit; font-weight: 600; color: var(--text); cursor: pointer; }
 .pl-menu .pl-close, .pl-menu[aria-expanded="true"] .pl-open { display: none; }
 .pl-menu[aria-expanded="true"] .pl-close { display: inline; }
@@ -116,7 +117,7 @@ main > section + section { border-top: 1px solid var(--line); }
 .pl-bar { display: none; }
 
 @media (max-width: 900px) {
-  .pl-links, .pl-go { display: none; }
+  .pl-links, .pl-go, .pl-wa { display: none; }
   .pl-menu { display: block; }
   .pl-foot-in { grid-template-columns: 1fr 1fr; }
 }
