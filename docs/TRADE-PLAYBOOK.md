@@ -42,8 +42,9 @@ demos; demos stay fictional. For each trade:
 2. a short plan for me (features per plan, the showpiece, how the design differs) in `docs/trades/<trade>/playbook.md`;
 3. build, test, measure and publish the demo link;
 4. the auditor message. The auditor writes the report into `SiteFloor1/sitefloor-internal` `audits/reports/` and the
-   builder commits it there (never on the PR branch). Handovers, design rounds and VISION-REFERENCES are read from
-   sitefloor-internal too.
+   builder commits it there (never on the PR branch). Handovers and design rounds are read from sitefloor-internal
+   too (save new design rounds on a `design/<trade>` branch there). The trade's vision (references, approved features
+   and pages) is in this repo: `docs/VISION.md`. Read it first.
 
 A NEW KIT, STEP BY STEP (it never edits a shared file; `npm run rules` fails if a shared build file names a kit)
 1. `src/kits/<kit>/kit.js`, the kit's one entry file. Copy the shape of an existing one and export:
