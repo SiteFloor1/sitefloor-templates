@@ -1,0 +1,38 @@
+{#- Your first month: one tool for a new client's questions. Choose where and how often; the first session minute by
+    minute, what the place provides, every date for the four weeks after and the cost follow, from the trainer's own
+    words and prices. The first session is the diary's earliest open hour; without one, no dates or total are shown. -#}
+{%- set m = site.firstMonth %}
+{%- set sec = site.sections.firstMonth %}
+<section class="tm" id="first-month" data-feature="trainer-month" aria-labelledby="tm-h"{{ 'trainer-month' | tierAttr | safe }}><div class="wrap tm-in">
+  <div class="tm-intro">
+    <h2 id="tm-h">{{ sec.title }}</h2>
+    {%- if sec.intro %}<p class="tm-lede">{{ sec.intro }}</p>{% endif %}
+    {%- if m.photo %}<figure><img src="{{ m.photo.src | img }}" alt="{{ m.photo.alt }}" width="{{ m.photo.width }}" height="{{ m.photo.height }}" loading="lazy" decoding="async">{% if m.caption %}<figcaption>{{ m.caption }}</figcaption>{% endif %}</figure>{% endif %}
+  </div>
+  <div class="tm-folio" role="group" aria-label="Plan your first month">
+    <div class="tm-ask">
+      <div class="tm-q"><span class="tm-k" id="tm-where-k">Where</span><div class="tm-opt" role="group" aria-labelledby="tm-where-k" data-tm-where>
+        {%- for p in m.places %}<button type="button" data-id="{{ p.id }}" aria-pressed="{{ 'true' if loop.first else 'false' }}"><b>{{ p.label }}</b>{% if p.note %}<small>{{ p.note }}</small>{% endif %}</button>{% endfor %}
+      </div></div>
+      <div class="tm-q"><span class="tm-k" id="tm-often-k">How often</span><div class="tm-opt" role="group" aria-labelledby="tm-often-k" data-tm-often>
+        {%- set dflt = (m.often | selectattr("default") | first) or m.often[0] %}
+        {%- for o in m.often %}<button type="button" data-n="{{ o.perWeek }}" aria-pressed="{{ 'true' if o.perWeek == dflt.perWeek else 'false' }}"><b>{{ o.label }}</b>{% if o.note %}<small>{{ o.note }}</small>{% endif %}</button>{% endfor %}
+      </div></div>
+    </div>
+    <div class="tm-part"><h3>The first session <span data-tm-when></span></h3>
+      <ol class="tm-hour">
+        {%- for s in m.steps %}<li><b>{{ s.minute }}′</b><span>{{ s.text }}</span></li>{% endfor %}
+      </ol>
+      <p class="tm-where" data-tm-place>{{ m.places[0].text }}</p>
+    </div>
+    <div class="tm-part" data-tm-then hidden><h3>Then <span data-tm-count></span></h3><ol class="tm-dates" data-tm-dates></ol></div>
+    <div class="tm-part"><h3>What it costs</h3><ul class="tm-cost" data-tm-cost>
+      <li><span>The first session</span><b>{{ m.prices.first | pounds }}</b></li>
+      {%- for p in m.policy or [] %}<li><span>{{ p.label }}</span><b>{{ p.value }}</b></li>{% endfor %}
+    </ul></div>
+    <div class="tm-foot"><div class="tm-tot" data-tm-total></div><div class="tm-acts">
+      <button type="button" class="tm-ics" data-tm-ics hidden>Add to calendar</button>
+      <a class="tm-p" data-tm-go href="{{ m.message | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ m.message }}"{% endif %} target="_blank" rel="noopener">Reserve the first session</a>
+    </div></div>
+  </div>
+</div></section>

@@ -1,0 +1,108 @@
+/* =========================================================================
+   Look: Linen. A private training studio in Chelsea, by appointment. One hero idea: the trainer's week as a printed
+   appointment page, most of it spoken for, the few open hours in ink. Linen ground, warm black ink, one walnut accent
+   (taken from a walnut shell: the rule under an open hour, numerals, the chosen option's edge). Ibarra Real Nova
+   throughout, every time in its own lining figures set in equal boxes, like an appointment book. Square edges,
+   hairlines, no pills. Motion: open hours fade in once on load; nothing follows the scroll.
+   ========================================================================= */
+:root {
+  --bg: #F3EFE8; --surface: #ECE6DC; --surface-2: #E2DACE; --paper: #FBF9F5;
+  --text: #1E1B18; --muted: #675F56; --dim: #A39A8E;
+  --accent: #6E4B30; --accent-2: #573A24; --on-accent: #FFFFFF; --accent-soft: #D8C6B4;
+  --line: #D9D1C5; --line-2: #BDB2A3;
+  --band: #1E1B18; --on-band: #F3EFE8; --band-line: rgba(243,239,232,.18);
+  --ok: #2F5E3F; --busy: #7A5422; --closed: #675F56;
+  --font-display: "Ibarra Real Nova", "Ibarra Fallback", Georgia, serif;
+  --font-body: "Ibarra Real Nova", "Ibarra Fallback", Georgia, serif;
+  --font-voice: "Ibarra Real Nova", "Ibarra Fallback", Georgia, serif;
+  --on-photo: #FFFFFF; --photo-scrim: rgba(20,18,16,.45); --shadow: rgba(30,27,24,.2);
+  --season-bg: #1E1B18; --season-fg: #F3EFE8;
+  --pad: clamp(16px, 3.4vw, 56px);
+  --s4: clamp(72px, 9vw, 120px);
+  --nav-h: 92px; --body-size: 17px;
+  color-scheme: light;
+}
+html { background: var(--bg); }
+body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-weight: 400; font-size: var(--body-size); line-height: 1.6; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; text-wrap: balance; }
+b, strong { font-weight: 600; }
+::selection { background: var(--accent-soft); color: var(--text); }
+.wrap { width: min(1328px, 100% - 2 * var(--pad)); }
+main section { padding-block: var(--s4); }
+main section.ln-hero { padding-block: 14px 0; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+a { color: inherit; }
+.go { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; text-decoration: none; border-bottom: 1.5px solid var(--accent); }
+
+/* header: the key-tag mark and name left; the pages, then "Reserve an hour", right */
+.ln-nav { background: var(--bg); }
+.ln-nav-in { display: flex; align-items: center; gap: 40px; height: var(--nav-h); }
+.ln-mark { display: flex; align-items: center; gap: 12px; font: 600 28px/1 var(--font-display); text-decoration: none; }
+.ln-mark i { width: 30px; height: 30px; border: 1.5px solid var(--text); display: grid; place-items: center; padding-top: 2px; font: 600 15px/1 var(--font-display); font-style: normal; }
+.ln-mark img { height: 30px; width: auto; }
+.ln-links { display: flex; gap: 30px; margin-left: auto; font-size: 16px; }
+.ln-links a { color: var(--muted); text-decoration: none; }
+.ln-links a[aria-current="page"], .ln-links a:hover { color: var(--text); }
+.ln-res { font-weight: 600; font-size: 16px; text-decoration: none; border-bottom: 1.5px solid var(--accent); padding-bottom: 3px; }
+.ln-menu { display: none; background: none; border: 0; color: var(--text); font: 600 16px var(--font-body); min-height: 44px; cursor: pointer; }
+.ln-menu .ln-close, .ln-menu[aria-expanded="true"] .ln-open { display: none; }
+.ln-menu[aria-expanded="true"] .ln-close { display: inline; }
+.ln-sheet { background: var(--paper); border-top: 1px solid var(--line); padding: 20px var(--pad) 28px; }
+.ln-sheet nav { display: flex; flex-direction: column; }
+.ln-sheet nav a { padding: 12px 0; border-bottom: 1px solid var(--line); text-decoration: none; font-size: 20px; }
+.ln-sheet p { margin-top: 16px; color: var(--muted); }
+
+/* hero: the line and the sentence, then the diary */
+.ln-hero { padding: 14px 0 0; }
+.ln-top { display: flex; align-items: end; justify-content: space-between; gap: 30px; padding-bottom: 22px; }
+.ln-h1 { font: 600 clamp(44px, 5vw, 74px)/.98 var(--font-display); letter-spacing: -.02em; max-width: 17ch; }
+.ln-sub { max-width: 32ch; padding-bottom: 6px; color: var(--muted); font-size: 17px; line-height: 1.5; }
+
+/* section openings: the title alone, the line beside it */
+.ln-sh { display: flex; align-items: baseline; justify-content: space-between; gap: 30px; margin-bottom: 36px; }
+.ln-sh-t { font: 600 clamp(36px, 4vw, 58px)/1 var(--font-display); letter-spacing: -.01em; }
+.ln-sh-i { max-width: 34ch; color: var(--muted); }
+
+/* footer: ink band, the name and the week's hours, the credit last */
+.ln-foot { background: var(--band); color: var(--on-band); padding: 72px 0 calc(48px + env(safe-area-inset-bottom)); margin-top: 0; }
+.ln-foot-in { display: grid; grid-template-columns: repeat(12, 1fr); gap: 32px 24px; }
+.ln-foot-name { grid-column: 1 / 5; }
+.ln-foot-word { display: flex; align-items: center; gap: 12px; font: 600 30px/1 var(--font-display); }
+.ln-foot-word i { width: 32px; height: 32px; border: 1.5px solid var(--on-band); display: grid; place-items: center; padding-top: 2px; font: 600 16px/1 var(--font-display); font-style: normal; }
+.ln-foot-name p { margin-top: 14px; opacity: .8; }
+.ln-foot a { color: var(--on-band); }
+.ln-foot address { grid-column: 5 / 8; font-style: normal; line-height: 1.8; }
+.ln-foot-hours { grid-column: 8 / 11; list-style: none; padding: 0; margin: 0; line-height: 1.8; }
+.ln-foot-hours li { display: grid; grid-template-columns: 6.5em 1fr; }
+.ln-foot-hours span { opacity: .7; }
+.ln-foot .by b { color: var(--on-band); }
+.ln-foot-links { grid-column: 11 / 13; display: flex; flex-direction: column; gap: 6px; }
+.ln-foot-links a { text-decoration: none; }
+.ln-foot-by { grid-column: 1 / -1; padding-top: 24px; border-top: 1px solid var(--band-line); font-size: 14px; opacity: .85; }
+
+/* phone bar: the next private hour, and Reserve */
+.mbar.ln-bar { display: none; }
+.tr-404 { padding: 120px 0; }
+.tr-404 h1 { font-size: clamp(40px, 5vw, 64px); }
+.tr-404 p { margin-top: 16px; }
+
+@media (max-width: 760px) {
+  :root { --nav-h: 66px; }
+  .ln-nav-in { gap: 16px; }
+  .ln-links { display: none; }
+  .ln-mark { font-size: 22px; }
+  .ln-res { margin-left: auto; }
+  .ln-menu { display: inline-flex; align-items: center; }
+  .ln-top { display: block; padding: 12px 0 16px; }
+  .ln-h1 { font-size: 42px; }
+  .ln-sub { margin-top: 12px; font-size: 16px; }
+  .ln-sh { display: block; }
+  .ln-sh-i { margin-top: 12px; }
+  .ln-foot-in { grid-template-columns: 1fr; gap: 28px; }
+  .ln-foot-name, .ln-foot address, .ln-foot-hours, .ln-foot-links { grid-column: 1; }
+  .ln-foot { padding-bottom: calc(110px + env(safe-area-inset-bottom)); }
+  .mbar.ln-bar { display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; align-items: center; gap: 10px; background: var(--paper); border-top: 1px solid var(--line); padding: 10px var(--pad) max(10px, env(safe-area-inset-bottom)); }
+  .ln-bar-next { flex: 1; color: var(--muted); font-size: 14px; text-decoration: none; }
+  .ln-bar-next b { display: block; color: var(--text); font-size: 16px; }
+  .ln-bar-go { height: 46px; display: inline-flex; align-items: center; padding: 0 22px; background: var(--text); color: var(--paper); font-weight: 600; text-decoration: none; }
+}

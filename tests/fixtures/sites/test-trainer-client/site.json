@@ -1,0 +1,377 @@
+{
+  "schemaVersion": 4,
+  "id": "test-trainer-client",
+  "mode": "client",
+  "plan": "signature",
+  "kit": "trainer",
+  "look": "linen",
+  "url": "https://test-trainer-studio.co.uk",
+  "indexable": true,
+  "lang": "en-GB",
+  "business": {
+    "name": "Hollin",
+    "schemaType": "HealthClub",
+    "description": "Private personal training in Chelsea, one client at a time, by appointment. From £120 an hour.",
+    "priceRange": "£££",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "442079460512",
+    "phone": "+44 20 7946 0512",
+    "email": "hello@test-trainer-studio.example"
+  },
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "location": {
+    "streetAddress": "7 Ormonde Yard",
+    "locality": "London",
+    "postcode": "SW3 2QF",
+    "country": "GB",
+    "area": "A cobbled yard off the King's Road, Chelsea. Sloane Square station is a twelve-minute walk.",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=King%27s%20Road%2C%20Chelsea%2C%20London%20SW3"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [
+        [
+          "06:00",
+          "21:00"
+        ]
+      ],
+      "tue": [
+        [
+          "06:00",
+          "21:00"
+        ]
+      ],
+      "wed": [
+        [
+          "06:00",
+          "21:00"
+        ]
+      ],
+      "thu": [
+        [
+          "06:00",
+          "21:00"
+        ]
+      ],
+      "fri": [
+        [
+          "06:00",
+          "21:00"
+        ]
+      ],
+      "sat": [
+        [
+          "07:00",
+          "14:00"
+        ]
+      ],
+      "sun": []
+    },
+    "exceptions": [
+      {
+        "date": "2026-12-25",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2026-12-26",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      }
+    ]
+  },
+  "nav": [
+    {
+      "label": "The week",
+      "href": "#diary"
+    },
+    {
+      "label": "Your first month",
+      "href": "#first-month"
+    },
+    {
+      "label": "Sessions",
+      "href": "#sessions"
+    },
+    {
+      "label": "Visit",
+      "page": "visit",
+      "feature": "plan-visit",
+      "fallback": "#visit"
+    }
+  ],
+  "features": [
+    "trainer-diary",
+    "trainer-services",
+    "trainer-month",
+    "visit",
+    "plan-visit",
+    "questions"
+  ],
+  "hero": {
+    "kicker": "Private training, Chelsea",
+    "title": "The week is mostly spoken for.",
+    "intro": "Private training in Chelsea, one client at a time."
+  },
+  "sections": {
+    "firstMonth": {
+      "title": "Your first month.",
+      "intro": "Choose where we train and how often. What happens, the dates and the cost follow."
+    },
+    "services": {
+      "title": "Sessions",
+      "intro": "An hour each time, one to one or with one other person. Prices from the studio's own list."
+    },
+    "questions": {
+      "title": "Asked before a first session"
+    },
+    "visit": {
+      "title": "Finding the studio"
+    }
+  },
+  "messages": {
+    "general": "Hello, I'd like to ask about private training."
+  },
+  "diary": {
+    "source": "sheet",
+    "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat"
+    ],
+    "from": "06:00",
+    "to": "20:00",
+    "minutes": 60,
+    "priceFrom": 120,
+    "photo": {
+      "src": "img/trainer.webp",
+      "width": 1100,
+      "height": 1257,
+      "alt": "The trainer, in a black training jacket, looking into the camera",
+      "focus": "50% 22%",
+      "caption": "Wednesday and Thursday, 08:00 to 17:00: spoken for",
+      "block": {
+        "days": [
+          "wed",
+          "thu"
+        ],
+        "from": "08:00",
+        "to": "17:00"
+      }
+    },
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-test-trainer/pub?gid=0&single=true&output=csv",
+    "staleAfterHours": 24
+  },
+  "firstMonth": {
+    "photo": {
+      "src": "img/stones.webp",
+      "width": 900,
+      "height": 1350,
+      "alt": "Morning light across the studio's oak floor, two felt stones and a plant by the wall"
+    },
+    "caption": "Most people I train come twice a week.",
+    "places": [
+      {
+        "id": "studio",
+        "label": "The studio",
+        "note": "Chelsea, SW3",
+        "text": "In the studio: towels, water and a shower are here. Come in what you'd train in."
+      },
+      {
+        "id": "home",
+        "label": "Your home",
+        "note": "SW1X · SW3 · SW7 · SW10 · W8",
+        "text": "At home: I bring mats, bands and dumbbells. A clear space the size of a mat is enough.",
+        "away": true
+      }
+    ],
+    "often": [
+      {
+        "perWeek": 1,
+        "label": "Once a week",
+        "note": "steady"
+      },
+      {
+        "perWeek": 2,
+        "label": "Twice a week",
+        "note": "most choose this",
+        "default": true
+      },
+      {
+        "perWeek": 3,
+        "label": "Three times",
+        "note": "for a date in mind"
+      }
+    ],
+    "steps": [
+      {
+        "minute": 0,
+        "text": "We sit down. Your goals, your week, any injury, and a short health questionnaire. If it asks for your GP's go-ahead, we wait for it."
+      },
+      {
+        "minute": 15,
+        "text": "How you move: squat, hinge, reach, balance. Nothing heavy."
+      },
+      {
+        "minute": 25,
+        "text": "A first session, lighter than you expect."
+      },
+      {
+        "minute": 50,
+        "text": "The plan for the month, written down. It reaches you on WhatsApp that day."
+      }
+    ],
+    "prices": {
+      "first": 120,
+      "session": {
+        "1": 115,
+        "2": 110,
+        "3": 105
+      },
+      "travel": 20
+    },
+    "policy": [
+      {
+        "label": "Cancel 24 hours ahead",
+        "value": "no charge"
+      }
+    ],
+    "message": "Hello, I'd like to reserve a first session:"
+  },
+  "sessions": {
+    "items": [
+      {
+        "id": "one-to-one",
+        "name": "One to one",
+        "minutes": 60,
+        "price": 120,
+        "text": "Strength, fitness and mobility, planned around your week and any injury. In the studio or at your home."
+      },
+      {
+        "id": "duo",
+        "name": "With one other person",
+        "minutes": 60,
+        "price": 160,
+        "text": "Train with a partner or a friend. One plan for two, priced for the hour, not each."
+      },
+      {
+        "id": "assessment",
+        "name": "First session",
+        "minutes": 60,
+        "price": 120,
+        "text": "A talk, a health questionnaire and a movement check before any training. Every new client starts here."
+      }
+    ]
+  },
+  "qualifications": {
+    "title": "Qualifications",
+    "items": [
+      {
+        "name": "Level 3 Diploma in Personal Training",
+        "awardingBody": "Active IQ",
+        "year": 2018
+      },
+      {
+        "name": "Level 3 Award: Training Pre and Postnatal Clients",
+        "awardingBody": "YMCA Awards",
+        "year": 2021
+      },
+      {
+        "name": "Level 2 Award: Kettlebell Instructing",
+        "awardingBody": "Active IQ",
+        "year": 2023
+      }
+    ],
+    "insured": "Insured for one-to-one training in the studio and at clients' homes.",
+    "firstAid": "Emergency First Aid at Work, renewed this year.",
+    "registerUrl": "https://www.cimspa.co.uk/directory",
+    "registerName": "My entry on the CIMSPA directory"
+  },
+  "questions": [
+    {
+      "topic": "Starting",
+      "q": "Is the first session different?",
+      "a": "Yes. We talk first, you fill in a short health questionnaire, and I check how you move before any training. If the questionnaire asks for your GP's go-ahead, we wait for it.",
+      "home": true
+    },
+    {
+      "topic": "Starting",
+      "q": "I haven't trained for years. Is that all right?",
+      "a": "Most people I train start that way. The first sessions are lighter than you'd expect.",
+      "home": true
+    },
+    {
+      "topic": "Prices",
+      "q": "How do I pay?",
+      "a": "Session by session, after each one, by bank transfer or card. There is no contract.",
+      "home": true
+    },
+    {
+      "topic": "Prices",
+      "q": "What if I need to cancel?",
+      "a": "Cancel 24 hours ahead and there's no charge. Later than that, the session counts.",
+      "home": true
+    },
+    {
+      "topic": "Where",
+      "q": "Do you come to my home?",
+      "a": "Yes, in SW1X, SW3, SW7, SW10 and W8. I bring the equipment; a space the size of a mat is enough.",
+      "home": true
+    },
+    {
+      "topic": "Results",
+      "q": "How soon will I see a difference?",
+      "a": "It depends on you, your week and how often we train. I won't promise a number; we'll agree what to look for and check it every four weeks.",
+      "home": true
+    },
+    {
+      "topic": "Where",
+      "q": "Is there parking?",
+      "a": "Pay-by-phone bays on the King's Road and the streets around it. The yard itself has no parking."
+    }
+  ],
+  "visitInfo": {
+    "kicker": "Plan your visit",
+    "title": "Finding *the studio.*",
+    "intro": "A cobbled yard off the King's Road, twelve minutes' walk from Sloane Square.",
+    "checked": "2026-11",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "Sloane Square station",
+        "origin": "Sloane Square station, London",
+        "minutes": 12,
+        "steps": [
+          "Leave the station and turn onto the King's Road",
+          "Walk west past Duke of York Square",
+          "Ormonde Yard is the arch on the left after Smith Street"
+        ]
+      },
+      {
+        "mode": "bus",
+        "from": "Buses 11, 19, 22 and 211",
+        "stop": "Chelsea Old Town Hall",
+        "minutes": 4,
+        "steps": [
+          "Get off at Chelsea Old Town Hall",
+          "Walk back along the King's Road to the yard"
+        ]
+      }
+    ],
+    "parking": [
+      {
+        "name": "Pay-by-phone bays on the King's Road",
+        "walk": 2,
+        "paid": "always"
+      }
+    ]
+  }
+}

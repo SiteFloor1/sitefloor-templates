@@ -31,7 +31,7 @@ take (`demo-map.md`), its speed numbers (`speed.md`) and the fonts it claims (`f
 | mehndi | Mehndi and henna artists | `mehndi` | [questions](mehndi/questions.md) · [playbook](mehndi/playbook.md) · [demo-map](mehndi/demo-map.md) · [speed](mehndi/speed.md) · [fonts](mehndi/fonts.md) |
 | menswear | Clothing brands (menswear, running and outerwear) | `wear` | [questions](menswear/questions.md) · [playbook](menswear/playbook.md) · [demo-map](menswear/demo-map.md) · [speed](menswear/speed.md) · [fonts](menswear/fonts.md) |
 | nails | Nail, lash and beauty salons | `nails` | [questions](nails/questions.md) · [playbook](nails/playbook.md) · [demo-map](nails/demo-map.md) · [speed](nails/speed.md) · [fonts](nails/fonts.md) |
-| personal-trainer | Personal trainers and small gyms | `trainer` | [questions](personal-trainer/questions.md) · [playbook](personal-trainer/playbook.md) · [fonts](personal-trainer/fonts.md) |
+| personal-trainer | Personal trainers and small gyms | `trainer` | [questions](personal-trainer/questions.md) · [playbook](personal-trainer/playbook.md) · [demo-map](personal-trainer/demo-map.md) · [speed](personal-trainer/speed.md) · [fonts](personal-trainer/fonts.md) |
 | pilates | Reformer Pilates studios | `pilates` | [questions](pilates/questions.md) · [playbook](pilates/playbook.md) · [demo-map](pilates/demo-map.md) · [speed](pilates/speed.md) · [fonts](pilates/fonts.md) |
 | restaurant | Restaurants | `restaurant` | [questions](restaurant/questions.md) · [playbook](restaurant/playbook.md) · [demo-map](restaurant/demo-map.md) · [speed](restaurant/speed.md) · [fonts](restaurant/fonts.md) |
 | sneaker-cleaner | Sneaker and crep cleaners | — | [playbook](sneaker-cleaner/playbook.md) |
