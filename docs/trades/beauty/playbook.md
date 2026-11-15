@@ -70,14 +70,14 @@ Corporate and group days · Journal. Signature adds the suggestion note and the 
 - **Skin diary (client-only):** consented monthly progress photographs in one light for course clients.
 - **Ambitious:** the clock as a live day: today's free hours shown as gaps on the dial, from the clinic's Sheet.
 
-### Approved direction: A, The hour (owner, 15 Nov 2026), round 2
+### Approved direction: A, The hour (owner, 15 Nov 2026) — round 3
 References (`docs/VISION.md`): Taylor Taylor, The Lanesborough Club & Spa, David Mallett; hotel-spa luxury with
-Parisian salon elegance. Round 2 lifts A to them: one hero moment (the clock alone, centred, with room around it),
-the dial as a watch face (brass bezel, engraved rings, minute track, a blued hand that turns slowly to the stage),
-a cream ground (#F3EEE6), brass hairlines, a hotel header (menus either side, name and emblem centred) and one
-photographic session in one real treatment room (window light, amber glass, candles), graded once. Fonts unchanged
-(Wix Madefor). Photographs: free Pexels stock from one session (KoolShooters) covers all six stages; Mask shows the
-still life of the trolley, as the session has no mask. Screen: https://claude.ai/artifact/GukuzVgkgx9hP5H3uhieQv; source in `sitefloor-internal/docs/trades/beauty/screens-hour/`.
+Parisian salon elegance. Round 2 (watch-face dial on cream) read like a calm wellness app; round 3 leads with one large
+lamp-lit photograph of a treatment in progress (Katherine Hanlon, Unsplash licence) in a thin cream frame, with the
+clock set into its lower edge as a brass-rimmed dial. Natural object: aged brass (accent #7A5A22, rims #A8843F,
+photo graded toward brass). Emblem: a brass ring with a tick at twelve and a Didone O. Fonts: Imbue + Baskervville
+(serif on serif, like a Parisian printed treatment card); Wix Madefor released. Screen:
+https://claude.ai/artifact/95iyZJHjEPXJaWWBSdLQ2s; rounds and sources in `sitefloor-internal` (`design/beauty`).
 No build until the owner approves this screen.
 
 ### Round 1: three design directions (A chosen; B and C become Signature pages)
