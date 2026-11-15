@@ -47,10 +47,10 @@ New kit feature ids start with `skin-`. Every site also gets Plan your visit, op
 |---|---|---|---|
 | BEAU-1 | Starter | `skin-menu` | treatments by concern and by time: time, "from" price, downtime, patch test, single or course, in the clinic's words; each with its own small dial of minutes |
 | BEAU-2 | Starter (the easy extra) | `skin-patch` | first visit and patch-test policy; enter your appointment date, get "patch test by Sat 21 Nov" with a calendar file |
-| BEAU-3 | Plus | `skin-concern` | concern finder: pick what you'd like to change, see the clinic's matching treatments (a list, no dates) |
+| BEAU-3 | Plus (the home's first-screen tool on Plus and Signature) | `skin-concern` | concern finder: five words for how skin feels today; a printed card with the clinic's facial, length, price, afterwards, patch test and that evening; book on WhatsApp |
 | BEAU-4 | Plus | shared courses and memberships | the clinic's course and membership prices |
 | BEAU-5 | Plus | `skin-rooms` | room tour: the room's photographs with what each thing is for |
-| BEAU-6 | Signature | `skin-hour` (the home hero) | ritual builder: the facial drawn as a clock; add rituals (longer massage, LED, scalp) and the clock, time and price redraw, then a WhatsApp summary. Starter and Plus homes show the clock read-only with the clinic's own facials |
+| BEAU-6 | Signature | `skin-ritual` | ritual builder: add rituals (longer massage, LED, scalp) to a facial; time and price update, then a WhatsApp summary (no clock drawing) |
 | BEAU-7 | Signature | `skin-spaday` | spa day planner that ends in a gift card (the clinic's Payment Link) |
 | BEAU-8 | Signature | `skin-rhythm` | treatment rhythm reminders: the course planner (round 1's C) works out every appointment, the patch test and the stop-retinol date, plus aftercare reminders, as calendar files |
 | BEAU-9 | Signature | shared vouchers, `skin-voucher` look | experience voucher with a card preview |
@@ -70,15 +70,15 @@ Corporate and group days · Journal. Signature adds the suggestion note and the 
 - **Skin diary (client-only):** consented monthly progress photographs in one light for course clients.
 - **Ambitious:** the clock as a live day: today's free hours shown as gaps on the dial, from the clinic's Sheet.
 
-### Approved direction: A, The hour (owner, 15 Nov 2026) — round 4, daylight
+### Current direction (owner, 15 Nov 2026) — round 5, which facial?
 References (`docs/VISION.md`): Taylor Taylor, The Lanesborough Club & Spa, David Mallett; hotel-spa luxury with
-Parisian salon elegance. Round 4 is daylight: a facial with the face and hands clearly visible, in a white room with
-tall windows (one Pexels session by Olia Danilevich, one grade), under the kept header (menus either side, emblem and
-name centred). The clock is redrawn as a Paris façade sundial: a fan of hour lines hanging from the photograph's lower
-edge, the chosen stage lit in mimosa, a shadow line swinging to it. Natural object: mimosa (#F1C84B, underlines and
-the lit sector only). Type: Rosarivo alone (Garamond line, roman and italic); Imbue and Baskervville released.
-Screen: https://claude.ai/artifact/KUAGctSpxRyT86MBvdL1Hj; rounds, sources and the comparison sheet in
-`sitefloor-internal` (`design/beauty`). No build until the owner approves this screen.
+Parisian salon elegance. Kept from round 4: the header (menus either side, emblem and name centred), a large daylit
+photograph of a facial (one Pexels session by Olia Danilevich) and Rosarivo, roman only. The clock is retired as the
+hero; the first-screen tool is BEAU-3, the concern finder: "How does your skin feel today?", five words, and a printed
+treatment card with the facial, length, price, afterwards, patch test and that evening, then "Book this facial on
+WhatsApp" with the choice in the message. Answers come only from the clinic's menu in `site.json`. The minute-by-minute
+stages become plain text on each facial's page. Mimosa (#F1C84B) marks the chosen word only. Screen:
+https://claude.ai/artifact/3v5RiyJVKkfBoHKTH3aVCm. No build until the owner approves this screen.
 
 ### Round 1: three design directions (A chosen; B and C become Signature pages)
 Screens: https://claude.ai/artifact/Y5FANTQ9LroCp2mA8ZaVGX (source to go in `sitefloor-internal/docs/trades/beauty/screens/`).
