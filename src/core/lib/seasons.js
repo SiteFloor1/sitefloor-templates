@@ -53,13 +53,32 @@ function nthWeekday(y, m, weekday, n) {
 /**
  * Dates that move with the moon. These follow the expected UK dates and can
  * shift by a day once the moon is sighted: always confirm with the client.
+ * Each is a window around the day: Ramadan runs from its first day to the day before Eid al-Fitr; Eid al-Fitr is two
+ * days either side; Eid al-Adha three days before to two after; Diwali four days before to the day after.
+ * 2028–2030 checked 14 Nov 2026: Eid al-Fitr, Eid al-Adha and Ramadan's start from timeanddate.com's UK pages
+ * (tentative dates; Eid al-Fitr 27 Feb 2028, 15 Feb 2029, 5 Feb 2030; Eid al-Adha 5 May 2028, 24 Apr 2029,
+ * 14 Apr 2030; Ramadan from 28 Jan 2028, 16 Jan 2029, 6 Jan 2030); Diwali from timeanddate.com (17 Oct 2028,
+ * 5 Nov 2029) and Drik Panchang for 2030 (Amavasya begins just after midnight on 26 October in the UK, so Diwali is
+ * Saturday 26 October 2030 here; in North America it is the 25th).
  * @type {Record<string, Record<number, [string, string]>>}
  */
 const LUNAR = {
-  ramadan: { 2026: ["2026-02-18", "2026-03-19"], 2027: ["2027-02-08", "2027-03-09"] },
-  "eid-al-fitr": { 2026: ["2026-03-18", "2026-03-22"], 2027: ["2027-03-08", "2027-03-12"] },
-  "eid-al-adha": { 2026: ["2026-05-24", "2026-05-29"], 2027: ["2027-05-14", "2027-05-19"] },
-  diwali: { 2026: ["2026-11-04", "2026-11-09"], 2027: ["2027-10-25", "2027-10-30"] },
+  ramadan: {
+    2026: ["2026-02-18", "2026-03-19"], 2027: ["2027-02-08", "2027-03-09"], 2028: ["2028-01-28", "2028-02-26"],
+    2029: ["2029-01-16", "2029-02-14"], 2030: ["2030-01-06", "2030-02-04"],
+  },
+  "eid-al-fitr": {
+    2026: ["2026-03-18", "2026-03-22"], 2027: ["2027-03-08", "2027-03-12"], 2028: ["2028-02-25", "2028-02-29"],
+    2029: ["2029-02-13", "2029-02-17"], 2030: ["2030-02-03", "2030-02-07"],
+  },
+  "eid-al-adha": {
+    2026: ["2026-05-24", "2026-05-29"], 2027: ["2027-05-14", "2027-05-19"], 2028: ["2028-05-02", "2028-05-07"],
+    2029: ["2029-04-21", "2029-04-26"], 2030: ["2030-04-11", "2030-04-16"],
+  },
+  diwali: {
+    2026: ["2026-11-04", "2026-11-09"], 2027: ["2027-10-25", "2027-10-30"], 2028: ["2028-10-13", "2028-10-18"],
+    2029: ["2029-11-01", "2029-11-06"], 2030: ["2030-10-22", "2030-10-27"],
+  },
   "lunar-new-year": { 2026: ["2026-02-14", "2026-02-18"], 2027: ["2027-02-03", "2027-02-07"] },
 };
 

@@ -13,3 +13,5 @@ What to build for this trade (kit `restaurant`). The ground rules and the steps 
    - Signature: `the-table` (group diet planner), `the-room` (dining room plan, pick where to sit),
      `the-pass` (the plate up close with what's on it).
    The Carte look turns to its evening colours for an evening sitting (day/evening per sitting in `menu.sittings`).
+
+**Published demos (GitHub Pages):** the PDF menu is left out, with its download button, because a PDF can't carry noindex there. It comes back when demos move to demos.sitefloor.com on Cloudflare, whose `_headers` can mark PDFs noindex (`docs/platform/demos.md`).

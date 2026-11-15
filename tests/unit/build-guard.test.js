@@ -18,3 +18,16 @@ test("the build refuses to write inside sites/ or over site sources, before touc
   assert.doesNotThrow(() => assertOutsideSources(path.join(ROOT, "dist/demos/barber"), demo));
   assert.doesNotThrow(() => assertOutsideSources(path.join(ROOT, "dist/_fixtures/test-barber-client"), path.join(ROOT, "tests/fixtures/sites/test-barber-client")));
 });
+
+test("--today pins every build-time clock: the same site built on different real days is the same", async () => {
+  const { buildNow } = await import("../../src/core/lib/build-day.js");
+  process.env.SITEFLOOR_BUILD_DAY = "2026-11-13";
+  assert.equal(new Date(buildNow()).toISOString(), "2026-11-13T12:00:00.000Z");
+  delete process.env.SITEFLOOR_BUILD_DAY;
+  assert.ok(Math.abs(buildNow() - Date.now()) < 1000);
+  // Build-time kit code reads the clock only through buildNow().
+  const { readdirSync, readFileSync } = await import("node:fs");
+  const leaks = readdirSync("src/kits").flatMap((k) => ["kit.js", "eleventy.js", "build.js"].map((f) => `src/kits/${k}/${f}`))
+    .filter((f) => existsSync(f) && /new Date\(\)|Date\.now\(\)/.test(readFileSync(f, "utf8")));
+  assert.deepEqual(leaks, []);
+});
