@@ -1,0 +1,8 @@
+{#- The journal: the company's own pieces, newest first, each dated. -#}
+<section class="cl-jn" data-feature="cleaning-journal"><div class="wrap">
+  <ul class="cl-jn-l">
+    {%- for a in site.journal.items | newestFirst %}
+    <li><time datetime="{{ a.date }}">{{ a.date | ukDate }}</time><a href="{{ ('journal-' + a.slug) | href }}"><b>{{ a.title }}</b></a><span>{{ a.intro }}</span></li>
+    {%- endfor %}
+  </ul>
+</div></section>

@@ -1,0 +1,11 @@
+{#- What the company cleans: each service in one line with its hourly rate or "from" price, in the company's words; on
+    Signature each links to its own page. -#}
+{%- set sec = site.sections.services %}
+<section id="services" class="cl-services" data-feature="cleaning-services" aria-label="{{ sec.title | plain }}"{{ 'cleaning-services' | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <ul class="cl-sv">
+    {%- for s in site.cleans.items %}
+    <li>{% if s.page and ("cleaning-service-pages" | enabled) %}<a href="{{ s.id | href }}"{{ 'cleaning-service-pages' | tierAttr | safe }}>{% endif %}<b>{{ s.name }}</b>{% if s.page and ("cleaning-service-pages" | enabled) %}</a>{% endif %}<span>{{ s.line }}</span><em>{{ s | rateWords }}</em></li>
+    {%- endfor %}
+  </ul>
+</div></section>

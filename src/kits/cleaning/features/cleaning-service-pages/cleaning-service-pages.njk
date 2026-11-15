@@ -1,0 +1,12 @@
+{#- A service's own page: its rate, how long it usually takes, and what it covers, in the company's words. -#}
+{%- set s = svc %}
+<section class="cl-svc" data-feature="cleaning-service-pages"><div class="wrap cl-svc-in">
+  <div>
+    {%- set secs = s.page.sections %}{% include "kits/cleaning/partials/sections.njk" %}
+  </div>
+  <aside class="cl-svc-side">
+    {%- if s.page.photo %}<figure><img src="{{ s.page.photo.src | img }}" alt="{{ s.page.photo.alt }}" width="{{ s.page.photo.width }}" height="{{ s.page.photo.height }}" loading="lazy" decoding="async">{% if s.page.photo.credit %}<figcaption>Photograph: {{ s.page.photo.credit }}</figcaption>{% endif %}</figure>{% endif %}
+    <dl><div><dt>Rate</dt><dd>{{ s | rateWords }}</dd></div>{% if s.page.takes %}<div><dt>Usually takes</dt><dd>{{ s.page.takes }}</dd></div>{% endif %}</dl>
+    <a class="cl-send" href="{{ ('Hello ' + site.business.name + ', I\'d like to ask about ' + (s.name | lower) + '.') | book }}" target="_blank" rel="noopener">Ask about {{ s.name | lower }}</a>
+  </aside>
+</div></section>

@@ -1,0 +1,21 @@
+{#- Plumb header: the set-square emblem (an architect's right angle with three minute ticks and a taller fourth in the
+    accent) and the name; the pages; "Get a price" as a square ink button. "Menu" on a phone. -#}
+{%- set ask = site.messages.price or site.messages.general %}
+<header class="nav pl-nav"><div class="wrap pl-nav-in">
+  <a class="pl-mark" href="{{ 'index' | href }}" aria-label="{{ site.business.name }}, home">
+    {%- if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="{{ site.business.name }}" height="28">{% else %}<svg class="pl-sq" viewBox="0 0 28 28" aria-hidden="true"><path class="pl-sq-l" d="M3 2v23h23"/><path class="pl-sq-t" d="M9 25v-4M14 25v-4M19 25v-4"/><path class="pl-sq-a" d="M24 25v-9"/></svg><span>{{ site.business.name }}</span>{% endif %}
+  </a>
+  <nav class="pl-links" aria-label="Main">
+    {%- for item in site.nav | navItems(pageId) %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>{% endfor %}
+  </nav>
+  <a class="pl-go" href="{{ (('index' | href) + '#bill') if ('cleaning-bill' | enabled) else (ask | book) }}"{% if not ('cleaning-bill' | enabled) %} target="_blank" rel="noopener"{% endif %}>Get a price</a>
+  <a class="pl-wa" href="{{ ask | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ ask }}"{% endif %} target="_blank" rel="noopener">WhatsApp</a>
+  <button class="burger pl-menu" type="button" aria-expanded="false" aria-controls="mnav"><span class="pl-open">Menu</span><span class="pl-close">Close</span></button>
+</div></header>
+<div class="mnav pl-sheet" id="mnav" hidden>
+  <nav aria-label="Pages">
+    <a href="{{ 'index' | href }}"{% if pageId == "index" %} aria-current="page"{% endif %}>Home</a>
+    {%- for item in site.nav | navItems(pageId) %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>{% endfor %}
+  </nav>
+  <p class="pl-sheet-now" data-live-status><span class="dot" aria-hidden="true"></span> <span data-status-text>Office hours</span></p>
+</div>

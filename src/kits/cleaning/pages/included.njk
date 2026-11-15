@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: included
+permalink: included.html
+feature: cleaning-included
+eleventyComputed:
+  title: "What every clean includes"
+  description: "Room by room, what {{ site.business.name }} does on every visit, how long it takes, and what isn't included."
+---
+{%- set ph = { title: (site.sections.included.title if site.sections.included else "What every clean includes"), intro: (site.sections.included.intro if site.sections.included else "Room by room, the same list every visit, and how long each room takes.") } %}
+{% include "kits/cleaning/partials/page-head.njk" %}
+{% include "kits/cleaning/features/cleaning-included/cleaning-included.njk" %}

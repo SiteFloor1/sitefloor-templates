@@ -16,7 +16,7 @@ take (`demo-map.md`), its speed numbers (`speed.md`) and the fonts it claims (`f
 | cakes | Celebration cake designers | `cakes` | [questions](cakes/questions.md) · [playbook](cakes/playbook.md) · [demo-map](cakes/demo-map.md) · [speed](cakes/speed.md) · [fonts](cakes/fonts.md) |
 | car-hire | Car hire | `hire` | [questions](car-hire/questions.md) · [playbook](car-hire/playbook.md) · [demo-map](car-hire/demo-map.md) · [speed](car-hire/speed.md) · [fonts](car-hire/fonts.md) |
 | car-studio | Car studios (tint, wrap, PPF, detailing) | `car` | [questions](car-studio/questions.md) · [playbook](car-studio/playbook.md) · [demo-map](car-studio/demo-map.md) · [speed](car-studio/speed.md) · [fonts](car-studio/fonts.md) |
-| cleaning | Domestic and commercial cleaning | `cleaning` | [questions](cleaning/questions.md) · [playbook](cleaning/playbook.md) · [fonts](cleaning/fonts.md) |
+| cleaning | Domestic and commercial cleaning | `cleaning` | [questions](cleaning/questions.md) · [playbook](cleaning/playbook.md) · [demo-map](cleaning/demo-map.md) · [speed](cleaning/speed.md) · [fonts](cleaning/fonts.md) |
 | construction | Construction and building firms | `construction` | [questions](construction/questions.md) · [playbook](construction/playbook.md) · [demo-map](construction/demo-map.md) · [speed](construction/speed.md) · [fonts](construction/fonts.md) |
 | dessert | Dessert shops and chocolatiers | `bakery` | [questions](dessert/questions.md) · [demo-map](dessert/demo-map.md) · [speed](dessert/speed.md) · [fonts](dessert/fonts.md) |
 | detailing | Car detailing | `detailing` | [questions](detailing/questions.md) · [playbook](detailing/playbook.md) · [demo-map](detailing/demo-map.md) · [speed](detailing/speed.md) · [fonts](detailing/fonts.md) |

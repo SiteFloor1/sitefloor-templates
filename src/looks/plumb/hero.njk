@@ -1,0 +1,14 @@
+{#- Plumb hero: what the company is in two short lines ("Home cleaning in south-west London." and "Every room timed,
+    every visit the same."), a bright photograph band of a just-cleaned room, and, attached to its lower edge, the visit
+    as a strip (cleaning-strip, Plus). On Starter the band carries one line and the way to book instead. On a phone the
+    photograph comes first, then the headline, then the strip running downward. -#}
+{%- set h = site.hero %}{%- set p = h.photo %}
+<section class="hero pl-hero" aria-label="{{ site.business.name }}"><div class="wrap pl-hero-in">
+  <h1 class="pl-h1">{% for l in h.title.split("|") %}{% if loop.first %}{{ l | plain }}{% else %}<span>{{ l | plain }}</span>{% endif %}{% endfor %}</h1>
+  <figure class="pl-band"><img src="{{ p.src | img }}" alt="{{ p.alt }}" width="{{ p.width }}" height="{{ p.height }}" fetchpriority="high" decoding="async"{% if p.focus %} style="object-position: {{ p.focus }}"{% endif %}>{% if p.credit %}<figcaption>Photograph: {{ p.credit }}</figcaption>{% endif %}</figure>
+  {%- if "cleaning-strip" | enabled %}
+  {% include "kits/cleaning/features/cleaning-strip/cleaning-strip.njk" %}
+  {%- else %}
+  <p class="pl-hero-line">{{ h.intro }} <a class="cl-quiet" href="{{ site.messages.general | book }}" target="_blank" rel="noopener">Ask for a price</a></p>
+  {%- endif %}
+</div></section>

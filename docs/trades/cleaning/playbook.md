@@ -3,7 +3,7 @@
 What to build for this trade (kit `cleaning`). The ground rules and the steps for a new kit: [`docs/TRADE-PLAYBOOK.md`](../../TRADE-PLAYBOOK.md).
 
 ## Cleaning companies, homes and offices (new `cleaning` kit, demo Linnet) — proposed 15 Nov 2026, direction A (Plan) chosen, final screen awaiting approval
-- **Design process:** direction A (Plan) chosen by the owner; no build until its updated screen is approved.
+- **Design process:** direction A (Plan) approved by the owner; built as the `cleaning` kit, the `plumb` look and the Linnet demo (`sites/demos/cleaning`).
 - **The wow:** the visit as a strip: each room as wide as its minutes, a hairline per minute, tap a room for its tasks;
   the controls (bedrooms, bathrooms, how often) resize it and price it. One function works out every room's minutes,
   the total and the price (rounded once); every figure on the page reads from it.

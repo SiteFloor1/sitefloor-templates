@@ -1,0 +1,16 @@
+---
+layout: core/layouts/base.njk
+feature: cleaning-service-pages
+pagination:
+  data: site.cleans.items
+  size: 1
+  alias: svc
+permalink: "{{ svc.id }}.html"
+eleventyComputed:
+  pageId: "{{ svc.id }}"
+  title: "{{ svc.name }}"
+  description: "{{ svc.name }} by {{ site.business.name }}: {{ svc.line }}"
+---
+{%- set ph = { kicker: "Services", title: svc.name, intro: svc.page.intro } %}
+{% include "kits/cleaning/partials/page-head.njk" %}
+{% include "kits/cleaning/features/cleaning-service-pages/cleaning-service-pages.njk" %}

@@ -1,0 +1,16 @@
+---
+layout: core/layouts/base.njk
+feature: cleaning-journal
+pagination:
+  data: site.journal.items
+  size: 1
+  alias: a
+permalink: "journal-{{ a.slug }}.html"
+eleventyComputed:
+  pageId: "journal-{{ a.slug }}"
+  title: "{{ a.title }}"
+  description: "{{ a.intro }}"
+---
+{%- set ph = { kicker: "Journal", title: a.title, intro: a.intro } %}
+{% include "kits/cleaning/partials/page-head.njk" %}
+{% include "kits/cleaning/features/cleaning-journal/article.njk" %}

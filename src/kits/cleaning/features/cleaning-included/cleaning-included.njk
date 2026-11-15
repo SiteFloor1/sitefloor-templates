@@ -1,0 +1,22 @@
+{#- What every clean includes: room by room, the tasks, the minutes on a regular visit and on a deep clean, and what
+    isn't included, from the same checklist (visit.rooms) and the same visit() as the price. -#}
+{%- set V = site.visit %}
+{%- set reg = V | visitOf({ beds: 1, baths: 1, freq: "fortnight" }) %}{%- set deep = V | visitOf({ beds: 1, baths: 1, freq: "once" }) %}
+<section class="cl-inc" data-feature="cleaning-included"><div class="wrap">
+  <table class="cl-inc-t">
+    <caption class="cl-sr">Rooms, tasks and minutes</caption>
+    <thead><tr><th scope="col">Room</th><th scope="col">Every visit</th><th scope="col">Regular</th><th scope="col">Deep</th></tr></thead>
+    <tbody>
+    {%- for r in reg.rooms %}
+    <tr><th scope="row">{{ r.name | replace(" one", "") }}{% if r.id == "bed1" or r.id == "bath" %}<small>each further: {{ (V.rooms.bed.extraMin if r.id == "bed1" else V.rooms.bath.extraMin) or r.min }} min</small>{% endif %}</th>
+      <td><ul>{% for t in r.tasks %}<li>{{ t }}</li>{% endfor %}</ul>{% if r.not %}<p>{{ r.not }}</p>{% endif %}</td>
+      <td>{{ r.min | hm }}</td><td>{{ deep.rooms[loop.index0].min | hm }}</td></tr>
+    {%- endfor %}
+    </tbody>
+  </table>
+  {%- if V.extras.length %}
+  <h2 class="cl-inc-h">Extras, on any visit</h2>
+  <ul class="cl-inc-x">{% for e in V.extras %}<li><b>{{ e.name }}</b><span>{{ e.min }} min{% if e.perBed %} each bed{% endif %}</span></li>{% endfor %}</ul>
+  {%- endif %}
+  <p class="cl-fine">Rates: {{ V.rates.week | gbp }} an hour weekly, {{ V.rates.fortnight | gbp }} fortnightly, {{ V.rates.once | gbp }} for a one-off deep clean{% if V.minimum %}; the shortest visit we book is {{ V.minimum | hm }}{% endif %}.{% if "cleaning-bill" | enabled %} <a href="{{ 'index' | href }}#bill">Price your home</a>{% endif %}</p>
+</div></section>

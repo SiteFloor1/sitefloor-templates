@@ -1,0 +1,875 @@
+{
+  "schemaVersion": 4,
+  "id": "cleaning",
+  "mode": "demo",
+  "plan": "signature",
+  "kit": "cleaning",
+  "look": "plumb",
+  "url": "https://cleaning.demo.sitefloor.com",
+  "indexable": false,
+  "lang": "en-GB",
+  "business": {
+    "name": "Linnet",
+    "schemaType": "LocalBusiness",
+    "description": "Home and office cleaning in south-west London: every room timed, the same cleaner each visit, from £24 an hour.",
+    "priceRange": "££",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "447700900731",
+    "phone": "+44 7700 900731",
+    "email": "office@linnet.example"
+  },
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "location": {
+    "streetAddress": "Unit 2, Tasker Yard",
+    "locality": "London",
+    "postcode": "SW4 9QJ",
+    "country": "GB",
+    "area": "Our office is in a yard off Clapham High Street, five minutes from Clapham North. Drop keys off here, or we collect them at your first visit.",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=Clapham%20High%20Street%2C%20London%20SW4"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [
+        [
+          "08:00",
+          "18:00"
+        ]
+      ],
+      "tue": [
+        [
+          "08:00",
+          "18:00"
+        ]
+      ],
+      "wed": [
+        [
+          "08:00",
+          "18:00"
+        ]
+      ],
+      "thu": [
+        [
+          "08:00",
+          "18:00"
+        ]
+      ],
+      "fri": [
+        [
+          "08:00",
+          "18:00"
+        ]
+      ],
+      "sat": [
+        [
+          "09:00",
+          "13:00"
+        ]
+      ],
+      "sun": []
+    },
+    "exceptions": [
+      {
+        "date": "2026-12-24",
+        "ranges": [],
+        "note": "Office closed for Christmas"
+      },
+      {
+        "date": "2026-12-25",
+        "ranges": [],
+        "note": "Office closed for Christmas"
+      },
+      {
+        "date": "2026-12-26",
+        "ranges": [],
+        "note": "Office closed for Christmas"
+      }
+    ]
+  },
+  "nav": [
+    {
+      "label": "What's included",
+      "page": "included",
+      "feature": "cleaning-included"
+    },
+    {
+      "label": "End of tenancy",
+      "page": "end-of-tenancy",
+      "feature": "cleaning-tenancy"
+    },
+    {
+      "label": "Offices",
+      "page": "offices",
+      "feature": "cleaning-offices"
+    },
+    {
+      "label": "Our cleaners",
+      "page": "cleaners",
+      "feature": "cleaning-cleaners"
+    },
+    {
+      "label": "Journal",
+      "page": "journal",
+      "feature": "cleaning-journal"
+    },
+    {
+      "label": "Our office",
+      "page": "visit",
+      "feature": "plan-visit",
+      "fallback": "#visit"
+    }
+  ],
+  "features": [
+    "cleaning-strip",
+    "cleaning-bill",
+    "cleaning-services",
+    "cleaning-areas",
+    "cleaning-keys",
+    "cleaning-free-days",
+    "cleaning-included",
+    "cleaning-tenancy",
+    "cleaning-policies",
+    "cleaning-moveout",
+    "cleaning-schedule",
+    "cleaning-3d",
+    "cleaning-offices",
+    "cleaning-service-pages",
+    "cleaning-cleaners",
+    "cleaning-journal",
+    "visit",
+    "plan-visit",
+    "questions",
+    "page-links",
+    "seasonal"
+  ],
+  "hero": {
+    "kicker": "Home and office cleaning, south-west London",
+    "title": "Home cleaning in south-west London.|Every room timed, every visit the same.",
+    "intro": "Regular and one-off cleans from £24 an hour, the same cleaner each visit.",
+    "photo": {
+      "src": "img/home.webp",
+      "width": 1600,
+      "height": 800,
+      "alt": "A bright white sitting room with a fireplace, a curved sofa and a round table, just cleaned",
+      "credit": "Clay Banks on Unsplash",
+      "focus": "50% 58%"
+    }
+  },
+  "visit": {
+    "rates": {
+      "week": 24,
+      "fortnight": 25,
+      "once": 30
+    },
+    "minimum": 120,
+    "deep": 1.5,
+    "startTime": "09:00",
+    "rooms": {
+      "kitchen": {
+        "name": "Kitchen and living",
+        "min": 45,
+        "tasks": [
+          "Worktops cleared and wiped",
+          "Hob and splashback degreased",
+          "Cupboard fronts and handles",
+          "Outside of the oven, fridge and microwave",
+          "Sink and taps descaled and polished",
+          "Living area dusted, sofa vacuumed",
+          "Floor vacuumed and mopped"
+        ],
+        "not": "Inside the oven and fridge are extras."
+      },
+      "hall": {
+        "name": "Hall and stairs",
+        "min": 10,
+        "tasks": [
+          "Front door and handles",
+          "Light switches",
+          "Skirting",
+          "Floor vacuumed and mopped"
+        ],
+        "not": "Coats and shoes are left as they are."
+      },
+      "bed": {
+        "name": "Bedroom",
+        "min": 20,
+        "extraMin": 15,
+        "tasks": [
+          "Bed made, or changed if linen is left out",
+          "Surfaces and lamps dusted",
+          "Mirrors",
+          "Floor vacuumed, under the bed edge"
+        ],
+        "not": "Inside wardrobes is a deep-clean task."
+      },
+      "bath": {
+        "name": "Bathroom",
+        "min": 30,
+        "extraMin": 25,
+        "tasks": [
+          "Bath or shower, screen and tiles to hand height",
+          "Basin and taps descaled",
+          "Toilet inside and out",
+          "Mirror and chrome polished",
+          "Floor mopped"
+        ],
+        "not": "Grout restoration is a deep-clean task."
+      }
+    },
+    "extras": [
+      {
+        "id": "oven",
+        "name": "Inside the oven",
+        "min": 60
+      },
+      {
+        "id": "fridge",
+        "name": "Inside the fridge",
+        "min": 20
+      },
+      {
+        "id": "windows",
+        "name": "Inside windows",
+        "min": 30
+      },
+      {
+        "id": "linen",
+        "name": "Fresh bed linen",
+        "min": 10,
+        "perBed": true
+      },
+      {
+        "id": "iron",
+        "name": "Ironing",
+        "min": 60
+      }
+    ],
+    "defaults": {
+      "beds": 2,
+      "baths": 2,
+      "freq": "fortnight"
+    }
+  },
+  "areas": {
+    "districts": [
+      "SW2",
+      "SW4",
+      "SW8",
+      "SW9",
+      "SW11",
+      "SW12",
+      "SE11",
+      "SE24"
+    ],
+    "places": [
+      "Clapham",
+      "Brixton",
+      "Stockwell",
+      "Battersea",
+      "Balham",
+      "Kennington",
+      "Herne Hill"
+    ],
+    "days": {
+      "source": "simulated",
+      "staleAfterDays": 3
+    }
+  },
+  "keys": {
+    "label": "Key 0418 · a Tuesday",
+    "steps": [
+      {
+        "when": "07:52",
+        "what": "Signed out of the key safe",
+        "detail": "By the cleaner booked for your visit, and nobody else.",
+        "where": "Office"
+      },
+      {
+        "when": "08:31",
+        "what": "In, alarm off",
+        "detail": "With your code, which we keep apart from the key.",
+        "where": "Your home"
+      },
+      {
+        "when": "10:58",
+        "what": "Out, alarm set, door double-locked",
+        "detail": "A photo of the locked door is sent to you.",
+        "where": "Your home"
+      },
+      {
+        "when": "11:40",
+        "what": "Signed back in",
+        "detail": "Counted into the safe by the duty supervisor.",
+        "where": "Office"
+      }
+    ],
+    "rules": [
+      {
+        "heading": "Numbers, never names.",
+        "text": "A key carries a number; the list matching numbers to addresses is kept apart from the keys."
+      },
+      {
+        "heading": "Or no key at all.",
+        "text": "Use a key safe or a smart lock and we hold nothing."
+      }
+    ]
+  },
+  "tenancy": {
+    "title": "End of tenancy",
+    "intro": "Room by room, the clean most agents check against. Tick it off as you go; tell us your check-out date and we'll tell you when we clean.",
+    "before": [
+      "The flat is empty of your things, or nearly",
+      "Electricity and hot water are on",
+      "Bins have been emptied",
+      "Keys for us: drop them at the office, or meet us there"
+    ],
+    "rooms": [
+      {
+        "name": "Kitchen",
+        "items": [
+          "Oven, hob and extractor inside and out",
+          "Fridge and freezer defrosted, inside and out",
+          "Cupboards and drawers inside and out",
+          "Sink, taps and tiles descaled",
+          "Floor, including behind the appliances we can move"
+        ]
+      },
+      {
+        "name": "Bathrooms",
+        "items": [
+          "Bath, shower and screen descaled",
+          "Toilet inside and out, including the base",
+          "Tiles and grout",
+          "Mirrors, chrome and the extractor fan",
+          "Floor"
+        ]
+      },
+      {
+        "name": "Bedrooms and living rooms",
+        "items": [
+          "Wardrobes and drawers inside and out",
+          "Skirting, door frames and doors",
+          "Windows inside, frames and sills",
+          "Light switches and sockets",
+          "Carpets vacuumed; hard floors mopped"
+        ]
+      },
+      {
+        "name": "Throughout",
+        "items": [
+          "Radiators",
+          "Light fittings we can reach safely",
+          "Cobwebs from ceilings and corners",
+          "Bins cleaned"
+        ]
+      }
+    ],
+    "terms": "Tell us within 72 hours of the clean if anything on this list was missed, and we come back to put it right, free.",
+    "depositLink": "https://www.gov.uk/tenancy-deposit-protection",
+    "checked": "2026-11",
+    "cleanDaysBefore": 1,
+    "bookDaysBefore": 7,
+    "message": "Hello Linnet, I'd like to book an end-of-tenancy clean."
+  },
+  "policies": {
+    "title": "Policies",
+    "intro": "Cancelling, holidays, breakages and paying, written down.",
+    "sections": [
+      {
+        "heading": "Cancelling or moving a visit",
+        "text": "Tell us 48 hours before and there's no charge. Later than that, we charge half the visit, because your cleaner has kept the time for you."
+      },
+      {
+        "heading": "Holidays",
+        "text": "Pause your visits whenever you go away; tell us a week before. Your cleaner keeps your slot."
+      },
+      {
+        "heading": "Breakages",
+        "text": "If we break something, we tell you that day and put it right. We'd rather you heard it from us than found it."
+      },
+      {
+        "heading": "Putting things right",
+        "text": "If a room isn't done to the list, tell us within 48 hours and we come back to do it, free."
+      },
+      {
+        "heading": "Paying",
+        "text": "By card or bank transfer after each visit. You get a receipt by email every time."
+      }
+    ]
+  },
+  "offices": {
+    "title": "Offices",
+    "intro": "Offices, studios and shops cleaned outside your hours, by the same team each time. Priced after a free site survey.",
+    "hours": {
+      "open": "08:00",
+      "close": "18:00"
+    },
+    "gap": 15,
+    "zones": [
+      {
+        "id": "desks",
+        "name": "Desks",
+        "min": 1.2,
+        "per": "desk",
+        "count": 40,
+        "max": 400,
+        "tasks": [
+          "Cleared desks wiped",
+          "Desk bins emptied",
+          "Chairs straightened",
+          "Carpet vacuumed"
+        ],
+        "freq": "every visit"
+      },
+      {
+        "id": "kitchen",
+        "name": "Kitchen",
+        "min": 25,
+        "tasks": [
+          "Worktops and sink",
+          "Dishwasher loaded and run",
+          "Microwave inside",
+          "Bins and recycling",
+          "Floor mopped"
+        ],
+        "freq": "every visit"
+      },
+      {
+        "id": "washrooms",
+        "name": "Washrooms",
+        "min": 15,
+        "per": "washroom",
+        "count": 2,
+        "max": 20,
+        "tasks": [
+          "Toilets and basins",
+          "Mirrors",
+          "Soap and paper restocked",
+          "Floor mopped"
+        ],
+        "freq": "every visit"
+      },
+      {
+        "id": "meeting",
+        "name": "Meeting rooms",
+        "min": 15,
+        "tasks": [
+          "Tables wiped",
+          "Glass spot-cleaned",
+          "Chairs set",
+          "Floor vacuumed"
+        ],
+        "freq": "every visit"
+      },
+      {
+        "id": "reception",
+        "name": "Reception",
+        "min": 10,
+        "tasks": [
+          "Desk and glass",
+          "Seating",
+          "Entrance mat",
+          "Floor"
+        ],
+        "freq": "every visit"
+      }
+    ],
+    "message": "Hello Linnet, we'd like a site survey for our office."
+  },
+  "cleaners": {
+    "title": "Our cleaners",
+    "intro": "Employed by us, not agency staff. These lines are samples; on a real site every one is the company's own.",
+    "sections": [
+      {
+        "heading": "Employed, paid for the time",
+        "text": "Our cleaners are employed by Linnet, paid by the hour including travel between homes. (Demo sample.)"
+      },
+      {
+        "heading": "Checked before they start",
+        "text": "Two references, right to work and a basic DBS check, all before a first visit. (Demo sample.)"
+      },
+      {
+        "heading": "Insured",
+        "text": "Public liability insurance covers every visit; we send the certificate on request. (Demo sample.)"
+      },
+      {
+        "heading": "Trained to the list",
+        "text": "Every new cleaner works alongside a supervisor for their first two weeks, room by room, to the same list you see on our site. (Demo sample.)"
+      }
+    ]
+  },
+  "journal": {
+    "title": "Journal",
+    "intro": "Notes from the office.",
+    "items": [
+      {
+        "slug": "deposit",
+        "title": "What agents check at check-out",
+        "date": "2026-10-14",
+        "intro": "The ten things that come up most on check-out reports, and how long each takes to put right.",
+        "sections": [
+          {
+            "heading": "Ovens first",
+            "text": "The oven comes up on almost every report. It is also the longest single job in a move-out clean: an hour or more for a used oven, so book it in."
+          },
+          {
+            "heading": "Limescale",
+            "text": "Taps, shower screens and the base of the toilet. Descaling takes time to work; it is not a wipe."
+          },
+          {
+            "heading": "Behind and under",
+            "text": "Agents pull out what moves. We clean behind the appliances we can move safely and tell you about the ones we can't."
+          }
+        ]
+      },
+      {
+        "slug": "between-visits",
+        "title": "Keeping a home clean between visits",
+        "date": "2026-09-02",
+        "intro": "Ten minutes a day that make a fortnightly clean feel weekly.",
+        "sections": [
+          {
+            "heading": "Surfaces clear",
+            "text": "We clean what we can reach. Clear worktops on cleaning day and the time goes on cleaning, not moving things."
+          },
+          {
+            "heading": "Squeegee the shower",
+            "text": "Thirty seconds after each shower keeps limescale off the screen for a fortnight."
+          }
+        ]
+      }
+    ]
+  },
+  "sections": {
+    "bill": {
+      "title": "The bill, worked out in front of you.",
+      "intro": "Time on site at our hourly rate, rounded once to the pound. Extras add their own minutes.",
+      "fine": "A guide from our published rates; we confirm it before the first visit. Regular cleans have no contract."
+    },
+    "keys": {
+      "title": "Your key, accounted for.",
+      "intro": "Most of our clients are out when we clean. Every movement of a key is logged, and you can ask for the log at any time."
+    },
+    "services": {
+      "title": "What we clean.",
+      "intro": "Homes first, offices outside their hours."
+    },
+    "areas": {
+      "title": "Where we clean.",
+      "intro": "Eight postcode districts in south-west London, so your cleaner is never far away."
+    },
+    "questions": {
+      "title": "Asked before a first clean."
+    },
+    "visit": {
+      "kicker": "Our office",
+      "title": "Our office."
+    },
+    "included": {
+      "title": "What every clean includes",
+      "intro": "Room by room, the same list every visit, and how long each room takes."
+    }
+  },
+  "messages": {
+    "general": "Hello Linnet, I have a question.",
+    "price": "Hello Linnet, could I have a price for a clean?"
+  },
+  "questions": [
+    {
+      "topic": "The visit",
+      "q": "Do I need to be in?",
+      "a": "No. Most of our clients are out. We hold a numbered key, or use your key safe. See how a key moves, above.",
+      "home": true
+    },
+    {
+      "topic": "The visit",
+      "q": "Will I have the same cleaner?",
+      "a": "Yes. When they're away we tell you who's covering a week before.",
+      "home": true
+    },
+    {
+      "topic": "The visit",
+      "q": "Do you bring products and equipment?",
+      "a": "Yes: our own vacuums, cloths and products, fragrance-free unless you ask. If you'd like us to use yours, leave them out.",
+      "home": true
+    },
+    {
+      "topic": "Paying",
+      "q": "Is there a contract?",
+      "a": "Not for regular cleans. Pause or stop with a week's notice. Offices have a written agreement after the site survey.",
+      "home": true
+    },
+    {
+      "topic": "The visit",
+      "q": "Are you fine with pets?",
+      "a": "Yes. Tell us their names and anything they mustn't do while the door is open."
+    },
+    {
+      "topic": "Paying",
+      "q": "How do I pay?",
+      "a": "By card or bank transfer after each visit, with a receipt by email."
+    }
+  ],
+  "visitInfo": {
+    "kicker": "Our office",
+    "title": "Dropping off a *key.*",
+    "intro": "Tasker Yard, off Clapham High Street, five minutes from Clapham North.",
+    "checked": "2026-11",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "Clapham North station",
+        "origin": "Clapham North station, London",
+        "minutes": 5,
+        "steps": [
+          "Leave by the Clapham High Street exit",
+          "Walk south on Clapham High Street",
+          "Tasker Yard is the second opening on the left; we're Unit 2"
+        ]
+      },
+      {
+        "mode": "bus",
+        "from": "Buses 88, 155 and 345",
+        "stop": "Clapham High Street",
+        "minutes": 2,
+        "steps": [
+          "Get off at Clapham High Street",
+          "Walk back to Tasker Yard"
+        ]
+      }
+    ],
+    "parking": [
+      {
+        "name": "Pay-by-phone bays in the side streets",
+        "walk": 3,
+        "price": "check the signs on the street",
+        "paid": {
+          "mon": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "tue": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "wed": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "thu": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "fri": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "sat": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ]
+        },
+        "note": "Residents' bays are marked; avoid those.",
+        "bankHolidays": "sunday"
+      }
+    ],
+    "access": [
+      {
+        "label": "Step-free entrance",
+        "yes": true
+      },
+      {
+        "label": "Ground-floor office",
+        "yes": true
+      }
+    ],
+    "accessNote": "Ring the bell by the door; someone is in during office hours.",
+    "payment": "Card or bank transfer."
+  },
+  "pageLinks": [
+    {
+      "page": "included",
+      "image": "img/kitchen.webp",
+      "kicker": "Room by room",
+      "title": "What every clean includes",
+      "cta": "The list"
+    },
+    {
+      "page": "end-of-tenancy",
+      "image": "img/bath.webp",
+      "kicker": "Moving out",
+      "title": "End of tenancy, checked off",
+      "cta": "The checklist"
+    },
+    {
+      "page": "offices",
+      "image": "img/lobby.webp",
+      "kicker": "Offices",
+      "title": "Cleaned outside your hours",
+      "cta": "Offices"
+    }
+  ],
+  "seasons": [
+    {
+      "name": "Christmas",
+      "from": "2026-11-30",
+      "to": "2027-01-03",
+      "tint": "festive",
+      "banner": "The office is closed 24 to 26 December. Cleans that week go ahead as booked.",
+      "link": {
+        "label": "Our office",
+        "href": "#visit"
+      }
+    }
+  ],
+  "cleans": {
+    "items": [
+      {
+        "id": "regular-cleaning",
+        "name": "Regular cleaning",
+        "line": "Weekly or fortnightly, the same cleaner, the same list every visit.",
+        "rate": 24,
+        "unit": "an hour",
+        "page": {
+          "intro": "Weekly or fortnightly, by the same cleaner, to the same written list.",
+          "takes": "2 h 25 for a two-bedroom flat with two bathrooms",
+          "photo": {
+            "src": "img/bath.webp",
+            "width": 888,
+            "height": 666,
+            "alt": "A white bathroom with a pale blue bath under a sash window",
+            "credit": "Clay Banks on Unsplash"
+          },
+          "sections": [
+            {
+              "heading": "The same cleaner",
+              "text": "You meet your cleaner on the first visit and they come every time after. When they're on holiday we tell you who's covering a week ahead, and they get the same list."
+            },
+            {
+              "heading": "The same list",
+              "text": "Every room has its tasks and its minutes, written down on our what's-included page. If you'd like something done first, leave a note."
+            },
+            {
+              "heading": "Rates",
+              "text": "£24 an hour weekly, £25 fortnightly. The shortest visit we book is two hours. No contract: pause or stop with a week's notice."
+            }
+          ]
+        }
+      },
+      {
+        "id": "deep-cleans",
+        "name": "Deep cleans",
+        "line": "One visit, every room taken further: inside cupboards, grout, behind and under.",
+        "rate": 30,
+        "unit": "an hour",
+        "page": {
+          "intro": "A one-off visit that takes every room further than a regular clean.",
+          "takes": "Half as long again as a regular visit, room by room",
+          "photo": {
+            "src": "img/marble.webp",
+            "width": 889,
+            "height": 667,
+            "alt": "A marble shower and a timber basin, wiped and dry",
+            "credit": "Clay Banks on Unsplash"
+          },
+          "sections": [
+            {
+              "heading": "What changes",
+              "text": "Each room takes half as long again: inside cupboards and wardrobes, grout scrubbed, behind and under furniture we can move safely, skirting and door frames by hand."
+            },
+            {
+              "heading": "Before regular cleans",
+              "text": "Many homes start with one deep clean, then regular visits keep it there. It isn't required; we'll tell you honestly if your home needs one."
+            }
+          ]
+        }
+      },
+      {
+        "id": "move-out-cleans",
+        "name": "End of tenancy",
+        "line": "Empty-property cleans to the check-out list most agents use.",
+        "from": 180,
+        "unit": "for a one-bedroom flat",
+        "page": {
+          "intro": "An empty-property clean, room by room, to the list agents and landlords check against.",
+          "takes": "Most of a day for a two-bedroom flat",
+          "sections": [
+            {
+              "heading": "The checklist",
+              "text": "Our end-of-tenancy page has the full room-by-room list, and what to do before we arrive. Tick it off as you go."
+            },
+            {
+              "heading": "If something is missed",
+              "text": "Tell us within 72 hours of the clean and we come back to put it right, free. We can't promise what a landlord decides about a deposit; we can make sure the clean isn't the reason."
+            }
+          ]
+        }
+      },
+      {
+        "id": "short-let-turnovers",
+        "name": "Short-let turnovers",
+        "line": "Between guests: cleaned, beds changed, restocked, photographed for you.",
+        "rate": 26,
+        "unit": "an hour",
+        "page": {
+          "intro": "Between guests, in the gap between check-out and check-in.",
+          "takes": "About 2 hours for a one-bedroom flat",
+          "photo": {
+            "src": "img/bed.webp",
+            "width": 1000,
+            "height": 750,
+            "alt": "A made bed with white sheets against a dark panelled wall",
+            "credit": "Lisha Riabinina on Unsplash"
+          },
+          "sections": [
+            {
+              "heading": "Every turnover",
+              "text": "A full clean, beds changed with your linen, towels set out, consumables restocked from your cupboard, and photos of each room sent to you before we leave."
+            },
+            {
+              "heading": "Tight gaps",
+              "text": "Send us your check-out and check-in times when you book. If a gap is too tight for the flat, we'll say so rather than rush it."
+            }
+          ]
+        }
+      },
+      {
+        "id": "after-builders",
+        "name": "After builders",
+        "line": "Dust from every surface after building work, in two passes.",
+        "rate": 30,
+        "unit": "an hour",
+        "page": {
+          "intro": "After building or decorating work: dust off every surface, in two passes a day apart.",
+          "takes": "Quoted after we see it",
+          "sections": [
+            {
+              "heading": "Two passes",
+              "text": "Fine dust settles for a day after the first clean. We come back the next day to take off what has settled."
+            },
+            {
+              "heading": "What we need",
+              "text": "The builders finished, rubble gone, power and water on. We bring the vacuums with the right filters."
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
