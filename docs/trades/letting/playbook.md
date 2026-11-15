@@ -64,6 +64,8 @@ receive · Rental valuation · Renting with us · Repairs and emergencies · Wha
 · Renting is changing (Renters' Rights Act, dated) · Switch to us · About us · Is this really us? · Journal (the agent's
 own writing: getting a deposit back, preparing a home to let). Plus Plan your visit and privacy, free.
 
+Design directions (three static screens, awaiting the owner's pick): `sitefloor-internal/docs/trades/letting/directions.md`.
+
 **Photographs (checked 15 Nov 2026).** Free, licensed single interiors (Unsplash License) and street photographs of
 English cities are plentiful. Matched sets of several rooms of one real home could not be confirmed, so each demo home
 shows one lead photograph of one place, never rooms from different homes presented as one. Area photographs show only
