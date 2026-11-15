@@ -59,9 +59,7 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 
 | Trade / design | Branch | Display | Body |
 |---|---|---|---|
-| Isolde, The spread (A) | trade/bridal-beauty | Syne | Crimson Pro |
-| Isolde, Three distances (B) | trade/bridal-beauty | Yeseva One | Hind |
-| Isolde, Look closer (C) | trade/bridal-beauty | Work Sans | Work Sans |
+| Isolde, round 3 | trade/bridal-beauty | Kalnia | Work Sans |
 | Landscaping, Almanac | trade/landscaping | Alegreya | Alegreya |
 | Tailor, Flannel (A) | trade/tailor | Della Respira | Commissioner |
 | Wedding films, Première (A) | trade/wedding-film | Sorts Mill Goudy | Urbanist |
