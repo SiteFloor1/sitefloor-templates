@@ -89,8 +89,9 @@ Plus Plan your visit, privacy and 404, free on every plan.
 
 ## How the design differs
 The owner's brief (VISION.md): London's luxury private trainers (Dalton Wong's Twenty Two Training, Matt Roberts), exclusive
-studios, polished, never gritty. Three directions, one static screen each, in `sitefloor-internal` on branch
-`design/trainer` (`docs/trades/personal-trainer/design/`): A Linen (the private studio, by appointment, with a live
-reservation card), B Residence (training at home in Chelsea and Kensington; the first hour as the working section),
-C Light (a sunlit private room; the block planner as a calendar of your weeks). Demo: **Marrick**, a private training
-studio in Chelsea (fictional; no UK fitness business of that name found at Companies House or online, 15 Nov 2026).
+studios, polished, never gritty. **Picked 15 Nov 2026: A, Linen** (hero and header held): the private studio by
+appointment, a still-life diptych with a live reservation card for the next private hour. Its first section is one
+"first month" tool: what the first session involves, where it happens, how often people come and what it costs.
+B (Residence) and C (Light, too close to the Pilates demo) dropped. Design round: `sitefloor-internal` branch
+`design/trainer`. Demo: **Marrick**, a private training studio in Chelsea (fictional; no UK fitness business of that
+name found at Companies House or online, 15 Nov 2026).
