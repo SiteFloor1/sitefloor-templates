@@ -4,9 +4,9 @@ Fonts this trade's looks and approved designs claim (`npm run rules` refuses a f
 
 | Look or design | Status | Branch | Display | Body |
 |---|---|---|---|---|
-| Isolde, round 3 | approved | trade/bridal-beauty | Kalnia | Work Sans |
+| Isolde, the cover (round 4) | approved | trade/bridal-beauty | Libre Bodoni | Faustina |
 
-Round 3 (15 Nov 2026): Kalnia, a high-contrast display with a width axis, for fashion-magazine glamour; Work Sans
-for every sentence and label. Released: Syne, Crimson Pro, Yeseva One and Hind (round 2) and Zilla Slab, Atkinson
-Hyperlegible, Antonio, IBM Plex Sans, Young Serif and Wix Madefor Text (round 1). Checked against
-`docs/CLAIMED-FONTS.md` and every open branch.
+Round 4 (15 Nov 2026): Libre Bodoni (Pablo Impallari, a separate family from Carte's Bodoni Moda) for the masthead and
+the cover lines; Faustina (Omnibus-Type, a text serif with a calligraphic edge) for every sentence and label.
+Released: Kalnia and Work Sans (round 3), Syne, Crimson Pro, Yeseva One and Hind (round 2), and round 1's six.
+Checked against `docs/CLAIMED-FONTS.md` and every open branch.
