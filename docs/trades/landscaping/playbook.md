@@ -2,7 +2,7 @@
 
 What to build for this trade (kit `garden`). The ground rules and the steps for a new kit: [`docs/TRADE-PLAYBOOK.md`](../../TRADE-PLAYBOOK.md).
 Customers' questions: [`questions.md`](questions.md). Owner references: Cameron Gardens, Randle Siddeley
-([`sitefloor-internal/docs/VISION-REFERENCES.md`](https://github.com/SiteFloor1/sitefloor-internal/blob/main/docs/VISION-REFERENCES.md)). Status: **built** (owner picked Almanac on 9 Nov 2026; kit `garden`, look `almanac`, demo Tollgarth).
+([`docs/VISION.md`](../../VISION.md)). Status: **built** (owner picked Almanac on 9 Nov 2026; kit `garden`, look `almanac`, demo Tollgarth).
 
 ## Who buys this
 Garden designers, designer-builders and landscaping firms, from a one-person studio doing London courtyards to a firm
