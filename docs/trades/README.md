@@ -27,7 +27,7 @@ take (`demo-map.md`), its speed numbers (`speed.md`) and the fonts it claims (`f
 | jeweller | Fine jewellers | `jeweller` | [questions](jeweller/questions.md) · [playbook](jeweller/playbook.md) · [demo-map](jeweller/demo-map.md) · [speed](jeweller/speed.md) · [fonts](jeweller/fonts.md) |
 | landscaping | Garden designers and landscapers | `garden` | [questions](landscaping/questions.md) · [playbook](landscaping/playbook.md) · [demo-map](landscaping/demo-map.md) · [speed](landscaping/speed.md) · [fonts](landscaping/fonts.md) |
 | law | Law firms (private client) | `law` | [questions](law/questions.md) · [playbook](law/playbook.md) · [demo-map](law/demo-map.md) · [speed](law/speed.md) · [fonts](law/fonts.md) |
-| letting | Independent letting agents | `letting` | [questions](letting/questions.md) · [playbook](letting/playbook.md) · [fonts](letting/fonts.md) |
+| letting | Independent letting agents | `letting` | [questions](letting/questions.md) · [playbook](letting/playbook.md) · [demo-map](letting/demo-map.md) · [speed](letting/speed.md) · [fonts](letting/fonts.md) |
 | lingerie | Lingerie boutiques | `lingerie` | [questions](lingerie/questions.md) · [playbook](lingerie/playbook.md) · [demo-map](lingerie/demo-map.md) · [speed](lingerie/speed.md) · [fonts](lingerie/fonts.md) |
 | mehndi | Mehndi and henna artists | `mehndi` | [questions](mehndi/questions.md) · [playbook](mehndi/playbook.md) · [demo-map](mehndi/demo-map.md) · [speed](mehndi/speed.md) · [fonts](mehndi/fonts.md) |
 | menswear | Clothing brands (menswear, running and outerwear) | `wear` | [questions](menswear/questions.md) · [playbook](menswear/playbook.md) · [demo-map](menswear/demo-map.md) · [speed](menswear/speed.md) · [fonts](menswear/fonts.md) |

@@ -1,0 +1,50 @@
+{#- Fees (every plan, free page): every landlord fee with VAT, what a tenant may be asked to pay and nothing else,
+    the schemes the agent belongs to, and where the tenant rules come from, dated. -#}
+{%- set f = site.fees %}
+{%- set r = site.schemes %}
+{%- set tr = tenantRules %}
+<div class="lf" data-feature="letting-fees"{{ "letting-fees" | tierAttr | safe }}>
+  <section class="lf-part" id="owners-fees" aria-labelledby="lf-o">
+    <h2 id="lf-o">If you let a home with us</h2>
+    <table class="lf-table">
+      <caption class="sr-only">Our fees for owners, with VAT</caption>
+      <thead><tr><th scope="col">Service</th><th scope="col">Fee, with VAT</th><th scope="col">What it includes</th></tr></thead>
+      <tbody>
+      {%- for s in f.services %}
+        <tr><th scope="row">{{ s.name }}</th>
+          <td>{{ s.percent }}% {{ "of each month's rent" if s.basis == "monthly" else "of a year's rent, once" }}</td>
+          <td><ul>{% for x in s.includes %}<li>{{ x }}</li>{% endfor %}</ul></td></tr>
+      {%- endfor %}
+      </tbody>
+    </table>
+    {%- if f.other and f.other.length %}
+    <table class="lf-table lf-other">
+      <caption>Other fees for owners, with VAT</caption>
+      <tbody>{% for o in f.other %}<tr><th scope="row">{{ o.name }}</th><td>{{ o.price | pence }}{% if o.per %} {{ o.per }}{% endif %}</td></tr>{% endfor %}</tbody>
+    </table>
+    {%- endif %}
+  </section>
+  <section class="lf-part" id="tenant-fees" aria-labelledby="lf-t">
+    <h2 id="lf-t">If you rent a home from us</h2>
+    <p class="lf-lead">We charge no fees to tenants. Under the Tenant Fees Act 2019 you may only be asked for these:</p>
+    <dl class="lf-list">
+      <dt>Rent</dt><dd>No more than one month in advance, and only after the tenancy agreement is signed.</dd>
+      <dt>A holding deposit</dt><dd>Up to one week's rent, to reserve a home while checks are done. It is refunded within {{ tr.holdingDays }} days or, with your agreement, put towards your first month.</dd>
+      <dt>A tenancy deposit</dt><dd>Up to five weeks' rent where the rent is below £50,000 a year, up to six weeks' from £50,000 to £100,000.{% if r.deposits %} {{ r.deposits }}{% endif %}</dd>
+      <dt>A change you ask for</dt><dd>{% set cf = f.tenant.changeFee if (f.tenant.changeFee is defined) else tr.maxChangeFee %}{% if cf == 0 %}Nothing.{% else %}Up to {{ cf | pounds }} to change your tenancy at your request, such as adding someone.{% endif %}</dd>
+      <dt>Rent more than 14 days late</dt><dd>Interest at 3% a year above the Bank of England base rate, on the late amount, from the day it was due.</dd>
+      <dt>A lost key or fob</dt><dd>{{ f.tenant.lostKeys or "The reasonable cost of replacing it, with the receipt." }}</dd>
+      <dt>Bills</dt><dd>Utilities, council tax, the TV licence, broadband and phone, where your tenancy says they are yours.</dd>
+    </dl>
+    {%- if "letting-movein" | enabled %}{% include "kits/letting/features/letting-movein/letting-movein.njk" %}{% endif %}
+    <p class="lf-src">Homes with a rent above £100,000 a year aren't covered by these rules; we agree terms in writing. From GOV.UK, <a href="{{ tr.source }}" rel="noopener">{{ tr.sourceTitle | replace(" (GOV.UK)", "") }}</a>, updated {{ tr.updatedText }}; checked {{ tr.checkedText }}.</p>
+  </section>
+  <section class="lf-part" id="schemes" aria-labelledby="lf-s">
+    <h2 id="lf-s">Who protects you</h2>
+    <dl class="lf-list">
+      <dt>Complaints</dt><dd>We belong to {{ r.redress.name }}, member {{ r.redress.member }}{{ site.mode | demoTag }}. If we can't put a complaint right, you can take it to them: <a href="{{ r.redress.url }}" rel="noopener">{{ r.redress.url | replace("https://", "") | replace("www.", "") }}</a>.</dd>
+      <dt>Client money</dt><dd>Rent and deposits we hold are protected by {{ r.cmp.name }}, membership {{ r.cmp.member }}{{ site.mode | demoTag }}: <a href="{{ r.cmp.url }}" rel="noopener">{{ r.cmp.url | replace("https://", "") | replace("www.", "") }}</a>.{% if r.cmp.certificate %} <a href="{{ r.cmp.certificate | img }}">Our certificate</a>.{% else %} On a client's site, its certificate is shown here.{% endif %}</dd>
+    </dl>
+  </section>
+  {%- if "visit" | enabled %}{% include "features/visit/visit.njk" %}{% endif %}
+</div>

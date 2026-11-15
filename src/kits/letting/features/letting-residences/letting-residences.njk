@@ -1,0 +1,23 @@
+{#- Residences (Signature): every building's schedule, floor by floor, from the same sheet as the home page. Floors
+    run top to bottom; a building without that floor shows a hatched cell. On a phone, one building at a time. The
+    cells are filled on the visitor's phone; a stale sheet lists nothing and says to call. -#}
+{%- set bs = site.homes.buildings %}
+<div class="lr" data-feature="letting-residences"{{ "letting-residences" | tierAttr | safe }}>
+  <p class="lr-updated" data-lr-updated>Call us on <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone | replace('+44 ', '0') }}</a> for today's homes.</p>
+  <div class="lr-pick" role="group" aria-label="Building" data-js-only>
+    {%- for b in bs %}<button type="button" data-lr-pick="{{ b.id }}" aria-pressed="{{ 'true' if loop.first else 'false' }}">{{ b.name }}</button>{% endfor %}
+  </div>
+  <table class="lr-table" data-lr-table data-show="{{ bs[0].id }}">
+    <caption class="sr-only">Homes free in each building, floor by floor</caption>
+    <thead><tr><th scope="col"><span class="sr-only">Floor</span></th>{% for b in bs %}<th scope="col" data-lr-col="{{ b.id }}">{{ b.name }}<small>{{ b.kind }}</small></th>{% endfor %}</tr></thead>
+    <tbody>
+    {%- for fid in bs | floorRows %}
+      <tr><th scope="row"><span class="lr-lamp">{{ fid }}</span></th>
+      {%- for b in bs %}{% set f = b | floorOf(fid) %}
+        {%- if f %}<td data-lr-col="{{ b.id }}" data-lr-cell="{{ b.id }}|{{ fid }}"><span class="lr-q">{{ f.note or "" }}</span></td>{% else %}<td class="lr-none" data-lr-col="{{ b.id }}"><span class="sr-only">No {{ fid }} floor</span></td>{% endif %}
+      {%- endfor %}</tr>
+    {%- endfor %}
+    </tbody>
+  </table>
+  <div class="lr-card" data-lb-card aria-live="polite"></div>
+</div>

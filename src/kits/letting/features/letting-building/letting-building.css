@@ -1,0 +1,14 @@
+/* The lift plate and the 3D stage: structure only; the look draws the brass, the lamps and the light. */
+.lbd { position: absolute; inset: 0; pointer-events: none; }
+.lbd > *, .lbd-plate > * { pointer-events: auto; }
+.lbd-stage { position: absolute; inset: 0; opacity: 0; pointer-events: none; }
+.is-3d .lbd-stage { opacity: 1; pointer-events: auto; }
+.lbd-stage canvas { display: block; touch-action: pan-y; }
+.lbd-tag { position: absolute; opacity: 0; pointer-events: none; }
+.is-3d .lbd-tag { opacity: 1; }
+.is-3d .lbd-load, .no-3d .lbd-load { display: none; }
+.lbd-status:empty { display: none; }
+.lbd-lift { position: absolute; left: 0; right: 0; display: flex; justify-content: center; pointer-events: none; }
+.lbd-plate { display: flex; pointer-events: auto; }
+.lbd-plate button { cursor: pointer; }
+.lbd-plate button:disabled { cursor: default; }

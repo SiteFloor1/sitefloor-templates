@@ -1,0 +1,17 @@
+{#- For owners (Plus): each service with what it includes and its fee with VAT, the duties the agent looks after, and a
+    valuation request by WhatsApp. Every word and figure is the agent's own (site.json: owners, fees). -#}
+{%- set o = site.owners %}
+<div class="lo" data-feature="letting-owners"{{ "letting-owners" | tierAttr | safe }}>
+  <ol class="lo-svc">
+    {%- for s in site.fees.services %}
+    <li><h2>{{ s.name }}</h2>
+      <p class="lo-fee">{{ s.percent }}% <span>with VAT, {{ "of each month's rent" if s.basis == "monthly" else "of a year's rent, once" }}</span></p>
+      <ul>{% for x in s.includes %}<li>{{ x }}</li>{% endfor %}</ul></li>
+    {%- endfor %}
+  </ol>
+  <section class="lo-duties" aria-labelledby="lo-d">
+    <h2 id="lo-d">What we look after for you</h2>
+    <ul>{% for x in o.duties %}<li>{{ x }}</li>{% endfor %}</ul>
+  </section>
+  <p class="lo-go"><a class="lo-btn" href="{{ o.valuation | wa }}" data-wa-text="{{ o.valuation }}" target="_blank" rel="noopener">Ask for a rental valuation</a> <a href="{{ 'fees' | href }}">Every fee, with VAT</a></p>
+</div>

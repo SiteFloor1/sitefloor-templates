@@ -1,0 +1,14 @@
+/* Residences: structure only. On a phone, only the chosen building's column shows. */
+.lr-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.lr-table td, .lr-table th { vertical-align: top; text-align: left; }
+.lr-pick { display: none; }
+.lr-cell-home { display: block; width: 100%; text-align: left; cursor: pointer; }
+@media (max-width: 820px) {
+  .lr-pick { display: flex; flex-wrap: wrap; }
+  .lr-table thead { display: none; }
+  .lr-table [data-lr-col] { display: none; }
+  .lr-table [data-lr-col].lr-on, .lr:not([data-ready]) td[data-lr-col]:first-of-type { display: table-cell; }
+  .lr-table th[scope="row"] { width: 3.5rem; }
+}
+/* while the sheet loads the table keeps its place unseen, so filling it moves nothing on screen */
+.lr[data-ready]:not([data-state]) .lr-table { visibility: hidden; }

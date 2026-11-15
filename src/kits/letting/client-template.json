@@ -1,0 +1,246 @@
+{
+  "schemaVersion": 4,
+  "id": "REPLACE_ME slug",
+  "mode": "client",
+  "plan": "starter",
+  "kit": "letting",
+  "look": "porter",
+  "url": "REPLACE_ME https://…",
+  "indexable": false,
+  "lang": "en-GB",
+  "business": {
+    "name": "REPLACE_ME",
+    "schemaType": "RealEstateAgent",
+    "description": "REPLACE_ME one plain sentence: what the agency does and where",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "REPLACE_ME 447…",
+    "phone": "REPLACE_ME +44 …",
+    "email": "REPLACE_ME"
+  },
+  "booking": {
+    "provider": "phone"
+  },
+  "location": {
+    "streetAddress": "REPLACE_ME",
+    "locality": "REPLACE_ME",
+    "postcode": "REPLACE_ME",
+    "country": "GB",
+    "area": "REPLACE_ME one line, e.g. a short walk from the station",
+    "directionsUrl": "REPLACE_ME"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": "REPLACE_ME opening times, e.g. [[\"09:00\",\"17:30\"]], or [] if closed",
+      "tue": "REPLACE_ME",
+      "wed": "REPLACE_ME",
+      "thu": "REPLACE_ME",
+      "fri": "REPLACE_ME",
+      "sat": [],
+      "sun": []
+    }
+  },
+  "nav": [
+    {
+      "label": "Homes",
+      "page": "index",
+      "feature": "letting-board",
+      "fallback": "#homes"
+    },
+    {
+      "label": "Residences",
+      "page": "residences",
+      "feature": "letting-residences"
+    },
+    {
+      "label": "Owners",
+      "page": "owners",
+      "feature": "letting-owners"
+    },
+    {
+      "label": "Fees",
+      "page": "fees",
+      "feature": "letting-fees"
+    },
+    {
+      "label": "Visiting us",
+      "page": "visit",
+      "feature": "plan-visit"
+    }
+  ],
+  "features": [
+    "letting-fees",
+    "letting-board",
+    "letting-movein",
+    "visit",
+    "plan-visit",
+    "questions"
+  ],
+  "hero": {
+    "kicker": "REPLACE_ME e.g. Letting and management in Leeds",
+    "title": "REPLACE_ME two short lines split with |",
+    "intro": "REPLACE_ME one line",
+    "photo": {
+      "src": "img/REPLACE_ME.webp",
+      "tall": "img/REPLACE_ME-tall.webp",
+      "width": "REPLACE_ME px",
+      "height": "REPLACE_ME px",
+      "tallWidth": "REPLACE_ME px",
+      "tallHeight": "REPLACE_ME px",
+      "alt": "REPLACE_ME",
+      "position": "50% 30%",
+      "credit": "REPLACE_ME the client, or the photographer"
+    }
+  },
+  "sections": {
+    "homes": {
+      "title": "Homes free now"
+    },
+    "visit": {
+      "title": "Our office"
+    },
+    "net": {
+      "title": "One rent, from both sides"
+    },
+    "questions": {
+      "title": "Questions people ask"
+    }
+  },
+  "messages": {
+    "general": "REPLACE_ME e.g. Hello …, I'd like to book a viewing."
+  },
+  "homes": {
+    "source": "sheet",
+    "csvUrl": "REPLACE_ME the sheet's published CSV link",
+    "staleAfterHours": 36,
+    "hero": "REPLACE_ME building id",
+    "viewing": "REPLACE_ME e.g. Hello …, I'd like to view this home:",
+    "buildings": [
+      {
+        "id": "REPLACE_ME",
+        "name": "REPLACE_ME",
+        "kind": "REPLACE_ME e.g. Mansion block",
+        "model": "REPLACE_ME mansion, terrace or tower (Signature only)",
+        "floors": [
+          {
+            "id": "G",
+            "label": "Ground",
+            "units": [
+              "REPLACE_ME refs as in the sheet"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "fees": {
+    "example": "REPLACE_ME a typical monthly rent in pounds",
+    "tenant": {
+      "holdingWeeks": 1,
+      "depositWeeksBelow": 5,
+      "depositWeeksFrom": 6,
+      "changeFee": 50,
+      "lostKeys": "REPLACE_ME the agent's own words"
+    },
+    "services": [
+      {
+        "id": "let",
+        "name": "Let only",
+        "basis": "year-once",
+        "percent": "REPLACE_ME with VAT",
+        "includes": [
+          "REPLACE_ME"
+        ]
+      },
+      {
+        "id": "managed",
+        "name": "Fully managed",
+        "basis": "monthly",
+        "percent": "REPLACE_ME with VAT",
+        "includes": [
+          "REPLACE_ME"
+        ]
+      }
+    ],
+    "other": [
+      {
+        "name": "REPLACE_ME",
+        "price": "REPLACE_ME pounds with VAT",
+        "per": "REPLACE_ME"
+      }
+    ]
+  },
+  "schemes": {
+    "redress": {
+      "name": "REPLACE_ME The Property Ombudsman or Property Redress Scheme",
+      "member": "REPLACE_ME from the certificate",
+      "url": "REPLACE_ME"
+    },
+    "cmp": {
+      "name": "REPLACE_ME",
+      "member": "REPLACE_ME from the certificate",
+      "url": "REPLACE_ME",
+      "certificate": "img/REPLACE_ME-cmp-certificate.pdf"
+    },
+    "deposits": "REPLACE_ME which scheme protects deposits"
+  },
+  "owners": {
+    "title": "For owners",
+    "intro": "REPLACE_ME",
+    "duties": [
+      "REPLACE_ME in the agent's own words"
+    ],
+    "valuation": "REPLACE_ME e.g. Hello …, I'd like a rental valuation."
+  },
+  "visitInfo": {
+    "kicker": "Visiting us",
+    "title": "REPLACE_ME e.g. Visiting the office",
+    "intro": "REPLACE_ME",
+    "checked": "REPLACE_ME YYYY-MM",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "REPLACE_ME nearest station",
+        "origin": "REPLACE_ME, Town",
+        "minutes": "REPLACE_ME whole minutes",
+        "steps": [
+          "REPLACE_ME"
+        ]
+      }
+    ],
+    "parking": [
+      {
+        "name": "REPLACE_ME",
+        "walk": "REPLACE_ME minutes on foot",
+        "price": "REPLACE_ME",
+        "paid": "REPLACE_ME \"always\", \"never\" or hours"
+      }
+    ],
+    "access": [
+      {
+        "label": "Step-free entrance",
+        "yes": "REPLACE_ME true or false"
+      }
+    ],
+    "payment": "REPLACE_ME"
+  },
+  "questions": [
+    {
+      "topic": "Renting",
+      "q": "Can I bring a pet?",
+      "a": "REPLACE_ME"
+    },
+    {
+      "topic": "Renting",
+      "q": "How long do references take?",
+      "a": "REPLACE_ME"
+    },
+    {
+      "topic": "Owners",
+      "q": "How quickly can you let my home?",
+      "a": "REPLACE_ME"
+    }
+  ]
+}
