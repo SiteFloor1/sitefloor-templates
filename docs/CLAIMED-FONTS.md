@@ -60,8 +60,6 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 | Trade / design | Branch | Display | Body |
 |---|---|---|---|
 | Cleaning, Plan (A) | trade/cleaning | Anek Latin | Anek Latin |
-| Cleaning, Specification (B) | trade/cleaning | Spline Sans | Spline Sans Mono |
-| Cleaning, Night shift (C) | trade/cleaning | Fira Sans Condensed | Fira Mono |
 | Landscaping, Almanac | trade/landscaping | Alegreya | Alegreya |
 | Tailor, Flannel (A) | trade/tailor | Della Respira | Commissioner |
 | Wedding films, Première (A) | trade/wedding-film | Sorts Mill Goudy | Urbanist |
