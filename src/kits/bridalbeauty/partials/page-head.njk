@@ -1,0 +1,10 @@
+{#- An inner page's opening: its name very large in the masthead face, its line beneath. Set `ph` to
+    { kicker, title, intro } first (and `phPhoto` for a page with a photograph beside it). -#}
+<header class="ph bb-ph{% if phPhoto %} bb-ph-has{% endif %}"><div class="wrap bb-ph-in">
+  <div class="bb-ph-t">
+    <p class="bb-ph-k"><a href="{{ 'index' | href }}">{{ site.business.name }}</a> <span aria-hidden="true">·</span> {{ ph.kicker }}</p>
+    <h1 class="bb-ph-h">{{ ph.title | markup | safe }}</h1>
+    {%- if ph.intro %}<p class="bb-ph-i">{{ ph.intro }}</p>{% endif %}
+  </div>
+  {%- if phPhoto %}<figure class="bb-ph-ph"><img src="{{ phPhoto.src | img }}" alt="{{ phPhoto.alt }}" width="{{ phPhoto.width }}" height="{{ phPhoto.height }}" fetchpriority="high" decoding="async"></figure>{% endif %}
+</div></header>

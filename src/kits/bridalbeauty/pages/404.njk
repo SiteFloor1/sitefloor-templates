@@ -1,0 +1,9 @@
+---
+layout: core/layouts/base.njk
+pageId: "404"
+permalink: 404.html
+title: Page not found
+---
+{%- set ph = { kicker: "Not found", title: "This page isn't here.", intro: "It may have moved. Your date and prices are on the cover." } %}
+{% include "kits/bridalbeauty/partials/page-head.njk" %}
+<p class="wrap bb-back"><a class="bb-link" href="{{ 'index' | href }}">Back to the cover</a></p>

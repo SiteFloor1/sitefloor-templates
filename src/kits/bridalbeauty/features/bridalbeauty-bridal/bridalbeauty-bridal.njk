@@ -1,0 +1,10 @@
+{#- The bridal page: every package and extra, the booking terms in the artist's words; travel and reviews hosted here. -#}
+{%- set bp = site.bridalPage %}
+{%- set ph = bp %}{% set phPhoto = bp.photo %}{% include "kits/bridalbeauty/partials/page-head.njk" %}{% set phPhoto = null %}
+{%- set pkFull = true %}{% include "kits/bridalbeauty/features/bridalbeauty-packages/bridalbeauty-packages.njk" %}{% set pkFull = false %}
+{%- if bp.terms %}
+<section id="terms" class="bb-terms" data-feature="bridalbeauty-bridal" aria-labelledby="bb-terms-h"><div class="wrap">
+  <h2 class="bb-h2" id="bb-terms-h">Booking</h2>
+  <ol class="bb-terms-list">{% for t in bp.terms %}<li>{{ t }}</li>{% endfor %}</ol>
+</div></section>
+{%- endif %}

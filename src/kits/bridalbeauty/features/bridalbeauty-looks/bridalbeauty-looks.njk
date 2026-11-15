@@ -1,0 +1,20 @@
+{#- The look library: every look the artist has made, found by finish and by hair; "Ask for this look" on WhatsApp. -#}
+{%- set lk = site.looks %}
+{%- set ph = site.looksPage %}{% include "kits/bridalbeauty/partials/page-head.njk" %}
+<section class="bb-lk" data-feature="bridalbeauty-looks"{{ "bridalbeauty-looks" | tierAttr | safe }} aria-label="Looks"><div class="wrap">
+  <div class="bb-lk-filters" role="group" aria-label="Show looks by">
+    <button type="button" data-lk-f="all" aria-pressed="true">All</button>
+    {%- for f in lk.items | usedFinish %}<button type="button" data-lk-f="finish:{{ f.id }}" aria-pressed="false">{{ f.label }}</button>{% endfor %}
+    {%- for h in lk.items | usedHair %}<button type="button" data-lk-f="hair:{{ h.id }}" aria-pressed="false">{{ h.label }}</button>{% endfor %}
+  </div>
+  <p class="sr-only" data-lk-count aria-live="polite"></p>
+  <ul class="bb-lk-grid">
+    {%- for x in lk.items %}
+    <li data-finish="{{ x.finish }}" data-hair="{{ x.hair }}"><figure>
+      <img src="{{ x.photo.src | img }}" alt="{{ x.photo.alt }}" width="{{ x.photo.width }}" height="{{ x.photo.height }}" loading="lazy" decoding="async">
+      <figcaption><b>{{ x.name }}</b><span>{{ bbWords.finish[x.finish] }}, {{ bbWords.hair[x.hair] | lower }} · {{ x.minutes | mins }} in the chair</span>{% if x.text %}<span>{{ x.text }}</span>{% endif %}
+        <a class="bb-link" href="{{ lk.message | lookText(x.name) | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ lk.message | lookText(x.name) }}"{% endif %} target="_blank" rel="noopener">Ask for this look</a></figcaption>
+    </figure></li>
+    {%- endfor %}
+  </ul>
+</div></section>

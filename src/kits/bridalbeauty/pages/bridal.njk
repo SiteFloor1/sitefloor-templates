@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: bridal
+permalink: bridal.html
+feature: bridalbeauty-bridal
+eleventyComputed:
+  title: "{{ site.bridalPage.title | plain }}"
+  description: "Bridal hair and makeup with {{ site.business.name }}, {{ site.location.locality }}: every price, the trial, the party and booking."
+---
+{% include "kits/bridalbeauty/features/bridalbeauty-bridal/bridalbeauty-bridal.njk" %}
+{%- set hostPage = "bridalbeauty-bridal" %}{% include "kits/bridalbeauty/partials/hosted.njk" %}

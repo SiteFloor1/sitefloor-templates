@@ -2,7 +2,7 @@
 
 What to build for this trade (kit `bridalbeauty`). The ground rules and the steps for a new kit: [`docs/TRADE-PLAYBOOK.md`](../../TRADE-PLAYBOOK.md).
 
-## Bridal hair and makeup artist (new `bridalbeauty` kit) — directions stage, 15 Nov 2026
+## Bridal hair and makeup artist (new `bridalbeauty` kit) — built 15 Nov 2026 on `trade/bridal-beauty`, look `cover`
 - Customer: a bride 9–18 months out, usually messaging from Instagram, who needs three answers before anything else:
   is my date free, what will it cost for me and my party, and what time do we have to start. Then the trial, skin
   prep and the morning itself. Usually a solo artist plus an assistant, Instagram- and TikTok-led; the finished face is the product. The site's job:
@@ -11,6 +11,17 @@ What to build for this trade (kit `bridalbeauty`). The ground rules and the step
   unrelated "Isolde Ltd", checked 15 Nov 2026). Three one-screen directions in sitefloor-internal
   `docs/trades/bridal-beauty/design/directions.md`.
 - Customer questions: [`questions.md`](questions.md).
+- **Built:** the `bridalbeauty` kit (12 features), the `cover` look and the Isolde demo (Signature). The cover's name
+  sits **above her head by default** for every client, in its own band, so any portrait works. **Behind her head** is a
+  setup option only when the client's cover photo has clear room above her head: set `hero.cutout` to the same photo
+  with only her head and hair kept (WebP with transparency, same size).
+- **Intake checklist (cover):** the artist's own finished bride, portrait, at least 1600 × 1920, a plain background;
+  ask whether there's clear headroom above her (for the name behind her head); where her face sits, for `hero.focus`
+  on a wide screen and a phone; the look in a few words for "On the cover". Then: packages with minutes in the chair,
+  party prices, the earliest start and early-start fee, a second artist's fee if she has one, travel districts and fees,
+  the trial's price, length and window, and a published Google Sheet for the diary (date, status, updated_at).
+- **Morning sums never print a start she couldn't make:** when even two chairs would start before the second artist's
+  earliest (or 5am with no second artist), the cover, the party and the morning page say "ask me" instead of a time.
 
 ### Features by plan (approved codes HMUA-1 to HMUA-7)
 - **Starter** (home + Plan your visit): HMUA-1 packages (bride hair and makeup, either alone, trial, party per person,
