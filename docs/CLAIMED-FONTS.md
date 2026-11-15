@@ -61,8 +61,6 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 |---|---|---|---|
 | Landscaping, Almanac | trade/landscaping | Alegreya | Alegreya |
 | Halvern, The stair (A) | trade/letting | Petrona | Petrona |
-| Halvern, The tower (B) | trade/letting | Familjen Grotesk | Martian Mono |
-| Halvern, The terrace (C) | trade/letting | Epilogue | Fanwood Text |
 | Tailor, Flannel (A) | trade/tailor | Della Respira | Commissioner |
 | Wedding films, Première (A) | trade/wedding-film | Sorts Mill Goudy | Urbanist |
 
