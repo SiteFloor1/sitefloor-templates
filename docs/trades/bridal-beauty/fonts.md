@@ -4,9 +4,10 @@ Fonts this trade's looks and approved designs claim (`npm run rules` refuses a f
 
 | Look or design | Status | Branch | Display | Body |
 |---|---|---|---|---|
-| Isolde, Call time (A) | approved | trade/bridal-beauty | Zilla Slab | Atkinson Hyperlegible |
-| Isolde, Diary (B) | approved | trade/bridal-beauty | Antonio | IBM Plex Sans |
-| Isolde, Skin first (C) | approved | trade/bridal-beauty | Young Serif | Wix Madefor Text |
+| Isolde, The spread (A) | approved | trade/bridal-beauty | Syne | Crimson Pro |
+| Isolde, Three distances (B) | approved | trade/bridal-beauty | Yeseva One | Hind |
+| Isolde, Look closer (C) | approved | trade/bridal-beauty | Work Sans | Work Sans |
 
-Claimed 15 Nov 2026 for the three one-screen directions, checked against `docs/CLAIMED-FONTS.md` and every open branch
+Claimed 15 Nov 2026 for the second round of three one-screen directions (the first round's Zilla Slab, Atkinson
+Hyperlegible, Antonio, IBM Plex Sans, Young Serif and Wix Madefor Text are released), checked against `docs/CLAIMED-FONTS.md` and every open branch
 (none other open that day). The two directions the owner doesn't pick are removed from this table at once.

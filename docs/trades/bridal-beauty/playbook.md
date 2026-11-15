@@ -5,7 +5,7 @@ What to build for this trade (kit `bridalbeauty`). The ground rules and the step
 ## Bridal hair and makeup artist (new `bridalbeauty` kit) — directions stage, 15 Nov 2026
 - Customer: a bride 9–18 months out, usually messaging from Instagram, who needs three answers before anything else:
   is my date free, what will it cost for me and my party, and what time do we have to start. Then the trial, skin
-  prep and the morning itself. Usually a solo artist plus an assistant, often faceless, Instagram-led. The site's job:
+  prep and the morning itself. Usually a solo artist plus an assistant, Instagram- and TikTok-led; the finished face is the product. The site's job:
   a date request with the wedding date, ceremony time, getting-ready postcode, who needs hair and who needs makeup.
 - Demo artist **Isolde** (fictional; no UK hair or makeup business found under the name; Companies House has an
   unrelated "Isolde Ltd", checked 15 Nov 2026). Three one-screen directions in sitefloor-internal
@@ -33,10 +33,11 @@ What to build for this trade (kit `bridalbeauty`). The ground rules and the step
   3. HMUA-7 **skin prep, counted down** (`bridalbeauty-skin`): wedding date gives dated milestones in the artist's own
      words (trial window, last new product, brows, the week before, the night before, the morning); .ics for each.
      Clinical treatments only as "ask your clinician"; no medical advice.
-- Photos checked before proposing (15 Nov 2026, Pexels, free licence): whole single-shoot sets exist for a morning with
-  the artist, bride, mother and bridesmaid (Alexander Mass, @rebornfilmes, 28863315–28863330), one bride's makeup in
-  sequence (Luis Morales Torres, 38530625–38530662) and a daylight morning (Masood Aslami, 29624003–29624019). None of
-  the showpieces needs a photo at all; photos dress them.
+- Photos checked before proposing (15 Nov 2026, Pexels, free licence): whole single shoots of finished brides exist:
+  a bride from the makeup chair to the aisle in a garden pavilion (Alexander Mass, 37710473–37710812), a full Asian
+  bridal glam studio set (SKG Photography, 29370682–29370690), a bride with her artist at work in a quiet room
+  (Alexander Mass, 35538636–35538649), and spares for party and trial pages. None of the showpieces needs a photo;
+  photos dress them.
 - **Client-only:** real brides' galleries (consent recorded) and any trial-to-wedding pair of the same bride.
 
 ### Alternative showpieces (alongside or instead)
