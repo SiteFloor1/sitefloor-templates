@@ -1,0 +1,33 @@
+{#- Treatments by concern and by time (BEAU-1): the clinic's menu, by treatment; one tap lists it by the words the
+    clinic uses for how skin feels, or by how long each treatment takes. Each row: name, minutes, price; the clinic's
+    line beneath on the treatments' own pages. Without JavaScript the menu shows by treatment. -#}
+{%- set sec = site.sections.menu %}
+{%- set concerns = site.menu | byConcern %}
+<section id="menu" class="sk-mn" data-feature="skin-menu" aria-label="{{ sec.title | plain }}"{{ 'skin-menu' | tierAttr | safe }}><div class="wrap">
+  {%- include "core/partials/section-head.njk" %}
+  <div class="sk-mn-by" role="group" aria-label="List the treatments" data-js-only>
+    <button type="button" class="sk-by" data-by="kind" aria-pressed="true">By treatment</button>
+    {%- if concerns.length %}<button type="button" class="sk-by" data-by="concern" aria-pressed="false">By concern</button>{% endif %}
+    <button type="button" class="sk-by" data-by="time" aria-pressed="false">By time</button>
+  </div>
+  <div class="sk-mn-view" data-view="kind">
+    {%- for c in site.menu.categories %}
+    <div class="sk-mn-g">
+      <h3 class="sk-mn-h">{% if c.page and ("skin-category-pages" | enabled) %}<a href="{{ c.id | href }}"{{ 'skin-category-pages' | tierAttr | safe }}>{{ c.name }}</a>{% else %}{{ c.name }}{% endif %}</h3>
+      <ul class="sk-mn-list">{% for x in c.items %}{% include "kits/skin/partials/menu-row.njk" %}{% endfor %}</ul>
+    </div>
+    {%- endfor %}
+  </div>
+  {%- if concerns.length %}
+  <div class="sk-mn-view" data-view="concern" hidden>
+    {%- for g in concerns %}
+    <div class="sk-mn-g"><h3 class="sk-mn-h">For skin that feels {{ g.word }}</h3><ul class="sk-mn-list">{% for x in g.items %}{% include "kits/skin/partials/menu-row.njk" %}{% endfor %}</ul></div>
+    {%- endfor %}
+  </div>
+  {%- endif %}
+  <div class="sk-mn-view" data-view="time" hidden>
+    {%- for g in site.menu | byTime %}
+    <div class="sk-mn-g"><h3 class="sk-mn-h">{{ g.label }}</h3><ul class="sk-mn-list">{% for x in g.items %}{% include "kits/skin/partials/menu-row.njk" %}{% endfor %}</ul></div>
+    {%- endfor %}
+  </div>
+</div></section>

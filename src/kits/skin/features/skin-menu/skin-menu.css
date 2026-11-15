@@ -1,0 +1,16 @@
+/* The menu: plain rows like a printed price list (name, then minutes and price at the right), groups under a rule. */
+.sk-mn-by { display: flex; flex-wrap: wrap; gap: 4px 24px; margin: 0 0 28px; }
+.sk-by { min-height: 44px; padding: 4px 0; border: 0; background: none; cursor: pointer; color: var(--muted); font: inherit; }
+.sk-by[aria-pressed="true"] { color: var(--text); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; }
+.sk-mn-view { display: grid; gap: 36px 72px; }
+.sk-mn-view[hidden] { display: none; }
+.sk-mn-h { margin: 0 0 6px; padding-bottom: 10px; border-bottom: 1px solid var(--accent); font-family: var(--font-display); font-weight: 400; font-size: 1.45rem; }
+.sk-mn-h a { text-decoration: none; }
+.sk-mn-h a:hover { text-decoration: underline; text-underline-offset: 5px; }
+.sk-mn-list { margin: 0; padding: 0; list-style: none; }
+.sk-row { display: grid; grid-template-columns: 1fr auto; gap: 2px 16px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.sk-row-n { margin: 0; }
+.sk-row-n a { text-decoration: none; }
+.sk-row-f { margin: 0; color: var(--muted); white-space: nowrap; font-variant-numeric: lining-nums; }
+.sk-row-l { grid-column: 1 / -1; margin: 0; color: var(--muted); font-size: .92em; }
+@media (min-width: 900px) { .sk-mn-view { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

@@ -1,0 +1,3 @@
+{#- One treatment as a menu row: name (linked to its category page when there is one), minutes and price, and, with
+    `rowLine` set, the clinic's line beneath. Expects `x`. -#}
+<li class="sk-row"><p class="sk-row-n">{{ x.name }}</p><p class="sk-row-f">{{ x.minutes }} min · {{ x | cost }}</p>{% if rowLine %}<p class="sk-row-l">{{ x.line }}</p>{% endif %}</li>
