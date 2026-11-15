@@ -6,10 +6,15 @@ shared kit. Read `docs/ARCHITECTURE.md` before changing anything structural.
 This repo is public: never commit client private details, invoices, credentials, personal names or internal notes. Internal material lives in SiteFloor1/sitefloor-internal.
 
 **Internal material (SiteFloor1/sitefloor-internal, private):** clone it beside this repo. Agents read handovers
-(`docs/HANDOVER*.md`, `docs/trades/<trade>/handover.md`), `docs/VISION-REFERENCES.md`, `docs/TEMPLATE-ROADMAP.md`,
+(`docs/HANDOVER*.md`, `docs/trades/<trade>/handover.md`), `docs/TEMPLATE-ROADMAP.md`,
 design rounds (`docs/design/`, trade `design/`, `directions.md`, `screens*/`) and the audit brief, prompt and
 definition of done (`audits/`) from there. Auditors write reports into `sitefloor-internal/audits/reports/`; builders
 commit them there, never on the PR branch. New handovers and design rounds go there too.
+
+**Vision first:** every new trade or look starts by reading its rows in `docs/VISION.md` (this repo): the owner's
+reference brands, direction, approved features (codes) and approved pages. The design must stand beside those references.
+If `sitefloor-internal` can't be opened, carry on (everything a builder needs is here) and save design rounds there on a
+branch `design/<trade>` when it can; never push to its main.
 
 ## Plan
 Sitefloor Ltd builds websites for UK local businesses (barbers, lash/nail, car studios, bakers, florists,
