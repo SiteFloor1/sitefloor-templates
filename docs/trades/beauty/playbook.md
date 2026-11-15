@@ -40,53 +40,47 @@ looking ODILE LIMITED of unknown trade exists, so the demo never shows a company
 - **Scotland.** The Non-Surgical Procedures and Functions of Medical Reviewers (Scotland) Act 2026 (Royal Assent May
   2026) is not yet in force; a Scottish client's site follows its commencement when set.
 
-### Features and pages by plan
-New kit feature ids start with `skin-`.
+### Features by plan (the owner's approved codes, `docs/VISION.md`, BEAU)
+New kit feature ids start with `skin-`. Every site also gets Plan your visit, open now, WhatsApp, reviews and Instagram.
 
-| Plan | What it gets | The easy extra |
-|---|---|---|
-| **Starter** (home + Plan your visit) | `skin-menu`: the treatments grouped by what you'd like to change, each with time, "from" price, downtime, patch test (yes/no) and "single" or "course of n", all in the clinic's words; the facialist's credentials line; licence line | `skin-patch`: enter your appointment date, see "patch test by Sat 21 Nov (48 hours before)" with a calendar file; the rule comes from the treatment (most booking pages read use 48 hours) |
-| **Plus** (up to 5 pages) | menu page, before-your-visit page (what to stop and how many days before, per treatment), aftercare page, about the facialist, Plan your visit; shared gift vouchers and memberships | `skin-aftercare`: after booking, "remind me" makes a calendar file with the clinic's own day-1, day-3 and day-7 notes and a rebook date at its spacing |
-| **Signature** (up to 20 pages) | everything above, plus the showpieces below and these pages: home; treatments (a collection, one page each); peels; microneedling; LED and add-ons; consultation; course planner; the treatment hour; before your visit; aftercare; prices and courses; about the facialist; the room (what to expect, hygiene, access); shop (the clinic's own range by WhatsApp or Payment Link); gift vouchers; memberships; journal (a collection); results (client-only); questions; policies (deposit, cancellation, pregnancy, under-18s) and Plan your visit = 20 | — |
+| Code | Plan | Kit feature | What it does |
+|---|---|---|---|
+| BEAU-1 | Starter | `skin-menu` | treatments by concern and by time: time, "from" price, downtime, patch test, single or course, in the clinic's words; each with its own small dial of minutes |
+| BEAU-2 | Starter (the easy extra) | `skin-patch` | first visit and patch-test policy; enter your appointment date, get "patch test by Sat 21 Nov" with a calendar file |
+| BEAU-3 | Plus | `skin-concern` | concern finder: pick what you'd like to change, see the clinic's matching treatments (a list, no dates) |
+| BEAU-4 | Plus | shared courses and memberships | the clinic's course and membership prices |
+| BEAU-5 | Plus | `skin-rooms` | room tour: the room's photographs with what each thing is for |
+| BEAU-6 | Signature | `skin-hour` (the home hero) | ritual builder: the facial drawn as a clock; add rituals (longer massage, LED, scalp) and the clock, time and price redraw, then a WhatsApp summary. Starter and Plus homes show the clock read-only with the clinic's own facials |
+| BEAU-7 | Signature | `skin-spaday` | spa day planner that ends in a gift card (the clinic's Payment Link) |
+| BEAU-8 | Signature | `skin-rhythm` | treatment rhythm reminders: the course planner (round 1's C) works out every appointment, the patch test and the stop-retinol date, plus aftercare reminders, as calendar files |
+| BEAU-9 | Signature | shared vouchers, `skin-voucher` look | experience voucher with a card preview |
+| — | Signature page | `skin-note` | the suggestion note (round 1's B): a sentence with choosable words writes a treatment note with dates worked back from an event; "a suggestion, not a diagnosis" |
+| — | client-only | `skin-results` | consented before/after of the same person, same light, unedited; no demo turns it on |
 
-### Showpieces (Signature only; 2–3 a client would show someone)
-1. **`skin-consult`, the skin consultation.** Pick up to two things you'd like to change (how skin looks or feels,
-   never a condition), add an event if there is one; the clinic's own rules suggest one treatment (or "book a
-   consultation first"), with time, "from" price, patch test, downtime and how often, then a pre-filled WhatsApp
-   message. Every answer says "a suggestion, not a diagnosis; your facialist confirms at your consultation". Rules
-   are the clinic's table in `site.json`; nothing is inferred. Fails closed: a concern the clinic hasn't mapped says
-   "book a consultation".
-   *Photos:* one per suggested treatment. Checked: free, licensed Pexels photographs of the stages of one facial from
-   one shoot exist (mask by brush, serum dropper, mask on; Dave Garcia's set), so the demo can show each suggestion
-   without mixing shoots.
-2. **`skin-course`, the course planner.** Choose a course (the clinic's own count and spacing, e.g. a course of 6
-   peels every 3 weeks), a start date or an event date to work back from; get every appointment date, the patch-test
-   date and the stop-retinol-from date (the clinic's day counts), with one calendar file. Refuses an event date the
-   clinic's last-safe gap can't meet. No photos needed.
-3. **`skin-hour`, the treatment hour.** Each facial drawn as its own clock: the stages and minutes the clinic sets
-   (cleanse, skin check, exfoliate, massage, mask, serum and SPF), tap a stage to read what happens and whether it
-   stings. Answers "how long" and "what happens" before the first visit. *Photos:* free stock covers four of six
-   stages from one shoot; the demo shows the room's still life for the other two and says nothing about technique
-   that the photograph doesn't show; the client's own photographs replace them.
-
-**Client-only:** `skin-results` (the clinic's consented before/after pairs of the same person, same light,
-unedited, treatment named, signed-consent date held by the clinic). No demo turns it on.
+**Pages (BEAU, approved):** Home ★ · Treatments by concern ★ · Facials ★ · Brows and lashes ★ · Rituals and spa days ★ ·
+Body and massage · Waxing and hair removal · Courses and memberships · The rooms · Bridal beauty timeline (uses
+`skin-rhythm`) · Gift experiences · First visit and patch tests · Skin by season · Men's treatments · The team ·
+Corporate and group days · Journal. Signature adds the suggestion note and the course planner as pages of their own
+(owner, 15 Nov 2026). Demo Odile shows facials first; brows, lashes, body and waxing are on the menu, not the hero.
 
 ### Alternative showpieces (alongside or instead)
-- **"What to pause" checker:** tick the actives you use (retinol, AHAs, BHAs, vitamin C, prescription creams as "a
-  prescription cream"); see what the clinic asks you to stop before your treatment and from which date. Light, useful,
-  pure clinic data; good Plus upgrade if the owner wants Signature lighter.
-- **Live cancellations:** a Google Sheet line "tomorrow 11:00 freed up", shown only while fresh (fails closed after
-  the slot passes). Clinics fill late gaps from Instagram stories today.
-- **Event countdown for brides and parties:** a cut-down course planner sold on its own to bridal facialists.
-- **Shelf refills:** the clinic's retail range with "running low?" reminders as calendar files at each product's
-  stated life (a 30 ml serum ≈ 8 weeks, the clinic's figure).
-- **Skin diary (client-only):** the client's own consented progress photographs in one light, monthly; a strong
-  retention tool for course clients, never a demo feature.
-- **Ambitious:** a "your skin, this season" page fed by the clinic's monthly Sheet (what they're booking more of in
-  winter, SPF reminders), dated and hidden once the month ends.
+- **"What to pause" checker:** tick the actives you use; see what the clinic asks you to stop and from which date.
+- **Live cancellations:** a Sheet line "tomorrow 11:00 freed up", hidden once the slot passes.
+- **Shelf refills:** the clinic's retail range with "running low?" calendar reminders at each product's stated life.
+- **Skin diary (client-only):** consented monthly progress photographs in one light for course clients.
+- **Ambitious:** the clock as a live day: today's free hours shown as gaps on the dial, from the clinic's Sheet.
 
-### Three design directions (one static screen each: home top + one section, desktop and phone)
+### Approved direction: A, The hour (owner, 15 Nov 2026), round 2
+References (`docs/VISION.md`): Taylor Taylor, The Lanesborough Club & Spa, David Mallett; hotel-spa luxury with
+Parisian salon elegance. Round 2 lifts A to them: one hero moment (the clock alone, centred, with room around it),
+the dial as a watch face (brass bezel, engraved rings, minute track, a blued hand that turns slowly to the stage),
+a cream ground (#F3EEE6), brass hairlines, a hotel header (menus either side, name and emblem centred) and one
+photographic session in one real treatment room (window light, amber glass, candles), graded once. Fonts unchanged
+(Wix Madefor). Photographs: free Pexels stock from one session (KoolShooters) covers all six stages; Mask shows the
+still life of the trolley, as the session has no mask. Screen: https://claude.ai/artifact/GukuzVgkgx9hP5H3uhieQv; source in `sitefloor-internal/docs/trades/beauty/screens-hour/`.
+No build until the owner approves this screen.
+
+### Round 1: three design directions (A chosen; B and C become Signature pages)
 Screens: https://claude.ai/artifact/Y5FANTQ9LroCp2mA8ZaVGX (source to go in `sitefloor-internal/docs/trades/beauty/screens/`).
 
 | | A · The hour | B · The note | C · The course |
