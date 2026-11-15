@@ -8,6 +8,7 @@ import { validateSite } from "../../src/core/lib/config.js";
 import { loadCatalog } from "../../scripts/lib/catalog.js";
 import { RULES, moveIn, tenantSide, ownerSide, landlordView, tenantTermsProblem, rentFrom } from "../../src/kits/letting/lib/fees.js";
 import { homesFromCsv, partA, updatedText, freeOn, sqft } from "../../src/kits/letting/lib/homes.js";
+import { repairText } from "../../src/kits/letting/lib/repairs.js";
 import { HOME_PARTS, homeOrderProblem } from "../../src/kits/letting/home.js";
 import { pageData, csp } from "../../src/kits/letting/kit.js";
 import { demoCsv } from "../../src/demo/letting-provider.js";
@@ -149,4 +150,10 @@ test("home order, page data and the security policy", () => {
   assert.equal(d.fees.example, 6250);
   assert.equal(csp(demo).sheets, false);
   assert.equal(csp(client).sheets, true);
+});
+
+test("a repair report: one message, empty answers left out; the out-of-hours number must be a UK number", () => {
+  assert.equal(repairText("Hello, a repair.", { home: "Flat 2", what: "Tap drips", where: "", keys: "Yes, you may use your keys" }),
+    "Hello, a repair.\nHome: Flat 2\nWhat's wrong: Tap drips\nAccess: Yes, you may use your keys");
+  assert.match(errorsFor((s) => { s.repairs.outOfHours = "07700 900000"; }), /outOfHours/);
 });

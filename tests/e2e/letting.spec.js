@@ -155,3 +155,16 @@ test("client site: the agent's own sheet, and it fails closed when stale or unre
   await expect(page.locator("#schemes a", { hasText: "Our certificate" })).toHaveAttribute("href", /cmp-certificate/);
   await srv.close();
 });
+
+test("report a repair: the gas line first; the form writes the WhatsApp message as you type", async ({ page }) => {
+  const srv = await start(demo);
+  await page.goto(srv.base + "/repairs.html");
+  await featuresStarted(page);
+  await expect(page.locator(".lp-gas a")).toHaveAttribute("href", "tel:0800111999");
+  await page.locator("[data-lp-form] [name=home]").fill("Flat 3A");
+  await page.locator("[data-lp-form] [name=what]").fill("The kitchen tap drips");
+  await page.locator("[data-lp-form] input[value^='Yes']").check();
+  const text = await waText(page.locator("[data-lp-send]"));
+  expect(text).toBe("Hello Halvern, I'd like to report a repair.\nHome: Flat 3A\nWhat's wrong: The kitchen tap drips\nAccess: Yes, you may use your keys");
+  await srv.close();
+});

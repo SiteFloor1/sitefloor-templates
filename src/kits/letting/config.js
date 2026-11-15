@@ -19,7 +19,7 @@ const MODELS = ["mansion", "terrace", "tower"];
 const REDRESS = ["The Property Ombudsman", "Property Redress Scheme"];
 const DEMO_NUMBER = "000000";
 /** Pages the kit builds. */
-export const RESERVED = ["index", "fees", "owners", "residences", "privacy", "404"];
+export const RESERVED = ["index", "fees", "owners", "residences", "repairs", "visit", "privacy", "404"];
 
 /** @param {Report} err @param {string} path @param {any} v */
 const text = (err, path, v) => { if (!isStr(v)) err(path, "required text is missing"); };
@@ -66,6 +66,16 @@ export function checkLetting(site, err, exists) {
   checkFees(site.fees, err);
   if (site.homes !== undefined) checkHomes(site, err);
   if (site.owners !== undefined) checkOwners(site.owners, err);
+  if (site.repairs !== undefined) checkRepairs(site.repairs, err);
+}
+
+/** @param {any} r @param {Report} err */
+function checkRepairs(r, err) {
+  if (!isObj(r)) { err("repairs", "required: { title, intro, emergencyIntro, emergencies, outOfHours, message }"); return; }
+  onlyKeys(r, ["title", "intro", "emergencyIntro", "emergencies", "outOfHours", "message"], "repairs", err);
+  for (const k of ["title", "intro", "emergencyIntro", "message"]) text(err, `repairs.${k}`, r[k]);
+  lines(err, "repairs.emergencies", r.emergencies);
+  if (!/^\+44 ?[1-9][\d ]{8,12}$/.test(r.outOfHours ?? "")) err("repairs.outOfHours", 'a UK number as +44 …, e.g. "+44 20 7946 0000"');
 }
 
 /** @param {any} h @param {Report} err @param {((rel: string) => boolean)|undefined} exists */

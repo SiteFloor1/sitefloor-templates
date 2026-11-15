@@ -23,6 +23,8 @@ export const features = [
   // --- Plus ---
   { id: "letting-owners", dir: `${D}/letting-owners`, minPlan: "plus", kits: K, requires: ["owners", "fees"], page: "owners", js: false,
     summary: "For owners: each service with what it includes and its fee with VAT, the duties the agent looks after for a landlord, and a valuation request by WhatsApp." },
+  { id: "letting-repairs", dir: `${D}/letting-repairs`, minPlan: "plus", kits: K, requires: ["repairs"], page: "repairs", js: true,
+    summary: "Report a repair: what counts as an emergency and the out-of-hours number (the gas emergency line first), then a short form that writes the WhatsApp message; the tenant adds photos there. The site sends and keeps nothing." },
   // --- Signature ---
   { id: "letting-building", dir: `${D}/letting-building`, minPlan: "signature", kits: K, requires: ["homes"], needs: ["letting-board"], js: true,
     summary: "The lift indicator and the building in 3D: a brass plate of floor lamps over the photograph of the entrance; a floor lights its free homes. On tap, an illustration of the building turns into view with every free home's windows lit from the sheet. Nothing loads before the tap; a stale sheet lights nothing." },
@@ -55,6 +57,7 @@ export function pageData(site) {
     };
   }
   if (on("letting-movein") || on("letting-net")) out.fees = { example: site.fees.example ?? 2000, tenant: site.fees.tenant ?? {}, services: site.fees.services.map((/** @type {any} */ s) => ({ id: s.id, name: s.name, basis: s.basis, percent: s.percent })) };
+  if (on("letting-repairs")) out.repairs = { message: site.repairs.message };
   return out;
 }
 

@@ -85,3 +85,11 @@ No review stars in structured data, no "days to let" or "occupancy" figures unle
 lines are dated and live in `src/kits/letting/lib/rules.js` with their GOV.UK source.
 
 **Running cost £0:** a Google Sheet for homes and viewing slots, WhatsApp, the agent's own email, calendar files.
+
+## Built (15 Nov 2026, PR #11)
+Kit `letting`, look `porter`, demo Halvern (Signature). Shipped: `letting-fees` (free, in every header),
+`letting-board`, `letting-movein` (Starter); `letting-owners` (it is also `letting-services`: the services side by
+side from the one fees list) and `letting-repairs` (Plus); showpieces 1 and 3 (`letting-building`, `letting-net`) and
+the residences schedule (`letting-residences`) for Signature. Plan your visit and the questions use Porter's own markup.
+Not built yet: `letting-homes` filters and the per-home collection, `letting-areas` (needs a client's own area
+photographs, so client-only on demos), and the alternative showpieces.

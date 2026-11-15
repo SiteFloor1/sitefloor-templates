@@ -289,3 +289,22 @@ main .pt-pv-q { padding-block: 0; }
 .pt-pv-q summary { cursor: pointer; padding: 12px 0; min-height: 44px; }
 .pt-pv-q details p { color: var(--muted); padding-bottom: 14px; max-width: 62ch; }
 .pt-pv + .pt-visit { width: min(1320px, 100% - 2 * var(--pad)); margin: 40px auto 120px; }
+
+/* report a repair */
+.lp { gap: 64px; padding: 56px 0 120px; }
+main .lp section { padding-block: 0; }
+.lp h2 { font: 400 clamp(28px, 2.6vw, 38px)/1.15 var(--font-display); margin-bottom: 18px; }
+.lp-urgent { border-top: 1px solid var(--accent); padding-top: 18px; }
+.lp-urgent ul { padding-left: 1.2em; margin: 10px 0 18px; display: grid; gap: 4px; }
+.lp-gas { background: var(--surface); padding: 16px 18px; margin-bottom: 18px; }
+.lp-line { font: 300 28px/1.2 var(--font-display); }
+.lp-line a { color: var(--accent); }
+.lp-form { border-top: 1px solid var(--text); padding-top: 18px; }
+.lp form { gap: 18px; }
+.lp label { gap: 6px; font-style: italic; color: var(--muted); }
+.lp input:not([type="radio"]), .lp textarea { font-style: normal; color: var(--text); background: transparent; border: 0; border-bottom: 1px solid var(--line-2); padding: 8px 0; min-height: 44px; }
+.lp input:focus-visible, .lp textarea:focus-visible { outline: none; border-color: var(--accent); }
+.lp legend { font-style: italic; color: var(--muted); margin-bottom: 6px; }
+.lp .lp-r { accent-color: var(--accent); gap: 10px; font-style: normal; color: var(--text); min-height: 44px; }
+.lp-fine { font-size: 14px; color: var(--muted); }
+.lp-send { justify-self: start; background: var(--accent); color: var(--on-accent); text-decoration: none; padding: 14px 24px; }
