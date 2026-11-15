@@ -59,7 +59,7 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 
 | Trade / design | Branch | Display | Body |
 |---|---|---|---|
-| Skin, The hour (A, round 4) | trade/beauty | Rosarivo | Rosarivo |
+| Skin, Odile (round 6) | trade/beauty | Antic Didone | Baskervville |
 | Landscaping, Almanac | trade/landscaping | Alegreya | Alegreya |
 | Tailor, Flannel (A) | trade/tailor | Della Respira | Commissioner |
 | Wedding films, Première (A) | trade/wedding-film | Sorts Mill Goudy | Urbanist |
