@@ -59,6 +59,9 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 
 | Trade / design | Branch | Display | Body |
 |---|---|---|---|
+| Skin, The hour (A) | trade/beauty | Wix Madefor Display | Wix Madefor Text |
+| Skin, The note (B) | trade/beauty | Besley | Fragment Mono |
+| Skin, The course (C) | trade/beauty | Sofia Sans Extra Condensed | Sofia Sans |
 | Landscaping, Almanac | trade/landscaping | Alegreya | Alegreya |
 | Tailor, Flannel (A) | trade/tailor | Della Respira | Commissioner |
 | Wedding films, Première (A) | trade/wedding-film | Sorts Mill Goudy | Urbanist |
