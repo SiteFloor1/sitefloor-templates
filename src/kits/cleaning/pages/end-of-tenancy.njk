@@ -9,4 +9,5 @@ eleventyComputed:
 ---
 {%- set ph = { title: site.tenancy.title, intro: site.tenancy.intro } %}
 {% include "kits/cleaning/partials/page-head.njk" %}
+{%- for s in (site.cleans.items if site.cleans else []) %}{% if s.link == "end-of-tenancy" and s.example %}{% include "kits/cleaning/partials/worked.njk" %}{% endif %}{% endfor %}
 {% include "kits/cleaning/features/cleaning-tenancy/cleaning-tenancy.njk" %}

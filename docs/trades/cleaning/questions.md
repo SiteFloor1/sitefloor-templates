@@ -44,7 +44,7 @@ payments already made, and slow or no response when a clean wasn't done.
 | What does the agent check at check-out? What's on your checklist? | most | end-of-tenancy checklist (room by room, tick as you go) |
 | Can you come on my move-out date, close to the inventory check? | most | postcode and day check; end of tenancy page |
 | Does the property need to be empty? Electricity and hot water on? | many | end-of-tenancy checklist ("before we arrive") |
-| Do you do after-builders cleans and short-let turnovers? | some | after builders and short-let pages (Signature) |
+| Do you do after-builders cleans and short-let turnovers? | some | deep cleans page (after building work is quoted after a look) and the short-let page (Signature) |
 
 ## Offices and commercial premises
 | Question | How often | Answered by (planned) |

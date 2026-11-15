@@ -15,4 +15,4 @@
 .cl-price b { font-family: var(--font-display); font-weight: 800; font-size: clamp(52px, 5.6vw, 88px); line-height: .9; letter-spacing: -.035em; }
 @media (max-width: 860px) { .cl-bill-in { grid-template-columns: 1fr; } }
 /* phone: the rooms are in the strip just above; the bill starts at the time on site */
-@media (max-width: 560px) { .cl-extras label { padding: 8px 0; } .cl-lines tr:has(~ .cl-sum) { display: none; } }
+@media (max-width: 560px) { .cl-extras { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 18px; } .cl-extras em { white-space: normal; } .cl-extras label { padding: 8px 0; flex-wrap: wrap; align-items: center; gap: 0 8px; font-size: .92rem; } .cl-lines tr:has(~ .cl-sum) { display: none; } }

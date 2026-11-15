@@ -5,7 +5,9 @@
   {% include "core/partials/section-head.njk" %}
   <ul class="cl-sv">
     {%- for s in site.cleans.items %}
-    <li>{% if s.page and ("cleaning-service-pages" | enabled) %}<a href="{{ s.id | href }}"{{ 'cleaning-service-pages' | tierAttr | safe }}>{% endif %}<b>{{ s.name }}</b>{% if s.page and ("cleaning-service-pages" | enabled) %}</a>{% endif %}<span>{{ s.line }}</span><em>{{ s | rateWords }}</em></li>
+    {%- set to = (s.id if s.page and ("cleaning-service-pages" | enabled)) or (s.link if s.link and ((("cleaning-tenancy" if s.link == "end-of-tenancy" else "cleaning-offices")) | enabled)) %}
+    {%- set gate = "cleaning-service-pages" if s.page else ("cleaning-tenancy" if s.link == "end-of-tenancy" else "cleaning-offices") %}
+    <li>{% if to %}<a href="{{ to | href }}"{{ gate | tierAttr | safe }}>{% endif %}<b>{{ s.name }}</b>{% if to %}</a>{% endif %}<span>{{ s.line }}</span><em>{{ s | rateWords(site.visit) }}</em></li>
     {%- endfor %}
   </ul>
 </div></section>

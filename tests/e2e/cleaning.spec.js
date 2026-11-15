@@ -136,3 +136,23 @@ test("the 3D loads only on tap and is labelled an illustration", async ({ page }
   if (await page.locator("[data-3d-stage]").isVisible()) await expect(page.locator(".cl-3d-tag")).toHaveText("Illustration, not your home");
   await srv.close();
 });
+
+test("a service page's worked example matches the home strip for the same home, and its price matches the list", async ({ page }) => {
+  const srv = await start(demo);
+  // deep clean, two bedrooms and two bathrooms: the home strip set the same way shows the same total and price
+  await page.goto(srv.base + "/");
+  await page.locator('[data-st-ctl] input[name="freq"][value="once"]').check({ force: true });
+  const home = await page.locator("[data-st-fig]").innerText();
+  await page.goto(srv.base + "/deep-cleans");
+  const rooms = page.locator(".cl-wk-rooms .cl-room");
+  const mins = (await rooms.evaluateAll((els) => els.map((e) => Number(getComputedStyle(e).getPropertyValue("--m")))));
+  const total = mins.reduce((a, b) => a + b, 0);
+  await expect(page.locator(".cl-wk-head p b")).toHaveText(home.replace(/\.$/, ""));
+  await expect(page.locator(".cl-wk-sum td")).toHaveText(fmt(total));
+  await expect(page.locator(".cl-svc-add").first()).toBeVisible();
+  // end of tenancy: the "from" price in the list is the worked example on its page
+  await page.goto(srv.base + "/");
+  const from = (await page.locator(".cl-sv li", { hasText: "End of tenancy" }).locator("em").innerText()).match(/£[\d,]+/)[0];
+  await page.locator(".cl-sv a", { hasText: "End of tenancy" }).click();
+  await expect(page.locator(".cl-wk-price td")).toHaveText(from);
+});

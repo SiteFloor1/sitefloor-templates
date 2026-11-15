@@ -76,8 +76,8 @@ export function checkCleaning(site, err, exists) {
   const demo = site.mode === "demo";
   checkHero(site.hero, err, exists);
   if (site.visit !== undefined) checkVisit(site.visit, err);
-  if (site.cleans !== undefined) checkServices(site.cleans, err, exists);
-  if (site.features?.includes("cleaning-service-pages")) (site.cleans?.items ?? []).forEach((/** @type {any} */ x, /** @type {number} */ i) => { if (!x?.page) err(`cleans.items[${i}].page`, "every service needs its page ({ intro, sections }) when cleaning-service-pages is on"); });
+  if (site.cleans !== undefined) checkServices(site.cleans, site, err, exists);
+  if (site.features?.includes("cleaning-service-pages")) (site.cleans?.items ?? []).forEach((/** @type {any} */ x, /** @type {number} */ i) => { if (!x?.page && !x?.link) err(`cleans.items[${i}].page`, "every service needs its page ({ intro, sections }), or a link to the end-of-tenancy or offices page, when cleaning-service-pages is on"); });
   if (site.areas !== undefined) checkAreas(site.areas, demo, err);
   if (site.keys !== undefined) checkKeys(site.keys, err);
   if (site.tenancy !== undefined) checkTenancy(site.tenancy, err);
@@ -140,30 +140,67 @@ function checkRoom(r, k, err) {
   texts(err, `${at}.tasks`, r.tasks);
   if (r.not !== undefined) text(err, `${at}.not`, r.not);
 }
-
+/** @param {any} s @param {any} site @param {Report} err @param {Exists} exists */
 /** @param {any} s @param {Report} err @param {Exists} exists */
-function checkServices(s, err, exists) {
+function checkServices(s, site, err, exists) {
   if (!isObj(s)) { err("cleans", "{ items }"); return; }
   onlyKeys(s, ["title", "intro", "items"], "cleans", err);
   if (!list(err, "cleans.items", s.items, "service")) return;
   ids(err, "cleans.items", s.items);
   const taken = ["index", "included", "end-of-tenancy", "policies", "offices", "cleaners", "journal", "visit", "privacy", "404"];
   s.items.forEach((/** @type {any} */ x, /** @type {number} */ i) => { if (taken.includes(x?.id) || String(x?.id).startsWith("journal-")) err(`cleans.items[${i}].id`, `"${x.id}" is already a page's name; choose another`); });
-  s.items.forEach((x, i) => {
-    const at = `cleans.items[${i}]`;
-    onlyKeys(x, ["id", "name", "line", "rate", "from", "unit", "page"], at, err);
-    text(err, `${at}.name`, x?.name); text(err, `${at}.line`, x?.line);
-    if (x?.rate !== undefined && !(typeof x.rate === "number" && x.rate > 0)) err(`${at}.rate`, "£ an hour");
-    if (x?.from !== undefined && !(typeof x.from === "number" && x.from > 0)) err(`${at}.from`, "a \"from\" price in £");
-    if (x?.rate === undefined && x?.from === undefined) err(at, "give an hourly rate (rate) or a \"from\" price (from)");
-    if (x?.page !== undefined) checkServicePage(x.page, `${at}.page`, err, exists);
-  });
+  s.items.forEach((x, i) => checkService(x, `cleans.items[${i}]`, site, err, exists));
+}
+
+/** @param {any} ex @param {string} at @param {any} V @param {Report} err */
+function checkExample(ex, at, V, err) {
+  if (!validChoice(ex)) err(at, "the worked example: { beds, baths, freq, extras? } (freq week, fortnight or once)");
+  if (!V) { err(at, "needs the company's minutes and rates in `visit`"); return; }
+  const known = (V.extras ?? []).map((/** @type {any} */ y) => y.id);
+  (ex?.extras ?? []).forEach((/** @type {any} */ e) => { if (!known.includes(e)) err(`${at}.extras`, `"${e}" is not one of visit.extras`); });
+}
+
+/** @param {any} x @param {string} at @param {any} site @param {Report} err */
+function checkServiceLink(x, at, site, err) {
+    if (!(x.link === "end-of-tenancy" && site.features?.includes("cleaning-tenancy")) && !(x.link === "offices" && site.features?.includes("cleaning-offices"))) err(`${at}.link`, "\"end-of-tenancy\" or \"offices\", with that page's feature on");
+    if (x.page !== undefined) err(at, "a service has its own page or links to another, not both");
+}
+
+/** A service's price: from its worked example (one source with the strip), or the company's own figure. @param {any} item @param {string} at @param {any} site @param {Report} err */
+function checkServicePrice(item, at, site, err) {
+  const x = item ?? {};
+  if (x.example !== undefined) {
+    // one source: the price comes from the company's minutes and rates, so the service can't carry its own
+    checkExample(x.example, `${at}.example`, site.visit, err);
+    if (x.rate !== undefined || x.unit !== undefined) err(at, "with an example, the price is worked out from `visit`; remove rate and unit");
+    if (x.from !== undefined && !(x.from === true && x.example.beds === 1 && x.example.baths === 1)) err(`${at}.from`, "true (shows \"from\" the example's price), and only when the example is the smallest home: one bedroom, one bathroom");
+  } else {
+    if (x.rate !== undefined && !(typeof x.rate === "number" && x.rate > 0)) err(`${at}.rate`, "£ an hour");
+    if (x.from !== undefined && !(typeof x.from === "number" && x.from > 0)) err(`${at}.from`, "a \"from\" price in £");
+    if (x.rate === undefined && x.from === undefined) err(at, "give a worked example (example), an hourly rate (rate) or a \"from\" price (from)");
+  }
+}
+
+/** @param {any} x @param {string} at @param {any} site @param {Report} err @param {Exists} exists */
+function checkService(x, at, site, err, exists) {
+  onlyKeys(x, ["id", "name", "line", "rate", "from", "unit", "example", "link", "page"], at, err);
+  text(err, `${at}.name`, x?.name); text(err, `${at}.line`, x?.line);
+  checkServicePrice(x, at, site, err);
+  if (x?.link !== undefined) checkServiceLink(x, at, site, err);
+  if (x?.page !== undefined) checkServicePage(x.page, `${at}.page`, err, exists);
 }
 
 /** @param {any} pg @param {string} at @param {Report} err @param {Exists} exists */
 function checkServicePage(pg, at, err, exists) {
-  onlyKeys(pg, ["intro", "sections", "photo", "takes"], at, err);
+  onlyKeys(pg, ["intro", "sections", "photo", "takes", "label", "adds", "also", "not"], at, err);
   text(err, `${at}.intro`, pg?.intro); sections(err, `${at}.sections`, pg?.sections);
+  if (pg?.label !== undefined) text(err, `${at}.label`, pg.label);
+  if (pg?.adds !== undefined) {
+    if (!isObj(pg.adds)) err(`${at}.adds`, "tasks this service adds, by room: { kitchen, hall, bed, bath }");
+    else { onlyKeys(pg.adds, ["kitchen", "hall", "bed", "bath"], `${at}.adds`, err); for (const k of Object.keys(pg.adds)) texts(err, `${at}.adds.${k}`, pg.adds[k]); }
+  }
+  if (pg?.also !== undefined) texts(err, `${at}.also`, pg.also);
+  if (pg?.not !== undefined) texts(err, `${at}.not`, pg.not);
   if (pg?.photo !== undefined) photo(err, `${at}.photo`, pg.photo, exists);
   if (pg?.takes !== undefined) text(err, `${at}.takes`, pg.takes);
 }

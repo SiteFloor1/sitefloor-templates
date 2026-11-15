@@ -689,11 +689,13 @@
         "id": "regular-cleaning",
         "name": "Regular cleaning",
         "line": "Weekly or fortnightly, the same cleaner, the same list every visit.",
-        "rate": 24,
-        "unit": "an hour",
+        "example": {
+          "beds": 2,
+          "baths": 2,
+          "freq": "fortnight"
+        },
         "page": {
           "intro": "Weekly or fortnightly, by the same cleaner, to the same written list.",
-          "takes": "2 h 25 for a two-bedroom flat with two bathrooms",
           "photo": {
             "src": "img/bath.webp",
             "width": 888,
@@ -701,18 +703,25 @@
             "alt": "A white bathroom with a pale blue bath under a sash window",
             "credit": "Clay Banks on Unsplash"
           },
+          "also": [
+            "The same cleaner every visit; if they're away, we name the cover a week ahead",
+            "Your note read before we start",
+            "A message when we leave, with anything we noticed"
+          ],
+          "not": [
+            "Inside the oven, fridge and windows: extras, added to the time",
+            "Inside cupboards and wardrobes, grout, behind furniture: deep-clean tasks",
+            "Washing and ironing, unless you add ironing",
+            "Outside windows and balconies"
+          ],
           "sections": [
             {
               "heading": "The same cleaner",
-              "text": "You meet your cleaner on the first visit and they come every time after. When they're on holiday we tell you who's covering a week ahead, and they get the same list."
+              "text": "You meet your cleaner on the first visit and they come every time after. They learn the home: which surfaces want which cloth, where the spare bin bags live, which door sticks."
             },
             {
-              "heading": "The same list",
-              "text": "Every room has its tasks and its minutes, written down on our what's-included page. If you'd like something done first, leave a note."
-            },
-            {
-              "heading": "Rates",
-              "text": "£24 an hour weekly, £25 fortnightly. The shortest visit we book is two hours. No contract: pause or stop with a week's notice."
+              "heading": "Weekly or fortnightly",
+              "text": "Weekly visits are charged at a lower hourly rate than fortnightly ones and usually need less time per room. The strip on our home page shows both for your home. No contract: pause or stop with a week's notice."
             }
           ]
         }
@@ -720,12 +729,14 @@
       {
         "id": "deep-cleans",
         "name": "Deep cleans",
-        "line": "One visit, every room taken further: inside cupboards, grout, behind and under.",
-        "rate": 30,
-        "unit": "an hour",
+        "line": "One visit, every room taken further. After building work, quoted once we've seen it.",
+        "example": {
+          "beds": 2,
+          "baths": 2,
+          "freq": "once"
+        },
         "page": {
           "intro": "A one-off visit that takes every room further than a regular clean.",
-          "takes": "Half as long again as a regular visit, room by room",
           "photo": {
             "src": "img/marble.webp",
             "width": 889,
@@ -733,14 +744,46 @@
             "alt": "A marble shower and a timber basin, wiped and dry",
             "credit": "Clay Banks on Unsplash"
           },
+          "adds": {
+            "kitchen": [
+              "Inside cupboards and drawers",
+              "Extractor hood and filter degreased",
+              "Behind and under the appliances we can move safely"
+            ],
+            "hall": [
+              "Skirting and door frames by hand",
+              "Light fittings we can reach safely"
+            ],
+            "bed": [
+              "Inside wardrobes and drawers",
+              "Under the bed",
+              "Radiators"
+            ],
+            "bath": [
+              "Grout scrubbed",
+              "Limescale off the screen, taps and toilet base",
+              "Extractor fan cover"
+            ]
+          },
+          "also": [
+            "Cobwebs from ceilings and corners",
+            "Doors and handles throughout",
+            "Bins washed inside and out"
+          ],
+          "not": [
+            "Inside the oven, fridge and windows: extras, added to the time",
+            "Carpet and upholstery shampooing",
+            "Mould in walls or sealant: we'll tell you if it needs a specialist",
+            "Outside windows"
+          ],
           "sections": [
             {
-              "heading": "What changes",
-              "text": "Each room takes half as long again: inside cupboards and wardrobes, grout scrubbed, behind and under furniture we can move safely, skirting and door frames by hand."
+              "heading": "Before regular cleans",
+              "text": "Many homes start with one deep clean, then regular visits keep it there. It isn't required; if your home doesn't need one, we'll say so."
             },
             {
-              "heading": "Before regular cleans",
-              "text": "Many homes start with one deep clean, then regular visits keep it there. It isn't required; we'll tell you honestly if your home needs one."
+              "heading": "After building work",
+              "text": "Building dust varies too much to time from rooms, so we come and look, then quote. We clean in two passes a day apart, because fine dust keeps settling for a day after the first.\n\nWe need the builders finished, the rubble gone, and power and water on. We bring vacuums with filters made for fine dust."
             }
           ]
         }
@@ -749,32 +792,33 @@
         "id": "move-out-cleans",
         "name": "End of tenancy",
         "line": "Empty-property cleans to the check-out list most agents use.",
-        "from": 180,
-        "unit": "for a one-bedroom flat",
-        "page": {
-          "intro": "An empty-property clean, room by room, to the list agents and landlords check against.",
-          "takes": "Most of a day for a two-bedroom flat",
-          "sections": [
-            {
-              "heading": "The checklist",
-              "text": "Our end-of-tenancy page has the full room-by-room list, and what to do before we arrive. Tick it off as you go."
-            },
-            {
-              "heading": "If something is missed",
-              "text": "Tell us within 72 hours of the clean and we come back to put it right, free. We can't promise what a landlord decides about a deposit; we can make sure the clean isn't the reason."
-            }
+        "example": {
+          "beds": 1,
+          "baths": 1,
+          "freq": "once",
+          "extras": [
+            "oven",
+            "fridge",
+            "windows"
           ]
-        }
+        },
+        "from": true,
+        "link": "end-of-tenancy"
       },
       {
         "id": "short-let-turnovers",
         "name": "Short-let turnovers",
         "line": "Between guests: cleaned, beds changed, restocked, photographed for you.",
-        "rate": 26,
-        "unit": "an hour",
+        "example": {
+          "beds": 1,
+          "baths": 1,
+          "freq": "week",
+          "extras": [
+            "linen"
+          ]
+        },
         "page": {
           "intro": "Between guests, in the gap between check-out and check-in.",
-          "takes": "About 2 hours for a one-bedroom flat",
           "photo": {
             "src": "img/bed.webp",
             "width": 1000,
@@ -782,35 +826,40 @@
             "alt": "A made bed with white sheets against a dark panelled wall",
             "credit": "Lisha Riabinina on Unsplash"
           },
+          "label": "A one-bedroom flat between guests, at the weekly rate, beds changed with your linen",
+          "adds": {
+            "kitchen": [
+              "Dishwasher emptied",
+              "Tea, coffee and washing-up liquid restocked from your cupboard"
+            ],
+            "hall": [
+              "Keys returned where you keep them"
+            ],
+            "bed": [
+              "Beds changed with your linen"
+            ],
+            "bath": [
+              "Towels set out",
+              "Toiletries restocked from your cupboard"
+            ]
+          },
+          "also": [
+            "Photos of every room sent to you before we leave",
+            "Anything broken, missing or left behind reported the same day"
+          ],
+          "not": [
+            "Washing the linen: we change it, you or your laundry service wash it",
+            "Supplies: we restock from yours",
+            "Gaps too short for the flat: we tell you when you book, rather than rush"
+          ],
           "sections": [
             {
-              "heading": "Every turnover",
-              "text": "A full clean, beds changed with your linen, towels set out, consumables restocked from your cupboard, and photos of each room sent to you before we leave."
+              "heading": "Your times, our minutes",
+              "text": "Send your check-out and check-in times when you book. A one-bedroom turnover takes the time in the example above; if the gap is shorter, we say so straight away so you can move a check-in rather than find out from a guest."
             },
             {
-              "heading": "Tight gaps",
-              "text": "Send us your check-out and check-in times when you book. If a gap is too tight for the flat, we'll say so rather than rush it."
-            }
-          ]
-        }
-      },
-      {
-        "id": "after-builders",
-        "name": "After builders",
-        "line": "Dust from every surface after building work, in two passes.",
-        "rate": 30,
-        "unit": "an hour",
-        "page": {
-          "intro": "After building or decorating work: dust off every surface, in two passes a day apart.",
-          "takes": "Quoted after we see it",
-          "sections": [
-            {
-              "heading": "Two passes",
-              "text": "Fine dust settles for a day after the first clean. We come back the next day to take off what has settled."
-            },
-            {
-              "heading": "What we need",
-              "text": "The builders finished, rubble gone, power and water on. We bring the vacuums with the right filters."
+              "heading": "Booked regularly",
+              "text": "Turnovers are charged at our weekly rate. The shortest visit we book applies, which is why a small flat costs the same as two hours."
             }
           ]
         }

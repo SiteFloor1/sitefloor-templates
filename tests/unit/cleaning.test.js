@@ -133,7 +133,12 @@ test("settings are checked: whole minutes, rates, a deposit never promised, no s
   assert.match(errorsFor((s) => { s.visit.extras.push({ id: "oven", name: "Again", min: 5 }); }), /used twice/);
   assert.match(errorsFor((s) => { s.cleans.items[0].intro = "x"; }), /unknown setting/);
   assert.match(errorsFor((s) => { s.cleans.items[1].id = "offices"; }), /already a page's name/);
-  assert.match(errorsFor((s) => { delete s.cleans.items[2].page; }), /needs its page/);
+  assert.match(errorsFor((s) => { delete s.cleans.items[3].page; }), /needs its page/);
+  // a service with a worked example takes its price from `visit`, never its own
+  assert.match(errorsFor((s) => { s.cleans.items[0].rate = 22; }), /worked out from `visit`/);
+  assert.match(errorsFor((s) => { s.cleans.items[2].example.beds = 2; }), /smallest home/);
+  assert.match(errorsFor((s) => { s.cleans.items[0].example.extras = ["polish"]; }), /not one of visit\.extras/);
+  assert.match(errorsFor((s) => { s.cleans.items[2].page = { intro: "x", sections: [] }; }), /not both/);
   assert.match(errorsFor((s) => { s.cleans.items[0].line = "Deposit back guarantee on every clean."; }), /never promise a deposit/);
   assert.equal(errorsFor((s) => { s.tenancy.terms = "If we miss something we come back free."; }), "");
   assert.match(errorsFor((s) => { s.tenancy.depositLink = "https://example.com"; }), /gov\.uk/);
