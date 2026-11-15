@@ -5,6 +5,6 @@ Three mockup directions hold claims until the owner picks one; the other two row
 
 | Look or design | Status | Branch | Display | Body |
 |---|---|---|---|---|
-| Trainer, Tally (A) | approved | trade/trainer | Anybody | Barlow |
-| Trainer, Lark (B) | approved | trade/trainer | Bitter | Azeret Mono |
-| Trainer, Lap (C) | approved | trade/trainer | Saira Condensed | Petrona |
+| Trainer, Linen (A) | approved | trade/trainer | Josefin Sans | Gelasio |
+| Trainer, Residence (B) | approved | trade/trainer | Bona Nova | Bona Nova |
+| Trainer, Light (C) | approved | trade/trainer | Bai Jamjuree | Bai Jamjuree |

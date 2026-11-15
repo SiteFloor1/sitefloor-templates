@@ -37,9 +37,10 @@ Every site also gets Plan your visit, open now, WhatsApp, reviews and the Instag
    sessions to a calendar (.ics). Bank holidays from gov.uk's published list are marked, not booked. No photos needed.
 2. **The first hour** (`trainer-first-hour`). What happens in the first session, minute by minute: the talk and the
    health questionnaire, a movement check, a first light session, the plan. A 60-minute tape with four stops; each stop
-   shows a photograph of that moment. **Photos exist:** one free Pexels shoot (Vitaly Gariev, about 50 frames of one
-   trainer with clients in a daylight gym: clipboard consultation, squat and bar coaching, kettlebells, core work,
-   reviewing the plan). One shoot, one trainer, so the four moments read as one morning. A client swaps in their own.
+   shows a photograph of that moment. **Photos exist:** free Pexels shoots with one trainer and one client throughout: a session at
+   home in a bright flat (Mikhail Nilov, about 25 frames: talking, movement, stretching, floor work) and a session in a
+   sunlit private room (Cliff Booth, about 40 frames). One shoot per demo, so the moments read as one morning. A client
+   swaps in their own. Free premium shoots of heavy strength work are rare; the client's own photography fills that.
 3. **The week board** (`trainer-week`, the showpiece form of PT-2). The trainer's working week as a board: only their
    hours, free slots lit, today first on a phone. Tap a slot: "Can I have Tue 06:30?" on WhatsApp. Reads the same Sheet
    as `trainer-slots`; fails closed (stale or missing data hides the board and shows "Message me for times").
@@ -87,7 +88,9 @@ calculators (medical-adjacent and outside most trainers' qualifications), anythi
 Plus Plan your visit, privacy and 404, free on every plan.
 
 ## How the design differs
-Three directions, one static screen each, in `sitefloor-internal` (`docs/trades/personal-trainer/design/`): A Tally
-(the block planner is the first screen), B Lark (the week board at first light), C Lap (the first hour on a stopwatch
-tape). Demo trainer: **Marrick**, a one-trainer studio in Bermondsey with park sessions (fictional; no UK fitness
-business of that name found at Companies House or online, 15 Nov 2026).
+The owner's brief (VISION.md): London's luxury private trainers (Dalton Wong's Twenty Two Training, Matt Roberts), exclusive
+studios, polished, never gritty. Three directions, one static screen each, in `sitefloor-internal` on branch
+`design/trainer` (`docs/trades/personal-trainer/design/`): A Linen (the private studio, by appointment, with a live
+reservation card), B Residence (training at home in Chelsea and Kensington; the first hour as the working section),
+C Light (a sunlit private room; the block planner as a calendar of your weeks). Demo: **Marrick**, a private training
+studio in Chelsea (fictional; no UK fitness business of that name found at Companies House or online, 15 Nov 2026).
