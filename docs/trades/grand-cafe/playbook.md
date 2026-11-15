@@ -21,3 +21,5 @@ What to build for this trade (kit `restaurant`). The ground rules and the steps 
   the kitchen makes swaps; the tea library in the shop's own words; one Stripe Payment Link per gift and one for the cake
   deposit; one per box size; a photo of each window piece and one wide photo of the room; the seasonal teas' dates and
   prices; the music times; the dress code in the shop's words. Running cost £0.
+
+**Published demos (GitHub Pages):** the PDF menu is left out, with its download button, because a PDF can't carry noindex there. It comes back when demos move to demos.sitefloor.com on Cloudflare, whose `_headers` can mark PDFs noindex (`docs/platform/demos.md`).

@@ -37,3 +37,20 @@ test("season settings are checked", () => {
   ], err, (h) => /^(#|\/|https:\/\/)/.test(h ?? ""));
   for (const f of ["seasons[0].name", "ends before", "more than 120 days", "seasons[2].banner", "seasons[2].tint", "seasons[2].link"]) assert.ok(errors.some((e) => e.includes(f)), f);
 });
+
+test("Eid, Ramadan and Diwali are on file through 2030, each window around its day (checked 14 Nov 2026)", () => {
+  /** @param {number} y @param {string} id */
+  const w = (y, id) => suggestSeasons(y).find((x) => x.preset === id);
+  // The day itself, from the comment above LUNAR in seasons.js.
+  const days = { "eid-al-fitr": { 2028: "2028-02-27", 2029: "2029-02-15", 2030: "2030-02-05" }, "eid-al-adha": { 2028: "2028-05-05", 2029: "2029-04-24", 2030: "2030-04-14" }, diwali: { 2028: "2028-10-17", 2029: "2029-11-05", 2030: "2030-10-26" } };
+  const span = { "eid-al-fitr": [-2, 2], "eid-al-adha": [-3, 2], diwali: [-4, 1] };
+  const add = (/** @type {string} */ d, /** @type {number} */ n) => new Date(Date.parse(`${d}T12:00:00Z`) + n * 864e5).toISOString().slice(0, 10);
+  for (const [id, byYear] of Object.entries(days)) {
+    for (const [y, d] of Object.entries(byYear)) {
+      const s = w(Number(y), id);
+      assert.ok(s, `${id} ${y}`);
+      assert.deepEqual([s.from, s.to], [add(d, span[/** @type {keyof typeof span} */ (id)][0]), add(d, span[/** @type {keyof typeof span} */ (id)][1])], `${id} ${y}`);
+    }
+  }
+  for (const y of [2028, 2029, 2030]) assert.equal(w(y, "ramadan")?.to, add(days["eid-al-fitr"][/** @type {2028} */ (y)], -1), `ramadan ${y}`);
+});

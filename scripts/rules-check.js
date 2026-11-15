@@ -19,6 +19,7 @@
  *    (scripts/docs-index.js), here or on any other open branch.
  * 9. Kit feature ids are unique across the shared features and every kit, here and on every other open branch
  *    (scripts/lib/feature-ids.js).
+ * 10. No demo link is left on an old demo address (demo-hosting.json, scripts/demo-links.js).
  */
 import { readFile, readdir } from "node:fs/promises";
 import { existsSync } from "node:fs";
@@ -26,6 +27,7 @@ import path from "node:path";
 import { FEATURES, forKit, clientOnlyFor } from "../src/features/registry.js";
 import { docsProblems } from "./docs-index.js";
 import { featureIdProblems } from "./lib/feature-ids.js";
+import { demoLinkProblems } from "./demo-links.js";
 import { pathToFileURL } from "node:url";
 
 const RAW_COLOUR = /#[0-9a-f]{3,8}\b|\b(?:rgba?|hsla?)\(/gi;
@@ -98,6 +100,7 @@ export async function checkRules(root) {
 
   problems.push(...docsProblems(root));
   problems.push(...featureIdProblems(root));
+  problems.push(...demoLinkProblems(root));
 
   const featureCss = [
     ...(await walk(path.join(root, "src/features"), (f) => f.endsWith(".css"))),
@@ -213,5 +216,5 @@ if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
     console.error(`House rules: ${problems.length} problem(s)\n  ${problems.join("\n  ")}`);
     process.exit(1);
   }
-  console.log("House rules: OK (tokens in features, fonts, look uniqueness, copy, no kit names in shared build files, docs indexes current, fonts claimed once, kit feature ids unique)");
+  console.log("House rules: OK (tokens in features, fonts, look uniqueness, copy, no kit names in shared build files, docs indexes current, fonts claimed once, kit feature ids unique, demo links current)");
 }

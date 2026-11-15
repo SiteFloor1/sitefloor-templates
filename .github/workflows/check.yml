@@ -78,10 +78,15 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
-      # Same builds the browser tests use: every demo (preview), budget, then the client fixtures as production.
-      - run: npm run build:all
+      # Same builds the browser tests use: every demo (preview), budget, then the client fixtures as production, all as
+      # on the test day (tests/e2e/test-day.json) with demo dates as written, so they match what the tests expect.
+      - run: echo "TEST_DAY=$(node -p "require('./tests/e2e/test-day.json').day")" >> "$GITHUB_ENV"
+      - run: npm run build:all -- --today "$TEST_DAY" --as-written
       - run: npm run budget
-      - run: node scripts/build.js --fixtures --env production
+      - run: node scripts/build.js --fixtures --env production --today "$TEST_DAY" --as-written
+      # The published demo site exactly as demos.yml builds it, on today's dates: fails on a page without noindex or a
+      # link that leads nowhere, so a broken demo is caught here rather than on the day it deploys.
+      - run: node scripts/pages.js --out _site
       - name: Which browser tests this run needs
         id: plan
         env:
