@@ -60,9 +60,9 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 | Trade / design | Branch | Display | Body |
 |---|---|---|---|
 | Landscaping, Almanac | trade/landscaping | Alegreya | Alegreya |
-| Trainer, Tally (A) | trade/trainer | Saira Condensed | Barlow |
+| Trainer, Tally (A) | trade/trainer | Anybody | Barlow |
 | Trainer, Lark (B) | trade/trainer | Bitter | Azeret Mono |
-| Trainer, Lap (C) | trade/trainer | Anybody | Petrona |
+| Trainer, Lap (C) | trade/trainer | Saira Condensed | Petrona |
 | Tailor, Flannel (A) | trade/tailor | Della Respira | Commissioner |
 | Wedding films, Première (A) | trade/wedding-film | Sorts Mill Goudy | Urbanist |
 
