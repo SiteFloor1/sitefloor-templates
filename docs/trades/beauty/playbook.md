@@ -70,15 +70,22 @@ Corporate and group days · Journal. Signature adds the suggestion note and the 
 - **Skin diary (client-only):** consented monthly progress photographs in one light for course clients.
 - **Ambitious:** the clock as a live day: today's free hours shown as gaps on the dial, from the clinic's Sheet.
 
-### Current direction (owner, 15 Nov 2026) — round 5, which facial?
-References (`docs/VISION.md`): Taylor Taylor, The Lanesborough Club & Spa, David Mallett; hotel-spa luxury with
-Parisian salon elegance. Kept from round 4: the header (menus either side, emblem and name centred), a large daylit
-photograph of a facial (one Pexels session by Olia Danilevich) and Rosarivo, roman only. The clock is retired as the
-hero; the first-screen tool is BEAU-3, the concern finder: "How does your skin feel today?", five words, and a printed
-treatment card with the facial, length, price, afterwards, patch test and that evening, then "Book this facial on
-WhatsApp" with the choice in the message. Answers come only from the clinic's menu in `site.json`. The minute-by-minute
-stages become plain text on each facial's page. Mimosa (#F1C84B) marks the chosen word only. Screen:
-https://claude.ai/artifact/3v5RiyJVKkfBoHKTH3aVCm. No build until the owner approves this screen.
+### Current direction (owner, 15 Nov 2026) — round 6, the grand-hotel card (final screen)
+References (`docs/VISION.md`): Taylor Taylor, The Lanesborough Club & Spa, David Mallett; the owner's feel is a
+grand hotel spa (Raffles). Structure from round 5: the kept header (menus either side, the name centred), a large
+daylit facial (Olia Danilevich, Pexels, cropped so the face and hands lead), then BEAU-3, the concern finder: "How does
+your skin feel today?", five words (tight, tired, uneven, breaking out, sensitive) and a printed treatment card
+(facial, minutes, price, afterwards, patch test, this evening, "Book this facial on WhatsApp" with the choice in the
+message). Type: Antic Didone (ODILE in widely spaced capitals, headings, the words, the facial) and Baskervville (the
+card and reading text), roman only. Heritage cue: palm-frond green #1F3B2D for the header rule, the card's border and
+the WhatsApp button, one fine gold line #B3924A in the card, ivory ground #FAF7F0. Screen:
+https://claude.ai/artifact/McNV5yCYaRi5JsMYZjNotp.
+
+**Build notes.** Every line on the card, including "This evening", is the clinic's own wording from its `site.json`
+menu (per facial: the words it answers, name, minutes, price, afterwards, patch test, this evening); demo lines are
+demo copy only, and a facial without a "this evening" line omits that row. The config check refuses a menu entry
+that names a medical condition or promises a result, and the card fails closed (shows "Ask us on WhatsApp") when a
+word has no facial mapped. The minute-by-minute stages become plain text on each facial's page.
 
 ### Round 1: three design directions (A chosen; B and C become Signature pages)
 Screens: https://claude.ai/artifact/Y5FANTQ9LroCp2mA8ZaVGX (source to go in `sitefloor-internal/docs/trades/beauty/screens/`).
