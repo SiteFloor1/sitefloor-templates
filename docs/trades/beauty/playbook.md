@@ -87,7 +87,7 @@ unedited, treatment named, signed-consent date held by the clinic). No demo turn
   winter, SPF reminders), dated and hidden once the month ends.
 
 ### Three design directions (one static screen each: home top + one section, desktop and phone)
-Screens: *link added when published* (source `sitefloor-internal/docs/trades/beauty/screens/`).
+Screens: https://claude.ai/artifact/Y5FANTQ9LroCp2mA8ZaVGX (source to go in `sitefloor-internal/docs/trades/beauty/screens/`).
 
 | | A · The hour | B · The note | C · The course |
 |---|---|---|---|
