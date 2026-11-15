@@ -44,7 +44,7 @@ misses the brief, however tidy it is. Full history and notes: sitefloor-internal
 | Corporate B2B | Accenture, PwC, Salesforce, Siemens |  |
 | Car detailer | Konings, GVE | Detailing only (its own kit). |
 | Driving instructor | RED, the AA | Harder to make premium: find the premium angle. |
-| Cleaning | Principle Cleaning, Donau, JPC/Samsic | Premium, precise, high-tech: a facilities company's standard, never a cheap flyer. CLEAN-7 (3D home, room by room) is the intended wow. |
+| Cleaning | Principle Cleaning, Donau, JPC/Samsic | Premium, precise, high-tech: a facilities company's standard, never a cheap flyer. The wow is the visit drawn to scale: every room as long as its minutes, priced from the same figures. CLEAN-7 (3D home) is an optional, labelled illustration, never the hero. |
 
 ## Approved feature ideas by trade (approved 29 Oct 2026)
 Codes are how the owner refers to them (e.g. "CLEAN-7"). S = Starter, P = Plus, Sig = Signature. Every site also gets Plan your
