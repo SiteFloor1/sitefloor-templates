@@ -12,6 +12,7 @@ take (`demo-map.md`), its speed numbers (`speed.md`) and the fonts it claims (`f
 | baker | Bakers and cake makers | — | [questions](baker/questions.md) · [playbook](baker/playbook.md) |
 | barber | Barbers | `barber` | [questions](barber/questions.md) · [demo-map](barber/demo-map.md) · [speed](barber/speed.md) · [fonts](barber/fonts.md) |
 | bridal | Bridal salons | `bridal` | [questions](bridal/questions.md) · [playbook](bridal/playbook.md) · [demo-map](bridal/demo-map.md) · [speed](bridal/speed.md) · [fonts](bridal/fonts.md) |
+| bridal-beauty | Bridal hair and makeup artists | `bridalbeauty` | [questions](bridal-beauty/questions.md) · [playbook](bridal-beauty/playbook.md) · [fonts](bridal-beauty/fonts.md) |
 | cafe | Cafés | `restaurant` | [questions](cafe/questions.md) · [playbook](cafe/playbook.md) · [demo-map](cafe/demo-map.md) · [speed](cafe/speed.md) · [fonts](cafe/fonts.md) |
 | cakes | Celebration cake designers | `cakes` | [questions](cakes/questions.md) · [playbook](cakes/playbook.md) · [demo-map](cakes/demo-map.md) · [speed](cakes/speed.md) · [fonts](cakes/fonts.md) |
 | car-hire | Car hire | `hire` | [questions](car-hire/questions.md) · [playbook](car-hire/playbook.md) · [demo-map](car-hire/demo-map.md) · [speed](car-hire/speed.md) · [fonts](car-hire/fonts.md) |

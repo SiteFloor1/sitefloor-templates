@@ -59,6 +59,9 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 
 | Trade / design | Branch | Display | Body |
 |---|---|---|---|
+| Isolde, Call time (A) | trade/bridal-beauty | Zilla Slab | Atkinson Hyperlegible |
+| Isolde, Diary (B) | trade/bridal-beauty | Antonio | IBM Plex Sans |
+| Isolde, Skin first (C) | trade/bridal-beauty | Young Serif | Wix Madefor Text |
 | Landscaping, Almanac | trade/landscaping | Alegreya | Alegreya |
 | Tailor, Flannel (A) | trade/tailor | Della Respira | Commissioner |
 | Wedding films, Première (A) | trade/wedding-film | Sorts Mill Goudy | Urbanist |
