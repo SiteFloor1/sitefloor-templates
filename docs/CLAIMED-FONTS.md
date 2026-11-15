@@ -60,7 +60,7 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 | Trade / design | Branch | Display | Body |
 |---|---|---|---|
 | Landscaping, Almanac | trade/landscaping | Alegreya | Alegreya |
-| Trainer, Linen (A) | trade/trainer | Josefin Sans | Gelasio |
+| Trainer, Linen (A) | trade/trainer | Ibarra Real Nova | Courier Prime |
 | Tailor, Flannel (A) | trade/tailor | Della Respira | Commissioner |
 | Wedding films, Première (A) | trade/wedding-film | Sorts Mill Goudy | Urbanist |
 
