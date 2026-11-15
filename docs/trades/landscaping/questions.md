@@ -4,7 +4,7 @@ What this trade's customers ask before they get in touch (kit `garden`). How to 
 
 From UK garden designers' own FAQ pages (independent designers in the North West and the South, a designer-builder in the
 Midlands), a national trade directory's hiring advice, landscapers' public review pages on a trade directory, and GOV.UK
-planning guidance, Nov 2026. Feature codes are the approved LAND list in [`sitefloor-internal/docs/VISION-REFERENCES.md`](https://github.com/SiteFloor1/sitefloor-internal/blob/main/docs/VISION-REFERENCES.md).
+planning guidance, Nov 2026. Feature codes are the approved LAND list in [`docs/VISION.md`](../../VISION.md).
 
 ## Before they call: what do you actually do?
 | Question | Answered by |
