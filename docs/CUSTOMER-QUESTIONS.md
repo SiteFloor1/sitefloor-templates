@@ -36,6 +36,7 @@ One file per trade, so trades built in parallel never edit the same lines. A new
 - Celebration cake designers: [`docs/trades/cakes/questions.md`](trades/cakes/questions.md)
 - Car hire: [`docs/trades/car-hire/questions.md`](trades/car-hire/questions.md)
 - Car studios (tint, wrap, PPF, detailing): [`docs/trades/car-studio/questions.md`](trades/car-studio/questions.md)
+- Domestic and commercial cleaning: [`docs/trades/cleaning/questions.md`](trades/cleaning/questions.md)
 - Construction and building firms: [`docs/trades/construction/questions.md`](trades/construction/questions.md)
 - Dessert shops and chocolatiers: [`docs/trades/dessert/questions.md`](trades/dessert/questions.md)
 - Car detailing: [`docs/trades/detailing/questions.md`](trades/detailing/questions.md)
