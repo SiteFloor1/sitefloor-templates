@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import {
   datesFromCsv, dayAnswer, nextOpenSaturday, clockWords, morningPlan, morningFor, quoteTotal, districtOf, travelFor,
-  trialWindow, prepDates, calendar, lookText, travelText, numberWord,
+  trialWindow, prepDates, calendar, lookText, travelText, numberWord, anClock,
 } from "../../src/kits/bridalbeauty/lib/bridalbeauty.js";
 import { HOME_PARTS, homeOrderProblem, onPagesProblem } from "../../src/kits/bridalbeauty/home.js";
 import { pageData } from "../../src/kits/bridalbeauty/kit.js";
@@ -150,6 +150,7 @@ test("words: small numbers in words, times as a person says them, the look named
   assert.equal(numberWord(3), "three");
   assert.equal(clockWords(at("14:00")), "2pm");
   assert.equal(clockWords(at("07:25")), "7:25am");
+  assert.deepEqual(["11am", "11:30am", "8am", "2pm", "1pm", "10am", "12pm"].map(anClock), ["an", "an", "an", "a", "a", "a", "a"]);
   assert.match(lookText("Hello Isolde,", "Satin, half up"), /"Satin, half up"/);
 });
 
