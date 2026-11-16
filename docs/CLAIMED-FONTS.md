@@ -61,6 +61,10 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 |---|---|---|---|
 | Isolde, the cover (round 4) | trade/bridal-beauty | Libre Bodoni | Faustina |
 | Cleaning, Plan (A) | trade/cleaning | Anek Latin | Anek Latin |
+| Fragrance, Merriott (A) | trade/fragrance | IM Fell English | Crimson Pro |
+| Fragrance, Merriott (A) engraving script | trade/fragrance | Monsieur La Doulaise | Monsieur La Doulaise |
+| Fragrance, Verrière (B) | trade/fragrance | GFS Didot | IBM Plex Sans Condensed |
+| Fragrance, Lovage (C) | trade/fragrance | Young Serif | Work Sans |
 | Landscaping, Almanac | trade/landscaping | Alegreya | Alegreya |
 | Trainer, Linen (A) | trade/trainer | Ibarra Real Nova | Ibarra Real Nova |
 | Tailor, Flannel (A) | trade/tailor | Della Respira | Commissioner |
