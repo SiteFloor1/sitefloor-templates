@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: valuation
+permalink: valuation.html
+feature: letting-valuation
+eleventyComputed:
+  title: "{{ site.valuation.title }}"
+  description: "{{ site.valuation.intro }}"
+---
+{%- set ph = { title: site.valuation.title, intro: site.valuation.intro } %}
+{% include "kits/letting/partials/page-head.njk" %}
+<div class="wrap">{% include "kits/letting/features/letting-valuation/letting-valuation.njk" %}</div>

@@ -17,3 +17,14 @@ on the porch, TBT 0 ms, CLS 0); Residences 100/100/100 (CLS 0); Fees 99/100/100;
 while loading (PerformanceObserver, real fonts, 412 px): 0.00004 on the home page. The residences schedule keeps its
 place unseen until the sheet has filled it, so nothing moves on screen (it was 0.144 before). Home page at 390 × 844:
 3.3 phone screens including the footer and the demo bar.
+
+## 16 Nov 2026 — Signature build-out (20 pages)
+
+Whole demo: JS 41.1 KB (15.3 gz), CSS 53.9 KB (12 gz), fonts 95.3 KB, 3D on tap 134.4 KB gz (unchanged). Home images
+317 KB, both porch crops counted (the wider re-crop: brick, stone porch and the retouched cartouche; one loads).
+Area photos 1400 px (62–157 KB) with 700 px copies (22–56 KB) on the areas index.
+
+Lighthouse 12 mobile, local server (performance / accessibility / best practices): home 97/100/100 (LCP 2.4 s,
+CLS 0); areas 99/100 (it was 94 with a 1400 px card photo: the index now uses the 700 px copy); an area 97/100/100;
+valuation 99, moving in 100, onboarding 99, owner stories 99, journal 100, an article 100, what we manage 99,
+residences (with filters) 100, owners 100; accessibility 100 and CLS ≤ 0.01 on every page.

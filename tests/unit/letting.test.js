@@ -8,6 +8,8 @@ import { validateSite } from "../../src/core/lib/config.js";
 import { loadCatalog } from "../../scripts/lib/catalog.js";
 import { RULES, moveIn, tenantSide, ownerSide, landlordView, tenantTermsProblem, rentFrom } from "../../src/kits/letting/lib/fees.js";
 import { homesFromCsv, partA, updatedText, freeOn, sqft } from "../../src/kits/letting/lib/homes.js";
+import { plan, planIcs, DEPOSIT_RULE } from "../../src/kits/letting/lib/moveday.js";
+import { valuationText, checklistText } from "../../src/kits/letting/lib/owners.js";
 import { repairText } from "../../src/kits/letting/lib/repairs.js";
 import { HOME_PARTS, homeOrderProblem } from "../../src/kits/letting/home.js";
 import { pageData, csp } from "../../src/kits/letting/kit.js";
@@ -156,4 +158,42 @@ test("a repair report: one message, empty answers left out; the out-of-hours num
   assert.equal(repairText("Hello, a repair.", { home: "Flat 2", what: "Tap drips", where: "", keys: "Yes, you may use your keys" }),
     "Hello, a repair.\nHome: Flat 2\nWhat's wrong: Tap drips\nAccess: Yes, you may use your keys");
   assert.match(errorsFor((s) => { s.repairs.outOfHours = "07700 900000"; }), /outOfHours/);
+});
+
+test("move-in planner: dates from the keys day, timed steps first, the deposit check 30 days after it was paid", () => {
+  const steps = [{ id: "meters", label: "Meters", offset: 0 }, { id: "checkin", label: "Check-in", offset: 0, time: "10:00" }, { id: "council", label: "Council tax", offset: 1 }];
+  const p = plan("2026-12-01", steps);
+  assert.deepEqual(p.map((x) => x.id), ["checkin", "meters", "council", "deposit"]);
+  assert.equal(p[3].date, "2026-12-31");
+  assert.equal(p[0].when, "Tuesday 1 December 2026");
+  assert.equal(plan("2026-12-01", steps, "2026-11-20").at(-1)?.date, "2026-12-20"); // paid earlier: 30 days from then
+  assert.equal(plan("2026-12-01", steps, "2026-12-09").at(-1)?.date, "2026-12-31"); // a later "paid" date is ignored
+  assert.deepEqual(plan("2026-02-30", steps), []);
+  assert.equal(DEPOSIT_RULE.days, 30);
+  const ics = planIcs({ planned: p, agent: "Halvern", place: "Halvern, High Street, London", stamp: "20261116T100000Z", tz: "Europe/London" });
+  assert.match(ics, /DTSTART;TZID=Europe\/London:20261201T100000/);
+  assert.match(ics, /DTEND;TZID=Europe\/London:20261201T110000/);
+  assert.match(ics, /DTSTART;VALUE=DATE:20261231/);
+  assert.ok(ics.split("\r\n").every((l) => l.length <= 75));
+});
+
+test("valuation request and onboarding checklist: messages only, no figure", () => {
+  const t = valuationText("Hello, a valuation please.", { address: "Flat 2, Park Row", postcode: "ls1 5hd", kind: "Flat", beds: "2", baths: "1", size: "70", unit: "m2", outside: "Balcony", furnished: "", when: "", service: "Fully managed" });
+  assert.equal(t, "Hello, a valuation please.\n\nAddress: Flat 2, Park Row, LS1 5HD\nThe home: 2 bedrooms, 1 bathroom, flat, about 70 m²\nOutside: Balcony\nInterested in: Fully managed");
+  assert.doesNotMatch(t, /£/);
+  assert.equal(checklistText("Hi", ["EPC"], ["Gas safety record"]), "Hi\n\nReady:\n- EPC\n\nStill to sort:\n- Gas safety record");
+});
+
+test("new pages' settings: real owners only on a client, GOV.UK sources, areas' buildings and slugs", () => {
+  const withStories = (/** @type {any} */ s) => { s.features.push("letting-stories"); s.plan = "signature"; s.stories = structuredClone(demo.stories); };
+  assert.match(errorsFor((s) => { withStories(s); }, client), /consent/);
+  assert.equal(errorsFor((s) => { withStories(s); s.stories.items.forEach((/** @type {any} */ x) => { x.consent = true; }); }, client).includes("consent"), false);
+  assert.match(errorsFor((s) => { s.journal.items[0].sources[0].url = "https://example.com/rules"; }), /GOV.UK/);
+  assert.match(errorsFor((s) => { s.journal.items[0].checked = "15 Nov"; }), /YYYY-MM-DD/);
+  assert.match(errorsFor((s) => { s.areas.items[0].buildings = ["nowhere"]; }), /no building/);
+  assert.match(errorsFor((s) => { s.areas.items[0].slug = "fees"; }), /already a page/);
+  assert.match(errorsFor((s) => { s.journal.items[0].slug = "kensington"; }), /already an area/);
+  assert.match(errorsFor((s) => { s.areas.items[0].notes = s.areas.items[0].notes.slice(0, 2); }), /thin/);
+  assert.match(errorsFor((s) => { s.moveday.steps[0].id = "deposit"; }), /deposit/);
+  assert.match(errorsFor((s) => { s.moveday.steps[0].offset = 90; }), /-60 to 60/);
 });

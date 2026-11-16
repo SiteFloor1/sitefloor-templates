@@ -13,5 +13,13 @@
     <h2 id="lo-d">What we look after for you</h2>
     <ul>{% for x in o.duties %}<li>{{ x }}</li>{% endfor %}</ul>
   </section>
-  <p class="lo-go"><a class="lo-btn" href="{{ o.valuation | wa }}" data-wa-text="{{ o.valuation }}" target="_blank" rel="noopener">Ask for a rental valuation</a> <a href="{{ 'fees' | href }}">Every fee, with VAT</a></p>
+  {%- set more = [] %}
+  {%- if "letting-valuation" | enabled %}{% set more = (more.push({ page: "valuation", t: site.valuation.title, l: site.valuation.intro }), more) %}{% endif %}
+  {%- if "letting-manage" | enabled %}{% set more = (more.push({ page: "manage", t: site.manage.title, l: site.manage.intro }), more) %}{% endif %}
+  {%- if "letting-onboarding" | enabled %}{% set more = (more.push({ page: "onboarding", t: site.onboarding.title, l: site.onboarding.intro }), more) %}{% endif %}
+  {%- if "letting-stories" | enabled %}{% set more = (more.push({ page: "stories", t: site.stories.title, l: site.stories.intro }), more) %}{% endif %}
+  {%- if more.length %}
+  <nav class="lo-more" aria-label="More for owners"><ul>{% for m in more %}<li><a href="{{ m.page | href }}"><span>{{ m.t }}</span><small>{{ m.l }}</small></a></li>{% endfor %}</ul></nav>
+  {%- endif %}
+  <p class="lo-go">{% if "letting-valuation" | enabled %}<a class="lo-btn" href="{{ 'valuation' | href }}">What would my home let for?</a>{% else %}<a class="lo-btn" href="{{ o.valuation | wa }}" data-wa-text="{{ o.valuation }}" target="_blank" rel="noopener">Ask for a rental valuation</a>{% endif %} <a href="{{ 'fees' | href }}">Every fee, with VAT</a></p>
 </div>

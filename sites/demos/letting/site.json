@@ -81,6 +81,11 @@
       "fallback": "#homes"
     },
     {
+      "label": "Areas",
+      "page": "areas",
+      "feature": "letting-areas"
+    },
+    {
       "label": "Owners",
       "page": "owners",
       "feature": "letting-owners"
@@ -97,9 +102,16 @@
     "letting-movein",
     "letting-owners",
     "letting-repairs",
+    "letting-manage",
+    "letting-areas",
+    "letting-journal",
     "letting-building",
     "letting-residences",
     "letting-net",
+    "letting-valuation",
+    "letting-onboarding",
+    "letting-stories",
+    "letting-moveday",
     "visit",
     "plan-visit",
     "questions"
@@ -465,7 +477,7 @@
     {
       "topic": "Renting",
       "q": "Can I bring a pet?",
-      "a": "Ask us. Since May 2026 an owner can't unreasonably refuse a pet and must usually answer in writing within 28 days; we ask them for you and tell you why if the answer is no."
+      "a": "Ask us. Since May 2026 you can ask to keep a pet and an owner can't refuse without a good reason; we put the request to them and tell you their answer and why."
     },
     {
       "topic": "Renting",
@@ -501,5 +513,532 @@
     ],
     "outOfHours": "+44 20 7946 0419",
     "message": "Hello Halvern, I'd like to report a repair."
+  },
+  "manage": {
+    "title": "What we manage",
+    "intro": "Long lets only: homes we know floor by floor, looked after month by month.",
+    "kinds": [
+      {
+        "name": "Mansion flats",
+        "text": "Edwardian and late-Victorian blocks with porters, lifts and a managing agent of their own. We know the service charges, the house rules and the people at the desk."
+      },
+      {
+        "name": "Period houses",
+        "text": "Regency and Georgian houses, whole or as flats: listed fabric, sash windows, lower-ground floors that need watching for damp."
+      },
+      {
+        "name": "Garden flats and maisonettes",
+        "text": "Homes with their own door and a garden or terrace, where the outside is part of the let and part of the inventory."
+      },
+      {
+        "name": "Penthouses and top floors",
+        "text": "Roof terraces, lift access and the leaks that start up there: inspected at every visit, not only when something drips."
+      }
+    ],
+    "year": [
+      {
+        "when": "Before the keys",
+        "what": "References and Right to Rent checks, the tenancy agreement, the inventory, the gas safety record and the electrical report checked in date."
+      },
+      {
+        "when": "The first 30 days",
+        "what": "The deposit protected and the tenant given its details; utilities and council tax moved into the tenant's name."
+      },
+      {
+        "when": "Every month",
+        "what": "The rent collected and paid to you with a statement; anything late chased the day after it's due."
+      },
+      {
+        "when": "Month 3 and month 9",
+        "what": "An inspection with a written report and photographs: what's worn, what needs doing, what the tenant has asked for."
+      },
+      {
+        "when": "Every year",
+        "what": "The gas safety check booked before the old record runs out; a rent review, if you want one, with Form 4A and two months' notice."
+      },
+      {
+        "when": "Every five years",
+        "what": "The electrical installation report renewed."
+      },
+      {
+        "when": "Whenever it's needed",
+        "what": "Repairs by our own contractors: within your agreed limit without asking, above it with your approval and three quotes."
+      }
+    ],
+    "not": [
+      "Short lets and holiday lets",
+      "Houses in multiple occupation",
+      "Homes rated below E on their energy certificate, until they're improved"
+    ]
+  },
+  "areas": {
+    "title": "Areas",
+    "intro": "Three neighbourhoods, walked every week. Each with what it's like to live there, and what's free now.",
+    "items": [
+      {
+        "slug": "st-johns-wood",
+        "name": "St John's Wood",
+        "line": "Mansion blocks, wide pavements and the park at the end of the road.",
+        "buildings": [
+          "sjw"
+        ],
+        "photo": {
+          "src": "img/area-stjohnswood.webp",
+          "width": 1400,
+          "height": 1050,
+          "alt": "Red-brick and white stone mansion blocks against a blue sky",
+          "credit": "Colin Smith, CC BY-SA 2.0, Wikimedia Commons",
+          "small": "img/area-stjohnswood-700.webp"
+        },
+        "notes": [
+          {
+            "label": "Getting about",
+            "text": "St John's Wood station on the Jubilee line: Bond Street in about six minutes, Canary Wharf in under twenty-five."
+          },
+          {
+            "label": "Outside",
+            "text": "Regent's Park and Primrose Hill on foot; Lord's Cricket Ground at the bottom of the High Street."
+          },
+          {
+            "label": "The homes",
+            "text": "Mansion flats with porters and lifts, and detached villas behind walls. Two and three bedrooms are what we let most."
+          },
+          {
+            "label": "Council",
+            "text": "Westminster. Ask us for a home's council tax band; it's on every listing."
+          }
+        ]
+      },
+      {
+        "slug": "kensington",
+        "name": "Kensington",
+        "line": "White stucco terraces, garden squares and the High Street a few minutes away.",
+        "buildings": [
+          "ken"
+        ],
+        "photo": {
+          "src": "img/area-kensington.webp",
+          "width": 1400,
+          "height": 1050,
+          "alt": "A long white stucco terrace with columned porches",
+          "credit": "Ethan, Unsplash",
+          "small": "img/area-kensington-700.webp"
+        },
+        "notes": [
+          {
+            "label": "Getting about",
+            "text": "High Street Kensington and Gloucester Road stations: the District and Circle lines, and the Piccadilly line from Gloucester Road."
+          },
+          {
+            "label": "Outside",
+            "text": "Kensington Gardens and Holland Park; many terraces share a garden square behind railings, with a key for residents."
+          },
+          {
+            "label": "The homes",
+            "text": "Regency terraces divided into flats floor by floor: lower-ground garden flats, first-floor drawing rooms with balconies, top floors under the eaves."
+          },
+          {
+            "label": "Council",
+            "text": "The Royal Borough of Kensington and Chelsea."
+          }
+        ]
+      },
+      {
+        "slug": "marylebone",
+        "name": "Marylebone",
+        "line": "Red-brick streets between Regent's Park and Oxford Street, a village in the middle of town.",
+        "buildings": [
+          "mar"
+        ],
+        "photo": {
+          "src": "img/area-marylebone.webp",
+          "width": 1400,
+          "height": 1050,
+          "alt": "Red-brick mansion blocks with white stone bands on a sunny street",
+          "credit": "Philafrenzy, CC BY-SA 4.0, Wikimedia Commons",
+          "small": "img/area-marylebone-700.webp"
+        },
+        "notes": [
+          {
+            "label": "Getting about",
+            "text": "Baker Street, Bond Street and Marylebone stations: the Elizabeth line from Bond Street, and trains from Marylebone."
+          },
+          {
+            "label": "Outside",
+            "text": "Regent's Park to the north; Paddington Street Gardens in between."
+          },
+          {
+            "label": "The homes",
+            "text": "Georgian houses let floor by floor, and red-brick mansion flats above the shops of the High Street."
+          },
+          {
+            "label": "Council",
+            "text": "Westminster."
+          }
+        ]
+      }
+    ]
+  },
+  "journal": {
+    "title": "Journal",
+    "intro": "Plain answers to what tenants and owners ask us, with the rules checked against GOV.UK and dated.",
+    "items": [
+      {
+        "slug": "what-you-pay-to-move-in",
+        "title": "What you pay to move in",
+        "summary": "Three payments, and nothing else: what a tenant can be asked for in England, with a worked example.",
+        "audience": "tenants",
+        "date": "2026-11-14",
+        "checked": "2026-11-15",
+        "sections": [
+          {
+            "h": "Three payments, and nothing else",
+            "p": [
+              "To move into a home let in England you can be asked for three things: a holding deposit, a tenancy deposit and your rent. Referencing, admin, check-in and check-out fees have been banned since the Tenant Fees Act 2019.",
+              "A holding deposit reserves the home while checks are done. It can be no more than one week's rent, which is the yearly rent divided by 52."
+            ]
+          },
+          {
+            "h": "The deposit: five weeks, or six",
+            "p": [
+              "Where the rent is under £50,000 a year, the tenancy deposit can be no more than five weeks' rent. From £50,000 to £100,000 a year, it can be up to six weeks'.",
+              "Homes let for more than £100,000 a year aren't covered by these rules; the terms are agreed in writing instead."
+            ]
+          },
+          {
+            "h": "Rent in advance: one month, after you sign",
+            "p": [
+              "Since 1 May 2026 a landlord or agent can't ask for or accept rent before you've signed the tenancy agreement. Once you have, they can ask for up to one month's rent in advance."
+            ]
+          },
+          {
+            "h": "The advertised rent is the rent",
+            "p": [
+              "A home must be advertised with its rent, and the landlord can't encourage or accept offers above it. If you're asked to bid, you can say no."
+            ]
+          },
+          {
+            "h": "A worked example",
+            "p": [
+              "For a rent of £2,500 a month (£30,000 a year), a week's rent is £576.92. The holding deposit can be up to £576; the tenancy deposit up to £2,884 (five weeks); the first month is £2,500.",
+              "With your agreement the holding deposit goes towards the first month, so before the keys you'd pay £5,384 in all. Our fees page works this out for any rent."
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "title": "Fees you can charge as part of a tenancy",
+            "url": "https://www.gov.uk/guidance/fees-you-can-charge-as-part-of-a-tenancy"
+          },
+          {
+            "title": "Renters' Rights Act: overview for tenants",
+            "url": "https://www.gov.uk/guidance/renters-rights-act-overview-for-tenants"
+          }
+        ]
+      },
+      {
+        "slug": "your-deposit",
+        "title": "Your deposit: protected in 30 days, back in 10",
+        "summary": "Where a deposit goes, what you must be told, and how it comes back at the end.",
+        "audience": "tenants and owners",
+        "date": "2026-11-12",
+        "checked": "2026-11-15",
+        "sections": [
+          {
+            "h": "Protected within 30 days",
+            "p": [
+              "A tenancy deposit must be put in a government-approved scheme within 30 days of the landlord or agent getting it. In England there are three: the Deposit Protection Service, MyDeposits and the Tenancy Deposit Scheme."
+            ]
+          },
+          {
+            "h": "What you must be told",
+            "p": [
+              "Within the same 30 days the tenant must be told: the address of the home; how much they paid; how it's protected; the scheme's name and contact details, and its dispute service; the landlord's or agent's contact details; anyone else who paid part of it; why some of it might be kept; how to ask for it back; what to do if the landlord can't be reached; and what happens if you disagree about the amount.",
+              "Our move-in planner puts the 30th day in your calendar, so you know when to ask if it hasn't arrived."
+            ]
+          },
+          {
+            "h": "At the end",
+            "p": [
+              "Once you both agree how much comes back, it must be returned within 10 days. If you don't agree, the money stays protected in the scheme until the dispute is settled, and the scheme's free dispute service can decide it."
+            ]
+          },
+          {
+            "h": "Why it matters to owners",
+            "p": [
+              "Under the rules in force since 1 May 2026, a court will generally only grant possession where the deposit was protected in a scheme, or has been returned, or a claim about it has been settled. Protecting it on time protects you too."
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "title": "Tenancy deposit protection",
+            "url": "https://www.gov.uk/tenancy-deposit-protection"
+          },
+          {
+            "title": "Deposit protection schemes and landlords",
+            "url": "https://www.gov.uk/deposit-protection-schemes-and-landlords"
+          },
+          {
+            "title": "Information you must give to your tenants",
+            "url": "https://www.gov.uk/deposit-protection-schemes-and-landlords/information-you-must-give-to-your-tenants"
+          },
+          {
+            "title": "Renters' Rights Act: an overview for landlords",
+            "url": "https://www.gov.uk/guidance/renters-rights-act-an-overview-for-landlords"
+          }
+        ]
+      },
+      {
+        "slug": "letting-after-may-2026",
+        "title": "Letting your home after 1 May 2026",
+        "summary": "Rolling tenancies, no Section 21, rent reviews once a year: what changed for owners, and what it means in practice.",
+        "audience": "owners",
+        "date": "2026-11-10",
+        "checked": "2026-11-15",
+        "sections": [
+          {
+            "h": "Every tenancy now rolls on",
+            "p": [
+              "From 1 May 2026, assured shorthold tenancies became assured periodic tenancies, and every new tenancy is one. They roll from month to month and have no end date."
+            ]
+          },
+          {
+            "h": "Ending a tenancy",
+            "p": [
+              "Section 21, the \"no fault\" notice, has gone. To end a tenancy a landlord gives a Section 8 notice on one or more grounds set out in law. The usual notice is four months; some grounds are shorter.",
+              "You can't use the grounds for selling the home or moving back in during the first 12 months of a tenancy. A tenant can leave with two months' notice in writing, or sooner if you both agree in writing."
+            ]
+          },
+          {
+            "h": "Rent reviews: once a year, with Form 4A",
+            "p": [
+              "Rent can go up no more than once a year, and not in a tenancy's first 12 months. The increase is proposed on Form 4A with at least two months' notice, and a tenant can challenge an increase above the open-market rent."
+            ]
+          },
+          {
+            "h": "Finding the next tenant",
+            "p": [
+              "Advertise the rent you want and accept that rent: offers above it can't be invited or accepted. No rent can be taken before the agreement is signed, and no more than a month in advance after.",
+              "Tenants can ask to keep a pet; you can refuse only for a good reason."
+            ]
+          },
+          {
+            "h": "What we do about it",
+            "p": [
+              "Our agreements, notices and rent reviews follow these rules, and we tell you before a date matters: a rent review's two months, a renewal of the gas safety record, an inspection. Ask us about any of it."
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "title": "Renters' Rights Act: an overview for landlords",
+            "url": "https://www.gov.uk/guidance/renters-rights-act-an-overview-for-landlords"
+          },
+          {
+            "title": "Renters' Rights Act: overview for tenants",
+            "url": "https://www.gov.uk/guidance/renters-rights-act-overview-for-tenants"
+          }
+        ]
+      }
+    ]
+  },
+  "valuation": {
+    "title": "What would my home let for?",
+    "intro": "Tell us about it in one sentence. A director replies with a figure, and how we reached it.",
+    "kinds": [
+      "Flat",
+      "Mansion flat",
+      "Maisonette",
+      "House",
+      "Penthouse"
+    ],
+    "message": "Hello Halvern, I'd like a rental valuation for my home.",
+    "reply": "a director looks at it, visits if it helps, and sends you a figure with the homes it's based on, in writing, within two working days.",
+    "next": [
+      "We reply on WhatsApp the same day to arrange a visit, if one helps.",
+      "Within two working days: a figure in writing, the homes nearby it's based on, and what would raise it.",
+      "If you go ahead: our terms, the papers a let needs, and photographs within the week."
+    ]
+  },
+  "onboarding": {
+    "title": "Onboarding",
+    "intro": "From the first call to the first rent, step by step, with what we need from you.",
+    "steps": [
+      {
+        "title": "A figure in writing",
+        "text": "Tell us about the home; we reply with what it should let for and how we reached it.",
+        "you": [
+          "The address",
+          "A few photos, if you have them"
+        ],
+        "time": "Within two working days"
+      },
+      {
+        "title": "A walk round together",
+        "text": "We see the home, agree the rent and the service, and note anything to do before it's listed.",
+        "time": "Within a week"
+      },
+      {
+        "title": "Terms and papers",
+        "text": "You sign our terms; we check the papers a let needs and arrange anything missing.",
+        "you": [
+          "The checklist below",
+          "Photo ID and proof of address"
+        ],
+        "time": "One to two weeks"
+      },
+      {
+        "title": "Photographs and listing",
+        "text": "Daylight photographs, a floor plan, and the home listed with its rent, deposits, council tax band and energy rating.",
+        "time": "Two to three days"
+      },
+      {
+        "title": "Viewings and an offer",
+        "text": "Accompanied viewings; you see every offer at the advertised rent and choose the tenant.",
+        "time": "Usually one to three weeks"
+      },
+      {
+        "title": "References and Right to Rent",
+        "text": "Income, previous landlord and Right to Rent checks, and the tenancy agreement signed.",
+        "time": "About a week"
+      },
+      {
+        "title": "The keys",
+        "text": "Inventory and check-in, keys handed over, the deposit protected within 30 days.",
+        "time": "The move-in day"
+      },
+      {
+        "title": "The first rent",
+        "text": "Collected and paid to you with a statement.",
+        "time": "Within five working days of it arriving"
+      }
+    ],
+    "checklistIntro": "Tick what you already have. It goes to us in one message; we arrange the rest.",
+    "checklist": [
+      "Gas safety record, from the last 12 months",
+      "Electrical installation condition report, from the last five years",
+      "Energy performance certificate, rated E or above",
+      "A smoke alarm on every storey, and carbon monoxide alarms where needed",
+      "Proof you own the home",
+      "Your mortgage lender's consent to let, if there's a mortgage",
+      "The freeholder's consent, if the lease asks for it",
+      "Landlord insurance",
+      "Your bank details for the rent"
+    ],
+    "message": "Hello Halvern, I'd like to let my home with you."
+  },
+  "stories": {
+    "title": "Owner stories",
+    "intro": "What owners had, what we did, and what changed, in their figures.",
+    "items": [
+      {
+        "title": "A top-floor flat that had sat empty for a winter",
+        "home": "Two-bedroom mansion flat, St John's Wood",
+        "service": "Fully managed",
+        "before": "Listed elsewhere at a rent above the block, with photographs taken at dusk. Three months without an offer.",
+        "did": "Re-photographed in daylight, priced from the four lets in the block that year, and shown on Saturdays when the porter is on.",
+        "after": "Let agreed in eleven days. The same tenants have stayed through two rent reviews.",
+        "figures": [
+          {
+            "value": "11 days",
+            "label": "to let agreed"
+          },
+          {
+            "value": "2",
+            "label": "rent reviews since, both agreed"
+          }
+        ],
+        "owner": "R. and J., owners",
+        "date": "2025-03"
+      },
+      {
+        "title": "A Regency floor that kept flooding the flat below",
+        "home": "First-floor flat in a Kensington terrace",
+        "service": "Fully managed",
+        "before": "Three leaks in a year from an old overflow, and a neighbour's claim each time.",
+        "did": "Our contractor traced it to the roof gully, fixed it with the freeholder's consent and photographed it before and after; we check it at every inspection.",
+        "after": "No leaks since, and the neighbour's insurer closed the file.",
+        "figures": [
+          {
+            "value": "0",
+            "label": "leaks in two years"
+          }
+        ],
+        "owner": "M. T., owner",
+        "date": "2025-09"
+      },
+      {
+        "title": "An owner abroad who wanted one statement",
+        "home": "A house in Marylebone, let floor by floor",
+        "service": "Rent collection",
+        "before": "Five tenancies, five dates, and rent arriving in five different weeks.",
+        "did": "Moved every tenancy to the same rent day at renewal, and one statement each month with every floor on it.",
+        "after": "One payment, one statement, on the same day each month.",
+        "figures": [
+          {
+            "value": "1",
+            "label": "statement a month, instead of five"
+          }
+        ],
+        "owner": "A. S., owner",
+        "date": "2026-06"
+      }
+    ]
+  },
+  "moveday": {
+    "title": "Moving in",
+    "intro": "Pick the day you get the keys. Here's the day, and the weeks after it, in your calendar.",
+    "steps": [
+      {
+        "id": "accounts",
+        "label": "Energy, water and broadband in your name",
+        "offset": -7,
+        "note": "Set them up to start on the keys day; give the suppliers the address as it is on your agreement."
+      },
+      {
+        "id": "checkin",
+        "label": "Check-in with our inventory clerk",
+        "offset": 0,
+        "time": "10:00",
+        "note": "Walk round together and note anything you see differently."
+      },
+      {
+        "id": "keys",
+        "label": "Keys and fobs handed over",
+        "offset": 0,
+        "time": "11:00",
+        "note": "Count them against the inventory."
+      },
+      {
+        "id": "meters",
+        "label": "Meter readings, with photographs",
+        "offset": 0,
+        "note": "Gas, electricity and water: send them to your suppliers and to us."
+      },
+      {
+        "id": "alarms",
+        "label": "Test the smoke and carbon monoxide alarms",
+        "offset": 0,
+        "note": "Tell us the same day if one doesn't sound."
+      },
+      {
+        "id": "council",
+        "label": "Tell the council you've moved in, for council tax",
+        "offset": 1,
+        "note": "On your council's website; you pay from the keys day."
+      },
+      {
+        "id": "inventory",
+        "label": "Send back the signed inventory, with your notes",
+        "offset": 7,
+        "note": "Photographs of anything already marked or worn."
+      },
+      {
+        "id": "insurance",
+        "label": "Contents insurance and a TV licence, if you need them",
+        "offset": 14
+      }
+    ]
   }
 }

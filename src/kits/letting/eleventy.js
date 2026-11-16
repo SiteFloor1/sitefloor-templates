@@ -1,6 +1,7 @@
 // @ts-check
 /** Letting kit additions to the shared Eleventy setup: the home sections, the Tenant Fees rules and money formats. */
 import { HOME_PARTS } from "./home.js";
+import { DEPOSIT_RULE } from "./lib/moveday.js";
 import { RULES, pounds, pence, tenantSide, ownerSide } from "./lib/fees.js";
 
 const ukDate = (/** @type {string} */ ymd) => new Date(`${ymd}T12:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
@@ -9,7 +10,11 @@ const ukDate = (/** @type {string} */ ymd) => new Date(`${ymd}T12:00:00Z`).toLoc
 export default function lettingKit(eleventyConfig) {
   eleventyConfig.addGlobalData("homeParts", { order: Object.keys(HOME_PARTS), paths: HOME_PARTS });
   eleventyConfig.addGlobalData("tenantRules", { ...RULES, updatedText: ukDate(RULES.updated), checkedText: ukDate(RULES.checked) });
+  eleventyConfig.addGlobalData("movedayRule", { ...DEPOSIT_RULE, checkedText: ukDate(DEPOSIT_RULE.checked) });
   eleventyConfig.addFilter("pounds", pounds);
+  eleventyConfig.addFilter("homeCount", (/** @type {any} */ homes) => (homes?.buildings ?? []).reduce((n, /** @type {any} */ b) => n + b.floors.reduce((m, /** @type {any} */ f) => m + (f.note ? 0 : f.units.length), 0), 0));
+  eleventyConfig.addFilter("longDate", (/** @type {string} */ ymd) => ukDate(ymd));
+  eleventyConfig.addFilter("monthYear", (/** @type {string} */ ym) => new Date(`${ym}-15T12:00:00Z`).toLocaleDateString("en-GB", { month: "long", year: "numeric", timeZone: "UTC" }));
   eleventyConfig.addFilter("pence", pence);
   eleventyConfig.addFilter("tenantSide", (/** @type {number} */ rent, /** @type {any} */ tenant) => tenantSide(rent, tenant));
   eleventyConfig.addFilter("ownerSide", (/** @type {number} */ rent, /** @type {any} */ service) => ownerSide(rent, service));

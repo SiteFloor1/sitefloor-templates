@@ -8,13 +8,23 @@
       <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone | replace('+44 ', '0') }}</a>{% if site.contact.email %}<br><a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>{% endif %}<br>
       <a href="{{ site.messages.general | wa }}" data-wa-text="{{ site.messages.general }}" target="_blank" rel="noopener">Message us on WhatsApp</a></address>
     <nav class="pt-foot-l" aria-label="Footer">
-      <a href="{{ 'index' | href }}">Home</a>
-      {%- if "letting-residences" | enabled %}<a href="{{ 'residences' | href }}">Residences</a>{% endif %}
-      {%- if "letting-owners" | enabled %}<a href="{{ 'owners' | href }}">{{ site.owners.title }}</a>{% endif %}
-      {%- if "letting-repairs" | enabled %}<a href="{{ 'repairs' | href }}">{{ site.repairs.title }}</a>{% endif %}
-      <a href="{{ 'fees' | href }}">Fees</a>
-      {%- if "plan-visit" | enabled %}<a href="{{ 'visit' | href }}">{{ site.visitInfo.title | plain }}</a>{% endif %}
-      <a href="{{ 'privacy' | href }}">Privacy</a>
+      <div><p>Renting</p>
+        <a href="{{ 'index' | href }}">Homes free now</a>
+        {%- if "letting-residences" | enabled %}<a href="{{ 'residences' | href }}">Residences</a>{% endif %}
+        {%- if "letting-areas" | enabled %}<a href="{{ 'areas' | href }}">{{ site.areas.title }}</a>{% endif %}
+        {%- if "letting-moveday" | enabled %}<a href="{{ 'moving-in' | href }}">{{ site.moveday.title }}</a>{% endif %}
+        {%- if "letting-repairs" | enabled %}<a href="{{ 'repairs' | href }}">{{ site.repairs.title }}</a>{% endif %}</div>
+      <div><p>Owning</p>
+        {%- if "letting-owners" | enabled %}<a href="{{ 'owners' | href }}">{{ site.owners.title }}</a>{% endif %}
+        {%- if "letting-valuation" | enabled %}<a href="{{ 'valuation' | href }}">Valuation</a>{% endif %}
+        {%- if "letting-manage" | enabled %}<a href="{{ 'manage' | href }}">{{ site.manage.title }}</a>{% endif %}
+        {%- if "letting-onboarding" | enabled %}<a href="{{ 'onboarding' | href }}">{{ site.onboarding.title }}</a>{% endif %}
+        {%- if "letting-stories" | enabled %}<a href="{{ 'stories' | href }}">{{ site.stories.title }}</a>{% endif %}</div>
+      <div><p>{{ site.business.name }}</p>
+        <a href="{{ 'fees' | href }}">Fees</a>
+        {%- if "letting-journal" | enabled %}<a href="{{ 'journal' | href }}">{{ site.journal.title }}</a>{% endif %}
+        {%- if "plan-visit" | enabled %}<a href="{{ 'visit' | href }}">{{ site.visitInfo.title | plain }}</a>{% endif %}
+        <a href="{{ 'privacy' | href }}">Privacy</a></div>
     </nav>
   </div>
   <p class="pt-foot-s">{{ r.redress.name }}, member {{ r.redress.member }}{{ site.mode | demoTag }} · Client money protected by {{ r.cmp.name }}, {{ r.cmp.member }}{{ site.mode | demoTag }}</p>

@@ -12,3 +12,7 @@
 }
 /* while the sheet loads the table keeps its place unseen, so filling it moves nothing on screen */
 .lr[data-ready]:not([data-state]) .lr-table { visibility: hidden; }
+.lr-filters { display: flex; flex-wrap: wrap; align-items: center; }
+.lr-filters fieldset { border: 0; margin: 0; padding: 0; display: flex; flex-wrap: wrap; }
+.lr-filters label { display: inline-flex; align-items: center; cursor: pointer; }
+.lr-filters input[type=radio], .lr-filters input[type=checkbox] { position: absolute; opacity: 0; width: 1px; height: 1px; }

@@ -19,7 +19,7 @@ const MODELS = ["mansion", "terrace", "tower"];
 const REDRESS = ["The Property Ombudsman", "Property Redress Scheme"];
 const DEMO_NUMBER = "000000";
 /** Pages the kit builds. */
-export const RESERVED = ["index", "fees", "owners", "residences", "repairs", "visit", "privacy", "404"];
+export const RESERVED = ["index", "fees", "owners", "residences", "repairs", "visit", "privacy", "404", "manage", "areas", "journal", "valuation", "onboarding", "stories", "moving-in"];
 
 /** @param {Report} err @param {string} path @param {any} v */
 const text = (err, path, v) => { if (!isStr(v)) err(path, "required text is missing"); };
@@ -59,6 +59,7 @@ function member(v, path, mode, err) {
 /** @param {any} site @param {Report} err @param {((rel: string) => boolean)|undefined} [exists] */
 export function checkLetting(site, err, exists) {
   if (site.kit !== "letting") return;
+  SLUGS = new Set();
   const on = (/** @type {string} */ id) => Array.isArray(site.features) && site.features.includes(id);
   if (!on("letting-fees")) err("features", '"letting-fees" is required on every letting agent\'s site: fees must be shown prominently (Consumer Rights Act 2015, s.83)');
   checkHero(site.hero, err, exists);
@@ -67,6 +68,148 @@ export function checkLetting(site, err, exists) {
   if (site.homes !== undefined) checkHomes(site, err);
   if (site.owners !== undefined) checkOwners(site.owners, err);
   if (site.repairs !== undefined) checkRepairs(site.repairs, err);
+  if (site.manage !== undefined) checkManage(site.manage, err);
+  if (site.areas !== undefined) checkAreas(site, err, exists);
+  if (site.journal !== undefined) checkJournal(site.journal, err);
+  if (site.valuation !== undefined) checkValuation(site.valuation, err);
+  if (site.onboarding !== undefined) checkOnboarding(site.onboarding, err);
+  if (site.stories !== undefined) checkStories(site.stories, site.mode, err);
+  if (site.moveday !== undefined) checkMoveday(site.moveday, err);
+}
+
+const SLUG = /^[a-z0-9]+(-[a-z0-9]+)*$/;
+const YMD = /^\d{4}-\d{2}-\d{2}$/;
+/** A collection's page names must not clash with the kit's pages or each other. @param {Set<string>} seen @param {string} at @param {any} slug @param {Report} err */
+function slugOk(seen, at, slug, err) {
+  if (!SLUG.test(slug ?? "")) err(at, "lowercase words joined by dashes");
+  else if (RESERVED.includes(slug) || seen.has(slug)) err(at, `"${slug}" is already a page`);
+  seen.add(slug);
+}
+/** @type {Set<string>} */ let SLUGS = new Set();
+
+/** @param {any} m @param {Report} err */
+function checkManage(m, err) {
+  if (!isObj(m)) { err("manage", "required: { title, intro, kinds, year }"); return; }
+  onlyKeys(m, ["title", "intro", "kinds", "year", "not"], "manage", err);
+  text(err, "manage.title", m.title); text(err, "manage.intro", m.intro);
+  if (!Array.isArray(m.kinds) || !m.kinds.length) err("manage.kinds", "at least one: { name, text }");
+  else m.kinds.forEach((/** @type {any} */ k, /** @type {number} */ i) => { onlyKeys(k, ["name", "text"], `manage.kinds[${i}]`, err); text(err, `manage.kinds[${i}].name`, k?.name); text(err, `manage.kinds[${i}].text`, k?.text); });
+  if (!Array.isArray(m.year) || !m.year.length) err("manage.year", "at least one: { when, what }");
+  else m.year.forEach((/** @type {any} */ y, /** @type {number} */ i) => { onlyKeys(y, ["when", "what"], `manage.year[${i}]`, err); text(err, `manage.year[${i}].when`, y?.when); text(err, `manage.year[${i}].what`, y?.what); });
+  if (m.not !== undefined) lines(err, "manage.not", m.not);
+}
+
+/** @param {any} site @param {Report} err @param {((rel: string) => boolean)|undefined} exists */
+function checkAreas(site, err, exists) {
+  const a = site.areas;
+  if (!isObj(a)) { err("areas", "required: { title, intro, items }"); return; }
+  onlyKeys(a, ["title", "intro", "items"], "areas", err);
+  text(err, "areas.title", a.title); text(err, "areas.intro", a.intro);
+  const ids = new Set((site.homes?.buildings ?? []).map((/** @type {any} */ b) => b.id));
+  SLUGS = new Set();
+  if (!Array.isArray(a.items) || !a.items.length) { err("areas.items", "at least one area"); return; }
+  a.items.forEach((/** @type {any} */ x, /** @type {number} */ i) => {
+    const at = `areas.items[${i}]`;
+    onlyKeys(x, ["slug", "name", "line", "buildings", "photo", "notes"], at, err);
+    slugOk(SLUGS, `${at}.slug`, x?.slug, err);
+    text(err, `${at}.name`, x?.name); text(err, `${at}.line`, x?.line);
+    if (!Array.isArray(x?.buildings)) err(`${at}.buildings`, "the ids of the buildings in this area (may be empty)");
+    else x.buildings.forEach((/** @type {any} */ b, /** @type {number} */ j) => { if (!ids.has(b)) err(`${at}.buildings[${j}]`, `no building "${b}" in homes.buildings`); });
+    const p = x?.photo;
+    if (!isObj(p)) err(`${at}.photo`, "{ src, width, height, alt, credit }: the client's own, or a credited licensed photograph of this area");
+    else {
+      onlyKeys(p, ["src", "small", "width", "height", "alt", "credit"], `${at}.photo`, err);
+      if (p.small !== undefined && (!isStr(p.small) || (exists && !exists(p.small)))) err(`${at}.photo.small`, "a 700-pixel-wide copy for phones and the areas page (optional)");
+      for (const k of ["alt", "credit"]) text(err, `${at}.photo.${k}`, p[k]);
+      for (const k of ["width", "height"]) if (!Number.isInteger(p[k])) err(`${at}.photo.${k}`, "a size in pixels");
+      if (!isStr(p.src)) err(`${at}.photo.src`, "required");
+      else if (exists && !exists(p.src)) err(`${at}.photo.src`, `file not found: ${p.src}`);
+    }
+    if (!Array.isArray(x?.notes) || x.notes.length < 3) err(`${at}.notes`, "at least three notes, { label, text }, so the page isn't thin");
+    else x.notes.forEach((/** @type {any} */ n, /** @type {number} */ j) => { onlyKeys(n, ["label", "text"], `${at}.notes[${j}]`, err); text(err, `${at}.notes[${j}].label`, n?.label); text(err, `${at}.notes[${j}].text`, n?.text); });
+  });
+}
+
+/** @param {any} j @param {Report} err */
+function checkJournal(j, err) {
+  if (!isObj(j)) { err("journal", "required: { title, intro, items }"); return; }
+  onlyKeys(j, ["title", "intro", "items"], "journal", err);
+  text(err, "journal.title", j.title); text(err, "journal.intro", j.intro);
+  if (!Array.isArray(j.items) || !j.items.length) { err("journal.items", "at least one article"); return; }
+  const seen = new Set();
+  j.items.forEach((/** @type {any} */ a, /** @type {number} */ i) => {
+    const at = `journal.items[${i}]`;
+    onlyKeys(a, ["slug", "title", "summary", "audience", "date", "checked", "sections", "sources"], at, err);
+    slugOk(seen, `${at}.slug`, a?.slug, err);
+    if (SLUGS.has(a?.slug)) err(`${at}.slug`, `"${a.slug}" is already an area's page`);
+    for (const k of ["title", "summary", "audience"]) text(err, `${at}.${k}`, a?.[k]);
+    for (const k of ["date", "checked"]) if (!YMD.test(a?.[k] ?? "")) err(`${at}.${k}`, "a date as YYYY-MM-DD");
+    if (!Array.isArray(a?.sections) || a.sections.length < 3) err(`${at}.sections`, "at least three sections, { h, p: [paragraphs] }");
+    else a.sections.forEach((/** @type {any} */ s, /** @type {number} */ k) => { text(err, `${at}.sections[${k}].h`, s?.h); lines(err, `${at}.sections[${k}].p`, s?.p); });
+    if (!Array.isArray(a?.sources) || !a.sources.length) err(`${at}.sources`, "where every rule comes from: { title, url }");
+    else a.sources.forEach((/** @type {any} */ s, /** @type {number} */ k) => {
+      text(err, `${at}.sources[${k}].title`, s?.title);
+      if (!/^https:\/\/(www\.gov\.uk|www\.legislation\.gov\.uk)\//.test(s?.url ?? "")) err(`${at}.sources[${k}].url`, "a GOV.UK or legislation.gov.uk page");
+    });
+  });
+}
+
+/** @param {any} v @param {Report} err */
+function checkValuation(v, err) {
+  if (!isObj(v)) { err("valuation", "required: { title, intro, kinds, message, reply }"); return; }
+  onlyKeys(v, ["title", "intro", "kinds", "message", "reply", "next"], "valuation", err);
+  for (const k of ["title", "intro", "message", "reply"]) text(err, `valuation.${k}`, v[k]);
+  lines(err, "valuation.kinds", v.kinds);
+  if (v.next !== undefined) lines(err, "valuation.next", v.next);
+}
+
+/** @param {any} o @param {Report} err */
+function checkOnboarding(o, err) {
+  if (!isObj(o)) { err("onboarding", "required: { title, intro, steps, checklistIntro, checklist, message }"); return; }
+  onlyKeys(o, ["title", "intro", "steps", "checklistIntro", "checklist", "message"], "onboarding", err);
+  for (const k of ["title", "intro", "checklistIntro", "message"]) text(err, `onboarding.${k}`, o[k]);
+  lines(err, "onboarding.checklist", o.checklist);
+  if (!Array.isArray(o.steps) || o.steps.length < 3) err("onboarding.steps", "at least three steps: { title, text, you?, time }");
+  else o.steps.forEach((/** @type {any} */ s, /** @type {number} */ i) => {
+    onlyKeys(s, ["title", "text", "you", "time"], `onboarding.steps[${i}]`, err);
+    for (const k of ["title", "text", "time"]) text(err, `onboarding.steps[${i}].${k}`, s?.[k]);
+    if (s?.you !== undefined) lines(err, `onboarding.steps[${i}].you`, s.you);
+  });
+}
+
+/** Real owners on a client site, with their permission; a demo's are marked fictional. @param {any} st @param {string} mode @param {Report} err */
+function checkStories(st, mode, err) {
+  if (!isObj(st)) { err("stories", "required: { title, intro, items }"); return; }
+  onlyKeys(st, ["title", "intro", "items"], "stories", err);
+  text(err, "stories.title", st.title); text(err, "stories.intro", st.intro);
+  if (!Array.isArray(st.items) || !st.items.length) { err("stories.items", "at least one story"); return; }
+  st.items.forEach((/** @type {any} */ s, /** @type {number} */ i) => {
+    const at = `stories.items[${i}]`;
+    onlyKeys(s, ["title", "home", "service", "before", "did", "after", "figures", "owner", "date", "consent"], at, err);
+    for (const k of ["title", "home", "service", "before", "did", "after", "owner"]) text(err, `${at}.${k}`, s?.[k]);
+    if (!/^\d{4}-\d{2}$/.test(s?.date ?? "")) err(`${at}.date`, "the month as YYYY-MM");
+    if (mode === "client" && s?.consent !== true) err(`${at}.consent`, "a real owner's story needs their written permission to publish it: consent: true");
+    (s?.figures ?? []).forEach((/** @type {any} */ f, /** @type {number} */ k) => { text(err, `${at}.figures[${k}].value`, f?.value); text(err, `${at}.figures[${k}].label`, f?.label); });
+  });
+}
+
+/** @param {any} m @param {Report} err */
+function checkMoveday(m, err) {
+  if (!isObj(m)) { err("moveday", "required: { title, intro, steps }"); return; }
+  onlyKeys(m, ["title", "intro", "steps"], "moveday", err);
+  text(err, "moveday.title", m.title); text(err, "moveday.intro", m.intro);
+  if (!Array.isArray(m.steps) || m.steps.length < 3) { err("moveday.steps", "at least three steps: { id, label, offset, time?, note? }"); return; }
+  const seen = new Set();
+  m.steps.forEach((/** @type {any} */ s, /** @type {number} */ i) => {
+    const at = `moveday.steps[${i}]`;
+    onlyKeys(s, ["id", "label", "offset", "time", "note"], at, err);
+    if (!ID.test(s?.id ?? "") || s.id === "deposit" || seen.has(s.id)) err(`${at}.id`, 'a unique id (lowercase, dashes); "deposit" is the kit\'s own step');
+    seen.add(s?.id);
+    text(err, `${at}.label`, s?.label);
+    if (!(Number.isInteger(s?.offset) && s.offset >= -60 && s.offset <= 60)) err(`${at}.offset`, "days from the keys, -60 to 60");
+    if (s?.time !== undefined && !/^([01]\d|2[0-2]):[0-5]\d$/.test(s.time)) err(`${at}.time`, "HH:MM, before 23:00");
+    if (s?.note !== undefined) text(err, `${at}.note`, s.note);
+  });
 }
 
 /** @param {any} r @param {Report} err */

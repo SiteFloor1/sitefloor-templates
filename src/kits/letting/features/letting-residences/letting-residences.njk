@@ -4,6 +4,15 @@
 {%- set bs = site.homes.buildings %}
 <div class="lr" data-feature="letting-residences"{{ "letting-residences" | tierAttr | safe }}>
   <p class="lr-updated" data-lr-updated>Call us on <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone | replace('+44 ', '0') }}</a> for today's homes.</p>
+  <form class="lr-filters" data-lr-filters data-js-only aria-label="Filter homes">
+    <fieldset><legend class="sr-only">Bedrooms</legend>
+      {%- for b in [["", "Any size"], ["1", "1 bed"], ["2", "2 beds"], ["3", "3+ beds"]] %}<label><input type="radio" name="beds" value="{{ b[0] }}"{% if loop.first %} checked{% endif %}><span>{{ b[1] }}</span></label>{% endfor %}
+    </fieldset>
+    <label class="lr-max">Up to <select name="max"><option value="">any rent</option></select></label>
+    <label class="lr-tog"><input type="checkbox" name="now"><span>Free now</span></label>
+    <label class="lr-tog"><input type="checkbox" name="outside"><span>Outside space</span></label>
+    <output class="lr-count" data-lr-count aria-live="polite"></output>
+  </form>
   <div class="lr-pick" role="group" aria-label="Building" data-js-only>
     {%- for b in bs %}<button type="button" data-lr-pick="{{ b.id }}" aria-pressed="{{ 'true' if loop.first else 'false' }}">{{ b.name }}</button>{% endfor %}
   </div>

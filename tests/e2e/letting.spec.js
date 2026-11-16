@@ -168,3 +168,67 @@ test("report a repair: the gas line first; the form writes the WhatsApp message 
   expect(text).toBe("Hello Halvern, I'd like to report a repair.\nHome: Flat 3A\nWhat's wrong: The kitchen tap drips\nAccess: Yes, you may use your keys");
   await srv.close();
 });
+
+test("owner showpiece: the sentence becomes a valuation request; no figure on the page", async ({ page }) => {
+  const srv = await start(demo);
+  await page.goto(srv.base + "/valuation.html");
+  await featuresStarted(page);
+  await page.locator("[data-lv-form] [name=beds]").selectOption("3");
+  await page.locator("[data-lv-form] [name=size]").fill("120");
+  await page.locator("[data-lv-form] [name=address]").fill("Flat 4, Abbey Road");
+  await page.locator("[data-lv-form] [name=postcode]").fill("nw8 9aa");
+  const text = await waText(page.locator("[data-lv-send]"));
+  expect(text).toContain("Address: Flat 4, Abbey Road, NW8 9AA");
+  expect(text).toContain("The home: 3 bedrooms, 1 bathroom, flat, about 120 m²");
+  await expect(page.locator(".lv")).not.toContainText(/£\d/);
+  await srv.close();
+});
+
+test("tenant showpiece: the move-in plan from the keys day, saved as a calendar file", async ({ page }) => {
+  const srv = await start(demo);
+  await page.goto(srv.base + "/moving-in.html");
+  await featuresStarted(page);
+  await page.locator("[data-lmd-keys]").fill("2026-12-01");
+  await expect(page.locator(".lmd-plan li").first()).toContainText("Tuesday 24 November 2026");
+  await expect(page.locator(".lmd-rule")).toContainText("Thursday 31 December 2026");
+  const [download] = await Promise.all([page.waitForEvent("download"), page.click("[data-lmd-ics]")]);
+  expect(download.suggestedFilename()).toBe("move-in-day.ics");
+  await srv.close();
+});
+
+test("residences filters: bedrooms, rent and free now narrow the schedule", async ({ page }) => {
+  const srv = await start(demo);
+  await page.clock.setFixedTime(MON);
+  await page.goto(srv.base + "/residences.html");
+  await featuresStarted(page);
+  await expect(page.locator("[data-lr-count]")).toHaveText("14 homes free");
+  await page.locator(".lr-filters label", { hasText: "3+ beds" }).click();
+  await expect(page.locator(".lr-cell-home")).toHaveCount(2); // Flat 2B and Flat 6A
+  await expect(page.locator("[data-lr-count]")).toHaveText("2 of 14 homes");
+  await page.locator(".lr-filters label", { hasText: "Any size" }).click();
+  await page.locator(".lr-filters label", { hasText: "Free now" }).click();
+  await expect(page.locator(".lr-cell-home")).toHaveCount(6); // 2B, 5A, three in Kensington, Marylebone ground
+  await srv.close();
+});
+
+test("areas, onboarding and the journal: free homes per area, the checklist message, dated GOV.UK sources", async ({ page }) => {
+  const srv = await start(demo);
+  await page.clock.setFixedTime(MON);
+  await page.goto(srv.base + "/areas.html");
+  await featuresStarted(page);
+  await expect(page.locator("[data-la-free]").first()).toHaveText("5 free now");
+  await page.goto(srv.base + "/kensington.html");
+  await featuresStarted(page);
+  await expect(page.locator("[data-la-list] .lr-cell-home")).toHaveCount(6);
+  await page.goto(srv.base + "/onboarding.html");
+  await featuresStarted(page);
+  await page.locator(".lb2-check label", { hasText: "Landlord insurance" }).click();
+  await expect(page.locator("[data-lb2-tally]")).toHaveText("1 of 9 ready. We can help with the rest.");
+  expect(await waText(page.locator("[data-lb2-send]"))).toContain("Ready:\n- Landlord insurance");
+  await page.goto(srv.base + "/your-deposit.html");
+  await expect(page.locator(".lj-src a").first()).toHaveAttribute("href", /^https:\/\/www\.gov\.uk\//);
+  await expect(page.locator(".lj-one > .lj-d")).toContainText("rules checked against GOV.UK on 15 November 2026");
+  await page.goto(srv.base + "/stories.html");
+  await expect(page.locator(".ls-demo")).toContainText("Fictional owners");
+  await srv.close();
+});

@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: journal
+permalink: journal.html
+feature: letting-journal
+eleventyComputed:
+  title: "{{ site.journal.title }}"
+  description: "{{ site.journal.intro }}"
+---
+{%- set ph = { title: site.journal.title, intro: site.journal.intro } %}
+{% include "kits/letting/partials/page-head.njk" %}
+<div class="wrap">{% include "kits/letting/features/letting-journal/letting-journal.njk" %}</div>
