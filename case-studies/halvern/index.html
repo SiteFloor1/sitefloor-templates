@@ -121,7 +121,8 @@ em { font-style: italic; }
 .phone { width: min(330px, 100%); border-radius: 34px; overflow: hidden; background: #000; box-shadow: 0 0 0 9px #17100c, 0 0 0 10px #5a4632, 0 40px 80px rgba(30,15,5,.35); justify-self: center; }
 .phone video, .phone img { width: 100%; height: auto; aspect-ratio: 780 / 1688; object-fit: cover; object-position: top; }
 .phones { display: flex; gap: clamp(24px, 4vw, 56px); justify-content: center; flex-wrap: wrap; }
-.phones .phone { width: min(290px, 100%); }
+.phones > figure { flex: 0 0 min(290px, 100%); }
+.phones .phone { width: 100%; }
 figcaption, .cap { font: italic 300 15px/1.45 var(--display); color: var(--soft); margin-top: 18px; text-align: center; max-width: 34ch; margin-inline: auto; }
 .dark figcaption, .dark .cap { color: var(--on-car-soft); }
 figure { margin: 0; }
@@ -297,7 +298,7 @@ footer p { max-width: 104ch; }
       <p>Halvern's home page opens on the building itself, in daylight, with a brass lift plate over its doors. Each lamp is a floor, lit where a home on it is free.</p></div></div>
   <figure class="wide-ph"><img src="media/porch.webp" width="1920" height="1140" alt="The white stone porch of a red-brick mansion block in daylight, its doors open onto the hall" loading="lazy" decoding="async"><figcaption>Halvern's home page photograph: Josh Withers, Unsplash</figcaption></figure>
   <div class="two">
-    <figure><div class="phone"><video src="media/home.mp4" data-poster="media/home-poster.jpg" muted loop playsinline preload="none" data-play aria-label="On a phone: tapping floor 3 on the lift plate, then Flat 3A, opens its card with the rent, deposits, council tax band and energy rating"></video></div>
+    <figure><div class="phone"><video src="media/home.mp4" width="780" height="1688" data-poster="media/home-poster.jpg" muted loop playsinline preload="none" data-play aria-label="On a phone: tapping floor 3 on the lift plate, then Flat 3A, opens its card with the rent, deposits, council tax band and energy rating"></video></div>
       <figcaption>Tap floor 3. Flat 3A comes up, with everything the law asks a listing to show.</figcaption></figure>
     <div class="points">
       <div><span class="k">Today's homes<span class="tier">Starter</span></span><p>Read from the agent's own Google Sheet each time the page opens: "Five homes free now. Updated 09:15 today."</p></div>
@@ -337,7 +338,7 @@ footer p { max-width: 104ch; }
     <div><span class="page">Floor 2 · <b>Residences</b></span><h2 id="h-2">Every building, <em>floor by floor.</em></h2>
       <p>A schedule like the one framed in a porter's lodge: three buildings side by side, the free homes on each floor with their rent, size and bedrooms, the let ones quiet.</p></div></div>
   <div class="two">
-    <figure><div class="phone"><video src="media/res.mp4" data-poster="media/res-poster.jpg" muted loop playsinline preload="none" data-play aria-label="On a phone: filtering the schedule to three bedrooms and free now, then switching to Kensington and opening a home"></video></div>
+    <figure><div class="phone"><video src="media/res.mp4" width="780" height="1688" data-poster="media/res-poster.jpg" muted loop playsinline preload="none" data-play aria-label="On a phone: filtering the schedule to three bedrooms and free now, then switching to Kensington and opening a home"></video></div>
       <figcaption>Three or more bedrooms, free now, Kensington: one line of words narrows the schedule.</figcaption></figure>
     <div class="points">
       <div><span class="k">The schedule<span class="tier">Signature</span></span><p>From the same sheet as the home page. A building without that floor shows a hatched cell; a porter's floor says so.</p></div>
@@ -366,7 +367,7 @@ footer p { max-width: 104ch; }
     <div><span class="page">Floor 4 · <b>For owners</b></span><h2 id="h-4">What would my <em>home let for?</em></h2>
       <p>The owner describes the home in one sentence. It reaches the agent on WhatsApp as a valuation request. The site never guesses a rent: a director replies with one, in writing.</p></div></div>
   <div class="phones">
-    <figure><div class="phone"><video src="media/val.mp4" data-poster="media/val-poster.jpg" muted loop playsinline preload="none" data-play aria-label="On a phone: filling the valuation sentence, a three-bedroom mansion flat of about 128 square metres with two bathrooms"></video></div><figcaption>"My 3-bedroom mansion flat of about 128 m², with 2 bathrooms, at…"</figcaption></figure>
+    <figure><div class="phone"><video src="media/val.mp4" width="780" height="1688" data-poster="media/val-poster.jpg" muted loop playsinline preload="none" data-play aria-label="On a phone: filling the valuation sentence, a three-bedroom mansion flat of about 128 square metres with two bathrooms"></video></div><figcaption>"My 3-bedroom mansion flat of about 128 m², with 2 bathrooms, at…"</figcaption></figure>
     <figure><div class="phone"><img src="media/onboarding.webp" width="780" height="1688" alt="The onboarding checklist on a phone, three papers ticked: 3 of 9 ready" loading="lazy" decoding="async"></div><figcaption>Onboarding: eight steps to the first rent, then the papers a let needs, sent as one message.</figcaption></figure>
     <figure><div class="phone"><img src="media/stories.webp" width="780" height="1688" alt="Owner stories on a phone: a top-floor flat that had sat empty for a winter, marked fictional" loading="lazy" decoding="async"></div><figcaption>Owner stories, before and since. On a client's site, only with the owner's written permission.</figcaption></figure>
   </div>
@@ -382,7 +383,7 @@ footer p { max-width: 104ch; }
     <div><span class="page">Floor 5 · <b>Moving in</b></span><h2 id="h-5">The keys, <em>and the month after.</em></h2>
       <p>The tenant picks the day they get the keys. The page lays out the day and the weeks after it, and saves it to their calendar, including the day their deposit's protection details are due.</p></div></div>
   <div class="two">
-    <figure><div class="phone"><video src="media/move.mp4" data-poster="media/move-poster.jpg" muted loop playsinline preload="none" data-play aria-label="On a phone: choosing 8 January 2027 as the keys day, and the plan re-dating itself"></video></div><figcaption>Keys on 8 January: the check-in at 10:00, the keys at 11:00, then the meters.</figcaption></figure>
+    <figure><div class="phone"><video src="media/move.mp4" width="780" height="1688" data-poster="media/move-poster.jpg" muted loop playsinline preload="none" data-play aria-label="On a phone: choosing 8 January 2027 as the keys day, and the plan re-dating itself"></video></div><figcaption>Keys on 8 January: the check-in at 10:00, the keys at 11:00, then the meters.</figcaption></figure>
     <div class="planner" aria-labelledby="pl-h">
       <h3 id="pl-h" class="sr">Try the move-in planner</h3>
       <label>Keys on <input type="date" id="keys"></label>
@@ -429,8 +430,8 @@ footer p { max-width: 104ch; }
     <p>Measured on Halvern's pages with Lighthouse on a mobile setting, and layout shift on every page at five widths from phone to desktop.</p></div></div>
   <div class="tests">
     <div><span>Home page</span><b>97</b><p>Performance; 97 to 100 across the site</p></div>
-    <div><span>First paint</span><b>1.4 s</b><p>The porch photograph by 2.4 s</p></div>
-    <div><span>Nothing moves</span><b>0.03</b><p>The most any page shifts; accessibility 100</p></div>
+    <div><span>First paint</span><b>1.5 s</b><p>The porch photograph by 2.4 s</p></div>
+    <div><span>Nothing moves</span><b>&lt; 0.05</b><p>Layout shift on every page, even with fonts arriving late; accessibility 100</p></div>
     <div><span>The 3D, on tap</span><b>134 KB</b><p>Compressed; nothing before the tap</p></div>
   </div>
 </div></section>
@@ -539,12 +540,13 @@ footer p { max-width: 104ch; }
   // ---------------------------------------------------------------- live: moving in (Halvern's own steps)
   const STEPS = [
     { id: "accounts", label: "Energy, water and broadband in your name", offset: -7 },
-    { id: "checkin", label: "Check-in with the inventory clerk", offset: 0, time: "10:00" },
+    { id: "checkin", label: "Check-in with our inventory clerk", offset: 0, time: "10:00" },
     { id: "keys", label: "Keys and fobs handed over", offset: 0, time: "11:00" },
     { id: "meters", label: "Meter readings, with photographs", offset: 0 },
     { id: "alarms", label: "Test the smoke and carbon monoxide alarms", offset: 0 },
     { id: "council", label: "Tell the council you've moved in, for council tax", offset: 1 },
     { id: "inventory", label: "Send back the signed inventory, with your notes", offset: 7 },
+    { id: "insurance", label: "Contents insurance and a TV licence, if you need them", offset: 14 },
     { id: "deposit", label: "Your deposit's protection details should be with you", offset: 30, rule: true },
   ];
   const keys = $("#keys"), plan = $("#plan");
