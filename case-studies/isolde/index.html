@@ -78,7 +78,8 @@ select, input { font: inherit; color: inherit; }
 .lines { position: absolute; z-index: 3; left: 4.4cqw; top: 33cqw; width: 30cqw; display: grid; gap: 4.2cqw; }
 .cl { font-size: 2.05cqw; line-height: 1.3; }
 .cl b { display: block; font-family: var(--display); font-weight: 400; font-size: 3.6cqw; line-height: 1.02; letter-spacing: -.01em; margin-bottom: .6cqw; }
-.cl .big, .cl .time, .cl > span:last-child { display: block; }
+.cl > span { display: block; }
+.cl > span[hidden] { display: none; }
 .cl .big { font-size: 9.4cqw; font-style: italic; line-height: .9; color: var(--fern); margin: .4cqw 0 .8cqw; }
 .mag[data-day="taken"] .cl .big, .mag[data-day="held"] .cl .big { color: var(--ink); }
 .cl .time { font-size: 6.4cqw; line-height: .95; letter-spacing: -.025em; }
@@ -317,11 +318,11 @@ footer p { max-width: 100ch; }
     <div class="lines" aria-live="polite">
       <p class="cl reprint"><b data-c-date>Saturday 25 September 2027</b><span class="big" data-c-word>Open.</span><span data-c-words>Free so far. Ask, and I'll hold it while you decide.</span></p>
       <p class="cl reprint"><b><span data-c-svc>Hair and makeup</span>, trial and wedding day</b><span class="big" data-c-price style="color:var(--ink)">£520</span></p>
-      <p class="cl reprint"><b>Your morning</b><span class="time" data-c-start>7:25am</span><span data-c-for>for a 2pm ceremony, four of you</span></p>
+      <p class="cl reprint"><b>Your morning</b><span class="time" data-c-start>7:25am</span><span data-c-for>for a 2pm ceremony, four of you</span><span data-c-early hidden></span></p>
     </div>
     <p class="bar" aria-label="Cover price: £99, then £25 a month"><svg viewBox="0 0 60 24" aria-hidden="true" data-barcode></svg><span><b>£99</b>then £25<br>a month</span></p>
   </figure>
-  <p class="oncap"><i>On the cover:</i> satin skin, a lined nude lip, hair swept back low. The name passes behind her head when the photograph has room above it; otherwise it sits above.</p>
+  <p class="oncap"><i>On the cover:</i> satin skin, a lined nude lip, hair swept back low. The name passes behind her head when there's a cut-out of the photograph; otherwise it sits above.</p>
   </div>
 
   <div class="desk">
@@ -353,7 +354,7 @@ footer p { max-width: 100ch; }
     <figure><img src="media/look-lit.webp" width="800" height="1000" alt="A bride laughing in profile, a pearl at her ear, hair swept back" loading="lazy"><figcaption>Lit cheek, swept back. Two hours in the chair.</figcaption></figure>
   </div>
   <ol class="toc">
-    <li><a href="#top"><span class="n">1</span><span class="t">The cover</span><span class="d">Her date, her price and the time we start, as cover lines.</span><span class="p">Starter</span></a></li>
+    <li><a href="#top"><span class="n">1</span><span class="t">The cover</span><span class="d">Her date and her price as cover lines; the time we start from The issue.</span><span class="p">Starter and Plus</span></a></li>
     <li><a href="#season"><span class="n">12</span><span class="t">This season</span><span class="d">Looks named the way she'd say them, with minutes in the chair.</span><span class="p">Plus</span></a></li>
     <li><a href="#prices"><span class="n">18</span><span class="t">For the bride</span><span class="d">Every price, with the time it takes.</span><span class="p">Starter</span></a></li>
     <li><a href="#morning"><span class="n">24</span><span class="t">The morning, minute by minute</span><span class="d">Everyone in the chair, worked back from the ceremony.</span><span class="p">Signature</span></a></li>
@@ -436,6 +437,7 @@ footer p { max-width: 100ch; }
       </div>
     </div>
     <div>
+      <p class="clin" data-k-late hidden style="margin:0 0 10px">Some of these days have gone. Start from the next one.</p>
       <ol class="skin" data-k-skin></ol>
       <p class="clin">How she prepares skin for makeup, not medical advice: treatments are a question for a clinician, and the page says so.</p>
       <span class="plan">Signature: each step into her calendar</span>
@@ -473,27 +475,27 @@ footer p { max-width: 100ch; }
     <article class="sub">
       <h3 class="ed">The cover</h3><p class="tier">Starter</p>
       <p class="price">£99</p><p class="then">then £25 a month</p>
-      <ul><li>Home, and Plan your visit</li><li>The cover lines: her date, her price, the time we start</li><li>The diary, from her Google Sheet</li><li>Her packages, with minutes in the chair</li><li>Before I arrive, for the party</li></ul>
+      <ul><li>Home, and Plan your visit</li><li>The cover lines: her date and her price</li><li>The diary, from her Google Sheet</li><li>Her packages, with minutes in the chair</li><li>Before I arrive, for the party</li></ul>
     </article>
     <article class="sub">
       <h3 class="ed">The issue</h3><p class="tier">Plus</p>
       <p class="price">£199</p><p class="then">then £30 a month</p>
-      <ul><li>Up to five pages</li><li>Bridal prices and terms</li><li>The look library</li><li>The trial window</li><li>Travel by postcode</li><li>Guide pages and a journal</li></ul>
+      <ul><li>Up to five pages</li><li>The time we start, on the cover</li><li>Bridal prices and terms</li><li>The look library</li><li>The trial window</li><li>Travel by postcode</li><li>Guide pages and a journal</li></ul>
     </article>
     <article class="sub">
       <h3 class="ed">The special edition</h3><p class="tier">Signature</p>
       <p class="price">£349</p><p class="then">then £35 a month</p>
-      <ul><li>Up to 20 pages</li><li>Everyone in the chair, priced together</li><li>The morning, minute by minute, in everyone's calendar</li><li>Her skin, counted down</li><li>Her name behind the bride's head, when her photo allows</li></ul>
+      <ul><li>Up to 20 pages</li><li>Everyone in the chair, priced together</li><li>The morning, minute by minute, in everyone's calendar</li><li>Her skin, counted down</li></ul>
     </article>
   </div>
-  <p class="small">A 12-month minimum. Her diary lives in her own Google Sheet, every enquiry arrives on WhatsApp with the date and the look already written, and nothing costs more to run than hosting.</p>
+  <p class="small">In every edition, her name can pass behind the bride's head when there's a cut-out of her photograph. A 12-month minimum. Her diary lives in her own Google Sheet, every enquiry arrives on WhatsApp with the date and the look already written, and nothing costs more to run than hosting.</p>
 
   <h2 style="margin-top:var(--s)" id="h-speed">On the stand in 1.4 seconds.</h2>
   <div class="speed-row" aria-labelledby="h-speed">
     <div><b>100</b><span>Lighthouse performance, mobile, Isolde's home page</span></div>
     <div><b>1.4 s</b><span>Until the cover, the largest picture, is on screen</span></div>
     <div><b>0</b><span>Layout shift: nothing jumps while it loads</span></div>
-    <div><b>100</b><span>Accessibility, on every page</span></div>
+    <div><b>100</b><span>Accessibility, Lighthouse, on the home page; no serious issues on any page</span></div>
   </div>
   <p class="folio"><span><b>48</b> · Isolde</span><span><i>The</i> <span data-folio>25 September 2027</span> <i>issue</i></span></p>
 </div></section>
@@ -538,6 +540,7 @@ footer p { max-width: 100ch; }
   const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const min = (hm) => { const [h, m] = hm.split(":").map(Number); return h * 60 + m; };
   const gbp = (n) => "£" + n.toLocaleString("en-GB");
+  const an = (w) => (/^(8|11|18)(?!\d)/.test(w) ? "an " : "a ") + w; // "an 11am", "an 8:30am"
   const shortDate = (ymd) => I.ukDate(ymd, false);
   const state = { date: "", svc: D.packages.bride[0].id, cer: min(D.morning.ceremony), counts: { ...D.party.start } };
   let diary = null;
@@ -597,7 +600,9 @@ footer p { max-width: 100ch; }
       const st = $("[data-c-start]");
       st.textContent = m.tooEarly ? I.PLANNING : I.clockWords(m.plan.start); st.classList.toggle("long", m.tooEarly);
       const people = 1 + Object.values(state.counts).reduce((x, c) => x + c, 0);
-      $("[data-c-for]").textContent = `for a ${I.clockWords(state.cer)} ceremony, ${I.numberWord(people)} of you${m.artists > 1 ? ", two artists" : ""}`;
+      const ear = $("[data-c-early]"); ear.hidden = !m.early || m.tooEarly;
+      ear.textContent = `Before ${I.clockWords(min(D.morning.early.before))}, the early-start fee of ${gbp(D.morning.early.fee)} applies.`;
+      $("[data-c-for]").textContent = `for ${an(I.clockWords(state.cer))} ceremony, ${I.numberWord(people)} of you${m.artists > 1 ? ", two artists" : ""}`;
       $("#w-cer").value = String(state.cer); $("#m-cer").value = String(state.cer);
 
       // The morning
@@ -605,9 +610,9 @@ footer p { max-width: 100ch; }
       const total = Object.values(state.counts).reduce((x, c) => x + c, 0);
       $$('[data-party] [data-d="1"]').forEach((b) => (b.disabled = total >= D.party.max));
       const lines = D.packages.party.map((p) => ({ price: p.price, count: state.counts[p.id] ?? 0 }));
-      const sum = I.quoteTotal({ bride: s.price, lines, early: m.tooEarly ? 0 : m.earlyFee, second: m.tooEarly ? 0 : m.secondFee });
+      const sum = I.quoteTotal({ bride: s.price, lines, early: m.earlyFee, second: m.secondFee }); // as Isolde's party quote
       $("[data-m-total]").textContent = gbp(sum);
-      $("[data-m-sum]").textContent = `${s.name} for the bride${total ? `, with ${I.numberWord(total)} in her party` : ""}${!m.tooEarly && m.secondFee ? ", a second artist" : ""}${!m.tooEarly && m.earlyFee ? ", the early-start fee" : ""}.`;
+      $("[data-m-sum]").textContent = `${s.name} for the bride${total ? `, with ${I.numberWord(total)} in her party` : ""}. ` + [m.early ? `Includes the early-start fee (${gbp(m.earlyFee)})` : "No early-start fee", m.artists > 1 ? `and a second artist (${gbp(m.secondFee)})` : ""].filter(Boolean).join(" ") + ".";
       const start = $("[data-m-start]");
       start.textContent = m.tooEarly ? I.PLANNING : I.clockWords(m.plan.start); start.classList.toggle("long", m.tooEarly);
       $("[data-m-lab]").hidden = m.tooEarly;
@@ -631,7 +636,9 @@ footer p { max-width: 100ch; }
       const tw = I.trialWindow(state.date, D.trial, today);
       $("[data-k-trial]").textContent = tw.late ? "Too close for a trial window: ask her for the first free day." : `Trial between ${shortDate(tw.from)} and ${shortDate(tw.to)}`;
       const skin = $("[data-k-skin]"); skin.textContent = "";
-      I.prepDates(state.date, D.skin.steps, today).forEach((st2) => {
+      const steps = I.prepDates(state.date, D.skin.steps, today);
+      $("[data-k-late]").hidden = !steps.some((x) => x.past);
+      steps.forEach((st2) => {
         const li = document.createElement("li"); if (st2.date < today) li.className = "past";
         li.innerHTML = `<span class="when">${I.ukDate(st2.date)}</span><span class="what">${st2.label}</span><span class="why">${st2.text}</span>`; skin.append(li);
       });
