@@ -85,6 +85,21 @@ a car: a real storage hall shown edge to edge, with its gallery label on the wal
 care photos that look like the same hall, one grade; no readable makers' badges; the plan drawn like an architect's
 drawing (poché walls, column grid, wheel stops, cars drawn from above, scale bar, north point). Lounge: client photos.
 
+### Owner decisions, round 4 (16 Nov 2026)
+New features (proposed codes, for the owner to confirm):
+
+| Code | Feature | Plan | How (free) |
+|---|---|---|---|
+| PARK-15 | Charging on the plan: which bays, speed (kW), "plug in by 10pm, charged by 7am" | P | the client's Sheet (bay, kW, cut-off) |
+| PARK-16 | Security on the plan: camera positions and coverage, fob hours, gate, alarm. Only what the client confirms; never a live feed | P | the client's Sheet; drawn on the plan |
+| PARK-17 | Letter for your insurer (PDF download), only if the client supplies one | P | a file in the site's `img/` or `docs/` |
+| PARK-18 | "Your car this month": a WhatsApp card per car from the client's own monthly checks (battery, tyres, cover, moved) | Sig | the client's Sheet + a pre-filled WhatsApp message |
+| PARK-9 (upgraded) | The hall in 3D as the hero: the plan rises into a gallery-lit hall; pick your car and a neutral car of that size glides into the free bay that fits; chargers glow; camera coverage as soft cones on the floor. Self-hosted three.js, poster first, lazy, reduced motion and no WebGL keep the still | Sig for the demo; **Bespoke add-on for clients** | three.js bundled with the site (~153 KB gzipped, loaded only when seen), the same Sheet |
+
+Signature = the 3D hall (on the demo) with PARK-10 Pick your car, PARK-11 Arrive at night and PARK-18.
+Client path: the 2D plan drawn from the client's measurements is Signature standard; the 3D hall is a Bespoke add-on
+(each hall is modelled by hand). Running cost stays £0.
+
 ### Running cost
 £0 per client: the client's Sheet and Form, WhatsApp, the client's Stripe Payment Links, calendar files made in the
 browser. PARK-9 adds no running cost but adds weight (loaded only on tap).
