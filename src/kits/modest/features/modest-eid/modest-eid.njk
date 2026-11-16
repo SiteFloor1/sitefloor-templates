@@ -1,0 +1,15 @@
+{#- Eid last order dates (MOD-5): the next Eid's expected window from the shared lunar table, and the shop's own
+    cut-offs counted back from its first day, each with the days left; one that has passed says closed. The dates
+    are worked out in the browser on the day; with no Eid ahead in the table the section hides itself. Without
+    JavaScript: the shop's cut-offs in days. -#}
+{%- set sec = site.sections.eid %}
+<section id="eid" class="md-eid" data-feature="modest-eid" aria-label="{{ sec.title | plain }}"{{ "modest-eid" | tierAttr | safe }}><div class="wrap md-eid-in">
+  {%- include "core/partials/section-head.njk" %}
+  <div class="md-eid-body">
+    <p class="md-eid-w" data-eid-when data-js-only></p>
+    <table class="md-eid-t" data-js-only><caption class="md-eid-c">Last order dates</caption><tbody data-eid-rows></tbody></table>
+    <ul class="md-eid-nojs" data-no-js>{% for c in site.eid.cutoffs %}<li>{{ c.label }}: {{ c.daysBefore }} days before Eid</li>{% endfor %}</ul>
+    {%- if site.eid.note %}<p class="md-eid-n">{{ site.eid.note }}</p>{% endif %}
+    {%- if ("modest-family" | enabled) and pageId != "eid" %}<p><a class="md-ask" href="{{ 'eid' | href }}"{{ "modest-family" | tierAttr | safe }}>Order for the whole family</a></p>{% endif %}
+  </div>
+</div></section>

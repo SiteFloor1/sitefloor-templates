@@ -286,6 +286,15 @@ This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` 
 |---|---|---|---|---|---|---|---|
 | Isotach | running and outerwear brand, new `wear`, `basalt` (branch `trade/menswear`) | running house after rain, **dark and cool**, photograph-led | wet basalt | wet-rock steel #A9B8C3 on basalt #17191C | Host Grotesk (light) / Rethink Sans | full-bleed campaign photo of a runner in the shell, piece name at its foot, the drop as one quiet line | (none yet) |
 
+## Modest fashion and abaya boutiques
+_From `docs/trades/modest/demo-map.md`._
+
+This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` (generated) before proposing a look.
+
+| Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
+|---|---|---|---|---|---|---|---|
+| Taroub | abaya and modest wear boutique, `modest`, `taroub` (built 16 Nov on `trade/modest`) | a gallery hang for one garment: **warm ivory**, the header as a left wall (name, a second piece small, the pages written as two sentences), the abaya full height in the middle, its label on the right; a quiet ivory bar with the look and its total | a crocus stamen (saffron) | saffron #9A561B on ivory #F6F1E9, ink #211C18 | Shippori Mincho 400 and 500 / Afacad 400 and 500 | the hem line: shoulder to floor and her shoes in one sentence, a ruler beside a real hem photograph showing where each length stops | to come with the case study |
+
 ## Nail, lash and beauty salons
 _From `docs/trades/nails/demo-map.md`._
 

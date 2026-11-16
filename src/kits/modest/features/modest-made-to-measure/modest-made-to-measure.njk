@@ -1,0 +1,16 @@
+{#- Made to measure (MOD-7): a close-up of the work, the shop's steps, the measurements it takes, how long and from
+    what price; then ask on WhatsApp, or come in. -#}
+{%- set M = site.madeToMeasure %}
+{%- set ph = { title: M.title, intro: M.intro } %}
+{% include "kits/modest/partials/page-head.njk" %}
+<section class="md-mtm" data-feature="modest-made-to-measure" aria-label="{{ M.title | plain }}"><div class="wrap md-mtm-in">
+  {%- if M.photo %}<figure class="md-mtm-ph"><img src="{{ M.photo.src | img }}" width="{{ M.photo.width }}" height="{{ M.photo.height }}" alt="{{ M.photo.alt }}" loading="lazy" decoding="async"></figure>{% endif %}
+  <div class="md-mtm-t">
+    <p class="md-mtm-f">From {{ M.from | gbp }} · about {{ M.weeks }} weeks</p>
+    <ol class="md-mtm-steps">{% for s in M.steps %}<li><h2>{{ s.title }}</h2><p>{{ s.text }}</p></li>{% endfor %}</ol>
+    <h2 class="md-mtm-h">What we measure</h2>
+    <p class="md-mtm-m">{{ M.measurements | join(" · ") }}</p>
+    <p class="md-mtm-go"><a class="btn" href="{{ ("Hello " + site.business.name + ", I'd like to ask about a made-to-measure abaya.") | book }}" target="_blank" rel="noopener">Ask about made to measure</a>
+    {%- if "modest-appointment" | enabled %} <a class="md-ask" href="{{ 'appointments' | href }}"{{ "modest-appointment" | tierAttr | safe }}>Or be measured in the studio</a>{% endif %}</p>
+  </div>
+</div></section>

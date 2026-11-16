@@ -64,3 +64,18 @@ length guide, Eid edit).
   goods made to the customer's specification (Consumer Contracts Regulations 2013 reg 28(1)(b)), as in `questions.md`.
 - No religious rulings in our words; Eid dates always "expected"; no invented reviews, press or celebrity mentions.
 - Demo prices and dates marked as samples; demo photos credited (Pexels free licence).
+
+## Built (16 Nov 2026)
+
+The `modest` kit, the Taroub look and the Taroub demo (`sites/demos/taroub`), on `trade/modest`.
+
+| Plan | Features |
+|---|---|
+| Starter | `modest-collection` (MOD-1 with the model line, MOD-13), `modest-size-guide` (MOD-2) |
+| Plus | `modest-category-pages`, `modest-length` (MOD-3), `modest-eid` (MOD-5), `modest-appointment` (MOD-10) |
+| Signature | `modest-hem-line` (MOD-9, opens on 2″ heels to match its photograph), `modest-look` (MOD-6, with `pay-link`), `modest-family` (MOD-11), `modest-made-to-measure` (MOD-7) |
+| Client-only | `modest-fabrics` (MOD-8), `reviews` |
+
+Shared features on the demo: gift cards (`vouchers`, for MOD-12), the Eid banner (`seasonal`), page links, Plan your
+visit, questions, and story, delivery and returns, and care as general pages. Not in this build: drops and waitlist
+(MOD-4) and gift a look as its own feature (MOD-12 beyond gift cards); both are ready to add.

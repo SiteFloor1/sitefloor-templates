@@ -1,0 +1,17 @@
+/* Eid last order dates: a short table, the date in the display face, the days left in the accent. */
+.md-eid-in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 32px 64px; align-items: start; }
+.md-eid-w { margin: 0; color: var(--muted); max-width: 48ch; }
+.md-eid-t { margin-top: 20px; width: 100%; border-collapse: collapse; }
+.md-eid-c { text-align: left; color: var(--muted); font-size: 15px; padding-bottom: 6px; }
+.md-eid-t td { padding: 14px 0; border-bottom: 1px solid var(--line); vertical-align: baseline; }
+.md-eid-t td:nth-child(2) { font-family: var(--font-display); font-size: 20px; }
+.md-eid-t td:last-child { text-align: right; color: var(--accent); white-space: nowrap; }
+.md-eid-t tr.is-closed td { color: var(--muted); }
+.md-eid-t tr.is-closed td:nth-child(2) { text-decoration: line-through; text-decoration-thickness: 1px; }
+.md-eid-n { margin: 18px 0 0; color: var(--muted); font-size: 15px; max-width: 56ch; }
+.md-eid-nojs { margin: 0; padding-left: 1.1em; }
+@media (max-width: 760px) {
+  .md-eid-in { grid-template-columns: 1fr; }
+  .md-eid-t td { display: block; padding: 0; border: 0; text-align: left !important; }
+  .md-eid-t tr { display: block; padding: 12px 0; border-bottom: 1px solid var(--line); }
+}

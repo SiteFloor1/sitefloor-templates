@@ -1,0 +1,14 @@
+{#- One piece: its photograph with the model line under it, the name, its one line, the price and the lengths it
+    comes in, then Order on WhatsApp. Expects `p`. -#}
+<li class="md-piece" id="{{ p.id }}">
+  {%- if p.photo %}
+  <figure class="md-piece-ph">
+    <img src="{{ p.photo.src | img }}" width="{{ p.photo.width }}" height="{{ p.photo.height }}" alt="{{ p.photo.alt }}" loading="lazy" decoding="async"{% if p.photo.focus %} style="object-position: {{ p.photo.focus }}"{% endif %}>
+    {%- if p.model %}<figcaption class="md-model">{% if p.model.height %}Model {{ p.model.height }}, wears the {{ p.model.wears }}{% else %}Shown in the {{ p.model.wears }}{% endif %}{% if p.model.shoes %}, in {{ p.model.shoes }}{% endif %}.</figcaption>{% endif %}
+  </figure>
+  {%- endif %}
+  <h3 class="md-piece-t">{{ p.name }}</h3>
+  {%- if p.line %}<p class="md-piece-l">{{ p.line }}</p>{% endif %}
+  <p class="md-piece-f"><span class="md-price">{{ p.price | gbp }}</span>{% if p.lengths %}<span class="md-lens">Lengths {{ p.lengths | lengthList }}</span>{% endif %}</p>
+  <a class="md-ask" href="{{ ("Hello " + site.business.name + ", I'd like to order " + (p.name | replace("The ", "the ")) + ".") | book }}" target="_blank" rel="noopener">Order {{ p.name | replace("The ", "the ") }}</a>
+</li>
