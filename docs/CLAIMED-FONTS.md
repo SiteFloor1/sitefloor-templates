@@ -79,12 +79,14 @@ A case study is a design too: don't reuse these in a new look or another case st
 | Fennick & Lowe (tailor) | case-studies/fennick-lowe | tailor | Della Respira | Commissioner | |
 | Grenat (grand café) | case-studies/grenat | grand-cafe | Italiana | EB Garamond | |
 | Hatheli (mehndi artist) | case-studies/hatheli | mehndi | Rozha One | Source Serif 4 | |
+| Isolde (bridal hair and makeup artist) | case-studies/isolde | bridal-beauty | Libre Bodoni | Faustina | |
 | Isotach (clothing brand) | case-studies/isotach | menswear | Host Grotesk | Rethink Sans | |
 | Laleh (florist, social) | case-studies/laleh | florist | Tenor Sans | Spectral | |
 | Larchmere (wedding films) | case-studies/larchmere | wedding-film | Sorts Mill Goudy | Urbanist | |
 | Lyall Harrow (wealth) | case-studies/lyall-harrow | wealth | Mona Sans | Mona Sans | |
 | Marese (lingerie) | case-studies/marese | lingerie | Fraunces | Red Hat Text | |
 | Marlie (teeth whitening) | case-studies/marlie | teeth | Reddit Sans | Reddit Sans | Reddit Mono, Brygada 1918 |
+| Marrick (personal trainer) | case-studies/marrick | personal-trainer | Ibarra Real Nova | Ibarra Real Nova | |
 | Morrow (café) | case-studies/morrow | cafe | Gloock | Onest | |
 | Ottoline (pilates) | case-studies/ottoline | pilates | Noto Serif Display | Red Hat Text | |
 | Pastillage (celebration cakes) | case-studies/pastillage | cakes | Chonburi | Golos Text | |

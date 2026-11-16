@@ -51,6 +51,21 @@ chat can reuse the Sitefloor bar, footer and patterns without re-reading a publi
   "open before her hands are dry"; the demo's own Rozha One and Source Serif 4). Media (five phone clips with posters,
   four phone stills, the demo's window and chooda photographs) live in the published artifact under `media/`. Clips:
   Playwright screenshots at 390×844 and 2x, the demo ribbon hidden, stitched with ffmpeg at 10 fps.
+- `isolde/index.html`: the bridal hair and makeup case study (one issue of her magazine: the page opens on the issue's
+  cover held like the real thing, Isolde's name as the masthead with the bride's hair passing in front of it, the
+  cover lines her live answers from the demo's own diary and prices (her date and "Open.", the price for the service
+  she picks, "We start at 7:25am" for her ceremony), the cover price in the barcode corner the Starter plan; choose a
+  wedding and the cover reprints, every folio re-dates to "The 25 September 2027 issue", the countdown re-counts; the
+  contents page; This season as fashion pages; For the bride as the shopping page, prices with minutes in the chair;
+  one dark spread, The morning, minute by minute, worked back live with the party steppers, two chairs and "This one
+  needs planning — message me." exactly as the site does; Counted down (days left, the trial window, the skin steps
+  dated, travel by postcode); the back of the book (guide pages and the journal); the plans as three subscriptions,
+  The cover, The issue, The special edition; the speed as "On the stand in 1.4 seconds"; the back cover puts the
+  reader's own business name on the masthead as they type it; the demo's own Libre Bodoni and Faustina). Its live
+  parts run the demo's own logic and simulated diary, bundled into the page, so every answer matches Isolde's site.
+  Media (two phone clips with posters, five phone stills, the demo's cover and cut-out, four looks and two
+  photographs) live in `media/` and the published artifact. Clips: Playwright screenshots at 390×844 and 2x, the demo
+  ribbon hidden, stitched with ffmpeg at 15 fps.
 - `isotach/index.html`: the clothing-brand case study (a wind chart: lines of moving air bend around the phone; each
   feature is a numbered station; plans are wind barbs, Starter one feather, Plus two, Signature the pennant; no phone
   frame). Media (seven phone clips, posters, the kit card, demo photos) live in the published artifact under `media/`.
@@ -109,6 +124,18 @@ chat can reuse the Sitefloor bar, footer and patterns without re-reading a publi
   Person's Lips" by Amir SeilSepour, a model photograph, free under the Pexels licence:
   https://www.pexels.com/photo/close-up-photo-of-person-s-lips-11956948/. Every other image and clip is a capture of
   the smile demo, whose photographs are credited in `sites/demos/smile/img/CREDITS.md`.
+- `marrick/index.html`: the personal trainer case study (while you train: the page opens on the trainer's week as one
+  appointment book, Monday to Sunday, 06:00 to the night, the sessions ruled in ink and, in walnut, eight entries I to
+  VIII for what the website does in the hours the trainer can't answer; the live hour in London is ringed and said in
+  words ("Monday, 02:54 in London. Daniel is asleep.") with what the site answers if someone asks then; a phone lies
+  over the spoken-for Thursday and Friday, as the demo sets its photograph, and plays whichever entry you open. Each
+  chapter is one entry opened on its day and time set huge: the week, a first month, the goal finder, twelve weeks
+  (live from next Monday, England and Wales bank holidays worked out from the rules), do you come to me (live, the
+  demo's districts), nothing it can't keep (live, the kit's own promise and health-claim checks word for word), the
+  rest of the book, Sunday's questions; the plans are how often you train, once, twice, three times a week, inked on a
+  week strip; the speed is "faster than the warm-up"; linen, ink and one walnut; the demo's own Ibarra Real Nova).
+  Media (five phone clips with posters, ten phone stills, the demo's trainer photograph) live in `media/` and the published artifact. Phone captures: Playwright at 390×844 and 2x in full
+  Chromium with `--lang=en-GB`, the demo ribbon hidden, one screenshot per step at 10 fps, encoded H.264.
 - `morrow/index.html`: the coffee house case study (one weekday at the counter, 7:30am to 4pm, a clock column down the
   page). Media (three phone clips, stills from the demo) live only in the published artifact.
 - `ottoline/index.html`: the reformer Pilates case study (six reformers, one room: the hero is the studio's room seen
