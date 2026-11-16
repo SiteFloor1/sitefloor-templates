@@ -32,4 +32,14 @@ Lighthouse mobile after the fix: performance 100, accessibility 100, LCP 1.7 s, 
 The photograph is now `clamp(360px, 100svh − 330px, 600px)` tall on desktop and `clamp(300px, 100svh − 440px, 520px)`
 on phones, so the question and the five words are on the first screen: 1280×800 photo 470 px, words end at 777 px;
 1440×900 photo 570 px, words end at 883 px; 390×844 photo 404 px, words end at 762 px, above the phone bar (775 px).
-All measured with the demo ribbon. Lighthouse mobile: performance 100, accessibility 100, LCP 1.7 s, layout shift 0.001.
+All measured with the demo ribbon. Lighthouse mobile: performance 100, accessibility 100, LCP 1.7 s, layout shift 0.001 on a phone; on desktop it was 0.013–0.022 (correction below).
+
+## 16 Nov 2026 — desktop layout shift (SK-09)
+
+Correction: the earlier 0.001 was true on phones only. On desktop the question re-wrapped from two lines in the
+fallback font to one in Antic Didone (shift 0.013–0.022 at 1280, 1366 and 1440). Fixed by setting the fallbacks by the
+rendered width of the home page's question and card text (Antic Fallback 111.9%, ascent 84.0%, descent 22.3%;
+Baskervville Fallback 400 109.8%, ascent 90.9%, descent 26.9%) and giving the question an em-based width (15.3em, not
+ch, which changes with the font). The question and the words now sit at the same place with the fonts blocked and
+loaded at 1280×800, 1366×768, 1440×900 and 390×844. Layout shift at 4× CPU: 0.000 at all four sizes. Lighthouse:
+desktop 100/100, layout shift 0, LCP 0.4 s; mobile 100/100, layout shift 0, LCP 1.7 s.

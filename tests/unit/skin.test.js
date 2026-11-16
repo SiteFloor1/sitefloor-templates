@@ -34,6 +34,8 @@ test("copy can't name a condition, promise a result or offer injectables; ordina
     "Collagen-friendly vitamin C serum", "Gel cured under the lamp", "A hyaluronic acid serum to finish"];
   for (const t of allowed) assert.equal(claimProblem(t), null, t);
   assert.ok(claimProblem("Safe for all skin. Clears eczema."), "a contraindication in one sentence doesn't excuse a claim in the next");
+  for (const t of ["Not suitable for rosacea; our peel fades melasma.", "Tell us if you have eczema. This facial calms it.", "Not suitable if you have rosacea, and it settles psoriasis.", "Tell us if you have eczema: the mask soothes it."]) assert.ok(claimProblem(t), t);
+  for (const t of ["Tell us if you have eczema. We will choose a different mask.", "Not suitable if you have rosacea; ask us about the calming facial instead."]) assert.equal(claimProblem(t), null, t);
   assert.match(errorsFor((s) => { s.menu.categories[0].items[0].line = "Clears acne for good"; }), /menu\.categories\[0\]\.items\[0\]\.line/);
   assert.match(errorsFor((s) => { s.finder.note = "Results guaranteed"; }), /finder\.note/);
 });

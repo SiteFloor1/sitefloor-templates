@@ -21,6 +21,9 @@ const CONDITION = /\b(acne|rosacea|eczema|psoriasis|dermatitis|melasma|vitiligo|
 /** A sentence that names a condition as a contraindication or something to tell the facialist, not as a result. */
 const CONTRA = /\b(if you (have|had|are|get|suffer)|not suitable|unsuitable|tell us|let us know|mention|before your patch test|we can't treat|we cannot treat|we don't treat|we do not treat|avoid if|unless)\b/i;
 
+/** A result claimed for "it" after a condition has been named. */
+const PRONOUN_CLAIM = /\b(calms?|soothes?|clears?|fades?|treats?|helps?|improves?|reduces?|settles?|eases?|fixes?|heals?)\b[^.]*?\b(it|them|this|that|these|those)\b|\b(it|this)\b[^.]*?\b(calms?|soothes?|clears?|fades?|improves?|settles?|eases?|goes)\b/i;
+
 /** @type {[RegExp, string][]} */
 const BANNED = [
   [/\b(cures?|(?<!gel )cured(?! under))\b|\bheals\b|\bheal (your|the) skin\b/i, "a medical claim; a cosmetic treatment can't cure or heal (CAP 12.1)"],
@@ -38,9 +41,16 @@ const BANNED = [
  */
 export function claimProblem(s) {
   for (const [re, why] of BANNED) if (re.test(s)) return `"${s.match(re)?.[0]}" ${why}`;
-  for (const sentence of s.split(/(?<=[.!?])\s+/)) {
-    const m = sentence.match(CONDITION);
-    if (m && !CONTRA.test(sentence)) return `"${m[0]}" names a medical condition; describe how skin looks or feels instead (CAP 12.1). Naming it as a reason not to have a treatment is fine ("Tell us if you have …").`;
+  // A warning covers only its own clause: "Not suitable for rosacea; our peel fades melasma." is still a claim.
+  const clauses = s.split(/(?<=[.!?])\s+|[;:\u2014]|\s-\s|,\s*and\s/);
+  let named = false;
+  for (const clause of clauses) {
+    const m = clause.match(CONDITION);
+    if (m && !CONTRA.test(clause)) return `"${m[0]}" names a medical condition; describe how skin looks or feels instead (CAP 12.1). Naming it as a reason not to have a treatment is fine ("Tell us if you have …").`;
+    // "Tell us if you have eczema. This facial calms it." claims a result for the condition just named.
+    if (named && PRONOUN_CLAIM.test(clause)) return `"${clause.match(PRONOUN_CLAIM)?.[0]}" claims a result for the condition named before it (CAP 12.1)`;
+    if (m) named = true;
   }
   return null;
 }
+
