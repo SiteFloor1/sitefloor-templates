@@ -5,15 +5,15 @@
   {% include "core/partials/section-head.njk" %}
   <div class="if-svc-t" role="table" aria-label="{{ sec.title }}">
     <div class="if-svc-r if-svc-hd" role="row"><span role="columnheader">We help with</span><span role="columnheader">What to bring</span></div>
-    {%- for s in site.services.items %}
+    {%- for s in site.advice.items %}
     <div class="if-svc-r" role="row">
       <div role="cell"><h3>{% if s.topic and ("ifa-topics" | enabled) %}<a href="{{ s.topic | href }}"{{ "ifa-topics" | tierAttr | safe }}>{{ s.title }}</a>{% else %}{{ s.title }}{% endif %}</h3><p>{{ s.line }}</p></div>
-      <ul role="cell" class="if-svc-b">{% for b in s.bring %}<li>{{ b }}</li>{% endfor %}</ul>
+      <div role="cell"><ul class="if-svc-b">{% for b in s.bring %}<li>{{ b }}</li>{% endfor %}</ul></div>
     </div>
     {%- endfor %}
   </div>
   <div class="if-svc-foot">
-    <p>{{ site.services.who }} {{ site.services.minimum }}</p>
+    <p>{{ site.advice.who }} {{ site.advice.minimum }}</p>
     {% include "kits/ifa/features/ifa-independence/line.njk" %}
   </div>
 </div></section>

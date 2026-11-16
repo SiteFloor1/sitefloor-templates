@@ -100,7 +100,7 @@ export function checkIfa(site, err, exists) {
   if (site.check !== undefined) checkCheck(site.check, err);
   const topics = site.topics !== undefined ? checkTopics(site.topics, err, exists) : new Set();
   const guides = site.guides !== undefined ? checkGuides(site.guides, err, exists) : new Set();
-  if (site.services !== undefined) checkServices(site.services, topics, err);
+  if (site.advice !== undefined) checkServices(site.advice, topics, err);
   if (site.advisers !== undefined) checkAdvisers(site.advisers, site.mode, err, exists);
   if (site.fees !== undefined) checkFees(site.fees, err);
   if (site.meeting !== undefined) checkMeeting(site.meeting, err);
@@ -178,18 +178,18 @@ function checkCheck(c, err) {
 
 /** The services, each with what to bring to talk about it. @param {any} s @param {Set<string>} topics @param {Report} err */
 function checkServices(s, topics, err) {
-  if (!isObj(s)) { err("services", "{ who, minimum, items }"); return; }
-  onlyKeys(s, ["who", "minimum", "items"], "services", err);
-  text(err, "services.who", s.who);
-  text(err, "services.minimum", s.minimum);
-  const items = list(err, "services.items", s.items, "service");
-  ids(err, "services.items", items);
+  if (!isObj(s)) { err("advice", "{ who, minimum, items }"); return; }
+  onlyKeys(s, ["who", "minimum", "items"], "advice", err);
+  text(err, "advice.who", s.who);
+  text(err, "advice.minimum", s.minimum);
+  const items = list(err, "advice.items", s.items, "service");
+  ids(err, "advice.items", items);
   items.forEach((x, i) => {
-    onlyKeys(x, ["id", "title", "line", "bring", "topic"], `services.items[${i}]`, err);
-    text(err, `services.items[${i}].title`, x?.title);
-    text(err, `services.items[${i}].line`, x?.line);
-    lines(err, `services.items[${i}].bring`, x?.bring);
-    if (x?.topic !== undefined && !topics.has(x.topic)) err(`services.items[${i}].topic`, `"${x.topic}" isn't one of topics.items`);
+    onlyKeys(x, ["id", "title", "line", "bring", "topic"], `advice.items[${i}]`, err);
+    text(err, `advice.items[${i}].title`, x?.title);
+    text(err, `advice.items[${i}].line`, x?.line);
+    lines(err, `advice.items[${i}].bring`, x?.bring);
+    if (x?.topic !== undefined && !topics.has(x.topic)) err(`advice.items[${i}].topic`, `"${x.topic}" isn't one of topics.items`);
   });
 }
 

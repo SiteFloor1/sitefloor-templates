@@ -22,7 +22,7 @@ export const features = [
     summary: "IFA-7. Independent or restricted: one plain line wherever the firm describes its advice, and a short page on what that means for the client and where free guidance lives. Always on, free on every plan." },
   { id: "ifa-check", dir: `${D}/ifa-check`, minPlan: "starter", kits: K, requires: ["check"], page: "check", freePage: true, js: false,
     summary: "IFA-5. Check it's us: the firm's register entry, the only numbers and email addresses it uses, what it will never ask, and the FCA's ScamSmart. Free on every plan." },
-  { id: "ifa-services", section: "services", dir: `${D}/ifa-services`, minPlan: "starter", kits: K, requires: ["services", "independence"], js: false,
+  { id: "ifa-services", section: "services", dir: `${D}/ifa-services`, minPlan: "starter", kits: K, requires: ["advice", "independence"], js: false,
     summary: "IFA-1. What we help with: each service in a line, with what to bring to talk about it beside it, who the firm works with and its minimum." },
   { id: "ifa-advisers", section: "advisers", dir: `${D}/ifa-advisers`, minPlan: "starter", kits: K, requires: ["advisers", "regulation"], js: false,
     summary: "IFA-1. The advisers: each name and role, their letters, and their FCA individual reference number linked to the register." },
@@ -37,7 +37,7 @@ export const features = [
     summary: "IFA-8. Secure upload: a link to the firm's own client portal for statements, and never email them. The website never receives a file." },
   { id: "ifa-year", dir: `${D}/ifa-year`, minPlan: "plus", kits: K, requires: ["year"], page: "your-year", js: true,
     summary: "IFA-9. Your year with us: the review rhythm as the firm runs it, what brings an extra meeting, and a yearly reminder for the client's own review month as a calendar file." },
-  { id: "ifa-services-page", dir: `${D}/ifa-services-page`, minPlan: "plus", kits: K, requires: ["services"], needs: ["ifa-services"], page: "services", js: false,
+  { id: "ifa-services-page", dir: `${D}/ifa-services-page`, minPlan: "plus", kits: K, requires: ["advice"], needs: ["ifa-services"], page: "services", js: false,
     summary: "The services page: every service with what to bring, and a link to each topic's own page on Signature." },
   // --- Signature (IFA-4, IFA-6, IFA-10, IFA-11) ---
   { id: "ifa-statement", dir: `${D}/ifa-statement`, minPlan: "signature", kits: K, requires: ["fees"], js: true,

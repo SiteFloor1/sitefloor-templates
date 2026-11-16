@@ -1,0 +1,13 @@
+/* Old pensions: the rows to fill in, and the list as it builds beside them. Printing shows only the list. */
+.if-tr-in { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 96px); padding-block: 8px clamp(72px, 9vw, 120px); }
+.if-tr-r { display: grid; grid-template-columns: 2fr .8fr .8fr 1.3fr; gap: 10px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.if-tr-r label { display: grid; gap: 4px; font-size: 13px; color: var(--muted); }
+.if-tr-r input, .if-tr-r select { font: inherit; font-size: 16px; color: var(--text); min-height: 44px; padding: 0 10px; border: 1px solid var(--line-2); background: var(--bg); width: 100%; }
+.if-tr-act { display: flex; gap: 16px; align-items: center; margin-top: 12px; }
+.if-tr-out h2 { font: 400 1.3rem/1.25 var(--font-display); margin: 0 0 10px; }
+.if-tr-out h2:not(:first-child) { margin-top: 28px; }
+.if-tr-pre { white-space: pre-wrap; font: 14px/1.6 var(--font-body); background: var(--surface); padding: 18px; margin: 0; max-height: 420px; overflow: auto; }
+.if-tr-steps { margin: 0; padding-left: 1.2em; display: grid; gap: 10px; }
+.if-tr-steps ul { margin: 6px 0 0; padding-left: 1.1em; display: grid; gap: 4px; font-size: 15px; }
+@media (max-width: 860px) { .if-tr-in { grid-template-columns: 1fr; } .if-tr-r { grid-template-columns: 1fr 1fr; } .if-tr-r label:first-child { grid-column: 1 / -1; } }
+@media print { body > :not(main), .if-ph, .if-tr-f, .if-tr-act { display: none !important; } .if-tr-in { grid-template-columns: 1fr; } .if-tr-pre { max-height: none; background: none; padding: 0; } }

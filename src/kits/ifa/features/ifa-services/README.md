@@ -4,6 +4,6 @@ What we help with, on the home page: each service in a line with **what to bring
 its minimum, and the independence line.
 
 ```json
-"services": { "who": "…", "minimum": "…", "items": [{ "id": "pensions", "title": "…", "line": "…", "bring": ["…"], "topic": "pensions" }] }
+"advice": { "who": "…", "minimum": "…", "items": [{ "id": "pensions", "title": "…", "line": "…", "bring": ["…"], "topic": "pensions" }] }
 ```
 `topic` links the row to that subject's page when `ifa-topics` is on (Signature).

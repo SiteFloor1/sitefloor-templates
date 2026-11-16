@@ -1,0 +1,14 @@
+{#- The journal: the firm's own articles, newest first, each marked general information with who in compliance approved
+    it and when. Each opens in place. -#}
+{%- set j = site.journal %}
+{%- set ph = { title: j.title, intro: j.intro } %}
+{% include "kits/ifa/partials/page-head.njk" %}
+<section class="if-jn" data-feature="ifa-journal"><div class="wrap if-jn-in">
+  {%- for a in j.items | newestFirst %}
+  <details class="if-jn-a" id="{{ a.id }}"{% if loop.first %} open{% endif %}>
+    <summary><time datetime="{{ a.date }}">{{ a.date | ukDate }}</time><span class="if-jn-t">{{ a.title }}</span><span class="if-jn-s">{{ a.summary }}</span></summary>
+    <div class="if-jn-b">{% for p in a.body %}<p>{{ p }}</p>{% endfor %}
+      <p class="if-fine">By {{ a.author }}. {{ fca.notAdvice }}. Approved by {{ a.approvedBy }} on {{ a.approvedOn | ukDate }}.</p></div>
+  </details>
+  {%- endfor %}
+</div></section>

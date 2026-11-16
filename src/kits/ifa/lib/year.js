@@ -23,7 +23,7 @@ export function reviewIcs(o) {
   return [
     "BEGIN:VCALENDAR", "VERSION:2.0", `PRODID:-//Sitefloor//${esc(o.firm)} reviews//EN`, "CALSCALE:GREGORIAN",
     "BEGIN:VEVENT", `UID:review-${o.month}@${slug(o.firm)}`, `DTSTAMP:${stamp}`,
-    `DTSTART;VALUE=DATE:${ymd(d)}`, `DTEND;VALUE=DATE:${ymd(next)}`, "RRULE:FREQ=YEARLY",
+    `DTSTART;VALUE=DATE:${ymd(d)}`, `DTEND;VALUE=DATE:${ymd(next)}`, `RRULE:FREQ=YEARLY;BYMONTH=${o.month};BYDAY=MO,TU,WE,TH,FR;BYSETPOS=1`,
     `SUMMARY:${esc(`Yearly review with ${o.firm}`)}`, `DESCRIPTION:${esc(o.note)}`,
     "END:VEVENT", "END:VCALENDAR", "",
   ].join("\r\n");
