@@ -9,6 +9,7 @@ take (`demo-map.md`), its speed numbers (`speed.md`) and the fonts it claims (`f
 
 | Folder | Trade | Kit | Files |
 |---|---|---|---|
+| advisers | Financial advisers | `adviser` | [questions](advisers/questions.md) · [playbook](advisers/playbook.md) · [demo-map](advisers/demo-map.md) · [fonts](advisers/fonts.md) |
 | baker | Bakers and cake makers | — | [questions](baker/questions.md) · [playbook](baker/playbook.md) |
 | barber | Barbers | `barber` | [questions](barber/questions.md) · [demo-map](barber/demo-map.md) · [speed](barber/speed.md) · [fonts](barber/fonts.md) |
 | bridal | Bridal salons | `bridal` | [questions](bridal/questions.md) · [playbook](bridal/playbook.md) · [demo-map](bridal/demo-map.md) · [speed](bridal/speed.md) · [fonts](bridal/fonts.md) |
