@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: trials
+permalink: trials.html
+feature: bridalbeauty-trial
+eleventyComputed:
+  title: "{{ site.trialPage.title | plain }}"
+  description: "Bridal hair and makeup trials with {{ site.business.name }}: when to have yours, where, how long and what to bring."
+---
+{% include "kits/bridalbeauty/features/bridalbeauty-trial/bridalbeauty-trial.njk" %}
+{%- set hostPage = "bridalbeauty-trial" %}{% include "kits/bridalbeauty/partials/hosted.njk" %}

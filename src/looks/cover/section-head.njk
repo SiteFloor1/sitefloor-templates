@@ -1,0 +1,6 @@
+{#- Cover section opening: one line in the masthead face, large, its intro beneath in the reading face. No label above.
+    `sec` = { kicker, title, intro }; the kicker is not shown. -#}
+<div class="cv-sh">
+  <h2 class="bb-h2">{{ sec.title | markup | safe }}</h2>
+  {%- if sec.intro %}<p class="bb-intro">{{ sec.intro }}</p>{% endif %}
+</div>
