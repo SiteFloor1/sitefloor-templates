@@ -22,6 +22,7 @@ take (`demo-map.md`), its speed numbers (`speed.md`) and the fonts it claims (`f
 | dessert | Dessert shops and chocolatiers | `bakery` | [questions](dessert/questions.md) · [demo-map](dessert/demo-map.md) · [speed](dessert/speed.md) · [fonts](dessert/fonts.md) |
 | detailing | Car detailing | `detailing` | [questions](detailing/questions.md) · [playbook](detailing/playbook.md) · [demo-map](detailing/demo-map.md) · [speed](detailing/speed.md) · [fonts](detailing/fonts.md) |
 | electrician | Electricians | `electrician` | [questions](electrician/questions.md) · [playbook](electrician/playbook.md) · [demo-map](electrician/demo-map.md) · [speed](electrician/speed.md) · [fonts](electrician/fonts.md) |
+| financial-advisers | Financial advisers | `ifa` | [questions](financial-advisers/questions.md) · [playbook](financial-advisers/playbook.md) · [fonts](financial-advisers/fonts.md) |
 | florist | Florists | `florist` | [questions](florist/questions.md) · [playbook](florist/playbook.md) · [demo-map](florist/demo-map.md) · [speed](florist/speed.md) · [fonts](florist/fonts.md) |
 | garage | Garage and parking rentals | — | [questions](garage/questions.md) · [playbook](garage/playbook.md) |
 | grand-cafe | Grand cafés and tea rooms | `restaurant` | [questions](grand-cafe/questions.md) · [playbook](grand-cafe/playbook.md) · [demo-map](grand-cafe/demo-map.md) · [speed](grand-cafe/speed.md) · [fonts](grand-cafe/fonts.md) |
