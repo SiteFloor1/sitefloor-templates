@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Halvern Case Study</title>
+<meta name="description" content="How a Sitefloor site lets homes for an independent letting agent: the case study is a ride in a mansion block's lift, and every floor is a page of Halvern's website.">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="icon" href="data:,">
+<link rel="preload" href="media/fonts/petrona-latin-300-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="media/fonts/petrona-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="media/fonts/petrona-latin-300-italic.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+/* Layout: going up. The page is a ride in the lift of a red-brick mansion block, from the street door to the roof, and
+   every floor is a page of Halvern's website. The hero is the lift car itself: mahogany, and a brass Art Deco floor
+   indicator whose needle swings to the floor you press; the doors open on that floor. Each floor opens with its number
+   cast in brass, very large, and the page it stands for. The plans are three key fobs, by the floors each key
+   reaches. The speed is how long the doors take to open. Ground: mahogany for the car, ivory for the landings; brass;
+   the lit lamp the one warm light. Type: Petrona, Halvern's own, 300 and 400 with italics. */
+@font-face { font-family: "Petrona"; font-style: normal; font-weight: 300; font-display: swap; src: url("media/fonts/petrona-latin-300-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Petrona"; font-style: italic; font-weight: 300; font-display: swap; src: url("media/fonts/petrona-latin-300-italic.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Petrona"; font-style: normal; font-weight: 400; font-display: swap; src: url("media/fonts/petrona-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Petrona"; font-style: italic; font-weight: 400; font-display: swap; src: url("media/fonts/petrona-latin-400-italic.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Manrope"; font-weight: 600; font-display: swap; src: url("media/fonts/manrope-latin-600-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Manrope"; font-weight: 700; font-display: swap; src: url("media/fonts/manrope-latin-700-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Petrona Fallback"; font-style: normal; font-weight: 100 349; src: local("Times New Roman"), local("Liberation Serif"), local("Times"); size-adjust: 103.7%; ascent-override: 83.1%; descent-override: 26.2%; line-gap-override: 0%; }
+@font-face { font-family: "Petrona Fallback"; font-style: normal; font-weight: 350 900; src: local("Times New Roman"), local("Liberation Serif"), local("Times"); size-adjust: 105.7%; ascent-override: 81.7%; descent-override: 25.7%; line-gap-override: 0%; }
+@font-face { font-family: "Petrona Fallback"; font-style: italic; font-weight: 100 349; src: local("Times New Roman Italic"), local("Liberation Serif Italic"), local("Times Italic"); size-adjust: 98.3%; ascent-override: 88.2%; descent-override: 27.8%; line-gap-override: 0%; }
+@font-face { font-family: "Petrona Fallback"; font-style: italic; font-weight: 350 900; src: local("Times New Roman Italic"), local("Liberation Serif Italic"), local("Times Italic"); size-adjust: 98%; ascent-override: 87.6%; descent-override: 27.6%; line-gap-override: 0%; }
+:root {
+  --car: #24150F; --car-2: #321D15; --car-3: #3E2519; --grain: rgba(255,220,180,.035);
+  --ivory: #FAF6EE; --ivory-2: #F1EADD; --ink: #1F1712; --soft: #6B5E52; --line: #E3D9C9; --line-2: #CDBFAA;
+  --on-car: #F3E9D8; --on-car-soft: #C9B8A0; --rule-car: rgba(233,201,138,.22);
+  --brass: #C9A35E; --brass-hi: #F0D9A2; --brass-lo: #8E6A30; --lamp: #FFC764; --conker: #7A3A1E;
+  --display: "Petrona", "Petrona Fallback", Georgia, serif;
+  --body: "Petrona", "Petrona Fallback", Georgia, serif;
+  --brand: "Manrope", Arial, sans-serif;
+  --sf-paper: #FBFAF7; --sf-ink: #0E0F11; --sf-tomato: #E8613C; --sf-line: rgba(14,15,17,.12);
+  --s: clamp(80px, 10vw, 150px);
+  color-scheme: light;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--ivory); -webkit-text-size-adjust: 100%; scroll-padding-top: 76px; }
+body { margin: 0; background: var(--ivory); color: var(--ink); font: 400 18px/1.6 var(--body); }
+img, video, svg { display: block; max-width: 100%; }
+a { color: inherit; }
+h1, h2, h3 { margin: 0; font-family: var(--display); font-weight: 300; letter-spacing: -.02em; line-height: 1; text-wrap: balance; }
+p { margin: 0; }
+button, input { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--conker); outline-offset: 3px; }
+.car :focus-visible { outline-color: var(--lamp); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.gut { padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 1320px; margin: 0 auto; }
+em { font-style: italic; }
+
+/* Sitefloor bar (shared across case studies) */
+.sfbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--sf-paper); color: var(--sf-ink); border-bottom: 1px solid var(--sf-line); }
+.sfbar .wrap { display: flex; justify-content: space-between; align-items: center; height: 66px; gap: 16px; }
+.wm { display: inline-flex; align-items: center; font: 700 22px var(--brand); letter-spacing: -.04em; text-decoration: none; color: var(--sf-ink); }
+.wm svg { margin: 0 1px; }
+.sfbar nav { display: flex; gap: 28px; font-family: var(--brand); font-size: 14px; font-weight: 600; }
+.sfbar nav a { text-decoration: none; color: var(--sf-ink); }
+.sfbar nav a[aria-current] { box-shadow: inset 0 -1.5px 0 var(--sf-ink); }
+.sfbtn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 20px; background: var(--sf-ink); color: var(--sf-paper); font: 700 12px var(--brand); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; }
+.sfbtn:hover { background: var(--sf-tomato); }
+@media (max-width: 760px) { .sfbar nav { display: none; } }
+@media (max-width: 420px) { .sfbar .sfbtn { display: none; } }
+
+/* the lift car: mahogany panels, a brass floor indicator, the call buttons */
+.car { position: relative; background: var(--car); color: var(--on-car); overflow: hidden; }
+.car::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 3px, var(--grain) 3px 4px, transparent 4px 11px),
+    linear-gradient(90deg, rgba(0,0,0,.28), transparent 18%, transparent 82%, rgba(0,0,0,.28)),
+    radial-gradient(ellipse 60% 55% at 50% 30%, rgba(255,199,100,.10), transparent 70%); }
+.car .panels { position: absolute; inset: 0; pointer-events: none; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0; }
+.car .panels i { border-left: 1px solid rgba(0,0,0,.35); box-shadow: inset 1px 0 0 rgba(255,220,180,.05); }
+.car .panels i:first-child { border-left: 0; box-shadow: none; }
+.hero { padding-block: clamp(28px, 4vw, 48px) clamp(48px, 6vw, 80px); position: relative; }
+.hero .wrap { position: relative; display: grid; justify-items: center; text-align: center; }
+.dial { width: min(720px, 100%); height: auto; overflow: visible; }
+.dial .num { font: 300 46px var(--display); fill: var(--brass); transition: fill .9s ease, filter .9s ease; }
+.dial .num.on { fill: var(--lamp); filter: url(#glow); }
+.dial .needle { transform-origin: 450px 430px; transform: rotate(var(--a, -72deg)); transition: transform 1.6s cubic-bezier(.45,.05,.25,1); }
+.hero h1 { font-size: clamp(72px, 9.5vw, 148px); font-weight: 300; letter-spacing: -.04em; margin-top: clamp(-20px, -1.5vw, -8px); color: var(--on-car); }
+.hero h1 em { color: var(--brass-hi); font-weight: 300; }
+.hero .lede { font-size: clamp(19px, 1.6vw, 22px); line-height: 1.45; max-width: 44ch; margin-top: 12px; color: var(--on-car-soft); }
+.calls { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px 18px; margin-top: 28px; padding: 22px 26px; border-radius: 4px;
+  background: linear-gradient(160deg, #EFD9A6 0%, #CDA766 28%, #AE8645 52%, #DDBF80 76%, #A07539 100%);
+  box-shadow: inset 0 1px 0 rgba(255,246,220,.8), inset 0 -2px 3px rgba(70,44,12,.4), 0 18px 40px rgba(0,0,0,.45); }
+.calls a { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; text-decoration: none;
+  font: 400 26px/1 var(--display); color: #3A2810;
+  background: radial-gradient(circle at 50% 35%, #F6E6BD 0%, #D9B877 55%, #A47C3E 100%);
+  box-shadow: inset 0 -2px 4px rgba(80,50,10,.45), inset 0 2px 2px rgba(255,250,230,.8), 0 2px 3px rgba(60,38,10,.5); transition: box-shadow .5s, background .5s, color .5s; }
+.calls a:hover { color: var(--conker); }
+.calls a.on { color: #3A2408; background: radial-gradient(circle at 50% 40%, #FFF1C9 0%, #FFC764 45%, #D98A2B 100%);
+  box-shadow: inset 0 1px 3px rgba(120,60,0,.5), 0 0 22px rgba(255,190,90,.85), 0 0 60px rgba(255,170,60,.45); }
+.calls a:focus-visible { outline: 2px solid var(--car); outline-offset: 3px; }
+.calls-note { margin-top: 14px; font: italic 300 16px var(--display); color: var(--on-car-soft); }
+
+/* each floor: a landing */
+.floor { padding-block: var(--s); border-top: 1px solid var(--line); position: relative; }
+.floor.dark { background: var(--car); color: var(--on-car); border-top: 0; }
+.landing { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0 clamp(28px, 4vw, 64px); align-items: end; margin-bottom: clamp(40px, 5vw, 72px); }
+.fl { font: 300 clamp(150px, 20vw, 300px)/.78 var(--display); letter-spacing: -.06em;
+  background: linear-gradient(170deg, var(--brass-hi) 0%, var(--brass) 40%, var(--brass-lo) 75%, var(--brass) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent; padding-right: .04em; }
+.floor:not(.dark) .fl { background: linear-gradient(170deg, #B98D46 0%, #8E6A30 45%, #5E4318 80%, #8E6A30 100%); -webkit-background-clip: text; background-clip: text; }
+.landing h2 { font-size: clamp(44px, 5.6vw, 88px); }
+.landing h2 em { color: var(--conker); }
+.dark .landing h2 em { color: var(--brass-hi); }
+.landing p { font-size: clamp(19px, 1.6vw, 23px); line-height: 1.45; max-width: 46ch; margin-top: 16px; color: var(--soft); }
+.dark .landing p { color: var(--on-car-soft); }
+.page { display: block; font: italic 400 16px var(--display); color: var(--soft); margin-bottom: 14px; }
+.dark .page { color: var(--on-car-soft); }
+.page b { font-style: normal; font-weight: 400; color: var(--conker); }
+.dark .page b { color: var(--brass-hi); }
+
+.two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 80px); align-items: start; }
+.phone { width: min(330px, 100%); border-radius: 34px; overflow: hidden; background: #000; box-shadow: 0 0 0 9px #17100c, 0 0 0 10px #5a4632, 0 40px 80px rgba(30,15,5,.35); justify-self: center; }
+.phone video, .phone img { width: 100%; height: auto; aspect-ratio: 780 / 1688; object-fit: cover; object-position: top; }
+.phones { display: flex; gap: clamp(24px, 4vw, 56px); justify-content: center; flex-wrap: wrap; }
+.phones .phone { width: min(290px, 100%); }
+figcaption, .cap { font: italic 300 15px/1.45 var(--display); color: var(--soft); margin-top: 18px; text-align: center; max-width: 34ch; margin-inline: auto; }
+.dark figcaption, .dark .cap { color: var(--on-car-soft); }
+figure { margin: 0; }
+.points { display: grid; gap: 0; }
+.points div { padding: 18px 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: 9.5rem 1fr; gap: 0 22px; }
+.dark .points div { border-color: var(--rule-car); }
+.points dt, .points .k { font-style: italic; color: var(--conker); }
+.dark .points .k { color: var(--brass-hi); }
+.points p { color: inherit; }
+.tier { display: inline-block; font: 600 10px/1 var(--brand); letter-spacing: .14em; text-transform: uppercase; padding: 5px 8px 4px; margin-left: 8px; vertical-align: 3px; border: 1px solid currentColor; border-radius: 99px; color: var(--soft); }
+.dark .tier { color: var(--on-car-soft); }
+.wide-ph { margin-block: 0 clamp(40px, 5vw, 72px); }
+.wide-ph img { width: 100%; height: clamp(340px, 46vw, 640px); object-fit: cover; object-position: 50% 32%; }
+.wide-ph figcaption { text-align: right; max-width: none; margin-right: 0; }
+
+/* live: before the keys */
+.live { background: var(--ivory-2); padding: clamp(24px, 3vw, 40px); border-radius: 2px; }
+.live .q { font: 300 clamp(26px, 2.6vw, 36px)/1.3 var(--display); }
+.live input { width: 4.4ch; font: inherit; font-style: italic; color: var(--conker); background: transparent; border: 0; border-bottom: 1px solid var(--conker); text-align: center; padding: 0; min-height: 44px; }
+.live input:focus-visible { outline: none; background: var(--ivory); }
+.live dl { display: grid; grid-template-columns: 1fr auto; gap: 10px 24px; margin: 22px 0 0; font-size: 18px; }
+.live dt { color: var(--soft); } .live dd { margin: 0; text-align: right; font-variant-numeric: lining-nums tabular-nums; }
+.live .tot { display: flex; justify-content: space-between; align-items: baseline; border-top: 1px solid var(--ink); margin-top: 14px; padding-top: 10px; }
+.live .tot b { font: 300 46px/1 var(--display); color: var(--conker); font-variant-numeric: lining-nums; }
+.live .fine { font-size: 14px; color: var(--soft); margin-top: 12px; }
+.live .src { font-size: 13px; color: var(--soft); margin-top: 12px; }
+
+/* live: moving in */
+.planner { background: repeating-linear-gradient(90deg, transparent 0 3px, var(--grain) 3px 4px, transparent 4px 11px), var(--car); color: var(--on-car); padding: clamp(24px, 3vw, 40px); box-shadow: 0 30px 60px rgba(30,15,5,.25); }
+.planner :focus-visible { outline-color: var(--lamp); }
+.planner label { display: grid; gap: 6px; font-style: italic; color: var(--on-car-soft); }
+.planner input { font: 300 30px var(--display); color: var(--lamp); background: transparent; border: 0; border-bottom: 1px solid var(--brass); min-height: 52px; color-scheme: dark; max-width: 260px; }
+.planner ol { list-style: none; padding: 0; margin: 22px 0 0; }
+.planner li { display: grid; grid-template-columns: 12rem 1fr; gap: 0 20px; padding: 12px 0; border-top: 1px solid var(--rule-car); }
+.planner li span { font-style: italic; color: var(--brass-hi); }
+.planner li.rule { background: rgba(255,199,100,.08); padding-inline: 12px; }
+.planner .go { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; margin-top: 22px; }
+.planner .go small { font-size: 13px; color: var(--on-car-soft); }
+
+/* the roof */
+.roof video { width: 100%; height: auto; aspect-ratio: 1200 / 466; border: 1px solid var(--rule-car); background: #EDE3D3; }
+
+/* the plans: three key fobs */
+.keys { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 3vw, 40px); }
+.fob { position: relative; padding: 0 0 6px; }
+.fob svg.tag { width: 100%; max-width: 260px; height: auto; margin: 0 auto 6px; }
+.fob h3 { font-size: 44px; text-align: center; }
+.fob .reach { text-align: center; font: italic 300 17px var(--display); color: var(--on-car-soft); margin-top: 6px; }
+.fob .pr { text-align: center; font: 300 34px var(--display); color: var(--brass-hi); margin-top: 14px; }
+.fob .pr small { font-size: 16px; color: var(--on-car-soft); }
+.fob ul { margin: 18px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--rule-car); }
+.fob li { padding: 10px 0; border-bottom: 1px solid var(--rule-car); font-size: 17px; }
+.reachbar { display: flex; justify-content: center; gap: 5px; margin-top: 12px; }
+.reachbar i { width: 22px; height: 22px; border-radius: 50%; font: normal 400 11px/22px var(--display); text-align: center; color: #3A2810; background: #6b5434; }
+.reachbar i.lit { background: radial-gradient(circle at 50% 40%, #FFF1C9 0%, #FFC764 50%, #D98A2B 100%); box-shadow: 0 0 10px rgba(255,190,90,.6); }
+.plans-note { margin-top: 30px; max-width: 72ch; color: var(--on-car-soft); font-size: 16px; }
+
+.fobt { font: 400 15px var(--display); letter-spacing: .22em; fill: #3A2810; }
+
+/* the doors: speed */
+.speed .tests { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--ink); }
+.speed .tests div { padding: 22px 22px 22px 0; border-right: 1px solid var(--line); }
+.speed .tests div:last-child { border-right: 0; }
+.speed .tests span { font: italic 400 15px var(--display); color: var(--soft); }
+.speed .tests b { display: block; font: 300 clamp(44px, 4.6vw, 68px)/1.05 var(--display); color: var(--conker); margin: 6px 0; font-variant-numeric: lining-nums; }
+.speed .tests p { font-size: 15px; color: var(--soft); }
+
+/* the close */
+.close .wrap { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 80px); align-items: center; }
+.close h2 { font-size: clamp(54px, 6.6vw, 104px); }
+.close h2 em { color: var(--conker); }
+.close p { font-size: 20px; max-width: 44ch; margin-top: 20px; color: var(--soft); }
+.acts { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 30px; }
+.btn { display: inline-flex; align-items: center; min-height: 52px; padding: 0 26px; background: var(--conker); color: #fff; text-decoration: none; font-size: 18px; }
+.btn:hover { background: #63301A; }
+.btn.line { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.btn.lamp { background: var(--lamp); color: #2A1A06; border: 0; cursor: pointer; }
+.btn.lamp:disabled { opacity: .5; cursor: default; }
+.mail { display: inline-block; margin-top: 18px; font-size: 16px; color: var(--soft); }
+.close-ph img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+
+/* where you are: a small floor plate, fixed */
+.where { position: fixed; z-index: 25; right: max(18px, env(safe-area-inset-right, 0px)); bottom: max(18px, env(safe-area-inset-bottom, 0px)); display: flex; align-items: center; gap: 10px;
+  padding: 8px 14px 8px 8px; border-radius: 40px; text-decoration: none; color: #3A2810;
+  background: linear-gradient(160deg, #EFD9A6 0%, #CDA766 35%, #AE8645 60%, #DDBF80 100%); box-shadow: 0 10px 26px rgba(30,15,5,.35);
+  opacity: 0; transform: translateY(8px); transition: opacity .8s, transform .8s; pointer-events: none; }
+.where.show { opacity: 1; transform: none; pointer-events: auto; }
+.where b { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; font: 400 20px var(--display); color: #3A2408;
+  background: radial-gradient(circle at 50% 40%, #FFF1C9 0%, #FFC764 45%, #D98A2B 100%); box-shadow: 0 0 14px rgba(255,190,90,.6); }
+.where span { font: italic 400 15px var(--display); }
+
+footer { background: var(--car); color: var(--on-car-soft); font-size: 13px; line-height: 1.6; }
+footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px 32px; padding-block: 28px; }
+footer p { max-width: 104ch; }
+
+@media (max-width: 900px) {
+  .two, .close .wrap { grid-template-columns: 1fr; }
+  .keys { grid-template-columns: 1fr; max-width: 460px; margin-inline: auto; }
+  .speed .tests { grid-template-columns: 1fr 1fr; }
+  .speed .tests div:nth-child(2) { border-right: 0; }
+  .speed .tests div:nth-child(n+3) { border-top: 1px solid var(--line); }
+}
+@media (max-width: 640px) {
+  body { font-size: 17px; }
+  .landing { grid-template-columns: 1fr; }
+  .fl { font-size: 150px; margin-bottom: 8px; }
+  .calls { gap: 7px; padding: 12px; flex-wrap: nowrap; }
+  .calls a { width: 39px; height: 39px; font-size: 18px; }
+  .points div { grid-template-columns: 1fr; }
+  .planner li { grid-template-columns: 1fr; }
+  .where span { display: none; }
+  .where { padding: 6px; }
+  .speed .tests div { padding-right: 12px; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="sfbar gut"><div class="wrap">
+  <a class="wm" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su" aria-label="Sitefloor home">sitefl<svg width="28" height="14" viewBox="0 0 42 21" aria-hidden="true"><rect x="1.9" y="1.9" width="38.2" height="17.2" rx="8.6" fill="none" stroke="#0E0F11" stroke-width="3.8"/><circle cx="31.5" cy="10.5" r="5.2" fill="#E8613C"/></svg>r</a>
+  <nav aria-label="Main"><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#live">Features</a><a href="#top" aria-current="page">Work</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#pricing">Pricing</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#guides">Guides</a></nav>
+  <a class="sfbtn" href="#mockup"><span>Free mockup</span><span aria-hidden="true">→</span></a>
+</div></div>
+
+<main id="top">
+
+<section class="car hero gut" aria-labelledby="h1">
+  <div class="panels" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="wrap">
+    <svg class="dial" viewBox="0 0 900 470" role="img" aria-labelledby="dial-t">
+      <title id="dial-t">A brass lift floor indicator, its needle at the ground floor</title>
+      <defs>
+        <linearGradient id="brass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F2DDA8"/><stop offset=".3" stop-color="#CBA463"/><stop offset=".55" stop-color="#A47C3E"/><stop offset=".8" stop-color="#E2C487"/><stop offset="1" stop-color="#8E6A30"/></linearGradient>
+        <radialGradient id="face" cx=".5" cy="1" r="1"><stop offset="0" stop-color="#2E1B12"/><stop offset=".75" stop-color="#1A0F0A"/><stop offset="1" stop-color="#120A06"/></radialGradient>
+        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <linearGradient id="needleG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8E6A30"/><stop offset=".5" stop-color="#F4E1B0"/><stop offset="1" stop-color="#8E6A30"/></linearGradient>
+      </defs>
+      <!-- bezel and face -->
+      <path d="M40 440 A410 410 0 0 1 860 440 Z" fill="url(#brass)"/>
+      <path d="M62 440 A388 388 0 0 1 838 440 Z" fill="#6E5126"/>
+      <path d="M70 440 A380 380 0 0 1 830 440 Z" fill="url(#face)"/>
+      <!-- the sunburst -->
+      <g id="rays" stroke="#C9A35E" stroke-opacity=".16" stroke-width="1.2"></g>
+      <path d="M150 440 A300 300 0 0 1 750 440" fill="none" stroke="#C9A35E" stroke-opacity=".35" stroke-width="1.5"/>
+      <g id="nums"></g>
+      <!-- the needle -->
+      <g class="needle" id="needle">
+        <path d="M444 430 L450 128 L456 430 Z" fill="url(#needleG)"/>
+        <path d="M450 112 L462 140 L438 140 Z" fill="#F4E1B0"/>
+      </g>
+      <circle cx="450" cy="430" r="30" fill="url(#brass)"/>
+      <circle cx="450" cy="430" r="11" fill="#5E4318"/>
+      <rect x="40" y="438" width="820" height="12" fill="url(#brass)"/>
+    </svg>
+    <h1 id="h1">Going <em>up.</em></h1>
+    <p class="lede">A letting agent's website, read as a ride in its own building. Every floor is a page, from the street door to the roof.</p>
+    <nav class="calls" aria-label="Floors of the case study" id="calls">
+      <a href="#g" data-f="0" aria-label="Ground floor: the street door">G</a>
+      <a href="#f1" data-f="1" aria-label="Floor 1: fees">1</a>
+      <a href="#f2" data-f="2" aria-label="Floor 2: residences">2</a>
+      <a href="#f3" data-f="3" aria-label="Floor 3: the neighbourhoods">3</a>
+      <a href="#f4" data-f="4" aria-label="Floor 4: for owners">4</a>
+      <a href="#f5" data-f="5" aria-label="Floor 5: moving in">5</a>
+      <a href="#roof" data-f="6" aria-label="The roof: the building in 3D">R</a>
+    </nav>
+    <p class="calls-note">Press a floor.</p>
+  </div>
+</section>
+
+<section class="floor gut" id="g" data-floor="G" data-name="The street door" aria-labelledby="h-g"><div class="wrap">
+  <div class="landing"><span class="fl" aria-hidden="true">G</span>
+    <div><span class="page">Ground floor · <b>the home page</b></span><h2 id="h-g">The street <em>door.</em></h2>
+      <p>Halvern's home page opens on the building itself, in daylight, with a brass lift plate over its doors. Each lamp is a floor, lit where a home on it is free.</p></div></div>
+  <figure class="wide-ph"><img src="media/porch.webp" width="1920" height="1140" alt="The white stone porch of a red-brick mansion block in daylight, its doors open onto the hall" loading="lazy" decoding="async"><figcaption>Halvern's home page photograph: Josh Withers, Unsplash</figcaption></figure>
+  <div class="two">
+    <figure><div class="phone"><video src="media/home.mp4" data-poster="media/home-poster.jpg" muted loop playsinline preload="none" data-play aria-label="On a phone: tapping floor 3 on the lift plate, then Flat 3A, opens its card with the rent, deposits, council tax band and energy rating"></video></div>
+      <figcaption>Tap floor 3. Flat 3A comes up, with everything the law asks a listing to show.</figcaption></figure>
+    <div class="points">
+      <div><span class="k">Today's homes<span class="tier">Starter</span></span><p>Read from the agent's own Google Sheet each time the page opens: "Five homes free now. Updated 09:15 today."</p></div>
+      <div><span class="k">On every card</span><p>Rent, size in m² and sq ft, the holding deposit and deposit worked out within the legal caps, council tax band, energy rating, parking, broadband, pets.</p></div>
+      <div><span class="k">Book a viewing</span><p>One tap writes the WhatsApp message: the home's name, building, reference and rent.</p></div>
+      <div><span class="k">When it's out of date</span><p>If the sheet goes a day and a half without an update, no home shows as free and the page says to call. Nobody books a flat that let last week.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="floor gut" id="f1" data-floor="1" data-name="Fees" aria-labelledby="h-1"><div class="wrap">
+  <div class="landing"><span class="fl" aria-hidden="true">1</span>
+    <div><span class="page">Floor 1 · <b>Fees</b>, in the menu of every page</span><h2 id="h-1">Every fee, <em>with VAT.</em></h2>
+      <p>Letting agents in England must show their fees and name the schemes that protect their clients. Halvern's site keeps them one tap away, on every page, on every plan.</p></div></div>
+  <div class="two">
+    <div class="live" aria-labelledby="live-h">
+      <h3 id="live-h" class="sr">What a tenant pays before the keys</h3>
+      <p class="q"><label for="rent">For a rent of £</label><input id="rent" inputmode="numeric" autocomplete="off" value="2,500"> a month:</p>
+      <dl id="rows"></dl>
+      <p class="tot"><span>Before the keys</span><b id="total">£5,384</b></p>
+      <p class="fine" id="note"></p>
+      <p class="src">The caps from GOV.UK, "Fees you can charge as part of a tenancy" (updated 12 November 2026), checked 15 November 2026. This box runs the same sums as Halvern's fees page.</p>
+    </div>
+    <div>
+      <div class="points">
+        <div><span class="k">For owners<span class="tier">Starter</span></span><p>Let only, rent collection and fully managed, each as a percentage with VAT, and every other charge in pounds with VAT.</p></div>
+        <div><span class="k">For tenants</span><p>The permitted payments in plain English, and nothing else. Settings above the legal caps are refused before the site is built.</p></div>
+        <div><span class="k">Who protects you</span><p>The redress scheme and client money protection named on every page's footer, with the CMP certificate on the fees page.</p></div>
+      </div>
+      <figure style="margin-top:40px"><div class="phone"><img src="media/fees-owners.webp" width="780" height="1688" alt="Halvern's fees page on a phone: let only at 12% of a year's rent, rent collection at 12% of each month's rent, with what each includes" loading="lazy" decoding="async"></div></figure>
+    </div>
+  </div>
+</div></section>
+
+<section class="floor dark gut" id="f2" data-floor="2" data-name="Residences" aria-labelledby="h-2"><div class="wrap">
+  <div class="landing"><span class="fl" aria-hidden="true">2</span>
+    <div><span class="page">Floor 2 · <b>Residences</b></span><h2 id="h-2">Every building, <em>floor by floor.</em></h2>
+      <p>A schedule like the one framed in a porter's lodge: three buildings side by side, the free homes on each floor with their rent, size and bedrooms, the let ones quiet.</p></div></div>
+  <div class="two">
+    <figure><div class="phone"><video src="media/res.mp4" data-poster="media/res-poster.jpg" muted loop playsinline preload="none" data-play aria-label="On a phone: filtering the schedule to three bedrooms and free now, then switching to Kensington and opening a home"></video></div>
+      <figcaption>Three or more bedrooms, free now, Kensington: one line of words narrows the schedule.</figcaption></figure>
+    <div class="points">
+      <div><span class="k">The schedule<span class="tier">Signature</span></span><p>From the same sheet as the home page. A building without that floor shows a hatched cell; a porter's floor says so.</p></div>
+      <div><span class="k">Filters</span><p>Bedrooms, a rent ceiling worked out from the homes themselves, free now, outside space, with a running count: "2 of 14 homes".</p></div>
+      <div><span class="k">On a phone</span><p>One building at a time, picked by name. Nothing moves while it loads.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="floor gut" id="f3" data-floor="3" data-name="The neighbourhoods" aria-labelledby="h-3"><div class="wrap">
+  <div class="landing"><span class="fl" aria-hidden="true">3</span>
+    <div><span class="page">Floor 3 · <b>Areas</b> and <b>the journal</b></span><h2 id="h-3">The streets <em>around it.</em></h2>
+      <p>A page for each neighbourhood the agent lets in, with what's free there now; and articles that answer what tenants and owners ask, every rule dated against GOV.UK.</p></div></div>
+  <div class="phones">
+    <figure><div class="phone"><img src="media/areas.webp" width="780" height="1688" alt="Halvern's areas page on a phone: St John's Wood's mansion blocks under a blue sky, with five homes free now" loading="lazy" decoding="async"></div><figcaption>St John's Wood, Kensington, Marylebone: transport, parks, the homes, the council, and five free now.</figcaption></figure>
+    <figure><div class="phone"><img src="media/article.webp" width="780" height="1688" alt="A journal article on a phone: protected within 30 days, and what a tenant must be told" loading="lazy" decoding="async"></div><figcaption>"Your deposit: protected in 30 days, back in 10." Sources listed, checked 15 November 2026.</figcaption></figure>
+  </div>
+  <div class="points" style="margin-top:56px">
+    <div><span class="k">Areas<span class="tier">Plus</span></span><p>The client's own photograph of each neighbourhood, or a licensed, credited one until then.</p></div>
+    <div><span class="k">The journal<span class="tier">Plus</span></span><p>What you pay to move in. Your deposit. Letting your home after 1 May 2026. Only GOV.UK and legislation.gov.uk are accepted as sources.</p></div>
+  </div>
+</div></section>
+
+<section class="floor dark gut" id="f4" data-floor="4" data-name="For owners" aria-labelledby="h-4"><div class="wrap">
+  <div class="landing"><span class="fl" aria-hidden="true">4</span>
+    <div><span class="page">Floor 4 · <b>For owners</b></span><h2 id="h-4">What would my <em>home let for?</em></h2>
+      <p>The owner describes the home in one sentence. It reaches the agent on WhatsApp as a valuation request. The site never guesses a rent: a director replies with one, in writing.</p></div></div>
+  <div class="phones">
+    <figure><div class="phone"><video src="media/val.mp4" data-poster="media/val-poster.jpg" muted loop playsinline preload="none" data-play aria-label="On a phone: filling the valuation sentence, a three-bedroom mansion flat of about 128 square metres with two bathrooms"></video></div><figcaption>"My 3-bedroom mansion flat of about 128 m², with 2 bathrooms, at…"</figcaption></figure>
+    <figure><div class="phone"><img src="media/onboarding.webp" width="780" height="1688" alt="The onboarding checklist on a phone, three papers ticked: 3 of 9 ready" loading="lazy" decoding="async"></div><figcaption>Onboarding: eight steps to the first rent, then the papers a let needs, sent as one message.</figcaption></figure>
+    <figure><div class="phone"><img src="media/stories.webp" width="780" height="1688" alt="Owner stories on a phone: a top-floor flat that had sat empty for a winter, marked fictional" loading="lazy" decoding="async"></div><figcaption>Owner stories, before and since. On a client's site, only with the owner's written permission.</figcaption></figure>
+  </div>
+  <div class="points" style="margin-top:56px">
+    <div><span class="k">The valuation<span class="tier">Signature</span></span><p>Bedrooms, kind of home, size, bathrooms, address, outside space, furnished, the service. Nothing kept by the page.</p></div>
+    <div><span class="k">What we manage<span class="tier">Plus</span></span><p>The homes counted from the agent's own buildings, never typed in; a managed year month by month.</p></div>
+    <div><span class="k">Onboarding, stories<span class="tier">Signature</span></span><p>The steps and the checklist in the agent's own words; stories with the owner's own figures.</p></div>
+  </div>
+</div></section>
+
+<section class="floor gut" id="f5" data-floor="5" data-name="Moving in" aria-labelledby="h-5"><div class="wrap">
+  <div class="landing"><span class="fl" aria-hidden="true">5</span>
+    <div><span class="page">Floor 5 · <b>Moving in</b></span><h2 id="h-5">The keys, <em>and the month after.</em></h2>
+      <p>The tenant picks the day they get the keys. The page lays out the day and the weeks after it, and saves it to their calendar, including the day their deposit's protection details are due.</p></div></div>
+  <div class="two">
+    <figure><div class="phone"><video src="media/move.mp4" data-poster="media/move-poster.jpg" muted loop playsinline preload="none" data-play aria-label="On a phone: choosing 8 January 2027 as the keys day, and the plan re-dating itself"></video></div><figcaption>Keys on 8 January: the check-in at 10:00, the keys at 11:00, then the meters.</figcaption></figure>
+    <div class="planner" aria-labelledby="pl-h">
+      <h3 id="pl-h" class="sr">Try the move-in planner</h3>
+      <label>Keys on <input type="date" id="keys"></label>
+      <ol id="plan" aria-live="polite"></ol>
+      <p class="go"><button class="btn lamp" type="button" id="ics">Add to my calendar</button><small>A calendar file. Nothing is sent anywhere.</small></p>
+    </div>
+  </div>
+</div></section>
+
+<section class="floor dark gut roof" id="roof" data-floor="R" data-name="The roof" aria-labelledby="h-r"><div class="wrap">
+  <div class="landing"><span class="fl" aria-hidden="true">R</span>
+    <div><span class="page">The roof · <b>the building in 3D</b>, on the home page</span><h2 id="h-r">The whole building, <em>lit.</em></h2>
+      <p>On Signature, "See the building" turns the photograph into the building itself, drawn in code, every free home's windows lit from the sheet. Tap a lamp and its floor glows; tap a window and the home opens.</p></div></div>
+  <figure><video src="media/building.mp4" data-poster="media/building-poster.jpg" width="1200" height="466" muted loop playsinline preload="none" data-play aria-label="The mansion block in 3D turning into view, floor 6 then floor 3 lit, and Flat 3A's card opening"></video>
+    <figcaption>Nothing loads until it's asked for, and an old sheet lights no window. Labelled an illustration on the site.</figcaption></figure>
+</div></section>
+
+<section class="car floor dark gut" id="plans" aria-labelledby="h-p" style="border-top:0"><div class="panels" aria-hidden="true"><i></i><i></i><i></i></div><div class="wrap" style="position:relative">
+  <div class="landing" style="grid-template-columns:1fr"><div><span class="page">The plans</span><h2 id="h-p">Which floors <em>your key reaches.</em></h2>
+    <p>Each plan runs on a 12-month minimum, then a month's notice. Any single feature can be added to a smaller plan, and extra pages come one at a time.</p></div></div>
+  <div class="keys">
+    <div class="fob"><svg class="tag" viewBox="0 0 260 150" aria-hidden="true"><use href="#fob"/><text x="156" y="81" text-anchor="middle" class="fobt">STARTER</text></svg>
+      <h3>Starter</h3><p class="reach">The ground floor and floor 1</p><div class="reachbar" aria-hidden="true"><i class="lit">G</i><i class="lit">1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>R</i></div>
+      <p class="pr">£99 <small>+ £25 a month</small></p>
+      <ul><li>The home page and Plan your visit</li><li>Today's homes from the agent's sheet</li><li>The fees page, on every page</li><li>What you pay before the keys</li></ul></div>
+    <div class="fob"><svg class="tag" viewBox="0 0 260 150" aria-hidden="true"><use href="#fob"/><text x="156" y="81" text-anchor="middle" class="fobt">PLUS</text></svg>
+      <h3>Plus</h3><p class="reach">Up to floor 4</p><div class="reachbar" aria-hidden="true"><i class="lit">G</i><i class="lit">1</i><i>2</i><i class="lit">3</i><i class="lit">4</i><i>5</i><i>R</i></div>
+      <p class="pr">£199 <small>+ £30 a month</small></p>
+      <ul><li>Up to five pages</li><li>For owners and What we manage</li><li>Areas, a page each</li><li>The journal</li><li>Report a repair</li></ul></div>
+    <div class="fob"><svg class="tag" viewBox="0 0 260 150" aria-hidden="true"><use href="#fob"/><text x="156" y="81" text-anchor="middle" class="fobt">SIGNATURE</text></svg>
+      <h3>Signature</h3><p class="reach">Every floor, and the roof</p><div class="reachbar" aria-hidden="true"><i class="lit">G</i><i class="lit">1</i><i class="lit">2</i><i class="lit">3</i><i class="lit">4</i><i class="lit">5</i><i class="lit">R</i></div>
+      <p class="pr">£349 <small>+ £35 a month</small></p>
+      <ul><li>Up to 20 pages</li><li>The lift plate and the building in 3D</li><li>Residences, with filters</li><li>The valuation request</li><li>The move-in planner</li><li>Onboarding and owner stories</li></ul></div>
+  </div>
+  <p class="plans-note">Running costs stay at nothing beyond hosting. Homes live in the agent's own Google Sheet, fees and schemes in the site's settings, and every viewing, valuation and repair arrives on WhatsApp.</p>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+    <linearGradient id="fobG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F2DDA8"/><stop offset=".35" stop-color="#CBA463"/><stop offset=".6" stop-color="#A47C3E"/><stop offset="1" stop-color="#DDBF80"/></linearGradient>
+    <g id="fob"><circle cx="40" cy="75" r="26" fill="none" stroke="#C9A35E" stroke-width="5"/><path d="M62 52 H236 a14 14 0 0 1 14 14 v18 a14 14 0 0 1 -14 14 H62 a12 12 0 0 1 -12 -12 v-22 a12 12 0 0 1 12 -12z" fill="url(#fobG)"/><circle cx="72" cy="75" r="7" fill="#24150F"/></g>
+  </defs></svg>
+</div></section>
+
+<section class="floor gut speed" aria-labelledby="h-sp"><div class="wrap">
+  <div class="landing" style="grid-template-columns:1fr"><div><span class="page">Speed</span><h2 id="h-sp">The doors open <em>in a second and a half.</em></h2>
+    <p>Measured on Halvern's pages with Lighthouse on a mobile setting, and layout shift on every page at five widths from phone to desktop.</p></div></div>
+  <div class="tests">
+    <div><span>Home page</span><b>97</b><p>Performance; 97 to 100 across the site</p></div>
+    <div><span>First paint</span><b>1.4 s</b><p>The porch photograph by 2.4 s</p></div>
+    <div><span>Nothing moves</span><b>0.03</b><p>The most any page shifts; accessibility 100</p></div>
+    <div><span>The 3D, on tap</span><b>134 KB</b><p>Compressed; nothing before the tap</p></div>
+  </div>
+</div></section>
+
+<section class="floor gut close" id="mockup" aria-labelledby="h-cl"><div class="wrap">
+  <div>
+    <h2 id="h-cl">Your building, <em>in daylight.</em></h2>
+    <p>Send us a photograph of a building you let and your fees, and we'll make a free mockup of your home page with your own homes on its lift plate.</p>
+    <div class="acts">
+      <a class="btn" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#free">Get a free mockup</a>
+      <a class="btn line" href="https://sitefloor1.github.io/sitefloor-templates/letting/">Try the demo first</a>
+    </div>
+    <span class="mail">hello@sitefloor.com</span>
+  </div>
+  <figure class="close-ph"><img src="media/stjohnswood.webp" width="1400" height="1050" alt="Red-brick and white stone mansion blocks on a sunny street" loading="lazy" decoding="async"><figcaption>St John's Wood High Street: Colin Smith, CC BY-SA 2.0, Wikimedia Commons</figcaption></figure>
+</div></section>
+
+</main>
+
+<a class="where" id="where" href="#top" aria-label="Back to the lift"><b id="where-n">G</b><span id="where-t">The street door</span></a>
+
+<footer class="gut"><div class="wrap">
+  <p>Halvern is a fictional letting and management agent made to show the Sitefloor letting kit. Its homes, rents, buildings, fees, scheme numbers (000000), owner stories, phone number and address are demo data. Photographs: the porch by Josh Withers on Unsplash, its carved building number taken out; St John's Wood High Street by Colin Smith (CC BY-SA 2.0) and the neighbourhood photographs on the demo, credited there. The building in 3D is drawn in code. The phone recordings and screens are of the Halvern demo. Rules from GOV.UK, checked 15 November 2026; general information for England, not legal advice.</p>
+  <span>© 2026 Sitefloor</span>
+</div></footer>
+
+<script>
+(() => {
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const $ = (s) => document.querySelector(s);
+
+  // ---------------------------------------------------------------- the indicator: seven floors on a 150° arc
+  const FLOORS = ["G", "1", "2", "3", "4", "5", "R"], cx = 450, cy = 430, R = 345;
+  const ang = (i) => -72 + i * 24; // degrees from upright
+  const rays = $("#rays"), nums = $("#nums"), ns = "http://www.w3.org/2000/svg";
+  for (let d = -84; d <= 84; d += 6) {
+    const a = d * Math.PI / 180, l = document.createElementNS(ns, "line");
+    l.setAttribute("x1", String(cx + Math.sin(a) * 60)); l.setAttribute("y1", String(cy - Math.cos(a) * 60));
+    l.setAttribute("x2", String(cx + Math.sin(a) * 372)); l.setAttribute("y2", String(cy - Math.cos(a) * 372));
+    rays.append(l);
+  }
+  const labels = FLOORS.map((f, i) => {
+    const a = ang(i) * Math.PI / 180, t = document.createElementNS(ns, "text");
+    t.setAttribute("x", String(cx + Math.sin(a) * R)); t.setAttribute("y", String(cy - Math.cos(a) * R + 16));
+    t.setAttribute("text-anchor", "middle"); t.setAttribute("class", "num"); t.textContent = f;
+    nums.append(t); return t;
+  });
+  const needle = $("#needle"), calls = [...document.querySelectorAll("#calls a")];
+  let at = 0;
+  const point = (i) => {
+    at = i;
+    needle.style.setProperty("--a", `${ang(i)}deg`);
+    labels.forEach((t, k) => t.classList.toggle("on", k === i));
+    calls.forEach((c, k) => c.classList.toggle("on", k === i));
+  };
+  point(0);
+  for (const c of calls) c.addEventListener("click", (e) => {
+    const i = Number(c.dataset.f), target = document.querySelector(c.getAttribute("href"));
+    if (!target) return;
+    e.preventDefault();
+    const far = Math.abs(i - at);
+    point(i);
+    // the needle travels, then the doors open on that floor
+    setTimeout(() => { target.scrollIntoView({ behavior: reduce ? "auto" : "smooth" }); history.replaceState(null, "", c.getAttribute("href")); target.setAttribute("tabindex", "-1"); target.focus({ preventScroll: true }); },
+      reduce ? 0 : 500 + far * 160);
+  });
+
+  // ---------------------------------------------------------------- where you are: the small plate
+  const where = $("#where"), wn = $("#where-n"), wt = $("#where-t"), hero = $(".hero");
+  const floors = [...document.querySelectorAll("[data-floor]")];
+  const seen = new Map();
+  const io = new IntersectionObserver((es) => {
+    for (const e of es) seen.set(e.target, e.isIntersecting ? e.intersectionRatio : 0);
+    let best = null, r = 0;
+    for (const [el, v] of seen) if (v > r) { r = v; best = el; }
+    if (best) { wn.textContent = best.dataset.floor; wt.textContent = best.dataset.name; }
+  }, { threshold: [0, .15, .3, .5] });
+  floors.forEach((f) => io.observe(f));
+  new IntersectionObserver(([e]) => where.classList.toggle("show", !e.isIntersecting)).observe(hero);
+
+  // ---------------------------------------------------------------- clips play only while seen
+  const vio = new IntersectionObserver((es) => { for (const e of es) { const v = e.target; if (e.isIntersecting && !reduce) { v.preload = "auto"; v.play().catch(() => {}); } else v.pause(); } }, { threshold: .4 });
+  // posters load only as a clip comes near, so the first screen's fonts arrive first
+  const pio = new IntersectionObserver((es) => { for (const e of es) if (e.isIntersecting) { const v = e.target; v.poster = v.dataset.poster; pio.unobserve(v); } }, { rootMargin: "800px 0px" });
+  document.querySelectorAll("video[data-play]").forEach((v) => { pio.observe(v); vio.observe(v); if (reduce) v.setAttribute("controls", ""); });
+
+  // ---------------------------------------------------------------- live: before the keys (Halvern's own sums)
+  const pounds = (n) => "£" + Math.floor(n).toLocaleString("en-GB");
+  const rent = $("#rent"), rows = $("#rows"), total = $("#total"), note = $("#note");
+  const calc = () => {
+    const pcm = Number(rent.value.replace(/\D/g, "").slice(0, 6)) || 0, year = pcm * 12, week = year / 52;
+    let r, t, n;
+    if (year > 100000) { r = [["Holding deposit", "–"], ["Tenancy deposit", "–"], ["First month, after signing", "–"]]; t = "Ask us"; n = "Over £100,000 a year the Tenant Fees Act doesn't apply; the terms are agreed in writing."; }
+    else {
+      const w = year >= 50000 ? 6 : 5, dep = Math.floor(week * w);
+      r = [["Holding deposit, one week", pounds(week)], [`Tenancy deposit, ${w === 6 ? "six" : "five"} weeks`, pounds(dep)], ["First month, after signing", pounds(pcm)]];
+      t = pounds(dep + pcm);
+      n = "With the tenant's agreement the holding deposit goes towards the first month. No other fees to move in." + (w === 6 ? " Six weeks applies from £50,000 a year." : "");
+    }
+    rows.replaceChildren(...r.flatMap(([k, v]) => { const dt = document.createElement("dt"), dd = document.createElement("dd"); dt.textContent = k; dd.textContent = v; return [dt, dd]; }));
+    total.textContent = t; note.textContent = n;
+  };
+  rent.addEventListener("input", () => { const n = Number(rent.value.replace(/\D/g, "").slice(0, 6)) || 0; rent.value = n ? n.toLocaleString("en-GB") : ""; calc(); });
+  calc();
+
+  // ---------------------------------------------------------------- live: moving in (Halvern's own steps)
+  const STEPS = [
+    { id: "accounts", label: "Energy, water and broadband in your name", offset: -7 },
+    { id: "checkin", label: "Check-in with the inventory clerk", offset: 0, time: "10:00" },
+    { id: "keys", label: "Keys and fobs handed over", offset: 0, time: "11:00" },
+    { id: "meters", label: "Meter readings, with photographs", offset: 0 },
+    { id: "alarms", label: "Test the smoke and carbon monoxide alarms", offset: 0 },
+    { id: "council", label: "Tell the council you've moved in, for council tax", offset: 1 },
+    { id: "inventory", label: "Send back the signed inventory, with your notes", offset: 7 },
+    { id: "deposit", label: "Your deposit's protection details should be with you", offset: 30, rule: true },
+  ];
+  const keys = $("#keys"), plan = $("#plan"), ics = $("#ics");
+  const add = (ymd, n) => { const [y, m, d] = ymd.split("-").map(Number); const t = new Date(Date.UTC(y, m - 1, d + n)); return t.toISOString().slice(0, 10); };
+  const say = (ymd) => new Date(ymd + "T12:00:00Z").toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", timeZone: "UTC" });
+  let planned = [];
+  const draw = () => {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(keys.value)) return;
+    planned = STEPS.map((s, i) => ({ ...s, i, date: add(keys.value, s.offset) }))
+      .sort((a, b) => a.date.localeCompare(b.date) || (a.time ?? "99").localeCompare(b.time ?? "99") || a.i - b.i);
+    plan.replaceChildren(...planned.map((p) => { const li = document.createElement("li"), w = document.createElement("span"), t = document.createElement("p");
+      w.textContent = say(p.date) + (p.time ? `, ${p.time}` : ""); t.textContent = p.label; if (p.rule) li.className = "rule"; li.append(w, t); return li; }));
+  };
+  keys.value = add(new Date().toISOString().slice(0, 10), 14);
+  keys.addEventListener("change", draw);
+  draw();
+  ics.addEventListener("click", () => {
+    const esc = (s) => s.replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,");
+    const stamp = new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d+/, "");
+    const tz = ["BEGIN:VTIMEZONE", "TZID:Europe/London", "BEGIN:DAYLIGHT", "TZOFFSETFROM:+0000", "TZOFFSETTO:+0100", "TZNAME:BST", "DTSTART:19700329T010000", "RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU", "END:DAYLIGHT",
+      "BEGIN:STANDARD", "TZOFFSETFROM:+0100", "TZOFFSETTO:+0000", "TZNAME:GMT", "DTSTART:19701025T020000", "RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU", "END:STANDARD", "END:VTIMEZONE"];
+    const ev = planned.flatMap((p) => { const d = p.date.replace(/-/g, ""), h = p.time ? p.time.replace(":", "") : "";
+      const s = p.time ? `DTSTART;TZID=Europe/London:${d}T${h}00` : `DTSTART;VALUE=DATE:${d}`;
+      const e = p.time ? `DTEND;TZID=Europe/London:${d}T${String(Number(h.slice(0, 2)) + 1).padStart(2, "0")}${h.slice(2)}00` : `DTEND;VALUE=DATE:${add(p.date, 1).replace(/-/g, "")}`;
+      return ["BEGIN:VEVENT", `UID:${p.id}-${d}@halvern-demo`, `DTSTAMP:${stamp}`, s, e, `SUMMARY:${esc(p.label)}`, "END:VEVENT"]; });
+    const file = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Sitefloor//Halvern demo move-in day//EN", ...tz, ...ev, "END:VCALENDAR"].join("\r\n") + "\r\n";
+    const url = URL.createObjectURL(new Blob([file], { type: "text/calendar" })), a = document.createElement("a");
+    a.href = url; a.download = "move-in-day.ics"; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
+})();
+</script>
+</body>
+</html>
