@@ -1,0 +1,12 @@
+{#- Travel by postcode: where she's getting ready in; free in the artist's area, her fee for that district, or ask. -#}
+{%- set sec = site.sections.travel %}
+{%- set tv = site.travel %}
+<section id="travel" class="bb-tv" data-feature="bridalbeauty-travel"{{ "bridalbeauty-travel" | tierAttr | safe }} aria-labelledby="bb-tv-h"><div class="wrap bb-tv-in">
+  <h2 class="bb-h2" id="bb-tv-h">{{ sec.title | markup | safe }}</h2>
+  <form class="bb-tv-form" data-tv-form>
+    <label class="bb-lab" for="bb-tv-pc">The postcode you're getting ready at</label>
+    <input id="bb-tv-pc" data-tv-pc type="text" inputmode="text" autocomplete="postal-code" autocapitalize="characters" spellcheck="false" maxlength="8" placeholder="e.g. SW4 0AB">
+    <p class="bb-tv-out" data-tv-out data-state="idle" aria-live="polite">{{ tv.note }}</p>
+    <a class="bb-link" data-tv-ask href="{{ tv.message | travelText | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ tv.message | travelText }}"{% endif %} target="_blank" rel="noopener">Ask about travel</a>
+  </form>
+</div></section>

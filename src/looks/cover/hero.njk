@@ -1,0 +1,37 @@
+{#- The cover. One finished bride full-bleed; the artist's name as the masthead (the page's h1): above her head by
+    default, behind it when hero.cutout gives the same photo with only her head and hair kept. The cover lines are the
+    real answers, worked by bridalbeauty-cover.js: her date (or the next open Saturday), trial and wedding day for the
+    service she picks, and what time we start. "On the cover" names the look. -#}
+{%- set h = site.hero %}{% set pk = site.packages %}{% set mo = site.morning %}
+{%- set datesOn = "bridalbeauty-dates" | enabled %}{% set startOn = "bridalbeauty-start" | enabled %}
+<section class="hero cv{% if h.cutout %} cv-behind{% else %} cv-above{% endif %}" id="cover" data-feature="bridalbeauty-cover" aria-label="The cover"
+  style="--n: {{ site.business.name | length }}; --fw: {{ (h.focus.wide if h.focus and h.focus.wide) or '50% 30%' }}; --fp: {{ (h.focus.phone if h.focus and h.focus.phone) or '50% 30%' }}">
+  <h1 class="cv-mast">{{ site.business.name }}</h1>
+  <div class="cv-frame">
+    <img class="cv-ph" src="{{ h.photo.src | img }}" alt="{{ h.photo.alt }}" width="{{ h.photo.width }}" height="{{ h.photo.height }}" fetchpriority="high" decoding="async">
+    {%- if h.cutout %}<img class="cv-ph cv-cut" src="{{ h.cutout.src | img }}" alt="" width="{{ h.photo.width }}" height="{{ h.photo.height }}" decoding="async" aria-hidden="true">{% endif %}
+  </div>
+  <form class="cv-lines" data-cv-form aria-label="Your date, your price{% if startOn %} and your start time{% endif %}">
+    <div class="cv-l cv-l-date">
+      {%- if datesOn %}
+      <p class="cv-k" data-cv-k>Your date</p>
+      <p class="cv-date"><label class="bb-pick"><span data-cv-date-text>Choose your date</span><input type="date" data-cv-date min="{{ build.today }}" aria-label="Your wedding date"></label></p>
+      <p class="cv-word" data-cv-word aria-live="polite"></p>
+      <p class="cv-words" data-cv-words>Choose your wedding date.</p>
+      {%- endif %}
+      <p class="cv-mid">Trial and wedding day <span data-cv-price>{{ pk.bride[0].price | gbp }}</span><br>
+        {%- if pk.bride.length > 1 %}<label class="bb-pick"><span data-cv-svc-text>{{ pk.bride[0].name | lower }}</span><select data-cv-svc aria-label="Service">{% for x in pk.bride %}<option value="{{ x.id }}">{{ x.name | lower }}</option>{% endfor %}</select></label>
+        {%- else %}<span>{{ pk.bride[0].name | lower }}</span>{% endif %}</p>
+      {%- if datesOn %}<a class="cv-ask" data-cv-ask href="{{ site.dateCheck.message | dateText | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.dateCheck.message | dateText }}"{% endif %} target="_blank" rel="noopener">Ask about your date</a>{% endif %}
+    </div>
+    <div class="cv-l cv-l-time">
+      {%- if startOn %}{% set fm = site | firstMorning %}
+      <p class="cv-k">Your morning</p>
+      <p class="cv-big"><span data-cv-startlab>We start at </span><span data-cv-start>{{ fm.start }}</span></p>
+      <p class="cv-mid">for a <label class="bb-pick"><span data-cv-cer-text>{{ fm.ceremony }}</span><select data-cv-cer aria-label="Ceremony time">{% for t in mo.ceremony.times %}<option value="{{ t }}"{% if t == mo.ceremony.default %} selected{% endif %}>{{ t | clockWords }}</option>{% endfor %}</select></label> ceremony, <span data-cv-people>{{ "just you" if fm.people == "one" else fm.people + " of you" }}</span></p>
+      <p class="cv-early" data-cv-early{% if not fm.early %} hidden{% endif %}>Before {{ mo.earlyStart.before | clockWords }}, the early-start fee of {{ mo.earlyStart.fee | gbp }} applies.</p>
+      {%- endif %}
+      <p class="cv-star"><b>On the cover:</b> {{ h.star }}</p>
+    </div>
+  </form>
+</section>

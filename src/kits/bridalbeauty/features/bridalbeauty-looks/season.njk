@@ -1,0 +1,15 @@
+{#- This season: four of the artist's brides in a plain row, each look named for its makeup and hair. -#}
+{%- set sec = site.sections.season %}
+{%- set lk = site.looks %}
+<section id="season" class="bb-ss" aria-labelledby="bb-ss-h"><div class="wrap">
+  <div class="bb-ss-head">
+    <h2 class="bb-h2" id="bb-ss-h">{{ sec.title | markup | safe }}</h2>
+    {%- if "bridalbeauty-looks" | enabled %}<a class="bb-link" href="{{ 'looks' | href }}"{{ "bridalbeauty-looks" | tierAttr | safe }}>Every look</a>{% endif %}
+  </div>
+  <ul class="bb-ss-row" tabindex="0" aria-label="This season's looks">
+    {%- for x in lk.items | byIds(lk.season) %}
+    <li><figure><img src="{{ x.photo.src | img }}" alt="{{ x.photo.alt }}" width="{{ x.photo.width }}" height="{{ x.photo.height }}" loading="lazy" decoding="async">
+      <figcaption><b>{{ x.name }}</b>{{ bbWords.finish[x.finish] }}, {{ bbWords.hair[x.hair] | lower }} · {{ x.minutes | mins }}</figcaption></figure></li>
+    {%- endfor %}
+  </ul>
+</div></section>

@@ -1,0 +1,11 @@
+{#- A guide page (`g`, one of site.guides): its name very large, its line beneath, its blocks, then the other guides. -#}
+{%- set ph = { title: g.title, intro: g.intro } %}{% set phPhoto = g.photo %}
+{% include "kits/bridalbeauty/partials/page-head.njk" %}
+<div class="wrap bb-gd" data-feature="bridalbeauty-guides">
+  {%- set blocks = g.blocks %}{% include "kits/bridalbeauty/partials/blocks.njk" %}
+  {%- set others = site | bbMenu(pageId) %}
+  <nav class="bb-gd-more" aria-label="More pages">
+    <p class="bb-gd-more-h">Also inside</p>
+    <ul>{% for o in others %}{% if not o.current %}<li><a href="{{ o.slug | href }}">{{ o.label }}</a></li>{% endif %}{% endfor %}</ul>
+  </nav>
+</div>

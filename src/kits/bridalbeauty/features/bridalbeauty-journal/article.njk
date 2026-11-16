@@ -1,0 +1,10 @@
+{#- One journal piece (`a`): its title very large, its line and photograph, its blocks, then the other pieces. -#}
+{%- set ph = { title: a.title, intro: a.line } %}{% set phPhoto = a.photo %}
+{% include "kits/bridalbeauty/partials/page-head.njk" %}
+<div class="wrap bb-gd" data-feature="bridalbeauty-journal">
+  {%- set blocks = a.blocks %}{% include "kits/bridalbeauty/partials/blocks.njk" %}
+  <nav class="bb-gd-more" aria-label="More from the journal">
+    <p class="bb-gd-more-h">More from <a href="{{ 'journal' | href }}">{{ site.journal.title | lower }}</a></p>
+    <ul>{% for o in site.journal.items %}{% if o.slug != a.slug %}<li><a href="{{ ('journal-' + o.slug) | href }}">{{ o.title }}</a></li>{% endif %}{% endfor %}</ul>
+  </nav>
+</div>
