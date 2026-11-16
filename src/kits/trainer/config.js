@@ -24,23 +24,70 @@ const ID = /^[a-z0-9-]{1,40}$/;
 const POUNDS = (/** @type {any} */ v) => Number.isInteger(v) && v >= 0 && v <= 100000;
 const SLUG = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 const STRIPE = /^https:\/\/(buy|donate)\.stripe\.com\/[A-Za-z0-9_-]+$/;
-/** A trainer trains alongside a physio or GP; the site never says it treats anything. */
-const TREATS = /\b(treat(s|ing|ment)?|cures?|fix(es|ing)?|heals?|rehabilitates?|diagnos\w*)\b/i;
 
-/** Words a trainer's site never uses: promised weight loss, sizes, guarantees, timed results. */
+/** A number as a trainer might write it: digits, words, "a", "half a". */
+const N = String.raw`(?:\d+(?:\.\d+)?|an?|half an?|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|fifteen|twenty|thirty|forty|fifty|sixty|ninety|a few|several)`;
+const T = String.raw`(?:days?|weeks?|months?)`;
+const BODY = String.raw`(?:abs|six[- ]?pack|leaner|slimmer|thinner|lighter|toned|shredded|ripped|beach body|best body|new you|dream body|bikini body)`;
+
+/** Words a trainer's site never uses: promised weight or size loss, guarantees, results by a date, bodies by a date. */
 const PROMISES = [
-  /\b(lose|drop|shed|burn off)\s+(up to\s+)?\d+(\.\d+)?\s*(kg|kilos?|kilograms?|lbs?|pounds|stone|st)\b/i,
-  /\bdress sizes?\b/i,
+  new RegExp(String.raw`\b(lose|losing|drop|dropping|shed|shedding|burn(?:\s+off)?|melt|shred|knock\s+off|take\s+off)\s+(?:up\s+to\s+)?${N}\s*(kg|kilos?|kilograms?|lbs?|pounds|stones?|st|inch(?:es)?|cm|dress\s+sizes?|sizes?)\b`, "i"),
+  /\bdress\s+sizes?\b/i,
   /\bguarantee[ds]?\b/i,
-  /\bresults?\s+(in|within)\s+\d+\s+(days?|weeks?)\b/i,
-  /\b(\d+|a|one|two|three|four)\s+(days?|weeks?)\s+to\s+(a\s+)?(new|better|slimmer|leaner)\b/i,
+  new RegExp(String.raw`\b(results?|difference|change|transformation)s?\s+(?:in|within|after|by)\s+(?:just\s+)?${N}\s+${T}\b`, "i"),
+  new RegExp(String.raw`\b${N}\s+${T}\s+to\s+(?:an?\s+|your\s+|the\s+)?(?:new|better|slimmer|leaner|fitter|stronger|toned|best|flatter|dream)\b`, "i"),
+  new RegExp(String.raw`\b${BODY}\b[^.!?]{0,40}\b(?:in|within|by|after)\s+(?:just\s+)?${N}\s+${T}\b`, "i"),
+  new RegExp(String.raw`\b(?:in|within|by|after)\s+(?:just\s+)?${N}\s+${T}\b[^.!?]{0,40}\b${BODY}\b`, "i"),
+  /\b(visible|flat|chiselled|chiseled)\s+(abs|stomach|tummy|belly)\b/i,
+  /\binch(es)?\s+off\b/i,
+  /\b(melt|shred|torch|blast|burn)\s+(?:the\s+|away\s+|off\s+|your\s+)?(fat|belly|calories|pounds)\b/i,
+  /\bfat[- ]burning\b/i,
+  /\b(best|dream|beach|bikini)\s+body\b/i,
 ];
 
-/** @param {any} v @param {string} path @param {Report} err */
-function claims(v, path, err) {
-  if (typeof v === "string") { if (PROMISES.some((re) => re.test(v))) err(path, "reads as a promise of results (weight, size, a guarantee or a timed result); say what the sessions are, not what they'll do"); return; }
-  if (Array.isArray(v)) v.forEach((x, i) => claims(x, `${path}[${i}]`, err));
-  else if (isObj(v)) for (const [k, x] of Object.entries(v)) if (!["src", "csvUrl", "registerUrl", "url"].includes(k)) claims(x, `${path}.${k}`, err);
+/**
+ * Health claims a trainer can't make: they train alongside a physio or GP, never treat. Someone else's treatment ("once
+ * your physio's treatment has finished") and gifting ("treat someone") are fine, so those are taken out first.
+ */
+const ALLOWED_TREAT = [
+  /\b(?:your|their|the|a|my|his|her)\s+(?:physio(?:therapist)?|GP|doctor|midwife|consultant|osteopath|chiropractor|hospital|medical|NHS)(?:'s|s')?\s+(?:treatment|treats|treated)\b/gi,
+  /\b(?:physio(?:therapy)?|medical|hospital|NHS|GP)\s+treatment\b/gi,
+  /\btreat\s+(?:yourself|someone|them|him|her|a\s+friend|your\s+\w+)\b/gi,
+];
+const TREATS = /\b(treat(s|ed|ing|ment)?|cures?|cured|curing|fix(es|ing)?|heals?|healed|healing|repairs?|repaired|repairing|rehabilitat\w*|diagnos\w*|gets?\s+rid\s+of|pain[- ]free|recover(s|ing|ed)?\s+from)\b/i;
+
+/** @param {string} v */
+const treats = (v) => TREATS.test(ALLOWED_TREAT.reduce((t, re) => t.replace(re, ""), v));
+
+/** Setting names that hold addresses, links or ids, never copy. */
+const NOT_COPY = ["src", "srcMobile", "csvUrl", "registerUrl", "url", "href", "payLink", "directionsUrl", "feedUrl", "profile", "image", "id", "kind", "page", "feature", "source"];
+
+/** Every string of copy under v, with its path. @param {any} v @param {string} path @param {(s: string, path: string) => void} fn */
+function eachCopy(v, path, fn) {
+  if (typeof v === "string") fn(v, path);
+  else if (Array.isArray(v)) v.forEach((x, i) => eachCopy(x, `${path}[${i}]`, fn));
+  else if (isObj(v)) for (const [k, x] of Object.entries(v)) if (!NOT_COPY.includes(k)) eachCopy(x, `${path}.${k}`, fn);
+}
+
+/** @param {string} str @param {string} path @param {Report} err */
+function copyClaim(str, path, err) {
+  if (PROMISES.some((re) => re.test(str))) err(path, "reads as a promise of results (weight, size, a body or a result by a date, a guarantee); say what the sessions are, not what they'll do");
+  else if (treats(str)) err(path, "reads as a health claim (treats, fixes, cures, repairs, pain-free…); a trainer trains alongside a physio or GP. Someone else's treatment is fine to mention");
+}
+
+/** Settings that aren't the trainer's copy: Google reviews (the reviewer's words, copied as written) and the rest. */
+const NOT_TRAINER_COPY = ["reviews", "qualifications", "schemaVersion", "id", "mode", "plan", "kit", "look", "url", "indexable", "lang", "features", "addons", "contact", "booking", "brand"];
+
+/**
+ * The trainer's copy, everywhere: no promised results, no health claims. Qualification names are the awarding body's,
+ * so only the trainer's own lines about them are checked.
+ * @param {any} site @param {Report} err
+ */
+function checkCopy(site, err) {
+  for (const [k, v] of Object.entries(site)) if (!NOT_TRAINER_COPY.includes(k)) eachCopy(v, k, (str, path) => copyClaim(str, path, err));
+  const q = site.qualifications;
+  if (isObj(q)) for (const k of ["title", "intro", "insured", "firstAid"]) if (typeof q[k] === "string") copyClaim(q[k], `qualifications.${k}`, err);
 }
 
 /** @param {Report} err @param {string} path @param {any} v */
@@ -232,13 +279,8 @@ function checkProgramme(site, x, at, err, exists) {
   const careful = ["prenatal", "rehab"].includes(x?.kind);
   if (careful) text(err, `${at}.care`, x?.care);
   if (careful || x?.qualification !== undefined) held(site, err, `${at}.qualification`, x?.qualification);
-  if (x?.kind === "rehab") noTreating(x, at, err);
 }
 
-/** @param {any} x @param {string} at @param {Report} err */
-function noTreating(x, at, err) {
-  for (const k of ["name", "line", "who", "text"]) if (JSON.stringify(x?.[k] ?? "").match(TREATS)) err(`${at}.${k}`, "a trainer trains alongside a physio or GP; never say the sessions treat, fix or cure");
-}
 
 /** @param {any} site @param {Report} err @param {Exists} exists */
 function checkProgrammes(site, err, exists) {
@@ -403,14 +445,15 @@ function checkOnline(o, err) {
   }
 }
 
-/** Prices and blocks. @param {any} p @param {Report} err */
-function checkPricesPage(p, err) {
+/** Prices and blocks. @param {any} p @param {string} mode @param {Report} err */
+function checkPricesPage(p, mode, err) {
   if (!isObj(p)) { err("pricesPage", "{ title, blocks }"); return; }
   onlyKeys(p, ["title", "intro", "blocks", "note"], "pricesPage", err);
   pageHead(err, "pricesPage", p);
   if (p.note !== undefined) text(err, "pricesPage.note", p.note);
   if (!list(err, "pricesPage.blocks", p.blocks, "block: { sessions, price, duo, useWithin, payLink }")) return;
   p.blocks.forEach((/** @type {any} */ b, /** @type {number} */ i) => checkBlock(b, i, p.blocks, err));
+  if (mode === "demo") p.blocks.forEach((/** @type {any} */ b, /** @type {number} */ i) => { if (b?.payLink !== undefined && !/\/test_/.test(String(b.payLink))) err(`pricesPage.blocks[${i}].payLink`, "a demo takes no money: a Stripe test link (…/test_…) or none"); });
 }
 
 /** @param {any} b @param {number} i @param {any[]} all @param {Report} err */
@@ -456,13 +499,11 @@ function checkMore(site, err, exists) {
   if (site.timeline !== undefined) checkTimeline(site.timeline, err);
   if (site.packages !== undefined) checkPackages(site.packages, err, exists);
   if (site.checklist !== undefined) checkChecklist(site.checklist, err);
-  if (site.pricesPage !== undefined) checkPricesPage(site.pricesPage, err);
+  if (site.pricesPage !== undefined) checkPricesPage(site.pricesPage, site.mode, err);
   if (site.journal !== undefined) checkJournal(site.journal, err, exists);
   checkWordPages(site, err, exists);
 }
 
-/** Everything the trainer writes is checked for promised results. */
-const WORDS = ["hero", "firstMonth", "sessions", "qualifications", "questions", "business", "programmes", "goalFinder", "stories", "coverage", "timeline", "packages", "checklist", "startHere", "online", "nutrition", "studio", "pricesPage", "journal", "staff", "team"];
 
 /** @param {any} site @param {Report} err @param {Exists} [exists] */
 export function checkTrainer(site, err, exists) {
@@ -472,5 +513,5 @@ export function checkTrainer(site, err, exists) {
   if (site.qualifications !== undefined) checkQualifications(site.qualifications, err);
   if (site.sessions !== undefined) checkSessions(site.sessions, err);
   checkMore(site, err, exists);
-  for (const k of WORDS) if (site[k] !== undefined) claims(site[k], k, err);
+  checkCopy(site, err);
 }

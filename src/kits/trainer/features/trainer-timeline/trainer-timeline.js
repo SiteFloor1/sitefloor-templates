@@ -36,14 +36,14 @@ export function init(root, ctx) {
   const paint = () => {
     nGroup.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(Number(b.dataset.n) === per)));
     const start = date.value && date.value > today ? date.value : monday;
-    plan = timeline({ start, perWeek: per, postcode: cfg.postcode, closed: cfg.closed, phases: cfg.phases });
+    plan = timeline({ start, perWeek: per, postcode: cfg.postcode, closed: cfg.closed, weekly: cfg.weekly ?? undefined, time: time.value, minutes: cfg.minutes, phases: cfg.phases });
     for (const w of plan.weeks) {
       const ul = root.querySelector(`[data-ttl-week="${w.n}"]`);
       if (ul) ul.innerHTML = w.sessions.map((s) => s.holiday ? `<li class="off"><s>${short(s.date)}</s><small>closed</small></li>` : `<li>${short(s.date)}</li>`).join("");
     }
     const each = cfg.session[String(per)] ?? 0;
     const n = plan.booked.length;
-    const off = plan.holidays.length ? ` ${plan.holidays.map(short).join(", ")} left out (bank holiday or closed).` : "";
+    const off = plan.holidays.length ? ` ${plan.holidays.map(short).join(", ")} left out (a bank holiday, or the studio is closed then).` : "";
     sum.innerHTML = `<b>${n} sessions</b>, ${OFTEN[/** @type {1|2|3} */ (per)]} at ${time.value}, ${short(plan.booked[0] ?? start)} to ${short(plan.finish)}. <b>${gbp(n * each)}</b> at ${gbp(each)} a session, paid as you go.${off}`;
     ics.hidden = !n;
     const text = `${cfg.message} ${OFTEN[/** @type {1|2|3} */ (per)]} at ${time.value}, starting ${longDate(plan.booked[0] ?? start)}: ${n} sessions to ${longDate(plan.finish)}.`;

@@ -209,6 +209,16 @@ a { color: inherit; }
 .lt-k { list-style: none; padding: 0; margin: 16px 0; display: flex; flex-wrap: wrap; gap: 6px 18px; color: var(--muted); }
 .lt-k li::before { content: "· "; color: var(--accent); }
 
+/* coaches filter: who's best for what, as quiet rule-edged buttons */
+.lt-filter { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; padding: 24px 0; border-bottom: 1px solid var(--line); }
+.lt-filter-k { color: var(--muted); font-style: italic; }
+.lt-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.lt-chips button { min-height: 44px; padding: 0 14px; background: none; border: 1px solid var(--line-2); color: var(--text); font: 400 16px var(--font-body); cursor: pointer; }
+.lt-chips button[aria-pressed="true"] { border-color: var(--text); box-shadow: inset 0 -2px 0 var(--accent); font-weight: 600; }
+.lt-count { color: var(--muted); }
+.lt-p[hidden] { display: none; }
+.lt-best { margin-top: 10px; color: var(--muted); font-style: italic; }
+
 /* plan your visit */
 .lpv-checked { color: var(--muted); font-style: italic; }
 .lpv-status { display: flex; align-items: center; gap: 10px; margin-top: 8px; font-weight: 600; }

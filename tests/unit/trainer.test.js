@@ -145,7 +145,7 @@ test("hosted sections leave the home page only for a page that exists in the kit
 test("programmes rest on qualifications the trainer holds and never treat", () => {
   assert.match(errorsFor((s) => { s.programmes.items[1].qualification = "Level 4 Certificate in Something Else"; }), /programmes\.items\[1\]\.qualification: .*only what the trainer holds/);
   assert.match(errorsFor((s) => { delete s.programmes.items[1].care; }), /programmes\.items\[1\]\.care/);
-  assert.match(errorsFor((s) => { s.programmes.items[2].line = "Sessions that fix back pain."; }), /never say the sessions treat, fix or cure/);
+  assert.match(errorsFor((s) => { s.programmes.items[2].line = "Sessions that fix back pain."; }), /reads as a health claim/);
   assert.match(errorsFor((s) => { s.programmes.items[0].text.push("Lose 5 kg in a month."); }), /promise of results/);
   assert.match(errorsFor((s) => { s.goalFinder.goals[0].programme = "nope"; }), /goalFinder\.goals\[0\]\.programme/);
   assert.match(errorsFor((s) => { s.nutrition.qualification = "A diploma I don't have"; }), /nutrition\.qualification/);
@@ -165,4 +165,45 @@ test("prices, phases, packages and coverage are checked", () => {
   assert.match(errorsFor((s) => { s.packages.items[0].people = 1; }), /packages\.items\[0\]\.people/);
   assert.match(errorsFor((s) => { s.coverage.areas[0].districts = ["Chelsea"]; }), /postcode districts/);
   assert.match(errorsFor((s) => { s.journal.articles[1].slug = s.journal.articles[0].slug; }), /used twice/);
+});
+
+test("promised results are refused in every piece of the trainer's copy (TR-01)", () => {
+  const bad = ["Lose a stone in eight weeks.", "Lose two stone.", "Drop half a stone before summer.", "Results after 12 weeks.", "Six weeks to a leaner you.",
+    "Visible abs in 30 days.", "Inches off your waist.", "Melt fat fast.", "Shred 10lbs.", "Your best body in 90 days.", "Abs by summer in twelve weeks."];
+  for (const line of bad) assert.match(errorsFor((s) => { s.programmes.items[3].line = line; }), /promise of results/, line);
+  // Everywhere the trainer writes: vouchers, seasonal banners, the photo band, page links, the gallery, messages, Plan your visit.
+  const places = [(s, v) => { s.vouchers.terms = v; }, (s, v) => { s.seasons[0].banner = v; }, (s, v) => { s.photoBand.caption = v; }, (s, v) => { s.pageLinks[0].title = v; },
+    (s, v) => { s.gallery.photos[0].caption = v; }, (s, v) => { s.messages.general = v; }, (s, v) => { s.visitInfo.intro = v; }, (s, v) => { s.qualifications.insured = v; }];
+  for (const put of places) assert.match(errorsFor((s) => put(s, "Lose 2 stone by summer, guaranteed.")), /promise of results/);
+  // Honest lines stay allowed.
+  const fine = ["Twelve weeks, every session dated.", "Six weeks after the birth, once your GP says so.", "The empty bar weighs twenty kilos.", "Forty-five minutes of strength."];
+  for (const line of fine) assert.doesNotMatch(errorsFor((s) => { s.programmes.items[3].line = line; }), /promise|health claim/, line);
+  // Google reviews are the reviewer's own words.
+  assert.equal(errorsFor((s) => { s.reviews.items[0].text = "Lost a stone in eight weeks!"; }), "");
+});
+
+test("health claims are refused on every field and in all copy; someone else's treatment is fine (TR-02)", () => {
+  const bad = [(s) => { s.programmes.items[1].line = "Treats diastasis recti and pelvic floor dysfunction."; }, (s) => { s.programmes.items[1].text[0] = "Fixes your pelvic floor."; },
+    (s) => { s.programmes.items[2].line = "We'll get rid of your back pain."; }, (s) => { s.programmes.items[2].who = "Pain-free in six weeks."; },
+    (s) => { s.programmes.items[2].text[0] = "Sessions that repair your knee."; }, (s) => { s.programmes.items[2].care = "We treat knee pain alongside your physio."; },
+    (s) => { s.programmes.items[2].sessions[0] = "Recover from your injury"; }, (s) => { s.nutrition.approach[0] = "Food that heals."; },
+    (s) => { s.journal.articles[0].body[0] = "Kettlebells cure back pain."; }, (s) => { s.questions[0].a = "I'll fix your posture."; }];
+  for (const change of bad) assert.match(errorsFor(change), /health claim/);
+  const fine = [(s) => { s.programmes.items[2].who = "Once your physio treatment has finished, or your physio's treatment is under way."; },
+    (s) => { s.programmes.items[2].care = "I'll fit around your GP's treatment."; }, (s) => { s.vouchers.howToBuy = "Treat someone to a first month."; }];
+  for (const change of fine) assert.equal(errorsFor(change), "");
+});
+
+test("a demo takes no money; the twelve weeks keep to the opening hours (TR-03, TR-06)", () => {
+  assert.match(errorsFor((s) => { s.pricesPage.blocks[1].payLink = "https://buy.stripe.com/abc123"; }), /a demo takes no money/);
+  assert.equal(errorsFor((s) => { s.pricesPage.blocks[1].payLink = "https://buy.stripe.com/test_abc123"; }), "");
+  assert.equal(errorsFor((s) => { s.pricesPage.blocks[1].payLink = "https://buy.stripe.com/abc123"; }, client), "");
+  const phases = [{ from: 1, to: 12, name: "All" }];
+  const weekly = { mon: [["06:00", "21:00"]], tue: [["06:00", "21:00"]], wed: [["06:00", "21:00"]], thu: [["06:00", "21:00"]], fri: [["06:00", "21:00"]], sat: [["07:00", "14:00"]], sun: [] };
+  // Saturday at 19:00: closed (Saturday ends at 14:00); Tuesday after it, fine.
+  const sat = timeline({ start: "2027-01-09", perWeek: 2, postcode: "SW3 2QF", weekly, time: "19:00", minutes: 60, phases });
+  assert.deepEqual(sat.weeks[0].sessions, [{ date: "2027-01-09", holiday: true }, { date: "2027-01-12", holiday: false }]);
+  // A session must end by closing: 20:30 for an hour runs past 21:00.
+  assert.equal(timeline({ start: "2027-01-11", perWeek: 1, postcode: "SW3 2QF", weekly, time: "20:30", minutes: 60, phases }).booked.length, 0);
+  assert.equal(timeline({ start: "2027-01-11", perWeek: 1, postcode: "SW3 2QF", weekly, time: "07:00", minutes: 60, phases }).booked.length, 11); // Easter Monday, 29 Mar 2027, left out
 });

@@ -3,6 +3,16 @@
 {%- set ph = { title: site.team.title, intro: site.team.intro } %}
 {% include "kits/trainer/partials/page-head.njk" %}
 <div class="wrap lt" data-feature="team">
+  {%- if site.team.filters %}
+  <div class="lt-filter">
+    <span class="lt-filter-k" id="tf-label">{{ site.team.filtersLabel or "Who's best for" }}</span>
+    <div class="lt-chips" role="group" aria-labelledby="tf-label" data-team-chips>
+      <button type="button" aria-pressed="true" data-tag="">Everyone</button>
+      {%- for f in site.team.filters %}<button type="button" aria-pressed="false" data-tag="{{ f.tag }}">{{ f.label }}</button>{% endfor %}
+    </div>
+    <p class="lt-count" data-team-count role="status"></p>
+  </div>
+  {%- endif %}
   {%- for s in site.staff %}
   <article class="lt-p" id="{{ s.name | slug }}" data-tags="{{ (s.tags or []) | join(' ') }}">
     {%- if s.photo %}<img class="lt-ph" src="{{ s.photo | img }}" alt="{{ s.name }}" loading="{{ 'eager' if loop.first else 'lazy' }}" decoding="async" width="720" height="900">{% endif %}
@@ -11,6 +21,8 @@
       <h2>{{ s.name }}</h2>
       {%- if s.bio %}<p>{{ s.bio }}</p>{% endif %}
       {%- if s.quote %}<blockquote>{{ s.quote }}</blockquote>{% endif %}
+      {%- set best = site.team.filters | withTags(s.tags) %}
+      {%- if best.length %}<p class="lt-best">{{ site.team.filtersLabel or "Best for" }}: {% for f in best %}{{ f.label }}{% if not loop.last %} · {% endif %}{% endfor %}</p>{% endif %}
       {%- if s.knownFor %}<ul class="lt-k">{% for k in s.knownFor %}<li>{{ k }}</li>{% endfor %}</ul>{% endif %}
       {%- if not site.team.showcase %}{% set msg = site.messages.general + " Could I have an hour with " + s.name + "?" %}
       <p><a class="go" href="{{ msg | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ msg }}"{% endif %} target="_blank" rel="noopener">Ask for an hour with {{ s.name }}</a></p>{% endif %}

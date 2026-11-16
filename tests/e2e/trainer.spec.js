@@ -137,3 +137,13 @@ test("the checklist counts ticks and the company request writes the message", as
   expect(await waText(page.locator("[data-tpk-go]"))).toBe("Hello, I'd like to ask about a package: The studio, for a team, 5 people, Wed, for Harbour & Co.");
   await srv.close();
 });
+
+test("the coaches filter works in Linen: who's best for what (TR-04)", async ({ page }) => {
+  const c = await start(client);
+  await page.goto(c.base + "/team");
+  await page.locator("[data-team-chips]").getByRole("button", { name: "Pregnancy and after" }).click();
+  await expect(page.locator("article.lt-p:visible")).toHaveCount(1);
+  await expect(page.locator("article.lt-p:visible h2")).toHaveText("Ruth");
+  await expect(page.locator("[data-team-count]")).not.toBeEmpty();
+  await c.close();
+});

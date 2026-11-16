@@ -207,9 +207,10 @@ export function coverageFor(postcode, areas) {
 
 /**
  * Twelve weeks (or `weeks`) laid out from a first session: n sessions a week on the same weekdays at the same time.
- * Bank holidays (from the studio's postcode) and days the studio is closed are marked and not booked. Each week carries the phase the trainer names
+ * Bank holidays (from the studio's postcode), days the studio is closed and sessions outside that weekday's opening
+ * hours (`weekly`, with `time` and `minutes`) are marked and not booked. Each week carries the phase the trainer names
  * for it. Nothing about outcomes: only dates.
- * @param {{ start: string, perWeek: number, weeks?: number, postcode: string, closed?: string[], phases: { from: number, to: number, name: string }[] }} o
+ * @param {{ start: string, perWeek: number, weeks?: number, postcode: string, closed?: string[], weekly?: Record<string, string[][]>, time?: string, minutes?: number, phases: { from: number, to: number, name: string }[] }} o
  * @returns {{ weeks: { n: number, phase: string, sessions: { date: string, holiday: boolean }[] }[], booked: string[], holidays: string[], finish: string }}
  */
 export function timeline(o) {
@@ -225,13 +226,23 @@ export function timeline(o) {
     const sessions = [];
     for (let d = 0; d < 7; d++) {
       const date = addDaysYmd(o.start, w * 7 + d);
-      if (pattern.includes(weekdayIndex(date))) sessions.push({ date, holiday: hols.has(date) });
+      if (pattern.includes(weekdayIndex(date))) sessions.push({ date, holiday: hols.has(date) || !openAt(o, date) });
     }
     weeks.push({ n: w + 1, phase, sessions });
   }
   const all = weeks.flatMap((w) => w.sessions);
   const booked = all.filter((x) => !x.holiday).map((x) => x.date);
   return { weeks, booked, holidays: all.filter((x) => x.holiday).map((x) => x.date), finish: booked[booked.length - 1] ?? o.start };
+}
+
+/**
+ * Is the studio open for the whole session that day (opening hours as `hours.weekly`)? True when no hours are given.
+ * @param {{ weekly?: Record<string, string[][]>, time?: string, minutes?: number }} o @param {string} date
+ */
+function openAt(o, date) {
+  if (!o.weekly || !o.time) return true;
+  const start = toMinutes(o.time), end = start + (o.minutes ?? 60);
+  return (o.weekly[WEEKDAYS[weekdayIndex(date)]] ?? []).some(([f, t]) => start >= toMinutes(f) && end <= toMinutes(t));
 }
 
 /**
