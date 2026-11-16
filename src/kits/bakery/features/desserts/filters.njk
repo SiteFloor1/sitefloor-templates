@@ -6,7 +6,7 @@
     {%- endif %}{% endfor %}
   </div>
   <details class="bk-avoid">
-    <summary><span>Hide anything containing…</span> <b data-avoid-count></b></summary>
+    <summary aria-label="Hide anything containing"><span>Hide anything containing…</span> <b data-avoid-count></b></summary>
     <div class="bk-avoid-list" role="group" aria-label="Hide items containing">
       {%- for a in sweets.allergens %}<label class="bk-chip no"><input type="checkbox" value="{{ a.id }}" data-avoid> {{ a.name }}</label>{% endfor %}
     </div>
