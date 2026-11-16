@@ -50,7 +50,8 @@ test("the cover answers her date, her price and her start time, and the party mo
   expect(quote).toContain("a 6:15am start");
   for (let i = 0; i < 4; i++) await page.locator('#party [data-step="maid"] button[data-d="1"]').click();
   await page.selectOption("[data-cv-cer]", "11:00");
-  await expect(page.locator("[data-cv-start]")).toHaveText("Ask me about timing.");
+  await expect(page.locator("[data-cv-start]")).toHaveText("This one needs planning — message me.");
+  await expect(page.locator("[data-pt-start]")).toHaveText("This one needs planning — message me.");
   await expect(page.locator("[data-cv-startlab]")).toBeHidden();
   expect(errors).toEqual([]);
   await srv.close();
@@ -78,6 +79,11 @@ test("the morning page works back from the ceremony and gives everyone their tim
   await expect(page.locator("[data-mo-rows] li.is-bride span")).toHaveText("10:55am");
   await expect(page.locator("[data-mo-leave]")).toHaveText("1:40pm");
   await expect(page.locator("[data-mo-ics]")).toBeHidden();
+  // The times sit in their own column, clear of the names.
+  for (const li of await page.locator("[data-mo-rows] li").all()) {
+    const [t, n] = await li.evaluate((el) => { const r = document.createRange(); r.selectNodeContents(el.children[0]); return [r.getBoundingClientRect().right, el.children[1].getBoundingClientRect().left]; });
+    expect(n - t).toBeGreaterThan(8);
+  }
   const y = new Date().getUTCFullYear() + 1;
   await pickDate(page, "mo", 14, 8, y);
   await expect(page.locator("[data-mo-ics]")).toBeVisible();
@@ -143,6 +149,28 @@ test("a client puts the name above her head, reads its own sheet, fails closed, 
   const js = readdirSync(assets).filter((f) => f.endsWith(".js")).map((f) => readFileSync(path.join(assets, f), "utf8")).join("\n");
   expect(js).not.toMatch(/simulated|DEMO ONLY/);
   expect(readFileSync(path.join(client.outDir, "_headers"), "utf8")).toMatch(/connect-src [^;]*https:\/\/docs\.google\.com/);
+  await srv.close();
+});
+
+test("guide pages price their examples from the packages; the journal opens each piece; the menu lists them all", async ({ page }) => {
+  const srv = await start(demo);
+  await page.goto(srv.base + "/bridal-party");
+  await expect(page.locator("h1")).toHaveText("Everyone in the chair");
+  await expect(page.locator(".bb-ph .kick, .bb-ph-k")).toHaveCount(0);
+  await expect(page.locator(".bb-gd-tot b")).toHaveText("£1,240");
+  await page.goto(srv.base + "/abroad");
+  await expect(page.locator(".bb-gd-sum li").first()).toContainText("Hair and makeup£520");
+  await expect(page.locator(".bb-gd-tot b")).toHaveText("£1,210");
+  await page.goto(srv.base + "/asian-bridal");
+  await expect(page.locator(".bb-gd-lk > li")).toHaveCount(3);
+  await page.goto(srv.base + "/journal");
+  await expect(page.locator(".bb-jn-list > li")).toHaveCount(3);
+  await page.locator(".bb-jn-list a").first().click();
+  await expect(page).toHaveURL(/journal-skin-before-the-day/);
+  await expect(page.locator(".bb-gd-text").last()).toContainText("clinician");
+  await page.click(".burger");
+  for (const name of ["The bridal party", "Asian bridal", "Small weddings", "Weddings abroad", "Editorial and events", "About", "Journal"])
+    await expect(page.locator("#mnav a", { hasText: name })).toHaveCount(1);
   await srv.close();
 });
 

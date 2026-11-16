@@ -143,6 +143,9 @@ export function artistsFor(m, earliest, secondOffered) {
   return secondOffered && morningPlan({ ...m, artists: 1 }).start < earliest ? 2 : 1;
 }
 
+/** What the cover, the party quote and the morning page say instead of a start time she couldn't make. */
+export const PLANNING = "This one needs planning — message me.";
+
 /**
  * The morning from the page's data (pageData: packages and morning) and the bride's choices: her service, the ceremony
  * time and how many of each party service. Brings in a second artist when the artist offers one and one alone would

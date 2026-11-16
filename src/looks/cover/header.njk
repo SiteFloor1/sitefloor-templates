@@ -19,6 +19,9 @@
     {%- for item in site.nav | navItems(pageId) %}
     <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
     {%- endfor %}
+    {%- for g in site | bbMenu(pageId) %}
+    <a href="{{ g.slug | href }}"{% if g.current %} aria-current="page"{% endif %}>{{ g.label }}</a>
+    {%- endfor %}
   </nav>
   <p class="cv-sheet-side">{{ site.location.area }}</p>
 </div></div>

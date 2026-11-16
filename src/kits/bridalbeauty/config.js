@@ -19,7 +19,11 @@ const ID = /^[a-z0-9-]{1,40}$/;
 const HM = /^([01]\d|2[0-3]):[0-5]\d$/;
 const DISTRICT = /^[A-Z]{1,2}\d[A-Z\d]?\*?$|^[A-Z]{1,2}\*$/;
 const PHOTO = ["src", "width", "height", "alt"];
-const PAGE_HEAD = ["kicker", "title", "intro"];
+const PAGE_HEAD = ["title", "intro"];
+const SLUG = /^[a-z0-9]+(-[a-z0-9]+)*$/;
+/** Pages the kit already builds, so a guide or journal piece can't take their address. */
+const TAKEN = ["index", "privacy", "404", "bridal", "looks", "trials", "morning", "skin", "visit", "journal", "guide", "article"];
+export const BLOCKS = ["text", "facts", "quote", "looks", "questions", "list", "photo", "ask"];
 
 /** The finishes and hair a look is filed under (the look library's filters). */
 export const FINISH = { natural: "Natural", soft: "Soft glam", full: "Full glam", editorial: "Editorial" };
@@ -62,13 +66,19 @@ function list(err, p, v, what, lo = 1, hi = 8) {
 
 /** @param {Report} err @param {string} k @param {any} v @param {string[]} [more] */
 function pageHead(err, k, v, more = []) {
-  if (!isObj(v)) { err(k, "{ kicker, title, intro }"); return; }
+  if (!isObj(v)) { err(k, "{ title, intro }"); return; }
   onlyKeys(v, [...PAGE_HEAD, ...more], k, err);
   text(err, `${k}.title`, v.title);
 }
 
-/** @param {any} site @param {Report} err @param {Exists} [exists] */
-export function checkBridalBeauty(site, err, exists) {
+/** The pages each plan includes, counting home (as in src/features/registry.js; not imported, since the registry loads the kits). */
+const PAGE_LIMITS = { starter: 1, plus: 5, signature: Infinity };
+
+/**
+ * @param {any} site @param {Report} err @param {Exists} [exists]
+ * @param {{ id: string, page?: string }[]} [own] the kit's features, for counting its pages
+ */
+export function checkBridalBeauty(site, err, exists, own = []) {
   if (site.kit !== "bridalbeauty") return;
   checkHero(site.hero, err, exists);
   if (site.packages !== undefined) checkPackages(site.packages, err);
@@ -87,6 +97,113 @@ export function checkBridalBeauty(site, err, exists) {
     if (site.bridalPage?.terms !== undefined && list(err, "bridalPage.terms", site.bridalPage.terms, "booking terms in the artist's words"))
       site.bridalPage.terms.forEach((/** @type {any} */ t, /** @type {number} */ i) => text(err, `bridalPage.terms[${i}]`, t));
   }
+  /** @type {Set<string>} */ const slugs = new Set();
+  if (site.guides !== undefined) checkGuides(site, err, exists, slugs);
+  if (site.journal !== undefined) checkJournal(site, err, exists, slugs);
+  guidePages(site, err, own);
+}
+
+/**
+ * The guide pages (Weddings abroad, the bridal party…) are a collection the shared count sees as one page, but each is
+ * a page the client pays for, so they count one by one against the plan, like general pages. Every shared page this kit
+ * offers is free (Plan your visit) or refused (work, team, custom pages), so the kit's own pages are the whole count.
+ * @param {any} site @param {Report} err @param {{ id: string, page?: string }[]} own
+ */
+function guidePages(site, err, own) {
+  if (!site.features?.includes("bridalbeauty-guides") || !Array.isArray(site.guides) || site.guides.length < 2) return;
+  const limit = PAGE_LIMITS[/** @type {"starter"|"plus"|"signature"} */ (site.plan)];
+  if (limit === undefined) return;
+  const addons = Array.isArray(site.addons) ? site.addons : [];
+  const pages = 1 + own.filter((f) => f.page && site.features.includes(f.id) && !addons.includes(f.id)).length + site.guides.length - 1;
+  const extra = Number.isInteger(site.addonPages) ? site.addonPages : 0;
+  if (pages > limit + extra) err("guides", `${pages} pages counting each guide page, but the ${site.plan} plan includes ${limit + extra}; remove a guide or sell more with "addonPages"`);
+}
+
+/** @param {Report} err @param {string} at @param {any} slug @param {Set<string>} slugs */
+function slugOf(err, at, slug, slugs) {
+  if (!isStr(slug) || !SLUG.test(slug) || TAKEN.includes(slug) || slug.startsWith("journal-")) err(at, `lowercase words and dashes, not ${TAKEN.join(", ")}`);
+  else if (slugs.has(slug)) err(at, `"${slug}" is used twice`);
+  else slugs.add(slug);
+}
+
+/**
+ * A guide page or a journal piece: its blocks, each one of BLOCKS. Prices in a worked example come from the packages
+ * by id, so a guide can never quote a price the bridal page doesn't; a line of its own (a travel day) names its price.
+ * @param {any} site @param {Report} err @param {Exists} exists @param {string} at @param {any} blocks
+ */
+function checkBlocks(site, err, exists, at, blocks) {
+  if (!list(err, at, blocks, "blocks", 2, 16)) return;
+  const pkg = site.packages ?? {};
+  const known = new Set([...(pkg.bride ?? []).map((/** @type {any} */ x) => `bride:${x.id}`), ...(pkg.party ?? []).map((/** @type {any} */ x) => `party:${x.id}`)]);
+  const looks = new Set((site.looks?.items ?? []).map((/** @type {any} */ x) => x.id));
+  blocks.forEach((/** @type {any} */ b, /** @type {number} */ i) => {
+    const p = `${at}[${i}]`;
+    if (!isObj(b) || !BLOCKS.includes(b.type)) { err(`${p}.type`, `one of ${BLOCKS.join(", ")}`); return; }
+    const keys = { text: ["heading", "body"], facts: ["heading", "items"], quote: ["heading", "text", "lines", "note"], looks: ["heading", "ids"],
+      questions: ["heading", "items"], list: ["heading", "items"], photo: [...PHOTO, "caption"], ask: ["text", "message", "label"] }[/** @type {"text"} */ (b.type)];
+    onlyKeys(b, ["type", ...keys], p, err);
+    if (b.heading !== undefined) text(err, `${p}.heading`, b.heading);
+    if (b.type === "text") text(err, `${p}.body`, b.body);
+    if (b.type === "facts" && list(err, `${p}.items`, b.items, "{ label, value } lines", 2, 8))
+      b.items.forEach((/** @type {any} */ x, /** @type {number} */ j) => { onlyKeys(x, ["label", "value"], `${p}.items[${j}]`, err); text(err, `${p}.items[${j}].label`, x?.label); text(err, `${p}.items[${j}].value`, x?.value); });
+    if (b.type === "list" && list(err, `${p}.items`, b.items, "lines", 2, 10)) b.items.forEach((/** @type {any} */ x, /** @type {number} */ j) => text(err, `${p}.items[${j}]`, x));
+    if (b.type === "questions" && list(err, `${p}.items`, b.items, "{ q, a } questions", 2, 8))
+      b.items.forEach((/** @type {any} */ x, /** @type {number} */ j) => { onlyKeys(x, ["q", "a"], `${p}.items[${j}]`, err); text(err, `${p}.items[${j}].q`, x?.q); text(err, `${p}.items[${j}].a`, x?.a); });
+    if (b.type === "photo") { photo(err, p, Object.fromEntries(PHOTO.map((k) => [k, b[k]])), exists); if (b.caption !== undefined) text(err, `${p}.caption`, b.caption); }
+    if (b.type === "ask") { text(err, `${p}.text`, b.text); text(err, `${p}.message`, b.message); if (b.label !== undefined) text(err, `${p}.label`, b.label); }
+    if (b.type === "looks") {
+      if (!site.features?.includes("bridalbeauty-looks")) err(p, "looks come from the look library: turn on bridalbeauty-looks");
+      else if (list(err, `${p}.ids`, b.ids, "look ids from looks.items", 1, 4)) b.ids.forEach((/** @type {any} */ id, /** @type {number} */ j) => { if (!looks.has(id)) err(`${p}.ids[${j}]`, `"${id}" isn't in looks.items`); });
+    }
+    if (b.type === "quote") {
+      text(err, `${p}.heading`, b.heading);
+      if (b.text !== undefined) text(err, `${p}.text`, b.text);
+      if (b.note !== undefined) text(err, `${p}.note`, b.note);
+      if (list(err, `${p}.lines`, b.lines, "lines: { package: \"bride:<id>\" or \"party:<id>\", count? } or { name, price, count? }", 2, 8))
+        b.lines.forEach((/** @type {any} */ l, /** @type {number} */ j) => {
+          const q = `${p}.lines[${j}]`;
+          onlyKeys(l, ["package", "name", "price", "count"], q, err);
+          if (l?.count !== undefined && !isInt(l.count, 1, 20)) err(`${q}.count`, "a whole number, 1 to 20");
+          if (l?.package !== undefined) { if (!known.has(l.package)) err(`${q}.package`, `one of ${[...known].join(", ")}`); if (l.name !== undefined || l.price !== undefined) err(q, "a package line takes its name and price from the packages"); }
+          else { text(err, `${q}.name`, l?.name); if (!isInt(l?.price, 0, 20000)) err(`${q}.price`, "the artist's price in whole pounds"); }
+        });
+    }
+  });
+}
+
+/** @param {any} site @param {Report} err @param {Exists} exists @param {Set<string>} slugs */
+function checkGuides(site, err, exists, slugs) {
+  if (!list(err, "guides", site.guides, "guide pages", 1, 12)) return;
+  site.guides.forEach((/** @type {any} */ g, /** @type {number} */ i) => {
+    const at = `guides[${i}]`;
+    if (!isObj(g)) { err(at, "{ slug, title, description, intro, photo?, blocks }"); return; }
+    onlyKeys(g, ["slug", "menu", "title", "description", "intro", "photo", "blocks"], at, err);
+    slugOf(err, `${at}.slug`, g.slug, slugs);
+    for (const k of ["menu", "title", "intro"]) text(err, `${at}.${k}`, g[k]);
+    if (!isStr(g.description) || g.description.length > 160) err(`${at}.description`, "the sentence search results show, up to 160 characters");
+    if (g.photo !== undefined) photo(err, `${at}.photo`, g.photo, exists);
+    checkBlocks(site, err, exists, `${at}.blocks`, g.blocks);
+  });
+}
+
+/** @param {any} site @param {Report} err @param {Exists} exists @param {Set<string>} slugs */
+function checkJournal(site, err, exists, slugs) {
+  const j = site.journal;
+  if (!isObj(j)) { err("journal", "{ title, intro, items }"); return; }
+  onlyKeys(j, ["title", "intro", "items"], "journal", err);
+  text(err, "journal.title", j.title); text(err, "journal.intro", j.intro);
+  if (!list(err, "journal.items", j.items, "pieces", 1, 30)) return;
+  j.items.forEach((/** @type {any} */ a, /** @type {number} */ i) => {
+    const at = `journal.items[${i}]`;
+    if (!isObj(a)) { err(at, "{ slug, title, line, photo, blocks }"); return; }
+    onlyKeys(a, ["slug", "title", "line", "minutes", "photo", "blocks"], at, err);
+    slugOf(err, `${at}.slug`, a.slug, slugs);
+    text(err, `${at}.title`, a.title);
+    if (!isStr(a.line) || a.line.length > 160) err(`${at}.line`, "one sentence, up to 160 characters (search results show it)");
+    if (a.minutes !== undefined && !isInt(a.minutes, 1, 30)) err(`${at}.minutes`, "minutes to read, 1 to 30");
+    photo(err, `${at}.photo`, a.photo, exists);
+    checkBlocks(site, err, exists, `${at}.blocks`, a.blocks);
+  });
 }
 
 /**

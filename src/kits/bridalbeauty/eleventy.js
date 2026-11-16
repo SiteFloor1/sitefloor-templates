@@ -26,6 +26,24 @@ export default function bridalBeautyKit(eleventyConfig) {
   eleventyConfig.addFilter("skinText", (/** @type {string} */ opening) => skinText(opening, ""));
   eleventyConfig.addFilter("usedFinish", (/** @type {any[]} */ items) => Object.entries(FINISH).filter(([id]) => items.some((x) => x.finish === id)).map(([id, label]) => ({ id, label })));
   eleventyConfig.addFilter("usedHair", (/** @type {any[]} */ items) => Object.entries(HAIR).filter(([id]) => items.some((x) => x.hair === id)).map(([id, label]) => ({ id, label })));
+  // A worked example on a guide page: package lines take the name and price from the packages, so a guide can never
+  // quote what the bridal page doesn't; a line of its own (a travel day) names its price.
+  eleventyConfig.addFilter("guideQuote", (/** @type {any} */ b, /** @type {any} */ site) => {
+    const pk = site.packages ?? {};
+    const lines = b.lines.map((/** @type {any} */ l) => {
+      const [kind, id] = String(l.package ?? ":").split(":");
+      const x = l.package ? (kind === "bride" ? pk.bride : pk.party).find((/** @type {any} */ y) => y.id === id) : l;
+      if (!x) throw new Error(`guide quote: no package ${l.package}`);
+      const count = l.count ?? 1;
+      return { name: x.name, count, price: x.price, sum: x.price * count };
+    });
+    return { lines, total: lines.reduce((/** @type {number} */ t, /** @type {any} */ l) => t + l.sum, 0) };
+  });
+  // The menu's pages after the site's own links: each guide page, then the journal.
+  eleventyConfig.addFilter("bbMenu", (/** @type {any} */ site, /** @type {string} */ pageId) => [
+    ...(site.features.includes("bridalbeauty-guides") ? site.guides ?? [] : []).map((/** @type {any} */ g) => ({ slug: g.slug, label: g.menu, current: g.slug === pageId })),
+    ...(site.features.includes("bridalbeauty-journal") && site.journal ? [{ slug: "journal", label: site.journal.title, current: pageId === "journal" || pageId.startsWith("journal-") }] : []),
+  ]);
   eleventyConfig.addFilter("byIds", (/** @type {any[]} */ items, /** @type {string[]} */ ids) => ids.map((id) => items.find((x) => x.id === id)).filter(Boolean));
   // The morning as the page first shows it, before the script takes over: the default ceremony, the party the quote
   // starts with, one artist. { start, ready, dressAt, leave, people, early } in words.

@@ -142,3 +142,26 @@ test("words: small numbers in words, times as a person says them, the look named
   assert.equal(clockWords(at("07:25")), "7:25am");
   assert.match(lookText("Hello Isolde,", "Satin, half up"), /"Satin, half up"/);
 });
+
+test("guide pages count one by one against the plan, and price their examples only from the packages", () => {
+  const extra = (/** @type {any} */ s) => { const g = structuredClone(s.guides[0]); g.slug = "weekdays"; g.menu = "Weekdays"; s.guides.push(g); };
+  assert.match(errorsFor(extra, client), /6 pages counting each guide page, but the plus plan includes 5/);
+  assert.equal(errorsFor((s) => { s.addonPages = 1; extra(s); }, client), "");
+  assert.match(errorsFor((s) => { s.guides[0].blocks.find((/** @type {any} */ b) => b.type === "quote").lines[0] = { package: "bride:hair-makeup", price: 10 }; }), /takes its name and price from the packages/);
+  assert.match(errorsFor((s) => { s.guides[0].blocks.find((/** @type {any} */ b) => b.type === "quote").lines[0] = { package: "bride:nails" }; }), /one of bride:hair-makeup/);
+  assert.match(errorsFor((s) => { s.guides[1].blocks.find((/** @type {any} */ b) => b.type === "looks").ids = ["nope"]; }), /"nope" isn't in looks.items/);
+  assert.match(errorsFor((s) => { s.guides[0].slug = "bridal"; }), /guides\[0\]\.slug/);
+  assert.match(errorsFor((s) => { s.journal.items[0].slug = s.guides[0].slug; }), /used twice/);
+  assert.match(errorsFor((s) => { s.journal.items[0].blocks = [s.journal.items[0].blocks[0]]; }), /2 to 16 blocks/);
+  assert.match(errorsFor((s) => { s.looksPage.kicker = "Looks"; }), /looksPage\.kicker: unknown setting/);
+});
+
+test("every demo guide and journal piece has substance, not a heading and a paragraph", () => {
+  const all = [...demo.guides, ...demo.journal.items];
+  assert.equal(demo.guides.length + 9, 15, "15 pages: home, 5 kit pages, 6 guides, the journal, Plan your visit, privacy");
+  for (const g of all) {
+    const kinds = new Set(g.blocks.map((/** @type {any} */ b) => b.type));
+    assert.ok(g.blocks.length >= 4 && kinds.size >= 3, `${g.slug}: ${g.blocks.length} blocks of ${kinds.size} kinds`);
+  }
+  for (const g of demo.guides.filter((/** @type {any} */ x) => x.slug !== "about")) assert.ok(g.blocks.some((/** @type {any} */ b) => b.type === "quote"), `${g.slug} has a worked example`);
+});

@@ -193,6 +193,15 @@ FCP 1.5–1.6 s; LCP 2.2–2.3 s (the mirror); TBT 120, 130, 120 ms; layout shif
 ## Bridal hair and makeup artists
 _From `docs/trades/bridal-beauty/speed.md`._
 
+### 16 Nov 2026 — guide pages and the journal (bridalbeauty-guides, bridalbeauty-journal)
+
+The demo is now 15 pages (home, bridal, looks, trials, the morning, skin, six guide pages, the journal, Plan your
+visit, privacy), plus three journal pieces. Guide pages and pieces are plain HTML: no script of their own, photos lazy
+except the page's own (first screen). Lighthouse 12.6 mobile, local server: home 100 / 100 / 100 (LCP 1.4 s, layout
+shift 0); Weddings abroad 100 / 100 / 100 (LCP 1.1 s, layout shift 0). Phone layout-shift test (360, 390, 430 px;
+fonts held back 800 ms) on every new page: worst 0.017. axe on all 18 pages, phone and desktop, menu open: no serious
+or critical issues. The masthead's caps now clear the header by 15–21 px at every width (both cover variants).
+
 ### 15 Nov 2026 — bridalbeauty kit: Cover look, Isolde demo
 
 Whole site: JS 33 KB (12.3 KB gz), CSS 42.4 KB (9.6 KB gz), fonts 60.6 KB (Libre Bodoni 400 normal and italic,

@@ -4,7 +4,7 @@
  * a second artist when one alone would start too early. Each slot goes into her calendar (local times, no zone); the
  * whole morning to her group through the phone's share sheet; and to the artist on WhatsApp to hold.
  */
-import { morningFor, clockWords, minutesOf, numbered, groupText, morningText, calendar, icsStamp, pounds } from "../../lib/bridalbeauty.js";
+import { PLANNING, morningFor, clockWords, minutesOf, numbered, groupText, morningText, calendar, icsStamp, pounds } from "../../lib/bridalbeauty.js";
 import { dateField } from "../../partials/date-field.js";
 import { shareButton } from "../../partials/share.js";
 
@@ -22,7 +22,8 @@ export function init(root, ctx) {
     const m = morningFor(d, state);
     const labels = numbered(m.plan.rows.map((r) => (r.bride ? "You" : r.label)));
     const list = m.plan.rows.map((r, i) => ({ ...r, label: labels[i] }));
-    start.textContent = m.tooEarly ? "Ask me." : clockWords(m.plan.start);
+    start.textContent = m.tooEarly ? PLANNING : clockWords(m.plan.start);
+    start.classList.toggle("is-long", m.tooEarly);
     const lab = q("[data-mo-lab]");
     lab.hidden = m.tooEarly;
     rows.hidden = m.tooEarly;

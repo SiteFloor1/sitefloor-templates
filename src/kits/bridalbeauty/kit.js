@@ -35,13 +35,20 @@ export const features = [
     summary: "The wedding morning, worked back: the ceremony time, who's in the chair and what each has, out comes everyone's slot, the start, the buffer and the dress, two artists when one would start too early; each person's slot in their calendar, the plan to the group from her phone." },
   { id: "bridalbeauty-skin", dir: `${K}/bridalbeauty-skin`, minPlan: "signature", kits, requires: ["skin", "skinPage"], page: "skin", js: true,
     summary: "Skin prep, counted down: the wedding date in, each step on its day in the artist's own words (the trial, nothing new, brows, the night before), into her calendar. Treatments are a question for a clinician, and the page says so." },
+  { id: "bridalbeauty-guides", dir: `${K}/bridalbeauty-guides`, minPlan: "plus", kits, requires: ["guides"], page: "guide", js: false,
+    summary: "Guide pages for the weddings she does (abroad, small weddings, Asian bridal, the bridal party, editorial): worked price examples taken from her packages, looks from her library, timings and the questions brides ask. Each page counts as a page." },
+  { id: "bridalbeauty-journal", dir: `${K}/bridalbeauty-journal`, minPlan: "plus", kits, requires: ["journal"], page: "journal", morePages: ["article"], js: false,
+    summary: "The journal: her own pieces (skin before the day, making makeup last, choosing a look), each its own page; counts as one page." },
 ];
 
 /** Shared features a bridal hair and makeup artist never offers (a feed of her own posts, team pages and the rest belong to shops). */
-export const refuses = ["gallery", "work", "seasonal", "photo-band", "page-links", "team", "vouchers"];
+export const refuses = ["gallery", "work", "seasonal", "photo-band", "page-links", "team", "vouchers", "custom-pages"];
 
-/** Checks this kit's settings in site.json (runs for every site; it returns early for other kits). */
-export const check = checkBridalBeauty;
+/**
+ * Checks this kit's settings in site.json (runs for every site; it returns early for other kits).
+ * @param {any} site @param {(path: string, msg: string) => void} err @param {((rel: string) => boolean)|undefined} exists
+ */
+export const check = (site, err, exists) => checkBridalBeauty(site, err, exists, /** @type {{ id: string, page?: string }[]} */ (/** @type {unknown} */ (features)));
 
 // What this kit's browser scripts read from the page (clientData), only for the features that are on.
 /** @param {any} site */

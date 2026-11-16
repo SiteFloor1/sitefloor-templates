@@ -20,8 +20,13 @@ What to build for this trade (kit `bridalbeauty`). The ground rules and the step
   on a wide screen and a phone; the look in a few words for "On the cover". Then: packages with minutes in the chair,
   party prices, the earliest start and early-start fee, a second artist's fee if she has one, travel districts and fees,
   the trial's price, length and window, and a published Google Sheet for the diary (date, status, updated_at).
-- **Morning sums never print a start she couldn't make:** when even two chairs would start before the second artist's
-  earliest (or 5am with no second artist), the cover, the party and the morning page say "ask me" instead of a time.
+- **Guide pages and the journal** (Plus): each guide page (weddings abroad, small weddings, Asian bridal, the bridal
+  party, editorial, about) has a worked example priced from her own packages, looks from her library, timings and her
+  brides' questions; each counts as a page against the plan. The journal (her pieces: skin before the day, making it
+  last, choosing a look) counts as one. The look's menu lists them from `guides` and `journal`, so there's no nav entry
+  to keep in step. General pages (`custom-pages`) are refused on this kit: their markup belongs to no look.
+- **Morning sums never print a start she couldn't make:** "This one needs planning — message me." when even two chairs would start before the second artist's
+  earliest (or 5am with no second artist), the cover, the party and the morning page say it instead of a time.
 
 ### Features by plan (approved codes HMUA-1 to HMUA-7)
 - **Starter** (home + Plan your visit): HMUA-1 packages (bride hair and makeup, either alone, trial, party per person,
