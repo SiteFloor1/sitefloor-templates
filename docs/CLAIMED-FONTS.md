@@ -61,6 +61,7 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 |---|---|---|---|
 | Isolde, the cover (round 4) | trade/bridal-beauty | Libre Bodoni | Faustina |
 | Cleaning, Plan (A) | trade/cleaning | Anek Latin | Anek Latin |
+| Halde, chalk (round 1) | trade/gym | Sofia Sans Extra Condensed | Sofia Sans |
 | Landscaping, Almanac | trade/landscaping | Alegreya | Alegreya |
 | Trainer, Linen (A) | trade/trainer | Ibarra Real Nova | Ibarra Real Nova |
 | Tailor, Flannel (A) | trade/tailor | Della Respira | Commissioner |
