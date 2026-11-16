@@ -8,7 +8,7 @@ pieces by appointment. Owner's references: Selhaya (soft, editorial British silk
 Effa (polish). Elegant, contemporary, respectful; never stereotyped, no clichéd motifs.
 Questions: [`questions.md`](questions.md). Directions, references, difference table and screens:
 `sitefloor-internal/docs/trades/modest/directions.md` (branch `design/modest`). **No build until the owner picks one
-screen and the showpieces.** Round 2: direction A, **Ourika** (the hem line), chosen; the showpieces and plan split below are decided.
+screen and the showpieces.** Round 2: direction A, **Taroub** (the hem line; first called Taroub, renamed 16 Nov after a Companies House clash), chosen; the showpieces and plan split below are decided.
 
 Selling stays on the client's own shop (Shopify, Etsy or Stripe Payment Links); the site is the flagship that answers
 length, fabric, delivery and occasion questions and turns them into a WhatsApp message or a payment link.
