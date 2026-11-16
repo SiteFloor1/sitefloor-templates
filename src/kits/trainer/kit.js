@@ -78,7 +78,7 @@ export function pageData(site) {
  */
 export const providers = [
   {
-    key: "diary",
+    key: "trainerDiary",
     on: (site, enabled) => enabled.has("trainer-diary") && !!site.diary,
     simulated: (site) => site.diary.source === "simulated",
     demo: { from: "src/demo/diary-provider.js", name: "simulatedDiary" },

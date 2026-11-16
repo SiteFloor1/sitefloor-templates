@@ -24,7 +24,7 @@ export function init(root, ctx) {
   const photo = /** @type {HTMLElement|null} */ (root.querySelector("[data-td-photo]"));
   const week = /** @type {HTMLElement} */ (root.querySelector("[data-td-week]"));
   const count = /** @type {HTMLElement} */ (root.querySelector("[data-td-count]"));
-  const provider = /** @type {DiaryProvider|null} */ (ctx.providers.diary);
+  const provider = /** @type {DiaryProvider|null} */ (ctx.providers.trainerDiary);
   if (!grid || !pick || !go) throw new Error("diary markup missing");
   /** @type {{ date: string, time: string }[]} */
   let open = [];
