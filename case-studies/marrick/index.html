@@ -90,6 +90,7 @@ a { color: inherit; }
 .phone { position: absolute; z-index: 4; display: flex; flex-direction: column; align-items: center; }
 .dev { width: 100%; max-width: 236px; aspect-ratio: 390 / 844; border-radius: 34px; padding: 7px; background: #141210; box-shadow: 0 28px 50px -24px rgba(30,27,24,.55); }
 .dev video, .dev img { width: 100%; height: 100%; object-fit: cover; border-radius: 28px; background: var(--paper); }
+.phone .toggle { margin-top: 10px; background: var(--paper); }
 .phone figcaption { margin-top: 10px; max-width: 250px; text-align: center; font-size: 15px; color: var(--muted); font-style: italic; }
 .phone figcaption b { color: var(--walnut); font-style: normal; }
 .legend { display: flex; flex-wrap: wrap; gap: 8px 26px; padding: 14px 0 0; color: var(--muted); font-size: 15px; font-style: italic; }
@@ -227,13 +228,13 @@ footer p { max-width: 60rem; }
   .top .lede { margin-top: 16px; font-size: 17px; }
   .now { grid-template-columns: 1fr; }
   .now-q { grid-column: 1; }
-  .week { grid-template-columns: 38px repeat(7, minmax(0, 1fr)); grid-auto-rows: 26px; }
+  .week { grid-template-columns: 38px repeat(7, minmax(0, 1fr)); grid-auto-rows: 28px; }
   .week .dh { padding: 8px 4px 4px; font-size: 14px; height: 40px; }
   .week .dh small { display: none; }
   .week .hh { font-size: 11px; padding: 5px 0 0 4px; }
   .week .c.k::after { left: 4px; right: 4px; }
   .week .c.now::before { display: none; }
-  .e { padding: 0; justify-content: center; inset: 2px; }
+  .e { padding: 0; justify-content: center; inset: 1px 2px; min-height: 26px; }
   .e span { display: none; }
   .phone { position: static !important; width: auto !important; padding: 28px 0 8px; }
   .phone .dev { max-width: 250px; }
@@ -426,7 +427,8 @@ footer p { max-width: 60rem; }
 <div class="c o" data-d="6" data-h="n" style="grid-column:8;grid-row:19"></div>
     </div>
     <figure class="phone" data-phone style="left:calc(64px + (100% - 64px) * 3 / 7);width:calc((100% - 64px) * 2 / 7);top:52px">
-      <div class="dev"><video src="media/diary.mp4" poster="media/diary-poster.webp" muted playsinline loop autoplay aria-label="The week, open to book"></video></div>
+      <div class="dev"><video id="v-hero" src="media/diary.mp4" poster="media/diary-poster.webp" muted playsinline loop aria-label="The week, open to book"></video></div>
+      <button type="button" class="toggle" data-toggle="v-hero" data-what="phone">Pause the phone clip</button>
       <figcaption><b>I</b> Monday, 06:00: the week, open to book. <a href="#i">Read it</a></figcaption>
     </figure>
   </div>
@@ -435,26 +437,26 @@ footer p { max-width: 60rem; }
 
 <section class="ch gut" id="i" aria-labelledby="h-i"><div class="wrap ch-in">
   <div class="slot"><span class="n">I</span><span class="d">Monday</span><span class="t"><span class="tn"><i>0</i><i>6</i><i class="c">:</i><i>0</i><i>0</i></span></span><h2 id="h-i">The week, open to book.</h2><p>The first thing on Marrick's site is the trainer's own week, from a Google Sheet he fills in between clients. Spoken-for hours stay quiet; the five open ones are printed in ink.</p><p>Tap one and it becomes a WhatsApp message for that hour. If the sheet is out of date, no hours show at all, only “Message for times”.</p><span class="tier">On every plan</span></div>
-  <div class="show"><div><div class="dev"><video id="v-diary" src="media/diary.mp4" poster="media/diary-poster.webp" muted playsinline loop preload="none" aria-label="An open hour, tapped on a phone."></video></div><button type="button" class="toggle" data-toggle="v-diary">Pause the clip</button></div><div class="cap"><p><b>An open hour, tapped on a phone.</b></p><p>The slip below the week rewrites itself: Monday 16 November, 06:00, one hour, the studio to yourselves.</p><p>The phone bar keeps the next private hour in reach all the way down the page.</p></div></div>
+  <div class="show"><div><div class="dev"><video id="v-diary" src="media/diary.mp4" poster="media/diary-poster.webp" muted playsinline loop preload="none" aria-label="An open hour, tapped on a phone."></video></div><button type="button" class="toggle" data-toggle="v-diary" data-what="week">Pause the week clip</button></div><div class="cap"><p><b>An open hour, tapped on a phone.</b></p><p>The slip below the week rewrites itself: Monday 16 November, 06:00, one hour, the studio to yourselves.</p><p>The phone bar keeps the next private hour in reach all the way down the page.</p></div></div>
 </div></section>
 <section class="ch gut" id="ii" aria-labelledby="h-ii"><div class="wrap ch-in">
   <div class="slot"><span class="n">II</span><span class="d">Monday</span><span class="t"><span class="tn"><i>1</i><i>3</i><i class="c">:</i><i>1</i><i>0</i></span></span><h2 id="h-ii">A first month, priced to the pound.</h2><p>Where and how often. Then the first session minute by minute, every date for the four weeks after it, and what the month costs, from the trainer's own prices.</p><p>At home, three times a week: £1,515 for twelve sessions, paid as you go. Every session goes into a calendar in one tap.</p><span class="tier">Signature</span></div>
-  <div class="show"><div><div class="dev"><video id="v-month" src="media/month.mp4" poster="media/month-poster.webp" muted playsinline loop preload="none" aria-label="Your home, three times a week."></video></div><button type="button" class="toggle" data-toggle="v-month">Pause the clip</button></div><div class="cap"><p><b>Your home, three times a week.</b></p><p>Travel is added once, not hidden: the first session £140, then £125 a session.</p><p>The dates start from the first open hour in the week above.</p></div></div>
+  <div class="show"><div><div class="dev"><video id="v-month" src="media/month.mp4" poster="media/month-poster.webp" muted playsinline loop preload="none" aria-label="Your home, three times a week."></video></div><button type="button" class="toggle" data-toggle="v-month" data-what="first-month">Pause the first-month clip</button></div><div class="cap"><p><b>Your home, three times a week.</b></p><p>Travel is added once, not hidden: the first session £140, then £125 a session.</p><p>The dates start from the first open hour in the week above.</p></div></div>
 </div></section>
 <section class="ch gut" id="iii" aria-labelledby="h-iii"><div class="wrap ch-in">
   <div class="slot"><span class="n">III</span><span class="d">Tuesday</span><span class="t"><span class="tn"><i>2</i><i>1</i><i class="c">:</i><i>4</i><i>0</i></span></span><h2 id="h-iii">What are you training for?</h2><p>Four taps: the goal, how long since you last trained, days a week, any injury. The programme that fits, a sample week, and a message that already says it all.</p><p>An injury means a talk first, and perhaps a GP's or physio's go-ahead. The site says so before anyone asks.</p><span class="tier">Plus</span></div>
-  <div class="show"><div><div class="dev"><video id="v-goal" src="media/goal.mp4" poster="media/goal-poster.webp" muted playsinline loop preload="none" aria-label="A bad back, not for years, three days a week."></video></div><button type="button" class="toggle" data-toggle="v-goal">Pause the clip</button></div><div class="cap"><p><b>A bad back, not for years, three days a week.</b></p><p>Back to training: strength for the back and hips on Monday, walking and conditioning on Wednesday, mobility on Friday.</p><p>The message to the trainer is written for them.</p></div></div>
+  <div class="show"><div><div class="dev"><video id="v-goal" src="media/goal.mp4" poster="media/goal-poster.webp" muted playsinline loop preload="none" aria-label="A bad back, not for years, three days a week."></video></div><button type="button" class="toggle" data-toggle="v-goal" data-what="goal-finder">Pause the goal-finder clip</button></div><div class="cap"><p><b>A bad back, not for years, three days a week.</b></p><p>Back to training: strength for the back and hips on Monday, walking and conditioning on Wednesday, mobility on Friday.</p><p>The message to the trainer is written for them.</p></div></div>
 </div></section>
 <section class="ch gut" id="iv" aria-labelledby="h-iv"><div class="wrap ch-in">
   <div class="slot"><span class="n">IV</span><span class="d">Wednesday</span><span class="t"><span class="tn"><i>1</i><i>2</i><i class="c">:</i><i>3</i><i>0</i></span></span><h2 id="h-iv">Twelve weeks, every session dated.</h2><p>How often, the first day, the time. The weeks lay out under the trainer's three phases; bank holidays and the days the studio is shut are struck through, never booked.</p><p>The cost is the sessions that actually happen, at the trainer's price. Save all of them to a calendar, or send the plan on WhatsApp.</p><span class="tier">Signature</span></div>
-  <div class="show"><div><div class="dev"><video id="v-weeks" src="media/weeks.mp4" poster="media/weeks-poster.webp" muted playsinline loop preload="none" aria-label="Three times a week, from 21 December."></video></div><button type="button" class="toggle" data-toggle="v-weeks">Pause the clip</button></div><div class="cap"><p><b>Three times a week, from 21 December.</b></p><p>Christmas Day, the Boxing Day holiday and New Year's Day come out by themselves.</p><p>Thirty-three sessions to Friday 12 March, £3,465 at £105 a session.</p></div></div><div class="tool" aria-labelledby="h-t4"><div class="tool-h"><h3 id="h-t4">Twelve weeks from <span data-start>Monday</span></h3><span>Live: this year's bank holidays, worked out here</span></div>
+  <div class="show"><div><div class="dev"><video id="v-weeks" src="media/weeks.mp4" poster="media/weeks-poster.webp" muted playsinline loop preload="none" aria-label="Three times a week, from 21 December."></video></div><button type="button" class="toggle" data-toggle="v-weeks" data-what="twelve-weeks">Pause the twelve-weeks clip</button></div><div class="cap"><p><b>Three times a week, from 21 December.</b></p><p>Christmas Day, the Boxing Day holiday and New Year's Day come out by themselves.</p><p>Thirty-three sessions to Friday 12 March, £3,465 at £105 a session.</p></div></div><div class="tool" aria-labelledby="h-t4"><div class="tool-h"><h3 id="h-t4">Twelve weeks from <span data-start>Monday</span></h3><span>Live: this year's bank holidays, worked out here</span></div>
   <div class="opts" role="group" aria-label="How often"><button type="button" data-n="1" aria-pressed="false">Once a week</button><button type="button" data-n="2" aria-pressed="true">Twice a week</button><button type="button" data-n="3" aria-pressed="false">Three times</button></div>
   <ol class="weeks12" data-weeks aria-label="The twelve weeks"></ol>
   <p class="sum" data-sum aria-live="polite"></p></div>
 </div></section>
 <section class="ch gut" id="v" aria-labelledby="h-v"><div class="wrap ch-in">
   <div class="slot"><span class="n">V</span><span class="d">Saturday</span><span class="t"><span class="tn"><i>1</i><i>1</i><i class="c">:</i><i>0</i><i>5</i></span></span><h2 id="h-v">Do you come to me?</h2><p>A postcode against the trainer's own list: to your home, to the park in good weather, or online further out.</p><p>The districts are printed too, so the answer is there before anyone types.</p><span class="tier">Plus</span></div>
-  <div class="show"><div><div class="dev"><video id="v-coverage" src="media/coverage.mp4" poster="media/coverage-poster.webp" muted playsinline loop preload="none" aria-label="SW10, then SE22."></video></div><button type="button" class="toggle" data-toggle="v-coverage">Pause the clip</button></div><div class="cap"><p><b>SW10, then SE22.</b></p><p>SW10: yes, at your home. SE22: further than Marrick travels; online works anywhere.</p></div></div><div class="tool" aria-labelledby="h-t5"><div class="tool-h"><h3 id="h-t5">Do you come to me?</h3><span>Live: the demo's own districts</span></div>
+  <div class="show"><div><div class="dev"><video id="v-coverage" src="media/coverage.mp4" poster="media/coverage-poster.webp" muted playsinline loop preload="none" aria-label="SW10, then SE22."></video></div><button type="button" class="toggle" data-toggle="v-coverage" data-what="postcode">Pause the postcode clip</button></div><div class="cap"><p><b>SW10, then SE22.</b></p><p>SW10: yes, at your home. SE22: further than Marrick travels; online works anywhere.</p></div></div><div class="tool" aria-labelledby="h-t5"><div class="tool-h"><h3 id="h-t5">Do you come to me?</h3><span>Live: the demo's own districts</span></div>
   <form class="pc" data-pc><label class="sr" for="pc-in">Your postcode</label><input id="pc-in" type="text" autocomplete="postal-code" autocapitalize="characters" spellcheck="false" maxlength="8" placeholder="SW10 9AA"><button type="submit">Check</button></form>
   <p class="out" data-pc-out aria-live="polite"></p>
   <dl class="areas"><div data-area="home"><dt>At your home</dt><dd>SW1X · SW1W · SW3 · SW5 · SW7 · SW10 · W8</dd></div><div data-area="park"><dt>In the park</dt><dd>SW1X · SW3 · SW7 · W8, March to October</dd></div></dl></div>
@@ -561,11 +563,12 @@ footer p { max-width: 60rem; }
   const io = new IntersectionObserver((es) => es.forEach((e) => { const v = e.target; if (v.dataset.paused) return; if (e.isIntersecting) v.play().catch(() => {}); else v.pause(); }), { threshold: 0.35 });
   const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
   $$("video").forEach((v) => { if (still) v.dataset.paused = "1"; io.observe(v); });
-  $$("[data-toggle]").forEach((b) => b.addEventListener("click", () => {
+  const label = (b, playing) => { b.textContent = `${playing ? "Pause" : "Play"} the ${b.dataset.what} clip`; };
+  const toggle = (b) => {
     const v = $(`#${b.dataset.toggle}`);
-    if (v.paused) { delete v.dataset.paused; v.play().catch(() => {}); b.textContent = "Pause the clip"; } else { v.dataset.paused = "1"; v.pause(); b.textContent = "Play the clip"; }
-  }));
-  $$("[data-toggle]").forEach((b) => { if (still) b.textContent = "Play the clip"; });
+    if (v.paused) { delete v.dataset.paused; v.play().then(() => label(b, true), () => label(b, false)); } else { v.dataset.paused = "1"; v.pause(); label(b, false); }
+  };
+  $$("[data-toggle]").forEach((b) => { b.addEventListener("click", () => toggle(b)); label(b, !still); });
 
   // The week's entries: open one and the phone on the book shows it.
   const phone = $("[data-phone]");
@@ -574,8 +577,11 @@ footer p { max-width: 60rem; }
     const media = b.dataset.media, slot = b.dataset.slot;
     const dev = $(".dev", phone);
     dev.innerHTML = media.endsWith(".mp4")
-      ? `<video src="${media}" poster="${media.replace(".mp4", "-poster.webp")}" muted playsinline loop ${still ? "" : "autoplay"} aria-label="${b.dataset.label}"></video>`
+      ? `<video id="v-hero" src="${media}" poster="${media.replace(".mp4", "-poster.webp")}" muted playsinline loop aria-label="${b.dataset.label}"></video>`
       : `<img src="${media}" alt="${b.dataset.label}" width="780" height="1688">`;
+    const v = $("video", dev), tb = $('[data-toggle="v-hero"]', phone);
+    tb.hidden = !v;
+    if (v) { if (still) v.dataset.paused = "1"; io.observe(v); label(tb, !still); }
     $("figcaption", phone).innerHTML = `<b>${b.querySelector("b").textContent}</b> ${slot}: ${b.dataset.label}. <a href="#${b.dataset.ch}">Read it</a>`;
   }));
 
