@@ -1,0 +1,691 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Marrick Case Study</title>
+<meta name="description" content="How a Sitefloor site sells a private personal trainer, read as their week: every hour spoken for, and what their website does in the hours they can't answer.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='4' width='24' height='24' fill='none' stroke='%231E1B18' stroke-width='2.5'/%3E%3Ctext x='16' y='22' font-family='Georgia' font-size='15' font-weight='700' text-anchor='middle' fill='%231E1B18'%3EM%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ibarra+Real+Nova:ital,wght@0,400;0,600;1,400&family=Manrope:wght@400;600;700&display=swap">
+<style>
+/* Layout: while you train. A private trainer's week is mostly spoken for, and in those hours they can't answer a
+   phone. The page is that week as one appointment book, Monday to Sunday, six in the morning to the night: the
+   trainer's sessions ruled in ink, and in walnut, the hours their website worked for them, eight entries, I to VIII.
+   The live hour in London is ringed. A phone lies over the spoken-for middle of the week (where the demo sets its
+   photograph) and plays whichever entry you open. Each chapter below is one of the eight, opened on its day and
+   time; three of them work live on the page. The plans are how often you train: once, twice, three times a week.
+   Ground: linen, with paper for the sheets; ink, and one walnut from a walnut shell. Type: Ibarra Real Nova (the
+   demo's own), every time set in equal figure boxes like an appointment book; Manrope only in Sitefloor's bar and
+   footer. Grid: 12 columns; the week 8 columns (hours + 7 days). Scale: 15 / 18 / 22 / 34–52 / 72–150. Motion: the
+   week's entries ink in once on load; the live line changes every few seconds; clips play only when on screen and
+   pause on a tap; nothing follows the scroll. */
+:root {
+  --bg: #F3EFE8; --paper: #FBF9F5; --ink: #1E1B18; --muted: #675F56; --dim: #A39A8E; --line: #D9D1C5; --line-2: #BDB2A3;
+  --walnut: #6E4B30; --walnut-soft: #D8C6B4; --band: #1E1B18; --on-band: #F3EFE8;
+  --serif: "Ibarra Real Nova", Georgia, "Times New Roman", serif;
+  --brand: "Manrope", Arial, sans-serif;
+  --sf-paper: #FBFAF7; --sf-ink: #0E0F11; --sf-tomato: #E8613C; --sf-line: rgba(14,15,17,.12);
+  --pad: clamp(16px, 3.4vw, 56px);
+}
+* { box-sizing: border-box; }
+html { background: var(--bg); -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 18px/1.6 var(--serif); }
+h1, h2, h3, p, figure, ol, ul, dl, dd { margin: 0; }
+img, video { display: block; max-width: 100%; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--walnut); outline-offset: 3px; }
+.gut { padding-inline: var(--pad); }
+.wrap { width: min(1328px, 100%); margin-inline: auto; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.tn { display: inline-flex; font-variant-numeric: lining-nums; }
+.tn i { font-style: normal; width: .56em; text-align: center; }
+.tn i.c { width: .26em; }
+
+/* Sitefloor's bar */
+.sfbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--sf-paper); color: var(--sf-ink); border-bottom: 1px solid var(--sf-line); }
+.sfbar .wrap { display: flex; justify-content: space-between; align-items: center; height: 66px; gap: 16px; }
+.wm { display: inline-flex; align-items: center; gap: 1px; font: 700 21px var(--brand); letter-spacing: -.03em; color: var(--sf-ink); text-decoration: none; }
+.wm svg { margin: 0 1px; }
+.sfbar nav { display: flex; gap: 28px; font-family: var(--brand); font-size: 14px; font-weight: 600; }
+.sfbar nav a { text-decoration: none; color: var(--sf-ink); }
+.sfbar nav a[aria-current] { box-shadow: inset 0 -1.5px 0 var(--sf-ink); }
+.sfbtn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 20px; background: var(--sf-ink); color: var(--sf-paper); font: 700 12px var(--brand); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; }
+.sfbtn:hover { background: var(--sf-tomato); }
+@media (max-width: 760px) { .sfbar nav { display: none; } }
+
+/* the first screen: the line, the live hour, then the week */
+.hero { padding-block: clamp(28px, 4vw, 56px) 0; }
+.top { display: grid; grid-template-columns: repeat(12, 1fr); gap: 0 24px; align-items: end; }
+.top h1 { grid-column: 1 / 8; font: 600 clamp(56px, 8.6vw, 150px)/.9 var(--serif); letter-spacing: -.035em; }
+.top h1 em { font-weight: 400; color: var(--walnut); }
+.top .lede { grid-column: 9 / 13; color: var(--muted); font-size: 19px; padding-bottom: 12px; }
+.now { margin-top: 28px; display: grid; grid-template-columns: auto 1fr; gap: 6px 18px; align-items: baseline; padding: 16px 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--line); }
+.now-k { font-style: italic; color: var(--walnut); white-space: nowrap; }
+.now-t { font-size: 20px; }
+.now-t b { font-weight: 600; }
+.now-q { grid-column: 2; color: var(--muted); min-height: 3.2em; transition: opacity .6s; }
+.now-q.out { opacity: 0; }
+.now-q b { color: var(--ink); font-weight: 600; }
+
+/* the week: an appointment book over two pages */
+.book { position: relative; margin-top: 22px; background: var(--paper); box-shadow: 0 30px 60px -48px rgba(30,27,24,.6); }
+.week { display: grid; grid-template-columns: 64px repeat(7, minmax(0, 1fr)); grid-auto-rows: 34px; }
+.week > * { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); position: relative; }
+.week .dh { display: flex; align-items: baseline; justify-content: space-between; padding: 10px 12px 6px; font-weight: 600; border-bottom: 1px solid var(--ink); grid-row: 1; height: 44px; }
+.week .dh small { color: var(--muted); font-weight: 400; font-style: italic; }
+.week .dh.off { color: var(--muted); }
+.week .hh { color: var(--muted); font-size: 14px; padding: 7px 0 0 10px; }
+.week .c.k::after { content: ""; position: absolute; left: 10px; right: 10px; top: 50%; border-top: 1.5px solid var(--ink); opacity: .78; }
+.week .c.o { background: repeating-linear-gradient(135deg, transparent 0 6px, rgba(163,154,142,.13) 6px 7px); }
+.week .c.now { box-shadow: inset 0 0 0 2px var(--walnut); z-index: 2; }
+.week .c.now::before { content: "now"; position: absolute; right: 6px; top: 2px; font: italic 400 12px var(--serif); color: var(--walnut); }
+.e { position: absolute; inset: 3px 4px; z-index: 3; display: flex; align-items: center; gap: 8px; padding: 0 8px; background: var(--paper); border: 1px solid var(--walnut); color: var(--walnut); font: italic 400 14px/1.1 var(--serif); text-align: left; cursor: pointer; white-space: nowrap; overflow: hidden; opacity: 0; animation: ink .9s ease forwards; }
+.e b { font-style: normal; font-weight: 600; min-width: 1.6em; }
+.e[aria-pressed="true"] { background: var(--walnut); color: var(--paper); }
+.e:hover { background: var(--walnut); color: var(--paper); }
+@keyframes ink { to { opacity: 1; } }
+.phone { position: absolute; z-index: 4; display: flex; flex-direction: column; align-items: center; }
+.dev { width: 100%; max-width: 236px; aspect-ratio: 390 / 844; border-radius: 34px; padding: 7px; background: #141210; box-shadow: 0 28px 50px -24px rgba(30,27,24,.55); }
+.dev video, .dev img { width: 100%; height: 100%; object-fit: cover; border-radius: 28px; background: var(--paper); }
+.phone .toggle { margin-top: 10px; background: var(--paper); }
+.phone figcaption { margin-top: 10px; max-width: 250px; text-align: center; font-size: 15px; color: var(--muted); font-style: italic; }
+.phone figcaption b { color: var(--walnut); font-style: normal; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 26px; padding: 14px 0 0; color: var(--muted); font-size: 15px; font-style: italic; }
+.legend span::before { content: ""; display: inline-block; width: 22px; vertical-align: middle; margin-right: 8px; }
+.legend .lk::before { border-top: 1.5px solid var(--ink); }
+.legend .lo::before { height: 12px; background: repeating-linear-gradient(135deg, transparent 0 4px, rgba(163,154,142,.4) 4px 5px); }
+.legend .le::before { height: 12px; border: 1px solid var(--walnut); }
+.legend .ln::before { height: 12px; box-shadow: inset 0 0 0 2px var(--walnut); }
+
+/* the chapters: each one an appointment */
+.ch { padding-block: clamp(80px, 10vw, 140px); border-top: 1px solid var(--line); }
+.ch-in { display: grid; grid-template-columns: repeat(12, 1fr); gap: 0 24px; align-items: start; }
+.slot { grid-column: 1 / 6; }
+.slot .n { display: block; color: var(--walnut); font: italic 400 22px var(--serif); }
+.slot .d { display: block; margin-top: 18px; font-style: italic; color: var(--muted); font-size: 20px; }
+.slot .t { display: block; font: 600 clamp(72px, 10vw, 150px)/.86 var(--serif); letter-spacing: -.02em; }
+.slot h2 { margin-top: 28px; font: 600 clamp(34px, 3.8vw, 52px)/1.02 var(--serif); letter-spacing: -.01em; }
+.slot p { margin-top: 18px; max-width: 34ch; }
+.slot p + p { margin-top: 12px; color: var(--muted); }
+.tier { display: inline-block; margin-top: 22px; padding: 4px 12px; border: 1px solid var(--walnut); color: var(--walnut); font-size: 15px; }
+.show { grid-column: 7 / 13; display: grid; grid-template-columns: minmax(0, 270px) minmax(0, 1fr); gap: 28px; align-items: start; }
+.show .dev { max-width: 270px; }
+.cap { color: var(--muted); font-size: 16px; font-style: italic; padding-top: 6px; border-top: 1px solid var(--ink); }
+.cap b { color: var(--ink); font-style: normal; font-weight: 600; }
+.cap p + p { margin-top: 10px; }
+.toggle { margin-top: 12px; min-height: 44px; padding: 0 14px; background: none; border: 1px solid var(--line-2); color: var(--ink); font: 400 15px var(--serif); cursor: pointer; }
+
+/* live tools: on paper, ruled */
+.tool { grid-column: 1 / -1; margin-top: 56px; background: var(--paper); padding: clamp(20px, 3vw, 36px); }
+.tool-h { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; flex-wrap: wrap; padding-bottom: 16px; border-bottom: 1px solid var(--ink); }
+.tool-h h3 { font: 600 28px var(--serif); }
+.tool-h span { color: var(--walnut); font-style: italic; }
+.opts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.opts button { min-height: 44px; padding: 0 16px; background: none; border: 1px solid var(--line-2); color: var(--ink); font: 400 17px var(--serif); cursor: pointer; }
+.opts button[aria-pressed="true"] { border-color: var(--ink); box-shadow: inset 0 -2px 0 var(--walnut); font-weight: 600; }
+.weeks12 { list-style: none; padding: 0; margin: 22px 0 0; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); border-top: 1px solid var(--ink); }
+.weeks12 > li { padding: 8px 6px 10px; border-right: 1px solid var(--line); min-height: 112px; }
+.weeks12 > li:last-child { border-right: 0; }
+.weeks12 .w { display: block; color: var(--muted); font-size: 13px; font-style: italic; margin-bottom: 6px; }
+.weeks12 .w b { color: var(--walnut); font-style: normal; font-weight: 600; }
+.weeks12 ul { list-style: none; padding: 0; margin: 0; }
+.weeks12 ul li { font-size: 14px; padding: 4px 0; border-bottom: 1px solid var(--line); line-height: 1.25; }
+.weeks12 ul li.off { color: var(--muted); }
+.weeks12 ul li.off s { text-decoration-color: var(--walnut); }
+.sum { margin-top: 18px; font-size: 19px; }
+.sum b { color: var(--walnut); }
+.pc { display: flex; margin-top: 18px; max-width: 460px; }
+.pc input { flex: 1; min-width: 0; height: 54px; padding: 0 14px; border: 1px solid var(--ink); border-right: 0; background: var(--bg); color: var(--ink); font: 600 22px var(--serif); letter-spacing: .04em; text-transform: uppercase; }
+.pc button { height: 54px; padding: 0 22px; border: 0; background: var(--ink); color: var(--paper); font: 600 17px var(--serif); cursor: pointer; }
+.out { margin-top: 14px; font-size: 20px; min-height: 1.6em; }
+.out b { color: var(--walnut); }
+.areas { margin-top: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 0 32px; color: var(--muted); }
+.areas div { padding: 10px 0; border-top: 1px solid var(--line); }
+.areas dt { color: var(--ink); font-weight: 600; }
+.areas .yes dt { color: var(--walnut); }
+.claim { width: 100%; margin-top: 18px; min-height: 88px; padding: 14px 16px; border: 1px solid var(--ink); background: var(--bg); color: var(--ink); font: italic 400 22px/1.4 var(--serif); resize: vertical; }
+.try { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.try button { min-height: 40px; padding: 4px 12px; background: none; border: 1px dashed var(--line-2); color: var(--muted); font: italic 400 15px var(--serif); cursor: pointer; text-align: left; }
+.verdict { margin-top: 16px; padding: 14px 18px; border-left: 3px solid var(--line-2); font-size: 19px; min-height: 3.4em; }
+.verdict.no { border-color: var(--walnut); }
+.verdict.no b { color: var(--walnut); }
+.verdict.ok b { color: var(--ink); }
+
+/* the rest of the book: a run of pages */
+.run { grid-column: 1 / -1; margin-top: 56px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 36px 24px; }
+.run figure .dev { max-width: none; border-radius: 28px; padding: 6px; }
+.run figure .dev img { border-radius: 23px; }
+.run figcaption { margin-top: 12px; font-size: 16px; }
+.run figcaption b { display: block; font-weight: 600; }
+.run figcaption span { color: var(--muted); font-style: italic; }
+.qa { grid-column: 1 / -1; margin-top: 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 0 40px; border-top: 1px solid var(--ink); }
+.qa div { padding: 18px 0; border-bottom: 1px solid var(--line); }
+.qa dt { font-weight: 600; font-size: 20px; }
+.qa dd { margin-top: 6px; color: var(--muted); }
+
+/* the plans: how often you train */
+.plans { padding-block: clamp(80px, 10vw, 140px); background: var(--paper); border-top: 1px solid var(--ink); }
+.plans-h { display: grid; grid-template-columns: repeat(12, 1fr); gap: 0 24px; align-items: end; }
+.plans-h h2 { grid-column: 1 / 8; font: 600 clamp(48px, 6vw, 96px)/.95 var(--serif); letter-spacing: -.02em; }
+.plans-h p { grid-column: 9 / 13; color: var(--muted); }
+.pl-list { margin-top: 48px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 32px; }
+.pl { border-top: 1px solid var(--ink); padding-top: 18px; }
+.pl .strip { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; margin-bottom: 18px; }
+.pl .strip span { height: 34px; border: 1px solid var(--line); position: relative; }
+.pl .strip span.k { border-color: var(--walnut); background: var(--walnut); }
+.pl .strip small { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(7, 1fr); color: var(--muted); font-size: 12px; text-align: center; }
+.pl h3 { font: 600 34px var(--serif); }
+.pl .often { color: var(--walnut); font-style: italic; }
+.pl .price { margin-top: 8px; font: 600 26px var(--serif); }
+.pl .price span { font: italic 400 16px var(--serif); color: var(--muted); }
+.pl ul { list-style: none; padding: 0; margin: 16px 0 0; }
+.pl li { padding: 8px 0; border-bottom: 1px solid var(--line); }
+.bespoke { margin-top: 36px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 30px; padding: 18px 0; border-top: 1px solid var(--line-2); border-bottom: 1px solid var(--line-2); }
+.bespoke b { font-weight: 600; }
+.pl-note { margin-top: 14px; color: var(--muted); font-style: italic; }
+
+/* speed: a rep's tempo */
+.speed { padding-block: clamp(80px, 10vw, 130px); }
+.speed-in { display: grid; grid-template-columns: repeat(12, 1fr); gap: 0 24px; align-items: start; }
+.speed h2 { grid-column: 1 / 6; font: 600 clamp(40px, 5vw, 76px)/.98 var(--serif); letter-spacing: -.02em; }
+.facts { grid-column: 7 / 13; border-top: 1px solid var(--ink); }
+.facts div { display: grid; grid-template-columns: 9.5rem 1fr; gap: 20px; align-items: baseline; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.facts dt { font: 600 34px var(--serif); color: var(--walnut); }
+.facts dd { color: var(--muted); }
+.facts-note { grid-column: 7 / 13; margin-top: 12px; color: var(--muted); font-style: italic; font-size: 15px; }
+
+/* the close: an ink band, like the demo's footer */
+.close { background: var(--band); color: var(--on-band); padding-block: clamp(80px, 10vw, 130px); }
+.close-in { display: grid; grid-template-columns: repeat(12, 1fr); gap: 0 24px; align-items: center; }
+.close h2 { grid-column: 1 / 8; font: 600 clamp(48px, 6.4vw, 104px)/.95 var(--serif); letter-spacing: -.02em; }
+.close p { grid-column: 1 / 7; margin-top: 22px; opacity: .85; }
+.acts { grid-column: 1 / 8; display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.btn { display: inline-flex; align-items: center; min-height: 52px; padding: 0 24px; background: var(--on-band); color: var(--band); font: 600 18px var(--serif); text-decoration: none; }
+.btn.line { background: none; color: var(--on-band); border: 1px solid rgba(243,239,232,.5); }
+.mail { grid-column: 1 / 8; margin-top: 20px; opacity: .7; font-style: italic; }
+.close-fig { grid-column: 9 / 13; grid-row: 1 / 6; align-self: start; max-width: 380px; justify-self: end; }
+.close-fig img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 20%; }
+.close-fig figcaption { margin-top: 10px; font-style: italic; opacity: .7; font-size: 15px; }
+
+footer { background: var(--band); color: rgba(243,239,232,.7); padding-block: 0 40px; font: 400 14px/1.6 var(--brand); }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px 40px; padding-top: 26px; border-top: 1px solid rgba(243,239,232,.16); }
+footer p { max-width: 60rem; }
+
+@media (max-width: 1060px) {
+  .show { grid-column: 1 / -1; margin-top: 40px; }
+  .slot { grid-column: 1 / -1; }
+  .weeks12 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .weeks12 > li { border-bottom: 1px solid var(--line); }
+  .weeks12 > li:nth-child(4n) { border-right: 0; }
+  .run { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 760px) {
+  body { font-size: 17px; }
+  .top { display: block; }
+  .top .lede { margin-top: 16px; font-size: 17px; }
+  .now { grid-template-columns: 1fr; }
+  .now-q { grid-column: 1; }
+  .week { grid-template-columns: 38px repeat(7, minmax(0, 1fr)); grid-auto-rows: 28px; }
+  .week .dh { padding: 8px 4px 4px; font-size: 14px; height: 40px; }
+  .week .dh small { display: none; }
+  .week .hh { font-size: 11px; padding: 5px 0 0 4px; }
+  .week .c.k::after { left: 4px; right: 4px; }
+  .week .c.now::before { display: none; }
+  .e { padding: 0; justify-content: center; inset: 1px 2px; min-height: 26px; }
+  .e span { display: none; }
+  .phone { position: static !important; width: auto !important; padding: 28px 0 8px; }
+  .phone .dev { max-width: 250px; }
+  .phone figcaption { max-width: 300px; }
+  .show { display: block; }
+  .show .dev { margin: 0 auto; max-width: 250px; }
+  .cap { margin-top: 24px; }
+  .weeks12 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .weeks12 > li:nth-child(2n) { border-right: 0; }
+  .areas, .qa, .pl-list { grid-template-columns: 1fr; }
+  .pl + .pl { margin-top: 36px; }
+  .run { grid-template-columns: 1fr 1fr; gap: 28px 14px; }
+  .plans-h, .speed-in, .close-in { display: block; }
+  .plans-h p, .facts, .close-fig { margin-top: 24px; }
+  .facts div { grid-template-columns: 6.5rem 1fr; }
+  .close-fig { max-width: 260px; }
+}
+@media (prefers-reduced-motion: reduce) { .e { animation: none; opacity: 1; } .now-q { transition: none; } }
+
+</style>
+</head>
+<body>
+
+<div class="sfbar gut"><div class="wrap">
+  <a class="wm" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su" aria-label="Sitefloor home">sitefl<svg width="28" height="14" viewBox="0 0 42 21" aria-hidden="true"><rect x="1.9" y="1.9" width="38.2" height="17.2" rx="8.6" fill="none" stroke="#0E0F11" stroke-width="3.8"/><circle cx="31.5" cy="10.5" r="5.2" fill="#E8613C"/></svg>r</a>
+  <nav aria-label="Main"><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#live">Features</a><a href="#top" aria-current="page">Work</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#pricing">Pricing</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#guides">Guides</a></nav>
+  <a class="sfbtn" href="#mockup"><span>Free mockup</span><span aria-hidden="true">→</span></a>
+</div></div>
+
+<main id="top">
+<section class="hero gut" aria-labelledby="h1"><div class="wrap">
+  <div class="top">
+    <h1 id="h1">While you <em>train.</em></h1>
+    <p class="lede">A private trainer's week is mostly spoken for, and mid-set they can't answer the phone. This is Marrick's week, and in walnut, what its website does in the hours its trainer can't.</p>
+  </div>
+  <div class="now" aria-live="polite"><span class="now-k">Now</span><p class="now-t" data-now>Opening the week…</p><p class="now-q" data-q></p></div>
+  <div class="book">
+    <div class="week" role="group" aria-label="Marrick's week: the trainer's sessions in ink, the website's work in walnut, entries I to VIII">
+<div class="dh" style="grid-column:1;grid-row:1"></div>
+<div class="dh" style="grid-column:2;grid-row:1">Mon<small></small></div>
+<div class="dh" style="grid-column:3;grid-row:1">Tue<small></small></div>
+<div class="dh" style="grid-column:4;grid-row:1">Wed<small></small></div>
+<div class="dh" style="grid-column:5;grid-row:1">Thu<small></small></div>
+<div class="dh" style="grid-column:6;grid-row:1">Fri<small></small></div>
+<div class="dh" style="grid-column:7;grid-row:1">Sat<small></small></div>
+<div class="dh off" style="grid-column:8;grid-row:1">Sun<small>shut</small></div>
+<div class="hh" style="grid-column:1;grid-row:2"><span class="tn"><i>0</i><i>6</i><i class="c">:</i><i>0</i><i>0</i></span></div>
+<div class="c k" data-d="0" data-h="6" style="grid-column:2;grid-row:2"><button type="button" class="e" style="animation-delay:0.30s" data-media="media/diary.mp4" data-label="The week, open to book" data-slot="Monday, 06:00" data-ch="i" aria-pressed="true" aria-label="I, Monday, 06:00: The week, open to book"><b>I</b><span>06:00 The week</span></button></div>
+<div class="c k" data-d="1" data-h="6" style="grid-column:3;grid-row:2"></div>
+<div class="c k" data-d="2" data-h="6" style="grid-column:4;grid-row:2"></div>
+<div class="c k" data-d="3" data-h="6" style="grid-column:5;grid-row:2"></div>
+<div class="c k" data-d="4" data-h="6" style="grid-column:6;grid-row:2"></div>
+<div class="c o" data-d="5" data-h="6" style="grid-column:7;grid-row:2"></div>
+<div class="c o" data-d="6" data-h="6" style="grid-column:8;grid-row:2"></div>
+<div class="hh" style="grid-column:1;grid-row:3"><span class="tn"><i>0</i><i>7</i><i class="c">:</i><i>0</i><i>0</i></span></div>
+<div class="c k" data-d="0" data-h="7" style="grid-column:2;grid-row:3"></div>
+<div class="c k" data-d="1" data-h="7" style="grid-column:3;grid-row:3"></div>
+<div class="c " data-d="2" data-h="7" style="grid-column:4;grid-row:3"></div>
+<div class="c k" data-d="3" data-h="7" style="grid-column:5;grid-row:3"></div>
+<div class="c k" data-d="4" data-h="7" style="grid-column:6;grid-row:3"></div>
+<div class="c k" data-d="5" data-h="7" style="grid-column:7;grid-row:3"></div>
+<div class="c o" data-d="6" data-h="7" style="grid-column:8;grid-row:3"></div>
+<div class="hh" style="grid-column:1;grid-row:4"><span class="tn"><i>0</i><i>8</i><i class="c">:</i><i>0</i><i>0</i></span></div>
+<div class="c k" data-d="0" data-h="8" style="grid-column:2;grid-row:4"></div>
+<div class="c k" data-d="1" data-h="8" style="grid-column:3;grid-row:4"></div>
+<div class="c k" data-d="2" data-h="8" style="grid-column:4;grid-row:4"></div>
+<div class="c k" data-d="3" data-h="8" style="grid-column:5;grid-row:4"></div>
+<div class="c k" data-d="4" data-h="8" style="grid-column:6;grid-row:4"></div>
+<div class="c " data-d="5" data-h="8" style="grid-column:7;grid-row:4"></div>
+<div class="c o" data-d="6" data-h="8" style="grid-column:8;grid-row:4"></div>
+<div class="hh" style="grid-column:1;grid-row:5"><span class="tn"><i>0</i><i>9</i><i class="c">:</i><i>0</i><i>0</i></span></div>
+<div class="c k" data-d="0" data-h="9" style="grid-column:2;grid-row:5"></div>
+<div class="c k" data-d="1" data-h="9" style="grid-column:3;grid-row:5"></div>
+<div class="c k" data-d="2" data-h="9" style="grid-column:4;grid-row:5"></div>
+<div class="c k" data-d="3" data-h="9" style="grid-column:5;grid-row:5"></div>
+<div class="c k" data-d="4" data-h="9" style="grid-column:6;grid-row:5"></div>
+<div class="c k" data-d="5" data-h="9" style="grid-column:7;grid-row:5"></div>
+<div class="c o" data-d="6" data-h="9" style="grid-column:8;grid-row:5"></div>
+<div class="hh" style="grid-column:1;grid-row:6"><span class="tn"><i>1</i><i>0</i><i class="c">:</i><i>0</i><i>0</i></span></div>
+<div class="c k" data-d="0" data-h="10" style="grid-column:2;grid-row:6"></div>
+<div class="c k" data-d="1" data-h="10" style="grid-column:3;grid-row:6"></div>
+<div class="c k" data-d="2" data-h="10" style="grid-column:4;grid-row:6"></div>
+<div class="c k" data-d="3" data-h="10" style="grid-column:5;grid-row:6"></div>
+<div class="c k" data-d="4" data-h="10" style="grid-column:6;grid-row:6"></div>
+<div class="c k" data-d="5" data-h="10" style="grid-column:7;grid-row:6"></div>
+<div class="c o" data-d="6" data-h="10" style="grid-column:8;grid-row:6"><button type="button" class="e" style="animation-delay:1.56s" data-media="media/home.webp" data-label="The studio&#x27;s shut, the site isn&#x27;t" data-slot="Sunday, 10:00" data-ch="viii" aria-pressed="false" aria-label="VIII, Sunday, 10:00: The studio&#x27;s shut, the site isn&#x27;t"><b>VIII</b><span>10:00 Questions</span></button></div>
+<div class="hh" style="grid-column:1;grid-row:7"><span class="tn"><i>1</i><i>1</i><i class="c">:</i><i>0</i><i>0</i></span></div>
+<div class="c k" data-d="0" data-h="11" style="grid-column:2;grid-row:7"></div>
+<div class="c k" data-d="1" data-h="11" style="grid-column:3;grid-row:7"></div>
+<div class="c k" data-d="2" data-h="11" style="grid-column:4;grid-row:7"></div>
+<div class="c k" data-d="3" data-h="11" style="grid-column:5;grid-row:7"></div>
+<div class="c k" data-d="4" data-h="11" style="grid-column:6;grid-row:7"></div>
+<div class="c k" data-d="5" data-h="11" style="grid-column:7;grid-row:7"><button type="button" class="e" style="animation-delay:1.02s" data-media="media/coverage.mp4" data-label="Do you come to me?" data-slot="Saturday, 11:05" data-ch="v" aria-pressed="false" aria-label="V, Saturday, 11:05: Do you come to me?"><b>V</b><span>11:05 Your postcode</span></button></div>
+<div class="c o" data-d="6" data-h="11" style="grid-column:8;grid-row:7"></div>
+<div class="hh" style="grid-column:1;grid-row:8"><span class="tn"><i>1</i><i>2</i><i class="c">:</i><i>0</i><i>0</i></span></div>
+<div class="c k" data-d="0" data-h="12" style="grid-column:2;grid-row:8"></div>
+<div class="c k" data-d="1" data-h="12" style="grid-column:3;grid-row:8"></div>
+<div class="c k" data-d="2" data-h="12" style="grid-column:4;grid-row:8"><button type="button" class="e" style="animation-delay:0.84s" data-media="media/weeks.mp4" data-label="Twelve weeks, every session dated" data-slot="Wednesday, 12:30" data-ch="iv" aria-pressed="false" aria-label="IV, Wednesday, 12:30: Twelve weeks, every session dated"><b>IV</b><span>12:30 Twelve weeks</span></button></div>
+<div class="c k" data-d="3" data-h="12" style="grid-column:5;grid-row:8"></div>
+<div class="c k" data-d="4" data-h="12" style="grid-column:6;grid-row:8"></div>
+<div class="c k" data-d="5" data-h="12" style="grid-column:7;grid-row:8"></div>
+<div class="c o" data-d="6" data-h="12" style="grid-column:8;grid-row:8"></div>
+<div class="hh" style="grid-column:1;grid-row:9"><span class="tn"><i>1</i><i>3</i><i class="c">:</i><i>0</i><i>0</i></span></div>
+<div class="c k" data-d="0" data-h="13" style="grid-column:2;grid-row:9"><button type="button" class="e" style="animation-delay:0.48s" data-media="media/month.mp4" data-label="A first month, priced" data-slot="Monday, 13:10" data-ch="ii" aria-pressed="false" aria-label="II, Monday, 13:10: A first month, priced"><b>II</b><span>13:10 A first month</span></button></div>
+<div class="c k" data-d="1" data-h="13" style="grid-column:3;grid-row:9"></div>
+<div class="c k" data-d="2" data-h="13" style="grid-column:4;grid-row:9"></div>
+<div class="c k" data-d="3" data-h="13" style="grid-column:5;grid-row:9"></div>
+<div class="c k" data-d="4" data-h="13" style="grid-column:6;grid-row:9"></div>
+<div class="c k" data-d="5" data-h="13" style="grid-column:7;grid-row:9"></div>
+<div class="c o" data-d="6" data-h="13" style="grid-column:8;grid-row:9"></div>
+<div class="hh" style="grid-column:1;grid-row:10"><span class="tn"><i>1</i><i>4</i><i class="c">:</i><i>0</i><i>0</i></span></div>
+<div class="c " data-d="0" data-h="14" style="grid-column:2;grid-row:10"></div>
+<div class="c k" data-d="1" data-h="14" style="grid-column:3;grid-row:10"></div>
+<div class="c k" data-d="2" data-h="14" style="grid-column:4;grid-row:10"></div>
+<div class="c k" data-d="3" data-h="14" style="grid-column:5;grid-row:10"></div>
+<div class="c k" data-d="4" data-h="14" style="grid-column:6;grid-row:10"></div>
+<div class="c o" data-d="5" data-h="14" style="grid-column:7;grid-row:10"></div>
+<div class="c o" data-d="6" data-h="14" style="grid-column:8;grid-row:10"></div>
+<div class="hh" style="grid-column:1;grid-row:11"><span class="tn"><i>1</i><i>5</i><i class="c">:</i><i>0</i><i>0</i></span></div>
+<div class="c k" data-d="0" data-h="15" style="grid-column:2;grid-row:11"></div>
+<div class="c k" data-d="1" data-h="15" style="grid-column:3;grid-row:11"></div>
+<div class="c k" data-d="2" data-h="15" style="grid-column:4;grid-row:11"></div>
+<div class="c k" data-d="3" data-h="15" style="grid-column:5;grid-row:11"></div>
+<div class="c k" data-d="4" data-h="15" style="grid-column:6;grid-row:11"></div>
+<div class="c o" data-d="5" data-h="15" style="grid-column:7;grid-row:11"></div>
+<div class="c o" data-d="6" data-h="15" style="grid-column:8;grid-row:11"></div>
+<div class="hh" style="grid-column:1;grid-row:12"><span class="tn"><i>1</i><i>6</i><i class="c">:</i><i>0</i><i>0</i></span></div>
+<div class="c k" data-d="0" data-h="16" style="grid-column:2;grid-row:12"></div>
+<div class="c k" data-d="1" data-h="16" style="grid-column:3;grid-row:12"></div>
+<div class="c k" data-d="2" data-h="16" style="grid-column:4;grid-row:12"></div>
+<div class="c k" data-d="3" data-h="16" style="grid-column:5;grid-row:12"></div>
+<div class="c k" data-d="4" data-h="16" style="grid-column:6;grid-row:12"></div>
+<div class="c o" data-d="5" data-h="16" style="grid-column:7;grid-row:12"><button type="button" class="e" style="animation-delay:1.38s" data-media="media/coaches.webp" data-label="The rest of the book" data-slot="Saturday, 16:20" data-ch="vii" aria-pressed="false" aria-label="VII, Saturday, 16:20: The rest of the book"><b>VII</b><span>16:20 Every page</span></button></div>
+<div class="c o" data-d="6" data-h="16" style="grid-column:8;grid-row:12"></div>
+<div class="hh" style="grid-column:1;grid-row:13"><span class="tn"><i>1</i><i>7</i><i class="c">:</i><i>0</i><i>0</i></span></div>
+<div class="c k" data-d="0" data-h="17" style="grid-column:2;grid-row:13"></div>
+<div class="c k" data-d="1" data-h="17" style="grid-column:3;grid-row:13"></div>
+<div class="c k" data-d="2" data-h="17" style="grid-column:4;grid-row:13"></div>
+<div class="c k" data-d="3" data-h="17" style="grid-column:5;grid-row:13"></div>
+<div class="c k" data-d="4" data-h="17" style="grid-column:6;grid-row:13"></div>
+<div class="c o" data-d="5" data-h="17" style="grid-column:7;grid-row:13"></div>
+<div class="c o" data-d="6" data-h="17" style="grid-column:8;grid-row:13"></div>
+<div class="hh" style="grid-column:1;grid-row:14"><span class="tn"><i>1</i><i>8</i><i class="c">:</i><i>0</i><i>0</i></span></div>
+<div class="c k" data-d="0" data-h="18" style="grid-column:2;grid-row:14"></div>
+<div class="c " data-d="1" data-h="18" style="grid-column:3;grid-row:14"></div>
+<div class="c k" data-d="2" data-h="18" style="grid-column:4;grid-row:14"></div>
+<div class="c k" data-d="3" data-h="18" style="grid-column:5;grid-row:14"></div>
+<div class="c k" data-d="4" data-h="18" style="grid-column:6;grid-row:14"></div>
+<div class="c o" data-d="5" data-h="18" style="grid-column:7;grid-row:14"></div>
+<div class="c o" data-d="6" data-h="18" style="grid-column:8;grid-row:14"></div>
+<div class="hh" style="grid-column:1;grid-row:15"><span class="tn"><i>1</i><i>9</i><i class="c">:</i><i>0</i><i>0</i></span></div>
+<div class="c k" data-d="0" data-h="19" style="grid-column:2;grid-row:15"></div>
+<div class="c k" data-d="1" data-h="19" style="grid-column:3;grid-row:15"></div>
+<div class="c k" data-d="2" data-h="19" style="grid-column:4;grid-row:15"></div>
+<div class="c " data-d="3" data-h="19" style="grid-column:5;grid-row:15"></div>
+<div class="c k" data-d="4" data-h="19" style="grid-column:6;grid-row:15"></div>
+<div class="c o" data-d="5" data-h="19" style="grid-column:7;grid-row:15"></div>
+<div class="c o" data-d="6" data-h="19" style="grid-column:8;grid-row:15"></div>
+<div class="hh" style="grid-column:1;grid-row:16"><span class="tn"><i>2</i><i>0</i><i class="c">:</i><i>0</i><i>0</i></span></div>
+<div class="c k" data-d="0" data-h="20" style="grid-column:2;grid-row:16"></div>
+<div class="c k" data-d="1" data-h="20" style="grid-column:3;grid-row:16"></div>
+<div class="c k" data-d="2" data-h="20" style="grid-column:4;grid-row:16"></div>
+<div class="c k" data-d="3" data-h="20" style="grid-column:5;grid-row:16"></div>
+<div class="c k" data-d="4" data-h="20" style="grid-column:6;grid-row:16"></div>
+<div class="c o" data-d="5" data-h="20" style="grid-column:7;grid-row:16"></div>
+<div class="c o" data-d="6" data-h="20" style="grid-column:8;grid-row:16"></div>
+<div class="hh" style="grid-column:1;grid-row:17"><span class="tn"><i>2</i><i>1</i><i class="c">:</i><i>0</i><i>0</i></span></div>
+<div class="c o" data-d="0" data-h="21" style="grid-column:2;grid-row:17"></div>
+<div class="c o" data-d="1" data-h="21" style="grid-column:3;grid-row:17"><button type="button" class="e" style="animation-delay:0.66s" data-media="media/goal.mp4" data-label="What are you training for?" data-slot="Tuesday, 21:40" data-ch="iii" aria-pressed="false" aria-label="III, Tuesday, 21:40: What are you training for?"><b>III</b><span>21:40 Your goal</span></button></div>
+<div class="c o" data-d="2" data-h="21" style="grid-column:4;grid-row:17"></div>
+<div class="c o" data-d="3" data-h="21" style="grid-column:5;grid-row:17"></div>
+<div class="c o" data-d="4" data-h="21" style="grid-column:6;grid-row:17"></div>
+<div class="c o" data-d="5" data-h="21" style="grid-column:7;grid-row:17"></div>
+<div class="c o" data-d="6" data-h="21" style="grid-column:8;grid-row:17"><button type="button" class="e" style="animation-delay:1.20s" data-media="media/programme.webp" data-label="Nothing it can&#x27;t keep" data-slot="Sunday, 21:30" data-ch="vi" aria-pressed="false" aria-label="VI, Sunday, 21:30: Nothing it can&#x27;t keep"><b>VI</b><span>21:30 No promises</span></button></div>
+<div class="hh" style="grid-column:1;grid-row:18"><span class="tn"><i>2</i><i>2</i><i class="c">:</i><i>0</i><i>0</i></span></div>
+<div class="c o" data-d="0" data-h="22" style="grid-column:2;grid-row:18"></div>
+<div class="c o" data-d="1" data-h="22" style="grid-column:3;grid-row:18"></div>
+<div class="c o" data-d="2" data-h="22" style="grid-column:4;grid-row:18"></div>
+<div class="c o" data-d="3" data-h="22" style="grid-column:5;grid-row:18"></div>
+<div class="c o" data-d="4" data-h="22" style="grid-column:6;grid-row:18"></div>
+<div class="c o" data-d="5" data-h="22" style="grid-column:7;grid-row:18"></div>
+<div class="c o" data-d="6" data-h="22" style="grid-column:8;grid-row:18"></div>
+<div class="hh" style="grid-column:1;grid-row:19">Night</div>
+<div class="c o" data-d="0" data-h="n" style="grid-column:2;grid-row:19"></div>
+<div class="c o" data-d="1" data-h="n" style="grid-column:3;grid-row:19"></div>
+<div class="c o" data-d="2" data-h="n" style="grid-column:4;grid-row:19"></div>
+<div class="c o" data-d="3" data-h="n" style="grid-column:5;grid-row:19"></div>
+<div class="c o" data-d="4" data-h="n" style="grid-column:6;grid-row:19"></div>
+<div class="c o" data-d="5" data-h="n" style="grid-column:7;grid-row:19"></div>
+<div class="c o" data-d="6" data-h="n" style="grid-column:8;grid-row:19"></div>
+    </div>
+    <figure class="phone" data-phone style="left:calc(64px + (100% - 64px) * 3 / 7);width:calc((100% - 64px) * 2 / 7);top:52px">
+      <div class="dev"><video id="v-hero" src="media/diary.mp4" poster="media/diary-poster.webp" muted playsinline loop aria-label="The week, open to book"></video></div>
+      <button type="button" class="toggle" data-toggle="v-hero" data-what="phone">Pause the phone clip</button>
+      <figcaption><b>I</b> Monday, 06:00: the week, open to book. <a href="#i">Read it</a></figcaption>
+    </figure>
+  </div>
+  <p class="legend"><span class="lk">spoken for</span><span class="lo">shut</span><span class="le">the website, at work (open any)</span><span class="ln">now, in London</span></p>
+</div></section>
+
+<section class="ch gut" id="i" aria-labelledby="h-i"><div class="wrap ch-in">
+  <div class="slot"><span class="n">I</span><span class="d">Monday</span><span class="t"><span class="tn"><i>0</i><i>6</i><i class="c">:</i><i>0</i><i>0</i></span></span><h2 id="h-i">The week, open to book.</h2><p>The first thing on Marrick's site is the trainer's own week, from a Google Sheet he fills in between clients. Spoken-for hours stay quiet; the five open ones are printed in ink.</p><p>Tap one and it becomes a WhatsApp message for that hour. If the sheet is out of date, no hours show at all, only “Message for times”.</p><span class="tier">On every plan</span></div>
+  <div class="show"><div><div class="dev"><video id="v-diary" src="media/diary.mp4" poster="media/diary-poster.webp" muted playsinline loop preload="none" aria-label="An open hour, tapped on a phone."></video></div><button type="button" class="toggle" data-toggle="v-diary" data-what="week">Pause the week clip</button></div><div class="cap"><p><b>An open hour, tapped on a phone.</b></p><p>The slip below the week rewrites itself: Monday 16 November, 06:00, one hour, the studio to yourselves.</p><p>The phone bar keeps the next private hour in reach all the way down the page.</p></div></div>
+</div></section>
+<section class="ch gut" id="ii" aria-labelledby="h-ii"><div class="wrap ch-in">
+  <div class="slot"><span class="n">II</span><span class="d">Monday</span><span class="t"><span class="tn"><i>1</i><i>3</i><i class="c">:</i><i>1</i><i>0</i></span></span><h2 id="h-ii">A first month, priced to the pound.</h2><p>Where and how often. Then the first session minute by minute, every date for the four weeks after it, and what the month costs, from the trainer's own prices.</p><p>At home, three times a week: £1,515 for twelve sessions, paid as you go. Every session goes into a calendar in one tap.</p><span class="tier">Signature</span></div>
+  <div class="show"><div><div class="dev"><video id="v-month" src="media/month.mp4" poster="media/month-poster.webp" muted playsinline loop preload="none" aria-label="Your home, three times a week."></video></div><button type="button" class="toggle" data-toggle="v-month" data-what="first-month">Pause the first-month clip</button></div><div class="cap"><p><b>Your home, three times a week.</b></p><p>Travel is added once, not hidden: the first session £140, then £125 a session.</p><p>The dates start from the first open hour in the week above.</p></div></div>
+</div></section>
+<section class="ch gut" id="iii" aria-labelledby="h-iii"><div class="wrap ch-in">
+  <div class="slot"><span class="n">III</span><span class="d">Tuesday</span><span class="t"><span class="tn"><i>2</i><i>1</i><i class="c">:</i><i>4</i><i>0</i></span></span><h2 id="h-iii">What are you training for?</h2><p>Four taps: the goal, how long since you last trained, days a week, any injury. The programme that fits, a sample week, and a message that already says it all.</p><p>An injury means a talk first, and perhaps a GP's or physio's go-ahead. The site says so before anyone asks.</p><span class="tier">Plus</span></div>
+  <div class="show"><div><div class="dev"><video id="v-goal" src="media/goal.mp4" poster="media/goal-poster.webp" muted playsinline loop preload="none" aria-label="A bad back, not for years, three days a week."></video></div><button type="button" class="toggle" data-toggle="v-goal" data-what="goal-finder">Pause the goal-finder clip</button></div><div class="cap"><p><b>A bad back, not for years, three days a week.</b></p><p>Back to training: strength for the back and hips on Monday, walking and conditioning on Wednesday, mobility on Friday.</p><p>The message to the trainer is written for them.</p></div></div>
+</div></section>
+<section class="ch gut" id="iv" aria-labelledby="h-iv"><div class="wrap ch-in">
+  <div class="slot"><span class="n">IV</span><span class="d">Wednesday</span><span class="t"><span class="tn"><i>1</i><i>2</i><i class="c">:</i><i>3</i><i>0</i></span></span><h2 id="h-iv">Twelve weeks, every session dated.</h2><p>How often, the first day, the time. The weeks lay out under the trainer's three phases; bank holidays and the days the studio is shut are struck through, never booked.</p><p>The cost is the sessions that actually happen, at the trainer's price. Save all of them to a calendar, or send the plan on WhatsApp.</p><span class="tier">Signature</span></div>
+  <div class="show"><div><div class="dev"><video id="v-weeks" src="media/weeks.mp4" poster="media/weeks-poster.webp" muted playsinline loop preload="none" aria-label="Three times a week, from 21 December."></video></div><button type="button" class="toggle" data-toggle="v-weeks" data-what="twelve-weeks">Pause the twelve-weeks clip</button></div><div class="cap"><p><b>Three times a week, from 21 December.</b></p><p>Christmas Day, the Boxing Day holiday and New Year's Day come out by themselves.</p><p>Thirty-three sessions to Friday 12 March, £3,465 at £105 a session.</p></div></div><div class="tool" aria-labelledby="h-t4"><div class="tool-h"><h3 id="h-t4">Twelve weeks from <span data-start>Monday</span></h3><span>Live: this year's bank holidays, worked out here</span></div>
+  <div class="opts" role="group" aria-label="How often"><button type="button" data-n="1" aria-pressed="false">Once a week</button><button type="button" data-n="2" aria-pressed="true">Twice a week</button><button type="button" data-n="3" aria-pressed="false">Three times</button></div>
+  <ol class="weeks12" data-weeks aria-label="The twelve weeks"></ol>
+  <p class="sum" data-sum aria-live="polite"></p></div>
+</div></section>
+<section class="ch gut" id="v" aria-labelledby="h-v"><div class="wrap ch-in">
+  <div class="slot"><span class="n">V</span><span class="d">Saturday</span><span class="t"><span class="tn"><i>1</i><i>1</i><i class="c">:</i><i>0</i><i>5</i></span></span><h2 id="h-v">Do you come to me?</h2><p>A postcode against the trainer's own list: to your home, to the park in good weather, or online further out.</p><p>The districts are printed too, so the answer is there before anyone types.</p><span class="tier">Plus</span></div>
+  <div class="show"><div><div class="dev"><video id="v-coverage" src="media/coverage.mp4" poster="media/coverage-poster.webp" muted playsinline loop preload="none" aria-label="SW10, then SE22."></video></div><button type="button" class="toggle" data-toggle="v-coverage" data-what="postcode">Pause the postcode clip</button></div><div class="cap"><p><b>SW10, then SE22.</b></p><p>SW10: yes, at your home. SE22: further than Marrick travels; online works anywhere.</p></div></div><div class="tool" aria-labelledby="h-t5"><div class="tool-h"><h3 id="h-t5">Do you come to me?</h3><span>Live: the demo's own districts</span></div>
+  <form class="pc" data-pc><label class="sr" for="pc-in">Your postcode</label><input id="pc-in" type="text" autocomplete="postal-code" autocapitalize="characters" spellcheck="false" maxlength="8" placeholder="SW10 9AA"><button type="submit">Check</button></form>
+  <p class="out" data-pc-out aria-live="polite"></p>
+  <dl class="areas"><div data-area="home"><dt>At your home</dt><dd>SW1X · SW1W · SW3 · SW5 · SW7 · SW10 · W8</dd></div><div data-area="park"><dt>In the park</dt><dd>SW1X · SW3 · SW7 · W8, March to October</dd></div></dl></div>
+</div></section>
+<section class="ch gut" id="vi" aria-labelledby="h-vi"><div class="wrap ch-in">
+  <div class="slot"><span class="n">VI</span><span class="d">Sunday</span><span class="t"><span class="tn"><i>2</i><i>1</i><i class="c">:</i><i>3</i><i>0</i></span></span><h2 id="h-vi">Nothing it can't keep.</h2><p>The kit won't publish a promise a trainer can't keep: no pounds lost by a date, no abs by summer, nothing that “treats” a back. A trainer works alongside a physio, never instead.</p><p>Every pregnancy or injury programme names the qualification it rests on. A client's story goes up only with their consent, in their own words.</p><span class="tier">On every plan</span></div>
+  <div class="show"><div class="dev"><img src="media/programme.webp" alt="The Back to training page on a phone: who it&#x27;s for, the week, and the qualification it rests on" width="780" height="1688" loading="lazy" decoding="async"></div><div class="cap"><p><b>Back to training, on a phone.</b></p><p>Rests on: Level 4 Certificate in Physical Activity and Lifestyle Strategies for Managing Low Back Pain, Active IQ, 2024.</p><p>Only what the trainer holds; the site refuses anything else.</p></div></div><div class="tool" aria-labelledby="h-t6"><div class="tool-h"><h3 id="h-t6">Write a line for a trainer's site</h3><span>Live: the kit's own checks</span></div>
+  <label class="sr" for="claim">A line of copy</label><textarea id="claim" class="claim" data-claim rows="2">Lose a stone in eight weeks.</textarea>
+  <div class="try" aria-label="Try one"><button type="button" data-try>We treat your back pain.</button><button type="button" data-try>Visible abs in 30 days.</button><button type="button" data-try>Twelve weeks, every session dated.</button><button type="button" data-try>Treat a friend to a first session.</button><button type="button" data-try>Once your physio treatment has finished, we start.</button><button type="button" data-try>Get beach-body ready.</button></div>
+  <p class="verdict" data-verdict aria-live="polite"></p></div>
+</div></section>
+<section class="ch gut" id="vii" aria-labelledby="h-vii"><div class="wrap ch-in">
+  <div class="slot"><span class="n">VII</span><span class="d">Saturday</span><span class="t"><span class="tn"><i>1</i><i>6</i><i class="c">:</i><i>2</i><i>0</i></span></span><h2 id="h-vii">The rest of the book.</h2><p>Twenty pages on Signature. Each one answers a question a new client asks before the first message.</p><p>Coaches, prices for two, the first hour, food, the studio, the journal.</p><span class="tier">Plus and Signature</span></div>
+  <div class="run"><figure><div class="dev"><img src="media/programme.webp" alt="The Programmes page of the Marrick demo on a phone" width="780" height="1688" loading="lazy" decoding="async"></div><figcaption><b>Programmes</b><span>a page each, on the trainer's qualifications · Plus</span></figcaption></figure><figure><div class="dev"><img src="media/coaches.webp" alt="The Coaches page of the Marrick demo on a phone" width="780" height="1688" loading="lazy" decoding="async"></div><figcaption><b>Coaches</b><span>each coach, and an hour with them · Plus</span></figcaption></figure><figure><div class="dev"><img src="media/results.webp" alt="The In their words page of the Marrick demo on a phone" width="780" height="1688" loading="lazy" decoding="async"></div><figcaption><b>In their words</b><span>clients, with consent · Plus</span></figcaption></figure><figure><div class="dev"><img src="media/start.webp" alt="The Start here page of the Marrick demo on a phone" width="780" height="1688" loading="lazy" decoding="async"></div><figcaption><b>Start here</b><span>the first hour, minute by minute · Plus</span></figcaption></figure><figure><div class="dev"><img src="media/checklist.webp" alt="The Before your session page of the Marrick demo on a phone" width="780" height="1688" loading="lazy" decoding="async"></div><figcaption><b>Before your session</b><span>a list to tick the night before · Plus</span></figcaption></figure><figure><div class="dev"><img src="media/prices.webp" alt="The Prices page of the Marrick demo on a phone" width="780" height="1688" loading="lazy" decoding="async"></div><figcaption><b>Prices</b><span>blocks, and the price for two · Plus</span></figcaption></figure><figure><div class="dev"><img src="media/corporate.webp" alt="The Companies and families page of the Marrick demo on a phone" width="780" height="1688" loading="lazy" decoding="async"></div><figcaption><b>Companies and families</b><span>a request, written for them · Signature</span></figcaption></figure><figure><div class="dev"><img src="media/journal.webp" alt="The Journal page of the Marrick demo on a phone" width="780" height="1688" loading="lazy" decoding="async"></div><figcaption><b>Journal</b><span>the trainer's own short pieces · Signature</span></figcaption></figure></div>
+</div></section>
+<section class="ch gut" id="viii" aria-labelledby="h-viii"><div class="wrap ch-in">
+  <div class="slot"><span class="n">VIII</span><span class="d">Sunday</span><span class="t"><span class="tn"><i>1</i><i>0</i><i class="c">:</i><i>0</i><i>0</i></span></span><h2 id="h-viii">The studio's shut. The site isn't.</h2><p>The questions people ask before a first session, answered in the trainer's own words, on every plan.</p><p>Including the one most trainers dodge.</p><span class="tier">On every plan</span></div>
+  <div class="show"><div class="dev"><img src="media/home.webp" alt="The Marrick home page on a phone: the week, mostly spoken for" width="780" height="1688" loading="lazy" decoding="async"></div><div class="cap"><p><b>The first screen, on a phone.</b></p><p>“The week is mostly spoken for.” Five hours are still open.</p></div></div><dl class="qa"><div><dt>Is the first session different?</dt><dd>Yes. We talk first, you fill in a short health questionnaire, and I check how you move before any training.</dd></div><div><dt>I haven't trained for years. Is that all right?</dt><dd>Most people I train start that way. The first sessions are lighter than you'd expect.</dd></div><div><dt>What if I need to cancel?</dt><dd>Cancel 24 hours ahead and there's no charge. Later than that, the session counts.</dd></div><div><dt>How soon will I see a difference?</dt><dd>It depends on you, your week and how often we train. I won't promise a number; we'll agree what to look for and check it every four weeks.</dd></div></dl>
+</div></section>
+
+<section class="plans gut" aria-labelledby="hplans"><div class="wrap">
+  <div class="plans-h"><h2 id="hplans">Once, twice, three times a week.</h2><p>Three plans, drawn the way a trainer's clients book. Every one has the diary, the honesty checks and no running costs beyond hosting and the domain. Twelve months to start.</p></div>
+  <div class="pl-list">
+    <article class="pl"><div class="strip" aria-hidden="true"><span class="k"></span><span></span><span></span><span></span><span></span><span></span><span></span><small><i>M</i><i>T</i><i>W</i><i>T</i><i>F</i><i>S</i><i>S</i></small></div>
+      <p class="often">Once a week</p><h3>Starter</h3><p class="price">£99 <span>then £25 a month</span></p>
+      <ul><li>Home and Plan your visit</li><li>The week, from your own sheet</li><li>Sessions and qualifications</li><li>Questions, in your words</li></ul></article>
+    <article class="pl"><div class="strip" aria-hidden="true"><span class="k"></span><span></span><span></span><span class="k"></span><span></span><span></span><span></span><small><i>M</i><i>T</i><i>W</i><i>T</i><i>F</i><i>S</i><i>S</i></small></div>
+      <p class="often">Twice a week</p><h3>Plus</h3><p class="price">£199 <span>then £30 a month</span></p>
+      <ul><li>Up to 5 pages</li><li>Programmes, on your qualifications</li><li>What are you training for?</li><li>Client stories, with consent</li><li>Do you come to me?</li><li>Prices and blocks, for two</li></ul></article>
+    <article class="pl"><div class="strip" aria-hidden="true"><span class="k"></span><span></span><span class="k"></span><span></span><span class="k"></span><span></span><span></span><small><i>M</i><i>T</i><i>W</i><i>T</i><i>F</i><i>S</i><i>S</i></small></div>
+      <p class="often">Three times a week</p><h3>Signature</h3><p class="price">£349 <span>then £35 a month</span></p>
+      <ul><li>Up to 20 pages</li><li>Your first month</li><li>Your twelve weeks</li><li>Companies and families</li><li>At home and online, food, the studio, the journal</li></ul></article>
+  </div>
+  <p class="bespoke"><span><b>Bespoke.</b> Made from scratch for a studio with its own idea.</span><span>From £1,399, quoted after a call</span></p>
+  <p class="pl-note">Any feature can be added to any plan on its own.</p>
+</div></section>
+
+<section class="speed gut" aria-labelledby="hspeed"><div class="wrap speed-in">
+  <h2 id="hspeed">Faster than the warm-up.</h2>
+  <dl class="facts">
+    <div><dt>1.4 s</dt><dd>until the week paints, on a phone</dd></div>
+    <div><dt>99–100</dt><dd>Lighthouse performance, on a phone</dd></div>
+    <div><dt>100</dt><dd>accessibility</dd></div>
+    <div><dt>0.013</dt><dd>layout shift</dd></div>
+  </dl>
+  <p class="facts-note">Lighthouse 12, mobile, on the Marrick demo's home page: 1.4 to 1.7 seconds across runs.</p>
+</div></section>
+
+<section class="close gut" id="mockup" aria-labelledby="hclose"><div class="wrap close-in">
+  <h2 id="hclose">Your week, on their phone.</h2>
+  <p>Send us your sessions, your prices and the hours you keep, and we'll make a free mockup of your home page.</p>
+  <div class="acts"><a class="btn line" href="https://sitefloor1.github.io/sitefloor-templates/trainer/">Try the demo first</a><a class="btn" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#free">Get a free mockup</a></div>
+  <span class="mail">hello@sitefloor.com</span>
+  <figure class="close-fig"><img src="media/trainer.webp" alt="The demo's trainer, in a black training jacket, looking into the camera" width="1100" height="1257" loading="lazy" decoding="async"><figcaption>Daniel, the demo's trainer (a model).</figcaption></figure>
+</div></section>
+</main>
+
+<footer class="gut"><div class="wrap">
+  <p>Marrick is a fictional private training studio made to show the Sitefloor trainer kit. Its trainers, prices, clients' words and phone number are demo data. Its photographs are free stock from Pexels, of models, each credited in our records.</p>
+  <span>© 2026 Sitefloor</span>
+</div></footer>
+
+<script>
+(() => {
+  const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+  const SHORT = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const tn = (t) => `<span class="tn">${[...t].map((c) => (c === ":" ? '<i class="c">:</i>' : `<i>${c}</i>`)).join("")}</span>`;
+
+  // London now, from the visitor's clock.
+  const london = () => {
+    const p = Object.fromEntries(new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", weekday: "short", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).formatToParts(new Date()).map((x) => [x.type, x.value]));
+    return { d: SHORT.indexOf(p.weekday), h: Number(p.hour), m: p.minute, ymd: `${p.year}-${p.month}-${p.day}` };
+  };
+
+  // The live hour: ringed in the week, said in words, with what the site answers if someone asks this hour.
+  const OPEN = { 0: [14], 1: [18], 2: [7], 3: [19], 5: [8] };
+  const WORK = (d, h) => (d <= 4 ? h >= 6 && h < 21 : d === 5 ? h >= 7 && h < 14 : false);
+  const QA = [
+    ["Is the first session different?", "Yes. We talk first, you fill in a short health questionnaire, and I check how you move before any training."],
+    ["How do I pay?", "Session by session, after each one, by bank transfer or card. There is no contract."],
+    ["What if I need to cancel?", "Cancel 24 hours ahead and there's no charge. Later than that, the session counts."],
+    ["I haven't trained for years. Is that all right?", "Most people I train start that way. The first sessions are lighter than you'd expect."],
+    ["How soon will I see a difference?", "I won't promise a number; we'll agree what to look for and check it every four weeks."],
+  ];
+  const nowLine = () => {
+    const n = london();
+    $$(".week .c.now").forEach((c) => c.classList.remove("now"));
+    const row = n.h >= 6 && n.h <= 22 ? String(n.h) : "n";
+    $(`.week .c[data-d="${n.d}"][data-h="${row}"]`)?.classList.add("now");
+    const who = n.d === 6 ? "The studio is shut today." : WORK(n.d, n.h) ? ((OPEN[n.d] ?? []).includes(n.h) ? "This hour is open, and the site is offering it." : "Daniel is with a client.")
+      : n.h >= 23 || n.h < 6 ? "Daniel is asleep." : n.d === 5 ? "Daniel is off for the weekend." : "Daniel has finished for the day.";
+    $("[data-now]").innerHTML = `${DAYS[n.d]}, ${tn(`${String(n.h).padStart(2, "0")}:${n.m}`)} in London. <b>${who}</b>`;
+  };
+  let qi = 0;
+  const q = $("[data-q]");
+  const nextQ = () => { const [a, b] = QA[qi++ % QA.length]; q.innerHTML = `If someone asks <b>“${a}”</b>, the site answers: ${b}`; };
+  nowLine(); nextQ();
+  setInterval(nowLine, 30000);
+  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) setInterval(() => { q.classList.add("out"); setTimeout(() => { nextQ(); q.classList.remove("out"); }, 600); }, 7000);
+
+  // Clips: play only when on screen; a tap pauses or plays.
+  const io = new IntersectionObserver((es) => es.forEach((e) => { const v = e.target; if (v.dataset.paused) return; if (e.isIntersecting) v.play().catch(() => {}); else v.pause(); }), { threshold: 0.35 });
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  $$("video").forEach((v) => { if (still) v.dataset.paused = "1"; io.observe(v); });
+  const label = (b, playing) => { b.textContent = `${playing ? "Pause" : "Play"} the ${b.dataset.what} clip`; };
+  const toggle = (b) => {
+    const v = $(`#${b.dataset.toggle}`);
+    if (v.paused) { delete v.dataset.paused; v.play().then(() => label(b, true), () => label(b, false)); } else { v.dataset.paused = "1"; v.pause(); label(b, false); }
+  };
+  $$("[data-toggle]").forEach((b) => { b.addEventListener("click", () => toggle(b)); label(b, !still); });
+
+  // The week's entries: open one and the phone on the book shows it.
+  const phone = $("[data-phone]");
+  $$(".e").forEach((b) => b.addEventListener("click", () => {
+    $$(".e").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+    const media = b.dataset.media, slot = b.dataset.slot;
+    const dev = $(".dev", phone);
+    dev.innerHTML = media.endsWith(".mp4")
+      ? `<video id="v-hero" src="${media}" poster="${media.replace(".mp4", "-poster.webp")}" muted playsinline loop aria-label="${b.dataset.label}"></video>`
+      : `<img src="${media}" alt="${b.dataset.label}" width="780" height="1688">`;
+    const v = $("video", dev), tb = $('[data-toggle="v-hero"]', phone);
+    tb.hidden = !v;
+    if (v) { if (still) v.dataset.paused = "1"; io.observe(v); label(tb, !still); }
+    $("figcaption", phone).innerHTML = `<b>${b.querySelector("b").textContent}</b> ${slot}: ${b.dataset.label}. <a href="#${b.dataset.ch}">Read it</a>`;
+  }));
+
+  // Twelve weeks from next Monday, live: England and Wales bank holidays worked out from the rules (gov.uk), Sundays
+  // shut, the trainer's demo prices.
+  const ymd = (d) => d.toISOString().slice(0, 10);
+  const add = (s, n) => { const d = new Date(`${s}T12:00:00Z`); d.setUTCDate(d.getUTCDate() + n); return ymd(d); };
+  const wd = (s) => (new Date(`${s}T12:00:00Z`).getUTCDay() + 6) % 7;
+  const easter = (y) => { const a = y % 19, b = Math.floor(y / 100), c = y % 100, d = Math.floor(b / 4), e = b % 4, f = Math.floor((b + 8) / 25), g = Math.floor((b - f + 1) / 3), h = (19 * a + b - d - g + 15) % 30, i = Math.floor(c / 4), k = c % 4, l = (32 + 2 * e + 2 * i - h - k) % 7, m = Math.floor((a + 11 * h + 22 * l) / 451), mo = Math.floor((h + l - 7 * m + 114) / 31), da = ((h + l - 7 * m + 114) % 31) + 1; return `${y}-${String(mo).padStart(2, "0")}-${String(da).padStart(2, "0")}`; };
+  const monday = (y, m, last) => { let d = last ? ymd(new Date(Date.UTC(y, m, 0, 12))) : `${y}-${String(m).padStart(2, "0")}-01`; while (wd(d) !== 0) d = add(d, last ? -1 : 1); return d; };
+  const holidays = (y) => {
+    const e = easter(y), out = new Set([add(e, -2), add(e, 1), monday(y, 5), monday(y, 5, true), monday(y, 8, true)]);
+    const fixed = [`${y}-01-01`, `${y}-12-25`, `${y}-12-26`];
+    fixed.filter((d) => wd(d) < 5).forEach((d) => out.add(d));
+    fixed.filter((d) => wd(d) >= 5).forEach((d) => { let s = add(d, 1); while (wd(s) >= 5 || out.has(s)) s = add(s, 1); out.add(s); });
+    return out;
+  };
+  const PRICE = { 1: 115, 2: 110, 3: 105 }, GAPS = { 1: [0], 2: [0, 3], 3: [0, 2, 4] }, PHASES = [[1, 4, "Foundations"], [5, 8, "Building"], [9, 12, "Your own"]];
+  const nowL = london(); const start = add(nowL.ymd, 7 - wd(nowL.ymd));
+  const hols = new Set([...holidays(Number(start.slice(0, 4))), ...holidays(Number(start.slice(0, 4)) + 1)]);
+  const short = (s) => `${SHORT[wd(s)]} ${Number(s.slice(8))} ${MON[Number(s.slice(5, 7)) - 1]}`;
+  $("[data-start]").textContent = short(start);
+  let per = 2;
+  const drawWeeks = () => {
+    $$("[data-n]").forEach((b) => b.setAttribute("aria-pressed", String(Number(b.dataset.n) === per)));
+    let booked = [], off = [];
+    $("[data-weeks]").innerHTML = Array.from({ length: 12 }, (_, w) => {
+      const ph = PHASES.find(([a, b]) => w + 1 >= a && w + 1 <= b)[2];
+      const items = GAPS[per].map((g) => add(start, w * 7 + g)).map((d) => { if (hols.has(d)) { off.push(d); return `<li class="off"><s>${short(d)}</s></li>`; } booked.push(d); return `<li>${short(d)}</li>`; });
+      return `<li><span class="w"><b>${w + 1}</b> · ${ph}</span><ul>${items.join("")}</ul></li>`;
+    }).join("");
+    const cost = booked.length * PRICE[per];
+    $("[data-sum]").innerHTML = `<b>${booked.length} sessions</b>, ${["", "once", "twice", "three times"][per]} a week at 07:00, ${short(booked[0])} to ${short(booked.at(-1))}. <b>£${cost.toLocaleString("en-GB")}</b> at £${PRICE[per]} a session.${off.length ? ` ${off.map(short).join(", ")} struck out: a bank holiday.` : ""}`;
+  };
+  $$("[data-n]").forEach((b) => b.addEventListener("click", () => { per = Number(b.dataset.n); drawWeeks(); }));
+  drawWeeks();
+
+  // Do you come to me? The demo's own districts.
+  const AREAS = [["home", "At your home", ["SW1X", "SW1W", "SW3", "SW5", "SW7", "SW10", "W8"]], ["park", "In the park", ["SW1X", "SW3", "SW7", "W8"]]];
+  $("[data-pc]").addEventListener("submit", (ev) => {
+    ev.preventDefault();
+    const s = $("[data-pc] input").value.toUpperCase().replace(/\s+/g, "");
+    const full = s.match(/^([A-Z]{1,2}\d[A-Z\d]?)(\d[A-Z]{2})$/); const dist = full ? full[1] : /^[A-Z]{1,2}\d[A-Z\d]?$/.test(s) ? s : null;
+    $$("[data-area]").forEach((el) => el.classList.remove("yes"));
+    if (!dist) { $("[data-pc-out]").textContent = "That doesn't look like a postcode. Try the first half, like SW10."; return; }
+    const yes = AREAS.filter(([, , ds]) => ds.includes(dist));
+    yes.forEach(([id]) => $(`[data-area="${id}"]`).classList.add("yes"));
+    $("[data-pc-out]").innerHTML = yes.length ? `<b>${dist}: yes.</b> ${yes.map(([, l]) => l).join(", ")}.` : `<b>${dist} is further than Marrick travels.</b> Online works anywhere.`;
+  });
+
+  // Nothing it can't keep: the kit's own checks, word for word.
+/** A number as a trainer might write it: digits, words, "a", "half a". */
+const N = String.raw`(?:\d+(?:\.\d+)?|an?|half an?|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|fifteen|twenty|thirty|forty|fifty|sixty|ninety|a few|several)`;
+const T = String.raw`(?:days?|weeks?|months?)`;
+const BODY = String.raw`(?:abs|six[- ]?pack|leaner|slimmer|thinner|lighter|toned|shredded|ripped|beach body|best body|new you|dream body|bikini body)`;
+
+/** Words a trainer's site never uses: promised weight or size loss, guarantees, results by a date, bodies by a date. */
+const PROMISES = [
+  new RegExp(String.raw`\b(lose|losing|drop|dropping|shed|shedding|burn(?:\s+off)?|melt|shred|knock\s+off|take\s+off)\s+(?:up\s+to\s+)?${N}\s*(kg|kilos?|kilograms?|lbs?|pounds|stones?|st|inch(?:es)?|cm|dress\s+sizes?|sizes?)\b`, "i"),
+  /\bdress\s+sizes?\b/i,
+  /\bguarantee[ds]?\b/i,
+  new RegExp(String.raw`\b(results?|difference|change|transformation)s?\s+(?:in|within|after|by)\s+(?:just\s+)?${N}\s+${T}\b`, "i"),
+  new RegExp(String.raw`\b${N}\s+${T}\s+to\s+(?:an?\s+|your\s+|the\s+)?(?:new|better|slimmer|leaner|fitter|stronger|toned|best|flatter|dream)\b`, "i"),
+  new RegExp(String.raw`\b${BODY}\b[^.!?]{0,40}\b(?:in|within|by|after)\s+(?:just\s+)?${N}\s+${T}\b`, "i"),
+  new RegExp(String.raw`\b(?:in|within|by|after)\s+(?:just\s+)?${N}\s+${T}\b[^.!?]{0,40}\b${BODY}\b`, "i"),
+  /\b(visible|flat|chiselled|chiseled)\s+(abs|stomach|tummy|belly)\b/i,
+  /\binch(es)?\s+off\b/i,
+  /\b(melt|shred|torch|blast|burn)\s+(?:the\s+|away\s+|off\s+|your\s+)?(fat|belly|calories|pounds)\b/i,
+  /\bfat[- ]burning\b/i,
+  /\b(best|dream|beach|bikini)[- ]body\b/i,
+  new RegExp(String.raw`\b(tone\s+up|get\s+(?:lean|toned|shredded|ripped|in\s+shape)|transform\s+your\s+(?:body|shape|figure))\b[^.!?]{0,30}\b(?:in|within|by|after)\s+(?:just\s+)?${N}\s+${T}\b`, "i"),
+  /\bflat(?:ter)?\s+(stomach|tummy|belly)\b/i,
+  /\blose\s+weight\s+(fast|quickly|quick|for\s+good)\b/i,
+];
+
+/**
+ * Health claims a trainer can't make: they train alongside a physio or GP, never treat. Someone else's treatment ("once
+ * your physio's treatment has finished") and gifting ("treat yourself", "treat a friend to …") are fine, so only
+ * those exact phrasings are taken out first; "we treat your knee pain" is still a claim.
+ */
+const ALLOWED_TREAT = [
+  /\b(?:your|their|the|a|my|his|her)\s+(?:physio(?:therapist)?|GP|doctor|midwife|consultant|osteopath|chiropractor|hospital|medical|NHS)(?:'s|s')?\s+(?:treatment|treats|treated)\b/gi,
+  /\b(?:physio(?:therapy)?|medical|hospital|NHS|GP)\s+treatment\b/gi,
+  /\btreat\s+yourself\b/gi,
+  /\btreat\s+(?:someone|a\s+friend|a\s+colleague|your\s+(?:mum|mother|dad|father|partner|husband|wife|friend|sister|brother|team|colleagues?))\s+to\b/gi,
+];
+const TREATS = /\b(treat(s|ed|ing|ment)?|cures?|cured|curing|fix(es|ing)?|heals?|healed|healing|repairs?|repaired|repairing|rehabilitat\w*|diagnos\w*|gets?\s+rid\s+of|pain[- ]free|recover(s|ing|ed)?\s+from|eas(e|es|ed|ing)\s+(?:your\s+|the\s+)?(?:pain|aches?|sciatica|back|knee|neck|shoulder|hip|joint|arthritis|symptoms?|injur\w+|condition)|reliev(e|es|ed|ing)\s+(?:your\s+|the\s+)?\w*\s*(?:pain|aches?|sciatica|arthritis|symptoms?|tension|stiffness|condition))\b/i;
+
+/** @param {string} v */
+const treats = (v) => TREATS.test(ALLOWED_TREAT.reduce((t, re) => t.replace(re, ""), v));
+
+  const claim = $("[data-claim]"), verdict = $("[data-verdict]");
+  const judge = () => {
+    const v = claim.value.trim();
+    if (!v) { verdict.className = "verdict"; verdict.textContent = "Type a line a trainer might write."; return; }
+    if (PROMISES.some((re) => re.test(v))) { verdict.className = "verdict no"; verdict.innerHTML = "<b>Refused.</b> It reads as a promise of results: weight, size, a body or a result by a date. Say what the sessions are, not what they'll do."; }
+    else if (treats(v)) { verdict.className = "verdict no"; verdict.innerHTML = "<b>Refused.</b> It reads as a health claim. A trainer trains alongside a physio or GP, never instead."; }
+    else { verdict.className = "verdict ok"; verdict.innerHTML = "<b>Fine to publish.</b> It says what the training is."; }
+  };
+  claim.addEventListener("input", judge);
+  $$("[data-try]").forEach((b) => b.addEventListener("click", () => { claim.value = b.textContent; judge(); claim.focus(); }));
+  judge();
+})();
+
+</script>
+</body>
+</html>
