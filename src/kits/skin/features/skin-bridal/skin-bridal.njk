@@ -1,0 +1,22 @@
+{#- The bridal beauty timeline: one date in, each of the clinic's steps dated back from the day (trial, facials,
+    brows, the morning); the steps already past say Now; a date too close for the first step shows the clinic's
+    `late` line. Without a date (or JavaScript) each step shows how many weeks before it falls. -#}
+{%- set b = site.bridal %}
+{%- set ph = { title: b.title, intro: b.intro } %}
+{% include "kits/skin/partials/page-head.njk" %}
+<section class="sk-br" data-feature="skin-bridal" aria-label="{{ b.title | plain }}"{{ 'skin-bridal' | tierAttr | safe }}><div class="wrap sk-br-in">
+  <div class="sk-br-side" data-js-only>
+    <label class="sk-patch-f"><span>The day</span><input type="date" data-br-date></label>
+    <p class="sk-br-away" data-br-away aria-live="polite"></p>
+    <p class="sk-br-late" data-br-late hidden>{{ b.late }}</p>
+    <div class="sk-patch-acts">
+      <button type="button" class="sk-quiet" data-br-ics hidden>Add the dates to my calendar</button>
+      <a class="sk-quiet" data-br-send href="{{ b.message | book }}" target="_blank" rel="noopener" hidden>Send my dates to {{ site.business.name }}</a>
+    </div>
+  </div>
+  <ol class="sk-br-plan">
+    {%- for s in b.steps | byWeeks %}
+    <li data-step="{{ s.id }}"><span class="sk-br-n" data-when>{{ s.weeksBefore | weeksWords }}</span><span class="sk-br-w">{{ s.label }}{% if s.note %}<small>{{ s.note }}</small>{% endif %}</span></li>
+    {%- endfor %}
+  </ol>
+</div></section>

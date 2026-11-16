@@ -1,0 +1,20 @@
+/* The gift: the clinic's days as a printed list; the card drawn like a hotel's letter card, palm border, gilt line. */
+.sk-sd-in { display: grid; gap: 40px 64px; }
+.sk-sd-inc { color: var(--dim); }
+.sk-sd-names { display: grid; gap: 14px 20px; }
+.sk-sd-f { display: grid; gap: 6px; color: var(--muted); font-size: .92em; }
+.sk-sd-f textarea { resize: vertical; }
+.sk-gift { position: relative; display: grid; align-content: center; justify-items: center; gap: 10px; aspect-ratio: 7 / 5; margin: 0 0 24px; padding: 32px 28px; background: var(--paper); border: 1.5px solid var(--accent); text-align: center; }
+.sk-gift::before { content: ""; position: absolute; inset: 8px; border: .75px solid var(--gilt, var(--line-2)); pointer-events: none; }
+.sk-gift p { margin: 0; overflow-wrap: anywhere; }
+.sk-gift-b { font-family: var(--font-display); text-transform: uppercase; letter-spacing: .42em; padding-left: .42em; font-size: .95rem; }
+.sk-gift-for { color: var(--muted); }
+.sk-gift-t { font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.2rem); line-height: 1.15; }
+.sk-gift-inc { max-width: 34ch; color: var(--muted); font-size: .86em; line-height: 1.5; }
+.sk-gift-note { max-width: 32ch; font-size: .95em; }
+.sk-gift-from { color: var(--muted); font-size: .9em; }
+.sk-gift [hidden] { display: none; }
+.sk-sd-acts { display: grid; justify-items: start; gap: 10px; }
+.sk-sd-side .sk-card-note { margin-left: 0; }
+@media (min-width: 640px) { .sk-sd-names { grid-template-columns: 1fr 1fr; } .sk-sd-wide { grid-column: 1 / -1; } }
+@media (min-width: 900px) { .sk-sd-in { grid-template-columns: 1fr 1fr; } .sk-sd-side { position: sticky; top: 24px; align-self: start; } }

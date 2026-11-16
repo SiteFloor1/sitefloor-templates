@@ -1,0 +1,2 @@
+{#- One of the clinic's photographs. Set `p` ({ src, width, height, alt, focus? }) and optionally `eager`. -#}
+<img src="{{ p.src | img }}" width="{{ p.width }}" height="{{ p.height }}" alt="{{ p.alt }}"{% if p.focus %} style="object-position: {{ p.focus }}"{% endif %}{% if eager %} fetchpriority="high"{% else %} loading="lazy"{% endif %} decoding="async">

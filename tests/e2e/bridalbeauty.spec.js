@@ -50,6 +50,7 @@ test("the cover answers her date, her price and her start time, and the party mo
   expect(quote).toContain("a 6:15am start");
   for (let i = 0; i < 4; i++) await page.locator('#party [data-step="maid"] button[data-d="1"]').click();
   await page.selectOption("[data-cv-cer]", "11:00");
+  await expect(page.locator("[data-cv-an]")).toHaveText("an");
   await expect(page.locator("[data-cv-start]")).toHaveText("This one needs planning — message me.");
   await expect(page.locator("[data-pt-start]")).toHaveText("This one needs planning — message me.");
   await expect(page.locator("[data-cv-startlab]")).toBeHidden();

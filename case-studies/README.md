@@ -14,6 +14,21 @@ chat can reuse the Sitefloor bar, footer and patterns without re-reading a publi
   demo, a live probate estimator and a live if-there's-no-will; Schedules 1–3 are the plans; "time is of the essence"
   is the speed; executed under a blind CW stamp; a magpie palette, Literata and Geologica). Media (ten phone stills,
   780×1688) live in `media/` and the published artifact.
+- `clemence/index.html`: the skin clinic case study (the proof: the page is a printer's proof of Clémence's treatment
+  card, on cream proof paper with crop marks, a correction column in the margin and one red pencil. The hero is that
+  pencil, live: write a line for a skin clinic's menu and the words the advertising rules catch (a named condition,
+  "younger", "guaranteed", injectables, a result claimed for "it") are struck through as you type, numbered and
+  explained in the margin with the CAP rule, using the same rules as the kit's `claimProblem`; beside it, the card
+  Clémence's site prints instead, every line hers. The sheets that follow: the site in the card's own palm-and-gold
+  frame with a phone laid over it; five words (the finder, live, with the demo's own cards and booking message); the
+  card's three lines as a three-row proof (afterwards: the category pages; patch test: the patch-day tool, live; this
+  evening: the rhythm reminders, live, from the demo's light-peel rhythm); one palm-green sheet for the Signature
+  pieces (ritual and gift clips, the rituals page on a laptop); the plans as three printed cards; the numbers as a
+  colophon; the close signed off with a "passed for press" stamp. Proof cream, ink, palm green, one gold rule, proof
+  red for corrections only; Antic Didone and Baskervville (the demo's own), self-hosted with size-matched stand-ins,
+  roman only). Media (three phone clips with posters, three phone stills, two laptop screens, three of the demo's
+  photographs, the fonts) live in `media/` and the published artifact. Phone clips: CDP screencast at 390×844 and 2x
+  in Chromium with `--lang=en-GB`, H.264; stills without the demo bar; nothing plays until asked.
 - `corbel/index.html`: the electrician case study (the lighting plan of a website: the page opens dark on Corbel's
   house at dusk with one rotary dimmer, and the dial lights the photograph and every light drawn further down; a
   reflected ceiling plan where each room is a page of the site and each light, L01 to L17, a feature, its symbol the
@@ -51,6 +66,21 @@ chat can reuse the Sitefloor bar, footer and patterns without re-reading a publi
   "open before her hands are dry"; the demo's own Rozha One and Source Serif 4). Media (five phone clips with posters,
   four phone stills, the demo's window and chooda photographs) live in the published artifact under `media/`. Clips:
   Playwright screenshots at 390×844 and 2x, the demo ribbon hidden, stitched with ffmpeg at 10 fps.
+- `isolde/index.html`: the bridal hair and makeup case study (one issue of her magazine: the page opens on the issue's
+  cover held like the real thing, Isolde's name as the masthead with the bride's hair passing in front of it, the
+  cover lines her live answers from the demo's own diary and prices (her date and "Open.", the price for the service
+  she picks, "We start at 7:25am" for her ceremony), the cover price in the barcode corner the Starter plan; choose a
+  wedding and the cover reprints, every folio re-dates to "The 25 September 2027 issue", the countdown re-counts; the
+  contents page; This season as fashion pages; For the bride as the shopping page, prices with minutes in the chair;
+  one dark spread, The morning, minute by minute, worked back live with the party steppers, two chairs and "This one
+  needs planning — message me." exactly as the site does; Counted down (days left, the trial window, the skin steps
+  dated, travel by postcode); the back of the book (guide pages and the journal); the plans as three subscriptions,
+  The cover, The issue, The special edition; the speed as "On the stand in 1.4 seconds"; the back cover puts the
+  reader's own business name on the masthead as they type it; the demo's own Libre Bodoni and Faustina). Its live
+  parts run the demo's own logic and simulated diary, bundled into the page, so every answer matches Isolde's site.
+  Media (two phone clips with posters, five phone stills, the demo's cover and cut-out, four looks and two
+  photographs) live in `media/` and the published artifact. Clips: Playwright screenshots at 390×844 and 2x, the demo
+  ribbon hidden, stitched with ffmpeg at 15 fps.
 - `isotach/index.html`: the clothing-brand case study (a wind chart: lines of moving air bend around the phone; each
   feature is a numbered station; plans are wind barbs, Starter one feather, Plus two, Signature the pennant; no phone
   frame). Media (seven phone clips, posters, the kit card, demo photos) live in the published artifact under `media/`.
@@ -75,6 +105,18 @@ chat can reuse the Sitefloor bar, footer and patterns without re-reading a publi
   film with posters, three phone clips with posters, two phone stills) live in the published artifact under `media/`.
   Phone clips: Playwright screenshots at 390×844 and 2x in full Chromium with `--lang=en-GB` (UK date fields), one per
   step and one per typed letter, stitched with ffmpeg (the CDP screencast came out at 1x).
+- `linnet/index.html`: the cleaning case study (one visit, timed: the page is a fortnightly clean of a two-bedroom home
+  with two bathrooms, 2 h 25 from 09:00. The hero is Linnet's room strip, live, under a headline that is the visit's
+  length in words ("Two hours, twenty-five minutes."), so changing bedrooms, bathrooms or how often rewrites the
+  headline, the price, the bill and the WhatsApp line together; "Play the visit" runs the clock from 09:00, filling each
+  room as it's finished. Each room is a chapter opened by a time-sheet line (its minutes, huge, and where it sits in the
+  visit): Kitchen and living is the price, Hall and stairs the questions before the door opens, the bedrooms a page for
+  every clean, the bathrooms the work nobody sees; each chapter's task list is the features, marked by plan. The plans
+  are three visit sheets added up like Linnet's bill; the speed is the time on site; the close is the finishing time.
+  White with steel panels, ink, one kingfisher blue; Anek Latin, self-hosted, with size-matched fallbacks). Media
+  (three phone clips with posters, four phone stills, two laptop screens, the demo's sitting-room and marble-bathroom
+  photographs, the fonts) live in `media/` and the published artifact. Phone clips: CDP screencast at 390×844 and 2x in
+  full Chromium with `--lang=en-GB`, encoded H.264; nothing plays until asked.
 - `lyall-harrow/index.html`: the private wealth case study (a website read across fifty years: the page opens on the
   demo's misty shore with the site's own first question, "I am … and I live in …", set large over the photograph and
   answering as the site does; the page is indexed by horizon on one copper hairline, Today 2026, This year 2027, Ten
@@ -109,6 +151,18 @@ chat can reuse the Sitefloor bar, footer and patterns without re-reading a publi
   Person's Lips" by Amir SeilSepour, a model photograph, free under the Pexels licence:
   https://www.pexels.com/photo/close-up-photo-of-person-s-lips-11956948/. Every other image and clip is a capture of
   the smile demo, whose photographs are credited in `sites/demos/smile/img/CREDITS.md`.
+- `marrick/index.html`: the personal trainer case study (while you train: the page opens on the trainer's week as one
+  appointment book, Monday to Sunday, 06:00 to the night, the sessions ruled in ink and, in walnut, eight entries I to
+  VIII for what the website does in the hours the trainer can't answer; the live hour in London is ringed and said in
+  words ("Monday, 02:54 in London. Daniel is asleep.") with what the site answers if someone asks then; a phone lies
+  over the spoken-for Thursday and Friday, as the demo sets its photograph, and plays whichever entry you open. Each
+  chapter is one entry opened on its day and time set huge: the week, a first month, the goal finder, twelve weeks
+  (live from next Monday, England and Wales bank holidays worked out from the rules), do you come to me (live, the
+  demo's districts), nothing it can't keep (live, the kit's own promise and health-claim checks word for word), the
+  rest of the book, Sunday's questions; the plans are how often you train, once, twice, three times a week, inked on a
+  week strip; the speed is "faster than the warm-up"; linen, ink and one walnut; the demo's own Ibarra Real Nova).
+  Media (five phone clips with posters, ten phone stills, the demo's trainer photograph) live in `media/` and the published artifact. Phone captures: Playwright at 390×844 and 2x in full
+  Chromium with `--lang=en-GB`, the demo ribbon hidden, one screenshot per step at 10 fps, encoded H.264.
 - `morrow/index.html`: the coffee house case study (one weekday at the counter, 7:30am to 4pm, a clock column down the
   page). Media (three phone clips, stills from the demo) live only in the published artifact.
 - `ottoline/index.html`: the reformer Pilates case study (six reformers, one room: the hero is the studio's room seen

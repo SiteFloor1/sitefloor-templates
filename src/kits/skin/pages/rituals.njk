@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: rituals
+permalink: rituals.html
+feature: skin-ritual
+eleventyComputed:
+  title: "{{ site.rituals.title | plain }}"
+  description: "Build a ritual at {{ site.business.name }}: a facial with the add-ons you choose, timed and priced as you go."
+---
+{% include "kits/skin/features/skin-ritual/skin-ritual.njk" %}

@@ -3,7 +3,7 @@
  * Everyone in the chair: the party's steppers price the quote from the artist's own prices, add the early-start fee and
  * a second artist when the morning needs them, and share the party so the cover's start time moves with it.
  */
-import { PLANNING, morningFor, quoteTotal, pounds, clockWords, quoteText, minutesOf } from "../../lib/bridalbeauty.js";
+import { anClock, PLANNING, morningFor, quoteTotal, pounds, clockWords, quoteText, minutesOf } from "../../lib/bridalbeauty.js";
 
 /** @type {import("../../../../core/js/core.js").FeatureInit} */
 export function init(root, ctx) {
@@ -28,7 +28,7 @@ export function init(root, ctx) {
     if (s) s.textContent = `${bride.name}, trial and wedding day`;
     const sum = quoteTotal({ bride: bride.price, lines: pk.party.map((/** @type {any} */ p) => ({ price: p.price, count: state.counts[p.id] ?? 0 })), early: m.earlyFee, second: m.secondFee });
     total.textContent = pounds(sum);
-    start.textContent = m.tooEarly ? PLANNING : `We start at ${clockWords(m.plan.start)} for a ${clockWords(state.ceremony)} ceremony`;
+    start.textContent = m.tooEarly ? PLANNING : `We start at ${clockWords(m.plan.start)} for ${anClock(clockWords(state.ceremony))} ${clockWords(state.ceremony)} ceremony`;
     extra.textContent = [m.early ? `Includes the early-start fee (${pounds(m.earlyFee)})` : "No early-start fee", m.artists > 1 ? `and a second artist (${pounds(m.secondFee)})` : ""].filter(Boolean).join(" ");
     const text = quoteText(pt.message, { wedding, service: bride.name, ceremony: clockWords(state.ceremony), start: m.tooEarly ? "" : clockWords(m.plan.start),
       people: pk.party.map((/** @type {any} */ p) => { const count = state.counts[p.id] ?? 0; return { label: count === 1 ? p.one : p.name, count }; }), total: sum });

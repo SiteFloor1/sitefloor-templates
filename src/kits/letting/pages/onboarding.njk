@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: onboarding
+permalink: onboarding.html
+feature: letting-onboarding
+eleventyComputed:
+  title: "{{ site.onboarding.title }}"
+  description: "{{ site.onboarding.intro }}"
+---
+{%- set ph = { title: site.onboarding.title, intro: site.onboarding.intro } %}
+{% include "kits/letting/partials/page-head.njk" %}
+<div class="wrap">{% include "kits/letting/features/letting-onboarding/letting-onboarding.njk" %}</div>

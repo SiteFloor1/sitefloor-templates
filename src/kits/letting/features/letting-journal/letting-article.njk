@@ -1,0 +1,10 @@
+{#- One article: sections of plain paragraphs, then where every rule comes from, with the date it was checked. -#}
+<article class="lj lj-one" data-feature="letting-journal"{{ "letting-journal" | tierAttr | safe }}>
+  <p class="lj-d">For {{ a.audience }} · {{ a.date | longDate }} · rules checked against GOV.UK on {{ a.checked | longDate }}</p>
+  {%- for s in a.sections %}
+  <section><h2>{{ s.h }}</h2>{% for p in s.p %}<p>{{ p }}</p>{% endfor %}</section>
+  {%- endfor %}
+  <footer class="lj-src"><h2>Where this comes from</h2><ul>{% for x in a.sources %}<li><a href="{{ x.url }}" rel="noopener">{{ x.title }}</a></li>{% endfor %}</ul>
+    <p>This is general information for England, not legal advice. Rules change: we check them again whenever GOV.UK updates these pages.</p></footer>
+  <p class="lt-back"><a href="{{ 'journal' | href }}">All articles</a></p>
+</article>

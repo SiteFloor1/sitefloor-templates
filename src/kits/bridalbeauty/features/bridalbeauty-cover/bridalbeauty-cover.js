@@ -4,7 +4,7 @@
  * picks, and what time we start for her ceremony and her party. Before she picks a date the line shows the next open
  * Saturday, named as such; nothing ever says booked. The choices are shared with the party quote and the pages.
  */
-import { PLANNING, dayAnswer, dateText, ukDate, clockWords, minutesOf, morningFor, numberWord, pounds, nextOpenSaturday } from "../../lib/bridalbeauty.js";
+import { anClock, PLANNING, dayAnswer, dateText, ukDate, clockWords, minutesOf, morningFor, numberWord, pounds, nextOpenSaturday } from "../../lib/bridalbeauty.js";
 
 /** @type {import("../../../../core/js/core.js").FeatureInit} */
 export function init(root, ctx) {
@@ -53,6 +53,7 @@ export function init(root, ctx) {
     const lab = $("[data-cv-startlab]");
     if (lab) lab.hidden = m.tooEarly;
     set("[data-cv-cer-text]", clockWords(state.ceremony));
+    set("[data-cv-an]", anClock(clockWords(state.ceremony)));
     const n = m.guests.length + 1;
     set("[data-cv-people]", n === 1 ? "just you" : `${numberWord(n)} of you${m.artists > 1 ? ", two artists" : ""}`);
     const early = $("[data-cv-early]");

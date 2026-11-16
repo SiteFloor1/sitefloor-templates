@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: residences
+permalink: residences.html
+feature: letting-residences
+eleventyComputed:
+  title: "Residences"
+  description: "Every home free with {{ site.business.name }}, building by building and floor by floor."
+---
+{%- set ph = { title: "Residences", intro: "Every building we let, floor by floor. Free homes show their rent; the rest are let." } %}
+{% include "kits/letting/partials/page-head.njk" %}
+<div class="wrap">{% include "kits/letting/features/letting-residences/letting-residences.njk" %}</div>

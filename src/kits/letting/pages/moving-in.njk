@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: moving-in
+permalink: moving-in.html
+feature: letting-moveday
+eleventyComputed:
+  title: "{{ site.moveday.title }}"
+  description: "{{ site.moveday.intro }}"
+---
+{%- set ph = { title: site.moveday.title, intro: site.moveday.intro } %}
+{% include "kits/letting/partials/page-head.njk" %}
+<div class="wrap">{% include "kits/letting/features/letting-moveday/letting-moveday.njk" %}</div>
