@@ -1,0 +1,24 @@
+{#- Corporate rate (GYM-12): type your company; the club's own list names its rate, shown as a lawful total (mandatory
+    fees in). Not on the list: ask on WhatsApp. Every rate is also listed, so it works without the script. -#}
+{%- set c = site.corporate %}
+<section class="gc2" data-feature="gym-corporate" aria-label="Your company's rate"><div class="wrap gc2-in">
+  <form class="gc2-find" data-gc2>
+    <label for="gc2-q">Your company</label>
+    <input id="gc2-q" list="gc2-names" autocomplete="organization" maxlength="60">
+    <datalist id="gc2-names">{% for x in c.companies %}<option value="{{ x.name }}">{% endfor %}</datalist>
+    <p class="gc2-out" data-gc2-out aria-live="polite"></p>
+    <a class="gc2-ask" data-gc2-ask href="{{ c.message | wa }}" target="_blank" rel="noopener" hidden>Ask about your company on WhatsApp</a>
+    <p class="gc2-proof">{{ c.proof }}</p>
+  </form>
+  <ul class="gc2-rates">
+    {%- for r in c.rates %}{% set w = r | priceWords %}{% set t = site | tierOf(r.tier) %}
+    <li class="gc2-r" data-rate="{{ r.id }}">
+      <h2>{{ r.name }}</h2>
+      <p class="gc2-tier">{{ t.name }}</p>
+      <p class="gm-price"><span class="gm-total">{{ w.headline }}</span>{% if w.then %} <span class="gm-then">{{ w.then }}</span>{% endif %}</p>
+      <p class="gm-fine">{{ w.fine }}</p>
+      <p class="gc2-who">{% for x in c.companies %}{% if x.rate == r.id %}<span>{{ x.name }}</span>{% endif %}{% endfor %}</p>
+    </li>
+    {%- endfor %}
+  </ul>
+</div></section>

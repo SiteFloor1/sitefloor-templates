@@ -1,0 +1,29 @@
+{#- Classes (GYM-1): today's still to come and tomorrow's, from the club's own timetable. The build writes the week from
+    its own day; the script shows the visitor's today and tomorrow. Every class has "Book in the app" (the class's own
+    link in the club's app, or the app); places left show only with gym-spaces and a fresh sheet. -#}
+{%- set sec = site.sections.timetable %}
+<section class="gt" id="classes" data-feature="gym-timetable" aria-labelledby="gt-h"><div class="wrap gt-in">
+  <div class="gt-head"><h2 id="gt-h">{{ sec.title | markup | safe }}</h2>{% if sec.intro %}<p>{{ sec.intro }}</p>{% endif %}
+    {%- if "gym-week" | enabled %}<a class="go" href="{{ 'timetable' | href }}">The whole week, and when it's quiet</a>{% endif %}</div>
+  <div class="gt-days">
+  {%- for d in site.timetable.weekly | weekOf(site.hours, build.today, 7) %}
+    <div class="gt-day" data-date="{{ d.date }}"{% if loop.index > 2 %} hidden{% endif %}>
+      <h3 class="gt-dh" data-gt-label>{% if loop.first %}Today{% elif loop.index == 2 %}Tomorrow{% else %}{{ d.date | ukDay }}{% endif %}</h3>
+      {%- if d.sessions.length %}
+      <ol class="gt-list">
+        {%- for s in d.sessions %}{% set c = site | classOf(s.class) %}
+        <li class="gt-s" data-key="{{ d.date }} {{ s.time }} {{ s.class }}" data-time="{{ s.time }}">
+          <time datetime="{{ d.date }}T{{ s.time }}">{{ s.time }}</time>
+          <div class="gt-what"><h4>{{ c.name }}</h4><p>{{ c.minutes }} minutes{% if s.room %} · {{ s.room }}{% endif %}{% if s.coach %} · with {{ s.coach }}{% endif %}</p></div>
+          <span class="gt-left" data-left hidden></span>
+          {%- set bk = s.url %}{% include "kits/gym/partials/book.njk" %}
+        </li>
+        {%- endfor %}
+      </ol>
+      {%- endif %}
+      <p class="gt-none" data-gt-none{% if d.sessions.length %} hidden{% endif %}>No more classes {% if loop.first %}today{% else %}this day{% endif %}.</p>
+    </div>
+  {%- endfor %}
+  </div>
+  {%- if "gym-spaces" | enabled %}<span data-feature="gym-spaces" hidden></span>{% endif %}
+</div></section>

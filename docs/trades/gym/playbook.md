@@ -38,6 +38,22 @@ edge so it can't be mistaken for Varnell's or Corbel's bottom-left headline; fir
 sentence and one button; B's bathhouse (steam, the cedar sauna, half-hour slots) becomes the recovery section below the
 Hyrox planner, in Epilogue and C's black-and-white grade.
 
+### Build 1 (16 Nov 2026, branch `trade/gym`): kit `gym`, look `afterdark`, demo Halde
+Owner's fixes in the build: recovery photos back in warm colour (steam and cedar as the warm second act), the H's
+crossbar steeper, no dead band between the hero and the Hyrox planner, the race date typed as dd/mm/yyyy.
+- **Starter:** `gym-count` (the honest "usually" count in the hero; the built page names its day and hour), `gym-timetable`
+  (today and tomorrow, "Book in the app" deep links), `gym-memberships` (lawful totals worked out by the build),
+  `gym-friend` (GYM-11, WhatsApp).
+- **Plus:** `gym-daypass` (GYM-5), `gym-recovery` (GYM-10), `gym-week` (timetable page with the busy-by-hour rules),
+  `gym-membership-page`, `gym-corporate` (GYM-12), `gym-recovery-page`.
+- **Signature:** `gym-live` (door count, 15 minutes at most), `gym-spaces` (GYM-7, fresh sheet only), `gym-hyrox` (GYM-8),
+  `gym-hyrox-page`.
+- The site.json key is `clubMemberships` (the shared `memberships` key belongs to the shared memberships feature, which
+  the gym refuses so every price goes through the lawful totals).
+- **Next (build 2):** GYM-4 class finder, GYM-6 facilities tour, GYM-9 members' events; pages Classes, Personal training,
+  Coaches, Members' events, App and booking, Journal; then the shared team, reviews, vouchers and photograph sections
+  (refused in `kit.js` until the look and demo show them).
+
 ### Prices (required before any price is designed; checked 16 Nov 2026)
 The DMCC Act 2024 requires an invitation to purchase to show the total price, including every fee the customer must
 pay. Rules for every gym site, on every page and in the hero:

@@ -1,0 +1,13 @@
+{#- The Hyrox page: under the planner, what each phase is for (the club's words and classes) and its notes on race day. -#}
+{%- set h = site.hyrox %}
+<section class="ghp" aria-label="How the plan works"><div class="wrap ghp-in">
+  {%- if h.page and h.page.photo %}<figure class="ghp-f"><img src="{{ h.page.photo.src | img }}" alt="{{ h.page.photo.alt }}" width="{{ h.page.photo.width }}" height="{{ h.page.photo.height }}" loading="lazy" decoding="async"></figure>{% endif %}
+  <div>
+    <h2 class="ghp-h">The phases</h2>
+    <dl class="ghp-ph">
+      {%- for p in h.phases %}<div><dt>{{ p.name }}</dt><dd>{{ p.text }} <span>{% for c in p.classes %}{{ (site | classOf(c)).name }}{% if not loop.last %}, {% endif %}{% endfor %}</span></dd></div>{% endfor %}
+      <div><dt>{{ h.taper.name }}</dt><dd>{{ h.taper.text }} <span>{% for c in h.taper.classes %}{{ (site | classOf(c)).name }}{% if not loop.last %}, {% endif %}{% endfor %}</span></dd></div>
+    </dl>
+    {%- if h.page and h.page.notes %}<h2 class="ghp-h">Race day</h2><ul class="ghp-notes">{% for n in h.page.notes %}<li>{{ n }}</li>{% endfor %}</ul>{% endif %}
+  </div>
+</div></section>

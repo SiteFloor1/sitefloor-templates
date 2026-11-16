@@ -1,0 +1,955 @@
+{
+  "schemaVersion": 4,
+  "id": "test-gym-client",
+  "mode": "client",
+  "plan": "signature",
+  "kit": "gym",
+  "look": "afterdark",
+  "url": "https://test-gym-club.co.uk",
+  "indexable": true,
+  "lang": "en-GB",
+  "business": {
+    "name": "Harrow Yard",
+    "schemaType": "HealthClub",
+    "description": "A members' gym in Leeds: strength floor, classes and a sauna.",
+    "priceRange": "£££",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "441134960512",
+    "phone": "+44 113 496 0512",
+    "email": "hello@test-gym-club.example"
+  },
+  "booking": {
+    "provider": "other",
+    "name": "Glofox",
+    "url": "https://app.glofox.com/portal/#/branch/test-gym-club"
+  },
+  "location": {
+    "streetAddress": "4 Harrow Yard",
+    "locality": "Leeds",
+    "postcode": "LS1 4AP",
+    "country": "GB",
+    "area": "Off Boar Lane, five minutes' walk from Leeds station.",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=Boar%20Lane%2C%20Leeds"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [
+        [
+          "05:00",
+          "23:00"
+        ]
+      ],
+      "tue": [
+        [
+          "05:00",
+          "23:00"
+        ]
+      ],
+      "wed": [
+        [
+          "05:00",
+          "23:00"
+        ]
+      ],
+      "thu": [
+        [
+          "05:00",
+          "23:00"
+        ]
+      ],
+      "fri": [
+        [
+          "05:00",
+          "22:00"
+        ]
+      ],
+      "sat": [
+        [
+          "07:00",
+          "20:00"
+        ]
+      ],
+      "sun": [
+        [
+          "08:00",
+          "19:00"
+        ]
+      ]
+    }
+  },
+  "nav": [
+    {
+      "label": "Timetable",
+      "page": "timetable",
+      "feature": "gym-week",
+      "fallback": "#classes"
+    },
+    {
+      "label": "Membership",
+      "page": "memberships",
+      "feature": "gym-membership-page",
+      "fallback": "#memberships"
+    },
+    {
+      "label": "Hyrox",
+      "page": "hyrox",
+      "feature": "gym-hyrox-page",
+      "fallback": "#hyrox"
+    },
+    {
+      "label": "Heat and cold",
+      "page": "recovery",
+      "feature": "gym-recovery-page",
+      "fallback": "#recovery"
+    },
+    {
+      "label": "Corporate",
+      "page": "corporate",
+      "feature": "gym-corporate"
+    },
+    {
+      "label": "Visit",
+      "page": "visit",
+      "feature": "plan-visit",
+      "fallback": "#visit"
+    }
+  ],
+  "features": [
+    "gym-count",
+    "gym-timetable",
+    "gym-memberships",
+    "gym-friend",
+    "visit",
+    "plan-visit",
+    "questions",
+    "gym-daypass",
+    "gym-recovery",
+    "gym-week",
+    "gym-membership-page",
+    "gym-corporate",
+    "gym-recovery-page",
+    "gym-live",
+    "gym-spaces",
+    "gym-hyrox",
+    "gym-hyrox-page"
+  ],
+  "hero": {
+    "kicker": "Members' training club, Ancoats",
+    "title": "A members' training club in Ancoats",
+    "intro": "Strength floor, Hyrox lanes, classes, sauna and cold plunge.",
+    "photo": {
+      "src": "img/hero.webp",
+      "width": 1100,
+      "height": 1184,
+      "alt": "A woman with a barbell across her shoulders, seen from behind, in black and white"
+    },
+    "phonePhoto": {
+      "src": "img/hero-phone.webp",
+      "width": 900,
+      "height": 812,
+      "alt": "A woman with a barbell across her shoulders, seen from behind"
+    }
+  },
+  "sections": {
+    "timetable": {
+      "title": "Today's classes",
+      "intro": "Every class books in Glofox, where the places are."
+    },
+    "questions": {
+      "title": "Asked before joining"
+    },
+    "visit": {
+      "title": "Finding the club"
+    }
+  },
+  "messages": {
+    "general": "Hello Harrow Yard, I have a question."
+  },
+  "classTypes": {
+    "items": [
+      {
+        "id": "hyrox-engine",
+        "name": "Hyrox engine",
+        "minutes": 50,
+        "size": 16,
+        "text": "Running, sled push and pull, wall balls and the rower, in the order the race runs them."
+      },
+      {
+        "id": "hyrox-sim",
+        "name": "Race simulation",
+        "minutes": 75,
+        "size": 12,
+        "text": "The eight stations and the runs between them, paced, in the lanes."
+      },
+      {
+        "id": "barbell",
+        "name": "Barbell club",
+        "minutes": 60,
+        "size": 10,
+        "text": "Squat, bench and deadlift, coached, a platform each."
+      },
+      {
+        "id": "ride",
+        "name": "Ride",
+        "minutes": 45,
+        "size": 24,
+        "text": "Intervals on the bike, to music, by the numbers on the screen."
+      },
+      {
+        "id": "engine",
+        "name": "Engine",
+        "minutes": 45,
+        "size": 18,
+        "text": "Conditioning on the rower, ski erg and bike: long, steady work."
+      },
+      {
+        "id": "mobility",
+        "name": "Mobility",
+        "minutes": 40,
+        "size": 14,
+        "text": "Hips, spine and shoulders, slowly, on the mats."
+      }
+    ]
+  },
+  "timetable": {
+    "weekly": {
+      "mon": [
+        {
+          "time": "06:30",
+          "class": "engine",
+          "coach": "Rhys",
+          "room": "Studio two"
+        },
+        {
+          "time": "07:15",
+          "class": "mobility",
+          "coach": "Mae",
+          "room": "The mobility room"
+        },
+        {
+          "time": "12:30",
+          "class": "ride",
+          "coach": "Rhys",
+          "room": "Studio two"
+        },
+        {
+          "time": "18:30",
+          "class": "hyrox-engine",
+          "coach": "Dami",
+          "room": "The lanes"
+        },
+        {
+          "time": "19:00",
+          "class": "barbell",
+          "coach": "Ines",
+          "room": "Platform room"
+        },
+        {
+          "time": "19:15",
+          "class": "ride",
+          "coach": "Rhys",
+          "room": "Studio two"
+        }
+      ],
+      "tue": [
+        {
+          "time": "06:30",
+          "class": "hyrox-engine",
+          "coach": "Dami",
+          "room": "The lanes"
+        },
+        {
+          "time": "07:15",
+          "class": "ride",
+          "coach": "Rhys",
+          "room": "Studio two"
+        },
+        {
+          "time": "12:30",
+          "class": "mobility",
+          "coach": "Mae",
+          "room": "The mobility room"
+        },
+        {
+          "time": "18:00",
+          "class": "engine",
+          "coach": "Dami",
+          "room": "Studio two"
+        },
+        {
+          "time": "18:45",
+          "class": "barbell",
+          "coach": "Ines",
+          "room": "Platform room"
+        },
+        {
+          "time": "19:30",
+          "class": "mobility",
+          "coach": "Mae",
+          "room": "The mobility room"
+        }
+      ],
+      "wed": [
+        {
+          "time": "06:30",
+          "class": "ride",
+          "coach": "Rhys",
+          "room": "Studio two"
+        },
+        {
+          "time": "07:15",
+          "class": "barbell",
+          "coach": "Ines",
+          "room": "Platform room"
+        },
+        {
+          "time": "12:30",
+          "class": "engine",
+          "coach": "Dami",
+          "room": "Studio two"
+        },
+        {
+          "time": "18:30",
+          "class": "hyrox-sim",
+          "coach": "Dami",
+          "room": "The lanes"
+        },
+        {
+          "time": "19:15",
+          "class": "ride",
+          "coach": "Rhys",
+          "room": "Studio two"
+        }
+      ],
+      "thu": [
+        {
+          "time": "06:30",
+          "class": "hyrox-engine",
+          "coach": "Dami",
+          "room": "The lanes"
+        },
+        {
+          "time": "07:15",
+          "class": "mobility",
+          "coach": "Mae",
+          "room": "The mobility room"
+        },
+        {
+          "time": "12:30",
+          "class": "ride",
+          "coach": "Rhys",
+          "room": "Studio two"
+        },
+        {
+          "time": "18:30",
+          "class": "hyrox-engine",
+          "coach": "Dami",
+          "room": "The lanes"
+        },
+        {
+          "time": "19:00",
+          "class": "barbell",
+          "coach": "Ines",
+          "room": "Platform room"
+        },
+        {
+          "time": "19:30",
+          "class": "engine",
+          "coach": "Rhys",
+          "room": "Studio two"
+        }
+      ],
+      "fri": [
+        {
+          "time": "06:30",
+          "class": "engine",
+          "coach": "Dami",
+          "room": "Studio two"
+        },
+        {
+          "time": "07:15",
+          "class": "ride",
+          "coach": "Rhys",
+          "room": "Studio two"
+        },
+        {
+          "time": "12:30",
+          "class": "barbell",
+          "coach": "Ines",
+          "room": "Platform room"
+        },
+        {
+          "time": "17:30",
+          "class": "ride",
+          "coach": "Rhys",
+          "room": "Studio two"
+        },
+        {
+          "time": "18:15",
+          "class": "mobility",
+          "coach": "Mae",
+          "room": "The mobility room"
+        }
+      ],
+      "sat": [
+        {
+          "time": "08:00",
+          "class": "hyrox-sim",
+          "coach": "Dami",
+          "room": "The lanes"
+        },
+        {
+          "time": "09:00",
+          "class": "ride",
+          "coach": "Rhys",
+          "room": "Studio two"
+        },
+        {
+          "time": "10:00",
+          "class": "barbell",
+          "coach": "Ines",
+          "room": "Platform room"
+        },
+        {
+          "time": "11:00",
+          "class": "mobility",
+          "coach": "Mae",
+          "room": "The mobility room"
+        }
+      ],
+      "sun": [
+        {
+          "time": "09:00",
+          "class": "engine",
+          "coach": "Rhys",
+          "room": "Studio two"
+        },
+        {
+          "time": "10:30",
+          "class": "mobility",
+          "coach": "Mae",
+          "room": "The mobility room"
+        }
+      ]
+    }
+  },
+  "busy": {
+    "capacity": 180,
+    "usual": {
+      "mon": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        18,
+        62,
+        88,
+        70,
+        44,
+        30,
+        28,
+        40,
+        46,
+        32,
+        30,
+        44,
+        96,
+        128,
+        118,
+        84,
+        52,
+        26,
+        null
+      ],
+      "tue": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        18,
+        62,
+        88,
+        70,
+        44,
+        30,
+        28,
+        40,
+        46,
+        32,
+        30,
+        44,
+        96,
+        128,
+        118,
+        84,
+        52,
+        26,
+        null
+      ],
+      "wed": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        18,
+        62,
+        88,
+        70,
+        44,
+        30,
+        28,
+        40,
+        46,
+        32,
+        30,
+        44,
+        96,
+        128,
+        118,
+        84,
+        52,
+        26,
+        null
+      ],
+      "thu": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        18,
+        62,
+        88,
+        70,
+        44,
+        30,
+        28,
+        40,
+        46,
+        32,
+        30,
+        44,
+        96,
+        128,
+        118,
+        84,
+        52,
+        26,
+        null
+      ],
+      "fri": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        16,
+        58,
+        80,
+        62,
+        40,
+        30,
+        30,
+        42,
+        50,
+        40,
+        40,
+        56,
+        84,
+        90,
+        72,
+        46,
+        28,
+        14,
+        null
+      ],
+      "sat": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        24,
+        46,
+        70,
+        82,
+        76,
+        60,
+        48,
+        40,
+        34,
+        30,
+        26,
+        18,
+        10,
+        null,
+        null,
+        null,
+        null
+      ],
+      "sun": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        18,
+        38,
+        56,
+        62,
+        54,
+        44,
+        36,
+        30,
+        26,
+        20,
+        12,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "live": {
+      "source": "sheet",
+      "csvUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-test-gym-count/pub?gid=0&single=true&output=csv",
+      "staleAfterMinutes": 10
+    }
+  },
+  "spaces": {
+    "source": "sheet",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-test-gym-places/pub?gid=0&single=true&output=csv"
+  },
+  "friendPass": {
+    "title": "Bring a friend",
+    "intro": "Members can bring a friend to train with them, free.",
+    "rules": [
+      "Twice a month, on a membership of three months or more",
+      "Your friend trains with you and signs in at the desk",
+      "Over 18, with photo ID"
+    ],
+    "message": "Hello Harrow Yard, I'd like to bring a friend."
+  },
+  "dayPass": {
+    "title": "A free day pass",
+    "intro": "Train here for a day before you join: the floor, a class and the sauna.",
+    "rules": [
+      "One day pass per person",
+      "Bring photo ID and a towel is on us"
+    ],
+    "goals": [
+      "Strength",
+      "Hyrox",
+      "Fitness",
+      "Recovery"
+    ],
+    "message": "Hello Harrow Yard, I'd like a free day pass."
+  },
+  "recovery": {
+    "title": "Heat and cold, by the half hour.",
+    "intro": "Sauna, steam room and cold plunge, eight at a time. Included with every membership.",
+    "photo": {
+      "src": "img/steam.webp",
+      "width": 2000,
+      "height": 857,
+      "alt": "Steam rising from the stones of the sauna heater beside a window"
+    },
+    "room": {
+      "src": "img/sauna.webp",
+      "width": 900,
+      "height": 1125,
+      "alt": "Cedar benches in the sauna, low light from a window onto trees",
+      "caption": "The cedar sauna, 85 degrees."
+    },
+    "rules": [
+      "Shower first, and a towel on the bench",
+      "Fifteen minutes in the heat, then the plunge, then rest",
+      "Water before and after; skip it if you feel unwell",
+      "Pregnant, or a heart condition? Ask your GP first"
+    ],
+    "slots": [
+      {
+        "id": "sauna-plunge",
+        "name": "Sauna and plunge",
+        "minutes": 30,
+        "size": 8,
+        "days": [
+          "mon",
+          "tue",
+          "wed",
+          "thu",
+          "fri",
+          "sat",
+          "sun"
+        ],
+        "times": [
+          "07:00",
+          "07:30",
+          "12:00",
+          "17:30",
+          "18:00",
+          "19:30",
+          "20:30"
+        ]
+      },
+      {
+        "id": "guided",
+        "name": "Guided heat and cold",
+        "minutes": 40,
+        "size": 8,
+        "with": "Mae",
+        "days": [
+          "mon",
+          "wed",
+          "fri"
+        ],
+        "times": [
+          "20:00"
+        ]
+      }
+    ]
+  },
+  "hyrox": {
+    "title": "Racing Hyrox? Tell us the date.",
+    "intro": "We'll plan the weeks between now and the start line from our own classes, and put every session in your calendar.",
+    "phases": [
+      {
+        "name": "Base",
+        "share": 0.35,
+        "text": "Engine and strength, three sessions a week.",
+        "classes": [
+          "engine",
+          "barbell",
+          "mobility"
+        ]
+      },
+      {
+        "name": "Build",
+        "share": 0.4,
+        "text": "Hyrox engine twice a week, with the sled and wall balls.",
+        "classes": [
+          "hyrox-engine",
+          "barbell",
+          "engine"
+        ]
+      },
+      {
+        "name": "Race-specific",
+        "share": 0.25,
+        "text": "Full simulations in the lanes, pacing each station.",
+        "classes": [
+          "hyrox-sim",
+          "hyrox-engine",
+          "mobility"
+        ]
+      }
+    ],
+    "taper": {
+      "name": "Taper",
+      "text": "Shorter, sharper, rested for the start.",
+      "classes": [
+        "mobility",
+        "ride"
+      ],
+      "weeks": 1
+    },
+    "minWeeks": 6,
+    "maxWeeks": 30,
+    "short": "That's under six weeks away. Talk to a coach about a short block before the race.",
+    "long": "That's more than thirty weeks away. Start with our classes now; the plan begins thirty weeks out.",
+    "page": {
+      "notes": [
+        "Eat two to three hours before your start time",
+        "Warm up on the run, not the sled",
+        "Pace the first run slower than you think"
+      ]
+    }
+  },
+  "corporate": {
+    "title": "Through work",
+    "intro": "Your company may have a rate with us. Type its name.",
+    "proof": "Show your work email or staff pass at the desk when you join.",
+    "message": "Hello Harrow Yard, I'd like to ask about a corporate rate.",
+    "rates": [
+      {
+        "id": "partner",
+        "name": "Partner rate",
+        "tier": "club",
+        "monthly": 109,
+        "minimumMonths": 12,
+        "mandatoryFees": []
+      },
+      {
+        "id": "neighbour",
+        "name": "Ancoats neighbour",
+        "tier": "club",
+        "monthly": 119,
+        "minimumMonths": 12,
+        "mandatoryFees": [
+          {
+            "name": "Joining fee",
+            "amount": 30
+          }
+        ]
+      }
+    ],
+    "companies": [
+      {
+        "name": "Cotton Field Studios",
+        "rate": "partner"
+      },
+      {
+        "name": "Northmill Digital",
+        "rate": "partner"
+      },
+      {
+        "name": "Canalside Architects",
+        "rate": "neighbour"
+      },
+      {
+        "name": "Redhill Coffee",
+        "rate": "neighbour"
+      }
+    ]
+  },
+  "timetablePage": {
+    "title": "Timetable",
+    "intro": "The week's classes, and how busy the club usually is, hour by hour."
+  },
+  "membershipPage": {
+    "title": "Membership",
+    "intro": "Every price includes every fee you must pay to join."
+  },
+  "questions": [
+    {
+      "topic": "Joining",
+      "q": "Is there a joining fee?",
+      "a": "£25 joining and £10 admin on Club, £30 joining on Flex, none on Off-peak. Every price here already includes them.",
+      "home": true
+    },
+    {
+      "topic": "Joining",
+      "q": "Can I freeze my membership?",
+      "a": "Up to three months a year, free, on Club and Off-peak. Ask at the desk or in the app.",
+      "home": true
+    },
+    {
+      "topic": "Joining",
+      "q": "Can I try it first?",
+      "a": "Yes: a free day pass, once. Ask for one on this page."
+    },
+    {
+      "topic": "Visiting",
+      "q": "Is there parking?",
+      "a": "No parking of our own. Trinity Leeds car park is three minutes' walk; bike racks are by the door.",
+      "home": true
+    },
+    {
+      "topic": "Visiting",
+      "q": "Are towels included?",
+      "a": "Yes, on every membership and the day pass."
+    },
+    {
+      "topic": "Classes",
+      "q": "How do I book a class?",
+      "a": "In Glofox. Every class on this site links straight to it."
+    }
+  ],
+  "visitInfo": {
+    "kicker": "Plan your visit",
+    "title": "Finding the club",
+    "intro": "Off Boar Lane, five minutes from Leeds station.",
+    "checked": "2026-11",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "Leeds station",
+        "origin": "Leeds station",
+        "minutes": 5,
+        "steps": [
+          "Leave by the New Station Street exit",
+          "Turn left onto Boar Lane",
+          "Harrow Yard is the arch on the right"
+        ]
+      }
+    ],
+    "parking": [
+      {
+        "name": "Trinity Leeds car park",
+        "walk": 3,
+        "paid": "always"
+      }
+    ]
+  },
+  "clubMemberships": {
+    "title": "Membership",
+    "intro": "Every price includes the joining fee. Towels, the sauna and every class are in all three.",
+    "tiers": [
+      {
+        "id": "club",
+        "name": "Club",
+        "line": "Every class, the floor, the pool and heat and cold.",
+        "monthly": 129,
+        "minimumMonths": 12,
+        "mandatoryFees": [
+          {
+            "name": "Joining fee",
+            "amount": 25
+          },
+          {
+            "name": "Admin fee",
+            "amount": 10
+          }
+        ],
+        "includes": [
+          "Every class and the Hyrox lanes",
+          "The strength floor",
+          "25m pool, sauna and cold plunge",
+          "Towels"
+        ]
+      },
+      {
+        "id": "flex",
+        "name": "Flex",
+        "line": "The same, with a month's notice and no minimum term.",
+        "monthly": 149,
+        "minimumMonths": 0,
+        "mandatoryFees": [
+          {
+            "name": "Joining fee",
+            "amount": 30
+          }
+        ],
+        "includes": [
+          "Everything in Club",
+          "No minimum term: a month's notice"
+        ]
+      },
+      {
+        "id": "off-peak",
+        "name": "Off-peak",
+        "line": "Weekdays 10am to 4pm, and weekends.",
+        "monthly": 89,
+        "minimumMonths": 12,
+        "mandatoryFees": [],
+        "includes": [
+          "The floor, the pool and heat and cold, off-peak",
+          "Daytime classes"
+        ]
+      }
+    ],
+    "note": "A freeze of up to three months a year is free on Club and Off-peak. Personal training is extra and never part of a membership price."
+  }
+}
