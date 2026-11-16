@@ -84,6 +84,7 @@ A case study is a design too: don't reuse these in a new look or another case st
 | Lyall Harrow (wealth) | case-studies/lyall-harrow | wealth | Mona Sans | Mona Sans | |
 | Marese (lingerie) | case-studies/marese | lingerie | Fraunces | Red Hat Text | |
 | Marlie (teeth whitening) | case-studies/marlie | teeth | Reddit Sans | Reddit Sans | Reddit Mono, Brygada 1918 |
+| Marrick (personal trainer) | case-studies/marrick | personal-trainer | Ibarra Real Nova | Ibarra Real Nova | |
 | Morrow (café) | case-studies/morrow | cafe | Gloock | Onest | |
 | Ottoline (pilates) | case-studies/ottoline | pilates | Noto Serif Display | Red Hat Text | |
 | Pastillage (celebration cakes) | case-studies/pastillage | cakes | Chonburi | Golos Text | |
