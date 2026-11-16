@@ -1,0 +1,25 @@
+{#- Sessions and qualifications: what the trainer offers, each with its length and price, and every qualification with
+    its year and awarding body. A register link only to the trainer's own entry; insurance and first aid only if true. -#}
+{%- set sec = site.sections.services %}
+{%- set s = site.sessions %}
+{%- set q = site.qualifications %}
+<section class="ts" id="sessions" data-feature="trainer-services" aria-labelledby="ts-h"{{ 'trainer-services' | tierAttr | safe }}><div class="wrap ts-in">
+  <div class="ts-intro">
+    <h2 id="ts-h">{{ sec.title }}</h2>
+    {%- if sec.intro %}<p class="ts-lede">{{ sec.intro }}</p>{% endif %}
+  </div>
+  <ul class="ts-list">
+    {%- for x in s.items %}
+    <li><div class="ts-top"><h3>{{ x.name }}</h3><span class="ts-meta">{{ x.minutes }} minutes{% if x.price %} · {{ x.price | pounds }}{% endif %}</span></div><p>{{ x.text }}</p></li>
+    {%- endfor %}
+  </ul>
+  <div class="ts-quals">
+    <h3>{{ q.title or "Qualifications" }}</h3>
+    {%- if q.intro %}<p class="ts-lede">{{ q.intro }}</p>{% endif %}
+    <ul>
+      {%- for x in q.items %}<li><span class="ts-y">{{ x.year }}</span><span class="ts-n">{{ x.name }}</span><span class="ts-b">{{ x.awardingBody }}</span></li>{% endfor %}
+    </ul>
+    {%- if q.registerUrl %}<p><a class="ts-reg" href="{{ q.registerUrl }}" target="_blank" rel="noopener">{{ q.registerName }} ↗</a></p>{% endif %}
+    {%- if q.insured or q.firstAid %}<p class="ts-note">{{ q.insured }}{% if q.insured and q.firstAid %} {% endif %}{{ q.firstAid }}</p>{% endif %}
+  </div>
+</div></section>

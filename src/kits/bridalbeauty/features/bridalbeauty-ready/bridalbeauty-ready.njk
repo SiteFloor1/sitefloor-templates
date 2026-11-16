@@ -1,0 +1,11 @@
+{#- Before I arrive: what to have ready on the morning, in the artist's words; shared with the bridal party. -#}
+{%- set sec = site.sections.ready %}
+{%- set rd = site.ready %}
+{%- set listText = rd.message + " " + (rd.items | join(" · ")) %}
+<section id="ready" class="bb-rd" data-feature="bridalbeauty-ready" aria-labelledby="bb-rd-h"><div class="wrap bb-rd-in">
+  <h2 class="bb-h2" id="bb-rd-h">{{ sec.title | markup | safe }}</h2>
+  <ol class="bb-rd-list">
+    {%- for x in rd.items %}<li>{{ x }}</li>{% endfor %}
+  </ol>
+  <button type="button" class="bb-link" data-rd-share data-share-text="{{ listText }}" hidden>Send this to the bridal party</button>
+</div></section>

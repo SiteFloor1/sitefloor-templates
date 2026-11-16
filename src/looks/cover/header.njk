@@ -1,0 +1,27 @@
+{#- Cover header: a thin line of words, the way a magazine runs above its masthead. On the home page it sits over the
+    cover photograph (pages on the left, the issue line on the right); on every other page the name is set small in
+    the masthead face in the middle. WhatsApp, and Menu, which opens every page on a paper sheet. -#}
+{%- set isHome = pageId == "index" %}
+<header class="nav cv-nav{% if isHome %} cv-nav-home{% endif %}"><div class="wrap cv-nav-in">
+  <nav class="cv-links" aria-label="Main">
+    {%- for item in (site.nav | navItems(pageId)) %}{% if loop.index <= 4 %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>{% endif %}{% endfor %}
+  </nav>
+  {%- if isHome %}<p class="cv-issue">{{ site.hero.kicker }}</p>
+  {%- else %}<a class="cv-mark" href="{{ 'index' | href }}" aria-label="{{ site.business.name }}, home">{% if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="{{ site.business.name }}" height="26">{% else %}{{ site.business.name }}{% endif %}</a>{% endif %}
+  <div class="cv-act">
+    <a class="cv-wa" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{{ "WhatsApp" if build.booking.whatsapp else build.booking.label }}</a>
+    <button class="burger cv-menu" type="button" aria-expanded="false" aria-controls="mnav"><span class="cv-open">Menu</span><span class="cv-close">Close</span></button>
+  </div>
+</div></header>
+<div class="mnav cv-sheet" id="mnav" hidden><div class="wrap cv-sheet-in">
+  <nav aria-label="Pages">
+    <a href="{{ 'index' | href }}"{% if isHome %} aria-current="page"{% endif %}>The cover</a>
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+    {%- for g in site | bbMenu(pageId) %}
+    <a href="{{ g.slug | href }}"{% if g.current %} aria-current="page"{% endif %}>{{ g.label }}</a>
+    {%- endfor %}
+  </nav>
+  <p class="cv-sheet-side">{{ site.location.area }}</p>
+</div></div>

@@ -49,6 +49,15 @@ This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` 
 |---|---|---|---|---|---|---|---|
 | Wexley | bridal salon, `bridal`, `dove` (built 29 Oct on `trade/bridal`) | Chelsea salon in daylight: **white and ivory**, quiet | a white dove | dove violet #5B4A75 on white #FFFFFF, ivory #F7F3EC, dove grey #CCC8C3 for hairlines and footer | Gilda Display / Mulish | the gown in a three-way fitting-room mirror (one set: side, front, collar), then gowns full screen as editorials | (to come) |
 
+## Bridal hair and makeup artists
+_From `docs/trades/bridal-beauty/demo-map.md`._
+
+This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` (generated) before proposing a look.
+
+| Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
+|---|---|---|---|---|---|---|---|
+| Isolde ([demo](https://sitefloor1.github.io/sitefloor-templates/bridalbeauty/)) | bridal hair and makeup artist, new `bridalbeauty`, `cover` (built 15 Nov on `trade/bridal-beauty`) | a **bridal magazine cover** on warm white: one finished bride full-bleed, her face large; inside, ruled lists like a magazine's back pages | a fern in the bride's bouquet; photos in one fresh, warm grade | fern #3D5A43 for "Open.", links and the send buttons on warm white #F6F2EC, ink #161312 | Libre Bodoni (the masthead, very large, and every figure) / Faustina (every sentence) | the artist's name as the masthead, above her head (or behind it when the photo allows); the cover lines are the answers: her date, trial and wedding day for her service, what time we start | to come |
+
 ## Cafés
 _From `docs/trades/cafe/demo-map.md`._
 
@@ -264,6 +273,15 @@ This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` 
 | Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
 |---|---|---|---|---|---|---|---|
 | Verrall | nail salon, new `nails`, `quail` (built 29 Oct on `trade/nail-salon`) | hand and nail atelier in **daylight on warm egg-tan stone**, one deep umber band | a quail's egg | the polish itself (Book is a chip in the chosen shade); sea-green #2F5A57 for links only, on egg tan #D7CABA | Old Standard TT / Plus Jakarta Sans | one line over the hand; the shade card overlapping the photo like a jewellery tag; a rail of flat swatches that show on the hand | the swatch fan: a fan of the house shades paints a real hand live; chapters as full-bleed fields of one shade, numbered like the bottle; plans as three coats (base coat, colour, top coat); speed as drying time ([case study](../../../case-studies/verrall/index.html)) |
+
+## Personal trainers and small gyms
+_From `docs/trades/personal-trainer/demo-map.md`._
+
+This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` (generated) before proposing a look.
+
+| Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
+|---|---|---|---|---|---|---|---|
+| Marrick | personal trainer, `trainer`, `linen` | private studio by appointment, warm linen paper | walnut | walnut #6E4B30 on linen #F3EFE8 | Ibarra Real Nova / Ibarra Real Nova | the trainer's week as a live diary: spoken-for hours fade, open hours are tapped to ask for them | its own |
 
 ## Reformer Pilates studios
 _From `docs/trades/pilates/demo-map.md`._

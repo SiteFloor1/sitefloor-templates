@@ -1,0 +1,16 @@
+/* Journal: contents in three columns with photographs; an article as one readable column. */
+.tjn { padding-top: 0; }
+.tjn-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px 24px; }
+.tjn-list a { display: flex; flex-direction: column; text-decoration: none; border-top: 1px solid var(--text); padding-top: 14px; }
+.tjn-list img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; margin-bottom: 14px; }
+.tjn-t { font: 600 24px / 1.15 var(--font-display); }
+.tjn-list a:hover .tjn-t { color: var(--accent); }
+.tjn-i { margin-top: 8px; color: var(--muted); }
+.tjn-m { margin-top: 10px; font-style: italic; font-size: 15px; color: var(--accent); }
+.tja { padding-top: 0; }
+.tja-m { color: var(--accent); font-style: italic; }
+.tja-body { max-width: 64ch; margin-top: 16px; font-size: 19px; line-height: 1.7; }
+.tja-body p + p { margin-top: 18px; }
+.tja-more { display: flex; flex-direction: column; gap: 6px; max-width: 64ch; margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--line); }
+.tja-more a { min-height: 44px; display: inline-flex; align-items: center; font-weight: 600; }
+@media (max-width: 860px) { .tjn-list { grid-template-columns: 1fr; } }

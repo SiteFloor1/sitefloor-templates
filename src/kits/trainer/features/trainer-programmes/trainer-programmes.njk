@@ -1,0 +1,18 @@
+{#- Programmes: the index. Each kind of training the trainer is qualified for, numbered like the contents of a book,
+    each to its own page. -#}
+{%- set pr = site.programmes %}
+{%- set ph = { title: pr.title, intro: pr.intro } %}
+{% include "kits/trainer/partials/page-head.njk" %}
+<section class="tpr" data-feature="trainer-programmes" aria-label="{{ pr.title | plain }}"><div class="wrap">
+  <ol class="tpr-list">
+    {%- for p in pr.items %}
+    <li><a class="tpr-row" href="{{ ('programme-' + p.id) | href }}">
+      <span class="tpr-n" aria-hidden="true">{{ ("0" + loop.index) if loop.index < 10 else loop.index }}</span>
+      <span class="tpr-name">{{ p.name }}</span>
+      <span class="tpr-line">{{ p.line }}<small>{{ p.who }}</small></span>
+      {%- if p.photo %}<img class="tpr-ph" src="{{ p.photo.src | img }}" alt="" width="{{ p.photo.width }}" height="{{ p.photo.height }}" loading="lazy" decoding="async"{% if p.photo.focus %} style="object-position:{{ p.photo.focus }}"{% endif %}>{% endif %}
+    </a></li>
+    {%- endfor %}
+  </ol>
+</div></section>
+{%- set hostPage = "trainer-programmes" %}{% include "kits/trainer/partials/hosted.njk" %}

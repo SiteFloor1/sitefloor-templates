@@ -1,0 +1,2 @@
+{#- The home sections this page holds (home.js HOSTS), in home order. Set `hostPage` to the page's feature id. -#}
+{%- for id in hostPage | hostedHere %}{% if id | enabled %}{% include homeParts.paths[id] %}{% endif %}{% endfor %}

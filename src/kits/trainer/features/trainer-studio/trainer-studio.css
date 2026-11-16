@@ -1,0 +1,9 @@
+/* The studio: the facts as a ledger beside a second photograph. */
+.tsu-in { display: grid; grid-template-columns: repeat(12, 1fr); gap: 0 24px; align-items: start; }
+.tsu-facts { grid-column: 1 / 7; margin: 0; border-top: 1px solid var(--text); }
+.tsu-facts div { display: grid; grid-template-columns: 10em 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.tsu-facts dt { font-weight: 600; }
+.tsu-facts dd { margin: 0; color: var(--muted); }
+.tsu-room { grid-column: 8 / 13; margin: 0; }
+.tsu-room img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+@media (max-width: 760px) { .tsu-in { display: block; } .tsu-room { margin-top: 28px; } .tsu-facts div { grid-template-columns: 1fr; gap: 2px; } }

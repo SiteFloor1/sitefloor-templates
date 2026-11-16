@@ -1,0 +1,45 @@
+{#- Linen: finding the studio. The way in first (each journey a ruled card with its steps), parking and access as a
+    ledger, then the hours and every question. Keeps the shared script's hooks (tabs, panels, leave-by, parking). -#}
+{%- set v = site.visitInfo %}
+{%- set journeys = v.journeys or [] %}
+{%- set parking = v.parking or [] %}
+{%- set ph = { title: v.title, intro: v.intro } %}
+{% include "kits/trainer/partials/page-head.njk" %}
+<div data-feature="plan-visit">
+<section class="lpv"><div class="wrap">
+  {%- if site.mode == "demo" %}<p class="lpv-checked">Example journeys and parking for a fictional studio.</p>{% elif v.checked %}<p class="lpv-checked">Journey times, parking and access checked with {{ site.business.name }} in {{ v.checked | checkedText }}.</p>{% endif %}
+  <p class="lpv-status" data-live-status><span class="dot" aria-hidden="true"></span><span data-status-text>See the hours below</span></p>
+  {%- if journeys.length %}
+  <h2 class="lpv-h" id="lpv-j">Getting here</h2>
+  <div class="lpv-tabs" role="tablist" aria-label="Ways to get here" data-pv-tabs hidden>
+    {%- for j in journeys %}<button type="button" role="tab" id="pv-tab-{{ loop.index0 }}" aria-controls="pv-panel-{{ loop.index0 }}" aria-selected="{{ 'true' if loop.first else 'false' }}" tabindex="{{ '0' if loop.first else '-1' }}"><span>{{ (j.mode | modeWords).tab }}</span></button>{% endfor %}
+  </div>
+  {%- for j in journeys %}
+  <div class="lpv-j" id="pv-panel-{{ loop.index0 }}" data-pv-panel>
+    <p class="lpv-from"><b>{{ j.from }}</b>{% if j.stop %} · get off at {{ j.stop }}{% endif %}<span>{% if (j.mode | modeWords).about %}about {% endif %}{{ j.minutes }} min {{ (j.mode | modeWords).verb }}</span></p>
+    <ol>{% for step in j.steps %}<li>{{ step }}</li>{% endfor %}<li><b>{{ site.business.name }}</b>, {{ site.location.streetAddress }}</li></ol>
+    <a class="go" href="{{ j | directionsFor }}" target="_blank" rel="noopener">Directions in Google Maps</a>
+  </div>
+  {%- endfor %}
+  <div class="lpv-leave" data-pv-leave hidden>
+    <label for="pv-appt">Booked in? Your time, and when to set off.</label>
+    <div class="lpv-leave-row"><input type="time" id="pv-appt" step="900" data-pv-appt><ul data-pv-leave-list aria-live="polite"></ul></div>
+  </div>
+  {%- endif %}
+  {%- if parking.length or v.access %}
+  <div class="lpv-facts">
+    {%- if parking.length %}<div><h2 class="lpv-h">Parking</h2><ul class="lpv-park">{% for c in parking %}<li><b>{{ c.name }}</b><span data-parking="{{ loop.index0 }}">{% if c.walk is defined %}{{ c.walk }} min walk{% endif %}</span><span class="lpv-sub" data-parking-card="{{ loop.index0 }}" hidden></span><span class="lpv-sub">{{ c | parkingSummary }}{% if c.price %} · {{ c.price }}{% endif %}</span>{% if c.note %}<span class="lpv-sub">{{ c.note }}</span>{% endif %}</li>{% endfor %}</ul></div>{% endif %}
+    {%- if v.access %}<div><h2 class="lpv-h">Access</h2><ul class="lpv-acc">{% for a in v.access %}<li class="{{ 'yes' if a.yes else 'no' }}"><span aria-hidden="true">{{ "✓" if a.yes else "–" }}</span><span class="sr-only">{{ "Yes:" if a.yes else "No:" }}</span>{{ a.label }}</li>{% endfor %}</ul>{% if v.accessNote %}<p class="lpv-sub">{{ v.accessNote }}</p>{% endif %}</div>{% endif %}
+  </div>
+  {%- endif %}
+</div></section>
+</div>
+{%- set visitHeading = false %}
+{% include "features/visit/visit.njk" %}
+{%- set groups = site | questionTopics %}
+{%- if groups.length %}
+<section class="lq lq-all" id="questions"><div class="wrap">
+  <h2 class="lpv-h">Every question</h2>
+  {%- for g in groups %}<div class="lq-topic"><h3>{{ g.topic }}</h3><div class="lq-list">{% for item in g.items %}<details class="lq-qa"><summary>{{ item.q }}</summary><p>{{ item.a }}</p></details>{% endfor %}</div></div>{% endfor %}
+</div></section>
+{%- endif %}

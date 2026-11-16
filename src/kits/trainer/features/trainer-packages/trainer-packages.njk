@@ -1,0 +1,32 @@
+{#- Corporate and family (PT-7): what each package is, who it's for, what's included and its price from; then a short
+    request (which, how many, which days, a name) written into a WhatsApp message for the trainer to reply to. -#}
+{%- set k = site.packages %}
+{%- set ph = { title: k.title, intro: k.intro, photo: k.photo } %}
+{% include "kits/trainer/partials/page-head.njk" %}
+<section class="tpk" data-feature="trainer-packages" aria-label="{{ k.title | plain }}"><div class="wrap">
+  {%- for kind in ["corporate", "family"] %}{% set items = k.items | whereIs("kind", kind) %}
+  {%- if items.length %}
+  <div class="tpk-group">
+    <h2>{{ "For a company" if kind == "corporate" else "For a family" }}</h2>
+    <ul class="tpk-list">
+      {%- for x in items %}
+      <li>
+        <div class="tpk-top"><h3>{{ x.name }}</h3><p class="tpk-price">From {{ x.priceFrom | pounds }} <small>{{ x.unit }}</small></p></div>
+        <p class="tpk-who">{{ x.who }} Up to {{ x.people }} people.</p>
+        <ul class="tpk-inc">{% for i in x.includes %}<li>{{ i }}</li>{% endfor %}</ul>
+      </li>
+      {%- endfor %}
+    </ul>
+  </div>
+  {%- endif %}{% endfor %}
+  {%- if k.invoice %}<p class="tpk-invoice">{{ k.invoice }}</p>{% endif %}
+  <form class="tpk-ask" data-tpk-form data-js-only>
+    <h2>Ask for a package</h2>
+    <div class="tpk-f"><label for="tpk-which">Which</label><select id="tpk-which" data-tpk-which>{% for x in k.items %}<option value="{{ x.name }}" data-max="{{ x.people }}">{{ x.name }}</option>{% endfor %}</select></div>
+    <div class="tpk-f"><label for="tpk-n">How many people</label><input id="tpk-n" type="number" inputmode="numeric" min="2" max="{{ k.items[0].people }}" value="4" data-tpk-n></div>
+    <fieldset class="tpk-f tpk-days"><legend>Days that suit</legend>{% for d in ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"] %}<label><input type="checkbox" value="{{ d }}" data-tpk-day><span>{{ d }}</span></label>{% endfor %}</fieldset>
+    <div class="tpk-f"><label for="tpk-name">Company or family name</label><input id="tpk-name" type="text" maxlength="60" autocomplete="organization" data-tpk-name></div>
+    <a class="tpk-go" data-tpk-go href="{{ k.message | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ k.message }}"{% endif %} target="_blank" rel="noopener">Send the request</a>
+  </form>
+  <p class="tpk-nojs" data-no-js><a class="go" href="{{ k.message | book }}" target="_blank" rel="noopener">Ask about a package</a></p>
+</div></section>

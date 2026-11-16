@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: journal
+permalink: journal.html
+feature: bridalbeauty-journal
+eleventyComputed:
+  title: "{{ site.journal.title | plain }}"
+  description: "{{ site.journal.intro }}"
+---
+{% include "kits/bridalbeauty/features/bridalbeauty-journal/bridalbeauty-journal.njk" %}

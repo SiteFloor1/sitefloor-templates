@@ -1,0 +1,6 @@
+{#- Cover phone bar: paper; "Your date" in the masthead italic back to the cover, WhatsApp in the accent. -#}
+{%- set dateHref = ("#cover" if pageId == "index" else ("index" | href) + "#cover") %}
+<div class="mbar cv-bar">
+  {%- if "bridalbeauty-dates" | enabled %}<a class="cv-bar-date" href="{{ dateHref }}">Your date</a>{% else %}<a class="cv-bar-date" href="tel:{{ site.contact.phone | replace(' ', '') }}">Call</a>{% endif %}
+  <a class="cv-bar-wa" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{{ "WhatsApp" if build.booking.whatsapp else build.booking.label }}</a>
+</div>

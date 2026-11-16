@@ -190,6 +190,40 @@ the first screen (the three mirror panes); the three full-screen editorials and 
 Lighthouse mobile, Wexley home, three runs from a fresh server (the first cold): 97, 97, 97; accessibility 100;
 FCP 1.5–1.6 s; LCP 2.2–2.3 s (the mirror); TBT 120, 130, 120 ms; layout shift 0.
 
+## Bridal hair and makeup artists
+_From `docs/trades/bridal-beauty/speed.md`._
+
+### 16 Nov 2026 — guide pages and the journal (bridalbeauty-guides, bridalbeauty-journal)
+
+The demo is now 15 pages (home, bridal, looks, trials, the morning, skin, six guide pages, the journal, Plan your
+visit, privacy), plus three journal pieces. Guide pages and pieces are plain HTML: no script of their own, photos lazy
+except the page's own (first screen). Lighthouse 12.6 mobile, local server: home 100 / 100 / 100 (LCP 1.4 s, layout
+shift 0); Weddings abroad 100 / 100 / 100 (LCP 1.1 s, layout shift 0). Phone layout-shift test (360, 390, 430 px;
+fonts held back 800 ms) on every new page: worst 0.017. axe on all 18 pages, phone and desktop, menu open: no serious
+or critical issues. The masthead's caps now clear the header by 15–21 px at every width (both cover variants).
+
+### 15 Nov 2026 — bridalbeauty kit: Cover look, Isolde demo
+
+Whole site: JS 33 KB (12.3 KB gz), CSS 42.4 KB (9.6 KB gz), fonts 60.6 KB (Libre Bodoni 400 normal and italic,
+Faustina 400/600; latin woff2). HTML gz: home 6.4 KB, bridal 5.7 KB, looks 5.5 KB, morning 5.4 KB, trials 6 KB, skin
+5.1 KB, Plan your visit 6.6 KB.
+Images: home 173.7 KB, 47.7 KB of it on the first screen (the cover, 1600×1920 WebP, and its cut-out); This season and
+the party photo are lazy. Looks 202.8 KB (nine 800×1000 photos, lazy), bridal 27 KB. The demo's diary is worked out in
+the browser; a client's is one CSV from their Google Sheet.
+Fallback fonts size-matched from the font files against Liberation Serif / Times New Roman (a set sentence's average
+width, hhea metrics): Libre Bodoni 108.9% (ascent 84.9%, descent 29.9%), italic 106.4% (86.8%, 30.6%); Faustina 400
+98.8% (105.6%, 22%), 600 97.4% (107.1%, 22.3%).
+The home page on a 390 px phone: 5.98 screens.
+The client fixture (Plus, the name above her head, the artist's sheet): builds with no demo code.
+
+Lighthouse 12.6 mobile, Isolde home, local server (two runs): performance 100, 99; accessibility 100; best practices
+100; FCP 1.3–1.4 s; LCP 1.7–2.0 s (the cover); TBT 20–50 ms; layout shift 0.
+Phone layout-shift test (360, 375, 390, 412, 430 px; fonts held back 800 ms): worst 0.027 (Plan your visit at 390 px);
+every kit page under 0.001 after page headings kept two lines' height on a phone and the looks' filters scrolled
+instead of wrapping.
+Accessibility (axe, every page, phone and desktop, menu open): no serious or critical issues, after the phone's This
+season row became keyboard-scrollable.
+
 ## Cafés
 _From `docs/trades/cafe/speed.md`._
 
@@ -794,6 +828,31 @@ rail is touched: 98 (cold), 98, 98; accessibility 100; FCP 0.8 s; LCP 1.5–2.2 
 97, 100, 100, 94; accessibility 100; FCP 0.9–1.0 s; LCP 1.5–2.4 s; TBT 0–230 ms after the first run (the time is the
 document's own parsing and styles, not the feature scripts); layout shift 0–0.001.
 Phone layout-shift test (360, 390, 412 px, open and closed): passes on the demo and the fixture.
+
+## Personal trainers and small gyms
+_From `docs/trades/personal-trainer/speed.md`._
+
+### Measurements
+| Date | Site | JS (gz) | CSS (gz) | Fonts | Largest page HTML (gz) | Images, home | Third-party requests |
+|---|---|---|---|---|---|---|---|
+| 2026-11-15 | demos/trainer (Signature, 3 pages: diary, first month, sessions) | 26.9 KB (10.6) | 37.5 KB (8.6) | 54.7 KB (Ibarra Real Nova 400, 400 italic, 600) | index 7.4 KB | 109 KB | none |
+| 2026-11-15 | client fixture (Signature, Google Sheet diary) | 23.2 KB (9.5) | 33 KB (7.7) | 54.7 KB | index ~7 KB | 109 KB | Google Sheets CSV (diary) |
+| 2026-11-16 | demos/trainer, full Signature build (20 pages: 13 page features, 4 programmes, 3 articles) | 42.6 KB (15.8) | 74.5 KB (15.1) | 54.7 KB | index 8 KB | 109 KB home | none |
+| 2026-11-16 | client fixture (Signature, Google Sheet diary, all features) | 39 KB (14.7) | 70 KB (14) | 54.7 KB | index ~8 KB | 109 KB home | Google Sheets CSV (diary) |
+
+### Lighthouse (mobile), 16 Nov 2026
+Two runs each from a fresh local server, Lighthouse 12.8. SEO reads 66–69 only because demos are `noindex`.
+
+| Page | Performance | Accessibility | Best practices | LCP | CLS |
+|---|---|---|---|---|---|
+| Home (the diary) | 99, 100 | 100 | 100 | 1.4–1.7 s | 0.013–0.015 |
+| Prices (blocks, twelve weeks, vouchers) | 100, 100 | 100 | 100 | 1.5 s | 0.039 |
+| A programme (Strength) | 99, 100 | 100 | 100 | 1.4–1.8 s | 0.017 |
+| Coaches | 100, 100 | 100 | 100 | 1.4–1.5 s | 0 |
+
+axe (WCAG 2.2 A/AA): no serious or critical issues on any of the 20 pages, open and closed. Home on a phone: 5,280 px,
+about 6.3 screens at 390 × 844 (the diary, the first month, page links, four questions, the footer); sessions and
+qualifications live with the coaches, and the hours and address with Finding us and the footer.
 
 ## Reformer Pilates studios
 _From `docs/trades/pilates/speed.md`._

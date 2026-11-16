@@ -1,0 +1,59 @@
+{#- A guide page's or a journal piece's blocks, in the Cover look's voice: sections opened by an italic heading in the
+    masthead face, worked prices as a ruled ledger with the sum, looks from the library, facts and questions as ruled
+    label and value lines. Set `blocks` first. -#}
+<div class="bb-gd-body">
+{%- for b in blocks %}
+{%- if b.type == "text" %}
+  <section class="bb-gd-text rv">
+    {%- if b.heading %}<h2 class="bb-gd-h">{{ b.heading }}</h2>{% endif %}
+    {%- for para in b.body | paragraphs %}<p>{{ para }}</p>{% endfor %}
+  </section>
+{%- elif b.type == "facts" %}
+  <section class="bb-gd-facts rv">
+    {%- if b.heading %}<h2 class="bb-gd-h">{{ b.heading }}</h2>{% endif %}
+    <dl class="bb-gd-dl">{% for x in b.items %}<div><dt>{{ x.label }}</dt><dd>{{ x.value }}</dd></div>{% endfor %}</dl>
+  </section>
+{%- elif b.type == "quote" %}
+  {%- set q = b | guideQuote(site) %}
+  <section class="bb-gd-quote rv">
+    <h2 class="bb-gd-h">{{ b.heading }}</h2>
+    {%- if b.text %}<p class="bb-gd-lead">{{ b.text }}</p>{% endif %}
+    <ul class="bb-gd-sum">
+      {%- for l in q.lines %}<li><span>{{ l.name }}</span><span class="bb-gd-x">{% if l.count > 1 %}{{ l.count }} × {{ l.price | gbp }}{% endif %}</span><b>{{ l.sum | gbp }}</b></li>{% endfor %}
+      <li class="bb-gd-tot"><span>Together</span><span class="bb-gd-x"></span><b>{{ q.total | gbp }}</b></li>
+    </ul>
+    {%- if b.note %}<p class="bb-fine">{{ b.note }}</p>{% endif %}
+  </section>
+{%- elif b.type == "looks" %}
+  <section class="bb-gd-looks rv">
+    {%- if b.heading %}<h2 class="bb-gd-h">{{ b.heading }}</h2>{% endif %}
+    <ul class="bb-gd-lk">
+      {%- for x in site.looks.items | byIds(b.ids) %}
+      <li><figure>
+        <img src="{{ x.photo.src | img }}" alt="{{ x.photo.alt }}" width="{{ x.photo.width }}" height="{{ x.photo.height }}" loading="lazy" decoding="async">
+        <figcaption><b>{{ x.name }}</b>{{ bbWords.finish[x.finish] }}, {{ x.minutes | mins }} in the chair.
+          <a class="bb-link" href="{{ site.looks.message | lookText(x.name) | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.looks.message | lookText(x.name) }}"{% endif %} target="_blank" rel="noopener">Ask for this look</a></figcaption>
+      </figure></li>
+      {%- endfor %}
+    </ul>
+  </section>
+{%- elif b.type == "questions" %}
+  <section class="bb-gd-qs rv">
+    {%- if b.heading %}<h2 class="bb-gd-h">{{ b.heading }}</h2>{% endif %}
+    <dl class="bb-gd-qa">{% for x in b.items %}<div><dt>{{ x.q }}</dt><dd>{{ x.a }}</dd></div>{% endfor %}</dl>
+  </section>
+{%- elif b.type == "list" %}
+  <section class="bb-gd-list rv">
+    {%- if b.heading %}<h2 class="bb-gd-h">{{ b.heading }}</h2>{% endif %}
+    <ul>{% for x in b.items %}<li>{{ x }}</li>{% endfor %}</ul>
+  </section>
+{%- elif b.type == "photo" %}
+  <figure class="bb-gd-ph rv"><img src="{{ b.src | img }}" alt="{{ b.alt }}" width="{{ b.width }}" height="{{ b.height }}" loading="lazy" decoding="async">{% if b.caption %}<figcaption>{{ b.caption }}</figcaption>{% endif %}</figure>
+{%- elif b.type == "ask" %}
+  <section class="bb-gd-ask rv">
+    <p>{{ b.text }}</p>
+    <a class="bb-btn" href="{{ b.message | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ b.message }}"{% endif %} target="_blank" rel="noopener">{{ b.label or "Message me" }}</a>
+  </section>
+{%- endif %}
+{%- endfor %}
+</div>

@@ -1,0 +1,13 @@
+{#- Cover footer: a magazine's imprint page. Who, where, when and the pages as ruled lines of label and value; the
+    Sitefloor credit last. -#}
+<footer class="foot cv-foot"><div class="wrap">
+  <p class="cv-foot-name">{{ site.business.name }}</p>
+  <dl class="cv-imprint">
+    <div><dt>Hair and makeup</dt><dd>{{ site.business.description }}</dd></div>
+    <div><dt>Studio</dt><dd>{{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}</dd></div>
+    <div><dt>Ask</dt><dd><a href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{{ "WhatsApp" if build.booking.whatsapp else build.booking.label }}</a> · <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a>{% if site.contact.email %} · <a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>{% endif %}</dd></div>
+    <div><dt>Studio hours</dt><dd><ul class="cv-hours">{% for row in site.hours | hoursRows %}<li data-day="{{ row.dayIndex }}"><span>{{ row.day }}</span> {{ row.label }}</li>{% endfor %}</ul></dd></div>
+    <div><dt>Pages</dt><dd class="cv-foot-pages"><a href="{{ 'index' | href }}">The cover</a>{% for item in site.nav | navItems(pageId) %} <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}>{{ item.label }}</a>{% endfor %} <a href="{{ 'privacy' | href }}">Privacy</a></dd></div>
+  </dl>
+  <p class="cv-foot-by"><a class="by" href="https://sitefloor.com" rel="noopener">Website by <b>Sitefloor</b></a></p>
+</div></footer>
