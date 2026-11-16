@@ -1,6 +1,5 @@
-{#- An inner page's opening: where it sits, the page's name, its line beneath. Set `ph` to { title, intro } first. -#}
+{#- An inner page's opening: the page's name centred, a short palm rule, its line beneath. Set `ph` to { title, intro } first. -#}
 <header class="sk-ph"><div class="wrap sk-ph-in">
-  <p class="sk-ph-k"><a href="{{ 'index' | href }}">{{ site.business.name }}</a></p>
   <h1 class="sk-ph-t">{{ ph.title | markup | safe }}</h1>
   {%- if ph.intro %}<p class="sk-ph-i">{{ ph.intro }}</p>{% endif %}
 </div></header>

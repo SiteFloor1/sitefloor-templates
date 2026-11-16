@@ -6,9 +6,7 @@ What to build for this trade (kit `skin`). The ground rules and the steps for a 
 **Brief:** a calm, clinical-luxury treatment room run by an independent facialist: facials, peels, microneedling,
 LED, consultations and courses. Not a nail bar (that's `nails`), not a medical clinic (that's `smile`'s world).
 The site answers which facial, how long, how much, patch test, downtime, how often and what to stop before, in the
-clinic's own words, and suggests by concern without ever diagnosing. Demo: **Odile** (fictional; searched 15 Nov 2026:
-no UK facialist, skin clinic or beauty company trades as Odile on Companies House or in booking listings; one dormant-
-looking ODILE LIMITED of unknown trade exists, so the demo never shows a company number).
+clinic's own words, and suggests by concern without ever diagnosing. Demo: **Clémence** (fictional; renamed on 16 Nov 2026 from the round 1–6 working name, which is a gown in another demo; searched 16 Nov 2026: no UK skin clinic or salon trading as Clémence turned up in booking listings; the demo never shows a company number).
 
 ### UK rules (checked 15 Nov 2026; on the site, each is the clinic's statement, linked with the date checked)
 - **No medical claims.** CAP Code rule 12.1: medicinal claims only for licensed medicines and devices; the ASA keeps
@@ -66,7 +64,7 @@ Shared: `visit`, `plan-visit`, `questions`, `page-links`, `team` (The team), `cu
 Body and massage · Waxing and hair removal · Courses and memberships · The rooms · Bridal beauty timeline (uses
 `skin-rhythm`) · Gift experiences · First visit and patch tests · Skin by season · Men's treatments · The team ·
 Corporate and group days · Journal. Signature adds the suggestion note and the course planner as pages of their own
-(owner, 15 Nov 2026). Demo Odile shows facials first; brows, lashes, body and waxing are on the menu, not the hero.
+(owner, 15 Nov 2026). Demo Clémence shows facials first; brows, lashes, body and waxing are on the menu, not the hero.
 
 ### Alternative showpieces (alongside or instead)
 - **"What to pause" checker:** tick the actives you use; see what the clinic asks you to stop and from which date.
@@ -81,7 +79,7 @@ grand hotel spa (Raffles). Structure from round 5: the kept header (menus either
 daylit facial (Olia Danilevich, Pexels, cropped so the face and hands lead), then BEAU-3, the concern finder: "How does
 your skin feel today?", five words (tight, tired, uneven, breaking out, sensitive) and a printed treatment card
 (facial, minutes, price, afterwards, patch test, this evening, "Book this facial on WhatsApp" with the choice in the
-message). Type: Antic Didone (ODILE in widely spaced capitals, headings, the words, the facial) and Baskervville (the
+message). Type: Antic Didone (CLÉMENCE in widely spaced capitals, headings, the words, the facial) and Baskervville (the
 card and reading text), roman only. Heritage cue: palm-frond green #1F3B2D for the header rule, the card's border and
 the WhatsApp button, one fine gold line #B3924A in the card, ivory ground #FAF7F0. Screen:
 https://claude.ai/artifact/McNV5yCYaRi5JsMYZjNotp.
@@ -105,7 +103,7 @@ Screens: https://claude.ai/artifact/Y5FANTQ9LroCp2mA8ZaVGX (source to go in `sit
 | Type | Wix Madefor Display 600/700 large, tight / Wix Madefor Text | Besley (heavy Clarendon, roman and italic) / Fragment Mono | Sofia Sans Extra Condensed 600 for dates and headings / Sofia Sans |
 | Header | wordmark beside the bowl emblem; plain nav; Book in a small ring | italic Besley wordmark; nav in mono, normal case | condensed wordmark large; nav right; Book as a date chip |
 | Section shown | the menu: each treatment with its own small dial of minutes | the menu as chemist's labels: Besley name, one mono line of facts | aftercare: day 0, 1, 3, 7 as a strip of dates with the clinic's note on each |
-| Phone bar | round Book disc and a WhatsApp link | one mono line "Message Odile" | two halves: Book · WhatsApp |
+| Phone bar | round Book disc and a WhatsApp link | one mono line "Message Clémence" | two halves: Book · WhatsApp |
 
 **Difference against every demo** (all live demos and case studies, and the approved Almanac, Flannel and Première
 designs): no hero is a dial or clock (closest is Ottoline's four classes drawn as reformers: a row, not a ring);

@@ -7,4 +7,4 @@ Rosarivo and every earlier claim are released.
 
 | Look or design | Status | Branch | Display | Body |
 |---|---|---|---|---|
-| Skin, Odile (round 6) | approved | trade/beauty | Antic Didone | Baskervville |
+| Skin, Clémence (round 6) | approved | trade/beauty | Antic Didone | Baskervville |

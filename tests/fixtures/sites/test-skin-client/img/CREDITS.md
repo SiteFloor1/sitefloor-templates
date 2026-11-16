@@ -1,4 +1,4 @@
-# Photo credits (Odile demo)
+# Photo credits (Clémence demo)
 
 All from one shoot by Olia Danilevich on Pexels, under the Pexels licence (free to use; credited anyway). Models in a
 stock treatment room, not clients or a real clinic: no treatment result is shown or claimed. One grade on every

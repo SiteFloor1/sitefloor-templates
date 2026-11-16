@@ -1,10 +1,10 @@
 {#- Treatments by concern: the finder's card first, then every word the clinic uses with its treatments for it. -#}
-{%- set ph = { title: site.finder.title, intro: site.finder.intro } %}
+{%- set ph = { title: "Treatments by concern", intro: site.finder.intro } %}
 {% include "kits/skin/partials/page-head.njk" %}
 {%- set concernsPage = true %}
 {% include "kits/skin/features/skin-finder/skin-finder.njk" %}
 <section class="sk-cp" data-feature="skin-concerns-page" aria-label="Every treatment by concern"><div class="wrap">
-  <h2 class="sk-cp-t">Every treatment by concern</h2>
+  <h2 class="sk-cp-t">Every treatment, by how skin feels</h2>
   <div class="sk-cp-grid">
     {%- set rowLine = true %}
     {%- for g in site.menu | byConcern %}

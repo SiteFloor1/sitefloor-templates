@@ -49,11 +49,11 @@ test("misspelt settings are refused, and a demo takes no payments", () => {
 });
 
 test("the finder's card and message come from site.json", () => {
-  const c = finderCard(demo.menu, demo.finder, "uneven", "Odile");
+  const c = finderCard(demo.menu, demo.finder, "uneven", "Clémence");
   assert.equal(c?.item.name, "Light peel");
-  assert.equal(c?.message, "Hello Odile, I'd like to book the Light peel (45 minutes, £80). My skin feels uneven today.");
-  assert.equal(finderCard(demo.menu, demo.finder, "oily", "Odile"), null);
-  assert.equal(fill("Hi {name}, {to} from {from}.", { name: "Odile" }), "Hi Odile, from.");
+  assert.equal(c?.message, "Hello Clémence, I'd like to book the Light peel (45 minutes, £80). My skin feels uneven today.");
+  assert.equal(finderCard(demo.menu, demo.finder, "oily", "Clémence"), null);
+  assert.equal(fill("Hi {name}, {to} from {from}.", { name: "Clémence" }), "Hi Clémence, from.");
 });
 
 test("minutes and prices read as the clinic says them", () => {
@@ -73,15 +73,15 @@ test("the ritual builder adds up in the clinic's order", () => {
 });
 
 test("a gift message carries the day, the names and the card's line", () => {
-  const m = giftMessage(demo.spaDays.days[0], { to: " Ana ", from: "Sam", note: "Happy birthday" }, demo.spaDays.message, "Odile");
-  assert.equal(m, "Hello Odile, I'd like to give the A morning (£220). It's for Ana, from Sam.\n\nFor the card: \"Happy birthday\"");
+  const m = giftMessage(demo.spaDays.days[0], { to: " Ana ", from: "Sam", note: "Happy birthday" }, demo.spaDays.message, "Clémence");
+  assert.equal(m, "Hello Clémence, I'd like to give the A morning (£220). It's for Ana, from Sam.\n\nFor the card: \"Happy birthday\"");
 });
 
 test("treatment rhythm: the clinic's reminders, then the next visits at its spacing", () => {
   const ev = rhythmEvents(item("peel"), "2027-03-01");
   assert.deepEqual(ev.map((e) => e.date), ["2027-03-01", "2027-03-02", "2027-03-04", "2027-03-29", "2027-04-26", "2027-05-24"]);
   assert.equal(rhythmEvents(item("brow-shape"), "2027-03-01").length, 0);
-  const ics = dayEventsIcs({ events: ev, clinic: "Odile", place: "2 Walton Yard", stamp: "20270301T090000Z" });
+  const ics = dayEventsIcs({ events: ev, clinic: "Clémence", place: "2 Walton Yard", stamp: "20270301T090000Z" });
   assert.match(ics, /BEGIN:VCALENDAR/);
   assert.equal((ics.match(/BEGIN:VEVENT/g) ?? []).length, 6);
   assert.match(ics, /DTSTART;VALUE=DATE:20270329/);

@@ -166,3 +166,43 @@ main .sk-ph + section { padding-top: clamp(24px, 3vw, 48px); }
   .where-pc { font-size: 2.4rem; }
 }
 .crumb a { text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 4px; }
+
+/* ---------------------------------------------------------------- shared pages in Palm: roman, centred, a palm rule.
+   Antic Didone has one weight, so nothing is ever drawn bold or italic by the browser. */
+html { font-synthesis: none; }
+h1, h2, h3, h4, .pv-h, .b-name, .phero h1 { font-weight: 400; font-style: normal; }
+h1 em, h2 em, h3 em, .phero h1 em { font-style: normal; }
+.phero .crumb, .phero .kick { display: none; }
+.phero { padding-block: clamp(40px, 6vw, 88px) clamp(28px, 4vw, 48px); border-bottom: 0; text-align: center; }
+.phero h1 { margin: 0 auto; max-width: 22ch; font-size: clamp(2.3rem, 5vw, 4rem); line-height: 1.08; letter-spacing: 0; }
+.phero h1::after, .sk-ph-t::after { content: ""; display: block; width: 44px; height: 1px; margin: 22px auto 0; background: var(--accent); }
+.phero p { margin: 18px auto 0; max-width: 52ch; font-size: 1.1rem; }
+.pv-h { font-size: clamp(1.9rem, 3.2vw, 2.6rem); line-height: 1.1; letter-spacing: 0; }
+.pv-h:not(.pv-h-sm) { display: flex; align-items: center; justify-content: center; gap: 22px; text-align: center; }
+.pv-h:not(.pv-h-sm)::before, .pv-h:not(.pv-h-sm)::after { content: ""; flex: 0 0 36px; height: 1px; background: var(--accent); }
+.pv-j-top { flex-wrap: wrap; justify-content: center; gap: 12px 24px; }
+.pv-h-sm { font-size: 1.6rem; }
+
+/* general pages (Skin by season, Group days): one centred column, like a printed card */
+.cpg-in { max-width: 680px; margin-inline: auto; text-align: center; }
+.cpg-text, .cpg-list, .cpg-book { margin: 0 0 clamp(36px, 5vw, 56px); padding: 0; border: 0; background: none; }
+.cpg-text h2, .cpg-list h2 { margin: 0 0 12px; font-size: clamp(1.6rem, 2.6vw, 2.1rem); }
+.cpg-text h2::after, .cpg-list h2::after { content: ""; display: block; width: 28px; height: 1px; margin: 14px auto 0; background: var(--gilt); }
+.cpg-text p { margin: 0 auto 12px; max-width: 56ch; line-height: 1.7; }
+.cpg-list ul { display: inline-grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.cpg-list li { padding: 0; }
+.cpg-list li::before { content: none; display: none; }
+.cpg .cpg-book { display: grid; justify-items: center; gap: 16px; padding: 32px 0 0; border-top: 1px solid var(--accent); background: none; box-shadow: none; text-align: center; }
+.cpg .cpg-book p { font-weight: 400; }
+.cpg-book p { margin: 0; }
+
+/* the team: no photographs on the demo, so each person is a centred entry under a palm rule */
+.wrap[data-feature="team"] { width: min(680px, 100% - 2 * var(--pad)); }
+.barber { display: block; padding: 32px 0; border-top: 1px solid var(--accent); border-bottom: 0; text-align: center; }
+.barber .b-img:not(:has(img)) { display: none; }
+.barber .b-role { display: block; margin-bottom: 6px; color: var(--muted); font-size: 15px; font-weight: 400; letter-spacing: .02em; text-transform: none; }
+.barber .b-name { margin: 0; font-size: clamp(1.9rem, 3.4vw, 2.6rem); line-height: 1.1; letter-spacing: 0; }
+.barber .b-bio { margin: 12px auto 0; max-width: 46ch; }
+.barber .b-tags { justify-content: center; }
+.wrap .team-book { display: grid; justify-items: center; gap: 16px; padding: 32px 0 0; border-top: 1px solid var(--accent); background: none; text-align: center; }
+.sk-cp-t { text-align: center; }

@@ -20,7 +20,7 @@ test("each word shows its own card, in the clinic's words, and books with the ch
   await expect(card).toContainText("45 minutes · £80");
   await expect(card).toContainText("Yes, 48 hours before. We book it with you.");
   await expect(card).toContainText("Cool water only. No make-up, retinol or scrubs for 48 hours.");
-  expect(await waText(card.locator(".sk-card-go"))).toBe("Hello Odile, I'd like to book the Light peel (45 minutes, £80). My skin feels uneven today.");
+  expect(await waText(card.locator(".sk-card-go"))).toBe("Hello Clémence, I'd like to book the Light peel (45 minutes, £80). My skin feels uneven today.");
   await expect(page.getByRole("button", { name: "uneven" })).toHaveAttribute("aria-pressed", "true");
   await srv.close();
 });
@@ -32,7 +32,7 @@ test("the ritual adds up its minutes and price, and sends the whole ritual", asy
   await page.getByLabel(/A scalp ritual/).check();
   await page.getByLabel(/A brow shape/).check();
   await expect(page.locator("[data-rt-total]")).toHaveText("2 hours · £178");
-  expect(await waText(page.locator("[data-rt-send]"))).toBe("Hello Odile, I'd like to book a ritual: Long facial with a scalp ritual and a brow shape. That's 120 minutes, £178.");
+  expect(await waText(page.locator("[data-rt-send]"))).toBe("Hello Clémence, I'd like to book a ritual: Long facial with a scalp ritual and a brow shape. That's 120 minutes, £178.");
   await srv.close();
 });
 
@@ -46,7 +46,7 @@ test("the gift card is drawn as it's typed; on the demo the gift goes to WhatsAp
   await expect(page.locator("[data-gc-day]")).toHaveText("An hour");
   await expect(page.locator("[data-gc-from]")).toHaveText("With love from Sam");
   await expect(page.locator("[data-sd-buy]")).toHaveText("Buy this gift · £95");
-  expect(await waText(page.locator("[data-sd-buy]"))).toBe("Hello Odile, I'd like to give the An hour (£95). It's for Ana, from Sam.");
+  expect(await waText(page.locator("[data-sd-buy]"))).toBe("Hello Clémence, I'd like to give the An hour (£95). It's for Ana, from Sam.");
   await srv.close();
 });
 
