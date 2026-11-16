@@ -3,7 +3,7 @@
 What to build for this trade (no kit yet). The ground rules and the steps for a new kit: [`docs/TRADE-PLAYBOOK.md`](../../TRADE-PLAYBOOK.md).
 
 ## Car parking, garages and secure car storage (new `garage` kit) — round 1, design only, 16 Nov 2026
-**Status: features and pages proposed, awaiting the owner.** Nothing is built until the owner approves one screen and
+**Status: features and pages approved by the owner (16 Nov 2026); design round 2 awaiting the owner.** Nothing is built until the owner approves one screen and
 the showpieces. References (docs/VISION.md): Kahn, London Car Vault. Direction: a members-only garage feel, without
 being exclusive: a beautifully kept private car vault, secure, calm and precise, for ordinary people's cars as well as
 special ones. Customer questions: [`questions.md`](questions.md).
@@ -64,15 +64,20 @@ gov.uk with the date checked.
 - **Client-only:** none of the showpieces need matched photos; PARK-11 needs the client's own photos of their way in
   (the demo uses free stock and says so in its credits).
 
-### Design round 1: three directions (one screen each, 1440 and 390)
-Saved in SiteFloor1/sitefloor-internal on `design/garage` (`docs/trades/garage/design/`). Each shows PARK-10 working as
-a static state.
-- **A, Tarrant (the undercroft):** a covered car alone in a lit bay; a vertical rail instead of a top bar; the live
-  "bays free" number set like a painted floor numeral. Antonio and Pathway Extreme.
-- **B, Oakden (daylight):** a long, white, daylit concrete hall framed like a photograph on an ivory page; the menu is
-  a bar docked at the bottom of the screen; PARK-10 as a car picker over a plan. Zen Kaku Gothic New.
-- **C, Ferrow (from above):** a night drone photograph of painted bays, with the free bays lit on the photograph itself;
-  a timetable strip as the header. Familjen Grotesk and Azeret Mono.
+### Owner decisions (16 Nov 2026)
+Features PARK-10 to PARK-14 and the 18 pages: approved as listed. Signature: PARK-10 Pick your car, see your bays, and
+PARK-11 Arrive at night. Starter: PARK-12 move-in calendar. PARK-13 laying-up planner: a Plus alternative. PARK-9 3D:
+paid add-on only. Round 1's lit-bay photo idea is kept only as a later second look for open yards, restyled.
+
+### Design round 2: three directions (one screen each, 1440 and 390)
+Round 1 rejected (no beautiful car, AI cues). Each direction is one art-directed image, shown huge, plus care and
+service, and PARK-10 in the direction's own form. Saved in SiteFloor1/sitefloor-internal on `design/garage`.
+- **D, Elsden (the gallery):** a family saloon lit like sculpture; a gallery wall label as the hero's words; the plan
+  as an exhibition floor plan. Cardo and Radio Canada.
+- **E, Coldwell (the vault):** a 1970s coupé in a warm old vault; a book-like paper column holds the name and menu;
+  the bays are drawn as brick arches. Besley and Chivo.
+- **F, Rennick (the bright one):** a spotless white family car in daylight; the header asks "I drive…" and finds a
+  space. Merriweather and Atkinson Hyperlegible Next.
 
 ### Running cost
 £0 per client: the client's Sheet and Form, WhatsApp, the client's Stripe Payment Links, calendar files made in the

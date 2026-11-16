@@ -61,9 +61,9 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 |---|---|---|---|
 | Isolde, the cover (round 4) | trade/bridal-beauty | Libre Bodoni | Faustina |
 | Cleaning, Plan (A) | trade/cleaning | Anek Latin | Anek Latin |
-| Garage, Tarrant (A) | trade/garage | Antonio | Pathway Extreme |
-| Garage, Oakden (B) | trade/garage | Zen Kaku Gothic New | Zen Kaku Gothic New |
-| Garage, Ferrow (C) | trade/garage | Familjen Grotesk | Azeret Mono |
+| Garage, Elsden (D, the gallery) | trade/garage | Cardo | Radio Canada |
+| Garage, Coldwell (E, the vault) | trade/garage | Besley | Chivo |
+| Garage, Rennick (F, the bright one) | trade/garage | Merriweather | Atkinson Hyperlegible Next |
 | Landscaping, Almanac | trade/landscaping | Alegreya | Alegreya |
 | Trainer, Linen (A) | trade/trainer | Ibarra Real Nova | Ibarra Real Nova |
 | Tailor, Flannel (A) | trade/tailor | Della Respira | Commissioner |
