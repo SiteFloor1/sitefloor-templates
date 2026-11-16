@@ -3,7 +3,7 @@
 What to build for this trade (kit `ifa`). The ground rules and the steps for a new kit:
 [`docs/TRADE-PLAYBOOK.md`](../../TRADE-PLAYBOOK.md). Customer questions: [`questions.md`](questions.md).
 
-## Independent financial adviser (kit `ifa`), plan, 16 Nov 2026 (round 1: design only, awaiting the owner)
+## Independent financial adviser (kit `ifa`), plan, 16 Nov 2026 (features and pages approved; design round 2)
 
 A small UK advice firm (one to ten advisers) that helps people retire, pass money on and protect their family. The
 site answers the four things that decide a first meeting: what it costs in pounds, whether the first meeting is free,
@@ -11,12 +11,12 @@ whether the firm is independent, and whether it's really regulated. It must feel
 clarity, and look nothing like Lyall Harrow (wealth: white, light Mona Sans, navy band, people at a distance) or
 Calder Wyke (law: ivory, serif headline left, library photograph right).
 
-**Status: the feature codes and the page list below are proposed, awaiting the owner.** `docs/VISION.md` already has a
+**Status: the feature codes and the page list below were approved by the owner on 16 Nov 2026**, including Fees in
+pounds as the hero showpiece ("arithmetic on the firm's published fees; projections stay banned"). `docs/VISION.md` already has a
 short IFA row (approved 29 Oct: IFA 1 S services, team, FCA numbers · 2 P fees explained · 3 P first meeting checklist ·
-4 Sig life-event guides, "No calculators", and twelve pages). This plan keeps those four codes as they are and proposes
-more. **Needs the owner's decision:** "Fees in pounds" (IFA-6) is arithmetic on the firm's own published fees, with
-no growth, returns or projections. It is a calculator in the plain sense of the word, so it needs his yes against
-"No calculators" before it is built.
+4 Sig life-event guides, "No calculators", and twelve pages). This plan keeps those four codes as they are and adds
+more. "No calculators" still means no growth, return or projection tools; IFA-6 is allowed because it only multiplies
+the firm's own published fees.
 
 ### Compliance (non-negotiable; pages read 16 Nov 2026)
 - FCA Handbook COBS 4.2 (fair, clear and not misleading; capital at risk made clear): handbook.fca.org.uk/handbook/COBS/4/2.html
@@ -48,7 +48,7 @@ no growth, returns or projections. It is a calculator in the plain sense of the 
   General information, each dated and sourced.
 - **IFA-5 S** check it's us (proposed, the Starter easy feature): the firm's register entry, the numbers it calls from,
   and what it will never ask for, with the FCA's ScamSmart link. Free, takes ten minutes to fill in, and answers a real fear.
-- **IFA-6 Sig** Fees in pounds (proposed; needs his yes, see above).
+- **IFA-6 Sig** Fees in pounds (approved; the hero showpiece): type an amount, see the firm's published fees as a statement in pounds (once, each year, each month, first year).
 - **IFA-7 S** independent or restricted (proposed, always on): one plain paragraph saying which the firm is, what that
   means for the client, and where free guidance lives (MoneyHelper, Pension Wise).
 - **IFA-8 P** secure upload (proposed): a link to the firm's own client portal or secure upload, with the warning never
@@ -84,15 +84,16 @@ working), **Milestones** (useful to every visitor, no money needed, safe because
 list** (the one nobody else has). Starter: **check it's us** (easy, real, protects the firm's clients). Alternatives
 kept for clients who want them: first-meeting checklist (already Plus), independent or restricted (always on), secure upload (Plus).
 
-### Proposed Signature pages (18; proposed, awaiting the owner)
+### Signature pages (18; approved 16 Nov 2026)
 ★ = suggested Plus five. The VISION list's twelve stay; six are added from the questions.
 1★ Home · 2★ Fees (with Fees in pounds) · 3★ Advisers · 4★ First meeting · 5★ Services · 6 Pensions and retirement
 (with Milestones) · 7 Inheritance tax planning · 8 Protection · 9 Mortgages · 10 Business owners · 11 Independent or
 restricted · 12 Your year with us · 13 Old pensions (the tracing list) · 14 Later life and care · 15 Life-event guides
 · 16 Check it's us · 17 Insights (the journal; FCA rules apply to every article) · 18 Regulatory information and complaints
 
-### Design round 1 (sitefloor-internal `design/financial-advisers`)
-Demo name **Corran** (one word; a Highland ferry crossing; no UK advice firm found under that name, 16 Nov 2026).
-Three directions: A In pounds (white, Spline Sans, the fee figures as the hero, Barbican colonnade strip), B The first
-hour (warm white, Besley, a left rail header, a chair by tall windows, the first-meeting card), C Milestones (charcoal,
-Sofia Sans, the birth-year timeline as the hero, an avenue of trees, the header at the foot of the first screen).
+### Design (sitefloor-internal `design/financial-advisers`)
+Round 1 (Corran: In pounds, The first hour, Milestones) is replaced. Round 2: demo name **Thursby** (Corran dropped:
+Companies House lists CORRAN LTD and CORRAN PARTNERS LTD). Two directions, both led by Fees in pounds set as a private
+bank's statement: **light** (The statement: ivory, forest and pewter, a seal, Frank Ruhl Libre, the City from above in a
+pewter grade) and **deep** (The private ledger: mulberry and gold leaf, a crest, Bona Nova and Bona Nova SC, a black
+Georgian door).
