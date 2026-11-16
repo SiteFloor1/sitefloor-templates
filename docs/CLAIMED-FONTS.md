@@ -62,7 +62,6 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 | Isolde, the cover (round 4) | trade/bridal-beauty | Libre Bodoni | Faustina |
 | Cleaning, Plan (A) | trade/cleaning | Anek Latin | Anek Latin |
 | Thursby, The statement (light) | trade/financial-advisers | Frank Ruhl Libre | Frank Ruhl Libre |
-| Thursby, The private ledger (deep) | trade/financial-advisers | Bona Nova | Bona Nova SC |
 | Landscaping, Almanac | trade/landscaping | Alegreya | Alegreya |
 | Trainer, Linen (A) | trade/trainer | Ibarra Real Nova | Ibarra Real Nova |
 | Tailor, Flannel (A) | trade/tailor | Della Respira | Commissioner |

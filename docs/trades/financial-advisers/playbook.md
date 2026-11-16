@@ -95,5 +95,6 @@ restricted · 12 Your year with us · 13 Old pensions (the tracing list) · 14 L
 Round 1 (Corran: In pounds, The first hour, Milestones) is replaced. Round 2: demo name **Thursby** (Corran dropped:
 Companies House lists CORRAN LTD and CORRAN PARTNERS LTD). Two directions, both led by Fees in pounds set as a private
 bank's statement: **light** (The statement: ivory, forest and pewter, a seal, Frank Ruhl Libre, the City from above in a
-pewter grade) and **deep** (The private ledger: mulberry and gold leaf, a crest, Bona Nova and Bona Nova SC, a black
-Georgian door).
+pewter grade) and **deep** (The private ledger: slate and gold leaf, a crest, Bona Nova, a black Georgian door).
+Round 3: the owner chose **light** (The statement); the photograph is now a Georgian terrace in morning sun, graded
+warm with holly-green shadows. Thursby to be confirmed on the Companies House register before the build.
