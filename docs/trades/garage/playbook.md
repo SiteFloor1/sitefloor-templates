@@ -86,7 +86,7 @@ care photos that look like the same hall, one grade; no readable makers' badges;
 drawing (poché walls, column grid, wheel stops, cars drawn from above, scale bar, north point). Lounge: client photos.
 
 ### Owner decisions, round 4 (16 Nov 2026)
-New features (proposed codes, for the owner to confirm):
+New features (approved 16 Nov 2026, round 5):
 
 | Code | Feature | Plan | How (free) |
 |---|---|---|---|
@@ -94,11 +94,12 @@ New features (proposed codes, for the owner to confirm):
 | PARK-16 | Security on the plan: camera positions and coverage, fob hours, gate, alarm. Only what the client confirms; never a live feed | P | the client's Sheet; drawn on the plan |
 | PARK-17 | Letter for your insurer (PDF download), only if the client supplies one | P | a file in the site's `img/` or `docs/` |
 | PARK-18 | "Your car this month": a WhatsApp card per car from the client's own monthly checks (battery, tyres, cover, moved) | Sig | the client's Sheet + a pre-filled WhatsApp message |
-| PARK-9 (upgraded) | The hall in 3D as the hero: the plan rises into a gallery-lit hall; pick your car and a neutral car of that size glides into the free bay that fits; chargers glow; camera coverage as soft cones on the floor. Self-hosted three.js, poster first, lazy, reduced motion and no WebGL keep the still | Sig for the demo; **Bespoke add-on for clients** | three.js bundled with the site (~153 KB gzipped, loaded only when seen), the same Sheet |
+| PARK-9 (round 5) | The hall from above: one photoreal aerial render of the client's hall (Blender, Cycles), drawn from their measurements. Pick your car and a top-down render of a car that size drives in through the gate and turns into the bay that fits; the bay lights. Charging and cameras/gate are quiet layers, one tap each. No 3D engine in the page: one image, one car image, an SVG layer (~5 KB of script); reduced motion sees the car parked | Sig for the demo; **Bespoke add-on for clients** | rendered once per client from their plan; bays, chargers and cameras from the client's Sheet |
 
-Signature = the 3D hall (on the demo) with PARK-10 Pick your car, PARK-11 Arrive at night and PARK-18.
-Client path: the 2D plan drawn from the client's measurements is Signature standard; the 3D hall is a Bespoke add-on
-(each hall is modelled by hand). Running cost stays £0.
+Signature = the hall from above (on the demo) with PARK-10 Pick your car, PARK-11 Arrive at night and PARK-18.
+Client path (approved): the drawn top-down plan from the client's measurements is Signature standard; the rendered
+aerial hall is a Bespoke add-on (each hall is modelled and rendered once). The three.js hall of round 4 is retired.
+Running cost stays £0.
 
 ### Running cost
 £0 per client: the client's Sheet and Form, WhatsApp, the client's Stripe Payment Links, calendar files made in the
