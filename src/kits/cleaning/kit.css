@@ -1,0 +1,18 @@
+/* Cleaning kit: visuals every feature of the trade shares (square controls, quiet links, fine print, the send
+   button, prose). Tokens only; the look sets them. Bundled after core, before features. */
+.cl-seg { display: flex; border: 1px solid var(--text); }
+.cl-seg label { position: relative; }
+.cl-seg input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+.cl-seg span { display: block; min-width: 40px; min-height: 40px; padding: 8px 11px; text-align: center; border-left: 1px solid var(--text); font-weight: 600; }
+.cl-seg label:first-child span { border-left: 0; }
+.cl-seg input:checked + span { background: var(--text); color: var(--bg); }
+.cl-seg input:focus-visible + span { outline: 3px solid var(--accent); outline-offset: -3px; }
+.cl-send { display: flex; justify-content: center; align-items: center; min-height: 52px; margin-top: 20px; background: var(--accent); color: var(--on-accent); font-weight: 600; text-decoration: none; }
+.cl-send:hover { background: var(--accent-2); }
+.cl-fine { margin: 12px 0 0; color: var(--muted); font-size: .82rem; }
+.cl-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.cl-quiet { display: inline-flex; align-items: center; min-height: 44px; padding: 0; border: 0; background: none; color: var(--text); font: inherit; font-weight: 600; text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 5px; cursor: pointer; }
+.cl-narrow { max-width: 760px; }
+.cl-prose h2 { font-size: clamp(1.3rem, 2vw, 1.7rem); margin: 36px 0 8px; }
+.cl-prose h2:first-child { margin-top: 0; }
+.cl-prose p { margin: 0 0 12px; max-width: 68ch; }

@@ -1,0 +1,13 @@
+{#- What the company cleans: each service in one line with its hourly rate or "from" price, in the company's words; on
+    Signature each links to its own page. -#}
+{%- set sec = site.sections.services %}
+<section id="services" class="cl-services" data-feature="cleaning-services" aria-label="{{ sec.title | plain }}"{{ 'cleaning-services' | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <ul class="cl-sv">
+    {%- for s in site.cleans.items %}
+    {%- set to = (s.id if s.page and ("cleaning-service-pages" | enabled)) or (s.link if s.link and ((("cleaning-tenancy" if s.link == "end-of-tenancy" else "cleaning-offices")) | enabled)) %}
+    {%- set gate = "cleaning-service-pages" if s.page else ("cleaning-tenancy" if s.link == "end-of-tenancy" else "cleaning-offices") %}
+    <li>{% if to %}<a href="{{ to | href }}"{{ gate | tierAttr | safe }}>{% endif %}<b>{{ s.name }}</b>{% if to %}</a>{% endif %}<span>{{ s.line }}</span><em>{{ s | rateWords(site.visit) }}</em></li>
+    {%- endfor %}
+  </ul>
+</div></section>

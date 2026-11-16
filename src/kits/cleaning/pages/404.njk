@@ -1,0 +1,9 @@
+---
+layout: core/layouts/base.njk
+pageId: "404"
+permalink: 404.html
+title: Page not found
+---
+{%- set ph = { title: "This page isn't here.", intro: "It may have moved. Prices, what's included and how to book are on the home page." } %}
+{% include "kits/cleaning/partials/page-head.njk" %}
+<p class="wrap"><a class="cl-quiet" href="{{ 'index' | href }}">Back to {{ site.business.name }}</a></p>

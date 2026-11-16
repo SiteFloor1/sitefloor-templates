@@ -1,0 +1,28 @@
+/* Corporate and family: packages as ruled entries with the price from in walnut; the request as a paper form. */
+.tpk { padding-top: 0; }
+.tpk-group + .tpk-group { margin-top: 56px; }
+.tpk h2 { font: 600 clamp(28px, 3vw, 42px) / 1.05 var(--font-display); margin-bottom: 18px; }
+.tpk-list { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--text); display: grid; grid-template-columns: 1fr 1fr; gap: 0 40px; }
+.tpk-list > li { padding: 22px 0; border-bottom: 1px solid var(--line); }
+.tpk-top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+.tpk h3 { font: 600 24px / 1.15 var(--font-display); }
+.tpk-price { color: var(--accent); font-weight: 600; white-space: nowrap; }
+.tpk-price small { color: var(--muted); font-weight: 400; font-style: italic; }
+.tpk-who { margin-top: 6px; color: var(--muted); }
+.tpk-inc { margin: 12px 0 0; padding-left: 18px; }
+.tpk-inc li { margin-top: 4px; }
+.tpk-invoice { margin-top: 24px; color: var(--muted); font-style: italic; }
+.tpk-ask { margin-top: 56px; padding: 28px 30px; background: var(--paper); display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px 24px; align-items: end; }
+.tpk-ask h2 { grid-column: 1 / -1; margin: 0; }
+.tpk-f label, .tpk-f legend { display: block; margin-bottom: 8px; color: var(--muted); font: italic 400 15px var(--font-body); padding: 0; }
+.tpk-f select, .tpk-f input[type="number"], .tpk-f input[type="text"] { width: 100%; min-height: 46px; padding: 8px 12px; background: var(--bg); border: 1px solid var(--line-2); color: var(--text); font: 400 16px var(--font-body); }
+.tpk-days { grid-column: span 2; border: 0; margin: 0; padding: 0; }
+.tpk-days label { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; margin-right: 14px; color: var(--text); font-style: normal; }
+.tpk-days input { accent-color: var(--accent); width: 18px; height: 18px; }
+.tpk-go { grid-column: 1 / -1; justify-self: start; min-height: 48px; display: inline-flex; align-items: center; padding: 0 22px; background: var(--text); color: var(--paper); font-weight: 600; text-decoration: none; }
+.tpk-nojs { margin-top: 32px; }
+@media (max-width: 860px) {
+  .tpk-list { grid-template-columns: 1fr; }
+  .tpk-ask { grid-template-columns: 1fr; padding: 22px; }
+  .tpk-days { grid-column: auto; }
+}

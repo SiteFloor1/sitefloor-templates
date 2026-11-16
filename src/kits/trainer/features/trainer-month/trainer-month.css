@@ -1,0 +1,54 @@
+/* Your first month: the trainer's folio. Where and how often at the top; the first session, the dates and the cost in
+   ruled parts; one total. */
+.tm-in { display: grid; grid-template-columns: repeat(12, 1fr); gap: 0 24px; padding: 0; align-items: start; }
+.tm-intro { grid-column: 1 / 5; position: sticky; top: 28px; }
+.tm h2 { font: 600 clamp(38px, 4.4vw, 64px) / 1 var(--font-display); letter-spacing: -.01em; }
+.tm-lede { margin-top: 20px; max-width: 30ch; color: var(--muted); }
+.tm figure { margin-top: 40px; max-width: 380px; }
+.tm figure img { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; }
+.tm figcaption { margin-top: 8px; color: var(--muted); font: italic 400 14px var(--font-body); }
+.tm-folio { grid-column: 6 / 13; background: var(--paper); }
+.tm-ask { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--line); }
+.tm-q { padding: 26px 30px 24px; }
+.tm-q + .tm-q { border-left: 1px solid var(--line); }
+.tm-k { display: block; margin-bottom: 12px; color: var(--muted); font: 400 14px var(--font-display); }
+.tm-opt { display: flex; flex-direction: column; gap: 6px; }
+.tm-opt button { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; min-height: 48px; padding: 10px 14px; border: 1px solid var(--line); background: none; color: var(--text); font: 400 16px var(--font-body); text-align: left; cursor: pointer; }
+.tm-opt button b { font: 600 16px var(--font-display); }
+.tm-opt button small { color: var(--muted); font: italic 400 14px var(--font-body); white-space: nowrap; }
+.tm-opt button[aria-pressed="true"] { border-color: var(--text); box-shadow: inset 3px 0 0 var(--accent); }
+.tm-part { padding: 28px 30px; border-bottom: 1px solid var(--line); }
+.tm-part[hidden] { display: none; }
+.tm-part h3 { display: flex; justify-content: space-between; margin-bottom: 14px; color: var(--muted); font: 600 15px var(--font-display); }
+.tm-part h3 span { font: italic 400 14px var(--font-body); }
+.tm-hour { list-style: none; padding: 0; margin: 0; }
+.tm-hour li { display: grid; grid-template-columns: 64px 1fr; gap: 14px; padding: 9px 0; border-top: 1px dotted var(--line); }
+.tm-hour li:first-child { border-top: 0; }
+.tm-hour b { color: var(--accent); font: 600 15px var(--font-display); }
+.tm-where { margin-top: 14px; color: var(--muted); font-style: italic; font-size: 16px; }
+.tm-dates { columns: 2; column-gap: 30px; padding: 0; margin: 0; list-style: none; counter-reset: tm; }
+.tm-dates li { display: flex; gap: 12px; align-items: baseline; padding: 5px 0; border-bottom: 1px dotted var(--line); break-inside: avoid; font-size: 16px; }
+.tm-dates li::before { counter-increment: tm; content: counter(tm, upper-roman); width: 26px; color: var(--accent); font: 600 12px var(--font-display); }
+.tm-cost { list-style: none; padding: 0; margin: 0; }
+.tm-cost li { display: flex; justify-content: space-between; padding: 7px 0; border-top: 1px dotted var(--line); }
+.tm-cost li:first-child { border-top: 0; }
+.tm-cost li span { color: var(--muted); }
+.tm-foot { display: flex; justify-content: space-between; align-items: end; gap: 20px; padding: 26px 30px 30px; }
+.tm-tot { font: 600 42px / 1 var(--font-display); }
+.tm-tot small { display: block; margin-top: 8px; color: var(--muted); font: italic 400 15px var(--font-body); }
+.tm-acts { display: flex; gap: 10px; }
+.tm-acts a, .tm-acts button { height: 50px; display: inline-flex; align-items: center; padding: 0 18px; border: 1px solid var(--text); background: none; color: var(--text); font: 600 15px var(--font-display); text-decoration: none; cursor: pointer; }
+.tm-acts [hidden] { display: none; }
+.tm-acts .tm-p { background: var(--text); color: var(--paper); }
+@media (max-width: 760px) {
+  .tm-in { display: block; }
+  .tm-intro { position: static; }
+  .tm figure { display: none; }
+  .tm-folio { margin-top: 32px; }
+  .tm-ask { grid-template-columns: 1fr; }
+  .tm-q + .tm-q { border-left: 0; border-top: 1px solid var(--line); }
+  .tm-q, .tm-part { padding: 22px 18px; }
+  .tm-dates { columns: 1; }
+  .tm-foot { flex-direction: column; align-items: stretch; padding: 22px 18px 26px; }
+  .tm-acts a, .tm-acts button { flex: 1; justify-content: center; }
+}

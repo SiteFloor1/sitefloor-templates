@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: offices
+permalink: offices.html
+feature: cleaning-offices
+eleventyComputed:
+  title: "{{ site.offices.title | plain }}"
+  description: "{{ site.offices.intro }}"
+---
+{%- set ph = { title: site.offices.title, intro: site.offices.intro } %}
+{% include "kits/cleaning/partials/page-head.njk" %}
+{% include "kits/cleaning/features/cleaning-offices/cleaning-offices.njk" %}

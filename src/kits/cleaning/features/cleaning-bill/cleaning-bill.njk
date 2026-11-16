@@ -1,0 +1,29 @@
+{#- The bill, worked out in front of you: the extras (each with its minutes), then every room and extra in minutes, time
+    on site, the shortest visit if it applies, the hourly rate and one price, rounded once. Rendered for the company's
+    default home from the same visit() as the strip; the script keeps it in step with the strip and writes the message. -#}
+{%- set V = site.visit %}{%- set d = V.defaults %}
+{%- set v = V | visitOf(d) %}{%- set w = v | visitWords(d, site.business.name) %}
+{%- set sec = site.sections.bill %}
+<section id="bill" class="cl-bill" data-feature="cleaning-bill" aria-label="{{ sec.title | plain }}"{{ 'cleaning-bill' | tierAttr | safe }}><div class="wrap cl-bill-in">
+  <div class="cl-bill-side">
+    {% include "core/partials/section-head.njk" %}
+    {%- if V.extras.length %}
+    <fieldset class="cl-extras" data-bill-extras data-js-only><legend>Extras</legend>
+      {%- for e in V.extras %}<label><span><input type="checkbox" value="{{ e.id }}">{{ e.name }}</span><em>{{ e.min }} min{% if e.perBed %} each bed{% endif %}</em></label>{% endfor %}
+    </fieldset>
+    {%- endif %}
+  </div>
+  <div class="cl-sheet">
+    <table class="cl-lines" data-bill-lines>
+      <caption class="cl-sr">The bill for a {{ w.home }}</caption>
+      {%- for r in v.rooms %}<tr><th scope="row">{{ r.name }}</th><td>{{ r.min | hm }}</td></tr>{% endfor %}
+      <tr class="cl-sum"><th scope="row">Time on site</th><td>{{ v.work | hm }}</td></tr>
+      {%- if v.charged > v.work %}<tr><th scope="row">Shortest visit we book</th><td>{{ V.minimum | hm }}</td></tr>{% endif %}
+      <tr><th scope="row">Rate</th><td>{{ v.rate | gbp }} an hour</td></tr>
+    </table>
+    <p class="cl-price"><span data-bill-per>{{ "One deep clean" if v.deep else ("A visit, " + (d.freq | oftenWords)) }}</span><b data-bill-price>{{ v.price | gbp }}</b></p>
+    <a class="cl-send" data-bill-send href="{{ w.message | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ w.message }}"{% endif %} target="_blank" rel="noopener">Send this on WhatsApp</a>
+    {%- if "cleaning-schedule" | enabled %}{% include "kits/cleaning/features/cleaning-schedule/cleaning-schedule.njk" %}{% endif %}
+    <p class="cl-fine">{{ sec.fine or "A guide from our published rates; we confirm it before the first visit." }}</p>
+  </div>
+</div></section>

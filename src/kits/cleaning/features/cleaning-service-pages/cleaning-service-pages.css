@@ -1,0 +1,25 @@
+/* A service's own page. Structure only; colours, type and edges come from the look's tokens. */
+.cl-svc-photo { margin: 0 0 clamp(28px, 4vw, 48px); }
+.cl-svc-photo img { display: block; width: 100%; height: clamp(220px, 34vw, 460px); object-fit: cover; }
+.cl-svc-photo figcaption { font-size: .78rem; color: var(--muted); padding-top: 6px; }
+.cl-svc-h { margin: 0 0 14px; font-size: clamp(1.3rem, 2vw, 1.7rem); line-height: 1.15; }
+.cl-svc-rooms { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--text); }
+.cl-svc-rooms > div { padding: 16px 20px 18px 0; }
+.cl-svc-rooms > div + div { padding-left: 20px; border-left: 1px solid var(--line); }
+.cl-svc-rooms h3 { margin: 0 0 10px; font-size: 1rem; }
+.cl-svc-rooms ul, .cl-svc-list { margin: 0; padding: 0; list-style: none; }
+.cl-svc-rooms li, .cl-svc-list li { position: relative; padding: 3px 0 3px 18px; }
+.cl-svc-rooms li::before, .cl-svc-list li::before { content: ""; position: absolute; left: 0; top: .7em; width: 8px; height: 8px; background: var(--line-2); }
+.cl-svc-rooms li.cl-svc-add { font-weight: 600; }
+.cl-svc-rooms li.cl-svc-add::before, .cl-svc-key { background: var(--accent); }
+.cl-svc-key { display: inline-block; width: 8px; height: 8px; margin-right: 4px; }
+.cl-svc-not li::before { height: 2px; top: .8em; background: var(--muted); }
+.cl-svc-in { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(28px, 5vw, 96px); align-items: start; padding-top: clamp(32px, 4vw, 56px); }
+.cl-svc-in > div > ul + .cl-svc-h { margin-top: 32px; }
+.cl-svc-go { display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: center; margin: 24px 0 0; }
+@media (max-width: 860px) {
+  .cl-svc-rooms { grid-template-columns: 1fr 1fr; }
+  .cl-svc-rooms > div:nth-child(3) { padding-left: 0; border-left: 0; }
+  .cl-svc-in { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) { .cl-svc-rooms { grid-template-columns: 1fr; } .cl-svc-rooms > div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); } }

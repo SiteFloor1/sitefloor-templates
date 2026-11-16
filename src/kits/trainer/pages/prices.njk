@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: prices
+permalink: prices.html
+feature: trainer-prices
+eleventyComputed:
+  title: "{{ site.pricesPage.title | plain }}"
+  description: "Prices at {{ site.business.name }}, {{ site.location.locality }}: single sessions and blocks."
+---
+{% include "kits/trainer/features/trainer-prices/trainer-prices.njk" %}

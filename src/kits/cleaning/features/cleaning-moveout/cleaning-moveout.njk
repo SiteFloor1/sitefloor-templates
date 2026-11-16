@@ -1,0 +1,13 @@
+{#- The move-out planner: a check-out date in; the day of the clean and the day to book by out, from the company's own
+    lead times; to the calendar or to WhatsApp. -#}
+{%- set t = site.tenancy %}
+<div class="cl-mo" data-feature="cleaning-moveout"{{ 'cleaning-moveout' | tierAttr | safe }}>
+  <h2>Your move-out</h2>
+  <label class="cl-mo-d"><span>Check-out date</span> <input type="date" data-mo-date></label>
+  <dl class="cl-mo-out" data-mo-out hidden>
+    <div><dt>We clean</dt><dd data-mo-clean></dd></div>
+    <div><dt>Book by</dt><dd data-mo-book></dd></div>
+  </dl>
+  <p class="cl-mo-note" data-mo-note aria-live="polite">We clean {{ "on the day of check-out" if t.cleanDaysBefore == 0 else ("the day before check-out" if t.cleanDaysBefore == 1 else t.cleanDaysBefore + " days before check-out") }}; book at least {{ t.bookDaysBefore }} days before that.</p>
+  <div class="cl-mo-acts" data-js-only><button type="button" class="cl-quiet" data-mo-ics hidden>Add to my calendar</button> <a class="cl-quiet" data-mo-send href="{{ t.message | book }}" target="_blank" rel="noopener" hidden>Send these dates on WhatsApp</a></div>
+</div>

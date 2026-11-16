@@ -1,0 +1,6 @@
+{#- One journal piece: dated, the company's words. -#}
+<article class="cl-art" data-feature="cleaning-journal"><div class="wrap cl-narrow">
+  <p class="cl-art-d"><time datetime="{{ a.date }}">{{ a.date | ukDate }}</time></p>
+  {%- set secs = a.sections %}{% include "kits/cleaning/partials/sections.njk" %}
+  <p><a class="cl-quiet" href="{{ 'journal' | href }}">All of the journal</a></p>
+</div></article>

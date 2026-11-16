@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: journal
+permalink: journal.html
+feature: cleaning-journal
+eleventyComputed:
+  title: "{{ site.journal.title | plain }}"
+  description: "{{ site.journal.intro }}"
+---
+{%- set ph = { title: site.journal.title, intro: site.journal.intro } %}
+{% include "kits/cleaning/partials/page-head.njk" %}
+{% include "kits/cleaning/features/cleaning-journal/cleaning-journal.njk" %}

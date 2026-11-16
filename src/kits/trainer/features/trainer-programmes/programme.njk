@@ -1,0 +1,23 @@
+{#- One programme: who it's for, the trainer's words, the kinds of session in a week, who they work alongside and the
+    qualification it rests on; then a message to ask about it. -#}
+{%- set ph = { title: x.name, intro: x.line, photo: x.photo, parent: { label: site.programmes.title | plain, page: "programmes" } } %}
+{% include "kits/trainer/partials/page-head.njk" %}
+<section class="tpg" data-feature="trainer-programmes" aria-label="{{ x.name }}"><div class="wrap tpg-in">
+  <div class="tpg-body">
+    <p class="tpg-who"><b>Who it's for.</b> {{ x.who }}</p>
+    {%- for para in x.text %}<p>{{ para }}</p>{% endfor %}
+  </div>
+  <aside class="tpg-side">
+    <h2>A week of it</h2>
+    <ol class="tpg-week">{% for s in x.sessions %}<li><span>{{ loop.index }}</span>{{ s }}</li>{% endfor %}</ol>
+    {%- if x.care %}<p class="tpg-care">{{ x.care }}</p>{% endif %}
+    {%- for q in site.qualifications.items %}{% if q.name == x.qualification %}
+    <p class="tpg-q">Rests on: {{ q.name }}, {{ q.awardingBody }}, {{ q.year }}.</p>{% endif %}{% endfor %}
+    {%- set msg = site.messages.general + " I'm interested in " + x.name + "." %}
+    <a class="go" href="{{ msg | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ msg }}"{% endif %} target="_blank" rel="noopener">Ask about {{ x.name }}</a>
+  </aside>
+</div>
+{%- if site.programmes.items.length > 1 %}
+<nav class="wrap tpg-more" aria-label="Other programmes">{% for o in site.programmes.items %}{% if o.id != x.id %}<a href="{{ ('programme-' + o.id) | href }}">{{ o.name }}</a>{% endif %}{% endfor %}</nav>
+{%- endif %}
+</section>

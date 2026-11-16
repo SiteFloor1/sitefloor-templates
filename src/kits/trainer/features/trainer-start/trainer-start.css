@@ -1,0 +1,15 @@
+/* Start here: the first hour as a tape of minutes, each stop a ruled line, the minute in walnut. */
+.tsh-in { display: grid; grid-template-columns: repeat(12, 1fr); gap: 0 24px; align-items: start; }
+.tsh-intro { grid-column: 1 / 5; }
+.tsh h2 { font: 600 clamp(32px, 3.4vw, 50px) / 1.02 var(--font-display); }
+.tsh-lede { margin-top: 14px; max-width: 34ch; color: var(--muted); }
+.tsh-tape { grid-column: 6 / 13; list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--text); }
+.tsh-tape li { display: grid; grid-template-columns: 90px 1fr; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+.tsh-min { font: 600 34px / 1 var(--font-display); color: var(--accent); }
+.tsh-min small { font-size: 14px; color: var(--muted); font-weight: 400; margin-left: 4px; }
+.tsh-go { grid-column: 6 / 13; margin-top: 22px; }
+@media (max-width: 760px) {
+  .tsh-in { display: block; }
+  .tsh-tape { margin-top: 24px; }
+  .tsh-tape li { grid-template-columns: 64px 1fr; }
+}

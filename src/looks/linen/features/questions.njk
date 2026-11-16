@@ -1,0 +1,14 @@
+{#- Linen: questions as a ruled list beside the section's name; each answer opens in place. -#}
+{%- set sec = site.sections.questions %}
+{%- set qs = site | homeQuestions %}
+<section id="questions" class="lq" data-feature="questions"{{ "questions" | tierAttr | safe }}><div class="wrap lq-in">
+  <div class="lq-intro">
+    <h2>{{ sec.title | markup | safe }}</h2>
+    {%- if sec.intro %}<p>{{ sec.intro }}</p>{% endif %}
+    <p class="lq-more">{%- if "plan-visit" | enabled %}<a class="go" href="{{ 'visit' | href }}"{{ "plan-visit" | tierAttr | safe }}>Every question, and finding the studio</a>{% endif %}
+    <a class="go" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">Ask something else</a></p>
+  </div>
+  <div class="lq-list">
+    {%- for item in qs %}<details class="lq-qa"><summary>{{ item.q }}</summary><p>{{ item.a }}</p></details>{% endfor %}
+  </div>
+</div></section>

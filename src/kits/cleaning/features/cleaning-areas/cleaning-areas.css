@@ -1,0 +1,12 @@
+.cl-areas-in { display: grid; grid-template-columns: 5fr 6fr; gap: clamp(24px, 5vw, 96px); align-items: start; }
+.cl-pc label { display: block; font-weight: 600; margin-bottom: 6px; }
+.cl-pc-row { display: flex; }
+.cl-pc-row input { flex: 1; min-width: 0; min-height: 48px; padding: 0 14px; border: 1px solid var(--text); border-right: 0; background: var(--bg); color: var(--text); font: inherit; font-size: 1.1rem; text-transform: uppercase; border-radius: 0; }
+.cl-pc-row button { min-height: 48px; padding: 0 20px; border: 0; background: var(--text); color: var(--bg); font: inherit; font-weight: 600; cursor: pointer; border-radius: 0; }
+.cl-pc-out { min-height: 1.6em; margin: 12px 0 0; font-weight: 600; }
+.cl-pc-out[data-state="no"], .cl-pc-out[data-state="invalid"] { color: var(--muted); }
+.cl-dist { margin: 20px 0 0; display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: baseline; }
+.cl-dist span { color: var(--muted); }
+.cl-dist b { font-weight: 600; font-variant-numeric: tabular-nums; }
+.cl-places { color: var(--muted); margin: 8px 0 0; }
+@media (max-width: 760px) { .cl-areas-in { grid-template-columns: 1fr; } }
