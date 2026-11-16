@@ -1,0 +1,18 @@
+{#- Skin prep, counted down: her wedding date in, each step on its day in the artist's own words; into her calendar.
+    Treatments are a question for a clinician, and the page says so. -#}
+{%- set sk = site.skin %}
+{%- set ph = site.skinPage %}{% include "kits/bridalbeauty/partials/page-head.njk" %}
+<section class="bb-sk" data-feature="bridalbeauty-skin"{{ "bridalbeauty-skin" | tierAttr | safe }} aria-label="Your skin, counted down"><div class="wrap bb-sk-in">
+  <div class="bb-sk-form">
+    {%- set df = "sk" %}{% set dfLabel = "Your wedding date" %}{% include "kits/bridalbeauty/partials/date-field.njk" %}
+    <p class="bb-fine" data-sk-late hidden>Some of these days have gone. Start from the next one.</p>
+    <a class="bb-link" data-sk-ics download="skin-before-the-wedding.ics" href="#" hidden>Add to calendar</a>
+    <a class="bb-btn" data-sk-ask href="{{ sk.message | skinText | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ sk.message | skinText }}"{% endif %} target="_blank" rel="noopener">Ask me about your skin</a>
+    <p class="bb-sk-note">{{ sk.note }}</p>
+  </div>
+  <ol class="bb-sk-list" data-sk-list>
+    {%- for s in sk.steps | sort(true, false, "daysBefore") %}
+    <li data-step="{{ s.id }}"><span class="bb-sk-when" data-sk-date>{{ s.daysBefore | daysWords }}</span><b>{{ s.label }}</b><p>{{ s.text }}</p></li>
+    {%- endfor %}
+  </ol>
+</div></section>

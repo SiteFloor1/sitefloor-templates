@@ -32,6 +32,7 @@ One file per trade, so trades built in parallel never edit the same lines. A new
 - Bakers and cake makers: [`docs/trades/baker/questions.md`](trades/baker/questions.md)
 - Barbers: [`docs/trades/barber/questions.md`](trades/barber/questions.md)
 - Bridal salons: [`docs/trades/bridal/questions.md`](trades/bridal/questions.md)
+- Bridal hair and makeup artists: [`docs/trades/bridal-beauty/questions.md`](trades/bridal-beauty/questions.md)
 - Cafés: [`docs/trades/cafe/questions.md`](trades/cafe/questions.md)
 - Celebration cake designers: [`docs/trades/cakes/questions.md`](trades/cakes/questions.md)
 - Car hire: [`docs/trades/car-hire/questions.md`](trades/car-hire/questions.md)

@@ -1,0 +1,14 @@
+{#- The journal: its pieces as a contents page, each with its photograph, its title in italic and its line. -#}
+{%- set ph = { title: site.journal.title, intro: site.journal.intro } %}{% set phPhoto = false %}
+{% include "kits/bridalbeauty/partials/page-head.njk" %}
+<div class="wrap bb-jn" data-feature="bridalbeauty-journal">
+  <ol class="bb-jn-list">
+    {%- for a in site.journal.items %}
+    <li><a href="{{ ('journal-' + a.slug) | href }}">
+      <img src="{{ a.photo.src | img }}" alt="{{ a.photo.alt }}" width="{{ a.photo.width }}" height="{{ a.photo.height }}" loading="{{ 'eager' if loop.first else 'lazy' }}" decoding="async">
+      <span class="bb-jn-t">{{ a.title }}</span>
+      <span class="bb-jn-l">{{ a.line }}{% if a.minutes %} <small>{{ a.minutes }} minutes to read.</small>{% endif %}</span>
+    </a></li>
+    {%- endfor %}
+  </ol>
+</div>

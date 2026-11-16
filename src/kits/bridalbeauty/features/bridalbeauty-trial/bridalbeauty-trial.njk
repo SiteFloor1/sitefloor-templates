@@ -1,0 +1,23 @@
+{#- The trial page: her wedding date in, the weeks for the trial out; where, how long, the price, what to bring; a
+    request on WhatsApp. -#}
+{%- set tr = site.trial %}
+{%- set ph = site.trialPage %}{% include "kits/bridalbeauty/partials/page-head.njk" %}
+<section class="bb-tr" data-feature="bridalbeauty-trial"{{ "bridalbeauty-trial" | tierAttr | safe }} aria-label="Book your trial"><div class="wrap bb-tr-in">
+  <div class="bb-tr-form">
+    {%- set df = "tr" %}{% set dfLabel = "Your wedding date" %}{% include "kits/bridalbeauty/partials/date-field.njk" %}
+    <p class="bb-tr-out" data-tr-out data-state="idle" aria-live="polite">Your trial is best between {{ tr.earliestWeeks }} and {{ tr.latestWeeks }} weeks before the wedding.</p>
+    <fieldset class="bb-tr-where"><legend class="bb-lab">Where</legend>
+      {%- for w in tr.where %}<label><input type="radio" name="tr-where" value="{{ w }}"{% if loop.first %} checked{% endif %}> {{ w }}</label>{% endfor %}
+    </fieldset>
+    <label class="bb-lab" for="tr-guests">Bringing anyone?</label>
+    <select id="tr-guests" data-tr-guests><option value="">Just me</option><option>My mum is coming</option><option>A bridesmaid is coming</option><option>My bridesmaids want trials too</option></select>
+    <a class="bb-btn" data-tr-ask href="{{ tr.message | trialText | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ tr.message | trialText }}"{% endif %} target="_blank" rel="noopener">Ask for a trial</a>
+  </div>
+  <div class="bb-tr-facts">
+    <p class="bb-tr-fig"><b>{{ tr.price | gbp if tr.price else "Included" }}</b><span>{{ tr.minutes | mins }}</span></p>
+    <p>{{ tr.text }}</p>
+    {%- if tr.guests %}<p>{{ tr.guests }}</p>{% endif %}
+    <h2 class="bb-h3">What to bring</h2>
+    <ul class="bb-tr-bring">{% for b in tr.bring %}<li>{{ b }}</li>{% endfor %}</ul>
+  </div>
+</div></section>

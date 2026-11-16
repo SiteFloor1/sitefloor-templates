@@ -1,0 +1,572 @@
+{
+  "schemaVersion": 4,
+  "id": "test-bridalbeauty-client",
+  "mode": "client",
+  "plan": "plus",
+  "kit": "bridalbeauty",
+  "look": "cover",
+  "url": "https://vesna-bridal.example",
+  "indexable": false,
+  "lang": "en-GB",
+  "business": {
+    "name": "Vesna",
+    "schemaType": "BeautySalon",
+    "description": "Bridal hair and makeup in Leeds and across Yorkshire.",
+    "priceRange": "£££",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "441134960612",
+    "phone": "+44 113 496 0612",
+    "email": "hello@vesna.example"
+  },
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "location": {
+    "streetAddress": "2 Mill Yard",
+    "locality": "Leeds",
+    "postcode": "LS6 2AA",
+    "country": "GB",
+    "area": "A studio in Headingley for trials. On the morning, I come to you.",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=Headingley%20LS6"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [],
+      "tue": [
+        [
+          "10:00",
+          "18:00"
+        ]
+      ],
+      "wed": [
+        [
+          "10:00",
+          "18:00"
+        ]
+      ],
+      "thu": [
+        [
+          "11:00",
+          "20:00"
+        ]
+      ],
+      "fri": [
+        [
+          "10:00",
+          "16:00"
+        ]
+      ],
+      "sat": [],
+      "sun": []
+    },
+    "exceptions": []
+  },
+  "nav": [
+    {
+      "label": "Bridal",
+      "page": "bridal",
+      "feature": "bridalbeauty-bridal"
+    },
+    {
+      "label": "Looks",
+      "page": "looks",
+      "feature": "bridalbeauty-looks"
+    },
+    {
+      "label": "Trials",
+      "page": "trials",
+      "feature": "bridalbeauty-trial"
+    },
+    {
+      "label": "The studio",
+      "page": "visit",
+      "feature": "plan-visit",
+      "fallback": "#visit"
+    }
+  ],
+  "features": [
+    "bridalbeauty-cover",
+    "bridalbeauty-packages",
+    "bridalbeauty-dates",
+    "bridalbeauty-ready",
+    "bridalbeauty-start",
+    "bridalbeauty-looks",
+    "bridalbeauty-trial",
+    "bridalbeauty-travel",
+    "bridalbeauty-bridal",
+    "questions",
+    "visit",
+    "plan-visit",
+    "bridalbeauty-guides"
+  ],
+  "hero": {
+    "kicker": "Bridal hair and makeup · Leeds",
+    "title": "Vesna",
+    "intro": "Bridal hair and makeup, with your date, prices and start time on the cover.",
+    "star": "satin skin, a lined nude lip, hair swept back low.",
+    "photo": {
+      "src": "img/cover.webp",
+      "width": 1600,
+      "height": 1920,
+      "alt": "A bride in an off-shoulder dress fastening a pearl earring, eyes half closed, skin lit, hair swept back"
+    },
+    "focus": {
+      "wide": "50% 31%",
+      "phone": "70% 0%"
+    }
+  },
+  "sections": {
+    "season": {
+      "title": "This season"
+    },
+    "packages": {
+      "title": "For the bride",
+      "intro": "Every bridal booking has a trial in it."
+    },
+    "travel": {
+      "title": "Getting to you"
+    },
+    "ready": {
+      "title": "Before I arrive"
+    },
+    "questions": {
+      "title": "Before you book"
+    },
+    "visit": {
+      "title": "The studio",
+      "intro": "For trials. On the morning, I come to you."
+    }
+  },
+  "messages": {
+    "general": "Hello Vesna, I have a question."
+  },
+  "packages": {
+    "message": "Hello Vesna,",
+    "bride": [
+      {
+        "id": "hair-makeup",
+        "name": "Hair and makeup",
+        "text": "With your trial, lashes, and a touch-up kit for the day",
+        "minutes": 120,
+        "price": 520
+      },
+      {
+        "id": "makeup",
+        "name": "Makeup",
+        "text": "With your trial, lashes, and a touch-up kit",
+        "minutes": 75,
+        "price": 390
+      },
+      {
+        "id": "hair",
+        "name": "Hair",
+        "text": "With your trial; veil or headpiece set",
+        "minutes": 60,
+        "price": 360
+      }
+    ],
+    "party": [
+      {
+        "id": "maid",
+        "name": "Bridesmaids",
+        "text": "Hair and makeup",
+        "minutes": 70,
+        "price": 95,
+        "one": "Bridesmaid"
+      },
+      {
+        "id": "mother",
+        "name": "Mothers",
+        "text": "Hair and makeup",
+        "minutes": 70,
+        "price": 95,
+        "one": "Mother"
+      },
+      {
+        "id": "one",
+        "name": "Hair or makeup only",
+        "text": "For anyone in the party",
+        "minutes": 40,
+        "price": 60,
+        "one": "Hair or makeup"
+      },
+      {
+        "id": "child",
+        "name": "Flower girls",
+        "text": "Hair, under twelve",
+        "minutes": 20,
+        "price": 30,
+        "one": "Flower girl"
+      }
+    ],
+    "extras": [
+      {
+        "id": "touch-ups",
+        "name": "Staying for touch-ups",
+        "text": "Until the speeches, by the hour",
+        "price": 65
+      },
+      {
+        "id": "evening",
+        "name": "An evening change",
+        "text": "Hair down, a deeper lip, for the party",
+        "price": 120,
+        "from": true
+      }
+    ],
+    "note": "Prices for 2027. Your quote is confirmed by message."
+  },
+  "dateCheck": {
+    "source": "sheet",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/TEST/pub?output=csv",
+    "staleAfterDays": 14,
+    "message": "Hello Vesna,"
+  },
+  "morning": {
+    "message": "Hello Vesna, here's",
+    "ceremony": {
+      "default": "14:00",
+      "times": [
+        "11:00",
+        "11:30",
+        "12:00",
+        "12:30",
+        "13:00",
+        "13:30",
+        "14:00",
+        "14:30",
+        "15:00",
+        "15:30",
+        "16:00",
+        "17:00"
+      ]
+    },
+    "travelMinutes": 20,
+    "dressMinutes": 30,
+    "bufferMinutes": 15,
+    "earlyStart": {
+      "before": "07:00",
+      "fee": 40
+    },
+    "secondArtist": {
+      "earliest": "06:00",
+      "fee": 150
+    },
+    "text": "Worked back from my own minutes in the chair. I confirm every morning by message."
+  },
+  "looks": {
+    "message": "Hello Vesna,",
+    "season": [
+      "satin",
+      "rose",
+      "lace",
+      "brown"
+    ],
+    "items": [
+      {
+        "id": "satin",
+        "name": "Satin, half up",
+        "finish": "soft",
+        "hair": "half",
+        "minutes": 120,
+        "text": "Lit on the cheekbone; lashes cut and placed.",
+        "photo": {
+          "src": "img/look-satin.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "A bride in profile fastening her earring: satin skin, warm brown eyes, hair half up"
+        }
+      },
+      {
+        "id": "rose",
+        "name": "Rose gold, sleek",
+        "finish": "full",
+        "hair": "sleek",
+        "minutes": 150,
+        "text": "Dupatta and jewellery set as part of the morning.",
+        "photo": {
+          "src": "img/look-rose.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "A bride with eyes lowered: rose and gold lids, a kundan choker and drop earrings"
+        }
+      },
+      {
+        "id": "lace",
+        "name": "Bare skin, under lace",
+        "finish": "natural",
+        "hair": "veil",
+        "minutes": 75,
+        "photo": {
+          "src": "img/look-lace.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "A bride glancing back under a lace veil, bare skin and a nude lip"
+        }
+      },
+      {
+        "id": "brown",
+        "name": "Soft brown, lifted lash",
+        "finish": "soft",
+        "hair": "half",
+        "minutes": 75,
+        "photo": {
+          "src": "img/look-brown.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "A bride smiling between white curtains, a soft brown eye and lifted lashes"
+        }
+      },
+      {
+        "id": "lit",
+        "name": "Lit cheek, swept back",
+        "finish": "soft",
+        "hair": "sleek",
+        "minutes": 120,
+        "photo": {
+          "src": "img/look-lit.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "A bride laughing in profile, a pearl at her ear, hair swept back"
+        }
+      }
+    ]
+  },
+  "looksPage": {
+    "title": "Brides, by look",
+    "intro": "Each one named the way I'd say it. Ask for any of them."
+  },
+  "bridalPage": {
+    "title": "Prices, plainly",
+    "intro": "Every bridal booking has a trial in it. Your party is priced per person.",
+    "photo": {
+      "src": "img/bridal.webp",
+      "width": 900,
+      "height": 1125,
+      "alt": "Vesna lining a bride's lip in a white room"
+    },
+    "terms": [
+      "A £150 booking fee holds your date; it comes off your total.",
+      "The rest is due a week before the wedding, by bank transfer or card.",
+      "Change your date and the fee moves with you, if I'm free.",
+      "Cancel and the fee is kept; anything else paid comes back.",
+      "Prices are for 2027; a quote by message is what you pay."
+    ]
+  },
+  "trial": {
+    "message": "Hello Vesna,",
+    "price": 0,
+    "minutes": 150,
+    "earliestWeeks": 24,
+    "latestWeeks": 4,
+    "where": [
+      "The Clapham studio",
+      "Your home (travel as for the morning)"
+    ],
+    "bring": [
+      "Photos of looks you love, and any you don't",
+      "A top with your dress's neckline",
+      "Your veil or headpiece, if you have it",
+      "Clean skin, no makeup"
+    ],
+    "text": "Included in every bridal booking. We try the look, change what you'd change, and you wear it for the rest of the day.",
+    "guests": "One person is welcome to come with you."
+  },
+  "trialPage": {
+    "title": "Your trial",
+    "intro": "Two and a half hours to find the look, then a day to live in it."
+  },
+  "travel": {
+    "message": "Hello Vesna,",
+    "base": "LS6",
+    "free": [
+      "LS6",
+      "LS4",
+      "LS16"
+    ],
+    "zones": [
+      {
+        "districts": [
+          "LS*"
+        ],
+        "fee": 30
+      },
+      {
+        "districts": [
+          "BD*",
+          "HG*",
+          "WF*",
+          "HX*",
+          "HD*",
+          "YO*"
+        ],
+        "fee": 55
+      }
+    ],
+    "note": "Free within three miles of Headingley; further, by zone."
+  },
+  "ready": {
+    "message": "Hello all, from Vesna: before I arrive on the morning,",
+    "items": [
+      "Clean, dry skin: your usual moisturiser and nothing else",
+      "A table and chair by the biggest window",
+      "A button-front top or robe, so nothing goes over your head",
+      "Clean, dry hair, washed the day before",
+      "Your dress, veil and jewellery somewhere I can see them",
+      "Breakfast for everyone, before their turn"
+    ]
+  },
+  "questions": [
+    {
+      "topic": "Booking",
+      "q": "How far ahead should I book?",
+      "a": "Summer Saturdays go a year or more ahead. Fridays, Sundays and winter weddings, often a few months. Check your date on the cover.",
+      "home": true
+    },
+    {
+      "topic": "Booking",
+      "q": "What holds my date?",
+      "a": "A £150 booking fee, which comes off your total. Until then a date is only pencilled.",
+      "home": true
+    },
+    {
+      "topic": "The trial",
+      "q": "When should I have my trial?",
+      "a": "Between six months and four weeks before. Your trial page works the dates out from your wedding.",
+      "home": true
+    },
+    {
+      "topic": "The morning",
+      "q": "What time will we start?",
+      "a": "Worked back from your ceremony: everyone else first, you last, with fifteen minutes spare. Before 7am there's an early-start fee.",
+      "home": true
+    },
+    {
+      "topic": "The morning",
+      "q": "Will you stay for touch-ups?",
+      "a": "Yes, by the hour until the speeches. Most brides take the touch-up kit instead."
+    },
+    {
+      "topic": "Skin",
+      "q": "What if I have sensitive skin or allergies?",
+      "a": "Tell me when you book. I patch test lash glue at your trial and bring products you've used."
+    },
+    {
+      "topic": "Travel",
+      "q": "Do you travel?",
+      "a": "Free within three miles of Headingley; across Yorkshire by zone. Abroad, travel days are quoted."
+    }
+  ],
+  "visitInfo": {
+    "kicker": "The studio",
+    "title": "Mill Yard,|Headingley.",
+    "intro": "Off Otley Road, for trials.",
+    "checked": "2026-11",
+    "journeys": [],
+    "parking": [
+      {
+        "name": "Street bays on Otley Road",
+        "walk": 2,
+        "paid": "always",
+        "note": "Pay by app."
+      }
+    ],
+    "access": [
+      {
+        "label": "Step-free entrance",
+        "yes": true
+      }
+    ]
+  },
+  "guides": [
+    {
+      "slug": "small-weddings",
+      "menu": "Small weddings",
+      "title": "Small weddings",
+      "description": "Bridal hair and makeup for registry offices, elopements and weekday weddings in London with Vesna: the same trial, a calmer morning.",
+      "intro": "Registry offices, weekdays, the two of you.",
+      "photo": {
+        "src": "img/look-lace.webp",
+        "width": 800,
+        "height": 1000,
+        "alt": "A bride glancing back under a lace veil, bare skin and a nude lip"
+      },
+      "blocks": [
+        {
+          "type": "text",
+          "heading": "Smaller, not less",
+          "body": "The same packages and the same trial as any wedding. What changes is the morning: fewer people in the chair, an easier start, and weekday dates that are free far longer than Saturdays.\n\nFor a registry office I come to wherever you're getting ready, or meet you at the studio if it's on your way."
+        },
+        {
+          "type": "quote",
+          "heading": "Two of you, worked out",
+          "text": "Makeup for you with your trial, and hair for one other, before an 11am registry office.",
+          "lines": [
+            {
+              "package": "bride:makeup"
+            },
+            {
+              "package": "party:one"
+            }
+          ],
+          "note": "Travel is added by postcode; free within three miles of Headingley."
+        },
+        {
+          "type": "facts",
+          "heading": "That morning",
+          "items": [
+            {
+              "label": "8am",
+              "value": "I start, with your guest"
+            },
+            {
+              "label": "8:40am",
+              "value": "You sit down"
+            },
+            {
+              "label": "9:55am",
+              "value": "You're finished, with fifteen minutes spare"
+            },
+            {
+              "label": "10:40am",
+              "value": "Out of the door"
+            }
+          ]
+        },
+        {
+          "type": "questions",
+          "heading": "Brides ask",
+          "items": [
+            {
+              "q": "Is there a minimum booking?",
+              "a": "No. A bride on her own is a wedding."
+            },
+            {
+              "q": "Can you come to the registry office?",
+              "a": "I get you ready where you're staying and leave before you go; the office won't have a room for it."
+            },
+            {
+              "q": "Do weekdays cost less?",
+              "a": "The prices are the same; the dates are easier to find."
+            }
+          ]
+        },
+        {
+          "type": "ask",
+          "text": "Tell me the day and where.",
+          "message": "Hello Vesna, I'm planning a small wedding:"
+        },
+        {
+          "type": "looks",
+          "ids": [
+            "lace",
+            "brown"
+          ]
+        }
+      ]
+    }
+  ]
+}
