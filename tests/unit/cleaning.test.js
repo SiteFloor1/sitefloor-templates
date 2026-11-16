@@ -159,6 +159,7 @@ test("settings are checked: whole minutes, rates, a deposit never promised, no s
   // an offices link carries no price (K-03); hourly prices come from the rates, never typed (K-04)
   assert.match(errorsFor((s) => { s.cleans.items[4].rate = 30; }), /offices link carries no price/);
   assert.match(errorsFor((s) => { s.cleans.items[4].from = 300; }), /offices link carries no price/);
+  assert.match(errorsFor((s) => { s.cleans.items[4].example = { beds: 2, baths: 2, freq: "fortnight" }; }), /items\[4\]\.example: an offices link carries no price/);
   assert.match(errorsFor((s) => { s.business.description = "Cleaning from £24 an hour."; }), /business\.description: don't type an hourly price/);
   assert.match(errorsFor((s) => { s.questions[0].a = "£25/hour, fortnightly."; }), /questions\[0\]\.a: don't type an hourly price/);
   assert.match(errorsFor((s) => { s.cleans.items[0].line = "Weekly, {from}."; }), /filled in hero\.intro only/);
@@ -170,8 +171,10 @@ test("settings are checked: whole minutes, rates, a deposit never promised, no s
     ["We make sure you get your deposit back.", /deposit back/], ["Your deposit returned in full, guaranteed.", /deposit back/],
     ["Deposit back or we pay the difference.", /deposit back/], ["We'll ensure the full deposit is refunded.", /deposit back/],
     ["Guaranteed to pass inspection.", /pass at inspection/], ["Cleans that pass check-out.", /pass at inspection/], ["Passes the checkout.", /pass at inspection/],
+    ["Get your deposit back.", /deposit back/], ["We help you get your deposit back.", /deposit back/], ["We'll get your bond back.", /deposit back/],
+    ["Most of our customers get their deposit back.", /deposit back/], ["Bond back guarantee.", /deposit back/],
     ["Landlord-approved cleaners.", /landlord-approved/], ["An agency-approved checklist.", /landlord-approved/], ["Letting agent approved.", /landlord-approved/]]) assert.match(claimProblem(said) ?? "", why, said);
-  for (const fine of ["We can't promise what a landlord decides.", "Agents check the oven first.", "Ask your agent for the check-out report.", "Get your deposit protection certificate."]) assert.equal(claimProblem(fine), null, fine);
+  for (const fine of ["We can't promise what a landlord decides.", "Agents check the oven first.", "Ask your agent for the check-out report.", "Get your deposit protection certificate.", "Will I get my deposit back?", "Worried about getting your deposit back? Start with the inventory."]) assert.equal(claimProblem(fine), null, fine);
 });
 
 test("the 3D link's size is the chunk's real size, within 15%", async () => {

@@ -58,10 +58,12 @@ function page(err, path, o, extra) {
 
 /** A deposit is never promised; only the company's own re-clean terms, quoted. @param {string} s @returns {string|null} */
 export function claimProblem(s) {
-  const t = s.replace(/[\u2018\u2019]/g, "'");
+  const t = s.replace(/[\u2018\u2019]/g, "'").replace(/\bbonds?\b/gi, "deposit"); // a bond is a deposit
+  // "get your deposit back" reads as a promise (or, with "most customers", a statistic); asked as a question it's fine
+  const getsBack = t.split(/(?<=[.!?])\s+/).some((x) => !x.trim().endsWith("?") && /\b(?:get|gets|getting|got)\s+(?:your|their|the|a|my)?\s*(?:full\s+)?deposit\s+back\b/i.test(x));
   if (/deposit[- ]back guarantee|guarantee[ds]? (?:your |the |a |a full )?(?:full )?deposit|100% deposit|deposit,? guaranteed/i.test(t)
     || /\b(?:guarantee[ds]?|make sure|ensure|promise[ds]?)\b[^.!?]{0,80}\bdeposit\b[^.!?]{0,60}\b(?:back|returned|refunded|in full)\b/i.test(t)
-    || /\bdeposit\b[^.!?]{0,60}\b(?:back|returned|refunded)\b[^.!?]{0,80}\b(?:guarantee[ds]?|or we pay|or we'll pay|or your money back)\b/i.test(t))
+    || /\bdeposit\b[^.!?]{0,60}\b(?:back|returned|refunded)\b[^.!?]{0,80}\b(?:guarantee[ds]?|or we pay|or we'll pay|or your money back)\b/i.test(t) || getsBack)
     return "never promise a deposit back; quote the company's own re-clean terms in tenancy.terms";
   if (/\bpass(?:es|ed|ing)?\b[^.!?]{0,30}\b(?:inspections?|check-?outs?)\b/i.test(t))
     return "never promise a pass at inspection or check-out: the landlord or agent decides";
@@ -184,7 +186,8 @@ function checkServiceLink(x, at, site, err) {
 /** A service's price: from its worked example (one source with the strip), or the company's own figure. @param {any} item @param {string} at @param {any} site @param {Report} err */
 function checkServicePrice(item, at, site, err) {
   const x = item ?? {};
-  if (x.example !== undefined) {
+  if (x.example !== undefined && x.link === "offices") err(`${at}.example`, "an offices link carries no price: offices are priced after a survey, not from home minutes");
+  else if (x.example !== undefined) {
     // one source: the price comes from the company's minutes and rates, so the service can't carry its own
     checkExample(x.example, `${at}.example`, site.visit, err);
     if (["rate", "unit"].some((k) => k in x)) err(at, "with an example, the price is worked out from `visit`; remove rate and unit");
