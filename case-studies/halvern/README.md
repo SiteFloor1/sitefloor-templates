@@ -6,7 +6,7 @@
   panel, then the doors open on that floor; each floor opens with its number cast in brass, very large: G the home page
   and its lift plate, 1 Fees with the before-the-keys sums live from the demo's rules, 2 Residences and its filters,
   3 Areas and the journal, 4 For owners (the valuation sentence, onboarding, owner stories), 5 Moving in with the
-  planner live and its calendar file, R the building in 3D; a small brass plate keeps the floor you're on; the plans
+  planner live (its calendar file saved from the demo page), R the building in 3D; a small brass plate keeps the floor you're on; the plans
   are three key fobs by the floors each key reaches; the speed is how long the doors take to open; mahogany and ivory,
   brass, one lamp-lit amber; Petrona, the demo's own). Media (four phone clips at 780×1688 and the building in 3D at
   1200 wide, posters, five phone stills, the porch and St John's Wood photographs, fonts) live in `media/` and the

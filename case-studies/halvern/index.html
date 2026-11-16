@@ -198,8 +198,7 @@ figure { margin: 0; }
 .btn { display: inline-flex; align-items: center; min-height: 52px; padding: 0 26px; background: var(--conker); color: #fff; text-decoration: none; font-size: 18px; }
 .btn:hover { background: #63301A; }
 .btn.line { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
-.btn.lamp { background: var(--lamp); color: #2A1A06; border: 0; cursor: pointer; }
-.btn.lamp:disabled { opacity: .5; cursor: default; }
+.btn.lamp { background: var(--lamp); color: #2A1A06; }
 .mail { display: inline-block; margin-top: 18px; font-size: 16px; color: var(--soft); }
 .close-ph img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
 
@@ -388,7 +387,7 @@ footer p { max-width: 104ch; }
       <h3 id="pl-h" class="sr">Try the move-in planner</h3>
       <label>Keys on <input type="date" id="keys"></label>
       <ol id="plan" aria-live="polite"></ol>
-      <p class="go"><button class="btn lamp" type="button" id="ics">Add to my calendar</button><small>A calendar file. Nothing is sent anywhere.</small></p>
+      <p class="go"><a class="btn lamp" href="https://sitefloor1.github.io/sitefloor-templates/letting/moving-in.html">Save it to a calendar on the demo</a><small>The demo's page saves the plan as a calendar file. Nothing is sent anywhere.</small></p>
     </div>
   </div>
 </div></section>
@@ -548,7 +547,7 @@ footer p { max-width: 104ch; }
     { id: "inventory", label: "Send back the signed inventory, with your notes", offset: 7 },
     { id: "deposit", label: "Your deposit's protection details should be with you", offset: 30, rule: true },
   ];
-  const keys = $("#keys"), plan = $("#plan"), ics = $("#ics");
+  const keys = $("#keys"), plan = $("#plan");
   const add = (ymd, n) => { const [y, m, d] = ymd.split("-").map(Number); const t = new Date(Date.UTC(y, m - 1, d + n)); return t.toISOString().slice(0, 10); };
   const say = (ymd) => new Date(ymd + "T12:00:00Z").toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", timeZone: "UTC" });
   let planned = [];
@@ -562,19 +561,6 @@ footer p { max-width: 104ch; }
   keys.value = add(new Date().toISOString().slice(0, 10), 14);
   keys.addEventListener("change", draw);
   draw();
-  ics.addEventListener("click", () => {
-    const esc = (s) => s.replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,");
-    const stamp = new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d+/, "");
-    const tz = ["BEGIN:VTIMEZONE", "TZID:Europe/London", "BEGIN:DAYLIGHT", "TZOFFSETFROM:+0000", "TZOFFSETTO:+0100", "TZNAME:BST", "DTSTART:19700329T010000", "RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU", "END:DAYLIGHT",
-      "BEGIN:STANDARD", "TZOFFSETFROM:+0100", "TZOFFSETTO:+0000", "TZNAME:GMT", "DTSTART:19701025T020000", "RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU", "END:STANDARD", "END:VTIMEZONE"];
-    const ev = planned.flatMap((p) => { const d = p.date.replace(/-/g, ""), h = p.time ? p.time.replace(":", "") : "";
-      const s = p.time ? `DTSTART;TZID=Europe/London:${d}T${h}00` : `DTSTART;VALUE=DATE:${d}`;
-      const e = p.time ? `DTEND;TZID=Europe/London:${d}T${String(Number(h.slice(0, 2)) + 1).padStart(2, "0")}${h.slice(2)}00` : `DTEND;VALUE=DATE:${add(p.date, 1).replace(/-/g, "")}`;
-      return ["BEGIN:VEVENT", `UID:${p.id}-${d}@halvern-demo`, `DTSTAMP:${stamp}`, s, e, `SUMMARY:${esc(p.label)}`, "END:VEVENT"]; });
-    const file = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Sitefloor//Halvern demo move-in day//EN", ...tz, ...ev, "END:VCALENDAR"].join("\r\n") + "\r\n";
-    const url = URL.createObjectURL(new Blob([file], { type: "text/calendar" })), a = document.createElement("a");
-    a.href = url; a.download = "move-in-day.ics"; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
-  });
 })();
 </script>
 </body>
