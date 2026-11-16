@@ -43,19 +43,24 @@ const PROMISES = [
   /\binch(es)?\s+off\b/i,
   /\b(melt|shred|torch|blast|burn)\s+(?:the\s+|away\s+|off\s+|your\s+)?(fat|belly|calories|pounds)\b/i,
   /\bfat[- ]burning\b/i,
-  /\b(best|dream|beach|bikini)\s+body\b/i,
+  /\b(best|dream|beach|bikini)[- ]body\b/i,
+  new RegExp(String.raw`\b(tone\s+up|get\s+(?:lean|toned|shredded|ripped|in\s+shape)|transform\s+your\s+(?:body|shape|figure))\b[^.!?]{0,30}\b(?:in|within|by|after)\s+(?:just\s+)?${N}\s+${T}\b`, "i"),
+  /\bflat(?:ter)?\s+(stomach|tummy|belly)\b/i,
+  /\blose\s+weight\s+(fast|quickly|quick|for\s+good)\b/i,
 ];
 
 /**
  * Health claims a trainer can't make: they train alongside a physio or GP, never treat. Someone else's treatment ("once
- * your physio's treatment has finished") and gifting ("treat someone") are fine, so those are taken out first.
+ * your physio's treatment has finished") and gifting ("treat yourself", "treat a friend to …") are fine, so only
+ * those exact phrasings are taken out first; "we treat your knee pain" is still a claim.
  */
 const ALLOWED_TREAT = [
   /\b(?:your|their|the|a|my|his|her)\s+(?:physio(?:therapist)?|GP|doctor|midwife|consultant|osteopath|chiropractor|hospital|medical|NHS)(?:'s|s')?\s+(?:treatment|treats|treated)\b/gi,
   /\b(?:physio(?:therapy)?|medical|hospital|NHS|GP)\s+treatment\b/gi,
-  /\btreat\s+(?:yourself|someone|them|him|her|a\s+friend|your\s+\w+)\b/gi,
+  /\btreat\s+yourself\b/gi,
+  /\btreat\s+(?:someone|a\s+friend|a\s+colleague|your\s+(?:mum|mother|dad|father|partner|husband|wife|friend|sister|brother|team|colleagues?))\s+to\b/gi,
 ];
-const TREATS = /\b(treat(s|ed|ing|ment)?|cures?|cured|curing|fix(es|ing)?|heals?|healed|healing|repairs?|repaired|repairing|rehabilitat\w*|diagnos\w*|gets?\s+rid\s+of|pain[- ]free|recover(s|ing|ed)?\s+from)\b/i;
+const TREATS = /\b(treat(s|ed|ing|ment)?|cures?|cured|curing|fix(es|ing)?|heals?|healed|healing|repairs?|repaired|repairing|rehabilitat\w*|diagnos\w*|gets?\s+rid\s+of|pain[- ]free|recover(s|ing|ed)?\s+from|eas(e|es|ed|ing)\s+(?:your\s+|the\s+)?(?:pain|aches?|sciatica|back|knee|neck|shoulder|hip|joint|arthritis|symptoms?|injur\w+|condition)|reliev(e|es|ed|ing)\s+(?:your\s+|the\s+)?\w*\s*(?:pain|aches?|sciatica|arthritis|symptoms?|tension|stiffness|condition))\b/i;
 
 /** @param {string} v */
 const treats = (v) => TREATS.test(ALLOWED_TREAT.reduce((t, re) => t.replace(re, ""), v));

@@ -169,7 +169,8 @@ test("prices, phases, packages and coverage are checked", () => {
 
 test("promised results are refused in every piece of the trainer's copy (TR-01)", () => {
   const bad = ["Lose a stone in eight weeks.", "Lose two stone.", "Drop half a stone before summer.", "Results after 12 weeks.", "Six weeks to a leaner you.",
-    "Visible abs in 30 days.", "Inches off your waist.", "Melt fat fast.", "Shred 10lbs.", "Your best body in 90 days.", "Abs by summer in twelve weeks."];
+    "Visible abs in 30 days.", "Inches off your waist.", "Melt fat fast.", "Shred 10lbs.", "Your best body in 90 days.", "Abs by summer in twelve weeks.",
+    "Get beach-body ready.", "Tone up in four weeks.", "A flatter stomach by summer.", "Get lean in 6 weeks.", "Transform your body in 12 weeks.", "Lose weight fast."];
   for (const line of bad) assert.match(errorsFor((s) => { s.programmes.items[3].line = line; }), /promise of results/, line);
   // Everywhere the trainer writes: vouchers, seasonal banners, the photo band, page links, the gallery, messages, Plan your visit.
   const places = [(s, v) => { s.vouchers.terms = v; }, (s, v) => { s.seasons[0].banner = v; }, (s, v) => { s.photoBand.caption = v; }, (s, v) => { s.pageLinks[0].title = v; },
@@ -187,10 +188,15 @@ test("health claims are refused on every field and in all copy; someone else's t
     (s) => { s.programmes.items[2].line = "We'll get rid of your back pain."; }, (s) => { s.programmes.items[2].who = "Pain-free in six weeks."; },
     (s) => { s.programmes.items[2].text[0] = "Sessions that repair your knee."; }, (s) => { s.programmes.items[2].care = "We treat knee pain alongside your physio."; },
     (s) => { s.programmes.items[2].sessions[0] = "Recover from your injury"; }, (s) => { s.nutrition.approach[0] = "Food that heals."; },
-    (s) => { s.journal.articles[0].body[0] = "Kettlebells cure back pain."; }, (s) => { s.questions[0].a = "I'll fix your posture."; }];
+    (s) => { s.journal.articles[0].body[0] = "Kettlebells cure back pain."; }, (s) => { s.questions[0].a = "I'll fix your posture."; },
+    (s) => { s.programmes.items[2].line = "We treat your knee pain."; }, (s) => { s.programmes.items[3].line = "We treat your injuries."; },
+    (s) => { s.programmes.items[2].text[0] = "Sessions that treat your sciatica."; }, (s) => { s.programmes.items[2].care = "We treat them alongside your physio."; },
+    (s) => { s.programmes.items[2].who = "Eases your sciatica."; }, (s) => { s.journal.articles[2].body[0] = "Stretching relieves back pain."; }];
   for (const change of bad) assert.match(errorsFor(change), /health claim/);
   const fine = [(s) => { s.programmes.items[2].who = "Once your physio treatment has finished, or your physio's treatment is under way."; },
-    (s) => { s.programmes.items[2].care = "I'll fit around your GP's treatment."; }, (s) => { s.vouchers.howToBuy = "Treat someone to a first month."; }];
+    (s) => { s.programmes.items[2].care = "I'll fit around your GP's treatment."; }, (s) => { s.vouchers.howToBuy = "Treat someone to a first month."; },
+    (s) => { s.vouchers.terms = "Treat yourself, or treat a friend to a block."; }, (s) => { s.programmes.items[2].care = "Your physio treats it; I train around them."; },
+    (s) => { s.journal.articles[2].body[1] = "Walking eases you back into the week."; }];
   for (const change of fine) assert.equal(errorsFor(change), "");
 });
 
