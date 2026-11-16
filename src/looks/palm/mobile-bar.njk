@@ -1,0 +1,7 @@
+{#- Palm phone bar: ivory with a palm rule above, the open status on the left and Book underlined on the right,
+    like the foot of a hotel menu card. -#}
+{%- set bookText = site.messages.general %}
+<div class="mbar pm-bar">
+  <a class="pm-bar-where" href="{{ ('visit' | href) if ('plan-visit' | enabled) else '#visit' }}" data-live-status><span class="dot" aria-hidden="true"></span> <span data-status-text>Opening hours</span></a>
+  <a class="pm-bar-go" href="{{ bookText | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ bookText }}"{% endif %} target="_blank" rel="noopener">Book{% if build.booking.whatsapp %} on WhatsApp{% endif %}</a>
+</div>

@@ -1,0 +1,10 @@
+{#- What you pay before the keys (every plan, on the fees page): type a rent, see the holding deposit, the deposit and
+    the first month within the caps. Worked out at build time for the example rent. -#}
+{%- set rent = site.fees.example or 2000 %}
+{%- set t = rent | tenantSide(site.fees.tenant) %}
+<div class="lm" data-feature="letting-movein"{{ "letting-movein" | tierAttr | safe }}>
+  <label class="lm-q"><span>For a rent of £</span><input data-lm-rent inputmode="numeric" autocomplete="off" value="{{ rent | thousands }}"><span> a month</span></label>
+  <dl class="lm-rows" data-lm-rows>{% for row in t.rows %}<dt>{{ row[0] }}</dt><dd>{{ row[1] }}</dd>{% endfor %}</dl>
+  <p class="lm-total"><span>Before the keys</span><b data-lm-total>{{ t.total }}</b></p>
+  <p class="lm-note" data-lm-note role="status">{{ t.note }}</p>
+</div>

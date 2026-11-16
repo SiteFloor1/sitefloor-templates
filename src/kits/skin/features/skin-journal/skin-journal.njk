@@ -1,0 +1,11 @@
+{#- The journal: the clinic's pieces, newest first, each dated and signed. -#}
+{%- set j = site.journal %}
+{%- set ph = { title: j.title, intro: j.intro } %}
+{% include "kits/skin/partials/page-head.njk" %}
+<section class="sk-jn" data-feature="skin-journal" aria-label="{{ j.title | plain }}"><div class="wrap">
+  <ul class="sk-jn-list">
+    {%- for a in j.items | newestFirst %}
+    <li class="sk-jn-i"><p class="sk-jn-d"><time datetime="{{ a.date }}">{{ a.date | ukDate }}</time> · {{ a.by }}</p><h2 class="sk-ent-t"><a href="{{ ('journal-' + a.slug) | href }}">{{ a.title }}</a></h2><p class="sk-ent-l">{{ a.intro }}</p></li>
+    {%- endfor %}
+  </ul>
+</div></section>

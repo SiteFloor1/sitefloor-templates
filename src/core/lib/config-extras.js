@@ -68,7 +68,7 @@ const serviceOf = (site, id) => (Array.isArray(site.services) ? site.services : 
 /** @param {any} site @param {Report} err */
 function checkLoyalty(site, err) {
   const l = site.loyalty;
-  if (!isObj(l)) { err("loyalty", '{ "stamps": 6, "reward": "Your 6th cut is free", "rules": ["…"], "compareService": "skin" }'); return; }
+  if (!isObj(l)) { err("loyalty", '{ "stamps": 6, "reward": "Your 6th cut is free", "rules": ["…"], "compareService": "taper" }'); return; }
   onlyKeys(l, ["stamps", "reward", "rules", "compareService", "card"], "loyalty", err);
   if (!isInt(l.stamps, 3, 20)) err("loyalty.stamps", "how many stamps fill the card, 3–20 (the last one is the free cut)");
   if (!isStr(l.reward)) err("loyalty.reward", 'what a full card gets, e.g. "Your 6th cut is free"');
@@ -83,7 +83,7 @@ function checkLoyalty(site, err) {
 /** @param {any} site @param {Report} err */
 function checkMemberships(site, err) {
   const m = site.memberships;
-  if (!isObj(m)) { err("memberships", '{ "compareService": "skin", "plans": [{ "name": "…", "price": 35, "cuts": 2, "includes": ["…"] }], "terms": "…" }'); return; }
+  if (!isObj(m)) { err("memberships", '{ "compareService": "taper", "plans": [{ "name": "…", "price": 35, "cuts": 2, "includes": ["…"] }], "terms": "…" }'); return; }
   onlyKeys(m, ["compareService", "plans", "terms", "join"], "memberships", err);
   if (!serviceOf(site, m.compareService)) err("memberships.compareService", "id of the service the plans cover (from services)");
   if (!isStr(m.terms)) err("memberships.terms", "how to cancel, minimum term and how payment is taken");

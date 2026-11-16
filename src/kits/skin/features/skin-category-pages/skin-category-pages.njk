@@ -1,0 +1,25 @@
+{#- One part of the menu as a page (Facials, Brows and lashes, …): the clinic's photograph, then each treatment as a
+    printed entry with its minutes, price, line, afterwards and patch test, in the clinic's words. Expects `c`. -#}
+{%- set ph = { title: c.page.title, intro: c.page.intro } %}
+{% include "kits/skin/partials/page-head.njk" %}
+<section class="sk-cat" data-feature="skin-category-pages" aria-label="{{ c.name | plain }}"><div class="wrap">
+  {%- if c.page.photo %}<figure class="sk-cat-ph">{% set p = c.page.photo %}{% include "kits/skin/partials/photo.njk" %}</figure>{% endif %}
+  <ul class="sk-cat-list">
+    {%- for x in c.items %}
+    <li class="sk-ent" id="{{ x.id }}">
+      <h2 class="sk-ent-t">{{ x.name }}</h2>
+      <p class="sk-ent-f">{{ x.minutes }} minutes · {{ x | cost }}</p>
+      <p class="sk-ent-l">{{ x.line }}</p>
+      {%- if x.afterwards or x.patch or x.evening %}
+      <dl class="sk-ent-dl">
+        {%- if x.afterwards %}<div><dt>Afterwards</dt><dd>{{ x.afterwards }}</dd></div>{% endif %}
+        {%- if x.patch %}<div><dt>Patch test</dt><dd>{{ x.patch }}</dd></div>{% endif %}
+        {%- if x.evening %}<div><dt>This evening</dt><dd>{{ x.evening }}</dd></div>{% endif %}
+      </dl>
+      {%- endif %}
+      <a class="sk-quiet" href="{{ ('I would like to book the ' + x.name + '.') | book }}" target="_blank" rel="noopener">Book the {{ x.name | lower }}</a>
+    </li>
+    {%- endfor %}
+  </ul>
+  {%- if c.page.sections %}<dl class="sk-fv-dl sk-cat-more">{% for s in c.page.sections %}<div><dt>{{ s.heading }}</dt><dd>{{ s.text }}</dd></div>{% endfor %}</dl>{% endif %}
+</div></section>

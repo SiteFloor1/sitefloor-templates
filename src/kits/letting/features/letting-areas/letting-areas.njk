@@ -1,0 +1,15 @@
+{#- Areas index (Plus): each area the agent lets in, its photograph (the client's own, or a credited licensed one
+    until then), a line, and how many homes are free there now (from the sheet). -#}
+{%- set ar = site.areas %}
+<div class="la" data-feature="letting-areas"{{ "letting-areas" | tierAttr | safe }}>
+  <p class="lr-updated la-updated" data-la-updated></p>
+  <ul class="la-list">
+  {%- for a in ar.items %}
+    <li><a href="{{ a.slug | href }}">
+      <img src="{{ (a.photo.small or a.photo.src) | img }}" width="{{ a.photo.width }}" height="{{ a.photo.height }}" alt="{{ a.photo.alt }}" {% if loop.first %}fetchpriority="high"{% else %}loading="lazy" decoding="async"{% endif %}>
+      <span class="la-n">{{ a.name }}</span><span class="la-l">{{ a.line }}</span>
+      <span class="la-free" data-la-free="{{ a.buildings | join(',') }}"></span></a>
+      <small class="la-credit">{{ a.photo.credit }}</small></li>
+  {%- endfor %}
+  </ul>
+</div>

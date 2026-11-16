@@ -1,0 +1,8 @@
+.sk-rm-i { display: grid; gap: 18px 56px; margin: 0 0 64px; }
+.sk-rm-i img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+.sk-rm-i figcaption { align-self: end; padding-bottom: 8px; border-bottom: 1px solid var(--accent); }
+@media (min-width: 900px) {
+  .sk-rm-i { grid-template-columns: 1.6fr 1fr; }
+  .sk-rm-i:nth-child(even) { grid-template-columns: 1fr 1.6fr; }
+  .sk-rm-i:nth-child(even) figcaption { order: -1; }
+}

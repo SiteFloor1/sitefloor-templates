@@ -1,0 +1,16 @@
+{#- One area: the photograph large, the agent's notes as a ruled list, and the homes free there now (the sheet),
+    each opening its card. -#}
+<div class="la la-one" data-feature="letting-areas"{{ "letting-areas" | tierAttr | safe }}>
+  <figure class="la-fig"><img src="{{ ar.photo.src | img }}"{% if ar.photo.small %} srcset="{{ ar.photo.small | img }} 700w, {{ ar.photo.src | img }} {{ ar.photo.width }}w" sizes="(max-width: 1320px) 100vw, 1320px"{% endif %} width="{{ ar.photo.width }}" height="{{ ar.photo.height }}" alt="{{ ar.photo.alt }}" fetchpriority="high" decoding="async">
+    <figcaption>{{ ar.photo.credit }}</figcaption></figure>
+  <div class="la-body">
+    <dl class="lf-list">{% for n in ar.notes %}<dt>{{ n.label }}</dt><dd>{{ n.text }}</dd>{% endfor %}</dl>
+    <section class="la-homes" aria-labelledby="la-h">
+      <h2 id="la-h">Free in {{ ar.name }} now</h2>
+      <p class="lr-updated" data-la-updated>Call us on <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone | replace('+44 ', '0') }}</a> for today's homes.</p>
+      <ul class="la-homes-list" data-la-list="{{ ar.buildings | join(',') }}"></ul>
+      {%- if "letting-residences" | enabled %}<p><a href="{{ 'residences' | href }}">Every building, floor by floor</a></p>{% endif %}
+    </section>
+  </div>
+  <div class="lr-card" data-lb-card aria-live="polite"></div>
+</div>

@@ -1,0 +1,9 @@
+{#- Homes free now (every plan): the agent's sheet, read on the visitor's phone. When the hero holds the card (a look's
+    hero has [data-lb-card]) the list opens it there; otherwise the card opens below the list. Without JavaScript, or
+    when the sheet is stale, nothing is listed as free and the line says to call. -#}
+{%- set sec = site.sections.homes or {} %}
+<div class="lb" data-feature="letting-board"{{ "letting-board" | tierAttr | safe }}>
+  <p class="lb-updated" data-lb-updated>Call us on <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone | replace('+44 ', '0') }}</a> for today's homes.</p>
+  <ul class="lb-list" data-lb-list aria-label="{{ sec.title or 'Homes free now' }}"></ul>
+  {%- if not heroHasCard %}<div class="lb-card" data-lb-card aria-live="polite"></div>{% endif %}
+</div>
