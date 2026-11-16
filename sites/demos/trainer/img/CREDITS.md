@@ -14,9 +14,9 @@ real clients. Every photo is given the same warm linen grade. Nothing bought. A 
 | nutrition.webp | Tea poured on a wooden tray in morning light | ulyutkafile | https://www.pexels.com/photo/4056720/ |
 | prenatal.webp | A pregnant woman seated on a mat in a pale room | Antoni Shkraba | https://www.pexels.com/photo/7524707/ |
 | online.webp | A woman exercising at home in front of a laptop | Antoni Shkraba | https://www.pexels.com/photo/6599017/ |
-| strength.webp | A trainer coaching a woman on a rowing machine | Andres Ayrton | https://www.pexels.com/photo/6551439/ |
+| strength.webp | A woman seated on a bench, curling a dumbbell | Andres Ayrton | https://www.pexels.com/photo/6551426/ |
 | studio.webp | A private training room with oak, plants and racks | Rana Matloob Hussain | https://www.pexels.com/photo/37352354/ |
-| journal-strength.webp | The same room from the other side | Rana Matloob Hussain | https://www.pexels.com/photo/37352353/ |
+| journal-strength.webp | The rack and barbell, cropped from the home gym below (no screens or wordmarks) | Curtis Adams | https://www.pexels.com/photo/36777945/ |
 | studio-room.webp | A home gym with a rack, oak floor and lamps | Curtis Adams | https://www.pexels.com/photo/36777945/ |
 | corporate.webp | A bright building gym along a window | AJ Ahamad | https://www.pexels.com/photo/29149073/ |
 | journal-week.webp | A laptop, mat and resistance band on the floor | Merve | https://www.pexels.com/photo/30507157/ |
