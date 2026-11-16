@@ -43,3 +43,5 @@ Baskervville Fallback 400 109.8%, ascent 90.9%, descent 26.9%) and giving the qu
 ch, which changes with the font). The question and the words now sit at the same place with the fonts blocked and
 loaded at 1280×800, 1366×768, 1440×900 and 390×844. Layout shift at 4× CPU: 0.000 at all four sizes. Lighthouse:
 desktop 100/100, layout shift 0, LCP 0.4 s; mobile 100/100, layout shift 0, LCP 1.7 s.
+
+The question also gets `max-width: 24em` and `text-wrap: balance`: one line on desktop and two balanced lines on a phone in the display font and in a wide fallback (DejaVu Serif, for machines without Times or Liberation): 52/55/56/68 px tall at 1280/1366/1440/390 either way.
