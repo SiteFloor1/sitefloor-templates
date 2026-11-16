@@ -14,7 +14,8 @@ export const SCHEMA_TYPES = [
   "Bakery", "ClothingStore", "JewelryStore", "Florist", "Electrician", "Plumber", "HVACBusiness", "AutoRepair", "AutoWash", "AutoBodyShop",
   "ParkingFacility", "SelfStorage", "ExerciseGym", "HealthClub", "SportsActivityLocation", "ProfessionalService",
   "LegalService", "FinancialService", "TattooParlor", "PetStore", "MovingCompany", "HousePainter", "RoofingContractor", "Locksmith", "GeneralContractor",
-  "Dentist", "RealEstateAgent",
+  "Dentist",
+  "RealEstateAgent",
 ];
 
 /** @param {any} v */
