@@ -1,0 +1,10 @@
+{#- One article: a readable column, the photograph above it, the other articles below. -#}
+{%- set ph = { title: x.title, intro: x.intro, photo: x.photo, parent: { label: site.journal.title | plain, page: "journal" } } %}
+{% include "kits/trainer/partials/page-head.njk" %}
+<article class="tja" data-feature="trainer-journal"><div class="wrap">
+  <p class="tja-m">{{ x.minutes }} minutes to read</p>
+  <div class="tja-body">{% for p in x.body %}<p>{{ p }}</p>{% endfor %}</div>
+  {%- if site.journal.articles.length > 1 %}
+  <nav class="tja-more" aria-label="More from the journal">{% for o in site.journal.articles %}{% if o.slug != x.slug %}<a href="{{ ('article-' + o.slug) | href }}">{{ o.title }}</a>{% endif %}{% endfor %}</nav>
+  {%- endif %}
+</div></article>

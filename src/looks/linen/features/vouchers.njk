@@ -1,0 +1,33 @@
+{#- Linen: a gift voucher written like an appointment card: the card on the left fills in as the form on the right is
+    written; ordered on WhatsApp. -#}
+{%- set sec = site.sections.vouchers %}
+{%- set v = site.vouchers %}
+<section id="vouchers" class="lvc" data-feature="vouchers"{{ "vouchers" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="lvc-in">
+    <div class="lvc-card" aria-live="polite">
+      <p class="lvc-shop"><i aria-hidden="true">{{ site.business.name | first }}</i>{{ site.business.name }}</p>
+      <p class="lvc-amount" data-vc-show-amount>{{ (v.amounts[1] or v.amounts[0]) | pounds }}</p>
+      <p class="lvc-to" data-vc-show-to>Gift voucher</p>
+      <p class="lvc-note" data-vc-show-note></p>
+      <p class="lvc-small">Valid {{ v.validMonths }} months from purchase · {{ site.location.streetAddress }}, {{ site.location.locality }}</p>
+    </div>
+    <form class="lvc-form" data-vc-form>
+      <div data-js-only>
+        <fieldset class="lvc-amounts"><legend>Amount</legend>
+          {%- for a in v.amounts %}<label><input type="radio" name="vc-amount" value="{{ a }}"{% if loop.index0 == 1 or v.amounts.length == 1 and loop.first %} checked{% endif %}><span>{{ a | pounds }}</span></label>{% endfor %}
+          {%- if v.custom %}<label><input type="radio" name="vc-amount" value="custom"><span>Other</span></label>
+          <input class="lvc-custom" type="number" inputmode="numeric" min="{{ v.custom.min }}" max="{{ v.custom.max }}" step="1" placeholder="£{{ v.custom.min }}–{{ v.custom.max }}" aria-label="Other amount in pounds" data-vc-custom hidden>{% endif %}
+        </fieldset>
+        <label class="lvc-f">For <input type="text" maxlength="40" autocomplete="off" data-vc-to placeholder="Their name"></label>
+        <label class="lvc-f">From <input type="text" maxlength="40" autocomplete="name" data-vc-from placeholder="Your name"></label>
+        <label class="lvc-f">A line for the card <input type="text" maxlength="90" autocomplete="off" data-vc-note></label>
+        <p class="lvc-err" data-vc-err role="alert" hidden></p>
+      </div>
+      <p class="lvc-how" data-no-js>Message the amount, who it's for and a line for the card.</p>
+      <a class="lvc-go" href="{{ 'Hello, I would like to buy a gift voucher. How can I pay?' | wa }}" target="_blank" rel="noopener" data-vc-order>Order on WhatsApp</a>
+      <p class="lvc-how">{{ v.howToBuy }}</p>
+    </form>
+  </div>
+  <p class="lvc-terms">{{ v.terms }}</p>
+</div></section>

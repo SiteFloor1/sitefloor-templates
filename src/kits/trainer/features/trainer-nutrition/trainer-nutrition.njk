@@ -1,0 +1,14 @@
+{#- Nutrition approach: the trainer's words; what they do and what they leave to others, side by side; who they refer
+    to. Only within their own qualification (named when there is one). -#}
+{%- set n = site.nutrition %}
+{%- set ph = { title: n.title, intro: n.intro, photo: n.photo } %}
+{% include "kits/trainer/partials/page-head.njk" %}
+<section class="tnu" data-feature="trainer-nutrition" aria-label="{{ n.title | plain }}"><div class="wrap tnu-in">
+  <div class="tnu-body">{% for p in n.approach %}<p>{{ p }}</p>{% endfor %}</div>
+  <div class="tnu-lists">
+    <div><h2>What I do</h2><ul>{% for i in n.does %}<li>{{ i }}</li>{% endfor %}</ul></div>
+    <div><h2>What I leave to others</h2><ul>{% for i in n.doesNot %}<li>{{ i }}</li>{% endfor %}</ul></div>
+  </div>
+  <p class="tnu-refer">{{ n.referOn }}</p>
+  {%- for q in site.qualifications.items %}{% if q.name == n.qualification %}<p class="tnu-q">My training in this: {{ q.name }}, {{ q.awardingBody }}, {{ q.year }}.</p>{% endif %}{% endfor %}
+</div></section>

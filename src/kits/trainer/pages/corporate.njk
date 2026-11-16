@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: corporate
+permalink: corporate.html
+feature: trainer-packages
+eleventyComputed:
+  title: "{{ site.packages.title | plain }}"
+  description: "Team and family training with {{ site.business.name }}, {{ site.location.locality }}."
+---
+{% include "kits/trainer/features/trainer-packages/trainer-packages.njk" %}

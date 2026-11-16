@@ -1,0 +1,45 @@
+/* Your twelve weeks: the trainer's phases as bands over twelve ledger columns; every session a dated line, a closed
+   day struck through. On a phone the weeks run down the page. */
+.ttl { border-top: 1px solid var(--line); }
+.ttl-head { display: flex; align-items: baseline; justify-content: space-between; gap: 30px; }
+.ttl h2 { font: 600 clamp(36px, 4vw, 58px) / 1 var(--font-display); letter-spacing: -.01em; }
+.ttl-lede { max-width: 38ch; color: var(--muted); }
+.ttl-ctl { display: flex; flex-wrap: wrap; gap: 20px 36px; align-items: flex-end; margin-top: 32px; padding: 20px 24px; background: var(--paper); }
+.ttl-k { display: block; margin-bottom: 8px; color: var(--muted); font: italic 400 15px var(--font-body); }
+.ttl-opt { display: flex; gap: 8px; flex-wrap: wrap; }
+.ttl-opt button, .ttl-q input, .ttl-q select { min-height: 44px; padding: 8px 14px; background: var(--bg); border: 1px solid var(--line-2); color: var(--text); font: 400 16px var(--font-body); }
+.ttl-opt button { cursor: pointer; background: none; }
+.ttl-opt button[aria-pressed="true"] { border-color: var(--text); box-shadow: inset 0 -2px 0 var(--accent); font-weight: 600; }
+.ttl-board { margin-top: 28px; }
+.ttl-phases, .ttl-weeks { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); }
+.ttl-phases { gap: 0 4px; }
+.ttl-phases li { padding: 12px 12px 14px; border-top: 3px solid var(--accent); background: var(--paper); }
+.ttl-phases li:nth-child(2) { border-top-color: var(--text); }
+.ttl-phases li:nth-child(3) { border-top-color: var(--dim); }
+.ttl-phases b { font: 600 20px var(--font-display); }
+.ttl-phases span { display: block; color: var(--muted); font-style: italic; font-size: 14px; }
+.ttl-phases p { margin-top: 6px; font-size: 15px; color: var(--muted); }
+.ttl-weeks { border-top: 1px solid var(--text); margin-top: 18px; }
+.ttl-weeks > li { padding: 10px 6px 12px; border-right: 1px solid var(--line); min-height: 120px; }
+.ttl-weeks > li:last-child { border-right: 0; }
+.ttl-wn { display: block; color: var(--muted); font-style: italic; font-size: 14px; margin-bottom: 8px; }
+.ttl-weeks ul { list-style: none; padding: 0; margin: 0; }
+.ttl-weeks ul li { padding: 5px 0; border-bottom: 1px solid var(--line); font-size: 15px; line-height: 1.3; }
+.ttl-weeks ul li.off { color: var(--muted); }
+.ttl-weeks ul li.off small { display: block; font-size: 12px; font-style: italic; }
+.ttl-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px 30px; margin-top: 26px; padding-top: 20px; border-top: 1px solid var(--text); }
+.ttl-sum { max-width: 64ch; }
+.ttl-sum b { color: var(--accent); }
+.ttl-acts { display: flex; flex-wrap: wrap; gap: 12px; }
+.ttl-ics { min-height: 48px; padding: 0 18px; background: none; border: 1px solid var(--text); color: var(--text); font: 600 16px var(--font-body); cursor: pointer; }
+.ttl-go { min-height: 48px; display: inline-flex; align-items: center; padding: 0 22px; background: var(--text); color: var(--paper); font-weight: 600; text-decoration: none; }
+@media (max-width: 900px) {
+  .ttl-head { display: block; }
+  .ttl-lede { margin-top: 12px; }
+  .ttl-ctl { padding: 18px; }
+  .ttl-phases { grid-template-columns: 1fr; gap: 6px; }
+  .ttl-phases li { grid-column: auto !important; }
+  .ttl-weeks { grid-template-columns: 1fr 1fr; }
+  .ttl-weeks > li { min-height: 0; border-bottom: 1px solid var(--line); }
+  .ttl-weeks > li:nth-child(2n) { border-right: 0; }
+}

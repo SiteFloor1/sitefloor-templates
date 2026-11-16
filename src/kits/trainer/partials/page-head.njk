@@ -1,0 +1,13 @@
+{#- An inner page's opening, like the head of a page in an appointment book: where you are, the page's name large,
+    its line beside it, a rule; then, if the page has one, a photograph across the width.
+    Set `ph` = { title, intro, photo, parent: { label, page } }. -#}
+<header class="tp-head"><div class="wrap">
+  <nav class="tp-crumb" aria-label="Breadcrumb"><a href="{{ 'index' | href }}">{{ site.business.name }}</a>{% if ph.parent %} <span aria-hidden="true">/</span> <a href="{{ ph.parent.page | href }}">{{ ph.parent.label }}</a>{% endif %}</nav>
+  <div class="tp-top">
+    <h1 class="tp-t">{{ ph.title | markup | safe }}</h1>
+    {%- if ph.intro %}<p class="tp-i">{{ ph.intro }}</p>{% endif %}
+  </div>
+  {%- if ph.photo %}
+  <figure class="tp-ph"><img src="{{ ph.photo.src | img }}" alt="{{ ph.photo.alt }}" width="{{ ph.photo.width }}" height="{{ ph.photo.height }}"{% if ph.photo.focus %} style="object-position:{{ ph.photo.focus }}"{% endif %} fetchpriority="high" decoding="async"></figure>
+  {%- endif %}
+</div></header>

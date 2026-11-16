@@ -1,0 +1,14 @@
+---
+layout: core/layouts/base.njk
+feature: trainer-journal
+pagination:
+  data: site.journal.articles
+  size: 1
+  alias: x
+permalink: "article-{{ x.slug }}.html"
+eleventyComputed:
+  pageId: "article-{{ x.slug }}"
+  title: "{{ x.title }}"
+  description: "{{ x.intro }}"
+---
+{% include "kits/trainer/features/trainer-journal/article.njk" %}

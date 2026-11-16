@@ -1,0 +1,13 @@
+/* Client stories: the words large in italic, one story to a ruled band; the name and programme small beneath. */
+.tst { padding-top: 0; }
+.tst-note { margin-bottom: 28px; padding: 12px 16px; background: var(--paper); color: var(--muted); font-style: italic; }
+.tst-list { border-top: 1px solid var(--text); }
+.tst-item { display: grid; grid-template-columns: repeat(12, 1fr); gap: 0 24px; padding: 40px 0; border-bottom: 1px solid var(--line); margin: 0; }
+.tst-item blockquote { grid-column: 3 / 11; margin: 0; font: italic 400 clamp(21px, 2vw, 27px) / 1.45 var(--font-display); }
+.tst-item blockquote p + p { margin-top: 14px; }
+.tst-item figcaption { grid-column: 3 / 11; margin-top: 16px; color: var(--muted); }
+.tst-item figcaption b { color: var(--text); }
+.tst-item figcaption small { display: block; margin-top: 4px; font-size: 14px; }
+@media (max-width: 760px) {
+  .tst-item { display: block; padding: 28px 0; }
+}
