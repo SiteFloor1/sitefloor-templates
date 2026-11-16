@@ -76,6 +76,7 @@ A case study is a design too: don't reuse these in a new look or another case st
 |---|---|---|---|---|---|
 | Aldous Marr (jeweller) | case-studies/aldous-marr | jeweller | Italiana | Albert Sans | Pinyon Script |
 | Calder Wyke (law firm) | case-studies/calder-wyke | law | Literata | Geologica | |
+| Clémence (skin clinic) | case-studies/clemence | beauty | Antic Didone | Baskervville | |
 | Corbel (electrician) | case-studies/corbel | electrician | Encode Sans Expanded | Encode Sans | |
 | Datum Hire (car hire) | case-studies/datum-hire | car-hire | Overpass | Overpass | Overpass Mono |
 | Fennick & Lowe (tailor) | case-studies/fennick-lowe | tailor | Della Respira | Commissioner | |
