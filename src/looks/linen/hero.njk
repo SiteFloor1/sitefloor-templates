@@ -1,0 +1,9 @@
+{#- Linen hero: one plain line and one sentence, then the diary (the trainer's week from their sheet). The count of
+    open hours joins the sentence only once the sheet has been read and is fresh. -#}
+<section class="hero ln-hero" aria-labelledby="ln-h"><div class="wrap">
+  <div class="ln-top">
+    <h1 class="ln-h1" id="ln-h">{{ site.hero.title | plain }}</h1>
+    <p class="ln-sub">{{ site.hero.intro }}{% if "trainer-diary" | enabled %}<span data-td-sentence></span>{% endif %}</p>
+  </div>
+  {%- if "trainer-diary" | enabled %}{% include "kits/trainer/features/trainer-diary/trainer-diary.njk" %}{% endif %}
+</div></section>

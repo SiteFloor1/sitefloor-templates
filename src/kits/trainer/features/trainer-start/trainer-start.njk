@@ -1,0 +1,14 @@
+{#- Start here: the first hour minute by minute (the steps the first month uses), the health questionnaire and why
+    it's asked, and the way to reserve; the checklist follows when it's on. -#}
+{%- set sh = site.startHere %}
+{%- set m = site.firstMonth %}
+{%- set ph = { title: sh.title, intro: sh.intro, photo: sh.photo } %}
+{% include "kits/trainer/partials/page-head.njk" %}
+<section class="tsh" data-feature="trainer-start" aria-labelledby="tsh-h"><div class="wrap tsh-in">
+  <div class="tsh-intro"><h2 id="tsh-h">The first hour</h2><p class="tsh-lede">{{ sh.questionnaire }}</p></div>
+  <ol class="tsh-tape">
+    {%- for s in m.steps %}<li><span class="tsh-min">{{ s.minute }}<small>min</small></span><p>{{ s.text }}</p></li>{% endfor %}
+  </ol>
+  <p class="tsh-go"><a class="go" href="{{ m.message | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ m.message }}"{% endif %} target="_blank" rel="noopener">Reserve a first session</a></p>
+</div></section>
+{%- set hostPage = "trainer-start" %}{% include "kits/trainer/partials/hosted.njk" %}

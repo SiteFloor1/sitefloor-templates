@@ -1,0 +1,26 @@
+/* Coverage: a postcode box on paper; the districts below as a short ledger that lights the rows that answer yes. */
+.tcv { border-top: 1px solid var(--line); }
+.tcv-in { display: grid; grid-template-columns: repeat(12, 1fr); gap: 0 24px; align-items: start; }
+.tcv-intro { grid-column: 1 / 5; }
+.tcv h2 { font: 600 clamp(32px, 3.4vw, 50px) / 1.02 var(--font-display); letter-spacing: -.01em; }
+.tcv-lede { margin-top: 14px; max-width: 32ch; color: var(--muted); }
+.tcv-box { grid-column: 6 / 13; background: var(--paper); padding: 28px 30px; }
+.tcv-form label { display: block; margin-bottom: 8px; color: var(--muted); font-style: italic; }
+.tcv-row { display: flex; gap: 0; }
+.tcv-row input { flex: 1; min-width: 0; height: 52px; padding: 0 14px; border: 1px solid var(--text); border-right: 0; background: var(--bg); color: var(--text); font: 600 20px var(--font-body); letter-spacing: .04em; text-transform: uppercase; }
+.tcv-row button { height: 52px; padding: 0 22px; border: 0; background: var(--text); color: var(--paper); font: 600 16px var(--font-body); cursor: pointer; }
+.tcv-out { min-height: 1.6em; margin-top: 12px; }
+.tcv-areas { margin: 22px 0 0; border-top: 1px solid var(--text); }
+.tcv-areas div { display: grid; grid-template-columns: 9em 1fr; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.tcv-areas dt { font-weight: 600; }
+.tcv-areas dd { margin: 0; color: var(--muted); }
+.tcv-areas dd small { display: block; font-style: italic; }
+.tcv-areas .yes dt { color: var(--accent); }
+.tcv-areas .yes dt::after { content: " ✓"; }
+.tcv-areas .no { opacity: .55; }
+.tcv-else { margin-top: 14px; color: var(--muted); font-style: italic; }
+@media (max-width: 760px) {
+  .tcv-in { display: block; }
+  .tcv-box { margin-top: 24px; padding: 22px; }
+  .tcv-areas div { grid-template-columns: 1fr; gap: 2px; }
+}

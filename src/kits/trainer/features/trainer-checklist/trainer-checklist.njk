@@ -1,0 +1,18 @@
+{#- Before your session (PT-8): the trainer's list, to tick on the phone the night before; nothing is stored. The
+    cancellation policy beneath it, in the trainer's words. -#}
+{%- set c = site.checklist %}
+<section class="tcl" id="before" data-feature="trainer-checklist" aria-labelledby="tcl-h"{{ 'trainer-checklist' | tierAttr | safe }}><div class="wrap tcl-in">
+  <div class="tcl-intro">
+    <h2 id="tcl-h">{{ c.title }}</h2>
+    {%- if c.intro %}<p class="tcl-lede">{{ c.intro }}</p>{% endif %}
+    <p class="tcl-count" data-tcl-count aria-live="polite" data-js-only></p>
+  </div>
+  <div class="tcl-groups">
+    {%- for g in c.groups %}
+    <fieldset class="tcl-g"><legend>{{ g.label }}</legend>
+      {%- for it in g.items %}<label class="tcl-i"><input type="checkbox" data-tcl-tick><span>{{ it }}</span></label>{% endfor %}
+    </fieldset>
+    {%- endfor %}
+    <p class="tcl-cancel"><b>Cancelling.</b> {{ c.cancellation }}</p>
+  </div>
+</div></section>

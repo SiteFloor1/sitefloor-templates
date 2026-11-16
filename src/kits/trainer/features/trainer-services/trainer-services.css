@@ -1,0 +1,26 @@
+/* Sessions and qualifications: a ruled list of sessions, the qualifications as a ledger (year, name, awarding body). */
+.ts { border-top: 1px solid var(--line); }
+.ts-in { display: grid; grid-template-columns: repeat(12, 1fr); gap: 0 24px; padding: 0; align-items: start; }
+.ts-intro { grid-column: 1 / 5; }
+.ts h2 { font: 600 clamp(36px, 4vw, 58px) / 1 var(--font-display); letter-spacing: -.01em; }
+.ts-lede { margin-top: 16px; max-width: 34ch; color: var(--muted); }
+.ts-list { grid-column: 6 / 13; list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--text); }
+.ts-list li { padding: 20px 0; border-bottom: 1px solid var(--line); }
+.ts-top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+.ts-list h3 { font: 600 22px / 1.2 var(--font-display); }
+.ts-meta { color: var(--muted); font-style: italic; white-space: nowrap; }
+.ts-list p { margin-top: 6px; color: var(--muted); max-width: 52ch; }
+.ts-quals { grid-column: 6 / 13; margin-top: 56px; }
+.ts-quals h3 { font: 600 15px var(--font-display); color: var(--muted); margin-bottom: 10px; }
+.ts-quals ul { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--text); }
+.ts-quals li { display: grid; grid-template-columns: 64px 1fr auto; gap: 16px; align-items: baseline; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.ts-y { color: var(--accent); font-weight: 600; }
+.ts-b { color: var(--muted); font-style: italic; text-align: right; }
+.ts-reg { display: inline-block; margin-top: 18px; font-weight: 600; text-decoration: none; border-bottom: 2px solid var(--accent); }
+.ts-note { margin-top: 10px; color: var(--muted); font-style: italic; }
+@media (max-width: 760px) {
+  .ts-in { display: block; }
+  .ts-list, .ts-quals { margin-top: 28px; }
+  .ts-quals li { grid-template-columns: 52px 1fr; }
+  .ts-b { grid-column: 2; text-align: left; margin-top: -8px; }
+}

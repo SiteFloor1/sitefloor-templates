@@ -1,0 +1,6 @@
+{#- Our cleaners: how the company hires, checks, insures and trains, and how cover works, only as it states. -#}
+{%- set c = site.cleaners %}
+<section class="cl-cln" data-feature="cleaning-cleaners"><div class="wrap cl-svc-in">
+  <div>{% set secs = c.sections %}{% include "kits/cleaning/partials/sections.njk" %}</div>
+  {%- if c.photo %}<aside class="cl-svc-side"><figure><img src="{{ c.photo.src | img }}" alt="{{ c.photo.alt }}" width="{{ c.photo.width }}" height="{{ c.photo.height }}" loading="lazy" decoding="async">{% if c.photo.credit %}<figcaption>Photograph: {{ c.photo.credit }}</figcaption>{% endif %}</figure></aside>{% endif %}
+</div></section>

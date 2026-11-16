@@ -1,0 +1,5 @@
+{#- Linen section opening: the section's name, its line beside it. `sec` = { kicker, title, intro }; no kicker shown. -#}
+<div class="ln-sh">
+  <h2 class="ln-sh-t">{{ sec.title | markup | safe }}</h2>
+  {%- if sec.intro %}<p class="ln-sh-i">{{ sec.intro }}</p>{% endif %}
+</div>

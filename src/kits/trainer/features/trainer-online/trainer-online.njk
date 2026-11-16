@@ -1,0 +1,17 @@
+{#- At home and online: what the trainer brings to a client's home and what online coaching includes, side by side as
+    two ruled columns, each with its price; the coverage check follows when it's on. -#}
+{%- set o = site.online %}
+{%- set ph = { title: o.title, intro: o.intro, photo: o.photo } %}
+{% include "kits/trainer/partials/page-head.njk" %}
+<section class="ton" data-feature="trainer-online" aria-label="{{ o.title | plain }}"><div class="wrap ton-in">
+  {%- for b in [o.home, o.remote] %}
+  <div class="ton-col">
+    <h2>{{ b.title }}</h2>
+    <p class="ton-text">{{ b.text }}</p>
+    <ul>{% for i in b.items %}<li>{{ i }}</li>{% endfor %}</ul>
+    {%- if b.price %}<p class="ton-price">{{ b.price | pounds }} <small>{{ b.unit }}</small></p>{% endif %}
+  </div>
+  {%- endfor %}
+  <p class="ton-go"><a class="go" href="{{ o.message | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ o.message }}"{% endif %} target="_blank" rel="noopener">Ask about training at home or online</a></p>
+</div></section>
+{%- set hostPage = "trainer-online" %}{% include "kits/trainer/partials/hosted.njk" %}

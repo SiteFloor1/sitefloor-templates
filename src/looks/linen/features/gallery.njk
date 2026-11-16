@@ -1,0 +1,14 @@
+{#- Linen: the studio's photographs in an uneven row of three, captions in italic beneath; Instagram after. -#}
+{%- set sec = site.sections.gallery %}
+{%- set g = site.gallery %}
+{%- set photos = g.photos or [] %}
+<section id="gallery" class="lg" data-feature="gallery" data-gallery-limit="6"{{ "gallery" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <ul class="lg-list" data-gallery-list>
+    {%- if photos.length %}{% for p in photos | batch(6) | first %}
+    <li class="tile"><figure><img src="{{ p.src | img }}" alt="{{ p.alt }}" loading="lazy" decoding="async" width="{{ p.width }}" height="{{ p.height }}">{% if p.caption %}<figcaption>{{ p.caption }}</figcaption>{% endif %}</figure></li>
+    {%- endfor %}{% else %}{% for i in range(0, 6) %}<li class="tile skel" aria-hidden="true"></li>{% endfor %}{% endif %}
+  </ul>
+  <p class="lg-empty" data-gallery-empty hidden>The latest photographs are on Instagram.{% if g.profile %} <a href="{{ g.profile }}" target="_blank" rel="noopener">See them there</a>.{% endif %}</p>
+  {%- if g.profile %}<p class="lg-foot"><a class="go" href="{{ g.profile }}" target="_blank" rel="noopener">{% if g.handle %}@{{ g.handle }} on Instagram{% else %}On Instagram{% endif %}</a></p>{% endif %}
+</div></section>

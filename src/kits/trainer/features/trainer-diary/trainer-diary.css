@@ -1,0 +1,46 @@
+/* The diary: a printed appointment page. Days across, one row per hour; spoken-for hours stay blank, passed hours
+   shade, open hours carry ink and a rule. Times sit in equal boxes so they read down the page like a book. */
+.tn { font-variant-numeric: lining-nums tabular-nums; white-space: nowrap; }
+.tn i { display: inline-block; width: .56em; text-align: center; font-style: normal; }
+.tn i.tc { width: .26em; }
+.td { background: var(--paper); border-top: 2px solid var(--text); }
+.td-head { display: flex; align-items: baseline; gap: .4em; padding: 10px 0 8px; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 15px; }
+.td-week { color: var(--text); font-weight: 600; }
+.td-count { margin-left: auto; }
+.td-grid { display: grid; grid-template-columns: 70px repeat(var(--td-days), 1fr); grid-template-rows: 44px; grid-auto-rows: 36px; }
+.td-day { padding: 10px 12px 0; border-left: 1px solid var(--line); font-family: var(--font-display); font-weight: 600; font-size: 17px; }
+.td-day span { margin-left: 6px; color: var(--muted); font-weight: 400; font-size: 15px; }
+.td-day.gone, .td-day.gone span { color: var(--dim); }
+.td-tm { padding: 8px 12px 0 0; text-align: right; color: var(--muted); font-size: 15px; border-top: 1px solid var(--line); }
+.td-c { border-left: 1px solid var(--line); border-top: 1px solid var(--line); display: flex; }
+.td-c.past { background: var(--surface); }
+.td-o { position: relative; width: 100%; height: 100%; border: 0; background: none; color: var(--text); font: 600 17px var(--font-body); cursor: pointer; animation: td-in .6s ease both; }
+.td-o::after { content: ""; position: absolute; left: 22%; right: 22%; bottom: 6px; height: 2px; background: var(--accent); }
+.td-o:hover, .td-o[aria-pressed="true"] { background: var(--text); color: var(--paper); }
+.td-o[aria-pressed="true"]::after { background: var(--paper); }
+@keyframes td-in { from { opacity: 0; } }
+.td-ph { position: relative; z-index: 1; background: var(--paper); margin: 1px 0 0 1px; overflow: hidden; }
+.td-ph[hidden] { display: none; }
+.td-ph img { width: 100%; height: 100%; object-fit: cover; }
+.td-ph figcaption { position: absolute; left: 12px; bottom: 10px; right: 12px; color: var(--on-photo); font-style: italic; font-size: 14px; text-shadow: 0 1px 8px var(--photo-scrim); }
+.td-slip { display: flex; align-items: center; gap: 20px; padding: 18px 0 4px; border-top: 1px solid var(--text); }
+.td-slip p { font-size: 20px; }
+.td-slip p b { font-weight: 600; }
+.td-slip p small { display: block; margin-top: 2px; color: var(--muted); font-style: italic; font-size: 15px; }
+.td-go { margin-left: auto; height: 52px; display: inline-flex; align-items: center; padding: 0 24px; background: var(--text); color: var(--paper); font-weight: 600; font-size: 16px; text-decoration: none; }
+.td[data-state="closed"] .td-count { display: none; }
+@media (max-width: 760px) {
+  .td-head { font-size: 14px; }
+  .td-rng { display: none; }
+  .td-grid { grid-template-columns: 42px repeat(var(--td-days), 1fr); grid-template-rows: 46px; grid-auto-rows: 32px; }
+  .td-day { padding: 8px 0 0; text-align: center; font-size: 13px; }
+  .td-day span { display: block; margin: 0; font-size: 11px; }
+  .td-tm { padding: 9px 5px 0 0; font-size: 10.5px; }
+  .td-o { font-size: 10.5px; }
+  .td-o::after { bottom: 5px; left: 14%; right: 14%; }
+  .td-ph figcaption { display: none; }
+  .td-slip { flex-wrap: wrap; gap: 12px; }
+  .td-slip p { font-size: 17px; }
+  .td-go { margin-left: 0; width: 100%; justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) { .td-o { animation: none; } }

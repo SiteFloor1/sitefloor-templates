@@ -1,0 +1,5 @@
+{#- Linen phone bar: the next private hour (from the diary, once it's known) and Reserve. -#}
+<div class="mbar ln-bar">
+  <a class="ln-bar-next" href="#diary" data-td-next>Private training<b>{{ site.location.locality }}</b></a>
+  <a class="ln-bar-go" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">Reserve</a>
+</div>

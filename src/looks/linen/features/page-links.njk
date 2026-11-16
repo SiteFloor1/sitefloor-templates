@@ -1,0 +1,12 @@
+{#- Linen: the other pages as an index, like the contents of the appointment book: each a ruled line with its
+    photograph small at the end. -#}
+{%- set links = site.pageLinks | enabledLinks %}
+{%- if links.length %}
+<section class="lpl" data-feature="page-links"{{ "page-links" | tierAttr | safe }} aria-label="More pages"><div class="wrap">
+  <ol class="lpl-list">
+    {%- for l in links %}
+    <li><a href="{{ l.page | href }}"><span class="lpl-k">{{ l.kicker }}</span><span class="lpl-t">{{ l.title | markup | safe }}</span><span class="lpl-go">{{ l.cta }}</span><img src="{{ l.image | img }}" alt="" loading="lazy" decoding="async" width="720" height="900"></a></li>
+    {%- endfor %}
+  </ol>
+</div></section>
+{%- endif %}

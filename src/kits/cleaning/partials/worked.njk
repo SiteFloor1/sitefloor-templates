@@ -1,0 +1,28 @@
+{#- A service's worked example: its own room strip, from the same visit() as the home page (a deep clean is every room
+    at the company's deep factor), and the bill line by line. Set `s` (a cleans item with `example`) first. -#}
+{%- set V = site.visit %}{%- set ex = s.example %}{%- set v = V | visitOf(ex) %}
+{%- set parts = v.rooms.concat(v.extras) %}
+<section class="cl-wk" aria-labelledby="wk-{{ s.id }}"><div class="wrap">
+  <div class="cl-wk-head">
+    <h2 id="wk-{{ s.id }}">Worked example</h2>
+    <p>{% if s.page and s.page.label %}{{ s.page.label }}{% else %}A {{ ex | homeWords }}, {{ ex.freq | oftenWords }}{% if v.extras.length %}, plus {% for e in v.extras %}{{ e.name | lower }}{{ (" and " if loop.revindex == 2 else ", ") if not loop.last }}{% endfor %}{% endif %}{% endif %}: <b>{{ v.work | hm }}, {{ v.price | gbp }}</b>.{% if v.deep %} Every room takes {{ V.deep }} times its regular minutes, rounded up to the next five.{% endif %}</p>
+  </div>
+  <div class="cl-ruler" aria-hidden="true">
+    {%- for t in v.work | ruler %}<i class="{{ 'cl-r30' if t.label }}" style="left:{{ t.at }}%"></i>{% if t.label %}<b style="left:{{ t.at }}%">{{ t.label }}</b>{% endif %}{% endfor %}<b class="cl-r-end">{{ v.work | hm }}</b>
+  </div>
+  <ol class="cl-rooms cl-wk-rooms" style="{{ v | stripSize(false) }}" aria-label="Rooms, each as long as its minutes">
+    {%- for r in parts %}
+    <li class="cl-room{{ ' cl-extra' if r.extra }}" style="--m:{{ r.min }}"><i class="cl-mins" aria-hidden="true"></i><span class="cl-n">{{ r.min }}<small> min</small></span><span class="cl-nm">{{ r.name }}</span></li>
+    {%- endfor %}
+  </ol>
+  <table class="cl-wk-bill">
+    <caption class="cl-sr">The worked example, line by line</caption>
+    <tbody>
+      {%- for r in parts %}<tr><th scope="row">{{ r.name }}</th><td>{{ r.min | hm }}</td></tr>{% endfor %}
+      <tr class="cl-wk-sum"><th scope="row">Time on site</th><td>{{ v.work | hm }}</td></tr>
+      {%- if v.charged > v.work %}<tr><th scope="row">Shortest visit we book</th><td>{{ v.charged | hm }}</td></tr>{% endif %}
+      <tr><th scope="row">Rate, {{ ex.freq | oftenWords }}</th><td>{{ v.rate | gbp }} an hour</td></tr>
+      <tr class="cl-wk-price"><th scope="row">Price</th><td>{{ v.price | gbp }}</td></tr>
+    </tbody>
+  </table>
+</div></section>
