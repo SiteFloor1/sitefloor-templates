@@ -10,23 +10,56 @@ screen and the showpieces.
   into a sample or a bottle, and make the gift easy.
 - References (owner's): Penhaligon's (British heritage and wit) and Maison Francis Kurkdjian (Parisian precision and
   light). Bottles shown large, lit like jewellery.
-- Three directions on review (design notes and screens in `sitefloor-internal`, branch `design/fragrance`):
-  A **Merriott**, the engraving desk; B **Verrière**, notes on the bottle; C **Lovage**, the organ.
+- Round 2 (16 Nov 2026), two directions on review (`sitefloor-internal`, branch `design/fragrance`, `screens-2/`):
+  B **Verrière**, a heritage house (notes drawn around the bottle, the engraving desk); C **Lovage**, a new brand in
+  launch mode (waitlist, pre-order, the organ, the founder's note). Round 1's A (Merriott) is dropped.
+- The kit serves both a heritage house and a new brand launching (see "Launch mode").
 
-### Features by plan (approved codes FRAG-1 to FRAG-8)
-- **Starter:** FRAG-1 fragrance library (each scent: notes, character in the house's words, sizes, prices, sample
-  price, "add to bag" by the client's Stripe Payment Link per size). Easy extra: **sizes side by side**, every size
-  drawn to scale from the client's millilitres with the price per 10 ml worked out from its prices.
-- **Plus:** FRAG-2 scent finder (the organ: up to three notes you love, bottles that have them), FRAG-3 sample set
-  (pick four, one Stripe link per set size, the discovery terms in the house's words), FRAG-4 gift wrap and engraving
-  order (words, letter style, bottle or box, price; sent with the order on WhatsApp or as the Stripe link's note).
-- **Signature (showpieces, to discuss):** see the table; recommended FRAG-4 live engraving preview, FRAG-5 notes on the
-  bottle, and "Let them choose". Every site also gets Plan your visit, open now, WhatsApp, reviews and Instagram.
+### Features by plan (owner's decisions, 16 Nov 2026)
+- **Starter:** FRAG-1 fragrance library (each scent: notes, character in the house's words, sizes, prices, sample price,
+  "add to bag" by the client's Stripe Payment Link per size). Easy extra: **sizes side by side**, every size drawn to
+  scale from the client's millilitres with the price per 10 ml worked out from its prices.
+- **Plus:** FRAG-2 **the organ** (photographs of real ingredients; pick up to three, they turn to colour and the scents
+  that have them rise), FRAG-3 sample set (pick four, one Stripe link per set size, the discovery terms in the house's
+  words), FRAG-4 gift wrap and engraving order form (words, letter style, bottle or box, price).
+- **Signature:** FRAG-4 **the engraving desk** (the words previewed live on the bottle), FRAG-5 **notes on the bottle**
+  (top, heart and base drawn at the bottle's own heights; tap a note to see which other scents have it), **Let them
+  choose** (pay an amount, they try samples and pick their bottle and engraving; the client's Stripe link and promotion
+  code, codes listed in the client's Sheet). Alternatives kept for later: fragrance wardrobe (FRAG-6), refill programme
+  with a calendar reminder (FRAG-8), bespoke consultation (FRAG-7).
 - **Pages (approved):** Home, The fragrances, Scent finder, Gifts, Discovery sets (Plus five); Signature adds bespoke
   perfume, home fragrance, engraving and wrapping, layering guide, the perfumer's notes, refills, boutiques and events,
-  weddings and corporate gifts, journal.
+  weddings and corporate gifts, journal. Every site also gets Plan your visit, open now, WhatsApp, reviews, Instagram.
 
-### Showpiece candidates (to discuss, not decided)
+### The hero bottle: what a real client gets (be honest when selling)
+- **Demo:** a bottle of our own design, drawn in real 3D in the browser (three.js, self-hosted, about 140 KB gzipped,
+  loaded only after the page and its poster image have loaded): physically based glass with refraction, thickness and
+  a little dispersion, the liquid inside lit from behind, a polished cap, slowly turning under studio light, with light
+  thrown through the liquid onto the floor. A still poster rendered from the same scene shows first; reduced motion and
+  devices without WebGL 2 keep the still; a Pause button stops the turn.
+- **Real clients:** the 3D bottle needs an accurate model of *their* bottle, cap and liquid colour (from their supplier's
+  drawings or a photogrammetry scan) and an evening of lighting. That is a **Bespoke add-on**, quoted separately, never
+  part of Signature.
+- **Standard showpiece for clients:** their own **turntable photographs**: 24 to 36 shots of the bottle on a turntable,
+  same light and distance, shown as a 360° spin the visitor drags (first frame as the poster, the rest loaded on first
+  touch). A phone on a £20 turntable in a lightbox is enough; we give them the shot list. Without the shots, the hero is
+  their best still photograph. The notes, engraving preview and organ work the same over a photo or the 3D.
+- The engraving preview needs one calibrated front-on picture of the bottle (we mark the engravable area once). No
+  calibrated picture: the preview hides and the plain order form shows.
+
+### Launch mode (a new brand, before and on launch day)
+- A setting in the site, not a separate kit: `launch.date`, `launch.waitlist` (a Google Form or Sheet), `launch.preorder`
+  (one Stripe Payment Link per scent), `launch.story` (the founder's note, in their words).
+- **Before launch:** the hero says what is coming and when (date and days to go, worked out on the day), a waitlist
+  (email to the client's Form; no marketing promises we can't keep), pre-order by the client's Stripe link with the
+  client's own terms (when it ships, what happens if they cancel; UK consumers keep their 14-day right to cancel), the
+  organ limited to the launch scents, the founder's note, launch-night or stockist dates (.ics).
+- **On the date:** the site switches itself to the normal shop (pre-order becomes "add to bag", the countdown goes,
+  "new" marks the launch scents for a set number of weeks). In demos the launch date is moved ahead of today on every
+  build (`src/demo/dates.js`), never fixed.
+- Honesty: no "selling fast", no fake waitlist counts, no stock numbers unless the client's Sheet supplies them.
+
+### Showpiece candidates (round 1 discussion, kept for reference)
 | Showpiece | What it does | Question it answers | Tier | How it runs at £0 | Effort | Honesty risk, and how it fails closed | Why a visitor shares it |
 |---|---|---|---|---|---|---|---|
 | **The engraving desk** (FRAG-4, live preview) | Type a name or date and watch it appear engraved on the real bottle photo, in the house's letter styles; then pay | "What will it look like? Is it worth £15?" | Signature (the order form without preview is Plus) | Client gives a front-on bottle photo, the engravable area, letter styles, character limit, price and days; payment by their Stripe link | Medium | It's a preview, not a proof: labelled "Preview", letters only from the house's allowed set. No calibrated photo for a bottle: the preview hides and the plain form shows | "Look, it's got her name on it." A screenshot is the gift card |
@@ -38,13 +71,10 @@ screen and the showpieces.
 | **Bespoke consultation** (FRAG-7) | The bespoke process, price from, and a request (date wished, occasion) | "Can you make one just for me?" | Signature | Link to the client's booking app or a WhatsApp request | Small | Requests, never "booked" unless the booking app confirms | Weddings and milestones |
 | **Sizes side by side** (own idea) | Every size drawn to scale with the price per 10 ml | "Is 100 ml worth it over 50?" | Starter (the easy extra) | From the client's sizes and prices | Small | Worked from the client's own prices; no "best value" badge | Plain usefulness |
 
-Recommendation: **Signature: the engraving desk, notes on the bottle, and let them choose. Starter: sizes side by side.**
-The engraving desk sells the most profitable moment (gifts, Christmas, weddings) and is the strongest first-screen wow;
-notes on the bottle answer the first question every customer asks, and do it in a way no house I checked does; let them
-choose turns the hardest gift into an easy one. The organ stays Plus (approved), and the wardrobe, refills and bespoke
-consultation are alternatives or add-ons. Similar ideas already exist as products: Penhaligon's runs an engraving desk,
-Miller Harris gives a voucher with its discovery set, and Thomson Carter sells a sample box with a card for the chosen
-bottle. None of the sites I checked shows a live engraving preview on the bottle or the notes drawn on the bottle.
+Owner's decision (16 Nov): Signature gets the engraving desk, notes on the bottle and Let them choose (plus the 3D bottle
+hero for the demo only); Starter gets sizes side by side; Plus gets the organ. Similar services exist as products
+(Penhaligon's engraving desk, Miller Harris's discovery-set voucher, Thomson Carter's sample box with a card for the
+chosen bottle); none of the sites checked shows a live engraving preview or the notes drawn on the bottle.
 
 ### Honesty
 - Notes and character only. No longevity hours or performance claims unless the client supplies them.
