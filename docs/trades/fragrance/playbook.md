@@ -10,9 +10,9 @@ screen and the showpieces.
   into a sample or a bottle, and make the gift easy.
 - References (owner's): Penhaligon's (British heritage and wit) and Maison Francis Kurkdjian (Parisian precision and
   light). Bottles shown large, lit like jewellery.
-- Round 2 (16 Nov 2026), two directions on review (`sitefloor-internal`, branch `design/fragrance`, `screens-2/`):
-  B **Verrière**, a heritage house (notes drawn around the bottle, the engraving desk); C **Lovage**, a new brand in
-  launch mode (waitlist, pre-order, the organ, the founder's note). Round 1's A (Merriott) is dropped.
+- Round 3 (16 Nov 2026), one direction on review (`sitefloor-internal`, branch `design/fragrance`, `screens-3/`):
+  B **Verrière**. Launch mode is shown as a state of the same page in B's look (not a separate look); C (Lovage) and
+  round 1's A (Merriott) are dropped.
 - The kit serves both a heritage house and a new brand launching (see "Launch mode").
 
 ### Features by plan (owner's decisions, 16 Nov 2026)
