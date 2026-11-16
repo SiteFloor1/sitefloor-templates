@@ -368,7 +368,7 @@ footer p { max-width: 110ch; }
       <div class="bill" aria-labelledby="h-bill">
         <h3 id="h-bill">The bill for the home above</h3>
         <table><tbody data-bill><tr><th scope="row">Kitchen and living</th><td>45 min</td></tr><tr><th scope="row">Hall and stairs</th><td>10 min</td></tr><tr><th scope="row">Bedroom one</th><td>20 min</td></tr><tr><th scope="row">Bedroom two</th><td>15 min</td></tr><tr><th scope="row">Bathroom</th><td>30 min</td></tr><tr><th scope="row">Bathroom two</th><td>25 min</td></tr><tr class="sum"><th scope="row">Time on site</th><td>2 h 25</td></tr><tr><th scope="row">Rate, fortnightly</th><td>£25 an hour</td></tr><tr class="price"><th scope="row">Price</th><td>£60</td></tr></tbody></table>
-        <p class="msg" data-msg><span>WhatsApp, written for you</span>Hello Linnet, could I book a fortnightly clean? A two-bedroom home with two bathrooms: 2 h 25, £60.</p>
+        <p class="msg" data-msg><span>WhatsApp, written for you</span>Hello Linnet. A two-bedroom home with two bathrooms, fortnightly: 2 h 25, £60. When could you start?</p>
       </div>
     </div>
   </div>
@@ -629,7 +629,7 @@ footer p { max-width: 110ch; }
       + (v.charged > v.work ? `<tr><th scope="row">Shortest visit</th><td>${hm(v.charged)}</td></tr>` : "")
       + `<tr><th scope="row">Rate, ${c.freq === "once" ? "one deep clean" : c.freq === "week" ? "weekly" : "fortnightly"}</th><td>${gbp(v.rate)} an hour</td></tr>`
       + `<tr class="price"><th scope="row">Price</th><td>${gbp(v.price)}</td></tr>`;
-    msg.innerHTML = `<span>WhatsApp, written for you</span>Hello Linnet, could I book ${often[c.freq].toLowerCase()}? A ${homeWords(c)}: ${hm(v.work)}, ${gbp(v.price)}.`;
+    msg.innerHTML = `<span>WhatsApp, written for you</span>Hello Linnet. A ${homeWords(c)}, ${({ week: "weekly", fortnight: "fortnightly", once: "one deep clean" })[c.freq]}: ${hm(v.work)}, ${gbp(v.price)}. When could you start?`;
     live.textContent = `${hm(v.work)}, ${gbp(v.price)}.`;
     clockEl.textContent = clock(S.start);
     document.querySelector("[data-done]").textContent = clock(S.start + v.work);
