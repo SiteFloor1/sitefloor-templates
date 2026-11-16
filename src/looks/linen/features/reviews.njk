@@ -1,0 +1,12 @@
+{#- Linen: reviews as a ruled run of quotations, the reviewer and month beneath; a demo's marked as samples. -#}
+{%- set sec = site.sections.reviews %}
+<section id="reviews" class="lr" data-feature="reviews"{{ "reviews" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="lr-list">
+    {%- for r in site.reviews.items %}
+    <figure class="lr-item"><blockquote><p>{{ r.text }}</p></blockquote>
+      <figcaption>{{ r.author }}, {{ r.date | monthYear }} <span class="st lr-st"><span aria-hidden="true">{{ r.rating | stars }}</span><span class="sr-only">Rated {{ r.rating }} out of 5</span></span></figcaption></figure>
+    {%- endfor %}
+  </div>
+  {%- if site.reviews.source == "sample" %}<p class="lr-note">Sample reviews for the demo. On a trainer's own site, their real Google reviews, with name and date.</p>{% endif %}
+</div></section>

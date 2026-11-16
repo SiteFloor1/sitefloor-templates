@@ -1,0 +1,18 @@
+{#- Client stories (PT-4): clients in their own words, large; who, what they train for and since when. Each published
+    with consent (when and how it was given is recorded in site.json). No photographs, no numbers. A demo's are marked
+    as samples. -#}
+{%- set st = site.stories %}
+{%- set ph = { title: st.title, intro: st.intro } %}
+{% include "kits/trainer/partials/page-head.njk" %}
+<section class="tst" data-feature="trainer-stories" aria-label="{{ st.title | plain }}"><div class="wrap">
+  {%- if st.source == "sample" %}<p class="tst-note">Sample stories for the demo. On a trainer's own site, their clients' own words, each published with written consent.</p>{% endif %}
+  <div class="tst-list">
+    {%- for x in st.items %}
+    <figure class="tst-item">
+      <blockquote>{% for para in x.words %}<p>{{ para }}</p>{% endfor %}</blockquote>
+      <figcaption><b>{{ x.name }}</b>{% if x.programme %}{% set pg = site | programmeOf(x.programme) %}{% if pg %} · {% if 'trainer-programmes' | enabled %}<a href="{{ ('programme-' + pg.id) | href }}">{{ pg.name }}</a>{% else %}{{ pg.name }}{% endif %}{% endif %}{% endif %}{% if x.since %} · training since {{ x.since }}{% endif %}{% if st.source == "client" %}<small>Shared with {{ x.name }}'s consent</small>{% endif %}</figcaption>
+    </figure>
+    {%- endfor %}
+  </div>
+</div></section>
+{%- set hostPage = "trainer-stories" %}{% include "kits/trainer/partials/hosted.njk" %}

@@ -1,8 +1,8 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { countWord, weekdayIndex, weekStart, hoursOf, diaryWeek, diaryFromCsv, firstMonth, sessionsIcs, utcStamp } from "../../src/kits/trainer/lib/trainer.js";
-import { HOME_PARTS, homeOrderProblem } from "../../src/kits/trainer/home.js";
+import { countWord, weekdayIndex, weekStart, hoursOf, diaryWeek, diaryFromCsv, firstMonth, sessionsIcs, utcStamp, weekPattern, sampleWeek, districtOf, coverageFor, timeline, blockRow } from "../../src/kits/trainer/lib/trainer.js";
+import { HOME_PARTS, HOSTS, homeOrderProblem } from "../../src/kits/trainer/home.js";
 import { validateSite } from "../../src/core/lib/config.js";
 import { loadCatalog } from "../../scripts/lib/catalog.js";
 
@@ -95,4 +95,74 @@ test("home order and site checks", () => {
   assert.match(errorsFor((s) => { s.qualifications.items[0].awardingBody = ""; }), /awardingBody/);
   assert.match(errorsFor((s) => { s.qualifications.registerUrl = "http://example.com"; }), /registerUrl/);
   assert.match(errorsFor((s) => { s.diary.source = "simulated"; }, client), /simulated/);
+});
+
+test("the goal finder's sample week spreads sessions from Monday and cycles the programme's sessions", () => {
+  assert.deepEqual(weekPattern(0, 2), [0, 3]);
+  assert.deepEqual(weekPattern(5, 2), [5, 1]); // Saturday, then Tuesday
+  assert.deepEqual(weekPattern(4, 3), [4, 0, 1]); // a Sunday moves to Monday
+  assert.deepEqual(sampleWeek(3, ["A", "B"]).map((x) => `${x.day} ${x.focus}`), ["Monday A", "Wednesday B", "Friday A"]);
+});
+
+test("coverage answers from the trainer's own districts", () => {
+  assert.equal(districtOf("sw10 9aa"), "SW10");
+  assert.equal(districtOf("W8"), "W8");
+  assert.equal(districtOf("EC1A1BB"), "EC1A");
+  assert.equal(districtOf("hello"), null);
+  const areas = [{ id: "home", label: "Home", districts: ["SW3", "SW10"] }, { id: "park", label: "Park", districts: ["SW3"] }];
+  assert.deepEqual(coverageFor("SW10 9AA", areas)?.areas.map((a) => a.covered), [true, false]);
+  assert.deepEqual(coverageFor("SW19", areas)?.areas.map((a) => a.covered), [false, false]);
+  assert.equal(coverageFor("", areas), null);
+});
+
+test("twelve weeks: same weekdays, bank holidays and closed days left out, phases by week", () => {
+  const phases = [{ from: 1, to: 4, name: "F" }, { from: 5, to: 8, name: "B" }, { from: 9, to: 12, name: "O" }];
+  const t = timeline({ start: "2026-12-21", perWeek: 2, postcode: "SW3 2QF", closed: ["2026-12-24"], phases });
+  assert.equal(t.weeks.length, 12);
+  assert.deepEqual(t.weeks[0].sessions, [{ date: "2026-12-21", holiday: false }, { date: "2026-12-24", holiday: true }]);
+  assert.ok(t.holidays.includes("2026-12-28")); // Boxing Day falls on a Saturday in 2026; the substitute is Monday 28th
+  assert.equal(t.booked.length, 24 - t.holidays.length);
+  assert.equal(t.weeks[4].phase, "B");
+  assert.equal(t.finish, t.booked[t.booked.length - 1]);
+  // Scotland's own holidays come from the postcode.
+  const s = timeline({ start: "2027-01-01", perWeek: 1, postcode: "EH1 1AA", phases });
+  assert.ok(s.holidays.includes("2027-01-01"));
+});
+
+test("a block's price per session is worked out from the trainer's own totals", () => {
+  assert.deepEqual(blockRow({ sessions: 10, price: 1100, duo: 1500 }), { sessions: 10, total: 1100, each: 110, duoTotal: 1500, duoEach: 75 });
+  assert.equal(blockRow({ sessions: 3, price: 350 }).each, 117);
+  assert.equal(blockRow({ sessions: 1, price: 120 }).duoEach, null);
+});
+
+test("hosted sections leave the home page only for a page that exists in the kit", () => {
+  for (const [part, page] of Object.entries(HOSTS)) {
+    assert.ok(part in HOME_PARTS, part);
+    assert.ok(page.startsWith("trainer-") || ["team", "plan-visit"].includes(page), page);
+  }
+});
+
+test("programmes rest on qualifications the trainer holds and never treat", () => {
+  assert.match(errorsFor((s) => { s.programmes.items[1].qualification = "Level 4 Certificate in Something Else"; }), /programmes\.items\[1\]\.qualification: .*only what the trainer holds/);
+  assert.match(errorsFor((s) => { delete s.programmes.items[1].care; }), /programmes\.items\[1\]\.care/);
+  assert.match(errorsFor((s) => { s.programmes.items[2].line = "Sessions that fix back pain."; }), /never say the sessions treat, fix or cure/);
+  assert.match(errorsFor((s) => { s.programmes.items[0].text.push("Lose 5 kg in a month."); }), /promise of results/);
+  assert.match(errorsFor((s) => { s.goalFinder.goals[0].programme = "nope"; }), /goalFinder\.goals\[0\]\.programme/);
+  assert.match(errorsFor((s) => { s.nutrition.qualification = "A diploma I don't have"; }), /nutrition\.qualification/);
+});
+
+test("client stories need consent; samples stay on demos", () => {
+  assert.match(errorsFor((s) => { s.stories.source = "sample"; }, client), /sample stories are for demos/);
+  assert.match(errorsFor((s) => { delete s.stories.items[0].consent; }, client), /stories\.items\[0\]\.consent/);
+  assert.match(errorsFor((s) => { s.stories.items[0].words = ["Results in 6 weeks, guaranteed."]; }, client), /promise of results/);
+});
+
+test("prices, phases, packages and coverage are checked", () => {
+  assert.match(errorsFor((s) => { s.pricesPage.blocks[1].payLink = "https://pay.example.com/x"; }), /Stripe Payment Link/);
+  assert.match(errorsFor((s) => { s.pricesPage.blocks.reverse(); }), /smallest block first/);
+  assert.match(errorsFor((s) => { s.timeline.phases[1].from = 6; }), /following on from the phase before/);
+  assert.match(errorsFor((s) => { s.timeline.phases.pop(); }), /cover all twelve weeks/);
+  assert.match(errorsFor((s) => { s.packages.items[0].people = 1; }), /packages\.items\[0\]\.people/);
+  assert.match(errorsFor((s) => { s.coverage.areas[0].districts = ["Chelsea"]; }), /postcode districts/);
+  assert.match(errorsFor((s) => { s.journal.articles[1].slug = s.journal.articles[0].slug; }), /used twice/);
 });

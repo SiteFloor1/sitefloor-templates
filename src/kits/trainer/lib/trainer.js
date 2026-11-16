@@ -16,6 +16,7 @@
 import { parseCsv, parseSheetTime } from "../../../core/lib/sheet.js";
 import { isTime, toMinutes, wallTimeToUtc } from "../../../core/lib/hours.js";
 import { addDaysYmd, isYmd } from "../../../core/lib/diary.js";
+import { bankHolidays, regionFromPostcode } from "../../../core/lib/bank-holidays.js";
 
 /** @typedef {{ date: string, time: string }} Hour an open hour: "YYYY-MM-DD", "HH:MM" */
 /** @typedef {{ ok: true, open: Hour[], updatedAt: number } | { ok: false }} Diary */
@@ -115,9 +116,7 @@ export function diaryFromCsv(csv, nowMs, tz, staleAfterHours) {
  * @param {boolean} away true when the trainer comes to the client (travel added if the trainer charges it)
  */
 export function firstMonth(first, perWeek, prices, away) {
-  const wd = weekdayIndex(first.date);
-  const gaps = { 1: [0], 2: [0, 3], 3: [0, 2, 4] }[/** @type {1|2|3} */ (perWeek)] ?? [0];
-  const pattern = gaps.map((g) => { const d = (wd + g) % 7; return d === 6 ? 0 : d; });
+  const pattern = weekPattern(weekdayIndex(first.date), perWeek);
   const dates = [];
   for (let i = 1; i < 28; i++) {
     const date = addDaysYmd(first.date, i);
@@ -160,4 +159,90 @@ export function sessionsIcs(o) {
     ]),
     "END:VCALENDAR",
   ].join("\r\n") + "\r\n";
+}
+
+/**
+ * The weekdays (Mon = 0) of n sessions a week, starting on weekday `wd` and spaced out (twice: three days apart;
+ * three times: every other day). A Sunday moves to the Monday.
+ * @param {number} wd @param {number} perWeek @returns {number[]}
+ */
+export function weekPattern(wd, perWeek) {
+  const gaps = { 1: [0], 2: [0, 3], 3: [0, 2, 4] }[/** @type {1|2|3} */ (perWeek)] ?? [0];
+  return [...new Set(gaps.map((g) => { const d = (wd + g) % 7; return d === 6 ? 0 : d; }))];
+}
+
+const DAY_NAMES = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+
+/**
+ * The goal finder's sample week: n sessions from Monday, spaced out, each with the programme's session focus in turn.
+ * @param {number} perWeek @param {string[]} focuses @returns {{ day: string, focus: string }[]}
+ */
+export function sampleWeek(perWeek, focuses) {
+  return weekPattern(0, perWeek).map((d, i) => ({ day: DAY_NAMES[d], focus: focuses.length ? focuses[i % focuses.length] : "" }));
+}
+
+/**
+ * A UK postcode's district (the part before the space: "SW3" from "SW3 2QF"), from a full postcode or a district on
+ * its own; null if it isn't one.
+ * @param {string} postcode @returns {string|null}
+ */
+export function districtOf(postcode) {
+  const s = String(postcode ?? "").toUpperCase().replace(/\s+/g, "");
+  const full = s.match(/^([A-Z]{1,2}\d[A-Z\d]?)(\d[A-Z]{2})$/);
+  if (full) return full[1];
+  return /^[A-Z]{1,2}\d[A-Z\d]?$/.test(s) ? s : null;
+}
+
+/**
+ * Which of the trainer's travelling places reach a postcode: each area lists the districts it covers, in the trainer's
+ * own list. Null for something that isn't a postcode.
+ * @param {string} postcode @param {{ id: string, label: string, districts: string[] }[]} areas
+ * @returns {{ district: string, areas: { id: string, label: string, covered: boolean }[] } | null}
+ */
+export function coverageFor(postcode, areas) {
+  const district = districtOf(postcode);
+  if (!district) return null;
+  return { district, areas: areas.map((a) => ({ id: a.id, label: a.label, covered: a.districts.map((x) => x.toUpperCase()).includes(district) })) };
+}
+
+/**
+ * Twelve weeks (or `weeks`) laid out from a first session: n sessions a week on the same weekdays at the same time.
+ * Bank holidays (from the studio's postcode) and days the studio is closed are marked and not booked. Each week carries the phase the trainer names
+ * for it. Nothing about outcomes: only dates.
+ * @param {{ start: string, perWeek: number, weeks?: number, postcode: string, closed?: string[], phases: { from: number, to: number, name: string }[] }} o
+ * @returns {{ weeks: { n: number, phase: string, sessions: { date: string, holiday: boolean }[] }[], booked: string[], holidays: string[], finish: string }}
+ */
+export function timeline(o) {
+  const total = o.weeks ?? 12;
+  const pattern = weekPattern(weekdayIndex(o.start), o.perWeek);
+  const region = regionFromPostcode(o.postcode);
+  const y = Number(o.start.slice(0, 4));
+  const hols = new Set([...bankHolidays(y, region), ...bankHolidays(y + 1, region), ...(o.closed ?? [])]);
+  /** @type {{ n: number, phase: string, sessions: { date: string, holiday: boolean }[] }[]} */
+  const weeks = [];
+  for (let w = 0; w < total; w++) {
+    const phase = o.phases.find((p) => w + 1 >= p.from && w + 1 <= p.to)?.name ?? "";
+    const sessions = [];
+    for (let d = 0; d < 7; d++) {
+      const date = addDaysYmd(o.start, w * 7 + d);
+      if (pattern.includes(weekdayIndex(date))) sessions.push({ date, holiday: hols.has(date) });
+    }
+    weeks.push({ n: w + 1, phase, sessions });
+  }
+  const all = weeks.flatMap((w) => w.sessions);
+  const booked = all.filter((x) => !x.holiday).map((x) => x.date);
+  return { weeks, booked, holidays: all.filter((x) => x.holiday).map((x) => x.date), finish: booked[booked.length - 1] ?? o.start };
+}
+
+/**
+ * A block of sessions on the price list: what each session works out at, and per person when two train together.
+ * Whole pounds, rounded to the nearest pound (the trainer's own totals are never changed).
+ * @param {{ sessions: number, price: number, duo?: number }} b
+ * @returns {{ sessions: number, total: number, each: number, duoTotal: number|null, duoEach: number|null }}
+ */
+export function blockRow(b) {
+  return {
+    sessions: b.sessions, total: b.price, each: Math.round(b.price / b.sessions),
+    duoTotal: b.duo ?? null, duoEach: b.duo ? Math.round(b.duo / b.sessions / 2) : null,
+  };
 }

@@ -1,16 +1,18 @@
-{#- Linen header: the key-tag M and the studio's name on the left; the pages, then "Reserve an hour", on the right.
-    On phones, "Menu" opens the pages and the phone bar keeps Reserve in reach. -#}
+{#- Linen header: the key-tag M and the studio's name on the left; the first five pages, then "Reserve an hour", on the
+    right. With more pages than that, "Index" opens every page, like the contents of the book; on phones, "Menu"
+    does the same and the phone bar keeps Reserve in reach. -#}
 <header class="nav ln-nav"><div class="wrap ln-nav-in">
   <a class="ln-mark" href="{{ 'index' | href }}" aria-label="{{ site.business.name }}, home">
     {%- if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="{{ site.business.name }}" height="30">{% else %}<i aria-hidden="true">{{ site.business.name | first }}</i>{{ site.business.name }}{% endif %}
   </a>
+  {%- set navs = site.nav | navItems(pageId) %}
   <nav class="ln-links" aria-label="Main">
-    {%- for item in site.nav | navItems(pageId) %}
+    {%- for item in navs %}{% if loop.index <= 5 %}
     <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
-    {%- endfor %}
+    {%- endif %}{% endfor %}
   </nav>
   <a class="ln-res" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">Reserve an hour</a>
-  <button class="burger ln-menu" type="button" aria-expanded="false" aria-controls="mnav"><span class="ln-open">Menu</span><span class="ln-close">Close</span></button>
+  <button class="burger ln-menu{% if navs.length > 5 %} ln-menu-all{% endif %}" type="button" aria-expanded="false" aria-controls="mnav"><span class="ln-open">{% if navs.length > 5 %}Index{% else %}Menu{% endif %}</span><span class="ln-close">Close</span></button>
 </div></header>
 <div class="mnav ln-sheet" id="mnav" hidden>
   <nav aria-label="Pages">

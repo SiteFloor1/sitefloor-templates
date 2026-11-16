@@ -1,0 +1,18 @@
+/* Before your session: ruled tick lists, two columns of groups on a wide screen; the cancellation line below. */
+.tcl { border-top: 1px solid var(--line); }
+.tcl-in { display: grid; grid-template-columns: repeat(12, 1fr); gap: 0 24px; align-items: start; }
+.tcl-intro { grid-column: 1 / 5; }
+.tcl h2 { font: 600 clamp(32px, 3.4vw, 50px) / 1.02 var(--font-display); letter-spacing: -.01em; }
+.tcl-lede { margin-top: 14px; max-width: 32ch; color: var(--muted); }
+.tcl-count { margin-top: 18px; color: var(--accent); font-weight: 600; }
+.tcl-groups { grid-column: 6 / 13; display: grid; grid-template-columns: 1fr 1fr; gap: 28px 32px; }
+.tcl-g { border: 0; padding: 0; margin: 0; border-top: 1px solid var(--text); }
+.tcl-g legend { padding: 0; float: left; width: 100%; margin: 12px 0 4px; color: var(--muted); font-style: italic; }
+.tcl-i { clear: both; display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--line); cursor: pointer; min-height: 44px; }
+.tcl-i input { width: 20px; height: 20px; margin-top: 3px; accent-color: var(--accent); flex: none; }
+.tcl-i input:checked + span { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--line-2); }
+.tcl-cancel { grid-column: 1 / -1; padding: 16px 18px; background: var(--paper); }
+@media (max-width: 760px) {
+  .tcl-in { display: block; }
+  .tcl-groups { grid-template-columns: 1fr; margin-top: 24px; }
+}

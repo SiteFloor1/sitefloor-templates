@@ -87,19 +87,58 @@
   },
   "nav": [
     {
-      "label": "The week",
-      "href": "#diary"
+      "label": "Programmes",
+      "page": "programmes",
+      "feature": "trainer-programmes"
     },
     {
-      "label": "Your first month",
-      "href": "#first-month"
+      "label": "Start here",
+      "page": "start",
+      "feature": "trainer-start"
     },
     {
-      "label": "Sessions",
-      "href": "#sessions"
+      "label": "Prices",
+      "page": "prices",
+      "feature": "trainer-prices",
+      "fallback": "#sessions"
     },
     {
-      "label": "Visit",
+      "label": "Coaches",
+      "page": "team",
+      "feature": "team"
+    },
+    {
+      "label": "The studio",
+      "page": "studio",
+      "feature": "trainer-studio"
+    },
+    {
+      "label": "In their words",
+      "page": "results",
+      "feature": "trainer-stories"
+    },
+    {
+      "label": "At home and online",
+      "page": "online",
+      "feature": "trainer-online"
+    },
+    {
+      "label": "Companies and families",
+      "page": "corporate",
+      "feature": "trainer-packages"
+    },
+    {
+      "label": "Food",
+      "page": "nutrition",
+      "feature": "trainer-nutrition"
+    },
+    {
+      "label": "Journal",
+      "page": "journal",
+      "feature": "trainer-journal"
+    },
+    {
+      "label": "Finding us",
       "page": "visit",
       "feature": "plan-visit",
       "fallback": "#visit"
@@ -111,7 +150,27 @@
     "trainer-month",
     "visit",
     "plan-visit",
-    "questions"
+    "questions",
+    "trainer-programmes",
+    "trainer-goal",
+    "trainer-stories",
+    "trainer-coverage",
+    "trainer-checklist",
+    "trainer-start",
+    "trainer-prices",
+    "trainer-timeline",
+    "trainer-packages",
+    "trainer-online",
+    "trainer-nutrition",
+    "trainer-studio",
+    "trainer-journal",
+    "team",
+    "reviews",
+    "gallery",
+    "photo-band",
+    "page-links",
+    "vouchers",
+    "seasonal"
   ],
   "hero": {
     "kicker": "Private training, Chelsea",
@@ -132,6 +191,17 @@
     },
     "visit": {
       "title": "Finding the studio"
+    },
+    "reviews": {
+      "title": "From Google"
+    },
+    "gallery": {
+      "title": "The room",
+      "intro": "On a trainer's own site, these come from their Instagram; here, stock photographs."
+    },
+    "vouchers": {
+      "title": "Give a first month",
+      "intro": "A voucher for any amount, by card or on WhatsApp."
     }
   },
   "messages": {
@@ -285,6 +355,16 @@
         "year": 2021
       },
       {
+        "name": "Level 4 Certificate in Physical Activity and Lifestyle Strategies for Managing Low Back Pain",
+        "awardingBody": "Active IQ",
+        "year": 2024
+      },
+      {
+        "name": "Level 4 Certificate in Advanced Nutrition for Health, Weight Management and Sports Performance",
+        "awardingBody": "YMCA Awards",
+        "year": 2025
+      },
+      {
         "name": "Level 2 Award: Kettlebell Instructing",
         "awardingBody": "Active IQ",
         "year": 2023
@@ -311,8 +391,7 @@
     {
       "topic": "Prices",
       "q": "How do I pay?",
-      "a": "Session by session, after each one, by bank transfer or card. There is no contract.",
-      "home": true
+      "a": "Session by session, after each one, by bank transfer or card. There is no contract."
     },
     {
       "topic": "Prices",
@@ -329,8 +408,7 @@
     {
       "topic": "Results",
       "q": "How soon will I see a difference?",
-      "a": "It depends on you, your week and how often we train. I won't promise a number; we'll agree what to look for and check it every four weeks.",
-      "home": true
+      "a": "It depends on you, your week and how often we train. I won't promise a number; we'll agree what to look for and check it every four weeks."
     },
     {
       "topic": "Where",
@@ -373,5 +451,662 @@
         "paid": "always"
       }
     ]
-  }
+  },
+  "programmes": {
+    "title": "Programmes",
+    "intro": "Four ways I train people. Each only where I hold the qualification for it.",
+    "items": [
+      {
+        "id": "strength",
+        "kind": "strength",
+        "name": "Strength",
+        "line": "Lifting well, at any age, from the first session.",
+        "who": "Anyone who wants to be stronger, whether you've lifted before or not.",
+        "text": [
+          "We start with how you move, then add weight slowly: squats, hinges, presses and carries, each taught until it's yours.",
+          "Every session is written down, so you can see what you lifted last time and what we're aiming at today."
+        ],
+        "sessions": [
+          "Lower body: squat and hinge",
+          "Upper body: press and pull",
+          "Carries, core and conditioning"
+        ],
+        "qualification": "Level 3 Diploma in Personal Training",
+        "photo": {
+          "src": "img/strength.webp",
+          "width": 933,
+          "height": 1400,
+          "alt": "A trainer guiding a woman through a rowing stroke in a bright studio",
+          "focus": "50% 35%"
+        }
+      },
+      {
+        "id": "prenatal",
+        "kind": "prenatal",
+        "name": "Pregnancy and after",
+        "line": "Training through pregnancy and back from it, at your pace.",
+        "who": "Expectant and new mothers, from the first trimester to a year after the birth.",
+        "text": [
+          "Sessions change as you do: what we can keep, what we leave for later, and what helps the weeks after the birth.",
+          "After the birth we start once your GP or midwife says so, usually after the six-week check, with breathing and the deep core first."
+        ],
+        "sessions": [
+          "Strength, adapted week by week",
+          "Breathing, pelvic floor and core",
+          "Mobility and walking"
+        ],
+        "care": "Before we start, and again after the birth, I ask for your GP's or midwife's go-ahead. Tell me how you're feeling at every session.",
+        "qualification": "Level 3 Award: Training Pre and Postnatal Clients",
+        "photo": {
+          "src": "img/prenatal.webp",
+          "width": 933,
+          "height": 1400,
+          "alt": "A pregnant woman sitting cross-legged on a mat in a pale room"
+        }
+      },
+      {
+        "id": "back",
+        "kind": "rehab",
+        "name": "Back to training",
+        "line": "For a sore back, or after an injury, alongside your physio.",
+        "who": "People with low back pain, or coming back to exercise once a physio or GP has signed them off.",
+        "text": [
+          "We work on what you can do, not on what hurts: walking, then strength, built up a little at a time.",
+          "If your physio has given you exercises, bring them. I'll fit our sessions around their plan, not the other way round."
+        ],
+        "sessions": [
+          "Strength for the back and hips",
+          "Walking and conditioning",
+          "Mobility"
+        ],
+        "care": "I work alongside your physio or GP. If something new comes up, I'll ask you to see them before we carry on.",
+        "qualification": "Level 4 Certificate in Physical Activity and Lifestyle Strategies for Managing Low Back Pain",
+        "photo": {
+          "src": "img/rehab.webp",
+          "width": 1400,
+          "height": 935,
+          "alt": "A trainer and a client stretching on a wooden floor in a sunlit room",
+          "focus": "40% 50%"
+        }
+      },
+      {
+        "id": "fitness",
+        "kind": "fitness",
+        "name": "Fitness for a busy week",
+        "line": "Two short, hard sessions a week, and a plan for the days between.",
+        "who": "People with full diaries who want to feel fitter without losing evenings to it.",
+        "text": [
+          "Forty-five minutes of strength and conditioning, at the start or end of your working day.",
+          "Between sessions, a short circuit for the hotel room or the kitchen floor, on your phone."
+        ],
+        "sessions": [
+          "Full body strength",
+          "Intervals on the rower and bike",
+          "Mobility and a walk"
+        ],
+        "photo": {
+          "src": "img/journal-recovery.webp",
+          "width": 1400,
+          "height": 935,
+          "alt": "Two women sitting on a sunlit floor, stretching"
+        }
+      }
+    ]
+  },
+  "goalFinder": {
+    "title": "What are you training for?",
+    "intro": "Four taps. I'll reply with a time.",
+    "goals": [
+      {
+        "id": "stronger",
+        "label": "Getting stronger",
+        "programme": "strength"
+      },
+      {
+        "id": "pregnancy",
+        "label": "Pregnancy or after the birth",
+        "programme": "prenatal"
+      },
+      {
+        "id": "back",
+        "label": "A bad back, or after an injury",
+        "programme": "back"
+      },
+      {
+        "id": "fitter",
+        "label": "Feeling fitter",
+        "programme": "fitness"
+      }
+    ],
+    "levels": [
+      {
+        "id": "new",
+        "label": "Not for years",
+        "text": "We start lighter than you'd think, and add a little each week."
+      },
+      {
+        "id": "some",
+        "label": "Now and then",
+        "text": "We find where you are in the first session and plan from there."
+      },
+      {
+        "id": "regular",
+        "label": "Every week",
+        "text": "Bring what you do now; we'll keep what works."
+      }
+    ],
+    "injury": "Tell me about it before we meet. I may ask for your GP's or physio's go-ahead first.",
+    "message": "Hello, I used your goal finder:"
+  },
+  "stories": {
+    "source": "client",
+    "title": "In their words",
+    "intro": "Clients on what training here is like.",
+    "items": [
+      {
+        "name": "Claire",
+        "programme": "strength",
+        "since": "2024",
+        "words": [
+          "I'd never touched a barbell. The first month was mostly learning to stand properly, and I'm glad it was.",
+          "Now I look forward to Tuesday mornings, which I never thought I'd say about exercise."
+        ],
+        "consent": {
+          "date": "2026-10",
+          "how": "in writing, by email"
+        }
+      },
+      {
+        "name": "Tom",
+        "programme": "back",
+        "since": "2025",
+        "words": [
+          "My physio and Sam spoke before we started. That's what made me trust it.",
+          "We went slower than I wanted. He was right."
+        ],
+        "consent": {
+          "date": "2026-10",
+          "how": "in writing, by email"
+        }
+      },
+      {
+        "name": "Priya",
+        "programme": "prenatal",
+        "since": "2025",
+        "words": [
+          "I trained until thirty-six weeks and started again at ten weeks after. Every session was different, because I was."
+        ],
+        "consent": {
+          "date": "2026-10",
+          "how": "in writing, by email"
+        }
+      }
+    ]
+  },
+  "coverage": {
+    "title": "Do you come to me?",
+    "intro": "To your home in these districts; to the park in good weather.",
+    "areas": [
+      {
+        "id": "home",
+        "label": "At your home",
+        "districts": [
+          "SW1X",
+          "SW1W",
+          "SW3",
+          "SW5",
+          "SW7",
+          "SW10",
+          "W8"
+        ],
+        "note": "Travel adds £20 to a session."
+      },
+      {
+        "id": "park",
+        "label": "In the park",
+        "districts": [
+          "SW1X",
+          "SW3",
+          "SW7",
+          "W8"
+        ],
+        "note": "Hyde Park and Kensington Gardens, March to October."
+      }
+    ],
+    "elsewhere": "Further out, we can train online, wherever you are."
+  },
+  "checklist": {
+    "title": "Before your session",
+    "intro": "The night before, tick through this.",
+    "groups": [
+      {
+        "label": "Wear",
+        "items": [
+          "Clothes you can move in",
+          "Flat trainers, or bare feet in the studio"
+        ]
+      },
+      {
+        "label": "Eat and drink",
+        "items": [
+          "A light meal two hours before, or a snack an hour before",
+          "Water through the day"
+        ]
+      },
+      {
+        "label": "Bring",
+        "items": [
+          "Anything your physio or GP has given you",
+          "Your questionnaire, if you haven't sent it"
+        ]
+      },
+      {
+        "label": "The night before",
+        "items": [
+          "Tell me about any new aches or changes",
+          "Check the time on WhatsApp"
+        ]
+      }
+    ],
+    "cancellation": "Twenty-four hours' notice and there's no charge. Less than that, and the session is charged; I'll always try to move it first."
+  },
+  "startHere": {
+    "title": "Start here",
+    "intro": "What the first session is, and what to bring.",
+    "questionnaire": "Before we train, a short health questionnaire: your health, any injury, any medicine. It's how I know where to start, and when to ask for your GP's go-ahead.",
+    "photo": {
+      "src": "img/first-hour.webp",
+      "width": 1400,
+      "height": 935,
+      "alt": "Two people stretching on a wooden floor in a sunlit room",
+      "focus": "50% 60%"
+    }
+  },
+  "pricesPage": {
+    "title": "Prices",
+    "intro": "One price for the hour, wherever we train. Blocks come down a little.",
+    "blocks": [
+      {
+        "sessions": 1,
+        "price": 120,
+        "duo": 160
+      },
+      {
+        "sessions": 5,
+        "price": 575,
+        "duo": 775,
+        "useWithin": "8 weeks"
+      },
+      {
+        "sessions": 10,
+        "price": 1100,
+        "duo": 1500,
+        "useWithin": "16 weeks",
+        "payLink": "https://buy.stripe.com/test_00aBcD"
+      },
+      {
+        "sessions": 20,
+        "price": 2100,
+        "duo": 2900,
+        "useWithin": "32 weeks"
+      }
+    ],
+    "note": "At your home, add £20 a session for travel. Blocks are paid before the first session."
+  },
+  "timeline": {
+    "title": "Your twelve weeks",
+    "intro": "Choose how often and when to start. Every session, dated.",
+    "message": "Hello, I'd like to plan twelve weeks:",
+    "phases": [
+      {
+        "from": 1,
+        "to": 4,
+        "name": "Foundations",
+        "text": "Learning the lifts, lighter than you'd expect."
+      },
+      {
+        "from": 5,
+        "to": 8,
+        "name": "Building",
+        "text": "More weight, written down each week."
+      },
+      {
+        "from": 9,
+        "to": 12,
+        "name": "Your own",
+        "text": "The plan you'll keep, with or without me."
+      }
+    ]
+  },
+  "packages": {
+    "title": "Companies and families",
+    "intro": "For a team at work, or two generations at home.",
+    "photo": {
+      "src": "img/corporate.webp",
+      "width": 1400,
+      "height": 934,
+      "alt": "A bright building gym along a wall of windows"
+    },
+    "invoice": "Companies are invoiced monthly. Families pay as they go.",
+    "message": "Hello, I'd like to ask about a package:",
+    "items": [
+      {
+        "id": "office",
+        "kind": "corporate",
+        "name": "At your office",
+        "who": "A lunchtime or early session in your building's gym or a meeting room.",
+        "people": 8,
+        "includes": [
+          "Mats, bands and kettlebells brought in",
+          "A short questionnaire for each person",
+          "The same day and time each week"
+        ],
+        "priceFrom": 180,
+        "unit": "a session for the group"
+      },
+      {
+        "id": "team-studio",
+        "kind": "corporate",
+        "name": "The studio, for a team",
+        "who": "The studio to yourselves, before or after work.",
+        "people": 6,
+        "includes": [
+          "Showers and towels",
+          "A session planned around the group"
+        ],
+        "priceFrom": 220,
+        "unit": "a session for the group"
+      },
+      {
+        "id": "family",
+        "kind": "family",
+        "name": "At home, together",
+        "who": "Parents, partners, a teenager of sixteen or over with a parent's consent.",
+        "people": 4,
+        "includes": [
+          "One plan, adjusted for each of you",
+          "Everything brought to your home"
+        ],
+        "priceFrom": 200,
+        "unit": "an hour for the family"
+      }
+    ]
+  },
+  "online": {
+    "title": "At home and online",
+    "intro": "The same sessions, in your own room or on a screen.",
+    "photo": {
+      "src": "img/online.webp",
+      "width": 1100,
+      "height": 734,
+      "alt": "A woman exercising on a mat in her living room, a laptop open beside her"
+    },
+    "message": "Hello, I'd like to ask about training at home or online.",
+    "home": {
+      "title": "At your home",
+      "text": "I bring the kit. You need a clear space about the size of a mat.",
+      "items": [
+        "Mats, bands, dumbbells and a kettlebell",
+        "The same plan as in the studio",
+        "Travel included in the price"
+      ],
+      "price": 140,
+      "unit": "an hour"
+    },
+    "remote": {
+      "title": "Online",
+      "text": "A plan written for you, a live call each week, and a check-in by message.",
+      "items": [
+        "Your plan in a shared note, updated weekly",
+        "One live forty-minute session a week",
+        "Videos of each new exercise"
+      ],
+      "price": 260,
+      "unit": "a month"
+    }
+  },
+  "nutrition": {
+    "title": "Food",
+    "intro": "Eating to train well. Nothing more complicated than that.",
+    "photo": {
+      "src": "img/nutrition.webp",
+      "width": 1251,
+      "height": 1400,
+      "alt": "Tea poured onto a wooden tray in morning light"
+    },
+    "approach": [
+      "I'll talk about food the way it affects training: what to eat before a session, how much protein helps, how to eat well in a busy week.",
+      "I don't do diets, meal plans for a medical condition, or anything that needs a dietitian."
+    ],
+    "does": [
+      "What to eat around sessions",
+      "Protein, water and sleep",
+      "Simple meals for a busy week"
+    ],
+    "doesNot": [
+      "Meal plans for medical conditions",
+      "Supplements",
+      "Diets"
+    ],
+    "referOn": "For anything medical, I'll point you to a registered dietitian or your GP.",
+    "qualification": "Level 4 Certificate in Advanced Nutrition for Health, Weight Management and Sports Performance"
+  },
+  "studio": {
+    "title": "The studio",
+    "intro": "One room off the King's Road. One client at a time.",
+    "photo": {
+      "src": "img/studio.webp",
+      "width": 1100,
+      "height": 825,
+      "alt": "The studio: oak floor, racks, plants and soft lights"
+    },
+    "room": {
+      "src": "img/studio-room.webp",
+      "width": 1400,
+      "height": 934,
+      "alt": "A corner of the studio with a rack, a bench and lamps"
+    },
+    "facts": [
+      {
+        "label": "Who's there",
+        "value": "You and your trainer. No one else books the room at the same time."
+      },
+      {
+        "label": "Showers",
+        "value": "One, with towels and a hairdryer"
+      },
+      {
+        "label": "Getting in",
+        "value": "Step-free from the yard; the shower room is on the same floor"
+      },
+      {
+        "label": "Kit",
+        "value": "Two racks, dumbbells to 40 kg, kettlebells, a rower and a bike"
+      },
+      {
+        "label": "Water",
+        "value": "Filtered, cold, by the door"
+      }
+    ]
+  },
+  "journal": {
+    "title": "Journal",
+    "intro": "Short pieces on training, written between sessions.",
+    "articles": [
+      {
+        "slug": "first-barbell",
+        "title": "Your first barbell",
+        "intro": "Why we start with an empty bar, and stay there longer than you'd like.",
+        "minutes": 4,
+        "photo": {
+          "src": "img/journal-strength.webp",
+          "width": 1100,
+          "height": 825,
+          "alt": "The studio's racks and benches under soft lights"
+        },
+        "body": [
+          "Most people's first barbell session is shorter than they expect. We spend it on how you stand, where the bar sits and how you breathe.",
+          "The empty bar weighs twenty kilos. That's enough to learn on, and enough to get it wrong if we rush.",
+          "Weight goes on once the movement looks the same every time. For some people that's the second week; for others, the fourth. Either is fine."
+        ]
+      },
+      {
+        "slug": "busy-week",
+        "title": "Training in a busy week",
+        "intro": "Two sessions you'll keep beat four you won't.",
+        "minutes": 3,
+        "photo": {
+          "src": "img/journal-week.webp",
+          "width": 619,
+          "height": 1100,
+          "alt": "A laptop, a mat and a resistance band on a wooden floor"
+        },
+        "body": [
+          "When the diary fills up, training is usually the first thing to go. So we plan for the week you'll actually have.",
+          "Two fixed hours, early or late, booked like meetings. Then something short for the days between: ten minutes, no kit."
+        ]
+      },
+      {
+        "slug": "rest-days",
+        "title": "What rest days are for",
+        "intro": "The training happens in the session; the getting stronger happens after.",
+        "minutes": 3,
+        "photo": {
+          "src": "img/journal-recovery.webp",
+          "width": 1400,
+          "height": 935,
+          "alt": "Two women resting on a sunlit floor after stretching"
+        },
+        "body": [
+          "A rest day isn't a day off from the plan. It's part of it.",
+          "Walk, sleep, eat well. If you're sore, move gently; if you're tired for days, tell me and we'll change the week."
+        ]
+      }
+    ]
+  },
+  "staff": [
+    {
+      "name": "Sam",
+      "role": "Founder and trainer",
+      "days": "Mon–Sat",
+      "photo": "img/trainer.webp",
+      "bio": "Trains strength, backs and busy people, one person at a time.",
+      "knownFor": [
+        "Strength",
+        "Back to training",
+        "Early mornings"
+      ]
+    },
+    {
+      "name": "Ruth",
+      "role": "Trainer",
+      "days": "Tue–Fri",
+      "photo": "img/coach-two.webp",
+      "bio": "Trains pregnancy and after, and mobility. Unhurried, precise, and very good at explaining why.",
+      "knownFor": [
+        "Pregnancy and after",
+        "Mobility",
+        "Online"
+      ]
+    }
+  ],
+  "team": {
+    "kicker": "Coaches",
+    "title": "Coaches",
+    "intro": "Two trainers, one room."
+  },
+  "reviews": {
+    "source": "google",
+    "items": [
+      {
+        "text": "Calm, exact, and never once made me feel out of my depth.",
+        "author": "James P.",
+        "rating": 5,
+        "date": "2026-09"
+      }
+    ]
+  },
+  "gallery": {
+    "source": "photos",
+    "photos": [
+      {
+        "src": "img/studio.webp",
+        "width": 1100,
+        "height": 825,
+        "alt": "The studio: oak floor, racks, plants and soft lights",
+        "caption": "The room"
+      },
+      {
+        "src": "img/first-hour.webp",
+        "width": 1400,
+        "height": 935,
+        "alt": "Two people stretching on a wooden floor in a sunlit room",
+        "caption": "A first session"
+      },
+      {
+        "src": "img/studio-room.webp",
+        "width": 1400,
+        "height": 934,
+        "alt": "A corner of the studio with a rack and lamps",
+        "caption": "The rack"
+      }
+    ]
+  },
+  "photoBand": {
+    "src": "img/journal-strength.webp",
+    "width": 1100,
+    "height": 825,
+    "alt": "The studio's racks and benches under soft lights",
+    "kicker": "Before seven",
+    "caption": "The first hour of the day is the quietest. It's also the one people keep."
+  },
+  "pageLinks": [
+    {
+      "page": "programmes",
+      "image": "img/strength.webp",
+      "kicker": "Programmes",
+      "title": "Strength, pregnancy, backs",
+      "cta": "Read"
+    },
+    {
+      "page": "start",
+      "image": "img/first-hour.webp",
+      "kicker": "Start here",
+      "title": "The first session",
+      "cta": "Read"
+    },
+    {
+      "page": "prices",
+      "image": "img/studio.webp",
+      "kicker": "Prices",
+      "title": "Blocks and *twelve weeks*",
+      "cta": "See"
+    }
+  ],
+  "vouchers": {
+    "amounts": [
+      120,
+      575,
+      1100
+    ],
+    "custom": {
+      "min": 50,
+      "max": 2000
+    },
+    "validMonths": 12,
+    "howToBuy": "I reply with a payment link.",
+    "terms": "Towards any session or block. Not exchangeable for cash."
+  },
+  "seasons": [
+    {
+      "name": "Christmas",
+      "from": "2026-12-01",
+      "to": "2027-01-01",
+      "banner": "Closed 25 and 26 December. A first month makes a good present.",
+      "link": {
+        "label": "Vouchers",
+        "href": "/prices#vouchers"
+      }
+    }
+  ]
 }

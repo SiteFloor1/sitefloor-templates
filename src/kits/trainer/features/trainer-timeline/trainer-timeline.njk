@@ -1,0 +1,34 @@
+{#- Your twelve weeks (PT-6): choose how often and the first session; the twelve weeks lay themselves out under the
+    trainer's phases, every session dated, bank holidays and closed days struck through and left out. The finish
+    date and the cost from the trainer's own prices; every session into a calendar in one file, or the plan on
+    WhatsApp. Without JavaScript: the phases and a message. -#}
+{%- set t = site.timeline %}
+{%- set m = site.firstMonth %}
+{%- set dflt = (m.often | selectattr("default") | first) or m.often[0] %}
+<section class="ttl" id="twelve-weeks" data-feature="trainer-timeline" aria-labelledby="ttl-h"{{ 'trainer-timeline' | tierAttr | safe }}><div class="wrap">
+  <div class="ttl-head">
+    <h2 id="ttl-h">{{ t.title }}</h2>
+    {%- if t.intro %}<p class="ttl-lede">{{ t.intro }}</p>{% endif %}
+  </div>
+  <div class="ttl-ctl" data-js-only>
+    <div class="ttl-q"><span class="ttl-k" id="ttl-n-k">How often</span><div class="ttl-opt" role="group" aria-labelledby="ttl-n-k" data-ttl-n>
+      {%- for o in m.often %}<button type="button" data-n="{{ o.perWeek }}" aria-pressed="{{ 'true' if o.perWeek == dflt.perWeek else 'false' }}">{{ o.label }}</button>{% endfor %}</div></div>
+    <div class="ttl-q"><label class="ttl-k" for="ttl-date">First session</label><input id="ttl-date" type="date" data-ttl-date></div>
+    <div class="ttl-q"><label class="ttl-k" for="ttl-time">At</label><select id="ttl-time" data-ttl-time>{% for h in site.diary | diaryHours %}<option value="{{ h }}"{% if h == "07:00" %} selected{% endif %}>{{ h }}</option>{% endfor %}</select></div>
+  </div>
+  <div class="ttl-board">
+    <ol class="ttl-phases" aria-label="The phases">
+      {%- for p in t.phases %}<li style="grid-column:{{ p.from }} / {{ p.to + 1 }}"><b>{{ p.name }}</b><span>Weeks {{ p.from }}–{{ p.to }}</span><p>{{ p.text }}</p></li>{% endfor %}
+    </ol>
+    <ol class="ttl-weeks" data-ttl-weeks aria-label="The twelve weeks" data-js-only>
+      {%- for n in range(1, 13) %}<li><span class="ttl-wn">Week {{ n }}</span><ul data-ttl-week="{{ n }}"></ul></li>{% endfor %}
+    </ol>
+  </div>
+  <div class="ttl-foot">
+    <p class="ttl-sum" data-ttl-sum aria-live="polite"></p>
+    <div class="ttl-acts">
+      <button type="button" class="ttl-ics" data-ttl-ics hidden>Save every session to my calendar</button>
+      <a class="ttl-go" data-ttl-go href="{{ t.message | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ t.message }}"{% endif %} target="_blank" rel="noopener">Send this plan</a>
+    </div>
+  </div>
+</div></section>

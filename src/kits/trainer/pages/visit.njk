@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: visit
+permalink: visit.html
+feature: plan-visit
+eleventyComputed:
+  title: "{{ site.visitInfo.title | plain }}"
+  description: "Finding {{ site.business.name }}, {{ site.location.streetAddress }}: getting here, parking, hours and questions before a first session."
+---
+{% include "features/plan-visit/plan-visit.njk" %}

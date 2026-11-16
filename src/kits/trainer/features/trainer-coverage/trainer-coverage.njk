@@ -1,0 +1,20 @@
+{#- Do you come to me? (PT-5): type a postcode; the trainer's own list of districts answers for each way they travel.
+    Every list is printed too, so the answer is there without JavaScript. -#}
+{%- set c = site.coverage %}
+<section class="tcv" id="coverage" data-feature="trainer-coverage" aria-labelledby="tcv-h"{{ 'trainer-coverage' | tierAttr | safe }}><div class="wrap tcv-in">
+  <div class="tcv-intro">
+    <h2 id="tcv-h">{{ c.title }}</h2>
+    {%- if c.intro %}<p class="tcv-lede">{{ c.intro }}</p>{% endif %}
+  </div>
+  <div class="tcv-box">
+    <form class="tcv-form" data-tcv-form data-js-only>
+      <label for="tcv-pc">Your postcode</label>
+      <div class="tcv-row"><input id="tcv-pc" type="text" inputmode="text" autocomplete="postal-code" autocapitalize="characters" spellcheck="false" maxlength="8" placeholder="SW10 9AA" data-tcv-pc><button type="submit">Check</button></div>
+      <p class="tcv-out" data-tcv-out aria-live="polite"></p>
+    </form>
+    <dl class="tcv-areas">
+      {%- for a in c.areas %}<div data-tcv-area="{{ a.id }}"><dt>{{ a.label }}</dt><dd>{{ a.districts | join(" · ") }}{% if a.note %}<small>{{ a.note }}</small>{% endif %}</dd></div>{% endfor %}
+    </dl>
+    <p class="tcv-else">{{ c.elsewhere }}</p>
+  </div>
+</div></section>

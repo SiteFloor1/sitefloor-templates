@@ -5,7 +5,11 @@
  *  - qualifications only with the awarding body and year; a register link only to the trainer's own entry (https);
  *  - no weight-loss figures, dress sizes, guarantees or timed results anywhere in the trainer's copy;
  *  - live data from the trainer's sheet on client sites (simulated data is for demos only);
- *  - prices as whole pounds, the first month's pattern 1–3 sessions a week.
+ *  - prices as whole pounds, the first month's pattern 1–3 sessions a week;
+ *  - programmes that need a qualification (pregnancy, injury) name one the trainer holds, and say who they work
+ *    alongside; nothing "treats", "fixes" or "cures";
+ *  - client stories only in the client's own words, with consent recorded (demos show marked samples only);
+ *  - payment links only to the trainer's own Stripe Payment Links.
  */
 import { isTime, toMinutes } from "../../core/lib/hours.js";
 import { WEEKDAYS } from "./lib/trainer.js";
@@ -18,6 +22,10 @@ const isObj = (v) => v !== null && typeof v === "object" && !Array.isArray(v);
 const isStr = (v) => typeof v === "string" && v.trim().length > 0;
 const ID = /^[a-z0-9-]{1,40}$/;
 const POUNDS = (/** @type {any} */ v) => Number.isInteger(v) && v >= 0 && v <= 100000;
+const SLUG = /^[a-z0-9]+(-[a-z0-9]+)*$/;
+const STRIPE = /^https:\/\/(buy|donate)\.stripe\.com\/[A-Za-z0-9_-]+$/;
+/** A trainer trains alongside a physio or GP; the site never says it treats anything. */
+const TREATS = /\b(treat(s|ing|ment)?|cures?|fix(es|ing)?|heals?|rehabilitates?|diagnos\w*)\b/i;
 
 /** Words a trainer's site never uses: promised weight loss, sizes, guarantees, timed results. */
 const PROMISES = [
@@ -198,6 +206,264 @@ function checkSessions(s, err) {
   });
 }
 
+/** A page's own heading and line. @param {Report} err @param {string} at @param {any} o */
+function pageHead(err, at, o) { text(err, `${at}.title`, o?.title); if (o?.intro !== undefined) text(err, `${at}.intro`, o.intro); }
+
+/** Lines of text. @param {Report} err @param {string} path @param {any} l @param {string} what */
+function lines(err, path, l, what) { if (list(err, path, l, what)) l.forEach((/** @type {any} */ x, /** @type {number} */ i) => text(err, `${path}[${i}]`, x)); }
+
+/** The name of a qualification the trainer holds. @param {any} site @param {Report} err @param {string} path @param {any} name */
+function held(site, err, path, name) {
+  const names = (site.qualifications?.items ?? []).map((/** @type {any} */ q) => q?.name);
+  if (!isStr(name)) err(path, "the qualification this rests on, as named in qualifications.items");
+  else if (!names.includes(name)) err(path, `"${name}" isn't in qualifications.items; only what the trainer holds`);
+}
+
+const KINDS = ["strength", "fitness", "prenatal", "rehab", "older", "event", "other"];
+
+/** One programme. @param {any} site @param {any} x @param {string} at @param {Report} err @param {Exists} exists */
+function checkProgramme(site, x, at, err, exists) {
+  onlyKeys(x, ["id", "kind", "name", "line", "who", "text", "sessions", "care", "qualification", "photo"], at, err);
+  if (!KINDS.includes(x?.kind)) err(`${at}.kind`, KINDS.join(", "));
+  for (const k of ["name", "line", "who"]) text(err, `${at}.${k}`, x?.[k]);
+  lines(err, `${at}.text`, x?.text, "paragraph");
+  lines(err, `${at}.sessions`, x?.sessions, "kind of session, in order (\"Lower body strength\")");
+  if (x?.photo !== undefined) photo(err, `${at}.photo`, x.photo, exists);
+  const careful = ["prenatal", "rehab"].includes(x?.kind);
+  if (careful) text(err, `${at}.care`, x?.care);
+  if (careful || x?.qualification !== undefined) held(site, err, `${at}.qualification`, x?.qualification);
+  if (x?.kind === "rehab") noTreating(x, at, err);
+}
+
+/** @param {any} x @param {string} at @param {Report} err */
+function noTreating(x, at, err) {
+  for (const k of ["name", "line", "who", "text"]) if (JSON.stringify(x?.[k] ?? "").match(TREATS)) err(`${at}.${k}`, "a trainer trains alongside a physio or GP; never say the sessions treat, fix or cure");
+}
+
+/** @param {any} site @param {Report} err @param {Exists} exists */
+function checkProgrammes(site, err, exists) {
+  const p = site.programmes;
+  if (!isObj(p)) { err("programmes", "{ title, intro, items }"); return; }
+  onlyKeys(p, ["title", "intro", "items"], "programmes", err);
+  pageHead(err, "programmes", p);
+  if (!list(err, "programmes.items", p.items, "programme: { id, kind, name, line, who, text, sessions }")) return;
+  ids(err, "programmes.items", p.items);
+  p.items.forEach((/** @type {any} */ x, /** @type {number} */ i) => checkProgramme(site, x, `programmes.items[${i}]`, err, exists));
+}
+
+/** PT-3. @param {any} site @param {Report} err */
+function checkGoal(site, err) {
+  const g = site.goalFinder;
+  if (!isObj(g)) { err("goalFinder", "{ title, goals, levels, injury, message }"); return; }
+  onlyKeys(g, ["title", "intro", "goals", "levels", "injury", "message"], "goalFinder", err);
+  pageHead(err, "goalFinder", g);
+  for (const k of ["injury", "message"]) text(err, `goalFinder.${k}`, g[k]);
+  const progs = (site.programmes?.items ?? []).map((/** @type {any} */ x) => x?.id);
+  if (list(err, "goalFinder.goals", g.goals, "goal: { id, label, programme }")) {
+    ids(err, "goalFinder.goals", g.goals);
+    g.goals.forEach((/** @type {any} */ x, /** @type {number} */ i) => {
+      onlyKeys(x, ["id", "label", "programme"], `goalFinder.goals[${i}]`, err);
+      text(err, `goalFinder.goals[${i}].label`, x?.label);
+      if (!progs.includes(x?.programme)) err(`goalFinder.goals[${i}].programme`, `one of programmes.items: ${progs.join(", ")}`);
+    });
+  }
+  if (list(err, "goalFinder.levels", g.levels, "level: { id, label, text }")) {
+    ids(err, "goalFinder.levels", g.levels);
+    g.levels.forEach((/** @type {any} */ x, /** @type {number} */ i) => { onlyKeys(x, ["id", "label", "text"], `goalFinder.levels[${i}]`, err); text(err, `goalFinder.levels[${i}].label`, x?.label); text(err, `goalFinder.levels[${i}].text`, x?.text); });
+  }
+}
+
+/** PT-4: the client's own words, with consent; samples only on demos. @param {any} site @param {Report} err */
+function checkStories(site, err) {
+  const s = site.stories;
+  if (!isObj(s)) { err("stories", "{ source, title, items }"); return; }
+  onlyKeys(s, ["source", "title", "intro", "items"], "stories", err);
+  pageHead(err, "stories", s);
+  if (!["client", "sample"].includes(s.source)) err("stories.source", '"client" (the trainer\'s own clients, with consent) or "sample" (demos only)');
+  if (s.source === "sample" && site.mode !== "demo") err("stories.source", "sample stories are for demos; a client site shows its own clients' words, with consent");
+  if (!list(err, "stories.items", s.items, "story: { name, words, consent }")) return;
+  s.items.forEach((/** @type {any} */ x, /** @type {number} */ i) => {
+    const at = `stories.items[${i}]`;
+    onlyKeys(x, ["name", "programme", "since", "words", "consent"], at, err);
+    text(err, `${at}.name`, x?.name);
+    lines(err, `${at}.words`, x?.words, "paragraph in the client's own words");
+    if (x?.programme !== undefined && !(site.programmes?.items ?? []).some((/** @type {any} */ p) => p?.id === x.programme)) err(`${at}.programme`, "one of programmes.items");
+    if (s.source === "client") {
+      if (!isObj(x?.consent) || !/^\d{4}-\d{2}$/.test(x.consent.date ?? "") || !isStr(x.consent.how)) err(`${at}.consent`, '{ date: "YYYY-MM", how: "in writing" }: when and how this client agreed to be quoted');
+    }
+  });
+}
+
+/** PT-5. @param {any} c @param {Report} err */
+function checkCoverage(c, err) {
+  if (!isObj(c)) { err("coverage", "{ title, areas, elsewhere }"); return; }
+  onlyKeys(c, ["title", "intro", "areas", "elsewhere"], "coverage", err);
+  pageHead(err, "coverage", c);
+  text(err, "coverage.elsewhere", c.elsewhere);
+  if (!list(err, "coverage.areas", c.areas, "area: { id, label, districts }")) return;
+  ids(err, "coverage.areas", c.areas);
+  c.areas.forEach((/** @type {any} */ a, /** @type {number} */ i) => {
+    onlyKeys(a, ["id", "label", "districts", "note"], `coverage.areas[${i}]`, err);
+    text(err, `coverage.areas[${i}].label`, a?.label);
+    if (!Array.isArray(a?.districts) || !a.districts.length || a.districts.some((/** @type {any} */ d) => !/^[A-Z]{1,2}\d[A-Z\d]?$/.test(d))) err(`coverage.areas[${i}].districts`, 'postcode districts, e.g. ["SW3", "SW10", "W8"]');
+  });
+}
+
+/** PT-6. @param {any} t @param {Report} err */
+function checkTimeline(t, err) {
+  if (!isObj(t)) { err("timeline", "{ title, phases, message }"); return; }
+  onlyKeys(t, ["title", "intro", "phases", "message"], "timeline", err);
+  pageHead(err, "timeline", t);
+  text(err, "timeline.message", t.message);
+  if (!list(err, "timeline.phases", t.phases, "phase: { from, to, name, text }")) return;
+  let next = 1;
+  t.phases.forEach((/** @type {any} */ p, /** @type {number} */ i) => {
+    onlyKeys(p, ["from", "to", "name", "text"], `timeline.phases[${i}]`, err);
+    text(err, `timeline.phases[${i}].name`, p?.name);
+    text(err, `timeline.phases[${i}].text`, p?.text);
+    if (p?.from !== next || !Number.isInteger(p?.to) || p.to < p.from || p.to > 12) err(`timeline.phases[${i}]`, `weeks ${next} to n, following on from the phase before, within 12 weeks`);
+    next = (Number.isInteger(p?.to) ? p.to : next) + 1;
+  });
+  if (next !== 13) err("timeline.phases", "the phases cover all twelve weeks");
+}
+
+/** PT-7. @param {any} k @param {Report} err @param {Exists} exists */
+function checkPackages(k, err, exists) {
+  if (!isObj(k)) { err("packages", "{ title, items, message }"); return; }
+  onlyKeys(k, ["title", "intro", "photo", "items", "invoice", "message"], "packages", err);
+  pageHead(err, "packages", k);
+  text(err, "packages.message", k.message);
+  if (k.photo !== undefined) photo(err, "packages.photo", k.photo, exists);
+  if (k.invoice !== undefined) text(err, "packages.invoice", k.invoice);
+  if (!list(err, "packages.items", k.items, "package: { id, kind, name, who, includes, priceFrom, unit }")) return;
+  ids(err, "packages.items", k.items);
+  k.items.forEach((/** @type {any} */ x, /** @type {number} */ i) => {
+    const at = `packages.items[${i}]`;
+    onlyKeys(x, ["id", "kind", "name", "who", "includes", "priceFrom", "unit", "people"], at, err);
+    if (!["corporate", "family"].includes(x?.kind)) err(`${at}.kind`, '"corporate" or "family"');
+    for (const f of ["name", "who", "unit"]) text(err, `${at}.${f}`, x?.[f]);
+    lines(err, `${at}.includes`, x?.includes, "line on what's included");
+    if (!(POUNDS(x?.priceFrom) && x.priceFrom > 0)) err(`${at}.priceFrom`, "whole pounds, the trainer's own price");
+    if (!(Number.isInteger(x?.people) && x.people >= 2 && x.people <= 40)) err(`${at}.people`, "the most people it's for, 2 to 40");
+  });
+}
+
+/** PT-8. @param {any} c @param {Report} err */
+function checkChecklist(c, err) {
+  if (!isObj(c)) { err("checklist", "{ title, groups, cancellation }"); return; }
+  onlyKeys(c, ["title", "intro", "groups", "cancellation"], "checklist", err);
+  pageHead(err, "checklist", c);
+  text(err, "checklist.cancellation", c.cancellation);
+  if (list(err, "checklist.groups", c.groups, "group: { label, items }")) c.groups.forEach((/** @type {any} */ g, /** @type {number} */ i) => { onlyKeys(g, ["label", "items"], `checklist.groups[${i}]`, err); text(err, `checklist.groups[${i}].label`, g?.label); lines(err, `checklist.groups[${i}].items`, g?.items, "thing to do or bring"); });
+}
+
+/** Pages made mostly of the trainer's words. @param {any} site @param {Report} err @param {Exists} exists */
+function checkWordPages(site, err, exists) {
+  const shapes = /** @type {Record<string, string[]>} */ ({
+    startHere: ["title", "intro", "photo", "questionnaire"],
+    online: ["title", "intro", "photo", "home", "remote", "message"],
+    nutrition: ["title", "intro", "photo", "approach", "does", "doesNot", "referOn", "qualification"],
+    studio: ["title", "intro", "photo", "room", "facts"],
+  });
+  for (const [k, keys] of Object.entries(shapes)) {
+    const o = site[k];
+    if (o === undefined) continue;
+    if (!isObj(o)) { err(k, `{ ${keys.join(", ")} }`); continue; }
+    onlyKeys(o, keys, k, err);
+    pageHead(err, k, o);
+    if (o.photo !== undefined) photo(err, `${k}.photo`, o.photo, exists);
+    if (o.room !== undefined) photo(err, `${k}.room`, o.room, exists);
+  }
+  if (isObj(site.startHere)) text(err, "startHere.questionnaire", site.startHere.questionnaire);
+  checkOnline(site.online, err);
+  if (isObj(site.nutrition)) {
+    const n = site.nutrition;
+    lines(err, "nutrition.approach", n.approach, "paragraph");
+    lines(err, "nutrition.does", n.does, "thing the trainer does");
+    lines(err, "nutrition.doesNot", n.doesNot, "thing the trainer leaves to others");
+    text(err, "nutrition.referOn", n.referOn);
+    if (n.qualification !== undefined) held(site, err, "nutrition.qualification", n.qualification);
+  }
+  if (isObj(site.studio) && list(err, "studio.facts", site.studio.facts, "fact: { label, value }")) site.studio.facts.forEach((/** @type {any} */ f, /** @type {number} */ i) => { onlyKeys(f, ["label", "value"], `studio.facts[${i}]`, err); text(err, `studio.facts[${i}].label`, f?.label); text(err, `studio.facts[${i}].value`, f?.value); });
+}
+
+/** @param {any} o @param {Report} err */
+function checkOnline(o, err) {
+  if (!isObj(o)) return;
+  text(err, "online.message", o.message);
+  for (const k of ["home", "remote"]) {
+    const b = o[k];
+    if (!isObj(b)) { err(`online.${k}`, "{ title, text, items, price }"); continue; }
+    onlyKeys(b, ["title", "text", "items", "price", "unit"], `online.${k}`, err);
+    text(err, `online.${k}.title`, b.title);
+    text(err, `online.${k}.text`, b.text);
+    lines(err, `online.${k}.items`, b.items, "line");
+    if (b.price !== undefined && !(POUNDS(b.price) && b.price > 0)) err(`online.${k}.price`, "whole pounds");
+    if (b.price !== undefined) text(err, `online.${k}.unit`, b.unit);
+  }
+}
+
+/** Prices and blocks. @param {any} p @param {Report} err */
+function checkPricesPage(p, err) {
+  if (!isObj(p)) { err("pricesPage", "{ title, blocks }"); return; }
+  onlyKeys(p, ["title", "intro", "blocks", "note"], "pricesPage", err);
+  pageHead(err, "pricesPage", p);
+  if (p.note !== undefined) text(err, "pricesPage.note", p.note);
+  if (!list(err, "pricesPage.blocks", p.blocks, "block: { sessions, price, duo, useWithin, payLink }")) return;
+  p.blocks.forEach((/** @type {any} */ b, /** @type {number} */ i) => checkBlock(b, i, p.blocks, err));
+}
+
+/** @param {any} b @param {number} i @param {any[]} all @param {Report} err */
+function checkBlock(b, i, all, err) {
+  const at = `pricesPage.blocks[${i}]`;
+  const whole = (/** @type {any} */ v) => POUNDS(v) && v > 0;
+  onlyKeys(b, ["sessions", "price", "duo", "useWithin", "payLink"], at, err);
+    if (!(Number.isInteger(b?.sessions) && b.sessions >= 1 && b.sessions <= 50)) err(`${at}.sessions`, "1 to 50");
+    else if (i && b.sessions <= all[i - 1]?.sessions) err(`${at}.sessions`, "smallest block first");
+    if (!whole(b?.price)) err(`${at}.price`, "whole pounds for the whole block");
+    if (b?.duo !== undefined && !whole(b.duo)) err(`${at}.duo`, "whole pounds for the block, for two people");
+    if (b?.useWithin !== undefined) text(err, `${at}.useWithin`, b.useWithin);
+    if (b?.payLink !== undefined && !STRIPE.test(String(b.payLink))) err(`${at}.payLink`, "the trainer's own Stripe Payment Link, https://buy.stripe.com/…");
+}
+
+/** @param {any} j @param {Report} err @param {Exists} exists */
+function checkJournal(j, err, exists) {
+  if (!isObj(j)) { err("journal", "{ title, articles }"); return; }
+  onlyKeys(j, ["title", "intro", "articles"], "journal", err);
+  pageHead(err, "journal", j);
+  if (!list(err, "journal.articles", j.articles, "article: { slug, title, intro, minutes, body }")) return;
+  const seen = new Set();
+  j.articles.forEach((/** @type {any} */ a, /** @type {number} */ i) => {
+    const at = `journal.articles[${i}]`;
+    onlyKeys(a, ["slug", "title", "intro", "minutes", "photo", "body"], at, err);
+    if (!SLUG.test(a?.slug ?? "")) err(`${at}.slug`, "lowercase words and dashes, for the page's address");
+    else if (seen.has(a.slug)) err(`${at}.slug`, "used twice");
+    seen.add(a?.slug);
+    text(err, `${at}.title`, a?.title);
+    text(err, `${at}.intro`, a?.intro);
+    if (!(Number.isInteger(a?.minutes) && a.minutes >= 1 && a.minutes <= 30)) err(`${at}.minutes`, "minutes to read, 1 to 30");
+    if (a?.photo !== undefined) photo(err, `${at}.photo`, a.photo, exists);
+    lines(err, `${at}.body`, a?.body, "paragraph");
+  });
+}
+
+/** Each extra block of settings, only when it's there. @param {any} site @param {Report} err @param {Exists} exists */
+function checkMore(site, err, exists) {
+  if (site.programmes !== undefined) checkProgrammes(site, err, exists);
+  if (site.goalFinder !== undefined) checkGoal(site, err);
+  if (site.stories !== undefined) checkStories(site, err);
+  if (site.coverage !== undefined) checkCoverage(site.coverage, err);
+  if (site.timeline !== undefined) checkTimeline(site.timeline, err);
+  if (site.packages !== undefined) checkPackages(site.packages, err, exists);
+  if (site.checklist !== undefined) checkChecklist(site.checklist, err);
+  if (site.pricesPage !== undefined) checkPricesPage(site.pricesPage, err);
+  if (site.journal !== undefined) checkJournal(site.journal, err, exists);
+  checkWordPages(site, err, exists);
+}
+
+/** Everything the trainer writes is checked for promised results. */
+const WORDS = ["hero", "firstMonth", "sessions", "qualifications", "questions", "business", "programmes", "goalFinder", "stories", "coverage", "timeline", "packages", "checklist", "startHere", "online", "nutrition", "studio", "pricesPage", "journal", "staff", "team"];
+
 /** @param {any} site @param {Report} err @param {Exists} [exists] */
 export function checkTrainer(site, err, exists) {
   if (site.kit !== "trainer") return;
@@ -205,5 +471,6 @@ export function checkTrainer(site, err, exists) {
   if (site.firstMonth !== undefined) checkMonth(site.firstMonth, err, exists);
   if (site.qualifications !== undefined) checkQualifications(site.qualifications, err);
   if (site.sessions !== undefined) checkSessions(site.sessions, err);
-  for (const k of ["hero", "firstMonth", "sessions", "qualifications", "questions", "business"]) if (site[k] !== undefined) claims(site[k], k, err);
+  checkMore(site, err, exists);
+  for (const k of WORDS) if (site[k] !== undefined) claims(site[k], k, err);
 }

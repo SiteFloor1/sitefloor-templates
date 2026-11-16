@@ -17,9 +17,37 @@ export const features = [
     summary: "Sessions and qualifications: each kind of session with its length and price in the trainer's words, and every qualification with its awarding body and year; a link to the trainer's own register entry only when they have one." },
   { id: "trainer-month", section: "firstMonth", dir: `${K}/trainer-month`, minPlan: "signature", kits: ["trainer"], requires: ["firstMonth", "diary"], needs: ["trainer-diary"], js: true,
     summary: "Your first month: choose where (the studio or your home) and how often; see the first session minute by minute, what the place provides, every date for the four weeks after, and what it costs from the trainer's own prices. Reserve the first session on WhatsApp or add every session to a calendar." },
+  // Plus
+  { id: "trainer-programmes", dir: `${K}/trainer-programmes`, minPlan: "plus", kits: ["trainer"], requires: ["programmes"], page: "programmes", morePages: ["programme"], js: false,
+    summary: "Programmes: a page for each kind of training the trainer is qualified for (strength, pregnancy and after, back from injury…), who it's for, what the sessions are, and who they work alongside. Pregnancy and injury programmes name the qualification they rest on." },
+  { id: "trainer-goal", dir: `${K}/trainer-goal`, minPlan: "plus", kits: ["trainer"], requires: ["goalFinder", "programmes"], needs: ["trainer-programmes"], js: true,
+    summary: "Goal finder (PT-3): your goal, how long since you trained, days a week and any injury → the programme that fits and a sample week, sent to the trainer on WhatsApp. Nothing promised; an injury means a talk first." },
+  { id: "trainer-stories", dir: `${K}/trainer-stories`, minPlan: "plus", kits: ["trainer"], requires: ["stories"], page: "results", js: false,
+    summary: "Client stories (PT-4): clients in their own words, each with consent recorded (when and how they agreed). No photographs, no numbers, nothing promised. A demo shows marked samples." },
+  { id: "trainer-coverage", dir: `${K}/trainer-coverage`, minPlan: "plus", kits: ["trainer"], requires: ["coverage"], js: true,
+    summary: "Do you come to me? (PT-5): type a postcode and see, from the trainer's own list of districts, whether they come to your home or train in your park; further out, online." },
+  { id: "trainer-checklist", dir: `${K}/trainer-checklist`, minPlan: "plus", kits: ["trainer"], requires: ["checklist"], js: true,
+    summary: "Before your session (PT-8): what to wear, eat and bring, and the night before, as a list to tick on the phone (nothing stored), with the cancellation policy in the trainer's words." },
+  { id: "trainer-start", dir: `${K}/trainer-start`, minPlan: "plus", kits: ["trainer"], requires: ["startHere", "firstMonth"], page: "start", js: false,
+    summary: "Start here: the first session minute by minute, the health questionnaire and why it's asked, and what to bring, on one page." },
+  { id: "trainer-prices", dir: `${K}/trainer-prices`, minPlan: "plus", kits: ["trainer"], requires: ["pricesPage"], page: "prices", js: true,
+    summary: "Prices and blocks: single sessions and blocks of 5, 10 or 20 with what each session works out at and how long a block lasts; a duo switch shows the price per person when two train together; pay by the trainer's own Stripe link." },
+  // Signature
+  { id: "trainer-timeline", dir: `${K}/trainer-timeline`, minPlan: "signature", kits: ["trainer"], requires: ["timeline", "firstMonth", "diary"], js: true,
+    summary: "Your twelve weeks (PT-6): choose how often, the day and the time to start; the twelve weeks lay themselves out with the trainer's phases, every session dated, bank holidays and closed days marked and left out, the finish date and the cost. Save every session to a calendar in one file, or send the plan on WhatsApp." },
+  { id: "trainer-packages", dir: `${K}/trainer-packages`, minPlan: "signature", kits: ["trainer"], requires: ["packages"], page: "corporate", js: true,
+    summary: "Corporate and family (PT-7): team sessions at the office or the studio and family sessions at home, what each includes and its price from; a request (which, how many, which days, a company or family name) sent on WhatsApp." },
+  { id: "trainer-online", dir: `${K}/trainer-online`, minPlan: "signature", kits: ["trainer"], requires: ["online"], page: "online", js: false,
+    summary: "At home and online: what the trainer brings to your home, what online coaching includes (the plan, the check-ins, the kit you need) and the prices, with the coverage check." },
+  { id: "trainer-nutrition", dir: `${K}/trainer-nutrition`, minPlan: "signature", kits: ["trainer"], requires: ["nutrition"], page: "nutrition", js: false,
+    summary: "Nutrition approach: what the trainer does and doesn't do, within their own qualification, and who they refer to (a registered dietitian or the client's GP) for anything more." },
+  { id: "trainer-studio", dir: `${K}/trainer-studio`, minPlan: "signature", kits: ["trainer"], requires: ["studio"], page: "studio", js: false,
+    summary: "The studio: photographs of the room, what's in it and the facts people ask (showers, towels, step-free, how many train at once)." },
+  { id: "trainer-journal", dir: `${K}/trainer-journal`, minPlan: "signature", kits: ["trainer"], requires: ["journal"], page: "journal", morePages: ["article"], js: false,
+    summary: "Journal: the trainer's own short articles (starting strength training, training around a busy week, rest), each on its own page." },
 ];
 
-/** Shared features this trade never offers: free-form pages that escape the honesty checks, and before/after work galleries (client stories come with consent, later). */
+/** Shared features this trade never offers: free-form pages that escape the honesty checks, and work galleries (a trainer's "work" is before/after photos; client stories come in words, with consent). */
 export const refuses = ["custom-pages", "work"];
 
 /** Checks this kit's settings in site.json (runs for every site; it returns early for other kits). */
@@ -35,6 +63,10 @@ export function pageData(site) {
       name: site.business.name,
       place: [site.business.name, site.location.streetAddress, site.location.locality, site.location.postcode].filter(Boolean).join(", "),
       diary: on("trainer-diary") && d ? { source: d.source, csvUrl: d.csvUrl, staleAfterHours: d.staleAfterHours ?? 36, days: d.days, from: d.from, to: d.to, minutes: d.minutes ?? 60, priceFrom: d.priceFrom, block: d.photo?.block ?? null } : null,
+      goal: on("trainer-goal") ? { goals: site.goalFinder.goals, levels: site.goalFinder.levels, injury: site.goalFinder.injury, message: site.goalFinder.message, programmes: site.programmes.items.map((/** @type {any} */ p) => ({ id: p.id, name: p.name, line: p.line, sessions: p.sessions })) } : null,
+      coverage: on("trainer-coverage") ? { areas: site.coverage.areas, elsewhere: site.coverage.elsewhere } : null,
+      timeline: on("trainer-timeline") ? { phases: site.timeline.phases.map((/** @type {any} */ p) => ({ from: p.from, to: p.to, name: p.name })), session: site.firstMonth.prices.session, postcode: site.location.postcode, closed: (site.hours?.exceptions ?? []).filter((/** @type {any} */ e) => !e.ranges?.length).map((/** @type {any} */ e) => e.date), message: site.timeline.message, minutes: d?.minutes ?? 60 } : null,
+      packages: on("trainer-packages") ? { message: site.packages.message } : null,
       month: on("trainer-month") ? { places: site.firstMonth.places.map((/** @type {any} */ p) => ({ id: p.id, label: p.label, text: p.text, away: !!p.away })), often: site.firstMonth.often, prices: site.firstMonth.prices, message: site.firstMonth.message } : null,
     },
   };

@@ -1,0 +1,21 @@
+{#- Linen: the coaches, each a page of the book: the photograph, then their name, role and days, their words, their
+    qualifications, and a way to ask for an hour with them. -#}
+{%- set ph = { title: site.team.title, intro: site.team.intro } %}
+{% include "kits/trainer/partials/page-head.njk" %}
+<div class="wrap lt" data-feature="team">
+  {%- for s in site.staff %}
+  <article class="lt-p" id="{{ s.name | slug }}" data-tags="{{ (s.tags or []) | join(' ') }}">
+    {%- if s.photo %}<img class="lt-ph" src="{{ s.photo | img }}" alt="{{ s.name }}" loading="{{ 'eager' if loop.first else 'lazy' }}" decoding="async" width="720" height="900">{% endif %}
+    <div class="lt-body">
+      <p class="lt-role">{{ s.role }}{% if s.days %} · {{ s.days }}{% endif %}</p>
+      <h2>{{ s.name }}</h2>
+      {%- if s.bio %}<p>{{ s.bio }}</p>{% endif %}
+      {%- if s.quote %}<blockquote>{{ s.quote }}</blockquote>{% endif %}
+      {%- if s.knownFor %}<ul class="lt-k">{% for k in s.knownFor %}<li>{{ k }}</li>{% endfor %}</ul>{% endif %}
+      {%- if not site.team.showcase %}{% set msg = site.messages.general + " Could I have an hour with " + s.name + "?" %}
+      <p><a class="go" href="{{ msg | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ msg }}"{% endif %} target="_blank" rel="noopener">Ask for an hour with {{ s.name }}</a></p>{% endif %}
+    </div>
+  </article>
+  {%- endfor %}
+</div>
+{%- if site.kit == "trainer" %}{% set hostPage = "team" %}{% include "kits/trainer/partials/hosted.njk" %}{% endif %}

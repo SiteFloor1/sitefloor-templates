@@ -16,8 +16,10 @@ It fails if it promises results, shows borrowed transformations, or claims a qua
   says "registered" without it. Insurance and first aid: stated only if the client says so.
 - No weight-loss figures, "drop a dress size", timelines of kilos, or guaranteed results anywhere. The kit's copy
   checker refuses the common phrasings on client sites.
-- Results stories and before/after photos are **client-only**: the client's own clients, written consent recorded in
-  `site.json`, their own words. Demos never show them (`clientOnly` in `kit.js`).
+- Client stories (`trainer-stories`) are the client's own clients in their own words, with consent recorded in
+  `site.json` (when and how they agreed); no numbers, no photographs. A demo shows marked samples ("Sample stories for
+  the demo…"), and `source: "sample"` is refused on client sites. Before/after photos are never shown, on demos or
+  client sites (`work` is refused by the kit).
 - Park sessions: the licence line (Royal Parks, or the borough's) shows only when the client says they hold it.
 - Medical: "tell me about injuries and conditions; I may ask for your GP's go-ahead". Never "fixes back pain".
 
@@ -57,6 +59,16 @@ Every site also gets Plan your visit, open now, WhatsApp, reviews and the Instag
 - **Race or event countdown** (Signature). For a client training towards a 10k, a Hyrox or a wedding: weeks left,
   the phase they're in (build, peak, taper), a calendar file of the phases. No outcome promised.
 - **Kit-at-home check** (Plus). Tick what you have (mat, bands, dumbbells, a step) and see what the trainer brings.
+
+- **Gift a first month** (pitch, 16 Nov 2026; Plus add-on, standard on Signature). A gift voucher that is the first
+  month itself: the giver picks how often (once, twice or three times a week) and the card prices it from the
+  trainer's own first-month prices (twice a week: the first session £120 + eight at £110 = £1,000), paid by the
+  trainer's own Stripe Payment Link (one link per frequency, made once in Stripe; no Stripe account of ours, £0 to
+  run). The page then makes a printable A6 card: the recipient's name, the giver's line, what the month holds (the
+  first hour minute by minute, the dates once they reserve) and a code the trainer writes by hand on WhatsApp. The
+  recipient reserves the first session from the card. Honest by design: the card says the price paid and what it
+  covers; if the trainer's prices change, the month sold is the month given. Nothing stored on the site. Builds on the
+  shared vouchers' form and the first month's pricing, so it is mostly a new card and three payment links.
 
 Considered and left out: transformation sliders on demos (needs real, consented pairs: client-only), calorie or BMI
 calculators (medical-adjacent and outside most trainers' qualifications), anything that sells supplements.

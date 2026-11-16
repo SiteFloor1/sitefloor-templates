@@ -1,0 +1,10 @@
+{#- The studio: the room, large; the facts people ask (towels, showers, step-free, who else is there) as a ledger
+    beside a second photograph. Gallery and photo band follow when they're on. -#}
+{%- set st = site.studio %}
+{%- set ph = { title: st.title, intro: st.intro, photo: st.photo } %}
+{% include "kits/trainer/partials/page-head.njk" %}
+<section class="tsu" data-feature="trainer-studio" aria-label="{{ st.title | plain }}"><div class="wrap tsu-in">
+  <dl class="tsu-facts">{% for f in st.facts %}<div><dt>{{ f.label }}</dt><dd>{{ f.value }}</dd></div>{% endfor %}</dl>
+  {%- if st.room %}<figure class="tsu-room"><img src="{{ st.room.src | img }}" alt="{{ st.room.alt }}" width="{{ st.room.width }}" height="{{ st.room.height }}" loading="lazy" decoding="async"></figure>{% endif %}
+</div></section>
+{%- set hostPage = "trainer-studio" %}{% include "kits/trainer/partials/hosted.njk" %}

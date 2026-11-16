@@ -1,0 +1,14 @@
+---
+layout: core/layouts/base.njk
+feature: trainer-programmes
+pagination:
+  data: site.programmes.items
+  size: 1
+  alias: x
+permalink: "programme-{{ x.id }}.html"
+eleventyComputed:
+  pageId: "programme-{{ x.id }}"
+  title: "{{ x.name }}"
+  description: "{{ x.name }} with {{ site.business.name }}, {{ site.location.locality }}: {{ x.line }}"
+---
+{% include "kits/trainer/features/trainer-programmes/programme.njk" %}

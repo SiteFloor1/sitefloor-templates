@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: results
+permalink: results.html
+feature: trainer-stories
+eleventyComputed:
+  title: "{{ site.stories.title | plain }}"
+  description: "Clients of {{ site.business.name }}, {{ site.location.locality }}, in their own words."
+---
+{% include "kits/trainer/features/trainer-stories/trainer-stories.njk" %}
