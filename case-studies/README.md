@@ -90,6 +90,18 @@ chat can reuse the Sitefloor bar, footer and patterns without re-reading a publi
   film with posters, three phone clips with posters, two phone stills) live in the published artifact under `media/`.
   Phone clips: Playwright screenshots at 390×844 and 2x in full Chromium with `--lang=en-GB` (UK date fields), one per
   step and one per typed letter, stitched with ffmpeg (the CDP screencast came out at 1x).
+- `linnet/index.html`: the cleaning case study (one visit, timed: the page is a fortnightly clean of a two-bedroom home
+  with two bathrooms, 2 h 25 from 09:00. The hero is Linnet's room strip, live, under a headline that is the visit's
+  length in words ("Two hours, twenty-five minutes."), so changing bedrooms, bathrooms or how often rewrites the
+  headline, the price, the bill and the WhatsApp line together; "Play the visit" runs the clock from 09:00, filling each
+  room as it's finished. Each room is a chapter opened by a time-sheet line (its minutes, huge, and where it sits in the
+  visit): Kitchen and living is the price, Hall and stairs the questions before the door opens, the bedrooms a page for
+  every clean, the bathrooms the work nobody sees; each chapter's task list is the features, marked by plan. The plans
+  are three visit sheets added up like Linnet's bill; the speed is the time on site; the close is the finishing time.
+  White with steel panels, ink, one kingfisher blue; Anek Latin, self-hosted, with size-matched fallbacks). Media
+  (three phone clips with posters, four phone stills, two laptop screens, the demo's sitting-room and marble-bathroom
+  photographs, the fonts) live in `media/` and the published artifact. Phone clips: CDP screencast at 390×844 and 2x in
+  full Chromium with `--lang=en-GB`, encoded H.264; nothing plays until asked.
 - `lyall-harrow/index.html`: the private wealth case study (a website read across fifty years: the page opens on the
   demo's misty shore with the site's own first question, "I am … and I live in …", set large over the photograph and
   answering as the site does; the page is indexed by horizon on one copper hairline, Today 2026, This year 2027, Ten

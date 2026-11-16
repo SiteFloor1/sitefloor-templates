@@ -1,0 +1,693 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Linnet Case Study</title>
+<meta name="description" content="How a Sitefloor site sells a cleaning company's time: the case study is one visit, timed room by room, and every room is a part of Linnet's website.">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="icon" href="data:,">
+<link rel="preload" href="media/fonts/anek-latin-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="media/fonts/anek-latin-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+/* Layout: one visit, timed. The page is a fortnightly clean of a two-bedroom home with two bathrooms, 2 h 25 from 09:00.
+   The hero is Linnet's own room strip, live: each room as wide as its minutes, and the headline is the visit's length in
+   words, so changing the home rewrites it. "Play the visit" runs the clock from 09:00 to the end. Each room is a chapter,
+   opened by a time sheet line (its minutes, huge, and where it sits in the visit), and each chapter's task list is the
+   features of the site that room stands for. The plans are three visit sheets, added up like Linnet's bill. The speed is
+   the time on site. Ground: white with steel panels; ink; one kingfisher blue. Type: Anek Latin, 800 for figures. */
+/* Fonts, served with the page (Anek Latin is Linnet's own; Manrope is Sitefloor's bar), with size-matched stand-ins. */
+@font-face { font-family: "Anek Latin"; font-weight: 400; font-display: swap; src: url("media/fonts/anek-latin-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Anek Latin"; font-weight: 600; font-display: swap; src: url("media/fonts/anek-latin-latin-600-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Anek Latin"; font-weight: 800; font-display: swap; src: url("media/fonts/anek-latin-latin-800-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Manrope"; font-weight: 600; font-display: swap; src: url("media/fonts/manrope-latin-600-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Manrope"; font-weight: 700; font-display: swap; src: url("media/fonts/manrope-latin-700-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Anek Fallback"; font-weight: 100 499; src: local("Arial"), local("Helvetica"), local("Liberation Sans"); size-adjust: 93.8%; ascent-override: 95.9%; descent-override: 21.3%; line-gap-override: 0%; }
+@font-face { font-family: "Anek Fallback"; font-weight: 500 699; src: local("Arial"), local("Helvetica"), local("Liberation Sans"); size-adjust: 97%; ascent-override: 92.8%; descent-override: 20.6%; line-gap-override: 0%; }
+@font-face { font-family: "Anek Fallback"; font-weight: 700 900; src: local("Arial Bold"), local("Helvetica Bold"), local("Liberation Sans Bold"), local("Arial"); size-adjust: 100.6%; ascent-override: 89.4%; descent-override: 19.9%; line-gap-override: 0%; }
+:root {
+  --paper: #FFFFFF; --steel: #F3F5F7; --steel-2: #E6EAEE;
+  --ink: #0F1419; --soft: #535D68; --line: #DADFE4; --line-2: #B9C1C9;
+  --king: #0A6F98; --king-2: #085A7C; --wash: #C9E1EC; --wash-2: #E4F0F5;
+  --display: "Anek Latin", "Anek Fallback", Arial, sans-serif;
+  --body: "Anek Latin", "Anek Fallback", Arial, sans-serif;
+  --brand: "Manrope", Arial, sans-serif;
+  --sf-paper: #FBFAF7; --sf-ink: #0E0F11; --sf-tomato: #E8613C; --sf-line: rgba(14,15,17,.12);
+  --s: clamp(72px, 9vw, 136px);
+  color-scheme: light;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--paper); -webkit-text-size-adjust: 100%; scroll-padding-top: 80px; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 17px/1.55 var(--body); font-variant-numeric: tabular-nums; }
+img, video, svg { display: block; max-width: 100%; }
+a { color: inherit; }
+h1, h2, h3 { margin: 0; font-family: var(--display); font-weight: 800; letter-spacing: -.025em; line-height: .95; text-wrap: balance; }
+p { margin: 0; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--king); outline-offset: 3px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.gut { padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 1360px; margin: 0 auto; }
+
+/* Sitefloor bar (shared across case studies) */
+.sfbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--sf-paper); color: var(--sf-ink); border-bottom: 1px solid var(--sf-line); }
+.sfbar .wrap { display: flex; justify-content: space-between; align-items: center; height: 66px; gap: 16px; }
+.wm { display: inline-flex; align-items: center; font: 700 22px var(--brand); letter-spacing: -.04em; text-decoration: none; color: var(--sf-ink); }
+.wm svg { margin: 0 1px; }
+.sfbar nav { display: flex; gap: 28px; font-family: var(--brand); font-size: 14px; font-weight: 600; }
+.sfbar nav a { text-decoration: none; color: var(--sf-ink); }
+.sfbar nav a[aria-current] { box-shadow: inset 0 -1.5px 0 var(--sf-ink); }
+.sfbtn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 20px; background: var(--sf-ink); color: var(--sf-paper); font: 700 12px var(--brand); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; }
+.sfbtn:hover { background: var(--sf-tomato); }
+@media (max-width: 760px) { .sfbar nav { display: none; } }
+@media (max-width: 420px) { .sfbar .sfbtn { display: none; } }
+
+/* ------------------------------------------------------------------ hero: the visit */
+.hero { padding-top: clamp(28px, 4vw, 56px); }
+.hero-top { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: clamp(24px, 4vw, 64px); align-items: stretch; }
+.who { display: flex; align-items: center; gap: 12px; font-weight: 600; margin-bottom: clamp(14px, 1.8vw, 24px); }
+.who svg { flex: none; }
+.who span { color: var(--soft); font-weight: 400; }
+.hero h1 { font-size: clamp(44px, 5.9vw, 88px); line-height: .92; letter-spacing: -.035em; }
+.hero h1 span span { white-space: nowrap; }
+.hero h1 i { font-style: normal; white-space: nowrap; }
+@media (max-width: 760px) { .hero h1 span span { white-space: normal; } .who { flex-wrap: wrap; row-gap: 2px; } .who span { flex-basis: 100%; } }
+.hero h1 span span + span { color: var(--king); }
+.sum { margin-top: clamp(14px, 1.6vw, 22px); font-size: clamp(17px, 1.35vw, 20px); max-width: 58ch; }
+.sum b { font-weight: 600; }
+.ph { position: relative; margin: 0; }
+.ph { height: 100%; }
+.ph img { width: 100%; height: 100%; min-height: 220px; object-fit: cover; object-position: 50% 58%; }
+.ph figcaption { position: absolute; right: 0; bottom: 0; padding: 4px 8px; background: rgba(255,255,255,.86); font-size: 12px; color: var(--soft); }
+
+.bench { margin-top: clamp(20px, 2.4vw, 32px); background: var(--steel); }
+@property --n { syntax: "<length>"; inherits: true; initial-value: 56px; }
+@property --per { syntax: "<length>"; inherits: true; initial-value: 6px; }
+.bench-in { container-type: inline-size; padding: 14px clamp(16px, 2vw, 28px) 16px; }
+.ctl { display: flex; flex-wrap: wrap; gap: 14px 28px; align-items: end; justify-content: space-between; }
+.ctl-set { display: flex; flex-wrap: wrap; gap: 14px 22px; }
+fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
+legend { padding: 0; margin-bottom: 6px; font-size: 14px; font-weight: 600; color: var(--soft); }
+.seg { display: flex; }
+.seg label { position: relative; }
+.seg input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.seg span { display: grid; place-items: center; min-width: 44px; min-height: 44px; padding: 0 14px; border: 1px solid var(--line-2); margin-left: -1px; background: var(--paper); font-weight: 600; }
+.seg label:first-child span { margin-left: 0; }
+.seg input:checked + span { background: var(--ink); color: var(--paper); border-color: var(--ink); position: relative; z-index: 1; }
+.seg input:focus-visible + span { outline: 2px solid var(--king); outline-offset: 2px; z-index: 2; }
+.play { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 20px 0 16px; border: 0; background: var(--king); color: #fff; font-weight: 600; cursor: pointer; }
+.play:hover { background: var(--king-2); }
+.play svg { width: 14px; height: 14px; }
+.clock { font-family: var(--display); font-weight: 800; font-size: 24px; letter-spacing: -.02em; min-width: 5.4ch; text-align: right; }
+.play-row { display: flex; align-items: center; gap: 18px; }
+
+.ruler { position: relative; height: 28px; margin-top: 12px; border-bottom: 1px solid var(--ink); }
+.ruler i { position: absolute; bottom: 0; width: 1px; height: 6px; background: var(--line-2); }
+.ruler i.l { height: 12px; background: var(--ink); }
+.ruler b { position: absolute; top: 0; transform: translateX(-50%); font-size: 13px; font-weight: 600; white-space: nowrap; }
+.ruler b:first-of-type { transform: none; }
+.ruler b.end { transform: translateX(-100%); }
+.strip { position: relative; display: flex; height: clamp(160px, 14vw, 210px); --n: clamp(24px, 3.45cqw, 80px); --per: .69cqw; }
+.room { position: relative; flex: var(--m) 1 0; min-width: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 12px 10px 12px 12px; border: 0; border-left: 1px solid var(--paper); background: var(--paper); text-align: left; cursor: pointer; overflow: hidden; transition: flex-grow .7s cubic-bezier(.3,.7,.2,1), background-color .3s; text-decoration: none; color: inherit; }
+.room:first-child { border-left: 0; }
+.room::before { content: ""; position: absolute; inset: auto 0 0 0; height: 4px; background: repeating-linear-gradient(90deg, var(--line-2) 0 1px, transparent 1px var(--per, 6px)); }
+.room:hover { background: var(--wash-2); }
+.room.x { background: repeating-linear-gradient(135deg, var(--paper) 0 7px, var(--steel-2) 7px 9px); }
+.room.done { background: var(--king); color: #fff; }
+.room.now { background: linear-gradient(90deg, var(--wash) var(--k, 0%), var(--paper) var(--k, 0%)); }
+.room.done::before { background: repeating-linear-gradient(90deg, rgba(255,255,255,.5) 0 1px, transparent 1px var(--per, 6px)); }
+.room .n { font-family: var(--display); font-weight: 800; font-size: var(--n, 56px); line-height: .85; letter-spacing: -.03em; white-space: nowrap; }
+.room .n small { font-size: .34em; font-weight: 600; letter-spacing: 0; margin-left: .15em; }
+.room .nm { font-size: 14px; font-weight: 600; line-height: 1.2; }
+.head { position: absolute; top: -8px; bottom: -8px; left: 0; width: 2px; background: var(--ink); pointer-events: none; opacity: 0; transform: translateX(var(--at, 0px)); }
+.head.on { opacity: 1; }
+.strip-note { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; margin-top: 10px; font-size: 15px; color: var(--soft); }
+.strip-note b { color: var(--ink); font-weight: 600; }
+
+/* the site itself, large */
+.site { padding-top: var(--s); }
+.site-fig { margin: 0; border: 1px solid var(--line); }
+.site-fig img { width: 100%; height: auto; }
+.cap { display: flex; justify-content: space-between; gap: 24px; margin-top: 12px; font-size: 15px; color: var(--soft); }
+.cap b { color: var(--ink); font-weight: 600; }
+
+/* ------------------------------------------------------------------ chapters: one room each */
+.ch { padding-top: var(--s); }
+.sheet { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 0 clamp(24px, 4vw, 64px); align-items: end; padding-bottom: 18px; border-bottom: 1px solid var(--ink); }
+.mins { font-family: var(--display); font-weight: 800; font-size: clamp(96px, 15vw, 232px); line-height: .78; letter-spacing: -.05em; }
+.mins small { font-size: .22em; letter-spacing: -.01em; margin-left: .12em; }
+.sheet-r h2 { font-size: clamp(34px, 4.4vw, 68px); }
+.sheet-r p { margin-top: 14px; max-width: 58ch; font-size: clamp(17px, 1.3vw, 19px); }
+.when { margin-top: 22px; }
+.when-row { display: flex; justify-content: space-between; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+.when-row span:last-child { color: var(--soft); font-weight: 400; }
+.track { position: relative; height: 12px; background: var(--steel-2); }
+.track i { position: absolute; top: 0; bottom: 0; background: var(--king); }
+.track b { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--paper); }
+
+.body { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(28px, 5vw, 88px); padding-top: clamp(28px, 3.4vw, 48px); align-items: start; }
+.body.flip { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+.body.flip > .tasks { order: 2; }
+.tasks { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+.tasks li { display: grid; grid-template-columns: 14px minmax(0, 1fr) auto; gap: 4px 16px; padding: 16px 0 17px; border-bottom: 1px solid var(--line); }
+.tasks li::before { content: ""; width: 10px; height: 10px; margin-top: 8px; background: var(--king); }
+.tasks li.p2::before { background: var(--line-2); }
+.tasks li.p3::before { background: var(--ink); }
+.tasks b { display: block; font-family: var(--display); font-weight: 800; font-size: clamp(21px, 1.8vw, 26px); letter-spacing: -.015em; line-height: 1.1; }
+.tasks span { display: block; margin-top: 5px; color: var(--soft); }
+.tasks em { font-style: normal; font-size: 14px; font-weight: 600; white-space: nowrap; padding-top: 4px; }
+.key { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 14px; font-size: 14px; color: var(--soft); }
+.key span { display: inline-flex; align-items: center; gap: 8px; }
+.key span::before { content: ""; width: 10px; height: 10px; background: var(--king); }
+.key span.p2::before { background: var(--line-2); }
+.key span.p3::before { background: var(--ink); }
+
+/* phones: a hairline frame with a minute ruler down its left edge */
+.phones { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(14px, 2vw, 28px); }
+.phones.one { grid-template-columns: minmax(0, 1fr); max-width: 380px; margin-left: auto; }
+.phone { margin: 0; }
+.phone .scr { position: relative; border: 1px solid var(--ink); background: var(--paper); overflow: hidden; }
+.phone .scr::before { content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 7px; z-index: 1; background: repeating-linear-gradient(180deg, var(--ink) 0 1px, transparent 1px 12px); opacity: .5; pointer-events: none; }
+.phone img, .phone video { width: 100%; height: auto; aspect-ratio: 780 / 1688; object-fit: cover; object-position: top; background: var(--steel); }
+.phone figcaption { margin-top: 10px; font-size: 14px; color: var(--soft); }
+.phone figcaption b { color: var(--ink); font-weight: 600; }
+.vid { position: relative; }
+.vbtn { position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 18px 0 14px; border: 0; background: var(--ink); color: #fff; font-weight: 600; cursor: pointer; z-index: 2; white-space: nowrap; }
+.vbtn:hover { background: var(--king); }
+.vbtn svg { width: 12px; height: 12px; }
+.wide { margin: clamp(28px, 3.4vw, 48px) 0 0; border: 1px solid var(--line); }
+.wide img { width: 100%; height: auto; }
+
+/* the bill, live: same figures as the strip */
+.bill { margin-top: 26px; background: var(--steel); padding: 18px 20px 20px; }
+.bill h3 { font-size: 22px; letter-spacing: -.01em; }
+.bill table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+.bill td, .bill th { padding: 6px 0; border-bottom: 1px solid var(--line); text-align: left; font-weight: 400; font-size: 15px; }
+.bill td { text-align: right; }
+.bill tr.sum th, .bill tr.sum td { border-top: 1px solid var(--ink); font-weight: 600; }
+.bill tr.price th, .bill tr.price td { font-family: var(--display); font-weight: 800; font-size: 30px; border-bottom: 0; padding-top: 10px; }
+.bill .msg { margin-top: 14px; padding: 12px 14px; background: var(--paper); border-left: 3px solid var(--king); font-size: 15px; }
+.bill .msg span { display: block; font-size: 13px; font-weight: 600; color: var(--soft); margin-bottom: 4px; }
+
+/* ------------------------------------------------------------------ plans: three visit sheets */
+.plans { padding-top: var(--s); }
+.plans-h { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(24px, 4vw, 64px); align-items: end; padding-bottom: 22px; border-bottom: 1px solid var(--ink); }
+.plans-h h2 { font-size: clamp(40px, 5.4vw, 84px); }
+.plans-h p { max-width: 46ch; }
+.sheets { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 1.6vw, 24px); margin-top: clamp(24px, 3vw, 40px); align-items: start; }
+.vs { background: var(--steel); padding: 20px 22px 22px; }
+.vs.sig { background: var(--ink); color: #fff; }
+.vs-top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--line-2); }
+.vs.sig .vs-top { border-color: rgba(255,255,255,.3); }
+.vs h3 { font-size: 32px; }
+.vs-top span { font-size: 14px; font-weight: 600; }
+.vs ul { list-style: none; margin: 0; padding: 0; }
+.vs li { display: flex; justify-content: space-between; gap: 14px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+.vs.sig li { border-color: rgba(255,255,255,.16); }
+.vs li span:last-child { color: var(--soft); white-space: nowrap; }
+.vs.sig li span:last-child { color: rgba(255,255,255,.6); }
+.vs li.all { font-weight: 600; }
+.vs .tot { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--ink); }
+.vs.sig .tot { border-color: #fff; }
+.vs .tot b { font-family: var(--display); font-weight: 800; font-size: 44px; letter-spacing: -.03em; line-height: 1; }
+.vs .tot span { font-size: 15px; text-align: right; }
+.plans-note { margin-top: 16px; font-size: 15px; color: var(--soft); max-width: 90ch; }
+
+/* ------------------------------------------------------------------ speed: time on site */
+.speed { padding-top: var(--s); }
+.speed-in { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(28px, 5vw, 88px); align-items: start; }
+.speed h2 { font-size: clamp(40px, 5.4vw, 84px); }
+.speed-l p { margin-top: 16px; max-width: 44ch; }
+.secs { margin-top: 28px; }
+.secs .track { height: 16px; }
+.secs-scale { position: relative; height: 22px; margin-top: 6px; font-size: 13px; font-weight: 600; }
+.secs-scale span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
+.secs-scale span:first-child { transform: none; }
+.secs-scale span:last-child { transform: translateX(-100%); }
+.scores { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--ink); }
+.scores div { padding: 14px 0 18px; border-bottom: 1px solid var(--line); }
+.scores div + div { padding-left: 18px; border-left: 1px solid var(--line); }
+.scores b { display: block; font-family: var(--display); font-weight: 800; font-size: clamp(56px, 6vw, 96px); line-height: .85; letter-spacing: -.04em; }
+.scores span { font-size: 15px; color: var(--soft); }
+.weights { width: 100%; border-collapse: collapse; margin-top: 26px; }
+.weights th, .weights td { padding: 9px 0; border-bottom: 1px solid var(--line); text-align: left; font-weight: 400; }
+.weights td { text-align: right; font-weight: 600; white-space: nowrap; }
+.weights td span { display: block; font-weight: 400; color: var(--soft); font-size: 14px; }
+.weights tr.sum th, .weights tr.sum td { border-top: 1px solid var(--ink); font-weight: 600; }
+
+/* ------------------------------------------------------------------ close */
+.close { padding-block: var(--s); }
+.close-in { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(28px, 5vw, 88px); align-items: end; border-top: 1px solid var(--ink); padding-top: clamp(28px, 3.4vw, 48px); }
+.done { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 24px; margin-bottom: clamp(36px, 5vw, 72px); }
+.done b { font-family: var(--display); font-weight: 800; font-size: clamp(88px, 16vw, 248px); line-height: .8; letter-spacing: -.05em; color: var(--king); }
+.done span { font-size: clamp(18px, 1.5vw, 21px); max-width: 30ch; }
+.close h2 { font-size: clamp(52px, 8vw, 128px); line-height: .9; letter-spacing: -.035em; }
+.close h2 span { color: var(--king); }
+.close p { margin-top: 20px; max-width: 48ch; font-size: clamp(18px, 1.5vw, 21px); }
+.acts { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.btn { display: inline-flex; align-items: center; min-height: 48px; padding: 0 22px; background: var(--king); color: #fff; font-weight: 600; text-decoration: none; }
+.btn:hover { background: var(--king-2); }
+.btn.line { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.btn.line:hover { background: var(--ink); color: #fff; }
+.mail { display: inline-block; margin-top: 18px; color: var(--soft); }
+.close-ph { margin: 0; }
+.close-ph img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+
+footer { background: var(--steel); color: var(--soft); font-size: 13px; line-height: 1.6; border-top: 1px solid var(--line); }
+footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px 32px; padding-block: 28px; }
+footer p { max-width: 110ch; }
+
+/* ------------------------------------------------------------------ phones and tablets */
+@media (max-width: 980px) {
+  .hero-top, .body, .body.flip, .plans-h, .speed-in, .close-in, .sheet { grid-template-columns: minmax(0, 1fr); }
+  .body.flip > .tasks { order: 0; }
+  .ph { order: -1; }
+  .ph img { aspect-ratio: 16 / 10; }
+  .sheets { grid-template-columns: minmax(0, 1fr); }
+  .phones.one { margin-left: 0; }
+  .sheet { gap: 14px; }
+}
+@media (max-width: 760px) {
+  .ctl { flex-direction: column; align-items: stretch; }
+  .play-row { justify-content: space-between; }
+  .ruler { display: none; }
+  /* the strip runs downward on a phone, as on Linnet's own site */
+  .strip { flex-direction: column; height: auto; margin-top: 16px; border-left: 1px solid var(--ink); }
+  .room { flex: none; height: calc(var(--m) * 1.25px + 34px); flex-direction: row; align-items: center; border-left: 0; border-top: 1px solid var(--paper); transition: height .7s cubic-bezier(.3,.7,.2,1), background-color .3s; }
+  .room::before { inset: 0 auto 0 0; width: 5px; height: auto; background: repeating-linear-gradient(180deg, var(--line-2) 0 1px, transparent 1px 1.25px); }
+  .room.done::before { background: none; }
+  .room.now { background: linear-gradient(180deg, var(--wash) var(--k, 0%), var(--paper) var(--k, 0%)); }
+  .room .n { order: 2; font-size: 34px; }
+  .room .nm { font-size: 15px; }
+  .head { top: 0; bottom: auto; left: -8px; right: -8px; width: auto; height: 2px; transform: translateY(var(--at, 0px)); }
+  .phones { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .scores b { font-size: 52px; }
+  .tasks li { grid-template-columns: 14px minmax(0, 1fr); }
+  .tasks em { grid-column: 2; padding-top: 0; }
+  .cap { flex-direction: column; gap: 4px; }
+  footer .wrap { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 420px) { .seg span { padding: 0 11px; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="sfbar gut"><div class="wrap">
+  <a class="wm" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su" aria-label="Sitefloor home">sitefl<svg width="28" height="14" viewBox="0 0 42 21" aria-hidden="true"><rect x="1.9" y="1.9" width="38.2" height="17.2" rx="8.6" fill="none" stroke="#0E0F11" stroke-width="3.8"/><circle cx="31.5" cy="10.5" r="5.2" fill="#E8613C"/></svg>r</a>
+  <nav aria-label="Main"><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#live">Features</a><a href="#top" aria-current="page">Work</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#pricing">Pricing</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#guides">Guides</a></nav>
+  <a class="sfbtn" href="#mockup"><span>Free mockup</span><span aria-hidden="true">→</span></a>
+</div></div>
+
+<main id="top">
+
+<section class="hero gut" aria-labelledby="h1"><div class="wrap">
+  <div class="hero-top">
+    <div>
+      <p class="who"><svg width="30" height="26" viewBox="0 0 30 26" aria-hidden="true"><path d="M2 24V2l26 22H2Z" fill="none" stroke="#0F1419" stroke-width="2.2" stroke-linejoin="miter"/><path d="M7 19v-6l7 6H7Z" fill="#0A6F98"/></svg>Linnet <span>Home and office cleaning, south-west London</span></p>
+      <h1 id="h1"><span data-words><span>Two hours,</span> <span><i>twenty-five</i> minutes.</span></span></h1>
+      <p class="sum" data-sum>A fortnightly clean of a <b>two-bedroom home with two bathrooms</b>, every room timed: <b>£60</b>, worked out on Linnet's website before anyone asks. Change it to your home.</p>
+    </div>
+    <figure class="ph"><img src="media/home.webp" srcset="media/home-800.webp 800w, media/home.webp 1600w" sizes="(max-width: 980px) 100vw, 34vw" width="1600" height="800" alt="A bright white sitting room with a fireplace, a curved sofa and a round table" fetchpriority="high"><figcaption>Clay Banks, Unsplash</figcaption></figure>
+  </div>
+
+  <div class="bench">
+    <div class="bench-in">
+      <form class="ctl" data-ctl aria-label="Set the home">
+        <div class="ctl-set">
+          <fieldset><legend>Bedrooms</legend><div class="seg">
+            <label><input type="radio" name="beds" value="1"><span>1</span></label><label><input type="radio" name="beds" value="2" checked><span>2</span></label><label><input type="radio" name="beds" value="3"><span>3</span></label><label><input type="radio" name="beds" value="4"><span>4</span></label>
+          </div></fieldset>
+          <fieldset><legend>Bathrooms</legend><div class="seg">
+            <label><input type="radio" name="baths" value="1"><span>1</span></label><label><input type="radio" name="baths" value="2" checked><span>2</span></label><label><input type="radio" name="baths" value="3"><span>3</span></label>
+          </div></fieldset>
+          <fieldset><legend>How often</legend><div class="seg">
+            <label><input type="radio" name="freq" value="week"><span>Weekly</span></label><label><input type="radio" name="freq" value="fortnight" checked><span>Fortnightly</span></label><label><input type="radio" name="freq" value="once"><span>Once, deep</span></label>
+          </div></fieldset>
+        </div>
+        <div class="play-row">
+          <span class="clock" data-clock aria-live="off">09:00</span>
+          <button class="play" type="button" data-play><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2 1l11 6-11 6z" fill="currentColor"/></svg><span>Play the visit</span></button>
+        </div>
+      </form>
+      <div class="ruler" data-ruler aria-hidden="true"><i class="l" style="left:0%"></i><i class="" style="left:3.448%"></i><i class="" style="left:6.897%"></i><i class="" style="left:10.34%"></i><i class="" style="left:13.79%"></i><i class="" style="left:17.24%"></i><i class="l" style="left:20.69%"></i><i class="" style="left:24.14%"></i><i class="" style="left:27.59%"></i><i class="" style="left:31.03%"></i><i class="" style="left:34.48%"></i><i class="" style="left:37.93%"></i><i class="l" style="left:41.38%"></i><i class="" style="left:44.83%"></i><i class="" style="left:48.28%"></i><i class="" style="left:51.72%"></i><i class="" style="left:55.17%"></i><i class="" style="left:58.62%"></i><i class="l" style="left:62.07%"></i><i class="" style="left:65.52%"></i><i class="" style="left:68.97%"></i><i class="" style="left:72.41%"></i><i class="" style="left:75.86%"></i><i class="" style="left:79.31%"></i><i class="l" style="left:82.76%"></i><i class="" style="left:86.21%"></i><i class="" style="left:89.66%"></i><i class="" style="left:93.1%"></i><i class="" style="left:96.55%"></i><i class="" style="left:100%"></i><b style="left:0%">0</b><b style="left:20.69%">30</b><b style="left:41.38%">1 h 00</b><b style="left:62.07%">1 h 30</b><b style="left:82.76%">2 h 00</b><b class="end" style="left:100%">2 h 25</b></div>
+      <nav class="strip" data-strip aria-label="The visit, each room as long as its minutes"><a class="room" data-id="kitchen" href="#kitchen" style="--m:45"><span class="n">45<small> min</small></span><span class="nm">Kitchen and living</span></a><a class="room" data-id="hall" href="#hall" style="--m:10"><span class="n">10<small> min</small></span><span class="nm">Hall and stairs</span></a><a class="room" data-id="bed1" href="#bedrooms" style="--m:20"><span class="n">20<small> min</small></span><span class="nm">Bedroom one</span></a><a class="room" data-id="bed2" href="#bedrooms" style="--m:15"><span class="n">15<small> min</small></span><span class="nm">Bedroom two</span></a><a class="room" data-id="bath1" href="#bathrooms" style="--m:30"><span class="n">30<small> min</small></span><span class="nm">Bathroom</span></a><a class="room" data-id="bath2" href="#bathrooms" style="--m:25"><span class="n">25<small> min</small></span><span class="nm">Bathroom two</span></a></nav>
+      <p class="strip-note"><span>Each room is a part of Linnet's website. <b>Tap one</b> to open it.</span><span data-note>Time on site 2 h 25 · £25 an hour</span></p>
+      <p class="sr" aria-live="polite" data-live></p>
+    </div>
+  </div>
+</div></section>
+
+<section class="site gut" aria-label="Linnet's home page"><div class="wrap">
+  <figure class="site-fig"><img src="media/site-desktop.webp" width="1800" height="1125" alt="Linnet's home page on a laptop screen: a white sitting room photograph, the headline Home cleaning in south-west London, every room timed, every visit the same, and the room strip below it" loading="lazy"></figure>
+  <p class="cap"><span><b>Linnet's home page at 1440 × 900.</b> The photograph, the headline and the whole room strip, on the first screen.</span><span>The same strip, the same figures, as above.</span></p>
+</div></section>
+
+<!-- Kitchen and living: 09:00 to 09:45 -->
+<section class="ch gut" id="kitchen" aria-labelledby="h-kitchen"><div class="wrap">
+  <div class="sheet">
+    <p class="mins" aria-hidden="true">45<small>min</small></p>
+    <div class="sheet-r">
+      <h2 id="h-kitchen">Kitchen and living. The price, in front of you.</h2>
+      <p>The biggest room comes first, and so does the question every customer has. Linnet's home page answers it before the phone rings: the visit, room by room, and what it costs.</p>
+      <div class="when" aria-hidden="true"><div class="when-row"><span>09:00 to 09:45</span><span>45 of 145 minutes</span></div><div class="track"><i style="left:0;width:31.03%"></i></div></div>
+    </div>
+  </div>
+  <div class="body">
+    <ul class="tasks">
+      <li><div><b>The room strip</b><span>Each room as wide as its minutes. Bedrooms, bathrooms and how often change it; the figures move together.</span></div><em>Plus</em></li>
+      <li><div><b>The bill, line by line</b><span>Time on site at the hourly rate, rounded once to the pound. The shortest visit the company books is shown when it applies.</span></div><em>Plus</em></li>
+      <li><div><b>Extras, timed</b><span>Inside the oven, the fridge, the windows, fresh linen, ironing: each adds its own minutes to the strip and the bill.</span></div><em>Plus</em></li>
+      <li><div><b>Send this on WhatsApp</b><span>The home, the minutes and the price go in the message, so the reply starts with a date, not a question.</span></div><em>Plus</em></li>
+      <li><div><b>One set of numbers</b><span>The strip, the bill, the message and every service page read the company's own minutes and rates. Change a rate once and the whole site follows.</span></div><em>Plus</em></li>
+    </ul>
+    <div>
+      <div class="phones one">
+        <figure class="phone"><div class="scr vid"><video src="media/strip.mp4" poster="media/strip-poster.webp" width="780" height="1688" muted playsinline preload="none" aria-label="Recording: on Linnet's site on a phone, three bedrooms, one bathroom and a deep clean are picked, the strip and price change, and a bedroom opens its task list"></video><button class="vbtn" type="button" data-v><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg><span>Play</span></button></div><figcaption><b>On a phone,</b> the strip runs downward.</figcaption></figure>
+      </div>
+      <div class="bill" aria-labelledby="h-bill">
+        <h3 id="h-bill">The bill for the home above</h3>
+        <table><tbody data-bill><tr><th scope="row">Kitchen and living</th><td>45 min</td></tr><tr><th scope="row">Hall and stairs</th><td>10 min</td></tr><tr><th scope="row">Bedroom one</th><td>20 min</td></tr><tr><th scope="row">Bedroom two</th><td>15 min</td></tr><tr><th scope="row">Bathroom</th><td>30 min</td></tr><tr><th scope="row">Bathroom two</th><td>25 min</td></tr><tr class="sum"><th scope="row">Time on site</th><td>2 h 25</td></tr><tr><th scope="row">Rate, fortnightly</th><td>£25 an hour</td></tr><tr class="price"><th scope="row">Price</th><td>£60</td></tr></tbody></table>
+        <p class="msg" data-msg><span>WhatsApp, written for you</span>Hello Linnet. A two-bedroom home with two bathrooms, fortnightly: 2 h 25, £60. When could you start?</p>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- Hall and stairs: 09:45 to 09:55 -->
+<section class="ch gut" id="hall" aria-labelledby="h-hall"><div class="wrap">
+  <div class="sheet">
+    <p class="mins" aria-hidden="true">10<small>min</small></p>
+    <div class="sheet-r">
+      <h2 id="h-hall">Hall and stairs. Before the door opens.</h2>
+      <p>The short room, and the questions people ask before they let anyone in: do you come to me, when can you start, and what happens to my key.</p>
+      <div class="when" aria-hidden="true"><div class="when-row"><span>09:45 to 09:55</span><span>10 of 145 minutes</span></div><div class="track"><i style="left:31.03%;width:6.9%"></i></div></div>
+    </div>
+  </div>
+  <div class="body flip">
+    <ul class="tasks">
+      <li class="p2"><div><b>The postcode check</b><span>Type a postcode, get a straight answer: "Yes, we clean in SW4", or "We don't clean in E1 yet". The districts are the company's own list.</span></div><em>Starter</em></li>
+      <li><div><b>The next free day</b><span>Read from the company's own Google Sheet. If the sheet hasn't been updated for a few days, the site stops naming days and says to ask.</span></div><em>Plus</em></li>
+      <li class="p2"><div><b>Your key, accounted for</b><span>How a key moves on a cleaning day, in the company's own words and times: signed out, in, alarm off, back by noon.</span></div><em>Starter</em></li>
+      <li class="p2"><div><b>What we clean, with our rates</b><span>Regular, deep, end of tenancy, short lets, offices. Every price comes from the company's own rates; offices are priced after a survey.</span></div><em>Starter</em></li>
+      <li class="p2"><div><b>Questions, and the office</b><span>Do I need to be in, will I have the same cleaner, do you bring products. Then the office, its hours and how to drop a key off.</span></div><em>Starter</em></li>
+    </ul>
+    <div class="phones">
+      <figure class="phone"><div class="scr"><img src="media/areas.webp" width="780" height="1688" alt="Linnet's postcode check on a phone: SW4 7AA typed in, and the answer Yes, we clean in SW4. Next free: Tuesday 17 November" loading="lazy"></div><figcaption><b>SW4 7AA.</b> Yes, and the next free day.</figcaption></figure>
+      <figure class="phone"><div class="scr"><img src="media/keys.webp" width="780" height="1688" alt="Linnet's key log on a phone: Key 0418 on a Tuesday, signed out of the key safe at 07:52, in and alarm off at 08:31" loading="lazy"></div><figcaption><b>Key 0418.</b> Every movement, with a time.</figcaption></figure>
+    </div>
+  </div>
+</div></section>
+
+<!-- Bedrooms: 09:55 to 10:30 -->
+<section class="ch gut" id="bedrooms" aria-labelledby="h-bed"><div class="wrap">
+  <div class="sheet">
+    <p class="mins" aria-hidden="true">35<small>min</small></p>
+    <div class="sheet-r">
+      <h2 id="h-bed">Two bedrooms. A page for every clean.</h2>
+      <p>Twenty minutes for the first bedroom, fifteen for the second. Every service gets the same treatment: its own worked example, from the same minutes and rates as the home page.</p>
+      <div class="when" aria-hidden="true"><div class="when-row"><span>09:55 to 10:30</span><span>35 of 145 minutes</span></div><div class="track"><i style="left:37.93%;width:24.14%"></i><b style="left:51.72%"></b></div></div>
+    </div>
+  </div>
+  <div class="body">
+    <ul class="tasks">
+      <li class="p3"><div><b>A page for each service</b><span>Regular cleaning, deep cleans, short-let turnovers: one photograph, that service's own room strip and bill, the tasks it adds, and what isn't included.</span></div><em>Signature</em></li>
+      <li><div><b>What every clean includes</b><span>Room by room, the same list every visit, with the minutes for a regular clean and for a deep one side by side.</span></div><em>Plus</em></li>
+      <li><div><b>End of tenancy</b><span>Its worked example (a one-bedroom flat, oven, fridge and windows: 4 h 30, £135) and the check-out list, room by room, to tick off.</span></div><em>Plus</em></li>
+      <li class="p3"><div><b>The move-out planner</b><span>Type the check-out date: the day Linnet cleans, the last day to book, and a calendar file with both.</span></div><em>Signature</em></li>
+      <li><div><b>Policies, in plain words</b><span>Moving a visit, holidays, breakages, paying, and the company's own terms for putting things right. Nothing promises a deposit back: the site won't let it.</span></div><em>Plus</em></li>
+    </ul>
+    <div class="phones">
+      <figure class="phone"><div class="scr"><img src="media/deep.webp" width="780" height="1688" alt="Linnet's deep clean page on a phone: the worked example strip, Kitchen and living 70 minutes, Hall and stairs 15, Bedroom one 30, Bedroom two 25, Bathroom 45, Bathroom two 40" loading="lazy"></div><figcaption><b>Deep cleans.</b> Every room at one and a half times.</figcaption></figure>
+      <figure class="phone"><div class="scr vid"><video src="media/moveout.mp4" poster="media/moveout-poster.webp" width="780" height="1688" muted playsinline preload="none" aria-label="Recording: on Linnet's end of tenancy page, a check-out date is entered and the planner shows the cleaning day, the last day to book and how many days are left"></video><button class="vbtn" type="button" data-v><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg><span>Play</span></button></div><figcaption><b>Moving out.</b> One date in, two dates out.</figcaption></figure>
+    </div>
+  </div>
+</div></section>
+
+<!-- Bathrooms: 10:30 to 11:25 -->
+<section class="ch gut" id="bathrooms" aria-labelledby="h-bath"><div class="wrap">
+  <div class="sheet">
+    <p class="mins" aria-hidden="true">55<small>min</small></p>
+    <div class="sheet-r">
+      <h2 id="h-bath">Two bathrooms. The work nobody sees.</h2>
+      <p>The longest stretch, and the end of the visit. This is where the site goes further: offices outside working hours, repeat visits in the calendar, the people who'll come.</p>
+      <div class="when" aria-hidden="true"><div class="when-row"><span>10:30 to 11:25</span><span>55 of 145 minutes</span></div><div class="track"><i style="left:62.07%;width:37.93%"></i><b style="left:82.76%"></b></div></div>
+    </div>
+  </div>
+  <div class="body flip">
+    <ul class="tasks">
+      <li class="p3"><div><b>Offices, out of hours</b><span>Drag your opening and closing times; the night's work, zone by zone, fits round them. Desks and washrooms are counted, not guessed. No price: offices are priced after a survey.</span></div><em>Signature</em></li>
+      <li class="p3"><div><b>Repeat visits, in your calendar</b><span>Pick the day and the time; the calendar file repeats every week or fortnight, for the time on site from the bill.</span></div><em>Signature</em></li>
+      <li class="p3"><div><b>The cleaners</b><span>How the cleaners are employed, checked, insured and trained, in the company's own words.</span></div><em>Signature</em></li>
+      <li class="p3"><div><b>A journal worth reading</b><span>What agents check at check-out, how to keep a home clean between visits: practical, specific, checked.</span></div><em>Signature</em></li>
+      <li class="p3"><div><b>Room by room in 3D</b><span>A small link under the strip: an illustration of the flat, room by room, loaded only if someone asks for it.</span></div><em>Signature</em></li>
+    </ul>
+    <div class="phones">
+      <figure class="phone"><div class="scr vid"><video src="media/offices.mp4" poster="media/offices-poster.webp" width="780" height="1688" muted playsinline preload="none" aria-label="Recording: on Linnet's offices page, the office's hours are changed and evening cleaning picked, and the cleaning window moves to fit"></video><button class="vbtn" type="button" data-v><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg><span>Play</span></button></div><figcaption><b>Your hours, ours.</b> In by 19:15, gone by 21:23.</figcaption></figure>
+      <figure class="phone"><div class="scr"><img src="media/journal.webp" width="780" height="1688" alt="Linnet's journal on a phone: What agents check at check-out, starting with the standard is your check-in inventory" loading="lazy"></div><figcaption><b>The journal.</b> Five hundred useful words.</figcaption></figure>
+    </div>
+  </div>
+  <figure class="wide"><img src="media/offices-desktop.webp" width="1440" height="558" alt="Linnet's offices page on a laptop: a day track from 05:00 to 21:00 with the office's hours and the cleaning window before opening" loading="lazy"></figure>
+</div></section>
+
+<section class="plans gut" id="plans" aria-labelledby="h-plans"><div class="wrap">
+  <div class="plans-h">
+    <h2 id="h-plans">Three visit sheets.</h2>
+    <p>Every Sitefloor plan for a cleaning company, set out the way Linnet sets out a visit: what's done, and what it comes to.</p>
+  </div>
+  <div class="sheets">
+    <div class="vs">
+      <div class="vs-top"><h3>Starter</h3><span>Home + Plan your visit</span></div>
+      <ul>
+        <li><span>What we clean, with your rates</span><span>✓</span></li>
+        <li><span>The postcode check</span><span>✓</span></li>
+        <li><span>Your key, accounted for</span><span>✓</span></li>
+        <li><span>Your office, hours and map</span><span>✓</span></li>
+        <li><span>Questions answered</span><span>✓</span></li>
+      </ul>
+      <div class="tot"><b>£99</b><span>then £25 a month</span></div>
+    </div>
+    <div class="vs">
+      <div class="vs-top"><h3>Plus</h3><span>Up to 5 pages</span></div>
+      <ul>
+        <li class="all"><span>Everything in Starter</span><span>✓</span></li>
+        <li><span>The room strip</span><span>✓</span></li>
+        <li><span>The bill, worked out</span><span>✓</span></li>
+        <li><span>Free days from your sheet</span><span>✓</span></li>
+        <li><span>What every clean includes</span><span>✓</span></li>
+        <li><span>End of tenancy</span><span>✓</span></li>
+        <li><span>Your policies</span><span>✓</span></li>
+      </ul>
+      <div class="tot"><b>£199</b><span>then £30 a month</span></div>
+    </div>
+    <div class="vs sig">
+      <div class="vs-top"><h3>Signature</h3><span>Up to 20 pages</span></div>
+      <ul>
+        <li class="all"><span>Everything in Plus</span><span>✓</span></li>
+        <li><span>A page for each service</span><span>✓</span></li>
+        <li><span>The move-out planner</span><span>✓</span></li>
+        <li><span>Offices, out of hours</span><span>✓</span></li>
+        <li><span>Repeat visits in the calendar</span><span>✓</span></li>
+        <li><span>The cleaners</span><span>✓</span></li>
+        <li><span>The journal</span><span>✓</span></li>
+        <li><span>Room by room in 3D</span><span>✓</span></li>
+      </ul>
+      <div class="tot"><b>£349</b><span>then £35 a month</span></div>
+    </div>
+  </div>
+  <p class="plans-note">Twelve months minimum. Any feature can be added to any plan on its own, and extra pages one at a time. Bespoke sites from £1,399, quoted after a call.</p>
+</div></section>
+
+<section class="speed gut" id="speed" aria-labelledby="h-speed"><div class="wrap">
+  <div class="speed-in">
+    <div class="speed-l">
+      <h2 id="h-speed">Time on site.</h2>
+      <p>Measured on a phone over a slow connection, the way Google measures it. The photograph, the headline and the strip are on screen in a second and a half, and nothing moves once they are.</p>
+      <div class="secs" aria-hidden="true">
+        <div class="track"><i style="left:0;width:50%"></i></div>
+        <div class="secs-scale"><span style="left:0">0 s</span><span style="left:50%">1.5 s, the first screen</span><span style="left:100%">3 s</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="scores">
+        <div><b>100</b><span>Performance</span></div>
+        <div><b>100</b><span>Accessibility</span></div>
+        <div><b>100</b><span>Best practices</span></div>
+      </div>
+      <table class="weights">
+        <caption class="sr">What a phone downloads for Linnet's first screen</caption>
+        <tbody>
+          <tr><th scope="row">Scripts</th><td>12.5 KB</td></tr>
+          <tr><th scope="row">Styles</th><td>11.9 KB</td></tr>
+          <tr><th scope="row">Fonts, three weights</th><td>58.4 KB</td></tr>
+          <tr><th scope="row">The first photograph</th><td>91.7 KB</td></tr>
+          <tr class="sum"><th scope="row">The first screen</th><td>174.5 KB</td></tr>
+          <tr><th scope="row">The 3D illustration</th><td>123 KB<span>only when someone asks for it</span></td></tr>
+          <tr><th scope="row">Layout shift</th><td>0.000</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div></section>
+
+<section class="close gut" id="mockup" aria-labelledby="h-cl"><div class="wrap">
+  <p class="done"><b data-done>11:25</b><span data-done-w>Done. Kitchen, hall, two bedrooms, two bathrooms, and a message to say so.</span></p>
+  <div class="close-in">
+    <div>
+      <h2 id="h-cl">Your rooms, <span>timed.</span></h2>
+      <p>Send us your price list and the minutes you allow for each room, and we'll make a free mockup of your home page with your own figures on the strip.</p>
+      <div class="acts">
+        <a class="btn" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#free">Get a free mockup</a>
+        <a class="btn line" href="https://sitefloor1.github.io/sitefloor-templates/cleaning/">Try the demo first</a>
+      </div>
+      <span class="mail">hello@sitefloor.com</span>
+    </div>
+    <figure class="close-ph"><img src="media/marble.webp" width="889" height="667" alt="A white bathroom with marble walls, a freestanding bath and a tall plant" loading="lazy"></figure>
+  </div>
+</div></section>
+
+</main>
+
+<footer class="gut"><div class="wrap">
+  <p>Linnet is a fictional home and office cleaning company made to show the Sitefloor cleaning kit. Its rates, minutes, postcodes, free days, key log, cleaners and address are demo data. Photographs: Clay Banks on Unsplash; they show stock rooms, not cleans Linnet did. The phone recordings and screens are of the Linnet demo.</p>
+  <span>© 2026 Sitefloor</span>
+</div></footer>
+
+<script>
+(() => {
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // Linnet's own minutes and rates (the demo's settings), and the same sums its site uses.
+  const S = {
+    rates: { week: 24, fortnight: 25, once: 30 }, minimum: 120, deep: 1.5, start: 9 * 60,
+    rooms: { kitchen: ["Kitchen and living", 45], hall: ["Hall and stairs", 10], bed: ["Bedroom", 20, 15], bath: ["Bathroom", 30, 25] }
+  };
+  const ORD = ["one", "two", "three", "four"];
+  const CH = { kitchen: "#kitchen", hall: "#hall", bed: "#bedrooms", bath: "#bathrooms" };
+  const up5 = (m) => Math.ceil(m / 5) * 5;
+  const visit = (c) => {
+    const deep = c.freq === "once", t = (m) => (deep ? up5(m * S.deep) : m), R = S.rooms;
+    const rooms = [{ id: "kitchen", type: "kitchen", name: R.kitchen[0], min: t(R.kitchen[1]) }, { id: "hall", type: "hall", name: R.hall[0], min: t(R.hall[1]) }];
+    for (let i = 0; i < c.beds; i++) rooms.push({ id: `bed${i + 1}`, type: "bed", name: `${R.bed[0]} ${ORD[i]}`, min: t(i ? R.bed[2] : R.bed[1]) });
+    for (let i = 0; i < c.baths; i++) rooms.push({ id: `bath${i + 1}`, type: "bath", name: i ? `${R.bath[0]} ${ORD[i]}` : R.bath[0], min: t(i ? R.bath[2] : R.bath[1]) });
+    const work = rooms.reduce((n, r) => n + r.min, 0), charged = Math.max(S.minimum, work), rate = S.rates[c.freq];
+    return { rooms, work, charged, rate, price: Math.round((charged * rate) / 60), deep };
+  };
+  const hm = (m) => (m >= 60 ? `${Math.floor(m / 60)} h ${String(m % 60).padStart(2, "0")}` : `${m} min`);
+  const gbp = (n) => `£${n.toLocaleString("en-GB")}`;
+  const clock = (m) => `${String(Math.floor(m / 60)).padStart(2, "0")}:${String(m % 60).padStart(2, "0")}`;
+  const UNITS = ["", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"];
+  const TENS = ["", "", "twenty", "thirty", "forty", "fifty"];
+  const num = (n) => (n < 20 ? UNITS[n] : TENS[Math.floor(n / 10)] + (n % 10 ? `-${UNITS[n % 10]}` : ""));
+  const cap = (s) => s[0].toUpperCase() + s.slice(1);
+  const words = (m) => {
+    const h = Math.floor(m / 60), r = m % 60;
+    const hs = h ? `${num(h)} hour${h > 1 ? "s" : ""}` : "", ms = r ? `${num(r)} minute${r > 1 ? "s" : ""}` : "";
+    const parts = [hs, ms].filter(Boolean).map(cap);
+    if (parts.length > 1) parts[1] = parts[1].toLowerCase();
+    return parts.map((x) => x.replace(/(\S+-\S+)/g, "<i>$1</i>")).map((x, i) => `<span>${x}${i === parts.length - 1 ? "." : ","}</span>`).join(" ");
+  };
+  const homeWords = (c) => `${ORD[c.beds - 1]}-bedroom home with ${c.baths === 1 ? "one bathroom" : `${ORD[c.baths - 1]} bathrooms`}`;
+  const often = { week: "A weekly clean", fortnight: "A fortnightly clean", once: "One deep clean" };
+
+  const form = document.querySelector("[data-ctl]"), strip = document.querySelector("[data-strip]"), ruler = document.querySelector("[data-ruler]");
+  const wordsEl = document.querySelector("[data-words]"), sum = document.querySelector("[data-sum]"), note = document.querySelector("[data-note]");
+  const billEl = document.querySelector("[data-bill]"), msg = document.querySelector("[data-msg]"), live = document.querySelector("[data-live]");
+  const clockEl = document.querySelector("[data-clock]"), playBtn = document.querySelector("[data-play]");
+  const head = document.createElement("i"); head.className = "head"; head.setAttribute("aria-hidden", "true");
+  let c = { beds: 2, baths: 2, freq: "fortnight" }, v = visit(c), playing = 0;
+
+  const draw = () => {
+    v = visit(c);
+    // rooms: keep the same elements where the ids match, so they grow and shrink instead of being replaced
+    const have = new Map([...strip.querySelectorAll(".room")].map((e) => [e.dataset.id, e]));
+    const least = Math.min(...v.rooms.map((r) => r.min));
+    const w = strip.clientWidth || 1000;
+    strip.style.setProperty("--n", `${Math.max(24, Math.min(80, (least / v.work) * w * 0.5))}px`);
+    strip.style.setProperty("--per", `${Math.max(2, w / v.work)}px`);
+    v.rooms.forEach((r, i) => {
+      let el = have.get(r.id);
+      if (!el) { el = document.createElement("a"); el.className = "room"; el.dataset.id = r.id; }
+      have.delete(r.id);
+      el.href = CH[r.type];
+      el.style.setProperty("--m", String(r.min));
+      el.innerHTML = `<span class="n">${r.min}<small> min</small></span><span class="nm">${r.name}</span>`;
+      strip.children[i] !== el && strip.insertBefore(el, strip.children[i] || null);
+    });
+    have.forEach((e) => e.remove());
+    if (!head.isConnected) strip.append(head);
+    // the ruler: every five minutes, labelled every thirty
+    let t = "";
+    for (let m = 0; m <= v.work; m += 5) t += `<i class="${m % 30 ? "" : "l"}" style="left:${(m / v.work) * 100}%"></i>`;
+    for (let m = 0; m <= v.work - 12; m += 30) t += `<b style="left:${(m / v.work) * 100}%">${hm(m).replace("0 min", "0")}</b>`;
+    t += `<b class="end" style="left:100%">${hm(v.work)}</b>`;
+    ruler.innerHTML = t;
+    wordsEl.innerHTML = words(v.work);
+    sum.innerHTML = `${often[c.freq]} of a <b>${homeWords(c)}</b>, every room timed: <b>${gbp(v.price)}</b>, worked out on Linnet's website before anyone asks. Change it to your home.`;
+    note.textContent = `Time on site ${hm(v.work)} · ${gbp(v.rate)} an hour${v.charged > v.work ? ` · shortest visit ${hm(v.charged)}` : ""}`;
+    billEl.innerHTML = v.rooms.map((r) => `<tr><th scope="row">${r.name}</th><td>${hm(r.min)}</td></tr>`).join("")
+      + `<tr class="sum"><th scope="row">Time on site</th><td>${hm(v.work)}</td></tr>`
+      + (v.charged > v.work ? `<tr><th scope="row">Shortest visit</th><td>${hm(v.charged)}</td></tr>` : "")
+      + `<tr><th scope="row">Rate, ${c.freq === "once" ? "one deep clean" : c.freq === "week" ? "weekly" : "fortnightly"}</th><td>${gbp(v.rate)} an hour</td></tr>`
+      + `<tr class="price"><th scope="row">Price</th><td>${gbp(v.price)}</td></tr>`;
+    msg.innerHTML = `<span>WhatsApp, written for you</span>Hello Linnet. A ${homeWords(c)}, ${({ week: "weekly", fortnight: "fortnightly", once: "one deep clean" })[c.freq]}: ${hm(v.work)}, ${gbp(v.price)}. When could you start?`;
+    live.textContent = `${hm(v.work)}, ${gbp(v.price)}.`;
+    clockEl.textContent = clock(S.start);
+    document.querySelector("[data-done]").textContent = clock(S.start + v.work);
+    document.querySelector("[data-done-w]").textContent = `Done. Kitchen, hall, ${c.beds === 1 ? "one bedroom" : `${ORD[c.beds - 1]} bedrooms`}, ${c.baths === 1 ? "one bathroom" : `${ORD[c.baths - 1]} bathrooms`}, and a message to say so.`;
+    stop();
+  };
+
+  // Play the visit: the clock runs from 09:00 to the end, ten seconds in all, and each room fills as it's finished.
+  const stop = () => {
+    cancelAnimationFrame(playing); playing = 0; head.classList.remove("on");
+    strip.querySelectorAll(".room").forEach((e) => e.classList.remove("done", "now"));
+    playBtn.querySelector("span").textContent = "Play the visit";
+  };
+  const vertical = () => matchMedia("(max-width: 760px)").matches;
+  const play = () => {
+    if (playing) { stop(); clockEl.textContent = clock(S.start); return; }
+    const rooms = [...strip.querySelectorAll(".room")], ends = []; let acc = 0;
+    v.rooms.forEach((r) => { acc += r.min; ends.push(acc); });
+    const at = (m) => { // where minute m sits on the strip, in px along it
+      let i = ends.findIndex((e) => m <= e); if (i < 0) i = rooms.length - 1;
+      const el = rooms[i], start = i ? ends[i - 1] : 0, k = (m - start) / v.rooms[i].min;
+      return vertical() ? el.offsetTop + el.offsetHeight * k : el.offsetLeft + el.offsetWidth * k;
+    };
+    const finish = () => { rooms.forEach((e) => { e.classList.add("done"); e.classList.remove("now"); }); head.classList.remove("on"); clockEl.textContent = clock(S.start + v.work); live.textContent = `Done at ${clock(S.start + v.work)}.`; playBtn.querySelector("span").textContent = "Play again"; playing = 0; };
+    if (reduce) { finish(); return; }
+    rooms.forEach((e) => e.classList.remove("done")); head.classList.add("on");
+    playBtn.querySelector("span").textContent = "Stop";
+    const T = 10000, t0 = performance.now();
+    const step = (now) => {
+      const k = Math.min(1, (now - t0) / T), m = v.work * k;
+      head.style.setProperty("--at", `${at(m)}px`);
+      ends.forEach((e, i) => {
+        const s0 = i ? ends[i - 1] : 0, now = m >= s0 && m < e;
+        rooms[i].classList.toggle("done", m >= e); rooms[i].classList.toggle("now", now);
+        if (now) rooms[i].style.setProperty("--k", `${((m - s0) / (e - s0)) * 100}%`);
+      });
+      clockEl.textContent = clock(S.start + Math.floor(m));
+      if (k < 1) playing = requestAnimationFrame(step); else finish();
+    };
+    playing = requestAnimationFrame(step);
+  };
+  playBtn.addEventListener("click", () => (playBtn.querySelector("span").textContent === "Play again" ? (stop(), play()) : play()));
+  form.addEventListener("change", (e) => {
+    const t = e.target; if (!(t instanceof HTMLInputElement)) return;
+    c = { ...c, [t.name]: t.name === "freq" ? t.value : Number(t.value) }; draw();
+  });
+  let rw = 0; addEventListener("resize", () => { cancelAnimationFrame(rw); rw = requestAnimationFrame(() => { if (!playing) draw(); }); });
+  draw();
+
+  // Clips: nothing plays until asked; each button plays and pauses its own clip.
+  document.querySelectorAll("[data-v]").forEach((b) => {
+    const vid = b.parentElement.querySelector("video"), label = b.querySelector("span");
+    b.addEventListener("click", () => { if (vid.paused) { vid.play(); } else { vid.pause(); } });
+    vid.addEventListener("play", () => { label.textContent = "Pause"; });
+    vid.addEventListener("pause", () => { label.textContent = "Play"; });
+    vid.addEventListener("ended", () => { label.textContent = "Play again"; });
+  });
+})();
+</script>
+</body>
+</html>
