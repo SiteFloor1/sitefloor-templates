@@ -13,9 +13,12 @@ export function init(root, ctx) {
       const n = inAll(el.dataset.laFree ?? "").length;
       el.textContent = !s.ok ? "" : n ? `${n} free now` : "All let";
     }
-    const list = /** @type {HTMLElement|null} */ (root.querySelector("[data-la-list]"));
-    if (!list) return;
     const upd = /** @type {HTMLElement} */ (root.querySelector("[data-la-updated]"));
+    const list = /** @type {HTMLElement|null} */ (root.querySelector("[data-la-list]"));
+    if (!list) { // the areas index: only a stale list needs saying
+      if (!s.ok) upd.textContent = `Our list is being updated. Call us on ${ctx.data.phone.replace("+44 ", "0")} for today's homes.`;
+      return;
+    }
     const card = /** @type {HTMLElement} */ (root.querySelector("[data-lb-card]"));
     upd.textContent = s.ok ? updatedText(s.updatedAt, Date.now(), ctx.data.hours.timezone)
       : `Our list is being updated. Call us on ${ctx.data.phone.replace("+44 ", "0")} for today's homes.`;

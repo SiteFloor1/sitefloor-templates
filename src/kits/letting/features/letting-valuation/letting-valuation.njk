@@ -3,14 +3,12 @@
 {%- set v = site.valuation %}
 <div class="lv" data-feature="letting-valuation"{{ "letting-valuation" | tierAttr | safe }}>
   <form class="lv-s" data-lv-form>
-    <p class="lv-line">My
-      <label class="lv-f"><span class="sr-only">Bedrooms</span><select name="beds">{% for n in ["Studio", "1", "2", "3", "4", "5"] %}<option value="{{ '0' if n == 'Studio' else n }}"{% if n == "2" %} selected{% endif %}>{{ n }}</option>{% endfor %}</select></label>-bedroom
-      <label class="lv-f"><span class="sr-only">Kind of home</span><select name="kind">{% for k in v.kinds %}<option>{{ k }}</option>{% endfor %}</select></label>
-      of about <label class="lv-f"><span class="sr-only">Size</span><input name="size" inputmode="numeric" size="4" placeholder="85" autocomplete="off"></label>
-      <label class="lv-f"><span class="sr-only">Unit</span><select name="unit"><option value="m2">m²</option><option value="sqft">sq ft</option></select></label>
-      with <label class="lv-f"><span class="sr-only">Bathrooms</span><select name="baths">{% for n in ["1", "2", "3", "4"] %}<option>{{ n }}</option>{% endfor %}</select></label> bathroom(s),
-      at <label class="lv-f lv-wide"><span class="sr-only">Address</span><input name="address" autocomplete="address-line1" placeholder="house or flat, street"></label>
-      <label class="lv-f"><span class="sr-only">Postcode</span><input name="postcode" autocomplete="postal-code" size="8" placeholder="postcode"></label>.
+    <p class="lv-line">
+      <span class="lv-ln">My <label class="lv-f"><span class="sr-only">Bedrooms</span><select name="beds">{% for n in ["Studio", "1", "2", "3", "4", "5"] %}<option value="{{ '0' if n == 'Studio' else n }}"{% if n == "2" %} selected{% endif %}>{{ n }}</option>{% endfor %}</select></label>-bedroom <label class="lv-f"><span class="sr-only">Kind of home</span><select name="kind">{% for k in v.kinds %}<option>{{ k }}</option>{% endfor %}</select></label></span>
+      <span class="lv-ln">of about <label class="lv-f"><span class="sr-only">Size</span><input name="size" inputmode="numeric" size="4" placeholder="85" autocomplete="off"></label> <label class="lv-f"><span class="sr-only">Unit</span><select name="unit"><option value="m2">m²</option><option value="sqft">sq ft</option></select></label>,</span>
+      <span class="lv-ln">with <label class="lv-f"><span class="sr-only">Bathrooms</span><select name="baths">{% for n in ["1", "2", "3", "4"] %}<option>{{ n }}</option>{% endfor %}</select></label> bathroom(s),</span>
+      <span class="lv-ln">at <label class="lv-f lv-wide"><span class="sr-only">Address</span><input name="address" autocomplete="address-line1" placeholder="house or flat, street"></label></span>
+      <span class="lv-ln"><label class="lv-f"><span class="sr-only">Postcode</span><input name="postcode" autocomplete="postal-code" size="8" placeholder="postcode"></label>.</span>
     </p>
     <div class="lv-more">
       <label>Outside space <select name="outside"><option value="">Not saying</option>{% for x in ["None", "Balcony", "Terrace", "Garden", "Shared garden"] %}<option>{{ x }}</option>{% endfor %}</select></label>

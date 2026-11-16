@@ -232,3 +232,32 @@ test("areas, onboarding and the journal: free homes per area, the checklist mess
   await expect(page.locator(".ls-demo")).toContainText("Fictional owners");
   await srv.close();
 });
+
+test("nothing jumps while the page starts: residences on a small phone, valuation on a laptop (slow fonts and scripts)", async ({ browser }) => {
+  const srv = await start(demo);
+  for (const [path, width] of /** @type {[string, number][]} */ ([["/residences.html", 360], ["/valuation.html", 1024], ["/areas.html#stale", 390]])) {
+    const page = await browser.newPage({ viewport: { width, height: 800 } });
+    await page.route("**/*.woff2", async (r) => { await new Promise((x) => setTimeout(x, 600)); await r.continue(); });
+    await page.route("**/assets/site-*.js", async (r) => { await new Promise((x) => setTimeout(x, 1500)); await r.continue(); });
+    await page.addInitScript(() => {
+      const w = /** @type {any} */ (window); w.__cls = 0;
+      new PerformanceObserver((l) => { for (const e of /** @type {any[]} */ (l.getEntries())) if (!e.hadRecentInput) w.__cls += e.value; }).observe({ type: "layout-shift", buffered: true });
+    });
+    await page.goto(srv.base + path);
+    await featuresStarted(page);
+    await page.waitForTimeout(400);
+    const cls = await page.evaluate(() => /** @type {any} */ (window).__cls);
+    expect(cls, `${path} at ${width} px`).toBeLessThan(0.05);
+    await page.close();
+  }
+  await srv.close();
+});
+
+test("the areas index says to call when the list is stale", async ({ page }) => {
+  const srv = await start(demo);
+  await page.goto(srv.base + "/areas.html#stale");
+  await featuresStarted(page);
+  await expect(page.locator("[data-la-updated]")).toContainText("Our list is being updated. Call us on 020 7946 0418");
+  await expect(page.locator("[data-la-free]").first()).toHaveText("");
+  await srv.close();
+});

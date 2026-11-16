@@ -2,6 +2,7 @@
     until then), a line, and how many homes are free there now (from the sheet). -#}
 {%- set ar = site.areas %}
 <div class="la" data-feature="letting-areas"{{ "letting-areas" | tierAttr | safe }}>
+  <p class="lr-updated la-updated" data-la-updated></p>
   <ul class="la-list">
   {%- for a in ar.items %}
     <li><a href="{{ a.slug | href }}">

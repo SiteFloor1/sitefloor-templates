@@ -174,7 +174,13 @@ test("move-in planner: dates from the keys day, timed steps first, the deposit c
   assert.match(ics, /DTSTART;TZID=Europe\/London:20261201T100000/);
   assert.match(ics, /DTEND;TZID=Europe\/London:20261201T110000/);
   assert.match(ics, /DTSTART;VALUE=DATE:20261231/);
-  assert.ok(ics.split("\r\n").every((l) => l.length <= 75));
+  assert.match(ics, /BEGIN:VTIMEZONE\r\nTZID:Europe\/London/);
+  assert.ok(ics.indexOf("END:VTIMEZONE") < ics.indexOf("BEGIN:VEVENT"));
+  // folded by UTF-8 bytes: a long note full of £ and curly quotes never passes 75 bytes a line
+  const long = planIcs({ planned: plan("2026-12-01", [{ id: "x", label: "Pay £1,000 “before” the keys ".repeat(8), offset: 0 }]), agent: "Halvern", place: "Here", stamp: "20261116T100000Z", tz: "Europe/London" });
+  const enc = new TextEncoder();
+  assert.ok(long.split("\r\n").every((l) => enc.encode(l).length <= 75));
+  assert.doesNotMatch(long, /VTIMEZONE/); // nothing timed, all-day only
 });
 
 test("valuation request and onboarding checklist: messages only, no figure", () => {

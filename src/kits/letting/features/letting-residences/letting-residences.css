@@ -11,8 +11,12 @@
   .lr-table th[scope="row"] { width: 3.5rem; }
 }
 /* while the sheet loads the table keeps its place unseen, so filling it moves nothing on screen */
-.lr[data-ready]:not([data-state]) .lr-table { visibility: hidden; }
+.lr:not([data-state]) .lr-table { visibility: hidden; } /* without the sheet the schedule says nothing: the line above says to call */
 .lr-filters { display: flex; flex-wrap: wrap; align-items: center; }
 .lr-filters fieldset { border: 0; margin: 0; padding: 0; display: flex; flex-wrap: wrap; }
 .lr-filters label { display: inline-flex; align-items: center; cursor: pointer; }
 .lr-filters input[type=radio], .lr-filters input[type=checkbox] { position: absolute; opacity: 0; width: 1px; height: 1px; }
+/* the filters and the building picker take their place on first paint (so nothing moves when the script starts)
+   and can be used once it has: until then they're held still and unseen */
+.lr:not([data-ready]) .lr-filters, .lr:not([data-ready]) .lr-pick { visibility: hidden; }
+.lr-filters[hidden] { display: flex !important; visibility: hidden; }

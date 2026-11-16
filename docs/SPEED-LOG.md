@@ -705,6 +705,16 @@ CLS 0); areas 99/100 (it was 94 with a 1400 px card photo: the index now uses th
 valuation 99, moving in 100, onboarding 99, owner stories 99, journal 100, an article 100, what we manage 99,
 residences (with filters) 100, owners 100; accessibility 100 and CLS ≤ 0.01 on every page.
 
+### 16 Nov 2026 — audit fixes (L-01, L-02)
+
+Layout shift with fonts held back 600 ms and the site script 1.5 s (PerformanceObserver, all shifts):
+residences 0.016 at 360 px, 0 at 390 and 1024 px (it was 0.18–0.25: the filters and building picker now take their
+place on first paint, unseen until the script starts, and the schedule stays unseen until the sheet has filled it);
+valuation 0.016 at 390 px, 0 at 1024 and 1440 px (it was 0.14–0.18: the sentence sits on set lines, and the
+fallback widths were re-matched to the rendered Petrona: 400 105.7%, 300 103.7%, 400 italic 98%, 300 italic 98.3%).
+Remaining font-swap shifts are paragraph re-wraps on the articles and onboarding, ≤ 0.046. `letting.spec.js` now
+fails above 0.05 on residences (360 px), valuation (1024 px) and the stale areas index (390 px).
+
 ## Lingerie boutiques
 _From `docs/trades/lingerie/speed.md`._
 

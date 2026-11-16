@@ -37,8 +37,24 @@ export function plan(keys, steps, depositPaid) {
 
 /** @param {string} s */
 const esc = (s) => s.replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\r?\n/g, "\\n");
-/** Lines no longer than 75 octets, as the format asks. @param {string} line */
-const fold = (line) => { const out = []; let s = line; while (s.length > 70) { out.push(s.slice(0, 70)); s = " " + s.slice(70); } out.push(s); return out.join("\r\n"); };
+/** Lines no longer than 75 octets (UTF-8), as the format asks, never splitting a character. @param {string} line */
+function fold(line) {
+  const enc = new TextEncoder(), out = [];
+  let cur = "", bytes = 0, limit = 75;
+  for (const ch of line) {
+    const n = enc.encode(ch).length;
+    if (bytes + n > limit) { out.push(cur); cur = " "; bytes = 1; limit = 75; }
+    cur += ch; bytes += n;
+  }
+  out.push(cur);
+  return out.join("\r\n");
+}
+
+/** UK time (Europe/London) for timed steps, so every calendar reads them as UK clock time, summer and winter. */
+const LONDON = ["BEGIN:VTIMEZONE", "TZID:Europe/London",
+  "BEGIN:DAYLIGHT", "TZOFFSETFROM:+0000", "TZOFFSETTO:+0100", "TZNAME:BST", "DTSTART:19700329T010000", "RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU", "END:DAYLIGHT",
+  "BEGIN:STANDARD", "TZOFFSETFROM:+0100", "TZOFFSETTO:+0000", "TZNAME:GMT", "DTSTART:19701025T020000", "RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU", "END:STANDARD",
+  "END:VTIMEZONE"];
 
 /**
  * The plan as a calendar file. Timed steps last an hour at the agent's local time (TZID); others are all-day.
@@ -55,6 +71,8 @@ export function planIcs(o) {
     return ["BEGIN:VEVENT", `UID:${p.id}-${d}@${slug}`, `DTSTAMP:${o.stamp}`, start, end, `SUMMARY:${esc(p.label)}`,
       ...(p.note ? [`DESCRIPTION:${esc(p.note)}`] : []), `LOCATION:${esc(o.place)}`, "END:VEVENT"];
   };
+  const timed = o.planned.some((p) => p.time);
+  if (timed && o.tz !== "Europe/London") throw new Error(`no time zone definition for ${o.tz}`);
   return ["BEGIN:VCALENDAR", "VERSION:2.0", `PRODID:-//Sitefloor//${esc(o.agent)} move-in day//EN`, "CALSCALE:GREGORIAN",
-    ...o.planned.flatMap(ev), "END:VCALENDAR"].map(fold).join("\r\n") + "\r\n";
+    ...(timed ? LONDON : []), ...o.planned.flatMap(ev), "END:VCALENDAR"].map(fold).join("\r\n") + "\r\n";
 }
