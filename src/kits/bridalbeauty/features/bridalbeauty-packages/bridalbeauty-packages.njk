@@ -1,0 +1,35 @@
+{#- For the bride: each service with its trial, minutes in the chair and price; the party per person; on the bridal page
+    (`pkFull`) the extras too. A ruled list, the price set large. -#}
+{%- set sec = site.sections.packages %}
+{%- set pk = site.packages %}
+<section id="packages" class="bb-pk{% if pkFull %} bb-pk-full{% endif %}" data-feature="bridalbeauty-packages" aria-labelledby="bb-pk-h"><div class="wrap bb-pk-in">
+  <div class="bb-pk-head">
+    <h2 class="bb-h2" id="bb-pk-h">{{ sec.title | markup | safe }}</h2>
+    {%- if sec.intro %}<p class="bb-intro">{{ sec.intro }}</p>{% endif %}
+  </div>
+  <ul class="bb-ledger" aria-label="For the bride">
+    {%- for x in pk.bride %}
+    <li><span class="bb-l-n"><b>{{ x.name }}</b><small>{{ x.text }}</small></span><span class="bb-l-m">{{ x.minutes | mins }}</span><span class="bb-l-p">{{ x.price | gbp }}</span></li>
+    {%- endfor %}
+  </ul>
+  <ul class="bb-ledger bb-ledger-party" aria-label="Your party, each">
+    {%- for x in pk.party %}
+    <li><span class="bb-l-n"><b>{{ x.name }}</b><small>{{ x.text }}</small></span><span class="bb-l-m">{{ x.minutes | mins }}</span><span class="bb-l-p">{{ x.price | gbp }}</span></li>
+    {%- endfor %}
+  </ul>
+  {%- set second = site.morning.secondArtist if (site.morning and ("bridalbeauty-start" | enabled)) else false %}
+  {%- if pkFull and ((pk.extras and pk.extras.length) or second) %}
+  <ul class="bb-ledger bb-ledger-extra" aria-label="Extras">
+    {%- for x in pk.extras %}
+    <li><span class="bb-l-n"><b>{{ x.name }}</b><small>{{ x.text }}</small></span><span class="bb-l-m"></span><span class="bb-l-p">{{ x.price | gbp(x.from) }}</span></li>
+    {%- endfor %}
+    {%- if second %}
+    <li><span class="bb-l-n"><b>A second artist</b><small>When one chair would start before {{ second.earliest | clockWords }}</small></span><span class="bb-l-m"></span><span class="bb-l-p">{{ second.fee | gbp }}</span></li>
+    {%- endif %}
+  </ul>
+  {%- endif %}
+  <p class="bb-pk-acts">
+    {%- if not pkFull and ("bridalbeauty-bridal" | enabled) %}<a class="bb-link" href="{{ 'bridal' | href }}"{{ "bridalbeauty-bridal" | tierAttr | safe }}>Every price and the booking terms</a>{% endif %}
+    {%- if pk.note %}<span class="bb-fine">{{ pk.note }}</span>{% endif %}
+  </p>
+</div></section>

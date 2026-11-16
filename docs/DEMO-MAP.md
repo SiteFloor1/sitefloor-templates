@@ -49,6 +49,15 @@ This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` 
 |---|---|---|---|---|---|---|---|
 | Wexley | bridal salon, `bridal`, `dove` (built 29 Oct on `trade/bridal`) | Chelsea salon in daylight: **white and ivory**, quiet | a white dove | dove violet #5B4A75 on white #FFFFFF, ivory #F7F3EC, dove grey #CCC8C3 for hairlines and footer | Gilda Display / Mulish | the gown in a three-way fitting-room mirror (one set: side, front, collar), then gowns full screen as editorials | (to come) |
 
+## Bridal hair and makeup artists
+_From `docs/trades/bridal-beauty/demo-map.md`._
+
+This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` (generated) before proposing a look.
+
+| Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
+|---|---|---|---|---|---|---|---|
+| Isolde ([demo](https://sitefloor1.github.io/sitefloor-templates/bridalbeauty/)) | bridal hair and makeup artist, new `bridalbeauty`, `cover` (built 15 Nov on `trade/bridal-beauty`) | a **bridal magazine cover** on warm white: one finished bride full-bleed, her face large; inside, ruled lists like a magazine's back pages | a fern in the bride's bouquet; photos in one fresh, warm grade | fern #3D5A43 for "Open.", links and the send buttons on warm white #F6F2EC, ink #161312 | Libre Bodoni (the masthead, very large, and every figure) / Faustina (every sentence) | the artist's name as the masthead, above her head (or behind it when the photo allows); the cover lines are the answers: her date, trial and wedding day for her service, what time we start | to come |
+
 ## Cafés
 _From `docs/trades/cafe/demo-map.md`._
 

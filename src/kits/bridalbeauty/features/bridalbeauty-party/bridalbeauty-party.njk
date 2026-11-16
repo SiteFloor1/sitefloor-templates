@@ -1,0 +1,25 @@
+{#- Everyone in the chair: each party service with a stepper, the total from the artist's prices, the early-start fee
+    and a second artist when the morning needs them; the cover's start time moves with it. -#}
+{%- set sec = site.sections.party %}
+{%- set pt = site.party %}{% set pk = site.packages %}{% set fm = site | firstMorning %}
+<section id="party" class="bb-pt" data-feature="bridalbeauty-party"{{ "bridalbeauty-party" | tierAttr | safe }} aria-labelledby="bb-pt-h"><div class="wrap bb-pt-in">
+  <div class="bb-pt-main">
+    <h2 class="bb-h2" id="bb-pt-h">{{ sec.title | markup | safe }}</h2>
+    {%- if pt.text %}<p class="bb-intro">{{ pt.text }}</p>{% endif %}
+    <ul class="bb-ledger bb-pt-list">
+      <li><span class="bb-l-n"><b>You</b><small data-pt-svc>{{ pk.bride[0].name }}, trial and wedding day</small></span><span class="bb-l-m">1</span><span class="bb-l-p" data-pt-bride>{{ pk.bride[0].price | gbp }}</span></li>
+      {%- for x in pk.party %}
+      <li><span class="bb-l-n"><b>{{ x.name }}</b><small>{{ x.text }}, {{ x.price | gbp }} each</small></span>
+        {%- set st = { id: x.id, name: x.name, count: pt.start[x.id] or 0 } %}<span class="bb-l-m">{% include "kits/bridalbeauty/partials/stepper.njk" %}</span>
+        <span class="bb-l-p" data-pt-line="{{ x.id }}">{{ (x.price * (pt.start[x.id] or 0)) | gbp }}</span></li>
+      {%- endfor %}
+    </ul>
+    <div class="bb-pt-tot">
+      <p class="bb-pt-notes" aria-live="polite"><span>From</span><small data-pt-start>We start at {{ fm.start }} for a {{ fm.ceremony }} ceremony</small><small data-pt-extra>{% if fm.early %}Includes the early-start fee{% else %}No early-start fee{% endif %}</small></p>
+      <b class="bb-pt-sum" data-pt-total>{{ fm.total }}</b>
+    </div>
+    <a class="bb-btn" data-pt-ask href="{{ pt.message | dateText | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ pt.message | dateText }}"{% endif %} target="_blank" rel="noopener">Send me this on WhatsApp</a>
+    <p class="bb-fine" data-pt-max hidden>For more than {{ pt.max }} of you, ask: I'll bring a team.</p>
+  </div>
+  {%- if pt.photo %}<figure class="bb-pt-ph"><img src="{{ pt.photo.src | img }}" alt="{{ pt.photo.alt }}" width="{{ pt.photo.width }}" height="{{ pt.photo.height }}" loading="lazy" decoding="async">{% if pt.caption %}<figcaption>{{ pt.caption }}</figcaption>{% endif %}</figure>{% endif %}
+</div></section>

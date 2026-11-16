@@ -1,0 +1,34 @@
+{#- The wedding morning, worked back: her date, the ceremony, her service and her party in; everyone's slot, the start,
+    the buffer, the dress and the door out; two artists when one would start too early. -#}
+{%- set mo = site.morning %}{% set pk = site.packages %}{% set fm = site | firstMorning %}
+{%- set ph = site.morningPage %}{% include "kits/bridalbeauty/partials/page-head.njk" %}
+<section class="bb-mo" data-feature="bridalbeauty-morning"{{ "bridalbeauty-morning" | tierAttr | safe }} aria-label="Your wedding morning"><div class="wrap bb-mo-in">
+  <form class="bb-mo-form" data-mo-form>
+    {%- set df = "mo" %}{% set dfLabel = "Your wedding date" %}{% include "kits/bridalbeauty/partials/date-field.njk" %}
+    <label class="bb-lab" for="mo-cer">Ceremony at</label>
+    <select id="mo-cer" data-mo-cer>{% for t in mo.ceremony.times %}<option value="{{ t }}"{% if t == mo.ceremony.default %} selected{% endif %}>{{ t | clockWords }}</option>{% endfor %}</select>
+    <label class="bb-lab" for="mo-svc">For you</label>
+    <select id="mo-svc" data-mo-svc>{% for x in pk.bride %}<option value="{{ x.id }}">{{ x.name }} · {{ x.minutes | mins }}</option>{% endfor %}</select>
+    <fieldset class="bb-mo-party"><legend class="bb-lab">Everyone else</legend>
+      {%- for x in pk.party %}{% set st = { id: x.id, name: x.name, count: (site.party.start[x.id] if site.party else 0) or 0 } %}
+      <p><span>{{ x.name }} <small>{{ x.minutes | mins }}</small></span>{% include "kits/bridalbeauty/partials/stepper.njk" %}</p>
+      {%- endfor %}
+    </fieldset>
+  </form>
+  <div class="bb-mo-out">
+    <p class="bb-mo-start" aria-live="polite"><span data-mo-lab>We start at</span><b data-mo-start>{{ fm.start }}</b></p>
+    <p class="bb-fine" data-mo-note>{% if fm.early %}Before {{ mo.earlyStart.before | clockWords }}, the early-start fee of {{ mo.earlyStart.fee | gbp }} applies.{% endif %}</p>
+    <ol class="bb-mo-rows" data-mo-rows aria-label="Who's in the chair when"></ol>
+    <ul class="bb-mo-end">
+      <li><span data-mo-dress>{{ fm.dressAt }}</span> Dresses on</li>
+      <li><span data-mo-leave>{{ fm.leave }}</span> Out of the door</li>
+      <li><span data-mo-cer-at>{{ fm.ceremony }}</span> The ceremony</li>
+    </ul>
+    {%- if mo.text %}<p class="bb-fine">{{ mo.text }}</p>{% endif %}
+    <div class="bb-mo-acts">
+      <a class="bb-btn" data-mo-ask href="{{ mo.message | dateText | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ mo.message | dateText }}"{% endif %} target="_blank" rel="noopener">Send this morning to {{ site.business.name }}</a>
+      <button type="button" class="bb-link" data-mo-group hidden>Send to your group</button>
+      <a class="bb-link" data-mo-ics download="wedding-morning.ics" href="#" hidden>Add to calendar</a>
+    </div>
+  </div>
+</div></section>

@@ -59,6 +59,7 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 
 | Trade / design | Branch | Display | Body |
 |---|---|---|---|
+| Isolde, the cover (round 4) | trade/bridal-beauty | Libre Bodoni | Faustina |
 | Landscaping, Almanac | trade/landscaping | Alegreya | Alegreya |
 | Tailor, Flannel (A) | trade/tailor | Della Respira | Commissioner |
 | Wedding films, Première (A) | trade/wedding-film | Sorts Mill Goudy | Urbanist |

@@ -1,0 +1,6 @@
+{#- A − count + stepper for one party service. Set `st` = { id, name, count, label } first. -#}
+<span class="bb-step" data-step="{{ st.id }}">
+  <button type="button" data-d="-1" aria-label="One fewer: {{ st.name }}">−</button>
+  <output data-n aria-live="polite" aria-label="{{ st.name }}">{{ st.count }}</output>
+  <button type="button" data-d="1" aria-label="One more: {{ st.name }}">+</button>
+</span>
