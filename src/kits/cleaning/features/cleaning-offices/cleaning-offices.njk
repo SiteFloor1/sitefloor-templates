@@ -1,0 +1,35 @@
+{#- Offices, out of hours: your opening and closing time (dragged, or typed with the arrow keys), mornings or evenings,
+    your floor's zones (desks and washrooms counted); the night's minutes from the company's own per-zone minutes, the
+    team's window drawn against your day, and a site-survey request on WhatsApp. No price: offices are quoted after a
+    survey. Without JavaScript, the zones and their minutes are listed. -#}
+{%- set o = site.offices %}
+<section class="cl-off" data-feature="cleaning-offices"><div class="wrap">
+  <div class="cl-zones">
+    {%- for z in o.zones %}
+    <div class="cl-zone" data-zone="{{ z.id }}">
+      <h2>{{ z.name }}</h2>
+      {%- if z.per %}<label class="cl-zone-n" data-js-only><span>How many</span><input type="number" min="1" max="{{ z.max }}" value="{{ z.count }}" data-zone-count="{{ z.id }}"></label>{% endif %}
+      <p class="cl-zone-m"><b data-zone-min="{{ z.id }}">{{ ((z.min * z.count) | round) if z.per else z.min }}</b> min{% if z.per %} <span>({{ z.min }} a {{ z.per }})</span>{% endif %}{% if z.freq %} · {{ z.freq }}{% endif %}</p>
+      <ul>{% for t in z.tasks %}<li>{{ t }}</li>{% endfor %}</ul>
+    </div>
+    {%- endfor %}
+  </div>
+  <div class="cl-day" data-js-only>
+    <div class="cl-day-hd">
+      <p class="cl-day-say" data-off-say aria-live="polite"></p>
+      <div class="cl-seg" role="radiogroup" aria-label="When we clean"><label><input type="radio" name="when" value="before" checked><span>Mornings</span></label><label><input type="radio" name="when" value="after"><span>Evenings</span></label></div>
+    </div>
+    <div class="cl-day-track" data-off-track>
+      <div class="cl-day-office" data-off-office><span>Your hours</span></div>
+      <div class="cl-day-clean" data-off-clean><span data-off-clean-t></span></div>
+      <div class="cl-day-h" data-off-open role="slider" tabindex="0" aria-label="You open at" aria-valuemin="300" aria-valuemax="720"></div>
+      <div class="cl-day-h" data-off-close role="slider" tabindex="0" aria-label="You close at" aria-valuemin="840" aria-valuemax="1320"></div>
+    </div>
+    <div class="cl-day-ticks" aria-hidden="true">{% for h in [5, 7, 9, 11, 13, 15, 17, 19, 21] %}<span style="left:{{ ((h - 5) / 17 * 100) | round(2) }}%">{{ ("0" + h) if h < 10 else h }}:00</span>{% endfor %}</div>
+  </div>
+  <div class="cl-off-go">
+    <p class="cl-off-total">A night on this floor: <b data-off-total></b></p>
+    <a class="cl-send" data-off-send href="{{ o.message | book }}" target="_blank" rel="noopener">Ask for a site survey</a>
+    <p class="cl-fine">We price offices after a site survey: the scope, the hours and the team, written down.</p>
+  </div>
+</div></section>

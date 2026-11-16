@@ -1,0 +1,14 @@
+{#- Journal: the trainer's own short articles, listed like a book's contents with the time each takes to read. -#}
+{%- set j = site.journal %}
+{%- set ph = { title: j.title, intro: j.intro } %}
+{% include "kits/trainer/partials/page-head.njk" %}
+<section class="tjn" data-feature="trainer-journal" aria-label="{{ j.title | plain }}"><div class="wrap">
+  <ol class="tjn-list">
+    {%- for a in j.articles %}
+    <li><a href="{{ ('article-' + a.slug) | href }}">
+      {%- if a.photo %}<img src="{{ a.photo.src | img }}" alt="" width="{{ a.photo.width }}" height="{{ a.photo.height }}" loading="{{ 'eager' if loop.first else 'lazy' }}" decoding="async">{% endif %}
+      <span class="tjn-t">{{ a.title }}</span><span class="tjn-i">{{ a.intro }}</span><span class="tjn-m">{{ a.minutes }} minutes to read</span>
+    </a></li>
+    {%- endfor %}
+  </ol>
+</div></section>

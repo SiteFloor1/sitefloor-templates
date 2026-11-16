@@ -1,0 +1,191 @@
+{
+  "schemaVersion": 4,
+  "id": "REPLACE_ME",
+  "mode": "client",
+  "plan": "REPLACE_ME",
+  "kit": "cleaning",
+  "look": "plumb",
+  "url": "https://REPLACE_ME.co.uk",
+  "indexable": true,
+  "lang": "en-GB",
+  "business": {
+    "name": "REPLACE_ME",
+    "schemaType": "LocalBusiness",
+    "description": "REPLACE_ME one sentence: what you clean and where.",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "REPLACE_ME",
+    "phone": "REPLACE_ME",
+    "email": "REPLACE_ME"
+  },
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "location": {
+    "streetAddress": "REPLACE_ME",
+    "locality": "REPLACE_ME",
+    "postcode": "REPLACE_ME",
+    "country": "GB",
+    "area": "REPLACE_ME how to find the office, and whether clients can drop keys off there"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": "REPLACE_ME opening times, e.g. [[\"09:00\",\"17:30\"]], or [] if closed",
+      "tue": "REPLACE_ME",
+      "wed": "REPLACE_ME",
+      "thu": "REPLACE_ME",
+      "fri": "REPLACE_ME",
+      "sat": [],
+      "sun": []
+    }
+  },
+  "visitInfo": {
+    "kicker": "Before we meet",
+    "title": "REPLACE_ME e.g. Before we meet",
+    "intro": "REPLACE_ME",
+    "checked": "REPLACE_ME YYYY-MM",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "REPLACE_ME nearest station",
+        "origin": "REPLACE_ME, Town",
+        "minutes": "REPLACE_ME whole minutes",
+        "steps": [
+          "REPLACE_ME"
+        ]
+      }
+    ],
+    "parking": [
+      {
+        "name": "REPLACE_ME",
+        "walk": "REPLACE_ME minutes on foot",
+        "price": "REPLACE_ME",
+        "paid": "REPLACE_ME \"always\", \"never\" or hours"
+      }
+    ],
+    "access": [
+      {
+        "label": "Step-free entrance",
+        "yes": "REPLACE_ME true or false"
+      }
+    ],
+    "payment": "REPLACE_ME"
+  },
+  "nav": [
+    {
+      "label": "Our office",
+      "page": "visit",
+      "feature": "plan-visit",
+      "fallback": "#visit"
+    }
+  ],
+  "features": [
+    "cleaning-services",
+    "cleaning-areas",
+    "cleaning-keys",
+    "visit",
+    "plan-visit",
+    "questions"
+  ],
+  "hero": {
+    "kicker": "REPLACE_ME e.g. Home cleaning, south Bristol",
+    "title": "REPLACE_ME first line.|REPLACE_ME second line.",
+    "intro": "REPLACE_ME one line on what you clean; write {from} where the lowest hourly rate goes (it's filled from your rates)",
+    "photo": {
+      "src": "img/home.webp",
+      "width": 1600,
+      "height": 800,
+      "alt": "REPLACE_ME what the photo shows",
+      "credit": "REPLACE_ME photographer, or the client's own",
+      "focus": "50% 50%"
+    }
+  },
+  "cleans": {
+    "items": [
+      {
+        "id": "regular-cleaning",
+        "name": "Regular cleaning",
+        "line": "REPLACE_ME one line",
+        "rate": "REPLACE_ME £ an hour, from the client's own price list"
+      },
+      {
+        "id": "move-out-cleans",
+        "name": "End of tenancy",
+        "line": "REPLACE_ME one line",
+        "from": "REPLACE_ME a \"from\" price in £, from the client's own price list",
+        "unit": "REPLACE_ME e.g. for a one-bedroom flat"
+      }
+    ]
+  },
+  "areas": {
+    "districts": [
+      "REPLACE_ME outward codes, e.g. BS3"
+    ],
+    "places": [
+      "REPLACE_ME"
+    ],
+    "days": {
+      "source": "sheet",
+      "csvUrl": "REPLACE_ME published Google Sheet CSV link",
+      "staleAfterDays": 3
+    }
+  },
+  "keys": {
+    "label": "REPLACE_ME e.g. Key 0418 · a Tuesday",
+    "steps": [
+      {
+        "when": "REPLACE_ME HH:MM",
+        "what": "REPLACE_ME what really happens to a key, as the client describes it",
+        "detail": "REPLACE_ME",
+        "where": "REPLACE_ME"
+      }
+    ],
+    "rules": [
+      {
+        "heading": "REPLACE_ME",
+        "text": "REPLACE_ME"
+      }
+    ]
+  },
+  "sections": {
+    "keys": {
+      "title": "Your key, accounted for.",
+      "intro": "Most of our clients are out when we clean. Every movement of a key is logged, and you can ask for the log at any time."
+    },
+    "services": {
+      "title": "What we clean.",
+      "intro": "Homes first, offices outside their hours."
+    },
+    "areas": {
+      "title": "Where we clean.",
+      "intro": "Eight postcode districts in south-west London, so your cleaner is never far away."
+    },
+    "questions": {
+      "title": "Asked before a first clean."
+    },
+    "visit": {
+      "kicker": "Our office",
+      "title": "Our office."
+    }
+  },
+  "messages": {
+    "general": "REPLACE_ME Hello <business>, I have a question.",
+    "price": "REPLACE_ME Hello <business>, could I have a price for a clean?"
+  },
+  "questions": [
+    {
+      "topic": "Before a first clean",
+      "q": "Do I need to be in?",
+      "a": "REPLACE_ME",
+      "home": true
+    },
+    {
+      "topic": "Before a first clean",
+      "q": "Are you insured?",
+      "a": "REPLACE_ME only what the client's own policy says",
+      "home": true
+    }
+  ]
+}

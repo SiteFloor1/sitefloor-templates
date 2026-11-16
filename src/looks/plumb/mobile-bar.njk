@@ -1,0 +1,6 @@
+{#- Plumb phone bar: ink, two words: WhatsApp on the left, Get a price on the right (the bill, or a message on Starter). -#}
+{%- set ask = site.messages.price or site.messages.general %}
+<div class="mbar pl-bar">
+  <a href="{{ ask | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ ask }}"{% endif %} target="_blank" rel="noopener">WhatsApp</a>
+  <a class="pl-bar-go" href="{{ (('index' | href) + '#bill') if ('cleaning-bill' | enabled) else (ask | book) }}">Get a price</a>
+</div>

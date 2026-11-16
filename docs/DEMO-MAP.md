@@ -96,6 +96,18 @@ This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` 
 |---|---|---|---|---|---|---|---|
 | Apex Studio | car studio, `car`, `car-studio` | **cool white cyclorama, engineered** | a manufacturer's photo studio | signal red #C8102E on #F1F3F5 | Hanken Grotesk (both) | a real car on the studio floor, 3D Showroom on Signature, a build sheet of "from" prices | a studio spec sheet |
 
+## Domestic and commercial cleaning
+_From `docs/trades/cleaning/demo-map.md`._
+
+This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` (generated) before proposing a look.
+
+| Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
+|---|---|---|---|---|---|---|---|
+| Linnet | home and office cleaning, `cleaning`, `plumb` | precise and technical: **white page, pale steel panels, ink footer**, bright daylight photographs of just-cleaned rooms | a kingfisher's back (accent and photo grade) | kingfisher blue #0A6F98 for the strip, links and the one button, on white | Anek Latin 800 / Anek Latin 400 | a wide photo of a clean room, the two-line headline, then the room strip: each room as wide as its minutes, the visit's time and price worked out from the same numbers | (to come) |
+
+Taken by Linnet: Anek Latin, the kingfisher-blue accent, the set-square emblem, the room strip with its minute ruler,
+the bill worked out in front of you, the key log with timed entries, the office day track with your hours and ours.
+
 ## Construction and building firms
 _From `docs/trades/construction/demo-map.md`._
 
@@ -261,6 +273,15 @@ This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` 
 | Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
 |---|---|---|---|---|---|---|---|
 | Verrall | nail salon, new `nails`, `quail` (built 29 Oct on `trade/nail-salon`) | hand and nail atelier in **daylight on warm egg-tan stone**, one deep umber band | a quail's egg | the polish itself (Book is a chip in the chosen shade); sea-green #2F5A57 for links only, on egg tan #D7CABA | Old Standard TT / Plus Jakarta Sans | one line over the hand; the shade card overlapping the photo like a jewellery tag; a rail of flat swatches that show on the hand | the swatch fan: a fan of the house shades paints a real hand live; chapters as full-bleed fields of one shade, numbered like the bottle; plans as three coats (base coat, colour, top coat); speed as drying time ([case study](../../../case-studies/verrall/index.html)) |
+
+## Personal trainers and small gyms
+_From `docs/trades/personal-trainer/demo-map.md`._
+
+This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` (generated) before proposing a look.
+
+| Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
+|---|---|---|---|---|---|---|---|
+| Marrick | personal trainer, `trainer`, `linen` | private studio by appointment, warm linen paper | walnut | walnut #6E4B30 on linen #F3EFE8 | Ibarra Real Nova / Ibarra Real Nova | the trainer's week as a live diary: spoken-for hours fade, open hours are tapped to ask for them | its own |
 
 ## Reformer Pilates studios
 _From `docs/trades/pilates/demo-map.md`._

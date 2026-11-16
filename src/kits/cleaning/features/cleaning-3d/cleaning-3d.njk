@@ -1,0 +1,12 @@
+{#- Room by room in 3D: a small link under the strip; tapping it loads an illustration of a two-bedroom flat (only
+    then, about {{ build.cleaning3dKb }} KB). Tap a room for its tasks and minutes, from the same visit() as the strip.
+    No WebGL: says so, and the strip above already lists every room. -#}
+<div class="cl-3d" data-feature="cleaning-3d"{{ 'cleaning-3d' | tierAttr | safe }}>
+  <p class="cl-3d-row"><button type="button" class="cl-quiet" data-3d-open>See it room by room in 3D</button> <span>An illustration of a two-bedroom flat · loads only if you ask, about {{ build.cleaning3dKb }} KB</span></p>
+  <p class="cl-3d-msg" data-3d-msg hidden aria-live="polite"></p>
+  <div class="cl-3d-stage" data-3d-stage hidden>
+    <canvas data-3d-canvas aria-label="A two-bedroom flat in 3D, an illustration. Drag sideways or use the arrow keys to turn it; tap a room."></canvas>
+    <span class="cl-3d-tag">Illustration, not your home</span>
+    <div class="cl-3d-card" data-3d-card hidden aria-live="polite"></div>
+  </div>
+</div>

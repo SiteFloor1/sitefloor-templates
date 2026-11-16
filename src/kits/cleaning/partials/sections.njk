@@ -1,0 +1,2 @@
+{#- Headed paragraphs in the company's words. Set `secs` first. -#}
+<div class="cl-prose">{% for s in secs %}<h2>{{ s.heading }}</h2>{% for p in s.text | paragraphs %}<p>{{ p }}</p>{% endfor %}{% endfor %}</div>

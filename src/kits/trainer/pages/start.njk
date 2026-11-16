@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: start
+permalink: start.html
+feature: trainer-start
+eleventyComputed:
+  title: "{{ site.startHere.title | plain }}"
+  description: "Starting with {{ site.business.name }}: the first session minute by minute, the questionnaire and what to bring."
+---
+{% include "kits/trainer/features/trainer-start/trainer-start.njk" %}

@@ -1,0 +1,27 @@
+{#- Prices and blocks: a ledger of single sessions and blocks, what each session works out at and how long a block
+    lasts; a switch re-prices per person for two training together (from the trainer's own duo prices). Pay by the
+    trainer's own Stripe link where there is one. The twelve weeks and vouchers follow when they're on. -#}
+{%- set pp = site.pricesPage %}
+{%- set anyDuo = (pp.blocks | selectattr("duo") | length) > 0 %}
+{%- set ph = { title: pp.title, intro: pp.intro } %}
+{% include "kits/trainer/partials/page-head.njk" %}
+<section class="tpp" data-feature="trainer-prices" aria-label="{{ pp.title | plain }}"><div class="wrap">
+  {%- if anyDuo %}<div class="tpp-sw" data-js-only><button type="button" aria-pressed="false" data-tpp-duo>Training with someone</button><span>Per person, when two train together</span></div>{% endif %}
+  <table class="tpp-t" data-tpp-table>
+    <caption class="sr-only">Prices for single sessions and blocks</caption>
+    <thead><tr><th scope="col">Sessions</th><th scope="col">The block</th><th scope="col">Each</th><th scope="col">Use within</th><th scope="col"><span class="sr-only">Pay</span></th></tr></thead>
+    <tbody>
+      {%- for b in pp.blocks %}{% set r = b | blockRow %}
+      <tr>
+        <th scope="row">{{ "A single session" if r.sessions == 1 else (r.sessions + " sessions") }}</th>
+        <td><span data-one>{{ r.total | pounds }}</span>{% if r.duoTotal %}<span data-two hidden>{{ r.duoTotal | pounds }} <small>for two</small></span>{% endif %}</td>
+        <td><span data-one>{{ r.each | pounds }}</span>{% if r.duoEach %}<span data-two hidden>{{ r.duoEach | pounds }} <small>each</small></span>{% endif %}</td>
+        <td class="tpp-w">{{ b.useWithin or "" }}</td>
+        <td>{% if b.payLink %}<a class="tpp-pay" href="{{ b.payLink }}" target="_blank" rel="noopener">Pay<span class="sr-only"> for {{ r.sessions }} {{ "session" if r.sessions == 1 else "sessions" }}</span></a>{% endif %}</td>
+      </tr>
+      {%- endfor %}
+    </tbody>
+  </table>
+  {%- if pp.note %}<p class="tpp-note">{{ pp.note }}</p>{% endif %}
+</div></section>
+{%- set hostPage = "trainer-prices" %}{% include "kits/trainer/partials/hosted.njk" %}

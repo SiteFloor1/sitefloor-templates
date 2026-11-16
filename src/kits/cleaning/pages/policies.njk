@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: policies
+permalink: policies.html
+feature: cleaning-policies
+eleventyComputed:
+  title: "{{ site.policies.title | plain }}"
+  description: "{{ site.policies.intro }}"
+---
+{%- set ph = { title: site.policies.title, intro: site.policies.intro } %}
+{% include "kits/cleaning/partials/page-head.njk" %}
+{% include "kits/cleaning/features/cleaning-policies/cleaning-policies.njk" %}

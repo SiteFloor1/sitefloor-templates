@@ -1,0 +1,15 @@
+{#- Do I need to be in: a key's day as a log (when, what happens, where), then the company's rules (numbers, never
+    addresses; or no key at all). Every step is the company's own; on a demo, a sample. -#}
+{%- set k = site.keys %}{%- set sec = site.sections.keys %}
+<section id="keys" class="cl-keys" data-feature="cleaning-keys" aria-label="{{ sec.title | plain }}"{{ 'cleaning-keys' | tierAttr | safe }}><div class="wrap cl-keys-in">
+  <div>{% include "core/partials/section-head.njk" %}</div>
+  <div class="cl-log">
+    {%- if k.label %}<p class="cl-log-hd">{{ k.label }}</p>{% endif %}
+    <ol>
+      {%- for s in k.steps %}
+      <li><time>{{ s.when }}</time><div><b>{{ s.what }}</b>{% if s.detail %}<span>{{ s.detail }}</span>{% endif %}</div>{% if s.where %}<i>{{ s.where }}</i>{% endif %}</li>
+      {%- endfor %}
+    </ol>
+    <div class="cl-rules">{% for r in k.rules %}<p><b>{{ r.heading }}</b> {{ r.text }}</p>{% endfor %}</div>
+  </div>
+</div></section>

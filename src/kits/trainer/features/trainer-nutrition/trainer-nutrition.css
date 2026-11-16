@@ -1,0 +1,12 @@
+/* Nutrition approach: a readable column of the trainer's words; two ruled lists; the referral line with a walnut rule. */
+.tnu-in { display: grid; grid-template-columns: repeat(12, 1fr); gap: 0 24px; }
+.tnu-body { grid-column: 1 / 7; }
+.tnu-body p { max-width: 60ch; }
+.tnu-body p + p { margin-top: 16px; }
+.tnu-lists { grid-column: 8 / 13; display: grid; gap: 28px; }
+.tnu h2 { font: 600 15px var(--font-display); color: var(--muted); margin-bottom: 8px; }
+.tnu ul { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--text); }
+.tnu li { padding: 10px 0; border-bottom: 1px solid var(--line); }
+.tnu-refer { grid-column: 1 / 7; margin-top: 32px; padding-left: 16px; border-left: 2px solid var(--accent); font-size: 19px; }
+.tnu-q { grid-column: 1 / 7; margin-top: 12px; color: var(--muted); font-style: italic; }
+@media (max-width: 760px) { .tnu-in { display: block; } .tnu-lists { margin-top: 32px; } }

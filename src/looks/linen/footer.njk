@@ -1,0 +1,19 @@
+{#- Linen footer: an ink band. The key-tag and name, the address and how to reach the trainer, the week's hours, the
+    pages; the Sitefloor credit last. -#}
+<footer class="foot ln-foot"><div class="wrap ln-foot-in">
+  <div class="ln-foot-name">
+    <p class="ln-foot-word"><i aria-hidden="true">{{ site.business.name | first }}</i>{{ site.business.name }}</p>
+    <p>{{ site.hero.kicker }}</p>
+  </div>
+  <address>{{ site.location.streetAddress }}<br>{{ site.location.locality }} {{ site.location.postcode }}<br>
+    <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a>{% if site.contact.email %}<br><a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>{% endif %}</address>
+  <ul class="ln-foot-hours" aria-label="Opening hours">
+    {%- for row in site.hours | hoursRows %}<li data-day="{{ row.dayIndex }}"><span>{{ row.day }}</span> {{ row.label }}</li>{% endfor %}
+  </ul>
+  <nav class="ln-foot-links" aria-label="Footer">
+    <a href="{{ 'index' | href }}">Home</a>
+    {%- for item in site.nav | navItems(pageId) %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}>{{ item.label }}</a>{% endfor %}
+    <a href="{{ 'privacy' | href }}">Privacy</a>
+  </nav>
+  <p class="ln-foot-by"><a class="by" href="https://sitefloor.com" rel="noopener">Website by <b>Sitefloor</b></a></p>
+</div></footer>

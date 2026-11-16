@@ -17,6 +17,7 @@ take (`demo-map.md`), its speed numbers (`speed.md`) and the fonts it claims (`f
 | cakes | Celebration cake designers | `cakes` | [questions](cakes/questions.md) · [playbook](cakes/playbook.md) · [demo-map](cakes/demo-map.md) · [speed](cakes/speed.md) · [fonts](cakes/fonts.md) |
 | car-hire | Car hire | `hire` | [questions](car-hire/questions.md) · [playbook](car-hire/playbook.md) · [demo-map](car-hire/demo-map.md) · [speed](car-hire/speed.md) · [fonts](car-hire/fonts.md) |
 | car-studio | Car studios (tint, wrap, PPF, detailing) | `car` | [questions](car-studio/questions.md) · [playbook](car-studio/playbook.md) · [demo-map](car-studio/demo-map.md) · [speed](car-studio/speed.md) · [fonts](car-studio/fonts.md) |
+| cleaning | Domestic and commercial cleaning | `cleaning` | [questions](cleaning/questions.md) · [playbook](cleaning/playbook.md) · [demo-map](cleaning/demo-map.md) · [speed](cleaning/speed.md) · [fonts](cleaning/fonts.md) |
 | construction | Construction and building firms | `construction` | [questions](construction/questions.md) · [playbook](construction/playbook.md) · [demo-map](construction/demo-map.md) · [speed](construction/speed.md) · [fonts](construction/fonts.md) |
 | dessert | Dessert shops and chocolatiers | `bakery` | [questions](dessert/questions.md) · [demo-map](dessert/demo-map.md) · [speed](dessert/speed.md) · [fonts](dessert/fonts.md) |
 | detailing | Car detailing | `detailing` | [questions](detailing/questions.md) · [playbook](detailing/playbook.md) · [demo-map](detailing/demo-map.md) · [speed](detailing/speed.md) · [fonts](detailing/fonts.md) |
@@ -32,7 +33,7 @@ take (`demo-map.md`), its speed numbers (`speed.md`) and the fonts it claims (`f
 | mehndi | Mehndi and henna artists | `mehndi` | [questions](mehndi/questions.md) · [playbook](mehndi/playbook.md) · [demo-map](mehndi/demo-map.md) · [speed](mehndi/speed.md) · [fonts](mehndi/fonts.md) |
 | menswear | Clothing brands (menswear, running and outerwear) | `wear` | [questions](menswear/questions.md) · [playbook](menswear/playbook.md) · [demo-map](menswear/demo-map.md) · [speed](menswear/speed.md) · [fonts](menswear/fonts.md) |
 | nails | Nail, lash and beauty salons | `nails` | [questions](nails/questions.md) · [playbook](nails/playbook.md) · [demo-map](nails/demo-map.md) · [speed](nails/speed.md) · [fonts](nails/fonts.md) |
-| personal-trainer | Personal trainers and small gyms | — | [questions](personal-trainer/questions.md) · [playbook](personal-trainer/playbook.md) |
+| personal-trainer | Personal trainers and small gyms | `trainer` | [questions](personal-trainer/questions.md) · [playbook](personal-trainer/playbook.md) · [demo-map](personal-trainer/demo-map.md) · [speed](personal-trainer/speed.md) · [fonts](personal-trainer/fonts.md) |
 | pilates | Reformer Pilates studios | `pilates` | [questions](pilates/questions.md) · [playbook](pilates/playbook.md) · [demo-map](pilates/demo-map.md) · [speed](pilates/speed.md) · [fonts](pilates/fonts.md) |
 | restaurant | Restaurants | `restaurant` | [questions](restaurant/questions.md) · [playbook](restaurant/playbook.md) · [demo-map](restaurant/demo-map.md) · [speed](restaurant/speed.md) · [fonts](restaurant/fonts.md) |
 | sneaker-cleaner | Sneaker and crep cleaners | — | [playbook](sneaker-cleaner/playbook.md) |

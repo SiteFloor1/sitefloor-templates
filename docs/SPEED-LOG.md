@@ -367,6 +367,40 @@ Re-audit D-01: the progress needs the file's size from the server. Without it th
 ("1.1 of 2.5 MB"); `scripts/serve.js` sends Content-Length like Cloudflare; a browser test on a throttled connection
 checks the percentage shows. Auditor's measure after the fixes: 4.2 s on typical 4G, 17.4 s on slow 4G.
 
+## Domestic and commercial cleaning
+_From `docs/trades/cleaning/speed.md`._
+
+### 15 Nov 2026 — Linnet (cleaning kit, Plumb look)
+
+Whole demo (Signature, 14 pages): JS 12.5 KB gz, CSS 11.9 KB gz, fonts 58.4 KB (Anek Latin 400/600/800, latin
+woff2). Home HTML 8.6 KB gz; home images 156 KB, 91.7 KB on the first screen (the living room, 1600×800 WebP);
+everything below is lazy. The optional 3D illustration loads only on tap: 123 KB gz (three.js and the model), never
+on first load; `tests/unit/cleaning.test.js` keeps it within 15% of the figure in `kit.js`. Service pages carry one photograph each, loaded first
+(the largest page image). The client fixture (Signature, sheet-driven free days): JS 11.4 KB gz, CSS 10.1 KB gz.
+
+Fallback font size-matched from the font files against Liberation Sans: Anek Latin 400 93.8% (ascent 95.9%, descent
+21.3%), 600 97% (92.8%, 20.6%), 800 100.6% (89.4%, 19.9%). The headline is set on two fixed lines so the swap never
+re-wraps it.
+
+Lighthouse 12 mobile, local server (16 Nov): home 100 / 100 / 100 (performance, accessibility, best practices; LCP
+1.5 s, the photo; TBT 0; CLS 0.000). Short-let turnovers, Deep cleans and End of tenancy: 100 / 100 / 100, CLS 0.000.
+The client fixture's home: performance 99, CLS 0.000. Plan your visit and Offices (first build): 99–100 / 100 / 100.
+(SEO is low on demos only because they are noindex.)
+
+Layout shift with scripts held back 2.5 s (Playwright, layout-shift entries): phone home 0.001, phone Short-let 0.0002,
+client home 0.001, desktop home 0.001 at 1280 and 1440. The strip is drawn at its final size in the HTML: the figure
+size and the minute hairlines are set in `cqw` for the default home exactly as the script sets them, the controls are
+drawn from the first paint (hidden only when scripting is off), and on phones a room's task list starts closed. On
+service pages the sentence comes after the strip on phones, so the font arriving moves nothing above the fold.
+Remaining at 1024 wide: about 0.02–0.05 from text re-wrapping when Anek Latin replaces its fallback (the header and the
+line above the strip), as on other pages.
+
+Home page at 390 × 844: 6.3 phone screens without the footer, 7.0 with it (first build 10.7). On phones the office
+section is left off the home page (the office, its hours and the map are on Plan your visit, one tap from the menu),
+the room list opens when a room is tapped, the bill starts at the time on site (the rooms are in the strip just
+above), the extras sit two to a row and the key log puts each place under its time. At 1440 × 900 the photo, the
+headline and the whole room strip fit the first screen (`cleaning.spec.js`).
+
 ## Construction and building firms
 _From `docs/trades/construction/speed.md`._
 
@@ -794,6 +828,31 @@ rail is touched: 98 (cold), 98, 98; accessibility 100; FCP 0.8 s; LCP 1.5–2.2 
 97, 100, 100, 94; accessibility 100; FCP 0.9–1.0 s; LCP 1.5–2.4 s; TBT 0–230 ms after the first run (the time is the
 document's own parsing and styles, not the feature scripts); layout shift 0–0.001.
 Phone layout-shift test (360, 390, 412 px, open and closed): passes on the demo and the fixture.
+
+## Personal trainers and small gyms
+_From `docs/trades/personal-trainer/speed.md`._
+
+### Measurements
+| Date | Site | JS (gz) | CSS (gz) | Fonts | Largest page HTML (gz) | Images, home | Third-party requests |
+|---|---|---|---|---|---|---|---|
+| 2026-11-15 | demos/trainer (Signature, 3 pages: diary, first month, sessions) | 26.9 KB (10.6) | 37.5 KB (8.6) | 54.7 KB (Ibarra Real Nova 400, 400 italic, 600) | index 7.4 KB | 109 KB | none |
+| 2026-11-15 | client fixture (Signature, Google Sheet diary) | 23.2 KB (9.5) | 33 KB (7.7) | 54.7 KB | index ~7 KB | 109 KB | Google Sheets CSV (diary) |
+| 2026-11-16 | demos/trainer, full Signature build (20 pages: 13 page features, 4 programmes, 3 articles) | 42.6 KB (15.8) | 74.5 KB (15.1) | 54.7 KB | index 8 KB | 109 KB home | none |
+| 2026-11-16 | client fixture (Signature, Google Sheet diary, all features) | 39 KB (14.7) | 70 KB (14) | 54.7 KB | index ~8 KB | 109 KB home | Google Sheets CSV (diary) |
+
+### Lighthouse (mobile), 16 Nov 2026
+Two runs each from a fresh local server, Lighthouse 12.8. SEO reads 66–69 only because demos are `noindex`.
+
+| Page | Performance | Accessibility | Best practices | LCP | CLS |
+|---|---|---|---|---|---|
+| Home (the diary) | 99, 100 | 100 | 100 | 1.4–1.7 s | 0.013–0.015 |
+| Prices (blocks, twelve weeks, vouchers) | 100, 100 | 100 | 100 | 1.5 s | 0.039 |
+| A programme (Strength) | 99, 100 | 100 | 100 | 1.4–1.8 s | 0.017 |
+| Coaches | 100, 100 | 100 | 100 | 1.4–1.5 s | 0 |
+
+axe (WCAG 2.2 A/AA): no serious or critical issues on any of the 20 pages, open and closed. Home on a phone: 5,280 px,
+about 6.3 screens at 390 × 844 (the diary, the first month, page links, four questions, the footer); sessions and
+qualifications live with the coaches, and the hours and address with Finding us and the footer.
 
 ## Reformer Pilates studios
 _From `docs/trades/pilates/speed.md`._

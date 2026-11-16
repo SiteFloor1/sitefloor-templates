@@ -1,0 +1,275 @@
+{
+  "schemaVersion": 4,
+  "id": "REPLACE_ME",
+  "mode": "client",
+  "plan": "REPLACE_ME",
+  "kit": "trainer",
+  "look": "linen",
+  "url": "https://REPLACE_ME.co.uk",
+  "indexable": true,
+  "lang": "en-GB",
+  "business": {
+    "name": "REPLACE_ME",
+    "schemaType": "HealthClub",
+    "description": "REPLACE_ME one sentence: what you offer, where, from what price.",
+    "priceRange": "£££",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "REPLACE_ME",
+    "phone": "REPLACE_ME",
+    "email": "REPLACE_ME"
+  },
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "location": {
+    "streetAddress": "REPLACE_ME",
+    "locality": "REPLACE_ME",
+    "postcode": "REPLACE_ME",
+    "country": "GB",
+    "area": "REPLACE_ME how to find the studio, parking",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=REPLACE_ME"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": "REPLACE_ME opening times, e.g. [[\"06:00\",\"21:00\"]], or [] if closed",
+      "tue": "REPLACE_ME opening times, e.g. [[\"06:00\",\"21:00\"]], or [] if closed",
+      "wed": "REPLACE_ME opening times, e.g. [[\"06:00\",\"21:00\"]], or [] if closed",
+      "thu": "REPLACE_ME opening times, e.g. [[\"06:00\",\"21:00\"]], or [] if closed",
+      "fri": "REPLACE_ME opening times, e.g. [[\"06:00\",\"21:00\"]], or [] if closed",
+      "sat": "REPLACE_ME opening times, e.g. [[\"06:00\",\"21:00\"]], or [] if closed",
+      "sun": "REPLACE_ME opening times, e.g. [[\"06:00\",\"21:00\"]], or [] if closed"
+    },
+    "exceptions": []
+  },
+  "nav": [
+    {
+      "label": "The week",
+      "href": "#diary"
+    },
+    {
+      "label": "Your first month",
+      "href": "#first-month"
+    },
+    {
+      "label": "Sessions",
+      "href": "#sessions"
+    },
+    {
+      "label": "Visit",
+      "page": "visit",
+      "feature": "plan-visit",
+      "fallback": "#visit"
+    }
+  ],
+  "features": [
+    "trainer-diary",
+    "trainer-services",
+    "trainer-month",
+    "visit",
+    "plan-visit",
+    "questions"
+  ],
+  "hero": {
+    "kicker": "REPLACE_ME e.g. Private training, Chelsea",
+    "title": "REPLACE_ME one plain line, e.g. The week is mostly spoken for.",
+    "intro": "REPLACE_ME one sentence: where, and how you train."
+  },
+  "sections": {
+    "firstMonth": {
+      "title": "Your first month.",
+      "intro": "Choose where we train and how often. What happens, the dates and the cost follow."
+    },
+    "services": {
+      "title": "Sessions",
+      "intro": "An hour each time, one to one or with one other person. Prices from the studio's own list."
+    },
+    "questions": {
+      "title": "Asked before a first session"
+    },
+    "visit": {
+      "title": "Finding the studio"
+    }
+  },
+  "messages": {
+    "general": "Hello, I'd like to ask about private training."
+  },
+  "diary": {
+    "source": "sheet",
+    "csvUrl": "REPLACE_ME the sheet's published CSV link",
+    "staleAfterHours": 36,
+    "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat"
+    ],
+    "from": "06:00",
+    "to": "20:00",
+    "minutes": 60,
+    "priceFrom": "REPLACE_ME lowest price of an hour, whole pounds",
+    "photo": {
+      "src": "img/REPLACE_ME.webp",
+      "width": 1100,
+      "height": 1257,
+      "alt": "REPLACE_ME",
+      "caption": "REPLACE_ME",
+      "block": {
+        "days": [
+          "wed",
+          "thu"
+        ],
+        "from": "08:00",
+        "to": "17:00"
+      }
+    }
+  },
+  "firstMonth": {
+    "photo": {
+      "src": "img/REPLACE_ME.webp",
+      "width": 900,
+      "height": 1350,
+      "alt": "REPLACE_ME"
+    },
+    "caption": "REPLACE_ME a line in your words, only if true",
+    "places": [
+      {
+        "id": "studio",
+        "label": "The studio",
+        "note": "REPLACE_ME area",
+        "text": "REPLACE_ME what the studio provides"
+      },
+      {
+        "id": "home",
+        "label": "Your home",
+        "note": "REPLACE_ME postcode districts",
+        "text": "REPLACE_ME what you bring",
+        "away": true
+      }
+    ],
+    "often": [
+      {
+        "perWeek": 1,
+        "label": "Once a week",
+        "note": "steady"
+      },
+      {
+        "perWeek": 2,
+        "label": "Twice a week",
+        "note": "most choose this",
+        "default": true
+      },
+      {
+        "perWeek": 3,
+        "label": "Three times",
+        "note": "for a date in mind"
+      }
+    ],
+    "steps": [
+      {
+        "minute": 0,
+        "text": "REPLACE_ME what happens first, in your words (the health questionnaire)"
+      },
+      {
+        "minute": 15,
+        "text": "REPLACE_ME"
+      },
+      {
+        "minute": 25,
+        "text": "REPLACE_ME"
+      },
+      {
+        "minute": 50,
+        "text": "REPLACE_ME"
+      }
+    ],
+    "prices": {
+      "first": "REPLACE_ME",
+      "session": {
+        "1": "REPLACE_ME",
+        "2": "REPLACE_ME",
+        "3": "REPLACE_ME"
+      },
+      "travel": "REPLACE_ME or remove"
+    },
+    "policy": [
+      {
+        "label": "Cancel 24 hours ahead",
+        "value": "no charge"
+      }
+    ],
+    "message": "Hello, I'd like to reserve a first session:"
+  },
+  "sessions": {
+    "items": [
+      {
+        "id": "one-to-one",
+        "name": "One to one",
+        "minutes": 60,
+        "price": "REPLACE_ME",
+        "text": "REPLACE_ME"
+      }
+    ]
+  },
+  "qualifications": {
+    "title": "Qualifications",
+    "items": [
+      {
+        "name": "REPLACE_ME only what you hold",
+        "awardingBody": "REPLACE_ME",
+        "year": "REPLACE_ME"
+      }
+    ],
+    "registerUrl": "REPLACE_ME your own register entry, or remove",
+    "registerName": "REPLACE_ME e.g. My entry on the CIMSPA directory"
+  },
+  "questions": [
+    {
+      "topic": "Starting",
+      "q": "Is the first session different?",
+      "a": "REPLACE_ME",
+      "home": true
+    }
+  ],
+  "visitInfo": {
+    "kicker": "Plan your visit",
+    "title": "REPLACE_ME e.g. Finding *the studio.*",
+    "intro": "Parking, the quickest way here and what to expect.",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "REPLACE_ME (nearest station)",
+        "origin": "REPLACE_ME, Town",
+        "minutes": "REPLACE_ME whole minutes, timed on foot",
+        "steps": [
+          "REPLACE_ME",
+          "REPLACE_ME"
+        ]
+      }
+    ],
+    "parking": [
+      {
+        "name": "REPLACE_ME",
+        "walk": "REPLACE_ME whole minutes on foot to the door",
+        "price": "REPLACE_ME",
+        "paid": "REPLACE_ME \"always\", \"never\", or the hours you pay, like opening hours: {\"mon\": [[\"08:00\",\"18:00\"]], …, \"sun\": []}"
+      }
+    ],
+    "access": [
+      {
+        "label": "Step-free entrance",
+        "yes": "REPLACE_ME true or false, checked with the client"
+      },
+      {
+        "label": "Accessible toilet",
+        "yes": "REPLACE_ME true or false, checked with the client"
+      }
+    ],
+    "payment": "REPLACE_ME",
+    "checked": "REPLACE_ME month you checked these facts with the client, YYYY-MM"
+  }
+}

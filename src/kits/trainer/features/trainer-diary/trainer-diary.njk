@@ -1,0 +1,26 @@
+{#- The diary: the trainer's week as a printed appointment page. The page carries the frame (days, hours and the
+    photograph); the open hours come from the trainer's sheet in the browser. Until they arrive, or if the sheet is
+    stale or unreadable, nothing is offered: the line under the diary says to message for times. -#}
+{%- set d = site.diary %}
+<div class="td" id="diary" data-feature="trainer-diary" data-state="loading"{{ 'trainer-diary' | tierAttr | safe }}>
+  <div class="td-head"><span class="td-week" data-td-week>This week</span><span class="td-rng"> · {{ d.from | tabTime | safe }} to {{ d.to | tabTime | safe }}</span><span class="td-count" data-td-count></span></div>
+  <div class="td-grid" data-td-grid role="group" aria-label="This week's hours" style="--td-days: {{ d.days | length }}; --td-rows: {{ (d | diaryHours) | length }}">
+    <div class="td-corner" aria-hidden="true"></div>
+    {%- for day in d.days %}<div class="td-day" data-td-day="{{ day }}" style="grid-area: 1 / {{ loop.index + 1 }}">{{ { mon: "Mon", tue: "Tue", wed: "Wed", thu: "Thu", fri: "Fri", sat: "Sat", sun: "Sun" }[day] }}<span data-td-date></span></div>{% endfor %}
+    {%- for h in d | diaryHours %}{% set row = loop.index + 1 %}
+    <div class="td-tm" aria-hidden="true" style="grid-area: {{ row }} / 1">{{ h | tabTime | safe }}</div>
+    {%- for day in d.days %}<div class="td-c" data-td-cell="{{ day }} {{ h }}" style="grid-area: {{ row }} / {{ loop.index + 1 }}"></div>{% endfor %}
+    {%- endfor %}
+    {%- if d.photo %}
+    {%- set b = d.photo.block %}
+    <figure class="td-ph" data-td-photo style="grid-column: {{ (d.days.indexOf(b.days[0])) + 2 }} / span {{ b.days | length }}; grid-row: {{ (d | diaryHours).indexOf(b.from) + 2 }} / span {{ ((d | diaryHours).indexOf(b.to)) - ((d | diaryHours).indexOf(b.from)) + 1 }}">
+      <img src="{{ d.photo.src | img }}" alt="{{ d.photo.alt }}" width="{{ d.photo.width }}" height="{{ d.photo.height }}" decoding="async" fetchpriority="high"{% if d.photo.focus %} style="object-position: {{ d.photo.focus }}"{% endif %}>
+      {%- if d.photo.caption %}<figcaption>{{ d.photo.caption }}</figcaption>{% endif %}
+    </figure>
+    {%- endif %}
+  </div>
+  <div class="td-slip" aria-live="polite">
+    <p data-td-pick><b>Times are arranged by message.</b><small>One hour, the studio to yourselves. From {{ d.priceFrom | pounds }}.</small></p>
+    <a class="td-go" data-td-go href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">Message for times</a>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+{#- Goal finder (PT-3): four questions, answered by tapping; the programme that fits and a sample week appear beside
+    them, and the answers go to the trainer on WhatsApp. Without JavaScript: each goal links to its programme. -#}
+{%- set g = site.goalFinder %}
+{%- set p0 = site | programmeOf(g.goals[0].programme) %}
+<section class="tg" id="goal" data-feature="trainer-goal" aria-labelledby="tg-h"{{ 'trainer-goal' | tierAttr | safe }}><div class="wrap tg-in">
+  <div class="tg-intro">
+    <h2 id="tg-h">{{ g.title }}</h2>
+    {%- if g.intro %}<p class="tg-lede">{{ g.intro }}</p>{% endif %}
+  </div>
+  <div class="tg-sheet">
+    <div class="tg-qs">
+      <div class="tg-q"><span class="tg-k" id="tg-goal-k">What for</span><div class="tg-opt" role="group" aria-labelledby="tg-goal-k" data-tg="goal">
+        {%- for x in g.goals %}<button type="button" data-v="{{ x.id }}" aria-pressed="{{ 'true' if loop.first else 'false' }}">{{ x.label }}</button>{% endfor %}</div></div>
+      <div class="tg-q"><span class="tg-k" id="tg-level-k">Training lately</span><div class="tg-opt" role="group" aria-labelledby="tg-level-k" data-tg="level">
+        {%- for x in g.levels %}<button type="button" data-v="{{ x.id }}" aria-pressed="{{ 'true' if loop.first else 'false' }}">{{ x.label }}</button>{% endfor %}</div></div>
+      <div class="tg-q"><span class="tg-k" id="tg-days-k">Days a week</span><div class="tg-opt tg-n" role="group" aria-labelledby="tg-days-k" data-tg="days">
+        {%- for n in [1, 2, 3] %}<button type="button" data-v="{{ n }}" aria-pressed="{{ 'true' if n == 2 else 'false' }}">{{ n }}</button>{% endfor %}</div></div>
+      <div class="tg-q"><span class="tg-k" id="tg-inj-k">An injury or condition</span><div class="tg-opt tg-n" role="group" aria-labelledby="tg-inj-k" data-tg="injury">
+        <button type="button" data-v="no" aria-pressed="true">No</button><button type="button" data-v="yes" aria-pressed="false">Yes</button></div></div>
+    </div>
+    <div class="tg-out" aria-live="polite">
+      <p class="tg-k">The programme that fits</p>
+      <p class="tg-prog"><a data-tg-prog href="{{ ('programme-' + p0.id) | href }}">{{ p0.name }}</a></p>
+      <p class="tg-line" data-tg-line>{{ p0.line }}</p>
+      <ol class="tg-week" data-tg-week>{% for s in p0.sessions | sampleWeek(2) %}<li><span>{{ s.day }}</span>{{ s.focus }}</li>{% endfor %}</ol>
+      <p class="tg-level" data-tg-level>{{ g.levels[0].text }}</p>
+      <p class="tg-inj" data-tg-inj hidden>{{ g.injury }}</p>
+      <a class="tg-go" data-tg-go href="{{ g.message | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ g.message }}"{% endif %} target="_blank" rel="noopener">Send this to {{ site.business.name }}</a>
+    </div>
+  </div>
+</div></section>
