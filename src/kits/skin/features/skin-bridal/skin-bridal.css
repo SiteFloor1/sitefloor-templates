@@ -1,0 +1,11 @@
+.sk-br-in { display: grid; gap: 32px 72px; }
+.sk-br-side { display: grid; gap: 12px; align-content: start; }
+.sk-br-away { min-height: 1.5em; margin: 0; }
+.sk-br-late { margin: 0; padding: 12px 14px; border-left: 2px solid var(--accent); background: var(--paper); }
+.sk-br-plan { margin: 0; padding: 0; list-style: none; }
+.sk-br-plan li { display: grid; grid-template-columns: 150px 1fr; gap: 16px; padding: 16px 0; border-top: 1px solid var(--accent); }
+.sk-br-plan li[data-past] { color: var(--muted); }
+.sk-br-n { color: var(--muted); font-variant-numeric: lining-nums; }
+.sk-br-w small { display: block; margin-top: 4px; color: var(--muted); font-size: .9em; }
+@media (max-width: 520px) { .sk-br-plan li { grid-template-columns: 1fr; gap: 4px; } }
+@media (min-width: 900px) { .sk-br-in { grid-template-columns: .8fr 1.2fr; } .sk-br-side { position: sticky; top: 24px; } }

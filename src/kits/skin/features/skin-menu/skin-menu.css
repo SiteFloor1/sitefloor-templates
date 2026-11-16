@@ -14,3 +14,8 @@
 .sk-row-f { margin: 0; color: var(--muted); white-space: nowrap; font-variant-numeric: lining-nums; }
 .sk-row-l { grid-column: 1 / -1; margin: 0; color: var(--muted); font-size: .92em; }
 @media (min-width: 900px) { .sk-mn-view { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.sk-mn-more { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 28px; margin: 36px 0 0; padding: 0; list-style: none; }
+.sk-mn-more a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 7px; }
+.sk-mn-one .sk-mn-view, .sk-mn-one .sk-mn-by { max-width: 760px; margin-inline: auto; }
+.sk-mn-one .sk-mn-by { justify-content: center; }
+@media (min-width: 900px) { .sk-mn-one .sk-mn-view { grid-template-columns: 1fr; } }

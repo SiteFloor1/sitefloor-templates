@@ -7,6 +7,7 @@ export const HOME_PARTS = {
   "skin-finder": "kits/skin/features/skin-finder/skin-finder.njk",
   "skin-menu": "kits/skin/features/skin-menu/skin-menu.njk",
   "skin-first-visit": "kits/skin/features/skin-first-visit/skin-first-visit.njk",
+  "reviews": "features/reviews/reviews.njk",
   "page-links": "features/page-links/page-links.njk",
   "questions": "features/questions/questions.njk",
   "visit": "features/visit/visit.njk",

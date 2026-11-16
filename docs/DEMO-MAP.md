@@ -40,6 +40,15 @@ This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` 
 | Fade District | barber, `barber`, `barber-noir` | dark gentleman's club, warm | brass and leather | gold #C9A46A on near-black #0F0D0C | Playfair Display / Manrope | stacked three-line headline, a pure-CSS spinning barber pole | its own |
 | Swift Cuts | barber, `barber`, `barber-street` | daylight express shop, warm paper | an enamel street sign | enamel blue #1F4BD1 on paper #F3EFE6 | Bricolage Grotesque / Figtree | street-name plate, live queue ticket | its own |
 
+## Facialists and skin clinics
+_From `docs/trades/beauty/demo-map.md`._
+
+This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` (generated) before proposing a look.
+
+| Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
+|---|---|---|---|---|---|---|---|
+| Odile | facialist and skin clinic, `skin`, `palm` (built 16 Nov on `trade/beauty`) | a grand-hotel spa in daylight: **ivory**, menus either side of the name in spaced capitals, centred and symmetrical like a menu card | a palm frond (plus one fine gold line) | palm #1F3B2D, gold #B3924A on ivory #FAF7F0, card #FFFEFA | Antic Didone 400 / Baskervville 400 and 600, roman only | one large framed daylit photograph, then "How does your skin feel today?" answered by a printed treatment card in the clinic's own words | (to come) |
+
 ## Bridal salons
 _From `docs/trades/bridal/demo-map.md`._
 

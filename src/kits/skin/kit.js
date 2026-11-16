@@ -16,7 +16,7 @@ export const features = [
     summary: "Treatments by concern and by time (BEAU-1): the clinic's menu, each treatment with its minutes, price and line; one tap lists them by how long they take." },
   { id: "skin-first-visit", section: "firstVisit", dir: `${K}/skin-first-visit`, minPlan: "starter", kits: ["skin"], requires: ["firstVisit"], js: true,
     summary: "First visit and patch tests (BEAU-2): the clinic's own patch-test rule, and the day to come in for one worked out from the appointment, to the calendar." },
-  { id: "skin-finder", section: "finder", dir: `${K}/skin-finder`, minPlan: "plus", kits: ["skin"], requires: ["finder", "menu"], js: true,
+  { id: "skin-finder", dir: `${K}/skin-finder`, minPlan: "plus", kits: ["skin"], requires: ["finder", "menu"], js: true,
     summary: "Which facial is right for me (BEAU-3): five words for how skin feels today; a printed treatment card answers in the clinic's own words (the facial, minutes, price, afterwards, patch test, this evening), then Book this facial on WhatsApp." },
   { id: "skin-concerns-page", dir: `${K}/skin-concerns-page`, minPlan: "plus", kits: ["skin"], requires: ["finder", "menu"], needs: ["skin-finder"], page: "concerns", js: false,
     summary: "Treatments by concern: the finder's card, then every word with the clinic's treatment for it." },
@@ -39,6 +39,11 @@ export const features = [
   { id: "skin-journal", dir: `${K}/skin-journal`, minPlan: "signature", kits: ["skin"], requires: ["journal"], page: "journal", morePages: ["article"], js: false,
     summary: "The journal: the clinic's own pieces (skin through the seasons, what a facial really does), each dated and signed." },
 ];
+
+// Shared features this trade never offers: the spa day gift replaces vouchers; the room tour replaces a gallery.
+export const refuses = ["gallery", "work", "photo-band", "vouchers"];
+// Reviews only ever come from the clinic's own Google reviews, so no demo shows them.
+export const clientOnly = ["reviews"];
 
 /** Checks this kit's settings in site.json (runs for every site; it returns early for other kits). */
 export const check = checkSkin;

@@ -8,7 +8,7 @@
 import { addDaysYmd, ukDate } from "../../../core/lib/diary.js";
 
 /**
- * @typedef {{ id: string, name: string, minutes: number, price: number, line: string, afterwards?: string, patch?: string,
+ * @typedef {{ id: string, name: string, minutes: number, price: number, line: string, from?: boolean, concerns?: string[], afterwards?: string, patch?: string,
  *   evening?: string, rhythm?: { everyWeeks: number, reminders?: { id: string, afterDays: number, label: string, note?: string }[] } }} Item
  * @typedef {{ id: string, name: string, items: Item[] }} Category
  */

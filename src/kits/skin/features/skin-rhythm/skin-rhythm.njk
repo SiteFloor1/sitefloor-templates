@@ -1,0 +1,26 @@
+{#- Treatment rhythm reminders (BEAU-8): choose the treatment and the day of the visit; the clinic's own reminders
+    after it (that evening, the next morning, a week on) and the next visits at its spacing, listed and saved as one
+    calendar file. Without a day (or JavaScript) each treatment shows its spacing in the clinic's words. -#}
+{%- set r = site.rhythm %}
+{%- set sec = site.sections.rhythm %}
+<section id="rhythm" class="sk-rh" data-feature="skin-rhythm" aria-label="{{ sec.title | plain }}"{{ 'skin-rhythm' | tierAttr | safe }}><div class="wrap sk-rh-in">
+  <div>
+    {%- include "core/partials/section-head.njk" %}
+    <ul class="sk-rh-plain">
+      {%- for x in site.menu | menuItems %}{% if x.rhythm %}
+      <li><span>{{ x.name }}</span><span>every {{ x.rhythm.everyWeeks }} {{ "week" if x.rhythm.everyWeeks == 1 else "weeks" }}</span></li>
+      {%- endif %}{% endfor %}
+    </ul>
+  </div>
+  <div class="sk-patch sk-rh-tool" data-js-only>
+    <label class="sk-patch-f"><span>Your treatment</span><select class="sk-in" data-rh-item>
+      {%- for x in site.menu | menuItems %}{% if x.rhythm %}<option value="{{ x.id }}">{{ x.name }}</option>{% endif %}{% endfor %}
+    </select></label>
+    <label class="sk-patch-f"><span>The day of your visit</span><input type="date" data-rh-date></label>
+    <ol class="sk-rh-list" data-rh-list aria-live="polite"></ol>
+    <div class="sk-patch-acts">
+      <button type="button" class="sk-quiet" data-rh-ics hidden>Add these to my calendar</button>
+      <a class="sk-quiet" data-rh-send href="{{ r.message | book }}" target="_blank" rel="noopener" hidden>Book the next visit</a>
+    </div>
+  </div>
+</div></section>

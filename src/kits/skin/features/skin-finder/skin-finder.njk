@@ -5,17 +5,17 @@
     page and the concerns page (`concernsPage`). -#}
 {%- set f = site.finder %}
 <section id="finder" class="sk-fd" data-feature="skin-finder" aria-label="{{ f.title | plain }}"{{ 'skin-finder' | tierAttr | safe }}><div class="wrap sk-fd-in">
-  {%- if concernsPage %}<p class="sk-fd-q" id="sk-fd-q">{{ f.title }}</p>{% else %}<h2 class="sk-fd-q" id="sk-fd-q">{{ f.title }}</h2>{% endif %}
-  <ul class="sk-words" role="group" aria-labelledby="sk-fd-q" data-js-only>
+  {%- if concernsPage %}<p class="sk-fd-q" id="sk-fd-q">{{ f.title }}</p>{% else %}<h1 class="sk-fd-q" id="sk-fd-q">{{ f.title }}</h1>{% endif %}
+  <div role="group" aria-labelledby="sk-fd-q" data-js-only><ul class="sk-words">
     {%- for w in f.words %}
     <li><button type="button" class="sk-word" data-word="{{ w.word }}" aria-pressed="{{ 'true' if loop.first else 'false' }}" aria-controls="sk-card-{{ loop.index }}">{{ w.word }}</button></li>
     {%- endfor %}
-  </ul>
+  </ul></div>
   <div class="sk-cards" aria-live="polite">
     {%- for w in f.words %}{% set x = site.menu | menuItem(w.item) %}{% set msg = f.message | finderText(w.word, x, site.business.name) %}
     <article class="sk-card" id="sk-card-{{ loop.index }}" data-card="{{ w.word }}">
       <p class="sk-card-for">For skin that feels {{ w.word }}</p>
-      <h3 class="sk-card-t">{{ x.name }}</h3>
+      <h2 class="sk-card-t">{{ x.name }}</h2>
       <p class="sk-card-tp">{{ x.minutes }} minutes · {{ x | cost }}</p>
       <dl class="sk-card-dl">
         <div><dt>Afterwards</dt><dd>{{ x.afterwards }}</dd></div>

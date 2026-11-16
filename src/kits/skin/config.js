@@ -77,6 +77,7 @@ export function checkSkin(site, err, exists) {
   if (site.kit !== "skin") return;
   if (site.look === "palm") checkHero(site.hero, err, exists);
   const items = checkMenu(site.menu, err, exists);
+  if ((site.features ?? []).includes("skin-category-pages")) (site.menu?.categories ?? []).forEach((/** @type {any} */ c, /** @type {number} */ i) => { if (!isObj(c?.page)) err(`menu.categories[${i}].page`, "with the category pages on, every part of the menu needs its page: { title, intro? }"); });
   if (site.finder !== undefined) checkFinder(site.finder, items, err);
   if (site.firstVisit !== undefined) checkFirstVisit(site.firstVisit, err);
   if (site.courses !== undefined) checkCourses(site.courses, items, err);

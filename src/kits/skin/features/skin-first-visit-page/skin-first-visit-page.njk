@@ -1,0 +1,13 @@
+{#- The first visit and patch tests page: the clinic's paragraphs in full, the patch-test day, and the rules the
+    clinic follows on claims and on under-18s, with their sources and the day they were checked. -#}
+{%- set ph = { title: site.firstVisit.title, intro: site.firstVisit.intro } %}
+{% include "kits/skin/partials/page-head.njk" %}
+<section class="sk-fvp" data-feature="skin-first-visit-page" aria-label="{{ site.firstVisit.title | plain }}"><div class="wrap">
+  <dl class="sk-fv-dl sk-fvp-dl">{% for s in site.firstVisit.sections %}<div><dt>{{ s.heading }}</dt><dd>{{ s.text }}</dd></div>{% endfor %}</dl>
+</div></section>
+{%- set firstVisitPage = true %}
+{% include "kits/skin/features/skin-first-visit/skin-first-visit.njk" %}
+<section class="sk-src" aria-label="Sources"><div class="wrap">
+  <p class="sk-src-t">How we describe treatments follows the advertising rules for cosmetics and beauty treatments (checked {{ skinRules.checked }}):</p>
+  <ul class="sk-src-l">{% for s in skinRules.sources %}<li><a href="{{ s.url }}" rel="noopener">{{ s.label }}</a></li>{% endfor %}</ul>
+</div></section>

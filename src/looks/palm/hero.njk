@@ -1,0 +1,15 @@
+{#- Palm hero: one large daylit photograph in an ivory frame, credited on the photograph. When the finder follows,
+    its question is the page's heading; otherwise the clinic's own line sits under the photograph. -#}
+{%- set h = site.hero %}
+<section class="hero pm-hero" aria-label="{{ site.business.name }}">
+  <div class="pm-photo">
+    <picture>
+      {%- if h.phonePhoto %}<source media="(max-width: 700px)" srcset="{{ h.phonePhoto.src | img }}" width="{{ h.phonePhoto.width }}" height="{{ h.phonePhoto.height }}">{% endif %}
+      <img src="{{ h.photo.src | img }}" width="{{ h.photo.width }}" height="{{ h.photo.height }}" alt="{{ h.photo.alt }}" fetchpriority="high" decoding="async"{% if h.photo.focus %} style="object-position: {{ h.photo.focus }}"{% endif %}>
+    </picture>
+    {%- if h.credit %}<p class="pm-credit">{{ h.credit }}</p>{% endif %}
+  </div>
+  {%- if not ("skin-finder" | enabled) %}
+  <div class="wrap pm-hero-t"><h1 class="pm-h1">{{ (h.title or h.kicker) | plain }}</h1>{% if h.intro %}<p class="pm-hero-i">{{ h.intro }}</p>{% endif %}</div>
+  {%- endif %}
+</section>

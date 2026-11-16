@@ -43,19 +43,24 @@ looking ODILE LIMITED of unknown trade exists, so the demo never shows a company
 ### Features by plan (the owner's approved codes, `docs/VISION.md`, BEAU)
 New kit feature ids start with `skin-`. Every site also gets Plan your visit, open now, WhatsApp, reviews and Instagram.
 
-| Code | Plan | Kit feature | What it does |
+| Code | Plan | Kit feature (as built, 16 Nov 2026) | What it does |
 |---|---|---|---|
-| BEAU-1 | Starter | `skin-menu` | treatments by concern and by time: time, "from" price, downtime, patch test, single or course, in the clinic's words; each with its own small dial of minutes |
-| BEAU-2 | Starter (the easy extra) | `skin-patch` | first visit and patch-test policy; enter your appointment date, get "patch test by Sat 21 Nov" with a calendar file |
-| BEAU-3 | Plus (the home's first-screen tool on Plus and Signature) | `skin-concern` | concern finder: five words for how skin feels today; a printed card with the clinic's facial, length, price, afterwards, patch test and that evening; book on WhatsApp |
-| BEAU-4 | Plus | shared courses and memberships | the clinic's course and membership prices |
-| BEAU-5 | Plus | `skin-rooms` | room tour: the room's photographs with what each thing is for |
-| BEAU-6 | Signature | `skin-ritual` | ritual builder: add rituals (longer massage, LED, scalp) to a facial; time and price update, then a WhatsApp summary (no clock drawing) |
-| BEAU-7 | Signature | `skin-spaday` | spa day planner that ends in a gift card (the clinic's Payment Link) |
-| BEAU-8 | Signature | `skin-rhythm` | treatment rhythm reminders: the course planner (round 1's C) works out every appointment, the patch test and the stop-retinol date, plus aftercare reminders, as calendar files |
-| BEAU-9 | Signature | shared vouchers, `skin-voucher` look | experience voucher with a card preview |
-| — | Signature page | `skin-note` | the suggestion note (round 1's B): a sentence with choosable words writes a treatment note with dates worked back from an event; "a suggestion, not a diagnosis" |
-| — | client-only | `skin-results` | consented before/after of the same person, same light, unedited; no demo turns it on |
+| BEAU-1 | Starter | `skin-menu` | the menu by treatment, by concern or by time, with minutes and prices; with the category pages on, the home page keeps to the facials and names the other parts |
+| BEAU-2 | Starter (the easy extra) | `skin-first-visit` | first-visit notes and the clinic's patch-test rule; an appointment date in, the patch-test day out (on or before), to the calendar or WhatsApp |
+| BEAU-3 | Plus (the home's first-screen tool) | `skin-finder` | "How does your skin feel today?": five words, each a printed card in the clinic's own words (facial, minutes, price, afterwards, patch test, this evening); Book on WhatsApp |
+| — | Plus page | `skin-concerns-page` | the finder, then every treatment by concern |
+| — | Plus pages (one collection) | `skin-category-pages` | facials, brows and lashes, body and massage, waxing, men's: every treatment with its afterwards, patch test and this evening |
+| — | Plus page | `skin-first-visit-page` | the first visit in full, the patch-test day, the advertising rules with sources |
+| BEAU-4 | Plus | `skin-courses` | courses (treatment, how many, how far apart, price) and memberships |
+| BEAU-5 | Plus | `skin-rooms` | the room, photograph by photograph |
+| BEAU-6 | Signature | `skin-ritual` | ritual builder: a facial plus the clinic's add-ons; minutes and price add up; the whole ritual to WhatsApp |
+| BEAU-7 + 9 | Signature | `skin-spaday` | a spa day as a gift: the card drawn as it's typed; bought through the clinic's own Stripe Payment Link (names follow on WhatsApp) or on WhatsApp |
+| BEAU-8 | Signature | `skin-rhythm` | treatment rhythm: the clinic's own reminders after each treatment and its spacing between visits, as one .ics; on the courses page |
+| — | Signature page | `skin-bridal` | bridal timeline dated back from the day |
+| — | Signature page | `skin-journal` | the clinic's journal |
+| — | client-only | shared `reviews` | real Google reviews only, so no demo shows them |
+
+Shared: `visit`, `plan-visit`, `questions`, `page-links`, `team` (The team), `custom-pages` (Skin by season; Group and corporate days), `seasonal`. Refused: `gallery`, `work`, `photo-band`, `vouchers` (the spa-day gift replaces them). Dropped from round 1's list: `skin-note` (the finder covers it) and `skin-results` (before/after is client-only and not built yet; a later add-on).
 
 **Pages (BEAU, approved):** Home ★ · Treatments by concern ★ · Facials ★ · Brows and lashes ★ · Rituals and spa days ★ ·
 Body and massage · Waxing and hair removal · Courses and memberships · The rooms · Bridal beauty timeline (uses

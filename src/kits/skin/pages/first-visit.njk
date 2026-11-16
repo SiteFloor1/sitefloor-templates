@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: first-visit
+permalink: first-visit.html
+feature: skin-first-visit-page
+eleventyComputed:
+  title: "{{ site.firstVisit.title | plain }}"
+  description: "Your first visit to {{ site.business.name }} and when to come in for a patch test."
+---
+{% include "kits/skin/features/skin-first-visit-page/skin-first-visit-page.njk" %}

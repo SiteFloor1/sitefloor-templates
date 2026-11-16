@@ -1,0 +1,660 @@
+{
+  "schemaVersion": 4,
+  "id": "test-skin-client",
+  "mode": "client",
+  "plan": "plus",
+  "kit": "skin",
+  "look": "palm",
+  "url": "https://linden-test-rooms.co.uk",
+  "indexable": true,
+  "lang": "en-GB",
+  "business": {
+    "name": "Linden",
+    "schemaType": "DaySpa",
+    "description": "Facials, brows and massage in a treatment room in Bath. Facials from £70.",
+    "priceRange": "££",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "442079460471",
+    "phone": "+44 20 7946 0471",
+    "email": "hello@linden-test-rooms.example"
+  },
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "location": {
+    "streetAddress": "5 Test Lane",
+    "locality": "Bath",
+    "postcode": "BA1 1AA",
+    "country": "GB",
+    "area": "A lane off the high street.",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=Bath"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [],
+      "tue": [
+        [
+          "10:00",
+          "19:00"
+        ]
+      ],
+      "wed": [
+        [
+          "10:00",
+          "19:00"
+        ]
+      ],
+      "thu": [
+        [
+          "10:00",
+          "21:00"
+        ]
+      ],
+      "fri": [
+        [
+          "10:00",
+          "19:00"
+        ]
+      ],
+      "sat": [
+        [
+          "09:00",
+          "17:00"
+        ]
+      ],
+      "sun": [
+        [
+          "11:00",
+          "16:00"
+        ]
+      ]
+    },
+    "exceptions": []
+  },
+  "features": [
+    "skin-menu",
+    "skin-first-visit",
+    "skin-finder",
+    "skin-concerns-page",
+    "skin-category-pages",
+    "skin-first-visit-page",
+    "skin-courses",
+    "visit",
+    "plan-visit",
+    "questions",
+    "reviews"
+  ],
+  "nav": [
+    {
+      "label": "Treatments",
+      "page": "concerns",
+      "feature": "skin-concerns-page",
+      "fallback": "#menu"
+    },
+    {
+      "label": "Courses",
+      "page": "courses",
+      "feature": "skin-courses"
+    },
+    {
+      "label": "First visit",
+      "page": "first-visit",
+      "feature": "skin-first-visit-page"
+    },
+    {
+      "label": "Visit",
+      "page": "visit",
+      "feature": "plan-visit",
+      "fallback": "#visit"
+    }
+  ],
+  "messages": {
+    "general": "Hello Linden, I'd like to book a treatment."
+  },
+  "hero": {
+    "kicker": "Facials and treatments, Bath",
+    "title": "Facials in daylight, off Walton Street.",
+    "intro": "Facials, brows, lashes and massage. Facials from £70.",
+    "photo": {
+      "src": "img/hero.webp",
+      "width": 2000,
+      "height": 1081,
+      "alt": "A facialist's hands resting on a client's face, in a white room lit by a tall window",
+      "focus": "50% 45%"
+    },
+    "phonePhoto": {
+      "src": "img/hero-phone.webp",
+      "width": 900,
+      "height": 1200,
+      "alt": "A facialist's hands resting on a client's face, in a white room lit by a tall window",
+      "focus": "50% 40%"
+    },
+    "credit": "Photograph: Olia Danilevich, Pexels"
+  },
+  "sections": {
+    "menu": {
+      "title": "The menu",
+      "intro": "By treatment, by concern or by how long you have."
+    },
+    "firstVisit": {
+      "title": "Your first visit"
+    },
+    "visit": {
+      "title": "Walton Yard"
+    },
+    "questions": {
+      "title": "Asked before a first visit"
+    },
+    "reviews": {
+      "kicker": "Google reviews",
+      "title": "Reviews",
+      "intro": "Copied from Google with the reviewer's name and month."
+    }
+  },
+  "menu": {
+    "categories": [
+      {
+        "id": "facials",
+        "name": "Facials",
+        "line": "Every facial begins with your facialist looking at your skin.",
+        "page": {
+          "title": "Facials",
+          "intro": "Five facials, each started by looking at your skin under a lamp, by the window.",
+          "sections": [
+            {
+              "heading": "Before you come",
+              "text": "Come without make-up if you can. If you use retinol or acids, stop them two days before a peel."
+            },
+            {
+              "heading": "Choosing",
+              "text": "Not sure? Tell us how your skin feels on WhatsApp, or choose on the day: your facialist may suggest something else once she has seen your skin."
+            }
+          ]
+        },
+        "items": [
+          {
+            "id": "hydrating",
+            "name": "Hydrating facial",
+            "minutes": 60,
+            "price": 95,
+            "line": "Cleanse, a gentle enzyme, a long massage and a mask for skin that feels tight.",
+            "concerns": [
+              "tight"
+            ],
+            "afterwards": "You may look a little pink for up to an hour.",
+            "patch": "Not needed.",
+            "evening": "Skip retinol and acids tonight. Your usual moisturiser, and SPF in the morning.",
+            "rhythm": {
+              "everyWeeks": 5,
+              "reminders": [
+                {
+                  "id": "spf",
+                  "afterDays": 1,
+                  "label": "SPF this morning, and every morning this week"
+                },
+                {
+                  "id": "acids",
+                  "afterDays": 2,
+                  "label": "Back to your usual retinol or acids from today"
+                }
+              ]
+            }
+          },
+          {
+            "id": "long",
+            "name": "Long facial",
+            "minutes": 90,
+            "price": 135,
+            "line": "Our longest facial: a double cleanse, extractions where needed, face, neck and shoulder massage, two masks.",
+            "concerns": [
+              "tired",
+              "tight"
+            ],
+            "afterwards": "Nothing to hide. Most people go home and sleep well.",
+            "patch": "Not needed.",
+            "evening": "Leave the oil on and wash your face in the morning.",
+            "rhythm": {
+              "everyWeeks": 6,
+              "reminders": [
+                {
+                  "id": "wash",
+                  "afterDays": 1,
+                  "label": "Wash off last night's oil this morning"
+                }
+              ]
+            }
+          },
+          {
+            "id": "peel",
+            "name": "Light peel",
+            "minutes": 45,
+            "price": 80,
+            "line": "A mild fruit-acid peel and a calming mask, for skin that looks uneven in tone.",
+            "concerns": [
+              "uneven"
+            ],
+            "afterwards": "Light flaking for two to four days.",
+            "patch": "Yes, 48 hours before. We book it with you.",
+            "evening": "Cool water only. No make-up, retinol or scrubs for 48 hours.",
+            "rhythm": {
+              "everyWeeks": 4,
+              "reminders": [
+                {
+                  "id": "cool",
+                  "afterDays": 0,
+                  "label": "Cool water only tonight; no make-up"
+                },
+                {
+                  "id": "spf",
+                  "afterDays": 1,
+                  "label": "SPF 30 or higher every morning this week"
+                },
+                {
+                  "id": "back",
+                  "afterDays": 3,
+                  "label": "Back to your usual routine from today, if the flaking has stopped"
+                }
+              ]
+            }
+          },
+          {
+            "id": "deep",
+            "name": "Deep-cleanse facial",
+            "minutes": 60,
+            "price": 95,
+            "line": "Steam, a thorough cleanse and careful extractions, for skin that is breaking out.",
+            "concerns": [
+              "breaking out"
+            ],
+            "afterwards": "Some redness where we have worked, usually gone by the evening.",
+            "patch": "Not needed.",
+            "evening": "Hands off, and no make-up until tomorrow morning.",
+            "rhythm": {
+              "everyWeeks": 4,
+              "reminders": [
+                {
+                  "id": "hands",
+                  "afterDays": 0,
+                  "label": "Hands off tonight; no make-up until morning"
+                },
+                {
+                  "id": "pillow",
+                  "afterDays": 0,
+                  "label": "A clean pillowcase tonight"
+                }
+              ]
+            }
+          },
+          {
+            "id": "calming",
+            "name": "Calming facial",
+            "minutes": 45,
+            "price": 70,
+            "line": "Fragrance-free from start to finish: a light cleanse, a cool mask and a slow massage.",
+            "concerns": [
+              "sensitive"
+            ],
+            "afterwards": "None. Fragrance-free products throughout.",
+            "patch": "Yes, for anything new to you, 48 hours before.",
+            "evening": "Nothing new on your skin tonight.",
+            "rhythm": {
+              "everyWeeks": 6
+            }
+          }
+        ]
+      },
+      {
+        "id": "brows-and-lashes",
+        "name": "Brows and lashes",
+        "page": {
+          "title": "Brows and lashes",
+          "intro": "Shaped by hand, tinted to suit you."
+        },
+        "items": [
+          {
+            "id": "brow-shape",
+            "name": "Brow shape",
+            "minutes": 20,
+            "price": 22,
+            "line": "Shaped with wax and tweezers to suit your face."
+          },
+          {
+            "id": "brow-tint",
+            "name": "Brow shape and tint",
+            "minutes": 30,
+            "price": 32,
+            "line": "Shaped, then tinted a shade you choose with us.",
+            "afterwards": "The tint looks strongest for a day.",
+            "patch": "Yes, 48 hours before. We book it with you."
+          },
+          {
+            "id": "lash-tint",
+            "name": "Lash tint",
+            "minutes": 20,
+            "price": 22,
+            "line": "Lashes darkened from root to tip.",
+            "afterwards": "Nothing to hide.",
+            "patch": "Yes, 48 hours before. We book it with you."
+          },
+          {
+            "id": "lash-lift",
+            "name": "Lash lift and tint",
+            "minutes": 60,
+            "price": 65,
+            "line": "Lashes curled from the root and tinted, for about six weeks.",
+            "afterwards": "Keep them dry for 24 hours.",
+            "patch": "Yes, 48 hours before. We book it with you.",
+            "evening": "No mascara, steam or swimming tonight."
+          }
+        ]
+      },
+      {
+        "id": "body-and-massage",
+        "name": "Body and massage",
+        "page": {
+          "title": "Body and massage",
+          "intro": "By the long window, on a warm table."
+        },
+        "items": [
+          {
+            "id": "back",
+            "name": "Back, neck and shoulders",
+            "minutes": 30,
+            "price": 50,
+            "line": "For the knots you carry at a desk."
+          },
+          {
+            "id": "full",
+            "name": "Full-body massage",
+            "minutes": 60,
+            "price": 90,
+            "line": "Slow, warm and unhurried, with an unscented oil or one you choose."
+          },
+          {
+            "id": "scrub",
+            "name": "Body scrub and wrap",
+            "minutes": 75,
+            "price": 110,
+            "line": "A salt scrub, a warm wrap and a scalp massage while it works.",
+            "afterwards": "Skin feels soft; no need to shower until tomorrow.",
+            "patch": "Not needed."
+          }
+        ]
+      },
+      {
+        "id": "waxing",
+        "name": "Waxing",
+        "page": {
+          "title": "Waxing",
+          "intro": "Hot wax for the delicate places, strip wax for the rest."
+        },
+        "items": [
+          {
+            "id": "lip",
+            "name": "Lip or chin",
+            "minutes": 10,
+            "price": 14,
+            "line": "Hot wax."
+          },
+          {
+            "id": "underarm",
+            "name": "Underarm",
+            "minutes": 15,
+            "price": 18,
+            "line": "Hot wax."
+          },
+          {
+            "id": "half-leg",
+            "name": "Half leg",
+            "minutes": 30,
+            "price": 32,
+            "line": "Strip wax."
+          },
+          {
+            "id": "full-leg",
+            "name": "Full leg",
+            "minutes": 45,
+            "price": 48,
+            "line": "Strip wax.",
+            "afterwards": "Some redness for an hour or two.",
+            "patch": "Not needed.",
+            "evening": "No hot baths, tanning or fragrance on your legs tonight."
+          },
+          {
+            "id": "bikini",
+            "name": "Bikini line",
+            "minutes": 20,
+            "price": 26,
+            "line": "Hot wax."
+          }
+        ]
+      },
+      {
+        "id": "mens",
+        "name": "Men's treatments",
+        "page": {
+          "title": "Men's treatments",
+          "intro": "The same rooms and the same care. Many of our clients are men."
+        },
+        "items": [
+          {
+            "id": "mens-facial",
+            "name": "Men's facial",
+            "minutes": 60,
+            "price": 95,
+            "line": "A deep cleanse, extractions where needed and a long massage, around a beard if you have one.",
+            "afterwards": "Some redness where we have worked, usually gone by the evening.",
+            "patch": "Not needed."
+          },
+          {
+            "id": "mens-back",
+            "name": "Back facial",
+            "minutes": 45,
+            "price": 70,
+            "line": "A cleanse, extractions and a mask for the back.",
+            "afterwards": "Some redness for an hour or two.",
+            "patch": "Not needed."
+          },
+          {
+            "id": "mens-brow",
+            "name": "Brow tidy",
+            "minutes": 15,
+            "price": 18,
+            "line": "Kept natural."
+          }
+        ]
+      }
+    ]
+  },
+  "finder": {
+    "title": "How does your skin feel today?",
+    "intro": "Choose a word. The card is our suggestion, in our words.",
+    "note": "A suggestion from our menu. Your facialist looks at your skin first and may suggest something else.",
+    "message": "Hello {name}, I'd like to book the {treatment} ({minutes} minutes, £{price}). My skin feels {word} today.",
+    "words": [
+      {
+        "word": "tight",
+        "item": "hydrating"
+      },
+      {
+        "word": "tired",
+        "item": "long"
+      },
+      {
+        "word": "uneven",
+        "item": "peel"
+      },
+      {
+        "word": "breaking out",
+        "item": "deep"
+      },
+      {
+        "word": "sensitive",
+        "item": "calming"
+      }
+    ]
+  },
+  "firstVisit": {
+    "title": "Your first visit",
+    "intro": "What happens, and when to come in for a patch test.",
+    "sections": [
+      {
+        "heading": "Arriving",
+        "text": "Come five minutes early. We give you a short form about your skin and anything you use on it."
+      },
+      {
+        "heading": "Before we start",
+        "text": "Your facialist looks at your skin under a lamp and asks how it has been. She may suggest a different facial from the one you booked; the choice is yours."
+      },
+      {
+        "heading": "Afterwards",
+        "text": "We write down what we used and what to do tonight, and send it to you on WhatsApp."
+      },
+      {
+        "heading": "Under 18",
+        "text": "We do not offer peels to anyone under 18. For other treatments, under-16s come with a parent."
+      },
+      {
+        "heading": "Changing your appointment",
+        "text": "Tell us 24 hours before and there is no charge."
+      }
+    ],
+    "patch": {
+      "hoursBefore": 48,
+      "line": "Tints, lash lifts, peels and any product new to you need a patch test 48 hours before. It takes five minutes and is free."
+    }
+  },
+  "courses": {
+    "title": "Courses and memberships",
+    "intro": "For skin you want to look after through the year.",
+    "note": "Courses are valid for six months from the first treatment and are not refundable once started.",
+    "courses": [
+      {
+        "id": "peel-4",
+        "item": "peel",
+        "count": 4,
+        "everyWeeks": 4,
+        "price": 280,
+        "line": "Four light peels a month apart, with the patch test before the first."
+      },
+      {
+        "id": "hydrating-3",
+        "item": "hydrating",
+        "count": 3,
+        "everyWeeks": 5,
+        "price": 255,
+        "line": "Three hydrating facials through a season."
+      },
+      {
+        "id": "deep-4",
+        "item": "deep",
+        "count": 4,
+        "everyWeeks": 4,
+        "price": 340,
+        "line": "Four deep-cleanse facials a month apart."
+      }
+    ]
+  },
+  "visitInfo": {
+    "kicker": "Plan your visit",
+    "title": "Finding *Test Lane.*",
+    "intro": "Off the high street.",
+    "checked": "2026-11",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "Bath Spa station",
+        "origin": "Bath Spa station",
+        "minutes": 8,
+        "steps": [
+          "Walk up Manvers Street",
+          "Turn left into Test Lane"
+        ]
+      }
+    ],
+    "parking": [],
+    "access": [
+      {
+        "label": "Step-free entrance",
+        "yes": true
+      },
+      {
+        "label": "Treatment room on the ground floor",
+        "yes": true
+      },
+      {
+        "label": "Accessible toilet",
+        "yes": false
+      }
+    ],
+    "accessNote": "Everything is on the ground floor; the toilet is small, so tell us if you'd like help.",
+    "payment": "Card or Apple Pay."
+  },
+  "questions": [
+    {
+      "topic": "Booking",
+      "q": "Which facial should I book?",
+      "a": "Choose by how your skin feels on the home page, or book the hydrating facial. Your facialist looks at your skin first and may suggest something else.",
+      "home": true
+    },
+    {
+      "topic": "Booking",
+      "q": "Do I need a patch test?",
+      "a": "For tints, lash lifts, peels and any product new to you: yes, 48 hours before. It takes five minutes and is free.",
+      "home": true
+    },
+    {
+      "topic": "Booking",
+      "q": "Can I wear make-up afterwards?",
+      "a": "After most facials we'd rather you didn't until the next morning. Each card says what to do that evening.",
+      "home": true
+    },
+    {
+      "topic": "Booking",
+      "q": "Can I change my appointment?",
+      "a": "Tell us 24 hours before and there is no charge.",
+      "home": true
+    },
+    {
+      "topic": "Visiting",
+      "q": "Do you treat men?",
+      "a": "Yes. Many of our clients are men; the men's facial works around a beard.",
+      "home": true
+    },
+    {
+      "topic": "Visiting",
+      "q": "I'm pregnant. Can I still come?",
+      "a": "Tell us when you book. We change some products and skip peels, and massage is on your side."
+    },
+    {
+      "topic": "Visiting",
+      "q": "Do you do injections?",
+      "a": "No. We are facialists, not a medical clinic."
+    },
+    {
+      "topic": "Gifts",
+      "q": "Can I buy a gift for someone?",
+      "a": "Yes, on the gifts page. We write the card by hand and post it, or email it the same day."
+    }
+  ],
+  "reviews": {
+    "source": "google",
+    "items": [
+      {
+        "text": "Calm room, and she told me exactly what to do that evening.",
+        "author": "Priya S.",
+        "rating": 5,
+        "date": "2026-10"
+      },
+      {
+        "text": "Booked the hydrating facial on WhatsApp in a minute. Will be back.",
+        "author": "Tom R.",
+        "rating": 4,
+        "date": "2026-09"
+      }
+    ]
+  }
+}

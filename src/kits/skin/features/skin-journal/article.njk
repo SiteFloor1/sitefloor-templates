@@ -1,0 +1,8 @@
+{#- One journal piece. Expects `a`. -#}
+{%- set ph = { title: a.title, intro: a.intro } %}
+{% include "kits/skin/partials/page-head.njk" %}
+<article class="sk-ar" data-feature="skin-journal"><div class="wrap sk-ar-in">
+  <p class="sk-jn-d"><time datetime="{{ a.date }}">{{ a.date | ukDate }}</time> · {{ a.by }}</p>
+  {%- for s in a.sections %}<h2 class="sk-ar-h">{{ s.heading }}</h2>{{ s.text | paragraphs | safe }}{% endfor %}
+  <p class="sk-more-l"><a class="go" href="{{ 'journal' | href }}">The journal</a></p>
+</div></article>
