@@ -10,8 +10,8 @@ screen and the showpieces.
   into a sample or a bottle, and make the gift easy.
 - References (owner's): Penhaligon's (British heritage and wit) and Maison Francis Kurkdjian (Parisian precision and
   light). Bottles shown large, lit like jewellery.
-- Round 3 (16 Nov 2026), one direction on review (`sitefloor-internal`, branch `design/fragrance`, `screens-3/`):
-  B **Verrière**. Launch mode is shown as a state of the same page in B's look (not a separate look); C (Lovage) and
+- Round 4 (16 Nov 2026), one direction on review (`sitefloor-internal`, branch `design/fragrance`, `screens-4/`):
+  B **Verrière**, with the hero bottle as a rendered turntable (the live three.js bottle is retired). Launch mode is shown as a state of the same page in B's look (not a separate look); C (Lovage) and
   round 1's A (Merriott) are dropped.
 - The kit serves both a heritage house and a new brand launching (see "Launch mode").
 
@@ -32,18 +32,18 @@ screen and the showpieces.
   weddings and corporate gifts, journal. Every site also gets Plan your visit, open now, WhatsApp, reviews, Instagram.
 
 ### The hero bottle: what a real client gets (be honest when selling)
-- **Demo:** a bottle of our own design, drawn in real 3D in the browser (three.js, self-hosted, about 140 KB gzipped,
-  loaded only after the page and its poster image have loaded): physically based glass with refraction, thickness and
-  a little dispersion, the liquid inside lit from behind, a polished cap, slowly turning under studio light, with light
-  thrown through the liquid onto the floor. A still poster rendered from the same scene shows first; reduced motion and
-  devices without WebGL 2 keep the still; a Pause button stops the turn.
-- **Real clients:** the 3D bottle needs an accurate model of *their* bottle, cap and liquid colour (from their supplier's
-  drawings or a photogrammetry scan) and an evening of lighting. That is a **Bespoke add-on**, quoted separately, never
-  part of Signature.
-- **Standard showpiece for clients:** their own **turntable photographs**: 24 to 36 shots of the bottle on a turntable,
-  same light and distance, shown as a 360° spin the visitor drags (first frame as the poster, the rest loaded on first
-  touch). A phone on a £20 turntable in a lightbox is enough; we give them the shot list. Without the shots, the hero is
-  their best still photograph. The notes, engraving preview and organ work the same over a photo or the 3D.
+- **One feature, two sources: the turntable.** The hero is a 360° turntable the visitor drags: 36 frames, 10° apart,
+  the first frame is the poster, the rest load after the page (or on first touch). Arrow keys turn it too; there is no
+  autoplay, so reduced motion needs nothing extra.
+- **Demo:** a bottle of our own design, rendered in Blender Cycles as 36 turntable frames (real glass thickness,
+  refraction, caustics, liquid absorption that deepens with depth), on a travertine plinth. A symmetric flacon looks the
+  same from the back, so it needs 18 unique frames.
+- **Real clients:** their own **turntable photographs**, 24 to 36 shots of the bottle on a turntable, same light and
+  distance. The page and the feature are the same as the demo's, only the frames change. A phone on a £20 turntable in a
+  lightbox is enough; we give them the shot list. Without the shots, the hero is their best still photograph.
+- **Rendered bottle for a client (Bespoke add-on, quoted separately):** a Cycles turntable of *their* bottle needs an
+  accurate model (supplier drawings or a scan) and their liquid colour. It is never part of Signature.
+- The notes, engraving preview and organ work the same over a photo or a render.
 - The engraving preview needs one calibrated front-on picture of the bottle (we mark the engravable area once). No
   calibrated picture: the preview hides and the plain order form shows.
 
@@ -71,8 +71,8 @@ screen and the showpieces.
 | **Bespoke consultation** (FRAG-7) | The bespoke process, price from, and a request (date wished, occasion) | "Can you make one just for me?" | Signature | Link to the client's booking app or a WhatsApp request | Small | Requests, never "booked" unless the booking app confirms | Weddings and milestones |
 | **Sizes side by side** (own idea) | Every size drawn to scale with the price per 10 ml | "Is 100 ml worth it over 50?" | Starter (the easy extra) | From the client's sizes and prices | Small | Worked from the client's own prices; no "best value" badge | Plain usefulness |
 
-Owner's decision (16 Nov): Signature gets the engraving desk, notes on the bottle and Let them choose (plus the 3D bottle
-hero for the demo only); Starter gets sizes side by side; Plus gets the organ. Similar services exist as products
+Owner's decision (16 Nov): Signature gets the engraving desk, notes on the bottle and Let them choose (plus the rendered
+turntable hero for the demo only); Starter gets sizes side by side; Plus gets the organ. Similar services exist as products
 (Penhaligon's engraving desk, Miller Harris's discovery-set voucher, Thomson Carter's sample box with a card for the
 chosen bottle); none of the sites checked shows a live engraving preview or the notes drawn on the bottle.
 
