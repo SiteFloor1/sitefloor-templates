@@ -62,6 +62,9 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 | Isolde, the cover (round 4) | trade/bridal-beauty | Libre Bodoni | Faustina |
 | Cleaning, Plan (A) | trade/cleaning | Anek Latin | Anek Latin |
 | Landscaping, Almanac | trade/landscaping | Alegreya | Alegreya |
+| Ourika, the hem line (A) | trade/modest | Afacad | Afacad |
+| Maysan, silk (B) | trade/modest | Shippori Mincho | Zen Kaku Gothic New |
+| Sadeem, Eid morning (C) | trade/modest | Imbue | Wix Madefor Text |
 | Trainer, Linen (A) | trade/trainer | Ibarra Real Nova | Ibarra Real Nova |
 | Tailor, Flannel (A) | trade/tailor | Della Respira | Commissioner |
 | Wedding films, Première (A) | trade/wedding-film | Sorts Mill Goudy | Urbanist |
