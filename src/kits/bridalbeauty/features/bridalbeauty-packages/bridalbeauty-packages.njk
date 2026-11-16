@@ -17,11 +17,15 @@
     <li><span class="bb-l-n"><b>{{ x.name }}</b><small>{{ x.text }}</small></span><span class="bb-l-m">{{ x.minutes | mins }}</span><span class="bb-l-p">{{ x.price | gbp }}</span></li>
     {%- endfor %}
   </ul>
-  {%- if pkFull and pk.extras and pk.extras.length %}
+  {%- set second = site.morning.secondArtist if (site.morning and ("bridalbeauty-start" | enabled)) else false %}
+  {%- if pkFull and ((pk.extras and pk.extras.length) or second) %}
   <ul class="bb-ledger bb-ledger-extra" aria-label="Extras">
     {%- for x in pk.extras %}
     <li><span class="bb-l-n"><b>{{ x.name }}</b><small>{{ x.text }}</small></span><span class="bb-l-m"></span><span class="bb-l-p">{{ x.price | gbp(x.from) }}</span></li>
     {%- endfor %}
+    {%- if second %}
+    <li><span class="bb-l-n"><b>A second artist</b><small>When one chair would start before {{ second.earliest | clockWords }}</small></span><span class="bb-l-m"></span><span class="bb-l-p">{{ second.fee | gbp }}</span></li>
+    {%- endif %}
   </ul>
   {%- endif %}
   <p class="bb-pk-acts">

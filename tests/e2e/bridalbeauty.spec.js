@@ -46,7 +46,7 @@ test("the cover answers her date, her price and her start time, and the party mo
   await expect(page.locator("[data-cv-early]")).toBeVisible();
   await expect(page.locator("[data-pt-total]")).toHaveText("£940");
   const quote = await waText(page.locator("[data-pt-ask]"));
-  expect(quote).toContain("me (hair and makeup), 3 bridesmaids, 1 mothers.");
+  expect(quote).toContain("me (hair and makeup), 3 bridesmaids, 1 mother.");
   expect(quote).toContain("a 6:15am start");
   for (let i = 0; i < 4; i++) await page.locator('#party [data-step="maid"] button[data-d="1"]').click();
   await page.selectOption("[data-cv-cer]", "11:00");
@@ -79,11 +79,17 @@ test("the morning page works back from the ceremony and gives everyone their tim
   await expect(page.locator("[data-mo-rows] li.is-bride span")).toHaveText("10:55am");
   await expect(page.locator("[data-mo-leave]")).toHaveText("1:40pm");
   await expect(page.locator("[data-mo-ics]")).toBeHidden();
-  // The times sit in their own column, clear of the names.
-  for (const li of await page.locator("[data-mo-rows] li").all()) {
-    const [t, n] = await li.evaluate((el) => { const r = document.createRange(); r.selectNodeContents(el.children[0]); return [r.getBoundingClientRect().right, el.children[1].getBoundingClientRect().left]; });
-    expect(n - t).toBeGreaterThan(8);
+  // The times sit in their own column, clear of the names, on a laptop and on a phone; one person each.
+  await expect(page.locator("[data-mo-rows] li b").first()).toHaveText("Bridesmaid 1");
+  for (const width of [1280, 390, 320]) {
+    await page.setViewportSize({ width, height: 800 });
+    for (const li of await page.locator("[data-mo-rows] li").all()) {
+      const [t, n] = await li.evaluate((el) => { const r = document.createRange(); r.selectNodeContents(el.children[0]); return [r.getBoundingClientRect().right, el.children[1].getBoundingClientRect().left]; });
+      expect(n - t, `gap at ${width} px`).toBeGreaterThan(14);
+    }
+    expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth), `sideways scroll at ${width} px`).toBeLessThanOrEqual(0);
   }
+  await page.setViewportSize({ width: 1280, height: 800 });
   const y = new Date().getUTCFullYear() + 1;
   await pickDate(page, "mo", 14, 8, y);
   await expect(page.locator("[data-mo-ics]")).toBeVisible();
@@ -158,6 +164,10 @@ test("guide pages price their examples from the packages; the journal opens each
   await expect(page.locator("h1")).toHaveText("Everyone in the chair");
   await expect(page.locator(".bb-ph .kick, .bb-ph-k")).toHaveCount(0);
   await expect(page.locator(".bb-gd-tot b")).toHaveText("£1,240");
+  await page.goto(srv.base + "/visit");
+  await expect(page.locator(".pv-hero .kick")).toBeHidden();
+  await expect(page.locator(".pv-hero .crumb")).toBeHidden();
+  expect(await page.$$eval("main *", (all) => all.filter((e) => e.checkVisibility() && getComputedStyle(e).textTransform === "uppercase" && e.textContent.trim()).map((e) => e.textContent.trim()))).toEqual([]);
   await page.goto(srv.base + "/abroad");
   await expect(page.locator(".bb-gd-sum li").first()).toContainText("Hair and makeup£520");
   await expect(page.locator(".bb-gd-tot b")).toHaveText("£1,210");

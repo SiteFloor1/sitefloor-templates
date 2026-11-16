@@ -46,7 +46,8 @@ select, input[type="text"] { min-height: 50px; border: 0; border-bottom: 1.5px s
 select { padding-right: 18px; }
 .bb-date { border: 0; margin: 0; padding: 0; }
 .bb-date-in { display: flex; gap: 14px; }
-.bb-date-in select { flex: 1; }
+.bb-date-in select { flex: 1; min-width: 0; }
+.bb-mo-form, .bb-tr-form, .bb-sk-form, .bb-date { min-width: 0; }
 .bb-date[data-invalid] select { border-bottom-color: var(--busy); }
 
 /* ------------------------------------------------------------------ header */
@@ -78,6 +79,11 @@ select { padding-right: 18px; }
 .cv-ph { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--fw); display: block; }
 .cv-lines { position: absolute; left: var(--gut); right: var(--gut); bottom: 36px; z-index: 3; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: end; }
 .cv-l { max-width: 560px; }
+/* Over the photograph the cover lines sit on a soft paper ground, so any client's photo (dark hair, a hand, lace) keeps
+   them readable; on a phone they're below the photo and need none. */
+@media (min-width: 761px) {
+  .cv-l { padding: 18px 22px 20px; background: color-mix(in srgb, var(--paper) 86%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+}
 .cv-l-time { justify-self: end; text-align: right; }
 .cv-k { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
 .cv-date { font-family: var(--font-display); font-size: 34px; line-height: 1.1; white-space: nowrap; }
@@ -239,6 +245,21 @@ select { padding-right: 18px; }
 .bb-jn-l { color: var(--muted); font-size: 17px; }
 .bb-jn-l small { display: block; margin-top: 4px; font-size: 15px; }
 
+/* ------------------------------------------------------------------ Plan your visit, in the cover's voice */
+/* The shared page opens with a breadcrumb and a small label; here it opens like every other page: its name very large,
+   its line in italic, and no spaced capitals anywhere on it. */
+.pv-hero .crumb, .pv-hero .kick { display: none; }
+.pv-hero { padding: calc(var(--s3) + 10px) 0 0; background: none; }
+.pv-hero h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(56px, 9vw, 132px); line-height: .9; letter-spacing: -.035em; margin: 0; }
+.pv-hero p { font-family: var(--font-display); font-style: italic; font-size: clamp(23px, 2.2vw, 30px); line-height: 1.25; max-width: 30ch; margin-top: 22px; color: var(--text); }
+.pv-board-head, .pv-how, .pv-topic h3 { letter-spacing: 0; text-transform: none; }
+.pv-board-head { font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: 20px; color: var(--text); }
+.pv-how { font-weight: 600; font-size: 15px; }
+.pv-topic h3 { font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: 26px; color: var(--text); }
+.pv-from em small { letter-spacing: 0; }
+.where-k { font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: 22px; letter-spacing: 0; text-transform: none; color: var(--text); }
+.hrs tr.today th::after { font-size: 14px; letter-spacing: 0; text-transform: none; font-style: italic; }
+
 /* ------------------------------------------------------------------ shared sections, in this look's words */
 .cv-sh { margin-bottom: 26px; }
 .rv-list, .faq, .visit { font-size: 18px; }
@@ -309,9 +330,10 @@ main .rv-card blockquote, main blockquote { font-family: var(--font-display); fo
   .bb-gd-lk { grid-template-columns: 1fr 1fr; gap: 24px 12px; }
   .bb-gd-lk figcaption b { font-size: 21px; }
   .bb-jn-list { grid-template-columns: 1fr; gap: 40px; }
-  .bb-mo .bb-mo-rows li { grid-template-columns: 5.2em minmax(0, 1fr); column-gap: 16px; }
+  .bb-mo .bb-mo-rows li { grid-template-columns: 6em minmax(0, 1fr); column-gap: 18px; }
   .bb-mo .bb-mo-rows li small { grid-column: 2; }
-  .bb-mo .bb-mo-end li { grid-template-columns: 5.2em minmax(0, 1fr); column-gap: 16px; }
+  .bb-mo .bb-mo-end li { grid-template-columns: 6em minmax(0, 1fr); column-gap: 18px; }
+  .bb-mo .bb-mo-rows span, .bb-mo .bb-mo-end span { font-size: 23px; }
   .cv-foot { padding: 40px 0 96px; margin-top: 88px; }
   .cv-foot-name { font-size: 40px; margin-bottom: 16px; }
   .cv-imprint > div { padding: 8px 0; }

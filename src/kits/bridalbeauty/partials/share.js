@@ -11,6 +11,6 @@ export function shareButton(btn) {
     const text = btn.dataset.shareText ?? "";
     if (!text) return;
     if (typeof navigator.share === "function") navigator.share({ text }).catch(() => { /* she closed the sheet */ });
-    else window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank", "noopener");
+    else globalThis.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank", "noopener");
   });
 }

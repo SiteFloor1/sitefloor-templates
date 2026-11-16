@@ -136,6 +136,16 @@ test("settings checks catch what would mislead a bride", () => {
   assert.match(errorsFor((s) => { s.morning.ceremony.default = "20:00"; }), /ceremony/);
 });
 
+test("every price in a demo guide is one stated elsewhere, and party rows name one person", () => {
+  for (const g of demo.guides) for (const b of g.blocks) if (b.type === "quote") for (const l of b.lines) assert.ok(!("price" in l) && !("name" in l), `${g.slug} types a price`);
+  const extras = new Set(demo.packages.extras.map((/** @type {any} */ x) => x.id));
+  assert.ok(["mehndi", "reception", "travel-day", "shoot", "shoot-hour"].every((id) => extras.has(id)));
+  assert.ok(!demo.packages.extras.some((/** @type {any} */ x) => /second artist/i.test(x.name)), "the second artist's fee lives in morning.secondArtist only");
+  const m = morningFor(pageData(demo), { service: "hair-makeup", ceremony: at("14:00"), counts: { maid: 2, mother: 1 } });
+  assert.deepEqual(m.plan.rows.map((r) => r.label), ["Bridesmaid", "Bridesmaid", "Mother", ""]);
+  assert.match(errorsFor((s) => { delete s.packages.party[0].one; }), /packages\.party\[0\]\.one/);
+});
+
 test("words: small numbers in words, times as a person says them, the look named in the message", () => {
   assert.equal(numberWord(3), "three");
   assert.equal(clockWords(at("14:00")), "2pm");
@@ -147,7 +157,13 @@ test("guide pages count one by one against the plan, and price their examples on
   const extra = (/** @type {any} */ s) => { const g = structuredClone(s.guides[0]); g.slug = "weekdays"; g.menu = "Weekdays"; s.guides.push(g); };
   assert.match(errorsFor(extra, client), /6 pages counting each guide page, but the plus plan includes 5/);
   assert.equal(errorsFor((s) => { s.addonPages = 1; extra(s); }, client), "");
-  assert.match(errorsFor((s) => { s.guides[0].blocks.find((/** @type {any} */ b) => b.type === "quote").lines[0] = { package: "bride:hair-makeup", price: 10 }; }), /takes its name and price from the packages/);
+  const quote = (/** @type {any} */ s, /** @type {number} */ g = 0) => s.guides[g].blocks.find((/** @type {any} */ b) => b.type === "quote");
+  assert.match(errorsFor((s) => { quote(s).lines[0] = { package: "bride:hair-makeup", price: 10 }; }), /can't type its own price/);
+  assert.match(errorsFor((s) => { quote(s).lines[0] = { name: "Mehndi", price: 280 }; }), /can't type its own price/);
+  assert.match(errorsFor((s) => { quote(s).lines[0] = { package: "extra:nope" }; }), /extra:mehndi/);
+  assert.match(errorsFor((s) => { quote(s).lines[0] = { travel: "ZE1" }; }), /a postcode district the travel settings price/);
+  assert.match(errorsFor((s) => { delete s.morning.secondArtist; }), /morning\.secondArtist set/);
+  assert.match(errorsFor((s) => { quote(s).lines[0] = { second: true, package: "bride:makeup" }; }), /one of package, second or travel/);
   assert.match(errorsFor((s) => { s.guides[0].blocks.find((/** @type {any} */ b) => b.type === "quote").lines[0] = { package: "bride:nails" }; }), /one of bride:hair-makeup/);
   assert.match(errorsFor((s) => { s.guides[1].blocks.find((/** @type {any} */ b) => b.type === "looks").ids = ["nope"]; }), /"nope" isn't in looks.items/);
   assert.match(errorsFor((s) => { s.guides[0].slug = "bridal"; }), /guides\[0\]\.slug/);

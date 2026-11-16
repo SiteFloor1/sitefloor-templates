@@ -27,7 +27,7 @@ export function init(root, ctx) {
     const lab = q("[data-mo-lab]");
     lab.hidden = m.tooEarly;
     rows.hidden = m.tooEarly;
-    note.textContent = m.tooEarly ? `Everyone can't fit before ${clockWords(minutesOf(d.morning.second?.earliest ?? "05:00"))}. Send it to me: a later ceremony, or a team.` : [m.early ? `Before ${clockWords(minutesOf(d.morning.early.before))}, the early-start fee of ${pounds(d.morning.early.fee)} applies.` : "",
+    note.textContent = m.tooEarly ? `Not everyone can fit before ${clockWords(minutesOf(d.morning.second?.earliest ?? "05:00"))}. Send it to me: a later ceremony, or a team.` : [m.early ? `Before ${clockWords(minutesOf(d.morning.early.before))}, the early-start fee of ${pounds(d.morning.early.fee)} applies.` : "",
       m.artists > 1 ? `Two artists: one alone would start before ${clockWords(minutesOf(d.morning.second.earliest))}. A second artist is ${pounds(d.morning.second.fee)}.` : ""].filter(Boolean).join(" ");
     rows.replaceChildren(...list.map((r) => {
       const li = document.createElement("li");

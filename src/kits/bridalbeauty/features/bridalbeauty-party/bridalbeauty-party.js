@@ -31,7 +31,7 @@ export function init(root, ctx) {
     start.textContent = m.tooEarly ? PLANNING : `We start at ${clockWords(m.plan.start)} for a ${clockWords(state.ceremony)} ceremony`;
     extra.textContent = [m.early ? `Includes the early-start fee (${pounds(m.earlyFee)})` : "No early-start fee", m.artists > 1 ? `and a second artist (${pounds(m.secondFee)})` : ""].filter(Boolean).join(" ");
     const text = quoteText(pt.message, { wedding, service: bride.name, ceremony: clockWords(state.ceremony), start: m.tooEarly ? "" : clockWords(m.plan.start),
-      people: pk.party.map((/** @type {any} */ p) => ({ label: p.name, count: state.counts[p.id] ?? 0 })), total: sum });
+      people: pk.party.map((/** @type {any} */ p) => { const count = state.counts[p.id] ?? 0; return { label: count === 1 ? p.one : p.name, count }; }), total: sum });
     ask.href = ctx.bookHref(text);
     if (ask.dataset.waText !== undefined) ask.dataset.waText = text;
   };

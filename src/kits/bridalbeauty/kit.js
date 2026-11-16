@@ -54,7 +54,7 @@ export const check = (site, err, exists) => checkBridalBeauty(site, err, exists,
 /** @param {any} site */
 export function pageData(site) {
   const on = (/** @type {string[]} */ ...ids) => ids.some((id) => site.features.includes(id));
-  const svc = (/** @type {any[]} */ l) => l.map((x) => ({ id: x.id, name: x.name, minutes: x.minutes, price: x.price }));
+  const svc = (/** @type {any[]} */ l) => l.map((x) => ({ id: x.id, name: x.name, ...(x.one ? { one: x.one } : {}), minutes: x.minutes, price: x.price }));
   const m = site.morning;
   return {
     dateCheck: on("bridalbeauty-dates") ? { source: site.dateCheck.source, csvUrl: site.dateCheck.csvUrl, staleAfterDays: site.dateCheck.staleAfterDays ?? 21, message: site.dateCheck.message } : null,

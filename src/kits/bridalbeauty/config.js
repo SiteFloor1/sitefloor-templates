@@ -6,6 +6,7 @@
  * minute and rule is the artist's own; the checks make sure it is complete and can't mislead. A misspelt setting is
  * refused rather than silently ignored, and simulated data is refused on a client site.
  */
+import { travelFor } from "./lib/bridalbeauty.js";
 
 /** @typedef {(path: string, msg: string) => void} Report */
 /** @typedef {((rel: string) => boolean)|undefined} Exists */
@@ -127,14 +128,16 @@ function slugOf(err, at, slug, slugs) {
 }
 
 /**
- * A guide page or a journal piece: its blocks, each one of BLOCKS. Prices in a worked example come from the packages
- * by id, so a guide can never quote a price the bridal page doesn't; a line of its own (a travel day) names its price.
+ * A guide page or a journal piece: its blocks, each one of BLOCKS. A worked example only points at prices stated once
+ * elsewhere (a package or extra by id, the second artist's fee, a travel district), so a guide can never quote a price
+ * the bridal page doesn't, or keep an old one when she changes it.
  * @param {any} site @param {Report} err @param {Exists} exists @param {string} at @param {any} blocks
  */
 function checkBlocks(site, err, exists, at, blocks) {
   if (!list(err, at, blocks, "blocks", 2, 16)) return;
   const pkg = site.packages ?? {};
-  const known = new Set([...(pkg.bride ?? []).map((/** @type {any} */ x) => `bride:${x.id}`), ...(pkg.party ?? []).map((/** @type {any} */ x) => `party:${x.id}`)]);
+  const known = new Set([...(pkg.bride ?? []).map((/** @type {any} */ x) => `bride:${x.id}`), ...(pkg.party ?? []).map((/** @type {any} */ x) => `party:${x.id}`),
+    ...(pkg.extras ?? []).map((/** @type {any} */ x) => `extra:${x.id}`)]);
   const looks = new Set((site.looks?.items ?? []).map((/** @type {any} */ x) => x.id));
   blocks.forEach((/** @type {any} */ b, /** @type {number} */ i) => {
     const p = `${at}[${i}]`;
@@ -159,13 +162,21 @@ function checkBlocks(site, err, exists, at, blocks) {
       text(err, `${p}.heading`, b.heading);
       if (b.text !== undefined) text(err, `${p}.text`, b.text);
       if (b.note !== undefined) text(err, `${p}.note`, b.note);
-      if (list(err, `${p}.lines`, b.lines, "lines: { package: \"bride:<id>\" or \"party:<id>\", count? } or { name, price, count? }", 2, 8))
+      if (list(err, `${p}.lines`, b.lines, 'lines: { package: "bride:<id>" | "party:<id>" | "extra:<id>", count? }, { second: true } or { travel: "<district>" }', 2, 8))
         b.lines.forEach((/** @type {any} */ l, /** @type {number} */ j) => {
           const q = `${p}.lines[${j}]`;
-          onlyKeys(l, ["package", "name", "price", "count"], q, err);
-          if (l?.count !== undefined && !isInt(l.count, 1, 20)) err(`${q}.count`, "a whole number, 1 to 20");
-          if (l?.package !== undefined) { if (!known.has(l.package)) err(`${q}.package`, `one of ${[...known].join(", ")}`); if (l.name !== undefined || l.price !== undefined) err(q, "a package line takes its name and price from the packages"); }
-          else { text(err, `${q}.name`, l?.name); if (!isInt(l?.price, 0, 20000)) err(`${q}.price`, "the artist's price in whole pounds"); }
+          if (!isObj(l)) { err(q, "a line"); return; }
+          if ("name" in l || "price" in l) { err(q, "a line can't type its own price: put it in packages.extras and point at it with \"extra:<id>\""); return; }
+          onlyKeys(l, ["package", "second", "travel", "count"], q, err);
+          if (l.count !== undefined && !isInt(l.count, 1, 20)) err(`${q}.count`, "a whole number, 1 to 20");
+          const kinds = ["package", "second", "travel"].filter((k) => l[k] !== undefined);
+          if (kinds.length !== 1) err(q, "one of package, second or travel");
+          else if (l.package !== undefined && !known.has(l.package)) err(`${q}.package`, `one of ${[...known].join(", ")}`);
+          else if (l.second !== undefined && (l.second !== true || !site.morning?.secondArtist)) err(`${q}.second`, "true, with morning.secondArtist set");
+          else if (l.travel !== undefined) {
+            const t = site.travel ? travelFor(String(l.travel), site.travel) : null;
+            if (!t || t.state === "bad" || t.state === "ask") err(`${q}.travel`, "a postcode district the travel settings price (free or a zone)");
+          }
         });
     }
   });
@@ -250,16 +261,21 @@ function checkPackages(p, err) {
   }
   if (list(err, "packages.party", p.party, "party services (bridesmaids, mothers, children)", 1, 6)) {
     ids(err, "packages.party", p.party);
-    p.party.forEach((/** @type {any} */ x, /** @type {number} */ i) => service(err, `packages.party[${i}]`, x));
+    p.party.forEach((/** @type {any} */ x, /** @type {number} */ i) => {
+      service(err, `packages.party[${i}]`, x, ["one"]);
+      text(err, `packages.party[${i}].one`, x?.one); // the name for one person: "Bridesmaid", "Mother"
+    });
   }
-  if (p.extras !== undefined && list(err, "packages.extras", p.extras, "extras (stay for touch-ups, an evening restyle…)", 0, 6))
+  if (p.extras !== undefined && list(err, "packages.extras", p.extras, "extras (stay for touch-ups, an evening restyle, a travel day…)", 0, 10)) {
+    ids(err, "packages.extras", p.extras);
     p.extras.forEach((/** @type {any} */ x, /** @type {number} */ i) => {
       const q = `packages.extras[${i}]`;
-      onlyKeys(x, ["name", "text", "price", "from"], q, err);
+      onlyKeys(x, ["id", "name", "text", "price", "from"], q, err);
       text(err, `${q}.name`, x?.name);
       text(err, `${q}.text`, x?.text);
       if (!isInt(x?.price, 1, 5000)) err(`${q}.price`, "the artist's price in whole pounds");
     });
+  }
   if (p.note !== undefined) text(err, "packages.note", p.note);
 }
 

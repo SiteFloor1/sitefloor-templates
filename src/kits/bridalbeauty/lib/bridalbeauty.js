@@ -157,7 +157,7 @@ export const PLANNING = "This one needs planning — message me.";
  */
 export function morningFor(d, s) {
   const bride = d.packages.bride.find((x) => x.id === s.service) ?? d.packages.bride[0];
-  const guests = d.packages.party.flatMap((p) => Array.from({ length: s.counts[p.id] ?? 0 }, () => ({ label: p.name, minutes: p.minutes })));
+  const guests = d.packages.party.flatMap((p) => Array.from({ length: s.counts[p.id] ?? 0 }, () => ({ label: p.one ?? p.name, minutes: p.minutes })));
   const base = { ceremony: s.ceremony, bride: bride.minutes, guests, travel: d.morning.travel, dress: d.morning.dress, buffer: d.morning.buffer };
   const second = d.morning.second;
   const artists = second ? artistsFor(base, minutesOf(second.earliest), true) : 1;

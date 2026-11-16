@@ -2,7 +2,7 @@
 /** Bridalbeauty kit additions to the shared Eleventy setup: home sections, the look library's words, times and messages. */
 import { HOME_PARTS, onPagesProblem, homeOrderProblem } from "./home.js";
 import { FINISH, HAIR } from "./config.js";
-import { pounds, hoursWords, clockWords, minutesOf, morningPlan, numberWord, dateText, lookText, trialText, travelText, skinText, quoteTotal } from "./lib/bridalbeauty.js";
+import { pounds, hoursWords, clockWords, minutesOf, morningPlan, numberWord, dateText, lookText, trialText, travelText, skinText, quoteTotal, travelFor } from "./lib/bridalbeauty.js";
 
 /** @param {any} eleventyConfig */
 export default function bridalBeautyKit(eleventyConfig) {
@@ -26,15 +26,21 @@ export default function bridalBeautyKit(eleventyConfig) {
   eleventyConfig.addFilter("skinText", (/** @type {string} */ opening) => skinText(opening, ""));
   eleventyConfig.addFilter("usedFinish", (/** @type {any[]} */ items) => Object.entries(FINISH).filter(([id]) => items.some((x) => x.finish === id)).map(([id, label]) => ({ id, label })));
   eleventyConfig.addFilter("usedHair", (/** @type {any[]} */ items) => Object.entries(HAIR).filter(([id]) => items.some((x) => x.hair === id)).map(([id, label]) => ({ id, label })));
-  // A worked example on a guide page: package lines take the name and price from the packages, so a guide can never
-  // quote what the bridal page doesn't; a line of its own (a travel day) names its price.
+  // A worked example on a guide page: every line points at a price stated once elsewhere (a package or extra, the
+  // second artist's fee, a travel district), so a guide can never quote what the bridal page doesn't.
   eleventyConfig.addFilter("guideQuote", (/** @type {any} */ b, /** @type {any} */ site) => {
     const pk = site.packages ?? {};
     const lines = b.lines.map((/** @type {any} */ l) => {
-      const [kind, id] = String(l.package ?? ":").split(":");
-      const x = l.package ? (kind === "bride" ? pk.bride : pk.party).find((/** @type {any} */ y) => y.id === id) : l;
-      if (!x) throw new Error(`guide quote: no package ${l.package}`);
       const count = l.count ?? 1;
+      /** @type {{ name: string, price: number }|undefined} */ let x;
+      if (l.package) {
+        const [kind, id] = String(l.package).split(":");
+        const list = { bride: pk.bride, party: pk.party, extra: pk.extras }[/** @type {"bride"} */ (kind)] ?? [];
+        const y = list.find((/** @type {any} */ z) => z.id === id);
+        x = y && { name: count > 1 || !y.one ? y.name : y.one, price: y.price };
+      } else if (l.second) x = { name: "A second artist", price: site.morning.secondArtist.fee };
+      else if (l.travel) { const t = travelFor(String(l.travel), site.travel); x = { name: `Travel to ${t.district}`, price: t.fee ?? 0 }; }
+      if (!x) throw new Error(`guide quote: can't price ${JSON.stringify(l)}`);
       return { name: x.name, count, price: x.price, sum: x.price * count };
     });
     return { lines, total: lines.reduce((/** @type {number} */ t, /** @type {any} */ l) => t + l.sum, 0) };
@@ -49,7 +55,7 @@ export default function bridalBeautyKit(eleventyConfig) {
   // starts with, one artist. { start, ready, dressAt, leave, people, early } in words.
   eleventyConfig.addFilter("firstMorning", (/** @type {any} */ site) => {
     const m = site.morning, bride = site.packages.bride[0];
-    const guests = site.packages.party.flatMap((/** @type {any} */ p) => Array.from({ length: site.party?.start?.[p.id] ?? 0 }, () => ({ label: p.name, minutes: p.minutes })));
+    const guests = site.packages.party.flatMap((/** @type {any} */ p) => Array.from({ length: site.party?.start?.[p.id] ?? 0 }, () => ({ label: p.one, minutes: p.minutes })));
     const plan = morningPlan({ ceremony: minutesOf(m.ceremony.default), bride: bride.minutes, guests, travel: m.travelMinutes, dress: m.dressMinutes, buffer: m.bufferMinutes, artists: 1 });
     const early = plan.start < minutesOf(m.earlyStart.before) && m.earlyStart.fee > 0;
     const lines = site.packages.party.map((/** @type {any} */ p) => ({ price: p.price, count: site.party?.start?.[p.id] ?? 0 }));
