@@ -1,0 +1,12 @@
+/* The builder: the clinic's choices as a printed list on the left, the card on the right (stacked on a phone). */
+.sk-rt-in { display: grid; gap: 40px 64px; }
+.sk-rt-fs { margin: 0 0 32px; padding: 0; border: 0; }
+.sk-rt-lg { margin: 0 0 6px; padding: 0; font-family: var(--font-display); font-size: 1.45rem; }
+.sk-opt { display: grid; grid-template-columns: 24px 1fr auto; gap: 4px 14px; align-items: start; min-height: 48px; padding: 14px 0; border-bottom: 1px solid var(--line); cursor: pointer; }
+.sk-opt input { width: 18px; height: 18px; margin: 3px 0 0; accent-color: var(--accent); }
+.sk-opt-n small { display: block; margin-top: 4px; color: var(--muted); font-size: .88em; line-height: 1.5; }
+.sk-opt-f { color: var(--muted); white-space: nowrap; font-variant-numeric: lining-nums; }
+.sk-opt:has(input:checked) .sk-opt-nn { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; }
+.sk-rt-card { align-self: start; }
+.sk-rt-adds { margin: 0 0 14px; padding: 0; list-style: none; line-height: 1.7; }
+@media (min-width: 900px) { .sk-rt-in { grid-template-columns: 1.15fr .85fr; } .sk-rt-card { position: sticky; top: 24px; } }

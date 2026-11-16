@@ -1,0 +1,6 @@
+{#- Palm section opening: the section's name centred in the display face between two short palm rules, its line
+    beneath at body size. `sec` = { kicker, title, intro }; the kicker is not shown. -#}
+<div class="pm-sh rv">
+  <h2 class="pm-sh-t">{{ sec.title | markup | safe }}</h2>
+  {%- if sec.intro %}<p class="pm-sh-i">{{ sec.intro }}</p>{% endif %}
+</div>

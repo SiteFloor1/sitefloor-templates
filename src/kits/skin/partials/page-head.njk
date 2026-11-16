@@ -1,0 +1,5 @@
+{#- An inner page's opening: the page's name centred, a short palm rule, its line beneath. Set `ph` to { title, intro } first. -#}
+<header class="sk-ph"><div class="wrap sk-ph-in">
+  <h1 class="sk-ph-t">{{ ph.title | markup | safe }}</h1>
+  {%- if ph.intro %}<p class="sk-ph-i">{{ ph.intro }}</p>{% endif %}
+</div></header>

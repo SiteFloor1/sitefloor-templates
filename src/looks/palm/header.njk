@@ -1,0 +1,25 @@
+{#- Palm header: a hotel letterhead. On the left the clinic's name in the display face, with where it is in small type
+    beneath; a palm hairline; on the right the pages set as a small two-row index, like the contents of a printed spa
+    menu, Book last and underlined in palm. A palm rule under the whole header. On a phone: the name and the street,
+    and "Menu"; the phone bar keeps Book in reach. -#}
+{%- set items = site.nav | navItems(pageId) %}
+{%- set bookText = site.messages.general %}
+<header class="nav pm-nav"><div class="pm-nav-in">
+  <a class="pm-mark" href="{{ 'index' | href }}" aria-label="{{ site.business.name }}, home">
+    {%- if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="{{ site.business.name }}" height="30">{% else %}<span class="pm-word">{{ site.business.name }}</span>{% endif %}
+    <span class="pm-where">{{ site.location.streetAddress }}, {{ site.location.locality }}</span>
+  </a>
+  <nav class="pm-index" aria-label="Main">
+    {%- for item in items %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>{% endfor %}
+    <a class="pm-book" href="{{ bookText | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ bookText }}"{% endif %} target="_blank" rel="noopener">Book</a>
+  </nav>
+  <button class="burger pm-menu" type="button" aria-expanded="false" aria-controls="mnav"><span class="pm-open">Menu</span><span class="pm-close">Close</span></button>
+</div></header>
+<div class="mnav pm-sheet" id="mnav" hidden>
+  <nav aria-label="Pages">
+    <a href="{{ 'index' | href }}"{% if pageId == "index" %} aria-current="page"{% endif %}>Home</a>
+    {%- for item in items %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>{% endfor %}
+  </nav>
+  <p class="pm-sheet-now" data-live-status><span class="dot" aria-hidden="true"></span> <span data-status-text>Opening hours</span></p>
+  <p class="pm-sheet-addr">{{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}</p>
+</div>

@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: rooms
+permalink: rooms.html
+feature: skin-rooms
+eleventyComputed:
+  title: "{{ site.rooms.title | plain }}"
+  description: "The treatment rooms at {{ site.business.name }}."
+---
+{% include "kits/skin/features/skin-rooms/skin-rooms.njk" %}
