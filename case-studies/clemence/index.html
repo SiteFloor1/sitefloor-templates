@@ -341,7 +341,7 @@ footer p { max-width: 110ch; }
       <span class="go">Book this treatment on WhatsApp</span>
       <p class="nt" data-c-msg></p>
     </article>
-    <figure class="phone"><div class="scr"><video src="media/finder.mp4" poster="media/finder-poster.webp" width="640" height="1386" muted playsinline preload="none" aria-label="Recording: on Clémence's home page on a phone, the words uneven, sensitive and tired are chosen in turn and the printed card changes to the light peel, the calming facial and the long facial"></video><button class="vbtn" type="button" data-v><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg><span>Play</span></button></div><figcaption><b>On a phone,</b> the card answers in place.</figcaption></figure>
+    <figure class="phone"><div class="scr"><video src="media/finder.mp4" poster="media/finder-poster.webp" width="640" height="1386" muted playsinline preload="none" aria-label="Recording: on Clémence's home page on a phone, the words uneven, sensitive and tired are chosen in turn and the printed card changes to the light peel, the calming facial and the long facial"></video><button class="vbtn" type="button" data-v aria-label="Play the five-words clip"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg><span>Play</span></button></div><figcaption><b>On a phone,</b> the card answers in place.</figcaption></figure>
   </div>
 </div></section>
 
@@ -398,14 +398,14 @@ footer p { max-width: 110ch; }
         <li>A morning: long facial, full-body massage, tea in the window<span>3 hours · £220</span></li>
       </ul>
     </div>
-    <figure class="phone"><div class="scr"><video src="media/ritual.mp4" poster="media/ritual-poster.webp" width="640" height="1386" muted playsinline preload="none" aria-label="Recording: on Clémence's rituals page on a phone, the long facial is chosen, then a scalp ritual and a brow shape are added, and the card shows 2 hours, £178"></video><button class="vbtn" type="button" data-v><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg><span>Play</span></button></div><figcaption><b>The ritual,</b> added up.</figcaption></figure>
-    <figure class="phone"><div class="scr"><video src="media/gift.mp4" poster="media/gift-poster.webp" width="640" height="1386" muted playsinline preload="none" aria-label="Recording: on Clémence's gifts page on a phone, A morning is chosen, the names Ana and Sam and a line for the card are typed, and the gift card is drawn as they are typed"></video><button class="vbtn" type="button" data-v><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg><span>Play</span></button></div><figcaption><b>The gift,</b> written as you type.</figcaption></figure>
+    <figure class="phone"><div class="scr"><video src="media/ritual.mp4" poster="media/ritual-poster.webp" width="640" height="1386" muted playsinline preload="none" aria-label="Recording: on Clémence's rituals page on a phone, the long facial is chosen, then a scalp ritual and a brow shape are added, and the card shows 2 hours, £178"></video><button class="vbtn" type="button" data-v aria-label="Play the ritual clip"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg><span>Play</span></button></div><figcaption><b>The ritual,</b> added up.</figcaption></figure>
+    <figure class="phone"><div class="scr"><video src="media/gift.mp4" poster="media/gift-poster.webp" width="640" height="1386" muted playsinline preload="none" aria-label="Recording: on Clémence's gifts page on a phone, A morning is chosen, the names Ana and Sam and a line for the card are typed, and the gift card is drawn as they are typed"></video><button class="vbtn" type="button" data-v aria-label="Play the gift clip"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg><span>Play</span></button></div><figcaption><b>The gift,</b> written as you type.</figcaption></figure>
   </div>
   <figure class="wide"><img src="media/rituals-desktop.webp" width="1600" height="1000" alt="Clémence's rituals page on a laptop: the facials and add-ons as a printed list on the left, the ritual's card with its time and price on the right" loading="lazy"><figcaption><b>On a laptop,</b> the card stays beside the list while you choose.</figcaption></figure>
 </div></section>
 
 <section class="plans gut" aria-labelledby="h-plans"><div class="wrap">
-  <div class="st"><span class="no">v</span><div><h2 id="h-plans">Three cards.</h2><p>Every plan is the same design, in the clinic's colours and words. Twelve months, then month to month.</p></div></div>
+  <div class="st"><span class="no">v</span><div><h2 id="h-plans">Three cards.</h2><p>Every plan is the same design, in the clinic's colours and words. Twelve-month minimum.</p></div></div>
   <div class="cards">
     <article class="card">
       <p class="for">For a clinic starting out</p>
@@ -422,7 +422,7 @@ footer p { max-width: 110ch; }
       <h3>Plus</h3>
       <p class="price">£199 <small>then £30 a month</small></p>
       <dl>
-        <div><dt>Pages</dt><dd>Home and four more: each part of the menu, courses, the room, the first visit</dd></div>
+        <div><dt>Pages</dt><dd>Home and four more pages, chosen from: a page for each part of the menu, courses, the room, the first visit</dd></div>
         <div><dt>Five words</dt><dd>“How does your skin feel today?”, answered by the printed card</dd></div>
         <div><dt>Courses</dt><dd>Courses and memberships, with their prices</dd></div>
       </dl>
@@ -587,8 +587,10 @@ footer p { max-width: 110ch; }
   // ---------------------------------------------------------------- clips: nothing plays until asked
   document.querySelectorAll("[data-v]").forEach((b) => {
     const v = b.parentElement.querySelector("video"), label = b.querySelector("span");
-    b.addEventListener("click", () => { if (v.paused) { v.play(); label.textContent = "Pause"; } else { v.pause(); label.textContent = "Play"; } });
-    v.addEventListener("ended", () => { label.textContent = "Play again"; });
+    const name = b.getAttribute("aria-label").replace(/^Play /, "");
+    const set = (verb) => { label.textContent = verb; b.setAttribute("aria-label", `${verb} ${name}`); };
+    b.addEventListener("click", () => { if (v.paused) { v.play(); set("Pause"); } else { v.pause(); set("Play"); } });
+    v.addEventListener("ended", () => set("Play again"));
   });
 })();
 </script>
