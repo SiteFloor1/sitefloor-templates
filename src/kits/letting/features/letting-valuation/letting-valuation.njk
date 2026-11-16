@@ -1,0 +1,25 @@
+{#- What would my home let for? (Signature): the owner describes the home in one sentence; it goes to the agent on
+    WhatsApp as a valuation request. The site works out no figure: the agent replies with one, in writing. -#}
+{%- set v = site.valuation %}
+<div class="lv" data-feature="letting-valuation"{{ "letting-valuation" | tierAttr | safe }}>
+  <form class="lv-s" data-lv-form>
+    <p class="lv-line">
+      <span class="lv-ln">My <label class="lv-f"><span class="sr-only">Bedrooms</span><select name="beds">{% for n in ["Studio", "1", "2", "3", "4", "5"] %}<option value="{{ '0' if n == 'Studio' else n }}"{% if n == "2" %} selected{% endif %}>{{ n }}</option>{% endfor %}</select></label>-bedroom <label class="lv-f"><span class="sr-only">Kind of home</span><select name="kind">{% for k in v.kinds %}<option>{{ k }}</option>{% endfor %}</select></label></span>
+      <span class="lv-ln">of about <label class="lv-f"><span class="sr-only">Size</span><input name="size" inputmode="numeric" size="4" placeholder="85" autocomplete="off"></label> <label class="lv-f"><span class="sr-only">Unit</span><select name="unit"><option value="m2">m²</option><option value="sqft">sq ft</option></select></label>,</span>
+      <span class="lv-ln">with <label class="lv-f"><span class="sr-only">Bathrooms</span><select name="baths">{% for n in ["1", "2", "3", "4"] %}<option>{{ n }}</option>{% endfor %}</select></label> bathroom(s),</span>
+      <span class="lv-ln">at <label class="lv-f lv-wide"><span class="sr-only">Address</span><input name="address" autocomplete="address-line1" placeholder="house or flat, street"></label></span>
+      <span class="lv-ln"><label class="lv-f"><span class="sr-only">Postcode</span><input name="postcode" autocomplete="postal-code" size="8" placeholder="postcode"></label>.</span>
+    </p>
+    <div class="lv-more">
+      <label>Outside space <select name="outside"><option value="">Not saying</option>{% for x in ["None", "Balcony", "Terrace", "Garden", "Shared garden"] %}<option>{{ x }}</option>{% endfor %}</select></label>
+      <label>Furnished <select name="furnished"><option value="">Not saying</option>{% for x in ["Furnished", "Unfurnished", "Either"] %}<option>{{ x }}</option>{% endfor %}</select></label>
+      <label>Free from <input name="when" placeholder="e.g. March"></label>
+      <label>Service <select name="service"><option value="">Not sure yet</option>{% for s in site.fees.services %}<option>{{ s.name }}</option>{% endfor %}</select></label>
+    </div>
+    <a class="lv-send" data-lv-send href="{{ v.message | wa }}" target="_blank" rel="noopener">Ask {{ site.business.name }} for a figure</a>
+    <p class="lv-fine">Sent to us on WhatsApp; nothing is kept by this page. We don't guess a rent from a form: {{ v.reply }}</p>
+  </form>
+  {%- if v.next and v.next.length %}
+  <section class="lv-next" aria-labelledby="lv-n"><h2 id="lv-n">What happens next</h2><ol>{% for x in v.next %}<li>{{ x }}</li>{% endfor %}</ol></section>
+  {%- endif %}
+</div>

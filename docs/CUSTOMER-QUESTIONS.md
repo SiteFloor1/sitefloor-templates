@@ -50,6 +50,7 @@ One file per trade, so trades built in parallel never edit the same lines. A new
 - Fine jewellers: [`docs/trades/jeweller/questions.md`](trades/jeweller/questions.md)
 - Garden designers and landscapers: [`docs/trades/landscaping/questions.md`](trades/landscaping/questions.md)
 - Law firms (private client): [`docs/trades/law/questions.md`](trades/law/questions.md)
+- Independent letting agents: [`docs/trades/letting/questions.md`](trades/letting/questions.md)
 - Lingerie boutiques: [`docs/trades/lingerie/questions.md`](trades/lingerie/questions.md)
 - Mehndi and henna artists: [`docs/trades/mehndi/questions.md`](trades/mehndi/questions.md)
 - Clothing brands (menswear, running and outerwear): [`docs/trades/menswear/questions.md`](trades/menswear/questions.md)

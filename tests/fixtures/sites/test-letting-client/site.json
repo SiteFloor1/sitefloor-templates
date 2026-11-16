@@ -1,0 +1,238 @@
+{
+  "schemaVersion": 4,
+  "id": "test-letting-client",
+  "mode": "client",
+  "plan": "plus",
+  "kit": "letting",
+  "look": "porter",
+  "url": "https://wyndle-lettings-test.co.uk",
+  "indexable": false,
+  "lang": "en-GB",
+  "business": {
+    "name": "Wyndle",
+    "schemaType": "RealEstateAgent",
+    "description": "Letting and property management in Leeds.",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "441134960418",
+    "phone": "+44 113 496 0418",
+    "email": "lettings@wyndle.example"
+  },
+  "booking": {
+    "provider": "phone"
+  },
+  "location": {
+    "streetAddress": "Park Row",
+    "locality": "Leeds",
+    "postcode": "LS1 5HD",
+    "country": "GB",
+    "area": "In the city centre.",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=Park%20Row%2C%20Leeds"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [
+        [
+          "09:00",
+          "18:00"
+        ]
+      ],
+      "tue": [
+        [
+          "09:00",
+          "18:00"
+        ]
+      ],
+      "wed": [
+        [
+          "09:00",
+          "18:00"
+        ]
+      ],
+      "thu": [
+        [
+          "09:00",
+          "18:00"
+        ]
+      ],
+      "fri": [
+        [
+          "09:00",
+          "18:00"
+        ]
+      ],
+      "sat": [
+        [
+          "10:00",
+          "14:00"
+        ]
+      ],
+      "sun": []
+    },
+    "exceptions": []
+  },
+  "nav": [
+    {
+      "label": "Homes",
+      "page": "index",
+      "feature": "letting-board",
+      "fallback": "#homes"
+    },
+    {
+      "label": "Owners",
+      "page": "owners",
+      "feature": "letting-owners"
+    },
+    {
+      "label": "Fees",
+      "page": "fees",
+      "feature": "letting-fees"
+    }
+  ],
+  "features": [
+    "letting-fees",
+    "letting-board",
+    "letting-movein",
+    "letting-owners",
+    "letting-repairs",
+    "visit",
+    "letting-manage"
+  ],
+  "hero": {
+    "kicker": "Letting and management in Leeds",
+    "title": "Homes to rent|in Leeds.",
+    "intro": "Homes to rent and homes managed, across Leeds.",
+    "photo": {
+      "src": "img/hero.webp",
+      "tall": "img/hero-tall.webp",
+      "width": 1200,
+      "height": 712,
+      "tallWidth": 600,
+      "tallHeight": 750,
+      "alt": "A stone porch in daylight",
+      "position": "50% 30%",
+      "credit": "Josh Withers, Unsplash"
+    }
+  },
+  "sections": {
+    "homes": {
+      "title": "Homes free now"
+    },
+    "visit": {
+      "title": "Our office"
+    }
+  },
+  "messages": {
+    "general": "Hello Wyndle, I'd like to book a viewing."
+  },
+  "homes": {
+    "source": "sheet",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/TEST/pub?output=csv",
+    "staleAfterHours": 36,
+    "hero": "park",
+    "viewing": "Hello Wyndle, I'd like to view this home:",
+    "buildings": [
+      {
+        "id": "park",
+        "name": "Park Row",
+        "kind": "Converted mill",
+        "floors": [
+          {
+            "id": "G",
+            "label": "Ground",
+            "units": [
+              "P-G1",
+              "P-G2"
+            ]
+          },
+          {
+            "id": "1",
+            "label": "First",
+            "units": [
+              "P-11",
+              "P-12"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "fees": {
+    "example": 1150,
+    "tenant": {
+      "holdingWeeks": 1,
+      "depositWeeksBelow": 5,
+      "depositWeeksFrom": 6,
+      "changeFee": 50
+    },
+    "services": [
+      {
+        "id": "let",
+        "name": "Let only",
+        "basis": "year-once",
+        "percent": 9.6,
+        "includes": [
+          "The listing, viewings and references"
+        ]
+      },
+      {
+        "id": "managed",
+        "name": "Fully managed",
+        "basis": "monthly",
+        "percent": 14.4,
+        "includes": [
+          "Rent collection, repairs and inspections"
+        ]
+      }
+    ]
+  },
+  "schemes": {
+    "redress": {
+      "name": "Property Redress Scheme",
+      "member": "PRS012345",
+      "url": "https://www.theprs.co.uk"
+    },
+    "cmp": {
+      "name": "Client Money Protect",
+      "member": "CMP012345",
+      "url": "https://www.clientmoneyprotect.co.uk",
+      "certificate": "img/cmp-certificate.webp"
+    }
+  },
+  "owners": {
+    "title": "For owners",
+    "intro": "Let only or fully managed, at one published fee with VAT.",
+    "duties": [
+      "Gas safety checks every year"
+    ],
+    "valuation": "Hello Wyndle, I'd like a rental valuation."
+  },
+  "repairs": {
+    "title": "Report a repair",
+    "intro": "Tell us what's wrong.",
+    "emergencyIntro": "Call us straight away if:",
+    "emergencies": [
+      "Water is coming through a ceiling"
+    ],
+    "outOfHours": "+44 113 496 0419",
+    "message": "Hello Wyndle, I'd like to report a repair."
+  },
+  "manage": {
+    "title": "What we manage",
+    "intro": "Long lets in Leeds, looked after month by month.",
+    "kinds": [
+      {
+        "name": "City flats",
+        "text": "Converted mills and new builds."
+      }
+    ],
+    "year": [
+      {
+        "when": "Every month",
+        "what": "Rent collected with a statement."
+      }
+    ]
+  }
+}

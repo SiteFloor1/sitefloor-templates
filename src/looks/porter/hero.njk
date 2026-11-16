@@ -1,0 +1,22 @@
+{#- Porter hero: the headline set large with the live count of free homes beside it, then one wide daylit photograph
+    of the building's entrance (a taller crop on phones). On Signature the brass lift plate sits over the doors and
+    "See the building" turns the 3D illustration into view (letting-building). The homes list sits right under it. -#}
+{%- set h = site.hero %}
+{%- set p = h.photo %}
+<section class="pt-hero" id="homes" data-lbd-host aria-labelledby="pt-h1">
+  <div class="wrap pt-lede">
+    <h1 id="pt-h1">{% for line in h.title | lines %}<span>{{ line }}</span>{% if not loop.last %} {% endif %}{% endfor %}</h1>
+    <div class="pt-side"><p class="pt-intro">{{ h.intro }}</p><p class="pt-count" data-lb-count aria-live="polite"></p></div>
+  </div>
+  <div class="pt-view">
+    <picture>
+      <source media="(max-width: 820px)" srcset="{{ p.tall | img }}" width="{{ p.tallWidth }}" height="{{ p.tallHeight }}">
+      <img src="{{ p.src | img }}" width="{{ p.width }}" height="{{ p.height }}" alt="{{ p.alt }}" fetchpriority="high" decoding="async"{% if p.position %} style="object-position: {{ p.position }}"{% endif %}>
+    </picture>
+    <span class="pt-credit">{{ p.credit }}</span>
+    {%- if "letting-building" | enabled %}{% include "kits/letting/features/letting-building/letting-building.njk" %}{% endif %}
+    <div class="pt-card" data-lb-card aria-live="polite"></div>
+  </div>
+  {%- set heroHasCard = true %}
+  {%- if "letting-board" | enabled %}<div class="wrap pt-below">{% include "kits/letting/features/letting-board/letting-board.njk" %}</div>{% endif %}
+</section>

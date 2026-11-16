@@ -1,0 +1,23 @@
+{#- Onboarding (Signature): from the first call to the first rent, step by step, with what the owner brings and how
+    long each step usually takes (the agent's words); then the papers a let needs, ticked off here and sent as one
+    WhatsApp message. Nothing is stored. -#}
+{%- set o = site.onboarding %}
+<div class="lb2" data-feature="letting-onboarding"{{ "letting-onboarding" | tierAttr | safe }}>
+  <ol class="lb2-steps">
+  {%- for s in o.steps %}
+    <li><span class="lb2-n" aria-hidden="true">{{ loop.index }}</span>
+      <div><h2>{{ s.title }}</h2><p>{{ s.text }}</p>
+        {%- if s.you and s.you.length %}<p class="lb2-you"><i>From you:</i> {{ s.you | join(", ") }}</p>{% endif %}</div>
+      <span class="lb2-time">{{ s.time }}</span></li>
+  {%- endfor %}
+  </ol>
+  <section class="lb2-check" aria-labelledby="lb2-c">
+    <h2 id="lb2-c">Before we can let it</h2>
+    <p>{{ o.checklistIntro }}</p>
+    <form data-lb2-form>
+      <ul>{% for c in o.checklist %}<li><label><input type="checkbox" name="have" value="{{ c }}"> {{ c }}</label></li>{% endfor %}</ul>
+      <p class="lb2-tally" data-lb2-tally aria-live="polite" data-js-only></p>
+      <a class="lo-btn" data-lb2-send href="{{ o.message | wa }}" target="_blank" rel="noopener">Send this to {{ site.business.name }}</a>
+    </form>
+  </section>
+</div>

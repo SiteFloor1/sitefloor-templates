@@ -1,0 +1,32 @@
+{#- Porter footer: the agent, where and how to reach it, the pages, the redress and client money line every page
+    carries, and the Sitefloor credit last. -#}
+{%- set r = site.schemes %}
+<footer class="foot pt-foot"><div class="wrap">
+  <div class="pt-foot-in">
+    <p class="pt-foot-n">{{ site.business.name }}</p>
+    <address class="pt-foot-a">{{ site.location.streetAddress }}<br>{{ site.location.locality }} {{ site.location.postcode }}<br>
+      <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone | replace('+44 ', '0') }}</a>{% if site.contact.email %}<br><a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>{% endif %}<br>
+      <a href="{{ site.messages.general | wa }}" data-wa-text="{{ site.messages.general }}" target="_blank" rel="noopener">Message us on WhatsApp</a></address>
+    <nav class="pt-foot-l" aria-label="Footer">
+      <div><p>Renting</p>
+        <a href="{{ 'index' | href }}">Homes free now</a>
+        {%- if "letting-residences" | enabled %}<a href="{{ 'residences' | href }}">Residences</a>{% endif %}
+        {%- if "letting-areas" | enabled %}<a href="{{ 'areas' | href }}">{{ site.areas.title }}</a>{% endif %}
+        {%- if "letting-moveday" | enabled %}<a href="{{ 'moving-in' | href }}">{{ site.moveday.title }}</a>{% endif %}
+        {%- if "letting-repairs" | enabled %}<a href="{{ 'repairs' | href }}">{{ site.repairs.title }}</a>{% endif %}</div>
+      <div><p>Owning</p>
+        {%- if "letting-owners" | enabled %}<a href="{{ 'owners' | href }}">{{ site.owners.title }}</a>{% endif %}
+        {%- if "letting-valuation" | enabled %}<a href="{{ 'valuation' | href }}">Valuation</a>{% endif %}
+        {%- if "letting-manage" | enabled %}<a href="{{ 'manage' | href }}">{{ site.manage.title }}</a>{% endif %}
+        {%- if "letting-onboarding" | enabled %}<a href="{{ 'onboarding' | href }}">{{ site.onboarding.title }}</a>{% endif %}
+        {%- if "letting-stories" | enabled %}<a href="{{ 'stories' | href }}">{{ site.stories.title }}</a>{% endif %}</div>
+      <div><p>{{ site.business.name }}</p>
+        <a href="{{ 'fees' | href }}">Fees</a>
+        {%- if "letting-journal" | enabled %}<a href="{{ 'journal' | href }}">{{ site.journal.title }}</a>{% endif %}
+        {%- if "plan-visit" | enabled %}<a href="{{ 'visit' | href }}">{{ site.visitInfo.title | plain }}</a>{% endif %}
+        <a href="{{ 'privacy' | href }}">Privacy</a></div>
+    </nav>
+  </div>
+  <p class="pt-foot-s">{{ r.redress.name }}, member {{ r.redress.member }}{{ site.mode | demoTag }} · Client money protected by {{ r.cmp.name }}, {{ r.cmp.member }}{{ site.mode | demoTag }}</p>
+  <p class="pt-foot-by"><a class="by" href="https://sitefloor.com" rel="noopener">Website by <b>Sitefloor</b></a></p>
+</div></footer>
