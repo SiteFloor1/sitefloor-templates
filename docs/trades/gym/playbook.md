@@ -30,7 +30,13 @@ Kept: the live-or-"usually" rule, the photo standard, Hyrox race prep as the Sig
 - **C After dark** (Equinox level): black, the monochrome lifter as a framed portrait, "31 people are training right
   now." in Epilogue, then the Hyrox race-prep planner (GYM-8). Epilogue only.
 Approved by the owner 16 Nov: GYM-10 recovery slots (P), GYM-11 bring-a-friend pass on WhatsApp (S), GYM-12 corporate
-rate (P), added to `docs/VISION.md`.
+rate (P), added to `docs/VISION.md`, tiers confirmed.
+
+### Round 3 (16 Nov 2026): direction C, After dark, chosen
+Owner's fixes: a real wordmark (the H's crossbar drawn as the slope a halde is); the count crossing the photograph's
+edge so it can't be mistaken for Varnell's or Corbel's bottom-left headline; first screen cut to the count line, one
+sentence and one button; B's bathhouse (steam, the cedar sauna, half-hour slots) becomes the recovery section below the
+Hyrox planner, in Epilogue and C's black-and-white grade.
 
 ### Prices (required before any price is designed; checked 16 Nov 2026)
 The DMCC Act 2024 requires an invitation to purchase to show the total price, including every fee the customer must
