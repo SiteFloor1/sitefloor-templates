@@ -119,8 +119,7 @@ chat can reuse the Sitefloor bar, footer and patterns without re-reading a publi
   demo's districts), nothing it can't keep (live, the kit's own promise and health-claim checks word for word), the
   rest of the book, Sunday's questions; the plans are how often you train, once, twice, three times a week, inked on a
   week strip; the speed is "faster than the warm-up"; linen, ink and one walnut; the demo's own Ibarra Real Nova).
-  Media (five phone clips with posters, ten phone stills, the demo's trainer, stones, studio and first-hour
-  photographs) live in `media/` and the published artifact. Phone captures: Playwright at 390×844 and 2x in full
+  Media (five phone clips with posters, ten phone stills, the demo's trainer photograph) live in `media/` and the published artifact. Phone captures: Playwright at 390×844 and 2x in full
   Chromium with `--lang=en-GB`, the demo ribbon hidden, one screenshot per step at 10 fps, encoded H.264.
 - `morrow/index.html`: the coffee house case study (one weekday at the counter, 7:30am to 4pm, a clock column down the
   page). Media (three phone clips, stills from the demo) live only in the published artifact.
