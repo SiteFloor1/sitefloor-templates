@@ -1,0 +1,680 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Isolde Case Study</title>
+<meta name="description" content="A bridal hair and makeup artist's Sitefloor site, read as one issue of her magazine: pick a wedding date and the cover reprints itself with her answers.">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preload" as="image" href="media/cover.webp" fetchpriority="high">
+<link rel="preload" as="image" href="media/cover-cutout.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:ital@0;1&family=Faustina:wght@400;600&family=Manrope:wght@600;700&display=swap">
+<style>
+/* Layout: one issue of Isolde's magazine. The page opens on the issue's cover, held like the real thing: her name as the
+   masthead behind the bride's head, the cover lines her answers, the cover price the Starter plan. The issue is dated
+   to the bride's wedding: change the date and the cover reprints, every folio re-dates, the countdown re-counts. Then
+   the contents; the fashion pages (This season); the shopping page (her prices); one dark spread, the morning minute
+   by minute, worked out live from the demo's own figures; the countdown; the back of the book (guides and journal);
+   subscriptions (the plans); the back cover. Libre Bodoni and Faustina are Isolde's own. Nothing moves with
+   scrolling. */
+:root {
+  --paper: #F6F2EC; --sheet: #FFFCF7; --stone: #EAE3D8; --ink: #161312; --soft: #5C5550; --rule: #DCD5CB; --rule-2: #B9B0A4;
+  --fern: #3D5A43; --fern-2: #2F4734; --night: #121110; --night-2: #1E1C1A; --night-soft: #B8B0A6; --night-rule: rgba(246,242,236,.16);
+  --display: "Libre Bodoni", "Bodoni Fallback", serif;
+  --read: "Faustina", "Faustina Fallback", serif;
+  --brand: "Manrope", Arial, sans-serif;
+  --sf-paper: #FBFAF7; --sf-ink: #0E0F11; --sf-tomato: #E8613C; --sf-line: rgba(14,15,17,.12);
+  --s: clamp(80px, 11vw, 160px);
+  color-scheme: light;
+}
+@font-face { font-family: "Bodoni Fallback"; src: local("Times New Roman"), local("Liberation Serif"); size-adjust: 108.9%; ascent-override: 84.9%; descent-override: 29.9%; }
+@font-face { font-family: "Bodoni Fallback"; font-style: italic; src: local("Times New Roman Italic"), local("Liberation Serif Italic"); size-adjust: 106.4%; ascent-override: 86.8%; descent-override: 30.6%; }
+@font-face { font-family: "Faustina Fallback"; src: local("Times New Roman"), local("Liberation Serif"); size-adjust: 98.8%; ascent-override: 105.6%; descent-override: 22%; }
+* { box-sizing: border-box; }
+html { background: var(--paper); }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 19px/1.55 var(--read); -webkit-font-smoothing: antialiased; }
+.gut { padding-left: max(18px, env(safe-area-inset-left, 0px)); padding-right: max(18px, env(safe-area-inset-right, 0px)); }
+.wrap { width: min(1320px, 100%); margin: 0 auto; }
+h1, h2, h3, p, ul, ol, figure, dl, dd, fieldset { margin: 0; padding: 0; }
+ul, ol { list-style: none; }
+h2, h3 { font-family: var(--display); font-weight: 400; text-wrap: balance; }
+a { color: inherit; }
+img, video { display: block; max-width: 100%; height: auto; }
+:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 40; background: var(--sf-paper); }
+select, input { font: inherit; color: inherit; }
+
+/* Sitefloor's bar, as on every case study */
+.sfbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--sf-paper); color: var(--sf-ink); border-bottom: 1px solid var(--sf-line); }
+.sfbar .wrap { display: flex; justify-content: space-between; align-items: center; height: 66px; gap: 16px; }
+.wm { display: flex; align-items: baseline; font-family: var(--brand); font-weight: 600; font-size: 24px; letter-spacing: -.045em; text-decoration: none; color: var(--sf-ink); }
+.wm svg { margin: 0 1px; overflow: visible; }
+.sfbar nav { display: flex; gap: 28px; font-family: var(--brand); font-size: 14px; font-weight: 600; }
+.sfbar nav a { text-decoration: none; color: var(--sf-ink); }
+.sfbar nav a[aria-current] { box-shadow: inset 0 -1.5px 0 var(--sf-ink); }
+.sfbtn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 20px; background: var(--sf-ink); color: var(--sf-paper); font-family: var(--brand); font-size: 14px; font-weight: 700; text-decoration: none; }
+.sfbtn span:last-child { color: var(--sf-tomato); }
+@media (max-width: 860px) { .sfbar nav { display: none; } }
+
+/* The folio: every page of the issue carries its number and the issue's date. */
+.folio { display: flex; justify-content: space-between; gap: 20px; padding: 16px 0 0; margin-top: clamp(48px, 6vw, 80px); border-top: 1px solid var(--rule); font-size: 15px; color: var(--soft); }
+.folio b { font-family: var(--display); font-weight: 400; font-size: 18px; color: var(--ink); }
+.folio i { font-family: var(--display); }
+.night .folio { border-color: var(--night-rule); color: var(--night-soft); }
+.night .folio b { color: var(--paper); }
+
+/* ------------------------------------------------------------------ the cover */
+.cover { padding-block: clamp(24px, 4vw, 56px) var(--s); }
+.cover .wrap { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(28px, 5vw, 80px); align-items: center; }
+.mag { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--stone); container-type: inline-size; box-shadow: 0 1px 0 var(--rule-2), 0 30px 60px -36px rgba(22,19,18,.55); }
+.mag .ph { position: absolute; left: -2%; width: 104%; top: -25%; height: 125%; object-fit: cover; object-position: 50% 0; max-width: none; }
+.mag .cut { z-index: 2; pointer-events: none; }
+.mast { position: absolute; z-index: 1; left: 0; right: 0; top: 6.4cqw; margin: 0; text-align: center; font-family: var(--display); font-weight: 400; font-size: 23.5cqw; line-height: .8; letter-spacing: -.035em; text-transform: uppercase; color: var(--ink); white-space: nowrap; }
+.issue { position: absolute; z-index: 3; left: 4cqw; right: 4cqw; top: 1.6cqw; display: flex; justify-content: space-between; font-size: 2cqw; line-height: 1; color: var(--ink); }
+.issue i { font-family: var(--display); }
+.lines { position: absolute; z-index: 3; left: 4.4cqw; top: 33cqw; width: 30cqw; display: grid; gap: 4.2cqw; }
+.cl { font-size: 2.05cqw; line-height: 1.3; }
+.cl b { display: block; font-family: var(--display); font-weight: 400; font-size: 3.6cqw; line-height: 1.02; letter-spacing: -.01em; margin-bottom: .6cqw; }
+.cl .big, .cl .time, .cl > span:last-child { display: block; }
+.cl .big { font-size: 9.4cqw; font-style: italic; line-height: .9; color: var(--fern); margin: .4cqw 0 .8cqw; }
+.mag[data-day="taken"] .cl .big, .mag[data-day="held"] .cl .big { color: var(--ink); }
+.cl .time { font-size: 6.4cqw; line-height: .95; letter-spacing: -.025em; }
+.cl .time.long { font-size: 3.2cqw; font-style: italic; line-height: 1.1; }
+.on { position: absolute; z-index: 3; right: 4cqw; bottom: 15cqw; width: 26cqw; font-size: 1.85cqw; line-height: 1.35; text-align: right; }
+.on b { display: block; font-family: var(--display); font-style: italic; font-weight: 400; font-size: 3.2cqw; line-height: 1.05; margin-bottom: .6cqw; }
+.oncap { margin-top: 12px; font-size: 15px; color: var(--soft); max-width: 70ch; }
+.oncap i { font-family: var(--display); color: var(--ink); }
+.bar { position: absolute; z-index: 3; right: 4cqw; bottom: 3.6cqw; display: flex; gap: 1.6cqw; align-items: flex-end; padding: 1.4cqw 1.6cqw 1.2cqw; background: var(--sheet); font-size: 1.6cqw; line-height: 1.2; }
+.bar svg { width: 15cqw; height: 6cqw; display: block; }
+.bar b { display: block; font-family: var(--display); font-weight: 400; font-size: 3.4cqw; line-height: 1; }
+.reprint { transition: opacity .35s ease; }
+.reprinting .reprint { opacity: 0; transition-duration: .12s; }
+
+.desk h1 { font-family: var(--display); font-weight: 400; font-size: clamp(40px, 4.6vw, 66px); line-height: .98; letter-spacing: -.02em; margin-bottom: 22px; }
+.desk h1 i { color: var(--fern); }
+.desk > p { font-size: 20px; max-width: 34ch; }
+.desk fieldset { border: 0; margin-top: 34px; display: grid; gap: 22px; }
+.desk legend { font-family: var(--display); font-style: italic; font-size: 26px; margin-bottom: 10px; padding: 0; }
+.row { display: grid; gap: 6px; }
+.row > span { font-size: 15px; font-weight: 600; color: var(--soft); }
+.trio { display: grid; grid-template-columns: 1fr 1.6fr 1.1fr; gap: 12px; }
+.sel { min-height: 50px; width: 100%; border: 0; border-bottom: 1.5px solid var(--ink); border-radius: 0; background: transparent; font-size: 19px; padding: 0 4px; cursor: pointer; }
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.desk .note { margin-top: 26px; font-size: 16px; color: var(--soft); max-width: 40ch; }
+.who { font-size: 16px; color: var(--soft); margin-bottom: 18px; }
+.who b { color: var(--ink); font-weight: 600; }
+
+/* ------------------------------------------------------------------ contents */
+.contents { padding-block: 0 var(--s); }
+.contents .wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(28px, 5vw, 80px); align-items: start; }
+.contents h2 { font-size: clamp(64px, 9vw, 140px); line-height: .85; letter-spacing: -.04em; margin-bottom: 28px; }
+.contents figure img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.contents figcaption { margin-top: 10px; font-size: 15px; font-style: italic; color: var(--soft); }
+.toc { border-top: 2px solid var(--ink); counter-reset: none; }
+.toc li { border-bottom: 1px solid var(--rule); }
+.toc a { display: grid; grid-template-columns: 3.2ch minmax(0, 1fr) auto; gap: 6px 22px; align-items: baseline; padding: 16px 0; text-decoration: none; }
+.toc a:hover .t { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1.5px; }
+.toc .n { font-family: var(--display); font-size: 40px; line-height: 1; letter-spacing: -.03em; }
+.toc .t { font-family: var(--display); font-style: italic; font-size: 27px; line-height: 1.1; }
+.toc .d { grid-column: 2; font-size: 16px; color: var(--soft); }
+.toc .p { grid-column: 3; grid-row: 1; font-size: 14px; font-weight: 600; color: var(--fern); white-space: nowrap; }
+
+/* ------------------------------------------------------------------ spreads */
+.spread { padding-block: var(--s) clamp(28px, 3vw, 40px); border-top: 1px solid var(--rule); }
+.spread h2 { font-size: clamp(52px, 7.4vw, 116px); line-height: .88; letter-spacing: -.035em; }
+.dek { font-family: var(--display); font-style: italic; font-size: clamp(22px, 2.2vw, 30px); line-height: 1.25; max-width: 32ch; margin-top: 22px; }
+.body { max-width: 52ch; margin-top: 18px; }
+.body + .body { margin-top: 12px; }
+.plan { display: inline-block; margin-top: 18px; font-size: 15px; font-weight: 600; color: var(--fern); }
+
+.season-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; margin-top: clamp(36px, 4vw, 56px); }
+.season-grid img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.season-grid figcaption { margin-top: 12px; font-size: 16px; line-height: 1.4; color: var(--soft); }
+.season-grid figcaption b { display: block; font-family: var(--display); font-style: italic; font-weight: 400; font-size: 27px; line-height: 1.05; color: var(--ink); margin-bottom: 3px; }
+.season-grid li:nth-child(2) { margin-top: 70px; } .season-grid li:nth-child(4) { margin-top: 34px; }
+.split { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: clamp(28px, 5vw, 80px); align-items: start; margin-top: clamp(36px, 4vw, 56px); }
+.ledger { border-top: 2px solid var(--ink); }
+.ledger li { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 4px 22px; align-items: baseline; padding: 16px 0; border-bottom: 1px solid var(--rule); }
+.ledger .n { font-weight: 600; }
+.ledger small { grid-column: 1; font-size: 16px; color: var(--soft); }
+.ledger .m { grid-column: 2; grid-row: 1; font-family: var(--display); font-style: italic; font-size: 21px; color: var(--soft); }
+.ledger .pr { grid-column: 3; grid-row: 1; font-family: var(--display); font-size: clamp(34px, 3.4vw, 46px); line-height: 1; letter-spacing: -.02em; }
+.phones { display: flex; gap: 18px; align-items: flex-start; }
+.phone { flex: 0 1 300px; min-width: 0; }
+.phone .ph { position: relative; overflow: hidden; border: 1px solid var(--rule-2); background: var(--sheet); aspect-ratio: 390 / 844; }
+.phone .ph img, .phone .ph video { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.phone figcaption { margin-top: 10px; font-size: 15px; font-style: italic; color: var(--soft); }
+.phone + .phone { margin-top: 64px; }
+.tap { margin-top: 8px; min-height: 44px; border: 0; background: none; padding: 0; font-size: 15px; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; color: inherit; }
+
+/* The dark spread: the morning, minute by minute. */
+.night { background: var(--night); color: var(--paper); border-top: 0; }
+.night .dek { color: var(--paper); }
+.night .body { color: var(--night-soft); }
+.night .plan { color: #9DBBA3; }
+.night .phone figcaption, .night .tap { color: var(--night-soft); }
+.mo { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(28px, 5vw, 80px); align-items: start; margin-top: clamp(36px, 4vw, 56px); }
+.who-in { border-top: 1px solid var(--night-rule); }
+.who-in li { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--night-rule); }
+.who-in small { display: block; font-size: 15px; color: var(--night-soft); }
+.step { display: flex; align-items: center; gap: 14px; }
+.step button { width: 44px; height: 44px; border: 1.5px solid var(--paper); background: none; color: var(--paper); font-size: 20px; cursor: pointer; }
+.step button:hover { background: var(--paper); color: var(--night); }
+.step button:disabled { opacity: .3; cursor: default; background: none; color: var(--paper); }
+.step output { font-family: var(--display); font-size: 28px; min-width: 1.4ch; text-align: center; }
+.night .sel { border-color: var(--paper); }
+.night .sel option { color: var(--ink); }
+.cer { margin-top: 20px; display: grid; gap: 6px; }
+.cer > span { font-size: 15px; font-weight: 600; color: var(--night-soft); }
+.sum { margin-top: 26px; padding-top: 16px; border-top: 2px solid var(--paper); }
+.sum b { display: block; font-family: var(--display); font-weight: 400; font-size: clamp(56px, 6vw, 84px); line-height: 1; letter-spacing: -.03em; }
+.sum span { font-size: 16px; color: var(--night-soft); }
+.start-at { font-family: var(--display); font-style: italic; font-size: 30px; }
+.start { font-family: var(--display); font-weight: 400; font-size: clamp(110px, 14vw, 210px); line-height: .82; letter-spacing: -.05em; margin: 6px 0 14px; }
+.start.long { font-style: italic; font-size: clamp(40px, 4.4vw, 64px); line-height: 1.05; letter-spacing: -.02em; max-width: 14ch; }
+.mo-note { font-size: 16px; color: var(--night-soft); max-width: 46ch; min-height: 1.5em; }
+.rows { margin-top: 22px; border-top: 2px solid var(--paper); }
+.rows li { display: grid; grid-template-columns: 5.4em minmax(0, 1fr) auto; column-gap: 22px; align-items: baseline; padding: 11px 0; border-bottom: 1px solid var(--night-rule); }
+.rows .tm { font-family: var(--display); font-size: 26px; line-height: 1; }
+.rows .wh { font-weight: 600; }
+.rows .ln { font-size: 14px; color: var(--night-soft); }
+.rows .you .tm, .rows .you .wh { color: #A9C7AF; }
+.rows .end { font-style: italic; }
+.rows .end .wh { font-weight: 400; }
+.rows[hidden] { display: none; }
+
+/* The countdown */
+.count { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(28px, 5vw, 80px); margin-top: clamp(36px, 4vw, 56px); align-items: start; }
+.days-left b { display: block; font-family: var(--display); font-weight: 400; font-size: clamp(120px, 15vw, 230px); line-height: .8; letter-spacing: -.05em; }
+.days-left span { font-family: var(--display); font-style: italic; font-size: 28px; }
+.trial { margin-top: 30px; padding-top: 16px; border-top: 2px solid var(--ink); }
+.trial b { font-family: var(--display); font-weight: 400; font-size: 26px; line-height: 1.2; }
+.trial p { font-size: 16px; color: var(--soft); margin-top: 6px; }
+.skin { border-top: 2px solid var(--ink); }
+.skin li { display: grid; grid-template-columns: 11.5em minmax(0, 1fr); gap: 4px 24px; padding: 15px 0; border-bottom: 1px solid var(--rule); }
+.skin .when { font-family: var(--display); font-style: italic; font-size: 21px; line-height: 1.2; grid-row: span 2; }
+.skin .what { font-weight: 600; }
+.skin .why { font-size: 16px; color: var(--soft); }
+.skin li.past { opacity: .45; }
+.clin { margin-top: 14px; font-size: 15px; font-style: italic; color: var(--soft); }
+.post { margin-top: 40px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: 20px 40px; align-items: end; padding-top: 18px; border-top: 1px solid var(--rule); }
+.post label span { display: block; font-size: 15px; font-weight: 600; color: var(--soft); }
+.post label { min-width: 0; }
+.post input { min-width: 0; width: 100%; min-height: 50px; border: 0; border-bottom: 1.5px solid var(--ink); background: transparent; font-size: 22px; text-transform: uppercase; }
+.post output { font-family: var(--display); font-size: 26px; line-height: 1.2; }
+
+/* The back of the book */
+.back { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: clamp(36px, 4vw, 56px); align-items: start; }
+.back figure .ph { aspect-ratio: 390 / 600; }
+.guides { margin-top: clamp(40px, 5vw, 64px); columns: 2; column-gap: 48px; }
+.guides li { break-inside: avoid; padding: 14px 0; border-top: 1px solid var(--rule); }
+.guides b { display: block; font-family: var(--display); font-style: italic; font-weight: 400; font-size: 26px; line-height: 1.1; }
+.guides span { font-size: 16px; color: var(--soft); }
+
+/* Subscriptions */
+.subs { margin-top: clamp(36px, 4vw, 56px); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border-top: 2px solid var(--ink); }
+.sub { padding: 22px 26px 26px 0; }
+.sub + .sub { padding-left: 26px; border-left: 1px solid var(--rule); }
+.sub .ed { font-family: var(--display); font-style: italic; font-size: 30px; line-height: 1.05; }
+.sub .tier { font-size: 15px; font-weight: 600; color: var(--fern); margin-top: 6px; }
+.sub .price { font-family: var(--display); font-size: clamp(46px, 4.6vw, 64px); line-height: 1; letter-spacing: -.03em; margin: 18px 0 2px; }
+.sub .then { font-size: 16px; color: var(--soft); }
+.sub ul { margin-top: 18px; border-top: 1px solid var(--rule); }
+.sub li { padding: 9px 0; border-bottom: 1px solid var(--rule); font-size: 17px; }
+.small { margin-top: 20px; font-size: 16px; color: var(--soft); max-width: 72ch; }
+.speed-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: clamp(36px, 4vw, 56px); border-top: 2px solid var(--ink); }
+.speed-row div { padding: 18px 20px 0 0; }
+.speed-row div + div { padding-left: 20px; border-left: 1px solid var(--rule); }
+.speed-row b { display: block; font-family: var(--display); font-weight: 400; font-size: clamp(56px, 6vw, 90px); line-height: 1; letter-spacing: -.04em; }
+.speed-row span { font-size: 16px; color: var(--soft); }
+
+/* The back cover: the same cover with her name taken off and the reader's put on. */
+.backcover { padding-block: var(--s); border-top: 1px solid var(--rule); }
+.backcover .wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(28px, 5vw, 80px); align-items: center; }
+.backcover .mag { max-width: 560px; }
+.backcover .mast { top: 5cqw; color: var(--ink); font-size: var(--fs, 23.5cqw); }
+.backcover .issue { color: var(--ink); }
+.bc h2 { font-size: clamp(52px, 6.4vw, 96px); line-height: .9; letter-spacing: -.035em; }
+.bc > p { margin-top: 18px; max-width: 40ch; }
+.yours { min-width: 0; display: grid; gap: 6px; margin-top: 26px; max-width: 420px; }
+.yours span { font-size: 15px; font-weight: 600; color: var(--soft); }
+.yours input { min-width: 0; width: 100%; min-height: 54px; border: 0; border-bottom: 1.5px solid var(--ink); background: transparent; font-family: var(--display); font-size: 30px; padding: 0 2px; }
+.acts { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+.btn { display: inline-flex; align-items: center; min-height: 52px; padding: 0 24px; background: var(--ink); color: var(--paper); border: 1.5px solid var(--ink); font: 600 17px var(--read); text-decoration: none; }
+.btn:hover { background: var(--fern); border-color: var(--fern); }
+.btn.line { background: transparent; color: var(--ink); }
+.btn.line:hover { background: var(--ink); color: var(--paper); }
+.mail { display: block; margin-top: 16px; font-size: 16px; color: var(--soft); }
+
+footer { background: var(--stone); color: var(--soft); font-size: 13px; line-height: 1.6; border-top: 1px solid var(--rule); }
+footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px 32px; padding-block: 28px; font-family: var(--brand); }
+footer p { max-width: 100ch; }
+
+@media (max-width: 900px) {
+  .cover .wrap, .contents .wrap, .split, .mo, .count, .backcover .wrap { grid-template-columns: minmax(0, 1fr); }
+  .season-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .season-grid li:nth-child(n) { margin-top: 0; } .season-grid li:nth-child(even) { margin-top: 40px; }
+  .back { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .back figure:last-child { display: none; }
+  .subs, .speed-row { grid-template-columns: minmax(0, 1fr); }
+  .sub, .sub + .sub { padding: 22px 0; border-left: 0; border-bottom: 1px solid var(--rule); }
+  .speed-row div, .speed-row div + div { padding: 16px 0; border-left: 0; border-bottom: 1px solid var(--rule); }
+  .phone + .phone { margin-top: 0; }
+}
+@media (max-width: 600px) {
+  body { font-size: 18px; }
+  .mag { margin-inline: -18px; box-shadow: none; }
+  .lines { top: 31cqw; width: 33cqw; gap: 3.4cqw; }
+  .cl { font-size: 2.7cqw; line-height: 1.25; } .cl b { font-size: 4.3cqw; } .cl .big { font-size: 9.6cqw; } .cl .time { font-size: 7.4cqw; } .cl .time.long { font-size: 4cqw; }
+  .oncap { padding-inline: 0; }
+  .on { display: none; }
+  .bar { font-size: 2.4cqw; } .bar b { font-size: 4.6cqw; } .bar svg { width: 18cqw; height: 7cqw; }
+  .issue { font-size: 2.9cqw; top: 2.2cqw; }
+  .mast { top: 7.6cqw; }
+  .trio { grid-template-columns: 1fr 1.5fr 1.2fr; gap: 8px; }
+  .toc a { grid-template-columns: 2.6ch minmax(0, 1fr); }
+  .toc .p { grid-column: 2; grid-row: auto; }
+  .toc .n { font-size: 32px; } .toc .t { font-size: 24px; }
+  .rows li { grid-template-columns: 5.6em minmax(0, 1fr); column-gap: 16px; }
+  .rows .ln { grid-column: 2; }
+  .rows .tm { font-size: 22px; }
+  .start:not(.long) { font-size: 25vw; }
+  .days-left b { font-size: 34vw; }
+  .skin li { grid-template-columns: minmax(0, 1fr); }
+  .skin .when { grid-row: auto; }
+  .post { grid-template-columns: minmax(0, 1fr); }
+  .guides { columns: 1; }
+  .phones { flex-direction: column; align-items: stretch; }
+  .phone { width: 100%; max-width: 340px; }
+  .backcover .mag { margin-inline: 0; }
+  footer .wrap { grid-template-columns: minmax(0, 1fr); }
+  .folio { font-size: 14px; }
+}
+@media (prefers-reduced-motion: reduce) { .reprint, .reprinting .reprint { transition: none; opacity: 1; } }
+</style>
+</head>
+<body>
+
+<div class="sfbar gut"><div class="wrap">
+  <a class="wm" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su" aria-label="Sitefloor home">sitefl<svg width="28" height="14" viewBox="0 0 42 21" aria-hidden="true"><rect x="1.9" y="1.9" width="38.2" height="17.2" rx="8.6" fill="none" stroke="#0E0F11" stroke-width="3.8"/><circle cx="31.5" cy="10.5" r="5.2" fill="#E8613C"/></svg>r</a>
+  <nav aria-label="Main"><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#live">Features</a><a href="#top" aria-current="page">Work</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#pricing">Pricing</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#guides">Guides</a></nav>
+  <a class="sfbtn" href="#mockup"><span>Free mockup</span><span aria-hidden="true">→</span></a>
+</div></div>
+
+<main id="top">
+
+<!-- THE COVER -->
+<section class="cover gut" aria-labelledby="h-top"><div class="wrap">
+  <div>
+  <figure class="mag" data-mag aria-label="The cover of this issue">
+    <img class="ph" src="media/cover.webp" width="1600" height="1920" alt="A bride in an off-shoulder dress fastening a pearl earring, eyes half closed, hair swept back" fetchpriority="high">
+    <p class="mast" aria-hidden="true">Isolde</p>
+    <img class="ph cut" src="media/cover-cutout.webp" width="1600" height="1920" alt="">
+    <p class="issue"><span class="reprint"><i>The</i> <span data-issue>25 September 2027</span> <i>issue</i></span><span>Bridal hair and makeup · London</span></p>
+    <div class="lines" aria-live="polite">
+      <p class="cl reprint"><b data-c-date>Saturday 25 September 2027</b><span class="big" data-c-word>Open.</span><span data-c-words>Free so far. Ask, and I'll hold it while you decide.</span></p>
+      <p class="cl reprint"><b><span data-c-svc>Hair and makeup</span>, trial and wedding day</b><span class="big" data-c-price style="color:var(--ink)">£520</span></p>
+      <p class="cl reprint"><b>Your morning</b><span class="time" data-c-start>7:25am</span><span data-c-for>for a 2pm ceremony, four of you</span></p>
+    </div>
+    <p class="bar" aria-label="Cover price: £99, then £25 a month"><svg viewBox="0 0 60 24" aria-hidden="true" data-barcode></svg><span><b>£99</b>then £25<br>a month</span></p>
+  </figure>
+  <p class="oncap"><i>On the cover:</i> satin skin, a lined nude lip, hair swept back low. The name passes behind her head when the photograph has room above it; otherwise it sits above.</p>
+  </div>
+
+  <div class="desk">
+    <p class="who"><b>Isolde</b>, bridal hair and makeup in Clapham. A Sitefloor site.</p>
+    <h1 id="h-top">Her name on the cover. <i>Her answers in the cover lines.</i></h1>
+    <p>Choose a wedding and the cover reprints, from Isolde's own diary and prices. So does every page below.</p>
+    <fieldset>
+      <legend>Her wedding</legend>
+      <div class="row"><span id="l-date">The date</span>
+        <div class="trio" role="group" aria-labelledby="l-date">
+          <label><span class="sr">Day</span><select class="sel" id="w-d"></select></label>
+          <label><span class="sr">Month</span><select class="sel" id="w-m"></select></label>
+          <label><span class="sr">Year</span><select class="sel" id="w-y"></select></label>
+        </div>
+      </div>
+      <div class="pair">
+        <label class="row"><span>For</span><select class="sel" id="w-svc"></select></label>
+        <label class="row"><span>Ceremony at</span><select class="sel" id="w-cer"></select></label>
+      </div>
+    </fieldset>
+    <p class="note">On a client's site the diary is her own Google Sheet; if it can't be read, the cover says "Ask me." and never guesses.</p>
+  </div>
+</div></section>
+
+<!-- CONTENTS -->
+<section class="contents gut" aria-labelledby="h-in"><div class="wrap">
+  <div>
+    <h2 id="h-in">In this issue</h2>
+    <figure><img src="media/look-lit.webp" width="800" height="1000" alt="A bride laughing in profile, a pearl at her ear, hair swept back" loading="lazy"><figcaption>Lit cheek, swept back. Two hours in the chair.</figcaption></figure>
+  </div>
+  <ol class="toc">
+    <li><a href="#top"><span class="n">1</span><span class="t">The cover</span><span class="d">Her date, her price and the time we start, as cover lines.</span><span class="p">Starter</span></a></li>
+    <li><a href="#season"><span class="n">12</span><span class="t">This season</span><span class="d">Looks named the way she'd say them, with minutes in the chair.</span><span class="p">Plus</span></a></li>
+    <li><a href="#prices"><span class="n">18</span><span class="t">For the bride</span><span class="d">Every price, with the time it takes.</span><span class="p">Starter</span></a></li>
+    <li><a href="#morning"><span class="n">24</span><span class="t">The morning, minute by minute</span><span class="d">Everyone in the chair, worked back from the ceremony.</span><span class="p">Signature</span></a></li>
+    <li><a href="#count"><span class="n">32</span><span class="t">Counted down</span><span class="d">Her trial, her skin and the way to her door, from her date.</span><span class="p">Plus and Signature</span></a></li>
+    <li><a href="#back"><span class="n">40</span><span class="t">The back of the book</span><span class="d">Guide pages for every kind of wedding, and a journal.</span><span class="p">Plus</span></a></li>
+    <li><a href="#plans"><span class="n">48</span><span class="t">Subscribe</span><span class="d">Three editions, from £99.</span><span class="p">The plans</span></a></li>
+  </ol>
+</div></section>
+
+<!-- THIS SEASON -->
+<section class="spread gut" id="season" aria-labelledby="h-season"><div class="wrap">
+  <h2 id="h-season">This season</h2>
+  <p class="dek">Four looks on the home page, named the way she'd say them. Each one asks for itself by name.</p>
+  <ul class="season-grid">
+    <li><figure><img src="media/look-satin.webp" width="800" height="1000" alt="A bride in profile fastening her earring: satin skin, warm brown eyes, hair half up" loading="lazy"><figcaption><b>Satin, half up</b>Soft glam · two hours in the chair</figcaption></figure></li>
+    <li><figure><img src="media/look-rose.webp" width="800" height="1000" alt="A bride with eyes lowered: rose and gold lids, a kundan choker and drop earrings" loading="lazy"><figcaption><b>Rose gold, sleek</b>Full glam · two and a half hours, dupatta set</figcaption></figure></li>
+    <li><figure><img src="media/look-lace.webp" width="800" height="1000" alt="A bride glancing back under a lace veil, bare skin and a nude lip" loading="lazy"><figcaption><b>Bare skin, under lace</b>Natural · an hour and a quarter</figcaption></figure></li>
+    <li><figure><img src="media/look-brown.webp" width="800" height="1000" alt="A bride smiling between white curtains, a soft brown eye and lifted lashes" loading="lazy"><figcaption><b>Soft brown, lifted lash</b>Soft glam · an hour and a quarter</figcaption></figure></li>
+  </ul>
+  <p class="body">Inside, the whole library filters by finish and by hair: natural to full glam, half up to hijab. "Ask for this look" opens WhatsApp with the look's name already written.</p>
+  <span class="plan">Plus</span>
+  <p class="folio"><span><b>12</b> · Isolde</span><span><i>The</i> <span data-folio>25 September 2027</span> <i>issue</i></span></p>
+</div></section>
+
+<!-- FOR THE BRIDE -->
+<section class="spread gut" id="prices" aria-labelledby="h-prices"><div class="wrap">
+  <h2 id="h-prices">For the bride</h2>
+  <p class="dek">Prices, plainly, with the minutes in the chair beside them. Every bridal booking has a trial in it.</p>
+  <div class="split">
+    <div>
+      <ul class="ledger" data-ledger></ul>
+      <p class="body">Change a price in her settings and every page that quotes it changes too: the cover, the party quote, the guide pages' worked examples. Nothing is typed twice.</p>
+      <span class="plan">Starter</span>
+    </div>
+    <div class="phones">
+      <figure class="phone"><div class="ph"><img src="media/phone-bridal.webp" width="780" height="1688" alt="Isolde's bridal page on a phone: hair and makeup £520, makeup £390, hair £360, each with its time in the chair" loading="lazy"></div><figcaption>The bridal page on a phone.</figcaption></figure>
+      <figure class="phone"><div class="ph"><video src="media/clip-cover.mp4" poster="media/clip-cover.webp" muted loop playsinline preload="none" data-clip aria-label="Isolde's cover on a phone: a July Saturday answers Taken, an October one Open, then the price and the start time change with the service and the ceremony"></video></div><button class="tap" type="button" data-tap hidden>Pause</button><figcaption>The cover lines, answering.</figcaption></figure>
+    </div>
+  </div>
+  <p class="folio"><span><b>18</b> · Isolde</span><span><i>The</i> <span data-folio>25 September 2027</span> <i>issue</i></span></p>
+</div></section>
+
+<!-- THE MORNING -->
+<section class="spread night gut" id="morning" aria-labelledby="h-morning"><div class="wrap">
+  <h2 id="h-morning">The morning, minute by minute</h2>
+  <p class="dek">Worked back from the ceremony: everyone else first, the bride last, fifteen minutes spare.</p>
+  <div class="mo">
+    <div>
+      <ul class="who-in" data-party></ul>
+      <label class="cer"><span>Ceremony at</span><select class="sel" id="m-cer"></select></label>
+      <div class="sum" aria-live="polite"><b data-m-total>£805</b><span data-m-sum>Hair and makeup for the bride, with three in her party.</span></div>
+      <p class="body">When one chair can't fit everyone, a second artist joins and the morning gets shorter. When even two can't, the site says so instead of printing a time no one could keep.</p>
+      <span class="plan">Signature</span>
+    </div>
+    <div aria-live="polite">
+      <p class="start-at" data-m-lab>We start at</p>
+      <p class="start" data-m-start>7:25am</p>
+      <p class="mo-note" data-m-note></p>
+      <ol class="rows" data-m-rows></ol>
+    </div>
+  </div>
+  <div class="phones" style="margin-top:48px">
+    <figure class="phone"><div class="ph"><video src="media/clip-morning.mp4" poster="media/clip-morning.webp" muted loop playsinline preload="none" data-clip aria-label="Isolde's morning page on a phone: a 14 August wedding, two more bridesmaids, and the morning re-worked into two chairs from 7:25am"></video></div><button class="tap" type="button" data-tap hidden>Pause</button><figcaption>The morning page: each slot goes into everyone's calendar, and the plan to her group from her phone.</figcaption></figure>
+    <figure class="phone"><div class="ph"><img src="media/phone-party-guide.webp" width="780" height="1688" alt="The bridal party page on a phone: six of you worked out, hair and makeup £520, four bridesmaids £380, two mothers £190, a second artist £150, together £1,240" loading="lazy"></div><figcaption>The bridal party page, priced from her own list.</figcaption></figure>
+  </div>
+  <p class="folio"><span><b>24</b> · Isolde</span><span><i>The</i> <span data-folio>25 September 2027</span> <i>issue</i></span></p>
+</div></section>
+
+<!-- COUNTED DOWN -->
+<section class="spread gut" id="count" aria-labelledby="h-count"><div class="wrap">
+  <h2 id="h-count">Counted down</h2>
+  <p class="dek">From the day she finds the site to the morning itself, every date is hers.</p>
+  <div class="count">
+    <div>
+      <p class="days-left" aria-live="polite"><b data-k-days>313</b><span>days to the wedding</span></p>
+      <div class="trial" aria-live="polite"><b data-k-trial>Trial between 10 April and 28 August 2027</b><p>Two and a half hours to find the look, then a day to live in it. <span class="plan" style="margin:0">Plus</span></p></div>
+      <div class="post">
+        <label><span>Her postcode</span><input type="text" id="k-pc" value="SW19 1AA" autocomplete="off" spellcheck="false" maxlength="8"></label>
+        <output for="k-pc" data-k-travel aria-live="polite">SW19: £35 to come to you.</output>
+      </div>
+    </div>
+    <div>
+      <ol class="skin" data-k-skin></ol>
+      <p class="clin">How she prepares skin for makeup, not medical advice: treatments are a question for a clinician, and the page says so.</p>
+      <span class="plan">Signature: each step into her calendar</span>
+    </div>
+  </div>
+  <p class="folio"><span><b>32</b> · Isolde</span><span><i>The</i> <span data-folio>25 September 2027</span> <i>issue</i></span></p>
+</div></section>
+
+<!-- THE BACK OF THE BOOK -->
+<section class="spread gut" id="back" aria-labelledby="h-back"><div class="wrap">
+  <h2 id="h-back">The back of the book</h2>
+  <p class="dek">Fifteen pages, none of them a heading and a paragraph.</p>
+  <ul class="guides">
+    <li><b>Everyone in the chair</b><span>Six of you, priced and timed, and when the second artist comes.</span></li>
+    <li><b>Asian bridal</b><span>Each event its own look; the dupatta set in the chair.</span></li>
+    <li><b>Weddings abroad</b><span>The trial in London, two travel days, what flies with her.</span></li>
+    <li><b>Small weddings</b><span>An 11am registry office, worked out to the minute.</span></li>
+    <li><b>Editorial and events</b><span>A half-day shoot, by the hour.</span></li>
+    <li><b>Journal</b><span>Skin, the last twelve weeks. Until the last dance. Choosing your look.</span></li>
+  </ul>
+  <div class="back">
+    <figure class="phone"><div class="ph"><img src="media/phone-journal.webp" width="780" height="1688" alt="The journal on a phone: notes from the chair, with a bride in profile" loading="lazy"></div><figcaption>The journal.</figcaption></figure>
+    <figure class="phone"><div class="ph"><img src="media/phone-looks.webp" width="780" height="1688" alt="The looks page on a phone: filters for natural, soft glam and full glam above two brides" loading="lazy"></div><figcaption>Brides, by look.</figcaption></figure>
+    <figure class="phone"><div class="ph"><img src="media/phone-cover.webp" width="780" height="1688" alt="Isolde's home page on a phone: her name above a bride fastening an earring, and the next open Saturday" loading="lazy"></div><figcaption>The cover, on a phone.</figcaption></figure>
+  </div>
+  <p class="body">Every worked example on a guide page points at a price on her list, so a guide can't quote what the bridal page doesn't. Each guide counts as a page of the plan; the journal counts as one.</p>
+  <p class="folio"><span><b>40</b> · Isolde</span><span><i>The</i> <span data-folio>25 September 2027</span> <i>issue</i></span></p>
+</div></section>
+
+<!-- SUBSCRIBE -->
+<section class="spread gut" id="plans" aria-labelledby="h-plans"><div class="wrap">
+  <h2 id="h-plans">Subscribe</h2>
+  <p class="dek">Three editions. Every one starts with her name on the cover.</p>
+  <div class="subs">
+    <article class="sub">
+      <h3 class="ed">The cover</h3><p class="tier">Starter</p>
+      <p class="price">£99</p><p class="then">then £25 a month</p>
+      <ul><li>Home, and Plan your visit</li><li>The cover lines: her date, her price, the time we start</li><li>The diary, from her Google Sheet</li><li>Her packages, with minutes in the chair</li><li>Before I arrive, for the party</li></ul>
+    </article>
+    <article class="sub">
+      <h3 class="ed">The issue</h3><p class="tier">Plus</p>
+      <p class="price">£199</p><p class="then">then £30 a month</p>
+      <ul><li>Up to five pages</li><li>Bridal prices and terms</li><li>The look library</li><li>The trial window</li><li>Travel by postcode</li><li>Guide pages and a journal</li></ul>
+    </article>
+    <article class="sub">
+      <h3 class="ed">The special edition</h3><p class="tier">Signature</p>
+      <p class="price">£349</p><p class="then">then £35 a month</p>
+      <ul><li>Up to 20 pages</li><li>Everyone in the chair, priced together</li><li>The morning, minute by minute, in everyone's calendar</li><li>Her skin, counted down</li><li>Her name behind the bride's head, when her photo allows</li></ul>
+    </article>
+  </div>
+  <p class="small">A 12-month minimum. Her diary lives in her own Google Sheet, every enquiry arrives on WhatsApp with the date and the look already written, and nothing costs more to run than hosting.</p>
+
+  <h2 style="margin-top:var(--s)" id="h-speed">On the stand in 1.4 seconds.</h2>
+  <div class="speed-row" aria-labelledby="h-speed">
+    <div><b>100</b><span>Lighthouse performance, mobile, Isolde's home page</span></div>
+    <div><b>1.4 s</b><span>Until the cover, the largest picture, is on screen</span></div>
+    <div><b>0</b><span>Layout shift: nothing jumps while it loads</span></div>
+    <div><b>100</b><span>Accessibility, on every page</span></div>
+  </div>
+  <p class="folio"><span><b>48</b> · Isolde</span><span><i>The</i> <span data-folio>25 September 2027</span> <i>issue</i></span></p>
+</div></section>
+
+<!-- THE BACK COVER -->
+<section class="backcover gut" id="mockup" aria-labelledby="h-cl"><div class="wrap">
+  <figure class="mag" data-back aria-label="A cover with your name on it">
+    <img class="ph" src="media/bridal.webp" width="900" height="1125" alt="Isolde lining a bride's lip in a white room" loading="lazy" style="top:0;height:100%">
+    <p class="mast" data-yours-mast aria-hidden="true">Your name</p>
+    <p class="issue"><span><i>The next</i> issue</span><span>Your work, your prices</span></p>
+  </figure>
+  <div class="bc">
+    <h2 id="h-cl">Your name on the cover.</h2>
+    <label class="yours"><span>Your business name</span><input type="text" id="yours" maxlength="14" autocomplete="organization" placeholder="Your name"></label>
+    <p>Send us your Instagram handle. We'll make a free mockup of your home page with your own bride on the cover and your own prices in the lines.</p>
+    <div class="acts">
+      <a class="btn" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#free">Get a free mockup</a>
+      <a class="btn line" href="https://sitefloor1.github.io/sitefloor-templates/bridalbeauty/">Read Isolde's site</a>
+    </div>
+    <span class="mail">hello@sitefloor.com</span>
+  </div>
+</div></section>
+
+</main>
+
+<footer class="gut"><div class="wrap">
+  <p>Isolde is a fictional bridal hair and makeup artist made to show the Sitefloor bridal beauty kit. Her prices, diary, reviews, address and phone number are demo data. Her photographs are free stock from Pexels, each credited in our records. Client sites use the artist's own photographs, prices and Google Sheet.</p>
+  <span>© 2026 Sitefloor</span>
+</div></footer>
+
+<script>(()=>{var U=Object.defineProperty;var B=(e,t)=>{for(var r in t)U(e,r,{get:t[r],enumerable:!0})};var k={};B(k,{PLANNING:()=>Z,addDaysYmd:()=>u,artistsFor:()=>C,calendar:()=>X,clock:()=>F,clockWords:()=>h,dateText:()=>q,datesFromCsv:()=>W,dayAnswer:()=>R,daysBetween:()=>E,districtOf:()=>M,groupText:()=>ie,hoursWords:()=>H,icsStamp:()=>Q,isYmd:()=>c,lookText:()=>re,minutesOf:()=>g,morningFor:()=>P,morningPlan:()=>x,morningText:()=>te,nextOpenSaturday:()=>_,numberWord:()=>G,numbered:()=>se,pounds:()=>I,prepDates:()=>J,quoteText:()=>ee,quoteTotal:()=>j,skinText:()=>ae,travelFor:()=>z,travelText:()=>oe,trialText:()=>ne,trialWindow:()=>K,ukDate:()=>f,ymdOf:()=>N});function S(e,t){let r=Date.UTC(e.year,e.month-1,e.day,e.hour,e.minute,e.second??0),n=new Intl.DateTimeFormat("en-GB",{timeZone:t,year:"numeric",month:"numeric",day:"numeric",hour:"numeric",minute:"numeric",second:"numeric",hourCycle:"h23"}),a=o=>{let i={};for(let d of n.formatToParts(new Date(o)))i[d.type]=Number(d.value);return Date.UTC(i.year,i.month-1,i.day,i.hour,i.minute,i.second)-o},s=r-a(r);return r-a(s)}function A(e){let t=[],r=[],n="",a=!1;for(let s=0;s<e.length;s++){let o=e[s];a?o==='"'&&e[s+1]==='"'?(n+='"',s++):o==='"'?a=!1:n+=o:o==='"'?a=!0:o===","?(r.push(n),n=""):o===`
+`||o==="\r"?(o==="\r"&&e[s+1]===`
+`&&s++,r.push(n),t.push(r),r=[],n=""):n+=o}return(n!==""||r.length)&&(r.push(n),t.push(r)),t.filter(s=>s.some(o=>o.trim()!==""))}function b(e,t){let r=e.trim();if(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2}(\.\d+)?)?(Z|[+-]\d{2}:\d{2})$/.test(r))return Date.parse(r);let n=/^(\d{4})-(\d{2})-(\d{2})[ T](\d{1,2}):(\d{2})(?::(\d{2}))?$/.exec(r),a;if(n)a=[n[1],n[2],n[3],n[4],n[5],n[6]??"0"].map(Number);else{if(n=/^(\d{1,2})\/(\d{1,2})\/(\d{4}),? (\d{1,2}):(\d{2})(?::(\d{2}))?$/.exec(r),!n)return NaN;a=[n[3],n[2],n[1],n[4],n[5],n[6]??"0"].map(Number)}let[s,o,i,d,m,l]=a;return o>=1&&o<=12&&i>=1&&i<=new Date(Date.UTC(s,o,0)).getUTCDate()&&d<=23&&m<=59&&l<=59?S({year:s,month:o,day:i,hour:d,minute:m,second:l},t):NaN}var Y=["January","February","March","April","May","June","July","August","September","October","November","December"];function c(e){if(typeof e!="string"||!/^\d{4}-\d{2}-\d{2}$/.test(e))return!1;let t=new Date(`${e}T12:00:00Z`);return!Number.isNaN(t.getTime())&&t.toISOString().slice(0,10)===e}function N(e,t,r){let n=`${String(e).padStart(4,"0")}-${String(t).padStart(2,"0")}-${String(r).padStart(2,"0")}`;return c(n)?n:""}function u(e,t){return new Date(Date.parse(`${e}T12:00:00Z`)+t*864e5).toISOString().slice(0,10)}function E(e,t){return Math.round((Date.parse(`${t}T12:00:00Z`)-Date.parse(`${e}T12:00:00Z`))/864e5)}function f(e,t=!0){let r=new Date(`${e}T12:00:00Z`),n=r.toLocaleDateString("en-GB",{weekday:"long",timeZone:"UTC"});return`${t?`${n} `:""}${r.getUTCDate()} ${Y[r.getUTCMonth()]} ${r.getUTCFullYear()}`}var L={open:"open",free:"open",held:"held",hold:"held","on hold":"held",pencilled:"held",taken:"taken",booked:"taken",full:"taken"};function W(e,t,r,n){let a=A(e),s=(a[0]??[]).map(p=>p.trim().toLowerCase()),o=s.indexOf("date"),i=s.indexOf("status"),d=s.indexOf("updated_at");if(o<0||i<0||d<0)return{ok:!1};let m={},l=NaN;for(let p of a.slice(1)){let D=(p[d]??"").trim();if(D){let T=b(D,n);if(!Number.isFinite(T))return{ok:!1};T<=l||(l=T)}let w=(p[o]??"").trim();if(!w)continue;if(!c(w))return{ok:!1};let $=L[(p[i]??"").trim().toLowerCase()];if(!$)return{ok:!1};$!=="open"&&(m[w]=$)}return!Number.isFinite(l)||l>t+5*6e4||t-l>r*864e5?{ok:!1}:{ok:!0,days:m,updatedAt:l}}function R(e,t,r){if(e<t)return{state:"past",word:"Gone.",words:"That day has passed. Choose your wedding date."};if(!r)return{state:"loading",word:"\u2026",words:"Checking the diary."};if(!r.ok)return{state:"unknown",word:"Ask me.",words:"The diary can't be read just now. Ask, and I'll reply with the day."};let n=r.days[e]??"open";return n==="taken"?{state:"taken",word:"Taken.",words:"I'm with another bride that day. The Friday or Sunday may be free, and I keep a short waiting list."}:n==="held"?{state:"held",word:"On hold.",words:"Another bride has it until her booking fee is in. Ask, and I'll tell you the moment it frees."}:{state:"open",word:"Open.",words:"Free so far. Ask, and I'll hold it while you decide."}}function _(e,t,r=180){if(!t||!t.ok)return"";let n=u(e,r);for(;new Date(`${n}T12:00:00Z`).getUTCDay()!==6;)n=u(n,1);for(let a=0;a<80;a++,n=u(n,7))if(!t.days[n])return n;return""}var g=e=>{let[t,r]=e.split(":").map(Number);return t*60+r},F=e=>{let t=(e%1440+1440)%1440,r=Math.floor(t/60),n=t%60;return`${(r+11)%12+1}:${String(n).padStart(2,"0")}`},h=e=>{let t=(e%1440+1440)%1440,r=Math.floor(t/60),n=t%60;return`${(r+11)%12+1}${n?`:${String(n).padStart(2,"0")}`:""}${t<720?"am":"pm"}`};function H(e){let t=Math.floor(e/60),r=e%60;return t?`${t} hr${t>1?"s":""}${r?` ${r}`:""}`:`${r} min`}var I=e=>`\xA3${e.toLocaleString("en-GB")}`,V=["no one","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve"],G=e=>V[e]??String(e);function x(e){let t=e.ceremony-e.travel,r=t-e.dress,n=r-e.buffer,a=n-e.bride,s=[];if(e.artists===1){let o=a-e.guests.reduce((i,d)=>i+d.minutes,0);for(let i of e.guests)s.push({label:i.label,start:o,end:o+i.minutes,lane:0}),o+=i.minutes}else{let o=[a,a];for(let i of[...e.guests].reverse()){let d=o[0]>=o[1]?0:1;s.unshift({label:i.label,start:o[d]-i.minutes,end:o[d],lane:d}),o[d]-=i.minutes}s.sort((i,d)=>i.start-d.start)}return s.push({label:"",start:a,end:n,lane:0,bride:!0}),{start:Math.min(a,...s.map(o=>o.start)),ready:n,dressAt:r,leave:t,rows:s}}function C(e,t,r){return r&&x({...e,artists:1}).start<t?2:1}var Z="This one needs planning \u2014 message me.";function P(e,t){let r=e.packages.bride.find(l=>l.id===t.service)??e.packages.bride[0],n=e.packages.party.flatMap(l=>Array.from({length:t.counts[l.id]??0},()=>({label:l.one??l.name,minutes:l.minutes}))),a={ceremony:t.ceremony,bride:r.minutes,guests:n,travel:e.morning.travel,dress:e.morning.dress,buffer:e.morning.buffer},s=e.morning.second,o=s?C(a,g(s.earliest),!0):1,i=x({...a,artists:o}),d=i.start<g(e.morning.early.before)&&e.morning.early.fee>0,m=i.start<g(s?.earliest??"05:00");return{plan:i,artists:o,early:d,tooEarly:m,bride:r,guests:n,earlyFee:d?e.morning.early.fee:0,secondFee:o>1&&s?s.fee:0}}function j(e){return e.bride+e.lines.reduce((t,r)=>t+r.price*r.count,0)+e.early+e.second}function M(e){let t=e.toUpperCase().replace(/\s+/g,""),r=/^([A-Z]{1,2}\d[A-Z\d]?)(\d[A-Z]{2})?$/.exec(t);return r?r[1]:""}function z(e,t){let r=M(e);if(!r)return{state:"bad",district:"",fee:0};let n=s=>s.some(o=>o===r||o.endsWith("*")&&r.startsWith(o.slice(0,-1))&&/\d/.test(r.slice(o.length-1,o.length)));if(n(t.free))return{state:"free",district:r,fee:0};let a=t.zones.find(s=>n(s.districts));return a?{state:"fee",district:r,fee:a.fee}:{state:"ask",district:r,fee:0}}function K(e,t,r){let n=u(e,-7*t.earliestWeeks),a=u(e,-7*t.latestWeeks);return{from:n<r?r:n,to:a,late:a<r}}function J(e,t,r){return t.map(n=>{let a=u(e,-n.daysBefore);return{...n,date:a,past:a<r}}).sort((n,a)=>n.date<a.date?-1:n.date>a.date?1:0)}var y=e=>e.replace(/\\/g,"\\\\").replace(/;/g,"\\;").replace(/,/g,"\\,").replace(/\r?\n/g,"\\n"),Q=e=>e.toISOString().replace(/[-:]/g,"").replace(/\.\d{3}/,"");function X(e){let t=e.artist.toLowerCase().replace(/[^a-z0-9]+/g,"-"),r=n=>`${String(Math.floor(n/60)).padStart(2,"0")}${String(n%60).padStart(2,"0")}00`;return["BEGIN:VCALENDAR","VERSION:2.0",`PRODID:-//Sitefloor//${y(e.artist)}//EN`,"CALSCALE:GREGORIAN",...e.events.flatMap(n=>["BEGIN:VEVENT",`UID:${n.id}-${n.date}@${t}`,`DTSTAMP:${e.stamp}`,...n.start===void 0?[`DTSTART;VALUE=DATE:${n.date.replace(/-/g,"")}`,`DTEND;VALUE=DATE:${u(n.date,1).replace(/-/g,"")}`]:[`DTSTART:${n.date.replace(/-/g,"")}T${r(n.start)}`,`DTEND:${n.date.replace(/-/g,"")}T${r(n.end??n.start+30)}`],`SUMMARY:${y(n.title)}`,...n.note?[`DESCRIPTION:${y(n.note)}`]:[],...e.place?[`LOCATION:${y(e.place)}`]:[],"END:VEVENT"]),"END:VCALENDAR"].join(`\r
+`)+`\r
+`}function q(e,t,r=""){let n=r?` for ${r.toLowerCase()}`:"";return t?`${e} is ${f(t)} free${n}?`:`${e} I'd like to check a date${n}.`}function ee(e,t){let r=t.wedding&&c(t.wedding)?` on ${f(t.wedding)}`:"",n=t.people.filter(s=>s.count).map(s=>`${s.count} ${s.label.toLowerCase()}`).join(", "),a=t.ceremony?` Ceremony at ${t.ceremony}${t.start?`, so a ${t.start} start`:""}.`:"";return`${e} a quote for my wedding${r}: me (${t.service.toLowerCase()})${n?`, ${n}`:""}.${a} From ${I(t.total)} on your site. Could you confirm?`}function te(e,t){let r=c(t.wedding)?` on ${f(t.wedding)}`:"";return`${e} our morning${r}: ceremony at ${t.ceremony}, ${t.people} in the chair${t.artists>1?", two artists":""}${t.start?`, starting at ${t.start}`:""}. ${t.start?"Does that work for you?":"How early would we need to start?"}`}function ne(e,t){let r=c(t.wedding)?` My wedding is ${f(t.wedding)}.`:"";return`${e} I'd like to book a trial.${r}${t.where?` ${t.where}.`:""}${t.guests?` ${t.guests}.`:""}`}var re=(e,t)=>`${e} I'd love a look like "${t}" for my wedding. Is my date free?`,oe=(e,t)=>`${e} we're getting ready in ${t||"\u2026"}. What would travel be?`;function ae(e,t,r=""){return c(t)?`${e} my wedding is ${f(t)}.${r?` ${r}`:""} Could we talk about my skin before the trial?`:`${e} could we talk about my skin before the trial?`}function se(e){let t={},r={};for(let n of e)t[n]=(t[n]??0)+1;return e.map(n=>t[n]>1?`${n} ${r[n]=(r[n]??0)+1}`:n)}function ie(e,t,r,n){return`Our wedding morning${c(t)?` (${f(t)})`:""}, with ${e}: ${r.map(s=>`${s.label} ${h(s.start)}`).join(", ")}. Dresses on at ${h(n.dressAt)}, out of the door at ${h(n.leave)}, ceremony ${h(n.ceremony)}.`}var O={async load(e){let t=e.now().date,r={};for(let n=0;n<730;n++){let a=u(t,n),s=new Date(`${a}T12:00:00Z`),o=s.getUTCDay(),i=s.getUTCMonth()+1,d=Math.floor(s.getTime()/6048e5);n<35&&(o===5||o===6||o===0)?r[a]="taken":o===6&&i>=5&&i<=9?d%3===1?r[a]="held":(d%3===2||n<300)&&(r[a]="taken"):(o===5||o===0)&&i>=6&&i<=8&&d%2===0?r[a]="taken":o===6&&i===12&&(r[a]="held")}return{ok:!0,days:r,updatedAt:Date.now()-2*864e5}}};var v={dateCheck:{source:"simulated",staleAfterDays:21,message:"Hello Isolde,"},packages:{message:"Hello Isolde,",bride:[{id:"hair-makeup",name:"Hair and makeup",minutes:120,price:520},{id:"makeup",name:"Makeup",minutes:75,price:390},{id:"hair",name:"Hair",minutes:60,price:360}],party:[{id:"maid",name:"Bridesmaids",one:"Bridesmaid",minutes:70,price:95},{id:"mother",name:"Mothers",one:"Mother",minutes:70,price:95},{id:"one",name:"Hair or makeup only",one:"Hair or makeup",minutes:40,price:60},{id:"child",name:"Flower girls",one:"Flower girl",minutes:20,price:30}]},morning:{message:"Hello Isolde, here's",ceremony:"14:00",travel:20,dress:30,buffer:15,early:{before:"07:00",fee:40},second:{earliest:"06:00",fee:150}},party:{message:"Hello Isolde, could I have",start:{maid:2,mother:1},max:9},looks:[{id:"satin",name:"Satin, half up",finish:"soft",hair:"half",minutes:120,text:"Lit on the cheekbone; lashes cut and placed."},{id:"rose",name:"Rose gold, sleek",finish:"full",hair:"sleek",minutes:150,text:"Dupatta and jewellery set as part of the morning."},{id:"lace",name:"Bare skin, under lace",finish:"natural",hair:"veil",minutes:75},{id:"brown",name:"Soft brown, lifted lash",finish:"soft",hair:"half",minutes:75},{id:"lit",name:"Lit cheek, swept back",finish:"soft",hair:"sleek",minutes:120},{id:"waves",name:"Brown smoke, long waves",finish:"full",hair:"down",minutes:130},{id:"curls",name:"Rose lip, curls under lace",finish:"soft",hair:"veil",minutes:120},{id:"knot",name:"Clean skin, low knot",finish:"natural",hair:"up",minutes:110},{id:"jasmine",name:"Pink lip, jasmine bun",finish:"soft",hair:"up",minutes:140,text:"Gajra pinned at the studio or brought by you."}],trial:{message:"Hello Isolde,",earliestWeeks:24,latestWeeks:4},travel:{message:"Hello Isolde,",free:["SW4","SW2","SW8","SW9","SW11","SW12","SE5","SE11","SE24"],zones:[{districts:["SW*","SE*","W*","E*","N*","NW*","EC*","WC*"],fee:35},{districts:["CR*","KT*","SM*","BR*","TW*","GU*","RH*"],fee:60}]},skin:{message:"Hello Isolde,",steps:[{id:"routine",label:"Settle your routine",daysBefore:84,text:"Choose the cleanser and moisturiser you'll wear on the day, and keep to them."},{id:"trial",label:"Your trial",daysBefore:56,text:"Come with clean skin and a top with your dress's neckline. Wear the look for the rest of the day."},{id:"nothing-new",label:"Nothing new",daysBefore:28,text:"No new products on your face from here, however good the review."},{id:"brows",label:"Brows, the last shape",daysBefore:10,text:"The last shape and tint, with time to settle."},{id:"timings",label:"Timings to me",daysBefore:7,text:"Your ceremony time, the address and who's in the chair. I send back your morning."},{id:"eve",label:"An early night",daysBefore:1,text:"Your usual moisturiser, water, and sleep. No masks, nothing new."},{id:"morning",label:"Clean skin, nothing else",daysBefore:0,text:"Wash, a light moisturiser, and I'll prepare the rest in the chair."}]},place:"Isolde, Clapham",extras:[{id:"touch-ups",name:"Staying for touch-ups",text:"Until the speeches, by the hour",price:65},{id:"evening",name:"An evening change",text:"Hair down, a deeper lip, for the party",price:120,from:!0},{id:"mehndi",name:"Mehndi or sangeet",text:"Makeup and hair down, a softer look",price:280},{id:"reception",name:"Reception",text:"A new look for a second day",price:320},{id:"travel-day",name:"A travel day abroad",text:"Each day out and back; flights and a room at cost",price:250},{id:"shoot",name:"Editorial: half day",text:"Four hours on set, two or three looks",price:350},{id:"shoot-hour",name:"Editorial: an hour over",text:"After the half or full day",price:75}],skinSteps:[{id:"routine",label:"Settle your routine",daysBefore:84,text:"Choose the cleanser and moisturiser you'll wear on the day, and keep to them."},{id:"trial",label:"Your trial",daysBefore:56,text:"Come with clean skin and a top with your dress's neckline. Wear the look for the rest of the day."},{id:"nothing-new",label:"Nothing new",daysBefore:28,text:"No new products on your face from here, however good the review."},{id:"brows",label:"Brows, the last shape",daysBefore:10,text:"The last shape and tint, with time to settle."},{id:"timings",label:"Timings to me",daysBefore:7,text:"Your ceremony time, the address and who's in the chair. I send back your morning."},{id:"eve",label:"An early night",daysBefore:1,text:"Your usual moisturiser, water, and sleep. No masks, nothing new."},{id:"morning",label:"Clean skin, nothing else",daysBefore:0,text:"Wash, a light moisturiser, and I'll prepare the rest in the chair."}],season:["satin","rose","lace","brown"]};globalThis.Isolde={...k,diary:O,data:v};})();</script>
+<script>
+(() => {
+  const I = globalThis.Isolde, D = I.data;
+  const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const pad = (n) => String(n).padStart(2, "0");
+  const now = new Date(), today = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
+  const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const min = (hm) => { const [h, m] = hm.split(":").map(Number); return h * 60 + m; };
+  const gbp = (n) => "£" + n.toLocaleString("en-GB");
+  const shortDate = (ymd) => I.ukDate(ymd, false);
+  const state = { date: "", svc: D.packages.bride[0].id, cer: min(D.morning.ceremony), counts: { ...D.party.start } };
+  let diary = null;
+
+  // The barcode in the cover's corner: a fixed pattern, only there to make the cover a cover.
+  (() => { const svg = $("[data-barcode]"); let x = 0, s = ""; const w = [1,2,1,1,3,1,2,1,1,2,3,1,1,2,1,3,1,1,2,1,1,3,2,1,1,2,1,1,3,1,2,1]; w.forEach((v, i) => { if (i % 2 === 0) s += `<rect x="${x}" y="0" width="${v * .8}" height="24" fill="#161312"/>`; x += v * .9; }); svg.innerHTML = s; svg.setAttribute("viewBox", `0 0 ${x} 24`); })();
+
+  // Controls
+  const dSel = $("#w-d"), mSel = $("#w-m"), ySel = $("#w-y");
+  const y0 = now.getFullYear();
+  for (let d = 1; d <= 31; d++) dSel.add(new Option(String(d), String(d)));
+  MONTHS.forEach((m, i) => mSel.add(new Option(m, String(i + 1))));
+  for (let y = y0; y <= y0 + 2; y++) ySel.add(new Option(String(y), String(y)));
+  D.packages.bride.forEach((b) => $("#w-svc").add(new Option(b.name, b.id)));
+  const cerTimes = ["11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "17:00"];
+  for (const sel of [$("#w-cer"), $("#m-cer")]) cerTimes.forEach((t) => sel.add(new Option(I.clockWords(min(t)), String(min(t)))));
+  const showDate = () => { const [y, m, d] = state.date.split("-").map(Number); dSel.value = String(d); mSel.value = String(m); ySel.value = String(y); };
+  const readDate = () => {
+    const y = +ySel.value, m = +mSel.value, last = new Date(Date.UTC(y, m, 0)).getUTCDate();
+    if (+dSel.value > last) dSel.value = String(last);
+    state.date = `${y}-${pad(m)}-${pad(+dSel.value)}`;
+  };
+  [dSel, mSel, ySel].forEach((s) => s.addEventListener("change", () => { readDate(); paint(true); }));
+  $("#w-svc").addEventListener("change", (e) => { state.svc = e.target.value; paint(true); });
+  for (const id of ["#w-cer", "#m-cer"]) $(id).addEventListener("change", (e) => { state.cer = +e.target.value; paint(id === "#w-cer"); });
+
+  // The party, as on Isolde's site
+  const party = $("[data-party]");
+  D.packages.party.forEach((p) => {
+    const li = document.createElement("li");
+    li.innerHTML = `<span>${p.name}<small>${I.hoursWords ? I.hoursWords(p.minutes) : p.minutes + " min"} each · ${gbp(p.price)}</small></span><span class="step"><button type="button" data-d="-1" aria-label="One fewer: ${p.name.toLowerCase()}">−</button><output aria-live="polite">0</output><button type="button" data-d="1" aria-label="One more: ${p.name.toLowerCase()}">+</button></span>`;
+    li.querySelectorAll("button").forEach((b) => b.addEventListener("click", () => {
+      const total = Object.values(state.counts).reduce((a, c) => a + c, 0), d = +b.dataset.d;
+      if (d > 0 && total >= D.party.max) return;
+      state.counts[p.id] = Math.max(0, (state.counts[p.id] ?? 0) + d); paint(true);
+    }));
+    li.dataset.id = p.id; party.append(li);
+  });
+
+  const svc = () => D.packages.bride.find((b) => b.id === state.svc);
+  const morning = () => I.morningFor(D, { service: state.svc, ceremony: state.cer, counts: state.counts });
+
+  function paint(reprint) {
+    const mag = $("[data-mag]");
+    const draw = () => {
+      // Cover
+      const a = I.dayAnswer(state.date, today, diary);
+      mag.dataset.day = a.state;
+      $("[data-c-date]").textContent = I.ukDate(state.date);
+      $("[data-c-word]").textContent = a.word;
+      $("[data-c-words]").textContent = a.words;
+      $("[data-issue]").textContent = shortDate(state.date);
+      $$("[data-folio]").forEach((f) => (f.textContent = shortDate(state.date)));
+      const s = svc(), m = morning();
+      $("[data-c-svc]").textContent = s.name;
+      $("[data-c-price]").textContent = gbp(s.price);
+      const st = $("[data-c-start]");
+      st.textContent = m.tooEarly ? I.PLANNING : I.clockWords(m.plan.start); st.classList.toggle("long", m.tooEarly);
+      const people = 1 + Object.values(state.counts).reduce((x, c) => x + c, 0);
+      $("[data-c-for]").textContent = `for a ${I.clockWords(state.cer)} ceremony, ${I.numberWord(people)} of you${m.artists > 1 ? ", two artists" : ""}`;
+      $("#w-cer").value = String(state.cer); $("#m-cer").value = String(state.cer);
+
+      // The morning
+      $$("[data-party] li").forEach((li) => { const c = state.counts[li.dataset.id] ?? 0; li.querySelector("output").textContent = c; li.querySelector('[data-d="-1"]').disabled = c === 0; });
+      const total = Object.values(state.counts).reduce((x, c) => x + c, 0);
+      $$('[data-party] [data-d="1"]').forEach((b) => (b.disabled = total >= D.party.max));
+      const lines = D.packages.party.map((p) => ({ price: p.price, count: state.counts[p.id] ?? 0 }));
+      const sum = I.quoteTotal({ bride: s.price, lines, early: m.tooEarly ? 0 : m.earlyFee, second: m.tooEarly ? 0 : m.secondFee });
+      $("[data-m-total]").textContent = gbp(sum);
+      $("[data-m-sum]").textContent = `${s.name} for the bride${total ? `, with ${I.numberWord(total)} in her party` : ""}${!m.tooEarly && m.secondFee ? ", a second artist" : ""}${!m.tooEarly && m.earlyFee ? ", the early-start fee" : ""}.`;
+      const start = $("[data-m-start]");
+      start.textContent = m.tooEarly ? I.PLANNING : I.clockWords(m.plan.start); start.classList.toggle("long", m.tooEarly);
+      $("[data-m-lab]").hidden = m.tooEarly;
+      const second = D.morning.second;
+      $("[data-m-note]").textContent = m.tooEarly ? `Not everyone can fit before ${I.clockWords(min(second?.earliest ?? "05:00"))}, even in two chairs: a later ceremony, or a team.`
+        : m.artists > 1 ? `Two chairs: one alone would start before ${I.clockWords(min(second.earliest))}.` : m.early ? `Before ${I.clockWords(min(D.morning.early.before))}, so the early-start fee applies.` : "One chair, no early start.";
+      const rows = $("[data-m-rows]"); rows.hidden = m.tooEarly; rows.textContent = "";
+      const names = I.numbered(m.plan.rows.map((r) => r.label));
+      m.plan.rows.forEach((r, i) => {
+        const li = document.createElement("li"); if (r.bride) li.className = "you";
+        li.innerHTML = `<span class="tm">${I.clockWords(r.start)}</span><span class="wh">${r.bride ? "The bride" : names[i]}</span><span class="ln">${m.artists > 1 ? (r.lane ? "Second chair" : "First chair") : `until ${I.clockWords(r.end)}`}</span>`;
+        rows.append(li);
+      });
+      for (const [t, w] of [[m.plan.dressAt, "Dresses on"], [m.plan.leave, "Out of the door"], [state.cer, "The ceremony"]]) {
+        const li = document.createElement("li"); li.className = "end"; li.innerHTML = `<span class="tm">${I.clockWords(t)}</span><span class="wh">${w}</span>`; rows.append(li);
+      }
+
+      // Counted down
+      const left = I.daysBetween(today, state.date);
+      $("[data-k-days]").textContent = String(Math.max(0, left));
+      const tw = I.trialWindow(state.date, D.trial, today);
+      $("[data-k-trial]").textContent = tw.late ? "Too close for a trial window: ask her for the first free day." : `Trial between ${shortDate(tw.from)} and ${shortDate(tw.to)}`;
+      const skin = $("[data-k-skin]"); skin.textContent = "";
+      I.prepDates(state.date, D.skin.steps, today).forEach((st2) => {
+        const li = document.createElement("li"); if (st2.date < today) li.className = "past";
+        li.innerHTML = `<span class="when">${I.ukDate(st2.date)}</span><span class="what">${st2.label}</span><span class="why">${st2.text}</span>`; skin.append(li);
+      });
+    };
+    if (reprint && !matchMedia("(prefers-reduced-motion: reduce)").matches) { mag.classList.add("reprinting"); setTimeout(() => { draw(); mag.classList.remove("reprinting"); }, 130); }
+    else draw();
+  }
+
+  // Prices, from the demo's own list
+  const ledger = $("[data-ledger]");
+  [...D.packages.bride, ...D.packages.party].forEach((x) => {
+    const li = document.createElement("li");
+    li.innerHTML = `<span class="n">${x.name}</span><small>${D.packages.bride.includes(x) ? "With the trial" : "Per person"}</small><span class="m">${I.hoursWords ? I.hoursWords(x.minutes) : x.minutes + " min"}</span><span class="pr">${gbp(x.price)}</span>`;
+    ledger.append(li);
+  });
+
+  // Travel by postcode
+  const pc = $("#k-pc"), tout = $("[data-k-travel]");
+  const travel = () => { const t = I.travelFor(pc.value, D.travel);
+    tout.textContent = t.state === "bad" ? "Type a postcode, like SW19 1AA." : t.state === "free" ? `${t.district}: free, within three miles of Clapham.` : t.state === "ask" ? `${t.district}: further than her zones. She'll quote by message.` : `${t.district}: ${gbp(t.fee)} to come to you.`; };
+  pc.addEventListener("input", travel); travel();
+
+  // Clips: play when in view, pause on request; still frames for reduced motion.
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  $$("[data-clip]").forEach((v) => {
+    const btn = v.closest("figure").querySelector("[data-tap]"); btn.hidden = false;
+    let paused = still; btn.textContent = still ? "Play" : "Pause";
+    btn.addEventListener("click", () => { paused = !paused; btn.textContent = paused ? "Play" : "Pause"; paused ? v.pause() : v.play().catch(() => {}); });
+    new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting && !paused) v.play().catch(() => {}); else v.pause(); }), { threshold: .4 }).observe(v);
+  });
+
+  // The back cover takes the reader's name, sized like a masthead: the longer the name, the smaller the letters.
+  const yours = $("#yours"), ym = $("[data-yours-mast]");
+  const fit = () => { const n = (yours.value.trim() || "Your name"); ym.textContent = n; ym.style.setProperty("--fs", `${Math.min(23.5, 150 / Math.max(n.length, 1))}cqw`); };
+  yours.addEventListener("input", fit); fit();
+
+  // The diary: the demo's simulated one, the same for everyone on a given day.
+  I.diary.load({ now: () => ({ date: today }) }).then((r) => {
+    diary = r;
+    state.date = I.nextOpenSaturday(today, r) ?? I.addDaysYmd(today, 300);
+    showDate(); paint(false);
+  });
+})();
+</script>
+</body>
+</html>
