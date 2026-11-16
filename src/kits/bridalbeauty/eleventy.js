@@ -2,7 +2,7 @@
 /** Bridalbeauty kit additions to the shared Eleventy setup: home sections, the look library's words, times and messages. */
 import { HOME_PARTS, onPagesProblem, homeOrderProblem } from "./home.js";
 import { FINISH, HAIR } from "./config.js";
-import { pounds, hoursWords, clockWords, minutesOf, morningPlan, numberWord, dateText, lookText, trialText, travelText, skinText, quoteTotal, travelFor } from "./lib/bridalbeauty.js";
+import { pounds, hoursWords, clockWords, anClock, minutesOf, morningPlan, numberWord, dateText, lookText, trialText, travelText, skinText, quoteTotal, travelFor } from "./lib/bridalbeauty.js";
 
 /** @param {any} eleventyConfig */
 export default function bridalBeautyKit(eleventyConfig) {
@@ -18,6 +18,7 @@ export default function bridalBeautyKit(eleventyConfig) {
   eleventyConfig.addFilter("gbp", (/** @type {number} */ n, /** @type {boolean} */ from) => `${from ? "from " : ""}${pounds(n)}`);
   eleventyConfig.addFilter("mins", (/** @type {number} */ m) => hoursWords(m));
   eleventyConfig.addFilter("clockWords", (/** @type {string} */ hm) => clockWords(minutesOf(hm)));
+  eleventyConfig.addFilter("anClock", (/** @type {string} */ words) => anClock(words));
   eleventyConfig.addFilter("numberWord", numberWord);
   eleventyConfig.addFilter("dateText", (/** @type {string} */ opening, /** @type {string} */ service) => dateText(opening, "", service ?? ""));
   eleventyConfig.addFilter("lookText", lookText);

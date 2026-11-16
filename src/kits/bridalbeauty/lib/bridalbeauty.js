@@ -90,6 +90,9 @@ export const clockWords = (m) => {
   const x = ((m % 1440) + 1440) % 1440, h = Math.floor(x / 60), mi = x % 60;
   return `${((h + 11) % 12) + 1}${mi ? `:${String(mi).padStart(2, "0")}` : ""}${x < 720 ? "am" : "pm"}`;
 };
+
+/** "a" or "an" before a time said aloud: "an 11am ceremony", "an 8:30am start", "a 2pm ceremony". */
+export const anClock = (/** @type {string} */ words) => (/^(8|11|18)(?!\d)/.test(words) ? "an" : "a");
 /** "2 hrs 30", "1 hr", "45 min". @param {number} minutes */
 export function hoursWords(minutes) {
   const h = Math.floor(minutes / 60), m = minutes % 60;
