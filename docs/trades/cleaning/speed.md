@@ -12,10 +12,18 @@ Fallback font size-matched from the font files against Liberation Sans: Anek Lat
 21.3%), 600 97% (92.8%, 20.6%), 800 100.6% (89.4%, 19.9%). The headline is set on two fixed lines so the swap never
 re-wraps it.
 
-Lighthouse 12 mobile, local server: home performance 99, accessibility 100, best practices 100 (LCP 2.0 s, the
-photo; TBT 0; CLS 0.03, the strip settling its figure size). Regular cleaning, Deep cleans, Short-let turnovers, End of
-tenancy and the journal article: 100 / 100 / 100, CLS 0.01 or less. Plan your visit and Offices (first build): 99–100 /
-100 / 100. (SEO is low on demos only because they are noindex.)
+Lighthouse 12 mobile, local server (16 Nov): home 100 / 100 / 100 (performance, accessibility, best practices; LCP
+1.5 s, the photo; TBT 0; CLS 0.000). Short-let turnovers, Deep cleans and End of tenancy: 100 / 100 / 100, CLS 0.000.
+The client fixture's home: performance 99, CLS 0.000. Plan your visit and Offices (first build): 99–100 / 100 / 100.
+(SEO is low on demos only because they are noindex.)
+
+Layout shift with scripts held back 2.5 s (Playwright, layout-shift entries): phone home 0.001, phone Short-let 0.0002,
+client home 0.001, desktop home 0.001 at 1280 and 1440. The strip is drawn at its final size in the HTML: the figure
+size and the minute hairlines are set in `cqw` for the default home exactly as the script sets them, the controls are
+drawn from the first paint (hidden only when scripting is off), and on phones a room's task list starts closed. On
+service pages the sentence comes after the strip on phones, so the font arriving moves nothing above the fold.
+Remaining at 1024 wide: about 0.02–0.05 from text re-wrapping when Anek Latin replaces its fallback (the header and the
+line above the strip), as on other pages.
 
 Home page at 390 × 844: 6.3 phone screens without the footer, 7.0 with it (first build 10.7). On phones the office
 section is left off the home page (the office, its hours and the map are on Plan your visit, one tap from the menu),

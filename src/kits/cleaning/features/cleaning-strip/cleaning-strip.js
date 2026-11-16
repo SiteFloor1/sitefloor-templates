@@ -16,6 +16,10 @@ export function init(root, ctx) {
   const say = q("[data-st-say]"), ctl = q("[data-st-ctl]"), R = q("[data-st-ruler]"), S = q("[data-st-rooms]"), D = q("[data-st-detail]");
   if (!cfg || !say || !ctl || !R || !S || !D) throw new Error("room strip markup or config missing");
   const choice = { ...cfg.defaults, extras: /** @type {string[]} */ ([]) };
+  // the controls are live before the script runs: start from whatever is ticked
+  const picked = (/** @type {string} */ n) => /** @type {HTMLInputElement|null} */ (ctl.querySelector(`input[name="${n}"]:checked`))?.value;
+  if (picked("beds")) choice.beds = Number(picked("beds")); if (picked("baths")) choice.baths = Number(picked("baths"));
+  if (picked("freq")) choice.freq = /** @type {any} */ (picked("freq"));
   let open = /** @type {string|null} */ (null), touched = false, v = visit(cfg, choice);
 
   const fit = () => {
@@ -29,7 +33,7 @@ export function init(root, ctx) {
     D.innerHTML = r.extra
       ? `<h2>${esc(r.name)}<span>${hm(r.min)}</span></h2><ul><li>Added to this visit, at the same hourly rate</li></ul><p></p>`
       : `<h2>${esc(r.name)}<span>${hm(r.min)}${open ? "" : '<span class="cl-tap"> · tap any room</span>'}</span></h2><ul>${r.tasks.map((t) => `<li>${esc(t)}</li>`).join("")}</ul><p>${esc(r.not)}</p>`;
-    D.toggleAttribute("data-closed", !open);
+    D.toggleAttribute("data-open", Boolean(open));
     S.querySelectorAll(".cl-room").forEach((b) => b.setAttribute("aria-pressed", String(/** @type {HTMLElement} */ (b).dataset.id === open)));
   };
   const render = () => {

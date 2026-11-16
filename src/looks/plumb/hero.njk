@@ -9,6 +9,6 @@
   {%- if "cleaning-strip" | enabled %}
   {% include "kits/cleaning/features/cleaning-strip/cleaning-strip.njk" %}
   {%- else %}
-  <p class="pl-hero-line">{{ h.intro }} <a class="cl-quiet" href="{{ site.messages.general | book }}" target="_blank" rel="noopener">Ask for a price</a></p>
+  <p class="pl-hero-line">{{ h.intro | fillFrom(site) }} <a class="cl-quiet" href="{{ site.messages.general | book }}" target="_blank" rel="noopener">Ask for a price</a></p>
   {%- endif %}
 </div></section>

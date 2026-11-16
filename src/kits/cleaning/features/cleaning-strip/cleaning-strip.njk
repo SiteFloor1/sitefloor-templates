@@ -8,7 +8,7 @@
 <div class="cl-strip" data-feature="cleaning-strip"{{ 'cleaning-strip' | tierAttr | safe }}>
   <div class="cl-st-top">
     <p class="cl-st-say" data-st-say aria-live="polite">A {{ w.home }}: <b data-st-fig>{{ w.figures }}</b>. <span data-st-hint>{{ V.line or "Change it to yours." }}</span></p>
-    <form class="cl-st-ctl" data-st-ctl data-js-only>
+    <form class="cl-st-ctl" data-st-ctl>
       <fieldset><legend>Bedrooms</legend><div class="cl-seg">{% for n in [1, 2, 3, 4] %}<label><input type="radio" name="beds" value="{{ n }}"{% if n == d.beds %} checked{% endif %}><span>{{ n }}</span></label>{% endfor %}</div></fieldset>
       <fieldset><legend>Bathrooms</legend><div class="cl-seg">{% for n in [1, 2, 3] %}<label><input type="radio" name="baths" value="{{ n }}"{% if n == d.baths %} checked{% endif %}><span>{{ n }}</span></label>{% endfor %}</div></fieldset>
       <fieldset class="cl-st-often"><legend>How often</legend><div class="cl-seg">{% for f in [["week", "Weekly"], ["fortnight", "Fortnightly"], ["once", "Once, deep"]] %}<label><input type="radio" name="freq" value="{{ f[0] }}"{% if f[0] == d.freq %} checked{% endif %}><span>{{ f[1] }}</span></label>{% endfor %}</div></fieldset>
@@ -17,14 +17,14 @@
   <div class="cl-ruler" data-st-ruler aria-hidden="true">
     {%- for t in v.work | ruler %}<i class="{{ 'cl-r30' if t.label }}" style="left:{{ t.at }}%"></i>{% if t.label %}<b style="left:{{ t.at }}%">{{ t.label }}</b>{% endif %}{% endfor %}<b class="cl-r-end">{{ v.work | hm }}</b>
   </div>
-  <div class="cl-rooms" data-st-rooms role="group" aria-label="Rooms, each as long as its minutes">
+  <div class="cl-rooms" data-st-rooms style="{{ v | stripSize }}" role="group" aria-label="Rooms, each as long as its minutes">
     {%- for r in parts %}
     <button type="button" class="cl-room{{ ' cl-extra' if r.extra }}" data-id="{{ r.id }}" style="--m:{{ r.min }}" aria-pressed="false"><i class="cl-mins" aria-hidden="true"></i><span class="cl-n">{{ r.min }}<small> min</small></span><span class="cl-nm"><span class="cl-k">{{ r.tasks.length }} tasks</span>{{ r.name }}</span></button>
     {%- endfor %}
   </div>
   <div class="cl-detail" data-st-detail aria-live="polite">
     {%- set r = v.rooms[0] %}
-    <h2>{{ r.name }}<span>{{ r.min | hm }}<span class="cl-tap" data-js-only> · tap any room</span></span></h2>
+    <h2>{{ r.name }}<span>{{ r.min | hm }}<span class="cl-tap"> · tap any room</span></span></h2>
     <ul>{% for t in r.tasks %}<li>{{ t }}</li>{% endfor %}</ul>
     <p>{{ r.not }}</p>
   </div>

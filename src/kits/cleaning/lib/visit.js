@@ -82,3 +82,10 @@ export function ruler(work) {
 export function validChoice(c) {
   return !!c && Number.isInteger(c.beds) && c.beds >= 1 && c.beds <= MAX_BEDS && Number.isInteger(c.baths) && c.baths >= 1 && c.baths <= MAX_BATHS && FREQS.includes(c.freq);
 }
+
+/** The lowest hourly rate the company charges: from visit.rates, else the services' own rates. @param {any} site @returns {number|null} */
+export function fromRate(site) {
+  const r = site.visit?.rates && typeof site.visit.rates === "object" ? Object.values(site.visit.rates) : (site.cleans?.items ?? []).map((/** @type {any} */ x) => x?.rate);
+  const ok = r.filter((x) => typeof x === "number" && x > 0);
+  return ok.length ? Math.min(...ok) : null;
+}

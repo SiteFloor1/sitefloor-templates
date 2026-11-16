@@ -1,8 +1,15 @@
 /* The room strip. Structure and behaviour only; every colour, type and edge comes from the look's tokens. */
-.cl-strip { --cl-tick: var(--accent-soft); --cl-tick5: var(--accent); }
+/* --n (figure size) and --per (one minute) are lengths worked out where they're set, so the HTML can size them in cqw */
+@property --n { syntax: "<length>"; inherits: true; initial-value: 56px; }
+@property --per { syntax: "<length>"; inherits: true; initial-value: 8px; }
+.cl-strip { container-type: inline-size; --cl-tick: var(--accent-soft); --cl-tick5: var(--accent); }
+/* the controls are drawn from the first paint and work once the script runs; with no scripting at all they'd do nothing */
+@media (scripting: none) { .cl-st-ctl, .cl-tap { display: none; } }
 .cl-st-top { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 12px 0 10px; }
 .cl-st-say { margin: 0; max-width: 54ch; }
 .cl-st-ctl { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+@media (min-width: 1200px) { .cl-st-ctl { flex-wrap: nowrap; flex: none; } .cl-st-say { flex: 1 1 0; min-width: 0; } }
+@media (min-width: 861px) and (max-width: 1199px) { .cl-st-top { flex-direction: column; align-items: flex-start; gap: 10px; } .cl-st-ctl { flex-wrap: nowrap; } }
 .cl-st-ctl fieldset { border: 0; margin: 0; padding: 0; display: flex; align-items: center; gap: 8px; }
 .cl-st-ctl legend { float: left; font-size: .8rem; color: var(--muted); padding: 0; margin-right: 6px; }
 .cl-ruler { position: relative; height: 30px; border-bottom: 1px solid var(--text); }
@@ -58,9 +65,10 @@
 }
 @media (prefers-reduced-motion: reduce) { .cl-room { transition: none; } }
 /* phone: the room list opens when a room is tapped, so the strip stays near the top of a short page */
-@media (max-width: 560px) { .cl-detail[data-closed] ul, .cl-detail[data-closed] p { display: none; } }
+@media (max-width: 560px) and (scripting: enabled) { .cl-detail:not([data-open]) ul, .cl-detail:not([data-open]) p { display: none; } }
 /* the same strip, still: a service's worked example (partials/worked.njk) */
 .cl-wk { padding-bottom: clamp(28px, 4vw, 48px); }
+.cl-wk > .wrap { container-type: inline-size; }
 .cl-wk-head { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; padding-bottom: 10px; }
 .cl-wk-head h2 { margin: 0; font-size: clamp(1.3rem, 2vw, 1.7rem); white-space: nowrap; }
 .cl-wk-head p { margin: 0; max-width: 70ch; }
@@ -73,4 +81,5 @@
 .cl-wk-bill td { text-align: right; }
 .cl-wk-sum th, .cl-wk-sum td { border-top: 1px solid var(--text); font-weight: 600; }
 .cl-wk-price th, .cl-wk-price td { font-family: var(--font-display); font-weight: 800; font-size: 1.6rem; border-bottom: 0; }
-@media (max-width: 860px) { .cl-wk-head { flex-direction: column; gap: 6px; } .cl-wk-rooms { height: auto; } .cl-wk-bill { margin-left: 0; max-width: none; } }
+/* phone: the sentence comes after the strip, so the font arriving can only move what is below it */
+@media (max-width: 860px) { .cl-wk > .wrap { display: flex; flex-direction: column; } .cl-wk-head { display: contents; } .cl-wk-head h2 { order: -2; margin-bottom: 10px; } .cl-wk-rooms { order: -1; } .cl-wk-head p { margin-top: 14px; } .cl-wk-rooms { height: auto; } .cl-wk-bill { margin-left: 0; max-width: none; } }

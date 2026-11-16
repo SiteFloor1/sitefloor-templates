@@ -5,7 +5,7 @@
  * the company's own re-clean terms, quoted in `tenancy.terms`), deposit rules link to gov.uk with the month checked,
  * the simulated free days never reach a client site, and every misspelt setting is refused rather than ignored.
  */
-import { FREQS, MAX_BEDS, MAX_BATHS, validChoice } from "./lib/visit.js";
+import { FREQS, MAX_BEDS, MAX_BATHS, validChoice, fromRate } from "./lib/visit.js";
 import { isDistrict } from "./lib/areas.js";
 import { isYmd } from "../../core/lib/diary.js";
 
@@ -58,7 +58,15 @@ function page(err, path, o, extra) {
 
 /** A deposit is never promised; only the company's own re-clean terms, quoted. @param {string} s @returns {string|null} */
 export function claimProblem(s) {
-  if (/deposit[- ]back guarantee|guarantee[ds]? (?:your |the |a |a full )?(?:full )?deposit|100% deposit|deposit,? guaranteed/i.test(s)) return "never promise a deposit back; quote the company's own re-clean terms in tenancy.terms";
+  const t = s.replace(/[\u2018\u2019]/g, "'");
+  if (/deposit[- ]back guarantee|guarantee[ds]? (?:your |the |a |a full )?(?:full )?deposit|100% deposit|deposit,? guaranteed/i.test(t)
+    || /\b(?:guarantee[ds]?|make sure|ensure|promise[ds]?)\b[^.!?]{0,80}\bdeposit\b[^.!?]{0,60}\b(?:back|returned|refunded|in full)\b/i.test(t)
+    || /\bdeposit\b[^.!?]{0,60}\b(?:back|returned|refunded)\b[^.!?]{0,80}\b(?:guarantee[ds]?|or we pay|or we'll pay|or your money back)\b/i.test(t))
+    return "never promise a deposit back; quote the company's own re-clean terms in tenancy.terms";
+  if (/\bpass(?:es|ed|ing)?\b[^.!?]{0,30}\b(?:inspections?|check-?outs?)\b/i.test(t))
+    return "never promise a pass at inspection or check-out: the landlord or agent decides";
+  if (/\b(?:landlords?|agency|agencies|agents?|letting[- ]agents?)[- ]approved\b/i.test(t))
+    return "no \"landlord-approved\" or \"agency-approved\": there is no such approval to check";
   return null;
 }
 
@@ -93,11 +101,18 @@ export function checkCleaning(site, err, exists) {
 
 /** A deposit is never promised anywhere but the company's own re-clean terms. @param {any} site @param {Report} err */
 function checkClaims(site, err) {
-  for (const key of ["hero", "visit", "cleans", "areas", "keys", "policies", "cleaners", "offices", "journal", "questions", "sections"]) {
-    for (const [path, s] of strings(site[key], key)) { const p = claimProblem(s); if (p) err(path, p); }
+  // every word on the site, except the company's own re-clean terms, which may say what they promise
+  const { tenancy, ...rest } = site;
+  const all = [...strings(rest, ""), ...(isObj(tenancy) ? strings({ ...tenancy, terms: "" }, ".tenancy") : [])];
+  for (const [path, s] of all) { const p = claimProblem(s); if (p) err(path.slice(1), p); }
+  // an hourly price is never typed into copy: it's worked out from the company's rates (K-04)
+  for (const [path, s] of all) {
+    if (/£\s?\d[\d,.]*\s*(?:an|per|a|\/)\s*(?:hour|hr)\b/i.test(s)) err(path.slice(1), "don't type an hourly price: write {from} in hero.intro (filled from visit.rates, or the services' own rates), or leave it to the strip and the services list");
+    if (s.includes("{from}") && path !== ".hero.intro") err(path.slice(1), "{from} is filled in hero.intro only");
   }
-  if (site.tenancy) for (const [path, s] of strings({ ...site.tenancy, terms: "" }, "tenancy")) { const p = claimProblem(s); if (p) err(path, p); }
+  if (site.hero?.intro?.includes("{from}") && fromRate(site) === null) err("hero.intro", "{from} needs rates: visit.rates, or a rate on a service");
 }
+
 
 /** @param {any} h @param {Report} err @param {Exists} exists */
 function checkHero(h, err, exists) {
@@ -172,8 +187,11 @@ function checkServicePrice(item, at, site, err) {
   if (x.example !== undefined) {
     // one source: the price comes from the company's minutes and rates, so the service can't carry its own
     checkExample(x.example, `${at}.example`, site.visit, err);
-    if (x.rate !== undefined || x.unit !== undefined) err(at, "with an example, the price is worked out from `visit`; remove rate and unit");
+    if (["rate", "unit"].some((k) => k in x)) err(at, "with an example, the price is worked out from `visit`; remove rate and unit");
     if (x.from !== undefined && !(x.from === true && x.example.beds === 1 && x.example.baths === 1)) err(`${at}.from`, "true (shows \"from\" the example's price), and only when the example is the smallest home: one bedroom, one bathroom");
+  } else if (x.link === "offices") {
+    // offices are priced after a survey (cleaning-offices shows no £), so the list carries none either
+    if (["rate", "from", "unit"].some((k) => k in x)) err(at, "an offices link carries no price: offices are priced after a survey");
   } else {
     if (x.rate !== undefined && !(typeof x.rate === "number" && x.rate > 0)) err(`${at}.rate`, "£ an hour");
     if (x.from !== undefined && !(typeof x.from === "number" && x.from > 0)) err(`${at}.from`, "a \"from\" price in £");

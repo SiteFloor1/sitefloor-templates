@@ -156,3 +156,24 @@ test("a service page's worked example matches the home strip for the same home, 
   await page.locator(".cl-sv a", { hasText: "End of tenancy" }).click();
   await expect(page.locator(".cl-wk-price td")).toHaveText(from);
 });
+
+test("the strip is drawn at its final size before its script runs, so nothing moves when it starts", async ({ browser }) => {
+  const srv = await start(demo);
+  const read = async (/** @type {boolean} */ js, /** @type {{ width: number, height: number }} */ viewport) => {
+    const p = await browser.newPage({ viewport });
+    if (!js) await p.route("**/*.js", (r) => r.abort());
+    await p.goto(srv.base + "/"); await p.waitForTimeout(js ? 800 : 300);
+    const out = await p.evaluate(() => ({
+      n: getComputedStyle(document.querySelector(".cl-n")).fontSize,
+      rooms: document.querySelector(".cl-rooms").getBoundingClientRect().top,
+      ctl: getComputedStyle(document.querySelector(".cl-st-ctl")).display
+    }));
+    await p.close(); return out;
+  };
+  for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
+    const before = await read(false, viewport), after = await read(true, viewport);
+    expect(before.ctl).not.toBe("none");
+    expect(Math.abs(parseFloat(before.n) - parseFloat(after.n))).toBeLessThan(0.5);
+    expect(Math.abs(before.rooms - after.rooms)).toBeLessThan(1);
+  }
+});

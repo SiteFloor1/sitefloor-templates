@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { gzipSync } from "node:zlib";
 import { build } from "esbuild";
-import { visit, hm, gbp, ruler, visitWords, homeWords, validChoice } from "../../src/kits/cleaning/lib/visit.js";
+import { visit, hm, gbp, ruler, visitWords, homeWords, validChoice, fromRate } from "../../src/kits/cleaning/lib/visit.js";
 import { outward, covered, freeDaysFromCsv, areaAnswer, dayWords } from "../../src/kits/cleaning/lib/areas.js";
 import { moveOut, officeWindow, officeZones, clock, cleanIcs } from "../../src/kits/cleaning/lib/plan.js";
 import { claimProblem } from "../../src/kits/cleaning/config.js";
@@ -149,6 +149,29 @@ test("settings are checked: whole minutes, rates, a deposit never promised, no s
   assert.match(errorsFor((s) => { s.areas.days.csvUrl = "https://example.com/x.csv"; }, client), /csvUrl/);
   assert.equal(claimProblem("100% deposit back"), "never promise a deposit back; quote the company's own re-clean terms in tenancy.terms");
   assert.equal(claimProblem("We come back to put it right."), null);
+  // the whole site is checked, not only the kit's own settings (K-01)
+  assert.match(errorsFor((s) => { s.business.description = "Deposit back guarantee."; }), /business\.description: never promise a deposit/);
+  assert.match(errorsFor((s) => { s.messages.price = "Hi, can you guarantee my deposit back?"; }), /messages\.price: never promise a deposit/);
+  assert.match(errorsFor((s) => { s.visitInfo.title = "Pass your inspection first time"; }), /visitInfo\.title: never promise a pass/);
+  assert.match(errorsFor((s) => { s.seasons[0].message = "Landlord-approved cleans all December."; }), /seasons\[0\]\.message: no "landlord-approved"/);
+  assert.match(errorsFor((s) => { s.pageLinks[0].title = "Agency approved"; }), /pageLinks\[0\]\.title: no "landlord-approved"/);
+  assert.equal(errorsFor((s) => { s.tenancy.terms = "We make sure you pass check-out or we come back."; }), "");
+  // an offices link carries no price (K-03); hourly prices come from the rates, never typed (K-04)
+  assert.match(errorsFor((s) => { s.cleans.items[4].rate = 30; }), /offices link carries no price/);
+  assert.match(errorsFor((s) => { s.cleans.items[4].from = 300; }), /offices link carries no price/);
+  assert.match(errorsFor((s) => { s.business.description = "Cleaning from £24 an hour."; }), /business\.description: don't type an hourly price/);
+  assert.match(errorsFor((s) => { s.questions[0].a = "£25/hour, fortnightly."; }), /questions\[0\]\.a: don't type an hourly price/);
+  assert.match(errorsFor((s) => { s.cleans.items[0].line = "Weekly, {from}."; }), /filled in hero\.intro only/);
+  assert.equal(fromRate({ visit: { rates: { week: 24, fortnight: 25, once: 30 } } }), 24);
+  assert.equal(fromRate({ cleans: { items: [{ rate: 27 }, { from: 180 }, { rate: 22 }] } }), 22);
+  assert.equal(fromRate({ cleans: { items: [{ from: 180 }] } }), null);
+  // and the wider wording
+  for (const [said, why] of [
+    ["We make sure you get your deposit back.", /deposit back/], ["Your deposit returned in full, guaranteed.", /deposit back/],
+    ["Deposit back or we pay the difference.", /deposit back/], ["We'll ensure the full deposit is refunded.", /deposit back/],
+    ["Guaranteed to pass inspection.", /pass at inspection/], ["Cleans that pass check-out.", /pass at inspection/], ["Passes the checkout.", /pass at inspection/],
+    ["Landlord-approved cleaners.", /landlord-approved/], ["An agency-approved checklist.", /landlord-approved/], ["Letting agent approved.", /landlord-approved/]]) assert.match(claimProblem(said) ?? "", why, said);
+  for (const fine of ["We can't promise what a landlord decides.", "Agents check the oven first.", "Ask your agent for the check-out report.", "Get your deposit protection certificate."]) assert.equal(claimProblem(fine), null, fine);
 });
 
 test("the 3D link's size is the chunk's real size, within 15%", async () => {
