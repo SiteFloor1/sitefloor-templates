@@ -1,0 +1,16 @@
+{#- Move-in day planner (Signature): the tenant picks the day the keys are handed over (and when the deposit was
+    paid); the page lays out the day and the weeks after it, and saves it to their calendar. The deposit step is the
+    law (GOV.UK, dated); the rest is the agent's own. -#}
+{%- set md = site.moveday %}
+<div class="lmd" data-feature="letting-moveday"{{ "letting-moveday" | tierAttr | safe }}>
+  <form class="lmd-q" data-lmd-form>
+    <label>Keys on <input type="date" name="keys" required data-lmd-keys></label>
+    <label>Deposit paid on <input type="date" name="paid" data-lmd-paid> <small>(if before)</small></label>
+  </form>
+  <ol class="lmd-plan" data-lmd-plan aria-live="polite">
+    {%- for s in md.steps %}<li><span class="lmd-when">{% if s.offset == 0 %}On the day{% elif s.offset > 0 %}Day {{ s.offset }}{% else %}{{ -s.offset }} days before{% endif %}{% if s.time %}, {{ s.time }}{% endif %}</span><span class="lmd-what"><b>{{ s.label }}</b>{% if s.note %} {{ s.note }}{% endif %}</span></li>{% endfor %}
+    <li><span class="lmd-when">By day 30</span><span class="lmd-what"><b>Your deposit's protection details should be with you</b> The landlord or agent must protect your deposit in a government-approved scheme, and tell you which one and how to get it back, within 30 days of getting it.</span></li>
+  </ol>
+  <p class="lmd-go"><button type="button" class="lo-btn" data-lmd-ics data-js-only disabled>Add to my calendar</button> <span class="lmd-fine">A calendar file; nothing is sent to us.</span></p>
+  <p class="lf-src">The 30-day deposit rule: GOV.UK, <a href="{{ movedayRule.source }}" rel="noopener">Information you must give to your tenants</a>, checked {{ movedayRule.checkedText }}.</p>
+</div>

@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: owners
+permalink: owners.html
+feature: letting-owners
+eleventyComputed:
+  title: "{{ site.owners.title }}"
+  description: "{{ site.owners.intro }}"
+---
+{%- set ph = { title: site.owners.title, intro: site.owners.intro } %}
+{% include "kits/letting/partials/page-head.njk" %}
+<div class="wrap">{% include "kits/letting/features/letting-owners/letting-owners.njk" %}</div>

@@ -1,0 +1,15 @@
+{#- The lift indicator and the building in 3D (Signature), laid over the hero photograph by the look's hero: a plate
+    of floor lamps (one per floor of the hero building), "See the building" to load the 3D illustration, and the
+    stage it draws into. The lamps work without the 3D: a floor lists its free homes. Nothing loads before the tap. -#}
+{%- set hb = site.homes | building(site.homes.hero) %}
+<div class="lbd" data-feature="letting-building"{{ "letting-building" | tierAttr | safe }} data-building="{{ hb.id }}" data-model="{{ hb.model }}">
+  <div class="lbd-stage" data-lbd-stage></div>
+  <span class="lbd-tag">Illustration</span>
+  <button class="lbd-load" type="button" data-lbd-load data-js-only>See the building</button>
+  <p class="lbd-status" data-lbd-status role="status"></p>
+  <div class="lbd-lift"><div class="lbd-plate" role="group" aria-label="Choose a floor of {{ hb.name }}" data-lbd-plate>
+    {%- for f in hb.floors %}
+    <button type="button" data-lbd-floor="{{ f.id }}" aria-pressed="false" disabled><span class="lbd-lamp">{{ f.id }}</span><small data-lbd-note>{{ f.note or "" }}</small><span class="sr-only" data-lbd-label>{{ f.label }}</span></button>
+    {%- endfor %}
+  </div></div>
+</div>

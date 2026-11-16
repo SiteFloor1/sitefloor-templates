@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: repairs
+permalink: repairs.html
+feature: letting-repairs
+eleventyComputed:
+  title: "{{ site.repairs.title }}"
+  description: "How to report a repair to {{ site.business.name }}, and who to call when it can't wait."
+---
+{%- set ph = { title: site.repairs.title, intro: site.repairs.intro } %}
+{% include "kits/letting/partials/page-head.njk" %}
+<div class="wrap">{% include "kits/letting/features/letting-repairs/letting-repairs.njk" %}</div>

@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: fees
+permalink: fees.html
+feature: letting-fees
+eleventyComputed:
+  title: "Fees"
+  description: "Every fee {{ site.business.name }} charges owners, with VAT, what a tenant may be asked to pay, and the schemes that protect you."
+---
+{%- set ph = { title: "Fees", intro: "Every fee we charge, with VAT. Nothing else is added." } %}
+{% include "kits/letting/partials/page-head.njk" %}
+<div class="wrap">{% include "kits/letting/features/letting-fees/letting-fees.njk" %}</div>
