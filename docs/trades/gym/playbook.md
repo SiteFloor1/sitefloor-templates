@@ -18,6 +18,20 @@ What to build for this trade (kit `gym`). The ground rules and the steps for a n
 - **Signature:** GYM-7 spaces left (only for gyms that keep a sheet), GYM-8 Hyrox race-prep planner, GYM-9 members'
   events; the live count on the hero.
 
+### Round 2 (16 Nov 2026): three directions, awaiting the owner
+Owner's verdict on round 1: the live count is the hero to keep and the photo is strong, but black, yellow and
+condensed capitals read as a budget gym. Removed: the bar chart in the hero (the busy-by-hour chart moves to the
+timetable page, restyled), the pulsing dot, tracked uppercase labels, all-caps tabs and tick-mark spaces.
+Kept: the live-or-"usually" rule, the photo standard, Hyrox race prep as the Signature showpiece.
+- **A Daylight** (Heimat's calm): limewash ground, the count as one sentence in words, a daylit mobility-room photo,
+  this evening's classes with "Book in the app". Ysabeau / Ysabeau Office.
+- **B Bathhouse** (material-led): steam over the sauna stones full-bleed, the count centred in Young Serif, then heat
+  and cold slots (GYM-10). Young Serif / Afacad.
+- **C After dark** (Equinox level): black, the monochrome lifter as a framed portrait, "31 people are training right
+  now." in Epilogue, then the Hyrox race-prep planner (GYM-8). Epilogue only.
+Approved by the owner 16 Nov: GYM-10 recovery slots (P), GYM-11 bring-a-friend pass on WhatsApp (S), GYM-12 corporate
+rate (P), added to `docs/VISION.md`.
+
 ### Prices (required before any price is designed; checked 16 Nov 2026)
 The DMCC Act 2024 requires an invitation to purchase to show the total price, including every fee the customer must
 pay. Rules for every gym site, on every page and in the hero:
