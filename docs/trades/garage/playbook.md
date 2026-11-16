@@ -27,7 +27,7 @@ Every site also gets Plan your visit, open now, WhatsApp, reviews and the Instag
 | PARK-6 | Members' page by code (renewal date, notices, payment link; never a gate code) | Sig | Sheet |
 | PARK-7 | Add-ons (EV charging, cover, battery conditioner, valet, delivery) | Sig | site.json, client's prices |
 | PARK-8 | Car care log by code (battery checked, tyres turned, started) | Sig | Sheet |
-| PARK-13 | Laying-up planner: away from/to, the care visits and reminders, SORN and insurance links | Sig (alternative) | calendar file; gov.uk links |
+| PARK-13 | Laying-up planner: away from/to, the care visits and reminders, SORN and insurance links | P (alternative) | calendar file; gov.uk links |
 | PARK-9 | The yard in 3D, labelled an illustration; tap a free bay | Sig (later add-on) | three.js on tap, the same Sheet |
 | PARK-14 | Business and fleet enquiry (number of vehicles, weekday or 24/7, invoice details) | P | WhatsApp or Form |
 
@@ -50,7 +50,7 @@ gov.uk with the date checked.
 | **PARK-11 Arrive at night** | Gate, fob, lights, ramp, bay and leaving, step by step with the client's own photos; saved to the phone | 14, 15, 16, 17 | Sig (P gets the text) | site.json and photos | small to medium | Only the client's own photos of their own site; never shows a gate code; out-of-hours number only as given | "This is exactly what it's like getting in at 11pm" |
 | **PARK-9 The yard in 3D** | A 3D model of the yard, labelled an illustration; tap a free bay for size and price | 2, 5, 8 | Sig (add-on) | three.js on tap, the Sheet | large | Labelled "illustration, not to survey"; bays come from the Sheet only; no WebGL or reduced motion shows the plan | The obvious wow, but heavy for what it sells |
 | **PARK-12 Move-in steps to calendar** | Pick a start date; get the fob day, insurer reminder, first payment and the last day to give notice as calendar events | 6, 7, 24 | S | calendar file in the browser | small | Dates come from the client's terms; if a term is missing, that event is left out, never guessed | Quietly useful; nobody else does the notice reminder |
-| **PARK-13 Laying-up planner** (own idea) | Away from/to: the care visits you're paying for, battery and tyre reminders, SORN and insurance links | 25, 28, 29 | Sig (alternative) | calendar file; gov.uk links | small | Links to gov.uk for SORN, dated; care visits only as the client sells them | "They'll start the car every fortnight while I'm in Dubai" |
+| **PARK-13 Laying-up planner** (own idea) | Away from/to: the care visits you're paying for, battery and tyre reminders, SORN and insurance links | 25, 28, 29 | Plus (alternative) | calendar file; gov.uk links | small | Links to gov.uk for SORN, dated; care visits only as the client sells them | "They'll start the car every fortnight while I'm in Dubai" |
 
 **Recommended:**
 - **Signature: PARK-10 Pick your car, see your bays** (the one no competitor has: it answers the two questions that
