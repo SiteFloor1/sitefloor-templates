@@ -79,6 +79,12 @@ service, and PARK-10 in the direction's own form. Saved in SiteFloor1/sitefloor-
 - **F, Rennick (the bright one):** a spotless white family car in daylight; the header asks "I drive…" and finds a
   space. Merriweather and Atkinson Hyperlegible Next.
 
+### Design round 3: Elsden only
+Owner chose Elsden (Cardo, Radio Canada, the gallery label, the floor-plan picker). Fixes: the hero sells the place, not
+a car: a real storage hall shown edge to edge, with its gallery label on the wall beneath it (not a box over the photo);
+care photos that look like the same hall, one grade; no readable makers' badges; the plan drawn like an architect's
+drawing (poché walls, column grid, wheel stops, cars drawn from above, scale bar, north point). Lounge: client photos.
+
 ### Running cost
 £0 per client: the client's Sheet and Form, WhatsApp, the client's Stripe Payment Links, calendar files made in the
 browser. PARK-9 adds no running cost but adds weight (loaded only on tap).
