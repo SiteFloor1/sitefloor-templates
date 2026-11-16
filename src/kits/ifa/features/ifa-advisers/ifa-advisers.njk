@@ -1,0 +1,12 @@
+{#- The advisers: name, role, letters, and each FCA individual reference number linked to the register. -#}
+{%- set sec = site.sections.advisers %}
+<section id="advisers" class="if-adv" data-feature="ifa-advisers"><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <ul class="if-adv-l">
+    {%- for a in site.advisers.items %}
+    <li><p class="if-adv-n">{{ a.name }}{% if a.letters %} <span>{{ a.letters }}</span>{% endif %}</p><p class="if-adv-r">{{ a.role }}</p>
+      <p class="if-adv-irn">FCA reference <a href="{{ a.registerUrl or fca.register }}" target="_blank" rel="noopener">{{ a.irn }}</a>{{ site.mode | demoTag }}</p></li>
+    {%- endfor %}
+  </ul>
+  {%- if "ifa-advisers-page" | enabled %}<p><a class="if-go" href="{{ 'advisers' | href }}"{{ "ifa-advisers-page" | tierAttr | safe }}>Meet the advisers</a></p>{% endif %}
+</div></section>

@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: independent
+permalink: independent.html
+feature: ifa-independence
+eleventyComputed:
+  title: "{{ 'Independent advice' if site.independence.status == 'independent' else 'Restricted advice' }}"
+  description: "{{ site.independence.line }}"
+---
+{% include "kits/ifa/features/ifa-independence/ifa-independence.njk" %}
