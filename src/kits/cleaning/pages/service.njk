@@ -1,0 +1,17 @@
+---js
+{
+  layout: "core/layouts/base.njk",
+  feature: "cleaning-service-pages",
+  pagination: { data: "site.cleans.items", size: 1, alias: "svc", before: (items) => items.filter((x) => x.page) },
+  permalink: (data) => `${data.svc.id}.html`,
+  eleventyComputed: {
+    pageId: (data) => data.svc.id,
+    title: (data) => data.svc.name,
+    description: (data) => `${data.svc.name} by ${data.site.business.name}: ${data.svc.line}`
+  }
+}
+---
+{%- set s = svc %}
+{%- set ph = { kicker: "Services", title: svc.name, intro: svc.page.intro } %}
+{% include "kits/cleaning/partials/page-head.njk" %}
+{% include "kits/cleaning/features/cleaning-service-pages/cleaning-service-pages.njk" %}

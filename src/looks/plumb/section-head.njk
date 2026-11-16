@@ -1,0 +1,6 @@
+{#- Plumb section opening: the section's name, heavy and short, its line beneath at body size in the muted ink.
+    `sec` = { kicker, title, intro }; the kicker is not shown. -#}
+<div class="pl-sh">
+  <h2 class="pl-sh-t">{{ sec.title | markup | safe }}</h2>
+  {%- if sec.intro %}<p class="pl-sh-i">{{ sec.intro }}</p>{% endif %}
+</div>

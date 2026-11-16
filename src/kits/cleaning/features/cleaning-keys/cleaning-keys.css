@@ -1,0 +1,17 @@
+.cl-keys-in { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(24px, 5vw, 96px); align-items: start; }
+.cl-log { border: 1px solid var(--text); background: var(--bg); }
+.cl-log-hd { margin: 0; padding: 12px 16px; border-bottom: 1px solid var(--text); font-weight: 600; font-variant-numeric: tabular-nums; }
+.cl-log ol { list-style: none; margin: 0; padding: 0; }
+.cl-log li { display: grid; grid-template-columns: 5rem 1fr auto; gap: 16px; align-items: baseline; padding: 16px; border-bottom: 1px solid var(--line); }
+.cl-log time { font-weight: 600; font-variant-numeric: tabular-nums; color: var(--accent-ink, var(--accent)); }
+.cl-log b { font-weight: 600; }
+.cl-log li span { display: block; color: var(--muted); font-size: .92rem; }
+.cl-log i { font-style: normal; font-size: .8rem; color: var(--muted); white-space: nowrap; }
+.cl-rules { display: grid; grid-template-columns: 1fr 1fr; }
+.cl-rules p { margin: 0; padding: 14px 16px; font-size: .95rem; }
+.cl-rules p + p { border-left: 1px solid var(--line); }
+@media (max-width: 860px) {
+  .cl-keys-in { grid-template-columns: 1fr; }
+  .cl-log li { grid-template-columns: 4.2rem 1fr; gap: 2px 12px; padding: 12px 14px; } .cl-log li > div { grid-row: span 2; } .cl-log i { grid-column: 1; grid-row: 2; white-space: normal; }
+  .cl-rules { grid-template-columns: 1fr; } .cl-rules p + p { border-left: 0; border-top: 1px solid var(--line); }
+}

@@ -1,0 +1,11 @@
+{#- Your cleaning day in the calendar: a weekday and a start time give a repeating entry (weekly or fortnightly) with the
+    visit's length from the bill. Shown in the bill; only for regular cleans. -#}
+<div class="cl-sch" data-feature="cleaning-schedule" data-js-only{{ 'cleaning-schedule' | tierAttr | safe }}>
+  <p class="cl-sch-h">Your cleaning day</p>
+  <div class="cl-sch-row">
+    <label><span class="cl-sr">Day</span><select data-sch-day>{% for d in [["1","Monday"],["2","Tuesday"],["3","Wednesday"],["4","Thursday"],["5","Friday"]] %}<option value="{{ d[0] }}"{% if loop.index == 2 %} selected{% endif %}>{{ d[1] }}</option>{% endfor %}</select></label>
+    <label><span class="cl-sr">Start</span><input type="time" data-sch-time value="{{ site.visit.startTime or '09:00' }}" step="900"></label>
+    <button type="button" class="cl-quiet" data-sch-ics>Add to my calendar</button>
+  </div>
+  <p class="cl-fine" data-sch-note aria-live="polite"></p>
+</div>

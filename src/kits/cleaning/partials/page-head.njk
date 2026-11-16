@@ -1,0 +1,6 @@
+{#- An inner page's opening: where it sits, the page's name, its line beneath. Set `ph` to { kicker, title, intro }. -#}
+<header class="cl-ph"><div class="wrap cl-ph-in">
+  <p class="cl-ph-k"><a href="{{ 'index' | href }}">{{ site.business.name }}</a> <span aria-hidden="true">/</span> {{ ph.kicker or ph.title | plain }}</p>
+  <h1 class="cl-ph-t">{{ ph.title | markup | safe }}</h1>
+  {%- if ph.intro %}<p class="cl-ph-i">{{ ph.intro }}</p>{% endif %}
+</div></header>
