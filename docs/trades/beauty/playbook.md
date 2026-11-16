@@ -47,7 +47,7 @@ New kit feature ids start with `skin-`. Every site also gets Plan your visit, op
 | BEAU-2 | Starter (the easy extra) | `skin-first-visit` | first-visit notes and the clinic's patch-test rule; an appointment date in, the patch-test day out (on or before), to the calendar or WhatsApp |
 | BEAU-3 | Plus (the home's first-screen tool) | `skin-finder` | "How does your skin feel today?": five words, each a printed card in the clinic's own words (facial, minutes, price, afterwards, patch test, this evening); Book on WhatsApp |
 | — | Plus page | `skin-concerns-page` | the finder, then every treatment by concern |
-| — | Plus pages (one collection) | `skin-category-pages` | facials, brows and lashes, body and massage, waxing, men's: every treatment with its afterwards, patch test and this evening |
+| — | Plus pages (each counts against the plan) | `skin-category-pages` | facials, brows and lashes, body and massage, waxing, men's: every treatment with its afterwards, patch test and this evening |
 | — | Plus page | `skin-first-visit-page` | the first visit in full, the patch-test day, the advertising rules with sources |
 | BEAU-4 | Plus | `skin-courses` | courses (treatment, how many, how far apart, price) and memberships |
 | BEAU-5 | Plus | `skin-rooms` | the room, photograph by photograph |

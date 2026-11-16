@@ -21,7 +21,7 @@ export const features = [
   { id: "skin-concerns-page", dir: `${K}/skin-concerns-page`, minPlan: "plus", kits: ["skin"], requires: ["finder", "menu"], needs: ["skin-finder"], page: "concerns", js: false,
     summary: "Treatments by concern: the finder's card, then every word with the clinic's treatment for it." },
   { id: "skin-category-pages", dir: `${K}/skin-category-pages`, minPlan: "plus", kits: ["skin"], requires: ["menu"], needs: ["skin-menu"], page: "category", collection: true, js: false,
-    summary: "A page for each part of the menu (facials, brows and lashes, body and massage, waxing, men's): every treatment with its minutes, price, afterwards and patch test, in the clinic's words (a collection, counted as one page)." },
+    summary: "A page for each part of the menu (facials, brows and lashes, body and massage, waxing, men's): every treatment with its minutes, price, afterwards and patch test, in the clinic's words. Each part counts as a page of the plan." },
   { id: "skin-first-visit-page", dir: `${K}/skin-first-visit-page`, minPlan: "plus", kits: ["skin"], requires: ["firstVisit"], needs: ["skin-first-visit"], page: "first-visit", js: false,
     summary: "The first visit and patch tests page: the clinic's own paragraphs, the patch-test day worked out, and the sources of the rules, dated." },
   { id: "skin-courses", dir: `${K}/skin-courses`, minPlan: "plus", kits: ["skin"], requires: ["courses", "menu"], page: "courses", js: false,

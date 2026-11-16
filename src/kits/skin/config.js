@@ -8,6 +8,13 @@
 import { claimProblem } from "./lib/rules.js";
 import { allItems } from "./lib/skin.js";
 import { isYmd } from "../../core/lib/diary.js";
+import { features as KIT_FEATURES } from "./kit.js";
+
+/** Pages a plan includes, counting the home page (as src/features/registry.js PAGE_LIMITS; not imported, because the
+ * registry loads this kit while it starts). */
+const LIMITS = { starter: 1, plus: 5, signature: Infinity };
+/** Shared features with a page of their own that this trade offers (Plan your visit is free). */
+const SHARED_PAGES = ["team"];
 
 /** @typedef {(path: string, msg: string) => void} Report */
 /** @typedef {((rel: string) => boolean)|undefined} Exists */
@@ -77,6 +84,7 @@ export function checkSkin(site, err, exists) {
   if (site.kit !== "skin") return;
   if (site.look === "palm") checkHero(site.hero, err, exists);
   const items = checkMenu(site.menu, err, exists);
+  checkCategoryPages(site, err);
   if ((site.features ?? []).includes("skin-category-pages")) (site.menu?.categories ?? []).forEach((/** @type {any} */ c, /** @type {number} */ i) => { if (!isObj(c?.page)) err(`menu.categories[${i}].page`, "with the category pages on, every part of the menu needs its page: { title, intro? }"); });
   if (site.finder !== undefined) checkFinder(site.finder, items, err);
   if (site.firstVisit !== undefined) checkFirstVisit(site.firstVisit, err);
@@ -88,6 +96,25 @@ export function checkSkin(site, err, exists) {
   if (site.bridal !== undefined) checkBridal(site.bridal, err);
   if (site.journal !== undefined) checkJournal(site.journal, err);
   claims(site, err);
+}
+
+/**
+ * Each part of the menu with its own page counts as a page of the plan (the shared count takes a collection as one
+ * page). This adds the rest, so a Plus site is the home page and four pages it chooses. Sold extras: "addonPages".
+ * @param {any} site @param {Report} err
+ */
+function checkCategoryPages(site, err) {
+  const features = /** @type {string[]} */ (site.features ?? []);
+  const limit0 = LIMITS[/** @type {"starter"|"plus"|"signature"} */ (site.plan)];
+  if (!features.includes("skin-category-pages") || limit0 === undefined) return;
+  const addons = Array.isArray(site.addons) ? site.addons : [];
+  const own = new Set(KIT_FEATURES.filter((f) => typeof f === "object" && f.page).map((f) => /** @type {any} */ (f).id));
+  const counted = 1 + features.filter((id) => (own.has(id) || SHARED_PAGES.includes(id)) && !addons.includes(id)).length
+    + (features.includes("custom-pages") && Array.isArray(site.pages) ? site.pages.length : 0);
+  const categories = (site.menu?.categories ?? []).length;
+  const pages = counted - 1 + categories;
+  const limit = limit0 + (Number.isInteger(site.addonPages) ? site.addonPages : 0);
+  if (categories > 1 && counted <= limit && pages > limit) err("features", `${pages} pages (each part of the menu is a page of its own: ${categories}), but the ${site.plan} plan includes ${limit}; turn off a page, keep fewer parts of the menu, or sell more with "addonPages"`);
 }
 
 /** The Palm look's hero: one large photograph, credited, with where the face sits. @param {any} h @param {Report} err @param {Exists} exists */

@@ -47,6 +47,16 @@ test("every finder card line is the clinic's own: a word must point at a treatme
   assert.equal(errorsFor((s) => { delete s.menu.categories[0].items[0].evening; }), "");
 });
 
+test("on Plus each part of the menu is a page of its own: home and four pages, a sixth is refused", () => {
+  // the client fixture: home, concerns, courses, and two parts of the menu (facials, brows and lashes) = 5
+  assert.equal(errorsFor(() => {}, client), "");
+  assert.match(errorsFor((s) => { s.features.push("skin-first-visit-page"); }, client), /6 pages \(each part of the menu is a page of its own: 2\), but the plus plan includes 5/);
+  assert.match(errorsFor((s) => { s.menu.categories.push({ ...structuredClone(demo.menu.categories[3]) }); }, client), /6 pages/);
+  assert.equal(errorsFor((s) => { s.features.push("skin-first-visit-page"); s.addonPages = 1; }, client), "");
+  // Signature has no limit
+  assert.equal(errorsFor(() => {}), "");
+});
+
 test("misspelt settings are refused, and a demo takes no payments", () => {
   assert.match(errorsFor((s) => { s.rituals.addons = []; }), /rituals\.addons: unknown setting/);
   assert.match(errorsFor((s) => { s.spaDays.days[0].payLink = "https://buy.stripe.com/test_x"; }), /demo takes no payments/);

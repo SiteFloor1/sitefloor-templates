@@ -199,6 +199,13 @@ leaves out the week's hours on the home page, where Find us already shows them.
 
 Lighthouse mobile after the fix: performance 100, accessibility 100, LCP 1.7 s, layout shift 0.001.
 
+### 16 Nov 2026 — first screen (owner decision)
+
+The photograph is now `clamp(360px, 100svh − 330px, 600px)` tall on desktop and `clamp(300px, 100svh − 440px, 520px)`
+on phones, so the question and the five words are on the first screen: 1280×800 photo 470 px, words end at 777 px;
+1440×900 photo 570 px, words end at 883 px; 390×844 photo 404 px, words end at 762 px, above the phone bar (775 px).
+All measured with the demo ribbon. Lighthouse mobile: performance 100, accessibility 100, LCP 1.7 s, layout shift 0.001.
+
 ## Bridal salons
 _From `docs/trades/bridal/speed.md`._
 
