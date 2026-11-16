@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: cleaners
+permalink: cleaners.html
+feature: cleaning-cleaners
+eleventyComputed:
+  title: "{{ site.cleaners.title | plain }}"
+  description: "{{ site.cleaners.intro }}"
+---
+{%- set ph = { title: site.cleaners.title, intro: site.cleaners.intro } %}
+{% include "kits/cleaning/partials/page-head.njk" %}
+{% include "kits/cleaning/features/cleaning-cleaners/cleaning-cleaners.njk" %}

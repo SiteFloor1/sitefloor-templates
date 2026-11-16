@@ -1,0 +1,16 @@
+{#- Do you clean in my postcode: the company's districts; a postcode in, yes or not yet out. With cleaning-free-days
+    (Plus) the answer adds the next free days from the company's sheet, or "ask us" when the sheet is old. Without
+    JavaScript the districts are listed. -#}
+{%- set a = site.areas %}{%- set sec = site.sections.areas %}
+<section id="areas" class="cl-areas" data-feature="cleaning-areas" aria-label="{{ sec.title | plain }}"{{ 'cleaning-areas' | tierAttr | safe }}><div class="wrap cl-areas-in">
+  <div>{% include "core/partials/section-head.njk" %}</div>
+  <div>
+    <form class="cl-pc" data-areas-form data-js-only>
+      <label for="cl-pc-in">Your postcode</label>
+      <div class="cl-pc-row"><input id="cl-pc-in" data-areas-in autocomplete="postal-code" inputmode="text" autocapitalize="characters" placeholder="e.g. SW4 7AA" maxlength="9"><button type="submit">Check</button></div>
+      <p class="cl-pc-out" data-areas-out aria-live="polite"></p>
+    </form>
+    <p class="cl-dist"><span>We clean in</span> {% for z in a.districts %}<b>{{ z }}</b>{% if not loop.last %} {% endif %}{% endfor %}</p>
+    {%- if a.places %}<p class="cl-places">{{ a.places | join(", ") }}</p>{% endif %}
+  </div>
+</div></section>

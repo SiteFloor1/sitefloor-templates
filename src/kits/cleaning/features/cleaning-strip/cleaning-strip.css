@@ -1,0 +1,85 @@
+/* The room strip. Structure and behaviour only; every colour, type and edge comes from the look's tokens. */
+/* --n (figure size) and --per (one minute) are lengths worked out where they're set, so the HTML can size them in cqw */
+@property --n { syntax: "<length>"; inherits: true; initial-value: 56px; }
+@property --per { syntax: "<length>"; inherits: true; initial-value: 8px; }
+.cl-strip { container-type: inline-size; --cl-tick: var(--accent-soft); --cl-tick5: var(--accent); }
+/* the controls are drawn from the first paint and work once the script runs; with no scripting at all they'd do nothing */
+@media (scripting: none) { .cl-st-ctl, .cl-tap { display: none; } }
+.cl-st-top { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 12px 0 10px; }
+.cl-st-say { margin: 0; max-width: 54ch; }
+.cl-st-ctl { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+@media (min-width: 1200px) { .cl-st-ctl { flex-wrap: nowrap; flex: none; } .cl-st-say { flex: 1 1 0; min-width: 0; } }
+@media (min-width: 861px) and (max-width: 1199px) { .cl-st-top { flex-direction: column; align-items: flex-start; gap: 10px; } .cl-st-ctl { flex-wrap: nowrap; } }
+.cl-st-ctl fieldset { border: 0; margin: 0; padding: 0; display: flex; align-items: center; gap: 8px; }
+.cl-st-ctl legend { float: left; font-size: .8rem; color: var(--muted); padding: 0; margin-right: 6px; }
+.cl-ruler { position: relative; height: 30px; border-bottom: 1px solid var(--text); }
+.cl-ruler i { position: absolute; bottom: 0; width: 1px; height: 6px; background: var(--text); }
+.cl-ruler i.cl-r30 { height: 12px; }
+.cl-ruler b { position: absolute; bottom: 14px; transform: translateX(-50%); font-size: .78rem; font-weight: 600; white-space: nowrap; }
+.cl-ruler b.cl-r-end { left: 100%; transform: translateX(-100%); color: var(--accent-ink, var(--accent)); }
+.cl-rooms { display: flex; height: clamp(180px, 23vh, 220px); }
+.cl-room { flex: var(--m) 1 0; min-width: 0; position: relative; container-type: inline-size; display: flex; flex-direction: column; justify-content: space-between;
+  padding: 14px 12px; border: 0; border-right: 1px solid var(--bg); background: var(--surface); color: var(--text); font: inherit; text-align: left; cursor: pointer;
+  transition: flex-grow .7s cubic-bezier(.2,.7,.2,1), background-color .3s; }
+.cl-room:last-child { border-right: 0; }
+.cl-room::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 4px; background: var(--accent); }
+.cl-room.cl-extra { background: repeating-linear-gradient(135deg, var(--surface) 0 7px, var(--surface-2) 7px 9px); }
+.cl-room.cl-extra::before { background: var(--muted); }
+.cl-mins { position: absolute; left: 0; right: 0; top: 40%; bottom: 30%; pointer-events: none;
+  background: repeating-linear-gradient(90deg, var(--cl-tick5) 0 1.5px, transparent 1.5px calc(var(--per, 8px) * 5)), repeating-linear-gradient(90deg, var(--cl-tick) 0 1px, transparent 1px var(--per, 8px)); }
+.cl-room.cl-extra .cl-mins { --cl-tick: var(--line-2); --cl-tick5: var(--muted); }
+.cl-n, .cl-nm { position: relative; }
+.cl-n { font-family: var(--font-display); font-weight: 800; font-size: var(--n, 56px); line-height: .86; letter-spacing: -.04em; }
+.cl-n small { font-size: .9rem; font-weight: 600; letter-spacing: 0; margin-left: 3px; }
+@container (max-width: 96px) { .cl-n small { display: none; } }
+.cl-nm { font-weight: 600; font-size: .9rem; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; }
+.cl-k { display: block; font-size: .78rem; font-weight: 400; color: var(--muted); margin-bottom: 4px; }
+.cl-room[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); --cl-tick: var(--on-accent-soft, var(--accent-soft)); --cl-tick5: var(--on-accent); }
+.cl-room[aria-pressed="true"] .cl-k { color: var(--on-accent); }
+.cl-room[aria-pressed="true"]::before { background: var(--text); }
+.cl-room:hover:not([aria-pressed="true"]) { background: var(--accent-wash, var(--surface-2)); }
+.cl-room:focus-visible { outline: 3px solid var(--text); outline-offset: -3px; }
+.cl-detail { display: grid; grid-template-columns: 240px 1fr minmax(0, 22ch); gap: 28px; padding: 18px 0; border-bottom: 1px solid var(--line); align-items: start; }
+.cl-detail h2 { margin: 0; font-size: 1.3rem; line-height: 1.15; }
+.cl-detail h2 > span { display: block; color: var(--accent-ink, var(--accent)); font-size: 1rem; }
+.cl-detail ul { margin: 0; padding: 0; list-style: none; columns: 2; column-gap: 28px; }
+.cl-detail li { position: relative; padding: 3px 0 3px 18px; break-inside: avoid; }
+.cl-detail li::before { content: ""; position: absolute; left: 0; top: .7em; width: 8px; height: 8px; background: var(--accent); }
+.cl-detail p { margin: 0; color: var(--muted); font-size: .9rem; }
+@media (max-width: 860px) {
+  .cl-st-top { flex-direction: column; align-items: stretch; gap: 12px; }
+  .cl-st-ctl fieldset { display: block; }
+  .cl-st-ctl legend { float: none; margin: 0 0 4px; }
+  .cl-st-ctl .cl-st-often { flex-basis: 100%; }
+  .cl-st-often .cl-seg label { flex: 1; }
+  .cl-ruler { display: none; }
+  /* on a phone the strip runs downward: each room as tall as its minutes, the minutes as a ruler down its edge */
+  .cl-rooms { flex-direction: column; height: auto; }
+  .cl-room { flex: none; height: calc(var(--m) * 1.2px + 30px); flex-direction: row; align-items: center; padding: 0 14px 0 30px; border-right: 0; border-bottom: 1px solid var(--bg); transition: height .7s cubic-bezier(.2,.7,.2,1), background-color .3s; }
+  .cl-room::before { width: 4px; height: auto; bottom: 0; right: auto; }
+  .cl-mins { top: 0; bottom: 0; left: 4px; right: auto; width: 12px; background: repeating-linear-gradient(180deg, var(--cl-tick5) 0 1.5px, transparent 1.5px 8.5px); }
+  .cl-n { order: 2; font-size: clamp(30px, 9vw, 40px); }
+  .cl-k { display: none; }
+  .cl-detail { grid-template-columns: 1fr; gap: 10px; }
+  .cl-detail ul { columns: 1; }
+}
+@media (prefers-reduced-motion: reduce) { .cl-room { transition: none; } }
+/* phone: the room list opens when a room is tapped, so the strip stays near the top of a short page */
+@media (max-width: 560px) and (scripting: enabled) { .cl-detail:not([data-open]) ul, .cl-detail:not([data-open]) p { display: none; } }
+/* the same strip, still: a service's worked example (partials/worked.njk) */
+.cl-wk { padding-bottom: clamp(28px, 4vw, 48px); }
+.cl-wk > .wrap { container-type: inline-size; }
+.cl-wk-head { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; padding-bottom: 10px; }
+.cl-wk-head h2 { margin: 0; font-size: clamp(1.3rem, 2vw, 1.7rem); white-space: nowrap; }
+.cl-wk-head p { margin: 0; max-width: 70ch; }
+.cl-wk-rooms { margin: 0; padding: 0; list-style: none; height: clamp(140px, 16vw, 180px); --n: clamp(26px, 3vw, 42px); }
+.cl-wk-rooms .cl-room { cursor: default; }
+.cl-wk-rooms .cl-room:hover { background: var(--surface); }
+.cl-wk-rooms .cl-room.cl-extra:hover { background: repeating-linear-gradient(135deg, var(--surface) 0 7px, var(--surface-2) 7px 9px); }
+.cl-wk-bill { width: 100%; max-width: 560px; margin: 22px 0 0 auto; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.cl-wk-bill th, .cl-wk-bill td { padding: 7px 0; border-bottom: 1px solid var(--line); text-align: left; font-weight: 400; }
+.cl-wk-bill td { text-align: right; }
+.cl-wk-sum th, .cl-wk-sum td { border-top: 1px solid var(--text); font-weight: 600; }
+.cl-wk-price th, .cl-wk-price td { font-family: var(--font-display); font-weight: 800; font-size: 1.6rem; border-bottom: 0; }
+/* phone: the sentence comes after the strip, so the font arriving can only move what is below it */
+@media (max-width: 860px) { .cl-wk > .wrap { display: flex; flex-direction: column; } .cl-wk-head { display: contents; } .cl-wk-head h2 { order: -2; margin-bottom: 10px; } .cl-wk-rooms { order: -1; } .cl-wk-head p { margin-top: 14px; } .cl-wk-rooms { height: auto; } .cl-wk-bill { margin-left: 0; max-width: none; } }

@@ -1,0 +1,16 @@
+{#- Plumb footer: ink. The emblem and name, the office address and how to reach it, the office hours, the pages, the
+    areas covered; the Sitefloor credit last. -#}
+<footer class="foot pl-foot"><div class="wrap pl-foot-in">
+  <div class="pl-foot-name"><p class="pl-foot-word">{{ site.business.name }}</p><p>{{ site.hero.kicker }}</p></div>
+  <address class="pl-foot-a">{{ site.location.streetAddress }}<br>{{ site.location.locality }} {{ site.location.postcode }}<br>
+    <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a>{% if site.contact.email %}<br><a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>{% endif %}</address>
+  <ul class="pl-foot-hours" aria-label="Office hours">{% for row in site.hours | hoursRows %}<li data-day="{{ row.dayIndex }}"><span>{{ row.day }}</span> {{ row.label }}</li>{% endfor %}</ul>
+  <nav class="pl-foot-links" aria-label="Footer">
+    <a href="{{ 'index' | href }}">Home</a>
+    {%- for item in site.nav | navItems(pageId) %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}>{{ item.label }}</a>{% endfor %}
+    {%- if "cleaning-policies" | enabled %}<a href="{{ 'policies' | href }}"{{ 'cleaning-policies' | tierAttr | safe }}>Policies</a>{% endif %}
+    <a href="{{ 'privacy' | href }}">Privacy</a>
+  </nav>
+  {%- if site.areas %}<p class="pl-foot-areas">We clean in {{ site.areas.districts | join(", ") }}.</p>{% endif %}
+  <p class="pl-foot-by"><a class="by" href="https://sitefloor.com" rel="noopener">Website by <b>Sitefloor</b></a></p>
+</div></footer>
