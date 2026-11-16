@@ -23,3 +23,5 @@
 .sk-card-msg, .sk-card-note { max-width: 44ch; margin: 14px auto 0; color: var(--dim); font-size: .82em; line-height: 1.5; }
 .sk-card-note { margin-top: 22px; }
 .sk-more { margin: 32px 0 0; text-align: center; }
+/* the word row holds its place from the first paint, so the card never jumps when the script arrives */
+.sk-fd:not([data-ready]) .sk-words-g { visibility: hidden; }

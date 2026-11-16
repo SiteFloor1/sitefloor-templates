@@ -3,7 +3,7 @@
 The clinic's question (`finder.title`), two to six words for how skin feels today, and a printed treatment card for
 each word. A card shows only what the clinic wrote for that treatment in `menu`: its name, minutes and price,
 `afterwards`, `patch` and, when the clinic wrote one, `evening` ("This evening"). The kit never writes a card line.
-Book this facial goes to WhatsApp (or the clinic's booking channel) with the clinic's `message`, filled in:
+Book this treatment goes to WhatsApp (or the clinic's booking channel) with the clinic's `message`, filled in:
 `{name}` the clinic, `{treatment}`, `{minutes}`, `{price}`, `{word}`. `note` sits under every card (e.g. "your
 facialist looks at your skin first").
 

@@ -17,7 +17,7 @@ export const features = [
   { id: "skin-first-visit", section: "firstVisit", dir: `${K}/skin-first-visit`, minPlan: "starter", kits: ["skin"], requires: ["firstVisit"], js: true,
     summary: "First visit and patch tests (BEAU-2): the clinic's own patch-test rule, and the day to come in for one worked out from the appointment, to the calendar." },
   { id: "skin-finder", dir: `${K}/skin-finder`, minPlan: "plus", kits: ["skin"], requires: ["finder", "menu"], js: true,
-    summary: "Which facial is right for me (BEAU-3): five words for how skin feels today; a printed treatment card answers in the clinic's own words (the facial, minutes, price, afterwards, patch test, this evening), then Book this facial on WhatsApp." },
+    summary: "Which facial is right for me (BEAU-3): five words for how skin feels today; a printed treatment card answers in the clinic's own words (the treatment, minutes, price, afterwards, patch test, this evening), then Book this treatment on WhatsApp." },
   { id: "skin-concerns-page", dir: `${K}/skin-concerns-page`, minPlan: "plus", kits: ["skin"], requires: ["finder", "menu"], needs: ["skin-finder"], page: "concerns", js: false,
     summary: "Treatments by concern: the finder's card, then every word with the clinic's treatment for it." },
   { id: "skin-category-pages", dir: `${K}/skin-category-pages`, minPlan: "plus", kits: ["skin"], requires: ["menu"], needs: ["skin-menu"], page: "category", collection: true, js: false,

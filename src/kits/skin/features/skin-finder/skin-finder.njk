@@ -1,12 +1,13 @@
 {#- Which facial is right for me (BEAU-3): the clinic's question, one line of words for how skin feels today, and a
-    printed treatment card for each word in the clinic's own words: the facial, minutes and price, afterwards, patch
-    test and (when the clinic wrote one) this evening, then Book this facial with the choice in the message. Every
-    card is in the page, so without JavaScript all of them show; with it, only the chosen word's. Used on the home
+    printed treatment card for each word in the clinic's own words: the treatment, minutes and price, afterwards, patch
+    test and (when the clinic wrote one) this evening, then Book this treatment with the choice in the message. Every
+    card is in the page, so without JavaScript all of them show; with it, only the chosen word's. The row of words
+    keeps its space from the first paint (hidden until the script is ready), so nothing below it moves. Used on the home
     page and the concerns page (`concernsPage`). -#}
 {%- set f = site.finder %}
 <section id="finder" class="sk-fd" data-feature="skin-finder" aria-label="{{ f.title | plain }}"{{ 'skin-finder' | tierAttr | safe }}><div class="wrap sk-fd-in">
   {%- if concernsPage %}<p class="sk-fd-q" id="sk-fd-q">{{ f.title }}</p>{% else %}<h1 class="sk-fd-q" id="sk-fd-q">{{ f.title }}</h1>{% endif %}
-  <div role="group" aria-labelledby="sk-fd-q" data-js-only><ul class="sk-words">
+  <div class="sk-words-g" role="group" aria-labelledby="sk-fd-q"><ul class="sk-words">
     {%- for w in f.words %}
     <li><button type="button" class="sk-word" data-word="{{ w.word }}" aria-pressed="{{ 'true' if loop.first else 'false' }}" aria-controls="sk-card-{{ loop.index }}">{{ w.word }}</button></li>
     {%- endfor %}
@@ -22,7 +23,7 @@
         <div><dt>Patch test</dt><dd>{{ x.patch }}</dd></div>
         {%- if x.evening %}<div><dt>This evening</dt><dd>{{ x.evening }}</dd></div>{% endif %}
       </dl>
-      <a class="sk-card-go" href="{{ msg | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ msg }}"{% endif %} target="_blank" rel="noopener">Book this facial{% if build.booking.whatsapp %} on WhatsApp{% endif %}</a>
+      <a class="sk-card-go" href="{{ msg | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ msg }}"{% endif %} target="_blank" rel="noopener">Book this treatment{% if build.booking.whatsapp %} on WhatsApp{% endif %}</a>
       {%- if build.booking.whatsapp %}<p class="sk-card-msg">Your message: “{{ msg }}”</p>{% endif %}
       <p class="sk-card-note">{{ f.note }}</p>
     </article>

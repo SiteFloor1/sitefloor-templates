@@ -26,8 +26,14 @@ test("the look's home order lists every section once", () => {
 });
 
 test("copy can't name a condition, promise a result or offer injectables; ordinary words pass", () => {
-  for (const t of ["Clears acne", "Calms rosacea", "Heals the skin", "Guaranteed glow", "A permanent result", "Clinically proven", "Boosts collagen", "Anti-ageing facial", "Lifts your face", "Botox and fillers", "Completely painless", "No side effects"]) assert.ok(claimProblem(t), t);
-  for (const t of ["Lash lift and tint", "For skin that is breaking out", "Light flaking for two to four days.", "Skip retinol and acids tonight.", "Fragrance-free products throughout."]) assert.equal(claimProblem(t), null, t);
+  const caught = ["Clears acne", "Calms rosacea", "Heals the skin", "Guaranteed glow", "A permanent result", "Clinically proven", "Clinically-proven", "Boosts collagen", "Anti-ageing facial", "Lifts your face", "Botox and fillers", "Completely painless", "No side effects",
+    "Anti-wrinkle injections", "Lip enhancement with hyaluronic acid", "Polynucleotides", "PRP vampire facial", "Visibly younger", "Results that last for years", "Erases fine lines", "Removes scars", "Treats hyperpigmentation", "An injectable skin booster"];
+  for (const t of caught) assert.ok(claimProblem(t), t);
+  const allowed = ["Lash lift and tint", "Brow lift", "A lifting massage", "For skin that is breaking out", "Light flaking for two to four days.", "Skip retinol and acids tonight.", "Fragrance-free products throughout.",
+    "Semi-permanent lashes, refilled every three weeks.", "Skin is still healing for 48 hours, so no gym.", "Tell us if you have eczema or psoriasis before your patch test.", "Peels are not suitable if you have rosacea.",
+    "Collagen-friendly vitamin C serum", "Gel cured under the lamp", "A hyaluronic acid serum to finish"];
+  for (const t of allowed) assert.equal(claimProblem(t), null, t);
+  assert.ok(claimProblem("Safe for all skin. Clears eczema."), "a contraindication in one sentence doesn't excuse a claim in the next");
   assert.match(errorsFor((s) => { s.menu.categories[0].items[0].line = "Clears acne for good"; }), /menu\.categories\[0\]\.items\[0\]\.line/);
   assert.match(errorsFor((s) => { s.finder.note = "Results guaranteed"; }), /finder\.note/);
 });

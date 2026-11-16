@@ -1,10 +1,11 @@
 {#- First visit and patch tests (BEAU-2): the clinic's paragraphs on a first visit, its own patch-test rule, and the
     day to come in for one worked out from the appointment (on or before), to the calendar or to the clinic. Without
-    JavaScript the rule shows on its own. Used on the home page and the first visit page (`firstVisitPage`). -#}
+    JavaScript the rule shows on its own. Used on the home page and the first visit page (`firstVisitPage`); with that page on, the home page keeps
+    only the patch-test card, so it stays short on a phone. -#}
 {%- set fv = site.firstVisit %}
 {%- set sec = site.sections.firstVisit %}
 <section id="first-visit" class="sk-fv" data-feature="skin-first-visit" aria-label="{{ (fv.title if firstVisitPage else sec.title) | plain }}"{{ 'skin-first-visit' | tierAttr | safe }}><div class="wrap sk-fv-in">
-  {%- if not firstVisitPage %}{% include "core/partials/section-head.njk" %}{% endif %}
+  {%- if not firstVisitPage and not ("skin-first-visit-page" | enabled) %}{% include "core/partials/section-head.njk" %}{% endif %}
   <div class="sk-fv-grid{% if firstVisitPage or ("skin-first-visit-page" | enabled) %} sk-fv-one{% endif %}">
     {%- if not firstVisitPage and not ("skin-first-visit-page" | enabled) %}
     <dl class="sk-fv-dl">{% for s in fv.sections | batch(3) | first %}<div><dt>{{ s.heading }}</dt><dd>{{ s.text }}</dd></div>{% endfor %}</dl>

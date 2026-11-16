@@ -189,6 +189,16 @@ threshold, to look at in the audit). Phone (390×844): the home page is 6.1 scre
 finder 1107, menu 745, first visit 587, page links 490, questions 606, visit 1047 px); the phone bar with Book stays
 on screen. axe: no serious or critical violations on the demo or the client fixture (tests/e2e/a11y.spec.js).
 
+### 16 Nov 2026 — after the audit (SK-05, SK-07)
+
+The 0.021 shift came from the finder's row of words: hidden until the script ran, it pushed the first card down on a
+slow phone (Lighthouse's 4× CPU). The row now keeps its space from the first paint (hidden, not removed), so nothing
+below it moves. Home page on a 390×844 phone: 5.98 screens without the footer, 6.63 with it (was 6.1 and 7.06): with
+the first-visit page on, the home page keeps only the patch-test card; the page links are smaller rows; the footer
+leaves out the week's hours on the home page, where Find us already shows them.
+
+Lighthouse mobile after the fix: performance 100, accessibility 100, LCP 1.7 s, layout shift 0.001.
+
 ## Bridal salons
 _From `docs/trades/bridal/speed.md`._
 

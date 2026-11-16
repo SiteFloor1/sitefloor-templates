@@ -1,22 +1,19 @@
-{#- Palm header: the pages split either side of the clinic's name in widely spaced capitals, Book last on the right
-    underlined in palm; a palm-green rule beneath. On a phone: Menu on the left, the name centred; the phone bar
-    keeps Book in reach. -#}
+{#- Palm header: a hotel letterhead. On the left the clinic's name in the display face, with where it is in small type
+    beneath; a palm hairline; on the right the pages set as a small two-row index, like the contents of a printed spa
+    menu, Book last and underlined in palm. A palm rule under the whole header. On a phone: the name and the street,
+    and "Menu"; the phone bar keeps Book in reach. -#}
 {%- set items = site.nav | navItems(pageId) %}
-{%- set half = ((items | length) / 2) | round(0, "ceil") %}
 {%- set bookText = site.messages.general %}
 <header class="nav pm-nav"><div class="pm-nav-in">
-  <button class="burger pm-menu" type="button" aria-expanded="false" aria-controls="mnav"><span class="pm-open">Menu</span><span class="pm-close">Close</span></button>
-  <nav class="pm-links pm-l" aria-label="Main">
-    {%- for item in items %}{% if loop.index <= half %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>{% endif %}{% endfor %}
-  </nav>
   <a class="pm-mark" href="{{ 'index' | href }}" aria-label="{{ site.business.name }}, home">
     {%- if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="{{ site.business.name }}" height="30">{% else %}<span class="pm-word">{{ site.business.name }}</span>{% endif %}
+    <span class="pm-where">{{ site.location.streetAddress }}, {{ site.location.locality }}</span>
   </a>
-  <nav class="pm-links pm-r" aria-label="More">
-    {%- for item in items %}{% if loop.index > half %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>{% endif %}{% endfor %}
+  <nav class="pm-index" aria-label="Main">
+    {%- for item in items %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>{% endfor %}
     <a class="pm-book" href="{{ bookText | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ bookText }}"{% endif %} target="_blank" rel="noopener">Book</a>
   </nav>
-  <span class="pm-sp" aria-hidden="true"></span>
+  <button class="burger pm-menu" type="button" aria-expanded="false" aria-controls="mnav"><span class="pm-open">Menu</span><span class="pm-close">Close</span></button>
 </div></header>
 <div class="mnav pm-sheet" id="mnav" hidden>
   <nav aria-label="Pages">
