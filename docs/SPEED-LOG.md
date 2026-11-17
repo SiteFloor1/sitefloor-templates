@@ -653,6 +653,25 @@ weight on a 2x phone by day is therefore about 810 KB of images. Axe passes on a
 layout shift 0. Lighthouse mobile, demo home, fresh server: 74 (cold, TBT 860 ms), then 92; accessibility 100; LCP
 2.7–3.0 s (the 2x hero); layout shift 0.
 
+## Gyms and health clubs
+_From `docs/trades/gym/speed.md`._
+
+### 16 Nov 2026 — gym kit: After dark look, Halde demo (branch `trade/gym`)
+
+Whole site (Signature demo): JS 31.6 KB (12.1 KB gz), CSS 43.2 KB (9.3 KB gz), fonts 71 KB (Epilogue 200, 300, 400, 500,
+700; latin woff2, self-hosted). HTML 4.5–7.2 KB gz a page (home 7.2 KB). Home images 198 KB, 93 KB on the first screen
+(the black-and-white portrait, a 1100 px WebP, with a separate 900 px phone crop); the steam band (62 KB) and the cedar
+room (46 KB) are lazy. Heat and cold page 105 KB, the other pages none. The client fixture (Signature, sheets):
+JS 10.7 KB gz, CSS 8.4 KB gz. Fallback fonts size-matched from the font files against Liberation Sans: Epilogue 200
+105.3% (ascent 75%, descent 22.3%), 300 106.8% (74%, 22%), 400 108.2% (73%, 21.7%), 500 109.9% (71.9%, 21.4%), 700
+106.7% (74%, 22%).
+
+Measured in Chrome from the local server (Lighthouse isn't installed in this environment; CI's browser tests cover the
+phone layout-shift and axe checks): layout shift 0 on every page on a 390 px phone (0.0001 on Hyrox, whose plan is drawn
+by the build so the script redraws the same), at most 0.009 on desktop; LCP under 0.15 s locally on every page. axe
+(WCAG 2.2 AA) clean on every page; the narrowed browser run (gym spec, a11y, all-sites, demo, smoke): 155 passed.
+`npm run budget`: every gym page in budget.
+
 ## Hair salons
 _From `docs/trades/hair/speed.md`._
 
@@ -1075,6 +1094,19 @@ New demo photo set at twice the old size (plates 1080 px, gallery 720×900) with
 800 (the first plate 98 KB; the other plates load when picked, and polaroids load when tapped).
 JS 21.9 KB gz, CSS 17.1 KB gz, HTML 23 KB gz. The inline head script grew by the season rule (still allowed by its hash).
 Lighthouse mobile, demo home, two runs: 93, 97; accessibility 100; FCP 1.8 s; LCP 2.0–2.1 s; TBT 130–250 ms; layout shift 0.
+
+## Street-food and dessert stalls (markets, pop-ups and parties)
+_From `docs/trades/stalls/speed.md`._
+
+### 17 Nov 2026 — Spun (Fendle) and the stalls kit
+
+Fendle demo (Signature, every section shown): JS 11.2 KB gz, CSS 8.7 KB gz, fonts 78.8 KB (Gabarito 600/700/800 and
+Labrada 400, latin, size-matched fallbacks). No 3D, no film. Home: first screen 80.9 KB (the hero photo), whole page
+258 KB; menu 66.8 KB, parties 75.9 KB; other pages carry no images. The board picture is drawn on the visitor's phone
+when they tap Save, so it adds nothing to the page. Layout: the next-stop block keeps the countdown's shape before the
+script runs (fixed heights for the place and the count on phones), so nothing moves when "Opens at" turns into the
+countdown. Lighthouse mobile, served by `npm run serve`, home three runs: 99, 100, 99; accessibility 100; FCP 1.0–1.5 s;
+LCP 1.2–2.0 s; TBT 0–60 ms; CLS 0.002.
 
 ## Tailors
 _From `docs/trades/tailor/speed.md`._

@@ -1,0 +1,11 @@
+/* The allergen chart and the hygiene rating. Tokens only. */
+.st-chart-wrap { position: relative; overflow-x: auto; margin-top: 22px; }
+.st-chart { border-collapse: collapse; min-width: 720px; width: 100%; font-size: 15px; }
+.st-chart th, .st-chart td { border-bottom: 1px solid var(--line); padding: 10px 8px; text-align: center; }
+.st-chart thead th { border-bottom: 1.5px solid var(--text); font-family: var(--font-display); font-weight: 700; }
+.st-chart tbody th { text-align: left; font-family: var(--font-display); font-weight: 700; font-size: 17px; }
+.st-chart td span[aria-hidden] { color: var(--accent); }
+.st-al-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 56px; margin-top: 44px; }
+.st-h3 { font-family: var(--font-display); font-weight: 700; font-size: 24px; margin: 0 0 8px; }
+.st-rating { font-family: var(--font-display); font-weight: 800; font-size: 44px; line-height: 1; margin: 0 0 10px; }
+@media (max-width: 760px) { .st-al-cols { grid-template-columns: 1fr; } }

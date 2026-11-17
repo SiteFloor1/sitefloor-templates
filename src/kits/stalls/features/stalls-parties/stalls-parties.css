@@ -1,0 +1,9 @@
+/* Parties and private hire: a photo and short blocks. Tokens only. */
+.st-parties-in { display: grid; grid-template-columns: 5fr 6fr; gap: 24px 56px; align-items: start; }
+.st-parties-photo { margin: 0; }
+.st-parties-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block; }
+.st-block { padding: 18px 0; border-bottom: 1px solid var(--line); }
+.st-block:first-child { border-top: 1.5px solid var(--text); }
+.st-block h2 { font-family: var(--font-display); font-weight: 700; font-size: 26px; letter-spacing: -.015em; margin: 0 0 6px; }
+.st-block p { margin: 0; }
+@media (max-width: 760px) { .st-parties-in { grid-template-columns: 1fr; } }

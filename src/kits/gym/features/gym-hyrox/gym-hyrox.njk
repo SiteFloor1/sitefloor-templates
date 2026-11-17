@@ -1,0 +1,24 @@
+{#- Hyrox race prep (GYM-8): the race date typed as dd/mm/yyyy (UK order, whatever the browser's own date format), then
+    the whole weeks to it shared out over the club's phases, each with its dates and the club's own classes, and every
+    session in one calendar file. No results, weights or health promised. On its own page the heading is the page's. -#}
+{%- set h = site.hyrox %}{% set sp = h | samplePlan(build.today) %}
+<section class="gh{% if onPage %} gh-page{% endif %}" id="hyrox" data-feature="gym-hyrox" aria-labelledby="gh-h"><div class="wrap gh-in">
+  <div class="gh-ask">
+    {%- if onPage %}<h1 id="gh-h">{{ h.title | markup | safe }}</h1>{% else %}<h2 id="gh-h">{{ h.title | markup | safe }}</h2>{% endif %}
+    {%- if h.intro %}<p class="gh-i">{{ h.intro }}</p>{% endif %}
+    <form class="gh-pick" data-gh-form novalidate>
+      <label for="gh-date">Race day <span>dd/mm/yyyy</span></label>
+      <input id="gh-date" data-gh-date inputmode="numeric" autocomplete="off" placeholder="dd/mm/yyyy" pattern="\d{1,2}/\d{1,2}/\d{4}" maxlength="10" aria-describedby="gh-err" value="{{ sp.race | ukNumeric }}">
+      <p class="gh-note" data-gh-note>A sample date. Type yours.</p>
+      <p class="gh-err" id="gh-err" data-gh-err aria-live="polite"></p>
+    </form>
+    {%- if not onPage and ("gym-hyrox-page" | enabled) %}<a class="go gh-more" href="{{ 'hyrox' | href }}">How the plan works</a>{% endif %}
+  </div>
+  <div class="gh-plan" aria-live="polite">
+    <p class="gh-weeks" data-gh-weeks>{{ sp.plan.weeks | numberWords }} weeks. <b>Here's how we'd use them.</b></p>
+    <ol class="gh-phases" data-gh-phases>
+      {%- for p in sp.plan.phases %}<li class="gh-p"><p class="gh-pn">{{ p.name }}, {{ p.weeks }} {{ "week" if p.weeks == 1 else "weeks" }}</p><p>{{ p.text }}</p><time>{{ p.from | shortDate }} – {{ p.to | shortDate }}</time></li>{% endfor %}
+    </ol>
+    <a class="gh-cal is-off" data-gh-cal href="#hyrox" download="race-plan.ics" aria-disabled="true">Add the plan to my calendar</a>
+  </div>
+</div></section>
