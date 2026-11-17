@@ -1,0 +1,37 @@
+.gp-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.gp-chips button { min-height: 44px; padding: 0 12px; border: 1px solid var(--line-2); background: transparent; color: var(--text); font: inherit; cursor: pointer; }
+.gp-chips button[aria-pressed="true"] { background: var(--text); color: var(--bg); border-color: var(--text); }
+.gp-ans { margin-top: 12px; min-height: 3em; }
+.gp-drawing { margin: 28px 0 0; }
+.gp-svg { width: 100%; height: auto; display: block; font-family: var(--font-display); }
+.gp-wall { fill: var(--text); }
+.gp-col { fill: var(--text); }
+.gp-gate { font-size: .5px; font-style: italic; fill: var(--muted); }
+.gp-cell { fill: transparent; stroke: var(--text); stroke-width: .04; }
+.gp-car { fill: var(--line-2); }
+.gp-n { font-size: .5px; fill: var(--text); }
+.gp-bay.is-free .gp-cell { stroke-dasharray: .15 .12; }
+.gp-bay.is-fit .gp-cell { fill: var(--accent-soft); stroke-dasharray: none; }
+.gp-bay.is-best .gp-cell { fill: var(--accent); }
+.gp-bay.is-best .gp-n { fill: var(--on-accent); }
+.gp-ch, .gp-cam { opacity: 0; transition: opacity .8s ease; }
+.gp-ch circle { fill: var(--accent); }
+.gp-ch text { font-size: .38px; font-style: italic; fill: var(--muted); }
+.gp-cam polygon { fill: var(--text); fill-opacity: .06; stroke: var(--text); stroke-opacity: .3; stroke-width: .03; stroke-dasharray: .12 .1; }
+.gp-cam circle { fill: var(--text); }
+.show-charge .gp-ch, .show-watch .gp-cam { opacity: 1; }
+.gp-scale rect { fill: var(--text); }
+.gp-scale text { font-size: .38px; fill: var(--muted); }
+.gp-key { display: flex; flex-wrap: wrap; gap: 6px 20px; margin-top: 12px; font-size: 14px; color: var(--muted); }
+.gp-key span::before { content: ""; display: inline-block; width: 12px; height: 12px; margin-right: 6px; vertical-align: -1px; border: 1px solid var(--text); }
+
+.gp-key .gp-k-src::before { display: none; }
+.gp-key .gp-k-src { flex-basis: 100%; }
+.gp-k-fit::before { background: var(--accent-soft); }
+.gp-k-tight::before { border-style: dashed !important; }
+.gp-k-let::before { background: var(--line-2); border-color: var(--line-2) !important; }
+.gp-layers { display: flex; gap: 22px; margin-top: 14px; }
+.gp-layers button { min-height: 44px; background: none; border: 0; border-bottom: 1px solid var(--line-2); padding: 0; font: inherit; color: var(--text); cursor: pointer; }
+.gp-layers button[aria-pressed="true"] { border-color: var(--text); }
+@media (max-width: 700px) { .gp-drawing { overflow-x: auto; } .gp-svg { min-width: 640px; } }
+@media (prefers-reduced-motion: reduce) { .gp-ch, .gp-cam { transition: none; } }

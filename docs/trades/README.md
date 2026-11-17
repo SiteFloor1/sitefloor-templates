@@ -25,7 +25,7 @@ take (`demo-map.md`), its speed numbers (`speed.md`) and the fonts it claims (`f
 | electrician | Electricians | `electrician` | [questions](electrician/questions.md) · [playbook](electrician/playbook.md) · [demo-map](electrician/demo-map.md) · [speed](electrician/speed.md) · [fonts](electrician/fonts.md) |
 | financial-advisers | Financial advisers | `ifa` | [questions](financial-advisers/questions.md) · [playbook](financial-advisers/playbook.md) · [demo-map](financial-advisers/demo-map.md) · [speed](financial-advisers/speed.md) · [fonts](financial-advisers/fonts.md) |
 | florist | Florists | `florist` | [questions](florist/questions.md) · [playbook](florist/playbook.md) · [demo-map](florist/demo-map.md) · [speed](florist/speed.md) · [fonts](florist/fonts.md) |
-| garage | Garage and parking rentals | — | [questions](garage/questions.md) · [playbook](garage/playbook.md) |
+| garage | Garage and parking rentals | `garage` | [questions](garage/questions.md) · [playbook](garage/playbook.md) · [demo-map](garage/demo-map.md) · [speed](garage/speed.md) · [fonts](garage/fonts.md) |
 | grand-cafe | Grand cafés and tea rooms | `restaurant` | [questions](grand-cafe/questions.md) · [playbook](grand-cafe/playbook.md) · [demo-map](grand-cafe/demo-map.md) · [speed](grand-cafe/speed.md) · [fonts](grand-cafe/fonts.md) |
 | gym | Gyms and health clubs | `gym` | [questions](gym/questions.md) · [playbook](gym/playbook.md) · [demo-map](gym/demo-map.md) · [speed](gym/speed.md) · [fonts](gym/fonts.md) |
 | hair | Hair salons | `hair` | [questions](hair/questions.md) · [playbook](hair/playbook.md) · [demo-map](hair/demo-map.md) · [speed](hair/speed.md) · [fonts](hair/fonts.md) |
