@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: first-meeting
+permalink: first-meeting.html
+feature: ifa-meeting
+eleventyComputed:
+  title: "{{ site.meeting.title }}"
+  description: "{{ site.meeting.intro }}"
+---
+{% include "kits/ifa/features/ifa-meeting/ifa-meeting.njk" %}

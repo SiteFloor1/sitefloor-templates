@@ -1,0 +1,26 @@
+{#- Regulatory information: the firm's authorisation (checkable on its own register entry), what the FCA doesn't
+    regulate, risk, compensation if the firm gives it, and how to complain: to the firm first, then the Ombudsman. -#}
+{%- set r = site.regulation %}
+{%- set ph = { title: "Regulatory information", intro: "Who regulates us, how to check, and how to complain." } %}
+{% include "kits/ifa/partials/page-head.njk" %}
+<section class="if-regp" data-feature="regulation"><div class="wrap if-regp-in">
+  <div class="if-regp-b">
+    <h2>Our authorisation</h2>
+    <p>{% if r.tradingName %}{{ r.tradingName }} is a trading name of {% endif %}{{ r.legalName }}, which is authorised and regulated by the Financial Conduct Authority. Our firm reference number is <b>{{ r.frn }}</b>{{ site.mode | demoTag }}: <a href="{{ r.registerUrl }}" target="_blank" rel="noopener">see our entry on the Financial Services Register</a>.</p>
+    <p>{{ r.entity }}.{% if r.office %} Registered office: {{ r.office }}.{% endif %}</p>
+    {%- if "ifa-independence" | enabled %}<p>{{ site.independence.line }} <a href="{{ 'independent' | href }}">What that means</a></p>{% endif %}
+    <p>{{ r.unregulated }}</p>
+  </div>
+  <div class="if-regp-b">
+    <h2>Risk</h2>
+    <p>{{ fca.risk }} Nothing on this website is a personal recommendation; our pages and articles are general information.</p>
+    {%- if r.fscs %}<p>{{ r.fscs }}</p>{% endif %}
+  </div>
+  <div class="if-regp-b">
+    <h2>If you have a complaint</h2>
+    <ol class="if-regp-steps">{% for s in r.complaints.steps %}<li>{{ s }}</li>{% endfor %}</ol>
+    <p>Write to <a href="mailto:{{ r.complaints.email }}">{{ r.complaints.email }}</a> or {{ r.complaints.address }}.</p>
+    <p>If we haven't resolved it within {{ fca.ombudsman.weeks }} weeks, or you aren't happy with our final response, you can refer it to the {{ fca.ombudsman.name }} free of charge within {{ fca.ombudsman.months }} months of that response. Call <a href="tel:{{ fca.ombudsman.tel }}">{{ fca.ombudsman.phone }}</a> or visit <a href="{{ fca.ombudsman.url }}" target="_blank" rel="noopener">financial-ombudsman.org.uk</a>.</p>
+  </div>
+  <p class="if-fine">Rules last checked {{ fca.checked | ukDate }}.</p>
+</div></section>

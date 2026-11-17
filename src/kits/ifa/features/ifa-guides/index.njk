@@ -1,0 +1,6 @@
+{#- The guides page: each life event with its line, linking its own page. -#}
+{%- set ph = { title: site.guides.title, intro: site.guides.intro } %}
+{% include "kits/ifa/partials/page-head.njk" %}
+<section class="if-gd-ix" data-feature="ifa-guides"><div class="wrap">
+  <ul class="if-gd-l">{% for g in site.guides.items %}<li><a href="{{ g.id | href }}"><span class="if-gd-n">{{ g.title }}</span><span>{{ g.intro }}</span></a></li>{% endfor %}</ul>
+</div></section>
