@@ -1,0 +1,29 @@
+/* Which facial: a centred question, the words as one line of type divided by hairlines, a printed card. */
+.sk-fd-in { text-align: center; }
+.sk-fd-q { margin: 0 auto 24px; max-width: 24em; text-wrap: balance; font-family: var(--font-display); font-weight: 400; font-size: clamp(1.9rem, 3.6vw, 3.1rem); line-height: 1.12; }
+/* 24em: one line on a desktop in the display font (about 14em) and in any fallback serif while it loads, so the
+   question never re-wraps when the font arrives; on a phone it balances over two lines in both. */
+.sk-words { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 0; margin: 0 auto 48px; padding: 0; list-style: none; }
+.sk-words li + li::before { content: ""; display: inline-block; width: 1px; height: 1.1em; margin: 0 clamp(12px, 1.6vw, 22px); background: var(--line-2); vertical-align: -.15em; }
+.sk-word { min-height: 44px; padding: 4px 0; border: 0; background: none; cursor: pointer; font-family: var(--font-display); font-size: clamp(1.45rem, 2.4vw, 2rem); color: var(--muted); }
+.sk-word:hover { color: var(--text); }
+.sk-word[aria-pressed="true"] { color: var(--text); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .32em; text-decoration-skip-ink: none; }
+.sk-cards { display: grid; gap: 28px; justify-items: center; }
+.sk-card { position: relative; width: min(640px, 100%); padding: clamp(32px, 5vw, 54px) clamp(22px, 5vw, 64px) clamp(28px, 4vw, 48px); background: var(--paper); border: 1.5px solid var(--accent); text-align: center; }
+.sk-card::before { content: ""; position: absolute; inset: 8px; border: .75px solid var(--gilt, var(--line-2)); pointer-events: none; }
+.sk-card[hidden] { display: none; }
+.sk-card-for { margin: 0 0 10px; color: var(--muted); font-size: .9em; }
+.sk-card-t { margin: 0 0 8px; font-family: var(--font-display); font-weight: 400; font-size: clamp(2rem, 3.6vw, 2.75rem); line-height: 1.1; }
+.sk-card-tp { margin: 0 0 28px; font-size: 1.1em; }
+.sk-card-dl { max-width: 460px; margin: 0 auto 30px; text-align: left; }
+.sk-card-dl div { display: grid; grid-template-columns: minmax(84px, 130px) 1fr; gap: 12px 16px; padding: 12px 0; border-top: 1px solid var(--line); }
+.sk-card-dl div:last-child { border-bottom: 1px solid var(--line); }
+.sk-card-dl dt { color: var(--muted); font-size: .92em; padding-top: 2px; }
+.sk-card-dl dd { margin: 0; line-height: 1.5; }
+.sk-card-go { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 12px 28px; background: var(--accent); color: var(--on-accent); text-decoration: none; }
+.sk-card-go:hover { background: var(--accent-2); }
+.sk-card-msg, .sk-card-note { max-width: 44ch; margin: 14px auto 0; color: var(--dim); font-size: .82em; line-height: 1.5; }
+.sk-card-note { margin-top: 22px; }
+.sk-more { margin: 32px 0 0; text-align: center; }
+/* the word row holds its place from the first paint, so the card never jumps when the script arrives */
+.sk-fd:not([data-ready]) .sk-words-g { visibility: hidden; }

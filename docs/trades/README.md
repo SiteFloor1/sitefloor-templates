@@ -11,6 +11,7 @@ take (`demo-map.md`), its speed numbers (`speed.md`) and the fonts it claims (`f
 |---|---|---|---|
 | baker | Bakers and cake makers | — | [questions](baker/questions.md) · [playbook](baker/playbook.md) |
 | barber | Barbers | `barber` | [questions](barber/questions.md) · [demo-map](barber/demo-map.md) · [speed](barber/speed.md) · [fonts](barber/fonts.md) |
+| beauty | Facialists and skin clinics | `skin` | [questions](beauty/questions.md) · [playbook](beauty/playbook.md) · [demo-map](beauty/demo-map.md) · [speed](beauty/speed.md) · [fonts](beauty/fonts.md) |
 | bridal | Bridal salons | `bridal` | [questions](bridal/questions.md) · [playbook](bridal/playbook.md) · [demo-map](bridal/demo-map.md) · [speed](bridal/speed.md) · [fonts](bridal/fonts.md) |
 | bridal-beauty | Bridal hair and makeup artists | `bridalbeauty` | [questions](bridal-beauty/questions.md) · [playbook](bridal-beauty/playbook.md) · [demo-map](bridal-beauty/demo-map.md) · [speed](bridal-beauty/speed.md) · [fonts](bridal-beauty/fonts.md) |
 | cafe | Cafés | `restaurant` | [questions](cafe/questions.md) · [playbook](cafe/playbook.md) · [demo-map](cafe/demo-map.md) · [speed](cafe/speed.md) · [fonts](cafe/fonts.md) |
@@ -29,9 +30,11 @@ take (`demo-map.md`), its speed numbers (`speed.md`) and the fonts it claims (`f
 | jeweller | Fine jewellers | `jeweller` | [questions](jeweller/questions.md) · [playbook](jeweller/playbook.md) · [demo-map](jeweller/demo-map.md) · [speed](jeweller/speed.md) · [fonts](jeweller/fonts.md) |
 | landscaping | Garden designers and landscapers | `garden` | [questions](landscaping/questions.md) · [playbook](landscaping/playbook.md) · [demo-map](landscaping/demo-map.md) · [speed](landscaping/speed.md) · [fonts](landscaping/fonts.md) |
 | law | Law firms (private client) | `law` | [questions](law/questions.md) · [playbook](law/playbook.md) · [demo-map](law/demo-map.md) · [speed](law/speed.md) · [fonts](law/fonts.md) |
+| letting | Independent letting agents | `letting` | [questions](letting/questions.md) · [playbook](letting/playbook.md) · [demo-map](letting/demo-map.md) · [speed](letting/speed.md) · [fonts](letting/fonts.md) |
 | lingerie | Lingerie boutiques | `lingerie` | [questions](lingerie/questions.md) · [playbook](lingerie/playbook.md) · [demo-map](lingerie/demo-map.md) · [speed](lingerie/speed.md) · [fonts](lingerie/fonts.md) |
 | mehndi | Mehndi and henna artists | `mehndi` | [questions](mehndi/questions.md) · [playbook](mehndi/playbook.md) · [demo-map](mehndi/demo-map.md) · [speed](mehndi/speed.md) · [fonts](mehndi/fonts.md) |
 | menswear | Clothing brands (menswear, running and outerwear) | `wear` | [questions](menswear/questions.md) · [playbook](menswear/playbook.md) · [demo-map](menswear/demo-map.md) · [speed](menswear/speed.md) · [fonts](menswear/fonts.md) |
+| modest | Modest fashion and abaya boutiques | `modest` | [questions](modest/questions.md) · [playbook](modest/playbook.md) · [demo-map](modest/demo-map.md) · [speed](modest/speed.md) · [fonts](modest/fonts.md) |
 | nails | Nail, lash and beauty salons | `nails` | [questions](nails/questions.md) · [playbook](nails/playbook.md) · [demo-map](nails/demo-map.md) · [speed](nails/speed.md) · [fonts](nails/fonts.md) |
 | personal-trainer | Personal trainers and small gyms | `trainer` | [questions](personal-trainer/questions.md) · [playbook](personal-trainer/playbook.md) · [demo-map](personal-trainer/demo-map.md) · [speed](personal-trainer/speed.md) · [fonts](personal-trainer/fonts.md) |
 | pilates | Reformer Pilates studios | `pilates` | [questions](pilates/questions.md) · [playbook](pilates/playbook.md) · [demo-map](pilates/demo-map.md) · [speed](pilates/speed.md) · [fonts](pilates/fonts.md) |

@@ -1,0 +1,17 @@
+/* Private appointments: days and times as quiet choices, then the two questions and one button. */
+.md-ap-f { max-width: 760px; }
+.md-ap fieldset { border: 0; margin: 0 0 28px; padding: 0; min-inline-size: 0; }
+.md-ap legend { padding: 0; margin-bottom: 10px; font-family: var(--font-display); font-size: 22px; }
+/* Choices sit in fixed-width columns, so redrawing them for the real day never changes how they wrap. */
+.md-ap-opts { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 8px; max-width: 760px; }
+.md-ap-times .md-ap-opts { grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); }
+.md-ap-opts label { position: relative; display: flex; align-items: center; justify-content: center; white-space: nowrap; min-height: 44px; padding: 0 14px; border: 1px solid var(--line); cursor: pointer; font-variant-numeric: tabular-nums; }
+.md-ap-opts input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.md-ap-opts label:has(input:checked) { border-color: var(--text); box-shadow: inset 0 -2px 0 var(--accent); }
+.md-ap-opts label:has(input:focus-visible) { outline: 2px solid var(--text); outline-offset: 2px; }
+.md-ap-two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 32px; }
+.md-ap-two p { margin: 0; display: grid; gap: 6px; }
+.md-ap-two select { min-height: 44px; padding: 0 10px; border: 1px solid var(--line); border-radius: 0; background: var(--bg); color: var(--text); font: inherit; }
+.md-ap-sum { margin: 28px 0 16px; font-family: var(--font-display); font-size: 22px; min-height: 1.4em; }
+.md-ap-note { margin: 14px 0 0; color: var(--muted); font-size: 15px; }
+@media (max-width: 560px) { .md-ap-two { grid-template-columns: 1fr; } }

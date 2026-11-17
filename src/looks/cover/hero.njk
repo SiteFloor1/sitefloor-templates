@@ -28,7 +28,7 @@
       {%- if startOn %}{% set fm = site | firstMorning %}
       <p class="cv-k">Your morning</p>
       <p class="cv-big"><span data-cv-startlab>We start at </span><span data-cv-start>{{ fm.start }}</span></p>
-      <p class="cv-mid">for a <label class="bb-pick"><span data-cv-cer-text>{{ fm.ceremony }}</span><select data-cv-cer aria-label="Ceremony time">{% for t in mo.ceremony.times %}<option value="{{ t }}"{% if t == mo.ceremony.default %} selected{% endif %}>{{ t | clockWords }}</option>{% endfor %}</select></label> ceremony, <span data-cv-people>{{ "just you" if fm.people == "one" else fm.people + " of you" }}</span></p>
+      <p class="cv-mid">for <span data-cv-an>{{ fm.ceremony | anClock }}</span> <label class="bb-pick"><span data-cv-cer-text>{{ fm.ceremony }}</span><select data-cv-cer aria-label="Ceremony time">{% for t in mo.ceremony.times %}<option value="{{ t }}"{% if t == mo.ceremony.default %} selected{% endif %}>{{ t | clockWords }}</option>{% endfor %}</select></label> ceremony, <span data-cv-people>{{ "just you" if fm.people == "one" else fm.people + " of you" }}</span></p>
       <p class="cv-early" data-cv-early{% if not fm.early %} hidden{% endif %}>Before {{ mo.earlyStart.before | clockWords }}, the early-start fee of {{ mo.earlyStart.fee | gbp }} applies.</p>
       {%- endif %}
       <p class="cv-star"><b>On the cover:</b> {{ h.star }}</p>

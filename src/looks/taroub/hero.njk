@@ -1,0 +1,23 @@
+{#- Taroub hero: one garment hung full height in the middle of the screen, its label on the right like a gallery
+    card (name, one line, price, Shop and Find your length). On a wide screen the header is the wall to its left. -#}
+{%- set h = site.hero %}
+{%- set p = site.pieces | piece(h.piece) %}
+{%- set part = p.category %}
+<section class="hero tr-first" aria-label="{{ p.name }}">
+  <figure class="tr-photo">
+    {%- set sp = h.photo %}{% set sz = "(max-width: 760px) 100vw, (max-width: 1099px) 55vw, 680px" %}
+    <img src="{{ h.photo.src | img }}"{% include "kits/modest/partials/srcset.njk" %} width="{{ h.photo.width }}" height="{{ h.photo.height }}" alt="{{ h.photo.alt }}" fetchpriority="high" decoding="async"{% if h.photo.focus %} style="object-position: {{ h.photo.focus }}"{% endif %}>
+    {%- if h.credit %}<figcaption class="tr-credit">{{ h.credit }}</figcaption>{% endif %}
+  </figure>
+  <div class="tr-label">
+    <h1 class="tr-h1">{{ h.title | plain }}</h1>
+    <p class="tr-line">{{ h.intro }}</p>
+    <p class="tr-price">{{ p.price | gbp }}</p>
+    <div class="tr-go">
+      <a class="btn" href="{{ ((part | href) if ('modest-category-pages' | enabled) else '') }}#{{ p.id }}">Shop {{ p.name | replace("The ", "the ") }}</a>
+      {%- if "modest-hem-line" | enabled %}<a class="btn ghost" href="#hem">Find your length</a>
+      {%- elif "modest-length" | enabled %}<a class="btn ghost" href="{{ 'length' | href }}">Find your length</a>
+      {%- elif "modest-size-guide" | enabled %}<a class="btn ghost" href="#size-guide">Find your length</a>{% endif %}
+    </div>
+  </div>
+</section>

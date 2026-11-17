@@ -1,0 +1,10 @@
+{#- Journal index (Plus): the agent's articles, newest first, each with who it's for, a summary and the date its
+    rules were checked. -#}
+<div class="lj" data-feature="letting-journal"{{ "letting-journal" | tierAttr | safe }}>
+  <ol class="lj-list">
+  {%- for a in site.journal.items | sort(true, false, "date") %}
+    <li><a href="{{ a.slug | href }}"><span class="lj-for">For {{ a.audience }}</span><span class="lj-t">{{ a.title }}</span><span class="lj-s">{{ a.summary }}</span>
+      <span class="lj-d">{{ a.date | longDate }} · rules checked {{ a.checked | longDate }}</span></a></li>
+  {%- endfor %}
+  </ol>
+</div>

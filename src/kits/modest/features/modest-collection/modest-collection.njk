@@ -1,0 +1,10 @@
+{#- The collection (MOD-1, MOD-13): each piece large, with the model line under its photograph. With the category pages
+    on, each part of the collection is named below with its page. -#}
+{%- set sec = site.sections.collection %}
+<section id="collection" class="md-coll" data-feature="modest-collection" aria-label="{{ sec.title | plain }}"{{ "modest-collection" | tierAttr | safe }}><div class="wrap">
+  {%- include "core/partials/section-head.njk" %}
+  <ul class="md-pieces">{% for p in site.pieces.items %}{% if p.photo %}{% include "kits/modest/partials/piece.njk" %}{% endif %}{% endfor %}</ul>
+  {%- if "modest-category-pages" | enabled %}
+  <p class="md-parts"{{ "modest-category-pages" | tierAttr | safe }}>{% for c in site.pieces | partsWithPages %}<a class="go" href="{{ c.id | href }}">{{ c.name }}</a>{% endfor %}</p>
+  {%- endif %}
+</div></section>

@@ -1,0 +1,15 @@
+{#- Owner stories (Signature): what an owner had, what the agent did, what changed, in the owner's own figures.
+    On a client site every story is a real owner's, with their permission and a date; on a demo they are fictional
+    and say so. -#}
+{%- set st = site.stories %}
+<div class="ls" data-feature="letting-stories"{{ "letting-stories" | tierAttr | safe }}>
+  {%- if site.mode == "demo" %}<p class="ls-demo">Fictional owners and figures, to show the layout. On a client's site each story is a real owner's, told with their permission.</p>{% endif %}
+  {%- for s in st.items %}
+  <article class="ls-one" aria-labelledby="ls-{{ loop.index }}">
+    <header><p class="ls-where">{{ s.home }} · {{ s.service }}</p><h2 id="ls-{{ loop.index }}">{{ s.title }}</h2></header>
+    <dl class="ls-arc"><dt>Before</dt><dd>{{ s.before }}</dd><dt>What we did</dt><dd>{{ s.did }}</dd><dt>Since</dt><dd>{{ s.after }}</dd></dl>
+    {%- if s.figures and s.figures.length %}<ul class="ls-figs">{% for f in s.figures %}<li><b>{{ f.value }}</b> {{ f.label }}</li>{% endfor %}</ul>{% endif %}
+    <p class="ls-by">{{ s.owner }}, {{ s.date | monthYear }}{% if site.mode == "demo" %} (fictional){% endif %}</p>
+  </article>
+  {%- endfor %}
+</div>

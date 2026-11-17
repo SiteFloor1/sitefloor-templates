@@ -1,0 +1,27 @@
+{#- Report a repair (Plus): what counts as an emergency and who to call, then a short form that writes the WhatsApp
+    message (the home, what's wrong, where, whether we may let ourselves in); the tenant adds photos in WhatsApp.
+    Nothing is sent or kept by the site. Every word is the agent's own (site.json: repairs), except the gas line. -#}
+{%- set r = site.repairs %}
+<div class="lp" data-feature="letting-repairs"{{ "letting-repairs" | tierAttr | safe }}>
+  <section class="lp-urgent" aria-labelledby="lp-u">
+    <h2 id="lp-u">If it can't wait</h2>
+    <p class="lp-gas"><b>Smell gas?</b> Leave the home, don't use switches, and call the National Gas Emergency line on <a href="tel:0800111999">0800 111 999</a>, free, day and night.</p>
+    <p>{{ r.emergencyIntro }}</p>
+    <ul>{% for x in r.emergencies %}<li>{{ x }}</li>{% endfor %}</ul>
+    <p class="lp-line">Out of hours: <a href="tel:{{ r.outOfHours | replace(' ', '') }}">{{ r.outOfHours | replace('+44 ', '0') }}</a></p>
+  </section>
+  <section class="lp-form" aria-labelledby="lp-f">
+    <h2 id="lp-f">Everything else</h2>
+    <form data-lp-form>
+      <label>Your home <input name="home" autocomplete="street-address" required placeholder="Flat or house number and street"></label>
+      <label>What's wrong <textarea name="what" rows="3" required></textarea></label>
+      <label>Where in the home <input name="where" placeholder="e.g. the kitchen tap"></label>
+      <fieldset><legend>May we let ourselves in with our keys?</legend>
+        <label class="lp-r"><input type="radio" name="keys" value="Yes, you may use your keys"> Yes</label>
+        <label class="lp-r"><input type="radio" name="keys" value="Please arrange a time with me" checked> Please arrange a time</label>
+      </fieldset>
+      <p class="lp-fine">Add photos or a short video in WhatsApp after the message opens. Nothing is sent until you press send there.</p>
+      <a class="lp-send" data-lp-send href="{{ r.message | wa }}" target="_blank" rel="noopener">Send to {{ site.business.name }} on WhatsApp</a>
+    </form>
+  </section>
+</div>

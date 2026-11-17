@@ -1,0 +1,14 @@
+---
+layout: core/layouts/base.njk
+feature: skin-category-pages
+pagination:
+  data: site.menu.categories
+  size: 1
+  alias: c
+permalink: "{{ c.id }}.html"
+eleventyComputed:
+  pageId: "{{ c.id }}"
+  title: "{{ c.page.title | plain }}"
+  description: "{{ c.name }} at {{ site.business.name }}, with every price and how long each takes."
+---
+{% include "kits/skin/features/skin-category-pages/skin-category-pages.njk" %}

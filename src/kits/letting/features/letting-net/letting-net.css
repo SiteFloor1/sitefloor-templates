@@ -1,0 +1,8 @@
+/* One rent, from both sides: structure only; the look sets type and rules. */
+.ln-cols { display: grid; grid-template-columns: 1fr 1px 1fr; }
+.ln-cols dl { display: grid; grid-template-columns: 1fr auto; }
+.ln-cols dd { text-align: right; font-variant-numeric: tabular-nums lining-nums; }
+.ln-total { display: flex; justify-content: space-between; align-items: baseline; }
+.ln-svc { display: flex; flex-wrap: wrap; }
+.ln-svc button { cursor: pointer; }
+@media (max-width: 820px) { .ln-cols { grid-template-columns: 1fr; } .ln-rule { display: none; } }

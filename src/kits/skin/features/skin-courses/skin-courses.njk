@@ -1,0 +1,33 @@
+{#- Courses and memberships (BEAU-4): each course as the clinic sells it (the treatment, how many, how far apart, the
+    price and its line) and each membership with what a month includes; with Signature, the treatment rhythm beneath. -#}
+{%- set c = site.courses %}
+{%- set ph = { title: c.title, intro: c.intro } %}
+{% include "kits/skin/partials/page-head.njk" %}
+<section class="sk-co" data-feature="skin-courses" aria-label="{{ c.title | plain }}"><div class="wrap">
+  <ul class="sk-co-list">
+    {%- for k in c.courses %}{% set x = site.menu | menuItem(k.item) %}
+    <li class="sk-co-i">
+      <h2 class="sk-ent-t">{{ k.count }} × {{ x.name }}</h2>
+      <p class="sk-ent-f">One every {{ k.everyWeeks }} {{ "week" if k.everyWeeks == 1 else "weeks" }} · {{ k.price | gbp }} for the course {% if not x.from %}<span class="sk-co-was">({{ (x.price * k.count) | gbp }} one by one)</span>{% endif %}</p>
+      <p class="sk-ent-l">{{ k.line }}</p>
+      <a class="sk-quiet" href="{{ ('I would like to start a course of ' + k.count + ' ' + x.name + 's.') | book }}" target="_blank" rel="noopener">Start this course</a>
+    </li>
+    {%- endfor %}
+  </ul>
+  {%- if c.memberships %}
+  <h2 class="sk-cp-t sk-co-mt">Memberships</h2>
+  <ul class="sk-co-list">
+    {%- for m in c.memberships %}
+    <li class="sk-co-i sk-co-m">
+      <h3 class="sk-ent-t">{{ m.name }}</h3>
+      <p class="sk-ent-f">{{ m.monthly | gbp }} a month</p>
+      <ul class="sk-co-inc">{% for i in m.includes %}<li>{{ i }}</li>{% endfor %}</ul>
+      <p class="sk-ent-l">{{ m.line }}</p>
+      <a class="sk-quiet" href="{{ ('I would like to join the ' + m.name + ' membership.') | book }}" target="_blank" rel="noopener">Ask about joining</a>
+    </li>
+    {%- endfor %}
+  </ul>
+  {%- endif %}
+  {%- if c.note %}<p class="sk-co-note">{{ c.note }}</p>{% endif %}
+</div></section>
+{%- if "skin-rhythm" | enabled %}{% include "kits/skin/features/skin-rhythm/skin-rhythm.njk" %}{% endif %}
