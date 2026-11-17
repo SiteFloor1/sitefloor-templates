@@ -8,10 +8,11 @@
 <header class="nav tr-nav{% if pageId == 'index' %} tr-on-home{% endif %}">
   <a class="tr-mark" href="{{ 'index' | href }}" aria-label="{{ site.business.name }}, home">
     {%- if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="{{ site.business.name }}" height="32">{% else %}{{ site.business.name }}{% endif %}</a>
-  {%- if pageId == "index" and site.hero.side %}{% set sp = site.pieces | piece(site.hero.side.piece) %}
+  {%- if pageId == "index" and site.hero.side %}{% set sidePiece = site.pieces | piece(site.hero.side.piece) %}
   <figure class="tr-also">
-    <img src="{{ site.hero.side.photo.src | img }}" width="{{ site.hero.side.photo.width }}" height="{{ site.hero.side.photo.height }}" alt="{{ site.hero.side.photo.alt }}" loading="lazy" decoding="async">
-    <figcaption><b>{{ sp.name }}</b>{% if sp.line %}{{ sp.line }} {% endif %}{{ sp.price | gbp }}</figcaption>
+    {%- set sp = site.hero.side.photo %}{% set sz = "132px" %}
+    <img src="{{ site.hero.side.photo.src | img }}"{% include "kits/modest/partials/srcset.njk" %} width="{{ site.hero.side.photo.width }}" height="{{ site.hero.side.photo.height }}" alt="{{ site.hero.side.photo.alt }}" loading="lazy" decoding="async">
+    <figcaption><b>{{ sidePiece.name }}</b>{% if sidePiece.line %}{{ sidePiece.line }} {% endif %}{{ sidePiece.price | gbp }}</figcaption>
   </figure>
   {%- endif %}
   <nav class="tr-menu" aria-label="Main">

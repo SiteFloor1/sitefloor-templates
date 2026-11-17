@@ -5,7 +5,8 @@
 {%- set part = p.category %}
 <section class="hero tr-first" aria-label="{{ p.name }}">
   <figure class="tr-photo">
-    <img src="{{ h.photo.src | img }}" width="{{ h.photo.width }}" height="{{ h.photo.height }}" alt="{{ h.photo.alt }}" fetchpriority="high" decoding="async"{% if h.photo.focus %} style="object-position: {{ h.photo.focus }}"{% endif %}>
+    {%- set sp = h.photo %}{% set sz = "(max-width: 760px) 100vw, (max-width: 1099px) 55vw, 680px" %}
+    <img src="{{ h.photo.src | img }}"{% include "kits/modest/partials/srcset.njk" %} width="{{ h.photo.width }}" height="{{ h.photo.height }}" alt="{{ h.photo.alt }}" fetchpriority="high" decoding="async"{% if h.photo.focus %} style="object-position: {{ h.photo.focus }}"{% endif %}>
     {%- if h.credit %}<figcaption class="tr-credit">{{ h.credit }}</figcaption>{% endif %}
   </figure>
   <div class="tr-label">

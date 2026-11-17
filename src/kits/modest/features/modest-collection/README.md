@@ -15,5 +15,7 @@ when the shop gives it, "Model 5′7″, wears the 56, in flats."). Each piece h
 ```
 
 - `lengths` must be lengths the shop sells (`lengths.sizes`). `model.height` only from the shop: never guessed from a photo.
+- Any photo may carry `"small": { "src": "img/layl-600.webp", "width": 600 }`, a smaller copy that phones get through
+  `srcset` (the hero, the pieces, the looks, made to measure and the family photo all use it).
 - `eid: true` puts the piece in the Eid edit (`modest-family`).
 - No stock is claimed: "lengths it comes in", not "in stock".

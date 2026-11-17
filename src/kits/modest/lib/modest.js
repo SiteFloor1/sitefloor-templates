@@ -13,9 +13,20 @@ export function inches(n) {
   return (whole || !(h % 1) ? String(whole) : "") + (h % 1 ? "½" : "");
 }
 
-/** Pounds without pence when whole: £345, £12.50. @param {number} n */
+/** Pounds as the UK writes them, without pence when whole: £345, £1,175, £12.50. @param {number} n */
 export function pounds(n) {
-  return "£" + (Number.isInteger(n) ? String(n) : n.toFixed(2));
+  const whole = Number.isInteger(n);
+  return "£" + n.toLocaleString("en-GB", { minimumFractionDigits: whole ? 0 : 2, maximumFractionDigits: whole ? 0 : 2 });
+}
+
+/** "1 day", "5 days". @param {number} n */
+export function daysWords(n) {
+  return `${n} ${n === 1 ? "day" : "days"}`;
+}
+
+/** Today in the shop's time zone, as "YYYY-MM-DD". @param {number} ms @param {string} [timeZone] */
+export function ymdIn(ms, timeZone = "Europe/London") {
+  return new Intl.DateTimeFormat("en-CA", { timeZone, year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date(ms));
 }
 
 /**
@@ -107,6 +118,21 @@ export function appointmentDates(weekly, today, days, closed = []) {
     if (times.length && !closed.includes(date)) out.push({ date, words: ukDate(date), times });
   }
   return out;
+}
+
+/**
+ * The request a private appointment sends.
+ * @param {string} shop @param {{ words: string }|undefined} day @param {string} time @param {number} n @param {string} why
+ */
+export function appointmentMessage(shop, day, time, n, why) {
+  if (!day || !time) return `Hello ${shop}, I'd like to ask about a private appointment.`;
+  return `Hello ${shop}, I'd like to request a private appointment on ${day.words} at ${time}, for ${n} ${n === 1 ? "person" : "people"}. It's for: ${why}.`;
+}
+
+/** What the page shows above the button. @param {{ words: string }|undefined} day @param {string} time @param {number} n */
+export function appointmentSummary(day, time, n) {
+  if (!day || !time) return "No times in the coming weeks; message us for one.";
+  return `${day.words} at ${time}, for ${n === 1 ? "one" : n}.`;
 }
 
 /**

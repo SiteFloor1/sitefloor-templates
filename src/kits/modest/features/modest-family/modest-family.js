@@ -47,6 +47,7 @@ export function init(root, ctx) {
   };
 
   const start = decodeFamily(location.hash, pieces, cfg.max);
+  rows.replaceChildren(); // the build drew one empty row; the same row comes back unless the link holds a list
   for (const p of start.length ? start : [{ name: "", piece: pieces[0].id, length: 0 }]) addRow(p);
   rows.addEventListener("input", update);
   add.addEventListener("click", () => { addRow({ name: "", piece: pieces[0].id, length: 0 }); update(); /** @type {HTMLElement|null} */ (rows.querySelector("li:last-child input"))?.focus(); });

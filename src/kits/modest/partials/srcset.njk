@@ -1,0 +1,1 @@
+{#- srcset and sizes for a photo with a smaller copy (photo.small: { src, width }). Set `sp` (the photo) and `sz` (sizes). -#}{% if sp.small %} srcset="{{ sp.small.src | img }} {{ sp.small.width }}w, {{ sp.src | img }} {{ sp.width }}w" sizes="{{ sz }}"{% endif %}

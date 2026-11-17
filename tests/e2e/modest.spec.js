@@ -2,7 +2,7 @@
 // length reaching the look bar, the chart only when asked, the Eid last order dates counted on the day, the length
 // guide, a private appointment request, the look's total and its Stripe link, the family list kept in the link, and
 // a client's site with the fabric library.
-import { test, expect, site, start } from "./helpers.js";
+import { test, expect, site, start, featuresStarted } from "./helpers.js";
 
 const demo = site("demos/taroub");
 const client = site("_fixtures/test-modest-client");
@@ -96,6 +96,31 @@ test("the family list lives in the link, totals, and goes to the shop as one ord
   await expect(page.locator("[data-fam-total]")).toHaveText("£945");
   expect(new URL(page.url()).hash).toBe("#Mum~layl~56|Huda~misk~0|Sara~ghalia~58");
   expect(await waText(page.locator("[data-fam-send]"))).toBe("Hello Taroub, our family's Eid order:\nMum: The Layl, the 56\nHuda: The Misk, length to check\nSara: The Ghalia, the 58\nThat's £945 for 3 pieces.");
+  await srv.close();
+});
+
+test("nothing jumps while pages start, with slow fonts and scripts; no page scrolls sideways on a small phone", async ({ browser }) => {
+  const srv = await start(demo);
+  for (const [path, width] of /** @type {[string, number][]} */ ([["/appointments", 390], ["/length", 390], ["/", 390], ["/eid", 1024], ["/story", 1024], ["/length", 1024]])) {
+    const page = await browser.newPage({ viewport: { width, height: 800 } });
+    await page.route("**/*.woff2", async (r) => { await new Promise((x) => setTimeout(x, 600)); await r.continue(); });
+    await page.route("**/assets/site-*.js", async (r) => { await new Promise((x) => setTimeout(x, 1500)); await r.continue(); });
+    await page.addInitScript(() => {
+      const w = /** @type {any} */ (window); w.__cls = 0;
+      new PerformanceObserver((l) => { for (const e of /** @type {any[]} */ (l.getEntries())) if (!e.hadRecentInput) w.__cls += e.value; }).observe({ type: "layout-shift", buffered: true });
+    });
+    await page.goto(srv.base + path);
+    await featuresStarted(page);
+    await page.waitForTimeout(400);
+    expect(await page.evaluate(() => /** @type {any} */ (window).__cls), `${path} at ${width} px`).toBeLessThan(0.05);
+    await page.close();
+  }
+  const small = await browser.newPage({ viewport: { width: 320, height: 640 } });
+  for (const path of ["/privacy", "/", "/eid", "/the-look", "/appointments"]) {
+    await small.goto(srv.base + path);
+    expect(await small.evaluate(() => document.documentElement.scrollWidth), `${path} at 320 px`).toBeLessThanOrEqual(320);
+  }
+  await small.close();
   await srv.close();
 });
 

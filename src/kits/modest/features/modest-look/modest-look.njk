@@ -7,7 +7,7 @@
   {%- for s in site.looks.sets %}{% set li = s | lookItems(site.pieces) %}{% set ab = li[0] %}
   <form class="md-set" id="{{ s.id }}" data-set="{{ s.id }}" data-pay-amount="{% for pl in (site.payLinks.items if site.payLinks else []) %}{% if pl.id == s.payLink %}{{ pl.amount }}{% endif %}{% endfor %}">
     {%- set lp = s.photo or ab.photo %}
-    {%- if lp %}<figure class="md-set-ph"><img src="{{ lp.src | img }}" width="{{ lp.width }}" height="{{ lp.height }}" alt="{{ lp.alt }}" loading="{{ 'eager' if loop.first else 'lazy' }}" decoding="async"></figure>{% endif %}
+    {%- if lp %}{% set sp = lp %}{% set sz = "(max-width: 760px) 100vw, 50vw" %}<figure class="md-set-ph"><img src="{{ lp.src | img }}"{% include "kits/modest/partials/srcset.njk" %} width="{{ lp.width }}" height="{{ lp.height }}" alt="{{ lp.alt }}" loading="{{ 'eager' if loop.first else 'lazy' }}" decoding="async"></figure>{% endif %}
     <div class="md-set-t">
       <h2 class="md-set-h">{{ s.name }}</h2>
       {%- if s.line %}<p class="md-set-l">{{ s.line }}</p>{% endif %}

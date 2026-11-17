@@ -54,7 +54,13 @@ function ids(err, path, items) {
 /** @param {Report} err @param {string} path @param {any} p @param {Exists} exists */
 function photo(err, path, p, exists) {
   if (!isObj(p)) { err(path, "a photo: { src, width, height, alt }"); return; }
-  onlyKeys(p, ["src", "width", "height", "alt", "focus"], path, err);
+  onlyKeys(p, ["src", "width", "height", "alt", "focus", "small"], path, err);
+  if (p.small !== undefined) {
+    onlyKeys(p.small, ["src", "width"], `${path}.small`, err);
+    if (!isStr(p.small?.src) || !/^img\/[\w./-]+\.(webp|jpe?g|png)$/.test(p.small.src)) err(`${path}.small.src`, "a smaller copy in img/, for phones");
+    else if (exists && !exists(p.small.src)) err(`${path}.small.src`, `file not found: ${p.small.src}`);
+    if (!Number.isInteger(p.small?.width) || !(p.small.width < p.width)) err(`${path}.small.width`, "the copy's width in pixels, smaller than the photo's");
+  }
   text(err, `${path}.alt`, p.alt);
   if (!Number.isInteger(p.width) || !Number.isInteger(p.height)) err(path, "width and height in pixels");
   if (p.focus !== undefined && !/^\d{1,3}% \d{1,3}%$/.test(p.focus)) err(`${path}.focus`, 'where the subject sits, e.g. "50% 30%"');
@@ -250,7 +256,10 @@ function checkLooks(site, pieces, err, exists) {
       if (j === 0 && (x?.optional || !p?.lengths?.length)) err(`${at}.items[0]`, "the set starts with its abaya: a piece with lengths, not optional");
     });
     if (s?.payLink !== undefined) {
+      const link = (site.payLinks?.items ?? []).find((/** @type {any} */ p) => p?.id === s.payLink);
+      const base = (s.items ?? []).filter((/** @type {any} */ x) => !x?.optional).reduce((/** @type {number} */ t, /** @type {any} */ x) => t + (pieces.find((y) => y?.id === x?.piece)?.price ?? 0), 0);
       if (!pay.has(s.payLink)) err(`${at}.payLink`, `"${s.payLink}" isn't one of payLinks.items`);
+      else if (link.amount !== base) err(`${at}.payLink`, `the Stripe link takes £${link.amount}, but the set as shown is £${base}; a Payment Link's amount is fixed, so they must match`);
       else if (!(site.features ?? []).includes("pay-link")) err(`${at}.payLink`, 'turn on "pay-link" to show it');
     }
   });

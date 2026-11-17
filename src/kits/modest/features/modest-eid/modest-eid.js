@@ -8,7 +8,8 @@ export function init(root, ctx) {
   const when = root.querySelector("[data-eid-when]"), rows = root.querySelector("[data-eid-rows]");
   if (!cfg || !when || !rows) return;
   const r = eidOrderDates(cfg.windows, cfg.cutoffs, ctx.now().date);
-  if (!r) { root.hidden = true; return; } // no Eid ahead in the table: never a guessed date
+  root.hidden = !r; // no Eid ahead in the table: never a guessed date
+  if (!r) return;
   when.textContent = r.words;
   rows.replaceChildren(...r.rows.map((x) => {
     const tr = document.createElement("tr");

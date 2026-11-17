@@ -4,7 +4,7 @@
 {%- set ph = { title: M.title, intro: M.intro } %}
 {% include "kits/modest/partials/page-head.njk" %}
 <section class="md-mtm" data-feature="modest-made-to-measure" aria-label="{{ M.title | plain }}"><div class="wrap md-mtm-in">
-  {%- if M.photo %}<figure class="md-mtm-ph"><img src="{{ M.photo.src | img }}" width="{{ M.photo.width }}" height="{{ M.photo.height }}" alt="{{ M.photo.alt }}" loading="lazy" decoding="async"></figure>{% endif %}
+  {%- if M.photo %}{% set sp = M.photo %}{% set sz = "(max-width: 760px) 100vw, 45vw" %}<figure class="md-mtm-ph"><img src="{{ M.photo.src | img }}"{% include "kits/modest/partials/srcset.njk" %} width="{{ M.photo.width }}" height="{{ M.photo.height }}" alt="{{ M.photo.alt }}" loading="lazy" decoding="async"></figure>{% endif %}
   <div class="md-mtm-t">
     <p class="md-mtm-f">From {{ M.from | gbp }} · about {{ M.weeks }} weeks</p>
     <ol class="md-mtm-steps">{% for s in M.steps %}<li><h2>{{ s.title }}</h2><p>{{ s.text }}</p></li>{% endfor %}</ol>

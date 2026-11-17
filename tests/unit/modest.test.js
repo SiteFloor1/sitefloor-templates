@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { inches, pounds, pickLength, hemAnswer, rulerMarks, chartRow, eidOrderDates, leftWords, appointmentDates, lookTotal, lookMessage, encodeFamily, decodeFamily, familyMessage } from "../../src/kits/modest/lib/modest.js";
+import { inches, pounds, daysWords, appointmentMessage, appointmentSummary, pickLength, hemAnswer, rulerMarks, chartRow, eidOrderDates, leftWords, appointmentDates, lookTotal, lookMessage, encodeFamily, decodeFamily, familyMessage } from "../../src/kits/modest/lib/modest.js";
 import { eidWindows, pageData } from "../../src/kits/modest/kit.js";
 import { HOME_PARTS, homeOrderProblem } from "../../src/kits/modest/home.js";
 import { validateSite } from "../../src/core/lib/config.js";
@@ -31,6 +31,7 @@ test("inches and pounds are written as the shop writes them", () => {
   assert.equal(inches(0.74), "½");
   assert.equal(pounds(345), "£345");
   assert.equal(pounds(12.5), "£12.50");
+  assert.equal(pounds(1175), "£1,175");
 });
 
 test("the length is the longest that clears the floor by half an inch", () => {
@@ -103,6 +104,15 @@ test("appointments: the standing times from tomorrow, closed days left out", () 
   assert.deepEqual(appointmentDates(weekly, "2026-11-21", 1), [{ date: "2026-11-22", words: "Sunday 22 November 2026", times: ["12:30"] }], "never today");
 });
 
+test("words: one day, and the appointment request", () => {
+  assert.equal(daysWords(1), "1 day");
+  assert.equal(daysWords(5), "5 days");
+  const d = { words: "Saturday 24 October 2026" };
+  assert.equal(appointmentMessage("Taroub", d, "13:00", 1, "Eid"), "Hello Taroub, I'd like to request a private appointment on Saturday 24 October 2026 at 13:00, for 1 person. It's for: Eid.");
+  assert.equal(appointmentSummary(d, "13:00", 1), "Saturday 24 October 2026 at 13:00, for one.");
+  assert.equal(appointmentMessage("Taroub", undefined, "", 2, "Eid"), "Hello Taroub, I'd like to ask about a private appointment.");
+});
+
 test("complete the look: required pieces always count; the message carries her length and the total", () => {
   const items = [{ name: "The Layl", price: 345 }, { name: "Long jersey hijab", price: 28 }, { name: "Inner slip", price: 45, optional: true }];
   assert.equal(lookTotal(items, []).total, 373);
@@ -142,6 +152,8 @@ test("the checks catch a chart, look or piece that doesn't add up", () => {
   assert.match(errorsFor((s) => { s.lengths.start.shoe = 9; }), /lengths.start.shoe/);
   assert.match(errorsFor((s) => { s.looks.sets[0].items[0].optional = true; }), /starts with its abaya/);
   assert.match(errorsFor((s) => { s.looks.sets[0].payLink = "nope"; }), /isn't one of payLinks.items/);
+  assert.match(errorsFor((s) => { s.payLinks.items[0].amount = 345; }), /the set as shown is £373/);
+  assert.match(errorsFor((s) => { s.pieces.items[0].photo.small.width = 2000; }), /small.width/);
   assert.match(errorsFor((s) => { s.family.pieces.push("ghost"); }), /family.pieces/);
   assert.match(errorsFor((s) => { s.eid.cutoffs[0].daysBefore = -1; }), /daysBefore/);
   assert.match(errorsFor((s) => { s.appointments.weekly.sat = ["10am"]; }), /appointments.weekly.sat/);

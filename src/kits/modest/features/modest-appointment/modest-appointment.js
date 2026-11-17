@@ -1,9 +1,10 @@
 // @ts-check
 /**
  * Private appointments: the studio's standing times on the coming dates (lib/modest.js), worked out on the day; the
- * choice goes to the shop as a request on WhatsApp (or its booking app), and the shop confirms by message.
+ * choice goes to the shop as a request on WhatsApp (or its booking app), and the shop confirms by message. The build
+ * drew the same form for the build day, so redrawing it for today changes words, not the page's shape.
  */
-import { appointmentDates } from "../../lib/modest.js";
+import { appointmentDates, appointmentMessage, appointmentSummary } from "../../lib/modest.js";
 
 /** @type {import("../../../../core/js/core.js").FeatureInit} */
 export function init(root, ctx) {
@@ -31,9 +32,8 @@ export function init(root, ctx) {
     const fd = new FormData(form);
     const d = dates.find((x) => x.date === fd.get("day"));
     const t = String(fd.get("time") ?? ""), n = Number(fd.get("n")), why = String(fd.get("for") ?? "");
-    if (!d || !t) { sum.textContent = "No times in the coming weeks; message us for one."; send.href = ctx.bookHref(`Hello ${data.name}, I'd like to ask about a private appointment.`); return; }
-    sum.textContent = `${d.words} at ${t}, for ${n === 1 ? "one" : n}.`;
-    send.href = ctx.bookHref(`Hello ${data.name}, I'd like to request a private appointment on ${d.words} at ${t}, for ${n} ${n === 1 ? "person" : "people"}. It's for: ${why}.`);
+    sum.textContent = appointmentSummary(d, t, n);
+    send.href = ctx.bookHref(appointmentMessage(data.name, d, t, n, why));
   };
   form.addEventListener("change", (e) => { if (/** @type {HTMLInputElement} */ (e.target).name === "day") showTimes(); draw(); });
   form.addEventListener("submit", (e) => e.preventDefault());
