@@ -1,0 +1,8 @@
+{#- The shop's own height chart: height, shoulder to floor, the length to wear. `chartHidden` hides it until asked. -#}
+<table class="md-chart"{% if chartId %} id="{{ chartId }}"{% endif %}>
+  <caption class="md-chart-c">The length for your height, in flat shoes</caption>
+  <thead><tr><th scope="col">Height</th><th scope="col">Shoulder to floor</th><th scope="col">Length</th></tr></thead>
+  <tbody>
+    {%- for r in site.lengths.chart %}<tr data-length="{{ r.length }}"><td>{{ r.height }}</td><td>{{ r.from | inches }} to {{ r.to | inches }}</td><td>{{ r.length }}</td></tr>{% endfor %}
+  </tbody>
+</table>

@@ -54,6 +54,7 @@ One file per trade, so trades built in parallel never edit the same lines. A new
 - Lingerie boutiques: [`docs/trades/lingerie/questions.md`](trades/lingerie/questions.md)
 - Mehndi and henna artists: [`docs/trades/mehndi/questions.md`](trades/mehndi/questions.md)
 - Clothing brands (menswear, running and outerwear): [`docs/trades/menswear/questions.md`](trades/menswear/questions.md)
+- Modest fashion and abaya boutiques: [`docs/trades/modest/questions.md`](trades/modest/questions.md)
 - Nail, lash and beauty salons: [`docs/trades/nails/questions.md`](trades/nails/questions.md)
 - Personal trainers and small gyms: [`docs/trades/personal-trainer/questions.md`](trades/personal-trainer/questions.md)
 - Reformer Pilates studios: [`docs/trades/pilates/questions.md`](trades/pilates/questions.md)
