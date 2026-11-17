@@ -1,0 +1,17 @@
+/* When could I pass?: choices as chips, a small stepper, then two big answers side by side over a rule. */
+.dv-lbl { margin: 0 0 6px; color: var(--muted); font-size: 12px; }
+.dv-chips { display: flex; flex-wrap: wrap; gap: 4px; padding: 3px; border-radius: 14px; background: var(--bg); }
+.dv-chips button { height: 32px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; color: var(--muted); font: 400 13px var(--font-body); cursor: pointer; transition: background .4s, color .4s; }
+.dv-chips button[aria-pressed="true"] { background: var(--text); color: var(--paper); }
+.dv-so { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin-top: 10px; color: var(--muted); font-size: 13px; }
+.dv-step { display: inline-flex; align-items: center; gap: 8px; }
+.dv-step button { width: 30px; height: 30px; border: 1px solid var(--line); border-radius: 50%; background: var(--paper); color: var(--text); font-size: 16px; line-height: 1; cursor: pointer; }
+.dv-step output { min-width: 22px; text-align: center; color: var(--text); font-weight: 500; }
+.dv-so label { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+.dv-so input { accent-color: var(--accent); }
+.dv-result { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); }
+.dv-big { margin: 0; font-weight: 400; font-size: 28px; line-height: 1.1; letter-spacing: -.03em; }
+.dv-result small { display: block; margin-top: 3px; color: var(--muted); font-size: 12px; }
+.dv-foot { margin: auto 0 0; padding-top: 10px; color: var(--muted); font-size: 11px; line-height: 1.45; }
+.dv-foot a { color: inherit; }
+@media (prefers-reduced-motion: reduce) { .dv-chips button { transition: none; } }

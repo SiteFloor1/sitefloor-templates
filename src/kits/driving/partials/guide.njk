@@ -1,0 +1,16 @@
+{#- A guide page's body: white cards of text or lists, a price when the page has one, the gov.uk links last, then one
+    way to ask. Set `g` = the page's settings (title, intro, photo, blocks, links, price). -#}
+<section class="dv-sec dv-guide"><div class="wrap">
+  <div class="dv-blocks">
+    {%- for b in g.blocks %}
+    <div class="dv-block"><h2>{{ b.title }}</h2>{% if b.text %}{{ b.text | paragraphs | safe }}{% endif %}{% if b.items %}<ul>{% for i in b.items %}<li>{{ i }}</li>{% endfor %}</ul>{% endif %}</div>
+    {%- endfor %}
+  </div>
+  {%- if g.price or g.links %}
+  <aside class="dv-side">
+    {%- if g.price %}<p class="dv-price"><span>{{ g.price.label }}</span><b>{{ g.price.amount | gbp }}</b>{% if site.mode == "demo" %}<span class="dv-tag">Sample</span>{% endif %}</p>{% endif %}
+    {%- if g.links %}<ul class="dv-gov">{% for l in g.links %}<li><a href="{{ l.url }}">{{ l.label }}</a></li>{% endfor %}</ul>{% endif %}
+  </aside>
+  {%- endif %}
+  <p class="dv-ask"><a class="dv-btn" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">Ask us</a></p>
+</div></section>

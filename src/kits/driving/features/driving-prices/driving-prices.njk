@@ -1,0 +1,27 @@
+{#- Prices (DRIVE-1): one switch between manual and automatic; an hour, two hours, a block and the intensive course,
+    with what each saves. Both lists are in the page, so without JavaScript both show, each under its name. -#}
+{%- set l = site.lessons %}
+{%- set boxes = [] %}{% if l.manual %}{% set boxes = boxes.concat(["manual"]) %}{% endif %}{% if l.automatic %}{% set boxes = boxes.concat(["automatic"]) %}{% endif %}
+<article class="dv-card dv-prices" id="prices" data-feature="driving-prices" aria-labelledby="dp-h"{{ 'driving-prices' | tierAttr | safe }}>
+  <button class="dv-mh" type="button" aria-expanded="false" data-dv-open data-js-only><span>{{ l.title }}</span><em>from <b data-dp-from>{{ (l.manual or l.automatic).hour | gbp }}</b> an hour</em></button>
+  <div class="dv-body">
+  <h2 class="dv-ct" id="dp-h">{{ l.title }}{% if site.mode == "demo" %} <span class="dv-tag">Sample</span>{% endif %}</h2>
+  {%- if boxes.length > 1 %}
+  <div class="dv-switch" role="group" aria-label="Gearbox" data-js-only>{% for g in boxes %}<button type="button" aria-pressed="{{ 'true' if loop.first else 'false' }}" data-dp-g="{{ g }}">{{ g | capitalize }}</button>{% endfor %}</div>
+  {%- endif %}
+  {%- for g in boxes %}{% set p = l[g] %}
+  <div class="dv-list" data-dp-list="{{ g }}">
+    <p class="dv-gname">{{ g | capitalize }}</p>
+    <ul class="dv-rows">
+      <li><span>One hour</span><b>{{ p.hour | gbp }}</b></li>
+      <li><span>Two hours</span><b>{{ p.two | gbp }}</b></li>
+      {%- set s = p | saving("block") %}
+      <li><span>Block of {{ p.block.hours }} hours<small>{{ s.perHour | gbp }} an hour</small></span><b>{{ p.block.price | gbp }}{% if s.saving %}<span class="dv-save">save {{ s.saving | gbp }}</span>{% endif %}</b></li>
+      {%- set s = p | saving("intensive") %}
+      <li><span>Intensive, {{ p.intensive.hours }} hours<small>{{ p.intensive.over }}</small></span><b>{{ p.intensive.price | gbp }}{% if s.saving %}<span class="dv-save">save {{ s.saving | gbp }}</span>{% endif %}</b></li>
+    </ul>
+  </div>
+  {%- endfor %}
+  {%- if l.note %}<p class="dv-note">{{ l.note }}</p>{% endif %}
+  </div>
+</article>

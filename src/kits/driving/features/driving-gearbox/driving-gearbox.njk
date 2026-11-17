@@ -1,0 +1,14 @@
+{#- Automatic or manual: the difference in the instructor's words, what each costs here (from the price list) and gov.uk's note on what an automatic licence covers. The instructor's own words from site.gearbox. -#}
+{%- set g = site.gearbox %}{% set ph = { title: g.title, intro: g.intro, photo: g.photo } %}
+<div data-feature="driving-gearbox">
+{% include "kits/driving/partials/page-head.njk" %}
+{%- if "driving-prices" | enabled %}{% set l = site.lessons %}
+<section class="dv-sec dv-compare"><div class="wrap"><table class="dv-table"><caption>{{ l.title }}{% if site.mode == "demo" %} <span class="dv-tag">Sample</span>{% endif %}</caption>
+  <thead><tr><th scope="col"></th>{% if l.manual %}<th scope="col">Manual</th>{% endif %}{% if l.automatic %}<th scope="col">Automatic</th>{% endif %}</tr></thead>
+  <tbody>
+    <tr><th scope="row">One hour</th>{% if l.manual %}<td>{{ l.manual.hour | gbp }}</td>{% endif %}{% if l.automatic %}<td>{{ l.automatic.hour | gbp }}</td>{% endif %}</tr>
+    <tr><th scope="row">Block of {{ (l.manual or l.automatic).block.hours }} hours</th>{% if l.manual %}<td>{{ l.manual.block.price | gbp }}</td>{% endif %}{% if l.automatic %}<td>{{ l.automatic.block.price | gbp }}</td>{% endif %}</tr>
+  </tbody></table></div></section>
+{%- endif %}
+{% include "kits/driving/partials/guide.njk" %}
+</div>

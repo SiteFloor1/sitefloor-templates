@@ -1,0 +1,9 @@
+/* Do you cover me?: a postcode box and its answer, the districts in a quiet line underneath. */
+.dv-pc { display: flex; gap: 8px; }
+.dv-pc input { flex: 1; min-width: 0; height: 48px; padding: 0 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg); color: var(--text); font: 400 18px var(--font-body); text-transform: uppercase; }
+.dv-pc input::placeholder { text-transform: none; color: var(--dim); }
+.dv-pc button { height: 48px; padding: 0 18px; border: 0; border-radius: 12px; background: var(--text); color: var(--paper); font: 500 15px var(--font-body); cursor: pointer; }
+.dv-ans { min-height: 50px; margin: 14px 0 0; font-size: 17px; line-height: 1.4; }
+.dv-ans b { font-weight: 500; }
+.dv-ans.yes::before { content: "✓ "; color: var(--accent); font-weight: 600; }
+.dv-cover { margin: auto 0 0; color: var(--muted); font-size: 12px; }

@@ -1,0 +1,12 @@
+{#- Intensive courses: who an intensive course suits, how the days run and booking the test early. The instructor's own words from site.intensive. -#}
+{%- set g = site.intensive %}{% set ph = { title: g.title, intro: g.intro, photo: g.photo } %}
+<div data-feature="driving-intensive">
+{% include "kits/driving/partials/page-head.njk" %}
+{%- if "driving-prices" | enabled %}{% set l = site.lessons %}
+<section class="dv-sec dv-compare"><div class="wrap"><table class="dv-table"><caption>Intensive course prices{% if site.mode == "demo" %} <span class="dv-tag">Sample</span>{% endif %}</caption>
+  <thead><tr><th scope="col"></th><th scope="col">Hours</th><th scope="col">Price</th><th scope="col">Saves</th></tr></thead>
+  <tbody>{% for gname in ["manual", "automatic"] %}{% if l[gname] %}{% set s = l[gname] | saving("intensive") %}<tr><th scope="row">{{ gname | capitalize }}</th><td>{{ l[gname].intensive.hours }}</td><td>{{ l[gname].intensive.price | gbp }}</td><td>{{ s.saving | gbp }}</td></tr>{% endif %}{% endfor %}</tbody>
+</table><p class="dv-src">{{ (l.manual or l.automatic).intensive.over | capitalize }}. Book your practical test early: <a href="{{ govuk.links.practical.url }}">{{ govuk.links.practical.label }}</a>.</p></div></section>
+{%- endif %}
+{% include "kits/driving/partials/guide.njk" %}
+</div>

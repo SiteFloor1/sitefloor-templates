@@ -1,0 +1,822 @@
+{
+  "schemaVersion": 4,
+  "id": "test-driving-client",
+  "mode": "client",
+  "plan": "signature",
+  "kit": "driving",
+  "look": "verge",
+  "url": "https://test-driving-school.co.uk",
+  "indexable": true,
+  "lang": "en-GB",
+  "business": {
+    "name": "Test Driving School",
+    "schemaType": "DrivingSchool",
+    "description": "Driving lessons in East London, manual and automatic, picked up from your door. From £38 an hour.",
+    "priceRange": "££",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "442079460533",
+    "phone": "+44 20 7946 0533",
+    "email": "hello@test-driving-school.example"
+  },
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "location": {
+    "streetAddress": "Unit 3, Saltwell Yard",
+    "locality": "London",
+    "postcode": "E14 7QX",
+    "country": "GB",
+    "area": "Lessons start from your door. The office is two minutes from Westferry DLR, for paperwork and a first lesson if you'd rather start here.",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=Westferry%20DLR%2C%20London%20E14"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [
+        [
+          "07:00",
+          "21:00"
+        ]
+      ],
+      "tue": [
+        [
+          "07:00",
+          "21:00"
+        ]
+      ],
+      "wed": [
+        [
+          "07:00",
+          "21:00"
+        ]
+      ],
+      "thu": [
+        [
+          "07:00",
+          "21:00"
+        ]
+      ],
+      "fri": [
+        [
+          "07:00",
+          "21:00"
+        ]
+      ],
+      "sat": [
+        [
+          "08:00",
+          "18:00"
+        ]
+      ],
+      "sun": []
+    },
+    "exceptions": [
+      {
+        "date": "2026-12-25",
+        "ranges": [],
+        "note": "No lessons on Christmas Day"
+      },
+      {
+        "date": "2026-12-26",
+        "ranges": [],
+        "note": "No lessons on Boxing Day"
+      }
+    ]
+  },
+  "nav": [
+    {
+      "label": "Lessons and prices",
+      "page": "lessons",
+      "feature": "driving-lessons",
+      "fallback": "#prices"
+    },
+    {
+      "label": "Intensive courses",
+      "page": "intensive",
+      "feature": "driving-intensive"
+    },
+    {
+      "label": "Areas",
+      "page": "areas",
+      "feature": "driving-area-page",
+      "fallback": "#areas"
+    },
+    {
+      "label": "Test centres",
+      "page": "test-centres",
+      "feature": "driving-centres"
+    },
+    {
+      "label": "For parents",
+      "page": "parents",
+      "feature": "driving-parents"
+    },
+    {
+      "label": "Book",
+      "page": "book",
+      "feature": "driving-book"
+    },
+    {
+      "label": "Automatic or manual",
+      "page": "automatic-or-manual",
+      "feature": "driving-gearbox"
+    },
+    {
+      "label": "Theory test help",
+      "page": "theory",
+      "feature": "driving-theory"
+    },
+    {
+      "label": "Pass Plus and motorway",
+      "page": "pass-plus",
+      "feature": "driving-passplus"
+    },
+    {
+      "label": "Refresher lessons",
+      "page": "refresher",
+      "feature": "driving-refresher"
+    },
+    {
+      "label": "Instructors",
+      "page": "instructors",
+      "feature": "driving-instructors"
+    },
+    {
+      "label": "Your progress",
+      "page": "progress",
+      "feature": "driving-progress"
+    },
+    {
+      "label": "Journal",
+      "page": "journal",
+      "feature": "driving-journal"
+    },
+    {
+      "label": "First lesson",
+      "page": "visit",
+      "feature": "plan-visit",
+      "fallback": "#visit"
+    },
+    {
+      "label": "Passed",
+      "page": "passed",
+      "feature": "driving-passed"
+    }
+  ],
+  "features": [
+    "driving-prices",
+    "driving-areas",
+    "driving-testday",
+    "driving-slots",
+    "driving-ready",
+    "driving-lessons",
+    "driving-area-page",
+    "driving-book",
+    "driving-centres",
+    "driving-parents",
+    "driving-gearbox",
+    "driving-intensive",
+    "driving-theory",
+    "driving-passplus",
+    "driving-refresher",
+    "driving-instructors",
+    "driving-pass",
+    "driving-progress",
+    "driving-journal",
+    "visit",
+    "plan-visit",
+    "questions",
+    "gallery",
+    "vouchers",
+    "seasonal",
+    "driving-passed"
+  ],
+  "hero": {
+    "kicker": "Driving lessons, East London",
+    "title": "Driving lessons in|East London.",
+    "intro": "Manual and automatic. Picked up from home, school or work.",
+    "links": [
+      {
+        "label": "Ready to Pass? The DVSA's five-point check",
+        "href": "#ready",
+        "feature": "driving-ready"
+      },
+      {
+        "label": "Test day, in order",
+        "href": "#test-day",
+        "feature": "driving-testday"
+      },
+      {
+        "label": "For parents: paying, practice, insurance",
+        "page": "parents",
+        "feature": "driving-parents"
+      }
+    ],
+    "photo": {
+      "src": "img/car.webp",
+      "width": 1600,
+      "height": 1067,
+      "alt": "A dark grey hatchback on a dual carriageway, the barrier blurred beside it",
+      "credit": "Photo: our own",
+      "focus": "50% 55%"
+    }
+  },
+  "sections": {
+    "questions": {
+      "title": "Asked before a first lesson"
+    },
+    "visit": {
+      "title": "Where lessons start"
+    },
+    "reviews": {
+      "title": "From Google"
+    },
+    "gallery": {
+      "title": "On the road",
+      "intro": "On an instructor's own site, these come from their Instagram; here, stock photographs."
+    },
+    "vouchers": {
+      "title": "Give driving lessons",
+      "intro": "A voucher for any amount, towards any lesson or course."
+    }
+  },
+  "messages": {
+    "general": "Hello, I'd like to ask about driving lessons."
+  },
+  "lessons": {
+    "title": "Prices",
+    "manual": {
+      "hour": 38,
+      "two": 76,
+      "block": {
+        "hours": 10,
+        "price": 360
+      },
+      "intensive": {
+        "hours": 30,
+        "price": 1110,
+        "over": "over one to two weeks"
+      }
+    },
+    "automatic": {
+      "hour": 41,
+      "two": 82,
+      "block": {
+        "hours": 10,
+        "price": 390
+      },
+      "intensive": {
+        "hours": 30,
+        "price": 1200,
+        "over": "over one to two weeks"
+      }
+    }
+  },
+  "areas": {
+    "title": "Do you cover me?",
+    "pickup": "We pick up from home, school, college or work in",
+    "districts": [
+      {
+        "district": "E1",
+        "name": "Whitechapel and Stepney"
+      },
+      {
+        "district": "E1W",
+        "name": "Wapping"
+      },
+      {
+        "district": "E2",
+        "name": "Bethnal Green"
+      },
+      {
+        "district": "E3",
+        "name": "Bow"
+      },
+      {
+        "district": "E14",
+        "name": "Poplar, Limehouse and Canary Wharf"
+      },
+      {
+        "district": "E16",
+        "name": "Canning Town and Royal Docks"
+      },
+      {
+        "district": "SE8",
+        "name": "Deptford"
+      },
+      {
+        "district": "SE10",
+        "name": "Greenwich"
+      }
+    ],
+    "notCovered": "Message us and we'll say honestly if we can reach you."
+  },
+  "testDay": {
+    "title": "Test day, in order",
+    "intro": "What happens on the practical test, from gov.uk."
+  },
+  "slots": {
+    "title": "Next free lessons",
+    "intro": "Message for the next free times.",
+    "source": "sheet",
+    "message": "Hello, I'd like to book this lesson:",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-test-driving-slots/pub?gid=0&single=true&output=csv"
+  },
+  "ready": {
+    "title": "Ready to Pass?",
+    "intro": "Answer honestly. If it's \"not yet\", that's what the next lessons are for.",
+    "yes": "Five yeses: that's what the DVSA calls ready. Talk to us about booking your test.",
+    "notYet": "Moving your test is free with at least three full working days' notice."
+  },
+  "planner": {
+    "title": "When could I pass?",
+    "intro": "Two-hour lessons a week",
+    "perWeek": [
+      {
+        "hours": 2,
+        "label": "One"
+      },
+      {
+        "hours": 4,
+        "label": "Two",
+        "default": true
+      },
+      {
+        "hours": 6,
+        "label": "Three"
+      }
+    ],
+    "intensive": true
+  },
+  "fees": {
+    "practical": 62,
+    "practicalOutOfHours": 75,
+    "theory": 23,
+    "checked": "2026-11-16",
+    "source": "https://www.gov.uk/driving-test-cost"
+  },
+  "progress": {
+    "title": "Your progress",
+    "intro": "Every skill at the DVSA's five levels, your last lesson and what to practise, updated after each lesson.",
+    "source": "sheet",
+    "skills": [
+      "Moving off and stopping",
+      "Use of mirrors",
+      "Junctions",
+      "Roundabouts",
+      "Parallel parking",
+      "Independent driving with a sat nav",
+      "Dual carriageways",
+      "Bay parking"
+    ],
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-test-driving-progress/pub?gid=0&single=true&output=csv"
+  },
+  "lessonsPage": {
+    "title": "Lessons and prices",
+    "intro": "Every lesson is one to one, in a dual-control car, from your door.",
+    "photo": {
+      "src": "img/wheel.webp",
+      "width": 1200,
+      "height": 800,
+      "alt": "A driver's hand resting on a steering wheel",
+      "credit": "Photo: Peter Kalonji, Unsplash"
+    },
+    "blocks": [
+      {
+        "title": "How lessons work",
+        "items": [
+          "One or two hours, at the times on the diary",
+          "Picked up and dropped off at home, school, college or work",
+          "A dual-control car, manual or automatic"
+        ]
+      },
+      {
+        "title": "Paying",
+        "text": "Pay for each lesson on the day by card or bank transfer, or for a block in advance. A block is yours to use when you like."
+      },
+      {
+        "title": "Cancelling",
+        "text": "Cancel 48 hours before and there's nothing to pay. Later than that, the lesson is charged, because the time can't be given to someone else."
+      }
+    ]
+  },
+  "areaPage": {
+    "title": "Areas we cover",
+    "intro": "East London and over the river to Greenwich and Deptford.",
+    "blocks": [
+      {
+        "title": "Where a lesson can start",
+        "items": [
+          "Home",
+          "School or college",
+          "Work",
+          "Westferry DLR, if that's easier"
+        ]
+      },
+      {
+        "title": "Further out",
+        "text": "If you're just outside these areas, message us. We'll say honestly whether we can reach you, and when."
+      }
+    ]
+  },
+  "bookPage": {
+    "title": "Book a lesson",
+    "intro": "Pick a free time and ask for it, or message us for others.",
+    "blocks": [
+      {
+        "title": "Your first lesson",
+        "text": "Bring your provisional licence. We'll check it, talk about what you've done before, and drive somewhere quiet to start."
+      },
+      {
+        "title": "Before you book",
+        "items": [
+          "A provisional licence (apply on gov.uk)",
+          "Glasses or contact lenses if you need them to read a number plate",
+          "Comfortable shoes"
+        ]
+      }
+    ],
+    "links": [
+      {
+        "label": "Apply for a provisional licence",
+        "url": "https://www.gov.uk/apply-first-provisional-driving-licence"
+      }
+    ]
+  },
+  "centres": {
+    "title": "Test centres",
+    "intro": "The centres we teach for, and what we practise near each.",
+    "items": [
+      {
+        "name": "Goodmayes",
+        "note": "Busy roundabouts and long dual carriageways; we practise both before a test here."
+      },
+      {
+        "name": "Wanstead",
+        "note": "Quieter residential roads with tight turns and parked cars on both sides."
+      },
+      {
+        "name": "Hither Green",
+        "note": "Narrow streets and hill starts; a good centre if you've practised south of the river."
+      }
+    ]
+  },
+  "parents": {
+    "title": "For parents",
+    "intro": "Paying, what happens in a lesson, and practising together.",
+    "blocks": [
+      {
+        "title": "Paying for lessons",
+        "text": "Pay lesson by lesson or for a block in advance, by card or bank transfer. We send a receipt either way."
+      },
+      {
+        "title": "What happens in a lesson",
+        "text": "Each lesson starts with what we'll work on and ends with what to practise. The progress card shows every skill and how far along it is."
+      },
+      {
+        "title": "Practising together",
+        "text": "Private practice between lessons helps more than anything else. gov.uk sets out who can supervise a learner and what insurance you need."
+      },
+      {
+        "title": "What to practise",
+        "items": [
+          "Moving off and stopping on quiet roads",
+          "Mirror checks before every signal",
+          "The manoeuvre from the last lesson, ten minutes at a time"
+        ]
+      }
+    ],
+    "links": [
+      {
+        "label": "Practising with family or friends",
+        "url": "https://www.gov.uk/driving-lessons-learning-to-drive/practising-with-family-or-friends"
+      },
+      {
+        "label": "Ready to Pass?",
+        "url": "https://www.gov.uk/ready-to-pass"
+      }
+    ]
+  },
+  "gearbox": {
+    "title": "Automatic or manual",
+    "intro": "Both are taught here. The licence you get is the difference.",
+    "blocks": [
+      {
+        "title": "Automatic",
+        "text": "No clutch and no gears, so most people learn faster. Pass in an automatic and you can only drive automatics."
+      },
+      {
+        "title": "Manual",
+        "text": "A clutch and gears to learn as well. Pass in a manual and you can drive both."
+      },
+      {
+        "title": "Not sure?",
+        "text": "Book one lesson of each. You'll know by the end of the second."
+      }
+    ],
+    "links": [
+      {
+        "label": "Driving licence categories",
+        "url": "https://www.gov.uk/driving-licence-categories"
+      }
+    ]
+  },
+  "intensive": {
+    "title": "Intensive courses",
+    "intro": "Thirty hours over one to two weeks, for when you need to drive soon.",
+    "blocks": [
+      {
+        "title": "Who it suits",
+        "text": "People who've had some lessons already, or who learn best with a lot of driving close together. If you've never driven, start with a few weekly lessons first."
+      },
+      {
+        "title": "How the days run",
+        "items": [
+          "Three hours a day, with a break in the middle",
+          "The same car and instructor every day",
+          "A mock test on the last full day"
+        ]
+      },
+      {
+        "title": "Your test",
+        "text": "Book the practical test yourself, early: the course is planned around the date you get."
+      }
+    ],
+    "links": [
+      {
+        "label": "Book your driving test",
+        "url": "https://www.gov.uk/book-driving-test"
+      }
+    ]
+  },
+  "theory": {
+    "title": "Theory test help",
+    "intro": "The theory test comes first. We'll help you get it done.",
+    "photo": {
+      "src": "img/road.webp",
+      "width": 1200,
+      "height": 800,
+      "alt": "The road ahead through a rain-flecked windscreen",
+      "credit": "Photo: GVZ 42, Unsplash"
+    },
+    "blocks": [
+      {
+        "title": "Hazard perception",
+        "text": "We point out developing hazards on real roads during lessons, so the clips make sense when you see them."
+      },
+      {
+        "title": "Before you book",
+        "items": [
+          "A provisional licence",
+          "The official DVSA revision material or app",
+          "A few mock tests scoring well"
+        ]
+      }
+    ],
+    "links": [
+      {
+        "label": "Book your theory test",
+        "url": "https://www.gov.uk/book-theory-test"
+      }
+    ]
+  },
+  "passPlus": {
+    "title": "Pass Plus and motorway lessons",
+    "intro": "For the first months after you pass.",
+    "blocks": [
+      {
+        "title": "Pass Plus",
+        "text": "Six hours covering town, all weathers, rural roads, night, dual carriageways and motorways. Some insurers offer a discount for it."
+      },
+      {
+        "title": "Motorway lessons",
+        "text": "Learners can take motorway lessons with an approved instructor in a dual-control car. We include them on request."
+      }
+    ],
+    "links": [
+      {
+        "label": "Pass Plus",
+        "url": "https://www.gov.uk/pass-plus"
+      }
+    ],
+    "price": {
+      "label": "Pass Plus, six hours",
+      "amount": 228
+    }
+  },
+  "refresher": {
+    "title": "Refresher lessons",
+    "intro": "For drivers who passed years ago, or feel nervous behind the wheel.",
+    "blocks": [
+      {
+        "title": "The first refresher",
+        "text": "Two hours. We start somewhere quiet, then drive the roads you need to: the school run, the commute, the motorway."
+      },
+      {
+        "title": "In your own car",
+        "text": "If you're insured to drive it, we can take a refresher in your car."
+      }
+    ],
+    "price": {
+      "label": "Two-hour refresher",
+      "amount": 80
+    }
+  },
+  "instructors": {
+    "title": "Instructors",
+    "intro": "Two instructors, both teaching from East London.",
+    "items": [
+      {
+        "name": "Sam",
+        "status": "ADI",
+        "gearboxes": [
+          "manual",
+          "automatic"
+        ],
+        "text": "Calm, patient, and good with nervous drivers. Teaches both gearboxes.",
+        "badge": "123456"
+      },
+      {
+        "name": "Priya",
+        "status": "PDI",
+        "gearboxes": [
+          "automatic"
+        ],
+        "text": "A trainee instructor working towards the final qualifying test, teaching automatic lessons under a DVSA trainee licence."
+      }
+    ],
+    "passRate": {
+      "text": "Our pupils' first-time pass rate was 61%.",
+      "from": "2025-11-01",
+      "to": "2026-10-31"
+    }
+  },
+  "journal": {
+    "title": "Journal",
+    "intro": "Short notes from lessons.",
+    "articles": [
+      {
+        "slug": "mirror-checks",
+        "title": "Mirror, signal, then what?",
+        "intro": "Why the mirror check before a signal is the fault we see most.",
+        "date": "2026-11-03",
+        "body": [
+          "Most learners check their mirrors. The fault is checking them too late, after the signal, or not acting on what they saw.",
+          "The order is mirrors, signal, then position and speed. Practise saying it out loud on quiet roads until it's automatic."
+        ],
+        "links": [
+          {
+            "label": "The Highway Code",
+            "url": "https://www.gov.uk/guidance/the-highway-code"
+          }
+        ]
+      },
+      {
+        "slug": "test-day-nerves",
+        "title": "Test-day nerves",
+        "intro": "What we do in the hour before a test.",
+        "date": "2026-10-20",
+        "body": [
+          "We drive for forty minutes before the test, on roads you know, then arrive at the centre with ten minutes to spare.",
+          "Nerves are normal. The examiner isn't trying to catch you out; they want to see safe, independent driving."
+        ]
+      }
+    ]
+  },
+  "questions": [
+    {
+      "topic": "Starting",
+      "q": "What do I need before my first lesson?",
+      "a": "A provisional driving licence. Bring it to the first lesson and we'll check it.",
+      "home": true
+    },
+    {
+      "topic": "Starting",
+      "q": "How many lessons will I need?",
+      "a": "The DVSA's average is about 45 hours of lessons and 22 hours of private practice. Some people need fewer, some more. We'll tell you honestly as you go.",
+      "home": true
+    },
+    {
+      "topic": "Prices",
+      "q": "Do I have to pay for a block up front?",
+      "a": "No. Pay lesson by lesson, or for a block in advance if you want the saving.",
+      "home": true
+    },
+    {
+      "topic": "Prices",
+      "q": "What if I need to cancel?",
+      "a": "Cancel 48 hours before and there's nothing to pay."
+    },
+    {
+      "topic": "Lessons",
+      "q": "Can you pick me up from school?",
+      "a": "Yes, from home, school, college or work in the areas we cover.",
+      "home": true
+    },
+    {
+      "topic": "Lessons",
+      "q": "Do you teach in automatic?",
+      "a": "Yes, both manual and automatic."
+    },
+    {
+      "topic": "Tests",
+      "q": "Will you take me to my test?",
+      "a": "Yes, in the car you learned in. Book the test on gov.uk and tell us the date."
+    }
+  ],
+  "visitInfo": {
+    "kicker": "Your first lesson",
+    "title": "Where lessons *start.*",
+    "intro": "From your door. Or from the office by Westferry DLR, if you'd rather.",
+    "checked": "2026-11",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "Westferry DLR",
+        "origin": "Westferry DLR station, London",
+        "minutes": 2,
+        "steps": [
+          "Leave Westferry station by the main exit",
+          "Turn left onto Westferry Road",
+          "Saltwell Yard is the first gate on the right"
+        ]
+      },
+      {
+        "mode": "bus",
+        "from": "Buses D3, D7 and 135",
+        "stop": "Westferry Road",
+        "minutes": 3,
+        "steps": [
+          "Get off at Westferry Road",
+          "Walk back to the yard gate"
+        ]
+      }
+    ],
+    "parking": [
+      {
+        "name": "Pay-by-phone bays on Westferry Road",
+        "walk": 2,
+        "paid": "always"
+      }
+    ]
+  },
+  "gallery": {
+    "source": "photos",
+    "photos": [
+      {
+        "src": "img/car.webp",
+        "width": 1600,
+        "height": 1067,
+        "alt": "A dark grey hatchback on a dual carriageway",
+        "caption": "The lesson car"
+      },
+      {
+        "src": "img/wheel.webp",
+        "width": 1200,
+        "height": 800,
+        "alt": "A driver's hand resting on a steering wheel",
+        "caption": "Hands at ten to two, or not"
+      },
+      {
+        "src": "img/road.webp",
+        "width": 1200,
+        "height": 800,
+        "alt": "The road ahead through a rain-flecked windscreen",
+        "caption": "Driving in the rain"
+      }
+    ]
+  },
+  "vouchers": {
+    "amounts": [
+      76,
+      360,
+      1110
+    ],
+    "custom": {
+      "min": 38,
+      "max": 1500
+    },
+    "validMonths": 12,
+    "howToBuy": "We reply with a payment link. The voucher comes as a card by post or a picture on WhatsApp.",
+    "terms": "Towards any lesson, block or course. Not exchangeable for cash."
+  },
+  "seasons": [
+    {
+      "name": "Christmas",
+      "from": "2026-12-01",
+      "to": "2027-01-01",
+      "banner": "No lessons on 25 and 26 December. Driving lessons make a good present.",
+      "link": {
+        "label": "Vouchers",
+        "href": "/#vouchers"
+      }
+    }
+  ],
+  "passed": {
+    "title": "Passed",
+    "intro": "Pupils who passed, on our Instagram.",
+    "consent": "Every photo is shared with the pupil's agreement."
+  }
+}

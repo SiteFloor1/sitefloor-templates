@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: theory
+permalink: theory.html
+feature: driving-theory
+eleventyComputed:
+  title: "{{ site.theory.title | plain }}"
+  description: "Theory test help with {{ site.business.name }}, {{ site.location.locality }}."
+---
+{% include "kits/driving/features/driving-theory/driving-theory.njk" %}

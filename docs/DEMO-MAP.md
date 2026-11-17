@@ -150,6 +150,15 @@ This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` 
 Taken by Varnell: the strip-light tube as dividers, stages and focus; the headlight hero; the inspection light; the
 shared SUV, saloon and hatch in a dark bay, with the film-coverage builder.
 
+## Driving instructors
+_From `docs/trades/driving/demo-map.md`._
+
+This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` (generated) before proposing a look.
+
+| Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
+|---|---|---|---|---|---|---|---|
+| Wenlow | driving instructor, `driving`, `verge` | premium practical, cool light grey with white cards | a beech hedge in spring | beech green #3F8A2C on #F1F2EF | Lexend / Lexend | four answer cards on the first screen: prices, do you cover me, next free lessons, when could I pass and the cost | its own |
+
 ## Electricians
 _From `docs/trades/electrician/demo-map.md`._
 

@@ -1,0 +1,27 @@
+{#- When could I pass? (DRIVE-6) and the cost to pass: lessons a week, hours so far and the theory test give the weeks
+    to test-ready on the DVSA's average and the cost, from the instructor's prices and gov.uk's fees. Labelled an
+    estimate; never a promise. Without JavaScript, the DVSA's averages in a sentence. -#}
+{%- set p = site.planner %}
+<article class="dv-card dv-pass" id="pass" data-feature="driving-pass" aria-labelledby="dpp-h"{{ 'driving-pass' | tierAttr | safe }}>
+  <button class="dv-mh" type="button" aria-expanded="false" data-dv-open data-js-only><span>{{ p.title }}</span><em data-pp-m>About {{ govuk.dvsaHours }} hours</em></button>
+  <div class="dv-body">
+  <h2 class="dv-ct" id="dpp-h">{{ p.title }}</h2>
+  <noscript><p>The DVSA says most learners need about {{ govuk.dvsaHours }} hours of lessons and {{ govuk.dvsaPractice }} hours of private practice.</p></noscript>
+  <div data-js-only>
+    <p class="dv-lbl" id="pp-w">{{ p.intro or "Lessons a week" }}</p>
+    <div class="dv-chips" role="group" aria-labelledby="pp-w">
+      {%- for c in p.perWeek %}<button type="button" aria-pressed="{{ 'true' if c.default else 'false' }}" data-pp-h="{{ c.hours }}">{{ c.label }}</button>{% endfor %}
+      {%- if p.intensive %}<button type="button" aria-pressed="false" data-pp-h="intensive">Intensive</button>{% endif %}
+    </div>
+    <div class="dv-so">
+      <span class="dv-step">Hours so far <button type="button" data-pp-minus aria-label="Five hours fewer">−</button><output data-pp-so aria-live="polite">0</output><button type="button" data-pp-plus aria-label="Five hours more">+</button></span>
+      <label><input type="checkbox" data-pp-theory> Theory passed</label>
+    </div>
+    <div class="dv-result" aria-live="polite">
+      <div><p class="dv-big" data-pp-when></p><small data-pp-date></small></div>
+      <div><p class="dv-big" data-pp-cost></p><small data-pp-costline></small></div>
+    </div>
+  </div>
+  <p class="dv-foot">An estimate from DVSA averages and our prices, not a promise: your instructor says when you're ready. Test fees from <a href="{{ site.fees.source }}">gov.uk</a>, checked {{ site.fees.checked | ukDate }}<span data-pp-stale hidden>; check gov.uk for today's</span>.</p>
+  </div>
+</article>

@@ -1,0 +1,12 @@
+{#- An inner page's opening: where you are, the page's name, its line; a photograph beside it if the page has one.
+    Set `ph` = { title, intro, photo }. -#}
+<header class="dv-ph"><div class="wrap dv-ph-in{% if ph.photo %} has-photo{% endif %}">
+  <div>
+    <nav class="dv-crumb" aria-label="Breadcrumb"><a href="{{ 'index' | href }}">{{ site.business.name }}</a></nav>
+    <h1>{{ ph.title | markup | safe }}</h1>
+    {%- if ph.intro %}<p class="dv-ph-i">{{ ph.intro }}</p>{% endif %}
+  </div>
+  {%- if ph.photo %}
+  <figure><img src="{{ ph.photo.src | img }}" alt="{{ ph.photo.alt }}" width="{{ ph.photo.width }}" height="{{ ph.photo.height }}"{% if ph.photo.focus %} style="object-position:{{ ph.photo.focus }}"{% endif %} fetchpriority="high" decoding="async">{% if ph.photo.credit %}<figcaption>{{ ph.photo.credit }}</figcaption>{% endif %}</figure>
+  {%- endif %}
+</div></header>
