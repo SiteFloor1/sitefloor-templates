@@ -1,0 +1,25 @@
+{#- Taroub footer: the name in the display face, where the studio is and how to reach it, the week's hours, the pages
+    in a row, the photographers' credits, then the Sitefloor credit. Left-aligned to the wall. -#}
+{%- set parts = (site.pieces | partsWithPages) if ("modest-category-pages" | enabled) else [] %}
+<footer class="foot tr-foot"><div class="tr-foot-in">
+  <div class="tr-foot-a">
+    <p class="tr-foot-mark">{{ site.business.name }}</p>
+    <p>{{ site.hero.kicker }}</p>
+    <address>{{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}<br>
+      <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a>{% if site.contact.email %} · <a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>{% endif %}</address>
+  </div>
+  <ul class="tr-foot-hours" aria-label="Opening hours">
+    {%- for row in site.hours | hoursRows %}<li data-day="{{ row.dayIndex }}"><span>{{ row.day }}</span> {{ row.label }}</li>{% endfor %}
+  </ul>
+  <nav class="tr-foot-links" aria-label="Footer">
+    <a href="{{ 'index' | href }}">Home</a>
+    {%- for c in parts %}<a href="{{ c.id | href }}"{{ "modest-category-pages" | tierAttr | safe }}>{{ c.name }}</a>{% endfor %}
+    {%- for item in site.nav | navItems(pageId) %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}>{{ item.label }}</a>{% endfor %}
+    {%- if "custom-pages" | enabled %}{% for pg in site.pages %}<a href="{{ pg.slug | href }}"{{ "custom-pages" | tierAttr | safe }}>{{ pg.title }}</a>{% endfor %}{% endif %}
+    <a href="{{ 'privacy' | href }}">Privacy</a>
+  </nav>
+  {%- if site.hero.credit or (site.hemLine and site.hemLine.credit) %}
+  <p class="tr-foot-cr">{{ site.hero.credit }}{% if site.hero.credit and site.hemLine and site.hemLine.credit %}. {% endif %}{% if site.hemLine and site.hemLine.credit %}{{ site.hemLine.credit }}{% endif %}.</p>
+  {%- endif %}
+  <p class="tr-foot-by"><a class="by" href="https://sitefloor.com" rel="noopener">Website by <b>Sitefloor</b></a></p>
+</div></footer>

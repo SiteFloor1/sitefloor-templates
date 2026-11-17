@@ -1,0 +1,7 @@
+{#- One part of the collection as a page (Abayas, Occasion wear, Hijabs and accessories): every piece in it, with its
+    line, price, lengths and model line. Expects `c`. -#}
+{%- set ph = { title: c.page.title, intro: c.page.intro } %}
+{% include "kits/modest/partials/page-head.njk" %}
+<section class="md-cat" data-feature="modest-category-pages" aria-label="{{ c.name | plain }}"><div class="wrap">
+  <ul class="md-pieces">{% for p in site.pieces | inPart(c.id) %}{% include "kits/modest/partials/piece.njk" %}{% endfor %}</ul>
+</div></section>
