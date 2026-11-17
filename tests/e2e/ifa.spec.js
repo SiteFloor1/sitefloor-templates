@@ -114,12 +114,11 @@ test("on a phone the bar never covers the footer's last line, and the card never
   await page.setViewportSize({ width: 390, height: 844 });
   const srv = await start(demo);
   await page.goto(srv.base + "/");
-  await page.evaluate(() => window.scrollTo({ top: document.body.scrollHeight, behavior: "instant" }));
-  const bar = await page.locator(".st-bar").boundingBox();
-  await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
   const credit = await page.locator(".st-photo figcaption").boundingBox();
   const card = await page.locator(".st-card").boundingBox();
   expect(credit && card && credit.y + credit.height <= card.y).toBeTruthy(); // the photo credit isn't under the card
+  await page.evaluate(() => window.scrollTo({ top: document.body.scrollHeight, behavior: "instant" }));
+  const bar = await page.locator(".st-bar").boundingBox();
   const by = await page.locator(".st-foot-by").boundingBox();
   expect(bar && by && by.y + by.height <= bar.y + 1).toBeTruthy();
   await srv.close();
