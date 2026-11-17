@@ -99,6 +99,7 @@ A case study is a design too: don't reuse these in a new look or another case st
 | Pellow & Garth (construction) | case-studies/pellow-garth | construction | Big Shoulders Stencil Display | Kumbh Sans | |
 | Saffron & Ash (restaurant) | case-studies/saffron-and-ash | restaurant | Instrument Serif | Instrument Sans | |
 | Selwyn Orr (hair salon) | case-studies/selwyn-orr | hair | Darker Grotesque | Public Sans | |
+| Taroub (modest fashion) | case-studies/taroub | modest | Shippori Mincho | Afacad | |
 | Tollgarth (garden design) | case-studies/tollgarth | landscaping | Cinzel | Alegreya | |
 | Varnell (car detailing) | case-studies/varnell | detailing | Michroma | Geist | Geist Mono |
 | Velvet Spoon (dessert shop) | case-studies/velvet-spoon | dessert | Gilda Display | Albert Sans | |

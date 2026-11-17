@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Taroub Case Study</title>
+<meta name="description" content="Where the hem falls: an exhibition of Taroub, a website for an abaya studio, hung in seven rooms. Find the length that clears the floor in your own shoes.">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="icon" href="data:,">
+<link rel="preload" href="media/fonts/shippori-mincho-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="media/fonts/afacad-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+/* Layout: the exhibition. The case study is hung as a gallery show of one website, "Where the hem falls", in seven
+   rooms and an entrance. The entrance is the exhibit you can touch: the Layl, full height, with the shop's five
+   lengths drawn across her as hairlines; tell the wall label your shoulder-to-floor and your shoes, and the length
+   that clears your floor lights in saffron with the gap beside it. Then a plan of the show, the rooms (each a framed
+   screen, a phone on a plinth or a film you start yourself, and a museum wall label), the plans as three admission
+   tickets, the catalogue notes, and the exit through the shop. Ground: Taroub's warm ivory; ink; one saffron accent;
+   mats and plinths in two lighter ivories. Type: Shippori Mincho and Afacad (Taroub's own), Manrope for Sitefloor.
+   Motion: a line moving to its length, nothing else; no film plays until asked. */
+@font-face { font-family: "Shippori Mincho"; font-weight: 400; font-display: swap; src: url("media/fonts/shippori-mincho-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Shippori Mincho"; font-weight: 500; font-display: swap; src: url("media/fonts/shippori-mincho-latin-500-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Afacad"; font-weight: 400; font-display: swap; src: url("media/fonts/afacad-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Afacad"; font-weight: 500; font-display: swap; src: url("media/fonts/afacad-latin-500-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Manrope"; font-weight: 600; font-display: swap; src: url("media/fonts/manrope-latin-600-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Manrope"; font-weight: 700; font-display: swap; src: url("media/fonts/manrope-latin-700-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+/* Size-matched stand-ins (the demo's own measurements), so nothing re-wraps when the fonts arrive. */
+@font-face { font-family: "Mincho Fallback"; src: local("Times New Roman"), local("Liberation Serif"); size-adjust: 117%; ascent-override: 99.1%; descent-override: 24.6%; line-gap-override: 0%; }
+@font-face { font-family: "Afacad Fallback"; font-weight: 100 449; src: local("Arial"), local("Liberation Sans"); size-adjust: 89.5%; ascent-override: 111.7%; descent-override: 37.2%; line-gap-override: 0%; }
+@font-face { font-family: "Afacad Fallback"; font-weight: 450 900; src: local("Arial Bold"), local("Liberation Sans Bold"), local("Arial"); size-adjust: 82.9%; ascent-override: 120.6%; descent-override: 40.2%; line-gap-override: 0%; }
+:root {
+  --wall: #F6F1E9; --mat: #FBF8F2; --plinth: #EFE8DE; --plinth-2: #E6DDD0;
+  --ink: #211C18; --soft: #675F57; --rule: #E0D6CA; --rule-2: #CBBFB1;
+  --saffron: #9A561B; --saffron-wash: rgba(154, 86, 27, .08);
+  --display: "Shippori Mincho", "Mincho Fallback", "Times New Roman", serif;
+  --body: "Afacad", "Afacad Fallback", Arial, sans-serif;
+  --brand: "Manrope", Arial, sans-serif;
+  --sf-paper: #FBFAF7; --sf-ink: #0E0F11; --sf-tomato: #E8613C; --sf-line: rgba(14,15,17,.12);
+  --edge: clamp(20px, 4vw, 56px);
+  --room: clamp(96px, 13vw, 200px);
+  color-scheme: light;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--wall); -webkit-text-size-adjust: 100%; scroll-padding-top: 80px; font-synthesis: none; }
+body { margin: 0; background: var(--wall); color: var(--ink); font: 400 18px/1.55 var(--body); -webkit-font-smoothing: antialiased; }
+img, video, svg { display: block; max-width: 100%; }
+h1, h2, h3 { margin: 0; font-family: var(--display); font-weight: 400; line-height: 1.04; text-wrap: balance; }
+p { margin: 0; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.gut { padding-left: max(var(--edge), env(safe-area-inset-left, 0px)); padding-right: max(var(--edge), env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 1440px; margin: 0 auto; }
+
+/* ------------------------------------------------------------------ Sitefloor bar (shared) */
+.sfbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--sf-paper); color: var(--sf-ink); border-bottom: 1px solid var(--sf-line); }
+.sfbar .wrap { display: flex; justify-content: space-between; align-items: center; height: 66px; gap: 16px; }
+.wm { display: inline-flex; align-items: center; font: 700 22px var(--brand); letter-spacing: -.04em; text-decoration: none; color: var(--sf-ink); }
+.wm svg { margin: 0 1px; }
+.sfbar nav { display: flex; gap: 28px; font-family: var(--brand); font-size: 14px; font-weight: 600; }
+.sfbar nav a { text-decoration: none; color: var(--sf-ink); }
+.sfbar nav a[aria-current] { box-shadow: inset 0 -1.5px 0 var(--sf-ink); }
+.sfbtn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 20px; background: var(--sf-ink); color: var(--sf-paper); font: 700 12px var(--brand); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; }
+.sfbtn:hover { background: var(--sf-tomato); }
+@media (max-width: 760px) { .sfbar nav { display: none; } }
+@media (max-width: 420px) { .sfbar .sfbtn { display: none; } }
+
+/* ------------------------------------------------------------------ the wall label: a museum label, everywhere */
+.label { font-size: 15px; line-height: 1.45; color: var(--soft); max-width: 300px; }
+.label > b { display: block; font: 400 22px/1.15 var(--display); color: var(--ink); margin-bottom: 4px; }
+.label .by { color: var(--ink); }
+.label .medium { margin-top: 10px; }
+.label .credit { margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--rule-2); font-size: 13px; letter-spacing: .02em; }
+.label .credit span { color: var(--saffron); }
+
+/* ------------------------------------------------------------------ the entrance: the exhibit you can touch */
+.entrance { padding-top: clamp(28px, 4vw, 56px); padding-bottom: clamp(48px, 6vw, 88px); }
+.entrance .wrap { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 540px) minmax(0, .95fr); gap: clamp(24px, 3.4vw, 56px); align-items: end; }
+.title { align-self: stretch; display: flex; flex-direction: column; justify-content: space-between; gap: 40px; padding-bottom: 6px; }
+.title .show { font: 500 13px var(--body); letter-spacing: .16em; text-transform: uppercase; color: var(--soft); }
+.title h1 { font-size: clamp(50px, 5.2vw, 88px); line-height: .98; letter-spacing: -.012em; }
+.title h1 em { font-style: normal; color: var(--saffron); }
+.title .sub { margin-top: 22px; max-width: 26ch; color: var(--soft); font-size: 19px; }
+.title .when { font-size: 15px; color: var(--soft); border-top: 1px solid var(--rule-2); padding-top: 12px; max-width: 300px; }
+.title .when b { color: var(--ink); font-weight: 500; }
+
+.hang { position: relative; margin: 0; background: #CFC4BA; aspect-ratio: 2 / 3; }
+.hang img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.hang .ln { position: absolute; left: 0; right: 0; height: 0; border-top: 1px solid rgba(246, 241, 233, .55); transition: top .7s cubic-bezier(.3,.7,.2,1), border-color .4s; }
+.hang .ln span { position: absolute; right: 10px; top: -8px; line-height: 16px; font: 500 12px var(--body); color: rgba(246, 241, 233, .8); font-variant-numeric: tabular-nums; letter-spacing: .04em; }
+.hang .ln.on { border-top: 2px solid var(--saffron); }
+.hang .ln.on span { color: #F6F1E9; background: var(--saffron); padding: 0 6px; }
+.hang .ln:nth-child(even) span { right: 44px; }
+.hang .fl { position: absolute; left: 0; right: 0; border-top: 1px dashed #F6F1E9; transition: top .7s cubic-bezier(.3,.7,.2,1); }
+.hang .fl span { position: absolute; left: 10px; top: 4px; font: 500 12px var(--body); color: #F6F1E9; letter-spacing: .06em; text-transform: uppercase; }
+.hang .gap { position: absolute; right: 80px; width: 0; border-left: 1px solid #F6F1E9; transition: top .7s cubic-bezier(.3,.7,.2,1), height .7s cubic-bezier(.3,.7,.2,1); }
+.hang .gap span { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font: 400 24px var(--display); color: #F6F1E9; white-space: nowrap; text-shadow: 0 1px 6px rgba(0,0,0,.45); }
+.hang figcaption { position: absolute; left: 10px; top: 8px; font-size: 11px; color: rgba(246,241,233,.8); }
+.hang [data-lines] .ln span { display: none; }
+.hang [data-lines] .gap { display: none !important; }
+/* the detail: the last inches of the same photograph, enlarged 2.4 times, with the lengths labelled */
+.detail { position: absolute; left: -26%; bottom: 16%; width: 56%; aspect-ratio: 4 / 3; overflow: hidden; background: #CFC4BA; box-shadow: 0 0 0 1px var(--ink), 0 24px 48px -24px rgba(33, 28, 24, .6); }
+.detail img { position: absolute; max-width: none; width: 428.6%; height: auto; left: -164.4%; top: -737.1%; }
+.detail .dk { position: absolute; left: 10px; top: 8px; font: 500 11px var(--body); letter-spacing: .14em; text-transform: uppercase; color: #F6F1E9; }
+.detail .ln span { font-size: 13px; }
+@media (prefers-reduced-motion: reduce) { .hang .ln, .hang .fl, .hang .gap { transition: none; } }
+
+.touch { padding-bottom: 6px; }
+.touch .label { max-width: 340px; }
+.touch .label > b { font-size: 34px; }
+.ask { margin-top: 18px; font: 400 22px/1.5 var(--display); color: var(--ink); }
+.v { font: inherit; color: inherit; background: none; border: 0; border-bottom: 1px solid var(--saffron); padding: 0; cursor: pointer; min-height: 34px; font-variant-numeric: tabular-nums; }
+.pm { display: inline-flex; gap: 4px; margin-left: 4px; vertical-align: 3px; }
+.pm button { width: 32px; height: 32px; border: 1px solid var(--rule-2); background: none; cursor: pointer; font-size: 17px; line-height: 1; }
+.answer { margin-top: 18px; font: 400 26px/1.25 var(--display); min-height: 2.5em; color: var(--ink); }
+.answer b { font-weight: 500; color: var(--saffron); }
+.touch .hint { margin-top: 10px; font-size: 14px; color: var(--soft); }
+
+/* the plan of the show */
+.plan { padding-bottom: var(--room); }
+.plan .wrap { border-top: 1px solid var(--rule-2); padding-top: 22px; display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 24px; }
+.plan h2 { font-size: 22px; }
+.plan ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border-left: 1px solid var(--rule-2); }
+.plan li { border-right: 1px solid var(--rule-2); border-bottom: 1px solid var(--rule-2); }
+.plan li:nth-child(-n+4) { border-top: 1px solid var(--rule-2); }
+.plan a { display: grid; grid-template-columns: 2.6em 1fr; align-items: baseline; gap: 6px; min-height: 64px; padding: 16px; text-decoration: none; }
+.plan a:hover { background: var(--plinth); }
+.plan a i { font: normal 400 20px var(--display); color: var(--saffron); }
+.plan a span { font-size: 16px; }
+
+/* ------------------------------------------------------------------ rooms */
+.room { padding-bottom: var(--room); }
+.rh { display: grid; grid-template-columns: minmax(120px, 1fr) minmax(0, 3fr); gap: 24px; align-items: baseline; margin-bottom: clamp(36px, 5vw, 72px); }
+.rh .no { font: 400 clamp(64px, 9vw, 140px)/.8 var(--display); color: var(--plinth-2); letter-spacing: -.02em; }
+.rh h2 { font-size: clamp(36px, 4.4vw, 64px); }
+.rh p { margin-top: 14px; max-width: 46ch; color: var(--soft); font-size: 19px; }
+.hung { display: grid; grid-template-columns: minmax(0, 3fr) minmax(220px, 1fr); gap: clamp(24px, 3.5vw, 56px); align-items: end; }
+.hung.flip { grid-template-columns: minmax(220px, 1fr) minmax(0, 3fr); }
+.hung.flip .label { order: -1; justify-self: end; text-align: right; }
+
+/* a framed screen: an ivory mat inside a fine ink frame */
+.frame { margin: 0; padding: clamp(14px, 2.4vw, 36px); background: var(--mat); box-shadow: 0 0 0 1px var(--ink), 0 28px 60px -36px rgba(33, 28, 24, .45); }
+.frame img { width: 100%; height: auto; box-shadow: 0 0 0 1px var(--rule); }
+
+/* a phone on a plinth */
+.plinths { display: flex; gap: clamp(16px, 3vw, 48px); align-items: flex-end; flex-wrap: wrap; }
+.phone { position: relative; width: min(300px, 100%); margin: 0; }
+.phone .dev { position: relative; border-radius: 38px; padding: 9px; background: var(--ink); box-shadow: 0 30px 50px -30px rgba(33, 28, 24, .55); }
+.phone .dev img, .phone .dev video { width: 100%; height: auto; aspect-ratio: 390 / 844; object-fit: cover; border-radius: 30px; background: var(--wall); }
+.phone::after { content: ""; display: block; height: 18px; margin: 0 -18px; background: var(--plinth-2); }
+.play { position: absolute; inset: 9px; display: grid; place-items: center; border: 0; border-radius: 30px; background: transparent; cursor: pointer; }
+.play span { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 20px; background: var(--wall); color: var(--ink); box-shadow: 0 0 0 1px var(--ink); font-weight: 500; }
+.play span::before { content: ""; width: 0; height: 0; border-left: 10px solid var(--saffron); border-top: 6px solid transparent; border-bottom: 6px solid transparent; }
+.play[data-state="playing"] span { opacity: 0; }
+.play[data-state="playing"]:hover span, .play[data-state="playing"]:focus-visible span { opacity: 1; }
+.play[data-state="playing"] span::before { border: 0; width: 10px; height: 12px; border-left: 3px solid var(--saffron); border-right: 3px solid var(--saffron); }
+
+/* Room III: a live date, worked out today */
+.today { display: grid; grid-template-columns: minmax(0, 3fr) minmax(220px, 1fr); gap: clamp(24px, 3.5vw, 56px); align-items: end; }
+.cal { background: var(--mat); box-shadow: 0 0 0 1px var(--ink); padding: clamp(24px, 4vw, 56px); }
+.cal .k { font-size: 14px; letter-spacing: .14em; text-transform: uppercase; color: var(--soft); }
+.cal .big { margin-top: 18px; font: 400 clamp(40px, 6vw, 92px)/1 var(--display); }
+.cal .big b { font-weight: 400; color: var(--saffron); }
+.cal .s { margin-top: 18px; font-size: 19px; color: var(--soft); max-width: 52ch; }
+.cal table { margin-top: 28px; width: 100%; border-collapse: collapse; }
+.cal td { padding: 14px 0; border-top: 1px solid var(--rule); vertical-align: baseline; }
+.cal td:nth-child(2) { font: 400 20px var(--display); }
+.cal td:last-child { text-align: right; color: var(--saffron); white-space: nowrap; }
+.cal tr.shut td { color: var(--soft); }
+.cal tr.shut td:nth-child(2) { text-decoration: line-through; text-decoration-thickness: 1px; }
+
+/* ------------------------------------------------------------------ admission: the plans as tickets */
+.tickets { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2.4vw, 32px); }
+.ticket { position: relative; display: grid; grid-template-rows: auto 1fr auto; background: var(--mat); box-shadow: 0 0 0 1px var(--ink); }
+.ticket::before, .ticket::after { content: ""; position: absolute; top: 132px; width: 22px; height: 22px; border-radius: 50%; background: var(--wall); box-shadow: inset 0 0 0 1px var(--ink); }
+.ticket::before { left: -11px; clip-path: inset(0 0 0 50%); }
+.ticket::after { right: -11px; clip-path: inset(0 50% 0 0); }
+.stub { height: 143px; padding: 24px 28px 0; border-bottom: 1px dashed var(--ink); }
+.stub .k { font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: var(--soft); }
+.stub h3 { margin-top: 10px; font-size: 38px; }
+.stub .price { margin-top: 6px; font-variant-numeric: tabular-nums; }
+.ticket ul { list-style: none; margin: 0; padding: 22px 28px; display: grid; gap: 10px; align-content: start; }
+.ticket li { padding-left: 18px; position: relative; }
+.ticket li::before { content: ""; position: absolute; left: 0; top: .72em; width: 8px; border-top: 1px solid var(--saffron); }
+.ticket .admit { padding: 14px 28px 20px; font-size: 14px; color: var(--soft); border-top: 1px solid var(--rule); }
+.ticket.sig { background: var(--ink); color: var(--wall); box-shadow: none; }
+.ticket.sig .stub { border-color: rgba(246, 241, 233, .5); }
+.ticket.sig .k, .ticket.sig .admit { color: #CDC3B8; }
+.ticket.sig .admit { border-color: rgba(246, 241, 233, .18); }
+.ticket.sig li::before { border-color: #E2A66C; }
+
+/* ------------------------------------------------------------------ catalogue notes */
+.notes { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--ink); }
+.notes div { padding: 24px 24px 24px 0; border-bottom: 1px solid var(--rule-2); }
+.notes div + div { padding-left: 24px; border-left: 1px solid var(--rule-2); }
+.notes b { display: block; font: 400 clamp(44px, 5vw, 72px)/1 var(--display); }
+.notes span { display: block; margin-top: 12px; font-size: 15px; color: var(--soft); max-width: 24ch; }
+
+/* ------------------------------------------------------------------ the exit, through the shop */
+.exit { padding-bottom: var(--room); }
+.exit .wrap { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 80px); align-items: end; }
+.exit h2 { font-size: clamp(48px, 6vw, 96px); }
+.exit p { margin-top: 20px; max-width: 44ch; color: var(--soft); font-size: 19px; }
+.acts { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 12px; }
+.btn { display: inline-flex; align-items: center; min-height: 52px; padding: 0 26px; background: var(--ink); color: var(--wall); text-decoration: none; font-weight: 500; }
+.btn:hover { background: #000; }
+.btn.quiet { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.mail { display: block; margin-top: 18px; font-size: 15px; color: var(--soft); }
+.exit figure { margin: 0; display: grid; grid-template-columns: minmax(0, 1fr) 240px; gap: 24px; align-items: end; }
+.exit figure img { width: 100%; height: auto; aspect-ratio: 2 / 3; object-fit: cover; background: #CFC4BA; }
+
+footer { padding-top: 32px; padding-bottom: 40px; border-top: 1px solid var(--rule-2); }
+footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; font-size: 13px; color: var(--soft); }
+footer p { max-width: 110ch; }
+
+/* ------------------------------------------------------------------ narrower walls */
+@media (max-width: 1100px) {
+  .detail { left: 4%; }
+  .entrance .wrap { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .title { grid-column: 1 / -1; flex-direction: row; align-items: flex-end; }
+  .plan ol { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .plan li:nth-child(-n+4) { border-top: 0; }
+  .plan li:nth-child(-n+2) { border-top: 1px solid var(--rule-2); }
+  .notes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .notes div:nth-child(3) { padding-left: 0; border-left: 0; }
+}
+@media (max-width: 860px) {
+  .hung, .hung.flip, .today { grid-template-columns: minmax(0, 1fr); }
+  .hung.flip .label { order: 0; justify-self: start; text-align: left; }
+  .tickets { grid-template-columns: minmax(0, 1fr); }
+  .exit .wrap { grid-template-columns: minmax(0, 1fr); }
+  .rh { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+  .plan .wrap { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 640px) {
+  body { font-size: 17px; }
+  .entrance .wrap { grid-template-columns: minmax(0, 1fr); }
+  .title { flex-direction: column; align-items: stretch; gap: 22px; }
+  .title .when { display: none; }
+  .detail { width: 62%; }
+  .plinths .phone { width: calc(50% - 8px); }
+  .phone .dev { border-radius: 26px; padding: 6px; }
+  .phone .dev img, .phone .dev video, .play { border-radius: 21px; }
+  .play { inset: 6px; }
+  .notes { grid-template-columns: minmax(0, 1fr); }
+  .notes div, .notes div + div { padding-left: 0; border-left: 0; }
+  .exit figure { grid-template-columns: minmax(0, 1fr); }
+  footer .wrap { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="sfbar gut"><div class="wrap">
+  <a class="wm" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su" aria-label="Sitefloor home">sitefl<svg width="28" height="14" viewBox="0 0 42 21" aria-hidden="true"><rect x="1.9" y="1.9" width="38.2" height="17.2" rx="8.6" fill="none" stroke="#0E0F11" stroke-width="3.8"/><circle cx="31.5" cy="10.5" r="5.2" fill="#E8613C"/></svg>r</a>
+  <nav aria-label="Main"><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#live">Features</a><a href="#top" aria-current="page">Work</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#pricing">Pricing</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#guides">Guides</a></nav>
+  <a class="sfbtn" href="#mockup"><span>Free mockup</span><span aria-hidden="true">→</span></a>
+</div></div>
+
+<main id="top">
+
+<!-- ================================================================ the entrance -->
+<section class="entrance gut" aria-labelledby="h1"><div class="wrap">
+  <div class="title">
+    <div>
+      <p class="show">An exhibition in seven rooms</p>
+      <h1 id="h1" style="margin-top: 26px">Where the hem <em>falls.</em></h1>
+      <p class="sub">Taroub, a website for an abaya studio in east London, hung as a show.</p>
+    </div>
+    <p class="when"><b>Taroub</b> · abayas, occasion wear and hijabs · by appointment and online</p>
+  </div>
+
+  <figure class="hang" data-hang>
+    <img src="media/hero.webp" srcset="media/hero-800.webp 800w, media/hero.webp 1500w" sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 560px" width="1500" height="2250" alt="A woman in a black hijab holds open the Layl, a long abaya of fringed black organza over black satin" fetchpriority="high">
+    <figcaption>Photograph: Kazys Photography, Pexels</figcaption>
+    <div data-lines aria-hidden="true"></div>
+    <div class="detail" aria-hidden="true"><img src="media/hero-800.webp" width="800" height="1200" alt=""><div data-dlines></div><span class="dk">Detail · the last inches</span></div>
+  </figure>
+
+  <div class="touch">
+    <div class="label">
+      <b>The Layl</b>
+      <span class="by">Taroub, 2026</span><br>
+      Fringed organza over black satin. £345, in five lengths.
+      <p class="ask" data-js>For a visitor <button type="button" class="v" data-sf aria-label="Shoulder to floor: tap for an inch more">57″</button><span class="pm"><button type="button" data-d="-0.5" aria-label="Half an inch less">−</button><button type="button" data-d="0.5" aria-label="Half an inch more">+</button></span> shoulder to floor, in <button type="button" class="v" data-shoe aria-label="Shoes: tap to change">2″ heels</button>.</p>
+      <p class="answer" data-answer aria-live="polite">Wear the <b>58</b>. It stops 1″ above your floor.</p>
+      <p class="hint">The lines across her are the shop's five lengths, to scale from the shoulder.</p>
+      <p class="credit">On show in <span>Room II</span> · the Signature plan</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- ================================================================ the plan of the show -->
+<nav class="plan gut" aria-labelledby="h-plan"><div class="wrap">
+  <h2 id="h-plan">Plan of the show</h2>
+  <ol>
+    <li><a href="#r1"><i>I</i><span>The hang</span></a></li>
+    <li><a href="#r2"><i>II</i><span>The hem line</span></a></li>
+    <li><a href="#r3"><i>III</i><span>Before Eid</span></a></li>
+    <li><a href="#r4"><i>IV</i><span>The family's list</span></a></li>
+    <li><a href="#r5"><i>V</i><span>Complete the look</span></a></li>
+    <li><a href="#r6"><i>VI</i><span>A private appointment</span></a></li>
+    <li><a href="#r7"><i>VII</i><span>The collection</span></a></li>
+    <li><a href="#admission"><i>—</i><span>Admission</span></a></li>
+  </ol>
+</div></nav>
+
+<!-- ================================================================ I -->
+<section class="room gut" id="r1" aria-labelledby="h-r1"><div class="wrap">
+  <div class="rh"><span class="no" aria-hidden="true">I</span><div><h2 id="h-r1">The hang.</h2><p>Abaya shops show a grid of thumbnails. Taroub opens like a gallery wall: one piece, full height, and its label.</p></div></div>
+  <div class="hung">
+    <figure class="frame"><img src="media/desk-home.webp" width="1440" height="900" alt="Taroub's home page on a laptop: the shop's name, a second piece and the pages as a sentence on the left; the Layl full height in the middle; its name, price and Find your length on the right; the look and its total in a bar along the foot" loading="lazy"></figure>
+    <div class="label">
+      <b>The home page</b>
+      <span class="by">Taroub, 2026</span>
+      <p class="medium">The shop's name, the Ghalia and the pages written as a sentence on the wall; the Layl in the middle; its label to the right. Along the foot, the look she is building and its total.</p>
+      <p class="credit">Every plan · <span>Starter</span>, Plus, Signature</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- ================================================================ II -->
+<section class="room gut" id="r2" aria-labelledby="h-r2"><div class="wrap">
+  <div class="rh"><span class="no" aria-hidden="true">II</span><div><h2 id="h-r2">The hem line.</h2><p>The question behind every abaya return: which length? She answers it standing in her own shoes.</p></div></div>
+  <div class="hung flip">
+    <div class="label">
+      <b>Where the hem falls</b>
+      <span class="by">Taroub, 2026</span>
+      <p class="medium">Her shoulder-to-floor and her shoes in one sentence; the shop's length that clears the floor; beside a real hem, the last inches drawn to scale. "Only know your height?" opens the shop's own chart.</p>
+      <p class="credit">The <span>Signature</span> plan</p>
+    </div>
+    <div class="plinths">
+      <figure class="phone"><div class="dev">
+        <video data-film muted playsinline loop preload="none" poster="media/hem-poster.webp" width="780" height="1688"><source src="media/hem.mp4" type="video/mp4"></video>
+        <button class="play" type="button" data-play aria-label="Play the hem line film"><span>Play</span></button>
+      </div><figcaption class="sr">Film: half an inch less, then flats, 1″ heels and 3″ heels; the answer and the ruler change with each.</figcaption></figure>
+      <figure class="frame" style="flex: 1 1 340px; max-width: 620px"><img src="media/hem.webp" width="1100" height="849" alt="The hem of a black abaya just above a pale marble floor, black pointed heels beneath" loading="lazy"></figure>
+    </div>
+  </div>
+</div></section>
+
+<!-- ================================================================ III -->
+<section class="room gut" id="r3" aria-labelledby="h-r3"><div class="wrap">
+  <div class="rh"><span class="no" aria-hidden="true">III</span><div><h2 id="h-r3">Before Eid.</h2><p>The busiest weeks of the year turn on one question: will it arrive in time? The answer below was worked out today, in your browser, the way Taroub's site does it.</p></div></div>
+  <div class="today">
+    <div class="cal" data-cal>
+      <p class="k">Today, at Taroub</p>
+      <p class="big" data-big>The last UK order date for Eid</p>
+      <p class="s" data-when>Eid follows the moon sighting. Taroub counts back from the first day it may fall.</p>
+      <table data-rows><tbody></tbody></table>
+    </div>
+    <div class="label">
+      <b>Eid last order dates</b>
+      <span class="by">Taroub, 2026</span>
+      <p class="medium">The shop's own cut-offs, counted back from the first day Eid is expected, so the promise holds if it's announced late. When no Eid is ahead in the calendar, the section steps aside rather than guess.</p>
+      <p class="credit">The <span>Plus</span> plan</p>
+    </div>
+  </div>
+  <div class="hung flip" style="margin-top: clamp(40px, 5vw, 72px)">
+    <div class="label">
+      <b>Before Eid, on a phone</b>
+      <span class="by">Taroub, 2026</span>
+      <p class="medium">On the Eid page, above the family's list.</p>
+    </div>
+    <div class="plinths"><figure class="phone"><div class="dev"><img src="media/ph-eiddates.webp" width="780" height="1688" alt="Taroub's Eid dates on a phone: Eid al-Fitr expected between 8 and 12 March 2027, and three last order dates with the days left" loading="lazy"></div></figure></div>
+  </div>
+</div></section>
+
+<!-- ================================================================ IV -->
+<section class="room gut" id="r4" aria-labelledby="h-r4"><div class="wrap">
+  <div class="rh"><span class="no" aria-hidden="true">IV</span><div><h2 id="h-r4">The family's list.</h2><p>Eid is bought for the whole family. One link goes round; each adds a name, a piece and a length; Taroub gets one order.</p></div></div>
+  <div class="hung">
+    <div class="plinths">
+      <figure class="phone"><div class="dev">
+        <video data-film muted playsinline loop preload="none" poster="media/family-poster.webp" width="780" height="1688"><source src="media/family.mp4" type="video/mp4"></video>
+        <button class="play" type="button" data-play aria-label="Play the family list film"><span>Play</span></button>
+      </div><figcaption class="sr">Film: Mum, Huda and Sara each add a piece and a length; the total comes to £945.</figcaption></figure>
+      <figure class="frame" style="flex: 1 1 300px; max-width: 460px; padding: clamp(10px, 1.6vw, 22px)"><img src="media/family-700.webp" width="700" height="1050" alt="Two women side by side in long black abayas and hijabs, one in fringed crepe, one in satin and organza" loading="lazy"></figure>
+    </div>
+    <div class="label">
+      <b>The family's list</b>
+      <span class="by">Taroub, 2026</span>
+      <p class="medium">Kept only in the link itself: nothing is saved anywhere. "Send our order" puts every name, piece, length and the total into one WhatsApp message.</p>
+      <p class="credit">The <span>Signature</span> plan</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- ================================================================ V -->
+<section class="room gut" id="r5" aria-labelledby="h-r5"><div class="wrap">
+  <div class="rh"><span class="no" aria-hidden="true">V</span><div><h2 id="h-r5">Complete the look.</h2><p>The abaya, the hijab worn with it and the inner, in her length, with one total. The look follows her along the foot of every page.</p></div></div>
+  <div class="hung flip">
+    <div class="label">
+      <b>The look and its bar</b>
+      <span class="by">Taroub, 2026</span>
+      <p class="medium">Sent to the shop on WhatsApp, or paid through Taroub's own Stripe link. A payment link has a fixed price, so it only shows while the look matches it; add the slip and she sends it instead.</p>
+      <p class="credit">The <span>Signature</span> plan</p>
+    </div>
+    <div class="plinths">
+      <figure class="frame" style="flex: 1 1 420px"><img src="media/desk-look.webp" width="1440" height="900" alt="Taroub's look page on a laptop: the Layl beside its list (the Layl in the 58, the long jersey hijab, the inner slip to add) and a total of £373" loading="lazy"></figure>
+      <figure class="phone" style="width: min(240px, 100%)"><div class="dev">
+        <video data-film muted playsinline loop preload="none" poster="media/look-poster.webp" width="780" height="1688"><source src="media/look.mp4" type="video/mp4"></video>
+        <button class="play" type="button" data-play aria-label="Play the complete the look film"><span>Play</span></button>
+      </div><figcaption class="sr">Film: the length changes to 56, the slip is added and the total becomes £418; the payment link steps aside.</figcaption></figure>
+    </div>
+  </div>
+</div></section>
+
+<!-- ================================================================ VI -->
+<section class="room gut" id="r6" aria-labelledby="h-r6"><div class="wrap">
+  <div class="rh"><span class="no" aria-hidden="true">VI</span><div><h2 id="h-r6">A private appointment.</h2><p>For the bride and her sisters, or a mother choosing for Eid: an hour in the studio, asked for in one message.</p></div></div>
+  <div class="hung">
+    <div class="plinths">
+      <figure class="phone"><div class="dev"><img src="media/ph-appt.webp" width="780" height="1688" alt="Taroub's appointment request on a phone: Sunday 22 November chosen, 12:30, for three people, for Eid" loading="lazy"></div></figure>
+      <figure class="phone"><div class="dev"><img src="media/ph-length.webp" width="780" height="1688" alt="Taroub's length guide on a phone: 57 inches shoulder to floor in 2-inch heels gives the 58, with the four pieces that come in it" loading="lazy"></div></figure>
+    </div>
+    <div class="label">
+      <b>The studio, and her length</b>
+      <span class="by">Taroub, 2026</span>
+      <p class="medium">Left: the shop's own times on the coming dates, a request it confirms by message. Right: the length guide, with every piece that comes in her length.</p>
+      <p class="credit">The <span>Plus</span> plan</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- ================================================================ VII -->
+<section class="room gut" id="r7" aria-labelledby="h-r7"><div class="wrap">
+  <div class="rh"><span class="no" aria-hidden="true">VII</span><div><h2 id="h-r7">The collection.</h2><p>Every piece large, with its price, the lengths it comes in, and under the photograph what the model wears.</p></div></div>
+  <div class="hung flip">
+    <div class="label">
+      <b>Abayas</b>
+      <span class="by">Taroub, 2026</span>
+      <p class="medium">A page for each part of the collection: abayas, occasion wear, hijabs. Order any piece on WhatsApp.</p>
+      <p class="credit"><span>Starter</span>; a page each on Plus</p>
+    </div>
+    <figure class="frame"><img src="media/desk-coll.webp" width="1440" height="900" alt="Taroub's abayas page on a laptop: the Layl, the Sahar and the Misk, each large with its price and lengths" loading="lazy"></figure>
+  </div>
+</div></section>
+
+<!-- ================================================================ admission -->
+<section class="room gut" id="admission" aria-labelledby="h-adm"><div class="wrap">
+  <div class="rh"><span class="no" aria-hidden="true">—</span><div><h2 id="h-adm">Admission.</h2><p>Three ways in, each a site of your own, with your pieces, prices and lengths.</p></div></div>
+  <div class="tickets">
+    <article class="ticket">
+      <div class="stub"><p class="k">Admits one boutique</p><h3>Starter</h3><p class="price">£99, then £25 a month</p></div>
+      <ul><li>Your home page in this design, with your colours and logo</li><li>The collection, with the model line</li><li>The size guide by height, from your own chart</li><li>Plan your visit, with every question answered</li></ul>
+      <p class="admit">Room I and Room VII</p>
+    </article>
+    <article class="ticket">
+      <div class="stub"><p class="k">Admits one boutique</p><h3>Plus</h3><p class="price">£199, then £30 a month</p></div>
+      <ul><li>Everything in Starter, and up to five pages</li><li>A page for each part of the collection</li><li>The length guide</li><li>Eid last order dates, worked out each day</li><li>Private appointment requests</li></ul>
+      <p class="admit">Rooms I, III, VI and VII</p>
+    </article>
+    <article class="ticket sig">
+      <div class="stub"><p class="k">Admits one boutique</p><h3>Signature</h3><p class="price">£349, then £35 a month</p></div>
+      <ul><li>Everything in Plus, up to twenty pages</li><li>The hem line</li><li>Complete the look, with your own Stripe link</li><li>The family's list for Eid</li><li>Made to measure, and something made only for you</li></ul>
+      <p class="admit">Every room</p>
+    </article>
+  </div>
+</div></section>
+
+<!-- ================================================================ catalogue notes -->
+<section class="room gut" aria-labelledby="h-notes"><div class="wrap">
+  <div class="rh"><span class="no" aria-hidden="true">—</span><div><h2 id="h-notes">Catalogue notes.</h2><p>Measured on a phone, on Taroub's home page.</p></div></div>
+  <div class="notes">
+    <div><b>100</b><span>Lighthouse performance, on a phone</span></div>
+    <div><b>100</b><span>Lighthouse accessibility</span></div>
+    <div><b>1.4s</b><span>Until the Layl is on screen</span></div>
+    <div><b>£0</b><span>A month for the tools behind it: WhatsApp, the link itself, the shop's own Stripe (Stripe's fee per sale aside)</span></div>
+  </div>
+</div></section>
+
+<!-- ================================================================ the exit -->
+<section class="exit gut" id="mockup" aria-labelledby="h-exit"><div class="wrap">
+  <div>
+    <h2 id="h-exit">Exit through the shop.</h2>
+    <p>Send us your pieces, your prices and your length chart. We'll make a free mockup of your home page with your own abaya hung in the middle of it.</p>
+    <div class="acts">
+      <a class="btn" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#free">Get a free mockup</a>
+      <a class="btn quiet" href="https://sitefloor1.github.io/sitefloor-templates/taroub/">Walk through the demo</a>
+    </div>
+    <span class="mail">hello@sitefloor.com</span>
+  </div>
+  <figure>
+    <img src="media/ghalia-600.webp" width="600" height="900" alt="The Ghalia: a black satin abaya with gold lace at the cuffs and hem, worn with a black hijab" loading="lazy">
+    <figcaption class="label"><b>The Ghalia</b><span class="by">Taroub, 2026</span><br>Satin, gold lace at the cuff and hem. £340.</figcaption>
+  </figure>
+</div></section>
+
+</main>
+
+<footer class="gut"><div class="wrap">
+  <p>Taroub is a fictional abaya studio made to show the Sitefloor modest fashion kit. Its pieces, prices, lengths, address and number are demo data. Photographs: Kazys Photography on Pexels and Abdul Raheem Kannath on Unsplash (free licences); models in a photographer's studio, not Taroub's customers. The films and screens are of the Taroub demo. Eid dates are expected dates: Eid follows the moon sighting.</p>
+  <span>© 2026 Sitefloor</span>
+</div></footer>
+
+<script>
+(() => {
+  // ---------------------------------------------------------------- the entrance: the same sums as Taroub's site
+  const LENGTHS = [52, 54, 56, 58, 60];
+  const SHOES = [["flats", 0], ["1″ heels", 1], ["2″ heels", 2], ["3″ heels", 3]];
+  const inches = (n) => { const h = Math.round(n * 2) / 2, w = Math.floor(h); return (w || !(h % 1) ? String(w) : "") + (h % 1 ? "½" : ""); };
+  const pick = (reach) => { let best = null; for (const l of LENGTHS) if (reach - l >= 0.5) best = l; return best; };
+  // Shoulder and floor sit at 29% and 95% of the photograph; the scale makes 59 inches (57″ in 2″ heels) her floor.
+  const SHOULDER = 29, PER_INCH = (95 - 29) / 59;
+  const at = (inch) => SHOULDER + inch * PER_INCH;
+  let sf = 57, shoe = 2;
+  const answer = document.querySelector("[data-answer]");
+  // The detail shows the photograph from 86% of its height, 11.67% of it, so its own positions are rescaled.
+  const D0 = 86, DSPAN = 11.667, inDetail = (pct) => ((pct - D0) / DSPAN) * 100;
+  const sfB = document.querySelector("[data-sf]"), shoeB = document.querySelector("[data-shoe]");
+  const sets = [...document.querySelectorAll("[data-lines], [data-dlines]")].map((box) => {
+    const make = (cls, html) => { const e = document.createElement("span"); e.className = cls; e.innerHTML = html; box.append(e); return e; };
+    return { pos: box.hasAttribute("data-dlines") ? inDetail : (p) => p, marks: Object.fromEntries(LENGTHS.map((l) => [l, make("ln", `<span>${l}</span>`)])), floor: make("fl", "<span>Your floor</span>"), gap: make("gap", "<span></span>") };
+  });
+  const draw = () => {
+    const heel = SHOES[shoe][1], reach = sf + heel, best = pick(reach);
+    sfB.textContent = `${inches(sf)}″`;
+    shoeB.textContent = SHOES[shoe][0];
+    for (const { pos, marks, floor, gap } of sets) {
+      for (const l of LENGTHS) { marks[l].style.top = `${pos(at(l))}%`; marks[l].classList.toggle("on", l === best); marks[l].style.display = l <= reach ? "" : "none"; }
+      floor.style.top = `${Math.min(99.5, pos(at(reach)))}%`;
+      gap.style.display = best ? "" : "none";
+      if (best) { gap.style.top = `${pos(at(best))}%`; gap.style.height = `${pos(at(reach)) - pos(at(best))}%`; gap.firstChild.textContent = `${inches(reach - best)}″`; }
+    }
+    if (best) {
+      answer.innerHTML = `Wear the <b>${best}</b>. It stops ${inches(reach - best)}″ above your floor${heel ? ` in ${SHOES[shoe][0]}` : ""}.`;
+    } else answer.textContent = "Shorter than the shortest length. Taroub would take one up.";
+  };
+  document.querySelectorAll("[data-d]").forEach((b) => b.addEventListener("click", () => { sf = Math.min(62, Math.max(52.5, sf + Number(b.dataset.d))); draw(); }));
+  sfB.addEventListener("click", () => { sf = sf + 1 > 62 ? 52.5 : Math.floor(sf) + 1; draw(); });
+  shoeB.addEventListener("click", () => { shoe = (shoe + 1) % SHOES.length; draw(); });
+  draw();
+
+  // ---------------------------------------------------------------- Room III: Eid, worked out today
+  // Expected windows (the same lunar table as Taroub's site): the first day Eid may fall, and the last.
+  const WINDOWS = [["Eid al-Fitr", "2026-03-18", "2026-03-22"], ["Eid al-Adha", "2026-05-24", "2026-05-29"], ["Eid al-Fitr", "2027-03-08", "2027-03-12"], ["Eid al-Adha", "2027-05-14", "2027-05-19"],
+    ["Eid al-Fitr", "2028-02-25", "2028-02-29"], ["Eid al-Adha", "2028-05-02", "2028-05-07"], ["Eid al-Fitr", "2029-02-13", "2029-02-17"], ["Eid al-Adha", "2029-04-21", "2029-04-26"], ["Eid al-Fitr", "2030-02-03", "2030-02-07"], ["Eid al-Adha", "2030-04-11", "2030-04-16"]];
+  const CUTS = [["Made to measure and alterations", 21], ["UK delivery", 5], ["Collection from the studio", 1]];
+  const DAY = 864e5, ms = (ymd) => Date.parse(`${ymd}T12:00:00Z`), ymd = (t) => new Date(t).toISOString().slice(0, 10);
+  const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const uk = (d, wd = true) => { const t = new Date(ms(d)); return `${wd ? t.toLocaleDateString("en-GB", { weekday: "long", timeZone: "UTC" }) + " " : ""}${t.getUTCDate()} ${MONTHS[t.getUTCMonth()]} ${t.getUTCFullYear()}`; };
+  const today = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/London", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
+  const next = WINDOWS.find((w) => w[2] >= today);
+  const big = document.querySelector("[data-big]"), when = document.querySelector("[data-when]"), body = document.querySelector("[data-rows] tbody");
+  if (next) {
+    const rows = CUTS.map(([label, before]) => { const by = ymd(ms(next[1]) - before * DAY); const left = Math.round((ms(by) - ms(today)) / DAY); return { label, by, left }; });
+    const uk5 = rows[1];
+    big.innerHTML = uk5.left >= 0 ? `UK delivery for ${next[0]}: order <b>${uk5.left === 0 ? "today" : uk5.left === 1 ? "by tomorrow" : `within ${uk5.left} days`}</b>.` : `${next[0]}: <b>collect from the studio</b>.`;
+    when.textContent = `${next[0]} is expected between ${uk(next[1], false)} and ${uk(next[2], false)}, when the moon is sighted. Taroub counts back from the first of those days.`;
+    body.replaceChildren(...rows.map((r) => {
+      const tr = document.createElement("tr"); if (r.left < 0) tr.className = "shut";
+      for (const t of [r.label, `Order by ${uk(r.by)}`, r.left < 0 ? "closed" : r.left === 0 ? "today" : r.left === 1 ? "tomorrow" : `in ${r.left} days`]) tr.append(Object.assign(document.createElement("td"), { textContent: t }));
+      return tr;
+    }));
+  } else { big.textContent = "No Eid in the calendar yet."; when.textContent = "Taroub's site steps aside rather than guess a date."; }
+
+  // ---------------------------------------------------------------- films: nothing plays until asked
+  document.querySelectorAll("[data-play]").forEach((b) => {
+    const v = b.parentElement.querySelector("video");
+    b.addEventListener("click", () => {
+      if (v.paused) { document.querySelectorAll("video[data-film]").forEach((o) => { if (o !== v) { o.pause(); o.parentElement.querySelector("[data-play]").dataset.state = ""; } }); v.play(); b.dataset.state = "playing"; b.querySelector("span").textContent = "Pause"; }
+      else { v.pause(); b.dataset.state = ""; b.querySelector("span").textContent = "Play"; }
+    });
+  });
+})();
+</script>
+</body>
+</html>
