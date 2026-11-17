@@ -1,0 +1,14 @@
+{#- Book us for your party, low on the home page: one line, the date check, and the way to the Book us page. -#}
+{%- set P = site.party %}{% set sec = site.sections.party %}
+<section id="party" class="st-party" aria-labelledby="st-party-h" data-feature="stalls-book"{{ "stalls-book" | tierAttr | safe }}>
+  <div class="wrap st-party-in">
+    <div>{%- set secId = "st-party-h" %}{% include "core/partials/section-head.njk" %}</div>
+    <div class="st-party-check">
+      <label class="st-lab" for="st-pd-home">The day of your party</label>
+      <input class="st-field" type="date" id="st-pd-home" data-pd-date>
+      <p class="st-pd-out" data-pd-out data-state="idle" aria-live="polite">Choose the day of your party.</p>
+      <p class="st-acts"><a class="st-solid" href="{{ 'book-us' | href }}">Book us</a>
+        <a class="st-text" data-pd-ask href="{{ P.message | partyText | wa }}" data-wa-text="{{ P.message | partyText }}" target="_blank" rel="noopener">Ask on WhatsApp</a></p>
+    </div>
+  </div>
+</section>

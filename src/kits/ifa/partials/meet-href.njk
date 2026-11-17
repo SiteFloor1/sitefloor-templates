@@ -1,0 +1,2 @@
+{#- Where "Book a first meeting" goes: the first-meeting page when it's on, otherwise the firm's own booking channel. -#}
+{%- set meetHref = ('first-meeting' | href) if ("ifa-meeting" | enabled) else (site.messages.general | book) %}

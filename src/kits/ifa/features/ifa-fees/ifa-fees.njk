@@ -1,0 +1,28 @@
+{#- Fees explained: the published schedule in words, three worked amounts in pounds, what the yearly fee buys, how the
+    firm is paid, VAT, and platform and fund charges named as separate. Every figure comes from the schedule. -#}
+{%- set f = site.fees %}
+{%- set ph = { title: "Fees, in pounds", intro: f.intro } %}
+{% include "kits/ifa/partials/page-head.njk" %}
+<section class="if-fees" data-feature="ifa-fees"><div class="wrap if-fees-in">
+  <div class="if-fees-s">
+    <h2>Our published fees</h2>
+    <dl class="if-fees-dl">
+      <div><dt>To begin: advice and your written plan, once</dt><dd>{{ f.schedule.initial | chargeWords }}</dd></div>
+      <div><dt>Each year after: reviews and advice</dt><dd>{{ f.schedule.ongoing | chargeWords }}</dd></div>
+      {%- for x in f.extras or [] %}<div><dt>{{ x.label }}</dt><dd>{{ x.fee }}</dd></div>{% endfor %}
+    </dl>
+    {%- if f.schedule.from %}<p class="if-fine">We advise on amounts from {{ f.schedule.from | gbp }}.</p>{% endif %}
+  </div>
+  <div class="if-fees-w">
+    <h2>Worked in pounds</h2>
+    <table class="if-fees-t">
+      <thead><tr><th scope="col">Advice on</th><th scope="col">To begin</th><th scope="col">Each year</th><th scope="col">First year</th></tr></thead>
+      <tbody>{% for a in f.presets %}{% set s = f | feeStatement(a) %}{% if s.ok %}<tr><th scope="row">{{ a | gbp }}</th><td>{{ s.initial }}</td><td>{{ s.ongoing }}</td><td>{{ s.firstYear }}</td></tr>{% endif %}{% endfor %}</tbody>
+    </table>
+    <p class="if-risk">{{ fca.risk }}</p>
+  </div>
+  <div class="if-fees-x">
+    <div><h2>What the yearly fee buys</h2><ul>{% for i in f.includes %}<li>{{ i }}</li>{% endfor %}</ul></div>
+    <div><h2>How we're paid</h2><p>{{ f.paid }}</p><h2>VAT</h2><p>{{ f.vat }}</p><h2>Platform and fund charges</h2><p>{{ f.other }}</p></div>
+  </div>
+</div></section>

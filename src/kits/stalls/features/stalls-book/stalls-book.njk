@@ -1,0 +1,25 @@
+{#- Book us (the page): is the day free (from the stall's own party sheet; never "booked"), then the kind of party,
+    guests and postcode, sent as one WhatsApp message. Works without JavaScript: the button sends the opening line. -#}
+{%- set P = site.party %}
+<section class="st-book" aria-label="Book us for your party" data-feature="stalls-book"{{ "stalls-book" | tierAttr | safe }}>
+  <div class="wrap st-book-in">
+    <form class="st-book-form" data-pd-form novalidate>
+      <div class="st-row">
+        <label class="st-lab" for="st-pd-date">The day</label>
+        <input class="st-field" type="date" id="st-pd-date" data-pd-date>
+        <p class="st-pd-out" data-pd-out data-state="idle" aria-live="polite">Choose the day of your party.</p>
+      </div>
+      <div class="st-row">
+        <label class="st-lab" for="st-pd-kind">What it's for</label>
+        <select class="st-field" id="st-pd-kind" data-pd-kind><option value="">Choose…</option>{% for k in P.kinds %}<option>{{ k }}</option>{% endfor %}</select>
+      </div>
+      <div class="st-row st-row-2">
+        <div><label class="st-lab" for="st-pd-guests">Guests, roughly</label><input class="st-field" id="st-pd-guests" data-pd-guests type="number" inputmode="numeric" min="5" max="5000" step="5"></div>
+        <div><label class="st-lab" for="st-pd-pc">Postcode</label><input class="st-field" id="st-pd-pc" data-pd-pc autocomplete="postal-code" maxlength="8"></div>
+      </div>
+      {%- if P.lead %}<p class="st-fine">{{ P.lead }}</p>{% endif %}
+      <p class="st-acts"><a class="st-solid" data-pd-ask href="{{ P.message | partyText | wa }}" data-wa-text="{{ P.message | partyText }}" target="_blank" rel="noopener">Send on WhatsApp</a></p>
+      <p class="st-fine">Opens WhatsApp with your details filled in. Nothing is sent until you press send.</p>
+    </form>
+  </div>
+</section>

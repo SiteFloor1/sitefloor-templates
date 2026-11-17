@@ -1,0 +1,6 @@
+{#- Spun section opening: one heavy line, no label above it; the intro beneath in the reading face.
+    `sec` = { title, intro }; `secId` gives the heading its id when a section is labelled by it. -#}
+<div class="sp-sh">
+  <h2 class="sp-sh-t"{% if secId %} id="{{ secId }}"{% endif %}>{{ sec.title | markup | safe }}</h2>
+  {%- if sec.intro %}<p class="sp-sh-i">{{ sec.intro }}</p>{% endif %}
+</div>

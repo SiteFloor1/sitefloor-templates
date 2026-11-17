@@ -62,12 +62,14 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 | Skin, Clémence (round 6) | trade/beauty | Antic Didone | Baskervville |
 | Isolde, the cover (round 4) | trade/bridal-beauty | Libre Bodoni | Faustina |
 | Cleaning, Plan (A) | trade/cleaning | Anek Latin | Anek Latin |
+| Thursby, The statement (light) | trade/financial-advisers | Frank Ruhl Libre | Frank Ruhl Libre |
 | Halde, chalk (round 1) | trade/gym | Sofia Sans Extra Condensed | Sofia Sans |
 | Halde, After dark (chosen, round 3) | trade/gym | Epilogue | Epilogue |
 | Landscaping, Almanac | trade/landscaping | Alegreya | Alegreya |
 | Halvern, The stair (A) | trade/letting | Petrona | Petrona |
 | Taroub | trade/modest | Shippori Mincho | Afacad |
 | Trainer, Linen (A) | trade/trainer | Ibarra Real Nova | Ibarra Real Nova |
+| Fendle, Spun (B, round 1, revised) | trade/stalls | Gabarito | Labrada |
 | Tailor, Flannel (A) | trade/tailor | Della Respira | Commissioner |
 | Larrow, Logbook look | trade/tourism | Familjen Grotesk | Familjen Grotesk |
 | Wedding films, Première (A) | trade/wedding-film | Sorts Mill Goudy | Urbanist |

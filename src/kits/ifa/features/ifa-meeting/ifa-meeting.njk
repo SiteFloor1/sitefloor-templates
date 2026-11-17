@@ -1,0 +1,19 @@
+{#- The first meeting: free, how long, where, what happens after, and what to bring as a checklist the visitor ticks on
+    their own phone (kept only in this browser; nothing is sent), then booking. -#}
+{%- set m = site.meeting %}
+{%- include "kits/ifa/partials/meet-href.njk" %}
+{%- set ph = { title: m.title, intro: m.intro } %}
+{% include "kits/ifa/partials/page-head.njk" %}
+<section class="if-meet" data-feature="ifa-meeting"><div class="wrap if-meet-in">
+  <div class="if-meet-a">
+    <dl class="if-meet-dl"><div><dt>How long</dt><dd>{{ m.length }}</dd></div><div><dt>Where</dt><dd>{% for w in m.where %}{{ w }}{% if not loop.last %}<br>{% endif %}{% endfor %}</dd></div><div><dt>Afterwards</dt><dd>{{ m.after }}</dd></div></dl>
+    <a class="if-btn" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">Choose a time</a>
+    {%- if "ifa-upload" | enabled %}{% include "kits/ifa/features/ifa-upload/ifa-upload.njk" %}{% endif %}
+  </div>
+  <fieldset class="if-bring" data-bring>
+    <legend>What to bring</legend>
+    {%- for b in m.bring %}<label><input type="checkbox" data-bring-i="{{ loop.index0 }}"> <span>{{ b }}</span></label>{% endfor %}
+    <p class="if-fine" data-bring-count aria-live="polite">Tick each one as you find it. Your ticks stay on this device.</p>
+  </fieldset>
+</div></section>
+{%- if "questions" | enabled %}{% include "features/questions/questions.njk" %}{% endif %}

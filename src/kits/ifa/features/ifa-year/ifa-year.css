@@ -1,0 +1,10 @@
+/* Your year with us: a ruled timeline of the year, and the reminder beside it. */
+.if-year-in { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 96px); padding-block: 8px clamp(72px, 9vw, 120px); }
+.if-year-l { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--text); }
+.if-year-l li { display: grid; grid-template-columns: 11em 1fr; gap: 20px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.if-year-l span { font: 400 1.05rem/1.3 var(--font-display); }
+.if-year-l p { margin: 0; }
+.if-year-f { display: grid; gap: 10px; padding: 22px; background: var(--surface); margin-bottom: 20px; }
+.if-year-f select { font: inherit; min-height: 44px; padding: 0 10px; border: 1px solid var(--line-2); background: var(--bg); color: var(--text); }
+.if-year-l2 { margin: 0; color: var(--muted); }
+@media (max-width: 760px) { .if-year-in { grid-template-columns: 1fr; } .if-year-l li { grid-template-columns: 1fr; gap: 4px; } }

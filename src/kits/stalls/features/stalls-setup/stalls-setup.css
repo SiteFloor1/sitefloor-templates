@@ -1,0 +1,9 @@
+/* The set-up card: a plain card on the page's surface. Tokens only. */
+.st-setup-in { display: grid; grid-template-columns: 4fr 7fr; gap: 24px 56px; align-items: start; }
+.st-setup-intro { color: var(--muted); max-width: 34ch; }
+.st-card { background: var(--surface); padding: clamp(22px, 3vw, 40px); border: 1.5px solid var(--text); }
+.st-card dl { display: grid; grid-template-columns: minmax(120px, 160px) 1fr; gap: 14px 24px; margin: 0; }
+.st-card dt { font-size: 14px; color: var(--muted); padding-top: 3px; }
+.st-card dd { margin: 0; font-family: var(--font-display); font-weight: 600; font-size: 19px; line-height: 1.35; }
+.st-card button.st-solid { border: 0; cursor: pointer; }
+@media (max-width: 760px) { .st-setup-in, .st-card dl { grid-template-columns: 1fr; } .st-card dt { padding-top: 10px; } }

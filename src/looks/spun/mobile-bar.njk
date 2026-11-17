@@ -1,0 +1,6 @@
+{#- Spun phone bar: white "Where this week" beside a raspberry WhatsApp, flat, full width. -#}
+{%- set whereHref = ("#where" if pageId == "index" else (("find-us" | href) if ("stalls-find" | enabled) else ("index" | href) + "#where")) %}
+<div class="mbar sp-bar">
+  <a class="sp-bar-where" href="{{ whereHref }}">Where this week</a>
+  <a class="sp-bar-wa" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{{ "WhatsApp" if build.booking.whatsapp else build.booking.label }}</a>
+</div>

@@ -1,0 +1,4 @@
+{#- Pitch finder: the stall's own photo of its pitch at one market, with the line that says how to spot it.
+    Included by stalls-find for each place with `pitch`; `p` is that place. -#}
+{%- set ph = p.pitch.photo %}
+<figure class="st-pitch"{{ "stalls-pitch" | tierAttr | safe }}><img src="{{ ph.src | img }}" alt="{{ ph.alt }}" width="{{ ph.width }}" height="{{ ph.height }}" loading="lazy" decoding="async"{% if ph.focus %} style="object-position: {{ ph.focus }}"{% endif %}><figcaption>{{ p.pitch.line }}</figcaption></figure>

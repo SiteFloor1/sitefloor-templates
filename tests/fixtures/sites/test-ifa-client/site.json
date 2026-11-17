@@ -1,0 +1,355 @@
+{
+  "schemaVersion": 4,
+  "id": "test-ifa-client",
+  "mode": "client",
+  "plan": "plus",
+  "kit": "ifa",
+  "look": "statement",
+  "url": "https://penrose-test.co.uk",
+  "indexable": true,
+  "lang": "en-GB",
+  "business": {
+    "name": "Penrose",
+    "schemaType": "FinancialService",
+    "description": "Restricted financial advice in Bristol on pensions and retirement.",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "447911123456",
+    "phone": "+44 117 496 0611",
+    "email": "hello@penrose-test.co.uk"
+  },
+  "booking": {
+    "provider": "phone"
+  },
+  "location": {
+    "streetAddress": "Queen Square",
+    "locality": "Bristol",
+    "postcode": "BS1 4QS",
+    "country": "GB",
+    "area": "Off Carter Lane, a short walk from St Paul's station.",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=Queen%20Square%2C%20Bristol"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [
+        [
+          "09:00",
+          "17:30"
+        ]
+      ],
+      "tue": [
+        [
+          "09:00",
+          "17:30"
+        ]
+      ],
+      "wed": [
+        [
+          "09:00",
+          "17:30"
+        ]
+      ],
+      "thu": [
+        [
+          "09:00",
+          "17:30"
+        ]
+      ],
+      "fri": [
+        [
+          "09:00",
+          "17:00"
+        ]
+      ],
+      "sat": [],
+      "sun": []
+    },
+    "exceptions": [
+      {
+        "date": "2026-12-24",
+        "ranges": [
+          [
+            "09:00",
+            "13:00"
+          ]
+        ],
+        "note": "Closing at 1pm"
+      },
+      {
+        "date": "2026-12-29",
+        "ranges": [],
+        "note": "Closed between Christmas and New Year"
+      }
+    ]
+  },
+  "nav": [
+    {
+      "label": "Fees",
+      "page": "fees",
+      "feature": "ifa-fees",
+      "fallback": "#services"
+    },
+    {
+      "label": "Advisers",
+      "page": "advisers",
+      "feature": "ifa-advisers-page",
+      "fallback": "#advisers"
+    },
+    {
+      "label": "Services",
+      "page": "services",
+      "feature": "ifa-services-page",
+      "fallback": "#services"
+    }
+  ],
+  "features": [
+    "ifa-fca",
+    "ifa-independence",
+    "ifa-check",
+    "ifa-services",
+    "ifa-advisers",
+    "visit",
+    "questions",
+    "ifa-fees",
+    "ifa-meeting",
+    "ifa-year",
+    "ifa-services-page"
+  ],
+  "hero": {
+    "kicker": "Financial advice · Bristol",
+    "title": "Pensions, explained|in pounds.",
+    "intro": "Advice on pensions and retirement income.",
+    "photo": {
+      "src": "img/hero.webp",
+      "width": 1200,
+      "height": 600,
+      "alt": "A Georgian terrace in morning sun",
+      "credit": "Photograph: AXP Photography, Pexels"
+    }
+  },
+  "sections": {
+    "services": {
+      "title": "What we advise on",
+      "intro": "Each service, who it suits, and what to bring to the first meeting."
+    },
+    "advisers": {
+      "title": "Your advisers",
+      "intro": "Each one is on the FCA's register; check them by their reference number."
+    },
+    "questions": {
+      "title": "Questions people ask first"
+    },
+    "visit": {
+      "title": "Find us",
+      "intro": "On the south side of Queen Square."
+    }
+  },
+  "messages": {
+    "general": "Hello Penrose, I'd like to book a first meeting."
+  },
+  "regulation": {
+    "legalName": "Penrose Advice Ltd",
+    "tradingName": "Penrose",
+    "frn": "999999",
+    "registerUrl": "https://register.fca.org.uk/s/firm?id=not-a-real-firm",
+    "entity": "Penrose Advice Ltd is registered in England and Wales, company number 12345678",
+    "office": "Queen Square, Bristol BS1 4QS",
+    "unregulated": "The Financial Conduct Authority does not regulate tax planning, wills or trusts on their own; we say so in writing whenever advice falls outside its rules.",
+    "fscs": "If we couldn't meet a claim against us, you may be able to claim from the Financial Services Compensation Scheme (FSCS). Limits apply.",
+    "complaints": {
+      "email": "complaints@penrose-test.co.uk",
+      "address": "Complaints, Penrose, Queen Square, Bristol BS1 4QS",
+      "steps": [
+        "Tell us by email, letter or phone; we'll confirm we have it within three working days.",
+        "A director who wasn't involved looks into it and writes to you with our answer.",
+        "If you're not happy with our answer, or eight weeks pass without one, you can ask the Financial Ombudsman Service to look at it."
+      ]
+    }
+  },
+  "independence": {
+    "status": "restricted",
+    "line": "Restricted advice: we recommend pensions and investments from a panel of providers.",
+    "restrictedTo": "pensions and investments from a panel of six providers",
+    "body": [
+      "We give restricted advice: we recommend from a panel of providers we've chosen, not the whole market.",
+      "We tell you which providers are on the panel before you decide."
+    ]
+  },
+  "check": {
+    "title": "Check it's us",
+    "intro": "Fraudsters copy advisers' names and websites. Here's how to tell a real call or email from us.",
+    "phones": [
+      {
+        "label": "Office",
+        "number": "+44 117 496 0611"
+      }
+    ],
+    "domains": [
+      "penrose-test.co.uk"
+    ],
+    "never": [
+      "We will never ask you to move money to a new account by phone or email.",
+      "We will never ask for your passwords or a card PIN.",
+      "We will never press you to decide on the day."
+    ],
+    "callback": "If in doubt, hang up and call us back on the office number above, from another phone if you can."
+  },
+  "advisers": {
+    "items": [
+      {
+        "id": "ann-penrose",
+        "name": "Ann Penrose",
+        "role": "Director",
+        "irn": "ABP01234"
+      }
+    ]
+  },
+  "fees": {
+    "intro": "What you pay us, in pounds, before you agree to anything. Our fees are a share of the money we advise on, with a minimum.",
+    "schedule": {
+      "initial": {
+        "rate": 1.5,
+        "min": 1500
+      },
+      "ongoing": {
+        "rate": 0.75
+      }
+    },
+    "example": 250000,
+    "presets": [
+      100000,
+      250000,
+      500000,
+      1000000
+    ],
+    "includes": [
+      "A written recommendation, explained in a meeting",
+      "Setting up what we recommend",
+      "A review each year, and whenever your life changes"
+    ],
+    "paid": "You can pay the initial fee directly, or from the money invested. The ongoing fee is taken monthly from your account, and you can stop it at any time.",
+    "vat": "Advice on investments and pensions isn't usually charged VAT. If a piece of work is, we tell you before we start.",
+    "other": "Platform and fund charges are separate, and you see them in pounds before you decide.",
+    "extras": [
+      {
+        "label": "A one-off review of a single pension",
+        "fee": "£950"
+      },
+      {
+        "label": "Mortgage advice",
+        "fee": "£495, paid on completion"
+      }
+    ]
+  },
+  "meeting": {
+    "title": "Your first meeting",
+    "intro": "An hour, free, at our office or by video. You leave with our fees in writing.",
+    "length": "The first hour is free.",
+    "where": [
+      "At our office on Queen Square",
+      "By video, if that suits you better"
+    ],
+    "bring": [
+      "Your latest pension statements",
+      "Your State Pension forecast",
+      "Recent bank or savings statements",
+      "Your will, if you have one",
+      "Any policies you already hold",
+      "Your questions, written down"
+    ],
+    "after": "If you'd like to go ahead, we write to you with what we'd do and what it costs, in pounds. Nothing happens until you agree."
+  },
+  "year": {
+    "intro": "What happens through the year once you're a client, so nothing comes as a surprise.",
+    "steps": [
+      {
+        "when": "Each year, in the month you choose",
+        "what": "Your review meeting: what's changed, and whether the plan still fits."
+      },
+      {
+        "when": "Two weeks before",
+        "what": "We send your figures and the questions we'll ask."
+      },
+      {
+        "when": "After the meeting",
+        "what": "A written summary of what we agreed, and the fees you paid that year, in pounds."
+      },
+      {
+        "when": "Before 5 April",
+        "what": "A reminder about this tax year's allowances, if they apply to you."
+      }
+    ],
+    "note": "Your review with Penrose",
+    "adviserLeaves": "If your adviser leaves, we introduce your new adviser in person before your next review."
+  },
+  "questions": [
+    {
+      "topic": "Your first meeting",
+      "q": "Is the first meeting charged?",
+      "a": "No. The first hour is free, and you leave with our fees in writing.",
+      "home": true
+    },
+    {
+      "topic": "Your first meeting",
+      "q": "Do I have to decide anything at the meeting?",
+      "a": "No. We write to you afterwards, and nothing happens until you agree.",
+      "home": true
+    },
+    {
+      "topic": "Fees",
+      "q": "How do you charge?",
+      "a": "1.5% of the money we advise on to begin, at least £1,500, then 0.75% each year. Platform and fund charges are separate.",
+      "home": true
+    },
+    {
+      "topic": "Fees",
+      "q": "Can I stop the ongoing fee?",
+      "a": "Yes, at any time. The ongoing service stops with it."
+    },
+    {
+      "topic": "Working with us",
+      "q": "How do I know you're regulated?",
+      "a": "Search for our firm reference number on the FCA's Financial Services Register; the link is at the foot of every page."
+    }
+  ],
+  "advice": {
+    "who": "We usually work with people who have £100,000 or more in pensions and savings, or a decision of similar size.",
+    "minimum": "There's no minimum for a first meeting.",
+    "items": [
+      {
+        "id": "retirement",
+        "title": "Pensions and retirement income",
+        "line": "When you can stop work, and how to take an income from what you've saved.",
+        "bring": [
+          "Your latest pension statements",
+          "Your State Pension forecast",
+          "A rough monthly budget"
+        ]
+      },
+      {
+        "id": "iht",
+        "title": "Inheritance tax",
+        "line": "What your estate might owe, and the choices that change it.",
+        "bring": [
+          "Your will, if you have one",
+          "A list of what you own and owe",
+          "Any trust deeds"
+        ]
+      },
+      {
+        "id": "protection",
+        "title": "Protection",
+        "line": "Life cover, income protection and critical illness cover, checked against what you already have.",
+        "bring": [
+          "Policies you already hold",
+          "Your employer's benefits summary"
+        ]
+      }
+    ]
+  },
+  "brand": {
+    "accent": "#5A1E22"
+  }
+}

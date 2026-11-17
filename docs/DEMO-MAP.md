@@ -163,6 +163,18 @@ Taken by Corbel: the blue-hour deep navy ground with warm lit rooms, the blueber
 pale green-white text, Encode Sans Expanded and Encode Sans, the engraved scene keypad and the circuit chart, the house
 at dusk switched by a keypad, and a 3D house lit room by room.
 
+## Financial advisers
+_From `docs/trades/financial-advisers/demo-map.md`._
+
+This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` (generated) before proposing a look.
+
+| Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
+|---|---|---|---|---|---|---|---|
+| Thursby | independent financial advice, `ifa`, `statement` | a private bank's statement: **ivory page, holly-green header band and footer**, one wide photograph of a Georgian terrace in morning sun | the terrace's brick and stucco, graded warm with a holly shadow | holly #1D3A2E for the band, the footer and the one filled button; pewter #B9BCB7 hairlines and the card's inner frame | Frank Ruhl Libre 300 / 400 (500 for the name in spaced capitals and the totals) | "Every fee, in pounds, before you sign anything." beside a statement card overlapping the photograph: dotted leaders, pence, the first year under a double rule | (to come) |
+
+Taken by Thursby: Frank Ruhl Libre, the holly band with a round seal and spaced capitals, the statement card with dotted
+leaders and a double-ruled total, the Georgian street photograph, "what to bring" beside each service.
+
 ## Florists
 _From `docs/trades/florist/demo-map.md`._
 
@@ -343,6 +355,15 @@ This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` 
 |---|---|---|---|---|---|---|---|
 | Saffron & Ash | restaurant, `restaurant`, `maison` | always dark bottle green, candlelit, warm | a grill at night | saffron #E0A03A on #0C1311 | Cormorant Garamond / Jost | the closed Menu Book on the table over a blurred fire loop | a ten-course tasting menu |
 | (Carte, no demo of its own) | restaurant, `carte` | printed menu card on a celadon wall | celadon and paprika | paprika #A3341A | Bodoni Moda / Schibsted Grotesk | the menu card itself | — |
+
+## Street-food and dessert stalls (markets, pop-ups and parties)
+_From `docs/trades/stalls/demo-map.md`._
+
+This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` (generated) before proposing a look.
+
+| Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
+|---|---|---|---|---|---|---|---|
+| Fendle | bubble-waffle stall, `stalls`, `spun` | street food at a market, **white and loud** | a raspberry sauce on a hot waffle | raspberry #C9314F on white, prices in crust amber #A8640F | Gabarito / Labrada | the waffle iron opening on the right half, one heavy line running into it, where we are next counting down, the week's stops as tickets | the week's stops (one ticket per plan) |
 
 ## Tailors
 _From `docs/trades/tailor/demo-map.md`._
