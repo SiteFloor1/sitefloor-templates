@@ -6,5 +6,5 @@ Design round 1 (17 Nov 2026): three directions held until the owner picks one; t
 | Look or design | Status | Branch | Display | Body |
 |---|---|---|---|---|
 | Maudry, The brief (A, round 1) | approved | trade/events | Imbue | Ysabeau Office |
-| Maudry, The palette (B, round 1) | approved | trade/events | Epilogue | Epilogue |
-| Maudry, The plan (C, round 1) | approved | trade/events | Piazzolla | Piazzolla |
+| Maudry, The palette (B, round 1) | approved | trade/events | Gantari | Gantari |
+| Maudry, The plan (C, round 1) | approved | trade/events | Crimson Pro | Crimson Pro |
