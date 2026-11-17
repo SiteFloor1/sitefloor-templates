@@ -1,0 +1,20 @@
+{#- Spun visit: the stall's home pitch and its usual week. A stall moves, so the address is "our Saturday pitch" and
+    the week's real stops stay at the top of the page. -#}
+{%- set sec = { title: site.sections.visit.title, intro: site.sections.visit.intro } %}
+<section id="visit" class="sp-v" data-feature="visit" aria-labelledby="sp-v-h"><div class="wrap sp-v-in">
+  <div>
+    {%- set secId = "sp-v-h" %}{% include "core/partials/section-head.njk" %}
+    <address>{{ site.location.streetAddress }}<br>{{ site.location.locality }} {{ site.location.postcode }}</address>
+    {%- if site.location.area %}<p class="sp-v-area">{{ site.location.area }}</p>{% endif %}
+    <p><a class="st-text" href="{{ site.location | directions }}" target="_blank" rel="noopener">Directions</a></p>
+  </div>
+  <div data-hours>
+    <p class="sp-v-now" data-live-status><span data-status-text>Usually trading</span></p>
+    <table class="sp-v-days">
+      <caption class="sr-only">When we usually trade</caption>
+      <tbody>{% for row in site.hours | hoursRows %}<tr data-day="{{ row.dayIndex }}"><th scope="row">{{ row.day }}</th><td>{{ row.label }}</td></tr>{% endfor %}</tbody>
+    </table>
+    {%- set upcoming = site.hours | upcomingExceptions(build.today) %}
+    {%- if upcoming.length %}<ul class="sp-v-ex">{% for ex in upcoming %}<li><b>{{ ex.dateLabel }}</b> {{ ex.note or ex.label }}</li>{% endfor %}</ul>{% endif %}
+  </div>
+</div></section>

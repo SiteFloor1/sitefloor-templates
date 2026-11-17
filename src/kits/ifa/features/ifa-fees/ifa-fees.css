@@ -1,0 +1,16 @@
+/* Fees explained: the schedule, the worked table with tabular figures, then what's included and how the firm is paid. */
+.if-fees-in { display: grid; gap: clamp(40px, 6vw, 72px); padding-block: 8px clamp(72px, 9vw, 120px); }
+.if-fees h2 { font: 400 1.35rem/1.25 var(--font-display); margin: 0 0 14px; }
+.if-fees-dl { margin: 0; border-top: 1px solid var(--text); }
+.if-fees-dl div { display: flex; justify-content: space-between; gap: 24px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.if-fees-dl dd { margin: 0; text-align: right; font-variant-numeric: lining-nums tabular-nums; }
+.if-fees-t { width: 100%; border-collapse: collapse; font-variant-numeric: lining-nums tabular-nums; }
+.if-fees-t th, .if-fees-t td { text-align: right; padding: 12px 0 12px 16px; border-bottom: 1px solid var(--line); }
+.if-fees-t thead th { font-weight: 400; font-size: 13px; color: var(--muted); border-bottom-color: var(--text); }
+.if-fees-t th:first-child { text-align: left; padding-left: 0; }
+.if-fees-x { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 96px); }
+.if-fees-x h2:not(:first-child) { margin-top: 24px; }
+.if-fees-x ul { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; }
+.if-fees-x p { margin: 0; }
+.if-risk { font-size: 14px; color: var(--muted); margin: 12px 0 0; }
+@media (max-width: 760px) { .if-fees-x { grid-template-columns: 1fr; } .if-fees-t { font-size: 14px; } .if-fees-t th, .if-fees-t td { padding-left: 8px; } }

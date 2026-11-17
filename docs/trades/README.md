@@ -24,9 +24,11 @@ take (`demo-map.md`), its speed numbers (`speed.md`) and the fonts it claims (`f
 | detailing | Car detailing | `detailing` | [questions](detailing/questions.md) · [playbook](detailing/playbook.md) · [demo-map](detailing/demo-map.md) · [speed](detailing/speed.md) · [fonts](detailing/fonts.md) |
 | electrician | Electricians | `electrician` | [questions](electrician/questions.md) · [playbook](electrician/playbook.md) · [demo-map](electrician/demo-map.md) · [speed](electrician/speed.md) · [fonts](electrician/fonts.md) |
 | events | Event designers and producers | `events` | [questions](events/questions.md) · [fonts](events/fonts.md) |
+| financial-advisers | Financial advisers | `ifa` | [questions](financial-advisers/questions.md) · [playbook](financial-advisers/playbook.md) · [demo-map](financial-advisers/demo-map.md) · [speed](financial-advisers/speed.md) · [fonts](financial-advisers/fonts.md) |
 | florist | Florists | `florist` | [questions](florist/questions.md) · [playbook](florist/playbook.md) · [demo-map](florist/demo-map.md) · [speed](florist/speed.md) · [fonts](florist/fonts.md) |
-| garage | Garage and parking rentals | — | [questions](garage/questions.md) · [playbook](garage/playbook.md) |
+| garage | Garage and parking rentals | `garage` | [questions](garage/questions.md) · [playbook](garage/playbook.md) · [demo-map](garage/demo-map.md) · [speed](garage/speed.md) · [fonts](garage/fonts.md) |
 | grand-cafe | Grand cafés and tea rooms | `restaurant` | [questions](grand-cafe/questions.md) · [playbook](grand-cafe/playbook.md) · [demo-map](grand-cafe/demo-map.md) · [speed](grand-cafe/speed.md) · [fonts](grand-cafe/fonts.md) |
+| gym | Gyms and health clubs | `gym` | [questions](gym/questions.md) · [playbook](gym/playbook.md) · [demo-map](gym/demo-map.md) · [speed](gym/speed.md) · [fonts](gym/fonts.md) |
 | hair | Hair salons | `hair` | [questions](hair/questions.md) · [playbook](hair/playbook.md) · [demo-map](hair/demo-map.md) · [speed](hair/speed.md) · [fonts](hair/fonts.md) |
 | jeweller | Fine jewellers | `jeweller` | [questions](jeweller/questions.md) · [playbook](jeweller/playbook.md) · [demo-map](jeweller/demo-map.md) · [speed](jeweller/speed.md) · [fonts](jeweller/fonts.md) |
 | landscaping | Garden designers and landscapers | `garden` | [questions](landscaping/questions.md) · [playbook](landscaping/playbook.md) · [demo-map](landscaping/demo-map.md) · [speed](landscaping/speed.md) · [fonts](landscaping/fonts.md) |
@@ -35,13 +37,16 @@ take (`demo-map.md`), its speed numbers (`speed.md`) and the fonts it claims (`f
 | lingerie | Lingerie boutiques | `lingerie` | [questions](lingerie/questions.md) · [playbook](lingerie/playbook.md) · [demo-map](lingerie/demo-map.md) · [speed](lingerie/speed.md) · [fonts](lingerie/fonts.md) |
 | mehndi | Mehndi and henna artists | `mehndi` | [questions](mehndi/questions.md) · [playbook](mehndi/playbook.md) · [demo-map](mehndi/demo-map.md) · [speed](mehndi/speed.md) · [fonts](mehndi/fonts.md) |
 | menswear | Clothing brands (menswear, running and outerwear) | `wear` | [questions](menswear/questions.md) · [playbook](menswear/playbook.md) · [demo-map](menswear/demo-map.md) · [speed](menswear/speed.md) · [fonts](menswear/fonts.md) |
+| modest | Modest fashion and abaya boutiques | `modest` | [questions](modest/questions.md) · [playbook](modest/playbook.md) · [demo-map](modest/demo-map.md) · [speed](modest/speed.md) · [fonts](modest/fonts.md) |
 | nails | Nail, lash and beauty salons | `nails` | [questions](nails/questions.md) · [playbook](nails/playbook.md) · [demo-map](nails/demo-map.md) · [speed](nails/speed.md) · [fonts](nails/fonts.md) |
 | personal-trainer | Personal trainers and small gyms | `trainer` | [questions](personal-trainer/questions.md) · [playbook](personal-trainer/playbook.md) · [demo-map](personal-trainer/demo-map.md) · [speed](personal-trainer/speed.md) · [fonts](personal-trainer/fonts.md) |
 | pilates | Reformer Pilates studios | `pilates` | [questions](pilates/questions.md) · [playbook](pilates/playbook.md) · [demo-map](pilates/demo-map.md) · [speed](pilates/speed.md) · [fonts](pilates/fonts.md) |
 | restaurant | Restaurants | `restaurant` | [questions](restaurant/questions.md) · [playbook](restaurant/playbook.md) · [demo-map](restaurant/demo-map.md) · [speed](restaurant/speed.md) · [fonts](restaurant/fonts.md) |
 | sneaker-cleaner | Sneaker and crep cleaners | — | [playbook](sneaker-cleaner/playbook.md) |
+| stalls | Street-food and dessert stalls (markets, pop-ups and parties) | `stalls` | [questions](stalls/questions.md) · [playbook](stalls/playbook.md) · [demo-map](stalls/demo-map.md) · [speed](stalls/speed.md) · [fonts](stalls/fonts.md) |
 | tailor | Tailors | `tailor` | [questions](tailor/questions.md) · [playbook](tailor/playbook.md) · [demo-map](tailor/demo-map.md) · [speed](tailor/speed.md) · [fonts](tailor/fonts.md) |
 | teeth | Teeth whitening and aesthetic dentistry | `smile` | [questions](teeth/questions.md) · [playbook](teeth/playbook.md) · [demo-map](teeth/demo-map.md) · [speed](teeth/speed.md) · [fonts](teeth/fonts.md) |
+| tourism | Independent tour operators | `tourism` | [questions](tourism/questions.md) · [playbook](tourism/playbook.md) · [demo-map](tourism/demo-map.md) · [speed](tourism/speed.md) · [fonts](tourism/fonts.md) |
 | videographer | Videographers and photographers | — | [questions](videographer/questions.md) · [playbook](videographer/playbook.md) |
 | wealth | Wealth managers | `wealth` | [questions](wealth/questions.md) · [playbook](wealth/playbook.md) · [demo-map](wealth/demo-map.md) · [speed](wealth/speed.md) · [fonts](wealth/fonts.md) |
 | wedding-film | Wedding films | `weddingfilm` | [questions](wedding-film/questions.md) · [playbook](wedding-film/playbook.md) · [demo-map](wedding-film/demo-map.md) · [speed](wedding-film/speed.md) · [fonts](wedding-film/fonts.md) |

@@ -1,0 +1,20 @@
+/* The Eid family list: one row a person (name, piece, length), the total, then send or share. */
+.md-fam-in { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 40px 64px; align-items: start; }
+.md-fam-h { margin: 0 0 18px; font-family: var(--font-display); font-weight: 400; font-size: 30px; }
+.md-fam-rows { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.md-fam-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr) 112px auto; gap: 8px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.md-fam-row input, .md-fam-row select { min-height: 44px; width: 100%; padding: 0 10px; border: 1px solid var(--line); border-radius: 0; background: var(--bg); color: var(--text); font: inherit; }
+.md-fam-x { min-height: 44px; padding: 0 6px; border: 0; background: none; color: var(--muted); font: inherit; text-decoration: underline; cursor: pointer; }
+.md-fam-add { margin: 16px 0 0; }
+.md-fam-tot { margin: 18px 0 0; display: flex; justify-content: space-between; align-items: baseline; }
+.md-fam-tot b { font-family: var(--font-display); font-weight: 400; font-size: 30px; font-variant-numeric: tabular-nums; }
+.md-fam-go { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 12px; }
+.md-fam-note { margin: 14px 0 0; color: var(--muted); font-size: 15px; }
+.md-fam-ph { margin: 0; background: var(--surface); }
+.md-fam-ph img { display: block; width: 100%; height: auto; }
+.md-edit { padding-top: 0; }
+@media (max-width: 860px) {
+  .md-fam-in { grid-template-columns: 1fr; }
+  .md-fam-row { grid-template-columns: 1fr 112px; }
+  .md-fam-row input { grid-column: 1 / -1; }
+}

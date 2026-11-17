@@ -586,6 +586,24 @@ Blue hour now lays out every shared feature its demo uses (visit, Plan your visi
 links, questions, seasonal, About, vouchers). Demo: JS 16.0 KB gz, CSS 16.5 KB gz (was 14.4), fonts 92.7 KB, on tap
 180.9 KB gz; client fixture JS 9.7 KB gz, CSS 11.9 KB gz. `npm run budget` passes.
 
+## Financial advisers
+_From `docs/trades/financial-advisers/speed.md`._
+
+### 16 Nov 2026 — Thursby (ifa kit, Statement look)
+
+Whole demo (Signature, 24 pages): JS 10 KB gz, CSS 10.3 KB gz, fonts 44.1 KB (Frank Ruhl Libre 300/400/500, latin woff2).
+Home HTML 6.3 KB gz; home images 380 KB, all on the first screen (the terrace, 2000×1000 WebP, 262 KB; 900×900 on
+phones, 117 KB). Every other page has no images. The client fixture (Plus): JS 3.8 KB gz, CSS 6.6 KB gz.
+
+Fallback font size-matched from the font files against Liberation Serif (metric-compatible with Times New Roman):
+Frank Ruhl Libre 300 106.1% (ascent 90.2%, descent 31.5%), 400 108.4% (88.3%, 30.8%), 500 112.2% (85.3%, 29.8%).
+Controls that need their script (the statement's amounts, pension dates, the old-pensions form, the review month) keep
+their space, unseen, until it starts.
+
+Layout shift while loading (PerformanceObserver, real fonts, local server): 0.000–0.018 on most pages at 360, 390 and
+1440 px; the highest is 0.051 (Fees at 390 px) and 0.037 (Pensions at 1440 px), both from the font swap re-wrapping a
+line. All under 0.1. Lighthouse wasn't available in this environment; run it before the case study.
+
 ## Florists
 _From `docs/trades/florist/speed.md`._
 
@@ -626,6 +644,38 @@ feed and contrast fixes on the unchosen range and budgets); FCP 1.1 s; LCP 1.5�
 same-day line keeps two lines on a phone so the script's rewrite moves nothing; the range switch is drawn from the
 first paint). axe and the phone layout-shift test pass on every page, open and closed. Budget passes.
 
+## Garage and parking rentals
+_From `docs/trades/garage/speed.md`._
+
+### 17 Nov 2026 — garage kit: Elsden look, Elsden demo
+
+Whole site (`npm run budget`): JS 28 KB (10.8 KB gz), CSS 40.9 KB (9.3 KB gz), fonts 86.8 KB (Cardo 400, 400 italic
+and 700, Radio Canada 400, 500 and 600; latin woff2). HTML gz: home 9.3 KB (the drawn plan is inline SVG), Plan your
+visit 6.5 KB, other pages 4.5–5.1 KB.
+
+The hall from above (a Bespoke add-on) adds no 3D engine: one rendered image per screen size and a car image. Home
+page images 235 KB in all, 68 KB on the first screen (the 2208 × 1158 render as WebP, 44 KB; the phone render 1013 ×
+1540, 26 KB); the night renders (23 KB, 17 KB on a phone) and the kept photographs load lazily. Car images 51–63 KB
+(PNG with transparency), fetched only for the car picked. The drive is an SVG transform on each frame for 6.2 s,
+then nothing runs; with reduced motion it never runs.
+
+Fallback fonts size-matched from the font files (width of running text and hhea ascent and descent) against
+Liberation Serif and Sans: Cardo 105.9% (ascent 93.5%, descent 34.3%), Radio Canada 103.3% (91.4%, 24.7%).
+
+Layout shift, with fonts slowed 600 ms and the site script 1.5 s (tests/e2e/garage.spec.js): under 0.05 on the home
+page at 390 and 1440 px, arriving at night at 390, laying up at 1024 and business at 390; no page scrolls sideways
+at 320 px. axe: no serious or critical violations on any page of the demo or the client fixture. Lighthouse isn't
+installed on the build machine; the auditor's runs are below.
+
+Lighthouse 12.8.2 (the audit of 17 Nov 2026), Chromium, local server, home page, three runs each:
+
+| | Performance | Accessibility | Best practices | First paint | Largest paint | Blocking | Layout shift |
+|---|---|---|---|---|---|---|---|
+| Phone (mobile preset) | 99–100 | 100 | 100 | 1.2–1.7 s | 1.6–1.8 s (the aerial render) | 0–20 ms | 0 |
+| Desktop | 100 | 100 | 100 | 0.4 s | 0.4 s | 0 ms | 0.001 |
+
+SEO 69 only because every demo is noindex. Page weight 206 KB in all; the largest file is `car-estate.png` (58 KB).
+
 ## Grand cafés and tea rooms
 _From `docs/trades/grand-cafe/speed.md`._
 
@@ -652,6 +702,25 @@ desktop by day fetches 240 KB (1x) or 449 KB (2x screens), a phone 208 KB or 382
 weight on a 2x phone by day is therefore about 810 KB of images. Axe passes on all nine pages by day and by night;
 layout shift 0. Lighthouse mobile, demo home, fresh server: 74 (cold, TBT 860 ms), then 92; accessibility 100; LCP
 2.7–3.0 s (the 2x hero); layout shift 0.
+
+## Gyms and health clubs
+_From `docs/trades/gym/speed.md`._
+
+### 16 Nov 2026 — gym kit: After dark look, Halde demo (branch `trade/gym`)
+
+Whole site (Signature demo): JS 31.6 KB (12.1 KB gz), CSS 43.2 KB (9.3 KB gz), fonts 71 KB (Epilogue 200, 300, 400, 500,
+700; latin woff2, self-hosted). HTML 4.5–7.2 KB gz a page (home 7.2 KB). Home images 198 KB, 93 KB on the first screen
+(the black-and-white portrait, a 1100 px WebP, with a separate 900 px phone crop); the steam band (62 KB) and the cedar
+room (46 KB) are lazy. Heat and cold page 105 KB, the other pages none. The client fixture (Signature, sheets):
+JS 10.7 KB gz, CSS 8.4 KB gz. Fallback fonts size-matched from the font files against Liberation Sans: Epilogue 200
+105.3% (ascent 75%, descent 22.3%), 300 106.8% (74%, 22%), 400 108.2% (73%, 21.7%), 500 109.9% (71.9%, 21.4%), 700
+106.7% (74%, 22%).
+
+Measured in Chrome from the local server (Lighthouse isn't installed in this environment; CI's browser tests cover the
+phone layout-shift and axe checks): layout shift 0 on every page on a 390 px phone (0.0001 on Hyrox, whose plan is drawn
+by the build so the script redraws the same), at most 0.009 on desktop; LCP under 0.15 s locally on every page. axe
+(WCAG 2.2 AA) clean on every page; the narrowed browser run (gym spec, a11y, all-sites, demo, smoke): 155 passed.
+`npm run budget`: every gym page in budget.
 
 ## Hair salons
 _From `docs/trades/hair/speed.md`._
@@ -894,6 +963,61 @@ Fallback fonts size-matched from the font files against Liberation Sans: Host Gr
 after the contrast fix; accessibility 97 → 100 (the dim grey #737875 failed on the size run's "Gone"; now #8A8E8B,
 5.3:1); LCP 1.8–3.7 s; TBT 140–330 ms; layout shift 0.001.
 
+## Modest fashion and abaya boutiques
+_From `docs/trades/modest/speed.md`._
+
+### 16 Nov 2026 — modest kit: Taroub look, Taroub demo
+
+Whole site (`npm run budget`): JS 29.2 KB (10.8 KB gz), CSS 48.9 KB (10.7 KB gz), fonts 80.2 KB (Shippori Mincho 400
+and 500, Afacad 400 and 500; latin woff2). HTML gz: home 8.3 KB, Plan your visit 6.8 KB, other pages 4.5–5.7 KB.
+Images: first screen 148 KB on the home page (the hero, 1500×2250 WebP); everything below is lazy (the home page's
+full set is 783 KB, mostly the collection at 900×1350); the look page 64 KB on its first screen. One warm grade on
+every photograph, taken from the hero's tan floor; the hem photograph warmed further to sit beside it.
+
+Fallback fonts size-matched from the font files (average width of running text and hhea ascent and descent) against
+Liberation Serif and Sans: Shippori Mincho 117% (ascent 99.1%, descent 24.6%), Afacad 400 89.5% (111.7%, 37.2%),
+Afacad 500 82.9% (120.6%, 40.2%).
+
+Measured in Chrome with the CPU slowed 4×, from the local server (Lighthouse isn't installed in the build machine;
+the auditor's Lighthouse run is the one to record): layout shift on the home page 0 on a phone (390×844) and 0.0000
+on desktop (1440×900); the look page 0.0004; the length page 0.016 on desktop (the form appears when its script
+starts; under 0.1). Largest paint 0.26–0.58 s locally (the hero photograph on the home page). Phone home page: 8,728
+px, about 10 screens with the footer (the collection two to a row). axe: no serious or critical violations on any
+page of the demo or the client fixture (tests/e2e/a11y.spec.js), after the panel colour went lighter for contrast.
+
+### 17 Nov 2026 — the audit's Lighthouse (before the fixes)
+
+Lighthouse 12.8.2, Chromium, local server, home page, three runs each (from the audit, 2026-11-17-A):
+
+| | Performance | Accessibility | Best practices | First paint | Largest paint | Blocking | Layout shift |
+|---|---|---|---|---|---|---|---|
+| Phone (mobile preset) | 90–91 | 100 | 100 | 1.0–1.6 s | 3.4–3.5 s (hero) | 0–70 ms | 0 |
+| Desktop | 100 | 100 | 100 | 0.3–0.4 s | 0.7 s | 0 ms | 0 |
+
+SEO is 69, because the demo is `noindex`, as every demo is.
+
+### 17 Nov 2026 — after the audit (T-01 to T-05)
+
+- Phone-sized copies through `srcset`/`sizes` (`photo.small`): hero 800 px (52 KB, was 148 KB to every screen), the
+  collection, the look and made to measure 600 px (21–53 KB), the wall's second piece 300 px, the family photo 700 px.
+- The appointment form, the length guide's first answer, the Eid dates and the family list's first row are drawn at
+  build time for the build day; the browser redraws them in place for the real day, so the pages keep their shape.
+- Below 1,100 px the header is the name, WhatsApp and Menu (no wrapping sentence); on wider inner pages the two
+  sentences are one line each, so the header keeps its height whichever font is showing. Page headings wrap rather
+  than run off a small phone.
+
+Lighthouse 12, local server (three runs on the home page, one on the others):
+
+| | Performance | Accessibility | First paint | Largest paint | Blocking | Layout shift |
+|---|---|---|---|---|---|---|
+| Phone, home | 97–100 | 100 | 1.0–1.6 s | 1.4–2.3 s (hero) | 0–50 ms | 0 |
+| Phone, appointments | 100 | | | 1.5 s | | 0 |
+| Phone, length | 100 | | | 1.0 s | | 0 |
+| Desktop, home | 100 | | | 0.5 s | | 0 |
+
+The kit's browser test now holds layout shift under 0.05 with fonts slowed 600 ms and scripts 1.5 s (appointments,
+length and home at 390 px; Eid, Our story and length at 1,024 px), and no sideways scroll at 320 px.
+
 ## Nail, lash and beauty salons
 _From `docs/trades/nails/speed.md`._
 
@@ -1021,6 +1145,19 @@ New demo photo set at twice the old size (plates 1080 px, gallery 720×900) with
 JS 21.9 KB gz, CSS 17.1 KB gz, HTML 23 KB gz. The inline head script grew by the season rule (still allowed by its hash).
 Lighthouse mobile, demo home, two runs: 93, 97; accessibility 100; FCP 1.8 s; LCP 2.0–2.1 s; TBT 130–250 ms; layout shift 0.
 
+## Street-food and dessert stalls (markets, pop-ups and parties)
+_From `docs/trades/stalls/speed.md`._
+
+### 17 Nov 2026 — Spun (Fendle) and the stalls kit
+
+Fendle demo (Signature, every section shown): JS 11.2 KB gz, CSS 8.7 KB gz, fonts 78.8 KB (Gabarito 600/700/800 and
+Labrada 400, latin, size-matched fallbacks). No 3D, no film. Home: first screen 80.9 KB (the hero photo), whole page
+258 KB; menu 66.8 KB, parties 75.9 KB; other pages carry no images. The board picture is drawn on the visitor's phone
+when they tap Save, so it adds nothing to the page. Layout: the next-stop block keeps the countdown's shape before the
+script runs (fixed heights for the place and the count on phones), so nothing moves when "Opens at" turns into the
+countdown. Lighthouse mobile, served by `npm run serve`, home three runs: 99, 100, 99; accessibility 100; FCP 1.0–1.5 s;
+LCP 1.2–2.0 s; TBT 0–60 ms; CLS 0.002.
+
 ## Tailors
 _From `docs/trades/tailor/speed.md`._
 
@@ -1068,6 +1205,45 @@ Fallback fonts size-matched from the font files against Liberation Sans / Libera
 Lighthouse mobile, Marlie home, three runs from a fresh `npm run serve` (gzip): performance 97, 98, 98; accessibility
 100; FCP 1.4 s; LCP 2.3 s (the strip); TBT 120, 0, 50 ms; layout shift 0. Phone (390×844): the strip is 764 px tall,
 inside one screen; the phone bar with Book stays on screen while scrolling (tests/e2e/smile.spec.js).
+
+## Independent tour operators
+_From `docs/trades/tourism/speed.md`._
+
+### 17 Nov 2026 — tourism kit: Logbook look, Larrow demo
+
+Whole site (`npm run budget`): JS 28.6 KB (10.7 KB gz), CSS 45.3 KB (10.1 KB gz), fonts 34.7 KB (Familjen Grotesk 400, 500
+and 700; latin woff2). HTML gz: home 18.6 KB (every journey's logbook is on the page for the journey of the month;
+each country's outline is drawn once and reused, so Chile's three journeys share one), journey pages 6.3–11 KB, Plan your visit 6.1 KB, other pages 3.6–4.4 KB.
+Images: 1040×1300 WebP with 600-wide copies, one cool-neutral grade. First screen 106 KB on the home page (the open
+journey's photograph; the others are lazy and load when that journey is chosen); the home page's full set is 1.4 MB if
+every journey is opened. Kyoto's first screen is the heaviest at 277 KB (fine leaf detail).
+
+Country outlines: Natural Earth 1:50m, simplified to about 2.5 km and rounded to 0.01° (`src/kits/tourism/data`,
+624 KB in the repository, build time only); a page inlines only its own country.
+
+Fallback font size-matched from the font files (average width of running text and hhea ascent and descent) against
+Liberation Sans: Familjen Grotesk 400 94.1% (ascent 108.9%, descent 23.9%), 500 96.7% (106%, 23.3%).
+
+Measured in Chrome with the CPU slowed 4×, from the local server: layout shift on the home page 0 on a phone
+(390×844) and 0.0013 on desktop (1440×900); a journey page 0 and 0.0013; the trip builder 0 and 0.0001. Largest paint
+0.18–0.30 s locally. Phone home page 7,655 px. axe: no serious or critical violations on any page of the demo or the
+client fixture (tests/e2e/a11y.spec.js), after the year's faded rows moved from opacity to the muted ink for contrast.
+Lighthouse isn't installed on the build machine; the auditor's run is below.
+
+### 17 Nov 2026 — the audit's Lighthouse (before the fixes)
+
+Lighthouse, Chromium, local server, home page (from the audit, 2026-11-17-F):
+
+| | Performance | Accessibility | Best practices | Largest paint | Layout shift |
+|---|---|---|---|---|---|
+| Phone (mobile preset), 7 runs | 100 in 4 runs; 83–88 in 3 | 96 | 100 | 1.7 s (good runs) to 3.9 s (render delay up to 2.6 s) | 0–0.001 |
+| Desktop | 100 | 100 | 100 | 0.6 s | 0.001 |
+
+SEO 69 is only the demo's noindex. Fixed after the audit: the year's month buttons on a phone are now at least 24 px
+wide and 44 px tall (the table becomes a name line with the twelve months full width beneath it), the wordmark's
+spoken name is its visible text, and the phone bar is a `nav` landmark. Home HTML down from 19.4 to 18.6 KB gz once
+each country's outline is drawn once. The phone runs' render-delay variance is left for the next Lighthouse run to
+confirm; the first-screen photograph is already eager with high fetch priority.
 
 ## Wealth managers
 _From `docs/trades/wealth/speed.md`._

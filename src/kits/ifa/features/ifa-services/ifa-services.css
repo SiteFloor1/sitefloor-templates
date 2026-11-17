@@ -1,0 +1,17 @@
+/* What we help with: a two-column table, the service and its line on the left, what to bring on the right. */
+.if-svc-t { border-top: 1px solid var(--text); }
+.if-svc-r { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(20px, 4vw, 64px); padding: 22px 0; border-bottom: 1px solid var(--line); }
+.if-svc-hd { padding: 10px 0; font-size: 13px; color: var(--muted); }
+.if-svc-r h3 { font: 400 clamp(1.25rem, 1.8vw, 1.55rem)/1.2 var(--font-display); margin: 0 0 6px; }
+.if-svc-r h3 a { text-decoration: none; }
+.if-svc-r p { margin: 0; color: var(--muted); max-width: 52ch; }
+.if-svc-b { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 15px; }
+.if-svc-b li { padding-left: 18px; position: relative; }
+.if-svc-b li::before { content: ""; position: absolute; left: 0; top: .72em; width: 8px; height: 1px; background: var(--accent); }
+.if-svc-foot { display: grid; gap: 10px; margin-top: 24px; max-width: 72ch; }
+.if-svc-foot p { margin: 0; }
+@media (max-width: 720px) {
+  .if-svc-r { grid-template-columns: 1fr; gap: 12px; }
+  .if-svc-hd { display: none; }
+  .if-svc-b::before { content: "Bring"; display: block; font-size: 13px; color: var(--muted); }
+}

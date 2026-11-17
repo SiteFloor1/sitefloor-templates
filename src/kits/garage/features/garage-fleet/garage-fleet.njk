@@ -1,0 +1,14 @@
+{#- Business and fleet (PARK-14): how many vehicles, which hours, a monthly invoice; sent as one WhatsApp message. -#}
+{%- set F = site.companies %}
+{%- set ph = { title: "For businesses", intro: F.intro } %}
+{% include "kits/garage/partials/page-head.njk" %}
+<section class="gf" data-feature="garage-fleet" aria-label="A business enquiry"><div class="wrap gf-in">
+  <form class="gf-f" data-fl-form>
+    <p><label for="fl-co">Business name</label> <input id="fl-co" name="company" autocomplete="organization"></p>
+    <fieldset><legend>Vehicles</legend>{% for s in F.sizes %}<label><input type="radio" name="vehicles" value="{{ s }}"{% if loop.first %} checked{% endif %}> {{ s }}</label>{% endfor %}</fieldset>
+    <fieldset><legend>Access</legend>{% for s in F.access %}<label><input type="radio" name="when" value="{{ s }}"{% if loop.first %} checked{% endif %}> {{ s }}</label>{% endfor %}</fieldset>
+    <p><label><input type="checkbox" name="invoice" checked> A monthly invoice</label></p>
+    <p><label for="fl-note">Anything else</label> <textarea id="fl-note" name="note" rows="3"></textarea></p>
+    <a class="btn" data-fl-send href="{{ ('Hello ' + site.business.name + ', a business enquiry.') | book }}" target="_blank" rel="noopener">Send on WhatsApp</a>
+  </form>
+</div></section>

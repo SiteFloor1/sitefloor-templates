@@ -1,0 +1,33 @@
+{#- The menu (the board): each item, its price, a short line and the allergens by code from the stall's own chart.
+    Sold out today (stalls-sold-out) strikes items through from the stall's Form; "Save the board" (stalls-board)
+    draws it as a picture. `menuFull` (the menu page) adds the photos. -#}
+{%- set M = site.menu %}{% set menuPhoto = M.photo %}
+{%- set sec = site.sections.menu %}
+<section id="menu" class="st-menu{% if menuFull %} st-menu-full{% endif %}" aria-labelledby="st-menu-h" data-feature-host="stalls-menu"{{ "stalls-menu" | tierAttr | safe }}>
+  <div class="wrap st-menu-in">
+    {%- if not menuFull and menuPhoto %}
+    <figure class="st-menu-photo"><img src="{{ menuPhoto.src | img }}" alt="{{ menuPhoto.alt }}" width="{{ menuPhoto.width }}" height="{{ menuPhoto.height }}" loading="lazy" decoding="async"{% if menuPhoto.focus %} style="object-position: {{ menuPhoto.focus }}"{% endif %}></figure>
+    {%- endif %}
+    <div class="st-board">
+      {%- set secId = "st-menu-h" %}{% include "core/partials/section-head.njk" %}
+      <ul class="st-items">
+        {%- for i in M.items %}
+        <li class="st-item" data-item="{{ i.name | lower }}">
+          {%- if menuFull and i.photo %}<img class="st-item-photo" src="{{ i.photo.src | img }}" alt="{{ i.photo.alt }}" width="{{ i.photo.width }}" height="{{ i.photo.height }}" loading="lazy" decoding="async">{% endif %}
+          <span class="st-item-n">{{ i.name }}{% if i.vegan %} <abbr class="st-vegan" title="Vegan">VE</abbr>{% endif %}</span>
+          <span class="st-item-p">{{ i.price | gbp }}</span>
+          <span class="st-item-d" data-item-line>{{ i.line }}</span>
+          <span class="st-item-a" title="{{ i.allergens | allergenWords }}"><span class="sr-only">Allergens: {{ i.allergens | allergenWords }}.</span><span aria-hidden="true">{{ i.allergens or "none of the 14" }}</span></span>
+        </li>
+        {%- endfor %}
+      </ul>
+      <div class="st-menu-foot">
+        <p class="st-key">{{ M.key or (M.items | allergenKey) }}{% if M.items | selectattr("vegan") | length %} · VE vegan{% endif %}</p>
+        {%- if "stalls-board" | enabled %}{% include "kits/stalls/features/stalls-board/stalls-board.njk" %}{% endif %}
+      </div>
+      {%- if "stalls-sold-out" | enabled %}{% include "kits/stalls/features/stalls-sold-out/stalls-sold-out.njk" %}{% endif %}
+      {%- if M.note %}<p class="st-menu-note">{{ M.note }}</p>{% endif %}
+      {%- if "stalls-allergens" | enabled and not menuFull %}<p class="st-menu-note"><a href="{{ 'allergens' | href }}"{{ "stalls-allergens" | tierAttr | safe }}>Allergens and food hygiene</a></p>{% endif %}
+    </div>
+  </div>
+</section>

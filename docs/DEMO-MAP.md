@@ -163,6 +163,18 @@ Taken by Corbel: the blue-hour deep navy ground with warm lit rooms, the blueber
 pale green-white text, Encode Sans Expanded and Encode Sans, the engraved scene keypad and the circuit chart, the house
 at dusk switched by a keypad, and a 3D house lit room by room.
 
+## Financial advisers
+_From `docs/trades/financial-advisers/demo-map.md`._
+
+This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` (generated) before proposing a look.
+
+| Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
+|---|---|---|---|---|---|---|---|
+| Thursby | independent financial advice, `ifa`, `statement` | a private bank's statement: **ivory page, holly-green header band and footer**, one wide photograph of a Georgian terrace in morning sun | the terrace's brick and stucco, graded warm with a holly shadow | holly #1D3A2E for the band, the footer and the one filled button; pewter #B9BCB7 hairlines and the card's inner frame | Frank Ruhl Libre 300 / 400 (500 for the name in spaced capitals and the totals) | "Every fee, in pounds, before you sign anything." beside a statement card overlapping the photograph: dotted leaders, pence, the first year under a double rule | the note: a specimen banknote whose face value is the fee; the eight security features as the site's compliance features |
+
+Taken by Thursby: Frank Ruhl Libre, the holly band with a round seal and spaced capitals, the statement card with dotted
+leaders and a double-ruled total, the Georgian street photograph, "what to bring" beside each service.
+
 ## Florists
 _From `docs/trades/florist/demo-map.md`._
 
@@ -184,6 +196,15 @@ with Spectral, the pearl pin (wordmark, Pinned flag, holding each card), one sat
 card, the warm white page with a peony-petal accent on text and lines only. Design record:
 [`sitefloor-internal/docs/design/laleh.md`](https://github.com/SiteFloor1/sitefloor-internal/blob/main/docs/design/laleh.md).
 
+## Garage and parking rentals
+_From `docs/trades/garage/demo-map.md`._
+
+This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` (generated) before proposing a look.
+
+| Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
+|---|---|---|---|---|---|---|---|
+| Elsden | indoor car storage and monthly parking, `garage`, `elsden` (built 17 Nov on `trade/garage`) | a gallery for cars: **plaster** ground, the hall itself as the work, seen from straight above edge to edge, its label resting on the forecourt like a gallery card; the hall drawn to scale below; how cars are kept hung like a show | a bay leaf (olive) | olive #55613F on plaster #E9E6E0, paper #F7F5F0, ink #1C1B19 | Cardo 400 and 700 / Radio Canada 400 to 600 | pick your car and one that size drives in through the gate and turns into the bay that fits; charging and cameras as layers; the same view after dark with the route to the bay lit | to come with the case study |
+
 ## Grand cafés and tea rooms
 _From `docs/trades/grand-cafe/demo-map.md`._
 
@@ -192,6 +213,18 @@ This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` 
 | Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
 |---|---|---|---|---|---|---|---|
 | Grenat | grand café, `restaurant`, `salon` | baroque grand café: cream and gilt by day, garnet by candlelight, **warm** | a pomegranate | garnet #B4233C on cream #F6EEE0 | Libre Caslon Display / Libre Caslon Text | the room in a gilt frame with cut corners, lit for the hour | a three-tier stand |
+
+## Gyms and health clubs
+_From `docs/trades/gym/demo-map.md`._
+
+This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` (generated) before proposing a look.
+
+| Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
+|---|---|---|---|---|---|---|---|
+| Halde ([demo](https://sitefloor1.github.io/sitefloor-templates/gym/)) | premium members' gym, `gym`, `afterdark` | a members' training club after dark: **black**, one black-and-white portrait framed mid-page, heat and cold as the warm second act in colour (steam, cedar) | a wet river stone | river stone #CFC8BC for dates and quiet marks; bone #F2F0EC type and buttons | Epilogue only (200 the count, 300 headings) | the club's count (usual, or live from the door) as one huge number crossing the portrait's left edge, negative where it passes over; one line, one sentence, one button | (to come) |
+
+Taken by Halde: Epilogue, the drawn H whose crossbar rises (the mark), the number crossing a framed portrait's edge,
+the black page with a warm colour second act, the timetable's busy-by-hour fine rules.
 
 ## Hair salons
 _From `docs/trades/hair/demo-map.md`._
@@ -286,6 +319,15 @@ This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` 
 |---|---|---|---|---|---|---|---|
 | Isotach | running and outerwear brand, new `wear`, `basalt` (branch `trade/menswear`) | running house after rain, **dark and cool**, photograph-led | wet basalt | wet-rock steel #A9B8C3 on basalt #17191C | Host Grotesk (light) / Rethink Sans | full-bleed campaign photo of a runner in the shell, piece name at its foot, the drop as one quiet line | (none yet) |
 
+## Modest fashion and abaya boutiques
+_From `docs/trades/modest/demo-map.md`._
+
+This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` (generated) before proposing a look.
+
+| Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
+|---|---|---|---|---|---|---|---|
+| Taroub | abaya and modest wear boutique, `modest`, `taroub` (built 16 Nov on `trade/modest`) | a gallery hang for one garment: **warm ivory**, the header as a left wall (name, a second piece small, the pages written as two sentences), the abaya full height in the middle, its label on the right; a quiet ivory bar with the look and its total | a crocus stamen (saffron) | saffron #9A561B on ivory #F6F1E9, ink #211C18 | Shippori Mincho 400 and 500 / Afacad 400 and 500 | the hem line: shoulder to floor and her shoes in one sentence, a ruler beside a real hem photograph showing where each length stops | to come with the case study |
+
 ## Nail, lash and beauty salons
 _From `docs/trades/nails/demo-map.md`._
 
@@ -323,6 +365,15 @@ This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` 
 | Saffron & Ash | restaurant, `restaurant`, `maison` | always dark bottle green, candlelit, warm | a grill at night | saffron #E0A03A on #0C1311 | Cormorant Garamond / Jost | the closed Menu Book on the table over a blurred fire loop | a ten-course tasting menu |
 | (Carte, no demo of its own) | restaurant, `carte` | printed menu card on a celadon wall | celadon and paprika | paprika #A3341A | Bodoni Moda / Schibsted Grotesk | the menu card itself | — |
 
+## Street-food and dessert stalls (markets, pop-ups and parties)
+_From `docs/trades/stalls/demo-map.md`._
+
+This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` (generated) before proposing a look.
+
+| Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
+|---|---|---|---|---|---|---|---|
+| Fendle | bubble-waffle stall, `stalls`, `spun` | street food at a market, **white and loud** | a raspberry sauce on a hot waffle | raspberry #C9314F on white, prices in crust amber #A8640F | Gabarito / Labrada | the waffle iron opening on the right half, one heavy line running into it, where we are next counting down, the week's stops as tickets | the week's stops (one ticket per plan) |
+
 ## Tailors
 _From `docs/trades/tailor/demo-map.md`._
 
@@ -343,6 +394,15 @@ This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` 
 | Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
 |---|---|---|---|---|---|---|---|
 | Marlie | whitening and aesthetic dental studio, `smile`, `booth` (built 9 Nov on `trade/teeth`) | young founder-led studio, Instagram-first: **white**, warm black-and-white photographs, espresso band and footer | a lavender sprig | lavender #54449A (soft #C4B9E6) on white #FFFFFF, espresso #211B19 | Reddit Sans 200 / Reddit Sans 300, Brygada 1918 italic for the dentist's voice | a photo-booth strip of four smiles developing frame by frame (flat on desktop, upright and within one screen on a phone) | (to come) |
+
+## Independent tour operators
+_From `docs/trades/tourism/demo-map.md`._
+
+This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` (generated) before proposing a look.
+
+| Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
+|---|---|---|---|---|---|---|---|
+| Larrow | independent tour operator, `tourism`, `logbook` (built 17 Nov on `trade/tourism`) | a traveller's logbook: **cool off-white**, hairline rules, square edges; the stop's photograph large on the left, the entry and stops in the middle, the country drawn full height on the right | Xanthoria lichen on Patagonian granite | lichen #A3561A on off-white #F3F2EF, ink #141516 | Familjen Grotesk 500 / 400 (one family) | the journey of the month, day by day: choose a stop and the route draws itself down the country to it; four journeys beneath as an index | to come with the case study |
 
 ## Wealth managers
 _From `docs/trades/wealth/demo-map.md`._

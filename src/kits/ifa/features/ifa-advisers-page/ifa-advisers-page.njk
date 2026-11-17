@@ -1,0 +1,15 @@
+{#- The advisers page: each adviser with a photograph, what they look after, letters and register entry. -#}
+{%- set sec = site.sections.advisers %}
+{%- set ph = { title: sec.title, intro: sec.intro } %}
+{% include "kits/ifa/partials/page-head.njk" %}
+<section class="if-advp" data-feature="ifa-advisers-page"><div class="wrap if-advp-l">
+  {%- for a in site.advisers.items %}
+  <article class="if-advp-a" id="{{ a.id }}">
+    {%- if a.photo %}<img src="{{ a.photo.src | img }}" alt="{{ a.photo.alt }}" width="{{ a.photo.width }}" height="{{ a.photo.height }}" loading="lazy" decoding="async"{% if a.photo.position %} style="object-position:{{ a.photo.position }}"{% endif %}>{% endif %}
+    <h2>{{ a.name }}</h2>
+    <p class="if-adv-r">{{ a.role }}{% if a.letters %} · {{ a.letters }}{% endif %}</p>
+    {%- if a.line %}<p>{{ a.line }}</p>{% endif %}
+    <p class="if-adv-irn">FCA reference <a href="{{ a.registerUrl or fca.register }}" target="_blank" rel="noopener">{{ a.irn }}</a>{{ site.mode | demoTag }}</p>
+  </article>
+  {%- endfor %}
+</div></section>

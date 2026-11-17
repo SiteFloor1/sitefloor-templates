@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: memberships
+permalink: memberships.html
+feature: gym-membership-page
+eleventyComputed:
+  title: "{{ site.membershipPage.title | plain }}"
+  description: "Memberships at {{ site.business.name }}, {{ site.location.locality }}: every price with its joining fee included."
+---
+{%- set ph = site.membershipPage %}{% set onPage = true %}{% include "kits/gym/partials/page-head.njk" %}
+{%- for id in "gym-membership-page" | hostedHere %}{% if id | enabled %}{% include homeParts.paths[id] %}{% endif %}{% endfor %}
+{%- if "gym-corporate" | enabled %}<p class="wrap gy-more"><a class="go" href="{{ 'corporate' | href }}">Through work? See the corporate rate</a></p>{% endif %}

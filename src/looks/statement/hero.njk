@@ -1,0 +1,25 @@
+{#- Statement hero: one wide photograph of the street, credited on it; then the firm's sentence beside the fee
+    statement, which overlaps the photograph. Without the statement, the sentence and a framed first-meeting card. -#}
+{%- include "kits/ifa/partials/meet-href.njk" %}
+{%- set h = site.hero %}
+<section class="hero st-hero" aria-labelledby="st-h1">
+  <figure class="st-photo">
+    <picture>
+      {%- if h.photoTall %}<source media="(max-width: 900px)" srcset="{{ h.photoTall.src | img }}" width="{{ h.photoTall.width }}" height="{{ h.photoTall.height }}">{% endif %}
+      <img src="{{ h.photo.src | img }}" width="{{ h.photo.width }}" height="{{ h.photo.height }}" alt="{{ h.photo.alt }}" fetchpriority="high" decoding="async"{% if h.photo.position %} style="object-position: {{ h.photo.position }}"{% endif %}>
+    </picture>
+    {%- if h.photo.credit %}<figcaption>{{ h.photo.credit }}</figcaption>{% endif %}
+  </figure>
+  <div class="wrap st-lead">
+    <div class="st-lead-t">
+      {%- if h.kicker %}<p class="st-kick">{{ h.kicker }}</p>{% endif %}
+      <h1 id="st-h1">{{ h.title | plain }}</h1>
+      {%- if h.intro %}<p class="st-sub">{{ h.intro }}</p>{% endif %}
+      <div class="st-reg">{% include "kits/ifa/features/ifa-independence/line.njk" %}</div>
+    </div>
+    <div class="st-card">
+      {%- if "ifa-statement" | enabled %}{% include "kits/ifa/features/ifa-statement/ifa-statement.njk" %}{% endif %}
+      <div class="st-card-go"{% if "ifa-statement" | enabled %}{{ "ifa-statement" | tierAttr | safe }}{% endif %}><a class="if-btn" href="{{ meetHref }}">Book a first meeting</a>{% if site.meeting and site.meeting.length %}<span>{{ site.meeting.length }}</span>{% endif %}</div>
+    </div>
+  </div>
+</section>

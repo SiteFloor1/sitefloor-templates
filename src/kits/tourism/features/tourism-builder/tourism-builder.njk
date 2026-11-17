@@ -1,0 +1,29 @@
+{#- The trip builder (TOUR-6): the operator's regions, each with the nights they suggest; add a region and set its
+    nights within that range, choose the month and who's going, and send it as one WhatsApp message. Shows the total
+    nights; never a price (the operator quotes). -#}
+{%- set B = site.builder %}
+<section class="tb" data-feature="tourism-builder" aria-label="{{ B.title | plain }}"><div class="wrap">
+  {%- set ph = { title: B.title, intro: B.intro } %}{% include "kits/tourism/partials/page-head.njk" %}
+  <div class="tb-in">
+    <ul class="tb-regions">
+      {%- for r in B.regions %}
+      <li class="tb-r" data-tb-region="{{ r.id }}" data-name="{{ r.name }}" data-min="{{ r.nights[0] }}" data-max="{{ r.nights[1] }}">
+        <div class="tb-r-t"><h2>{{ r.name }}</h2><p>{{ r.where }} · {{ r.nights[0] }} to {{ r.nights[1] }} nights{% if r.line %}. {{ r.line }}{% endif %}</p></div>
+        <div class="tb-r-n">
+          <button type="button" data-tb-less aria-label="One night fewer in {{ r.name }}">−</button>
+          <output data-tb-n aria-live="polite">0</output>
+          <button type="button" data-tb-more aria-label="One night more in {{ r.name }}">+</button>
+        </div>
+      </li>
+      {%- endfor %}
+    </ul>
+    <div class="tb-sum">
+      <label class="tb-f">Month <select data-tb-month><option value="">Not sure yet</option>{% for m in tourMonths %}<option value="{{ loop.index }}">{{ m }}</option>{% endfor %}</select></label>
+      <label class="tb-f">Who's going <select data-tb-who>{% for w in tourWho %}<option value="{{ w.id }}">{{ w.label }}</option>{% endfor %}</select></label>
+      <p class="tb-total" data-tb-total aria-live="polite">Add a region to start.</p>
+      <ol class="tb-list" data-tb-list></ol>
+      <a class="tb-send" data-tb-send href="{{ site.messages.general | wa }}" target="_blank" rel="noopener" aria-disabled="true">Send it on WhatsApp</a>
+      <p class="tb-note">We reply with a route and a price for your dates.</p>
+    </div>
+  </div>
+</div></section>

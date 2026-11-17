@@ -1,0 +1,4 @@
+{#- The statutory status every page carries (GEN 4 Annex 1): who the firm is, that the Financial Conduct Authority
+    authorises and regulates it, and its FRN linked to its own entry on the register. -#}
+{%- set r = site.regulation %}
+<p class="if-reg-line">{% if r.tradingName %}{{ r.tradingName }} is a trading name of {% endif %}{{ r.legalName }}, authorised and regulated by the Financial Conduct Authority, firm reference number <a href="{{ r.registerUrl }}" target="_blank" rel="noopener" data-frn>{{ r.frn }}</a>{{ site.mode | demoTag }}.</p>

@@ -1,0 +1,11 @@
+{#- Pick your car: four typical sizes. Shared as "garage-car", so the drawn plan, the aerial hall and the night route
+    all follow it. The answer and the reserve link are written at build time for the first car, then live. -#}
+{%- set first = site.hall | firstAnswer("estate") %}
+<div class="gp-pick" data-feature="garage-pick" data-pick-chips>
+  <p class="gp-ask" id="gp-ask">Your car</p>
+  <div class="gp-chips" role="group" aria-labelledby="gp-ask">
+    {%- for key, car in garageCars %}<button type="button" data-car="{{ key }}" aria-pressed="{{ 'true' if key == 'estate' else 'false' }}">{{ car.name }}</button>{% endfor %}
+  </div>
+  <p class="gp-ans" data-pick-answer aria-live="polite">{{ first.text }}</p>
+  <a class="btn" data-pick-reserve href="{{ (site.hall | reserveText(site.business.name, 'estate')) | book }}" target="_blank" rel="noopener">{{ ("Reserve bay " + first.bay) if first.bay else "Join the waiting list" }}</a>
+</div>

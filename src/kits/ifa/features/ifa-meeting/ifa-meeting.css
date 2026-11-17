@@ -1,0 +1,13 @@
+/* The first meeting: the facts and the booking button on the left, the checklist on the right. */
+.if-meet-in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 96px); padding-block: 8px clamp(56px, 7vw, 96px); }
+.if-meet-dl { margin: 0 0 24px; border-top: 1px solid var(--text); }
+.if-meet-dl div { display: grid; grid-template-columns: 9em 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.if-meet-dl dt { color: var(--muted); }
+.if-meet-dl dd { margin: 0; }
+.if-bring { margin: 0; padding: 0; border: 0; display: grid; gap: 0; border-top: 1px solid var(--text); }
+.if-bring legend { font: 400 1.35rem/1.25 var(--font-display); padding: 0 0 12px; }
+.if-bring label { display: flex; gap: 12px; align-items: flex-start; padding: 13px 0; border-bottom: 1px solid var(--line); cursor: pointer; }
+.if-bring input { width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--accent); flex: none; }
+.if-bring input:checked + span { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--line-2); }
+.if-bring .if-fine { margin-top: 12px; }
+@media (max-width: 760px) { .if-meet-in { grid-template-columns: 1fr; } .if-meet-dl div { grid-template-columns: 1fr; gap: 2px; } }

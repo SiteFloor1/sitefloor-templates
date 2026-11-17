@@ -63,10 +63,17 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 | Isolde, the cover (round 4) | trade/bridal-beauty | Libre Bodoni | Faustina |
 | Cleaning, Plan (A) | trade/cleaning | Anek Latin | Anek Latin |
 | Maudry, The doors | trade/events | Eczar | Eczar |
+| Thursby, The statement (light) | trade/financial-advisers | Frank Ruhl Libre | Frank Ruhl Libre |
+| Garage, Elsden (the gallery) | trade/garage | Cardo | Radio Canada |
+| Halde, chalk (round 1) | trade/gym | Sofia Sans Extra Condensed | Sofia Sans |
+| Halde, After dark (chosen, round 3) | trade/gym | Epilogue | Epilogue |
 | Landscaping, Almanac | trade/landscaping | Alegreya | Alegreya |
 | Halvern, The stair (A) | trade/letting | Petrona | Petrona |
+| Taroub | trade/modest | Shippori Mincho | Afacad |
 | Trainer, Linen (A) | trade/trainer | Ibarra Real Nova | Ibarra Real Nova |
+| Fendle, Spun (B, round 1, revised) | trade/stalls | Gabarito | Labrada |
 | Tailor, Flannel (A) | trade/tailor | Della Respira | Commissioner |
+| Larrow, Logbook look | trade/tourism | Familjen Grotesk | Familjen Grotesk |
 | Wedding films, Première (A) | trade/wedding-film | Sorts Mill Goudy | Urbanist |
 
 ## Case studies
@@ -99,6 +106,8 @@ A case study is a design too: don't reuse these in a new look or another case st
 | Pellow & Garth (construction) | case-studies/pellow-garth | construction | Big Shoulders Stencil Display | Kumbh Sans | |
 | Saffron & Ash (restaurant) | case-studies/saffron-and-ash | restaurant | Instrument Serif | Instrument Sans | |
 | Selwyn Orr (hair salon) | case-studies/selwyn-orr | hair | Darker Grotesque | Public Sans | |
+| Taroub (modest fashion) | case-studies/taroub | modest | Shippori Mincho | Afacad | |
+| Thursby (financial advisers) | case-studies/thursby | financial-advisers | Frank Ruhl Libre | Frank Ruhl Libre | |
 | Tollgarth (garden design) | case-studies/tollgarth | landscaping | Cinzel | Alegreya | |
 | Varnell (car detailing) | case-studies/varnell | detailing | Michroma | Geist | Geist Mono |
 | Velvet Spoon (dessert shop) | case-studies/velvet-spoon | dessert | Gilda Display | Albert Sans | |

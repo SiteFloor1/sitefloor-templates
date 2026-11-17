@@ -1,0 +1,22 @@
+{#- Logbook header: one ruled line. The name in a square stamp, the pages inline in muted ink with the current one
+    dark, "Your trip" (the private page by code) when it's on, and "Plan with us →" to WhatsApp. On a phone: the stamp,
+    "Plan with us" and Menu; the sheet lists the pages and the open status. -#}
+{%- set items = site.nav | navItems(pageId) %}
+<header class="nav lg-nav">
+  <a class="lg-mark" href="{{ 'index' | href }}">
+    {%- if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="{{ site.business.name }}" height="30">{% else %}<i aria-hidden="true">{{ site.business.name | first }}</i>{{ site.business.name }}{% endif %}</a>
+  <nav class="lg-menu" aria-label="Main">
+    {%- for item in items %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>{% endfor %}
+  </nav>
+  {%- if "tourism-trip" | enabled %}<a class="lg-trip" href="{{ 'your-trip' | href }}"{{ "tourism-trip" | tierAttr | safe }}{% if pageId == "your-trip" %} aria-current="page"{% endif %}>Your trip</a>{% endif %}
+  <a class="lg-plan" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">Plan with us <b aria-hidden="true">→</b></a>
+  <button class="burger lg-burger" type="button" aria-expanded="false" aria-controls="mnav">Menu</button>
+</header>
+<div class="mnav lg-sheet" id="mnav" hidden>
+  <nav aria-label="Pages">
+    <a href="{{ 'index' | href }}"{% if pageId == "index" %} aria-current="page"{% endif %}>Home</a>
+    {%- for item in items %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>{% endfor %}
+    {%- if "tourism-trip" | enabled %}<a href="{{ 'your-trip' | href }}"{{ "tourism-trip" | tierAttr | safe }}>Your trip</a>{% endif %}
+  </nav>
+  <p class="lg-sheet-now" data-live-status><span class="dot" aria-hidden="true"></span> <span data-status-text>Opening hours</span></p>
+</div>

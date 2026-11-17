@@ -1,0 +1,14 @@
+{#- Independent or restricted (COBS 6.2B): which the firm is, in its own words, what that means, and where free
+    guidance lives. -#}
+{%- set x = site.independence %}
+{%- set ph = { title: ("Independent advice" if x.status == "independent" else "Restricted advice"), intro: x.line } %}
+{% include "kits/ifa/partials/page-head.njk" %}
+<section class="if-ind" data-feature="ifa-independence"><div class="wrap if-ind-in">
+  <div class="if-ind-body">{% for p in x.body %}<p>{{ p }}</p>{% endfor %}
+    {%- if x.status == "restricted" %}<p><b>What our advice covers:</b> {{ x.restrictedTo }}</p>{% endif %}</div>
+  <dl class="if-ind-two">
+    <div{% if x.status == "independent" %} aria-current="true"{% endif %}><dt>Independent advice</dt><dd>The adviser can recommend from the whole market and is free of ties to any provider.</dd></div>
+    <div{% if x.status == "restricted" %} aria-current="true"{% endif %}><dt>Restricted advice</dt><dd>The adviser recommends from a limited range of products or providers, or on some subjects only, and must tell you which.</dd></div>
+  </dl>
+  <p class="if-ind-free">Free, impartial guidance (not advice) is also available from <a href="https://www.moneyhelper.org.uk/" target="_blank" rel="noopener">MoneyHelper</a>, and from <a href="https://www.moneyhelper.org.uk/en/pensions-and-retirement/pension-wise" target="_blank" rel="noopener">Pension Wise</a> for people aged 50 or over with a personal or workplace pension.</p>
+</div></section>

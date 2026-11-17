@@ -1,0 +1,12 @@
+{#- Menu and packages (the page): the whole menu with photos, then the party packages in the stall's own words and prices. -#}
+{%- set menuFull = true %}{% include "kits/stalls/features/stalls-menu/stalls-menu.njk" %}
+{%- set G = site.menuPage.packages %}
+{%- if G %}
+<section class="st-packages" aria-labelledby="st-pk-h">
+  <div class="wrap">
+    <h2 id="st-pk-h" class="st-h2">For parties</h2>
+    <ul class="st-pk">{% for k in G %}<li><b>{{ k.name }}</b><span class="st-pk-p">{% if k.from %}from {% endif %}{{ k.price | gbp }}</span><p>{{ k.line }}</p></li>{% endfor %}</ul>
+    {%- if "stalls-book" | enabled %}<p class="st-acts"><a class="st-solid" href="{{ 'book-us' | href }}"{{ "stalls-book" | tierAttr | safe }}>Book us</a></p>{% endif %}
+  </div>
+</section>
+{%- endif %}

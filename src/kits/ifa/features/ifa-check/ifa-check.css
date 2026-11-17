@@ -1,0 +1,10 @@
+/* Check it's us: two columns, plain lists with ruled rows. */
+.if-chk-in { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 96px); padding-block: 8px clamp(72px, 9vw, 120px); }
+.if-chk h2 { font: 400 1.3rem/1.25 var(--font-display); margin: 0 0 12px; }
+.if-chk h2:not(:first-child) { margin-top: 32px; }
+.if-chk p { margin: 0 0 12px; }
+.if-chk-list, .if-chk-never { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.if-chk-list li, .if-chk-never li { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.if-chk-list span { color: var(--muted); }
+.if-chk-never li { display: block; }
+@media (max-width: 760px) { .if-chk-in { grid-template-columns: 1fr; } }

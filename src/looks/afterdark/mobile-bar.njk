@@ -1,0 +1,5 @@
+{#- After dark phone bar: the day pass on bone, "Book in the app" beside it. The page reserves the bar's height. -#}
+<div class="mbar ad-bar">
+  {%- if 'gym-daypass' | enabled %}<a class="ad-bar-pass" href="{{ 'index' | href }}#day-pass"{{ 'gym-daypass' | tierAttr | safe }}>Day pass</a>{% endif %}
+  <a class="ad-bar-go" href="{{ site.messages.general | book }}" target="_blank" rel="noopener">Book in the app</a>
+</div>
