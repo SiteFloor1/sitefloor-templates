@@ -1,6 +1,6 @@
 {#- One journey, day by day: its photographs, the entry for the chosen stop, the stops, and (with the logbook on) the
     country drawn with the route. Set first: j (the journey), lbHero (true on the home page), lbOpen (shown),
-    lbOfMonth (it is this month's pick). Every stop carries its own words in data attributes, so choosing one swaps
+    lbOfMonth (it is this month's pick). In the hero each country's outline is drawn once (the hero's <defs>) and used. Every stop carries its own words in data attributes, so choosing one swaps
     them in place; the route is drawn to the stop by its share of the line (pathLength 1). -#}
 {%- set lbOn = "tourism-logbook" | enabled %}
 {%- set photos = j | stopPhotos %}
@@ -40,7 +40,7 @@
   <div class="lb-map"{{ "tourism-logbook" | tierAttr | safe }}>
     <div class="lb-mapbox {{ 'lb-tall' if m.tall else 'lb-wide' }}" style="aspect-ratio: {{ m.width }} / {{ m.height }}; --u: {{ 1.4 if m.tall else 3.6 }}">
       <svg viewBox="0 0 {{ m.width }} {{ m.height }}" role="img" aria-label="Map of {{ j.where }} with the route of {{ j.name }}">
-        <path class="lb-land" d="{{ m.land }}"/>
+        {%- if lbHero %}<use class="lb-land" href="#{{ m.landId }}"/>{% else %}<path class="lb-land" d="{{ m.land }}"/>{% endif %}
         {%- if m.route %}
         <path class="lb-ghost" d="{{ m.route }}"/>
         <path class="lb-route" data-lb-route pathLength="1" style="stroke-dashoffset: {{ 1 - m.at[0].share }}" d="{{ m.route }}"/>

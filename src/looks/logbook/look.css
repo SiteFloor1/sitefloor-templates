@@ -86,6 +86,7 @@ main section { padding-block: var(--s4); }
 .lb-mapbox { position: relative; }
 .lb-tall { height: calc(100% - 30px); max-width: 100%; }
 .lb-wide { width: 100%; max-height: calc(100% - 30px); }
+.lb-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
 .lb-mapbox svg { display: block; width: 100%; height: 100%; overflow: visible; }
 .lb-land { fill: var(--land); stroke: var(--land-edge); stroke-width: calc(var(--u) * 0.8px); stroke-linejoin: round; }
 .lb-ghost { fill: none; stroke: var(--ghost); stroke-width: calc(var(--u) * 1.2px); stroke-dasharray: calc(var(--u) * 3px) calc(var(--u) * 5px); }
@@ -318,12 +319,16 @@ main section { padding-block: var(--s4); }
   .lb-index button, .lb-index li:first-child button { padding: 12px 18px; border-right: 0; border-top: 1px solid var(--line); min-height: 0; }
   .lb-index li:first-child button { border-top: 0; }
   .tf-in, .ta-in, .tb-in, .tc-in { grid-template-columns: 1fr; }
-  .tf-c-name { width: 38%; }
-  .tf-c-len { width: 0; }
-  .tf-len { display: none; }
-  .tf-lg { display: none; }
-  .tf-yr thead button { font-size: 11px; }
-  .tf-m { height: 50px; }
+  /* the year on a phone: each journey's name on its own line, the twelve months full width beneath (tap targets 24px+) */
+  .tf-yr, .tf-yr thead, .tf-yr tbody { display: block; }
+  .tf-yr colgroup { display: none; }
+  .tf-yr tr { display: grid; grid-template-columns: repeat(12, minmax(24px, 1fr)); }
+  .tf-yr thead tr > td { display: none; }
+  .tf-yr thead th { display: block; }
+  .tf-yr thead button { min-height: 44px; padding: 0; font-size: 13px; }
+  .tf-yr tbody th { grid-column: 1 / -1; padding: 12px 0 0; }
+  .tf-len, .tf-lg { display: none; }
+  .tf-m { display: block; height: 30px; }
   .tj-row { grid-template-columns: 72px 1fr; gap: 14px; }
   .tj-img { width: 72px; height: 90px; grid-row: span 2; }
   .tj-facts, .tj-act { grid-column: 2; }

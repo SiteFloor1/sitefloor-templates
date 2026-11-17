@@ -123,8 +123,8 @@ export function daylight(lat, lon, tz, month, year) {
  * @param {{ rings: number[][][] }} country @param {{ name: string, lat: number, lon: number }[]} points
  */
 export function drawMap(country, points) {
+  // The frame is the country's own, so every journey in one country shares one outline (drawn once per page).
   const all = country.rings.flat();
-  for (const p of points) all.push([p.lon, p.lat]);
   const lons = all.map((c) => c[0]), lats = all.map((c) => c[1]);
   const lo0 = Math.min(...lons), lo1 = Math.max(...lons), la0 = Math.min(...lats), la1 = Math.max(...lats);
   const k = Math.cos((((la0 + la1) / 2) * Math.PI) / 180);
@@ -197,12 +197,19 @@ export function tripFromCsv(csv, code, journeyIds, today, staleAfterDays) {
   const row = rows.slice(1).find((r) => cleanCode(r[at("code")]) === code);
   if (!row) return { ok: false, reason: "unknown" };
   const journey = row[at("journey")], start = row[at("start")], updated = row[at("updated")];
-  const ymd = /^\d{4}-\d{2}-\d{2}$/;
-  if (!journeyIds.includes(journey) || !ymd.test(start) || !ymd.test(updated)) return { ok: false, reason: "unreadable" };
+  if (!journeyIds.includes(journey) || !realDate(start) || !realDate(updated)) return { ok: false, reason: "unreadable" };
   const age = (Date.parse(`${today}T00:00:00Z`) - Date.parse(`${updated}T00:00:00Z`)) / 86_400_000;
+  if (age < 0) return { ok: false, reason: "unreadable" }; // updated "in the future": a typo, never a fresh row
   if (!(age <= staleAfterDays)) return { ok: false, reason: "stale" };
   const n = at("travellers") >= 0 ? Number(row[at("travellers")]) : 0;
   return { ok: true, journey, start, travellers: Number.isInteger(n) && n > 0 && n < 40 ? n : 0, updated };
+}
+
+/** A real calendar date written YYYY-MM-DD (2027-02-30 and 2027-13-45 are not). @param {string} s */
+export function realDate(s) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(String(s))) return false;
+  const d = new Date(`${s}T00:00:00Z`);
+  return !Number.isNaN(d.getTime()) && d.toISOString().slice(0, 10) === s;
 }
 
 /** Whole days from today to a start date (negative once it has begun). @param {string} today @param {string} start */

@@ -91,7 +91,7 @@ export function journeyMap(j) {
   }
   const points = m.pts.map((p, k) => ({ name: p.name, x: m.width ? Math.round((p.xy[0] / m.width) * 1000) / 10 : 50, y: m.height ? Math.round((p.xy[1] / m.height) * 1000) / 10 : 50,
     major: pts[k].stop !== undefined, label: side[k] !== "", left: side[k] === "left" }));
-  return { land: m.land, route: m.route, width: m.width, height: m.height, tall: m.tall, at, points };
+  return { land: m.land, landId: `lb-land-${j.country}`, route: m.route, width: m.width, height: m.height, tall: m.tall, at, points };
 }
 
 /** Which journey a month opens on: the operator's pick, else the hero's journey, else the first. @param {any} site @param {number} month 1–12 */

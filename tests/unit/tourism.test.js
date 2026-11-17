@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { monthWords, monthMarks, fits, byFit, tzOffset, gapWords, localLine, sunTimes, daylight, drawMap, routeShares, shortlistMessage, builderMessage, cleanCode, tripFromCsv, daysTo, longDate, isTravelAdvice, pounds } from "../../src/kits/tourism/lib/tourism.js";
+import { realDate, monthWords, monthMarks, fits, byFit, tzOffset, gapWords, localLine, sunTimes, daylight, drawMap, routeShares, shortlistMessage, builderMessage, cleanCode, tripFromCsv, daysTo, longDate, isTravelAdvice, pounds } from "../../src/kits/tourism/lib/tourism.js";
 import { journeyMap, journeyFor, pageData } from "../../src/kits/tourism/kit.js";
 import { HOME_PARTS } from "../../src/kits/tourism/home.js";
 import { COUNTRIES } from "../../src/kits/tourism/lib/countries.js";
@@ -127,6 +127,14 @@ test("trip codes and the operator's sheet fail closed", () => {
   assert.deepEqual(tripFromCsv(csv, "OLD123", ["desert-to-ice"], "2026-11-17", 14), { ok: false, reason: "stale" });
   assert.deepEqual(tripFromCsv(csv, "BAD999", ["desert-to-ice"], "2026-11-17", 14), { ok: false, reason: "unreadable" });
   assert.deepEqual(tripFromCsv("name,when\nx,y", "LAR4817", ["desert-to-ice"], "2026-11-17", 14), { ok: false, reason: "unreadable" });
+  // A future "updated" date is a typo, not a fresh row; impossible dates are unreadable (audit 2026-11-17-F, TO-01/02).
+  const odd = "code,journey,start,travellers,updated\nFUT123,desert-to-ice,2027-01-12,2,2027-06-01\nBADDAY1,desert-to-ice,2027-13-45,2,2026-11-15\nFEB301,desert-to-ice,2027-02-30,2,2026-11-15\nUPD999,desert-to-ice,2027-01-12,2,2026-11-31";
+  for (const code of ["FUT123", "BADDAY1", "FEB301", "UPD999"]) assert.deepEqual(tripFromCsv(odd, code, ["desert-to-ice"], "2026-11-17", 14), { ok: false, reason: "unreadable" }, code);
+  assert.equal(realDate("2027-02-28"), true);
+  assert.equal(realDate("2028-02-29"), true);
+  assert.equal(realDate("2027-02-29"), false);
+  assert.equal(realDate("2027-13-01"), false);
+  assert.equal(realDate("27-01-01"), false);
   assert.equal(daysTo("2026-11-17", "2026-12-29"), 42);
   assert.equal(longDate("2026-12-29"), "Tuesday 29 December 2026");
   assert.equal(pounds(8900), "£8,900");
