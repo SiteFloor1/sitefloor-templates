@@ -10,9 +10,10 @@
 ## How it works
 The race date is typed as dd/mm/yyyy (a text field, so the browser's own date format never shows; "14/3/2027" and
 "14.03.2027" work too). Training starts on the coming Monday; the whole weeks to the race are shared out over the
-club's phases by their `share`, the taper last, each phase with its dates. "Add the plan to my calendar" saves every
+club's phases by their `share`, the taper last, each phase with its dates (`minWeeks` must give every phase a week
+and the taper its weeks, so no phase can be empty). "Add the plan to my calendar" saves every
 session: each phase's classes where they fall in the club's weekly timetable (closed days left out), at the club's own
-times, and race day. A sample race sixteen weeks away shows first, said as such.
+times (none already started), and race day. A sample race sixteen weeks away shows first, said as such.
 
 ## Honesty
 Dates and the club's own classes only: no paces, weights, results or health claims. Under `minWeeks` or over `maxWeeks`

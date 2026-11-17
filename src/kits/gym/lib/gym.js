@@ -137,9 +137,9 @@ export function agoWords(minutes) {
 }
 
 /**
- * The live count from the club's sheet: `updated_at,count`, newest row wins. Fails closed: a sheet with other columns
- * filled, an unreadable or future time, a count that isn't a whole number from 0 to the club's capacity, or a newest
- * row older than `staleAfterMinutes` gives { ok: false }.
+ * The live count from the club's sheet: `updated_at,count`, the newest row wins. Fails closed: a sheet with other
+ * columns filled, or a newest row that is in the future, older than `staleAfterMinutes`, or not a whole number from 0
+ * to the club's capacity, gives { ok: false }. Rows whose time can't be read are skipped.
  * @param {string} csv @param {number} nowMs @param {string} tz @param {number} staleAfterMinutes @param {number} capacity
  * @returns {LiveCount}
  */
@@ -149,16 +149,17 @@ export function countFromCsv(csv, nowMs, tz, staleAfterMinutes, capacity) {
   const head = rows[0].map((h) => h.trim().toLowerCase());
   const iAt = head.indexOf("updated_at"), iN = head.indexOf("count");
   if (iAt < 0 || iN < 0 || extraFilled(rows, [iAt, iN])) return { ok: false };
-  /** @type {{ count: number, at: number }|null} */
+  // The newest row wins, whatever it says; an older unreadable row doesn't matter, a newest one turns the count off.
+  /** @type {{ raw: string, at: number }|null} */
   let best = null;
   for (const r of rows.slice(1)) {
-    const at = parseSheetTime(r[iAt] ?? "", tz), raw = (r[iN] ?? "").trim();
-    if (Number.isNaN(at) || at > nowMs + 60_000) return { ok: false };
-    if (!/^\d{1,4}$/.test(raw) || Number(raw) > capacity) return { ok: false };
-    if (!best || at > best.at) best = { count: Number(raw), at };
+    const at = parseSheetTime(r[iAt] ?? "", tz);
+    if (Number.isNaN(at)) continue;
+    if (!best || at >= best.at) best = { raw: (r[iN] ?? "").trim(), at };
   }
-  if (!best || nowMs - best.at > staleAfterMinutes * 60_000) return { ok: false };
-  return { ok: true, count: best.count, at: best.at };
+  if (!best || best.at > nowMs + 60_000 || nowMs - best.at > staleAfterMinutes * 60_000) return { ok: false };
+  if (!/^\d{1,4}$/.test(best.raw) || Number(best.raw) > capacity) return { ok: false };
+  return { ok: true, count: Number(best.raw), at: best.at };
 }
 
 /** True when any row has something written outside the expected columns. @param {string[][]} rows @param {number[]} cols */
@@ -169,8 +170,8 @@ export function extraFilled(rows, cols) {
 
 /* ------------------------------------------------------------------------------------------------------------------
  * Places left, from the club's sheet: `date,time,class,left,updated_at`, one row per class or recovery slot. Same rule
- * as the count: only fresh rows (15 minutes by default), only sessions still to start; anything unreadable says
- * nothing. Without a fresh row every session simply shows "Book in the app".
+ * as the count: the newest row for a session wins, and shows only if it is fresh (15 minutes by default), readable and
+ * within the class's size, for a session still to start; otherwise that session says nothing and keeps "Book in the app".
  * ------------------------------------------------------------------------------------------------------------------ */
 
 /** @typedef {{ ok: true, left: Record<string, number> } | { ok: false }} Places */
@@ -190,19 +191,29 @@ export function placesFromCsv(csv, nowMs, tz, staleAfterMinutes, sizes) {
   const c = ["date", "time", "class", "left", "updated_at"].map((n) => head.indexOf(n));
   if (c.some((i) => i < 0) || extraFilled(rows, c)) return { ok: false };
   const now = zonedNow(new Date(nowMs), tz);
-  /** @type {Record<string, { left: number, at: number }>} */
-  const best = {};
+  // The newest row for each session wins, whatever it says: a later "full" or an impossible count must not leave an
+  // older "4 left" showing. Rows whose session or time can't be read can't be placed, so they are skipped.
+  /** @type {Record<string, { raw: string, id: string, at: number }>} */
+  const newest = {};
   for (const r of rows.slice(1)) {
     const [date, time, id, raw] = c.slice(0, 4).map((i) => (r[i] ?? "").trim());
     const at = parseSheetTime(r[c[4]] ?? "", tz);
-    if (!isYmd(date) || !isTime(time) || !/^\d{1,3}$/.test(raw) || Number.isNaN(at) || at > nowMs + 60_000) continue;
-    if (!(id in sizes) || Number(raw) > sizes[id]) continue;
-    if (date < now.date || (date === now.date && toMinutes(time) <= now.minutes)) continue;
-    if (nowMs - at > staleAfterMinutes * 60_000) continue;
+    if (!isYmd(date) || !isTime(time) || !id || Number.isNaN(at)) continue;
     const key = sessionKey(date, time, id);
-    if (!best[key] || at > best[key].at) best[key] = { left: Number(raw), at };
+    if (date < now.date || (date === now.date && toMinutes(time) <= now.minutes)) continue; // started or past
+    if (!newest[key] || at >= newest[key].at) newest[key] = { raw, id, at };
   }
-  return { ok: true, left: Object.fromEntries(Object.entries(best).map(([k, v]) => [k, v.left])) };
+  const usable = Object.entries(newest).filter(([, row]) => placeRowShows(row, nowMs, staleAfterMinutes, sizes));
+  return { ok: true, left: Object.fromEntries(usable.map(([key, row]) => [key, Number(row.raw)])) };
+}
+
+/**
+ * A session's newest row shows only when it is fresh, not in the future, a whole number and within the class's size.
+ * @param {{ raw: string, id: string, at: number }} row @param {number} nowMs @param {number} staleAfterMinutes @param {Record<string, number>} sizes
+ */
+function placeRowShows(row, nowMs, staleAfterMinutes, sizes) {
+  if (row.at > nowMs + 60_000 || nowMs - row.at > staleAfterMinutes * 60_000) return false;
+  return /^\d{1,3}$/.test(row.raw) && row.id in sizes && Number(row.raw) <= sizes[row.id];
 }
 
 /** "4 places left" / "1 place left" / "Full" @param {number} n */
@@ -309,9 +320,10 @@ export function samplePlan(cfg, today) {
  * sessions a week, all of them on the club's own timetable.
  * @param {PlanPhase[]} phases @param {Record<string, { time: string, class: string }[]>} weekly
  * @param {{ weekly: Record<string, any[]>, exceptions?: { date: string, ranges: any[] }[] }} hours
+ * @param {{ date: string, minutes: number }} [now] sessions that have already started are left out
  * @returns {{ date: string, time: string, class: string, phase: string }[]}
  */
-export function planSessions(phases, weekly, hours) {
+export function planSessions(phases, weekly, hours, now) {
   /** @type {{ date: string, time: string, class: string, phase: string }[]} */
   const out = [];
   for (const p of phases) {
@@ -319,7 +331,8 @@ export function planSessions(phases, weekly, hours) {
     for (let w = 0; w < n; w += 7) {
       const days = weekOf(weekly, hours, addDaysYmd(p.from, w), Math.min(7, n - w));
       for (const c of p.classes) {
-        const all = days.flatMap((d) => d.sessions.filter((s) => s.class === c).map((s) => ({ date: d.date, time: s.time })));
+        const all = days.flatMap((d) => d.sessions.filter((s) => s.class === c).map((s) => ({ date: d.date, time: s.time })))
+          .filter((s) => !now || s.date > now.date || (s.date === now.date && toMinutes(s.time) > now.minutes));
         const pick = all.find((s) => s.time >= "17:00") ?? all[0];
         if (pick) out.push({ ...pick, class: c, phase: p.name });
       }

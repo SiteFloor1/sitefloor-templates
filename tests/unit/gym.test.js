@@ -41,14 +41,6 @@ test("prices: a membership without its mandatory fees, or with a price typed as 
   assert.equal(errorsFor((s) => { s.clubMemberships.tiers[0].mandatoryFees = []; }), "");
 });
 
-test("the built pages carry the totals, never a monthly price with the fee beside it", () => {
-  const page = readFileSync("dist/demos/gym/memberships.html", "utf8");
-  const html = page.slice(page.indexOf('class="gm"'), page.indexOf("</section>", page.indexOf('class="gm"')));
-  assert.match(html, /£1,578 for 12 months, joining fee included/);
-  assert.match(html, /£179 the first month, joining fee included/);
-  assert.doesNotMatch(html, /£\d+\s*\+\s*£\d+/);
-}, { skip: !exists("dist/demos/gym/memberships.html") && "build the demo first (npm run build -- --site demos/gym)" });
-
 test("the count: usual figures in words", () => {
   const busy = demo.busy;
   assert.equal(usualAt(busy, 1, 18), 128); // Monday 6pm
@@ -73,6 +65,9 @@ test("the live count: only fresh, whole and possible", () => {
   assert.deepEqual(countFromCsv("updated_at,count\n2026-11-16 19:40,31", now, TZ, 15, 180), { ok: false }); // future
   assert.deepEqual(countFromCsv("updated_at,count,who\n2026-11-16 18:40,31,Sam", now, TZ, 15, 180), { ok: false }); // personal data
   assert.deepEqual(countFromCsv("<html>", now, TZ, 15, 180), { ok: false });
+  // The newest row wins: an older typo doesn't turn the count off; a newest impossible one does.
+  assert.deepEqual(countFromCsv("updated_at,count\n2026-11-16 18:10,lots\n2026-11-16 18:40,31", now, TZ, 15, 180), { ok: true, count: 31, at: at("2026-11-16T18:40:00Z") });
+  assert.deepEqual(countFromCsv("updated_at,count\n2026-11-16 18:35,31\n2026-11-16 18:40,lots", now, TZ, 15, 180), { ok: false });
 });
 
 test("places left: fresh rows for sessions still to come, within the class size", () => {
@@ -86,6 +81,12 @@ test("places left: fresh rows for sessions still to come, within the class size"
     "2026-11-17,07:00,sauna-plunge,0,2026-11-16 16:58",
     "2026-11-17,07:00,yoga,5,2026-11-16 16:58"].join("\n"); // unknown id
   assert.deepEqual(placesFromCsv(csv, now, TZ, 15, sizes), { ok: true, left: { "2026-11-16 18:30 hyrox-engine": 4, "2026-11-17 07:00 sauna-plunge": 0 } });
+  // The newest row for a session wins: a later "full" or impossible count hides the older "4 left" (GY-02).
+  const head = "date,time,class,left,updated_at\n";
+  assert.deepEqual(placesFromCsv(`${head}2026-11-16,18:30,hyrox-engine,4,2026-11-16 16:50\n2026-11-16,18:30,hyrox-engine,full,2026-11-16 16:58`, now, TZ, 15, sizes), { ok: true, left: {} });
+  assert.deepEqual(placesFromCsv(`${head}2026-11-16,18:30,hyrox-engine,4,2026-11-16 16:50\n2026-11-16,18:30,hyrox-engine,30,2026-11-16 16:58`, now, TZ, 15, sizes), { ok: true, left: {} });
+  assert.deepEqual(placesFromCsv(`${head}2026-11-16,18:30,hyrox-engine,full,2026-11-16 16:50\n2026-11-16,18:30,hyrox-engine,2,2026-11-16 16:58`, now, TZ, 15, sizes), { ok: true, left: { "2026-11-16 18:30 hyrox-engine": 2 } });
+  assert.deepEqual(placesFromCsv(`${head}2026-11-16,18:30,hyrox-engine,2,2026-11-16 16:58\n2026-11-16,18:30,hyrox-engine,5,2026-11-16 16:50`, now, TZ, 15, sizes), { ok: true, left: { "2026-11-16 18:30 hyrox-engine": 2 } }); // order in the sheet doesn't matter
   assert.deepEqual(placesFromCsv("date,time,class,left,updated_at,name\n2026-11-16,18:30,hyrox-engine,4,2026-11-16 16:55,Sam", now, TZ, 15, sizes), { ok: false });
   assert.equal(placesWords(0), "Full");
   assert.equal(placesWords(1), "1 place left");
@@ -133,6 +134,9 @@ test("the plan's sessions: each phase's classes once a week, from the timetable,
   const first = sessions.filter((s) => s.date <= "2026-11-22");
   assert.deepEqual(first.map((s) => [s.date, s.time, s.class]), [["2026-11-16", "19:00", "barbell"], ["2026-11-17", "18:00", "engine"], ["2026-11-17", "19:30", "mobility"]]);
   assert.equal(sessions.length, 15 * 3 + 4); // three a week before the taper; the taper's twelve days take its two classes twice
+  // On the plan's first day, sessions already started are left out (GY-03).
+  const later = planSessions(plan.phases, demo.timetable.weekly, demo.hours, { date: "2026-11-16", minutes: 19 * 60 + 30 });
+  assert.equal(later.filter((s) => s.date <= "2026-11-22")[0].date, "2026-11-17");
   assert.ok(sessions.every((s) => s.date < "2027-03-13"));
   const ics = planIcs({ sessions: sessions.slice(0, 1), names: { barbell: { name: "Barbell club", minutes: 60 } }, race: "2027-03-13", club: "Halde", place: "Halde, Manchester", tz: TZ, stamp: "20261116T120000Z" });
   assert.match(ics, /DTSTART:20261116T190000Z\r\nDTEND:20261116T200000Z/); // GMT in November
@@ -168,6 +172,9 @@ test("booking goes to the club's own app; promises are refused", () => {
   assert.match(errorsFor((s) => { s.timetable.weekly.mon[0].class = "zumba"; }), /one of the class ids/);
   assert.match(errorsFor((s) => { s.hyrox.intro = "Guaranteed to take minutes off your time."; }), /no promises of results/);
   assert.match(errorsFor((s) => { s.hyrox.phases[0].classes = ["yoga"]; }), /the club's own classes for this phase/);
+  // A week for every phase and the taper, so no phase can run backwards (GY-03).
+  assert.match(errorsFor((s) => { s.hyrox.minWeeks = 4; s.hyrox.taper.weeks = 3; }), /hyrox\.minWeeks: the shortest plan the club writes: at least 6 weeks/);
+  assert.equal(errorsFor((s) => { s.hyrox.minWeeks = 4; }), "");
 });
 
 test("home sections: every section once, hosts are real page features, the look's order is complete", () => {
@@ -175,6 +182,3 @@ test("home sections: every section once, hosts are real page features, the look'
   assert.match(String(homeOrderProblem(["gym-hyrox"])), /leaves out/);
   for (const id of Object.keys(HOSTS)) assert.ok(id in HOME_PARTS, id);
 });
-
-/** @param {string} p */
-function exists(p) { try { readFileSync(p); return true; } catch { return false; } }

@@ -14,5 +14,6 @@ The door system (or the desk) writes one row each time it counts:
     2026-11-16 18:42,31
 
 ## When something is missing or fails
-Fails closed: the newest row older than `staleAfterMinutes`, a time in the future, a count above the club's capacity,
-anything written in another column, or an unreadable sheet means no live count, and the hero says "usually" again.
+The newest row wins. Fails closed: a newest row older than `staleAfterMinutes`, in the future, or not a whole number
+up to the club's capacity, anything written in another column, or an unreadable sheet means no live count, and the hero
+says "usually" again. An older unreadable row is simply skipped.

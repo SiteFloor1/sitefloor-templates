@@ -18,5 +18,7 @@ One row per class or slot (`class` is the class id or the heat-and-cold slot id)
     2026-11-16,18:30,hyrox-engine,4,2026-11-16 18:05
 
 ## When something is missing or fails
-Rows older than `staleAfterMinutes` (15 at most), sessions that have started, counts above the class's `size`,
-anything written in another column, and an unreadable sheet all show nothing: the session keeps "Book in the app".
+The newest row for a session wins, whatever it says, wherever it sits in the sheet. That row shows only if it is
+fresh (under `staleAfterMinutes`, 15 at most), a whole number and within the class's `size`; a newer "full" or an
+impossible count therefore hides an older "4 left" instead of leaving it showing. Sessions that have started, anything
+written in another column, and an unreadable sheet all show nothing: the session keeps "Book in the app".

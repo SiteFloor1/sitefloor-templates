@@ -244,13 +244,14 @@ function checkHyrox(h, classIds, err, exists) {
   if (phases.length < 2 || phases.length > 5) err("hyrox.phases", "two to five phases before the taper");
   phases.forEach((/** @type {any} */ p, /** @type {number} */ i) => phase(p, `hyrox.phases[${i}]`, false));
   phase(h?.taper, "hyrox.taper", true);
-  checkWeeks(h, err);
+  checkWeeks(h, phases.length, err);
   if (h?.page !== undefined) checkHyroxPage(h.page, err, exists);
 }
 
-/** @param {any} h @param {Report} err */
-function checkWeeks(h, err) {
-  if (!Number.isInteger(h?.minWeeks) || h.minWeeks < 4) err("hyrox.minWeeks", "the shortest plan the club writes, at least 4 weeks");
+/** Every phase gets at least a week before the taper. @param {any} h @param {number} phases @param {Report} err */
+function checkWeeks(h, phases, err) {
+  const least = Math.max(4, phases + (Number.isInteger(h?.taper?.weeks) ? h.taper.weeks : 1));
+  if (!Number.isInteger(h?.minWeeks) || h.minWeeks < least) err("hyrox.minWeeks", `the shortest plan the club writes: at least ${least} weeks (a week for each phase and the taper's weeks)`);
   if (!Number.isInteger(h?.maxWeeks) || h.maxWeeks <= (h?.minWeeks ?? 0) || h.maxWeeks > 52) err("hyrox.maxWeeks", "the longest plan, more than minWeeks and at most 52");
 }
 

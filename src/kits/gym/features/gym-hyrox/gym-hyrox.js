@@ -40,7 +40,7 @@ export function init(root, ctx) {
     if (note) note.hidden = typed;
     weeks.innerHTML = `${numberWords(plan.weeks)} weeks. <b>Here's how we'd use them.</b>`;
     list.innerHTML = plan.phases.map((p) => `<li class="gh-p"><p class="gh-pn">${esc(p.name)}, ${p.weeks} ${p.weeks === 1 ? "week" : "weeks"}</p><p>${esc(p.text)}</p><time>${shortDate(p.from)} – ${shortDate(p.to)}</time></li>`).join("");
-    const sessions = planSessions(plan.phases, g.weekly, ctx.data.hours);
+    const sessions = planSessions(plan.phases, g.weekly, ctx.data.hours, zonedNow(new Date(), tz));
     const stamp = new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
     url = URL.createObjectURL(new Blob([planIcs({ sessions, names: g.classes, race, club: g.name, place: g.place, tz, stamp })], { type: "text/calendar" }));
     cal.href = url;
