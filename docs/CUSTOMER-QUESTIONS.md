@@ -60,6 +60,7 @@ One file per trade, so trades built in parallel never edit the same lines. A new
 - Restaurants: [`docs/trades/restaurant/questions.md`](trades/restaurant/questions.md)
 - Tailors: [`docs/trades/tailor/questions.md`](trades/tailor/questions.md)
 - Teeth whitening and aesthetic dentistry: [`docs/trades/teeth/questions.md`](trades/teeth/questions.md)
+- Independent tour operators: [`docs/trades/tourism/questions.md`](trades/tourism/questions.md)
 - Videographers and photographers: [`docs/trades/videographer/questions.md`](trades/videographer/questions.md)
 - Wealth managers: [`docs/trades/wealth/questions.md`](trades/wealth/questions.md)
 - Wedding films: [`docs/trades/wedding-film/questions.md`](trades/wedding-film/questions.md)
