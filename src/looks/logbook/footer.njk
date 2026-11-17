@@ -1,0 +1,22 @@
+{#- Logbook footer: the stamp and name, the ATOL number exactly as given (when it's on), where the office is and how to
+    reach it, the week's hours, the pages, the photo and map credits, then the Sitefloor credit. Ink ground. -#}
+<footer class="foot lg-foot"><div class="lg-foot-in">
+  <div class="lg-foot-a">
+    <p class="lg-foot-mark"><i aria-hidden="true">{{ site.business.name | first }}</i>{{ site.business.name }}</p>
+    <p>{{ site.hero.kicker }}</p>
+    {%- if "tourism-atol" | enabled %}<p class="lg-foot-atol">{{ site.atol.number }}</p>{% endif %}
+  </div>
+  <address class="lg-foot-b">{{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}<br>
+    <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a>{% if site.contact.email %}<br><a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>{% endif %}</address>
+  <ul class="lg-foot-hours" aria-label="Opening hours">
+    {%- for row in site.hours | hoursRows %}<li data-day="{{ row.dayIndex }}"><span>{{ row.day }}</span> {{ row.label }}</li>{% endfor %}
+  </ul>
+  <nav class="lg-foot-links" aria-label="Footer">
+    <a href="{{ 'index' | href }}">Home</a>
+    {%- for item in site.nav | navItems(pageId) %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}>{{ item.label }}</a>{% endfor %}
+    {%- if "custom-pages" | enabled %}{% for pg in site.pages %}<a href="{{ pg.slug | href }}"{{ "custom-pages" | tierAttr | safe }}>{{ pg.title }}</a>{% endfor %}{% endif %}
+    <a href="{{ 'privacy' | href }}">Privacy</a>
+  </nav>
+  {%- if site.hero.credit %}<p class="lg-foot-cr">{{ site.hero.credit }}.</p>{% endif %}
+  <p class="lg-foot-by"><a class="by" href="https://sitefloor.com" rel="noopener">Website by <b>Sitefloor</b></a></p>
+</div></footer>

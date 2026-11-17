@@ -1,0 +1,627 @@
+{
+  "schemaVersion": 4,
+  "id": "test-tourism-client",
+  "mode": "client",
+  "plan": "signature",
+  "kit": "tourism",
+  "look": "logbook",
+  "url": "https://test-tourism-client.example.co.uk",
+  "indexable": false,
+  "lang": "en-GB",
+  "business": {
+    "name": "Corrie",
+    "schemaType": "LocalBusiness",
+    "description": "Tailor-made journeys to Chile, from an office in Bath.",
+    "priceRange": "£££",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "441225496071",
+    "phone": "+44 1225 496071",
+    "email": "hello@corrie.example"
+  },
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "location": {
+    "streetAddress": "8 Quiet Street",
+    "locality": "Bath",
+    "postcode": "BA1 2JS",
+    "country": "GB",
+    "area": "First floor, above the bookshop.",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=Quiet%20Street%2C%20Bath"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [
+        [
+          "09:30",
+          "18:00"
+        ]
+      ],
+      "tue": [
+        [
+          "09:30",
+          "18:00"
+        ]
+      ],
+      "wed": [
+        [
+          "09:30",
+          "18:00"
+        ]
+      ],
+      "thu": [
+        [
+          "09:30",
+          "19:00"
+        ]
+      ],
+      "fri": [
+        [
+          "09:30",
+          "17:30"
+        ]
+      ],
+      "sat": [
+        [
+          "10:00",
+          "14:00"
+        ]
+      ],
+      "sun": []
+    },
+    "exceptions": [
+      {
+        "date": "2026-12-25",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2026-12-26",
+        "ranges": [],
+        "note": "Closed for Boxing Day"
+      },
+      {
+        "date": "2027-01-01",
+        "ranges": [],
+        "note": "Closed for New Year's Day"
+      }
+    ]
+  },
+  "features": [
+    "tourism-journeys",
+    "tourism-atol",
+    "tourism-local-time",
+    "tourism-logbook",
+    "tourism-finder",
+    "tourism-when",
+    "tourism-daylight",
+    "tourism-shortlist",
+    "tourism-experts",
+    "tourism-month",
+    "tourism-builder",
+    "tourism-weather",
+    "tourism-checklist",
+    "tourism-trip",
+    "visit",
+    "plan-visit",
+    "questions",
+    "reviews"
+  ],
+  "nav": [
+    {
+      "label": "When to go",
+      "page": "when-to-go",
+      "feature": "tourism-when"
+    },
+    {
+      "label": "Plan a journey",
+      "page": "plan",
+      "feature": "tourism-builder"
+    },
+    {
+      "label": "Who's been there",
+      "page": "experts",
+      "feature": "tourism-experts"
+    },
+    {
+      "label": "Ready to travel",
+      "page": "ready",
+      "feature": "tourism-checklist"
+    }
+  ],
+  "messages": {
+    "general": "Hello Corrie, I'd like to talk about a journey."
+  },
+  "hero": {
+    "kicker": "Tailor-made journeys, from Bath",
+    "title": "Corrie",
+    "intro": "Journeys planned by people who have been.",
+    "journey": "desert-to-ice",
+    "credit": "Photographs: Paulius Dragunas and Chrysanthi Ha, on Unsplash. Map outlines: Natural Earth"
+  },
+  "sections": {
+    "journeys": {
+      "title": "The logbook",
+      "intro": "Prices are per person, from, sharing a room, with flights from London. On this demo they are samples."
+    },
+    "finder": {
+      "title": "Which journeys fit?",
+      "intro": "The year, drawn. Pick your month."
+    },
+    "atol": {
+      "title": "Your money"
+    },
+    "questions": {
+      "title": "Before you book"
+    },
+    "visit": {
+      "title": "The office"
+    },
+    "reviews": {
+      "title": "Reviews",
+      "intro": "Copied from Google with the reviewer's name and month."
+    }
+  },
+  "journeys": {
+    "monthly": {
+      "1": "desert-to-ice",
+      "10": "atacama-slowly",
+      "11": "desert-to-ice"
+    },
+    "items": [
+      {
+        "id": "desert-to-ice",
+        "name": "Desert to ice",
+        "country": "CHL",
+        "where": "Chile",
+        "nights": 11,
+        "from": 8900,
+        "line": "The Atacama's salt flats, then four thousand kilometres south to the towers of Torres del Paine.",
+        "go": [
+          1,
+          2,
+          3,
+          10,
+          11,
+          12
+        ],
+        "who": [
+          "couple",
+          "friends",
+          "solo"
+        ],
+        "photo": {
+          "src": "img/paine.webp",
+          "width": 1040,
+          "height": 1300,
+          "alt": "The granite towers of Torres del Paine above Lago Pehoé at sunrise, Chilean Patagonia",
+          "small": {
+            "src": "img/paine-600.webp",
+            "width": 600
+          }
+        },
+        "stops": [
+          {
+            "days": "Days 1–4",
+            "place": "San Pedro de Atacama",
+            "text": "Salt flats at first light, flamingos on Laguna Chaxa, and some of the darkest skies on earth from the lodge terrace.",
+            "lat": -22.91,
+            "lon": -68.2,
+            "tz": "America/Santiago",
+            "photo": {
+              "src": "img/luna.webp",
+              "width": 1040,
+              "height": 1300,
+              "alt": "Valle de la Luna from above at dusk, salt-crusted ridges running to the volcanoes, Atacama",
+              "small": {
+                "src": "img/luna-600.webp",
+                "width": 600
+              }
+            },
+            "climate": "atacama"
+          },
+          {
+            "days": "Day 5",
+            "place": "Punta Arenas",
+            "text": "Calama to Santiago, then on to Punta Arenas. A driver takes you north to the park as the light goes.",
+            "lat": -53.16,
+            "lon": -70.91,
+            "tz": "America/Punta_Arenas"
+          },
+          {
+            "days": "Days 6–8",
+            "place": "Torres del Paine",
+            "text": "The towers from Lago Pehoé. A private guide sets each day by the wind, not the timetable.",
+            "lat": -51.0,
+            "lon": -72.98,
+            "tz": "America/Punta_Arenas",
+            "photo": {
+              "src": "img/paine.webp",
+              "width": 1040,
+              "height": 1300,
+              "alt": "The granite towers of Torres del Paine above Lago Pehoé at sunrise, Chilean Patagonia",
+              "small": {
+                "src": "img/paine-600.webp",
+                "width": 600
+              }
+            },
+            "climate": "natales"
+          },
+          {
+            "days": "Days 9–10",
+            "place": "The French Valley",
+            "text": "The Cuernos walk, the long way round the lake, back for supper.",
+            "lat": -51.0,
+            "lon": -72.98,
+            "tz": "America/Punta_Arenas"
+          },
+          {
+            "days": "Days 11–12",
+            "place": "Lago Grey",
+            "text": "A boat to the glacier face. Home via Santiago.",
+            "lat": -51.08,
+            "lon": -73.2,
+            "tz": "America/Punta_Arenas"
+          }
+        ],
+        "via": [
+          {
+            "name": "Santiago",
+            "lat": -33.45,
+            "lon": -70.67,
+            "before": 1
+          }
+        ]
+      },
+      {
+        "id": "atacama-slowly",
+        "name": "The Atacama, slowly",
+        "country": "CHL",
+        "where": "Chile",
+        "nights": 7,
+        "from": 4650,
+        "line": "One base in the desert, no rush: ride out at dawn, back before the heat.",
+        "go": [
+          3,
+          4,
+          5,
+          9,
+          10,
+          11
+        ],
+        "who": [
+          "couple",
+          "family",
+          "friends",
+          "solo"
+        ],
+        "photo": {
+          "src": "img/luna.webp",
+          "width": 1040,
+          "height": 1300,
+          "alt": "Valle de la Luna from above at dusk, salt-crusted ridges running to the volcanoes, Atacama",
+          "small": {
+            "src": "img/luna-600.webp",
+            "width": 600
+          }
+        },
+        "stops": [
+          {
+            "days": "Days 1–4",
+            "place": "San Pedro de Atacama",
+            "text": "Valle de la Luna at dusk, and the geysers of El Tatio before sunrise.",
+            "lat": -22.91,
+            "lon": -68.2,
+            "tz": "America/Santiago",
+            "climate": "atacama"
+          },
+          {
+            "days": "Days 5–8",
+            "place": "Salar de Atacama",
+            "text": "Flamingos on the lagoons, and a night with the observatory guide.",
+            "lat": -23.45,
+            "lon": -68.25,
+            "tz": "America/Santiago"
+          }
+        ]
+      }
+    ]
+  },
+  "atol": {
+    "number": "ATOL 11111",
+    "note": "Flights we book are protected under our ATOL.",
+    "termsUrl": "https://corrie.example/terms"
+  },
+  "climate": {
+    "source": "Open-Meteo, ERA5 reanalysis",
+    "url": "https://open-meteo.com/en/docs/historical-weather-api",
+    "about": "average daily high, 2005–2024; Puerto Natales 2015–2024",
+    "places": {
+      "atacama": [
+        25,
+        24,
+        24,
+        22,
+        19,
+        18,
+        18,
+        19,
+        22,
+        24,
+        25,
+        26
+      ],
+      "sossusvlei": [
+        31,
+        32,
+        32,
+        31,
+        29,
+        26,
+        26,
+        26,
+        29,
+        31,
+        31,
+        31
+      ],
+      "etosha": [
+        31,
+        30,
+        29,
+        29,
+        28,
+        25,
+        25,
+        29,
+        33,
+        34,
+        33,
+        32
+      ],
+      "kyoto": [
+        8,
+        9,
+        13,
+        18,
+        23,
+        27,
+        30,
+        32,
+        28,
+        22,
+        16,
+        10
+      ],
+      "natales": [
+        15,
+        15,
+        13,
+        10,
+        7,
+        3,
+        3,
+        5,
+        8,
+        10,
+        12,
+        14
+      ]
+    }
+  },
+  "when": {
+    "title": "When to go",
+    "intro": "Where we'd send you, month by month.",
+    "places": [
+      {
+        "name": "The Atacama",
+        "go": [
+          3,
+          4,
+          5,
+          9,
+          10,
+          11
+        ],
+        "journey": "atacama-slowly",
+        "climate": "atacama"
+      },
+      {
+        "name": "Torres del Paine",
+        "go": [
+          1,
+          2,
+          3,
+          11,
+          12
+        ],
+        "journey": "desert-to-ice",
+        "climate": "natales"
+      }
+    ]
+  },
+  "experts": {
+    "title": "Who's been there",
+    "intro": "Everyone who plans a journey here has travelled it.",
+    "people": [
+      {
+        "name": "Hester",
+        "role": "Chile and Argentina",
+        "line": "Walked the W twice, once in a February gale. Plans every Patagonia trip around the wind.",
+        "been": [
+          "Chile",
+          "Argentina",
+          "Torres del Paine",
+          "The Atacama"
+        ]
+      }
+    ]
+  },
+  "builder": {
+    "title": "Plan a journey",
+    "intro": "Choose where, and for how long. We'll send back a route and a price for your dates.",
+    "regions": [
+      {
+        "id": "atacama",
+        "name": "The Atacama",
+        "where": "Chile",
+        "nights": [
+          3,
+          5
+        ],
+        "line": "Salt flats, geysers, dark skies."
+      },
+      {
+        "id": "santiago",
+        "name": "Santiago and the wine valleys",
+        "where": "Chile",
+        "nights": [
+          1,
+          3
+        ]
+      },
+      {
+        "id": "paine",
+        "name": "Torres del Paine",
+        "where": "Chile",
+        "nights": [
+          3,
+          6
+        ],
+        "line": "Walking, boats and glaciers."
+      }
+    ]
+  },
+  "ready": {
+    "title": "Ready to travel",
+    "intro": "Everything to do before you fly, in order.",
+    "checked": "2026-11",
+    "countries": [
+      {
+        "name": "Chile",
+        "advice": "https://www.gov.uk/foreign-travel-advice/chile"
+      }
+    ],
+    "items": [
+      {
+        "text": "Read the gov.uk advice for each country on your journey",
+        "when": "Before you book"
+      },
+      {
+        "text": "Check your passport against the entry rules in that advice",
+        "when": "Before you book"
+      },
+      {
+        "text": "Take out travel insurance that covers everything on your itinerary",
+        "when": "When you book"
+      },
+      {
+        "text": "Ask your GP or a travel clinic what you need",
+        "when": "Eight weeks before"
+      },
+      {
+        "text": "Send us your flight seat and meal preferences",
+        "when": "Six weeks before"
+      },
+      {
+        "text": "Read the gov.uk advice again",
+        "when": "The week you go"
+      }
+    ]
+  },
+  "trip": {
+    "source": "sheet",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-test/pub?output=csv",
+    "staleAfterDays": 14
+  },
+  "questions": [
+    {
+      "topic": "Prices",
+      "q": "Roughly what does a journey cost?",
+      "a": "Each journey shows our 'from' price per person, sharing a room, with flights from London. Your price depends on dates and where you stay; we quote it before you pay anything.",
+      "home": true
+    },
+    {
+      "topic": "Prices",
+      "q": "Are flights included?",
+      "a": "Yes, from London unless you ask us to leave them out. We can quote from regional airports.",
+      "home": true
+    },
+    {
+      "topic": "Trust",
+      "q": "Is our money protected?",
+      "a": "Journeys with flights are covered by our ATOL; the number is at the foot of every page.",
+      "home": true
+    },
+    {
+      "topic": "Planning",
+      "q": "Can you change a journey?",
+      "a": "Always. Every journey here is a starting point; most trips we plan are made to order.",
+      "home": true
+    },
+    {
+      "topic": "Planning",
+      "q": "Do we need a visa?",
+      "a": "The rules change, so we never answer from memory: the gov.uk foreign travel advice for each country is linked on Ready to travel.",
+      "home": true
+    }
+  ],
+  "reviews": {
+    "source": "google",
+    "items": [
+      {
+        "text": "Every day of Patagonia was planned around the weather. Faultless.",
+        "author": "Helen R.",
+        "rating": 5,
+        "date": "2026-10"
+      },
+      {
+        "text": "They had been to every place they sent us.",
+        "author": "Mark T.",
+        "rating": 5,
+        "date": "2026-09"
+      }
+    ]
+  },
+  "visitInfo": {
+    "kicker": "Plan your visit",
+    "title": "Finding the office",
+    "intro": "First floor on Quiet Street, five minutes from Bath Spa station.",
+    "checked": "2026-11",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "Bath Spa station",
+        "origin": "Bath Spa station, Bath",
+        "minutes": 9,
+        "steps": [
+          "Leave the station and walk up Manvers Street",
+          "Turn left onto Quiet Street; we're above the bookshop"
+        ]
+      }
+    ],
+    "parking": [
+      {
+        "name": "Southgate car park",
+        "walk": 8,
+        "price": "see the car park's own tariff",
+        "paid": "always"
+      }
+    ],
+    "access": [
+      {
+        "label": "Step-free entrance",
+        "yes": false
+      },
+      {
+        "label": "A ground-floor room we can meet in",
+        "yes": true
+      }
+    ],
+    "accessNote": "The office is up one flight of stairs. Tell us and we'll meet you in the ground-floor room.",
+    "payment": "Bank transfer or card, once we've agreed your journey."
+  }
+}

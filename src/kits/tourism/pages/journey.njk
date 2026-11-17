@@ -1,0 +1,30 @@
+---
+layout: core/layouts/base.njk
+feature: tourism-logbook
+pagination:
+  data: site.journeys.items
+  size: 1
+  alias: j
+permalink: "journey-{{ j.id }}.html"
+eleventyComputed:
+  pageId: "journey-{{ j.id }}"
+  title: "{{ j.name }}, {{ j.where }}"
+  description: "{{ j.name }}: {{ j.nights }} nights in {{ j.where }}, day by day. {{ j.line }}"
+---
+{#- A journey, day by day: its name and line, the logbook (photographs, stops, the drawn route), then daylight and
+    typical weather for its months, and the enquiry. -#}
+<section class="lb-page lb-jp"><div class="wrap">
+  <p class="lb-back"><a href="{{ 'index' | href }}#journeys">All journeys</a></p>
+  {%- set ph = { title: j.name, intro: j.line } %}{% include "kits/tourism/partials/page-head.njk" %}
+  {%- if "tourism-local-time" | enabled %}{% include "kits/tourism/features/tourism-local-time/tourism-local-time.njk" %}{% endif %}
+  <div data-feature="tourism-logbook">
+    {%- set lbHero = false %}{% set lbOpen = true %}{% set lbOfMonth = false %}
+    {%- include "kits/tourism/features/tourism-logbook/tourism-logbook.njk" %}
+  </div>
+  <div class="lb-jp-act">
+    <a class="lb-go" href="{{ (j | enquiry(site.business.name)) | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ j | enquiry(site.business.name) }}"{% endif %} target="_blank" rel="noopener">Ask about this journey</a>
+    {%- if "tourism-shortlist" | enabled %}{% include "kits/tourism/features/tourism-shortlist/tourism-shortlist.njk" %}{% endif %}
+  </div>
+  {%- if "tourism-daylight" | enabled %}{% include "kits/tourism/features/tourism-daylight/tourism-daylight.njk" %}{% endif %}
+  {%- if "tourism-weather" | enabled %}{% include "kits/tourism/features/tourism-weather/tourism-weather.njk" %}{% endif %}
+</div></section>

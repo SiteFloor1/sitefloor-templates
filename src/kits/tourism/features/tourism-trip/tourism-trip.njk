@@ -1,0 +1,25 @@
+{#- Your trip, by code: the code the operator sends (typed, or after # in their link) opens the journey, the start
+    date and the days to go, how many are travelling, and links to the journey day by day and the checklist. From the
+    operator's sheet, which holds nothing personal; unknown, stale or unreadable says so and gives the phone. -#}
+<section class="tt" data-feature="tourism-trip" aria-label="Your trip"><div class="wrap">
+  {%- set ph = { title: "Your trip", intro: site.trip.intro or "Type the code from our email to see your journey and what's left to do." } %}{% include "kits/tourism/partials/page-head.njk" %}
+  <form class="tt-form" data-tt-form>
+    <label for="tt-code">Your trip code</label>
+    <input id="tt-code" data-tt-code name="code" autocomplete="off" autocapitalize="characters" spellcheck="false" inputmode="text" maxlength="14" required>
+    <button type="submit">Open</button>
+  </form>
+  {%- if site.mode == "demo" %}<p class="tt-demo">Sample code: <button type="button" data-tt-try>{{ site.trip.example }}</button></p>{% endif %}
+  <p class="tt-off" data-tt-off hidden></p>
+  <div class="tt-out" data-tt-out hidden>
+    <p class="tt-when" data-tt-when></p>
+    <h2 class="tt-name" data-tt-name>Your journey</h2>
+    <p class="tt-meta" data-tt-meta></p>
+    <p class="tt-go">
+      <a data-tt-journey href="{{ 'index' | href }}">Your journey, day by day</a>
+      <template data-tt-hrefs>{% for j in site.journeys.items %}<a data-id="{{ j.id }}" href="{{ ('journey-' + j.id) | href }}"></a>{% endfor %}</template>
+      {%- if "tourism-checklist" | enabled %}<a href="{{ 'ready' | href }}"{{ "tourism-checklist" | tierAttr | safe }}>Ready to travel</a>{% endif %}
+    </p>
+    <p class="tt-upd" data-tt-upd></p>
+  </div>
+  <p class="tt-call">Anything wrong? Call us on <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a>.</p>
+</div></section>

@@ -5,4 +5,4 @@ Design round 1 (Larrow): the owner chose B (Logbook); A and C are released.
 
 | Look or design | Status | Branch | Display | Body |
 |---|---|---|---|---|
-| Larrow, Logbook (B, round 1) | approved | trade/tourism | Familjen Grotesk | Familjen Grotesk |
+| Larrow, Logbook look | approved | trade/tourism | Familjen Grotesk | Familjen Grotesk |

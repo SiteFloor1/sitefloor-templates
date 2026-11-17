@@ -1,0 +1,16 @@
+{#- Logbook hero: one journey, day by day (kits/tourism/features/tourism-logbook/tourism-logbook.njk). With the journey of the month on, every
+    journey's logbook is on the page and the month's pick is shown; beneath, four journeys as a quiet index (this
+    month's first), and choosing one shows its logbook in place. Without it, the hero journey alone. -#}
+{%- set open = site | tourOpening %}
+{%- set monthOn = "tourism-month" | enabled %}
+<section class="hero lb-first"{% if monthOn %} data-feature="tourism-month"{% endif %} aria-labelledby="lb-h1">
+  <h1 class="sr-only" id="lb-h1">{{ site.business.name }}: {{ site.hero.kicker | plain }}</h1>
+  {%- if "tourism-local-time" | enabled %}{% include "kits/tourism/features/tourism-local-time/tourism-local-time.njk" %}{% endif %}
+  <div class="lb-books"{% if "tourism-logbook" | enabled %} data-feature="tourism-logbook"{% endif %}>
+    {%- for j in site.journeys.items %}{% if monthOn or j.id == open.id %}
+    {%- set lbHero = true %}{% set lbOpen = (j.id == open.id) %}{% set lbOfMonth = (open.ofMonth and j.id == open.id) %}
+    {%- include "kits/tourism/features/tourism-logbook/tourism-logbook.njk" %}
+    {%- endif %}{% endfor %}
+  </div>
+  {%- if monthOn %}{% include "kits/tourism/features/tourism-month/tourism-month.njk" %}{% endif %}
+</section>
