@@ -101,6 +101,12 @@ Client path (approved): the drawn top-down plan from the client's measurements i
 aerial hall is a Bespoke add-on (each hall is modelled and rendered once). The three.js hall of round 4 is retired.
 Running cost stays £0.
 
+Round 6 (17 Nov 2026): the hall from above is the approved direction. PARK-11 Arrive at night (Signature) gains the
+same aerial view after dark, with the route from the gate to the visitor's bay lit (the same render, regraded for
+night; the route drawn in the SVG layer, so it follows the picker). One caption on every render: "Rendered from our
+plan. Not a photograph." The drive-in plays once when the hall first comes into view; picking a car replays it;
+reduced motion sees the car parked.
+
 ### Running cost
 £0 per client: the client's Sheet and Form, WhatsApp, the client's Stripe Payment Links, calendar files made in the
 browser. PARK-9 adds no running cost but adds weight (loaded only on tap).
