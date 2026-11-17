@@ -63,6 +63,8 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 | Isolde, the cover (round 4) | trade/bridal-beauty | Libre Bodoni | Faustina |
 | Cleaning, Plan (A) | trade/cleaning | Anek Latin | Anek Latin |
 | Garage, Elsden (the gallery) | trade/garage | Cardo | Radio Canada |
+| Halde, chalk (round 1) | trade/gym | Sofia Sans Extra Condensed | Sofia Sans |
+| Halde, After dark (chosen, round 3) | trade/gym | Epilogue | Epilogue |
 | Landscaping, Almanac | trade/landscaping | Alegreya | Alegreya |
 | Halvern, The stair (A) | trade/letting | Petrona | Petrona |
 | Taroub | trade/modest | Shippori Mincho | Afacad |

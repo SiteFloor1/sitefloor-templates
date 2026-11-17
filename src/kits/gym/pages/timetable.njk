@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: timetable
+permalink: timetable.html
+feature: gym-week
+eleventyComputed:
+  title: "{{ site.timetablePage.title | plain }}"
+  description: "Classes at {{ site.business.name }}, {{ site.location.locality }}, this week, and how busy the club usually is hour by hour."
+---
+{%- set ph = site.timetablePage %}{% include "kits/gym/partials/page-head.njk" %}
+{% include "kits/gym/features/gym-week/gym-week.njk" %}
