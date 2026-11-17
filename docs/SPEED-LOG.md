@@ -665,7 +665,16 @@ Liberation Serif and Sans: Cardo 105.9% (ascent 93.5%, descent 34.3%), Radio Can
 Layout shift, with fonts slowed 600 ms and the site script 1.5 s (tests/e2e/garage.spec.js): under 0.05 on the home
 page at 390 and 1440 px, arriving at night at 390, laying up at 1024 and business at 390; no page scrolls sideways
 at 320 px. axe: no serious or critical violations on any page of the demo or the client fixture. Lighthouse isn't
-installed on the build machine; the auditor's run is the one to record here.
+installed on the build machine; the auditor's runs are below.
+
+Lighthouse 12.8.2 (the audit of 17 Nov 2026), Chromium, local server, home page, three runs each:
+
+| | Performance | Accessibility | Best practices | First paint | Largest paint | Blocking | Layout shift |
+|---|---|---|---|---|---|---|---|
+| Phone (mobile preset) | 99–100 | 100 | 100 | 1.2–1.7 s | 1.6–1.8 s (the aerial render) | 0–20 ms | 0 |
+| Desktop | 100 | 100 | 100 | 0.4 s | 0.4 s | 0 ms | 0.001 |
+
+SEO 69 only because every demo is noindex. Page weight 206 KB in all; the largest file is `car-estate.png` (58 KB).
 
 ## Grand cafés and tea rooms
 _From `docs/trades/grand-cafe/speed.md`._

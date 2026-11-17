@@ -55,6 +55,12 @@ export function answer(car, bay, depth) {
 /** "5.2 m" @param {number} m */
 export const metres = (m) => `${Number(m.toFixed(2))} m`;
 
+/** Arriving at night: the line for the visitor's bay, with the charger only if the bay has one. @param {Car} car @param {Bay|null} bay */
+export function nightBayLine(car, bay) {
+  if (!bay) return `No free bay takes a ${car.name ?? "car that size"} tonight: join the waiting list.`;
+  return `Bay ${bay.n} is lit and waiting${bay.charger ? ", its charger on" : ""}.`;
+}
+
 /** @param {string} shop @param {Car} car @param {Bay|null} bay */
 export function reserveMessage(shop, car, bay) {
   return bay

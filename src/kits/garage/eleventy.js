@@ -1,7 +1,7 @@
 // @ts-check
 /** Garage kit additions to the shared Eleventy setup: the home sections, the drawn plan and the words built from the hall. */
 import { HOME_PARTS } from "./home.js";
-import { CARS, allBays, pickBay, answer, planSvg, chargerWords, chargedBy, pounds, reserveMessage, careCardMessage, metres } from "./lib/garage.js";
+import { CARS, allBays, pickBay, answer, planSvg, chargerWords, chargedBy, pounds, reserveMessage, careCardMessage, metres, nightBayLine } from "./lib/garage.js";
 
 /** @param {any} eleventyConfig */
 export default function garageKit(eleventyConfig) {
@@ -30,6 +30,10 @@ export default function garageKit(eleventyConfig) {
   eleventyConfig.addFilter("reserveText", (/** @type {any} */ hall, /** @type {string} */ shop, /** @type {string} */ key) => {
     const car = CARS[/** @type {keyof typeof CARS} */ (key)];
     return reserveMessage(shop, car, pickBay(hall, car));
+  });
+  eleventyConfig.addFilter("nightLine", (/** @type {any} */ hall, /** @type {string} */ key) => {
+    const car = CARS[/** @type {keyof typeof CARS} */ (key)];
+    return nightBayLine(car, pickBay(hall, car));
   });
   eleventyConfig.addFilter("careText", (/** @type {string} */ shop) => careCardMessage(shop, "…"));
 }

@@ -2,14 +2,17 @@
     same view after dark heads the page, the route to the visitor's bay lit. -#}
 {%- set ph = { title: "Arriving at night", intro: site.night.intro } %}
 {% include "kits/garage/partials/page-head.njk" %}
-<section class="gn" aria-label="Arriving at night"><div class="wrap gn-in">
+<section class="gn" data-feature="garage-night" aria-label="Arriving at night"><div class="wrap gn-in">
+  {%- if "garage-pick" | enabled %}<p class="gn-for" data-night-for>For a family estate. <a class="go" href="{{ 'index' | href }}">Choose your car</a></p>{% endif %}
   {%- if "garage-aerial" | enabled %}{% include "kits/garage/features/garage-night/garage-night-aerial.njk" %}{% endif %}
   <ol class="gn-steps">
     {%- for s in site.night.steps %}
+    {%- if loop.index == 3 %}<li class="gn-s"><h2 class="gn-t" data-night-bay>{{ site.hall | nightLine("estate") }}</h2></li>{% endif %}
     <li class="gn-s">
       {%- if s.photo %}<img src="{{ s.photo.src | img }}" width="{{ s.photo.width }}" height="{{ s.photo.height }}" alt="{{ s.photo.alt }}" loading="lazy" decoding="async">{% endif %}
       <h2 class="gn-t">{{ s.title }}</h2>{% if s.text %}<p>{{ s.text }}</p>{% endif %}
     </li>
     {%- endfor %}
+    {%- if site.night.steps.length < 3 %}<li class="gn-s"><h2 class="gn-t" data-night-bay>{{ site.hall | nightLine("estate") }}</h2></li>{% endif %}
   </ol>
 </div></section>

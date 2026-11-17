@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { CARS, fits, pickBay, spareCm, answer, reserveMessage, bayRects, route, along, cone, clockWords, chargedBy, chargerWords, planSvg, addDays, icsFile, moveInEvents, layingUpEvents, fleetMessage, careCardMessage } from "../../src/kits/garage/lib/garage.js";
+import { CARS, fits, pickBay, spareCm, answer, reserveMessage, bayRects, route, along, cone, clockWords, chargedBy, chargerWords, planSvg, addDays, icsFile, moveInEvents, layingUpEvents, fleetMessage, careCardMessage, nightBayLine } from "../../src/kits/garage/lib/garage.js";
 import { HOME_PARTS, homeOrderProblem } from "../../src/kits/garage/home.js";
 import { frameMap } from "../../src/kits/garage/features/garage-aerial/map.js";
 import { pageData } from "../../src/kits/garage/kit.js";
@@ -48,6 +48,13 @@ test("the answer names the bay, the room either side and the charger; a van gets
   assert.match(answer(CARS.van, null, 5.2).text, /^No free bay takes a van tonight: our bays are 5\.2 m deep\. Join the waiting list/);
   assert.equal(reserveMessage("Elsden", CARS.estate, { n: 7, width: 2.6 }), "Hello Elsden, I’d like to reserve bay 7 for my family estate.");
   assert.match(reserveMessage("Elsden", CARS.van, null), /waiting list/);
+});
+
+test("arriving at night names the charger only when the bay has one, and the car when there's no bay", () => {
+  assert.equal(nightBayLine(CARS.estate, pickBay(hall, CARS.estate)), "Bay 7 is lit and waiting, its charger on.");
+  assert.equal(nightBayLine(CARS.hatch, pickBay(hall, CARS.hatch)), "Bay 4 is lit and waiting.");
+  assert.equal(nightBayLine(CARS.van, null), "No free bay takes a van tonight: join the waiting list.");
+  assert.equal(nightBayLine(CARS.suv, null), "No free bay takes a large SUV tonight: join the waiting list.");
 });
 
 test("bays sit where the plan puts them, north row against the north wall", () => {

@@ -3,6 +3,7 @@
 // charging and cameras are layers; moving in and laying up make calendar files; the business enquiry is one message;
 // nothing jumps while pages start; and a client's site without the aerial render shows its own photograph and the
 // insurer's letter.
+import AxeBuilder from "@axe-core/playwright";
 import { test, expect, site, start, featuresStarted } from "./helpers.js";
 
 const demo = site("demos/elsden");
@@ -28,12 +29,44 @@ test("the hall from above: the estate is parked in bay 7 with reduced motion, an
   await expect(page.locator('#plan [data-bay="14"]')).toHaveClass(/is-best/);
   await expect(page.locator('#plan [data-bay="7"]')).toHaveClass(/is-tight/);
   await expect(page.locator("[data-aerial-ov] image")).toHaveAttribute("href", /img\/car-suv\.png$/);
-  await expect(page.locator("[data-night-steps] li").nth(2)).toHaveText("Bay 14 is lit and waiting, its charger on.");
+  await expect(page.locator("#night [data-night-bay]")).toHaveText("Bay 14 is lit and waiting, its charger on.");
+  await expect(page.locator("#night [data-night-link]")).toHaveAttribute("href", /arrive-at-night\?car=suv$/);
+  await card.getByRole("button", { name: "small hatchback" }).click();
+  await expect(page.locator("#night [data-night-bay]")).toHaveText("Bay 4 is lit and waiting.");
   await card.getByRole("button", { name: "van" }).click();
   await expect(card.locator("[data-pick-answer]")).toContainText("No free bay takes a van tonight: our bays are 5.2 m deep.");
   await expect(card.locator("[data-pick-reserve]")).toHaveText("Join the waiting list");
   await expect(page.locator("#plan .is-fit")).toHaveCount(0);
+  await expect(page.locator("#night [data-night-bay]")).toHaveText("No free bay takes a van tonight: join the waiting list.");
   await srv.close();
+});
+
+test("the night page draws the route for the car carried in its link, and says which car", async ({ page }) => {
+  const srv = await start(demo);
+  await page.goto(srv.base + "/arrive-at-night?car=suv");
+  await featuresStarted(page);
+  await expect(page.locator("[data-night-for]")).toContainText("For a large SUV.");
+  await expect(page.locator(".gn-steps [data-night-bay]")).toHaveText("Bay 14 is lit and waiting, its charger on.");
+  await expect(page.locator("[data-night-ov] .gn-line")).toHaveCount(1);
+  await page.goto(srv.base + "/arrive-at-night");
+  await featuresStarted(page);
+  await expect(page.locator("[data-night-for]")).toContainText("For a family estate.");
+  await expect(page.locator(".gn-steps [data-night-bay]")).toHaveText("Bay 7 is lit and waiting, its charger on.");
+  await srv.close();
+});
+
+test("on a phone the drawn plan scrolls sideways and can be reached from the keyboard; axe is clean at 390 px", async ({ page }) => {
+  for (const s of [demo, client]) {
+    const srv = await start(s);
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.emulateMedia({ reducedMotion: "reduce" }); // reveal animations off, so contrast is measured on final colours
+    await page.goto(srv.base + "/");
+    await featuresStarted(page);
+    await expect(page.locator("#plan [data-plan]")).toHaveAttribute("tabindex", "0");
+    const results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"]).analyze();
+    expect(results.violations.filter((v) => v.impact === "serious" || v.impact === "critical").map((v) => `${v.id}: ${v.nodes.map((n) => n.target).join(", ")}`)).toEqual([]);
+    await srv.close();
+  }
 });
 
 test("the drive-in plays once when the hall comes into view, and again on a pick", async ({ page }) => {
@@ -127,7 +160,7 @@ test("nothing jumps while pages start, with slow fonts and scripts; no page scro
     await page.close();
   }
   const small = await browser.newPage({ viewport: { width: 320, height: 640 } });
-  for (const path of ["/", "/arrive-at-night", "/laying-up", "/business", "/terms"]) {
+  for (const path of ["/", "/arrive-at-night", "/laying-up", "/business", "/terms", "/privacy", "/visit"]) {
     await small.goto(srv.base + path);
     expect(await small.evaluate(() => document.documentElement.scrollWidth), `${path} at 320 px`).toBeLessThanOrEqual(320);
   }

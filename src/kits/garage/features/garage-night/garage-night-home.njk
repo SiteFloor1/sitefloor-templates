@@ -1,11 +1,13 @@
-{#- Arrive at night on the home page: the first three steps; with the aerial hall, the night view beside them. -#}
-<section id="night" class="gn gn-home" aria-labelledby="gn-h"{{ "garage-night" | tierAttr | safe }}><div class="wrap gn-in">
+{#- Arrive at night on the home page: the client's first two steps, then the line for the visitor's bay (built from
+    the bay and the car, and following the pick); with the aerial hall, the night view beside them. -#}
+<section id="night" class="gn gn-home" data-feature="garage-night" aria-labelledby="gn-h"{{ "garage-night" | tierAttr | safe }}><div class="wrap gn-in">
   <div class="gn-side">
     <h2 id="gn-h" class="gn-h">Arriving at night</h2>
-    <ol class="gn-short" data-night-steps>
-      {%- for s in site.night.steps %}{% if loop.index <= 3 %}<li>{{ s.title }}</li>{% endif %}{% endfor %}
+    <ol class="gn-short">
+      {%- for s in site.night.steps %}{% if loop.index <= 2 %}<li>{{ s.title }}</li>{% endif %}{% endfor %}
+      <li data-night-bay>{{ site.hall | nightLine("estate") }}</li>
     </ol>
-    <a class="go" href="{{ 'arrive-at-night' | href }}">Gate to bay, step by step</a>
+    <a class="go" data-night-link href="{{ 'arrive-at-night' | href }}">Gate to bay, step by step</a>
   </div>
   {%- if "garage-aerial" | enabled %}{% include "kits/garage/features/garage-night/garage-night-aerial.njk" %}{% endif %}
 </div></section>
