@@ -1,0 +1,32 @@
+{#- Complete the look (MOD-6): each of the shop's sets, its photograph large, the abaya with her length, the pieces she
+    may leave out, and one total; sent to the shop on WhatsApp, or paid through the shop's own Stripe link when she
+    takes the set exactly as priced there. The look bar (the look's phone bar) follows the set she last changed. -#}
+{%- set ph = { title: "Complete the look", intro: site.looks.intro } %}
+{% include "kits/modest/partials/page-head.njk" %}
+<section class="md-look" data-feature="modest-look" aria-label="The looks"><div class="wrap">
+  {%- for s in site.looks.sets %}{% set li = s | lookItems(site.pieces) %}{% set ab = li[0] %}
+  <form class="md-set" id="{{ s.id }}" data-set="{{ s.id }}" data-pay-amount="{% for pl in (site.payLinks.items if site.payLinks else []) %}{% if pl.id == s.payLink %}{{ pl.amount }}{% endif %}{% endfor %}">
+    {%- set lp = s.photo or ab.photo %}
+    {%- if lp %}{% set sp = lp %}{% set sz = "(max-width: 760px) 100vw, 50vw" %}<figure class="md-set-ph"><img src="{{ lp.src | img }}"{% include "kits/modest/partials/srcset.njk" %} width="{{ lp.width }}" height="{{ lp.height }}" alt="{{ lp.alt }}" loading="{{ 'eager' if loop.first else 'lazy' }}" decoding="async"></figure>{% endif %}
+    <div class="md-set-t">
+      <h2 class="md-set-h">{{ s.name }}</h2>
+      {%- if s.line %}<p class="md-set-l">{{ s.line }}</p>{% endif %}
+      <ul class="md-set-items">
+        {%- for x in li %}
+        <li>
+          {%- if x.optional %}<label><input type="checkbox" name="add" value="{{ loop.index0 }}"> {{ x.name }}</label>{% else %}<span>{{ x.name }}</span>{% endif %}
+          {%- if loop.first %}<select name="length" aria-label="Length of {{ x.name }}">{% for l in x.lengths %}<option value="{{ l }}"{% if l == (site.lengths | startLength) %} selected{% endif %}>{{ l }}</option>{% endfor %}</select>{% endif %}
+          <span class="md-set-p">{{ x.price | gbp }}</span>
+        </li>
+        {%- endfor %}
+      </ul>
+      <p class="md-set-tot">Together <b data-set-total>{{ li | lookBase | gbp }}</b></p>
+      <div class="md-set-go">
+        <a class="btn" data-set-send href="{{ site.messages.general | book }}" target="_blank" rel="noopener">Send this look</a>
+        {%- if s.payLink %}<span data-set-pay>{% set pay = s.payLink %}{% set payLabel = "Pay for the set" %}{% include "features/pay-link/button.njk" %}</span>
+        <p class="md-set-note" data-set-paynote hidden>With extras, send it to us: the payment link is for the set as shown.</p>{% endif %}
+      </div>
+    </div>
+  </form>
+  {%- endfor %}
+</div></section>

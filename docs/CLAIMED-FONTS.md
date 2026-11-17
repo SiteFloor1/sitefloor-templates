@@ -65,6 +65,7 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 | Fragrance, Verrière (B, round 3) | trade/fragrance | Hina Mincho | SUSE |
 | Landscaping, Almanac | trade/landscaping | Alegreya | Alegreya |
 | Halvern, The stair (A) | trade/letting | Petrona | Petrona |
+| Taroub | trade/modest | Shippori Mincho | Afacad |
 | Trainer, Linen (A) | trade/trainer | Ibarra Real Nova | Ibarra Real Nova |
 | Tailor, Flannel (A) | trade/tailor | Della Respira | Commissioner |
 | Wedding films, Première (A) | trade/wedding-film | Sorts Mill Goudy | Urbanist |

@@ -1,0 +1,24 @@
+{#- The hem line (MOD-9): one sentence she can change (shoulder to floor, and her shoes), the shop's length that clears
+    the floor in the display face, and beside a real hem photograph a ruler of the last inches, to scale: where each
+    of the shop's lengths stops, the floor, and the gap. "Only know your height?" opens the shop's chart. Without
+    JavaScript the chart shows instead of the sentence. -#}
+{%- set sec = site.sections.hemLine %}
+{%- set L = site.lengths %}
+{%- set a = L | startAnswer %}
+<section id="hem" class="md-hem" data-feature="modest-hem-line" aria-label="{{ sec.title | plain }}"{{ "modest-hem-line" | tierAttr | safe }}>
+  <div class="md-hem-say">
+    <h2 class="md-hem-t">{{ sec.title | markup | safe }}</h2>
+    {%- if sec.intro %}<p class="md-hem-i">{{ sec.intro }}</p>{% endif %}
+    <p class="md-hem-q" data-js-only>Shoulder to floor, <button type="button" class="md-v" data-hem-sf aria-label="Shoulder to floor, {{ L.start.shoulderToFloor | inches }}: tap for an inch more">{{ L.start.shoulderToFloor | inches }}</button><span class="md-pm"><button type="button" data-hem-d="-0.5" aria-label="Half an inch less">−</button><button type="button" data-hem-d="0.5" aria-label="Half an inch more">+</button></span>, in <button type="button" class="md-v" data-hem-shoe aria-label="Shoes: {{ L.shoes[L.start.shoe].label }}. Tap to change">{{ L.shoes[L.start.shoe].label }}</button>.</p>
+    <p class="md-hem-r" data-js-only data-hem-out aria-live="polite">{{ a.words }}</p>
+    <button type="button" class="md-more" data-js-only data-hem-more aria-expanded="false" aria-controls="hem-chart">Only know your height?</button>
+    <div class="md-hem-chart" id="hem-chart">{% set chartId = "" %}{% include "kits/modest/partials/chart.njk" %}</div>
+    {%- if L.takeUp %}<p class="md-hem-up">{{ L.takeUp }}</p>{% endif %}
+  </div>
+  <div class="md-hem-fig">
+    <figure class="md-hem-ph">
+      <img src="{{ site.hemLine.photo.src | img }}" width="{{ site.hemLine.photo.width }}" height="{{ site.hemLine.photo.height }}" alt="{{ site.hemLine.photo.alt }}" loading="lazy" decoding="async"{% if site.hemLine.photo.focus %} style="object-position: {{ site.hemLine.photo.focus }}"{% endif %}>
+    </figure>
+    <div class="md-ruler" data-hem-ruler aria-hidden="true"></div>
+  </div>
+</section>

@@ -1,0 +1,12 @@
+/* The fabric library: square close-ups in a row of three, each cloth's name, line, weight and care. */
+.md-fab-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px 32px; }
+.md-fab-ph { margin: 0; background: var(--surface); }
+.md-fab-ph img { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; }
+.md-fab-t { margin: 16px 0 6px; font-family: var(--font-display); font-weight: 400; font-size: 24px; }
+.md-fab-list p { margin: 0; color: var(--muted); }
+.md-fab-dl { margin: 12px 0 0; display: grid; gap: 4px; font-size: 15px; }
+.md-fab-dl div { display: flex; gap: 10px; }
+.md-fab-dl dt { color: var(--muted); min-width: 4.5em; }
+.md-fab-dl dd { margin: 0; }
+@media (max-width: 900px) { .md-fab-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .md-fab-list { grid-template-columns: 1fr; } }

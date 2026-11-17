@@ -1,0 +1,33 @@
+{#- Taroub header. On a wide screen's home page it is the left wall of a gallery hang: the shop's name, a second piece
+    small with its label, the pages written as two sentences ("Abayas, occasion wear and hijabs. Eid orders, your
+    length and private appointments."), and "Questions? WhatsApp us". On other pages the same parts sit in one quiet
+    line along the top. On a phone: the name and "Menu"; the bar at the foot keeps WhatsApp in reach. -#}
+{%- set items = site.nav | navItems(pageId) %}
+{%- set parts = (site.pieces | partsWithPages) if ("modest-category-pages" | enabled) else [] %}
+{%- set bookText = site.messages.general %}
+<header class="nav tr-nav{% if pageId == 'index' %} tr-on-home{% endif %}">
+  <a class="tr-mark" href="{{ 'index' | href }}" aria-label="{{ site.business.name }}, home">
+    {%- if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="{{ site.business.name }}" height="32">{% else %}{{ site.business.name }}{% endif %}</a>
+  {%- if pageId == "index" and site.hero.side %}{% set sidePiece = site.pieces | piece(site.hero.side.piece) %}
+  <figure class="tr-also">
+    {%- set sp = site.hero.side.photo %}{% set sz = "132px" %}
+    <img src="{{ site.hero.side.photo.src | img }}"{% include "kits/modest/partials/srcset.njk" %} width="{{ site.hero.side.photo.width }}" height="{{ site.hero.side.photo.height }}" alt="{{ site.hero.side.photo.alt }}" loading="lazy" decoding="async">
+    <figcaption><b>{{ sidePiece.name }}</b>{% if sidePiece.line %}{{ sidePiece.line }} {% endif %}{{ sidePiece.price | gbp }}</figcaption>
+  </figure>
+  {%- endif %}
+  <nav class="tr-menu" aria-label="Main">
+    {%- if parts.length %}<span{{ "modest-category-pages" | tierAttr | safe }}>{% for c in parts %}{% if not loop.first %}{{ " and " if loop.last else ", " }}{% endif %}<a href="{{ c.id | href }}"{{ "modest-category-pages" | tierAttr | safe }}{% if c.id == pageId %} aria-current="page"{% endif %}>{{ c.name if loop.first else (c.name | menuWord) }}</a>{% endfor %}.</span> {% endif %}
+    <span>{% for item in items %}{% if not loop.first %}{{ " and " if loop.last else ", " }}{% endif %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label if loop.first else (item.label | menuWord) }}</a>{% endfor %}.</span>
+  </nav>
+  <p class="tr-wa">Questions? <a href="{{ bookText | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ bookText }}"{% endif %} target="_blank" rel="noopener">{{ "WhatsApp us" if build.booking.whatsapp else "Book a visit" }}</a></p>
+  <button class="burger tr-burger" type="button" aria-expanded="false" aria-controls="mnav">Menu</button>
+</header>
+<div class="mnav tr-sheet" id="mnav" hidden>
+  <nav aria-label="Pages">
+    <a href="{{ 'index' | href }}"{% if pageId == "index" %} aria-current="page"{% endif %}>Home</a>
+    {%- for c in parts %}<a href="{{ c.id | href }}"{{ "modest-category-pages" | tierAttr | safe }}{% if c.id == pageId %} aria-current="page"{% endif %}>{{ c.name }}</a>{% endfor %}
+    {%- for item in items %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>{% endfor %}
+  </nav>
+  <p class="tr-sheet-now" data-live-status><span class="dot" aria-hidden="true"></span> <span data-status-text>Opening hours</span></p>
+  <p class="tr-sheet-addr">{{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}</p>
+</div>
