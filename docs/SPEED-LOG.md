@@ -586,6 +586,24 @@ Blue hour now lays out every shared feature its demo uses (visit, Plan your visi
 links, questions, seasonal, About, vouchers). Demo: JS 16.0 KB gz, CSS 16.5 KB gz (was 14.4), fonts 92.7 KB, on tap
 180.9 KB gz; client fixture JS 9.7 KB gz, CSS 11.9 KB gz. `npm run budget` passes.
 
+## Financial advisers
+_From `docs/trades/financial-advisers/speed.md`._
+
+### 16 Nov 2026 — Thursby (ifa kit, Statement look)
+
+Whole demo (Signature, 24 pages): JS 10 KB gz, CSS 10.3 KB gz, fonts 44.1 KB (Frank Ruhl Libre 300/400/500, latin woff2).
+Home HTML 6.3 KB gz; home images 380 KB, all on the first screen (the terrace, 2000×1000 WebP, 262 KB; 900×900 on
+phones, 117 KB). Every other page has no images. The client fixture (Plus): JS 3.8 KB gz, CSS 6.6 KB gz.
+
+Fallback font size-matched from the font files against Liberation Serif (metric-compatible with Times New Roman):
+Frank Ruhl Libre 300 106.1% (ascent 90.2%, descent 31.5%), 400 108.4% (88.3%, 30.8%), 500 112.2% (85.3%, 29.8%).
+Controls that need their script (the statement's amounts, pension dates, the old-pensions form, the review month) keep
+their space, unseen, until it starts.
+
+Layout shift while loading (PerformanceObserver, real fonts, local server): 0.000–0.018 on most pages at 360, 390 and
+1440 px; the highest is 0.051 (Fees at 390 px) and 0.037 (Pensions at 1440 px), both from the font swap re-wrapping a
+line. All under 0.1. Lighthouse wasn't available in this environment; run it before the case study.
+
 ## Florists
 _From `docs/trades/florist/speed.md`._
 
@@ -1117,6 +1135,19 @@ New demo photo set at twice the old size (plates 1080 px, gallery 720×900) with
 800 (the first plate 98 KB; the other plates load when picked, and polaroids load when tapped).
 JS 21.9 KB gz, CSS 17.1 KB gz, HTML 23 KB gz. The inline head script grew by the season rule (still allowed by its hash).
 Lighthouse mobile, demo home, two runs: 93, 97; accessibility 100; FCP 1.8 s; LCP 2.0–2.1 s; TBT 130–250 ms; layout shift 0.
+
+## Street-food and dessert stalls (markets, pop-ups and parties)
+_From `docs/trades/stalls/speed.md`._
+
+### 17 Nov 2026 — Spun (Fendle) and the stalls kit
+
+Fendle demo (Signature, every section shown): JS 11.2 KB gz, CSS 8.7 KB gz, fonts 78.8 KB (Gabarito 600/700/800 and
+Labrada 400, latin, size-matched fallbacks). No 3D, no film. Home: first screen 80.9 KB (the hero photo), whole page
+258 KB; menu 66.8 KB, parties 75.9 KB; other pages carry no images. The board picture is drawn on the visitor's phone
+when they tap Save, so it adds nothing to the page. Layout: the next-stop block keeps the countdown's shape before the
+script runs (fixed heights for the place and the count on phones), so nothing moves when "Opens at" turns into the
+countdown. Lighthouse mobile, served by `npm run serve`, home three runs: 99, 100, 99; accessibility 100; FCP 1.0–1.5 s;
+LCP 1.2–2.0 s; TBT 0–60 ms; CLS 0.002.
 
 ## Tailors
 _From `docs/trades/tailor/speed.md`._

@@ -1,0 +1,16 @@
+/* Book us: the date check and the enquiry. Tokens only. */
+.st-party-in { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 48px; align-items: end; }
+.st-lab { display: block; font-family: var(--font-display); font-weight: 700; font-size: 16px; margin-bottom: 8px; }
+.st-field { width: 100%; max-width: 420px; min-height: 52px; padding: 0 14px; border: 1.5px solid var(--text); border-radius: 0; background: var(--bg); color: var(--text); font: inherit; font-size: 18px; }
+.st-pd-out { margin: 10px 0 0; font-size: 17px; min-height: 1.5em; }
+.st-pd-out[data-state="open"] { color: var(--ok); }
+.st-pd-out[data-state="taken"], .st-pd-out[data-state="few"] { color: var(--accent); }
+.st-acts { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; margin: 18px 0 0; }
+.st-solid { display: inline-flex; align-items: center; min-height: 52px; padding: 0 22px; background: var(--button); color: var(--on-button); font-family: var(--font-display); font-weight: 700; font-size: 17px; text-decoration: none; }
+.st-solid:hover { background: var(--button-hover); }
+.st-text { font-family: var(--font-display); font-weight: 700; font-size: 16px; color: var(--text); text-decoration: none; border-bottom: 2px solid currentColor; }
+.st-book-form { max-width: 640px; }
+.st-row { margin-top: 22px; }
+.st-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.st-fine { font-size: 15px; color: var(--muted); margin: 12px 0 0; }
+@media (max-width: 760px) { .st-party-in, .st-row-2 { grid-template-columns: 1fr; } }

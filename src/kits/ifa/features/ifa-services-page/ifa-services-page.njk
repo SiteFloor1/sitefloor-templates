@@ -1,0 +1,16 @@
+{#- The services page: every service with what to bring, linking each topic's page on Signature. -#}
+{%- set sec = site.sections.services %}
+{%- set ph = { title: sec.title, intro: site.advice.who } %}
+{% include "kits/ifa/partials/page-head.njk" %}
+<section class="if-svcp" data-feature="ifa-services-page"><div class="wrap">
+  <div class="if-svc-t">
+    {%- for s in site.advice.items %}
+    <div class="if-svc-r" id="{{ s.id }}">
+      <div><h2 class="if-svcp-h">{{ s.title }}</h2><p>{{ s.line }}</p>{% if s.topic and ("ifa-topics" | enabled) %}<a class="if-go" href="{{ s.topic | href }}"{{ "ifa-topics" | tierAttr | safe }}>More on {{ (site.topics | topicById(s.topic)).title | lower }}</a>{% endif %}</div>
+      <div><p class="if-fine">What to bring</p><ul class="if-svc-b">{% for b in s.bring %}<li>{{ b }}</li>{% endfor %}</ul></div>
+    </div>
+    {%- endfor %}
+  </div>
+  <p class="if-svcp-min">{{ site.advice.minimum }}</p>
+  {% include "kits/ifa/features/ifa-independence/line.njk" %}
+</div></section>

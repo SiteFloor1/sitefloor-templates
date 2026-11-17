@@ -1,0 +1,6 @@
+{#- Secure upload: a link to the firm's own portal. The website never receives a file. -#}
+<div class="if-up" data-feature="ifa-upload"{{ "ifa-upload" | tierAttr | safe }}>
+  <p><b>Sending statements before we meet?</b> {{ site.upload.line }}</p>
+  <a class="if-go" href="{{ site.upload.url }}" target="_blank" rel="noopener">Open {{ site.upload.name }}</a>
+  <p class="if-fine">Please don't email statements or account numbers.</p>
+</div>

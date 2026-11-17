@@ -1,0 +1,24 @@
+{#- Statement footer: holly green. The firm's name in spaced capitals, how to reach the office, and the pages; then the
+    regulatory paragraph every page must carry (status with the FRN linked to the register, the company, the Financial
+    Ombudsman with its free number, the ScamSmart check), then the Sitefloor credit. -#}
+<footer class="foot st-foot"><div class="wrap st-foot-in">
+  <div class="st-foot-top">
+    <p class="st-foot-word">{{ site.business.name }}</p>
+    <address>{{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}<br>
+      <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a>{% if site.contact.email %} · <a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>{% endif %}</address>
+    <nav class="st-foot-links" aria-label="Footer">
+      <a href="{{ 'index' | href }}">Home</a>
+      {%- for item in site.nav | navItems(pageId) %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}>{{ item.label }}</a>{% endfor %}
+      <a href="{{ 'regulatory' | href }}">Regulatory information</a>
+      <a href="{{ 'check' | href }}">Check it's us</a>
+      <a href="{{ 'privacy' | href }}">Privacy</a>
+    </nav>
+  </div>
+  <div class="st-foot-reg">
+    {% include "kits/ifa/features/ifa-fca/line.njk" %}
+    <p>{{ site.regulation.entity }}.{% if site.regulation.office %} Registered office: {{ site.regulation.office }}.{% endif %}</p>
+    {% include "kits/ifa/features/ifa-fca/ombudsman.njk" %}
+    <p>Before you move money, check the firm on the <a href="{{ fca.register }}" target="_blank" rel="noopener">Financial Services Register</a> and at <a href="{{ fca.scamsmart }}" target="_blank" rel="noopener">FCA ScamSmart</a>. {{ fca.risk }}</p>
+  </div>
+  <p class="st-foot-by"><a class="by" href="https://sitefloor.com" rel="noopener">Website by <b>Sitefloor</b></a></p>
+</div></footer>

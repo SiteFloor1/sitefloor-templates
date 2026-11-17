@@ -1,0 +1,14 @@
+{#- The latest posts: the stall's chosen TikToks as linked covers (links, never embeds: no TikTok script loads). The
+    Instagram feed is the shared gallery (Behold), which sits next to this section. -#}
+{%- set T = site.posts %}{% set sec = site.sections.posts %}
+<section id="posts" class="st-posts" aria-labelledby="st-posts-h"{{ "stalls-posts" | tierAttr | safe }}>
+  <div class="wrap">
+    {%- set secId = "st-posts-h" %}{% include "core/partials/section-head.njk" %}
+    <ul class="st-tt">
+      {%- for t in T.tiktok %}
+      <li>{% if t.href %}<a href="{{ t.href }}" target="_blank" rel="noopener">{% else %}<div class="st-tt-card">{% endif %}<img src="{{ t.cover.src | img }}" alt="{{ t.cover.alt }}" width="{{ t.cover.width }}" height="{{ t.cover.height }}" loading="lazy" decoding="async"{% if t.cover.focus %} style="object-position: {{ t.cover.focus }}"{% endif %}><span>{{ t.line }}</span>{% if t.href %}</a>{% else %}</div>{% endif %}</li>
+      {%- endfor %}
+    </ul>
+    {%- if T.tiktokProfile %}<p class="st-acts"><a class="st-text" href="{{ T.tiktokProfile }}" target="_blank" rel="noopener">More on TikTok</a>{% if T.instagramProfile %}<a class="st-text" href="{{ T.instagramProfile }}" target="_blank" rel="noopener">Instagram</a>{% endif %}</p>{% endif %}
+  </div>
+</section>

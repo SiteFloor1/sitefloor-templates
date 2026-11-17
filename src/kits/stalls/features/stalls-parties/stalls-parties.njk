@@ -1,0 +1,11 @@
+{#- Parties and private hire (the page): what the stall brings, in its own words, then the set-up card and Book us. -#}
+{%- set Q = site.partiesPage %}
+<section class="st-parties" aria-label="What we bring">
+  <div class="wrap st-parties-in">
+    {%- if Q.photo %}<figure class="st-parties-photo"><img src="{{ Q.photo.src | img }}" alt="{{ Q.photo.alt }}" width="{{ Q.photo.width }}" height="{{ Q.photo.height }}" loading="lazy" decoding="async"{% if Q.photo.focus %} style="object-position: {{ Q.photo.focus }}"{% endif %}></figure>{% endif %}
+    <div class="st-blocks">
+      {%- for b in Q.blocks %}<div class="st-block"><h2>{{ b.title }}</h2><p>{{ b.text }}</p></div>{% endfor %}
+      {%- if "stalls-book" | enabled %}<p class="st-acts"><a class="st-solid" href="{{ 'book-us' | href }}"{{ "stalls-book" | tierAttr | safe }}>Book us</a></p>{% endif %}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,6 @@
+{#- An inner page's opening: where it sits, the page's name, one line. Set `ph` first. -#}
+<header class="if-ph"><div class="wrap">
+  <p class="if-crumb"><a href="{{ 'index' | href }}">{{ site.business.name }}</a>{% if ph.crumbHref %} <span aria-hidden="true">/</span> <a href="{{ ph.crumbHref }}">{{ ph.crumbLabel }}</a>{% endif %}</p>
+  <h1 class="if-ph-t">{{ ph.title }}</h1>
+  {%- if ph.intro %}<p class="if-ph-i">{{ ph.intro }}</p>{% endif %}
+</div></header>

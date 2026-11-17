@@ -1,0 +1,15 @@
+{#- The set-up card: what the stall needs on the day, in its own figures, to copy or send to an organiser. -#}
+{%- set U = site.setup %}{% set sec = site.sections.setup %}
+<section id="setup" class="st-setup" aria-labelledby="st-setup-h" data-feature="stalls-setup"{{ "stalls-setup" | tierAttr | safe }}>
+  <div class="wrap st-setup-in">
+    <div>{%- set secId = "st-setup-h" %}{% include "core/partials/section-head.njk" %}{% if U.intro %}<p class="st-setup-intro">{{ U.intro }}</p>{% endif %}</div>
+    <div class="st-card">
+      <dl>{% for r in U.rows %}<dt>{{ r.label }}</dt><dd>{{ r.value }}</dd>{% endfor %}</dl>
+      <p class="st-acts">
+        <button type="button" class="st-solid" data-su-copy>Copy for the organiser</button>
+        <a class="st-text" href="{{ U.rows | setupText(site.business.name) | wa }}" data-wa-text="{{ U.rows | setupText(site.business.name) }}" target="_blank" rel="noopener">Send on WhatsApp</a>
+      </p>
+      <p class="st-fine" data-su-out aria-live="polite"></p>
+    </div>
+  </div>
+</section>
