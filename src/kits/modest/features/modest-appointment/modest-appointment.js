@@ -26,7 +26,10 @@ export function init(root, ctx) {
     const d = dates.find((x) => x.date === new FormData(form).get("day")) ?? dates[0];
     const was = new FormData(form).get("time");
     times.replaceChildren(...(d?.times ?? []).map((t, i) => opt("time", t, t, was ? t === was : i === 0)));
-    if (!times.querySelector("input:checked")) times.querySelector("input")?.setAttribute("checked", "");
+    // a time from the day before that this day hasn't: its first time instead (the property, not the attribute,
+    // which no longer counts once a radio has been set)
+    const first = /** @type {HTMLInputElement|null} */ (times.querySelector("input"));
+    if (first && !times.querySelector("input:checked")) first.checked = true;
   };
   const draw = () => {
     const fd = new FormData(form);
