@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: "404"
+permalink: 404.html
+title: Page not found
+---
+<section class="lb-page"><div class="wrap">
+{%- set ph = { title: "This page isn't here.", intro: "It may have moved. Every journey is on the home page." } %}
+{% include "kits/tourism/partials/page-head.njk" %}
+<p><a class="lb-go" href="{{ 'index' | href }}">Home</a></p>
+</div></section>

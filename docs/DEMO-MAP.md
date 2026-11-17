@@ -395,6 +395,15 @@ This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` 
 |---|---|---|---|---|---|---|---|
 | Marlie | whitening and aesthetic dental studio, `smile`, `booth` (built 9 Nov on `trade/teeth`) | young founder-led studio, Instagram-first: **white**, warm black-and-white photographs, espresso band and footer | a lavender sprig | lavender #54449A (soft #C4B9E6) on white #FFFFFF, espresso #211B19 | Reddit Sans 200 / Reddit Sans 300, Brygada 1918 italic for the dentist's voice | a photo-booth strip of four smiles developing frame by frame (flat on desktop, upright and within one screen on a phone) | (to come) |
 
+## Independent tour operators
+_From `docs/trades/tourism/demo-map.md`._
+
+This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` (generated) before proposing a look.
+
+| Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
+|---|---|---|---|---|---|---|---|
+| Larrow | independent tour operator, `tourism`, `logbook` (built 17 Nov on `trade/tourism`) | a traveller's logbook: **cool off-white**, hairline rules, square edges; the stop's photograph large on the left, the entry and stops in the middle, the country drawn full height on the right | Xanthoria lichen on Patagonian granite | lichen #A3561A on off-white #F3F2EF, ink #141516 | Familjen Grotesk 500 / 400 (one family) | the journey of the month, day by day: choose a stop and the route draws itself down the country to it; four journeys beneath as an index | to come with the case study |
+
 ## Wealth managers
 _From `docs/trades/wealth/demo-map.md`._
 
