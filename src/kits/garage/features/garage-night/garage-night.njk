@@ -1,0 +1,15 @@
+{#- Arrive at night (PARK-11): gate to bay, step by step, with the client's photographs. With the aerial hall on, the
+    same view after dark heads the page, the route to the visitor's bay lit. -#}
+{%- set ph = { title: "Arriving at night", intro: site.night.intro } %}
+{% include "kits/garage/partials/page-head.njk" %}
+<section class="gn" aria-label="Arriving at night"><div class="wrap gn-in">
+  {%- if "garage-aerial" | enabled %}{% include "kits/garage/features/garage-night/garage-night-aerial.njk" %}{% endif %}
+  <ol class="gn-steps">
+    {%- for s in site.night.steps %}
+    <li class="gn-s">
+      {%- if s.photo %}<img src="{{ s.photo.src | img }}" width="{{ s.photo.width }}" height="{{ s.photo.height }}" alt="{{ s.photo.alt }}" loading="lazy" decoding="async">{% endif %}
+      <h2 class="gn-t">{{ s.title }}</h2>{% if s.text %}<p>{{ s.text }}</p>{% endif %}
+    </li>
+    {%- endfor %}
+  </ol>
+</div></section>

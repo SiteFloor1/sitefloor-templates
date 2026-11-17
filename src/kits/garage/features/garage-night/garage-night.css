@@ -1,0 +1,14 @@
+.gn-steps { list-style: none; padding: 0; margin: 0; counter-reset: gn; }
+.gn-s { counter-increment: gn; padding: 22px 0; border-top: 1px solid var(--line); }
+.gn-s img { width: 100%; height: auto; display: block; margin-bottom: 14px; }
+.gn-short { margin: 20px 0; padding: 0; list-style: none; counter-reset: gn; }
+.gn-short li { counter-increment: gn; padding: 12px 0; border-top: 1px solid var(--line); }
+.gn-short li::before { content: counter(gn); display: block; font-family: var(--font-display); font-weight: 700; }
+.gn-dark { position: relative; margin: 0; }
+.gn-dark .ga-img { position: relative; line-height: 0; background: var(--band); }
+.gn-dark img { width: 100%; height: auto; display: block; }
+.gn-ov { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.gn-glow { fill: none; stroke: var(--night-glow); stroke-opacity: .5; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; filter: blur(4px); mix-blend-mode: screen; }
+.gn-line { fill: none; stroke: var(--night-line); stroke-width: .07; stroke-dasharray: .5 .45; stroke-linecap: round; }
+.gn-bay { fill: var(--night-glow); fill-opacity: .28; mix-blend-mode: screen; }
+.gn-dark .ga-cap { line-height: 1.4; }

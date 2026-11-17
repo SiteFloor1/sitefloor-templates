@@ -107,6 +107,31 @@ night; the route drawn in the SVG layer, so it follows the picker). One caption 
 plan. Not a photograph." The drive-in plays once when the hall first comes into view; picking a car replays it;
 reduced motion sees the car parked.
 
+
+### Built (17 Nov 2026, `trade/garage`): the `garage` kit, the Elsden look and demo
+| Feature id | Code | Plan | What it reads |
+|---|---|---|---|
+| `garage-spaces` | PARK-1 | S | `hall.rows[].bays[]` (`free`, `price`, `charger`) |
+| `garage-access` | PARK-2 | S | `access.facts` |
+| `garage-kept` | (care) | S | `kept.items` (the client's photographs) |
+| `garage-move-in` | PARK-12 | S | `moveIn.steps`, a calendar file made in the browser |
+| `garage-charging` | PARK-15 | P | bays' `charger`, `charging` |
+| `garage-security` | PARK-16 | P | `security` (`recorded`, `facts`, `cameras`) |
+| `garage-insurer` | PARK-17 | P, client sites only | `insurerLetter` (the client's PDF) |
+| `garage-night` | PARK-11 | P (page); with the aerial hall, the night view and lit route | `night.steps`, `aerial.night` |
+| `garage-laying-up` | PARK-13 | P (page) | `layingUp`, GOV.UK links only |
+| `garage-fleet` | PARK-14 | P (page) | `companies` |
+| `garage-pick` | PARK-10 | Sig (the drawn plan is Signature standard) | `hall` |
+| `garage-care-card` | PARK-18 | Sig | `careCard` |
+| `garage-aerial` | PARK-9 | Sig on the demo; a Bespoke add-on for clients | `aerial` (renders made once per client) |
+
+Not built in this kit yet: PARK-3 and PARK-4 as separate features (the drawn plan does both on Signature), PARK-5
+waiting list as a Form (the waiting list is a WhatsApp message for now), PARK-6 members' page, PARK-7 add-ons,
+PARK-8 care log by code. Bay availability is the client's `free` flag in site.json for now; a live Sheet provider
+(PARK-1's "updated 18:40") is the next step, and the page never shows a bay as free unless the list says so.
+The night view is a true night pass of the same scene (the hall dark, a warm pool on each car), not the day render
+dimmed; the route is drawn over it and follows the picker.
+
 ### Running cost
 £0 per client: the client's Sheet and Form, WhatsApp, the client's Stripe Payment Links, calendar files made in the
-browser. PARK-9 adds no running cost but adds weight (loaded only on tap).
+browser. The aerial hall adds no running cost: one rendered image per screen size and a car image (see speed.md).
