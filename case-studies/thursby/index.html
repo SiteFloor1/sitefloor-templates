@@ -188,9 +188,9 @@ h1, h2, h3 { font-weight: 300; letter-spacing: -.015em; text-wrap: balance; }
 
 /* II: the watermark */
 .wmk { position: relative; aspect-ratio: 16 / 9; border-radius: 8px; overflow: hidden; background: radial-gradient(120% 120% at 50% 40%, #F7F6EE, #E7EADF); box-shadow: inset 0 0 0 1px var(--rule), 0 30px 60px -36px rgba(19,38,29,.4); cursor: crosshair; touch-action: pan-y; --x: 50%; --y: 50%; --r: 0px; }
-.wmk-face { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 6%; color: var(--soft); transition: opacity .3s; }
+.wmk-face { position: absolute; left: 0; right: 0; bottom: 0; padding: 0 5% 4%; color: var(--soft); transition: opacity .2s; pointer-events: none; }
 .wmk-face p { font-size: 15px; max-width: 30ch; }
-.wmk-face b { display: block; font: 300 clamp(26px, 3vw, 40px)/1.1 var(--display); color: var(--ink); margin-bottom: 10px; }
+.wmk-face b { display: inline; font: 400 15px var(--display); color: var(--ink); margin-right: 6px; }
 .wmk-hid { position: absolute; inset: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 5%; align-items: center; padding: 6% 7%; color: #D5DBCF; background: radial-gradient(circle var(--r) at var(--x) var(--y), rgba(255,253,240,.98), rgba(250,248,232,.6) 55%, transparent 100%);
   -webkit-mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 45%, transparent 100%); mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 45%, transparent 100%); }
 .wmk-hid svg { width: clamp(110px, 16vw, 210px); height: auto; color: #B8C3B6; filter: drop-shadow(0 1px 0 #fff) drop-shadow(0 -1px 0 rgba(19,38,29,.18)); }
@@ -540,11 +540,11 @@ footer p { max-width: 112ch; }
   const polar = (cx, cy, f, n) => { const out = []; for (let i = 0; i <= n; i++) { const t = (i / n) * Math.PI * 2, r = f(t); out.push([cx + r * Math.cos(t), cy + r * Math.sin(t)]); } return pts(out); };
   const rosette = (g, cx, cy, R, seed) => {
     // a lathe rosette: a braided outer band, a lace ring and an inner flower, all re-cut from the seed
-    const p = 18 + (seed % 9) * 2, q = 5 + (seed % 5), k = 7 + (seed % 6), N = 900;
+    const p = 18 + (seed % 9) * 2, q = 5 + (seed % 5), k = 7 + (seed % 6), N = 320;
     const add = (d, w, o) => g.append(pathEl(d, { fill: "none", stroke: "currentColor", "stroke-width": w, opacity: o, pathLength: 1 }));
-    for (let i = 0; i < 22; i++) { const ph = (i / 22) * Math.PI * 2; add(polar(cx, cy, (t) => R * (0.83 + 0.11 * Math.sin(p * t + ph) + 0.035 * Math.sin(q * t - ph)), N), .42, .62); }
-    for (let i = 0; i < 16; i++) { const ph = (i / 16) * Math.PI * 2 / k; add(polar(cx, cy, (t) => R * (0.52 + 0.14 * Math.cos(k * t + ph * k) * Math.cos(t * 0 + ph)), N), .38, .55); }
-    for (let i = 0; i < 10; i++) { const ph = i * .21; add(polar(cx, cy, (t) => R * 0.34 * (0.62 + 0.38 * Math.abs(Math.sin((k + 2) * t / 2 + ph))), N), .36, .5); }
+    for (let i = 0; i < 16; i++) { const ph = (i / 16) * Math.PI * 2; add(polar(cx, cy, (t) => R * (0.83 + 0.11 * Math.sin(p * t + ph) + 0.035 * Math.sin(q * t - ph)), N), .42, .62); }
+    for (let i = 0; i < 12; i++) { const ph = (i / 12) * Math.PI * 2 / k; add(polar(cx, cy, (t) => R * (0.52 + 0.14 * Math.cos(k * t + ph * k) * Math.cos(t * 0 + ph)), N), .38, .55); }
+    for (let i = 0; i < 7; i++) { const ph = i * .3; add(polar(cx, cy, (t) => R * 0.34 * (0.62 + 0.38 * Math.abs(Math.sin((k + 2) * t / 2 + ph))), N), .36, .5); }
   };
   const waveBand = (g, w, h, inset, amp, freq, lines) => {
     // waves running round the edge, phase-shifted into a braid
@@ -566,6 +566,7 @@ footer p { max-width: 112ch; }
       g.append(pathEl("M" + out.map(([a, b]) => `${a.toFixed(1)} ${b.toFixed(1)}`).join("L"), { fill: "none", stroke: "currentColor", "stroke-width": .4, opacity: .22 }));
     }
   };
+  const idle = (fn) => ("requestIdleCallback" in window ? requestIdleCallback(fn, { timeout: 300 }) : setTimeout(fn, 30));
   const RISK = "Investments can fall as well as rise, and you may get back less than you put in. ";
 
   const note = document.querySelector("[data-note]"), gHost = document.querySelector("[data-guilloche]"), rosHost = document.querySelector("[data-ros]");
@@ -599,9 +600,9 @@ footer p { max-width: 112ch; }
     for (let j = 0; j < 26; j++) { const out = []; for (let x = 0; x <= w; x += 8) out.push([x, h * .12 + j * 15 + 26 * Math.sin(x / 140 + j * .3) + 9 * Math.sin(x / 41 - j * .5)]); g.append(pathEl("M" + out.map(([a, b]) => `${a.toFixed(0)} ${b.toFixed(1)}`).join("L"), { fill: "none", stroke: "currentColor", "stroke-width": .6 })); }
     const rr = Math.min(w, h) * .42; rosette(g, w * .92, h * .18, rr, 41); s.append(g); host.replaceChildren(s);
   };
-  const drawAll = () => { engrave(false); document.querySelectorAll("[data-lathe]").forEach(lathe); };
+  const drawAll = () => { engrave(false); idle(() => document.querySelectorAll("[data-lathe]").forEach(lathe)); };
   let rt; new ResizeObserver(() => { cancelAnimationFrame(rt); rt = requestAnimationFrame(() => { if (note.clientWidth !== last) { last = note.clientWidth; drawAll(); } }); }).observe(note);
-  document.fonts?.ready.then(() => engrave(false));
+  document.fonts?.ready.then(() => idle(() => engrave(false)));
 
   // ---------------------------------------------------------------- the face value: Thursby's published fees
   const SCHEDULE = { initial: { rate: 1.5, min: 1500 }, ongoing: { rate: 0.75 } };
@@ -617,7 +618,7 @@ footer p { max-width: 112ch; }
     const i = charge(SCHEDULE.initial, a), o = charge(SCHEDULE.ongoing, a), m = Math.round(o / 12), f = i + o;
     first.textContent = money(f); den.textContent = money(f).replace(/\.\d\d$/, "");
     brk.innerHTML = `Initial advice <b>${money(i)}</b> once, then <b>${money(o)}</b> each year, which is <b>${money(m)}</b> a month.`;
-    const s2 = a % 997; if (s2 !== seed) { seed = s2; engrave(animate); }
+    const s2 = a % 997; if (s2 !== seed) { seed = s2; idle(() => engrave(animate)); }
   };
   let tm; amt.addEventListener("input", () => { clearTimeout(tm); tm = setTimeout(() => show(true), 220); });
   amt.addEventListener("blur", () => { const a = read(amt.value); if (a) amt.value = a.toLocaleString("en-GB"); });
@@ -637,7 +638,9 @@ footer p { max-width: 112ch; }
   const yob = document.getElementById("yob"), fout = document.querySelector("[data-foil-out]"), fnote = document.querySelector("[data-foil-note]"), foil = document.querySelector("[data-foil]");
   const GOV = '<a href="https://www.gov.uk/state-pension-age" target="_blank" rel="noopener">GOV.UK</a>';
   const BASE = `Under the law as it stands, checked against GOV.UK on 16 November 2026. Check your exact State Pension date on ${GOV}.`;
+  const CHECKED = Date.parse("2026-11-16T00:00:00Z"), FRESH = (Date.now() - CHECKED) / 86400000 <= 180;
   const dates = (y) => {
+    if (!FRESH) return { why: "These dates were last checked on 16 November 2026, so we no longer show them; GOV.UK has yours." };
     if (y < 1950 || y > new Date().getFullYear() - 16) return { why: "Type a year between 1950 and sixteen years ago." };
     if (y < 1960) return { why: "For years before 1960 the rules were different; GOV.UK has your date." };
     const pension = y >= 1974 ? [y + 57, 57] : y <= 1970 ? [y + 55, 55] : null;
