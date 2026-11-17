@@ -65,6 +65,9 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 | Landscaping, Almanac | trade/landscaping | Alegreya | Alegreya |
 | Halvern, The stair (A) | trade/letting | Petrona | Petrona |
 | Trainer, Linen (A) | trade/trainer | Ibarra Real Nova | Ibarra Real Nova |
+| Fendle, The reply (A, round 1) | trade/stalls | Trirong | Trirong |
+| Fendle, Spun (B, round 1) | trade/stalls | Familjen Grotesk | Crimson Pro |
+| Fendle, The day (C, round 1) | trade/stalls | Wix Madefor Display | Wix Madefor Text |
 | Tailor, Flannel (A) | trade/tailor | Della Respira | Commissioner |
 | Wedding films, Première (A) | trade/wedding-film | Sorts Mill Goudy | Urbanist |
 
