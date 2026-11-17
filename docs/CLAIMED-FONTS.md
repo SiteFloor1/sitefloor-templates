@@ -62,6 +62,9 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 | Skin, Clémence (round 6) | trade/beauty | Antic Didone | Baskervville |
 | Isolde, the cover (round 4) | trade/bridal-beauty | Libre Bodoni | Faustina |
 | Cleaning, Plan (A) | trade/cleaning | Anek Latin | Anek Latin |
+| Maudry, The brief (A, round 1) | trade/events | Imbue | Ysabeau Office |
+| Maudry, The palette (B, round 1) | trade/events | Epilogue | Epilogue |
+| Maudry, The plan (C, round 1) | trade/events | Piazzolla | Piazzolla |
 | Landscaping, Almanac | trade/landscaping | Alegreya | Alegreya |
 | Halvern, The stair (A) | trade/letting | Petrona | Petrona |
 | Trainer, Linen (A) | trade/trainer | Ibarra Real Nova | Ibarra Real Nova |

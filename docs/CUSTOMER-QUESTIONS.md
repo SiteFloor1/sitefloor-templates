@@ -43,6 +43,7 @@ One file per trade, so trades built in parallel never edit the same lines. A new
 - Dessert shops and chocolatiers: [`docs/trades/dessert/questions.md`](trades/dessert/questions.md)
 - Car detailing: [`docs/trades/detailing/questions.md`](trades/detailing/questions.md)
 - Electricians: [`docs/trades/electrician/questions.md`](trades/electrician/questions.md)
+- Event designers and producers: [`docs/trades/events/questions.md`](trades/events/questions.md)
 - Florists: [`docs/trades/florist/questions.md`](trades/florist/questions.md)
 - Garage and parking rentals: [`docs/trades/garage/questions.md`](trades/garage/questions.md)
 - Grand cafés and tea rooms: [`docs/trades/grand-cafe/questions.md`](trades/grand-cafe/questions.md)
