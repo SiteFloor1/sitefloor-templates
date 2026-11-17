@@ -1,0 +1,22 @@
+{#- Heat and cold (GYM-10): the steam over the stones, then the next slots in the sauna and plunge, each with "Book in
+    the app" (places left only with gym-spaces and a fresh sheet), the cedar room beside them. The build lists the
+    evening of its own day; the script lists the visitor's next slots. On its own page the heading is the page's. -#}
+{%- set r = site.recovery %}
+{%- set wd = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"][(build.today + "T12:00:00Z") | dayIndexOf] %}
+<section class="gr{% if onPage %} gr-page{% endif %}" id="recovery" data-feature="gym-recovery" aria-labelledby="gr-h">
+  {%- if r.photo %}<div class="wrap"><figure class="gr-band"><img src="{{ r.photo.src | img }}" alt="{{ r.photo.alt }}" width="{{ r.photo.width }}" height="{{ r.photo.height }}" loading="lazy" decoding="async"></figure></div>{% endif %}
+  <div class="wrap gr-in">
+    <div class="gr-main">
+      {%- if onPage %}<h1 id="gr-h">{{ r.title | markup | safe }}</h1>{% else %}<h2 id="gr-h">{{ r.title | markup | safe }}</h2>{% endif %}
+      {%- if r.intro %}<p class="gr-i">{{ r.intro }}</p>{% endif %}
+      <ol class="gr-slots" data-gr-list>
+        {%- for s in (r.slots | slotsOn(wd)) | selectFrom("18:00", 4) %}
+        <li class="gr-s" data-key="{{ build.today }} {{ s.time }} {{ s.id }}"><time>{{ s.time }}</time><div><p class="gr-n">{{ s.name }}</p><p>{{ s.minutes }} minutes{% if s.with %}, with {{ s.with }}{% endif %}</p></div><span class="gr-left" data-left hidden></span>{% set bk = s.url %}{% include "kits/gym/partials/book.njk" %}</li>
+        {%- endfor %}
+      </ol>
+      {%- if not onPage and ("gym-recovery-page" | enabled) %}<a class="go gr-more" href="{{ 'recovery' | href }}">Every slot, and how it works</a>{% endif %}
+    </div>
+    {%- if r.room %}<figure class="gr-room"><img src="{{ r.room.src | img }}" alt="{{ r.room.alt }}" width="{{ r.room.width }}" height="{{ r.room.height }}" loading="lazy" decoding="async">{% if r.room.caption %}<figcaption>{{ r.room.caption }}</figcaption>{% endif %}</figure>{% endif %}
+  </div>
+  {%- if "gym-spaces" | enabled %}<span data-feature="gym-spaces" hidden></span>{% endif %}
+</section>

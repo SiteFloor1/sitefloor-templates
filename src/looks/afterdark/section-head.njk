@@ -1,0 +1,5 @@
+{#- After dark section opening: the section's name large and light, its line under it in the quiet grey. No label. -#}
+<div class="ad-sh">
+  <h2 class="ad-sh-t">{{ sec.title | markup | safe }}</h2>
+  {%- if sec.intro %}<p class="ad-sh-i">{{ sec.intro }}</p>{% endif %}
+</div>
