@@ -109,10 +109,18 @@ button { font: inherit; color: inherit; }
 .touch { padding-bottom: 6px; }
 .touch .label { max-width: 340px; }
 .touch .label > b { font-size: 34px; }
-.ask { margin-top: 18px; font: 400 22px/1.5 var(--display); color: var(--ink); }
-.v { font: inherit; color: inherit; background: none; border: 0; border-bottom: 1px solid var(--saffron); padding: 0; cursor: pointer; min-height: 34px; font-variant-numeric: tabular-nums; }
-.pm { display: inline-flex; gap: 4px; margin-left: 4px; vertical-align: 3px; }
-.pm button { width: 32px; height: 32px; border: 1px solid var(--rule-2); background: none; cursor: pointer; font-size: 17px; line-height: 1; }
+.ctl { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--rule-2); }
+.ctl + .ctl { margin-top: 14px; }
+.ctl-k { display: block; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--soft); margin-bottom: 8px; }
+.step { display: inline-flex; align-items: center; gap: 0; box-shadow: inset 0 0 0 1px var(--ink); }
+.step button { width: 44px; height: 44px; border: 0; background: none; cursor: pointer; font-size: 20px; line-height: 1; }
+.step button:hover { background: var(--plinth); }
+.step output { min-width: 76px; text-align: center; font: 400 24px var(--display); font-variant-numeric: tabular-nums; }
+.shoes { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; border: 0; margin: 0; padding: 0; min-inline-size: 0; }
+.shoes label { position: relative; display: flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 4px; box-shadow: inset 0 0 0 1px var(--rule-2); cursor: pointer; font-size: 15px; color: var(--ink); white-space: nowrap; }
+.shoes input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+.shoes label:has(input:checked) { box-shadow: inset 0 0 0 1px var(--ink), inset 0 -3px 0 var(--saffron); }
+.shoes label:has(input:focus-visible) { outline: 2px solid var(--ink); outline-offset: 2px; }
 .answer { margin-top: 18px; font: 400 26px/1.25 var(--display); min-height: 2.5em; color: var(--ink); }
 .answer b { font-weight: 500; color: var(--saffron); }
 .touch .hint { margin-top: 10px; font-size: 14px; color: var(--soft); }
@@ -132,7 +140,7 @@ button { font: inherit; color: inherit; }
 /* ------------------------------------------------------------------ rooms */
 .room { padding-bottom: var(--room); }
 .rh { display: grid; grid-template-columns: minmax(120px, 1fr) minmax(0, 3fr); gap: 24px; align-items: baseline; margin-bottom: clamp(36px, 5vw, 72px); }
-.rh .no { font: 400 clamp(64px, 9vw, 140px)/.8 var(--display); color: var(--plinth-2); letter-spacing: -.02em; }
+.rh .no { font: 400 clamp(64px, 9vw, 140px)/.8 var(--display); color: #A89A8A; letter-spacing: -.02em; }
 .rh h2 { font-size: clamp(36px, 4.4vw, 64px); }
 .rh p { margin-top: 14px; max-width: 46ch; color: var(--soft); font-size: 19px; }
 .hung { display: grid; grid-template-columns: minmax(0, 3fr) minmax(220px, 1fr); gap: clamp(24px, 3.5vw, 56px); align-items: end; }
@@ -164,10 +172,10 @@ button { font: inherit; color: inherit; }
 .cal .big b { font-weight: 400; color: var(--saffron); }
 .cal .s { margin-top: 18px; font-size: 19px; color: var(--soft); max-width: 52ch; }
 .cal table { margin-top: 28px; width: 100%; border-collapse: collapse; }
-.cal td { padding: 14px 0; border-top: 1px solid var(--rule); vertical-align: baseline; }
+.cal td, .cal th { padding: 14px 0; border-top: 1px solid var(--rule); vertical-align: baseline; text-align: left; font-weight: 400; }
 .cal td:nth-child(2) { font: 400 20px var(--display); }
 .cal td:last-child { text-align: right; color: var(--saffron); white-space: nowrap; }
-.cal tr.shut td { color: var(--soft); }
+.cal tr.shut td, .cal tr.shut th { color: var(--soft); }
 .cal tr.shut td:nth-child(2) { text-decoration: line-through; text-decoration-thickness: 1px; }
 
 /* ------------------------------------------------------------------ admission: the plans as tickets */
@@ -284,7 +292,10 @@ footer p { max-width: 110ch; }
       <b>The Layl</b>
       <span class="by">Taroub, 2026</span><br>
       Fringed organza over black satin. £345, in five lengths.
-      <p class="ask" data-js>For a visitor <button type="button" class="v" data-sf aria-label="Shoulder to floor: tap for an inch more">57″</button><span class="pm"><button type="button" data-d="-0.5" aria-label="Half an inch less">−</button><button type="button" data-d="0.5" aria-label="Half an inch more">+</button></span> shoulder to floor, in <button type="button" class="v" data-shoe aria-label="Shoes: tap to change">2″ heels</button>.</p>
+      <div class="ctl"><span class="ctl-k" id="k-sf">Shoulder to floor</span>
+        <div class="step" role="group" aria-labelledby="k-sf"><button type="button" data-d="-0.5" aria-label="Half an inch less">−</button><output data-sf aria-live="polite">57″</output><button type="button" data-d="0.5" aria-label="Half an inch more">+</button></div></div>
+      <div class="ctl"><span class="ctl-k" id="k-shoe">Shoes</span>
+        <div class="shoes" role="radiogroup" aria-labelledby="k-shoe"><label><input type="radio" name="shoe" value="0">Flats</label><label><input type="radio" name="shoe" value="1">1″ heels</label><label><input type="radio" name="shoe" value="2" checked>2″ heels</label><label><input type="radio" name="shoe" value="3">3″ heels</label></div></div>
       <p class="answer" data-answer aria-live="polite">Wear the <b>58</b>. It stops 1″ above your floor.</p>
       <p class="hint">The lines across her are the shop's five lengths, to scale from the shoulder.</p>
       <p class="credit">On show in <span>Room II</span> · the Signature plan</p>
@@ -309,7 +320,7 @@ footer p { max-width: 110ch; }
 
 <!-- ================================================================ I -->
 <section class="room gut" id="r1" aria-labelledby="h-r1"><div class="wrap">
-  <div class="rh"><span class="no" aria-hidden="true">I</span><div><h2 id="h-r1">The hang.</h2><p>Abaya shops show a grid of thumbnails. Taroub opens like a gallery wall: one piece, full height, and its label.</p></div></div>
+  <div class="rh"><span class="no" aria-hidden="true">I</span><div><h2 id="h-r1"><span class="sr">Room I: </span>The hang.</h2><p>Abaya shops show a grid of thumbnails. Taroub opens like a gallery wall: one piece, full height, and its label.</p></div></div>
   <div class="hung">
     <figure class="frame"><img src="media/desk-home.webp" width="1440" height="900" alt="Taroub's home page on a laptop: the shop's name, a second piece and the pages as a sentence on the left; the Layl full height in the middle; its name, price and Find your length on the right; the look and its total in a bar along the foot" loading="lazy"></figure>
     <div class="label">
@@ -323,7 +334,7 @@ footer p { max-width: 110ch; }
 
 <!-- ================================================================ II -->
 <section class="room gut" id="r2" aria-labelledby="h-r2"><div class="wrap">
-  <div class="rh"><span class="no" aria-hidden="true">II</span><div><h2 id="h-r2">The hem line.</h2><p>The question behind every abaya return: which length? She answers it standing in her own shoes.</p></div></div>
+  <div class="rh"><span class="no" aria-hidden="true">II</span><div><h2 id="h-r2"><span class="sr">Room II: </span>The hem line.</h2><p>The question behind every abaya return: which length? She answers it standing in her own shoes.</p></div></div>
   <div class="hung flip">
     <div class="label">
       <b>Where the hem falls</b>
@@ -343,7 +354,7 @@ footer p { max-width: 110ch; }
 
 <!-- ================================================================ III -->
 <section class="room gut" id="r3" aria-labelledby="h-r3"><div class="wrap">
-  <div class="rh"><span class="no" aria-hidden="true">III</span><div><h2 id="h-r3">Before Eid.</h2><p>The busiest weeks of the year turn on one question: will it arrive in time? The answer below was worked out today, in your browser, the way Taroub's site does it.</p></div></div>
+  <div class="rh"><span class="no" aria-hidden="true">III</span><div><h2 id="h-r3"><span class="sr">Room III: </span>Before Eid.</h2><p>The busiest weeks of the year turn on one question: will it arrive in time? The answer below was worked out today, in your browser, the way Taroub's site does it.</p></div></div>
   <div class="today">
     <div class="cal" data-cal>
       <p class="k">Today, at Taroub</p>
@@ -370,7 +381,7 @@ footer p { max-width: 110ch; }
 
 <!-- ================================================================ IV -->
 <section class="room gut" id="r4" aria-labelledby="h-r4"><div class="wrap">
-  <div class="rh"><span class="no" aria-hidden="true">IV</span><div><h2 id="h-r4">The family's list.</h2><p>Eid is bought for the whole family. One link goes round; each adds a name, a piece and a length; Taroub gets one order.</p></div></div>
+  <div class="rh"><span class="no" aria-hidden="true">IV</span><div><h2 id="h-r4"><span class="sr">Room IV: </span>The family's list.</h2><p>Eid is bought for the whole family. One link goes round; each adds a name, a piece and a length; Taroub gets one order.</p></div></div>
   <div class="hung">
     <div class="plinths">
       <figure class="phone"><div class="dev">
@@ -390,7 +401,7 @@ footer p { max-width: 110ch; }
 
 <!-- ================================================================ V -->
 <section class="room gut" id="r5" aria-labelledby="h-r5"><div class="wrap">
-  <div class="rh"><span class="no" aria-hidden="true">V</span><div><h2 id="h-r5">Complete the look.</h2><p>The abaya, the hijab worn with it and the inner, in her length, with one total. The look follows her along the foot of every page.</p></div></div>
+  <div class="rh"><span class="no" aria-hidden="true">V</span><div><h2 id="h-r5"><span class="sr">Room V: </span>Complete the look.</h2><p>The abaya, the hijab worn with it and the inner, in her length, with one total. The look follows her along the foot of every page.</p></div></div>
   <div class="hung flip">
     <div class="label">
       <b>The look and its bar</b>
@@ -410,7 +421,7 @@ footer p { max-width: 110ch; }
 
 <!-- ================================================================ VI -->
 <section class="room gut" id="r6" aria-labelledby="h-r6"><div class="wrap">
-  <div class="rh"><span class="no" aria-hidden="true">VI</span><div><h2 id="h-r6">A private appointment.</h2><p>For the bride and her sisters, or a mother choosing for Eid: an hour in the studio, asked for in one message.</p></div></div>
+  <div class="rh"><span class="no" aria-hidden="true">VI</span><div><h2 id="h-r6"><span class="sr">Room VI: </span>A private appointment.</h2><p>For the bride and her sisters, or a mother choosing for Eid: an hour in the studio, asked for in one message.</p></div></div>
   <div class="hung">
     <div class="plinths">
       <figure class="phone"><div class="dev"><img src="media/ph-appt.webp" width="780" height="1688" alt="Taroub's appointment request on a phone: Sunday 22 November chosen, 12:30, for three people, for Eid" loading="lazy"></div></figure>
@@ -427,7 +438,7 @@ footer p { max-width: 110ch; }
 
 <!-- ================================================================ VII -->
 <section class="room gut" id="r7" aria-labelledby="h-r7"><div class="wrap">
-  <div class="rh"><span class="no" aria-hidden="true">VII</span><div><h2 id="h-r7">The collection.</h2><p>Every piece large, with its price, the lengths it comes in, and under the photograph what the model wears.</p></div></div>
+  <div class="rh"><span class="no" aria-hidden="true">VII</span><div><h2 id="h-r7"><span class="sr">Room VII: </span>The collection.</h2><p>Every piece large, with its price, the lengths it comes in, and under the photograph what the model wears.</p></div></div>
   <div class="hung flip">
     <div class="label">
       <b>Abayas</b>
@@ -510,7 +521,7 @@ footer p { max-width: 110ch; }
   const answer = document.querySelector("[data-answer]");
   // The detail shows the photograph from 86% of its height, 11.67% of it, so its own positions are rescaled.
   const D0 = 86, DSPAN = 11.667, inDetail = (pct) => ((pct - D0) / DSPAN) * 100;
-  const sfB = document.querySelector("[data-sf]"), shoeB = document.querySelector("[data-shoe]");
+  const sfB = document.querySelector("[data-sf]");
   const sets = [...document.querySelectorAll("[data-lines], [data-dlines]")].map((box) => {
     const make = (cls, html) => { const e = document.createElement("span"); e.className = cls; e.innerHTML = html; box.append(e); return e; };
     return { pos: box.hasAttribute("data-dlines") ? inDetail : (p) => p, marks: Object.fromEntries(LENGTHS.map((l) => [l, make("ln", `<span>${l}</span>`)])), floor: make("fl", "<span>Your floor</span>"), gap: make("gap", "<span></span>") };
@@ -518,7 +529,6 @@ footer p { max-width: 110ch; }
   const draw = () => {
     const heel = SHOES[shoe][1], reach = sf + heel, best = pick(reach);
     sfB.textContent = `${inches(sf)}″`;
-    shoeB.textContent = SHOES[shoe][0];
     for (const { pos, marks, floor, gap } of sets) {
       for (const l of LENGTHS) { marks[l].style.top = `${pos(at(l))}%`; marks[l].classList.toggle("on", l === best); marks[l].style.display = l <= reach ? "" : "none"; }
       floor.style.top = `${Math.min(99.5, pos(at(reach)))}%`;
@@ -530,8 +540,7 @@ footer p { max-width: 110ch; }
     } else answer.textContent = "Shorter than the shortest length. Taroub would take one up.";
   };
   document.querySelectorAll("[data-d]").forEach((b) => b.addEventListener("click", () => { sf = Math.min(62, Math.max(52.5, sf + Number(b.dataset.d))); draw(); }));
-  sfB.addEventListener("click", () => { sf = sf + 1 > 62 ? 52.5 : Math.floor(sf) + 1; draw(); });
-  shoeB.addEventListener("click", () => { shoe = (shoe + 1) % SHOES.length; draw(); });
+  document.querySelectorAll("input[name=shoe]").forEach((r) => r.addEventListener("change", () => { shoe = Number(r.value); draw(); }));
   draw();
 
   // ---------------------------------------------------------------- Room III: Eid, worked out today
@@ -543,16 +552,21 @@ footer p { max-width: 110ch; }
   const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const uk = (d, wd = true) => { const t = new Date(ms(d)); return `${wd ? t.toLocaleDateString("en-GB", { weekday: "long", timeZone: "UTC" }) + " " : ""}${t.getUTCDate()} ${MONTHS[t.getUTCMonth()]} ${t.getUTCFullYear()}`; };
   const today = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/London", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
-  const next = WINDOWS.find((w) => w[2] >= today);
+  // The next Eid whose last order date (collection, the day before it may fall) hasn't passed: once even that has
+  // gone, the page moves on to the following Eid rather than offer an order it can't keep.
+  const LAST = Math.min(...CUTS.map((c) => c[1]));
+  const next = WINDOWS.find((w) => ymd(ms(w[1]) - LAST * DAY) >= today);
   const big = document.querySelector("[data-big]"), when = document.querySelector("[data-when]"), body = document.querySelector("[data-rows] tbody");
   if (next) {
     const rows = CUTS.map(([label, before]) => { const by = ymd(ms(next[1]) - before * DAY); const left = Math.round((ms(by) - ms(today)) / DAY); return { label, by, left }; });
-    const uk5 = rows[1];
-    big.innerHTML = uk5.left >= 0 ? `UK delivery for ${next[0]}: order <b>${uk5.left === 0 ? "today" : uk5.left === 1 ? "by tomorrow" : `within ${uk5.left} days`}</b>.` : `${next[0]}: <b>collect from the studio</b>.`;
+    const post = rows[1], studio = rows[2];
+    big.innerHTML = post.left >= 0 ? `UK delivery for ${next[0]}: order <b>${post.left === 0 ? "today" : post.left === 1 ? "by tomorrow" : `within ${post.left} days`}</b>.`
+      : `${next[0]}: <b>collect from the studio ${studio.left === 0 ? "today" : studio.left === 1 ? "by tomorrow" : `by ${uk(studio.by)}`}</b>.`;
     when.textContent = `${next[0]} is expected between ${uk(next[1], false)} and ${uk(next[2], false)}, when the moon is sighted. Taroub counts back from the first of those days.`;
     body.replaceChildren(...rows.map((r) => {
       const tr = document.createElement("tr"); if (r.left < 0) tr.className = "shut";
-      for (const t of [r.label, `Order by ${uk(r.by)}`, r.left < 0 ? "closed" : r.left === 0 ? "today" : r.left === 1 ? "tomorrow" : `in ${r.left} days`]) tr.append(Object.assign(document.createElement("td"), { textContent: t }));
+      tr.append(Object.assign(document.createElement("th"), { scope: "row", textContent: r.label }));
+      for (const t of [`Order by ${uk(r.by)}`, r.left < 0 ? "closed" : r.left === 0 ? "today" : r.left === 1 ? "tomorrow" : `in ${r.left} days`]) tr.append(Object.assign(document.createElement("td"), { textContent: t }));
       return tr;
     }));
   } else { big.textContent = "No Eid in the calendar yet."; when.textContent = "Taroub's site steps aside rather than guess a date."; }
