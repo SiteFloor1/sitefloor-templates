@@ -1,0 +1,12 @@
+/* The timetable: the day's name in the left column, its classes as ruled rows beside it. */
+.bt-tt-day { display: grid; grid-template-columns: minmax(8rem, 3fr) 9fr; gap: 24px; padding-block: 28px; border-top: 1px solid var(--line); }
+.bt-tt-day ul { list-style: none; margin: 0; padding: 0; }
+.bt-tt-day li { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr) auto; gap: 4px 20px; padding-block: 12px; }
+.bt-tt-day li + li { border-top: 1px solid var(--line); }
+.bt-tt-day li span { grid-column: 2; color: var(--muted); }
+.bt-tt-day li .bt-pl { grid-column: 3; grid-row: 1; }
+@media (max-width: 760px) {
+  .bt-tt-day { grid-template-columns: 1fr; gap: 6px; }
+  .bt-tt-day li { grid-template-columns: 5.5rem minmax(0, 1fr); }
+  .bt-tt-day li .bt-pl { grid-column: 2; grid-row: auto; }
+}

@@ -1,0 +1,15 @@
+{#- The round, reviews: the parents' words set in a row of columns, hairline and large, each signed beneath. No stars
+    drawn: the rating is read out for screen readers. -#}
+{%- set sec = site.sections.reviews %}
+<section id="reviews" class="rd-rev" data-feature="reviews"{{ "reviews" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="rd-rev-row">
+    {%- for r in site.reviews.items %}
+    <figure class="rv">
+      <blockquote><p>{{ r.text }}</p></blockquote>
+      <figcaption>{{ r.author }}, {{ r.date | monthYear }}<span class="sr-only">, rated {{ r.rating }} out of 5</span></figcaption>
+    </figure>
+    {%- endfor %}
+  </div>
+  {%- if site.reviews.source == "sample" %}<p class="rd-fine">Sample reviews for the demo. On a live site these are the school's real Google reviews.</p>{% endif %}
+</div></section>

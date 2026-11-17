@@ -52,6 +52,7 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 | nacre | Italiana | Albert Sans |
 | portland | Marcellus | Source Sans 3 |
 | quail | Old Standard TT | Plus Jakarta Sans |
+| round | Hahmlet | Hahmlet |
 | salon | Libre Caslon Display | Libre Caslon Text |
 | tissue (Laleh) | Tenor Sans | Spectral |
 
@@ -59,7 +60,6 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 
 | Trade / design | Branch | Display | Body |
 |---|---|---|---|
-| Wrenna, The round (B, round 1) | trade/ballet | Hahmlet | Hahmlet |
 | Skin, Clémence (round 6) | trade/beauty | Antic Didone | Baskervville |
 | Isolde, the cover (round 4) | trade/bridal-beauty | Libre Bodoni | Faustina |
 | Cleaning, Plan (A) | trade/cleaning | Anek Latin | Anek Latin |

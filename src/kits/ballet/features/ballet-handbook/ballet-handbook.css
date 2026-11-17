@@ -1,0 +1,12 @@
+/* The handbook: contents in the left margin (it stays in view), the sections in a reading column. */
+.bt-hb-in { display: grid; grid-template-columns: 4fr 8fr; gap: 32px 72px; align-items: start; }
+.bt-hb-toc { position: sticky; top: calc(var(--nav-h) + 24px); }
+.bt-hb-toc ol { margin: 0 0 20px; padding-left: 1.2em; }
+.bt-hb-toc li + li { margin-top: 6px; }
+.bt-hb-sec { max-width: 40rem; padding-block: 0 40px; }
+.bt-hb-sec + .bt-hb-sec { border-top: 1px solid var(--line); padding-top: 32px; }
+@media (max-width: 760px) {
+  .bt-hb-in { grid-template-columns: 1fr; }
+  .bt-hb-toc { position: static; }
+}
+@media print { .bt-hb-toc button { display: none; } .bt-hb-in { display: block; } }

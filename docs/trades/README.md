@@ -10,7 +10,7 @@ take (`demo-map.md`), its speed numbers (`speed.md`) and the fonts it claims (`f
 | Folder | Trade | Kit | Files |
 |---|---|---|---|
 | baker | Bakers and cake makers | — | [questions](baker/questions.md) · [playbook](baker/playbook.md) |
-| ballet | Children's dance and ballet schools | `ballet` | [questions](ballet/questions.md) · [fonts](ballet/fonts.md) |
+| ballet | Children's dance and ballet schools | `ballet` | [questions](ballet/questions.md) · [playbook](ballet/playbook.md) · [demo-map](ballet/demo-map.md) · [speed](ballet/speed.md) · [fonts](ballet/fonts.md) |
 | barber | Barbers | `barber` | [questions](barber/questions.md) · [demo-map](barber/demo-map.md) · [speed](barber/speed.md) · [fonts](barber/fonts.md) |
 | beauty | Facialists and skin clinics | `skin` | [questions](beauty/questions.md) · [playbook](beauty/playbook.md) · [demo-map](beauty/demo-map.md) · [speed](beauty/speed.md) · [fonts](beauty/fonts.md) |
 | bridal | Bridal salons | `bridal` | [questions](bridal/questions.md) · [playbook](bridal/playbook.md) · [demo-map](bridal/demo-map.md) · [speed](bridal/speed.md) · [fonts](bridal/fonts.md) |

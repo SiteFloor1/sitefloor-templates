@@ -6,4 +6,6 @@ Kaisei Opti and Inclusive Sans are released.
 
 | Look or design | Status | Branch | Display | Body |
 |---|---|---|---|---|
-| Wrenna, The round (B, round 1) | approved | trade/ballet | Hahmlet | Hahmlet |
+| round | built | | Hahmlet | Hahmlet |
+
+Hahmlet (variable, 100 to 900) is the only family: 200 for what is said large, 360 for reading, 560 to 700 for weight.

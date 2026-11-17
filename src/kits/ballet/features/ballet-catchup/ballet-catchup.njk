@@ -1,0 +1,15 @@
+{#- Missed a class? The parent picks the session from a list; the other times this week at the same level appear, each
+    with a message to the school. The school's rule on catch-ups sits above, in its own words. -#}
+<section class="bt-cu" id="catch-up" data-feature="ballet-catchup"{{ "ballet-catchup" | tierAttr | safe }}><div class="wrap bt-cu-in">
+  <div>
+    <h2 class="bt-cu-h">Missed a class?</h2>
+    <p>{{ site.catchUp.text }}</p>
+  </div>
+  <div>
+    <label class="bt-q" for="cu-missed">The class you missed</label>
+    <select id="cu-missed" data-cu-missed>
+      {%- for d in site.classes.items | weekRows %}<optgroup label="{{ d.name }}">{% for r in d.rows %}<option value="{{ r.cls.id }}|{{ r.session.day }}|{{ r.session.time }}">{{ r.cls.name }}, {{ r.session | sessionWords }}</option>{% endfor %}</optgroup>{% endfor %}
+    </select>
+    <ul class="bt-cu-list" data-cu-list aria-live="polite"></ul>
+  </div>
+</div></section>

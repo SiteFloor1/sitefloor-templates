@@ -1,0 +1,34 @@
+{#- The trial class. On the home page: the photograph in a circle, what to bring, what happens on the day and after, and
+    one request that carries the class picked in the finder. On its own page (trialPage): the age and the day picked in
+    two taps first, then the same steps. -#}
+{%- set t = site.trial %}
+{%- set sec = site.sections.trial %}
+{%- set groups = site.classes.items | ageGroups %}
+{%- set pick = groups | firstGroup %}
+{%- set msg = site.classes.message | trialText(groups[pick].classes[0]) %}
+<section id="trial" class="bt-trial{% if trialPage %} bt-trial-page{% endif %}" data-feature="ballet-trial"{{ "ballet-trial" | tierAttr | safe }}><div class="wrap bt-trial-in">
+  <figure class="bt-trial-photo rd-round rv"><img src="{{ t.photo.src | img }}" alt="{{ t.photo.alt }}" width="{{ t.photo.width }}" height="{{ t.photo.height }}" loading="lazy" decoding="async"></figure>
+  <div class="bt-trial-text">
+    {%- if not trialPage %}{% include "core/partials/section-head.njk" %}{% endif %}
+    {%- if trialPage %}
+    <div class="bt-pickers" data-bt-pickers>
+      <p class="bt-q" id="bt-tq">Age</p>
+      <div class="bt-ages bt-chips" role="group" aria-labelledby="bt-tq">
+        {%- for g in groups %}<button type="button" data-tgroup="{{ loop.index0 }}" aria-pressed="{{ 'true' if loop.index0 == pick else 'false' }}" aria-label="Age {{ g.label }}">{{ g.label }}</button>{% endfor %}
+      </div>
+      <p class="bt-q" id="bt-dq">Day</p>
+      <div class="bt-days" role="group" aria-labelledby="bt-dq" data-bt-days>
+        {%- for c in groups[pick].classes %}{% for s in c.sessions | weekOrder %}<button type="button" data-tday="{{ c.id }}|{{ s.day }}|{{ s.time }}" aria-pressed="false">{{ s | sessionWords }}</button>{% endfor %}{% endfor %}
+      </div>
+      <p class="bt-chosen" data-bt-chosen aria-live="polite">{{ groups[pick].classes[0].name }}, {{ groups[pick].classes[0].minutes | lengthWords }}</p>
+    </div>
+    {%- endif %}
+    <ol class="bt-steps">
+      {%- for s in t.steps %}<li><b>{{ s.label }}</b><span>{{ s.text }}</span></li>{% endfor %}
+    </ol>
+    {%- if t.price %}<p class="bt-price">{{ t.price }}</p>{% endif %}
+    <a class="rd-solid" data-bt-trial href="{{ msg | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ msg }}"{% endif %} target="_blank" rel="noopener">Ask for a trial class</a>
+    {%- if t.note %}<p class="rd-fine">{{ t.note }}</p>{% endif %}
+    {%- if not trialPage and ("ballet-trial" | enabled) %}<p><a class="rd-link" href="{{ 'trial' | href }}">More about the first class</a></p>{% endif %}
+  </div>
+</div></section>

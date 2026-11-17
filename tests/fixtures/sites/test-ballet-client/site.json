@@ -1,0 +1,545 @@
+{
+  "schemaVersion": 4,
+  "id": "test-ballet-client",
+  "mode": "client",
+  "plan": "plus",
+  "kit": "ballet",
+  "look": "round",
+  "url": "https://pirouette-test.co.uk",
+  "indexable": true,
+  "lang": "en-GB",
+  "business": {
+    "name": "Test Ballet School",
+    "schemaType": "DanceSchool",
+    "description": "Ballet for children aged two to eighteen in Bristol.",
+    "priceRange": "££",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "442079460462",
+    "phone": "+44 20 7946 0462",
+    "email": "hello@testballet.example"
+  },
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "location": {
+    "streetAddress": "3 Test Lane",
+    "locality": "Bristol",
+    "postcode": "BS1 4AA",
+    "country": "GB",
+    "area": "A church hall with a sprung floor."
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [
+        [
+          "16:30",
+          "18:15"
+        ]
+      ],
+      "tue": [
+        [
+          "15:45",
+          "19:00"
+        ]
+      ],
+      "wed": [
+        [
+          "16:00",
+          "17:15"
+        ]
+      ],
+      "thu": [
+        [
+          "16:15",
+          "19:45"
+        ]
+      ],
+      "fri": [],
+      "sat": [
+        [
+          "09:00",
+          "13:00"
+        ]
+      ],
+      "sun": []
+    },
+    "exceptions": [
+      {
+        "date": "2026-12-25",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2027-01-01",
+        "ranges": [],
+        "note": "Closed on New Year's Day"
+      }
+    ]
+  },
+  "nav": [
+    {
+      "label": "Classes",
+      "page": "classes",
+      "feature": "ballet-classes"
+    },
+    {
+      "label": "Timetable",
+      "page": "timetable",
+      "feature": "ballet-timetable"
+    },
+    {
+      "label": "Trial class",
+      "page": "trial",
+      "feature": "ballet-trial",
+      "fallback": "#trial"
+    },
+    {
+      "label": "Fees",
+      "page": "fees",
+      "feature": "ballet-fees"
+    },
+    {
+      "label": "The studio",
+      "page": "visit",
+      "feature": "plan-visit",
+      "fallback": "#visit"
+    }
+  ],
+  "features": [
+    "ballet-finder",
+    "ballet-year",
+    "visit",
+    "plan-visit",
+    "questions",
+    "ballet-places",
+    "ballet-trial",
+    "ballet-classes",
+    "ballet-timetable",
+    "ballet-catchup",
+    "ballet-fees"
+  ],
+  "hero": {
+    "kicker": "Ballet school, Richmond",
+    "title": "Ballet, two *to* eighteen.",
+    "intro": "Ballet classes in Richmond for ages two to eighteen. The first class is a trial.",
+    "question": "How old is your dancer?",
+    "photo": {
+      "src": "img/stage.webp",
+      "width": 1200,
+      "height": 1200,
+      "alt": "The school’s dancers on stage at the summer show, seen from the audience"
+    }
+  },
+  "sections": {
+    "trial": {
+      "title": "The first class *is a trial.*"
+    },
+    "questions": {
+      "title": "Before *the first class.*"
+    },
+    "visit": {
+      "title": "The *studio.*",
+      "intro": "Linden Hall, five minutes from Richmond station."
+    }
+  },
+  "messages": {
+    "general": "Hello, I have a question."
+  },
+  "classes": {
+    "message": "Hello,",
+    "items": [
+      {
+        "id": "grown-up",
+        "name": "Ballet with a grown-up",
+        "ages": [
+          2,
+          2
+        ],
+        "level": 0,
+        "minutes": 30,
+        "sessions": [
+          {
+            "day": "sat",
+            "time": "09:15"
+          }
+        ],
+        "text": "Music, marching and pointed toes, with you beside her. Socks are fine."
+      },
+      {
+        "id": "little",
+        "name": "Little ballet",
+        "ages": [
+          3,
+          4
+        ],
+        "level": 1,
+        "minutes": 40,
+        "sessions": [
+          {
+            "day": "tue",
+            "time": "16:00"
+          },
+          {
+            "day": "sat",
+            "time": "10:00"
+          }
+        ],
+        "text": "The first class on her own: stories, skips and the first positions."
+      },
+      {
+        "id": "one",
+        "name": "Ballet one",
+        "ages": [
+          5,
+          6
+        ],
+        "level": 2,
+        "minutes": 45,
+        "sessions": [
+          {
+            "day": "wed",
+            "time": "16:15"
+          },
+          {
+            "day": "sat",
+            "time": "11:00"
+          }
+        ],
+        "text": "The barre for the first time, and a dance for the winter showcase."
+      },
+      {
+        "id": "two",
+        "name": "Ballet two",
+        "ages": [
+          7,
+          8
+        ],
+        "level": 3,
+        "minutes": 60,
+        "sessions": [
+          {
+            "day": "thu",
+            "time": "16:30"
+          }
+        ]
+      },
+      {
+        "id": "boys",
+        "name": "Boys' ballet",
+        "ages": [
+          7,
+          8
+        ],
+        "level": 7,
+        "minutes": 45,
+        "sessions": [
+          {
+            "day": "sat",
+            "time": "12:00"
+          }
+        ],
+        "text": "Jumps, turns and strength."
+      },
+      {
+        "id": "three",
+        "name": "Ballet three",
+        "ages": [
+          9,
+          11
+        ],
+        "level": 4,
+        "minutes": 60,
+        "sessions": [
+          {
+            "day": "mon",
+            "time": "17:00"
+          }
+        ]
+      },
+      {
+        "id": "four",
+        "name": "Ballet four",
+        "ages": [
+          12,
+          14
+        ],
+        "level": 5,
+        "minutes": 75,
+        "sessions": [
+          {
+            "day": "tue",
+            "time": "17:30"
+          }
+        ],
+        "text": "Longer barre, centre work and the first steps towards pointe, when her teacher says."
+      },
+      {
+        "id": "senior",
+        "name": "Senior ballet",
+        "ages": [
+          15,
+          18
+        ],
+        "level": 6,
+        "minutes": 90,
+        "sessions": [
+          {
+            "day": "thu",
+            "time": "18:00"
+          }
+        ]
+      }
+    ]
+  },
+  "year": {
+    "items": [
+      {
+        "id": "autumn-ends",
+        "date": "2026-12-19",
+        "label": "Autumn term ends",
+        "kind": "term"
+      },
+      {
+        "id": "winter-hol",
+        "date": "2026-12-20",
+        "end": "2027-01-03",
+        "label": "Winter holiday",
+        "kind": "holiday"
+      },
+      {
+        "id": "spring",
+        "date": "2027-01-04",
+        "label": "Spring term begins",
+        "kind": "term"
+      },
+      {
+        "id": "spring-half",
+        "date": "2027-02-15",
+        "end": "2027-02-19",
+        "label": "Half term",
+        "kind": "half-term"
+      },
+      {
+        "id": "spring-ends",
+        "date": "2027-03-27",
+        "label": "Spring term ends",
+        "kind": "term"
+      },
+      {
+        "id": "spring-hol",
+        "date": "2027-03-29",
+        "end": "2027-04-16",
+        "label": "Spring holiday",
+        "kind": "holiday"
+      },
+      {
+        "id": "summer",
+        "date": "2027-04-19",
+        "label": "Summer term begins",
+        "kind": "term"
+      },
+      {
+        "id": "summer-half",
+        "date": "2027-05-31",
+        "end": "2027-06-04",
+        "label": "Half term",
+        "kind": "half-term"
+      },
+      {
+        "id": "summer-ends",
+        "date": "2027-07-17",
+        "label": "Summer term ends",
+        "kind": "term"
+      },
+      {
+        "id": "autumn",
+        "date": "2027-09-06",
+        "label": "Autumn term begins",
+        "kind": "term"
+      }
+    ]
+  },
+  "trial": {
+    "message": "Hello,",
+    "photo": {
+      "src": "img/watching.webp",
+      "width": 1000,
+      "height": 1000,
+      "alt": "Three small children in black leotards sit on the stage floor, backs to us, watching the lit stage"
+    },
+    "steps": [
+      {
+        "label": "Before",
+        "text": "Socks or soft shoes, hair tied back. No uniform yet."
+      },
+      {
+        "label": "On the day",
+        "text": "Come in together; the teacher takes the class from there. You can wait in the foyer."
+      },
+      {
+        "label": "Afterwards",
+        "text": "The uniform list for the class, and a place if they loved it."
+      }
+    ]
+  },
+  "trialPage": {
+    "kicker": "Trial class",
+    "title": "The first class *is a trial.*",
+    "intro": "Pick the age and the day; the message to us is written for you."
+  },
+  "classesPage": {
+    "kicker": "Classes",
+    "title": "Every class, *by age.*",
+    "intro": "From two with a grown-up, to eighteen and on pointe."
+  },
+  "timetablePage": {
+    "kicker": "Timetable",
+    "title": "The *week.*",
+    "intro": "Term time only. Missed a class? There is usually another this week."
+  },
+  "places": {
+    "source": "sheet",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/TEST/pub?output=csv",
+    "message": "Hello,"
+  },
+  "catchUp": {
+    "text": "Missed a class through illness or a clash? Come to another at the same level in the same week, if there's room. Ask us first.",
+    "message": "Hello,"
+  },
+  "fees": {
+    "items": [
+      {
+        "label": "Ballet with a grown-up",
+        "text": "£84 a term (12 weeks), paid before the first class."
+      },
+      {
+        "label": "Little ballet, Ballet one",
+        "text": "£108 a term."
+      },
+      {
+        "label": "Ballet two to four, Boys' ballet",
+        "text": "£132 a term."
+      },
+      {
+        "label": "Senior ballet",
+        "text": "£156 a term."
+      },
+      {
+        "label": "Brothers and sisters",
+        "text": "10% off the second child's fees."
+      },
+      {
+        "label": "Exams",
+        "text": "The exam fee is set by the exam board; we tell you before the term starts."
+      }
+    ],
+    "terms": [
+      "Fees are for the term, paid by bank transfer before the first class.",
+      "Missed classes can't be refunded, but can be made up in the same week (see the timetable).",
+      "Half a term's notice to leave, by message."
+    ]
+  },
+  "feesPage": {
+    "kicker": "Fees and terms",
+    "title": "What it *costs.*",
+    "intro": "By the term. No joining fee."
+  },
+  "questions": [
+    {
+      "topic": "Starting",
+      "q": "What age can she start?",
+      "a": "From two, with a grown-up beside her; on her own from three.",
+      "home": true
+    },
+    {
+      "topic": "Starting",
+      "q": "Is there a trial class?",
+      "a": "Yes: the first class is a trial. Pick the age above and message us.",
+      "home": true
+    },
+    {
+      "topic": "Starting",
+      "q": "Are boys welcome?",
+      "a": "Every class is open to everyone, and there's a boys' class on Saturdays.",
+      "home": true
+    },
+    {
+      "topic": "Classes",
+      "q": "Can I watch?",
+      "a": "Parents wait in the foyer. There's a watching week at the end of each term.",
+      "home": true
+    },
+    {
+      "topic": "Classes",
+      "q": "What if we miss a class?",
+      "a": "Come to another at the same level in the same week, if there's room."
+    },
+    {
+      "topic": "Classes",
+      "q": "My child has additional needs. Can she join?",
+      "a": "Please message us: we'll talk it through with you before the trial."
+    },
+    {
+      "topic": "Shows",
+      "q": "Does everyone dance in the shows?",
+      "a": "Yes, every class from Little ballet up, twice a year."
+    }
+  ],
+  "visitInfo": {
+    "kicker": "The studio",
+    "title": "Linden Hall, *Coleby Walk.*",
+    "intro": "Five minutes on foot from Richmond station.",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "Richmond station",
+        "origin": "Richmond station, London",
+        "minutes": 5,
+        "steps": [
+          "Leave by the main exit and turn left",
+          "Cross at the lights onto Coleby Walk",
+          "Linden Hall is the red-brick hall on the right"
+        ]
+      },
+      {
+        "mode": "car",
+        "from": "Richmond town centre",
+        "origin": "Richmond, London",
+        "minutes": 6,
+        "steps": [
+          "Follow the one-way system towards the station",
+          "Turn into Coleby Walk",
+          "Drop off at the hall gate; no parking on the walk"
+        ]
+      }
+    ],
+    "parking": [
+      {
+        "name": "Station car park",
+        "walk": 4,
+        "paid": "always",
+        "price": "pay by app",
+        "note": "The nearest place to wait in a car."
+      }
+    ],
+    "access": [
+      {
+        "label": "Step-free entrance",
+        "yes": true
+      },
+      {
+        "label": "Accessible toilet",
+        "yes": true
+      },
+      {
+        "label": "Changing room",
+        "yes": true
+      }
+    ],
+    "payment": "Fees by bank transfer, termly.",
+    "checked": "2026-11"
+  }
+}
