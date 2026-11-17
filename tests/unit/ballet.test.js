@@ -39,6 +39,10 @@ test("simulated data never reaches a client site, and the sheets must be publish
   assert.match(errorsFor((s) => { s.mode = "client"; s.showDay.source = "simulated"; }), /showDay\.source: simulated data is for demos/);
 });
 
+test("the kit books by WhatsApp only", () => {
+  assert.match(errorsFor((s) => { s.booking = { provider: "fresha", url: "https://www.fresha.com/x" }; }, client), /booking\.provider: "whatsapp"/);
+});
+
 test("the school's own classes, dates and shows are checked so the page can't mislead", () => {
   assert.match(errorsFor((s) => { s.classes.items[1].ages = [4, 3]; }), /classes\.items\[1\]\.ages/);
   assert.match(errorsFor((s) => { s.classes.items[1].sessions[0].time = "4pm"; }), /sessions\[0\]\.time/);
@@ -92,8 +96,8 @@ test("the year: past dates drop off, shows and exams join in date order, the nex
   assert.match(ics, /LOCATION:Linden Hall\\, Richmond/);
 });
 
-test("places left: numbers and full from the sheet; it fails closed when old, unreadable or unknown", () => {
-  const csv = "class,day,time,places,updated_at\nlittle,tue,16:00,2,2026-11-16 09:00\nlittle,Saturday,10:00,full,\none,wed,16:15,0,\n";
+test("places left: numbers and full from the sheet; it fails closed when unreadable or unknown", () => {
+  const csv = "class,day,time,places,updated_at\nlittle,tue,16:00,2,2026-11-16 09:00\nlittle,Saturday,10:00,full,2026-11-16 09:00\none,wed,16:15,0,2026-11-15 18:00\n";
   const r = placesFromCsv(csv, NOW, 7, TZ);
   assert.ok(r.ok);
   if (!r.ok) return;
@@ -104,11 +108,29 @@ test("places left: numbers and full from the sheet; it fails closed when old, un
   assert.deepEqual(placesWords(1), { state: "few", words: "1 place left" });
   assert.equal(placesWords("full")?.state, "full");
   assert.equal(placesWords(undefined), null);
-  assert.equal(placesFromCsv(csv, NOW + 9 * 86_400_000, 7, TZ).ok, false); // old
+  assert.equal(placesFromCsv(csv, NOW + 9 * 86_400_000, 7, TZ).ok, false); // every row old
   assert.equal(placesFromCsv("class,day,time\nlittle,tue,16:00\n", NOW, 7, TZ).ok, false); // a column missing
   assert.equal(placesFromCsv("class,day,time,places,updated_at\nlittle,tue,16:00,lots,2026-11-16\n", NOW, 7, TZ).ok, false);
   assert.equal(placesFromCsv("class,day,time,places,updated_at\nlittle,tue,4pm,2,2026-11-16\n", NOW, 7, TZ).ok, false);
-  assert.equal(placesFromCsv("class,day,time,places\nlittle,tue,16:00,2\n", NOW, 7, TZ).ok, false); // no date: can't tell it's current
+  assert.equal(placesFromCsv("class,day,time,places\nlittle,tue,16:00,2\n", NOW, 7, TZ).ok, false); // no dates: can't tell it's current
+});
+
+test("places left: every row is judged by its own date, never carried by a fresher one", () => {
+  const csv = [
+    "class,day,time,places,updated_at",
+    "little,tue,16:00,2,2026-11-16 09:00", // current
+    "little,sat,10:00,4,2026-09-01 09:00", // September: stale, however fresh the row above
+    "one,wed,16:15,3,2027-11-16 09:00", // a mistyped year: in the future
+    "one,sat,11:00,5,garbage", // unreadable
+    "two,thu,16:30,1,", // no date
+  ].join("\n");
+  const r = placesFromCsv(csv, NOW, 7, TZ);
+  assert.ok(r.ok);
+  if (!r.ok) return;
+  assert.deepEqual(Object.keys(r.places), ["little|tue|16:00"]);
+  assert.equal(placesFromCsv("class,day,time,places,updated_at\nlittle,tue,16:00,4,2027-11-16 09:00\n", NOW, 7, TZ).ok, false); // only a future row
+  assert.ok(placesFromCsv("class,day,time,places,updated_at\nlittle,tue,16:00,4,2026-11-17 10:05\n", NOW, 7, TZ).ok); // a few minutes ahead: clock skew
+  assert.equal(placesFromCsv("class,day,time,places,updated_at\nlittle,tue,16:00,4,2026-11-17 11:00\n", NOW, 7, TZ).ok, false); // an hour ahead
 });
 
 test("catch-ups: the class's other sessions first, then the same level; never the one missed", () => {
@@ -132,6 +154,22 @@ test("show day: a row per code, typed loosely; it fails closed when old or a col
   assert.equal(showDayRow(r, "B1-WED"), null);
   assert.equal(showDayFromCsv(csv, NOW + 20 * 86_400_000, 14, TZ).ok, false);
   assert.equal(showDayFromCsv("code,class\nLB-TUE,Little ballet\n", NOW, 14, TZ).ok, false);
+  assert.equal(showDayFromCsv("code,class,arrive,collect\nLB-TUE,Little ballet,1pm,4pm\n", NOW, 14, TZ).ok, false); // no dates
+});
+
+test("show day: each class's row stands on its own date", () => {
+  const csv = [
+    "code,class,arrive,door,costume,hair,collect,notes,updated_at",
+    "LB-TUE,Little ballet,1.15pm,,,,4.30pm,,2026-11-16 18:00", // current
+    "B1-WED,Ballet one,12.45pm,,,,4.30pm,,2026-09-01 18:00", // last year's show: stale
+    "SEN-THU,Senior ballet,11.30am,,,,5.15pm,,2027-11-16 18:00", // future
+    "B2-THU,Ballet two,12.00pm,,,,4.30pm,,soon", // unreadable
+  ].join("\n");
+  const r = showDayFromCsv(csv, NOW, 14, TZ);
+  assert.ok(r.ok);
+  assert.equal(showDayRow(r, "LB-TUE")?.updatedAt, Date.parse("2026-11-16T18:00:00Z"));
+  for (const code of ["B1-WED", "SEN-THU", "B2-THU"]) assert.equal(showDayRow(r, code), null, code);
+  assert.equal(showDayFromCsv(csv.split("\n").filter((l) => !l.startsWith("LB")).join("\n"), NOW, 14, TZ).ok, false);
 });
 
 test("the page carries only what the features that are on need", () => {

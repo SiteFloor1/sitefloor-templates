@@ -1,70 +1,88 @@
-{#- The round, Plan your visit. The page head; then the studio's address inside a circle, with the live status and an "at a glance" list; every way here written out in full (no tabs), the
-    leave-by helper, parking and access as a ruled list, the hours and every question. Works without JavaScript. -#}
+{#- The round, Plan your visit: built round the studio's circle. The address and whether it's open sit inside it, and
+    every way here is set round it like the hero's frieze (also written out as a line beneath, for reading). Then the
+    journeys side by side, the leave-by helper as one strip, parking, access and paying in three columns, the week, and
+    the questions with their topic in the margin. Works without JavaScript. -#}
 {%- set v = site.visitInfo %}
 {%- set journeys = v.journeys or [] %}
 {%- set parking = v.parking or [] %}
 {%- set ph = { kicker: v.kicker, title: v.title, intro: v.intro } %}
 {% include "kits/ballet/partials/page-head.njk" %}
-<div class="wrap rd-pv" data-feature="plan-visit">
-  <aside class="rd-pv-side">
-    <div class="rd-pv-disc"><address>{{ site.location.streetAddress }}<br>{{ site.location.locality }}<br><b>{{ site.location.postcode }}</b></address></div>
-    <p class="rd-now" data-live-status><span class="dot" aria-hidden="true"></span><span data-status-text>See the hours below</span></p>
-    <ul class="rd-pv-glance" aria-label="At a glance">
-      {%- for j in journeys %}<li><span>{{ j.from }}</span><b>{{ j | boardTime }}</b></li>{% endfor %}
-      {%- for c in parking %}<li><span>{{ c.name }}</span><b data-parking="{{ loop.index0 }}">{% if c.walk is defined %}{{ c.walk }} min walk{% endif %}</b></li>{% endfor %}
-    </ul>
-    {%- if site.mode == "demo" %}
-    <p class="rd-fine">Example journeys and parking for a fictional school.</p>
-    {%- elif v.checked %}
-    <p class="rd-fine">Journey times, parking and access checked with {{ site.business.name }} in {{ v.checked | checkedText }}. Driving times are outside rush hour.</p>
-    {%- endif %}
-  </aside>
-  <div class="rd-pv-main">
-    {%- if journeys.length %}
-    <section aria-labelledby="pv-j-h">
-      <h2 class="rd-h2" id="pv-j-h">The way here</h2>
+<div class="rd-pv" data-feature="plan-visit">
+  <section class="rd-pv-hall wrap" aria-label="The studio">
+    <div class="rd-pv-ring">
+      <svg viewBox="0 0 600 600" aria-hidden="true" focusable="false">
+        <defs><path id="rd-pv-path" d="M300,300 m-262,0 a262,262 0 1,1 524,0 a262,262 0 1,1 -524,0"/></defs>
+        <circle cx="300" cy="300" r="236" fill="none" stroke="currentColor"/>
+        <circle cx="300" cy="300" r="290" fill="none" stroke="currentColor" class="rd-ring-faint"/>
+        <text class="rd-frieze"><textPath href="#rd-pv-path">{% for j in journeys %}<tspan class="rd-fd">{{ j | boardTime }}</tspan>&#8194;<tspan>from {{ j.from }}</tspan>&#8195;·&#8195;{% endfor %}{% for c in parking %}<tspan class="rd-fd">{% if c.walk is defined %}{{ c.walk }} min{% endif %}</tspan>&#8194;<tspan>from {{ c.name | lower }}</tspan>&#8195;·&#8195;{% endfor %}</textPath></text>
+      </svg>
+      <div class="rd-pv-in">
+        <address>{{ site.location.streetAddress }}<br>{{ site.location.locality }}<br><b>{{ site.location.postcode }}</b></address>
+        <p class="rd-now" data-live-status><span class="dot" aria-hidden="true"></span><span data-status-text>Studio hours below</span></p>
+      </div>
+    </div>
+    <p class="rd-pv-glance">
+      {%- for j in journeys %}<span>{{ j.from }}: <b>{{ j | boardTime }}</b></span>{% endfor %}
+      {%- for c in parking %}<span>{{ c.name }}: <b data-parking="{{ loop.index0 }}">{% if c.walk is defined %}{{ c.walk }} min walk{% endif %}</b></span>{% endfor %}
+    </p>
+    {%- if site.mode == "demo" %}<p class="rd-fine">Example journeys and parking for a fictional school.</p>
+    {%- elif v.checked %}<p class="rd-fine">Journey times, parking and access checked with {{ site.business.name }} in {{ v.checked | checkedText }}. Driving times are outside rush hour.</p>{% endif %}
+  </section>
+
+  {%- if journeys.length %}
+  <section class="rd-pv-ways wrap" aria-labelledby="pv-j-h">
+    <h2 class="rd-pv-h" id="pv-j-h">Getting here</h2>
+    <div class="rd-pv-cols">
       {%- for j in journeys %}
-      <div class="rd-pv-route" data-pv-panel>
-        <p class="rd-pv-from"><b>{{ j.from }}</b>{% if j.stop %}, get off at {{ j.stop }}{% endif %} · {% if (j.mode | modeWords).about %}about {% endif %}{{ j.minutes }} min {{ (j.mode | modeWords).verb }}</p>
-        <ol>
-          {%- for step in j.steps %}<li>{{ step }}</li>{% endfor %}
-          <li><b>{{ site.business.name }}</b>, {{ site.location.streetAddress }}</li>
-        </ol>
-        <a class="rd-link" href="{{ j | directionsFor }}" target="_blank" rel="noopener">This route in Google Maps</a>
-      </div>
+      <article class="rd-pv-way rv" data-pv-panel>
+        <h3>{{ j.from }}</h3>
+        <p class="rd-fine">{% if (j.mode | modeWords).about %}About {% endif %}{{ j.minutes }} min {{ (j.mode | modeWords).verb }}{% if j.stop %}, get off at {{ j.stop }}{% endif %}</p>
+        <ol>{% for step in j.steps %}<li>{{ step }}</li>{% endfor %}<li><b>{{ site.business.name }}</b>, {{ site.location.streetAddress }}</li></ol>
+        <a class="rd-link" href="{{ j | directionsFor }}" target="_blank" rel="noopener">In Google Maps</a>
+      </article>
       {%- endfor %}
-      <div class="rd-pv-leave" data-pv-leave hidden>
-        <label for="pv-appt">Class time? We will say when to set off.</label>
-        <input type="time" id="pv-appt" step="900" data-pv-appt>
-        <ul data-pv-leave-list aria-live="polite"></ul>
-      </div>
-    </section>
+    </div>
+    <div class="rd-pv-leave" data-pv-leave hidden>
+      <label for="pv-appt">Class starts at</label>
+      <input type="time" id="pv-appt" step="900" data-pv-appt>
+      <ul data-pv-leave-list aria-live="polite"></ul>
+    </div>
+  </section>
+  {%- endif %}
+
+  {%- if parking.length or v.access or v.payment %}
+  <section class="rd-pv-facts wrap" aria-label="Parking, access and paying">
+    {%- if parking.length %}
+    <div class="rv"><h2 class="rd-pv-h3">Parking</h2>
+      {%- for c in parking %}<p><b>{{ c.name }}</b><span data-parking-card="{{ loop.index0 }}" hidden></span><br>{{ c | parkingSummary }}{% if c.walk is defined %} · {{ c.walk }} min walk{% endif %}{% if c.price %} · {{ c.price }}{% endif %}{% if c.note %}<br><span class="rd-fine">{{ c.note }}</span>{% endif %}</p>{% endfor %}
+    </div>
     {%- endif %}
-    {%- if parking.length or v.access or v.payment %}
-    <section aria-labelledby="pv-f-h">
-      <h2 class="rd-h2" id="pv-f-h">Parking and access</h2>
-      <dl class="rd-spec">
-        {%- for c in parking %}
-        <div><dt>{{ c.name }}</dt><dd><span data-parking-card="{{ loop.index0 }}" hidden></span>
-          {{ c | parkingSummary }}{% if c.walk is defined %} · {{ c.walk }} min walk{% endif %}{% if c.price %} · {{ c.price }}{% endif %}{% if c.note %}<br>{{ c.note }}{% endif %}</dd></div>
-        {%- endfor %}
-        {%- for a in v.access %}<div><dt>{{ a.label }}</dt><dd>{{ "Yes" if a.yes else "No" }}</dd></div>{% endfor %}
-        {%- if v.payment %}<div><dt>Paying</dt><dd>{{ v.payment }}</dd></div>{% endif %}
-      </dl>
+    {%- if v.access %}
+    <div class="rv"><h2 class="rd-pv-h3">Access</h2>
+      <ul class="rd-pv-access">{% for a in v.access %}<li data-yes="{{ 'yes' if a.yes else 'no' }}">{{ a.label }}<span class="sr-only">: {{ "yes" if a.yes else "no" }}</span></li>{% endfor %}</ul>
       {%- if v.accessNote %}<p class="rd-fine">{{ v.accessNote }}</p>{% endif %}
-    </section>
+    </div>
     {%- endif %}
-  </div>
+    {%- if v.payment %}<div class="rv"><h2 class="rd-pv-h3">Paying</h2><p>{{ v.payment }}</p></div>{% endif %}
+  </section>
+  {%- endif %}
+
+  <section class="rd-pv-week wrap" aria-labelledby="pv-w-h">
+    <h2 class="rd-pv-h" id="pv-w-h">Studio hours</h2>
+    <p class="rd-fine" data-status-detail></p>
+    {% include "looks/round/partials/week.njk" %}
+  </section>
+
+  {%- set groups = site | questionTopics %}
+  {%- if groups.length %}
+  <section class="rd-pv-qs wrap" id="questions" aria-labelledby="pv-q-h">
+    <h2 class="rd-pv-h" id="pv-q-h">What parents ask</h2>
+    {%- for g in groups %}
+    <div class="rd-pv-topic rv">
+      <h3>{{ g.topic }}</h3>
+      <dl>{% for item in g.items %}<dt>{{ item.q }}</dt><dd>{{ item.a }}</dd>{% endfor %}</dl>
+    </div>
+    {%- endfor %}
+  </section>
+  {%- endif %}
 </div>
-{%- set visitHeading = false %}
-{% include "features/visit/visit.njk" %}
-{%- set groups = site | questionTopics %}
-{%- if groups.length %}
-<section class="rd-qa" id="questions"><div class="wrap">
-  <h2 class="rd-h2">What people ask</h2>
-  {%- for g in groups %}
-  <h3 class="rd-qa-topic">{{ g.topic }}</h3>
-  <ol class="rd-qa-list">{% for item in g.items %}<li><h4>{{ item.q }}</h4><p>{{ item.a }}</p></li>{% endfor %}</ol>
-  {%- endfor %}
-</div></section>
-{%- endif %}

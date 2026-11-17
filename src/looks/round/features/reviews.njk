@@ -1,15 +1,14 @@
-{#- The round, reviews: the parents' words set in a row of columns, hairline and large, each signed beneath. No stars
-    drawn: the rating is read out for screen readers. -#}
+{#- The round, reviews: the first parent's words set very large across the page, hairline; the others in a row beneath
+    them, smaller. Each is signed after a small ring. No stars drawn: the rating is read out for screen readers. -#}
 {%- set sec = site.sections.reviews %}
 <section id="reviews" class="rd-rev" data-feature="reviews"{{ "reviews" | tierAttr | safe }}><div class="wrap">
   {% include "core/partials/section-head.njk" %}
-  <div class="rd-rev-row">
-    {%- for r in site.reviews.items %}
-    <figure class="rv">
-      <blockquote><p>{{ r.text }}</p></blockquote>
-      <figcaption>{{ r.author }}, {{ r.date | monthYear }}<span class="sr-only">, rated {{ r.rating }} out of 5</span></figcaption>
-    </figure>
-    {%- endfor %}
-  </div>
+  {%- for r in site.reviews.items %}
+  {%- if loop.first %}<figure class="rd-rev-lead rv">{% elif loop.index == 2 %}<div class="rd-rev-rest"><figure class="rv">{% else %}<figure class="rv">{% endif %}
+    <blockquote>{{ r.text }}</blockquote>
+    <figcaption><span class="rd-rev-ring" aria-hidden="true"></span>{{ r.author }}, {{ r.date | monthYear }}<span class="sr-only">, rated {{ r.rating }} out of 5</span></figcaption>
+  </figure>
+  {%- if loop.last and loop.length > 1 %}</div>{% endif %}
+  {%- endfor %}
   {%- if site.reviews.source == "sample" %}<p class="rd-fine">Sample reviews for the demo. On a live site these are the school's real Google reviews.</p>{% endif %}
 </div></section>

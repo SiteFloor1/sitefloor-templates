@@ -1,0 +1,8 @@
+{#- The round, the week: seven days side by side (a stack on a phone), each day's name over its hours; today is marked
+    by the shared script (tr[data-day]). Closures coming up follow as one line. -#}
+<table class="rd-week rv" data-hours>
+  <caption class="sr-only">Studio hours</caption>
+  <tbody>{% for row in site.hours | hoursRows %}<tr data-day="{{ row.dayIndex }}"><th scope="row">{{ row.day }}</th><td>{{ row.label }}</td></tr>{% endfor %}</tbody>
+</table>
+{%- set upcoming = site.hours | upcomingExceptions(build.today) %}
+{%- if upcoming.length %}<p class="rd-week-ex">{% for ex in upcoming %}<span><b>{{ ex.dateLabel }}</b> {{ ex.note or ex.label }}</span>{% endfor %}</p>{% endif %}

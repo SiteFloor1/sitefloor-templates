@@ -15,6 +15,7 @@ Saturdays 10.00am?" on WhatsApp. The pick is shared with the page (`balletPick`)
 class. With `ballet-places` on, each session's places left show under the answer.
 
 ## Rules
+- This kit needs `booking.provider: "whatsapp"` (`config.js` refuses anything else): every request is a WhatsApp message.
 - Every class, age range, day, time and length is the school's own. Nothing says "booked": it is a request.
 - Without JavaScript the group with four-year-olds (or the youngest) shows, with a working trial link.
 - `level` groups classes that can stand in for each other (used by `ballet-catchup`).

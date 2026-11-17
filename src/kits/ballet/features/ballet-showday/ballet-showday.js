@@ -32,7 +32,7 @@ export function init(root, ctx) {
     const result = await loading;
     if (!result.ok) { say("The show-day sheet can't be read just now, or hasn't been updated."); return; }
     const row = showDayRow(result, input.value);
-    if (!row) { say(`No class has the code ${input.value.trim().toUpperCase()}.`); return; }
+    if (!row) { say(`No up-to-date details for the code ${input.value.trim().toUpperCase()}.`); return; }
     const dl = document.createElement("dl");
     for (const [k, label] of FIELDS) {
       if (!row[k]) continue;
@@ -41,7 +41,7 @@ export function init(root, ctx) {
       dl.append(div);
     }
     const h = Object.assign(document.createElement("h2"), { textContent: row.class || row.code });
-    const when = Object.assign(document.createElement("p"), { className: "rd-fine", textContent: `Updated ${new Date(result.updatedAt).toLocaleString("en-GB", { day: "numeric", month: "long", hour: "numeric", minute: "2-digit" })}` });
+    const when = Object.assign(document.createElement("p"), { className: "rd-fine", textContent: `Updated ${new Date(row.updatedAt ?? result.updatedAt).toLocaleString("en-GB", { day: "numeric", month: "long", hour: "numeric", minute: "2-digit" })}` });
     out.replaceChildren(h, dl, when);
   });
 }

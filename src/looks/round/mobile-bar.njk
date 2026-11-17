@@ -2,8 +2,8 @@
 {%- if "ballet-timetable" | enabled %}{% set firstHref = 'timetable' | href %}{% set firstLabel = "Timetable" %}
 {%- elif "ballet-classes" | enabled %}{% set firstHref = 'classes' | href %}{% set firstLabel = "Classes" %}
 {%- else %}{% set firstHref = ('visit' | href) if ("plan-visit" | enabled) else ('index' | href) + "#visit" %}{% set firstLabel = "The studio" %}{% endif %}
-<div class="mbar rd-bar">
+<nav class="mbar rd-bar" aria-label="Quick links">
   <a class="rd-bar-a" href="{{ firstHref }}">{{ firstLabel }}</a>
   {%- set trialMsg = (site.classes.message | trialText(null)) if site.classes else site.messages.general %}
   <a class="rd-bar-b" href="{{ trialMsg | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ trialMsg }}"{% endif %} target="_blank" rel="noopener">Trial class</a>
-</div>
+</nav>

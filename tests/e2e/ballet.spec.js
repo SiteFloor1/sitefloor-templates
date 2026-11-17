@@ -118,7 +118,7 @@ test("show day answers a sample code and says plainly when a code is unknown", a
   await expect(out).toContainText("4.30pm from the foyer");
   await page.fill("#sd-code", "XX-1");
   await page.getByRole("button", { name: "Show me" }).click();
-  await expect(out).toContainText("No class has the code XX-1.");
+  await expect(out).toContainText("No up-to-date details for the code XX-1.");
   expect(errors).toEqual([]);
   await srv.close();
 });

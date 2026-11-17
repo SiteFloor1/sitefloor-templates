@@ -81,6 +81,8 @@ function sheet(err, p, v, mode) {
 /** @param {any} site @param {Report} err @param {Exists} [exists] */
 export function checkBallet(site, err, exists) {
   if (site.kit !== "ballet") return;
+  // Every trial, catch-up, waiting-list and show-day request is a WhatsApp message to the school.
+  if (site.booking?.provider !== "whatsapp") err("booking.provider", "\"whatsapp\": every trial, catch-up and waiting-list request on this kit is a WhatsApp message to the school");
   checkHero(site.hero, err, exists);
   const classIds = site.classes !== undefined ? checkClasses(site.classes, err) : new Set();
   if (site.year !== undefined) checkYear(site.year, err);
@@ -89,12 +91,17 @@ export function checkBallet(site, err, exists) {
   if (site.fees !== undefined) checkFees(site.fees, err);
   if (site.exams !== undefined) checkExams(site.exams, classIds, err, exists);
   if (site.places !== undefined) checkPlaces(site.places, site.mode, err);
-  if (site.catchUp !== undefined) { onlyKeys(site.catchUp, ["text", "message"], "catchUp", err); text(err, "catchUp.text", site.catchUp?.text); text(err, "catchUp.message", site.catchUp?.message); }
+  checkWords(site, err);
   const showIds = site.shows !== undefined ? checkShows(site.shows, err, exists) : new Set();
   if (site.handbook !== undefined) checkHandbook(site.handbook, err);
   if (site.showDay !== undefined) checkShowDay(site.showDay, showIds, site.mode, err, exists);
-  if (site.path !== undefined) { onlyKeys(site.path, ["text"], "path", err); text(err, "path.text", site.path?.text); }
   for (const k of ["classesPage", "timetablePage", "trialPage", "feesPage", "examsPage", "showsPage", "uniformPage", "handbookPage", "showDayPage"]) if (site[k] !== undefined) pageHead(err, k, site[k]);
+}
+
+/** The school's own words on catch-ups and on moving up. @param {any} site @param {Report} err */
+function checkWords(site, err) {
+  if (site.catchUp !== undefined) { onlyKeys(site.catchUp, ["text", "message"], "catchUp", err); text(err, "catchUp.text", site.catchUp?.text); text(err, "catchUp.message", site.catchUp?.message); }
+  if (site.path !== undefined) { onlyKeys(site.path, ["text"], "path", err); text(err, "path.text", site.path?.text); }
 }
 
 /** @param {any} h @param {Report} err @param {Exists} exists */

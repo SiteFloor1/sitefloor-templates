@@ -128,6 +128,16 @@ export function yearIcs(o) {
 /** "20261117T091500Z" for a calendar file's DTSTAMP. @param {number} ms */
 export const icsStamp = (ms) => new Date(ms).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
 
+/** A sheet row's own date may run this far ahead of the visitor's clock (devices disagree by a minute or two). */
+export const CLOCK_SKEW_MS = 10 * 60_000;
+
+/**
+ * Is a row's own updated_at current? Unreadable, in the future (beyond clock skew) or older than `staleAfterDays`: no.
+ * @param {number} t ms (NaN when unreadable) @param {number} now ms @param {number} staleAfterDays
+ */
+export const rowIsCurrent = (t, now, staleAfterDays) =>
+  Number.isFinite(t) && t <= now + CLOCK_SKEW_MS && now - t <= staleAfterDays * 86_400_000;
+
 /** A session's key in the places sheet. @param {string} classId @param {Session} s */
 export const placeKey = (classId, s) => `${classId}|${s.day}|${s.time}`;
 
@@ -137,26 +147,29 @@ export const placeKey = (classId, s) => `${classId}|${s.day}|${s.time}`;
 
 /**
  * The school's places sheet: class,day,time,places,updated_at (places a number, or "full"). Fails closed: a missing
- * column, a word it doesn't know or a newest update older than `staleAfterDays` returns { ok: false }.
+ * column, a day, time or word it doesn't know returns { ok: false }; and every row is judged by its own updated_at,
+ * so a row whose date is unreadable, in the future or older than `staleAfterDays` is left out (that session shows
+ * nothing), however fresh the other rows are. No current row at all: { ok: false }. `updatedAt` is the oldest row kept.
  * @param {string} csv @param {number} now ms @param {number} staleAfterDays @param {string} timeZone
  * @returns {PlacesResult}
  */
 export function placesFromCsv(csv, now, staleAfterDays, timeZone) {
   const rows = parseCsv(csv);
   const head = (rows.shift() ?? []).map((h) => h.trim().toLowerCase());
-  if (["class", "day", "time", "places"].some((n) => !head.includes(n))) return { ok: false };
+  if (["class", "day", "time", "places", "updated_at"].some((n) => !head.includes(n))) return { ok: false };
   /** @type {Record<string, number|"full">} */
   const places = {};
-  let updatedAt = NaN;
+  let updatedAt = Infinity;
   for (const r of rows) {
     const row = placesRow(head, r);
     if (row === "skip") continue;
     if (!row) return { ok: false };
-    places[row.key] = row.value;
     const t = parseSheetTime(row.updated, timeZone);
-    if (Number.isFinite(t) && !(t <= updatedAt)) updatedAt = t;
+    if (!rowIsCurrent(t, now, staleAfterDays)) continue;
+    places[row.key] = row.value;
+    updatedAt = Math.min(updatedAt, t);
   }
-  if (!Number.isFinite(updatedAt) || now - updatedAt > staleAfterDays * 86_400_000) return { ok: false };
+  if (!Number.isFinite(updatedAt)) return { ok: false };
   return { ok: true, places, updatedAt };
 }
 
@@ -219,7 +232,7 @@ export function pathFrom(classes, age) {
 export const SHOW_DAY_COLUMNS = ["code", "class", "arrive", "door", "costume", "hair", "collect", "notes"];
 
 /**
- * @typedef {{ code: string, class: string, arrive: string, door: string, costume: string, hair: string, collect: string, notes: string }} ShowDayRow
+ * @typedef {{ code: string, class: string, arrive: string, door: string, costume: string, hair: string, collect: string, notes: string, updatedAt?: number }} ShowDayRow
  * @typedef {{ ok: false } | { ok: true, rows: ShowDayRow[], updatedAt: number }} ShowDayResult
  */
 
@@ -228,26 +241,31 @@ export const normaliseCode = (s) => s.trim().toUpperCase().replace(/[\s_]+/g, "-
 
 /**
  * The show-day sheet: code,class,arrive,door,costume,hair,collect,notes,updated_at, one row per class. Fails closed:
- * a missing column or a newest update older than `staleAfterDays` returns { ok: false }.
+ * a missing column returns { ok: false }; every row is judged by its own updated_at, so a row whose date is
+ * unreadable, in the future or older than `staleAfterDays` is left out (its code then isn't found). No current row:
+ * { ok: false }. `updatedAt` is the oldest row kept; each row carries its own.
  * @param {string} csv @param {number} now ms @param {number} staleAfterDays @param {string} timeZone
  * @returns {ShowDayResult}
  */
 export function showDayFromCsv(csv, now, staleAfterDays, timeZone) {
   const rows = parseCsv(csv);
   const head = (rows.shift() ?? []).map((h) => h.trim().toLowerCase());
-  if (["code", "class", "arrive", "collect"].some((n) => !head.includes(n))) return { ok: false };
+  if (["code", "class", "arrive", "collect", "updated_at"].some((n) => !head.includes(n))) return { ok: false };
   const cell = (/** @type {string[]} */ r, /** @type {string} */ n) => (head.includes(n) ? (r[head.indexOf(n)] ?? "").trim() : "");
   /** @type {ShowDayRow[]} */
   const out = [];
-  let updatedAt = NaN;
+  let updatedAt = Infinity;
   for (const r of rows) {
     const code = normaliseCode(cell(r, "code"));
     if (!code) continue;
-    out.push(/** @type {ShowDayRow} */ (Object.fromEntries(SHOW_DAY_COLUMNS.map((n) => [n, n === "code" ? code : cell(r, n)]))));
     const t = parseSheetTime(cell(r, "updated_at"), timeZone);
-    if (Number.isFinite(t) && !(t <= updatedAt)) updatedAt = t;
+    if (!rowIsCurrent(t, now, staleAfterDays)) continue;
+    const row = /** @type {ShowDayRow} */ (/** @type {unknown} */ (Object.fromEntries(SHOW_DAY_COLUMNS.map((n) => [n, n === "code" ? code : cell(r, n)]))));
+    row.updatedAt = t;
+    out.push(row);
+    updatedAt = Math.min(updatedAt, t);
   }
-  if (!out.length || !Number.isFinite(updatedAt) || now - updatedAt > staleAfterDays * 86_400_000) return { ok: false };
+  if (!out.length || !Number.isFinite(updatedAt)) return { ok: false };
   return { ok: true, rows: out, updatedAt };
 }
 
