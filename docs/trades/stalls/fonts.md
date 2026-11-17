@@ -1,11 +1,9 @@
-# Wedding and event stalls: fonts
+# Street-food and dessert stalls: fonts
 
 Fonts this trade's looks and approved designs claim (`npm run rules` refuses a family another trade or case study has).
-Claimed for design round 1 (17 Nov 2026), one pair per direction; checked against CLAIMED-FONTS.md on main and every
-open `trade/*` branch's fonts.md. The two directions the owner does not pick are released when he picks.
+Direction B (Spun) was picked on 17 Nov 2026 and reworked for market stalls. Released: Trirong (A), Wix Madefor Display
+and Wix Madefor Text (C), and B's first pair, Familjen Grotesk and Crimson Pro (now claimed by tourism and events).
 
 | Look or design | Status | Branch | Display | Body |
 |---|---|---|---|---|
-| Fendle, The reply (A, round 1) | approved | trade/stalls | Trirong | Trirong |
-| Fendle, Spun (B, round 1) | approved | trade/stalls | Familjen Grotesk | Crimson Pro |
-| Fendle, The day (C, round 1) | approved | trade/stalls | Wix Madefor Display | Wix Madefor Text |
+| Fendle, Spun (B, round 1, revised) | approved | trade/stalls | Gabarito | Labrada |

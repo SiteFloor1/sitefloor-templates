@@ -58,7 +58,7 @@ One file per trade, so trades built in parallel never edit the same lines. A new
 - Personal trainers and small gyms: [`docs/trades/personal-trainer/questions.md`](trades/personal-trainer/questions.md)
 - Reformer Pilates studios: [`docs/trades/pilates/questions.md`](trades/pilates/questions.md)
 - Restaurants: [`docs/trades/restaurant/questions.md`](trades/restaurant/questions.md)
-- Wedding and event stalls (mobile bars, dessert carts, gelato, candy floss): [`docs/trades/stalls/questions.md`](trades/stalls/questions.md)
+- Street-food and dessert stalls (markets, pop-ups and parties): [`docs/trades/stalls/questions.md`](trades/stalls/questions.md)
 - Tailors: [`docs/trades/tailor/questions.md`](trades/tailor/questions.md)
 - Teeth whitening and aesthetic dentistry: [`docs/trades/teeth/questions.md`](trades/teeth/questions.md)
 - Videographers and photographers: [`docs/trades/videographer/questions.md`](trades/videographer/questions.md)
