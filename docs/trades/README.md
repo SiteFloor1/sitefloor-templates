@@ -22,7 +22,7 @@ take (`demo-map.md`), its speed numbers (`speed.md`) and the fonts it claims (`f
 | construction | Construction and building firms | `construction` | [questions](construction/questions.md) · [playbook](construction/playbook.md) · [demo-map](construction/demo-map.md) · [speed](construction/speed.md) · [fonts](construction/fonts.md) |
 | dessert | Dessert shops and chocolatiers | `bakery` | [questions](dessert/questions.md) · [demo-map](dessert/demo-map.md) · [speed](dessert/speed.md) · [fonts](dessert/fonts.md) |
 | detailing | Car detailing | `detailing` | [questions](detailing/questions.md) · [playbook](detailing/playbook.md) · [demo-map](detailing/demo-map.md) · [speed](detailing/speed.md) · [fonts](detailing/fonts.md) |
-| driving | Driving instructors | `driving` | [fonts](driving/fonts.md) |
+| driving | Driving instructors | `driving` | [questions](driving/questions.md) · [fonts](driving/fonts.md) |
 | electrician | Electricians | `electrician` | [questions](electrician/questions.md) · [playbook](electrician/playbook.md) · [demo-map](electrician/demo-map.md) · [speed](electrician/speed.md) · [fonts](electrician/fonts.md) |
 | florist | Florists | `florist` | [questions](florist/questions.md) · [playbook](florist/playbook.md) · [demo-map](florist/demo-map.md) · [speed](florist/speed.md) · [fonts](florist/fonts.md) |
 | garage | Garage and parking rentals | — | [questions](garage/questions.md) · [playbook](garage/playbook.md) |
