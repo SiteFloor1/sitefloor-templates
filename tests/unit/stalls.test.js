@@ -135,6 +135,7 @@ test("the checks keep a stall's facts whole and refuse simulated data on a clien
   assert.match(errorsFor((s) => { s.menu.items[1].name = s.menu.items[0].name; }), /share this name/);
   assert.match(errorsFor((s) => { s.allergensPage.hygiene.url = "https://example.com"; }), /ratings\.food\.gov\.uk/);
   assert.match(errorsFor((s) => { s.allergensPage.hygiene.rating = 6; }), /0 to 5/);
+  for (const rating of ["pass", "improvement required"]) assert.doesNotMatch(errorsFor((s) => { s.allergensPage.hygiene.rating = rating; }), /hygiene\.rating/);
   assert.match(errorsFor((s) => { s.posts.tiktokProfile = "https://www.tiktok.com/@real"; }), /must not link to a real/);
   assert.match(errorsFor((s) => { s.posts.tiktokProfile = "tiktok.com/x"; }, client), /TikTok profile link/);
   assert.match(errorsFor((s) => { s.stops.places.forEach((/** @type {any} */ p) => { delete p.pitch; }); }, client), /pitch finder needs/);

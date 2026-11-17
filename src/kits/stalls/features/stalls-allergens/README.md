@@ -4,7 +4,7 @@
 |---|---|
 | Feature id | `stalls-allergens` |
 | Plan | plus and above |
-| Config | `allergensPage` { `title`, `intro?`, `crossContact`, `hygiene` { `rating` (0–5 or "awaiting"), `url` (the stall's listing on ratings.food.gov.uk), `checked` ("YYYY-MM") } }; the chart comes from `menu` |
+| Config | `allergensPage` { `title`, `intro?`, `crossContact`, `hygiene` { `rating` (0–5 or "awaiting"; in Scotland "pass" or "improvement required", as the listing shows), `url` (the stall's listing on ratings.food.gov.uk), `checked` ("YYYY-MM") } }; the chart comes from `menu` |
 
 The page `allergens/`: a chart of every menu item against the UK's 14 allergens (from the stall's own codes on its
 menu), the stall's own words on cross-contact (shared fryers, nuts on the counter), and its food hygiene rating with

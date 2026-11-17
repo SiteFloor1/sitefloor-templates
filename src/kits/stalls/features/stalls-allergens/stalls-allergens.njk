@@ -18,7 +18,7 @@
     <div class="st-al-cols">
       <div><h2 class="st-h3">Cross-contact</h2><p>{{ A.crossContact }}</p></div>
       <div><h2 class="st-h3">Food hygiene rating</h2>
-        <p class="st-rating">{% if A.hygiene.rating == "awaiting" %}Awaiting inspection{% else %}{{ A.hygiene.rating }} out of 5{% endif %}</p>
+        <p class="st-rating">{% if A.hygiene.rating == "awaiting" %}Awaiting inspection{% elif A.hygiene.rating == "pass" %}Pass{% elif A.hygiene.rating == "improvement required" %}Improvement Required{% else %}{{ A.hygiene.rating }} out of 5{% endif %}</p>
         <p><a class="st-text" href="{{ A.hygiene.url }}" target="_blank" rel="noopener">Our listing on the Food Standards Agency's site</a></p>
         <p class="st-fine">Checked {{ A.hygiene.checked | monthYear }}.</p></div>
     </div>

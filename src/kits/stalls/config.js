@@ -229,7 +229,8 @@ function checkAllergensPage(o, err) {
   const h = o.hygiene;
   if (!isObj(h)) { err("allergensPage.hygiene", "{ rating, url, checked }"); return; }
   onlyKeys(h, ["rating", "url", "checked"], "allergensPage.hygiene", err);
-  if (!(Number.isInteger(h.rating) && h.rating >= 0 && h.rating <= 5) && h.rating !== "awaiting") err("allergensPage.hygiene.rating", 'the rating on the stall\'s listing, 0 to 5, or "awaiting"');
+  // England, Wales and Northern Ireland rate 0 to 5; Scotland's scheme (FHIS) shows "Pass" or "Improvement Required".
+  if (!(Number.isInteger(h.rating) && h.rating >= 0 && h.rating <= 5) && !["awaiting", "pass", "improvement required"].includes(h.rating)) err("allergensPage.hygiene.rating", 'the rating on the stall\'s listing: 0 to 5, "awaiting", or in Scotland "pass" or "improvement required"');
   if (!/^https:\/\/ratings\.food\.gov\.uk\//.test(h.url ?? "")) err("allergensPage.hygiene.url", "the stall's own listing on ratings.food.gov.uk");
   if (!/^\d{4}-\d{2}$/.test(h.checked ?? "")) err("allergensPage.hygiene.checked", 'the month it was checked, "YYYY-MM"');
 }

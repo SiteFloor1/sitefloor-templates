@@ -166,3 +166,14 @@ test("without JavaScript the pages still say where the stall usually is and what
   await ctx.close();
   await srv.close();
 });
+
+test("the allergens page stays on a 390px phone: the chart scrolls in its own box, the page doesn't", async ({ browser }) => {
+  for (const s of [demo, client]) {
+    const srv = await start(s);
+    const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+    const page = await ctx.newPage();
+    await page.goto(srv.base + "/allergens");
+    expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth), "allergens page scrolls sideways").toBeLessThanOrEqual(0);
+    await ctx.close(); await srv.close();
+  }
+});
