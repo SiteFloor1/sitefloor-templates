@@ -1,0 +1,13 @@
+/* The length guide: how to measure beside the form, the chart beneath. */
+.md-len-in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px 64px; }
+.md-len-h { margin: 0 0 14px; font-family: var(--font-display); font-weight: 400; font-size: 28px; }
+.md-len-how p { margin: 0 0 12px; max-width: 48ch; }
+.md-len-up { color: var(--muted); }
+.md-len-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 0; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.md-len-row input, .md-len-row select { min-height: 44px; min-width: 120px; padding: 0 10px; border: 1px solid var(--line); border-radius: 0; background: var(--bg); color: var(--text); font: inherit; }
+.md-len-out { margin: 20px 0 0; font-family: var(--font-display); font-size: 24px; min-height: 1.4em; }
+.md-len-out b { font-weight: 500; color: var(--accent); }
+.md-len-pieces { list-style: none; margin: 14px 0 0; padding: 0; }
+.md-len-pieces li { padding: 8px 0; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; gap: 12px; }
+.md-len-chart { grid-column: 1 / -1; }
+@media (max-width: 760px) { .md-len-in { grid-template-columns: 1fr; } }

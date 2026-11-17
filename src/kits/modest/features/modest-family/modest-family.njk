@@ -1,0 +1,43 @@
+{#- The Eid family list (MOD-11): the Eid dates, then one list the family fills in (each person's name, piece and
+    length) with the total. The list lives only in the page's address, so "Send the list to the family" shares a link
+    and nothing is stored; "Send our order" sends it all to the shop. Then the Eid edit. The first row is drawn at build time, so the
+    list has its shape on first paint. -#}
+{%- set F = site.family %}
+{%- set ph = { title: "Eid, for the whole family", intro: F.intro } %}
+{% include "kits/modest/partials/page-head.njk" %}
+{%- set ef = F.photo or (site.pieces | piece(F.pieces[0])).photo %}
+{% include "kits/modest/features/modest-eid/modest-eid.njk" %}
+<section class="md-fam" data-feature="modest-family" aria-label="The family's list"><div class="wrap md-fam-in">
+  <div class="md-fam-list">
+    <h2 class="md-fam-h">The family's list</h2>
+    {%- set f0 = site.pieces | piece(F.pieces[0]) %}
+    <ol class="md-fam-rows" data-fam-rows>
+        <li class="md-fam-row">
+          <input name="name" type="text" maxlength="24" autocomplete="off" placeholder="Name" aria-label="Name">
+          <select name="piece" aria-label="Piece">{% for id in F.pieces %}{% set fp = site.pieces | piece(id) %}<option value="{{ fp.id }}">{{ fp.name }} · {{ fp.price | gbp }}</option>{% endfor %}</select>
+          <select name="length" aria-label="Length"><option value="0">Not sure</option>{% for l in f0.lengths %}<option value="{{ l }}">{{ l }}</option>{% endfor %}</select>
+          <button type="button" class="md-fam-x" data-fam-remove aria-label="Remove">Remove</button>
+        </li>
+    </ol>
+    <template data-fam-row>
+      <li class="md-fam-row">
+        <input name="name" type="text" maxlength="24" autocomplete="off" placeholder="Name" aria-label="Name">
+        <select name="piece" aria-label="Piece">{% for id in F.pieces %}{% set fp = site.pieces | piece(id) %}<option value="{{ fp.id }}">{{ fp.name }} · {{ fp.price | gbp }}</option>{% endfor %}</select>
+        <select name="length" aria-label="Length"></select>
+        <button type="button" class="md-fam-x" data-fam-remove aria-label="Remove">Remove</button>
+      </li>
+    </template>
+    <p class="md-fam-add"><button type="button" class="md-v" data-fam-add>Add someone</button></p>
+    <p class="md-fam-tot">Together <b data-fam-total>{{ f0.price | gbp }}</b></p>
+    <div class="md-fam-go">
+      <a class="btn" data-fam-send href="{{ site.messages.general | book }}" target="_blank" rel="noopener">Send our order</a>
+      <button type="button" class="btn ghost" data-fam-share>Send the list to the family</button>
+    </div>
+    <p class="md-fam-note" data-fam-note aria-live="polite">The list is kept only in this page's link: nothing is saved on our side.</p>
+  </div>
+  {%- if ef %}{% set sp = ef %}{% set sz = "(max-width: 860px) 100vw, 40vw" %}<figure class="md-fam-ph"><img src="{{ ef.src | img }}"{% include "kits/modest/partials/srcset.njk" %} width="{{ ef.width }}" height="{{ ef.height }}" alt="{{ ef.alt }}" loading="lazy" decoding="async"></figure>{% endif %}
+</div></section>
+<section class="md-edit" aria-label="The Eid edit"><div class="wrap">
+  <h2 class="md-fam-h">The Eid edit</h2>
+  <ul class="md-pieces">{% for p in site.pieces | eidEdit %}{% include "kits/modest/partials/piece.njk" %}{% endfor %}</ul>
+</div></section>

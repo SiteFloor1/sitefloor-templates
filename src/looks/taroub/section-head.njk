@@ -1,0 +1,6 @@
+{#- Taroub section opening: the section's name in the display face, its line beneath in the body face; no small label
+    above. `sec` = { kicker, title, intro }; the kicker is not shown. -#}
+<div class="tr-sh">
+  <h2 class="tr-sh-t">{{ sec.title | markup | safe }}</h2>
+  {%- if sec.intro %}<p class="tr-sh-i">{{ sec.intro }}</p>{% endif %}
+</div>
