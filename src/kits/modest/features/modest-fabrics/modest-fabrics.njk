@@ -1,0 +1,15 @@
+{#- The fabric library (MOD-8): the shop's own close-up of each cloth, with how it falls, its weight and its care. -#}
+{%- set ph = { title: site.fabrics.title, intro: site.fabrics.intro } %}
+{% include "kits/modest/partials/page-head.njk" %}
+<section class="md-fab" data-feature="modest-fabrics" aria-label="{{ site.fabrics.title | plain }}"><div class="wrap">
+  <ul class="md-fab-list">
+    {%- for f in site.fabrics.items %}
+    <li>
+      <figure class="md-fab-ph"><img src="{{ f.photo.src | img }}" width="{{ f.photo.width }}" height="{{ f.photo.height }}" alt="{{ f.photo.alt }}" loading="lazy" decoding="async"></figure>
+      <h2 class="md-fab-t">{{ f.name }}</h2>
+      <p>{{ f.line }}</p>
+      <dl class="md-fab-dl">{% if f.weight %}<div><dt>Weight</dt><dd>{{ f.weight }}</dd></div>{% endif %}<div><dt>Care</dt><dd>{{ f.care }}</dd></div></dl>
+    </li>
+    {%- endfor %}
+  </ul>
+</div></section>

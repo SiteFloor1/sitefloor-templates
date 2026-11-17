@@ -1,0 +1,11 @@
+{#- The size guide by height (MOD-2): the shop's chart and how to measure. With the hem line on, the chart opens from
+    "Only know your height?" inside it instead, so this section stays out of the home page. -#}
+{%- if not ("modest-hem-line" | enabled) %}
+{%- set sec = site.sections.sizeGuide %}
+<section id="size-guide" class="md-sg" data-feature="modest-size-guide" aria-label="{{ sec.title | plain }}"{{ "modest-size-guide" | tierAttr | safe }}><div class="wrap">
+  {%- include "core/partials/section-head.njk" %}
+  {%- set chartId = "" %}{% include "kits/modest/partials/chart.njk" %}
+  <p class="md-sg-m">{{ site.lengths.measure }}</p>
+  {%- if "modest-length" | enabled %}<p><a class="md-ask" href="{{ 'length' | href }}"{{ "modest-length" | tierAttr | safe }}>Find your length by your own measurement</a></p>{% endif %}
+</div></section>
+{%- endif %}
