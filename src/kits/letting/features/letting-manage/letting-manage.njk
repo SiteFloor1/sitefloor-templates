@@ -1,0 +1,19 @@
+{#- What we manage (Plus): the homes the agent looks after (counted from its own buildings), the kinds of home it
+    takes on, and a managed let's year, month by month, in the agent's words. -#}
+{%- set m = site.manage %}
+{%- set count = site.homes | homeCount if site.homes else 0 %}
+<div class="lg" data-feature="letting-manage"{{ "letting-manage" | tierAttr | safe }}>
+  {%- if count %}
+  <p class="lg-count"><b>{{ count }}</b> homes in {{ site.homes.buildings.length }} buildings{% if site.mode == "demo" %} (demo){% endif %}: {% for b in site.homes.buildings %}{{ b.name }}, {{ b.kind }}{{ "; " if not loop.last else "." }}{% endfor %}</p>
+  {%- endif %}
+  <section aria-labelledby="lg-k"><h2 id="lg-k">The homes we take on</h2>
+    <dl class="lf-list">{% for k in m.kinds %}<dt>{{ k.name }}</dt><dd>{{ k.text }}</dd>{% endfor %}</dl>
+  </section>
+  <section aria-labelledby="lg-y"><h2 id="lg-y">A managed year</h2>
+    <ol class="lg-year">{% for y in m.year %}<li><span class="lg-when">{{ y.when }}</span><span class="lg-what">{{ y.what }}</span></li>{% endfor %}</ol>
+  </section>
+  {%- if m.not and m.not.length %}
+  <section aria-labelledby="lg-n"><h2 id="lg-n">What we don't take on</h2><ul>{% for x in m.not %}<li>{{ x }}</li>{% endfor %}</ul></section>
+  {%- endif %}
+  <p class="lo-go">{% if "letting-valuation" | enabled %}<a class="lo-btn" href="{{ 'valuation' | href }}">What would my home let for?</a>{% endif %} <a href="{{ 'fees' | href }}">Every fee, with VAT</a></p>
+</div>

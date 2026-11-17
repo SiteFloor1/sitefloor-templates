@@ -1,0 +1,32 @@
+{#- The ritual builder (BEAU-6): begin with one of the clinic's facials, add its rituals (a longer massage, LED, a
+    scalp ritual); the card beside adds up the minutes and the price as you choose, then sends the whole ritual to
+    the clinic. Without JavaScript the card shows the first facial on its own, with its Book link. -#}
+{%- set r = site.rituals %}
+{%- set ph = { title: r.title, intro: r.intro } %}
+{% include "kits/skin/partials/page-head.njk" %}
+{%- set base = site.menu | menuItem(r.bases[0]) %}
+{%- set msg0 = r.message | finderText("", base, site.business.name) %}
+<section class="sk-rt" data-feature="skin-ritual" aria-label="{{ r.title | plain }}"{{ 'skin-ritual' | tierAttr | safe }}><div class="wrap sk-rt-in">
+  <form class="sk-rt-form" data-rt-form>
+    <fieldset class="sk-rt-fs">
+      <legend class="sk-rt-lg">Begin with</legend>
+      {%- for id in r.bases %}{% set x = site.menu | menuItem(id) %}
+      <label class="sk-opt"><input type="radio" name="base" value="{{ x.id }}"{% if loop.first %} checked{% endif %}><span class="sk-opt-n"><span class="sk-opt-nn">{{ x.name }}</span></span><span class="sk-opt-f">{{ x.minutes }} min · {{ x | cost }}</span></label>
+      {%- endfor %}
+    </fieldset>
+    <fieldset class="sk-rt-fs" data-js-only>
+      <legend class="sk-rt-lg">Add to it</legend>
+      {%- for a in r.addOns %}
+      <label class="sk-opt"><input type="checkbox" name="add" value="{{ a.id }}"><span class="sk-opt-n"><span class="sk-opt-nn">{{ a.name }}</span><small>{{ a.line }}</small></span><span class="sk-opt-f">{% if a.minutes %}+{{ a.minutes }} min · {% endif %}+{{ a.price | gbp }}</span></label>
+      {%- endfor %}
+    </fieldset>
+  </form>
+  <aside class="sk-card sk-rt-card" aria-live="polite">
+    <p class="sk-card-for">Your ritual</p>
+    <p class="sk-card-t" data-rt-name>{{ base.name }}</p>
+    <ul class="sk-rt-adds" data-rt-adds></ul>
+    <p class="sk-card-tp" data-rt-total>{{ base.minutes }} minutes · {{ base | cost }}</p>
+    <a class="sk-card-go" data-rt-send href="{{ msg0 | book }}" target="_blank" rel="noopener">Send this ritual{% if build.booking.whatsapp %} on WhatsApp{% endif %}</a>
+    <p class="sk-card-note">{{ r.note }}</p>
+  </aside>
+</div></section>

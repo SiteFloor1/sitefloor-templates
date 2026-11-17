@@ -23,7 +23,7 @@ every customer question before they visit, loads instantly on a phone and mostly
 Not a template shop: each trade gets its own kit, each design looks unrecognisably different. Quality and honesty first.
 - **Plans:** Starter £99 + £25/mo (home + Plan your visit), Plus £199 + £30/mo (up to 5 pages), Signature £349 + £35/mo
   (up to 20 pages, the trade's showpiece, something bespoke), Bespoke from £1,399, quoted after a call
-  (made from scratch; monthly fee quoted). 12-month minimum. Any feature sells as an add-on; extra pages singly.
+  (made from scratch; monthly fee quoted). 12-month minimum, then month to month. Any feature sells as an add-on; extra pages singly.
 - **Running cost per client: £0** beyond hosting and domain. Free, proven tools only: Google Sheet/Form for live data,
   WhatsApp pre-filled messages, Behold (Instagram), the client's own Stripe Payment Links, links to their booking app.
 - **Roadmap:** 1 barber kit (done) → 2 Street case study + homepage showroom (done) → car studio kit and its case study (done 27 Oct) → 3 next trades, one at a time, per

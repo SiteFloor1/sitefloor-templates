@@ -59,11 +59,13 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 
 | Trade / design | Branch | Display | Body |
 |---|---|---|---|
+| Skin, Clémence (round 6) | trade/beauty | Antic Didone | Baskervville |
 | Isolde, the cover (round 4) | trade/bridal-beauty | Libre Bodoni | Faustina |
 | Cleaning, Plan (A) | trade/cleaning | Anek Latin | Anek Latin |
 | Halde, chalk (round 1) | trade/gym | Sofia Sans Extra Condensed | Sofia Sans |
 | Halde, After dark (chosen, round 3) | trade/gym | Epilogue | Epilogue |
 | Landscaping, Almanac | trade/landscaping | Alegreya | Alegreya |
+| Halvern, The stair (A) | trade/letting | Petrona | Petrona |
 | Trainer, Linen (A) | trade/trainer | Ibarra Real Nova | Ibarra Real Nova |
 | Tailor, Flannel (A) | trade/tailor | Della Respira | Commissioner |
 | Wedding films, Première (A) | trade/wedding-film | Sorts Mill Goudy | Urbanist |
@@ -76,17 +78,22 @@ A case study is a design too: don't reuse these in a new look or another case st
 |---|---|---|---|---|---|
 | Aldous Marr (jeweller) | case-studies/aldous-marr | jeweller | Italiana | Albert Sans | Pinyon Script |
 | Calder Wyke (law firm) | case-studies/calder-wyke | law | Literata | Geologica | |
+| Clémence (skin clinic) | case-studies/clemence | beauty | Antic Didone | Baskervville | |
 | Corbel (electrician) | case-studies/corbel | electrician | Encode Sans Expanded | Encode Sans | |
 | Datum Hire (car hire) | case-studies/datum-hire | car-hire | Overpass | Overpass | Overpass Mono |
 | Fennick & Lowe (tailor) | case-studies/fennick-lowe | tailor | Della Respira | Commissioner | |
 | Grenat (grand café) | case-studies/grenat | grand-cafe | Italiana | EB Garamond | |
+| Halvern (letting) | case-studies/halvern | letting | Petrona | Petrona | |
 | Hatheli (mehndi artist) | case-studies/hatheli | mehndi | Rozha One | Source Serif 4 | |
+| Isolde (bridal hair and makeup artist) | case-studies/isolde | bridal-beauty | Libre Bodoni | Faustina | |
 | Isotach (clothing brand) | case-studies/isotach | menswear | Host Grotesk | Rethink Sans | |
 | Laleh (florist, social) | case-studies/laleh | florist | Tenor Sans | Spectral | |
 | Larchmere (wedding films) | case-studies/larchmere | wedding-film | Sorts Mill Goudy | Urbanist | |
+| Linnet (cleaning) | case-studies/linnet | cleaning | Anek Latin | Anek Latin | |
 | Lyall Harrow (wealth) | case-studies/lyall-harrow | wealth | Mona Sans | Mona Sans | |
 | Marese (lingerie) | case-studies/marese | lingerie | Fraunces | Red Hat Text | |
 | Marlie (teeth whitening) | case-studies/marlie | teeth | Reddit Sans | Reddit Sans | Reddit Mono, Brygada 1918 |
+| Marrick (personal trainer) | case-studies/marrick | personal-trainer | Ibarra Real Nova | Ibarra Real Nova | |
 | Morrow (café) | case-studies/morrow | cafe | Gloock | Onest | |
 | Ottoline (pilates) | case-studies/ottoline | pilates | Noto Serif Display | Red Hat Text | |
 | Pastillage (celebration cakes) | case-studies/pastillage | cakes | Chonburi | Golos Text | |

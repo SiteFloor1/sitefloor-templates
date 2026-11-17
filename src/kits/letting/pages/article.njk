@@ -1,0 +1,16 @@
+---
+layout: core/layouts/base.njk
+feature: letting-journal
+pagination:
+  data: site.journal.items
+  size: 1
+  alias: a
+permalink: "{{ a.slug }}.html"
+eleventyComputed:
+  pageId: "{{ a.slug }}"
+  title: "{{ a.title }}"
+  description: "{{ a.summary }}"
+---
+{%- set ph = { title: a.title, intro: a.summary } %}
+{% include "kits/letting/partials/page-head.njk" %}
+<div class="wrap">{% include "kits/letting/features/letting-journal/letting-article.njk" %}</div>

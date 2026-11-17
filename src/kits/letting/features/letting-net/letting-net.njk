@@ -1,0 +1,34 @@
+{#- One rent, from both sides (Signature): one monthly rent the visitor can change, what a tenant pays before the keys
+    beside what reaches the owner under each of the agent's services, from its own published fees. Worked out at build
+    time for the example rent, so it reads the same without JavaScript. -#}
+{%- set rent = site.fees.example or 2000 %}
+{%- set t = rent | tenantSide(site.fees.tenant) %}
+{%- set svc = site.fees.services | last %}
+{%- set o = rent | ownerSide(svc) %}
+{%- set r = site.schemes %}
+<section class="ln" id="net" data-feature="letting-net"{{ "letting-net" | tierAttr | safe }} aria-labelledby="ln-h">
+  <div class="ln-intro">
+    <h2 id="ln-h"><span aria-hidden="true">One rent of</span><span class="sr-only">One rent, from both sides</span></h2>
+    <label class="ln-rent"><span aria-hidden="true">£</span><input data-ln-rent inputmode="numeric" autocomplete="off" value="{{ rent | thousands }}" aria-label="Monthly rent in pounds"></label>
+    <p class="ln-tail" aria-hidden="true">a month, from both sides.</p>
+  </div>
+  <div class="ln-cols">
+    <div class="ln-side">
+      <h3>If you rent it</h3>
+      <dl data-ln-tenant>{% for row in t.rows %}<dt>{{ row[0] }}</dt><dd>{{ row[1] }}</dd>{% endfor %}</dl>
+      <p class="ln-total"><span>Before the keys</span><b data-ln-keys>{{ t.total }}</b></p>
+      <p class="ln-note" data-ln-tnote>{{ t.note }}</p>
+    </div>
+    <div class="ln-rule" aria-hidden="true"></div>
+    <div class="ln-side">
+      <h3>If you let it</h3>
+      <div class="ln-svc" role="group" aria-label="Service">
+        {%- for s in site.fees.services %}<button type="button" data-ln-svc="{{ s.id }}" aria-pressed="{{ 'true' if loop.last else 'false' }}" data-js-only>{{ s.name }}</button>{% endfor %}
+      </div>
+      <dl data-ln-owner>{% for row in o.rows %}<dt>{{ row[0] }}</dt><dd>{{ row[1] }}</dd>{% endfor %}</dl>
+      <p class="ln-total"><span data-ln-olabel>{{ o.totalLabel }}</span><b data-ln-net>{{ o.total }}</b></p>
+      <p class="ln-note">An illustration from our published fees ({{ svc.name | lower }} shown first), not advice. Repairs, service charge, insurance and tax are yours to allow for.</p>
+    </div>
+  </div>
+  <p class="ln-schemes">{{ r.redress.name }}, member {{ r.redress.member }}{{ site.mode | demoTag }} · Client money protected by {{ r.cmp.name }}, {{ r.cmp.member }}{{ site.mode | demoTag }} · <a href="{{ 'fees' | href }}">Every fee, with VAT</a></p>
+</section>

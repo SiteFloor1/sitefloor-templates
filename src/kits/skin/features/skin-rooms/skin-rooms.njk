@@ -1,0 +1,13 @@
+{#- The rooms (BEAU-5): each room as one large photograph with its name and a line, alternating sides on a wide screen. -#}
+{%- set r = site.rooms %}
+{%- set ph = { title: r.title, intro: r.intro } %}
+{% include "kits/skin/partials/page-head.njk" %}
+<section class="sk-rm" data-feature="skin-rooms" aria-label="{{ r.title | plain }}"><div class="wrap">
+  {%- for room in r.rooms %}
+  <figure class="sk-rm-i">
+    {%- set p = room.photo %}{% set eager = loop.first %}{% include "kits/skin/partials/photo.njk" %}
+    <figcaption><h2 class="sk-ent-t">{{ room.name }}</h2><p class="sk-ent-l">{{ room.text }}</p></figcaption>
+  </figure>
+  {%- endfor %}
+  {%- set eager = false %}
+</div></section>

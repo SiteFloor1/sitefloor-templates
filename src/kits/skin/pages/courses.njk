@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: courses
+permalink: courses.html
+feature: skin-courses
+eleventyComputed:
+  title: "{{ site.courses.title | plain }}"
+  description: "Courses and memberships at {{ site.business.name }}, with their prices."
+---
+{% include "kits/skin/features/skin-courses/skin-courses.njk" %}

@@ -1,0 +1,43 @@
+{#- A spa day as a gift (BEAU-7 and BEAU-9): choose one of the clinic's days, write who it's for and from (and a
+    line for the card if you like); the gift card is drawn as you type. Buy goes to the clinic's own Stripe Payment
+    Link when it has one (the names follow on WhatsApp), otherwise the whole gift goes to the clinic on WhatsApp.
+    Without JavaScript every day shows and Buy is for the first. -#}
+{%- set s = site.spaDays %}
+{%- set ph = { title: s.title, intro: s.intro } %}
+{% include "kits/skin/partials/page-head.njk" %}
+{%- set d0 = s.days[0] %}
+{%- set msg0 = s.message | finderText('', d0, site.business.name) %}
+<section class="sk-sd" data-feature="skin-spaday" aria-label="{{ s.title | plain }}"{{ 'skin-spaday' | tierAttr | safe }}><div class="wrap sk-sd-in">
+  <form class="sk-sd-form" data-sd-form>
+    <fieldset class="sk-rt-fs">
+      <legend class="sk-rt-lg">The day</legend>
+      {%- for d in s.days %}
+      <label class="sk-opt sk-sd-day"><input type="radio" name="day" value="{{ d.id }}"{% if loop.first %} checked{% endif %}>
+        <span class="sk-opt-n"><span class="sk-opt-nn">{{ d.name }}</span><small>{{ d.line }}</small><small class="sk-sd-inc">{{ d.includes | join(" · ") }}</small></span>
+        <span class="sk-opt-f">{{ d.minutes | mins }} · {{ d.price | gbp }}</span></label>
+      {%- endfor %}
+    </fieldset>
+    <fieldset class="sk-rt-fs sk-sd-names" data-js-only>
+      <legend class="sk-rt-lg">The card</legend>
+      <label class="sk-sd-f"><span>For</span><input class="sk-in" name="to" maxlength="40" autocomplete="off"></label>
+      <label class="sk-sd-f"><span>From</span><input class="sk-in" name="from" maxlength="40" autocomplete="name"></label>
+      <label class="sk-sd-f sk-sd-wide"><span>A line for the card (optional)</span><textarea class="sk-in" name="note" rows="2" maxlength="140"></textarea></label>
+    </fieldset>
+  </form>
+  <div class="sk-sd-side">
+    <figure class="sk-gift" aria-label="The gift card">
+      <p class="sk-gift-b">{{ site.business.name }}</p>
+      <p class="sk-gift-for" data-gc-to>A gift for you</p>
+      <p class="sk-gift-t" data-gc-day>{{ d0.name }}</p>
+      <p class="sk-gift-inc" data-gc-inc>{{ d0.includes | join(" · ") }}</p>
+      <p class="sk-gift-note" data-gc-note hidden></p>
+      <p class="sk-gift-from" data-gc-from hidden></p>
+    </figure>
+    <div class="sk-sd-acts">
+      <a class="sk-card-go" data-sd-buy href="{{ d0.payLink if d0.payLink else (msg0 | book) }}" target="_blank" rel="noopener">Buy this gift · {{ d0.price | gbp }}</a>
+      <a class="sk-quiet" data-sd-send href="{{ msg0 | book }}" target="_blank" rel="noopener"{% if not d0.payLink %} hidden{% endif %}>Then send us the names on WhatsApp</a>
+    </div>
+    <p class="sk-card-note">{{ s.terms }}</p>
+    {%- if s.cardNote %}<p class="sk-card-note">{{ s.cardNote }}</p>{% endif %}
+  </div>
+</div></section>

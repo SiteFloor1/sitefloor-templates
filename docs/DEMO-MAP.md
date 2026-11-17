@@ -40,6 +40,15 @@ This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` 
 | Fade District | barber, `barber`, `barber-noir` | dark gentleman's club, warm | brass and leather | gold #C9A46A on near-black #0F0D0C | Playfair Display / Manrope | stacked three-line headline, a pure-CSS spinning barber pole | its own |
 | Swift Cuts | barber, `barber`, `barber-street` | daylight express shop, warm paper | an enamel street sign | enamel blue #1F4BD1 on paper #F3EFE6 | Bricolage Grotesque / Figtree | street-name plate, live queue ticket | its own |
 
+## Facialists and skin clinics
+_From `docs/trades/beauty/demo-map.md`._
+
+This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` (generated) before proposing a look.
+
+| Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
+|---|---|---|---|---|---|---|---|
+| Clémence | facialist and skin clinic, `skin`, `palm` (built 16 Nov on `trade/beauty`) | a grand-hotel spa in daylight: **ivory**, a letterhead header (name and street left, the pages as a two-row index right), centred sections like a menu card | a palm frond (plus one fine gold line) | palm #1F3B2D, gold #B3924A on ivory #FAF7F0, card #FFFEFA | Antic Didone 400 / Baskervville 400 and 600, roman only | one large framed daylit photograph, then "How does your skin feel today?" answered by a printed treatment card in the clinic's own words | the proof: a printer's proof of her treatment card, a live red pencil striking what the advertising rules catch |
+
 ## Bridal salons
 _From `docs/trades/bridal/demo-map.md`._
 
@@ -56,7 +65,7 @@ This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` 
 
 | Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
 |---|---|---|---|---|---|---|---|
-| Isolde ([demo](https://sitefloor1.github.io/sitefloor-templates/bridalbeauty/)) | bridal hair and makeup artist, new `bridalbeauty`, `cover` (built 15 Nov on `trade/bridal-beauty`) | a **bridal magazine cover** on warm white: one finished bride full-bleed, her face large; inside, ruled lists like a magazine's back pages | a fern in the bride's bouquet; photos in one fresh, warm grade | fern #3D5A43 for "Open.", links and the send buttons on warm white #F6F2EC, ink #161312 | Libre Bodoni (the masthead, very large, and every figure) / Faustina (every sentence) | the artist's name as the masthead, above her head (or behind it when the photo allows); the cover lines are the answers: her date, trial and wedding day for her service, what time we start | to come |
+| Isolde ([demo](https://sitefloor1.github.io/sitefloor-templates/bridalbeauty/)) | bridal hair and makeup artist, new `bridalbeauty`, `cover` (built 15 Nov on `trade/bridal-beauty`) | a **bridal magazine cover** on warm white: one finished bride full-bleed, her face large; inside, ruled lists like a magazine's back pages | a fern in the bride's bouquet; photos in one fresh, warm grade | fern #3D5A43 for "Open.", links and the send buttons on warm white #F6F2EC, ink #161312 | Libre Bodoni (the masthead, very large, and every figure) / Faustina (every sentence) | the artist's name as the masthead, above her head (or behind it when the photo allows); the cover lines are the answers: her date, trial and wedding day for her service, what time we start | one issue of her magazine: a live cover that reprints for her date, the morning as the dark spread, the plans as subscriptions, the back cover with the reader's own name |
 
 ## Cafés
 _From `docs/trades/cafe/demo-map.md`._
@@ -249,6 +258,18 @@ Taken by the Calder Wyke case study: the deed as a page structure (parties, reci
 exhibits, schedules, "time is of the essence", executed as a deed), a cut indenture edge, a blind-embossed stamp
 pressing once, a magpie palette (belly white #F4F5F4, black #121417, wing-gloss blue #2C4E86) and Literata with
 Geologica. Design notes: `sitefloor-internal/docs/design/law-firm.md`, "Case study".
+
+## Independent letting agents
+_From `docs/trades/letting/demo-map.md`._
+
+This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` (generated) before proposing a look.
+
+| Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
+|---|---|---|---|---|---|---|---|
+| Halvern | independent letting agents, `letting`, `porter` | a residence, not a portal: **ivory page**, the name set large on the left, ruled schedules like a porter's lodge | a horse chestnut (accent and photo grade); brass on the lift plate only | conker #7A3A1E for links, totals and the one filled button | Petrona 300–400 with italics / Petrona | a two-line statement with the live count of free homes, then the daylit porch of a mansion block with a brass lift indicator over its doors (each lamp a floor); on Signature the building turns into view in 3D with every free home's windows lit | going up: a ride in the mansion block's lift, every floor a page, the needle of a brass Art Deco floor indicator as the navigation, the plans as key fobs |
+
+Taken by Halvern: Petrona, conker brown, the brass lift indicator, the daylit red-brick porch photograph, the
+building in 3D with lit windows, the floor-by-building residences schedule, "one rent, from both sides".
 
 ## Lingerie boutiques
 _From `docs/trades/lingerie/demo-map.md`._

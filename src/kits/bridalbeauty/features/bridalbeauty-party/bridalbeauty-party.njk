@@ -15,7 +15,7 @@
       {%- endfor %}
     </ul>
     <div class="bb-pt-tot">
-      <p class="bb-pt-notes" aria-live="polite"><span>From</span><small data-pt-start>We start at {{ fm.start }} for a {{ fm.ceremony }} ceremony</small><small data-pt-extra>{% if fm.early %}Includes the early-start fee{% else %}No early-start fee{% endif %}</small></p>
+      <p class="bb-pt-notes" aria-live="polite"><span>From</span><small data-pt-start>We start at {{ fm.start }} for {{ fm.ceremony | anClock }} {{ fm.ceremony }} ceremony</small><small data-pt-extra>{% if fm.early %}Includes the early-start fee{% else %}No early-start fee{% endif %}</small></p>
       <b class="bb-pt-sum" data-pt-total>{{ fm.total }}</b>
     </div>
     <a class="bb-btn" data-pt-ask href="{{ pt.message | dateText | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ pt.message | dateText }}"{% endif %} target="_blank" rel="noopener">Send me this on WhatsApp</a>
