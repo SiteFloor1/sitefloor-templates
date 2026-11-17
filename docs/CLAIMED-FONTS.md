@@ -62,6 +62,8 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 | Skin, Clémence (round 6) | trade/beauty | Antic Didone | Baskervville |
 | Isolde, the cover (round 4) | trade/bridal-beauty | Libre Bodoni | Faustina |
 | Cleaning, Plan (A) | trade/cleaning | Anek Latin | Anek Latin |
+| Halde, chalk (round 1) | trade/gym | Sofia Sans Extra Condensed | Sofia Sans |
+| Halde, After dark (chosen, round 3) | trade/gym | Epilogue | Epilogue |
 | Landscaping, Almanac | trade/landscaping | Alegreya | Alegreya |
 | Halvern, The stair (A) | trade/letting | Petrona | Petrona |
 | Taroub | trade/modest | Shippori Mincho | Afacad |
@@ -100,6 +102,7 @@ A case study is a design too: don't reuse these in a new look or another case st
 | Pellow & Garth (construction) | case-studies/pellow-garth | construction | Big Shoulders Stencil Display | Kumbh Sans | |
 | Saffron & Ash (restaurant) | case-studies/saffron-and-ash | restaurant | Instrument Serif | Instrument Sans | |
 | Selwyn Orr (hair salon) | case-studies/selwyn-orr | hair | Darker Grotesque | Public Sans | |
+| Taroub (modest fashion) | case-studies/taroub | modest | Shippori Mincho | Afacad | |
 | Tollgarth (garden design) | case-studies/tollgarth | landscaping | Cinzel | Alegreya | |
 | Varnell (car detailing) | case-studies/varnell | detailing | Michroma | Geist | Geist Mono |
 | Velvet Spoon (dessert shop) | case-studies/velvet-spoon | dessert | Gilda Display | Albert Sans | |
