@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: hyrox
+permalink: hyrox.html
+feature: gym-hyrox-page
+eleventyComputed:
+  title: "{{ site.hyrox.title | plain }}"
+  description: "Hyrox race prep at {{ site.business.name }}, {{ site.location.locality }}: a plan from your race date, from the club's own classes."
+---
+{%- set onPage = true %}{% include "kits/gym/features/gym-hyrox/gym-hyrox.njk" %}
+{% include "kits/gym/features/gym-hyrox-page/gym-hyrox-page.njk" %}

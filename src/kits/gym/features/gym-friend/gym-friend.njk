@@ -1,0 +1,14 @@
+{#- Bring a friend (GYM-11): the club's guest rules, then the friend's first name and the day, sent to the club on
+    WhatsApp. Without the script the button still opens WhatsApp with the club's message. -#}
+{%- set f = site.friendPass %}
+<section class="gf" id="friend" data-feature="gym-friend" aria-labelledby="gf-h"><div class="wrap gf-in">
+  <div><h2 id="gf-h">{{ f.title | markup | safe }}</h2>{% if f.intro %}<p class="gf-i">{{ f.intro }}</p>{% endif %}
+    {%- if f.rules %}<ul class="gf-rules">{% for r in f.rules %}<li>{{ r }}</li>{% endfor %}</ul>{% endif %}</div>
+  <form class="gf-form" data-gf>
+    <label for="gf-name">Your friend's first name</label>
+    <input id="gf-name" name="name" autocomplete="off" maxlength="40">
+    <label for="gf-day">The day</label>
+    <select id="gf-day" name="day" data-gf-day><option value="">Choose a day</option></select>
+    <a class="gf-go" data-gf-go href="{{ f.message | wa }}" target="_blank" rel="noopener">Ask on WhatsApp</a>
+  </form>
+</div></section>
