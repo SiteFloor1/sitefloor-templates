@@ -1,0 +1,755 @@
+{
+  "schemaVersion": 4,
+  "id": "test-modest-client",
+  "mode": "client",
+  "plan": "signature",
+  "kit": "modest",
+  "look": "taroub",
+  "url": "https://test-modest-client.example.co.uk",
+  "indexable": false,
+  "lang": "en-GB",
+  "business": {
+    "name": "Nida",
+    "schemaType": "ClothingStore",
+    "description": "Abayas and hijabs from a studio in Leicester. Abayas from £120.",
+    "priceRange": "££",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "441164960731",
+    "phone": "+44 116 496 0731",
+    "email": "hello@nida.example"
+  },
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "location": {
+    "streetAddress": "12 Belgrave Gate",
+    "locality": "Leicester",
+    "postcode": "LE1 3GQ",
+    "country": "GB",
+    "area": "Above the corner shop, on the first floor.",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=Belgrave%20Gate%2C%20Leicester"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [],
+      "tue": [
+        [
+          "11:00",
+          "19:00"
+        ]
+      ],
+      "wed": [
+        [
+          "11:00",
+          "19:00"
+        ]
+      ],
+      "thu": [
+        [
+          "11:00",
+          "20:00"
+        ]
+      ],
+      "fri": [
+        [
+          "11:00",
+          "19:00"
+        ]
+      ],
+      "sat": [
+        [
+          "10:00",
+          "18:00"
+        ]
+      ],
+      "sun": [
+        [
+          "12:00",
+          "17:00"
+        ]
+      ]
+    },
+    "exceptions": [
+      {
+        "date": "2026-12-25",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2026-12-26",
+        "ranges": [],
+        "note": "Closed for Boxing Day"
+      },
+      {
+        "date": "2027-01-01",
+        "ranges": [],
+        "note": "Closed for New Year's Day"
+      }
+    ]
+  },
+  "features": [
+    "modest-collection",
+    "modest-size-guide",
+    "modest-hem-line",
+    "modest-category-pages",
+    "modest-length",
+    "modest-eid",
+    "modest-appointment",
+    "modest-look",
+    "modest-family",
+    "modest-made-to-measure",
+    "visit",
+    "plan-visit",
+    "questions",
+    "modest-fabrics",
+    "reviews"
+  ],
+  "nav": [
+    {
+      "label": "Eid orders",
+      "page": "eid",
+      "feature": "modest-family",
+      "fallback": "#eid"
+    },
+    {
+      "label": "Your length",
+      "page": "length",
+      "feature": "modest-length",
+      "fallback": "#hem"
+    },
+    {
+      "label": "Made to measure",
+      "page": "made-to-measure",
+      "feature": "modest-made-to-measure"
+    },
+    {
+      "label": "A visit to the studio",
+      "page": "appointments",
+      "feature": "modest-appointment",
+      "fallback": "#visit"
+    },
+    {
+      "label": "Fabrics",
+      "page": "fabrics",
+      "feature": "modest-fabrics"
+    }
+  ],
+  "messages": {
+    "general": "Hello Nida, I have a question about an abaya."
+  },
+  "hero": {
+    "kicker": "Abayas and modest wear, east London",
+    "title": "The Layl",
+    "intro": "Fringed organza over black satin.",
+    "piece": "layl",
+    "photo": {
+      "src": "img/hero.webp",
+      "width": 1500,
+      "height": 2250,
+      "alt": "A woman in a black hijab holds open a long abaya of fringed black organza over black satin, the sheer panels catching the light",
+      "focus": "50% 35%",
+      "small": {
+        "src": "img/hero-800.webp",
+        "width": 800
+      }
+    },
+    "credit": "Photographs: Kazys Photography, Pexels",
+    "side": {
+      "piece": "ghalia",
+      "photo": {
+        "src": "img/side.webp",
+        "width": 700,
+        "height": 1050,
+        "alt": "A woman in a black satin abaya with gold lace at the cuffs and hem, and a black hijab",
+        "small": {
+          "src": "img/side-300.webp",
+          "width": 300
+        }
+      }
+    }
+  },
+  "sections": {
+    "hemLine": {
+      "title": "Where the hem falls."
+    },
+    "sizeGuide": {
+      "title": "Your length by height"
+    },
+    "collection": {
+      "title": "The collection",
+      "intro": "Every abaya comes in five lengths, measured shoulder to hem."
+    },
+    "eid": {
+      "title": "Before Eid",
+      "intro": "Our last order dates, counted back from the day Eid is expected."
+    },
+    "questions": {
+      "title": "Before you order"
+    },
+    "visit": {
+      "title": "The studio"
+    },
+    "reviews": {
+      "kicker": "Google reviews",
+      "title": "Reviews",
+      "intro": "Copied from Google with the reviewer's name and month."
+    }
+  },
+  "pieces": {
+    "categories": [
+      {
+        "id": "abayas",
+        "name": "Abayas",
+        "page": {
+          "title": "Abayas",
+          "intro": "Satin, crepe and organza, each in five lengths."
+        }
+      },
+      {
+        "id": "occasion",
+        "name": "Occasion wear",
+        "page": {
+          "title": "Occasion wear",
+          "intro": "For Eid, a nikah or a walima: lace, gold thread and satin."
+        }
+      },
+      {
+        "id": "hijabs",
+        "name": "Hijabs",
+        "page": {
+          "title": "Hijabs and inners",
+          "intro": "The hijabs and inners we wear under every abaya here."
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "layl",
+        "name": "The Layl",
+        "category": "abayas",
+        "line": "Fringed organza over black satin.",
+        "price": 345,
+        "lengths": [
+          54,
+          56,
+          58,
+          60
+        ],
+        "photo": {
+          "src": "img/layl.webp",
+          "width": 900,
+          "height": 1350,
+          "alt": "A long open abaya of fringed black organza over a black satin dress, worn with a black hijab",
+          "small": {
+            "src": "img/layl-600.webp",
+            "width": 600
+          }
+        },
+        "model": {
+          "wears": 58
+        },
+        "eid": true
+      },
+      {
+        "id": "sahar",
+        "name": "The Sahar",
+        "category": "abayas",
+        "line": "Fringed crepe, with its own long khimar.",
+        "price": 310,
+        "lengths": [
+          52,
+          54,
+          56,
+          58,
+          60
+        ],
+        "photo": {
+          "src": "img/sahar.webp",
+          "width": 900,
+          "height": 1350,
+          "alt": "A black abaya of fringed crepe with a matching long khimar to the waist",
+          "small": {
+            "src": "img/sahar-600.webp",
+            "width": 600
+          }
+        },
+        "model": {
+          "wears": 58
+        },
+        "eid": true
+      },
+      {
+        "id": "misk",
+        "name": "The Misk",
+        "category": "abayas",
+        "line": "Black satin, closed at the front, wide sleeves.",
+        "price": 260,
+        "lengths": [
+          52,
+          54,
+          56,
+          58,
+          60
+        ],
+        "photo": {
+          "src": "img/misk.webp",
+          "width": 900,
+          "height": 1350,
+          "alt": "A closed black satin abaya with wide sleeves, worn with a draped black hijab",
+          "focus": "50% 30%",
+          "small": {
+            "src": "img/misk-600.webp",
+            "width": 600
+          }
+        },
+        "model": {
+          "wears": 56
+        }
+      },
+      {
+        "id": "ghalia",
+        "name": "The Ghalia",
+        "category": "occasion",
+        "line": "Satin, gold lace at the cuff and hem.",
+        "price": 340,
+        "lengths": [
+          54,
+          56,
+          58
+        ],
+        "photo": {
+          "src": "img/ghalia.webp",
+          "width": 900,
+          "height": 1350,
+          "alt": "A black satin abaya with wide gold lace cuffs and a gold lace hem, worn with a black hijab",
+          "small": {
+            "src": "img/ghalia-600.webp",
+            "width": 600
+          }
+        },
+        "model": {
+          "wears": 58
+        },
+        "eid": true
+      },
+      {
+        "id": "jersey-hijab",
+        "name": "Long jersey hijab",
+        "category": "hijabs",
+        "line": "Soft black jersey, long enough to drape twice.",
+        "price": 28,
+        "photo": {
+          "src": "img/hijab.webp",
+          "width": 900,
+          "height": 1350,
+          "alt": "A long black jersey hijab draped over the shoulders",
+          "focus": "50% 25%",
+          "small": {
+            "src": "img/hijab-600.webp",
+            "width": 600
+          }
+        }
+      },
+      {
+        "id": "slip",
+        "name": "Inner slip",
+        "category": "hijabs",
+        "line": "Black jersey, sleeveless, to the ankle.",
+        "price": 45
+      }
+    ]
+  },
+  "lengths": {
+    "sizes": [
+      52,
+      54,
+      56,
+      58,
+      60
+    ],
+    "clear": 0.5,
+    "chart": [
+      {
+        "height": "4′11″ to 5′1″",
+        "from": 52.5,
+        "to": 54,
+        "length": 52
+      },
+      {
+        "height": "5′2″ to 5′4″",
+        "from": 54.5,
+        "to": 56,
+        "length": 54
+      },
+      {
+        "height": "5′5″ to 5′7″",
+        "from": 56.5,
+        "to": 58,
+        "length": 56
+      },
+      {
+        "height": "5′8″ to 5′10″",
+        "from": 58.5,
+        "to": 60,
+        "length": 58
+      },
+      {
+        "height": "5′11″ to 6′1″",
+        "from": 60.5,
+        "to": 62,
+        "length": 60
+      }
+    ],
+    "shoes": [
+      {
+        "label": "flats",
+        "heel": 0
+      },
+      {
+        "label": "1″ heels",
+        "heel": 1
+      },
+      {
+        "label": "2″ heels",
+        "heel": 2
+      },
+      {
+        "label": "3″ heels",
+        "heel": 3
+      }
+    ],
+    "start": {
+      "shoulderToFloor": 57,
+      "shoe": 2
+    },
+    "measure": "Stand straight in bare feet. Measure from the top of your shoulder, beside your neck, down to the floor; ask someone to hold the tape.",
+    "takeUp": "Between two lengths? We can take any abaya up before it's sent."
+  },
+  "hemLine": {
+    "photo": {
+      "src": "img/hem.webp",
+      "width": 1100,
+      "height": 849,
+      "alt": "The hem of a black abaya stopping just above a pale marble floor, black pointed heels beneath"
+    },
+    "credit": "Hem photograph: Abdul Raheem Kannath, Unsplash"
+  },
+  "eid": {
+    "cutoffs": [
+      {
+        "label": "Made to measure and alterations",
+        "daysBefore": 21
+      },
+      {
+        "label": "UK delivery",
+        "daysBefore": 5
+      },
+      {
+        "label": "Collection from the studio",
+        "daysBefore": 1
+      }
+    ],
+    "note": "Eid follows the moon sighting. Our dates count back from the first day it may fall, so they hold if it's announced later."
+  },
+  "appointments": {
+    "weekly": {
+      "tue": [
+        "11:00",
+        "15:00",
+        "17:30"
+      ],
+      "thu": [
+        "11:00",
+        "15:00",
+        "18:00"
+      ],
+      "sat": [
+        "10:30",
+        "13:00",
+        "15:30"
+      ],
+      "sun": [
+        "12:30",
+        "15:00"
+      ]
+    },
+    "days": 21,
+    "reasons": [
+      "Eid",
+      "A wedding or nikah",
+      "Trying on the collection",
+      "Made to measure"
+    ],
+    "minutes": 60,
+    "most": 5,
+    "intro": "An hour in the studio with the whole collection, for you and up to four others."
+  },
+  "looks": {
+    "intro": "Each abaya with the hijab we'd wear with it, in your length.",
+    "sets": [
+      {
+        "id": "layl-set",
+        "name": "The Layl, complete",
+        "line": "With the long jersey hijab; add the inner slip if you like.",
+        "photo": {
+          "src": "img/look.webp",
+          "width": 900,
+          "height": 1350,
+          "alt": "A woman holds open the fringed organza of a long abaya over black satin, a black hijab draped to the waist",
+          "small": {
+            "src": "img/look-600.webp",
+            "width": 600
+          }
+        },
+        "items": [
+          {
+            "piece": "layl"
+          },
+          {
+            "piece": "jersey-hijab"
+          },
+          {
+            "piece": "slip",
+            "optional": true
+          }
+        ]
+      },
+      {
+        "id": "ghalia-set",
+        "name": "The Ghalia, for Eid",
+        "line": "Gold lace and satin, with the jersey hijab.",
+        "items": [
+          {
+            "piece": "ghalia"
+          },
+          {
+            "piece": "jersey-hijab"
+          },
+          {
+            "piece": "slip",
+            "optional": true
+          }
+        ]
+      }
+    ]
+  },
+  "family": {
+    "pieces": [
+      "layl",
+      "sahar",
+      "misk",
+      "ghalia",
+      "jersey-hijab"
+    ],
+    "max": 8,
+    "intro": "One list for everyone's Eid: send the link round, each of you adds a name, a piece and a length, and we get one order.",
+    "photo": {
+      "src": "img/family.webp",
+      "width": 1200,
+      "height": 1800,
+      "alt": "Two women side by side in long black abayas and hijabs, one in fringed crepe, one in satin and organza",
+      "small": {
+        "src": "img/family-700.webp",
+        "width": 700
+      }
+    }
+  },
+  "madeToMeasure": {
+    "title": "Made to measure",
+    "intro": "Any abaya in the collection, cut to your measurements, or your own design in our cloth.",
+    "from": 480,
+    "weeks": 6,
+    "steps": [
+      {
+        "title": "Choose the cloth",
+        "text": "Satin, crepe, organza or lace, from our rolls in the studio or by post as swatches."
+      },
+      {
+        "title": "Be measured",
+        "text": "In the studio, or by video with someone holding the tape; it takes twenty minutes."
+      },
+      {
+        "title": "The first fitting",
+        "text": "A fitting in calico three weeks in, so the length and sleeves are right before we cut."
+      },
+      {
+        "title": "Collected or sent",
+        "text": "Pressed and wrapped; sent tracked, or collected from the studio."
+      }
+    ],
+    "measurements": [
+      "Shoulder to floor",
+      "Across the shoulders",
+      "Bust",
+      "Arm length",
+      "Wrist"
+    ],
+    "photo": {
+      "src": "img/lace.webp",
+      "width": 900,
+      "height": 1350,
+      "alt": "Hands holding the gold lace cuff of a black satin abaya",
+      "small": {
+        "src": "img/lace-600.webp",
+        "width": 600
+      }
+    }
+  },
+  "visitInfo": {
+    "kicker": "Plan your visit",
+    "title": "Finding the studio",
+    "intro": "First floor, in a yard off Green Street, six minutes' walk from Upton Park.",
+    "checked": "2026-11",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "Leicester station",
+        "origin": "Leicester station, Leicester",
+        "minutes": 15,
+        "steps": [
+          "Walk north along Charles Street",
+          "Turn right onto Belgrave Gate"
+        ]
+      }
+    ],
+    "parking": [
+      {
+        "name": "Pay-by-phone bays on the side streets",
+        "walk": 4,
+        "price": "check the signs on the street",
+        "paid": {
+          "mon": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "tue": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "wed": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "thu": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "fri": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "sat": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ]
+        },
+        "note": "Most nearby streets are residents only; read the signs.",
+        "bankHolidays": "sunday"
+      }
+    ],
+    "access": [
+      {
+        "label": "Step-free entrance",
+        "yes": false
+      },
+      {
+        "label": "A changing room with a curtain and a mirror",
+        "yes": true
+      },
+      {
+        "label": "Women-only appointments",
+        "yes": true
+      }
+    ],
+    "accessNote": "The studio is up one flight of stairs. If stairs are hard for you, tell us and we'll bring the pieces down to the ground-floor room.",
+    "payment": "Card, Apple Pay or bank transfer."
+  },
+  "questions": [
+    {
+      "topic": "Sizing",
+      "q": "Which length should I buy?",
+      "a": "Measure from the top of your shoulder to the floor and use the hem line above, or the chart by height. Tell us your shoes: heels need a longer length.",
+      "home": true
+    },
+    {
+      "topic": "Sizing",
+      "q": "Do the abayas come in sizes as well as lengths?",
+      "a": "Our abayas are cut loose, one width to a UK 18; the length is what changes. Above a UK 18, ask us about made to measure.",
+      "home": true
+    },
+    {
+      "topic": "Delivery",
+      "q": "Will it arrive before Eid?",
+      "a": "Our last order dates are above, counted from the first day Eid may fall. After that, collect from the studio.",
+      "home": true
+    },
+    {
+      "topic": "Returns",
+      "q": "Can I return it?",
+      "a": "Unworn pieces with their tags can be returned within 14 days of delivery. Made-to-measure pieces can't, because they're made for you.",
+      "home": true
+    },
+    {
+      "topic": "The studio",
+      "q": "Can I try things on with my family?",
+      "a": "Yes: request a private appointment for up to five of you. The studio is women only during appointments.",
+      "home": true
+    },
+    {
+      "topic": "Care",
+      "q": "How do I wash satin?",
+      "a": "Cool hand wash or a gentle cycle in a bag, hung to dry, pressed on the reverse on a low heat.",
+      "home": false
+    }
+  ],
+  "fabrics": {
+    "title": "The fabrics",
+    "intro": "Each cloth we cut from, close up.",
+    "items": [
+      {
+        "name": "Satin",
+        "line": "Heavy, with a soft shine; falls straight.",
+        "weight": "Medium",
+        "care": "Cool hand wash",
+        "photo": {
+          "src": "img/lace.webp",
+          "width": 900,
+          "height": 1350,
+          "alt": "Gold lace on black satin, close up"
+        }
+      }
+    ]
+  },
+  "reviews": {
+    "source": "google",
+    "items": [
+      {
+        "text": "The length was exactly right in my heels. Lovely studio.",
+        "author": "Amina K.",
+        "rating": 5,
+        "date": "2026-10"
+      },
+      {
+        "text": "Ordered three abayas for Eid on WhatsApp; all arrived in time.",
+        "author": "Sara M.",
+        "rating": 5,
+        "date": "2026-09"
+      }
+    ]
+  }
+}

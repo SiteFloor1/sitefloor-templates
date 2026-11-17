@@ -1,0 +1,24 @@
+/* The modest kit's shared pieces: an inner page's opening, the piece card, the height chart and the quiet underlined
+   action. Tokens only; each look sets the tokens and may override the layout. */
+.md-ph { padding-block: clamp(40px, 7vw, 96px) clamp(24px, 4vw, 48px); }
+.md-ph-t { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(40px, 6vw, 84px); line-height: 1; }
+.md-ph-i { margin: 18px 0 0; max-width: 52ch; color: var(--muted); font-size: 19px; }
+.md-pieces { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 56px 32px; }
+.md-piece-ph { margin: 0; background: var(--surface); }
+.md-piece-ph img { display: block; width: 100%; height: auto; aspect-ratio: 2 / 3; object-fit: cover; }
+.md-model { padding: 10px 0 0; background: var(--bg); color: var(--muted); font-size: 14px; }
+.md-piece-t { margin: 18px 0 0; font-family: var(--font-display); font-weight: 400; font-size: 26px; line-height: 1.15; }
+.md-piece-l { margin: 6px 0 0; color: var(--muted); }
+.md-piece-f { margin: 10px 0 0; display: flex; flex-wrap: wrap; gap: 4px 16px; align-items: baseline; }
+.md-price { font-family: var(--font-display); font-size: 20px; }
+.md-lens { color: var(--muted); font-size: 15px; font-variant-numeric: tabular-nums; }
+.md-ask { display: inline-flex; align-items: center; min-height: 44px; color: var(--text); text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 6px; text-decoration-thickness: 1px; }
+.md-parts { margin: 48px 0 0; display: flex; flex-wrap: wrap; gap: 8px 32px; }
+@media (max-width: 1000px) { .md-pieces { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .md-pieces { gap: 36px 12px; } .md-piece-t { font-size: 20px; } .md-piece-l, .md-lens { font-size: 14px; } .md-piece-f { flex-direction: column; gap: 2px; } }
+.md-chart { width: 100%; max-width: 560px; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.md-chart-c { text-align: left; caption-side: top; padding-bottom: 10px; color: var(--muted); font-size: 15px; }
+.md-chart th { font-weight: 400; color: var(--muted); text-align: left; padding: 0 0 8px; border-bottom: 1px solid var(--line); }
+.md-chart td { padding: 9px 0; border-bottom: 1px solid var(--line); }
+.md-chart th:last-child, .md-chart td:last-child { text-align: right; }
+.md-chart tr.is-lit td { color: var(--accent); font-weight: 500; }
