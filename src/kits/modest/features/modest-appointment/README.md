@@ -1,7 +1,7 @@
 # modest-appointment (Plus)
 
 Private appointments (MOD-10), its own page (`/appointments`): the studio's standing times (`appointments.weekly`) on
-the coming dates, worked out in the browser on the day (from tomorrow, `days` ahead, skipping `closed`); how many are
+the coming dates, worked out in the browser on the day (from tomorrow, up to `days` ahead, at most eight dates, skipping `closed`); how many are
 coming and what for; then "Request this time" opens WhatsApp (or the shop's booking app) with the whole request. The
 page says plainly it's a request the shop confirms by message: no time is held or booked by the site.
 

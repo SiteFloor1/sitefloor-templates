@@ -104,18 +104,24 @@ export function leftWords(r) {
 
 const DAYS = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
 
+const SHORT_DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const SHORT_MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
 /**
- * The shop's standing appointment times on the coming dates: each day from tomorrow for `days` days whose weekday
- * has times, skipping the shop's closed dates. Times are requests, confirmed by message.
- * @param {Record<string, string[]>} weekly @param {string} today @param {number} days @param {string[]} [closed]
+ * The shop's standing appointment times on the coming dates: each day from tomorrow, up to `days` ahead, whose
+ * weekday has times, skipping the shop's closed dates; at most `most` of them, so the page drawn at build time and
+ * the one the browser redraws for the real day hold the same number of choices. Times are requests, confirmed by
+ * message. Each date has `words` ("Saturday 21 November 2026") and `short` ("Sat 21 Nov").
+ * @param {Record<string, string[]>} weekly @param {string} today @param {number} days @param {string[]} [closed] @param {number} [most]
  */
-export function appointmentDates(weekly, today, days, closed = []) {
+export function appointmentDates(weekly, today, days, closed = [], most = 8) {
   const out = [];
-  for (let i = 1; i <= days; i++) {
+  for (let i = 1; i <= days && out.length < most; i++) {
     const date = addDaysYmd(today, i);
     const day = DAYS[new Date(`${date}T12:00:00Z`).getUTCDay()];
     const times = weekly[day] ?? [];
-    if (times.length && !closed.includes(date)) out.push({ date, words: ukDate(date), times });
+    const d = new Date(`${date}T12:00:00Z`);
+    if (times.length && !closed.includes(date)) out.push({ date, words: ukDate(date), short: `${SHORT_DAYS[d.getUTCDay()]} ${d.getUTCDate()} ${SHORT_MONTHS[d.getUTCMonth()]}`, times });
   }
   return out;
 }

@@ -57,8 +57,8 @@ test("the length guide gives her length and the pieces that come in it", async (
 test("a private appointment is sent as a request with the day, time, how many and why", async ({ page }) => {
   const srv = await start(demo);
   await page.goto(srv.base + "/appointments");
-  await expect(page.locator("[data-ap-days] label").first()).toHaveText("Tuesday 20 October");
-  await page.getByLabel("Saturday 24 October").check();
+  await expect(page.locator("[data-ap-days] label").first()).toHaveText("Tue 20 Oct");
+  await page.getByLabel("Sat 24 Oct").check();
   await page.getByLabel("13:00").check();
   await page.getByLabel("How many of you").selectOption("3");
   await page.getByLabel("What it's for").selectOption("Eid");
@@ -101,7 +101,7 @@ test("the family list lives in the link, totals, and goes to the shop as one ord
 
 test("nothing jumps while pages start, with slow fonts and scripts; no page scrolls sideways on a small phone", async ({ browser }) => {
   const srv = await start(demo);
-  for (const [path, width] of /** @type {[string, number][]} */ ([["/appointments", 390], ["/length", 390], ["/", 390], ["/eid", 1024], ["/story", 1024], ["/length", 1024]])) {
+  for (const [path, width] of /** @type {[string, number][]} */ ([["/appointments", 360], ["/appointments", 390], ["/appointments", 412], ["/appointments", 1024], ["/appointments", 1440], ["/length", 390], ["/", 390], ["/", 412], ["/eid", 1024], ["/story", 1024], ["/length", 1024], ["/length", 1440]])) {
     const page = await browser.newPage({ viewport: { width, height: 800 } });
     await page.route("**/*.woff2", async (r) => { await new Promise((x) => setTimeout(x, 600)); await r.continue(); });
     await page.route("**/assets/site-*.js", async (r) => { await new Promise((x) => setTimeout(x, 1500)); await r.continue(); });

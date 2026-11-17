@@ -21,7 +21,7 @@ export function init(root, ctx) {
     label.append(input, text);
     return label;
   };
-  days.replaceChildren(...dates.map((d, i) => opt("day", d.date, d.words.replace(/ \d{4}$/, ""), i === 0)));
+  days.replaceChildren(...dates.map((d, i) => opt("day", d.date, d.short, i === 0)));
   const showTimes = () => {
     const d = dates.find((x) => x.date === new FormData(form).get("day")) ?? dates[0];
     const was = new FormData(form).get("time");

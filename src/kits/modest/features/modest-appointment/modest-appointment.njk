@@ -10,7 +10,7 @@
 <section class="md-ap" data-feature="modest-appointment" aria-label="Request an appointment"><div class="wrap">
   <form class="md-ap-f" data-ap-form>
     <fieldset class="md-ap-days"><legend>Day</legend><div class="md-ap-opts" data-ap-days>
-      {%- for d in dates %}<label><input type="radio" name="day" value="{{ d.date }}"{% if loop.first %} checked{% endif %}>{{ d.words | replace(r/ \d{4}$/, "") }}</label>{% endfor %}
+      {%- for d in dates %}<label><input type="radio" name="day" value="{{ d.date }}"{% if loop.first %} checked{% endif %}>{{ d.short }}</label>{% endfor %}
     </div></fieldset>
     <fieldset class="md-ap-times"><legend>Time</legend><div class="md-ap-opts" data-ap-times>
       {%- for t in (d0.times if d0 else []) %}<label><input type="radio" name="time" value="{{ t }}"{% if loop.first %} checked{% endif %}>{{ t }}</label>{% endfor %}

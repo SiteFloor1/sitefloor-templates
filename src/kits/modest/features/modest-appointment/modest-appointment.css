@@ -1,9 +1,11 @@
 /* Private appointments: days and times as quiet choices, then the two questions and one button. */
 .md-ap-f { max-width: 760px; }
-.md-ap fieldset { border: 0; margin: 0 0 28px; padding: 0; }
+.md-ap fieldset { border: 0; margin: 0 0 28px; padding: 0; min-inline-size: 0; }
 .md-ap legend { padding: 0; margin-bottom: 10px; font-family: var(--font-display); font-size: 22px; }
-.md-ap-opts { display: flex; flex-wrap: wrap; gap: 8px; }
-.md-ap-opts label { position: relative; display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border: 1px solid var(--line); cursor: pointer; font-variant-numeric: tabular-nums; }
+/* Choices sit in fixed-width columns, so redrawing them for the real day never changes how they wrap. */
+.md-ap-opts { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 8px; max-width: 760px; }
+.md-ap-times .md-ap-opts { grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); }
+.md-ap-opts label { position: relative; display: flex; align-items: center; justify-content: center; white-space: nowrap; min-height: 44px; padding: 0 14px; border: 1px solid var(--line); cursor: pointer; font-variant-numeric: tabular-nums; }
 .md-ap-opts input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
 .md-ap-opts label:has(input:checked) { border-color: var(--text); box-shadow: inset 0 -2px 0 var(--accent); }
 .md-ap-opts label:has(input:focus-visible) { outline: 2px solid var(--text); outline-offset: 2px; }

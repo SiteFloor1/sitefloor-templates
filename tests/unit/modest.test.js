@@ -100,8 +100,10 @@ test("appointments: the standing times from tomorrow, closed days left out", () 
   const d = appointmentDates(weekly, "2026-11-20", 9, ["2026-11-22"]); // Friday; Sunday 22 closed
   assert.deepEqual(d.map((x) => x.date), ["2026-11-21", "2026-11-28", "2026-11-29"]);
   assert.equal(d[0].words, "Saturday 21 November 2026");
+  assert.equal(d[0].short, "Sat 21 Nov");
+  assert.equal(appointmentDates({ sat: ["10:00"], sun: ["12:00"] }, "2026-11-20", 60).length, 8, "at most eight, so build and browser draw the same number");
   assert.deepEqual(d[0].times, ["10:30", "13:00"]);
-  assert.deepEqual(appointmentDates(weekly, "2026-11-21", 1), [{ date: "2026-11-22", words: "Sunday 22 November 2026", times: ["12:30"] }], "never today");
+  assert.deepEqual(appointmentDates(weekly, "2026-11-21", 1), [{ date: "2026-11-22", words: "Sunday 22 November 2026", short: "Sun 22 Nov", times: ["12:30"] }], "never today");
 });
 
 test("words: one day, and the appointment request", () => {
