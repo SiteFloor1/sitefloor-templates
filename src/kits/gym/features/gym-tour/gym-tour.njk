@@ -1,0 +1,23 @@
+{#- The club, room by room (GYM-6): the rooms listed and numbered on the left, the chosen room's photograph large on the
+    right with what's in it and its facts. The build writes every room; the script turns the list into tabs (arrow keys
+    move between them). Without JavaScript the list links down to each room, shown in turn. -#}
+{%- set t = site.tour %}
+<section class="gtu" data-feature="gym-tour" aria-label="The rooms"><div class="wrap gtu-in">
+  <div class="gtu-idx" role="tablist" aria-label="Rooms">
+    {%- for r in t.rooms %}
+    <a href="#gtu-p-{{ r.id }}" role="tab" id="gtu-t-{{ r.id }}" aria-controls="gtu-p-{{ r.id }}" aria-selected="{{ 'true' if loop.first else 'false' }}" tabindex="{{ '0' if loop.first else '-1' }}"><span class="gtu-no">{{ "0" + loop.index if loop.index < 10 else loop.index }}</span>{{ r.name }}</a>
+    {%- endfor %}
+  </div>
+  <div class="gtu-rooms">
+    {%- for r in t.rooms %}
+    <article class="gtu-r" id="gtu-p-{{ r.id }}" role="tabpanel" aria-labelledby="gtu-t-{{ r.id }}" tabindex="0"{% if not loop.first %} data-later{% endif %}>
+      <figure class="gtu-f"><img src="{{ r.photo.src | img }}" alt="{{ r.photo.alt }}" width="{{ r.photo.width }}" height="{{ r.photo.height }}"{% if loop.first %} fetchpriority="high"{% else %} loading="lazy"{% endif %} decoding="async"></figure>
+      <div class="gtu-w">
+        <h2><span class="gtu-no" aria-hidden="true">{{ "0" + loop.index if loop.index < 10 else loop.index }}</span>{{ r.name }}</h2>
+        <p class="gtu-text">{{ r.text }}</p>
+        <ul class="gtu-facts">{% for x in r.facts %}<li>{{ x }}</li>{% endfor %}</ul>
+      </div>
+    </article>
+    {%- endfor %}
+  </div>
+</div></section>

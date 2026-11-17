@@ -1,0 +1,7 @@
+{#- One journal piece: title, date and reading time, the photograph, then the text in one measured column. -#}
+<article class="gja" data-feature="gym-journal"><div class="wrap">
+  <nav class="gja-back" aria-label="Breadcrumb"><a class="go" href="{{ 'journal' | href }}">{{ site.journal.title | plain }}</a></nav>
+  <header class="gja-h"><h1>{{ x.title }}</h1><p class="gja-i">{{ x.intro }}</p><p class="gja-m"><time datetime="{{ x.date }}">{{ x.date | ukDay }}</time> · {{ x.minutes }} minutes</p></header>
+  {%- if x.photo %}<figure class="gja-f"><img src="{{ x.photo.src | img }}" alt="{{ x.photo.alt }}" width="{{ x.photo.width }}" height="{{ x.photo.height }}" fetchpriority="high" decoding="async"></figure>{% endif %}
+  <div class="gja-body">{% for p in x.body %}<p>{{ p }}</p>{% endfor %}</div>
+</div></article>
