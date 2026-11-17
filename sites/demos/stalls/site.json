@@ -1,0 +1,524 @@
+{
+  "schemaVersion": 4,
+  "id": "stalls",
+  "mode": "demo",
+  "plan": "signature",
+  "kit": "stalls",
+  "look": "spun",
+  "url": "https://stalls.demo.sitefloor.com",
+  "indexable": false,
+  "lang": "en-GB",
+  "business": {
+    "name": "Fendle",
+    "schemaType": "LocalBusiness",
+    "description": "Bubble waffles, candy floss and poured hot chocolate, made at the stall at markets across east London. Parties and office days too.",
+    "priceRange": "£",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "447700900612",
+    "phone": "+44 7700 900612",
+    "email": "hello@fendle.example"
+  },
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "location": {
+    "streetAddress": "The Saturday street market, pitch 14",
+    "locality": "Hackney",
+    "postcode": "E8 4QJ",
+    "country": "GB",
+    "area": "Our Saturday pitch. The rest of the week we move: this week's stops are at the top of the page.",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=Saturday%20street%20market%20Hackney%20E8"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [],
+      "tue": [],
+      "wed": [
+        [
+          "12:00",
+          "15:00"
+        ]
+      ],
+      "thu": [],
+      "fri": [
+        [
+          "17:00",
+          "22:00"
+        ]
+      ],
+      "sat": [
+        [
+          "11:00",
+          "18:00"
+        ]
+      ],
+      "sun": [
+        [
+          "11:00",
+          "17:00"
+        ]
+      ]
+    },
+    "exceptions": [
+      {
+        "date": "2026-12-25",
+        "ranges": [],
+        "note": "No markets on Christmas Day"
+      }
+    ]
+  },
+  "nav": [
+    {
+      "label": "Menu",
+      "page": "menu",
+      "feature": "stalls-menu-page",
+      "fallback": "#menu"
+    },
+    {
+      "label": "Find us",
+      "page": "find-us",
+      "feature": "stalls-find",
+      "fallback": "#where"
+    },
+    {
+      "label": "Parties",
+      "page": "parties",
+      "feature": "stalls-parties"
+    },
+    {
+      "label": "Book us",
+      "page": "book-us",
+      "feature": "stalls-book"
+    },
+    {
+      "label": "Allergens",
+      "page": "allergens",
+      "feature": "stalls-allergens"
+    },
+    {
+      "label": "Office days",
+      "page": "office-days",
+      "feature": "custom-pages"
+    }
+  ],
+  "features": [
+    "stalls-where",
+    "stalls-menu",
+    "stalls-menu-page",
+    "stalls-find",
+    "stalls-posts",
+    "stalls-book",
+    "stalls-parties",
+    "stalls-allergens",
+    "stalls-rain",
+    "stalls-next",
+    "stalls-sold-out",
+    "stalls-board",
+    "stalls-setup",
+    "stalls-drop",
+    "custom-pages",
+    "gallery",
+    "questions",
+    "visit"
+  ],
+  "hero": {
+    "title": "Off the *iron.*",
+    "intro": "Bubble waffles, candy floss and hot chocolate, made in front of you.",
+    "photo": {
+      "src": "img/hero.webp",
+      "width": 1600,
+      "height": 1152,
+      "alt": "A gloved hand lifting a golden bubble waffle out of the hot iron at the stall",
+      "focus": "62% 45%",
+      "small": {
+        "src": "img/hero-small.webp",
+        "width": 800
+      }
+    },
+    "kicker": "Bubble waffles, east London"
+  },
+  "sections": {
+    "where": {
+      "title": "This week"
+    },
+    "menu": {
+      "title": "Today's board"
+    },
+    "drop": {
+      "title": "The next drop"
+    },
+    "posts": {
+      "title": "On TikTok"
+    },
+    "party": {
+      "title": "Book us for your party",
+      "intro": "Birthdays, school fairs, office days. We bring the stall."
+    },
+    "setup": {
+      "title": "What we need on the day",
+      "intro": "For your venue or organiser. Copy it or send it on."
+    },
+    "questions": {
+      "title": "Before you come"
+    },
+    "visit": {
+      "title": "Our Saturday pitch"
+    },
+    "gallery": {
+      "title": "On Instagram"
+    }
+  },
+  "messages": {
+    "general": "Hello Fendle, I have a question."
+  },
+  "stops": {
+    "source": "simulated",
+    "fallback": "This week's stops go up on our Instagram every Monday.",
+    "places": [
+      {
+        "id": "shoreditch",
+        "name": "Shoreditch",
+        "market": "Lunch market",
+        "postcode": "E1",
+        "lat": 51.523,
+        "lon": -0.073,
+        "usual": "Wednesdays, 12:00 till 15:00"
+      },
+      {
+        "id": "peckham",
+        "name": "Peckham",
+        "market": "Night market",
+        "postcode": "SE15",
+        "lat": 51.47,
+        "lon": -0.069,
+        "usual": "Fridays, 17:00 till 22:00"
+      },
+      {
+        "id": "hackney",
+        "name": "Hackney",
+        "market": "Street market",
+        "postcode": "E8",
+        "lat": 51.543,
+        "lon": -0.061,
+        "usual": "Saturdays, 11:00 till 18:00"
+      },
+      {
+        "id": "walthamstow",
+        "name": "Walthamstow",
+        "market": "Village market",
+        "postcode": "E17",
+        "lat": 51.583,
+        "lon": -0.02,
+        "usual": "Sundays, 11:00 till 17:00"
+      }
+    ],
+    "usual": [
+      {
+        "day": "wed",
+        "place": "shoreditch",
+        "open": "12:00",
+        "close": "15:00"
+      },
+      {
+        "day": "fri",
+        "place": "peckham",
+        "open": "17:00",
+        "close": "22:00"
+      },
+      {
+        "day": "sat",
+        "place": "hackney",
+        "open": "11:00",
+        "close": "18:00"
+      },
+      {
+        "day": "sun",
+        "place": "walthamstow",
+        "open": "11:00",
+        "close": "17:00"
+      }
+    ]
+  },
+  "menu": {
+    "items": [
+      {
+        "id": "waffle",
+        "name": "Bubble waffle",
+        "line": "Warm, plain, crisp at the edges",
+        "price": 6,
+        "allergens": "G E M",
+        "photo": {
+          "src": "img/iron.webp",
+          "width": 900,
+          "height": 900,
+          "alt": "A bubble waffle in the iron, golden and crisp"
+        }
+      },
+      {
+        "id": "biscoff",
+        "name": "Biscoff crunch",
+        "line": "Waffle, soft serve, Biscoff sauce",
+        "price": 7.5,
+        "allergens": "G E M S"
+      },
+      {
+        "id": "hazelnut",
+        "name": "Hazelnut and strawberry",
+        "line": "Waffle, hazelnut spread, strawberries",
+        "price": 7.5,
+        "allergens": "G E M N S"
+      },
+      {
+        "id": "floss",
+        "name": "Raspberry candy floss",
+        "line": "Spun while you wait",
+        "price": 4,
+        "allergens": "",
+        "vegan": true,
+        "photo": {
+          "src": "img/floss.webp",
+          "width": 900,
+          "height": 900,
+          "alt": "Raspberry candy floss on a stick against the sky"
+        }
+      },
+      {
+        "id": "chocolate",
+        "name": "Poured hot chocolate",
+        "line": "Over vanilla soft serve",
+        "price": 4.5,
+        "allergens": "M S",
+        "photo": {
+          "src": "img/tt-pour.webp",
+          "width": 540,
+          "height": 641,
+          "alt": "Hot chocolate poured over soft serve in a striped cup"
+        }
+      }
+    ],
+    "note": "Sample menu, prices and allergens for this demo. A stall's own come from its own chart.",
+    "photo": {
+      "src": "img/floss.webp",
+      "width": 900,
+      "height": 900,
+      "alt": "Raspberry candy floss held up against the sky"
+    }
+  },
+  "menuPage": {
+    "title": "The menu",
+    "intro": "Everything made at the stall. Allergens by each item; the full chart is on the allergens page.",
+    "packages": [
+      {
+        "name": "Party for 30",
+        "line": "Two hours of waffles and floss, made fresh, with our own gazebo.",
+        "price": 280,
+        "from": true
+      },
+      {
+        "name": "Office afternoon",
+        "line": "Three hours, up to 80 people, branded napkins if you send the artwork.",
+        "price": 450,
+        "from": true
+      }
+    ]
+  },
+  "findPage": {
+    "title": "Where to find us",
+    "intro": "Four markets a week, and the odd pop-up. This week first."
+  },
+  "posts": {
+    "tiktok": [
+      {
+        "line": "The pour, slowed down",
+        "cover": {
+          "src": "img/tt-pour.webp",
+          "width": 540,
+          "height": 641,
+          "alt": "Hot chocolate running down a striped cup"
+        }
+      },
+      {
+        "line": "Raspberry floss, start to finish",
+        "cover": {
+          "src": "img/tt-floss.webp",
+          "width": 540,
+          "height": 960,
+          "alt": "Pink candy floss held up on a stick"
+        }
+      },
+      {
+        "line": "Saturday, 4pm, still going",
+        "cover": {
+          "src": "img/tt-cone.webp",
+          "width": 540,
+          "height": 960,
+          "alt": "Two scoops of soft serve held up at the market"
+        }
+      }
+    ]
+  },
+  "party": {
+    "source": "simulated",
+    "message": "Hello Fendle, could you come to our party?",
+    "kinds": [
+      "Birthday",
+      "School or summer fair",
+      "Office day",
+      "Wedding or evening do",
+      "Something else"
+    ],
+    "lead": "Tell us roughly; we'll reply with the price and what we need."
+  },
+  "bookPage": {
+    "title": "Book us",
+    "intro": "Check the day, tell us about it, and we'll reply on WhatsApp."
+  },
+  "partiesPage": {
+    "title": "Parties and private hire",
+    "intro": "The whole stall, at yours.",
+    "photo": {
+      "src": "img/market.webp",
+      "width": 1400,
+      "height": 933,
+      "alt": "A queue at a street-food stall under festoon lights at night",
+      "focus": "45% 50%"
+    },
+    "blocks": [
+      {
+        "title": "What we bring",
+        "text": "The waffle irons, the floss machine, our own gazebo and lights, two of us to make and serve."
+      },
+      {
+        "title": "How many",
+        "text": "Around 60 waffles an hour, and floss as fast as people queue."
+      },
+      {
+        "title": "Where",
+        "text": "Anywhere inside the M25. Further, we'll quote the travel."
+      }
+    ]
+  },
+  "allergensPage": {
+    "title": "Allergens and food hygiene",
+    "intro": "What's in everything we make, and how we keep it apart. The chart and rating here are samples for this demo.",
+    "crossContact": "Every waffle is made on the same irons and topped at one counter, so traces of nuts, soya and milk are possible in all of them. Candy floss is spun on its own machine.",
+    "hygiene": {
+      "rating": 5,
+      "url": "https://ratings.food.gov.uk/",
+      "checked": "2026-11"
+    }
+  },
+  "soldOut": {
+    "source": "simulated"
+  },
+  "rain": {
+    "source": "simulated"
+  },
+  "setup": {
+    "rows": [
+      {
+        "label": "Pitch",
+        "value": "3 m × 3 m, on level ground"
+      },
+      {
+        "label": "Power",
+        "value": "One 13 A socket within 25 m, or we bring a quiet generator"
+      },
+      {
+        "label": "Cover",
+        "value": "Our own gazebo; indoors needs a ceiling over 2.5 m"
+      },
+      {
+        "label": "Arrive",
+        "value": "One hour before serving; packed away in 40 minutes"
+      },
+      {
+        "label": "Paperwork",
+        "value": "Food hygiene rating and public liability certificate, sent on request"
+      }
+    ]
+  },
+  "drop": {
+    "title": "Pistachio and rose",
+    "at": "2026-11-28",
+    "line": "One Saturday only, at Hackney, until it runs out.",
+    "message": "Hello Fendle, add me to the drop list please."
+  },
+  "pages": [
+    {
+      "slug": "office-days",
+      "title": "Office days",
+      "description": "Fendle's bubble waffles and candy floss at your office or brand day.",
+      "intro": "A queue at the stall beats an all-hands.",
+      "blocks": [
+        {
+          "type": "text",
+          "heading": "How it works",
+          "body": "We set up in a courtyard, a reception or a car park and serve for two or three hours. Your team pays nothing at the stall: you pay one invoice.\n\nSend your logo and we'll print it on the napkins."
+        },
+        {
+          "type": "book",
+          "text": "Tell us the day and roughly how many.",
+          "label": "Ask about a date"
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "topic": "Finding us",
+      "q": "Where are you today?",
+      "a": "This week's stops are at the top of the page, from our own sheet. Anything last-minute goes on Instagram.",
+      "home": true
+    },
+    {
+      "topic": "Finding us",
+      "q": "What if it rains?",
+      "a": "We have a gazebo and usually stay. If a market is cancelled, the stop says so here.",
+      "home": true
+    },
+    {
+      "topic": "The food",
+      "q": "Do you take card?",
+      "a": "Yes, card and phone. Cash too.",
+      "home": true
+    },
+    {
+      "topic": "The food",
+      "q": "Is anything vegan?",
+      "a": "The candy floss. The waffles have egg and milk.",
+      "home": true
+    },
+    {
+      "topic": "Parties",
+      "q": "How far ahead should we book a party?",
+      "a": "Summer Saturdays go a couple of months ahead; weekdays are easier. Check the day on Book us."
+    }
+  ],
+  "gallery": {
+    "source": "photos",
+    "photos": [
+      {
+        "src": "img/floss.webp",
+        "alt": "Raspberry candy floss against the sky",
+        "width": 900,
+        "height": 900
+      },
+      {
+        "src": "img/market.webp",
+        "alt": "A queue under festoon lights at the night market",
+        "width": 1400,
+        "height": 933
+      },
+      {
+        "src": "img/iron.webp",
+        "alt": "A bubble waffle in the iron",
+        "width": 900,
+        "height": 900
+      }
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: corporate
+permalink: corporate.html
+feature: gym-corporate
+eleventyComputed:
+  title: "{{ site.corporate.title | plain }}"
+  description: "Corporate membership rates at {{ site.business.name }}, {{ site.location.locality }}."
+---
+{%- set ph = { title: site.corporate.title, intro: site.corporate.intro } %}{% include "kits/gym/partials/page-head.njk" %}
+{% include "kits/gym/features/gym-corporate/gym-corporate.njk" %}

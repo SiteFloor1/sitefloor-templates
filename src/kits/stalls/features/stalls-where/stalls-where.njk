@@ -1,0 +1,33 @@
+{#- Where to find us this week. `whereFull` (the Where to find us page) lists every stop with its hours and links; the
+    home row is a line of tickets. First painted from the usual week on the build day, marked "usually"; the script
+    replaces it with the stall's sheet (or the demo's simulation) for the real day. -#}
+{%- set S = site.stops %}
+{%- set tz = site.hours.timezone %}
+{%- set week = S | usualWeek(tz, 8 if whereFull else 6) %}
+{%- set sec = site.sections.where %}
+<section id="where" class="st-where{% if whereFull %} st-where-full{% endif %}" data-feature="stalls-where" data-where-mode="{{ 'full' if whereFull else 'row' }}" aria-labelledby="st-where-h"{{ "stalls-where" | tierAttr | safe }}>
+  <div class="wrap">
+    {%- set secId = "st-where-h" %}{% if not whereHeadless %}{% include "core/partials/section-head.njk" %}{% else %}<h2 class="sr-only" id="st-where-h">{{ sec.title | plain }}</h2>{% endif %}
+    <p class="st-where-state" data-where-state aria-live="polite">Usually, week by week. Checking this week…</p>
+    <ol class="st-stops" data-where-list>
+      {%- for s in week %}{% set p = S | stallPlace(s.place) %}
+      <li class="st-stop" data-i="{{ loop.index0 }}">
+        <button type="button" class="st-ticket" data-where-pick="{{ loop.index0 }}" aria-pressed="{{ 'true' if loop.first else 'false' }}">
+          <b>{{ s.date | shortDay }} · {{ p.name }}</b><span>{{ s.open }}–{{ s.close }}</span>
+        </button>
+        {%- if whereFull %}
+        <div class="st-stop-more">
+          <p>{{ s.date | longDay }}{% if p.market %}, {{ p.market }}{% endif %}, {{ p.postcode }}</p>
+          <a href="{{ p | mapsHref }}" target="_blank" rel="noopener">Directions</a>
+        </div>
+        {%- endif %}
+      </li>
+      {%- endfor %}
+    </ol>
+    {%- if not ("stalls-next" | enabled) or whereFull %}
+    <div class="st-where-detail" data-where-detail aria-live="polite"></div>
+    {%- endif %}
+    {%- if "stalls-rain" | enabled and (whereFull or not ("stalls-next" | enabled)) %}<p class="st-rain" data-feature="stalls-rain" aria-live="polite" hidden{{ "stalls-rain" | tierAttr | safe }}></p>{% endif %}
+    <p class="st-where-fallback" data-where-fallback hidden>{{ S.fallback }}</p>
+  </div>
+</section>

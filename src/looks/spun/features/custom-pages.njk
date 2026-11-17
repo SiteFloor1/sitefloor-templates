@@ -1,0 +1,16 @@
+{#- Spun general page: the page head, then one reading column; the booking line as a raspberry button. -#}
+{%- set ph = { title: cp.title, intro: cp.intro } %}
+{% include "kits/stalls/partials/page-head.njk" %}
+<div class="sp-cp" data-feature="custom-pages"><div class="wrap"><div class="sp-cp-in">
+  {%- for b in cp.blocks %}
+  {%- if b.type == "text" %}
+  <section class="sp-cp-text">{% if b.heading %}<h2>{{ b.heading }}</h2>{% endif %}{% for para in b.body | paragraphs %}<p>{{ para }}</p>{% endfor %}</section>
+  {%- elif b.type == "photo" %}
+  <figure class="sp-cp-photo"><img src="{{ b.src | img }}" alt="{{ b.alt }}" loading="lazy" decoding="async">{% if b.caption %}<figcaption>{{ b.caption }}</figcaption>{% endif %}</figure>
+  {%- elif b.type == "list" %}
+  <section class="sp-cp-list">{% if b.heading %}<h2>{{ b.heading }}</h2>{% endif %}<ul>{% for item in b.items %}<li>{{ item }}</li>{% endfor %}</ul></section>
+  {%- elif b.type == "book" %}
+  <p class="sp-cp-book"><span>{{ b.text }}</span> <a class="st-solid" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{{ b.label or build.booking.label }}</a></p>
+  {%- endif %}
+  {%- endfor %}
+</div></div></div>

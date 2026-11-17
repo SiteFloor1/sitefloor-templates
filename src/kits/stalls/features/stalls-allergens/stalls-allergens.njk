@@ -1,0 +1,26 @@
+{#- Allergens and food hygiene (the page): the chart for every item, the stall's own words on cross-contact, and its
+    food hygiene rating, linked to its listing on the Food Standards Agency's site with the month it was checked. -#}
+{%- set A = site.allergensPage %}{% set M = site.menu %}
+<section class="st-allergens" aria-labelledby="st-al-h">
+  <div class="wrap">
+    <h2 id="st-al-h" class="st-h2">What's in it</h2>
+    <div class="st-chart-wrap" tabindex="0" role="region" aria-label="Allergen chart, scrolls sideways">
+      <table class="st-chart">
+        <thead><tr><th scope="col">Item</th>{% for c, w in stallsAllergens %}<th scope="col"><abbr title="{{ w }}">{{ c }}</abbr></th>{% endfor %}</tr></thead>
+        <tbody>
+          {%- for i in M.items %}{% set codes = i.allergens.split(" ") %}
+          <tr><th scope="row">{{ i.name }}{% if i.vegan %} <abbr class="st-vegan" title="Vegan">VE</abbr>{% endif %}</th>{% for c, w in stallsAllergens %}<td>{% if c in codes %}<span aria-hidden="true">●</span><span class="sr-only">Contains {{ w | lower }}</span>{% endif %}</td>{% endfor %}</tr>
+          {%- endfor %}
+        </tbody>
+      </table>
+    </div>
+    <p class="st-fine">{% for c, w in stallsAllergens %}{{ c }} {{ w | lower }}{% if not loop.last %} · {% endif %}{% endfor %}</p>
+    <div class="st-al-cols">
+      <div><h2 class="st-h3">Cross-contact</h2><p>{{ A.crossContact }}</p></div>
+      <div><h2 class="st-h3">Food hygiene rating</h2>
+        <p class="st-rating">{% if A.hygiene.rating == "awaiting" %}Awaiting inspection{% elif A.hygiene.rating == "pass" %}Pass{% elif A.hygiene.rating == "improvement required" %}Improvement Required{% else %}{{ A.hygiene.rating }} out of 5{% endif %}</p>
+        <p><a class="st-text" href="{{ A.hygiene.url }}" target="_blank" rel="noopener">Our listing on the Food Standards Agency's site</a></p>
+        <p class="st-fine">Checked {{ A.hygiene.checked | monthYear }}.</p></div>
+    </div>
+  </div>
+</section>

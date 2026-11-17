@@ -64,6 +64,10 @@ test("a private appointment is sent as a request with the day, time, how many an
   await page.getByLabel("What it's for").selectOption("Eid");
   expect(await waText(page.locator("[data-ap-send]"))).toBe("Hello Taroub, I'd like to request a private appointment on Saturday 24 October 2026 at 13:00, for 3 people. It's for: Eid.");
   await expect(page.locator(".md-ap-note")).toContainText("This is a request: we confirm by message.");
+  // a day without the chosen time falls back to its own first time, never to none
+  await page.getByLabel("Sun 25 Oct").check();
+  await expect(page.locator("[data-ap-times] input:checked")).toHaveValue("12:30");
+  await expect(page.locator("[data-ap-sum]")).toHaveText("Sunday 25 October 2026 at 12:30, for 3.");
   await srv.close();
 });
 

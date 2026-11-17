@@ -1,0 +1,12 @@
+{#- How busy it is (GYM-3): one number and its line. As built it names its own day and hour ("usually in the club on a
+    Monday at 6pm"), so it is true without the script; the script redraws it for the visitor's hour, and with the live
+    count (Signature) shows the door count while it is fresh. The look places the number and the lines. -#}
+{%- set c = site.busy | buildCount(build.today) %}
+<div class="gc" data-feature="gym-count">
+  <p class="gc-n" data-gc-n aria-hidden="true">{{ c.n }}</p>
+  <div class="gc-lines" aria-live="polite">
+    <p class="gc-line"><span class="sr-only" data-gc-sr>{{ c.n }} </span><span data-gc-line>{{ c.line }}</span></p>
+    <p class="gc-say" data-gc-say>{{ c.say }}</p>
+  </div>
+  {%- if "gym-live" | enabled %}<span data-feature="gym-live" hidden></span>{% endif %}
+</div>
