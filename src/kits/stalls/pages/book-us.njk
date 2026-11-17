@@ -1,0 +1,13 @@
+---
+layout: core/layouts/base.njk
+pageId: book-us
+permalink: book-us.html
+feature: stalls-book
+eleventyComputed:
+  title: "{{ site.bookPage.title | plain }}"
+  description: "Book {{ site.business.name }} for your party: check the day and send the details on WhatsApp."
+---
+{%- set ph = { title: site.bookPage.title, intro: site.bookPage.intro } %}
+{% include "kits/stalls/partials/page-head.njk" %}
+{% include "kits/stalls/features/stalls-book/stalls-book.njk" %}
+{%- if "stalls-setup" | enabled %}{% include "kits/stalls/features/stalls-setup/stalls-setup.njk" %}{% endif %}

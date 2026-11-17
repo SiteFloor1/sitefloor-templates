@@ -1,0 +1,8 @@
+{#- Spun questions: each question heavy and short, the answer beneath; two to a row on a wide screen. -#}
+{%- set sec = site.sections.questions %}
+{%- set qs = site | homeQuestions %}
+<section id="questions" class="sp-qa" data-feature="questions" aria-labelledby="sp-qa-h"{{ "questions" | tierAttr | safe }}><div class="wrap">
+  {%- set secId = "sp-qa-h" %}{% include "core/partials/section-head.njk" %}
+  <dl class="sp-qa-list">{% for item in qs %}<div><dt>{{ item.q }}</dt><dd>{{ item.a }}</dd></div>{% endfor %}</dl>
+  <p class="st-acts"><a class="st-text" href="{{ site.messages.general | wa }}" data-wa-text="{{ site.messages.general }}" target="_blank" rel="noopener">Ask us anything else</a></p>
+</div></section>

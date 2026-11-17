@@ -1,0 +1,23 @@
+/* Where to find us: a line of tickets; the look places and sizes it. Tokens only. */
+.st-stops { list-style: none; margin: 0; padding: 0; display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; }
+.st-stops::-webkit-scrollbar { display: none; }
+.st-ticket { min-width: 150px; min-height: 64px; text-align: left; padding: 10px 15px; border: 1.5px solid var(--text); background: var(--bg); color: var(--text); font: inherit; cursor: pointer; transition: background .5s, color .5s; }
+.st-ticket b { display: block; font-family: var(--font-display); font-weight: 700; font-size: 20px; line-height: 1.1; letter-spacing: -.015em; }
+.st-ticket span { font-size: 15px; color: var(--muted); }
+.st-ticket i { display: block; font-style: normal; font-family: var(--font-display); font-weight: 700; font-size: 13px; color: var(--accent); margin-top: 4px; }
+.st-ticket[aria-pressed="true"] { background: var(--text); color: var(--bg); }
+.st-ticket[aria-pressed="true"] span { color: color-mix(in srgb, var(--bg) 78%, var(--text)); }
+.st-ticket[aria-pressed="true"] i { color: color-mix(in srgb, var(--accent) 55%, var(--bg)); }
+.st-stop.off .st-ticket { border-color: var(--line); color: var(--muted); }
+.st-where-state { font-size: 15px; color: var(--muted); margin: 0 0 12px; }
+.st-where-fallback { margin: 14px 0 0; font-size: 17px; }
+.st-where-detail { margin-top: 18px; }
+.st-wd-h { margin: 0; }
+.st-wd-h b { font-family: var(--font-display); font-weight: 700; font-size: 24px; }
+.st-wd-acts { display: flex; gap: 22px; margin: 10px 0 0; }
+.st-wd-acts a, .st-stop-more a { font-family: var(--font-display); font-weight: 700; font-size: 16px; color: var(--text); text-decoration: none; border-bottom: 2px solid currentColor; padding-bottom: 2px; }
+.st-where-full .st-stops { flex-direction: column; overflow: visible; }
+.st-where-full .st-stop { display: grid; grid-template-columns: minmax(180px, 260px) 1fr; gap: 18px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.st-stop-more p { margin: 0 0 6px; }
+@media (max-width: 640px) { .st-where-full .st-stop { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .st-ticket { transition: none; } }

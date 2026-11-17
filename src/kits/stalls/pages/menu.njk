@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: menu
+permalink: menu.html
+feature: stalls-menu-page
+eleventyComputed:
+  title: "{{ site.menuPage.title | plain }}"
+  description: "The menu, prices and allergens at {{ site.business.name }}, and our party packages."
+---
+{%- set ph = { title: site.menuPage.title, intro: site.menuPage.intro } %}
+{% include "kits/stalls/partials/page-head.njk" %}
+{% include "kits/stalls/features/stalls-menu-page/stalls-menu-page.njk" %}

@@ -1,0 +1,13 @@
+---
+layout: core/layouts/base.njk
+pageId: parties
+permalink: parties.html
+feature: stalls-parties
+eleventyComputed:
+  title: "{{ site.partiesPage.title | plain }}"
+  description: "{{ site.business.name }} at birthdays, school fairs and office days: what we bring and how to book."
+---
+{%- set ph = { title: site.partiesPage.title, intro: site.partiesPage.intro } %}
+{% include "kits/stalls/partials/page-head.njk" %}
+{% include "kits/stalls/features/stalls-parties/stalls-parties.njk" %}
+{%- if "stalls-setup" | enabled %}{% include "kits/stalls/features/stalls-setup/stalls-setup.njk" %}{% endif %}

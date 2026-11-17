@@ -1,0 +1,19 @@
+{#- Spun header: the paper-cone mark and the name, then a few words of navigation, all in the white half (on the home
+    page the photograph takes the other half, from the top), WhatsApp in raspberry; Menu opens every page on a white sheet. -#}
+<header class="nav sp-nav{% if pageId == 'index' %} sp-nav-home{% endif %}"><div class="sp-nav-in">
+  <a class="sp-mark" href="{{ 'index' | href }}" aria-label="{{ site.business.name }}, home">{% if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="{{ site.business.name }}" height="30">{% else %}<svg viewBox="0 0 24 32" aria-hidden="true" width="22" height="30"><path class="sp-cone" d="M12 1 L23 31 L1 31 Z"/><path class="sp-tip" d="M12 1 L17.5 16 L6.5 16 Z"/></svg><span>{{ site.business.name }}</span>{% endif %}</a>
+  <nav class="sp-links" aria-label="Main">
+    {%- for item in site.nav | navItems(pageId) %}{% if loop.index <= 3 %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>{% endif %}{% endfor %}
+  </nav>
+  <a class="sp-wa" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{{ "WhatsApp" if build.booking.whatsapp else build.booking.label }}</a>
+  <button class="burger sp-menu" type="button" aria-expanded="false" aria-controls="mnav"><span class="sp-open">Menu</span><span class="sp-close">Close</span></button>
+</div></header>
+<div class="mnav sp-sheet" id="mnav" hidden><div class="wrap sp-sheet-in">
+  <nav aria-label="Pages">
+    <a href="{{ 'index' | href }}"{% if pageId == "index" %} aria-current="page"{% endif %}>Home</a>
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+  </nav>
+  <p class="sp-sheet-wa"><a href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{{ "WhatsApp us" if build.booking.whatsapp else build.booking.label }}</a></p>
+</div></div>

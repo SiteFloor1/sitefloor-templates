@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: allergens
+permalink: allergens.html
+feature: stalls-allergens
+eleventyComputed:
+  title: "{{ site.allergensPage.title | plain }}"
+  description: "Allergens in everything {{ site.business.name }} makes, and our food hygiene rating."
+---
+{%- set ph = { title: site.allergensPage.title, intro: site.allergensPage.intro } %}
+{% include "kits/stalls/partials/page-head.njk" %}
+{% include "kits/stalls/features/stalls-allergens/stalls-allergens.njk" %}
