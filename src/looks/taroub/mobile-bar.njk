@@ -1,0 +1,18 @@
+{#- Taroub bar: quiet ivory with a hairline above. With complete the look on, it carries the shop's first look and its
+    total ("Your look · The Layl, 58 · Long jersey hijab · £373 · Complete the look") on every screen, and on a phone
+    keeps WhatsApp beside it; the hem line and the look page change the length and total as she chooses. Otherwise,
+    on a phone only: the open status and WhatsApp. -#}
+{%- set bookText = site.messages.general %}
+{%- set lk = site.looks.sets[0] if ("modest-look" | enabled) else null %}
+<div class="mbar tr-bar{% if lk %} tr-bar-has{% endif %}">
+  {%- if lk %}{% set li = lk | lookItems(site.pieces) %}
+  <span class="tr-bar-look"{{ "modest-look" | tierAttr | safe }}>
+    <span class="tr-bar-k">Your look</span>
+    <span class="tr-bar-items" data-look-items>{% for x in li %}{% if not x.optional %}{% if not loop.first %} · {% endif %}{{ x.name }}{% if loop.first %}, <span data-look-length>{{ site.lengths | startLength }}</span>{% endif %}{% endif %}{% endfor %}</span>
+    <span class="tr-bar-tot" data-look-total>{{ li | lookBase | gbp }}</span>
+    <a class="tr-bar-go" href="{{ 'the-look' | href }}">Complete the look</a>
+  </span>
+  {%- endif %}
+  <a class="tr-bar-where" href="{{ ('visit' | href) if ('plan-visit' | enabled) else '#visit' }}" data-live-status><span class="dot" aria-hidden="true"></span> <span data-status-text>Opening hours</span></a>
+  <a class="tr-bar-wa" href="{{ bookText | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ bookText }}"{% endif %} target="_blank" rel="noopener">{{ "WhatsApp" if build.booking.whatsapp else "Book" }}</a>
+</div>

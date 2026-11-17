@@ -1,0 +1,26 @@
+{#- Private appointments (MOD-10): the studio's standing times on the coming dates, how many are coming and what for,
+    sent as a request on WhatsApp; the shop confirms by message. The dates are drawn at build time from the build
+    day, so the form has its final shape on first paint, and the browser redraws them in place for the real day.
+    Without JavaScript the form shows the build day's times and a link to ask. -#}
+{%- set A = site.appointments %}
+{%- set ph = { title: "A private appointment", intro: A.intro } %}
+{%- set dates = A | apDates %}
+{%- set d0 = dates[0] %}
+{% include "kits/modest/partials/page-head.njk" %}
+<section class="md-ap" data-feature="modest-appointment" aria-label="Request an appointment"><div class="wrap">
+  <form class="md-ap-f" data-ap-form>
+    <fieldset class="md-ap-days"><legend>Day</legend><div class="md-ap-opts" data-ap-days>
+      {%- for d in dates %}<label><input type="radio" name="day" value="{{ d.date }}"{% if loop.first %} checked{% endif %}>{{ d.short }}</label>{% endfor %}
+    </div></fieldset>
+    <fieldset class="md-ap-times"><legend>Time</legend><div class="md-ap-opts" data-ap-times>
+      {%- for t in (d0.times if d0 else []) %}<label><input type="radio" name="time" value="{{ t }}"{% if loop.first %} checked{% endif %}>{{ t }}</label>{% endfor %}
+    </div></fieldset>
+    <div class="md-ap-two">
+      <p><label for="ap-n">How many of you</label><select id="ap-n" name="n">{% for i in range(1, (A.most or 4) + 1) %}<option value="{{ i }}">{{ i }}</option>{% endfor %}</select></p>
+      <p><label for="ap-for">What it's for</label><select id="ap-for" name="for">{% for r in A.reasons %}<option>{{ r }}</option>{% endfor %}</select></p>
+    </div>
+    <p class="md-ap-sum" data-ap-sum aria-live="polite">{{ d0 | apSummary }}</p>
+    <a class="btn" data-ap-send href="{{ (d0 | apMessage(site.business.name, A.reasons[0])) | book }}" target="_blank" rel="noopener">Request this time</a>
+    <p class="md-ap-note">{{ A.minutes }} minutes in the studio. This is a request: we confirm by message.</p>
+  </form>
+</div></section>
