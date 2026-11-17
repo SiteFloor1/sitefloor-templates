@@ -59,9 +59,7 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 
 | Trade / design | Branch | Display | Body |
 |---|---|---|---|
-| Wrenna, Curtain-up (A, round 1) | trade/ballet | Nanum Myeongjo | Fustat |
 | Wrenna, The round (B, round 1) | trade/ballet | Hahmlet | Hahmlet |
-| Wrenna, First class (C, round 1) | trade/ballet | Kaisei Opti | Inclusive Sans |
 | Skin, Clémence (round 6) | trade/beauty | Antic Didone | Baskervville |
 | Isolde, the cover (round 4) | trade/bridal-beauty | Libre Bodoni | Faustina |
 | Cleaning, Plan (A) | trade/cleaning | Anek Latin | Anek Latin |
