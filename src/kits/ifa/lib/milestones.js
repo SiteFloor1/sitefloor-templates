@@ -22,7 +22,7 @@ export const SPA_CHECKER = "https://www.gov.uk/state-pension-age";
 export const NMPA_SOURCE = "https://www.gov.uk/government/publications/increasing-normal-minimum-pension-age";
 
 /** @typedef {{ year: number, age: number, what: "pension" | "state", source: string }} Milestone */
-/** @typedef {{ ok: true, items: Milestone[] } | { ok: false, why: "year" | "changeover" | "stale" }} Milestones */
+/** @typedef {{ ok: true, items: Milestone[] } | { ok: false, why: "year" | "early" | "changeover" | "stale" }} Milestones */
 
 /** Whether the rules were checked recently enough to show. @param {number} nowMs */
 export const fresh = (nowMs) => (nowMs - Date.parse(`${CHECKED}T00:00:00Z`)) / 86_400_000 <= MAX_AGE_DAYS;
@@ -33,6 +33,9 @@ export function milestones(yob, nowMs) {
   const thisYear = new Date(nowMs).getUTCFullYear();
   if (!Number.isInteger(yob) || /** @type {number} */ (yob) < 1950 || /** @type {number} */ (yob) > thisYear - 16) return { ok: false, why: "year" };
   const y = /** @type {number} */ (yob);
+  // Before 6 April 2010 the minimum pension age was 50, so for anyone born before 1960 the earliest date was under
+  // older rules: GOV.UK, not us.
+  if (y < 1960) return { ok: false, why: "early" };
   /** @type {Milestone|null} */
   const pension = y >= 1974 ? { year: y + 57, age: 57, what: "pension", source: "Normal minimum pension age, 57 from 6 April 2028" }
     : y <= 1970 ? { year: y + 55, age: 55, what: "pension", source: "Normal minimum pension age" } : null;

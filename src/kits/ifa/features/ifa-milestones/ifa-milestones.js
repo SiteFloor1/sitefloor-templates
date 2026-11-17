@@ -17,10 +17,13 @@ export function init(root) {
   input.addEventListener("input", () => {
     list.replaceChildren();
     note.innerHTML = base;
-    if (input.value.trim().length < 4) return;
+    const v = input.value.trim();
+    if (/\D/.test(v)) { note.insertAdjacentText("afterbegin", "Type your year of birth as four figures, like 1975. "); return; }
+    if (v.length < 4) return;
     const r = milestones(Number(input.value.trim()), Date.now());
     if (!r.ok) {
       if (r.why === "changeover") note.insertAdjacentText("afterbegin", "Your year falls in a change-over, so the date depends on your birthday. ");
+      if (r.why === "early") note.insertAdjacentText("afterbegin", "For years before 1960 the rules were different; GOV.UK has your dates. ");
       if (r.why === "year") note.insertAdjacentText("afterbegin", "Type a year between 1950 and 16 years ago. ");
       return;
     }

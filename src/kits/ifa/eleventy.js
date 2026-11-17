@@ -27,5 +27,7 @@ export default function ifaKit(eleventyConfig) {
   eleventyConfig.addFilter("ukDate", (/** @type {string} */ ymd) => UK.format(new Date(`${ymd}T00:00:00Z`)));
   eleventyConfig.addFilter("newestFirst", (/** @type {any[]} */ items) => [...(items ?? [])].sort((a, b) => (a.date < b.date ? 1 : -1)));
   eleventyConfig.addFilter("topicById", (/** @type {any} */ t, /** @type {string} */ id) => (t?.items ?? []).find((/** @type {any} */ x) => x.id === id));
+  // The service a topic page belongs to, for its "what to bring".
+  eleventyConfig.addFilter("serviceFor", (/** @type {any} */ a, /** @type {string} */ topic) => (a?.items ?? []).find((/** @type {any} */ x) => x.topic === topic));
   eleventyConfig.addFilter("demoTag", (/** @type {string} */ mode) => (mode === "demo" ? " (demo)" : ""));
 }

@@ -294,12 +294,11 @@ function checkHeroLines(site, max, err) {
 /** Menu links to pages must point at a page this site builds. @param {any} site @param {Report} err */
 function checkNavPages(site, err) {
   if (!Array.isArray(site.nav) || !Array.isArray(site.features)) return;
-  const pagesOf = (/** @type {string} */ id) => [getFeature(id)?.page, ...(getFeature(id)?.morePages ?? [])].filter(Boolean);
-  const built = new Set(["index", "privacy", ...site.features.flatMap(pagesOf)]);
+  const built = new Set(["index", "privacy", ...site.features.map((/** @type {string} */ id) => getFeature(id)?.page).filter(Boolean)]);
   if (site.features.includes("custom-pages")) for (const p of site.pages ?? []) built.add(p?.slug);
   site.nav.forEach((/** @type {any} */ n, /** @type {number} */ i) => {
     if (!n?.page) return;
-    const own = pagesOf(n.feature ?? "").includes(n.page) || site.pages?.some((/** @type {any} */ p) => p?.slug === n.page);
+    const own = getFeature(n.feature ?? "")?.page === n.page || site.pages?.some((/** @type {any} */ p) => p?.slug === n.page);
     // A link tied to a feature is hidden (or swapped for its fallback) when that feature is off.
     if (!own && !built.has(n.page)) err(`nav[${i}].page`, `"${n.page}" isn't a page on this site; check the spelling, or add "feature" so it hides when that feature is off`);
   });

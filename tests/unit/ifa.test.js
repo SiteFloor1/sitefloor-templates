@@ -45,6 +45,7 @@ test("pension dates: the two clear groups, change-over years and stale rules fai
   assert.deepEqual(/** @type {any} */ (r).items.map((/** @type {any} */ m) => [m.what, m.age, m.year]), [["pension", 57, 2037], ["state", 68, 2048]]);
   assert.deepEqual(/** @type {any} */ (milestones(1965, NOW)).items.map((/** @type {any} */ m) => m.year), [2020, 2032]);
   for (const y of [1960, 1961, 1972, 1977, 1978]) assert.deepEqual(milestones(y, NOW), { ok: false, why: "changeover" }, String(y));
+  for (const y of [1950, 1955, 1958, 1959]) assert.deepEqual(milestones(y, NOW), { ok: false, why: "early" }, `${y}: the minimum age was 50 until April 2010`);
   assert.deepEqual(milestones(1940, NOW), { ok: false, why: "year" });
   assert.deepEqual(milestones(2020, NOW), { ok: false, why: "year" });
   const late = Date.parse(`${CHECKED}T00:00:00Z`) + 181 * 86_400_000;
@@ -104,3 +105,13 @@ test("home order: only the kit's home parts, each once", () => {
   assert.ok(homeOrderProblem(["ifa-services", "ifa-services"]));
   assert.ok(homeOrderProblem(["gallery"]));
 });
+
+test("menu links: the guides list is a page; a template name is still refused, here and in other kits", () => {
+  assert.equal(errorsFor((s) => { s.nav = [{ label: "Guides", page: "guides", feature: "ifa-guides" }]; }), "");
+  assert.match(errorsFor((s) => { s.nav = [{ label: "A guide", page: "guide", feature: "ifa-guides" }]; }), /nav\[0\]/);
+  const letting = JSON.parse(readFileSync("sites/demos/letting/site.json", "utf8"));
+  for (const n of [{ label: "Areas", page: "area" }, { label: "Article", page: "article", feature: "letting-journal" }]) {
+    assert.match(errorsFor((s) => { s.nav = [...s.nav, n]; }, letting), /nav\[\d+\]/, n.page);
+  }
+});
+

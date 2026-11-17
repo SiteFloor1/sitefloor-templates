@@ -1,7 +1,7 @@
 {#- A subject's page: general information (dated and sourced), whether the FCA regulates this advice, how the firm helps,
     what to bring, the milestones on the pensions page, then the way to a first meeting. -#}
 {%- include "kits/ifa/partials/meet-href.njk" %}
-{%- set svc = (site.advice.items | selectattr("topic", "equalto", t.id) | first) %}
+{%- set svc = site.advice | serviceFor(t.id) %}
 {%- set ph = { title: t.title, intro: t.intro, crumbHref: ('services' | href), crumbLabel: site.sections.services.title } %}
 {% include "kits/ifa/partials/page-head.njk" %}
 {%- if t.photo %}<figure class="wrap if-tp-fig"><img src="{{ t.photo.src | img }}" alt="{{ t.photo.alt }}" width="{{ t.photo.width }}" height="{{ t.photo.height }}" decoding="async"{% if t.photo.position %} style="object-position:{{ t.photo.position }}"{% endif %}>{% if t.photo.credit %}<figcaption>{{ t.photo.credit }}</figcaption>{% endif %}</figure>{% endif %}

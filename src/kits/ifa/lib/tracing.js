@@ -10,7 +10,7 @@ export const CHECKED = "2026-11-16";
 
 /** What to ask each scheme once it's found. */
 export const ASK = [
-  "Do you hold a pension for me? My National Insurance number and dates of employment are below.",
+  "Do you hold a pension for me? I'll give you my National Insurance number and the dates I worked there.",
   "What is it worth today, and what would it be worth if I transferred it?",
   "Is there a guaranteed annuity rate, a protected tax-free cash amount or any other special feature?",
   "Are there exit charges or penalties for moving it?",

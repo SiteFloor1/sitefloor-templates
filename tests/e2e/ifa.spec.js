@@ -58,6 +58,14 @@ test("what to bring sits beside each service", async ({ page }) => {
   await srv.close();
 });
 
+test("a topic page lists what to bring for its own service", async ({ page }) => {
+  const srv = await start(demo);
+  await page.goto(srv.base + "/mortgages");
+  await expect(page.locator(".if-tp-side")).toContainText("payslips");
+  await expect(page.locator(".if-tp-side")).not.toContainText("pension statements");
+  await srv.close();
+});
+
 test("pension dates: a clear year gives two dates; a change-over year sends you to GOV.UK", async ({ page }) => {
   const srv = await start(demo);
   await page.goto(srv.base + "/pensions");
@@ -67,6 +75,11 @@ test("pension dates: a clear year gives two dates; a change-over year sends you 
   await page.fill("[data-ms-yob]", "1972");
   await expect(page.locator(".if-ms-y")).toHaveCount(0);
   await expect(page.locator("[data-ms-note]")).toContainText("change-over");
+  await page.fill("[data-ms-yob]", "1958");
+  await expect(page.locator(".if-ms-y")).toHaveCount(0);
+  await expect(page.locator("[data-ms-note]")).toContainText("before 1960");
+  await page.fill("[data-ms-yob]", "19x");
+  await expect(page.locator("[data-ms-note]")).toContainText("four figures");
   await srv.close();
 });
 
@@ -97,12 +110,16 @@ test("a Plus client: restricted advice said plainly, its own register entry, no 
   await srv.close();
 });
 
-test("on a phone the bar never covers the footer's last line", async ({ page }) => {
+test("on a phone the bar never covers the footer's last line, and the card never covers the photo credit", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   const srv = await start(demo);
   await page.goto(srv.base + "/");
   await page.evaluate(() => window.scrollTo({ top: document.body.scrollHeight, behavior: "instant" }));
   const bar = await page.locator(".st-bar").boundingBox();
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+  const credit = await page.locator(".st-photo figcaption").boundingBox();
+  const card = await page.locator(".st-card").boundingBox();
+  expect(credit && card && credit.y + credit.height <= card.y).toBeTruthy(); // the photo credit isn't under the card
   const by = await page.locator(".st-foot-by").boundingBox();
   expect(bar && by && by.y + by.height <= bar.y + 1).toBeTruthy();
   await srv.close();

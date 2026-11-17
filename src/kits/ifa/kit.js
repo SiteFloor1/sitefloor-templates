@@ -48,7 +48,7 @@ export const features = [
     summary: "IFA-10. Milestones: a year of birth in, the year a pension can usually first be taken and the State Pension age year out, under the law today, sourced to GOV.UK. No money and no growth; change-over years and unchecked rules send people to GOV.UK." },
   { id: "ifa-tracing", dir: `${D}/ifa-tracing`, minPlan: "signature", kits: K, requires: ["tracing"], page: "old-pensions", js: true,
     summary: "IFA-11. Old pensions: list past employers on the phone and get a tracing list to print or copy, with the government's free Pension Tracing Service and what to ask each scheme. Nothing is stored or sent." },
-  { id: "ifa-guides", dir: `${D}/ifa-guides`, minPlan: "signature", kits: K, requires: ["guides"], page: "guide", morePages: ["guides"], collection: true, js: false,
+  { id: "ifa-guides", dir: `${D}/ifa-guides`, minPlan: "signature", kits: K, requires: ["guides"], page: "guides", morePages: ["guide"], js: false,
     summary: "IFA-4. Life-event guides: retiring, inheriting, selling a business, separating, a parent needing care. The steps, what to have ready, dated and sourced, general information (a collection, counted as one page)." },
   { id: "ifa-journal", dir: `${D}/ifa-journal`, minPlan: "signature", kits: K, requires: ["journal"], page: "insights", js: false,
     summary: "The journal: the firm's own articles, newest first, each marked general information and showing who in compliance approved it and when." },
