@@ -1,0 +1,16 @@
+{#- The next stop, in the hero: where and when, a countdown that ticks once a minute, Directions and Add to calendar.
+    First painted from the usual week (marked "usually"); the script takes the sheet's week from stalls-where. -#}
+{%- set S = site.stops %}{% set tz = site.hours.timezone %}
+{%- set n = S | usualNext(tz) %}
+<div class="st-next" data-feature="stalls-next" aria-live="polite"{{ "stalls-next" | tierAttr | safe }}>
+  {%- if n %}{% set p = S | stallPlace(n.place) %}
+  <p class="st-next-where" data-next-where>{{ n.date | longDay }} in {{ p.name }}</p>
+  <p class="st-next-what" data-next-what>Usually {% if p.market %}{{ p.market | lower }}, {% endif %}{{ p.postcode }} · {{ n.open }} till {{ n.close }}, or until we sell out.</p>
+  <p class="st-next-count"><span data-next-count>Opens at <b>{{ n.open }}</b></span>
+    <a data-next-dir href="{{ p | mapsHref }}" target="_blank" rel="noopener"><svg viewBox="0 0 12 16" aria-hidden="true" width="12" height="16"><path d="M6 0a6 6 0 0 0-6 6c0 4.5 6 10 6 10s6-5.5 6-10a6 6 0 0 0-6-6Zm0 8.4A2.4 2.4 0 1 1 6 3.6a2.4 2.4 0 0 1 0 4.8Z" fill="currentColor"/></svg>Directions</a>
+    <a data-next-cal href="#" hidden>Add to calendar</a></p>
+  {%- else %}
+  <p class="st-next-what">{{ S.fallback }}</p>
+  {%- endif %}
+  {%- if "stalls-rain" | enabled %}{% include "kits/stalls/features/stalls-rain/stalls-rain.njk" %}{% endif %}
+</div>

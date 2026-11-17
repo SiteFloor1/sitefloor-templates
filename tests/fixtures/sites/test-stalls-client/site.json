@@ -1,0 +1,381 @@
+{
+  "schemaVersion": 4,
+  "id": "test-stalls-client",
+  "mode": "client",
+  "plan": "signature",
+  "kit": "stalls",
+  "look": "spun",
+  "url": "https://pancake-stall-test.co.uk",
+  "indexable": true,
+  "lang": "en-GB",
+  "business": {
+    "name": "Mochi Hop",
+    "schemaType": "LocalBusiness",
+    "description": "Japanese soufflé pancakes made at the stall, at markets across Leeds. Parties too.",
+    "priceRange": "£",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "441134960118",
+    "phone": "+44 113 496 0118",
+    "email": "hello@mochihop.example"
+  },
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "location": {
+    "streetAddress": "Kirkgate Market, outdoor stall 3",
+    "locality": "Leeds",
+    "postcode": "LS2 7HY",
+    "country": "GB",
+    "area": "Our Saturday pitch. The rest of the week we move: this week's stops are at the top of the page.",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=Kirkgate%20Market%20Leeds"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [],
+      "tue": [],
+      "wed": [],
+      "thu": [],
+      "fri": [
+        [
+          "17:00",
+          "21:00"
+        ]
+      ],
+      "sat": [
+        [
+          "10:00",
+          "16:00"
+        ]
+      ],
+      "sun": []
+    },
+    "exceptions": []
+  },
+  "nav": [
+    {
+      "label": "Menu",
+      "page": "menu",
+      "feature": "stalls-menu-page",
+      "fallback": "#menu"
+    },
+    {
+      "label": "Find us",
+      "page": "find-us",
+      "feature": "stalls-find",
+      "fallback": "#where"
+    },
+    {
+      "label": "Parties",
+      "page": "parties",
+      "feature": "stalls-parties"
+    },
+    {
+      "label": "Book us",
+      "page": "book-us",
+      "feature": "stalls-book"
+    },
+    {
+      "label": "Allergens",
+      "page": "allergens",
+      "feature": "stalls-allergens"
+    }
+  ],
+  "features": [
+    "stalls-where",
+    "stalls-menu",
+    "stalls-menu-page",
+    "stalls-find",
+    "stalls-posts",
+    "stalls-book",
+    "stalls-parties",
+    "stalls-allergens",
+    "stalls-rain",
+    "stalls-next",
+    "stalls-sold-out",
+    "stalls-board",
+    "stalls-setup",
+    "stalls-drop",
+    "questions",
+    "visit",
+    "stalls-pitch",
+    "reviews"
+  ],
+  "hero": {
+    "title": "Made *to order.*",
+    "intro": "Soufflé pancakes, made to order at the stall.",
+    "photo": {
+      "src": "img/hero.webp",
+      "width": 1600,
+      "height": 1152,
+      "alt": "Pancakes on the griddle at the stall",
+      "small": {
+        "src": "img/hero-small.webp",
+        "width": 800
+      }
+    },
+    "kicker": "Soufflé pancakes, Leeds"
+  },
+  "sections": {
+    "where": {
+      "title": "This week"
+    },
+    "menu": {
+      "title": "Today's board"
+    },
+    "drop": {
+      "title": "The next drop"
+    },
+    "posts": {
+      "title": "On TikTok"
+    },
+    "party": {
+      "title": "Book us for your party",
+      "intro": "Birthdays, school fairs, office days. We bring the stall."
+    },
+    "setup": {
+      "title": "What we need on the day",
+      "intro": "For your venue or organiser. Copy it or send it on."
+    },
+    "questions": {
+      "title": "Before you come"
+    },
+    "visit": {
+      "title": "Our Saturday pitch"
+    },
+    "reviews": {
+      "title": "What people say"
+    }
+  },
+  "messages": {
+    "general": "Hello Mochi Hop, I have a question."
+  },
+  "stops": {
+    "source": "sheet",
+    "fallback": "This week's stops go up on our Instagram every Monday.",
+    "places": [
+      {
+        "id": "kirkgate",
+        "name": "Kirkgate",
+        "market": "Kirkgate Market",
+        "postcode": "LS2 7HY",
+        "lat": 53.797,
+        "lon": -1.539,
+        "usual": "Saturdays",
+        "pitch": {
+          "photo": {
+            "src": "img/market.webp",
+            "width": 1400,
+            "height": 933,
+            "alt": "Our stall at the market, the pink awning on the left"
+          },
+          "line": "Look for the pink awning by the clock."
+        }
+      },
+      {
+        "id": "headrow",
+        "name": "The Headrow",
+        "postcode": "LS1",
+        "usual": "Fridays"
+      }
+    ],
+    "usual": [
+      {
+        "day": "fri",
+        "place": "headrow",
+        "open": "17:00",
+        "close": "21:00"
+      },
+      {
+        "day": "sat",
+        "place": "kirkgate",
+        "open": "10:00",
+        "close": "16:00"
+      }
+    ],
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-test-stops/pub?gid=0&single=true&output=csv",
+    "staleAfterDays": 10
+  },
+  "menu": {
+    "items": [
+      {
+        "id": "classic",
+        "name": "Classic soufflé",
+        "line": "Three pancakes, butter, maple",
+        "price": 9,
+        "allergens": "G E M",
+        "photo": {
+          "src": "img/iron.webp",
+          "width": 900,
+          "height": 900,
+          "alt": "Pancakes on the griddle"
+        }
+      },
+      {
+        "id": "matcha",
+        "name": "Matcha",
+        "line": "Matcha cream, red bean",
+        "price": 10.5,
+        "allergens": "G E M"
+      },
+      {
+        "id": "berry",
+        "name": "Berry",
+        "line": "Strawberries, cream",
+        "price": 10,
+        "allergens": "G E M"
+      }
+    ]
+  },
+  "menuPage": {
+    "title": "The menu",
+    "packages": [
+      {
+        "name": "Party for 25",
+        "line": "Two hours, made to order.",
+        "price": 320,
+        "from": true
+      }
+    ]
+  },
+  "findPage": {
+    "title": "Where to find us",
+    "intro": "Four markets a week, and the odd pop-up. This week first."
+  },
+  "posts": {
+    "tiktokProfile": "https://www.tiktok.com/@mochihop",
+    "tiktok": [
+      {
+        "href": "https://www.tiktok.com/@mochihop/video/7300000000000000001",
+        "line": "The wobble",
+        "cover": {
+          "src": "img/tt-floss.webp",
+          "width": 540,
+          "height": 960,
+          "alt": "A pancake on a plate"
+        }
+      }
+    ]
+  },
+  "party": {
+    "source": "sheet",
+    "message": "Hello Mochi Hop, could you come to our party?",
+    "kinds": [
+      "Birthday",
+      "School or summer fair",
+      "Office day",
+      "Wedding or evening do",
+      "Something else"
+    ],
+    "lead": "Tell us roughly; we'll reply with the price and what we need.",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-test-party/pub?gid=0&single=true&output=csv"
+  },
+  "bookPage": {
+    "title": "Book us",
+    "intro": "Check the day, tell us about it, and we'll reply on WhatsApp."
+  },
+  "partiesPage": {
+    "title": "Parties and private hire",
+    "intro": "The whole stall, at yours.",
+    "photo": {
+      "src": "img/iron.webp",
+      "width": 900,
+      "height": 900,
+      "alt": "Pancakes on the griddle"
+    },
+    "blocks": [
+      {
+        "title": "What we bring",
+        "text": "The waffle irons, the floss machine, our own gazebo and lights, two of us to make and serve."
+      },
+      {
+        "title": "How many",
+        "text": "Around 60 waffles an hour, and floss as fast as people queue."
+      },
+      {
+        "title": "Where",
+        "text": "Anywhere inside the M25. Further, we'll quote the travel."
+      }
+    ]
+  },
+  "allergensPage": {
+    "title": "Allergens and food hygiene",
+    "intro": "What's in everything we make, and how we keep it apart.",
+    "crossContact": "Every waffle is made on the same irons and topped at one counter, so traces of nuts, soya and milk are possible in all of them. Candy floss is spun on its own machine.",
+    "hygiene": {
+      "rating": 5,
+      "url": "https://ratings.food.gov.uk/business/1234567",
+      "checked": "2026-10"
+    }
+  },
+  "soldOut": {
+    "source": "sheet",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-test-sold/pub?gid=0&single=true&output=csv"
+  },
+  "rain": {
+    "source": "forecast"
+  },
+  "setup": {
+    "rows": [
+      {
+        "label": "Pitch",
+        "value": "3 m × 3 m, on level ground"
+      },
+      {
+        "label": "Power",
+        "value": "One 13 A socket within 25 m, or we bring a quiet generator"
+      },
+      {
+        "label": "Cover",
+        "value": "Our own gazebo; indoors needs a ceiling over 2.5 m"
+      },
+      {
+        "label": "Arrive",
+        "value": "One hour before serving; packed away in 40 minutes"
+      },
+      {
+        "label": "Paperwork",
+        "value": "Food hygiene rating and public liability certificate, sent on request"
+      }
+    ]
+  },
+  "drop": {
+    "title": "Hojicha",
+    "at": "2027-03-06",
+    "line": "One weekend only.",
+    "message": "Add me to the drop list please."
+  },
+  "questions": [
+    {
+      "topic": "Finding us",
+      "q": "Where are you today?",
+      "a": "This week's stops are at the top of the page, from our own sheet. Anything last-minute goes on Instagram.",
+      "home": true
+    },
+    {
+      "topic": "Finding us",
+      "q": "What if it rains?",
+      "a": "We have a gazebo and usually stay. If a market is cancelled, the stop says so here.",
+      "home": true
+    },
+    {
+      "topic": "The food",
+      "q": "Do you take card?",
+      "a": "Yes, card and phone. Cash too.",
+      "home": true
+    }
+  ],
+  "reviews": {
+    "source": "google",
+    "items": [
+      {
+        "text": "Worth the queue.",
+        "author": "Sam",
+        "rating": 5,
+        "date": "2026-09"
+      }
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{#- Spun hero: on white, one short heavy line that runs into the photograph of the stall in action (the right half,
+    from the top); under it the next stop with its countdown (stalls-next) or the stall's line; the week's stops as
+    tickets along the foot, crossing into the photo (stalls-where). -#}
+{%- set h = site.hero %}{% set ph = h.photo %}
+<section class="hero sp-hero" aria-labelledby="sp-h1">
+  <div class="sp-hero-text">
+    <h1 class="sp-h1" id="sp-h1">{% for l in h.title.split("|") %}{{ l | markup | safe }}{% if not loop.last %}<br>{% endif %}{% endfor %}</h1>
+    {%- if "stalls-next" | enabled %}{% include "kits/stalls/features/stalls-next/stalls-next.njk" %}{% else %}<p class="sp-lede">{{ h.intro }}</p>{% endif %}
+  </div>
+  <figure class="sp-hero-photo">
+    <picture>{% if ph.small %}<source media="(max-width: 760px)" srcset="{{ ph.small.src | img }}">{% endif %}<img src="{{ ph.src | img }}" alt="{{ ph.alt }}" width="{{ ph.width }}" height="{{ ph.height }}" fetchpriority="high" decoding="async"{% if ph.focus %} style="object-position: {{ ph.focus }}"{% endif %}></picture>
+  </figure>
+  {%- if "stalls-where" | enabled %}<div class="sp-hero-week">{% set whereHeadless = true %}{% include "kits/stalls/features/stalls-where/stalls-where.njk" %}{% set whereHeadless = false %}</div>{% endif %}
+</section>

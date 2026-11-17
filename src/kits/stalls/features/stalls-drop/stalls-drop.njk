@@ -1,0 +1,14 @@
+{#- Drop alert: a one-off flavour or pop-up on its date, and "Tell me" to join the stall's WhatsApp broadcast list. -#}
+{%- set D = site.drop %}{% set sec = site.sections.drop %}
+<section id="drop" class="st-drop" aria-labelledby="st-drop-h"{{ "stalls-drop" | tierAttr | safe }}>
+  <div class="wrap st-drop-in">
+    {%- if D.photo %}<figure class="st-drop-photo"><img src="{{ D.photo.src | img }}" alt="{{ D.photo.alt }}" width="{{ D.photo.width }}" height="{{ D.photo.height }}" loading="lazy" decoding="async"{% if D.photo.focus %} style="object-position: {{ D.photo.focus }}"{% endif %}></figure>{% endif %}
+    <div class="st-drop-text">
+      <p class="st-drop-date">{{ D.at | longDay }}</p>
+      <h2 id="st-drop-h">{{ D.title }}</h2>
+      <p>{{ D.line }}</p>
+      <p class="st-acts"><a class="st-solid" href="{{ D.message | wa }}" data-wa-text="{{ D.message }}" target="_blank" rel="noopener">Tell me</a></p>
+      <p class="st-fine">Adds you to our WhatsApp list for drops. Leave any time.</p>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,22 @@
+{#- Where to find us (the page): the whole week from the sheet (stalls-where in full), then the regular markets with
+    their usual days and, with the pitch finder on, the stall's own photo of its pitch. -#}
+{%- set S = site.stops %}
+{%- set whereFull = true %}{% set whereHeadless = true %}{% include "kits/stalls/features/stalls-where/stalls-where.njk" %}
+<section class="st-regulars" aria-labelledby="st-reg-h">
+  <div class="wrap">
+    <h2 id="st-reg-h" class="st-h2">Our regular markets</h2>
+    <ul class="st-places">
+      {%- for p in S.places %}
+      <li class="st-place{% if p.pitch and ('stalls-pitch' | enabled) %} has-pitch{% endif %}">
+        {%- if p.pitch and ("stalls-pitch" | enabled) %}{% include "kits/stalls/features/stalls-pitch/stalls-pitch.njk" %}
+        {%- endif %}
+        <div>
+          <h3>{{ p.name }}</h3>
+          <p>{% if p.market %}{{ p.market }}, {% endif %}{{ p.postcode }}{% if p.usual %}<br>{{ p.usual }}{% endif %}</p>
+          <a class="st-text" href="{{ p | mapsHref }}" target="_blank" rel="noopener">Directions</a>
+        </div>
+      </li>
+      {%- endfor %}
+    </ul>
+  </div>
+</section>
