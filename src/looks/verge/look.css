@@ -7,11 +7,11 @@
    ========================================================================= */
 :root {
   --bg: #F1F2EF; --surface: #E8EAE5; --surface-2: #DEE1DA; --paper: #FFFFFF;
-  --text: #14161A; --muted: #5E636B; --dim: #9A9EA5;
-  --accent: #3F8A2C; --accent-2: #2F6B20; --on-accent: #FFFFFF; --accent-soft: #E6F1E1;
+  --text: #14161A; --muted: #5E636B; --dim: #60656D;
+  --accent: #327524; --accent-2: #275C1C; --on-accent: #FFFFFF; --accent-soft: #E6F1E1;
   --line: #E2E4E0; --line-2: #C9CDC5;
   --band: #14161A; --on-band: #F1F2EF; --band-line: rgba(241,242,239,.18);
-  --ok: #2F6B20; --busy: #8A5A12; --closed: #5E636B;
+  --ok: #275C1C; --busy: #8A5A12; --closed: #5E636B;
   --font-display: "Lexend", "Lexend Fallback", system-ui, sans-serif;
   --font-body: "Lexend", "Lexend Fallback", system-ui, sans-serif;
   --font-voice: "Lexend", "Lexend Fallback", system-ui, sans-serif;
@@ -33,6 +33,7 @@ main section.vg-hero { padding-block: 8px 0; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 a { color: inherit; }
 .btn { border-radius: 999px; font-weight: 500; }
+.crumb a { text-decoration: underline; text-underline-offset: 3px; }
 
 /* header: emblem and name, the pages, WhatsApp, the green pill */
 .vg-nav { position: relative; z-index: 30; background: var(--bg); }
@@ -118,10 +119,9 @@ a { color: inherit; }
   .vg-cards .dv-mh span { font-weight: 500; font-size: 15px; }
   .vg-cards .dv-mh em { color: var(--muted); font-size: 14px; font-style: normal; }
   .vg-cards .dv-mh em b { color: var(--text); font-weight: 500; }
-  .vg-cards .dv-card[data-ready]:not(.open) .dv-body { display: none; }
-  .vg-cards .dv-card[data-ready] .dv-ct { display: none; }
+  .vg-cards .dv-card:not(.open) .dv-body { display: none; }
+  .vg-cards .dv-ct { display: none; }
   .vg-cards .dv-body { padding: 0 16px 16px; }
-  .vg-cards .dv-card:not([data-ready]) .dv-body { padding: 16px; }
   .sec-reviews .revs, .sec-questions .qs-grid, .vg-foot-in { grid-template-columns: 1fr; }
 }
 @media (max-width: 760px) {

@@ -49,7 +49,7 @@ export const features = [
   // Signature
   { id: "driving-pass", dir: `${K}/driving-pass`, minPlan: "signature", kits: ["driving"], requires: ["planner", "fees"], needs: ["driving-prices"], js: true,
     summary: "When could I pass? (DRIVE-6): lessons a week, hours so far and whether the theory is passed give the weeks to test-ready on the DVSA's average and the cost to pass (the instructor's prices and the gov.uk fees, rounded), labelled an estimate, never a promise." },
-  { id: "driving-progress", dir: `${K}/driving-progress`, minPlan: "signature", kits: ["driving"], requires: ["progress"], page: "progress", js: true,
+  { id: "driving-progress", dir: `${K}/driving-progress`, minPlan: "signature", kits: ["driving"], requires: ["progress"], page: "progress", unlisted: true, js: true,
     summary: "Learner progress (DRIVE-5): the learner types their code and sees each skill at the DVSA's five levels, the last lesson and what to practise next, from the instructor's sheet. No names; a stale sheet shows nothing." },
   { id: "driving-journal", dir: `${K}/driving-journal`, minPlan: "signature", kits: ["driving"], requires: ["journal"], page: "journal", morePages: ["article"], js: false,
     summary: "Journal: the instructor's own short articles (test-day tips, common faults), each dated, rules linked to gov.uk." },

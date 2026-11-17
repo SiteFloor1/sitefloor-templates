@@ -3,7 +3,7 @@
     estimate; never a promise. Without JavaScript, the DVSA's averages in a sentence. -#}
 {%- set p = site.planner %}
 <article class="dv-card dv-pass" id="pass" data-feature="driving-pass" aria-labelledby="dpp-h"{{ 'driving-pass' | tierAttr | safe }}>
-  <button class="dv-mh" type="button" aria-expanded="false" data-dv-open data-js-only><span>{{ p.title }}</span><em data-pp-m>About {{ govuk.dvsaHours }} hours</em></button>
+  <button class="dv-mh" type="button" aria-expanded="false" data-dv-open><span>{{ p.title }}</span><em data-pp-m>About {{ govuk.dvsaHours }} hours</em></button>
   <div class="dv-body">
   <h2 class="dv-ct" id="dpp-h">{{ p.title }}</h2>
   <noscript><p>The DVSA says most learners need about {{ govuk.dvsaHours }} hours of lessons and {{ govuk.dvsaPractice }} hours of private practice.</p></noscript>

@@ -157,7 +157,7 @@ This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` 
 
 | Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
 |---|---|---|---|---|---|---|---|
-| Wenlow | driving instructor, `driving`, `verge` | premium practical, cool light grey with white cards | a beech hedge in spring | beech green #3F8A2C on #F1F2EF | Lexend / Lexend | four answer cards on the first screen: prices, do you cover me, next free lessons, when could I pass and the cost | its own |
+| Wenlow | driving instructor, `driving`, `verge` | premium practical, cool light grey with white cards | a beech hedge in spring | beech green #327524 on #F1F2EF | Lexend / Lexend | four answer cards on the first screen: prices, do you cover me, next free lessons, when could I pass and the cost | its own |
 
 ## Electricians
 _From `docs/trades/electrician/demo-map.md`._
