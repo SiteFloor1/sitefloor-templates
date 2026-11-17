@@ -1,0 +1,26 @@
+{#- Elsden hero: the hall itself. With the aerial hall (a Bespoke add-on), the render runs edge to edge and the label
+    rests on its forecourt, the picker beneath it; otherwise the client's photograph of the hall, the same label on
+    it. On a phone the picture comes first and the label and picker follow. -#}
+{%- set h = site.hero %}
+{%- set aerial = "garage-aerial" | enabled %}
+<section class="hero el-first{% if aerial %} is-aerial{% endif %}" aria-label="{{ h.title }}">
+  {%- if aerial %}{% include "kits/garage/features/garage-aerial/garage-aerial.njk" %}
+  {%- else %}
+  <figure class="el-photo">
+    <img src="{{ h.photo.src | img }}" width="{{ h.photo.width }}" height="{{ h.photo.height }}" alt="{{ h.photo.alt }}" fetchpriority="high" decoding="async"{% if h.photo.focus %} style="object-position: {{ h.photo.focus }}"{% endif %}>
+    {%- if h.credit %}<figcaption class="el-credit">{{ h.credit }}</figcaption>{% endif %}
+  </figure>
+  {%- endif %}
+  <div class="el-card">
+    <div class="el-label">
+      {%- if h.kicker %}<p class="el-obj">{{ h.kicker }}</p>{% endif %}
+      <h1 class="el-h1">{{ h.title }}</h1>
+      <p class="el-where">{{ h.where }}</p>
+      {%- if h.medium %}<p class="el-medium">{{ h.medium }}</p>{% endif %}
+      <p class="el-intro">{{ h.intro }}</p>
+      <p class="el-acc"><b>{{ h.from }}</b>{% if site.access and site.access.facts %} {{ site.access.facts[0] }}{% endif %}</p>
+    </div>
+    {%- if "garage-pick" | enabled %}{% include "kits/garage/features/garage-pick/garage-pick-chips.njk" %}
+    {%- else %}<a class="btn el-view" href="{{ site.messages.viewing | book }}" target="_blank" rel="noopener">Book a viewing</a>{% endif %}
+  </div>
+</section>
