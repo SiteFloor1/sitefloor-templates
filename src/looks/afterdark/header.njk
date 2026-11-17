@@ -1,0 +1,27 @@
+{#- After dark header: the drawn mark (an H whose crossbar rises like a slope, then the rest of the name in Epilogue), the
+    pages to the right in plain words and a small outlined Join that goes to the club's app. "Menu" on phones. -#}
+{%- set nm = site.business.name %}{% set first = nm | first %}
+<header class="nav ad-nav"><div class="wrap ad-nav-in">
+  <a class="ad-brand" href="{{ 'index' | href }}" aria-label="{{ nm }}, home">
+    {%- if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="{{ nm }}" height="32">
+    {%- elif first | upper == "H" %}<svg class="ad-mark" viewBox="0 0 {{ 30 + (nm.length - 1) * 19 }} 36" aria-hidden="true"><g fill="currentColor"><rect x="0" y="5" width="3.6" height="27"/><rect x="19" y="5" width="3.6" height="27"/><polygon points="3.6,22.4 19,11.2 19,15 3.6,26.2"/></g><text x="26.5" y="32" font-family="Epilogue, 'Epilogue Fallback', sans-serif" font-weight="300" font-size="37" letter-spacing="-1.4" fill="currentColor">{{ nm.slice(1) }}</text></svg>
+    {%- else %}<svg class="ad-em" viewBox="0 0 23 36" aria-hidden="true"><g fill="currentColor"><rect x="0" y="5" width="3.6" height="27"/><rect x="19" y="5" width="3.6" height="27"/><polygon points="3.6,22.4 19,11.2 19,15 3.6,26.2"/></g></svg><span class="ad-word">{{ nm }}</span>{% endif %}
+  </a>
+  <nav class="ad-links" aria-label="Main">
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+  </nav>
+  <a class="ad-join" href="{{ site.messages.general | book }}" target="_blank" rel="noopener">Join</a>
+  <button class="burger ad-menu" type="button" aria-expanded="false" aria-controls="mnav"><span class="ad-open">Menu</span><span class="ad-close">Close</span></button>
+</div></header>
+<div class="mnav ad-sheet" id="mnav" hidden>
+  <nav aria-label="Pages">
+    <a href="{{ 'index' | href }}"{% if pageId == "index" %} aria-current="page"{% endif %}>The club</a>
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+  </nav>
+  <p class="ad-sheet-now" data-live-status><span class="dot" aria-hidden="true"></span> <span data-status-text>Opening hours</span></p>
+  <p class="ad-sheet-addr">{{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}</p>
+</div>

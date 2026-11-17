@@ -1,0 +1,22 @@
+/* Classes: a printed list, one row per class: time, what, places (when fresh), Book in the app. */
+.gt-in { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(40px, 6vw, 120px); }
+.gt-head p { margin-top: 18px; color: var(--muted); max-width: 26em; }
+.gt-head .go { margin-top: 22px; }
+.gt-day + .gt-day { margin-top: 48px; }
+.gt-dh { font-size: 19px; font-weight: 500; letter-spacing: -.01em; padding-bottom: 14px; }
+.gt-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.gt-s { display: grid; grid-template-columns: 84px minmax(0, 1fr) auto auto; gap: 4px 24px; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--line); }
+.gt-s[hidden] { display: none; }
+.gt-s time { font-family: var(--font-display); font-weight: 300; font-size: 28px; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+.gt-what h3, .gt-what h4 { font-size: 17px; font-weight: 500; }
+.gt-what p { font-size: 14px; color: var(--muted); }
+.gt-left { font-size: 14px; color: var(--text); white-space: nowrap; }
+.gt-none { color: var(--muted); padding: 18px 0; border-top: 1px solid var(--line); }
+.gy-book { font-size: 14px; color: var(--text); text-decoration: underline; text-decoration-color: var(--line-2); text-underline-offset: 6px; white-space: nowrap; }
+.gy-book:hover { text-decoration-color: var(--text); }
+@media (max-width: 820px) {
+  .gt-in { grid-template-columns: 1fr; gap: 28px; }
+  .gt-s { grid-template-columns: 64px minmax(0, 1fr); }
+  .gt-s time { font-size: 22px; grid-row: span 3; align-self: start; }
+  .gt-left, .gt-s .gy-book { grid-column: 2; justify-self: start; }
+}

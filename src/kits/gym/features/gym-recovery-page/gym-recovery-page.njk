@@ -1,0 +1,11 @@
+{#- The heat and cold page: under the next slots (the gym-recovery section), the club's rules and the whole week's slots. -#}
+{%- set r = site.recovery %}
+<section class="grp" aria-label="The week's slots"><div class="wrap grp-in">
+  {%- if r.rules %}<div><h2 class="grp-h">Before you go in</h2><ul class="grp-rules">{% for x in r.rules %}<li>{{ x }}</li>{% endfor %}</ul></div>{% endif %}
+  <div><h2 class="grp-h">Every slot</h2>
+    <table class="grp-t"><caption class="sr-only">Heat and cold slots each day</caption>
+      <tbody>{% for day in "" | dayKeys %}<tr><th scope="row">{{ ({ mon: "Monday", tue: "Tuesday", wed: "Wednesday", thu: "Thursday", fri: "Friday", sat: "Saturday", sun: "Sunday" })[day] }}</th><td>{% for s in r.slots | slotsOn(day) %}<span>{{ s.time }} {{ s.name | lower }}</span>{% else %}None{% endfor %}</td></tr>{% endfor %}</tbody>
+    </table>
+    <p class="grp-book"><a class="go" href="{{ site.booking.url }}" target="_blank" rel="noopener">Book in the app</a></p>
+  </div>
+</div></section>

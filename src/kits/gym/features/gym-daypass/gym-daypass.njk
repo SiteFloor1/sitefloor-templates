@@ -1,0 +1,13 @@
+{#- A free day pass (GYM-5): pick a day and what you train for; the request goes to the club on WhatsApp. -#}
+{%- set p = site.dayPass %}
+<section class="gd" id="day-pass" data-feature="gym-daypass" aria-labelledby="gd-h"><div class="wrap gd-in">
+  <div><h2 id="gd-h">{{ p.title | markup | safe }}</h2>{% if p.intro %}<p class="gd-i">{{ p.intro }}</p>{% endif %}
+    {%- if p.rules %}<ul class="gd-rules">{% for r in p.rules %}<li>{{ r }}</li>{% endfor %}</ul>{% endif %}</div>
+  <form class="gd-form" data-gd>
+    <label for="gd-day">The day</label>
+    <select id="gd-day" data-gd-day><option value="">Choose a day</option></select>
+    {%- if p.goals %}<label for="gd-goal">What you train for</label>
+    <select id="gd-goal" data-gd-goal><option value="">Choose one</option>{% for g in p.goals %}<option>{{ g }}</option>{% endfor %}</select>{% endif %}
+    <a class="gd-go" data-gd-go href="{{ p.message | wa }}" target="_blank" rel="noopener">Ask for a day pass</a>
+  </form>
+</div></section>

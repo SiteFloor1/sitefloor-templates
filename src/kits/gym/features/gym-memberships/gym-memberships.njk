@@ -1,0 +1,21 @@
+{#- Memberships (GYM-2): every price is the total the member pays, mandatory fees in, worked out by the build (DMCC Act
+    2024; CMA209). A contract leads with the term's total; a rolling membership with the first month's total and the
+    monthly price beside it at the same size. The breakdown sits under the total, never instead of it. -#}
+{%- set m = site.clubMemberships %}
+<section class="gm" id="memberships" data-feature="gym-memberships" {% if onPage %}aria-label="{{ m.title | plain }}"{% else %}aria-labelledby="gm-h"{% endif %}><div class="wrap">
+  {%- if onPage %}{% if m.intro %}<p class="gm-lead">{{ m.intro }}</p>{% endif %}
+  {%- else %}<div class="gm-head"><h2 id="gm-h">{{ m.title | markup | safe }}</h2>{% if m.intro %}<p>{{ m.intro }}</p>{% endif %}</div>{% endif %}
+  <ul class="gm-list">
+    {%- for t in m.tiers %}{% set w = t | priceWords %}
+    <li class="gm-t">
+      {% if onPage %}<h2 class="gm-n">{{ t.name }}</h2>{% else %}<h3 class="gm-n">{{ t.name }}</h3>{% endif %}
+      {%- if t.line %}<p class="gm-line">{{ t.line }}</p>{% endif %}
+      <p class="gm-price"><span class="gm-total">{{ w.headline }}</span>{% if w.then %} <span class="gm-then">{{ w.then }}</span>{% endif %}</p>
+      <p class="gm-fine">{{ w.fine }}</p>
+      <ul class="gm-inc">{% for x in t.includes %}<li>{{ x }}</li>{% endfor %}</ul>
+      <a class="gy-book" href="{{ site.booking.url }}" target="_blank" rel="noopener">Join in the app</a>
+    </li>
+    {%- endfor %}
+  </ul>
+  {%- if m.note %}<p class="gm-note">{{ m.note }}</p>{% endif %}
+</div></section>
