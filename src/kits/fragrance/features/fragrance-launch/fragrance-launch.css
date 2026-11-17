@@ -1,0 +1,14 @@
+/* Launch mode: parts marked for one state hide in the other. */
+.fr-before-only, .is-before .fr-open-only { display: none !important; }
+.is-before .fr-before-only { display: revert !important; }
+.fr-wait { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; }
+.fr-launch { padding-block: clamp(64px, 8vw, 112px); border-top: 1px solid var(--line); }
+.fr-launch-in { max-width: 760px; }
+.fr-story-t { font: 400 clamp(34px, 4vw, 52px)/1.05 var(--font-display); margin: 0 0 22px; }
+.fr-story p { font: 400 clamp(19px, 1.6vw, 22px)/1.5 var(--font-display); margin: 0 0 16px; }
+.fr-story .fr-story-by { font: 400 16px/1.4 var(--font-body); color: var(--muted); }
+.fr-launch-terms { margin-top: 28px; font-size: 15px; color: var(--muted); max-width: 60ch; }
+.fr-show { display: flex; align-items: center; gap: 6px; font-size: 14px; }
+.fr-show button { font: inherit; color: inherit; background: none; border: 1px solid transparent; padding: 6px 10px; cursor: pointer; }
+.fr-show button[aria-pressed="true"] { border-color: var(--text); }
+@media (max-width: 760px) { .fr-wait { flex-direction: column; align-items: stretch; } .fr-wait .fr-go { text-align: center; } .fr-wait .fr-alt { align-self: center; } }

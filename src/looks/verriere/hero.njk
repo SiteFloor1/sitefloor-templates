@@ -1,0 +1,40 @@
+{#- Verrière hero: one bottle, large, in the studio. The picture (or the turntable) fills a stage the shape of the
+    picture, so the bottle's marks place everything without script: the name at the top left, the notes as one
+    sentence across the bottle (Signature), and the sizes and Buy in one row under the plinth. Before a launch, the
+    line under the name says when it's out and the waiting list and pre-order take Buy's place. -#}
+{%- set h = site.hero %}
+{%- set x = site.fragrances | fragranceById(h.fragrance) %}
+{%- set m = h.marks or { neck: 0.27, shoulder: 0.32, base: 0.6, xl: 0.4, xr: 0.6, floor: 0.8 } %}
+{%- set L = site.launch if ("fragrance-launch" | enabled) else null %}
+{%- set ls = (L | launchState) if L else null %}
+{%- set tt = "fragrance-turntable" | enabled %}
+{%- set ratio = (site.turntable.width / site.turntable.height) if tt else (h.photo.width / h.photo.height) %}
+{%- set pratio = (site.turntable.phoneHeight / site.turntable.phoneWidth) if (tt and site.turntable.phoneSrc) else ((h.phonePhoto.height / h.phonePhoto.width) if h.phonePhoto else (1 / ratio)) %}
+<section class="hero vr-hero{% if ls and ls.state == 'before' and site.mode != 'demo' %} is-before{% endif %}" aria-label="{{ x.name }}" style="--ratio: {{ ratio }}; --pratio: {{ pratio }}; --xl: {{ m.xl }}; --xr: {{ m.xr }}; --floor: {{ m.floor }}"{% if L %} data-feature="fragrance-launch" data-launch-scope{% endif %}>
+  <div class="vr-stage">
+    {%- if "fragrance-turntable" | enabled %}{% include "kits/fragrance/features/fragrance-turntable/fragrance-turntable.njk" %}
+    {%- else %}
+    <picture class="vr-still">
+      {%- if h.phonePhoto %}<source media="(max-width: 760px)" srcset="{{ h.phonePhoto.src | img }}" width="{{ h.phonePhoto.width }}" height="{{ h.phonePhoto.height }}">{% endif %}
+      <img src="{{ h.photo.src | img }}" width="{{ h.photo.width }}" height="{{ h.photo.height }}" alt="{{ h.photo.alt }}" fetchpriority="high" decoding="async">
+    </picture>
+    {%- endif %}
+    {%- if h.credit %}<p class="vr-credit">{{ h.credit }}</p>{% endif %}
+  </div>
+  <div class="vr-name">
+    <h1 class="vr-h1">{{ x.name }}</h1>
+    <p class="vr-line fr-open-only">{{ x.line }}</p>
+    {%- if L %}
+    <p class="vr-line fr-before-only">Out on {{ L.date | dayMonth }}. Leave your email and we'll write on the day.</p>
+    {%- if L.story %}<a class="vr-story fr-before-only" href="#launch">{{ L.story.title }}</a>{% endif %}
+    {%- endif %}
+  </div>
+  {%- if "fragrance-notes" | enabled and x.notes %}{% include "kits/fragrance/features/fragrance-notes/fragrance-notes.njk" %}{% endif %}
+  <div class="vr-buy" data-feature="fragrance-library">
+    <div class="fr-open-only">{% set buyKey = "-hero" %}{% set plainSizes = true %}{% include "kits/fragrance/partials/buy.njk" %}{% set buyKey = "" %}{% set plainSizes = false %}</div>
+    {%- if L %}<div class="fr-before-only">{% include "kits/fragrance/features/fragrance-launch/hero.njk" %}</div>{% endif %}
+  </div>
+  {%- if L and site.mode == "demo" %}
+  <div class="fr-show vr-show" role="group" aria-label="Demo: show this page"><span>Show the page</span><button type="button" data-launch-show="open" aria-pressed="true">on sale</button><button type="button" data-launch-show="before" aria-pressed="false">before launch</button></div>
+  {%- endif %}
+</section>

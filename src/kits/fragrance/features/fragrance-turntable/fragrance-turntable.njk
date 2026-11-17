@@ -1,0 +1,13 @@
+{#- The turntable: the hero picture is its first frame; dragging (or the arrow keys) turns the bottle through the
+    house's frames, 360° in all. The other frames load after the page, so the first view costs one picture. With
+    `repeat` (a bottle that looks the same from the back) the frames are seen again every `repeat`. `alt` comes from
+    the hero picture. Nothing moves by itself. -#}
+{%- set t = site.turntable %}
+{%- set h = site.hero %}
+<div class="fr-turn" data-feature="fragrance-turntable" tabindex="0" role="slider" aria-label="Turn the bottle" aria-valuemin="1" aria-valuemax="{{ t.frames }}" aria-valuenow="1" aria-valuetext="Front" data-src="{{ t.src | frame(1) | img }}"{% if t.wideSrc %} data-wide="{{ t.wideSrc | frame(1) | img }}"{% endif %}{% if t.phoneSrc %} data-phone="{{ t.phoneSrc | frame(1) | img }}"{% endif %}{{ 'fragrance-turntable' | tierAttr | safe }}>
+  <picture>
+    {%- if t.phoneSrc %}<source media="(max-width: 760px)" srcset="{{ t.phoneSrc | frame(1) | img }}" width="{{ t.phoneWidth }}" height="{{ t.phoneHeight }}">{% endif %}
+    <img src="{{ t.src | frame(1) | img }}"{% if t.wideSrc %} srcset="{{ t.src | frame(1) | img }} {{ t.width }}w, {{ t.wideSrc | frame(1) | img }} {{ (t.width * 1.5) | round }}w" sizes="100vw"{% endif %} width="{{ t.width }}" height="{{ t.height }}" alt="{{ h.photo.alt }}" fetchpriority="high" decoding="async" draggable="false">
+  </picture>
+  <p class="fr-turn-hint" aria-hidden="true">Drag to turn</p>
+</div>

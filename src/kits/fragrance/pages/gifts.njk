@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: gifts
+permalink: gifts.html
+feature: fragrance-gifts
+eleventyComputed:
+  title: "{{ site.gifts.title | plain }}"
+  description: "Gifts from {{ site.business.name }}: engraving, wrapping and a card."
+---
+{% include "kits/fragrance/features/fragrance-gifts/fragrance-gifts.njk" %}
+{%- if "fragrance-choose" | enabled %}{% include "kits/fragrance/features/fragrance-choose/fragrance-choose.njk" %}{% endif %}

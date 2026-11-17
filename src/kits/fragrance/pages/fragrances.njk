@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: fragrances
+permalink: fragrances.html
+feature: fragrance-pages
+eleventyComputed:
+  title: "{{ site.fragrances.title | plain }}"
+  description: "Every fragrance from {{ site.business.name }}: the notes, sizes, prices and samples."
+---
+{% include "kits/fragrance/features/fragrance-pages/fragrance-pages.njk" %}

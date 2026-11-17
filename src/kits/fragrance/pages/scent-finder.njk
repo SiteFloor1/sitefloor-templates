@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: scent-finder
+permalink: scent-finder.html
+feature: fragrance-organ
+eleventyComputed:
+  title: "{{ site.organ.title | plain }}"
+  description: "Choose the ingredients you love and see which of {{ site.business.name }}'s fragrances have them."
+---
+{% include "kits/fragrance/features/fragrance-organ/fragrance-organ.njk" %}
