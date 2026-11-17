@@ -1,0 +1,175 @@
+/* =========================================================================
+   Look: Taroub. A gallery hang for one garment. On a wide screen the home page is three columns: a left wall (the
+   shop's name, a second piece small with its label, the pages as two sentences, WhatsApp), the abaya full height in
+   the middle, and its label on the right. Below, once, the hem line on the same columns. A quiet ivory bar carries
+   the look and its total. Warm ivory ground and ink; one saffron accent, from a crocus stamen, for underlines, the
+   chosen length and the gap to the floor. Shippori Mincho for names, prices and answers; Afacad for everything else.
+   Motion: none. Edges: square. Image grade: warm, from the hero's tan floor.
+   ========================================================================= */
+:root {
+  --bg: #F6F1E9; --surface: #EFE8DE; --surface-2: #E4DBCF; --paper: #FBF8F2; --panel: #CFC4BA;
+  --text: #211C18; --muted: #6F665E; --dim: #6F665E;
+  --accent: #9A561B; --accent-2: #7E4413; --on-accent: #F6F1E9; --accent-soft: #E6CDB3;
+  --line: #E0D6CA; --line-2: #CBBFB1;
+  --band: #211C18; --on-band: #F6F1E9; --band-line: rgba(246,241,233,.2);
+  --ok: #4C6B3C; --busy: #9A561B; --closed: #6F665E;
+  --font-display: "Shippori Mincho", "Mincho Fallback", "Times New Roman", serif;
+  --font-body: "Afacad", "Afacad Fallback", Arial, sans-serif;
+  --on-photo: #F6F1E9; --photo-scrim: rgba(33,28,24,.4); --shadow: rgba(33,28,24,.25);
+  --season-bg: #211C18; --season-fg: #F6F1E9;
+  --pad: 18px; --edge: 56px; --bar: 58px;
+  --wall: max(300px, calc((100vw - 680px) / 2.1));
+  --s4: clamp(64px, 9vw, 128px);
+  --nav-h: 60px; --body-size: 17px;
+  color-scheme: light;
+}
+html { background: var(--bg); }
+body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-weight: 400; font-size: var(--body-size); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 400; letter-spacing: 0; text-wrap: balance; }
+b, strong { font-weight: 500; }
+::selection { background: var(--accent-soft); color: var(--text); }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
+.wrap { width: min(1600px, 100% - 2 * var(--pad)); margin-inline: auto; }
+main section { padding-block: var(--s4); }
+
+/* actions: one ink button, one outlined; underlines in saffron for everything quieter */
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 22px; border: 0; border-radius: 0; background: var(--text); color: var(--bg); font: inherit; font-weight: 500; font-size: 16px; text-decoration: none; transition: none; }
+.btn:hover { background: #000; }
+.btn.ghost { background: transparent; color: var(--text); box-shadow: inset 0 0 0 1px var(--text); }
+.btn.ghost:hover { background: transparent; box-shadow: inset 0 0 0 2px var(--text); }
+.go, .md-ask { display: inline-flex; align-items: center; min-height: 44px; color: var(--text); text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 6px; }
+.go:hover, .md-ask:hover { text-decoration-thickness: 2px; }
+
+/* ---------------------------------------------------------------- header: the wall, or one line along the top */
+.nav.tr-nav { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: baseline; gap: 32px; padding: 20px var(--edge); background: var(--bg); border-bottom: 1px solid var(--line); backdrop-filter: none; -webkit-backdrop-filter: none; }
+.tr-mark { font-family: var(--font-display); font-weight: 500; font-size: 30px; line-height: 1; text-decoration: none; }
+.tr-mark img { display: block; height: 32px; width: auto; }
+.tr-also { display: none; }
+.tr-menu { font-family: var(--font-display); font-size: 17px; line-height: 1.6; color: var(--muted); }
+.tr-menu a { color: var(--text); text-decoration: none; }
+.tr-menu a:hover, .tr-menu a[aria-current] { text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 5px; }
+.tr-wa { margin: 0; color: var(--muted); white-space: nowrap; }
+.tr-wa a { color: var(--text); text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 5px; text-decoration-thickness: 1px; }
+.tr-burger { display: none; width: auto; height: 44px; padding: 0; border: 0; background: none; font: inherit; font-size: 17px; color: var(--text); }
+.tr-sheet { top: var(--nav-h); padding-top: 12px; }
+.tr-sheet a { font-family: var(--font-display); font-weight: 400; font-size: 28px; }
+.tr-sheet-now, .tr-sheet-addr { color: var(--text) !important; font-weight: 400 !important; font-size: 16px !important; }
+
+/* the home page on a wide screen: the header is the wall, in the first column of the first screen */
+@media (min-width: 1100px) {
+  .wrap { width: min(1600px, 100% - 2 * var(--edge)); margin-left: var(--edge); }
+  .nav.tr-nav.tr-on-home { display: flex; flex-direction: column; align-items: stretch; gap: 0; width: var(--wall); height: calc(100vh - var(--bar)); min-height: 680px; margin-bottom: min(-680px, calc(var(--bar) - 100vh)); padding: 44px 40px 40px var(--edge); border: 0; background: transparent; z-index: 2; }
+  .tr-on-home .tr-mark { font-size: 40px; }
+  .tr-on-home .tr-also { display: grid; grid-template-columns: 132px 1fr; gap: 16px; align-items: end; margin: auto 0 0; }
+  .tr-also img { width: 132px; height: auto; aspect-ratio: 3 / 4; object-fit: cover; object-position: 50% 20%; background: var(--panel); }
+  .tr-also figcaption { color: var(--muted); line-height: 1.4; }
+  .tr-also figcaption b { display: block; font-family: var(--font-display); font-weight: 400; font-size: 20px; color: var(--text); }
+  .tr-on-home .tr-menu { margin-top: 40px; font-size: 20px; max-width: 15em; }
+  .tr-on-home .tr-menu > span { display: inline; }
+  .tr-on-home .tr-wa { margin-top: 28px; white-space: normal; }
+}
+
+/* ---------------------------------------------------------------- hero: the garment, hung */
+.tr-first { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(300px, 1fr); min-height: calc(100vh - var(--nav-h) - var(--bar)); padding: 0 !important; }
+.tr-photo { position: relative; margin: 0; background: var(--panel); overflow: hidden; min-height: 520px; }
+.tr-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; }
+.tr-credit { position: absolute; left: 12px; bottom: 10px; color: var(--on-photo); font-size: 12px; opacity: .85; text-shadow: 0 1px 2px rgba(0,0,0,.35); }
+.tr-label { display: flex; flex-direction: column; justify-content: flex-end; padding: 44px var(--edge) 48px; }
+.tr-h1 { margin: 0; font-size: clamp(52px, 5vw, 96px); line-height: .95; letter-spacing: -.01em; }
+.tr-line { margin: 18px 0 0; font-size: 20px; color: var(--muted); max-width: 20ch; }
+.tr-price { margin: 22px 0 0; font-family: var(--font-display); font-size: 26px; }
+.tr-go { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+@media (min-width: 1100px) {
+  .tr-first { grid-template-columns: var(--wall) minmax(0, 680px) minmax(320px, 1fr); height: calc(100vh - var(--bar)); min-height: 680px; }
+  .tr-photo { grid-column: 2; }
+  .tr-label { grid-column: 3; padding: 44px 40px 48px 48px; }
+}
+
+/* ---------------------------------------------------------------- sections */
+.tr-sh { margin-bottom: clamp(32px, 4vw, 52px); }
+.tr-sh-t { margin: 0; font-size: clamp(32px, 3.2vw, 44px); line-height: 1.08; }
+.tr-sh-i { margin: 12px 0 0; color: var(--muted); font-size: 18px; max-width: 52ch; }
+
+/* the hem line, on the hero's columns */
+.md-hem { padding-inline: var(--pad); }
+@media (min-width: 1100px) {
+  .md-hem { grid-template-columns: var(--wall) minmax(0, 1fr); gap: 0; padding: 120px 0 140px; }
+  .md-hem-say { padding: 0 40px 0 var(--edge); }
+  .md-hem-fig { grid-template-columns: minmax(0, 680px) minmax(140px, 1fr); padding-right: var(--edge); }
+  .md-ruler .gap { right: 0; }
+}
+.md-hem-ph { background: var(--panel); }
+
+/* the collection: large, quiet */
+.md-piece-t { font-size: clamp(20px, 2vw, 28px); }
+.md-model { font-size: 14px; }
+.md-ph-t { font-size: clamp(44px, 6vw, 88px); }
+
+/* ---------------------------------------------------------------- the bar: the look and its total */
+.mbar.tr-bar { align-items: center; gap: 16px; min-height: var(--bar); padding: 0 var(--pad) env(safe-area-inset-bottom, 0px); background: var(--bg); backdrop-filter: none; -webkit-backdrop-filter: none; border-top: 1px solid var(--line); }
+.tr-bar a { text-decoration: none; }
+.tr-bar-look { display: flex; align-items: baseline; gap: 12px; flex: 1; min-width: 0; }
+.tr-bar-k { color: var(--muted); }
+.tr-bar-items { display: none; }
+.tr-bar-tot { font-family: var(--font-display); font-size: 21px; font-variant-numeric: tabular-nums; }
+.tr-bar-go, .tr-bar-wa { font-weight: 500; border-bottom: 1px solid var(--accent); padding-bottom: 1px; white-space: nowrap; }
+.tr-bar-go { margin-left: auto; }
+.tr-bar-where { display: flex; align-items: center; gap: 8px; flex: 1; color: var(--muted); font-size: 15px; }
+.tr-bar-has .tr-bar-where { display: none; }
+.tr-bar-wa { margin-left: 4px; }
+@media (min-width: 761px) {
+  .mbar.tr-bar.tr-bar-has { display: flex; gap: 28px; padding: 0 var(--edge); }
+  .tr-bar-has .tr-bar-wa { display: none; }
+  .tr-bar-look { gap: 28px; }
+  .tr-bar-items { display: block; flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tr-bar-go { margin-left: 0; }
+  body:has(.tr-bar-has) { padding-bottom: var(--bar); }
+}
+
+/* ---------------------------------------------------------------- footer */
+.foot.tr-foot { border-top: 1px solid var(--line); background: var(--bg); color: var(--muted); font-size: 15px; }
+.tr-foot-in { display: grid; grid-template-columns: 1.3fr 1fr 1.4fr; gap: 28px 48px; padding: 48px var(--edge) 32px; }
+.tr-foot-a p, .tr-foot-a address { margin: 0 0 6px; font-style: normal; }
+.tr-foot-mark { font-family: var(--font-display); font-size: 30px; color: var(--text); line-height: 1.1; }
+.tr-foot-hours { list-style: none; margin: 0; padding: 0; font-variant-numeric: tabular-nums; }
+.tr-foot-hours span { display: inline-block; min-width: 3.2em; color: var(--text); }
+.tr-foot-links { display: flex; flex-wrap: wrap; gap: 4px 20px; align-content: start; }
+.tr-foot-links a, .tr-foot-a a { color: var(--text); text-decoration: none; }
+.tr-foot-links a:hover { text-decoration: underline; text-decoration-color: var(--accent); }
+.tr-foot-cr, .tr-foot-by { grid-column: 1 / -1; margin: 0; font-size: 13px; }
+.tr-foot-by .by { color: var(--muted); }
+
+/* ---------------------------------------------------------------- phone */
+/* other pages on a wide screen: the two sentences one above the other, each on one line, so the header keeps its
+   height whichever font is showing */
+@media (min-width: 1100px) {
+  .nav.tr-nav:not(.tr-on-home) .tr-menu > span { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+}
+/* below a wide screen: the name, WhatsApp and Menu; the pages in the sheet */
+@media (max-width: 1099px) {
+  .nav.tr-nav { position: sticky; top: 0; z-index: 30; grid-template-columns: 1fr auto auto; align-items: center; min-height: var(--nav-h); padding: 10px var(--pad); }
+  .tr-menu { display: none; }
+  .tr-mark { font-size: 28px; }
+  .tr-burger { display: inline-flex; align-items: center; }
+}
+@media (max-width: 760px) {
+  .tr-wa { display: none; }
+}
+h1, h2 { overflow-wrap: break-word; }
+@media (max-width: 420px) {
+  .phero h1, .md-ph-t { font-size: clamp(34px, 10.5vw, 48px); }
+}
+@media (max-width: 760px) {
+  :root { --edge: 18px; --bar: 56px; }
+  .tr-first { display: block; min-height: 0; }
+  .tr-photo { min-height: 0; }
+  .tr-photo img { position: static; height: auto; aspect-ratio: 4 / 5; }
+  .tr-label { padding: 26px var(--pad) 40px; }
+  .tr-h1 { font-size: 60px; }
+  .tr-line { margin-top: 12px; }
+  .md-hem { padding: 64px 0 80px; }
+  .md-hem-say { padding: 0 var(--pad); }
+  .md-hem-fig { padding-inline: var(--pad); }
+  .tr-foot-in { grid-template-columns: 1fr; padding: 36px var(--pad) calc(var(--bar) + 28px); }
+}

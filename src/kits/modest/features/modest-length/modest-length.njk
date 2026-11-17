@@ -1,0 +1,22 @@
+{#- The size and length guide (MOD-3): how to measure, then her shoulder-to-floor and shoes give the shop's length and
+    the pieces that come in it; the shop's chart beneath. The form's first answer is drawn at build time (the shop's
+    starting measurement and shoes), so nothing moves when the script starts; without JavaScript the chart answers. -#}
+{%- set L = site.lengths %}
+{%- set a = L | startAnswer %}
+{%- set ph = { title: "Size and length", intro: "Every abaya here comes in " + (L.sizes | lengthList) + " inches, measured from the shoulder to the hem." } %}
+{% include "kits/modest/partials/page-head.njk" %}
+<section class="md-len" data-feature="modest-length" aria-label="Find your length"><div class="wrap md-len-in">
+  <div class="md-len-how">
+    <h2 class="md-len-h">How to measure</h2>
+    <p>{{ L.measure }}</p>
+    {%- if L.takeUp %}<p class="md-len-up">{{ L.takeUp }}</p>{% endif %}
+  </div>
+  <form class="md-len-f" data-len-form>
+    <h2 class="md-len-h">Your length</h2>
+    <p class="md-len-row"><label for="len-sf">Shoulder to floor, in inches</label><input id="len-sf" name="sf" type="number" inputmode="decimal" min="40" max="72" step="0.5" value="{{ L.start.shoulderToFloor }}"></p>
+    <p class="md-len-row"><label for="len-shoe">In</label><select id="len-shoe" name="shoe">{% for s in L.shoes %}<option value="{{ loop.index0 }}"{% if loop.index0 == L.start.shoe %} selected{% endif %}>{{ s.label }}</option>{% endfor %}</select></p>
+    <p class="md-len-out" data-len-out aria-live="polite">{% if a.length %}Wear the <b>{{ a.length }}</b>{{ a.words | replace("Wear the " + a.length, "") }}{% else %}{{ a.words }}{% endif %}</p>
+    <ul class="md-len-pieces" data-len-pieces>{% for p in site.pieces | inLength(a.length) %}<li><span>{{ p.name }} in the {{ a.length }}</span><span>{{ p.price | gbp }}</span></li>{% endfor %}</ul>
+  </form>
+  <div class="md-len-chart">{% set chartId = "" %}{% include "kits/modest/partials/chart.njk" %}</div>
+</div></section>
