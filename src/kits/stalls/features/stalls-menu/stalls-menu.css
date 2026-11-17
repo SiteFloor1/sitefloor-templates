@@ -1,0 +1,16 @@
+/* The menu as a board: name and price on one line, the line and allergen codes under. Tokens only. */
+.st-items { list-style: none; margin: 26px 0 0; padding: 0; border-top: 1.5px solid var(--text); }
+.st-item { display: grid; grid-template-columns: 1fr auto; gap: 2px 20px; padding: 15px 0 14px; border-bottom: 1px solid var(--line); }
+.st-item-n, .st-item-p { font-family: var(--font-display); font-weight: 700; font-size: 25px; line-height: 1.1; letter-spacing: -.015em; }
+.st-item-p { color: var(--price, var(--accent)); font-variant-numeric: tabular-nums; }
+.st-item-d { font-size: 17px; color: var(--muted); }
+.st-item-a { font-family: var(--font-display); font-weight: 600; font-size: 13px; color: var(--muted); align-self: center; text-align: right; }
+.st-vegan { font-size: 12px; text-decoration: none; color: var(--accent); vertical-align: middle; }
+.st-item.out .st-item-n, .st-item.out .st-item-p { text-decoration: line-through; text-decoration-thickness: 2px; color: var(--muted); }
+.st-item.out .st-item-d { color: var(--accent); }
+.st-menu-foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 18px; }
+.st-key { margin: 0; font-size: 14px; color: var(--muted); }
+.st-menu-note { margin: 12px 0 0; font-size: 15px; color: var(--muted); }
+.st-menu-note a { color: var(--text); }
+.st-item-photo { grid-column: 1 / -1; width: 100%; max-width: 420px; height: auto; margin-bottom: 10px; }
+@media (max-width: 560px) { .st-item-n, .st-item-p { font-size: 21px; } }

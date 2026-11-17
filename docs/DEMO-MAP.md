@@ -172,6 +172,18 @@ Taken by Corbel: the blue-hour deep navy ground with warm lit rooms, the blueber
 pale green-white text, Encode Sans Expanded and Encode Sans, the engraved scene keypad and the circuit chart, the house
 at dusk switched by a keypad, and a 3D house lit room by room.
 
+## Financial advisers
+_From `docs/trades/financial-advisers/demo-map.md`._
+
+This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` (generated) before proposing a look.
+
+| Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
+|---|---|---|---|---|---|---|---|
+| Thursby | independent financial advice, `ifa`, `statement` | a private bank's statement: **ivory page, holly-green header band and footer**, one wide photograph of a Georgian terrace in morning sun | the terrace's brick and stucco, graded warm with a holly shadow | holly #1D3A2E for the band, the footer and the one filled button; pewter #B9BCB7 hairlines and the card's inner frame | Frank Ruhl Libre 300 / 400 (500 for the name in spaced capitals and the totals) | "Every fee, in pounds, before you sign anything." beside a statement card overlapping the photograph: dotted leaders, pence, the first year under a double rule | (to come) |
+
+Taken by Thursby: Frank Ruhl Libre, the holly band with a round seal and spaced capitals, the statement card with dotted
+leaders and a double-ruled total, the Georgian street photograph, "what to bring" beside each service.
+
 ## Florists
 _From `docs/trades/florist/demo-map.md`._
 
@@ -201,6 +213,18 @@ This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` 
 | Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
 |---|---|---|---|---|---|---|---|
 | Grenat | grand café, `restaurant`, `salon` | baroque grand café: cream and gilt by day, garnet by candlelight, **warm** | a pomegranate | garnet #B4233C on cream #F6EEE0 | Libre Caslon Display / Libre Caslon Text | the room in a gilt frame with cut corners, lit for the hour | a three-tier stand |
+
+## Gyms and health clubs
+_From `docs/trades/gym/demo-map.md`._
+
+This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` (generated) before proposing a look.
+
+| Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
+|---|---|---|---|---|---|---|---|
+| Halde ([demo](https://sitefloor1.github.io/sitefloor-templates/gym/)) | premium members' gym, `gym`, `afterdark` | a members' training club after dark: **black**, one black-and-white portrait framed mid-page, heat and cold as the warm second act in colour (steam, cedar) | a wet river stone | river stone #CFC8BC for dates and quiet marks; bone #F2F0EC type and buttons | Epilogue only (200 the count, 300 headings) | the club's count (usual, or live from the door) as one huge number crossing the portrait's left edge, negative where it passes over; one line, one sentence, one button | (to come) |
+
+Taken by Halde: Epilogue, the drawn H whose crossbar rises (the mark), the number crossing a framed portrait's edge,
+the black page with a warm colour second act, the timetable's busy-by-hour fine rules.
 
 ## Hair salons
 _From `docs/trades/hair/demo-map.md`._
@@ -340,6 +364,15 @@ This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` 
 |---|---|---|---|---|---|---|---|
 | Saffron & Ash | restaurant, `restaurant`, `maison` | always dark bottle green, candlelit, warm | a grill at night | saffron #E0A03A on #0C1311 | Cormorant Garamond / Jost | the closed Menu Book on the table over a blurred fire loop | a ten-course tasting menu |
 | (Carte, no demo of its own) | restaurant, `carte` | printed menu card on a celadon wall | celadon and paprika | paprika #A3341A | Bodoni Moda / Schibsted Grotesk | the menu card itself | — |
+
+## Street-food and dessert stalls (markets, pop-ups and parties)
+_From `docs/trades/stalls/demo-map.md`._
+
+This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` (generated) before proposing a look.
+
+| Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
+|---|---|---|---|---|---|---|---|
+| Fendle | bubble-waffle stall, `stalls`, `spun` | street food at a market, **white and loud** | a raspberry sauce on a hot waffle | raspberry #C9314F on white, prices in crust amber #A8640F | Gabarito / Labrada | the waffle iron opening on the right half, one heavy line running into it, where we are next counting down, the week's stops as tickets | the week's stops (one ticket per plan) |
 
 ## Tailors
 _From `docs/trades/tailor/demo-map.md`._

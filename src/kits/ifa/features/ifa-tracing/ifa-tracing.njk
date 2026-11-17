@@ -1,0 +1,24 @@
+{#- Old pensions (IFA-11): list past employers on this device and get a tracing list to print or copy, with the free
+    Pension Tracing Service and what to ask each scheme. Nothing is stored or sent; nothing is searched. -#}
+{%- include "kits/ifa/partials/meet-href.njk" %}
+{%- set ph = { title: site.tracing.title, intro: site.tracing.intro } %}
+{% include "kits/ifa/partials/page-head.njk" %}
+<section class="if-tr" data-feature="ifa-tracing"><div class="wrap if-tr-in">
+  <form class="if-tr-f if-wait" data-tr-form>
+    <div class="if-tr-rows" data-tr-rows><div class="if-tr-r"><label>Employer or provider <input name="employer" maxlength="80" autocomplete="off"></label><label>From <input name="from" inputmode="numeric" maxlength="4" placeholder="year"></label><label>To <input name="to" inputmode="numeric" maxlength="4" placeholder="year"></label><label>Kind <select name="kind"><option value="workplace">Workplace pension</option><option value="personal">Personal pension</option></select></label></div><div class="if-tr-r"><label>Employer or provider <input name="employer" maxlength="80" autocomplete="off"></label><label>From <input name="from" inputmode="numeric" maxlength="4" placeholder="year"></label><label>To <input name="to" inputmode="numeric" maxlength="4" placeholder="year"></label><label>Kind <select name="kind"><option value="workplace">Workplace pension</option><option value="personal">Personal pension</option></select></label></div></div>
+    <div class="if-tr-act"><button type="button" class="if-go" data-tr-add>Add another</button></div>
+    <p class="if-fine">What you type stays on this device. We don't store it, send it or search for anything.</p>
+  </form>
+  <template data-tr-row><div class="if-tr-r"><label>Employer or provider <input name="employer" maxlength="80" autocomplete="off"></label><label>From <input name="from" inputmode="numeric" maxlength="4" placeholder="year"></label><label>To <input name="to" inputmode="numeric" maxlength="4" placeholder="year"></label><label>Kind <select name="kind"><option value="workplace">Workplace pension</option><option value="personal">Personal pension</option></select></label></div></template>
+  <div class="if-tr-out">
+    <h2>Your tracing list</h2>
+    <pre class="if-tr-pre" data-tr-out aria-live="polite">Add an employer to start your list.</pre>
+    <div class="if-tr-act" data-tr-tools hidden><button type="button" class="if-btn" data-tr-copy>Copy the list</button><button type="button" class="if-go" data-tr-print>Print</button></div>
+    <h2>Then</h2>
+    <ol class="if-tr-steps">
+      <li>Find each scheme's contact details with the government's free <a href="{{ tracingInfo.url }}" target="_blank" rel="noopener">Pension Tracing Service</a>.</li>
+      <li>Ask each one:<ul>{% for q in tracingInfo.ask %}<li>{{ q }}</li>{% endfor %}</ul></li>
+      <li>Bring the replies to a <a href="{{ meetHref }}">first meeting</a>, and we'll go through them with you.</li>
+    </ol>
+  </div>
+</div></section>

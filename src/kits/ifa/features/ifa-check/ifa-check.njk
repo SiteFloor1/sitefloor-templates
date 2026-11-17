@@ -1,0 +1,21 @@
+{#- Check it's us: the firm's register entry first (so visitors check the regulator, not our word), then the only numbers
+    and email addresses it uses, what it will never ask, and the FCA's ScamSmart. -#}
+{%- set c = site.check %}
+{%- set ph = { title: c.title, intro: c.intro } %}
+{% include "kits/ifa/partials/page-head.njk" %}
+<section class="if-chk" data-feature="ifa-check"><div class="wrap if-chk-in">
+  <div>
+    <h2>Check us on the register</h2>
+    <p>Our firm reference number is <b>{{ site.regulation.frn }}</b>{{ site.mode | demoTag }}. <a href="{{ site.regulation.registerUrl }}" target="_blank" rel="noopener">Open our entry on the FCA's register</a> and check the phone numbers and website there match ours.</p>
+    <h2>We only call from</h2>
+    <ul class="if-chk-list">{% for p in c.phones %}<li><span>{{ p.label }}</span><a href="tel:{{ p.number | replace(' ', '') }}">{{ p.number | replace('+44 ', '0') }}</a></li>{% endfor %}</ul>
+    <h2>We only email from</h2>
+    <ul class="if-chk-list">{% for d in c.domains %}<li><span>Addresses ending</span><b>@{{ d }}</b></li>{% endfor %}</ul>
+  </div>
+  <div>
+    <h2>We will never</h2>
+    <ul class="if-chk-never">{% for n in c.never %}<li>{{ n }}</li>{% endfor %}</ul>
+    <p>{{ c.callback }}</p>
+    <p>If something feels wrong, the FCA's <a href="{{ fca.scamsmart }}" target="_blank" rel="noopener">ScamSmart</a> explains how to check a firm and report a scam.</p>
+  </div>
+</div></section>

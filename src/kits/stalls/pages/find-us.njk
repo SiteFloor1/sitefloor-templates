@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: find-us
+permalink: find-us.html
+feature: stalls-find
+eleventyComputed:
+  title: "{{ site.findPage.title | plain }}"
+  description: "Where to find {{ site.business.name }} this week: markets, days and times."
+---
+{%- set ph = { title: site.findPage.title, intro: site.findPage.intro } %}
+{% include "kits/stalls/partials/page-head.njk" %}
+{% include "kits/stalls/features/stalls-find/stalls-find.njk" %}

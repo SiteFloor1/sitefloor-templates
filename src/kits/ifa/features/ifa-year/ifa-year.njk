@@ -1,0 +1,16 @@
+{#- Your year with us: the review rhythm as the firm runs it, and a yearly reminder for the client's review month. -#}
+{%- set y = site.year %}
+{%- set ph = { title: "Your year with us", intro: y.intro } %}
+{% include "kits/ifa/partials/page-head.njk" %}
+<section class="if-year" data-feature="ifa-year"><div class="wrap if-year-in">
+  <ol class="if-year-l">{% for s in y.steps %}<li><span>{{ s.when }}</span><p>{{ s.what }}</p></li>{% endfor %}</ol>
+  <div class="if-year-r">
+    <form class="if-year-f if-wait" data-year-form>
+      <label for="if-month">Remind me each year in</label>
+      <select id="if-month" name="month">{% for m in months %}<option value="{{ loop.index }}">{{ m }}</option>{% endfor %}</select>
+      <button type="submit" class="if-btn">Add to my calendar</button>
+      <p class="if-fine">A calendar file made on this device. Nothing is sent to us.</p>
+    </form>
+    <p class="if-year-l2">{{ y.adviserLeaves }}</p>
+  </div>
+</div></section>

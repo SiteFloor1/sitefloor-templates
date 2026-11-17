@@ -1,0 +1,6 @@
+{#- Statement phone bar: Call on paper, Book a first meeting in holly green. -#}
+{%- include "kits/ifa/partials/meet-href.njk" %}
+<div class="mbar st-bar">
+  <a class="st-bar-call" href="tel:{{ site.contact.phone | replace(' ', '') }}">Call</a>
+  <a class="st-bar-go" href="{{ meetHref }}">Book a first meeting</a>
+</div>

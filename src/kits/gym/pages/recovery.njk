@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: recovery
+permalink: recovery.html
+feature: gym-recovery-page
+eleventyComputed:
+  title: "{{ site.recovery.title | plain }}"
+  description: "The sauna, steam room and cold plunge at {{ site.business.name }}, booked by the half hour."
+---
+{%- set onPage = true %}{% include "kits/gym/features/gym-recovery/gym-recovery.njk" %}
+{% include "kits/gym/features/gym-recovery-page/gym-recovery-page.njk" %}
