@@ -25,7 +25,7 @@
     <h1 class="vr-h1">{{ x.name }}</h1>
     <p class="vr-line fr-open-only">{{ x.line }}</p>
     {%- if L %}
-    <p class="vr-line fr-before-only">Out on {{ L.date | dayMonth }}. Leave your email and we'll write on the day.</p>
+    <p class="vr-line fr-before-only">Out on {{ L.date | dayMonth }}. {{ "Leave your email and we'll write on the day." if (L.waitlist and L.waitlist.formUrl) else "Ask, and we'll message you on the day." }}</p>
     {%- if L.story %}<a class="vr-story fr-before-only" href="#launch">{{ L.story.title }}</a>{% endif %}
     {%- endif %}
   </div>
