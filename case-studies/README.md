@@ -44,6 +44,23 @@ chat can reuse the Sitefloor bar, footer and patterns without re-reading a publi
   as three motorway junctions on blue road-sign plates, the speed as the journey time, a live Delivered tonight with the
   demo's figures; night navy, Overpass and Overpass Mono). Media (four clips, posters, stills, four car photos) live in
   the published artifact under `media/`. Clips: Playwright at 390×844, scaled to 780 wide.
+- `fendle/index.html`: the street-food stall case study (pull one: the page reads Fendle's website the way a bubble
+  waffle is eaten, one bubble at a time. The hero is a real waffle in the open iron, full bleed, with fifteen of its
+  bubbles as the kit's fifteen features; tap one and it lifts out of the photograph (the same pixels, clipped, with a
+  shadow), leaves its empty cup behind, and a white card answers with the customer's question and the site's answer,
+  live where the demo is (the next stop and its countdown on London time from Fendle's usual week, the party diary's
+  Saturdays); a strip of the fifteen sits under the photograph for keyboards and phones. The chapters are six bubbles on
+  raspberry, each a giant photographed bubble behind the demo on a phone: where we are, the board, parties, the drop,
+  allergens, where to find us. The plans are Plain, Sauced and Loaded, three real waffles; the speed is "off the iron";
+  the close asks for the stall's week. Iron black, raspberry, crust amber, batter cream; Gabarito and Labrada, the
+  demo's own, self-hosted with size-matched stand-ins). Media (the iron photograph in two crops, six bubble crops, three
+  plan photographs, eight phone stills, a laptop screen, the saved board picture, the fonts) live in `media/` and the
+  published artifact. Phone stills: 390×844 at 2x in full Chrome, en-GB, London time, Saturday 21 November 2026, 15:00.
+  Photographs (Pexels, free licence): the waffle iron, Th2city Santana,
+  https://www.pexels.com/photo/waffle-on-iron-25757603/ (hero, bubbles, Plain); chocolate bubble waffles, Elizabeth
+  Ferreira, https://www.pexels.com/photo/delicious-chocolate-bubble-waffles-in-food-truck-30461190/ (Sauced, cropped
+  above the cones' print); bubble waffles with berries and nuts, Willians Huerta,
+  https://www.pexels.com/photo/bubble-waffles-with-mixed-berries-and-nuts-34926596/ (Loaded).
 - `fennick-lowe/index.html`: the tailor case study (cut to pattern: the page opens on Fennick & Lowe's charcoal flannel
   with a coat's manila pattern pieces laid on it, each piece a page of the site; tap one and a chalk line goes round it
   while that page shows on a phone lying on the cutting table; the pattern ticket lists every piece and the plan it
@@ -230,6 +247,23 @@ chat can reuse the Sitefloor bar, footer and patterns without re-reading a publi
   posters, three phone stills, three laptop screens, five of the demo's photographs, the fonts) live in `media/` and the
   published artifact. Phone films: CDP screencast at 390×844 and 2x in Chromium with `--lang=en-GB`, H.264; stills and
   films without the demo bar; nothing plays until asked.
+- `thursby/index.html`: the financial advisers case study (the note: Thursby's site read as a banknote whose face value
+  is the fee. The hero is a specimen note in holly intaglio on pale security paper: an engraved oval of Thursby's
+  Georgian terrace, the firm's name in spaced capitals, "Thursby promises to charge the bearer, for the first year of
+  advice," and the first-year fee in pounds, with a lathe-cut rosette behind the denomination and the risk sentence as
+  microprint round the border; type an amount (or pick one) and the note reprints from the demo's published fees, its
+  rosette re-cut from the new figure. Then the eight security features you'd check a note by, each something the
+  regulator asks an adviser to show: I face value (the fee statement, film and the fees page on a laptop), II watermark
+  (hold a light to plain paper and the regulator's status line appears; the demo's footer on a phone), III serial
+  numbers (advisers and their FCA numbers), IV raised print (what to bring), V the foil (pension dates live on a
+  holographic foil, the same rules as the kit's `milestones`, plus a film), VI the thread (old pensions, a security
+  thread down the section, film), VII date of issue (dated sources, a "checked" stamp), VIII know a forgery (Check it's
+  us). The plans are three denominations, each note larger than the last; the numbers are "cleared"; the close is
+  "issue your own". Pale security paper, holly and intaglio ink, pewter, one red for serials and SPECIMEN; Frank Ruhl
+  Libre (Thursby's own), self-hosted with size-matched stand-ins). Media (three phone films with posters, five phone
+  stills, three laptop screens, the terrace photograph in two crops, the fonts) live in `media/` and the published
+  artifact. Phone films: CDP screencast at 390×844 and 2x in Chromium with `--lang=en-GB`, H.264; stills and films
+  without the demo ribbon; nothing plays until asked.
 - `tollgarth/index.html`: the garden designer case study (from first light: the page is one day in Richmond, read by
   the sun. The hero is the demo's own example garden drawn in 3D by the kit's sun code, with the shadows of the house
   and fences at the hour you set; it opens at the real time in Richmond (dark at night), with Today, 21 June,

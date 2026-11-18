@@ -1,0 +1,39 @@
+{#- The year, drawn (TOUR-3): each journey a row of twelve months, a solid line when the operator would go, dashed
+    when not. Choose a month (it opens on this one), who's going and roughly how long: the journeys that fit come to
+    the top, the rest fade back, and a line says how many fit, or that none does. Drawn at build time for the build
+    month; the browser redraws for the real month. Names open the journey (logbook) or its row. -#}
+{%- set sec = site.sections.finder %}
+{%- set mo = "" | tourMonth %}
+{%- set q = { month: mo, who: "couple", nights: 10 } %}
+{%- set rows = site.journeys.items | byFit(q) %}
+<section id="finder" class="tf" data-feature="tourism-finder" aria-label="{{ sec.title | plain }}"><div class="wrap tf-in">
+  <div class="tf-side">
+    {%- include "core/partials/section-head.njk" %}
+    <fieldset class="tf-chips"><legend>Who's going</legend>
+      {%- for w in tourWho %}<button type="button" data-tf-who="{{ w.id }}" aria-pressed="{{ 'true' if w.id == q.who else 'false' }}">{{ w.label }}</button>{% endfor %}
+    </fieldset>
+    <fieldset class="tf-chips"><legend>How long</legend>
+      {%- for n in [[7, "About a week"], [10, "Ten days"], [14, "Two weeks"]] %}<button type="button" data-tf-nights="{{ n[0] }}" aria-pressed="{{ 'true' if n[0] == q.nights else 'false' }}">{{ n[1] }}</button>{% endfor %}
+    </fieldset>
+  </div>
+  <div class="tf-main">
+    <p class="tf-key">The solid line is when we'd go.</p>
+    <table class="tf-yr">
+      <caption class="sr-only">Journeys by month: a solid line for the months we would go</caption>
+      <colgroup><col class="tf-c-name">{% for m in tourMonths %}<col>{% endfor %}<col class="tf-c-len"></colgroup>
+      <thead><tr><td></td>
+        {%- for m in tourMonths %}<th scope="col"{% if loop.index == mo %} class="sel"{% endif %}><button type="button" data-tf-month="{{ loop.index }}" aria-pressed="{{ 'true' if loop.index == mo else 'false' }}" aria-label="{{ m }}">{{ m | first }}<span class="tf-lg">{{ m.slice(1, 3) }}</span></button></th>{% endfor %}
+        <td></td></tr></thead>
+      <tbody data-tf-rows>
+        {%- for j in rows %}
+        <tr data-tf-row="{{ j.id }}" data-go="{{ j.go | join(',') }}" data-who="{{ j.who | join(',') }}" data-nights="{{ j.nights }}">
+          <th scope="row"><a href="{{ (('journey-' + j.id) | href) if ('tourism-logbook' | enabled) else ('#j-' + j.id) }}">{{ j.name }}</a><small>{{ j.where }}</small></th>
+          {%- for x in j.go | monthMarks %}<td class="tf-m{% if x.on %} on{% endif %}{% if x.start %} st{% endif %}{% if x.end %} en{% endif %}{% if x.month == mo %} sel{% endif %}" title="{{ tourMonths[loop.index0] }}: {{ 'a month we would go' if x.on else 'not our choice' }}"></td>{% endfor %}
+          <td class="tf-len">{{ j.nights }} nights</td>
+        </tr>
+        {%- endfor %}
+      </tbody>
+    </table>
+    <p class="tf-found" data-tf-found aria-live="polite"></p>
+  </div>
+</div></section>

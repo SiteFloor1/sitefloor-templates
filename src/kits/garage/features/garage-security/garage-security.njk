@@ -1,0 +1,11 @@
+{#- Security (PARK-16): cameras, fob hours, gate and alarm, only what the client confirms; how footage is kept, and
+    never a live feed. With the insurer's letter on, its download sits here. -#}
+{%- set sec = site.sections.security %}
+<section id="security" class="gq" aria-label="{{ sec.title | plain }}"{{ "garage-security" | tierAttr | safe }}><div class="wrap gq-in">
+  {%- include "core/partials/section-head.njk" %}
+  <ul class="gq-l">
+    {%- if site.security.cameras %}<li>{{ site.security.cameras.length }} {{ "camera" if site.security.cameras.length == 1 else "cameras" }}. {{ site.security.recorded }}</li>{% else %}<li>{{ site.security.recorded }}</li>{% endif %}
+    {%- for f in site.security.facts %}<li>{{ f }}</li>{% endfor %}
+  </ul>
+  {%- if "garage-insurer" | enabled %}{% include "kits/garage/features/garage-insurer/garage-insurer.njk" %}{% endif %}
+</div></section>

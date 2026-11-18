@@ -1,0 +1,14 @@
+{#- Laying up (PARK-13): away from and to; the client's care visits and the day the car comes back, as a calendar
+    file made in the browser; GOV.UK links for SORN and tax (facts are linked to the source, not restated). -#}
+{%- set L = site.layingUp %}
+{%- set ph = { title: "Laying a car up", intro: L.intro } %}
+{% include "kits/garage/partials/page-head.njk" %}
+<section class="gl" data-feature="garage-laying-up" aria-label="Plan the time away"><div class="wrap gl-in">
+  <form class="gl-f" data-lu-form>
+    <p><label for="lu-from">Stored from</label> <input id="lu-from" name="from" type="date" required></p>
+    <p><label for="lu-to">Back on the road</label> <input id="lu-to" name="to" type="date" required></p>
+    <ol class="gl-ev" data-lu-events><li>{{ L.visit }}, every {{ L.every }} days while it’s here.</li><li>{{ L.back }}.</li></ol>
+    <a class="btn" data-lu-ics href="#" download="laying-up.ics" hidden>Add to your calendar</a>
+  </form>
+  {%- if L.links %}<ul class="gl-links">{% for l in L.links %}<li><a class="go" href="{{ l.url }}" rel="noopener">{{ l.label }}</a></li>{% endfor %}</ul>{% endif %}
+</div></section>

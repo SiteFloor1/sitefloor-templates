@@ -1,0 +1,58 @@
+{#- One journey, day by day: its photographs, the entry for the chosen stop, the stops, and (with the logbook on) the
+    country drawn with the route. Set first: j (the journey), lbHero (true on the home page), lbOpen (shown),
+    lbOfMonth (it is this month's pick). In the hero each country's outline is drawn once (the hero's <defs>) and used. Every stop carries its own words in data attributes, so choosing one swaps
+    them in place; the route is drawn to the stop by its share of the line (pathLength 1). -#}
+{%- set lbOn = "tourism-logbook" | enabled %}
+{%- set photos = j | stopPhotos %}
+{%- set pidx = j | stopPhotoIndex %}
+{%- set caps = [j.where] %}{% for s in j.stops %}{% if s.photo %}{% set caps = (caps.push(s.place), caps) %}{% endif %}{% endfor %}
+{%- set first = j.stops[0] %}
+<article class="lb{% if lbHero %} lb-hero{% endif %}" data-logbook data-journey="{{ j.id }}"{% if not lbOpen %} hidden{% endif %} aria-label="{{ j.name }}, day by day">
+  <div class="lb-photo">
+    {%- for p in photos %}
+    <img class="{{ 'on' if loop.index0 == pidx[0] }}" data-lb-photo="{{ loop.index0 }}" src="{{ p.src | img }}"{% if p.small %} srcset="{{ p.small.src | img }} {{ p.small.width }}w, {{ p.src | img }} {{ p.width }}w" sizes="(max-width: 760px) 100vw, 48vw"{% endif %} width="{{ p.width }}" height="{{ p.height }}" alt="{{ p.alt }}"{% if p.focus %} style="object-position: {{ p.focus }}"{% endif %} loading="{{ 'eager' if (lbOpen and loop.index0 == pidx[0]) else 'lazy' }}" decoding="async"{% if lbOpen and lbHero and loop.index0 == pidx[0] %} fetchpriority="high"{% endif %}>
+    {%- endfor %}
+    <p class="lb-cap" data-lb-cap>Photograph: {{ caps[pidx[0]] }}</p>
+  </div>
+  <div class="lb-entry">
+    {%- if lbHero %}
+    <p class="lb-month" data-lb-month>{% if lbOfMonth %}Journey of the month · <b>{{ "" | tourMonth | monthName }}</b>{% else %}From the logbook{% endif %}</p>
+    <h2 class="lb-name">{% if lbOn %}<a href="{{ ('journey-' + j.id) | href }}"{{ "tourism-logbook" | tierAttr | safe }}>{{ j.name }}</a>{% else %}{{ j.name }}{% endif %}</h2>
+    {%- endif %}
+    <p class="lb-meta">{{ j.where }} · {{ j.nights }} nights{% if j.from %} · from {{ j.from | tourPounds }} pp{% endif %}</p>
+    {%- if "tourism-local-time" | enabled %}
+    <p class="lb-clock" data-local-time data-tz="{{ first.tz }}"{{ "tourism-local-time" | tierAttr | safe }}>Local time · {{ first.place }}</p>
+    {%- endif %}
+    <p class="lb-title" data-lb-title>{{ first.place }}</p>
+    <p class="lb-text"><b data-lb-days>{{ first.days }}</b> <span data-lb-text>{{ first.text }}</span></p>
+    {%- if lbOn %}
+    <ol class="lb-stops"{{ "tourism-logbook" | tierAttr | safe }}>
+      {%- for s in j.stops %}
+      <li><button type="button" data-lb-stop="{{ loop.index0 }}" data-place="{{ s.place }}" data-days="{{ s.days }}" data-text="{{ s.text }}" data-tz="{{ s.tz }}" data-photo="{{ pidx[loop.index0] }}" data-cap="{{ caps[pidx[loop.index0]] }}" aria-current="{{ 'true' if loop.first else 'false' }}"><span>{{ s.place }}</span><span>{{ s.days }}</span></button></li>
+      {%- endfor %}
+    </ol>
+    {%- endif %}
+    {%- if lbHero and not lbOn %}
+    <p class="lb-ask"><a href="{{ (j | enquiry(site.business.name)) | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ j | enquiry(site.business.name) }}"{% endif %} target="_blank" rel="noopener">Ask about this journey</a></p>
+    {%- endif %}
+  </div>
+  {%- if lbOn %}{% set m = j | journeyMap %}
+  <div class="lb-map"{{ "tourism-logbook" | tierAttr | safe }}>
+    <div class="lb-mapbox {{ 'lb-tall' if m.tall else 'lb-wide' }}" style="aspect-ratio: {{ m.width }} / {{ m.height }}; --u: {{ 1.4 if m.tall else 3.6 }}">
+      <svg viewBox="0 0 {{ m.width }} {{ m.height }}" role="img" aria-label="Map of {{ j.where }} with the route of {{ j.name }}">
+        {%- if lbHero %}<use class="lb-land" href="#{{ m.landId }}"/>{% else %}<path class="lb-land" d="{{ m.land }}"/>{% endif %}
+        {%- if m.route %}
+        <path class="lb-ghost" d="{{ m.route }}"/>
+        <path class="lb-route" data-lb-route pathLength="1" style="stroke-dashoffset: {{ 1 - m.at[0].share }}" d="{{ m.route }}"/>
+        {%- endif %}
+      </svg>
+      {%- for p in m.points %}
+      <span class="lb-dot{% if p.major %} lb-major{% endif %}{% if loop.index0 == m.at[0].point %} on{% endif %}" data-lb-dot="{{ loop.index0 }}" style="left: {{ p.x }}%; top: {{ p.y }}%" aria-hidden="true"></span>
+      {%- if p.label %}<span class="lb-lab{% if p.left %} lb-left{% endif %}{% if not p.major %} lb-via{% endif %}" style="left: {{ p.x }}%; top: {{ p.y }}%" aria-hidden="true">{{ p.name }}</span>{% endif %}
+      {%- endfor %}
+    </div>
+    <p class="lb-note">Dashed: the way ahead. Route approximate.</p>
+  </div>
+  <template data-lb-at>{{ m.at | dump | safe }}</template>
+  {%- endif %}
+</article>

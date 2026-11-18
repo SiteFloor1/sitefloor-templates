@@ -1,0 +1,10 @@
+{#- The aerial hall after dark: the night render, and an SVG layer the script draws the route on. -#}
+{%- set A = site.aerial %}
+<figure class="gn-dark">
+  <div class="ga-img"><picture>
+    <source media="(max-width: 700px)" srcset="{{ A.nightPhone.src | img }}" width="{{ A.nightPhone.width }}" height="{{ A.nightPhone.height }}">
+    <img src="{{ A.night.src | img }}" width="{{ A.night.width }}" height="{{ A.night.height }}" alt="{{ site.hall.name }} from above at night: the hall dark, warm light on each car, and a lit route from the gate to the bay" loading="lazy" decoding="async">
+  </picture>
+  <svg class="gn-ov" data-night-ov aria-hidden="true"></svg></div>
+  <figcaption class="ga-cap">Rendered from our plan. Not a photograph.</figcaption>
+</figure>

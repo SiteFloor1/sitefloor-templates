@@ -1,0 +1,6 @@
+{#- Logbook bar, phones only: two halves under an ink rule. Call on the left in ink; WhatsApp (or the booking app) on
+    the right, filled with the accent. -#}
+<nav class="mbar lg-bar" aria-label="Call or message us">
+  <a class="lg-bar-call" href="tel:{{ site.contact.phone | replace(' ', '') }}">Call us</a>
+  <a class="lg-bar-go" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{{ "WhatsApp" if build.booking.whatsapp else build.booking.label }}</a>
+</nav>
