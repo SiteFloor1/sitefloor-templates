@@ -16,7 +16,7 @@
     </fieldset>
   </form>
   <aside class="fr-disc-side">
-    <p class="fr-disc-count" data-disc-count aria-live="polite" data-js-only>0 of {{ d.pick }} chosen</p>
+    <p class="fr-disc-count" data-disc-count aria-live="polite">0 of {{ d.pick }} chosen</p>
     <ol class="fr-disc-set" data-disc-set aria-label="Your set">{% for i in range(0, d.pick) %}<li class="fr-vial"></li>{% endfor %}</ol>
     <a class="fr-go" data-disc-go href="{{ d.payLink if d.payLink else (d.message | orderText({ name: '' }, { ml: d.ml, price: d.price }, site.business.name) | book) }}" target="_blank" rel="noopener">Order the set, {{ d.price | gbp }}</a>
     <a class="fr-alt" data-disc-send href="{{ d.message | orderText({ name: '' }, { ml: d.ml, price: d.price }, site.business.name) | book }}" target="_blank" rel="noopener"{% if not d.payLink %} hidden{% endif %}>then send us your choice on WhatsApp</a>

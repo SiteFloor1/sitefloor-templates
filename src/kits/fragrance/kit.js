@@ -27,7 +27,7 @@ export const features = [
   { id: "fragrance-gifts", dir: `${K}/fragrance-gifts`, minPlan: "plus", kits: ["fragrance"], requires: ["gifts", "engraving", "fragrances"], page: "gifts", js: true,
     summary: "Gifts, engraving and wrapping (FRAG-4): choose the bottle and size, the words, the house's letter style, on the glass or the box, and wrapping; the total from the house's prices, sent as an order on WhatsApp." },
   { id: "fragrance-turntable", dir: `${K}/fragrance-turntable`, minPlan: "signature", kits: ["fragrance"], requires: ["turntable"], js: true,
-    summary: "The turntable: the bottle turns as the visitor drags it (or with the arrow keys), from the house's own turntable photographs or a render; the first frame is the poster, the rest load after the page. No autoplay." },
+    summary: "The turntable: the bottle turns as the visitor drags it (or with the arrow keys), from the house's own turntable photographs or a render; the first frame is the poster, the rest load only when the visitor reaches for it. No autoplay." },
   { id: "fragrance-notes", dir: `${K}/fragrance-notes`, minPlan: "signature", kits: ["fragrance"], requires: ["fragrances"], js: true,
     summary: "Notes on the bottle (FRAG-5): the notes as one sentence across the bottle, top at the neck, heart at the shoulder, base at the foot; tap a note to see which other scents in the house have it." },
   { id: "fragrance-engraving-desk", section: "engraving", dir: `${K}/fragrance-engraving-desk`, minPlan: "signature", kits: ["fragrance"], requires: ["engraving", "fragrances"], js: true,

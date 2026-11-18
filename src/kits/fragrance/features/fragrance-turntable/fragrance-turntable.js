@@ -47,6 +47,8 @@ export function init(root, ctx) {
     if (step === undefined) return;
     e.preventDefault(); preload(); show(cur + step);
   });
-  const later = /** @type {any} */ (window).requestIdleCallback ?? ((/** @type {() => void} */ fn) => setTimeout(fn, 1500));
-  if (document.readyState === "complete") later(preload); else addEventListener("load", () => later(preload));
+  // The other frames load only when someone reaches for the bottle (a hover, a touch or the keyboard), never on their
+  // own: most visitors never turn it, so they never pay for it.
+  root.addEventListener("pointerenter", preload, { once: true });
+  root.addEventListener("focus", preload, { once: true });
 }

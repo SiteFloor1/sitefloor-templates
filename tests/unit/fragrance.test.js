@@ -103,6 +103,22 @@ test("no performance claims, comparisons or invented scarcity in the house's wor
   assert.equal(errorsFor((s) => { s.fragrances.items[0].line = "Warm sand at the end of the day."; }), "");
 });
 
+test("the claims check reads every page and the common wordings, and lets plain words through", () => {
+  const where = [
+    ["the layering page", (/** @type {any} */ s, /** @type {string} */ t) => { s.pages[0].blocks[0].body = t; }, /pages\[0\]\.blocks\[0\]\.body/],
+    ["a page description", (/** @type {any} */ s, /** @type {string} */ t) => { s.pages[0].description = t; }, /pages\[0\]\.description/],
+    ["a question's answer", (/** @type {any} */ s, /** @type {string} */ t) => { s.questions[0].a = t; }, /questions\[0\]\.a/],
+    ["the business line", (/** @type {any} */ s, /** @type {string} */ t) => { s.business.description = t; }, /business\.description/],
+    ["a fragrance's line", (/** @type {any} */ s, /** @type {string} */ t) => { s.fragrances.items[0].line = t; }, /fragrances\.items\[0\]\.line/],
+  ];
+  const bad = ["Smells like Baccarat Rouge", "Long-lasting layering", "Long-lasting, 12 hours on skin", "Lasts all day", "8-hour wear", "12h on skin",
+    "All-day wear", "Reminiscent of a famous one", "Similar to the big houses", "An alternative to the classics", "A compliment magnet",
+    "Leaves a trail all evening", "Outlasts the night", "Inspired by a bestseller", "A dupe", "Only 3 left", "Selling fast"];
+  for (const [name, put, path] of where) for (const t of bad) assert.match(errorsFor((s) => put(s, t)), path, `${t} in ${name}`);
+  for (const t of ["Ready in 48 hours.", "Open all week.", "Warm sand at the end of the day.", "The salt fades in the first hour; then iris."])
+    assert.equal(errorsFor((s) => { s.questions[0].a = t; }), "", t);
+});
+
 test("a demo takes no payments and collects no names; a client's links are the house's own", () => {
   assert.match(errorsFor((s) => { s.fragrances.items[0].sizes[0].payLink = "https://buy.stripe.com/abc"; }), /a demo takes no payments/);
   assert.match(errorsFor((s) => { s.launch.waitlist = { formUrl: "https://forms.gle/x" }; }), /a demo collects no names/);

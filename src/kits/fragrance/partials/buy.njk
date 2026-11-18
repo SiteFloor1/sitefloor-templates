@@ -3,7 +3,12 @@
     Without JavaScript the middle size is chosen and its link works. -#}
 {%- set s0 = x | defaultSize %}
 {%- set drawn = ("fragrance-sizes" | enabled) and not plainSizes %}
-<div class="fr-buy" data-scent="{{ x.id }}">
+{#- A launch scent, before its day: Buy and the sample give way to the pre-order (or "Tell me on the day"). The state is
+    set at build time and checked again in the browser (fragrance-launch.js), so the page opens right on the day. -#}
+{%- set LL = site.launch if ("fragrance-launch" | enabled) else null %}
+{%- set held = LL and (x.id in LL.scents) and not plainSizes %}
+{%- set before = held and (LL | launchState).state == "before" and site.mode != "demo" %}
+<div class="fr-buy{% if before %} is-before{% endif %}" data-scent="{{ x.id }}"{% if held %} data-launch-scope data-feature="fragrance-launch"{% endif %}>
   <div class="fr-sizes{% if drawn %} fr-drawn{% endif %}" role="radiogroup" aria-label="Size of {{ x.name }}">
     {%- for s in x.sizes %}
     <label class="fr-size"><input type="radio" name="size-{{ x.id }}{{ buyKey or '' }}" value="{{ s.ml }}"{% if s.ml == s0.ml %} checked{% endif %}>
@@ -13,9 +18,15 @@
     </label>
     {%- endfor %}
   </div>
-  <a class="fr-go" data-buy href="{{ s0.payLink if s0.payLink else (site.fragrances.message | orderText(x, s0, site.business.name) | book) }}" target="_blank" rel="noopener">Buy, {{ s0.price | gbp }}</a>
+  <a class="fr-go{% if held %} fr-open-only{% endif %}" data-buy href="{{ s0.payLink if s0.payLink else (site.fragrances.message | orderText(x, s0, site.business.name) | book) }}" target="_blank" rel="noopener">Buy, {{ s0.price | gbp }}</a>
   {%- if x.sample %}
   {%- set sm = { ml: x.sample.ml, price: x.sample.price } %}
-  <a class="fr-alt" data-sample href="{{ x.sample.payLink if x.sample.payLink else ((site.fragrances.sampleMessage or site.fragrances.message) | orderText(x, sm, site.business.name) | book) }}" target="_blank" rel="noopener">or try a sample, {{ x.sample.price | gbp }}</a>
+  <a class="fr-alt{% if held %} fr-open-only{% endif %}" data-sample href="{{ x.sample.payLink if x.sample.payLink else ((site.fragrances.sampleMessage or site.fragrances.message) | orderText(x, sm, site.business.name) | book) }}" target="_blank" rel="noopener">or try a sample, {{ x.sample.price | gbp }}</a>
+  {%- endif %}
+  {%- if held %}
+  {%- set pre = LL.preorder[x.id] if LL.preorder else null %}
+  {%- set waText = LL.message | orderText(x, s0, site.business.name) %}
+  <a class="fr-go fr-before-only" href="{{ pre if pre else (waText | book) }}" target="_blank" rel="noopener">{% if pre %}Pre-order, {{ s0.price | gbp }}{% else %}Tell me on the day{% endif %}</a>
+  <span class="fr-alt fr-before-only">Out on {{ LL.date | dayMonth }}</span>
   {%- endif %}
 </div>

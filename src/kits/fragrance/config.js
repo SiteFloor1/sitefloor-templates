@@ -18,7 +18,14 @@ const PAY = /^https:\/\/buy\.stripe\.com\/[A-Za-z0-9_-]+$/;
 const FORM = /^https:\/\/(docs\.google\.com\/forms\/|forms\.gle\/)/;
 const YMD = /^\d{4}-\d{2}-\d{2}$/;
 /** Words a perfume house may not use about its own scents without its own evidence (and never on a demo). */
-const CLAIMS = /\b(long[- ]?lasting|lasts? (all day|\d+\s*hours?)|\d+\s*hours?\b|beast mode|projection|sillage of|smells? (just )?like|dupe|inspired by|clone of|selling fast|only \d+ left|limited stock)\b/i;
+const CLAIMS = new RegExp([
+  String.raw`long[- ]?lasting`, String.raw`lasts? (all day|all night|\d+\s*(h|hrs?|hours?)\b)`, String.raw`all[- ]day( wear| long)?\b`,
+  // hours as wear ("8-hour wear", "12h on skin"); plain hours stay allowed ("ready in 48 hours")
+  String.raw`\d+\s*[- ]?\s*(h|hrs?|hours?)\b[- ]?(of )?(wear|on( the)? skin|lasting|longevity)`, String.raw`outlasts?`, String.raw`longevity`,
+  String.raw`beast mode`, String.raw`projection`, String.raw`sillage of`, String.raw`compliments?`, String.raw`leaves? a trail`, String.raw`trails? (behind|all)`,
+  String.raw`smells? (just )?like`, String.raw`dupe`, String.raw`inspired by`, String.raw`clone of`, String.raw`reminiscent of`, String.raw`similar to`, String.raw`alternative to`,
+  String.raw`selling fast`, String.raw`only \d+ left`, String.raw`limited stock`,
+].map((x) => `\\b${x}\\b`).join("|"), "i");
 
 /** @param {Report} err @param {string} path @param {any} v */
 function text(err, path, v) { if (!isStr(v)) err(path, "required text is missing"); }
@@ -230,16 +237,17 @@ function checkLaunch(l, err, items, mode) {
   if (l.story !== undefined && block(err, "launch.story", l.story, ["title", "text", "by"])) for (const k of ["title", "text", "by"]) text(err, `launch.story.${k}`, l.story[k]);
 }
 
-/** Every string the house writes is checked for performance claims and brand comparisons. @param {any} site @param {Report} err */
+/** Every string the house writes, on every page, is checked for performance claims and brand comparisons. @param {any} site @param {Report} err */
 function claims(site, err) {
-  const skip = new Set(["src", "url", "href", "image", "directionsUrl", "sameAs", "features", "id", "slug", "payLink", "formUrl", "alt", "credit", "wideSrc", "phoneSrc"]);
+  const skip = new Set(["src", "url", "href", "image", "directionsUrl", "sameAs", "features", "id", "slug", "payLink", "formUrl", "alt", "credit", "wideSrc", "phoneSrc", "kit", "look", "mode", "plan", "lang", "schemaVersion", "contact", "booking", "hours", "brand"]);
   /** @param {any} v @param {string} path */
   const walk = (v, path) => {
     if (typeof v === "string") { if (CLAIMS.test(v)) err(path, `a performance claim or comparison ("${v.match(CLAIMS)?.[0]}"): notes and character only, in the house's words`); }
     else if (Array.isArray(v)) v.forEach((x, i) => walk(x, `${path}[${i}]`));
     else if (isObj(v)) for (const [k, x] of Object.entries(v)) if (!skip.has(k)) walk(x, path ? `${path}.${k}` : k);
   };
-  for (const k of ["fragrances", "hero", "engraving", "organ", "discovery", "gifts", "choose", "launch"]) if (site[k] !== undefined) walk(site[k], k);
+  // Every word the house writes, anywhere on the site (pages, questions, the business line), not only the kit's sections.
+  walk(site, "");
 }
 
 /** @param {any} site @param {Report} err @param {Exists} [exists] */

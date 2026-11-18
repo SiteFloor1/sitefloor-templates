@@ -13,7 +13,7 @@
     </button></li>
     {%- endfor %}
   </ul></div>
-  <p class="fr-org-say" data-org-say aria-live="polite" data-js-only>Choose up to {{ o.max or 3 }}.</p>
+  <p class="fr-org-say" data-org-say aria-live="polite">Choose up to {{ o.max or 3 }}.</p>
   <ol class="fr-org-res" data-org-res>
     {%- for x in site.fragrances.items %}
     <li data-scent-row="{{ x.id }}"><a href="{{ ('fragrances' | href) + '#scent-' + x.id if ('fragrance-pages' | enabled) else ('index' | href) + '#scent-' + x.id }}">

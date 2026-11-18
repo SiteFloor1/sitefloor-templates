@@ -116,6 +116,8 @@ test("the demo shows the page before launch on request; a new house's site is be
   await expect(page.locator(".vr-hero [data-buy]")).toBeVisible();
   await page.getByRole("button", { name: "before launch" }).click();
   await expect(page.locator(".vr-hero .fr-wait")).toBeVisible();
+  await expect(page.locator("#scent-sable [data-buy]")).toBeHidden(); // the library follows the switch too
+  await expect(page.locator("#scent-poudre [data-buy]")).toBeVisible();
   await expect(page.locator(".vr-hero [data-buy]")).toBeHidden();
   await srv.close();
   srv = await start(client);
@@ -124,6 +126,13 @@ test("the demo shows the page before launch on request; a new house's site is be
   await expect(page.locator(".vr-hero .fr-wait a").first()).toHaveAttribute("href", "https://forms.gle/testAmbryWaitlist");
   await expect(page.locator(".vr-hero .fr-wait a").nth(1)).toHaveAttribute("href", "https://buy.stripe.com/test_preone");
   await expect(page.getByRole("button", { name: "before launch" })).toHaveCount(0);
+  // Before the day no launch scent can be bought anywhere: no live size or sample link shows, on the home page or the fragrances page.
+  for (const path of ["/", "/fragrances.html"]) {
+    await page.goto(srv.base + path);
+    await expect(page.locator('a[href*="buy.stripe.com/test_one"]:visible, a[href*="buy.stripe.com/test_two"]:visible, a[href*="buy.stripe.com/test_three"]:visible')).toHaveCount(0);
+    await expect(page.locator("#scent-one .fr-before-only.fr-go")).toHaveAttribute("href", "https://buy.stripe.com/test_preone");
+    await expect(page.locator("#scent-two .fr-before-only.fr-go")).toHaveText("Tell me on the day");
+  }
   await expect(page.locator("text=Fictional business")).toHaveCount(0);
   await srv.close();
 });

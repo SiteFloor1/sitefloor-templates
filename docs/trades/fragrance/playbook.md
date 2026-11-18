@@ -43,7 +43,7 @@ pair-builder (two scents, the house's own pairings), and an ingredient-of-the-mo
 
 ### The hero bottle: what a real client gets (be honest when selling)
 - **One feature, two sources: the turntable.** The hero is a 360° turntable the visitor drags: 36 frames, 10° apart,
-  the first frame is the poster, the rest load after the page (or on first touch). Arrow keys turn it too; there is no
+  the first frame is the poster, the rest load when the visitor hovers, touches or tabs to it. Arrow keys turn it too; there is no
   autoplay, so reduced motion needs nothing extra.
 - **Demo:** a bottle of our own design, rendered in Blender Cycles as 36 turntable frames (real glass thickness,
   refraction, caustics, liquid absorption that deepens with depth), on a travertine plinth. A symmetric flacon looks the
