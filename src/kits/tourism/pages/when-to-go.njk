@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: when-to-go
+permalink: when-to-go.html
+feature: tourism-when
+eleventyComputed:
+  title: "{{ site.when.title | plain }}"
+  description: "Where we'd go, month by month{% if 'tourism-weather' | enabled %}, with typical temperatures{% endif %}."
+---
+{% include "kits/tourism/features/tourism-when/tourism-when.njk" %}

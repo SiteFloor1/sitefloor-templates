@@ -29,7 +29,7 @@ export function membershipTotal(p) {
 }
 
 /** "joining fee" / "joining fee and admin fee" / "joining, admin and induction fees" @param {Fee[]} fees */
-function feeWords(fees) {
+export function feeWords(fees) {
   const n = fees.map((f) => f.name.toLowerCase().replace(/\s*fee$/, ""));
   if (n.length === 1) return `${n[0]} fee`;
   return `${n.slice(0, -1).join(", ")} and ${n[n.length - 1]} fees`;

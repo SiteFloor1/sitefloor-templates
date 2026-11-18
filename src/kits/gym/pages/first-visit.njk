@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: first-visit
+permalink: first-visit.html
+feature: gym-first
+eleventyComputed:
+  title: "{{ site.firstVisit.title | plain }}"
+  description: "Your first visit to {{ site.business.name }}, {{ site.location.locality }}: what to bring and what happens from the front desk to the floor."
+---
+{%- set ph = site.firstVisit %}{% include "kits/gym/partials/page-head.njk" %}
+{% include "kits/gym/features/gym-first/gym-first.njk" %}

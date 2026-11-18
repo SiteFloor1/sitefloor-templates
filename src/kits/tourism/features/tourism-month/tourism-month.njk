@@ -1,0 +1,9 @@
+{#- The journey of the month's index, under the hero's logbook: every journey, this month's first (the look shows four;
+    the script moves the real month's pick to the front). Needs `open` (the journey the build opened). -#}
+  <ul class="lb-index" data-tm-index aria-label="Other journeys"{{ "tourism-month" | tierAttr | safe }}>
+    {%- set ordered = [] %}{% for j in site.journeys.items %}{% if j.id == open.id %}{% set ordered = (ordered.push(j), ordered) %}{% endif %}{% endfor %}
+    {%- for j in site.journeys.items %}{% if j.id != open.id %}{% set ordered = (ordered.push(j), ordered) %}{% endif %}{% endfor %}
+    {%- for j in ordered %}
+    <li><button type="button" data-tm-open="{{ j.id }}" aria-current="{{ 'true' if j.id == open.id else 'false' }}"><strong>{{ j.name }}</strong><small>{{ j.where }} · {{ j.nights }} nights · <span data-tm-when="best {{ j.go | monthWords }}">{{ "this month" if (open.ofMonth and j.id == open.id) else ("best " + (j.go | monthWords)) }}</span></small></button></li>
+    {%- endfor %}
+  </ul>

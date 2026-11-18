@@ -1,0 +1,32 @@
+{#- The journeys (TOUR-1): every journey as one row of the logbook's index: its photograph, name and line, where,
+    nights, the months the operator would go and their own "from" price; "Ask about it" opens WhatsApp naming the
+    journey; with the logbook on the name opens it day by day; with the shortlist on, "Keep" adds it to the list. -#}
+{%- set sec = site.sections.journeys %}
+{%- set lbOn = "tourism-logbook" | enabled %}
+{%- set keepOn = "tourism-shortlist" | enabled %}
+<section id="journeys" class="tj" data-feature="tourism-shortlist" aria-label="{{ sec.title | plain }}"><div class="wrap">
+  {%- include "core/partials/section-head.njk" %}
+  <ul class="tj-list">
+    {%- for j in site.journeys.items %}
+    <li class="tj-row" id="j-{{ j.id }}">
+      <img class="tj-img" src="{{ (j.photo.small.src if j.photo.small else j.photo.src) | img }}" width="{{ j.photo.small.width if j.photo.small else j.photo.width }}" height="{{ ((j.photo.small.width / j.photo.width * j.photo.height) | round) if j.photo.small else j.photo.height }}" alt="{{ j.photo.alt }}"{% if j.photo.focus %} style="object-position: {{ j.photo.focus }}"{% endif %} loading="lazy" decoding="async">
+      <div class="tj-txt">
+        <h3 class="tj-name">{% if lbOn %}<a href="{{ ('journey-' + j.id) | href }}"{{ "tourism-logbook" | tierAttr | safe }}>{{ j.name }}</a>{% else %}{{ j.name }}{% endif %}</h3>
+        <p class="tj-line">{{ j.line }}</p>
+      </div>
+      <p class="tj-facts">{{ j.where }} · {{ j.nights }} nights · best {{ j.go | monthWords }}{% if j.from %}<br>From {{ j.from | tourPounds }} per person{% endif %}</p>
+      <p class="tj-act">
+        <a class="tj-ask" href="{{ (j | enquiry(site.business.name)) | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ j | enquiry(site.business.name) }}"{% endif %} target="_blank" rel="noopener">Ask about it</a>
+        {%- if keepOn %}<button class="tj-keep" type="button" data-keep="{{ j.id }}" aria-pressed="false"{{ "tourism-shortlist" | tierAttr | safe }}>Keep</button>{% endif %}
+      </p>
+    </li>
+    {%- endfor %}
+  </ul>
+  {%- if keepOn %}
+  <div class="tj-short" data-shortlist hidden{{ "tourism-shortlist" | tierAttr | safe }}>
+    <p data-short-words></p>
+    <a class="tj-send" data-short-send href="{{ site.messages.general | wa }}" target="_blank" rel="noopener">Send the list on WhatsApp</a>
+    <button class="tj-clear" type="button" data-short-clear>Clear</button>
+  </div>
+  {%- endif %}
+</div></section>

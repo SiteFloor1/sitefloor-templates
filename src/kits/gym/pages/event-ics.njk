@@ -1,0 +1,10 @@
+---
+feature: gym-events
+pagination:
+  data: site.events.items
+  size: 1
+  alias: ev
+permalink: "events/{{ ev.id }}.ics"
+eleventyExcludeFromCollections: true
+---
+{{ ev | eventIcs(site, (build.today | replace("-", "")) + "T000000Z") | safe }}

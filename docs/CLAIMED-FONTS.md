@@ -72,6 +72,7 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 | Trainer, Linen (A) | trade/trainer | Ibarra Real Nova | Ibarra Real Nova |
 | Fendle, Spun (B, round 1, revised) | trade/stalls | Gabarito | Labrada |
 | Tailor, Flannel (A) | trade/tailor | Della Respira | Commissioner |
+| Larrow, Logbook look | trade/tourism | Familjen Grotesk | Familjen Grotesk |
 | Wedding films, Première (A) | trade/wedding-film | Sorts Mill Goudy | Urbanist |
 
 ## Case studies
@@ -86,14 +87,17 @@ A case study is a design too: don't reuse these in a new look or another case st
 | Corbel (electrician) | case-studies/corbel | electrician | Encode Sans Expanded | Encode Sans | |
 | Datum Hire (car hire) | case-studies/datum-hire | car-hire | Overpass | Overpass | Overpass Mono |
 | Elsden (car storage) | case-studies/elsden | garage | Cardo | Radio Canada | |
+| Fendle (street-food stalls) | case-studies/fendle | stalls | Gabarito | Labrada | |
 | Fennick & Lowe (tailor) | case-studies/fennick-lowe | tailor | Della Respira | Commissioner | |
 | Grenat (grand café) | case-studies/grenat | grand-cafe | Italiana | EB Garamond | |
+| Halde (gym) | case-studies/halde | gym | Epilogue | Epilogue | |
 | Halvern (letting) | case-studies/halvern | letting | Petrona | Petrona | |
 | Hatheli (mehndi artist) | case-studies/hatheli | mehndi | Rozha One | Source Serif 4 | |
 | Isolde (bridal hair and makeup artist) | case-studies/isolde | bridal-beauty | Libre Bodoni | Faustina | |
 | Isotach (clothing brand) | case-studies/isotach | menswear | Host Grotesk | Rethink Sans | |
 | Laleh (florist, social) | case-studies/laleh | florist | Tenor Sans | Spectral | |
 | Larchmere (wedding films) | case-studies/larchmere | wedding-film | Sorts Mill Goudy | Urbanist | |
+| Larrow (tour operator) | case-studies/larrow | tourism | Familjen Grotesk | Familjen Grotesk | |
 | Linnet (cleaning) | case-studies/linnet | cleaning | Anek Latin | Anek Latin | |
 | Lyall Harrow (wealth) | case-studies/lyall-harrow | wealth | Mona Sans | Mona Sans | |
 | Marese (lingerie) | case-studies/marese | lingerie | Fraunces | Red Hat Text | |

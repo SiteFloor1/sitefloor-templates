@@ -45,6 +45,7 @@ take (`demo-map.md`), its speed numbers (`speed.md`) and the fonts it claims (`f
 | stalls | Street-food and dessert stalls (markets, pop-ups and parties) | `stalls` | [questions](stalls/questions.md) · [playbook](stalls/playbook.md) · [demo-map](stalls/demo-map.md) · [speed](stalls/speed.md) · [fonts](stalls/fonts.md) |
 | tailor | Tailors | `tailor` | [questions](tailor/questions.md) · [playbook](tailor/playbook.md) · [demo-map](tailor/demo-map.md) · [speed](tailor/speed.md) · [fonts](tailor/fonts.md) |
 | teeth | Teeth whitening and aesthetic dentistry | `smile` | [questions](teeth/questions.md) · [playbook](teeth/playbook.md) · [demo-map](teeth/demo-map.md) · [speed](teeth/speed.md) · [fonts](teeth/fonts.md) |
+| tourism | Independent tour operators | `tourism` | [questions](tourism/questions.md) · [playbook](tourism/playbook.md) · [demo-map](tourism/demo-map.md) · [speed](tourism/speed.md) · [fonts](tourism/fonts.md) |
 | videographer | Videographers and photographers | — | [questions](videographer/questions.md) · [playbook](videographer/playbook.md) |
 | wealth | Wealth managers | `wealth` | [questions](wealth/questions.md) · [playbook](wealth/playbook.md) · [demo-map](wealth/demo-map.md) · [speed](wealth/speed.md) · [fonts](wealth/fonts.md) |
 | wedding-film | Wedding films | `weddingfilm` | [questions](wedding-film/questions.md) · [playbook](wedding-film/playbook.md) · [demo-map](wedding-film/demo-map.md) · [speed](wedding-film/speed.md) · [fonts](wedding-film/fonts.md) |

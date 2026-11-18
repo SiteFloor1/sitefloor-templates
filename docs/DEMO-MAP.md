@@ -221,9 +221,9 @@ This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` 
 
 | Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
 |---|---|---|---|---|---|---|---|
-| Halde ([demo](https://sitefloor1.github.io/sitefloor-templates/gym/)) | premium members' gym, `gym`, `afterdark` | a members' training club after dark: **black**, one black-and-white portrait framed mid-page, heat and cold as the warm second act in colour (steam, cedar) | a wet river stone | river stone #CFC8BC for dates and quiet marks; bone #F2F0EC type and buttons | Epilogue only (200 the count, 300 headings) | the club's count (usual, or live from the door) as one huge number crossing the portrait's left edge, negative where it passes over; one line, one sentence, one button | (to come) |
+| Halde ([demo](https://sitefloor1.github.io/sitefloor-templates/gym/)) | premium members' gym, `gym`, `afterdark` | a members' training club after dark: **black**, one black-and-white portrait running to the page's right edge, heat and cold as the warm second act in colour (steam, cedar) | a wet river stone | river stone #CFC8BC for dates and quiet marks; bone #F2F0EC type and buttons | Epilogue only (200 the count, 300 headings) | the club's count (usual, or live from the door) as one huge number crossing the portrait's left edge, negative where it passes over; one line, one sentence, one button | (to come) |
 
-Taken by Halde: Epilogue, the drawn H whose crossbar rises (the mark), the number crossing a framed portrait's edge,
+Taken by Halde: Epilogue, the drawn H whose crossbar rises (the mark), the number crossing a portrait's edge,
 the black page with a warm colour second act, the timetable's busy-by-hour fine rules.
 
 ## Hair salons
@@ -394,6 +394,15 @@ This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` 
 | Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
 |---|---|---|---|---|---|---|---|
 | Marlie | whitening and aesthetic dental studio, `smile`, `booth` (built 9 Nov on `trade/teeth`) | young founder-led studio, Instagram-first: **white**, warm black-and-white photographs, espresso band and footer | a lavender sprig | lavender #54449A (soft #C4B9E6) on white #FFFFFF, espresso #211B19 | Reddit Sans 200 / Reddit Sans 300, Brygada 1918 italic for the dentist's voice | a photo-booth strip of four smiles developing frame by frame (flat on desktop, upright and within one screen on a phone) | (to come) |
+
+## Independent tour operators
+_From `docs/trades/tourism/demo-map.md`._
+
+This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` (generated) before proposing a look.
+
+| Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
+|---|---|---|---|---|---|---|---|
+| Larrow | independent tour operator, `tourism`, `logbook` (built 17 Nov on `trade/tourism`) | a traveller's logbook: **cool off-white**, hairline rules, square edges; the stop's photograph large on the left, the entry and stops in the middle, the country drawn full height on the right | Xanthoria lichen on Patagonian granite | lichen #A3561A on off-white #F3F2EF, ink #141516 | Familjen Grotesk 500 / 400 (one family) | the journey of the month, day by day: choose a stop and the route draws itself down the country to it; four journeys beneath as an index | to come with the case study |
 
 ## Wealth managers
 _From `docs/trades/wealth/demo-map.md`._
