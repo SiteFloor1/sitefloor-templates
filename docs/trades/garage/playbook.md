@@ -127,10 +127,18 @@ reduced motion sees the car parked.
 
 Not built in this kit yet: PARK-3 and PARK-4 as separate features (the drawn plan does both on Signature), PARK-5
 waiting list as a Form (the waiting list is a WhatsApp message for now), PARK-6 members' page, PARK-7 add-ons,
-PARK-8 care log by code. Bay availability is the client's `free` flag in site.json for now; a live Sheet provider
-(PARK-1's "updated 18:40") is the next step, and the page never shows a bay as free unless the list says so.
+PARK-8 care log by code.
 The night view is a true night pass of the same scene (the hall dark, a warm pool on each car), not the day render
 dimmed; the route is drawn over it and follows the picker.
+
+### Live free bays and the covered hall (18 Nov 2026)
+- PARK-1 is live: `liveBays` reads the client's published Google Sheet (bay, status, updated_at) every five minutes
+  and shows "Updated 08:40"; the picker, the drawn plan, the hall from above, the night route and the phone bar all
+  follow it. It fails closed: an unknown bay, an unreadable row or a list older than a day leaves the client's own
+  list with "As listed on 17 November. Ask us to confirm before you come." The demo simulates its own list.
+- Open cars are gone from the hall from above: no free model reached the realism a client's hall needs, so every bay
+  is rendered with a car under a fitted cover, and again empty; the site lays the empty bay over each one that's free
+  today, so the picture always matches the list. Picking a car now sends a line of light from the gate to the bay.
 
 ### Running cost
 £0 per client: the client's Sheet and Form, WhatsApp, the client's Stripe Payment Links, calendar files made in the
