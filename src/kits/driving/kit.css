@@ -1,0 +1,54 @@
+/* =========================================================================
+   Driving kit: what every driving feature shares. The answer card (a white card, its name, one big number), a page's
+   opening, the guide page's text cards, buttons and small print. Tokens only; each look sets them.
+   ========================================================================= */
+.dv-card { display: flex; flex-direction: column; min-width: 0; min-height: 0; padding: 22px 24px; border-radius: var(--radius); background: var(--paper); }
+.dv-body { display: flex; flex-direction: column; flex: 1; min-height: 0; }
+.dv-ct { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin: 0 0 12px; font: 500 15px/1.3 var(--font-body); letter-spacing: 0; }
+.dv-tag { padding: 2px 9px; border-radius: 999px; background: var(--bg); color: var(--muted); font-size: 11px; font-weight: 400; }
+.dv-mh { display: none; }
+.dv-switch { display: inline-flex; align-self: flex-start; padding: 3px; margin-bottom: 10px; border-radius: 999px; background: var(--bg); }
+.dv-switch button { height: 32px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; color: var(--muted); font: 400 13px var(--font-body); cursor: pointer; transition: background .4s, color .4s; }
+.dv-switch button[aria-pressed="true"] { background: var(--paper); color: var(--text); box-shadow: 0 1px 2px var(--shadow); }
+.dv-note, .dv-src { color: var(--muted); font-size: 13px; }
+.dv-src a { color: inherit; }
+.dv-btn { display: inline-flex; align-items: center; min-height: 46px; padding: 0 22px; border-radius: 999px; background: var(--accent); color: var(--on-accent); font-weight: 500; text-decoration: none; }
+.dv-two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+
+/* sections below the first screen: the name and its line on one row, the content under it */
+.dv-sec { padding-block: clamp(56px, 7vw, 96px); }
+.dv-sh { max-width: 56ch; }
+.dv-sh h2 { margin: 0; font: 300 clamp(32px, 3.6vw, 48px) / 1.05 var(--font-display); letter-spacing: -.03em; }
+.dv-sh p { margin: 10px 0 0; color: var(--muted); }
+
+/* an inner page's opening */
+.dv-ph { padding-block: clamp(28px, 4vw, 56px) 0; }
+.dv-ph-in { display: grid; gap: 28px; align-items: end; }
+.dv-ph-in.has-photo { grid-template-columns: 6fr 5fr; }
+.dv-crumb { margin-bottom: 14px; font-size: 14px; }
+.dv-crumb a { color: var(--muted); text-decoration: none; }
+.dv-crumb a::after { content: " /"; }
+.dv-ph h1 { margin: 0; font: 300 clamp(40px, 5vw, 64px) / 1.02 var(--font-display); letter-spacing: -.035em; }
+.dv-ph-i { max-width: 46ch; margin: 14px 0 0; color: var(--muted); font-size: 18px; }
+.dv-ph figure { margin: 0; }
+.dv-ph img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--radius); }
+.dv-ph figcaption { margin-top: 6px; color: var(--muted); font-size: 11px; }
+
+/* a guide page's body: text cards, a price and gov.uk links beside them */
+.dv-guide .wrap { display: grid; grid-template-columns: 8fr 4fr; gap: 16px; align-items: start; }
+.dv-blocks { display: grid; gap: 12px; }
+.dv-block { padding: 24px 26px; border-radius: var(--radius); background: var(--paper); }
+.dv-block h2 { margin: 0 0 8px; font: 500 20px/1.25 var(--font-body); }
+.dv-block p { margin: 0 0 10px; }
+.dv-block p:last-child { margin-bottom: 0; }
+.dv-block ul { margin: 0; padding-left: 1.1em; }
+.dv-block li { margin: 4px 0; }
+.dv-side { display: grid; gap: 16px; padding: 22px; border-radius: var(--radius); background: var(--paper); }
+.dv-price { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px; margin: 0; }
+.dv-price b { font-weight: 400; font-size: 32px; letter-spacing: -.03em; }
+.dv-ask { grid-column: 1 / -1; margin: 8px 0 0; }
+
+@media (max-width: 900px) {
+  .dv-two, .dv-guide .wrap, .dv-ph-in.has-photo { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) { .dv-switch button { transition: none; } }

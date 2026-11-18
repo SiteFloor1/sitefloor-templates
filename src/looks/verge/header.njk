@@ -1,0 +1,24 @@
+{#- Verge header: the green W emblem and the name; the pages in site.nav; WhatsApp as text and "Book a lesson" as the
+    one green pill. On phones, Book and Menu; every page is in the menu and the footer. -#}
+<header class="nav vg-nav"><div class="wrap vg-nav-in">
+  <a class="vg-mark" href="{{ 'index' | href }}" aria-label="{{ site.business.name }}, home">
+    {%- if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="{{ site.business.name }}" height="30">{% else %}<svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="var(--accent)"/><path d="M8 11l3.8 10 4.2-8.5 4.2 8.5L24 11" fill="none" stroke="var(--on-accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>{{ site.business.name }}{% endif %}
+  </a>
+  <nav class="vg-links" aria-label="Main">
+    {%- for item in site.nav | navItems(pageId) %}{% if loop.index <= 6 %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endif %}{% endfor %}
+  </nav>
+  {%- if site.contact.whatsapp %}<a class="vg-wa" href="{{ site.messages.general | wa }}" data-wa-text="{{ site.messages.general }}" target="_blank" rel="noopener">WhatsApp</a>{% endif %}
+  <a class="vg-book" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">Book a lesson</a>
+  <button class="burger vg-menu" type="button" aria-expanded="false" aria-controls="mnav"><span class="vg-open">Menu</span><span class="vg-close">Close</span></button>
+</div></header>
+<div class="mnav vg-sheet" id="mnav" hidden>
+  <nav aria-label="Pages">
+    <a href="{{ 'index' | href }}"{% if pageId == "index" %} aria-current="page"{% endif %}>Home</a>
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+  </nav>
+  <p data-live-status><span class="dot" aria-hidden="true"></span> <span data-status-text>Lesson hours</span></p>
+</div>

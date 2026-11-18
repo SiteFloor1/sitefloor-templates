@@ -1,0 +1,22 @@
+{#- Learner progress (DRIVE-5): the learner types their code and sees each skill at the DVSA's five levels, the last
+    lesson and what to practise, from the instructor's sheet. No names on the page or in the sheet. -#}
+{%- set p = site.progress %}{% set ph = { title: p.title, intro: p.intro } %}
+<div data-feature="driving-progress" data-state="ready">
+{% include "kits/driving/partials/page-head.njk" %}
+<section class="dv-sec dv-prog"><div class="wrap dv-two">
+  <div class="dv-card">
+    <form class="dv-pc" data-dg-form>
+      <label class="sr-only" for="dg-code">Your learner code</label>
+      <input id="dg-code" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="12" placeholder="Learner code" data-dg-code>
+      <button type="submit">Open</button>
+    </form>
+    <p class="dv-ans" data-dg-msg aria-live="polite">Your instructor gives you a code after your first lesson.{% if site.mode == "demo" %} <button class="dv-link" type="button" data-dg-example>See a sample card</button>{% endif %}</p>
+    <p class="dv-src">Levels are the DVSA's: {{ govuk.levels | join(", ") }}.</p>
+  </div>
+  <div class="dv-card dv-learner" data-dg-card hidden>
+    <p class="dv-who" data-dg-who></p>
+    <ul class="dv-skills" data-dg-skills></ul>
+    <div class="dv-last"><p data-dg-last></p><p data-dg-practise></p></div>
+  </div>
+</div></section>
+</div>

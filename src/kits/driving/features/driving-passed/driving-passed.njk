@@ -1,0 +1,8 @@
+{#- Passed: real pass photos from the instructor's Instagram (the shared gallery feature, via Behold), shown with each
+    pupil's agreement. No counts, no rates. -#}
+{%- set p = site.passed %}{% set ph = { title: p.title, intro: p.intro } %}
+<div data-feature="driving-passed">
+{% include "kits/driving/partials/page-head.njk" %}
+<div class="wrap"><p class="dv-src">{{ p.consent }}</p></div>
+{%- for id in "driving-passed" | hostedHere %}{% if id | enabled %}{% include homeParts.paths[id] %}{% endif %}{% endfor %}
+</div>

@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: parents
+permalink: parents.html
+feature: driving-parents
+eleventyComputed:
+  title: "{{ site.parents.title | plain }}"
+  description: "For parents with {{ site.business.name }}, {{ site.location.locality }}."
+---
+{% include "kits/driving/features/driving-parents/driving-parents.njk" %}

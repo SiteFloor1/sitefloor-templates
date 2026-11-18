@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: automatic-or-manual
+permalink: automatic-or-manual.html
+feature: driving-gearbox
+eleventyComputed:
+  title: "{{ site.gearbox.title | plain }}"
+  description: "Automatic or manual with {{ site.business.name }}, {{ site.location.locality }}."
+---
+{% include "kits/driving/features/driving-gearbox/driving-gearbox.njk" %}

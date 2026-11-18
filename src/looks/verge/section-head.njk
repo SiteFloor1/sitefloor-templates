@@ -1,0 +1,5 @@
+{#- Verge section opening: the section's name in light type, its line under it. `sec` = { title, intro }; no kicker. -#}
+<div class="dv-sh">
+  <h2>{{ sec.title | markup | safe }}</h2>
+  {%- if sec.intro %}<p>{{ sec.intro }}</p>{% endif %}
+</div>

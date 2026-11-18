@@ -1,0 +1,20 @@
+/* Test day, in order: five white cards in a row, numbered; the gov.uk links as plain underlined lines. */
+.dv-steps { list-style: none; counter-reset: dv; display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; padding: 0; margin: 24px 0 0; }
+.dv-steps li { counter-increment: dv; padding: 18px 18px 20px; border-radius: var(--radius); background: var(--paper); }
+.dv-steps li::before { content: counter(dv); display: block; margin-bottom: 10px; color: var(--accent); font-weight: 500; font-size: 22px; }
+.dv-steps b { display: block; font-weight: 500; }
+.dv-steps p { margin: 4px 0 0; color: var(--muted); font-size: 14px; line-height: 1.45; }
+.dv-tdfoot { display: grid; grid-template-columns: 2fr 1fr; gap: 8px 40px; margin-top: 20px; }
+.dv-tdfoot p { margin: 0; }
+.dv-src { color: var(--muted); font-size: 13px; }
+.dv-gov { list-style: none; padding: 0; margin: 0; grid-column: 2; grid-row: 1 / 3; }
+.dv-gov li { padding: 4px 0; }
+.dv-gov a { text-decoration: none; border-bottom: 1px solid var(--line-2); }
+.dv-gov a::after { content: " →"; color: var(--accent); }
+@media (max-width: 900px) {
+  .dv-steps { grid-template-columns: 1fr; gap: 8px; }
+  .dv-steps li { display: grid; grid-template-columns: 28px 1fr; padding: 14px 16px; }
+  .dv-steps li::before { margin: 0; font-size: 17px; grid-row: 1 / 3; }
+  .dv-tdfoot { grid-template-columns: 1fr; }
+  .dv-gov { grid-column: 1; grid-row: auto; }
+}
