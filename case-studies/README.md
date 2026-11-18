@@ -44,6 +44,23 @@ chat can reuse the Sitefloor bar, footer and patterns without re-reading a publi
   as three motorway junctions on blue road-sign plates, the speed as the journey time, a live Delivered tonight with the
   demo's figures; night navy, Overpass and Overpass Mono). Media (four clips, posters, stills, four car photos) live in
   the published artifact under `media/`. Clips: Playwright at 390×844, scaled to 780 wide.
+- `fendle/index.html`: the street-food stall case study (pull one: the page reads Fendle's website the way a bubble
+  waffle is eaten, one bubble at a time. The hero is a real waffle in the open iron, full bleed, with fifteen of its
+  bubbles as the kit's fifteen features; tap one and it lifts out of the photograph (the same pixels, clipped, with a
+  shadow), leaves its empty cup behind, and a white card answers with the customer's question and the site's answer,
+  live where the demo is (the next stop and its countdown on London time from Fendle's usual week, the party diary's
+  Saturdays); a strip of the fifteen sits under the photograph for keyboards and phones. The chapters are six bubbles on
+  raspberry, each a giant photographed bubble behind the demo on a phone: where we are, the board, parties, the drop,
+  allergens, where to find us. The plans are Plain, Sauced and Loaded, three real waffles; the speed is "off the iron";
+  the close asks for the stall's week. Iron black, raspberry, crust amber, batter cream; Gabarito and Labrada, the
+  demo's own, self-hosted with size-matched stand-ins). Media (the iron photograph in two crops, six bubble crops, three
+  plan photographs, eight phone stills, a laptop screen, the saved board picture, the fonts) live in `media/` and the
+  published artifact. Phone stills: 390×844 at 2x in full Chrome, en-GB, London time, Saturday 21 November 2026, 15:00.
+  Photographs (Pexels, free licence): the waffle iron, Th2city Santana,
+  https://www.pexels.com/photo/waffle-on-iron-25757603/ (hero, bubbles, Plain); chocolate bubble waffles, Elizabeth
+  Ferreira, https://www.pexels.com/photo/delicious-chocolate-bubble-waffles-in-food-truck-30461190/ (Sauced, cropped
+  above the cones' print); bubble waffles with berries and nuts, Willians Huerta,
+  https://www.pexels.com/photo/bubble-waffles-with-mixed-berries-and-nuts-34926596/ (Loaded).
 - `fennick-lowe/index.html`: the tailor case study (cut to pattern: the page opens on Fennick & Lowe's charcoal flannel
   with a coat's manila pattern pieces laid on it, each piece a page of the site; tap one and a chalk line goes round it
   while that page shows on a phone lying on the cutting table; the pattern ticket lists every piece and the plan it
@@ -118,6 +135,20 @@ chat can reuse the Sitefloor bar, footer and patterns without re-reading a publi
   film with posters, three phone clips with posters, two phone stills) live in the published artifact under `media/`.
   Phone clips: Playwright screenshots at 390×844 and 2x in full Chromium with `--lang=en-GB` (UK date fields), one per
   step and one per typed letter, stitched with ffmpeg (the CDP screencast came out at 1x).
+- `larrow/index.html`: the tour operator case study (twelve gores make a globe: the page opens on a globe-maker's
+  gore sheet, the world cut into twelve 30° gores in Larrow's logbook ink, with each gore holding one month. Tap a
+  month and its gore lights, the journey Larrow would send you on that month is drawn across it as a route with its
+  stops, and an inset gives the photograph, nights, the place's local time (live) and its typical high from the
+  demo's published climate figures; the page opens on this month in London. Chapters follow the gores: the logbook on
+  a laptop (film), the year on a phone (film), local time (three live clocks), journeys and ATOL as given, when to go
+  on a laptop, daylight, the shortlist and who's been there, the trip builder (film), travel-ready and the private
+  trip page (film). The plans are three globes, Pocket, Table and Library; the numbers are "drawn to scale"; the close
+  is "your year, on twelve gores". Ivory ground, logbook ink, one burnt-sienna accent taken from the demo; land from
+  Natural Earth (public domain) projected as interrupted sinusoidal gores; Familjen Grotesk (the demo's own),
+  self-hosted with a size-matched stand-in). Media (four films with posters, six phone stills, the when-to-go table on
+  a laptop, five of the demo's photographs (one in two crops), the fonts) live in `media/` and the published artifact. Sideways strips are keyboard-reachable regions and each film button names its film. Phone films: CDP
+  screencast at 390×844 and 2x in Chromium with `--lang=en-GB`, H.264; stills and films without the demo ribbon;
+  nothing plays until asked.
 - `linnet/index.html`: the cleaning case study (one visit, timed: the page is a fortnightly clean of a two-bedroom home
   with two bathrooms, 2 h 25 from 09:00. The hero is Linnet's room strip, live, under a headline that is the visit's
   length in words ("Two hours, twenty-five minutes."), so changing bedrooms, bathrooms or how often rewrites the

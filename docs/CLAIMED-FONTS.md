@@ -86,6 +86,7 @@ A case study is a design too: don't reuse these in a new look or another case st
 | Clémence (skin clinic) | case-studies/clemence | beauty | Antic Didone | Baskervville | |
 | Corbel (electrician) | case-studies/corbel | electrician | Encode Sans Expanded | Encode Sans | |
 | Datum Hire (car hire) | case-studies/datum-hire | car-hire | Overpass | Overpass | Overpass Mono |
+| Fendle (street-food stalls) | case-studies/fendle | stalls | Gabarito | Labrada | |
 | Fennick & Lowe (tailor) | case-studies/fennick-lowe | tailor | Della Respira | Commissioner | |
 | Grenat (grand café) | case-studies/grenat | grand-cafe | Italiana | EB Garamond | |
 | Halvern (letting) | case-studies/halvern | letting | Petrona | Petrona | |
@@ -94,6 +95,7 @@ A case study is a design too: don't reuse these in a new look or another case st
 | Isotach (clothing brand) | case-studies/isotach | menswear | Host Grotesk | Rethink Sans | |
 | Laleh (florist, social) | case-studies/laleh | florist | Tenor Sans | Spectral | |
 | Larchmere (wedding films) | case-studies/larchmere | wedding-film | Sorts Mill Goudy | Urbanist | |
+| Larrow (tour operator) | case-studies/larrow | tourism | Familjen Grotesk | Familjen Grotesk | |
 | Linnet (cleaning) | case-studies/linnet | cleaning | Anek Latin | Anek Latin | |
 | Lyall Harrow (wealth) | case-studies/lyall-harrow | wealth | Mona Sans | Mona Sans | |
 | Marese (lingerie) | case-studies/marese | lingerie | Fraunces | Red Hat Text | |
