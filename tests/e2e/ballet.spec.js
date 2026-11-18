@@ -149,3 +149,37 @@ test("without JavaScript the finder, the year and every list still read", async 
   await ctx.close();
   await srv.close();
 });
+
+// Every page, not only home, on a phone while Hahmlet is held back: headings keep their line count, so the page
+// mustn't move when the font arrives (audit G, BL-04 and BL-06). Limit 0.02, stricter than the shared 0.1.
+const PAGES = {
+  demo: ["/", "/classes.html", "/timetable.html", "/trial.html", "/fees.html", "/uniform.html", "/exams.html", "/shows.html", "/show-day.html", "/handbook.html", "/camps.html", "/parties.html", "/teachers.html", "/visit.html", "/privacy.html"],
+  client: ["/", "/classes.html", "/timetable.html", "/trial.html", "/fees.html", "/visit.html", "/privacy.html"],
+};
+for (const [name, s] of /** @type {const} */ ([["demo", demo], ["client", client]])) {
+  for (const width of [360, 390]) {
+    test(`${name}: no page jumps on a ${width}px phone when the font arrives late`, async ({ browser }) => {
+      test.setTimeout(120_000);
+      const srv = await start(s);
+      const ctx = await browser.newContext({ viewport: { width, height: 800 } });
+      await ctx.route(/\.woff2$/, async (r) => { await new Promise((x) => setTimeout(x, 1500)); await r.continue(); });
+      await ctx.route("https://docs.google.com/**", (r) => r.abort());
+      await ctx.addInitScript(() => {
+        /** @type {any} */ (window).__cls = 0;
+        new PerformanceObserver((l) => { for (const e of /** @type {any[]} */ (l.getEntries())) if (!e.hadRecentInput) /** @type {any} */ (window).__cls += e.value; })
+          .observe({ type: "layout-shift", buffered: true });
+      });
+      const out = [];
+      for (const path of PAGES[name]) {
+        const page = await ctx.newPage();
+        await page.goto(srv.base + path);
+        await page.waitForTimeout(2200);
+        out.push([path, await page.evaluate(() => /** @type {any} */ (window).__cls)]);
+        await page.close();
+      }
+      expect(out.filter(([, cls]) => cls >= 0.02), JSON.stringify(out)).toEqual([]);
+      await ctx.close();
+      await srv.close();
+    });
+  }
+}

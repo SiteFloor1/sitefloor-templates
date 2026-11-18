@@ -9,11 +9,12 @@ Images: home 123 KB, 34.3 KB of it on the first screen (the stage in the circle,
 uniform circles are lazy. Inner pages carry one lazy 900×900 circle each (38 to 51 KB) or none. The ring of dates is
 SVG text, so it costs no image. Places left and show day load nothing on a demo (simulated in the browser); a client's
 are one small CSV each.
-Fallback font size-matched in Chrome from the font file against Liberation Serif (regular below 600, bold from 600),
-averaged over four set lines, in seven weight bands so every weight the page uses wraps the same before and after
-Hahmlet arrives: 100–229 118.4%, 230–329 119.1%, 330–389 119.7%, 390–469 120.3%, 470–539 121.7%, 540–599 122.5%,
-600–900 118.4% (bold); ascent and descent are hhea 1160/288 per 1000 divided by each band's adjustment. Headline
-widths are set in em, not ch, so they don't change when the font does.
+Fallback font size-matched in Chrome, laid out in the page against Liberation Serif (regular below 600, bold from
+600), in seven weight bands: 100–229 119.2%, 230–329 119.9%, 330–389 122% (the reading weight, matched on the site's
+own paragraphs), 390–469 121.1%, 470–539 122.5%, 540–599 123.2%, 600–900 119.8% (the bold words of every heading);
+ascent and descent are hhea 1160/288 per 1000 divided by each band's adjustment. Headline widths are set in em, not
+ch. A heading's heavy words always take their own line, and on a phone page headings are sized so each line fits
+whole (min(54px, 10.6vw); the privacy heading min(46px, 8.6vw)), so a heading's line count never depends on the font.
 The client fixture (Plus, the school's places sheet): builds with no demo code; JS 8.7 KB gz, CSS 8.2 KB gz; home
 84.8 KB of images, 34.3 KB on the first screen.
 
@@ -28,4 +29,9 @@ Layout shift with the CPU slowed four times, every demo page (15) and every clie
 360 px: at most 0.009 (was 0.126 on Uniform, 0.077 on Show day, about 0.05 on Classes; the cause was headline widths
 in `ch` and one fallback band for all weights). No page is wider than the screen at 360 or 390 px (Privacy was 430:
 the shared privacy heading at a phone size; Show day's intro now wraps).
+
+### 18 Nov 2026, after re-check C (BL-06)
+With Hahmlet held back 1.5 s, every demo page (15) and client fixture page (7) at 360, 390, 1024 and 1440 px: layout
+shift at most 0.019 (client privacy at 360); demo at most 0.012 (was 0.170 on Fees, 0.118 on Teachers, 0.067 on Show
+day, 0.051 on Privacy). `tests/e2e/ballet.spec.js` now holds every page at 360 and 390 px under 0.02 with the font late.
 

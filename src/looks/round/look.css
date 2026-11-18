@@ -91,7 +91,7 @@ a { color: inherit; }
 .rd-fd { fill: var(--accent); font-weight: 650; }
 
 /* The privacy page's head, in the round's voice: hairline and wrapping on a phone */
-.phero h1 { font-weight: 200; font-size: clamp(46px, 7vw, 104px); line-height: .98; letter-spacing: -.03em; overflow-wrap: break-word; }
+.phero h1 { font-weight: 200; font-size: clamp(36px, 7vw, 104px); line-height: .98; letter-spacing: -.03em; overflow-wrap: break-word; }
 .phero h1 em { font-style: normal; font-weight: 700; }
 
 /* Inner page head */
@@ -101,6 +101,9 @@ a { color: inherit; }
 .rd-ph-k a { color: inherit; }
 .rd-ph-t { margin: 0; font-weight: 200; font-size: clamp(54px, 7vw, 104px); line-height: .98; letter-spacing: -.03em; max-width: 9.1em; }
 .rd-ph-t em, .rd-sh-t em { font-style: normal; font-weight: 700; }
+/* A heading's heavy words always take their own line, and on a phone each line is sized to fit whole: the line count
+   never depends on which font has arrived, so nothing below moves when Hahmlet replaces its stand-in. */
+.rd-ph-t em, .rd-sh-t em { display: block; }
 .rd-ph-i { margin: 0; max-width: 36rem; font-size: 21px; color: var(--muted); }
 .rd-back { padding-bottom: var(--sec); }
 
@@ -258,6 +261,8 @@ a { color: inherit; }
   .rd-dome { position: relative; left: -14vw; top: 0; width: 128vw; margin: 12px 0 -4vw; }
   .rd-frieze { font-size: 17px; }
   .rd-ph { padding: 36px 0 44px; }
+  .rd-ph-t { font-size: min(54px, 10.6vw); }
+  .phero h1 { font-size: min(46px, 8.6vw); }
   .rd-qa-grid, .rd-v-top, .rd-pv-facts, .rd-pv-topic, .rd-gp-row, .rd-foot-in, .rd-foot-cols { grid-template-columns: 1fr; }
   .rd-week tbody { grid-template-columns: 1fr; }
   .rd-week tr { grid-template-columns: 7.5rem 1fr; padding: 10px 0; border-right: 0; border-bottom: 1px solid var(--line); }
