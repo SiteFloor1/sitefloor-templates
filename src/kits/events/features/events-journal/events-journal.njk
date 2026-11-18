@@ -1,0 +1,10 @@
+{#- The journal: the agency's articles, newest first, each its title, date and line. -#}
+{%- set J = site.journal %}
+<section class="ev-journal"><div class="wrap">
+  {%- set ph = { title: J.title, intro: J.intro } %}{% include "kits/events/partials/page-head.njk" %}
+  <ol class="ev-j-list">
+    {%- for a in J.items | sort(true, false, "date") %}
+    <li><a href="{{ ('article-' + a.id) | href }}"><time datetime="{{ a.date }}">{{ a.date | evLongDate }}</time><span class="ev-j-t">{{ a.title }}</span><span class="ev-j-i">{{ a.intro }}</span></a></li>
+    {%- endfor %}
+  </ol>
+</div></section>

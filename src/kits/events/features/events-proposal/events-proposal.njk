@@ -1,0 +1,30 @@
+{#- Your proposal, by code: the code the agency sends (typed, or after # in their link) opens the design visuals of
+    the proposal, the date and the days to go, the guests and how they sit, and the room drawn. From the agency's sheet,
+    which holds nothing personal; unknown, stale or unreadable says so and gives the phone. -#}
+{%- set P = site.proposal %}
+<section class="ev-prop" data-feature="events-proposal"><div class="wrap">
+  {%- set ph = { title: "Your proposal", intro: P.intro or "Type the code from our email to see your room before the day." } %}{% include "kits/events/partials/page-head.njk" %}
+  <form class="ev-code" data-pr-form>
+    <label for="pr-code">Your code</label>
+    <span class="ev-check-row"><input id="pr-code" data-pr-code name="code" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="14" required><button type="submit">Open</button></span>
+  </form>
+  {%- if site.mode == "demo" %}<p class="ev-prop-demo">Sample code: <button type="button" data-pr-try>{{ P.example }}</button></p>{% endif %}
+  <p class="ev-prop-off" data-pr-off hidden></p>
+  <div class="ev-prop-out" data-pr-out hidden>
+    <p class="ev-prop-when" data-pr-when></p>
+    <p class="ev-prop-meta" data-pr-meta></p>
+  </div>
+</div>
+  <div data-pr-sets hidden>
+    {%- for s in site.visuals.sets %}<div data-pr-set="{{ s.id }}" hidden>{% set evSetId = s.id %}{% include "kits/events/features/events-visuals/events-visuals.njk" %}</div>{% endfor %}
+    {%- set evSetId = false %}
+  </div>
+<div class="wrap" data-pr-next hidden>
+  <p class="ev-prop-go">
+    {%- if "events-room-plan" | enabled %}<a data-pr-room href="{{ 'your-room' | href }}"{{ "events-room-plan" | tierAttr | safe }}>Your room, drawn</a>{% endif %}
+    {%- if "events-run" | enabled %}<a href="{{ 'run-of-the-night' | href }}"{{ "events-run" | tierAttr | safe }}>A sample run of the night</a>{% endif %}
+  </p>
+  <p class="ev-prop-upd" data-pr-upd></p>
+</div>
+<div class="wrap"><p class="ev-prop-call">Anything to change? Call us on <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a>.</p></div>
+</section>

@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: journal
+permalink: journal.html
+feature: events-journal
+eleventyComputed:
+  title: "{{ site.journal.title | plain }}"
+  description: "{{ (site.journal.intro or 'Notes on planning an event.') | plain }}"
+---
+{% include "kits/events/features/events-journal/events-journal.njk" %}

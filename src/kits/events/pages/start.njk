@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: start
+permalink: start.html
+feature: events-brief
+eleventyComputed:
+  title: "{{ site.brief.title | plain }}"
+  description: "Tell us the occasion, the date and how many, and we'll come back to you."
+---
+{% include "kits/events/features/events-brief/events-brief.njk" %}
+{%- if "events-dates" | enabled %}<section class="ev-start-dates"><div class="wrap">{% set edMode = "full" %}{% include "kits/events/features/events-dates/events-dates.njk" %}</div></section>{% endif %}

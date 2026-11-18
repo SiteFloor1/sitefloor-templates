@@ -62,6 +62,7 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 | Skin, Clémence (round 6) | trade/beauty | Antic Didone | Baskervville |
 | Isolde, the cover (round 4) | trade/bridal-beauty | Libre Bodoni | Faustina |
 | Cleaning, Plan (A) | trade/cleaning | Anek Latin | Anek Latin |
+| Maudry, The doors | trade/events | Eczar | Eczar |
 | Thursby, The statement (light) | trade/financial-advisers | Frank Ruhl Libre | Frank Ruhl Libre |
 | Garage, Elsden (the gallery) | trade/garage | Cardo | Radio Canada |
 | Halde, chalk (round 1) | trade/gym | Sofia Sans Extra Condensed | Sofia Sans |

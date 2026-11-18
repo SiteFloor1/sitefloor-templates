@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: rooms
+permalink: rooms.html
+feature: events-portfolio
+eleventyComputed:
+  title: "{{ (site.sections.rooms.pageTitle or 'Rooms') | plain }}"
+  description: "Rooms we've designed and produced, by occasion and number of guests."
+---
+{% include "kits/events/features/events-portfolio/events-portfolio.njk" %}

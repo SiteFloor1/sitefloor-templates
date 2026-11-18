@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: your-room
+permalink: your-room.html
+feature: events-room-plan
+eleventyComputed:
+  title: "{{ site.roomPlan.title | plain }}"
+  description: "Choose a room, the number of guests and how they sit, and see it drawn to scale."
+---
+{% include "kits/events/features/events-room-plan/events-room-plan.njk" %}

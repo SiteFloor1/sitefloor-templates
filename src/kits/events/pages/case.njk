@@ -1,0 +1,24 @@
+---
+layout: core/layouts/base.njk
+feature: events-cases
+pagination:
+  data: site.cases.items
+  size: 1
+  alias: c
+permalink: "case-{{ c.id }}.html"
+eleventyComputed:
+  pageId: "case-{{ c.id }}"
+  title: "{{ c.title | plain }}"
+  description: "{{ c.line | plain }}"
+---
+<article class="ev-case">
+  <div class="ev-case-top">{% set ph = c.photos[0] %}{% set phCls = "ev-case-hero" %}{% set phLazy = false %}{% include "kits/events/partials/photo.njk" %}</div>
+  <div class="wrap">
+    <p class="ev-back"><a href="{{ 'case-studies' | href }}">{{ site.cases.title | plain }}</a></p>
+    {%- set ph = { title: c.title, intro: c.line } %}{% include "kits/events/partials/page-head.njk" %}
+    <dl class="ev-case-facts"><div><dt>Guests</dt><dd>{{ c.guests }}</dd></div><div><dt>When</dt><dd>{{ c.when }}</dd></div><div><dt>Mood</dt><dd>{{ c.mood }}</dd></div></dl>
+    <div class="ev-case-body"><h2>The brief</h2><p>{{ c.brief | markup | safe }}</p><h2>The room</h2><p>{{ c.room | markup | safe }}</p></div>
+    {%- if c.photos | length > 1 %}<div class="ev-case-more">{% for p in c.photos %}{% if not loop.first %}{% set ph = p %}{% set phCls = "ev-case-img" %}{% set phSizes = "(min-width: 900px) 50vw, 100vw" %}{% set phLazy = true %}{% include "kits/events/partials/photo.njk" %}{% endif %}{% endfor %}</div>{% endif %}
+    {%- if "events-brief" | enabled %}<p class="ev-occ-go"><a class="ev-btn" href="{{ 'start' | href }}"{{ "events-brief" | tierAttr | safe }}>Begin a brief</a></p>{% endif %}
+  </div>
+</article>

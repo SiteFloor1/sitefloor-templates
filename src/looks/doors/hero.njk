@@ -1,0 +1,23 @@
+{#- The doors hero: one room at night, full width, lit once on arrival (2.8 s, never with the scroll); the headline in
+    one voice and one colour crossing the photograph's lower edge onto the ground; one line about the agency, See the
+    rooms and Begin a brief, and the next free Saturday from the date check (hidden when the diary can't be read). -#}
+{%- set H = site.hero %}
+<section class="hero dr-hero" aria-labelledby="dr-h1">
+  <div class="dr-room">
+    <picture>
+      {%- if H.photo.small %}<source media="(max-width: 700px)" srcset="{{ H.photo.small.src | img }}">{% endif %}
+      <img src="{{ H.photo.src | img }}" width="{{ H.photo.width }}" height="{{ H.photo.height }}" alt="{{ H.photo.alt }}"{% if H.photo.focus %} style="object-position: {{ H.photo.focus }}"{% endif %} fetchpriority="high" decoding="async">
+    </picture>
+  </div>
+  <div class="dr-words">
+    <h1 class="dr-h1" id="dr-h1">{{ H.title | markup | safe }}</h1>
+    <div class="dr-under">
+      <p class="dr-line">{{ H.intro }}</p>
+      <p class="dr-links">
+        {%- if "events-portfolio" | enabled %}<a href="{{ 'rooms' | href }}"{{ "events-portfolio" | tierAttr | safe }}>See the rooms</a>{% else %}<a href="#rooms">See the rooms</a>{% endif %}
+        {%- if "events-brief" | enabled %}<a href="{{ 'start' | href }}"{{ "events-brief" | tierAttr | safe }}>Begin a brief</a>{% else %}<a href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">Message us</a>{% endif %}
+      </p>
+      {%- if "events-dates" | enabled %}{% set edMode = "line" %}{% include "kits/events/features/events-dates/events-dates.njk" %}{% endif %}
+    </div>
+  </div>
+</section>
