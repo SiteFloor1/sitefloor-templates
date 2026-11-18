@@ -1,5 +1,7 @@
 /* Next free lessons: three rows, a date large, an outlined "Ask for this" on the right. */
 .dv-slotlist { list-style: none; padding: 0; margin: 0; }
+/* room for three rows from the first paint, so nothing moves when the times arrive */
+.dv-slots[data-state="loading"] .dv-slotlist { min-height: 168px; }
 .dv-slotlist li { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--line); }
 .dv-slotlist li:last-child { border-bottom: 0; }
 .dv-slotlist b { display: block; font-weight: 500; font-size: 17px; }

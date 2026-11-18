@@ -35,7 +35,7 @@ export function init(root, ctx) {
       const a = document.createElement("a");
       a.href = ctx.bookHref(`${cfg.message} ${when} (${s.gearbox}).`);
       a.target = "_blank"; a.rel = "noopener"; a.textContent = "Ask for this";
-      a.setAttribute("aria-label", `Ask for ${when}, ${s.gearbox}`);
+      a.setAttribute("aria-label", `Ask for this: ${when}, ${s.gearbox}`);
       const t = document.createElement("span");
       t.innerHTML = `<b>${day(s.date)}</b><small>${span(s.time, s.hours)} · ${s.gearbox}</small>`;
       li.append(t, a);

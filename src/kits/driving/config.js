@@ -24,14 +24,24 @@ const SLUG = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 const DISTRICT = /^[A-Z]{1,2}\d[A-Z\d]?$/;
 const SHEET = /^https:\/\/docs\.google\.com\/spreadsheets\/.+output=csv/;
 
-/** Words an instructor's own copy never uses: pass rates, guarantees, first-time promises, "fastest" claims. */
+/**
+ * Words an instructor's own copy never uses: pass rates and success rates, "pass first time" and "first-time pass" in any
+ * form, guarantees, "100%" or a percentage of pupils or passes, a pass by a deadline ("pass in 2 weeks"), and speed
+ * claims ("fastest", "quickest", "pass faster"). A pass rate goes only in instructors.passRate, as the client gives it,
+ * with its dates.
+ */
 const CLAIMS = [
-  /\bpass[- ]?rates?\b/i,
-  /\b\d{1,3}(?:\.\d+)?\s*%\s*(?:of\s+(?:our\s+)?(?:pupils|learners|students)\s+)?pass/i,
+  /\b(?:pass|success)[- ]?rates?\b/i,
+  /\b100\s*(?:%|per\s*cent)/i,
+  /\d\s*(?:%|per\s*cent)[^.!?]{0,30}\b(?:pass|pupils|learners|students|success)/i,
+  /\b(?:pass|success)[^.!?]{0,20}\d\s*(?:%|per\s*cent)/i,
+  /\bpass(?:es|ed|ing)?\b[^.!?]{0,30}?\b(?:first|1st)[- ]?time\b/i,
+  /\b(?:first|1st)[- ]?time\s+pass(?:es|ed)?\b/i,
   /\bguarantee[ds]?\b/i,
-  /\b(?:pass|passing)\s+(?:first\s+time|1st\s+time)\s+(?:or|guaranteed|every)\b/i,
-  /\bnever\s+fail\b/i,
-  /\b(?:fastest|quickest|cheapest|best)\s+(?:way\s+to\s+pass|pass|driving\s+(?:school|instructor|lessons))\b/i,
+  /\bnever\s+fail/i,
+  /\bpass(?:es|ed|ing)?\b[^.!?]{0,20}?\b(?:in|within)\s+(?:just\s+|only\s+)?(?:\d+|one|two|three|four|five|six|a)\s+(?:days?|weeks?|months?)\b/i,
+  /\b(?:fastest|quickest|speediest)\b/i,
+  /\bpass(?:es|ing)?\s+(?:faster|quicker|sooner)\b/i,
 ];
 
 /** Setting names that hold addresses, links, ids or the client's own dated figures, never copy. */

@@ -7,7 +7,7 @@ import { progressFromCsv } from "../kits/driving/lib/driving.js";
 import { zonedNow, formatTime24 } from "../core/lib/hours.js";
 import { addDaysYmd } from "../core/lib/diary.js";
 
-/** Levels for the demo's skills, in their order (1 Introduced … 5 Independent, 0 not started). */
+/** Levels for the demo's skills, in their order (1 Introduced … 5 Independent; 0 is written as a blank cell, not started). */
 const LEVELS = [5, 4, 4, 3, 3, 2, 1, 0];
 
 /** @type {import("../kits/driving/features/driving-progress/driving-progress.js").ProgressProvider} */
@@ -16,7 +16,7 @@ export const simulatedProgress = {
     const cfg = /** @type {any} */ (ctx.data).driving.progress, tz = ctx.data.hours.timezone, now = zonedNow(new Date(), tz);
     const skills = /** @type {string[]} */ (cfg.skills);
     const last = addDaysYmd(now.date, -2);
-    const cells = skills.map((_, i) => String(LEVELS[i] ?? 0));
+    const cells = skills.map((_, i) => (LEVELS[i] ? String(LEVELS[i]) : ""));
     const q = (/** @type {string} */ s) => `"${s.replace(/"/g, '""')}"`;
     const csv = [
       ["code", "lessons", "last_lesson", "covered", "practise", ...skills.map(q), "updated_at"].join(","),

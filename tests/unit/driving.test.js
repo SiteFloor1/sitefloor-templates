@@ -75,14 +75,24 @@ test("times read as a learner says them", () => {
 
 test("next free lessons: future rows only, sorted; stale, private or broken sheets fail closed", () => {
   const now = at("2026-11-17T10:00:00Z");
-  const csv = "date,time,hours,gearbox,updated_at\n2026-11-21,09:00,2,automatic,2026-11-17 08:10\n2026-11-19,16:00,2,manual,\n2026-11-17,08:00,2,manual,\n2026-11-20,25:00,2,manual,\n";
+  const csv = "date,time,hours,gearbox,updated_at\n2026-11-21,09:00,2,automatic,2026-11-17 08:10\n2026-11-19,16:00,2,manual,2026-11-17 08:10\n2026-11-17,08:00,2,manual,2026-11-17 08:10\n";
   const r = slotsFromCsv(csv, now, TZ, 48);
   assert.ok(r.ok);
-  assert.deepEqual(r.slots.map((s) => s.date), ["2026-11-19", "2026-11-21"]);
+  assert.deepEqual(r.slots.map((s) => s.date), ["2026-11-19", "2026-11-21"], "the morning's lesson has gone");
   assert.equal(slotsFromCsv(csv, at("2026-11-20T10:00:00Z"), TZ, 48).ok, false, "two days old");
-  assert.equal(slotsFromCsv(csv.replace("manual,\n2026-11-17", "manual,,Jo Bloggs\n2026-11-17"), now, TZ, 48).ok, false, "a name outside the columns");
+  assert.equal(slotsFromCsv(csv.replace("manual,2026-11-17 08:10\n2026-11-17", "manual,2026-11-17 08:10,Jo Bloggs\n2026-11-17"), now, TZ, 48).ok, false, "a name outside the columns");
   assert.equal(slotsFromCsv("date,time\n2026-11-19,16:00", now, TZ, 48).ok, false, "missing columns");
   assert.equal(slotsFromCsv("", now, TZ, 48).ok, false);
+});
+
+test("next free lessons: every row is judged by its own stamp (DR-03)", () => {
+  const now = at("2026-11-17T10:00:00Z"), head = "date,time,hours,gearbox,updated_at\n", fresh = "2026-11-19,16:00,2,manual,2026-11-17 08:10\n";
+  assert.equal(slotsFromCsv(head + fresh + "2026-11-20,16:00,2,manual,2026-09-01 08:00\n", now, TZ, 48).ok, false, "a row listed in September");
+  assert.equal(slotsFromCsv(head + fresh + "2026-11-20,16:00,2,manual,xx\n", now, TZ, 48).ok, false, "an unreadable stamp");
+  assert.equal(slotsFromCsv(head + fresh + "2026-11-20,16:00,2,manual,\n", now, TZ, 48).ok, false, "no stamp");
+  assert.equal(slotsFromCsv(head + fresh + "2026-11-20,16:00,2,manual,2026-11-19 08:00\n", now, TZ, 48).ok, false, "a stamp in the future");
+  assert.equal(slotsFromCsv(head + fresh + "2026-11-20,25:00,2,manual,2026-11-17 08:10\n", now, TZ, 48).ok, false, "a time that can't be read");
+  assert.ok(slotsFromCsv(head + fresh + ",,,,\n", now, TZ, 48).ok, "a blank row is ignored");
 });
 
 test("the progress card: by code, levels 1 to 5, never a name; unknown codes and stale sheets say so", () => {
@@ -99,6 +109,14 @@ test("the progress card: by code, levels 1 to 5, never a name; unknown codes and
   assert.deepEqual(progressFromCsv(csv, "AB12CD34", at("2026-12-10T10:00:00Z"), TZ, 336, skills), { ok: false, reason: "sheet" });
   assert.deepEqual(progressFromCsv(csv, "AB12CD34", now, TZ, 336, ["Mirrors", "Bay parking"]), { ok: false, reason: "sheet" });
   assert.equal(LEVELS.length, 5);
+  // DR-02: the published sheet is public, so any extra column fails it (a name, even with the column left unnamed)
+  const named = csv.replace("updated_at\n", "updated_at,name\n").replace("19:40\n", "19:40,Amy Smith\n");
+  assert.deepEqual(progressFromCsv(named, "AB12CD34", now, TZ, 336, skills), { ok: false, reason: "sheet" });
+  assert.deepEqual(progressFromCsv(csv.replace("19:40\n", "19:40,Amy Smith\n"), "AB12CD34", now, TZ, 336, skills), { ok: false, reason: "sheet" });
+  // DR-05: values that can't be read fail the card rather than showing 0 or "not started"
+  assert.deepEqual(progressFromCsv(csv.replace(",18,", ",eighteen,"), "AB12CD34", now, TZ, 336, skills), { ok: false, reason: "sheet" });
+  assert.deepEqual(progressFromCsv(csv.replace(",5,3,", ",5,7,"), "AB12CD34", now, TZ, 336, skills), { ok: false, reason: "sheet" });
+  assert.deepEqual(progressFromCsv(csv.replace(",2026-11-15,", ",15/11,"), "AB12CD34", now, TZ, 336, skills), { ok: false, reason: "sheet" });
 });
 
 test("gov.uk wording is linked to gov.uk", () => {
@@ -112,6 +130,16 @@ test("no pass-rate claims, guarantees or promises in the instructor's copy", () 
   assert.match(errorsFor((s) => { s.areas.notCovered = "Our pass rate is the best in London."; }), /areas\.notCovered/);
   assert.match(errorsFor((s) => { s.journal.articles[0].body[0] = "92% of our pupils pass."; }), /journal\.articles\[0\]\.body\[0\]/);
   assert.match(errorsFor((s) => { s.business.description = "The fastest way to pass in East London."; }), /business\.description/);
+  // DR-01: every phrase the audit found getting through
+  for (const claim of ["Pass first time with us!", "Most of our pupils pass first time", "We help you pass first time", "First-time passes every month",
+    "100% success rate", "A 100 per cent record", "Pass in 2 weeks", "Pass within two weeks", "Fastest route to your licence", "Pass faster", "Quickest lessons in town",
+    "Our success rate speaks for itself", "Eight in ten pass, 80% of learners pass"]) {
+    assert.match(errorsFor((s) => { s.hero.intro = claim; }), /hero\.intro.*promise/, claim);
+  }
+  // plain copy still passes, including an ordinary discount and the gearbox page's own words
+  for (const fine of ["Ten per cent off a block of ten hours.", "Pass in an automatic and you can only drive automatics.", "Pass Plus, six hours.", "Most people learn faster in an automatic."]) {
+    assert.equal(errorsFor((s) => { s.hero.intro = fine; }), "", fine);
+  }
   // the reviewer's own words aren't the instructor's claim
   assert.equal(errorsFor((s) => { s.reviews.items[0].text = "Passed first time, guaranteed I'd recommend."; }), "");
 });

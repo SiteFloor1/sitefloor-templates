@@ -1,5 +1,5 @@
 {#- Verge phone bar: a floating green "Book a lesson" pill and a round white Chat button beside it. -#}
 <div class="mbar vg-bar">
   <a class="vg-bar-book" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">Book a lesson</a>
-  {%- if site.contact.whatsapp %}<a class="vg-bar-chat" href="{{ site.messages.general | wa }}" data-wa-text="{{ site.messages.general }}" target="_blank" rel="noopener" aria-label="Message us on WhatsApp">Chat</a>{% endif %}
+  {%- if site.contact.whatsapp %}<a class="vg-bar-chat" href="{{ site.messages.general | wa }}" data-wa-text="{{ site.messages.general }}" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">Chat</a>{% endif %}
 </div>

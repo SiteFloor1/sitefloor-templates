@@ -100,9 +100,15 @@ export function feesFresh(checked, today) {
 /** @typedef {{ date: string, time: string, hours: number, gearbox: "manual"|"automatic" }} Slot */
 /** @typedef {{ ok: true, slots: Slot[], updatedAt: number } | { ok: false }} Slots */
 
+/** A sheet stamp that can be read, isn't in the future (five minutes' clock drift allowed) and isn't stale. */
+function freshStamp(/** @type {number} */ stamp, /** @type {number} */ nowMs, /** @type {number} */ staleAfterHours) {
+  return Number.isFinite(stamp) && stamp <= nowMs + 5 * 60_000 && nowMs - stamp <= staleAfterHours * 3_600_000;
+}
+
 /**
- * Reads the instructor's free lessons. Past lessons drop off; a row written outside the expected columns (a name, a
- * phone number) or an old sheet fails the whole read, so nothing private or stale is shown.
+ * Reads the instructor's free lessons. Past lessons drop off. Anything written outside the expected columns (a name, a
+ * phone number), a row that can't be read, or any row whose own updated_at is missing, in the future or older than
+ * `staleAfterHours` fails the whole read, so nothing private, wrong or stale is shown.
  * @param {string} csv @param {number} nowMs @param {string} tz @param {number} staleAfterHours
  * @returns {Slots}
  */
@@ -118,16 +124,20 @@ export function slotsFromCsv(csv, nowMs, tz, staleAfterHours) {
   /** @type {Slot[]} */
   const slots = [];
   for (const r of rows.slice(1)) {
+    if (r.every((v) => String(v ?? "").trim() === "")) continue;
+    // every row is judged by its own stamp: one unreadable, future or stale row fails the whole sheet, so a lesson
+    // listed weeks ago can't show as free because another row was updated today
     const stamp = parseSheetTime(String(r[at.updated] ?? ""), tz);
-    if (Number.isFinite(stamp)) updatedAt = Math.max(updatedAt, stamp);
+    if (!freshStamp(stamp, nowMs, staleAfterHours)) return { ok: false };
+    updatedAt = Math.max(updatedAt, stamp);
     const date = String(r[at.date] ?? "").trim(), time = String(r[at.time] ?? "").trim();
     const hours = Number(String(r[at.hours] ?? "").trim()), gearbox = String(r[at.gearbox] ?? "").trim().toLowerCase();
-    if (!isYmd(date) || !isTime(time) || !(hours > 0 && hours <= 8) || !["manual", "automatic"].includes(gearbox)) continue;
+    if (!isYmd(date) || !isTime(time) || !(hours > 0 && hours <= 8) || !["manual", "automatic"].includes(gearbox)) return { ok: false };
     const [yy, mm, dd] = date.split("-").map(Number), mins = toMinutes(time);
     if (wallTimeToUtc({ year: yy, month: mm, day: dd, hour: Math.floor(mins / 60), minute: mins % 60 }, tz) <= nowMs) continue;
     slots.push({ date, time, hours, gearbox: /** @type {Slot["gearbox"]} */ (gearbox) });
   }
-  if (!updatedAt || updatedAt > nowMs + 5 * 60_000 || nowMs - updatedAt > staleAfterHours * 3_600_000) return { ok: false };
+  if (!updatedAt) return { ok: false };
   slots.sort((a, b) => (a.date + a.time < b.date + b.time ? -1 : 1));
   return { ok: true, slots, updatedAt };
 }
@@ -156,7 +166,8 @@ export const CODE = /^[A-Z0-9]{6,12}$/;
 
 /**
  * A learner's card from the instructor's sheet, by code. Skill columns are the instructor's own list (`skills`, in
- * their order); each cell is a level from 1 (Introduced) to 5 (Independent), or blank for not started.
+ * their order); each cell is a level from 1 (Introduced) to 5 (Independent), or blank for not started. Fails closed:
+ * anything outside the known columns, a lesson count or level that can't be read, or a stale row shows no card.
  * @param {string} csv @param {string} code @param {number} nowMs @param {string} tz @param {number} staleAfterHours @param {string[]} skills
  * @returns {Progress}
  */
@@ -169,26 +180,25 @@ export function progressFromCsv(csv, code, nowMs, tz, staleAfterHours, skills) {
   const col = (/** @type {string} */ k) => head.indexOf(k.toLowerCase());
   const at = { code: col("code"), lessons: col("lessons"), last: col("last_lesson"), covered: col("covered"), practise: col("practise"), updated: col("updated_at") };
   if (Object.values(at).some((i) => i < 0) || skills.some((s) => col(s) < 0)) return { ok: false, reason: "sheet" };
+  const known = new Set([...Object.values(at), ...skills.map(col)]);
+  // the published sheet is public: anything written outside the known columns (a name, a phone number) fails it all
+  if (rows.some((r) => r.some((v, j) => !known.has(j) && String(v ?? "").trim() !== ""))) return { ok: false, reason: "sheet" };
   const row = rows.slice(1).find((r) => String(r[at.code] ?? "").toUpperCase().replace(/\s+/g, "") === want);
   if (!row) return { ok: false, reason: "unknown" };
   const updatedAt = parseSheetTime(String(row[at.updated] ?? ""), tz);
-  if (!Number.isFinite(updatedAt) || updatedAt > nowMs + 5 * 60_000 || nowMs - updatedAt > staleAfterHours * 3_600_000) return { ok: false, reason: "sheet" };
-  const last = String(row[at.last] ?? "").trim();
-  const lessons = Number(String(row[at.lessons] ?? "").trim());
-  return {
-    ok: true,
-    updatedAt,
-    learner: {
-      lessons: Number.isInteger(lessons) && lessons >= 0 ? lessons : 0,
-      last: isYmd(last) ? last : null,
-      covered: String(row[at.covered] ?? "").trim(),
-      practise: String(row[at.practise] ?? "").trim(),
-      skills: skills.map((skill) => {
-        const v = Number(String(row[col(skill)] ?? "").trim());
-        return { skill, level: Number.isInteger(v) && v >= 1 && v <= 5 ? v : 0 };
-      }),
-    },
-  };
+  if (!freshStamp(updatedAt, nowMs, staleAfterHours)) return { ok: false, reason: "sheet" };
+  const cell = (/** @type {number} */ j) => String(row[j] ?? "").trim();
+  const last = cell(at.last), lessonsText = cell(at.lessons), lessons = Number(lessonsText);
+  // a value that can't be read fails the card rather than showing as 0 or "not started"
+  if (!/^\d{1,3}$/.test(lessonsText) || (last !== "" && !isYmd(last))) return { ok: false, reason: "sheet" };
+  /** @type {{ skill: string, level: number }[]} */
+  const levels = [];
+  for (const skill of skills) {
+    const v = cell(col(skill));
+    if (v !== "" && !/^[1-5]$/.test(v)) return { ok: false, reason: "sheet" };
+    levels.push({ skill, level: v === "" ? 0 : Number(v) });
+  }
+  return { ok: true, updatedAt, learner: { lessons, last: last || null, covered: cell(at.covered), practise: cell(at.practise), skills: levels } };
 }
 
 /** The demo's sample dates: the next given weekdays (0 = Sunday) after today, each once, in order. @param {string} today @param {number[]} weekdays */

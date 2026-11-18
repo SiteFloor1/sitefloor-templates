@@ -8,3 +8,18 @@
 
 `npm run budget` passes for both. The first screen's photo is 143 KB (1200 × 800 WebP; trees behind the car keep it heavier than a plain street would); Lexend has a size-matched
 fallback (`src/looks/verge/fonts.css`) so text wraps the same before the font loads.
+
+## Layout shift (home, cold load, fonts loading)
+| Date | Viewport | CLS |
+|---|---|---|
+| 2026-11-18 | 1024 | 0.007 |
+| 2026-11-18 | 1280 × 800 | 0.008 |
+| 2026-11-18 | 1350 | 0.001 |
+| 2026-11-18 | 1366 | 0.000 |
+| 2026-11-18 | 1440 | 0.008 |
+| 2026-11-18 | phone (390) | 0.003 |
+
+The earlier 0.17–0.18 at 1280–1366 came from script-only controls (gearbox switch, postcode form, planner) appearing
+after start-up and the second price list being removed. They are now in the page from the first paint; without
+JavaScript a `<noscript>` style shows both price lists and hides the controls. The slots list and the cost figure keep
+their space while loading.

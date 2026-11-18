@@ -6,8 +6,8 @@
   <button class="dv-mh" type="button" aria-expanded="false" data-dv-open><span>{{ p.title }}</span><em data-pp-m>About {{ govuk.dvsaHours }} hours</em></button>
   <div class="dv-body">
   <h2 class="dv-ct" id="dpp-h">{{ p.title }}</h2>
-  <noscript><p>The DVSA says most learners need about {{ govuk.dvsaHours }} hours of lessons and {{ govuk.dvsaPractice }} hours of private practice.</p></noscript>
-  <div data-js-only>
+  <noscript><style>.dv-pass .dv-tool { display: none; }</style><p>The DVSA says most learners need about {{ govuk.dvsaHours }} hours of lessons and {{ govuk.dvsaPractice }} hours of private practice.</p></noscript>
+  <div class="dv-tool">
     <p class="dv-lbl" id="pp-w">{{ p.intro or "Lessons a week" }}</p>
     <div class="dv-chips" role="group" aria-labelledby="pp-w">
       {%- for c in p.perWeek %}<button type="button" aria-pressed="{{ 'true' if c.default else 'false' }}" data-pp-h="{{ c.hours }}">{{ c.label }}</button>{% endfor %}
