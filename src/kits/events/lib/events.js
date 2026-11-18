@@ -1,0 +1,234 @@
+// @ts-check
+/**
+ * Event designers and producers: pure logic, no DOM. Dates (free, held, booked) from the agency's sheet, the next free
+ * day, the brief as one message, key dates worked back from the event into a calendar file, the room drawn for a number
+ * of guests, and the private proposal sheet. Every date, room, venue and figure is the agency's own; nothing here
+ * invents a fact, and the room plan is a guide that says so (the venue's own capacity and rules decide).
+ */
+import { parseCsv } from "../../../core/lib/sheet.js";
+
+const DAY = 86_400_000;
+export const WEEKDAYS = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+export const LAYOUTS = { long: "Long tables", round: "Round tables", standing: "Standing" };
+
+/** A real calendar date written YYYY-MM-DD (2027-02-30 is not). @param {any} s */
+export function realDate(s) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(String(s))) return false;
+  const d = new Date(`${s}T00:00:00Z`);
+  return !Number.isNaN(d.getTime()) && d.toISOString().slice(0, 10) === s;
+}
+/** @param {string} ymd @param {number} n */
+export function addDays(ymd, n) { return new Date(Date.parse(`${ymd}T00:00:00Z`) + n * DAY).toISOString().slice(0, 10); }
+/** Whole days from one date to another. @param {string} from @param {string} to */
+export function daysTo(from, to) { return Math.round((Date.parse(`${to}T00:00:00Z`) - Date.parse(`${from}T00:00:00Z`)) / DAY); }
+/** @param {string} ymd */
+export function weekday(ymd) { return WEEKDAYS[new Date(`${ymd}T12:00:00Z`).getUTCDay()]; }
+/** "Saturday 12 June 2027". @param {string} ymd */
+export function longDate(ymd) {
+  return new Intl.DateTimeFormat("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(`${ymd}T12:00:00Z`));
+}
+/** "12 June". @param {string} ymd */
+export function dayMonth(ymd) {
+  return new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", timeZone: "UTC" }).format(new Date(`${ymd}T12:00:00Z`));
+}
+
+/**
+ * The agency's dates sheet, published as CSV: `date, status, updated` where status is held or booked (any date not
+ * listed is free). Fails closed: no `updated`, an updated date in the future, or older than `staleAfterDays` means
+ * the page can't say, so it asks them to message.
+ * @param {string} csv @param {string} today @param {number} staleAfterDays
+ * @returns {{ ok: true, taken: Record<string, "held"|"booked">, updated: string } | { ok: false, reason: "stale"|"unreadable" }}
+ */
+export function datesFromCsv(csv, today, staleAfterDays) {
+  const rows = parseCsv(String(csv));
+  if (!rows.length) return { ok: false, reason: "unreadable" };
+  const head = rows[0].map((h) => h.trim().toLowerCase());
+  const at = (/** @type {string} */ k) => head.indexOf(k);
+  if (at("date") < 0 || at("status") < 0 || at("updated") < 0) return { ok: false, reason: "unreadable" };
+  /** @type {Record<string, "held"|"booked">} */ const taken = {};
+  let updated = "";
+  for (const r of rows.slice(1)) {
+    const u = (r[at("updated")] ?? "").trim();
+    if (realDate(u) && u > updated) updated = u;
+    const d = (r[at("date")] ?? "").trim(), s = (r[at("status")] ?? "").trim().toLowerCase();
+    if (!realDate(d)) continue;
+    if (s === "held" || s === "booked") taken[d] = s === "booked" || taken[d] === "booked" ? "booked" : "held";
+  }
+  if (!updated) return { ok: false, reason: "unreadable" };
+  const age = daysTo(updated, today);
+  if (age < 0) return { ok: false, reason: "unreadable" };
+  if (age > staleAfterDays) return { ok: false, reason: "stale" };
+  return { ok: true, taken, updated };
+}
+
+/** @param {Record<string, string>} taken @param {string} ymd @returns {"free"|"held"|"booked"} */
+export function statusOf(taken, ymd) { return /** @type {any} */ (taken[ymd]) ?? "free"; }
+
+/**
+ * The first free day on one of the agency's usual weekdays, at least `leadDays` ahead (null if none in a year).
+ * @param {Record<string, string>} taken @param {string} today @param {string[]} days e.g. ["sat"] @param {number} leadDays
+ */
+export function nextFree(taken, today, days, leadDays) {
+  for (let i = leadDays; i < leadDays + 366; i++) {
+    const d = addDays(today, i);
+    if (days.includes(weekday(d)) && !taken[d]) return d;
+  }
+  return null;
+}
+
+/** What the date check says for a chosen date. @param {"free"|"held"|"booked"} s @param {string} ymd */
+export function dateWords(s, ymd) {
+  const d = longDate(ymd);
+  if (s === "free") return `${d} is free.`;
+  if (s === "held") return `${d} is on hold for another client. Ask us and we'll tell you if it comes free.`;
+  return `${d} is taken.`;
+}
+
+/**
+ * The brief as one plain message. Only what the visitor chose; nothing they left blank.
+ * @param {string} business @param {{ type?: string, date?: string, flexible?: boolean, guests?: number, budget?: string, venue?: string, name?: string, note?: string }} b
+ */
+export function briefMessage(business, b) {
+  const lines = [`Hello ${business}, we're planning ${b.type ? aOrAn(b.type.toLowerCase()) : "an event"}.`];
+  if (b.date && realDate(b.date)) lines.push(`Date: ${longDate(b.date)}${b.flexible ? " (we could move it)" : ""}`);
+  else lines.push("Date: not fixed yet");
+  if (Number.isInteger(b.guests) && /** @type {number} */ (b.guests) > 0) lines.push(`Guests: about ${b.guests}`);
+  if (b.budget) lines.push(`Budget: ${b.budget}`);
+  if (b.venue) lines.push(`Venue: ${b.venue}`);
+  if (b.note && b.note.trim()) lines.push(b.note.trim().slice(0, 400));
+  if (b.name && b.name.trim()) lines.push(`From ${b.name.trim().slice(0, 80)}`);
+  return lines.join("\n");
+}
+/** @param {string} w */
+function aOrAn(w) { return `${/^[aeiou]/.test(w) ? "an" : "a"} ${w}`; }
+
+/**
+ * Key dates worked back from the event: each `weeksBefore` the date, only those still ahead of today.
+ * @param {string} eventDate @param {{ label: string, weeksBefore: number }[]} items @param {string} today
+ */
+export function keyDates(eventDate, items, today) {
+  return items
+    .map((k) => ({ label: k.label, date: addDays(eventDate, -7 * k.weeksBefore) }))
+    .filter((k) => k.date >= today)
+    .sort((a, b) => (a.date < b.date ? -1 : 1));
+}
+
+/**
+ * A calendar file (iCalendar, RFC 5545) of all-day events. Lines folded at 75 octets; text escaped.
+ * @param {string} business @param {{ label: string, date: string }[]} dates @param {string} stamp YYYYMMDDTHHMMSSZ @param {string} host
+ */
+export function icsFile(business, dates, stamp, host) {
+  const esc = (/** @type {string} */ s) => s.replace(/\\/g, "\\\\").replace(/;/g, "\;").replace(/,/g, "\\,").replace(/\r?\n/g, "\\n");
+  const fold = (/** @type {string} */ line) => {
+    const out = []; let s = line;
+    while (new TextEncoder().encode(s).length > 75) {
+      let n = 75; while (new TextEncoder().encode(s.slice(0, n)).length > 75) n--;
+      out.push(s.slice(0, n)); s = ` ${s.slice(n)}`;
+    }
+    out.push(s); return out.join("\r\n");
+  };
+  const ymd = (/** @type {string} */ d) => d.replace(/-/g, "");
+  const lines = ["BEGIN:VCALENDAR", "VERSION:2.0", `PRODID:-//${esc(business)}//Key dates//EN`, "CALSCALE:GREGORIAN"];
+  dates.forEach((k, i) => {
+    lines.push("BEGIN:VEVENT", `UID:${ymd(k.date)}-${i}@${host}`, `DTSTAMP:${stamp}`, `DTSTART;VALUE=DATE:${ymd(k.date)}`,
+      `DTEND;VALUE=DATE:${ymd(addDays(k.date, 1))}`, `SUMMARY:${esc(k.label)}`, "TRANSP:TRANSPARENT", "END:VEVENT");
+  });
+  lines.push("END:VCALENDAR");
+  return lines.map(fold).join("\r\n") + "\r\n";
+}
+
+/**
+ * The room drawn for a number of guests: where tables, a dance floor and a bar would go in a rectangular room.
+ * A planning guide only. Spacing: long tables 1.2 m wide with 0.6 m a guest a side and 3 m between table centres;
+ * rounds of ten, 1.8 m across, on a 3.2 m grid; standing at 0.8 m² a guest. A clear 1 m round the walls; a dance
+ * floor at one end when the room is long enough (8 × 8 m from 24 m, 6 × 6 m from 16 m).
+ * @param {{ length: number, width: number }} room metres @param {number} guests @param {"long"|"round"|"standing"} layout
+ */
+export function drawRoom(room, guests, layout) {
+  const L = room.length, W = room.width, edge = 1;
+  const df = layout === "standing" ? 0 : L >= 24 && W >= 10 ? 8 : L >= 16 && W >= 8 ? 6 : 0;
+  const floor = df ? { x: L - edge - df, y: (W - df) / 2, w: df, h: df } : null;
+  const usableL = L - 2 * edge - (df ? df + 1 : 0), usableW = W - 2 * edge;
+  /** @type {{ x: number, y: number, w: number, h: number, seats: number, shape: "rect"|"round"|"high" }[]} */ const tables = [];
+  let capacity = 0;
+  if (layout === "long") {
+    const rows = Math.max(0, Math.floor((usableW - 1.2) / 3) + 1), perSide = Math.max(0, Math.floor(usableL / 0.6));
+    capacity = rows * perSide * 2;
+    let left = Math.min(guests, capacity);
+    const gap = rows > 1 ? (usableW - 1.2) / (rows - 1) : 0;
+    for (let r = 0; r < rows && left > 0; r++) {
+      const seats = Math.min(left, perSide * 2); left -= seats;
+      const len = Math.ceil(seats / 2) * 0.6 + 0.3;
+      tables.push({ x: edge + (usableL - len) / 2, y: edge + (rows > 1 ? r * gap : (usableW - 1.2) / 2), w: len, h: 1.2, seats, shape: "rect" });
+    }
+  } else if (layout === "round") {
+    const cols = Math.max(0, Math.floor(usableL / 3.2)), rows = Math.max(0, Math.floor(usableW / 3.2));
+    capacity = cols * rows * 10;
+    let left = Math.min(guests, capacity);
+    const ox = edge + (usableL - cols * 3.2) / 2, oy = edge + (usableW - rows * 3.2) / 2;
+    for (let r = 0; r < rows && left > 0; r++) for (let c = 0; c < cols && left > 0; c++) {
+      const seats = Math.min(10, left); left -= seats;
+      tables.push({ x: ox + c * 3.2 + 0.7, y: oy + r * 3.2 + 0.7, w: 1.8, h: 1.8, seats, shape: "round" });
+    }
+  } else {
+    capacity = Math.floor((usableL * usableW) / 0.8);
+    const n = Math.ceil(Math.min(guests, capacity) / 12);
+    const cols = Math.max(1, Math.ceil(Math.sqrt((n * usableL) / usableW))), rows = Math.ceil(n / cols);
+    for (let k = 0; k < n; k++) {
+      const c = k % cols, r = Math.floor(k / cols);
+      tables.push({ x: edge + ((c + 0.5) * usableL) / cols - 0.35, y: edge + ((r + 0.5) * usableW) / rows - 0.35, w: 0.7, h: 0.7, seats: 0, shape: "high" });
+    }
+  }
+  const fits = guests <= capacity;
+  const bar = layout === "standing" ? { x: L - edge - 6, y: edge - 0.5, w: 6, h: 0.8 } : { x: edge, y: W - edge + 0.1, w: Math.min(6, L / 3), h: 0.7 };
+  return { length: L, width: W, guests, layout, fits, capacity, tables, floor, bar };
+}
+
+/** What the drawn room says beneath it. @param {ReturnType<typeof drawRoom>} p @param {string} roomName */
+export function roomWords(p, roomName) {
+  if (!p.fits) return p.capacity > 0
+    ? `${roomName} takes about ${p.capacity} ${p.layout === "standing" ? "standing" : "seated"} this way. Try another layout, or ask us about a larger room.`
+    : `${roomName} is too small for this layout.`;
+  if (p.layout === "standing") return `${p.guests} standing, ${p.tables.length} high tables and a long bar.`;
+  const n = p.tables.length, kind = p.layout === "long" ? "long table" : "round table";
+  return `${p.guests} seated at ${n} ${kind}${n === 1 ? "" : "s"}${p.floor ? `, with a ${p.floor.w} × ${p.floor.h} m dance floor` : ""}.`;
+}
+
+/** A proposal code: 6–12 letters and numbers, read without spaces or dashes, in capitals. @param {any} raw */
+export function cleanCode(raw) {
+  const c = String(raw ?? "").replace(/[\s-]/g, "").toUpperCase();
+  return /^[A-Z0-9]{6,12}$/.test(c) ? c : "";
+}
+
+/**
+ * The agency's proposals sheet, published as CSV: `code, visuals, room, guests, layout, date, updated`. Nothing
+ * personal by design: a code is not a password. Fails closed on an unknown code, a visual set or room the site doesn't
+ * have, a bad date, or a row not updated for `staleAfterDays`.
+ * @param {string} csv @param {string} code @param {string[]} sets @param {string[]} rooms @param {string} today @param {number} staleAfterDays
+ */
+export function proposalFromCsv(csv, code, sets, rooms, today, staleAfterDays) {
+  const rows = parseCsv(String(csv));
+  if (!rows.length) return { ok: false, reason: "unreadable" };
+  const head = rows[0].map((h) => h.trim().toLowerCase());
+  const at = (/** @type {string} */ k) => head.indexOf(k);
+  if (["code", "visuals", "date", "updated"].some((k) => at(k) < 0)) return { ok: false, reason: "unreadable" };
+  const row = rows.slice(1).find((r) => cleanCode(r[at("code")]) === code);
+  if (!row) return { ok: false, reason: "unknown" };
+  const cell = (/** @type {string} */ k) => (at(k) >= 0 ? (row[at(k)] ?? "").trim() : "");
+  const visuals = cell("visuals"), date = cell("date"), updated = cell("updated"), room = cell("room"), layout = cell("layout") || "long";
+  if (!sets.includes(visuals) || !realDate(date) || !realDate(updated)) return { ok: false, reason: "unreadable" };
+  if (room && !rooms.includes(room)) return { ok: false, reason: "unreadable" };
+  if (!(layout in LAYOUTS)) return { ok: false, reason: "unreadable" };
+  const age = daysTo(updated, today);
+  if (age < 0) return { ok: false, reason: "unreadable" };
+  if (age > staleAfterDays) return { ok: false, reason: "stale" };
+  const g = Number(cell("guests"));
+  return { ok: true, visuals, room: room || null, layout, date, updated, guests: Number.isInteger(g) && g > 0 && g <= 2000 ? g : 0 };
+}
+
+/** Rooms from the portfolio that suit a number of guests: within a third either way, closest first. @param {any[]} rooms @param {number} guests @param {string} [occasion] */
+export function roomsFor(rooms, guests, occasion) {
+  return rooms
+    .filter((r) => (!occasion || r.occasion === occasion) && (!guests || (r.guests >= guests * 0.67 && r.guests <= guests * 1.5)))
+    .sort((a, b) => Math.abs(a.guests - guests) - Math.abs(b.guests - guests));
+}
