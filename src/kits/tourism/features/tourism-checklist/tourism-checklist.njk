@@ -1,0 +1,23 @@
+{#- Ready to travel (TOUR-8): each country's gov.uk foreign travel advice, linked and never retold; then the
+    operator's own list to tick before going, kept in this browser. The month the operator last checked the list. -#}
+{%- set R = site.ready %}
+<section class="tc" data-feature="tourism-checklist" aria-label="{{ R.title | plain }}"><div class="wrap">
+  {%- set ph = { title: R.title, intro: R.intro } %}{% include "kits/tourism/partials/page-head.njk" %}
+  <div class="tc-in">
+    <div class="tc-gov">
+      <h2>The latest advice</h2>
+      <p>Entry rules, passports, safety and health change. Read the UK government's advice for each country before you book and again before you go.</p>
+      <ul>{% for c in R.countries %}<li><a href="{{ c.advice }}" rel="noopener">{{ c.name }}: gov.uk foreign travel advice</a></li>{% endfor %}</ul>
+    </div>
+    <div class="tc-list">
+      <h2>Before you go</h2>
+      <ul data-tc-items>
+        {%- for x in R.items %}
+        <li><label><input type="checkbox" data-tc-item="{{ loop.index0 }}"> <span>{{ x.text }}</span>{% if x.when %} <small>{{ x.when }}</small>{% endif %}</label></li>
+        {%- endfor %}
+      </ul>
+      <p class="tc-done" data-tc-done aria-live="polite"></p>
+      <p class="tc-checked">Our list, last checked {{ R.checked | monthYear }}. Your ticks stay in this browser only.</p>
+    </div>
+  </div>
+</div></section>

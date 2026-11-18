@@ -1,0 +1,17 @@
+{#- Spaces free and prices (PARK-1): the free bays with their size, charger and price, then every bay's size and price,
+    from the client's own list in hall.rows. -#}
+{%- set sec = site.sections.spaces %}
+{%- set free = site.hall | freeBays %}
+<section id="spaces" class="gs" aria-label="{{ sec.title | plain }}"{{ "garage-spaces" | tierAttr | safe }}><div class="wrap gs-in">
+  {%- include "core/partials/section-head.njk" %}
+  {%- if free.length %}
+  <table class="gs-t">
+    <caption class="gs-c">Free now</caption>
+    <thead><tr><th scope="col">Bay</th><th scope="col">Size</th><th scope="col">Charger</th><th scope="col">A month</th></tr></thead>
+    <tbody>{% for b in free %}<tr><th scope="row">{{ b.n }}</th><td>{{ b.width | metres }} × {{ site.hall.bayDepth | metres }}</td><td>{{ (b.charger + " kW") if b.charger else "—" }}</td><td>{{ (b.price | gbp) if b.price else "Ask" }}</td></tr>{% endfor %}</tbody>
+  </table>
+  {%- else %}
+  <p class="gs-none">Every bay is let. <a class="go" href="{{ site.messages.waitlist | book }}" target="_blank" rel="noopener">Join the waiting list</a></p>
+  {%- endif %}
+  <p class="gs-all">{{ (site.hall | bays).length }} bays, {{ site.hall | priceRange }} a month. A month’s notice either way.</p>
+</div></section>

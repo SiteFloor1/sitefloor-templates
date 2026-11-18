@@ -1,0 +1,5 @@
+{#- An inner page's opening: the page's name in the display face, its line beneath. Set `ph` to { title, intro } first. -#}
+<div class="g-ph"><div class="wrap">
+  <h1 class="g-ph-t">{{ ph.title | markup | safe }}</h1>
+  {%- if ph.intro %}<p class="g-ph-i">{{ ph.intro }}</p>{% endif %}
+</div></div>

@@ -1,0 +1,17 @@
+{#- The drawn plan (Signature standard): the hall to scale from the client's measurements. The bays the chosen car
+    fits that are free light up; charging and cameras are layers, one tap each. -#}
+{%- set sec = site.sections.pick %}
+{%- set cams = site.security.cameras if ("garage-security" | enabled) and site.security else [] %}
+<section id="plan" class="gp" data-feature="garage-pick" data-pick-plan aria-label="{{ sec.title | plain }}"{{ "garage-pick" | tierAttr | safe }}><div class="wrap gp-in">
+  {%- include "core/partials/section-head.njk" %}
+  <figure class="gp-drawing{% if not ('garage-charging' | enabled) %} no-ch{% endif %}" data-plan tabindex="0" aria-label="{{ site.hall.name }}, drawn to scale">
+    {{ site.hall | plan(cams) | safe }}
+    <figcaption class="gp-key"><span class="gp-k-src">Typical car sizes, mirrors folded: check your car’s handbook.</span><span class="gp-k-fit">Free, fits your car</span> <span class="gp-k-tight">Free, too tight</span> <span class="gp-k-let">Let</span></figcaption>
+  </figure>
+  {%- if ("garage-charging" | enabled) or cams.length %}
+  <div class="gp-layers" role="group" aria-label="Show on the plan">
+    {%- if "garage-charging" | enabled %}<button type="button" data-layer="charge" aria-pressed="false">Charging</button>{% endif %}
+    {%- if cams.length %}<button type="button" data-layer="watch" aria-pressed="false">Cameras</button>{% endif %}
+  </div>
+  {%- endif %}
+</div></section>

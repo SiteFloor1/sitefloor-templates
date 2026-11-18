@@ -1,0 +1,12 @@
+{#- The ATOL number (TOUR-2), exactly as the operator's certificate gives it: never formatted, checked or explained by
+    us. The operator's own words beneath, and their booking terms linked. The footer carries the number on every page. -#}
+{%- set sec = site.sections.atol %}
+<section id="atol" class="ta" data-feature="tourism-atol" aria-label="{{ sec.title | plain }}"><div class="wrap ta-in">
+  {%- include "core/partials/section-head.njk" %}
+  <div class="ta-body">
+    <p class="ta-no">{{ site.atol.number }}</p>
+    {%- if site.atol.holder %}<p class="ta-holder">{{ site.atol.holder }}</p>{% endif %}
+    {%- if site.atol.note %}<p class="ta-note">{{ site.atol.note }}</p>{% endif %}
+    {%- if site.atol.termsUrl %}<p><a class="ta-terms" href="{{ (site.atol.termsUrl | replace('/', '') | href) if site.atol.termsUrl[0] == '/' else site.atol.termsUrl }}">Our booking terms</a></p>{% endif %}
+  </div>
+</div></section>
