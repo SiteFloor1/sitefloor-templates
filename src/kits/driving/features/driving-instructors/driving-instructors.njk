@@ -1,0 +1,20 @@
+{#- Instructors: each instructor, the gearboxes they teach and their DVSA status. A badge number only when the client
+    gives it; a trainee is called a trainee. -#}
+{%- set t = site.instructors %}{% set ph = { title: t.title, intro: t.intro } %}
+<div data-feature="driving-instructors">
+{% include "kits/driving/partials/page-head.njk" %}
+<section class="dv-sec"><div class="wrap">
+  <ul class="dv-people">
+    {%- for x in t.items %}
+    <li>
+      {%- if x.photo %}<img src="{{ x.photo.src | img }}" alt="{{ x.photo.alt }}" width="{{ x.photo.width }}" height="{{ x.photo.height }}" loading="lazy" decoding="async">{% endif %}
+      <h2>{{ x.name }}</h2>
+      <p class="dv-status">{{ "Approved driving instructor (ADI)" if x.status == "ADI" else "Trainee instructor, on a DVSA trainee licence" }}{% if x.badge %} · badge {{ x.badge }}{% endif %}</p>
+      <p class="dv-gb">{{ x.gearboxes | join(" and ") | capitalize }}</p>
+      <p>{{ x.text }}</p>
+    </li>
+    {%- endfor %}
+  </ul>
+  {%- if t.passRate %}<p class="dv-src">{{ t.passRate.text }} ({{ t.passRate.from | ukDate }} to {{ t.passRate.to | ukDate }}, our own records).</p>{% endif %}
+</div></section>
+</div>
