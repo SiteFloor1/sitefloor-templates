@@ -1,0 +1,15 @@
+{#- Milestones (IFA-10): a year of birth in; the year a pension can usually first be taken and the State Pension age
+    year out, under the law today. No money, no growth. Change-over years and unchecked rules send people to GOV.UK. -#}
+<section class="if-ms" id="milestones" data-feature="ifa-milestones"{{ "ifa-milestones" | tierAttr | safe }} aria-labelledby="if-ms-h"><div class="wrap if-ms-in">
+  <div>
+    <h2 id="if-ms-h">Your pension dates</h2>
+    {%- if build.milestonesFresh %}
+    <form class="if-ms-f if-wait" data-ms-form><label for="if-ms-yob">Year you were born</label> <input id="if-ms-yob" inputmode="numeric" maxlength="4" autocomplete="bday-year" data-ms-yob></form>
+    <p class="if-fine">Under the law as it stands, checked against GOV.UK on {{ pensionRules.checked | ukDate }}. A government review of State Pension age is under way.</p>
+    {%- endif %}
+  </div>
+  <div>
+    <ol class="if-ms-l" data-ms-list aria-live="polite"></ol>
+    <p class="if-ms-go" data-ms-note>Check your exact State Pension date on <a href="{{ pensionRules.spa }}" target="_blank" rel="noopener">GOV.UK</a>.</p>
+  </div>
+</div></section>

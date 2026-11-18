@@ -1,0 +1,18 @@
+{#- The hall from above (a Bespoke add-on): the render of the client's own hall, and the SVG layer the car drives on.
+    The look's hero places it; the caption is the same everywhere. -#}
+{%- set A = site.aerial %}
+<figure class="ga" data-feature="garage-aerial" data-img-base="{{ "" | img }}">
+  <div class="ga-img"><picture>
+    <source media="(max-width: 700px)" srcset="{{ A.dayPhone.src | img }}" width="{{ A.dayPhone.width }}" height="{{ A.dayPhone.height }}">
+    <img src="{{ A.day.src | img }}" width="{{ A.day.width }}" height="{{ A.day.height }}" alt="{{ site.hall.name }} from directly above: the forecourt and gate, then polished concrete under soft light, {{ (site.hall | bays).length }} bays in two rows, some cars under fitted covers" fetchpriority="high" decoding="async">
+  </picture>
+  <svg class="ga-ov" data-aerial-ov aria-hidden="true"></svg></div>
+  <div class="ga-under">
+    <div class="ga-layers" role="group" aria-label="Show on the hall">
+      {%- if "garage-charging" | enabled %}<button type="button" data-layer="charge" aria-pressed="false">Charging</button>{% endif %}
+      {%- if ("garage-security" | enabled) and site.security.cameras %}<button type="button" data-layer="watch" aria-pressed="false">Cameras and gate</button>{% endif %}
+    </div>
+    <figcaption class="ga-cap">Rendered from our plan. Not a photograph.</figcaption>
+  </div>
+  <p class="ga-note" data-layer-note aria-live="polite"></p>
+</figure>

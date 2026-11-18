@@ -1,0 +1,19 @@
+{#- What we help with: each service in a line, and beside it what to bring to talk about it; who the firm works with and
+    its minimum; the independence line. -#}
+{%- set sec = site.sections.services %}
+<section id="services" class="if-svc" data-feature="ifa-services"><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="if-svc-t" role="table" aria-label="{{ sec.title }}">
+    <div class="if-svc-r if-svc-hd" role="row"><span role="columnheader">We help with</span><span role="columnheader">What to bring</span></div>
+    {%- for s in site.advice.items %}
+    <div class="if-svc-r" role="row">
+      <div role="cell"><h3>{% if s.topic and ("ifa-topics" | enabled) %}<a href="{{ s.topic | href }}"{{ "ifa-topics" | tierAttr | safe }}>{{ s.title }}</a>{% else %}{{ s.title }}{% endif %}</h3><p>{{ s.line }}</p></div>
+      <div role="cell"><ul class="if-svc-b">{% for b in s.bring %}<li>{{ b }}</li>{% endfor %}</ul></div>
+    </div>
+    {%- endfor %}
+  </div>
+  <div class="if-svc-foot">
+    <p>{{ site.advice.who }} {{ site.advice.minimum }}</p>
+    {% include "kits/ifa/features/ifa-independence/line.njk" %}
+  </div>
+</div></section>

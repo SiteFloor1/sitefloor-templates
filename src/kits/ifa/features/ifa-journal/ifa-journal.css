@@ -1,0 +1,11 @@
+/* The journal: a ruled list of articles; each opens in place on a reading measure. */
+.if-jn-in { padding-block: 8px clamp(72px, 9vw, 120px); border-top: 1px solid var(--text); }
+.if-jn-a { border-bottom: 1px solid var(--line); }
+.if-jn-a summary { display: grid; grid-template-columns: 10em minmax(0, 1fr); gap: 4px 24px; padding: 18px 0; cursor: pointer; list-style: none; }
+.if-jn-a summary::-webkit-details-marker { display: none; }
+.if-jn-a time { color: var(--muted); font-size: 14px; font-variant-numeric: lining-nums tabular-nums; grid-row: span 2; }
+.if-jn-t { font: 400 1.3rem/1.25 var(--font-display); }
+.if-jn-s { color: var(--muted); }
+.if-jn-b { padding: 0 0 22px 0; margin-left: calc(10em + 24px); max-width: 64ch; }
+.if-jn-b p { margin: 0 0 12px; }
+@media (max-width: 760px) { .if-jn-a summary { grid-template-columns: 1fr; } .if-jn-a time { grid-row: auto; } .if-jn-b { margin-left: 0; } }

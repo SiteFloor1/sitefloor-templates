@@ -1,0 +1,6 @@
+{#- Security and access facts (PARK-2): only what the client states, as written. -#}
+{%- set sec = site.sections.access %}
+<section id="access" class="gac" aria-label="{{ sec.title | plain }}"{{ "garage-access" | tierAttr | safe }}><div class="wrap gac-in">
+  {%- include "core/partials/section-head.njk" %}
+  <ul class="gac-l">{% for f in site.access.facts %}<li>{{ f }}</li>{% endfor %}</ul>
+</div></section>

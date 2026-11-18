@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: advisers
+permalink: advisers.html
+feature: ifa-advisers-page
+eleventyComputed:
+  title: "{{ site.sections.advisers.title }}"
+  description: "The advisers at {{ site.business.name }}, with their FCA reference numbers."
+---
+{% include "kits/ifa/features/ifa-advisers-page/ifa-advisers-page.njk" %}
