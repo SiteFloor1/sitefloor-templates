@@ -12,3 +12,8 @@
   demo's own, self-hosted with size-matched stand-ins). Media (the iron photograph in two crops, six bubble crops, three
   plan photographs, eight phone stills, a laptop screen, the saved board picture, the fonts) live in `media/` and the
   published artifact. Phone stills: 390×844 at 2x in full Chrome, en-GB, London time, Saturday 21 November 2026, 15:00.
+  Photographs (Pexels, free licence): the waffle iron, Th2city Santana,
+  https://www.pexels.com/photo/waffle-on-iron-25757603/ (hero, bubbles, Plain); chocolate bubble waffles, Elizabeth
+  Ferreira, https://www.pexels.com/photo/delicious-chocolate-bubble-waffles-in-food-truck-30461190/ (Sauced, cropped
+  above the cones' print); bubble waffles with berries and nuts, Willians Huerta,
+  https://www.pexels.com/photo/bubble-waffles-with-mixed-berries-and-nuts-34926596/ (Loaded).

@@ -19,7 +19,7 @@
 @font-face { font-family: "Gabarito Fallback"; src: local("Arial Bold"), local("Helvetica Bold"), local("Liberation Sans Bold"), local("Arial"); size-adjust: 94%; ascent-override: 98%; descent-override: 26%; }
 @font-face { font-family: "Labrada Fallback"; src: local("Georgia"), local("Times New Roman"), local("Liberation Serif"); size-adjust: 104%; ascent-override: 92%; descent-override: 26%; }
 :root {
-  --rasp: #C9314F; --rasp-deep: #A92440; --crust: #E7A452; --batter: #F6E3C4; --cream: #FBF3E6; --iron: #120D0B; --iron-2: #1E1714; --white: #FFFFFF; --soft: #6E665F;
+  --rasp: #C9314F; --rasp-deep: #A92440; --ground: #B02844; --ground-deep: #962036; --crust: #E7A452; --batter: #F6E3C4; --cream: #FBF3E6; --iron: #120D0B; --iron-2: #1E1714; --white: #FFFFFF; --soft: #6E665F;
   --display: "Gabarito", "Gabarito Fallback", system-ui, sans-serif; --body: "Labrada", "Labrada Fallback", Georgia, serif; --brand: "Manrope", system-ui, sans-serif;
   --sf-paper: #FFFFFF; --sf-ink: #0E0F11; --sf-line: #E4E4E4; --sf-tomato: #E8613C;
 }
@@ -100,12 +100,12 @@ h1 em { font-style: normal; color: var(--crust); }
 .laptop { margin: 0; border-radius: 14px; overflow: hidden; box-shadow: 0 0 0 1px #2A221E, 0 50px 100px rgba(0,0,0,.5); }
 
 /* ------------------------------------------------------------------ chapters: one bubble each, on raspberry */
-.ch { background: var(--rasp); padding: clamp(64px, 8vw, 128px) 0; border-top: 1px solid var(--rasp-deep); overflow: hidden; }
+.ch { background: var(--ground); padding: clamp(64px, 8vw, 128px) 0; border-top: 1px solid var(--ground-deep); overflow: hidden; }
 .ch .wrap { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
 .ch.flip .side { order: -1; }
 .ch.flip .wrap { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
 .num { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; font: 700 16px var(--display); color: var(--batter); margin: 0 0 26px; }
-.num b { display: grid; place-items: center; width: 52px; height: 36px; border-radius: 50%; background: var(--batter); color: var(--rasp); font-weight: 800; font-size: 17px; }
+.num b { display: grid; place-items: center; width: 52px; height: 36px; border-radius: 50%; background: var(--batter); color: var(--ground); font-weight: 800; font-size: 17px; }
 .ch h2 { margin: 0; font: 800 clamp(46px, 6.2vw, 96px)/.92 var(--display); letter-spacing: -.04em; }
 .ch .say { margin: 28px 0 0; max-width: 36ch; font-size: clamp(19px, 1.5vw, 23px); line-height: 1.45; }
 .feats { list-style: none; margin: 32px 0 0; padding: 0; display: grid; max-width: 560px; }
@@ -165,6 +165,7 @@ h1 em { font-style: normal; color: var(--crust); }
 .scores { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
 .scores div { aspect-ratio: 1.15; display: grid; place-content: center; text-align: center; border-radius: 50%; background: var(--iron-2); box-shadow: inset 0 0 0 2px var(--crust); }
 .scores b { font: 800 clamp(34px, 4vw, 56px)/1 var(--display); color: var(--crust); }
+.scores b.rng { font-size: clamp(24px, 2.6vw, 38px); }
 .scores span { margin-top: 6px; font: 600 14px var(--display); color: var(--batter); }
 .weights { width: 100%; margin-top: 28px; border-collapse: collapse; font: 600 17px var(--display); }
 .weights th, .weights td { padding: 12px 0; border-bottom: 1px solid #2E2622; text-align: left; font-weight: 600; }
@@ -173,7 +174,7 @@ h1 em { font-style: normal; color: var(--crust); }
 .weights .sum th, .weights .sum td { color: var(--crust); font-weight: 800; border-bottom: 2px solid var(--crust); }
 
 /* ------------------------------------------------------------------ close */
-.close { background: var(--rasp); padding: clamp(64px, 8vw, 128px) 0; overflow: hidden; }
+.close { background: var(--ground); padding: clamp(64px, 8vw, 128px) 0; overflow: hidden; }
 .close .wrap { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
 .close h2 { margin: 0; font: 800 clamp(52px, 7vw, 112px)/.9 var(--display); letter-spacing: -.045em; }
 .close h2 span { color: var(--batter); }
@@ -182,7 +183,7 @@ h1 em { font-style: normal; color: var(--crust); }
 .btn { display: inline-flex; align-items: center; min-height: 52px; padding: 0 24px; background: var(--iron); color: var(--white); font: 700 17px var(--display); text-decoration: none; }
 .btn:hover { background: #000; }
 .btn.line { background: none; box-shadow: inset 0 0 0 2px var(--white); }
-.btn.line:hover { background: var(--rasp-deep); }
+.btn.line:hover { background: var(--ground-deep); }
 .mail { display: inline-block; margin-top: 22px; font: 600 16px var(--display); color: var(--batter); }
 .close .side { width: min(460px, 100%); }
 
@@ -404,17 +405,17 @@ footer span { font: 600 14px var(--brand); }
       </div>
     </div>
   </div>
-  <p class="plans-note">Twelve months minimum. Any feature can be added to any plan on its own, like the rain check, and extra pages one at a time. Bespoke sites from £1,399, quoted after a call.</p>
+  <p class="plans-note">Twelve months minimum. Any feature can be added on its own (the rain check to Sauced or Loaded), and extra pages one at a time. Bespoke sites from £1,399, quoted after a call.</p>
 </div></section>
 
 <section class="speed" id="speed" aria-labelledby="h-speed"><div class="wrap">
   <div>
-    <h2 id="h-speed">Off the iron in <span>1.2&nbsp;seconds.</span></h2>
-    <p class="say">Measured on a phone over a slow connection, the way Google measures it. The photograph, the next stop and the countdown are on screen in a second and a bit, and nothing jumps once they are. In a queue, that matters.</p>
+    <h2 id="h-speed">Off the iron in <span>under two seconds.</span></h2>
+    <p class="say">Measured on a phone over a slow connection, the way Google measures it. The photograph, the next stop and the countdown are on screen in under two seconds, and nothing jumps once they are. In a queue, that matters.</p>
   </div>
   <div>
     <div class="scores">
-      <div><b>100</b><span>Performance</span></div>
+      <div><b class="rng">99–100</b><span>Performance</span></div>
       <div><b>100</b><span>Accessibility</span></div>
       <div><b>100</b><span>Best practices</span></div>
     </div>
@@ -428,7 +429,7 @@ footer span { font: 600 14px var(--brand); }
         <tr><th scope="row">The first photograph</th><td>80.9 KB</td></tr>
         <tr class="sum"><th scope="row">The first screen</th><td>186.1 KB</td></tr>
         <tr><th scope="row">The board picture</th><td>0 KB<span>drawn on the phone when someone taps Save</span></td></tr>
-        <tr><th scope="row">Layout shift</th><td>0.004</td></tr>
+        <tr><th scope="row">Layout shift</th><td>0.002</td></tr>
       </tbody>
     </table>
   </div>
