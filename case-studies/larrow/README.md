@@ -11,6 +11,6 @@
   is "your year, on twelve gores". Ivory ground, logbook ink, one burnt-sienna accent taken from the demo; land from
   Natural Earth (public domain) projected as interrupted sinusoidal gores; Familjen Grotesk (the demo's own),
   self-hosted with a size-matched stand-in). Media (four films with posters, six phone stills, the when-to-go table on
-  a laptop, five of the demo's photographs (one in two crops), the fonts) live in `media/` and the published artifact. Phone films: CDP
+  a laptop, five of the demo's photographs (one in two crops), the fonts) live in `media/` and the published artifact. Sideways strips are keyboard-reachable regions and each film button names its film. Phone films: CDP
   screencast at 390×844 and 2x in Chromium with `--lang=en-GB`, H.264; stills and films without the demo ribbon;
   nothing plays until asked.
