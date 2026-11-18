@@ -1,0 +1,33 @@
+/* The class finder: the choices as plain words in a ruled band, the count large, then the classes as wide rows. */
+.gcf { border-top: 0; padding-top: 0; }
+/* Until the script runs the choices keep their place but stay hidden: they do nothing without it, and the list
+   mustn't move when they appear. */
+.gcf:not([data-ready]) .gcf-pick { visibility: hidden; }
+.gcf-pick { display: grid; gap: 0; border-top: 1px solid var(--line); margin-bottom: clamp(40px, 5vw, 72px); }
+.gcf-g { display: grid; grid-template-columns: 7em minmax(0, 1fr); align-items: baseline; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.gcf-l { color: var(--muted); font-size: 14px; }
+.gcf-g div { display: flex; flex-wrap: wrap; gap: 6px 28px; }
+.gcf-g button { min-height: 44px; padding: 0; border: 0; background: none; color: var(--muted); font: inherit; font-size: clamp(19px, 1.7vw, 24px); font-weight: 300; letter-spacing: -.02em; cursor: pointer; text-decoration: none; }
+.gcf-g button:hover { color: var(--text); }
+.gcf-g button[aria-pressed="true"] { color: var(--text); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 8px; }
+.gcf-n { font-family: var(--font-display); font-weight: 200; font-size: clamp(44px, 6vw, 96px); line-height: 1; letter-spacing: -.05em; margin-bottom: clamp(24px, 3vw, 40px); }
+.gcf-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.gcf-c { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 4fr) minmax(0, 3fr) auto; gap: 12px clamp(20px, 3vw, 48px); align-items: start; padding: 28px 0; border-bottom: 1px solid var(--line); }
+.gcf-c[hidden] { display: none; }
+.gcf-name h2 { font-size: clamp(26px, 2.6vw, 38px); line-height: 1.05; }
+.gcf-name p, .gcf-times-none { margin-top: 8px; font-size: 14px; color: var(--muted); }
+.gcf-text { color: var(--muted); max-width: 30em; }
+.gcf-times { list-style: none; margin: 0; padding: 0; font-size: 15px; font-variant-numeric: tabular-nums; }
+.gcf-times li { padding: 2px 0; }
+.gcf-times li span { color: var(--muted); }
+.gcf-times li.is-off { color: var(--muted); opacity: .45; }
+.gcf-more { margin-top: 32px; }
+@media (max-width: 980px) {
+  .gcf-c { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .gcf-text { grid-column: 1 / -1; grid-row: 2; }
+}
+@media (max-width: 560px) {
+  .gcf-g { grid-template-columns: 1fr; gap: 2px; }
+  .gcf-c { grid-template-columns: 1fr; }
+  .gcf-text { grid-row: auto; }
+}

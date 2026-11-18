@@ -1,0 +1,10 @@
+{#- Areas: the postcode check, then every district by name, then where lessons can start. -#}
+{%- set g = site.areaPage %}{% set ph = { title: g.title, intro: g.intro, photo: g.photo } %}
+<div data-feature="driving-area-page">
+{% include "kits/driving/partials/page-head.njk" %}
+<section class="dv-sec dv-arealist"><div class="wrap dv-two">
+  {% include "kits/driving/features/driving-areas/driving-areas.njk" %}
+  <ul class="dv-districts">{% for d in site.areas.districts %}<li><b>{{ d.district }}</b> {{ d.name }}</li>{% endfor %}</ul>
+</div></section>
+{% include "kits/driving/partials/guide.njk" %}
+</div>

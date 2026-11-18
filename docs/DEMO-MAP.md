@@ -150,6 +150,15 @@ This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` 
 Taken by Varnell: the strip-light tube as dividers, stages and focus; the headlight hero; the inspection light; the
 shared SUV, saloon and hatch in a dark bay, with the film-coverage builder.
 
+## Driving instructors
+_From `docs/trades/driving/demo-map.md`._
+
+This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` (generated) before proposing a look.
+
+| Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
+|---|---|---|---|---|---|---|---|
+| Wenlow | driving instructor, `driving`, `verge` | premium practical, cool light grey with white cards | a beech hedge in spring | beech green #327524 on #F1F2EF | Lexend / Lexend | four answer cards on the first screen: prices, do you cover me, next free lessons, when could I pass and the cost | its own |
+
 ## Electricians
 _From `docs/trades/electrician/demo-map.md`._
 
@@ -230,9 +239,9 @@ This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` 
 
 | Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
 |---|---|---|---|---|---|---|---|
-| Halde ([demo](https://sitefloor1.github.io/sitefloor-templates/gym/)) | premium members' gym, `gym`, `afterdark` | a members' training club after dark: **black**, one black-and-white portrait framed mid-page, heat and cold as the warm second act in colour (steam, cedar) | a wet river stone | river stone #CFC8BC for dates and quiet marks; bone #F2F0EC type and buttons | Epilogue only (200 the count, 300 headings) | the club's count (usual, or live from the door) as one huge number crossing the portrait's left edge, negative where it passes over; one line, one sentence, one button | (to come) |
+| Halde ([demo](https://sitefloor1.github.io/sitefloor-templates/gym/)) | premium members' gym, `gym`, `afterdark` | a members' training club after dark: **black**, one black-and-white portrait running to the page's right edge, heat and cold as the warm second act in colour (steam, cedar) | a wet river stone | river stone #CFC8BC for dates and quiet marks; bone #F2F0EC type and buttons | Epilogue only (200 the count, 300 headings) | the club's count (usual, or live from the door) as one huge number crossing the portrait's left edge, negative where it passes over; one line, one sentence, one button | (to come) |
 
-Taken by Halde: Epilogue, the drawn H whose crossbar rises (the mark), the number crossing a framed portrait's edge,
+Taken by Halde: Epilogue, the drawn H whose crossbar rises (the mark), the number crossing a portrait's edge,
 the black page with a warm colour second act, the timetable's busy-by-hour fine rules.
 
 ## Hair salons

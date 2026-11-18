@@ -62,6 +62,7 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 | Skin, Clémence (round 6) | trade/beauty | Antic Didone | Baskervville |
 | Isolde, the cover (round 4) | trade/bridal-beauty | Libre Bodoni | Faustina |
 | Cleaning, Plan (A) | trade/cleaning | Anek Latin | Anek Latin |
+| Verge (driving) | trade/driving | Lexend | Lexend |
 | Thursby, The statement (light) | trade/financial-advisers | Frank Ruhl Libre | Frank Ruhl Libre |
 | Fragrance, Verrière (B, round 3) | trade/fragrance | Hina Mincho | SUSE |
 | Garage, Elsden (the gallery) | trade/garage | Cardo | Radio Canada |
@@ -87,14 +88,17 @@ A case study is a design too: don't reuse these in a new look or another case st
 | Clémence (skin clinic) | case-studies/clemence | beauty | Antic Didone | Baskervville | |
 | Corbel (electrician) | case-studies/corbel | electrician | Encode Sans Expanded | Encode Sans | |
 | Datum Hire (car hire) | case-studies/datum-hire | car-hire | Overpass | Overpass | Overpass Mono |
+| Fendle (street-food stalls) | case-studies/fendle | stalls | Gabarito | Labrada | |
 | Fennick & Lowe (tailor) | case-studies/fennick-lowe | tailor | Della Respira | Commissioner | |
 | Grenat (grand café) | case-studies/grenat | grand-cafe | Italiana | EB Garamond | |
+| Halde (gym) | case-studies/halde | gym | Epilogue | Epilogue | |
 | Halvern (letting) | case-studies/halvern | letting | Petrona | Petrona | |
 | Hatheli (mehndi artist) | case-studies/hatheli | mehndi | Rozha One | Source Serif 4 | |
 | Isolde (bridal hair and makeup artist) | case-studies/isolde | bridal-beauty | Libre Bodoni | Faustina | |
 | Isotach (clothing brand) | case-studies/isotach | menswear | Host Grotesk | Rethink Sans | |
 | Laleh (florist, social) | case-studies/laleh | florist | Tenor Sans | Spectral | |
 | Larchmere (wedding films) | case-studies/larchmere | wedding-film | Sorts Mill Goudy | Urbanist | |
+| Larrow (tour operator) | case-studies/larrow | tourism | Familjen Grotesk | Familjen Grotesk | |
 | Linnet (cleaning) | case-studies/linnet | cleaning | Anek Latin | Anek Latin | |
 | Lyall Harrow (wealth) | case-studies/lyall-harrow | wealth | Mona Sans | Mona Sans | |
 | Marese (lingerie) | case-studies/marese | lingerie | Fraunces | Red Hat Text | |

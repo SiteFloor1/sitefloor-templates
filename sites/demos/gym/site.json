@@ -88,6 +88,11 @@
       "fallback": "#classes"
     },
     {
+      "label": "Classes",
+      "page": "classes",
+      "feature": "gym-classes"
+    },
+    {
       "label": "Membership",
       "page": "memberships",
       "feature": "gym-membership-page",
@@ -106,12 +111,53 @@
       "fallback": "#recovery"
     },
     {
+      "label": "Facilities",
+      "page": "club",
+      "feature": "gym-tour"
+    },
+    {
+      "label": "Coaches",
+      "page": "coaches",
+      "feature": "gym-coaches"
+    },
+    {
+      "label": "Personal training",
+      "page": "training",
+      "feature": "gym-training"
+    },
+    {
+      "label": "Free day pass",
+      "page": "trial",
+      "feature": "gym-trial",
+      "fallback": "#day-pass"
+    },
+    {
+      "label": "Events",
+      "page": "events",
+      "feature": "gym-events"
+    },
+    {
       "label": "Corporate",
       "page": "corporate",
       "feature": "gym-corporate"
     },
     {
-      "label": "Visit",
+      "label": "Your first visit",
+      "page": "first-visit",
+      "feature": "gym-first"
+    },
+    {
+      "label": "The app",
+      "page": "app",
+      "feature": "gym-app"
+    },
+    {
+      "label": "Journal",
+      "page": "journal",
+      "feature": "gym-journal"
+    },
+    {
+      "label": "Getting here",
       "page": "visit",
       "feature": "plan-visit",
       "fallback": "#visit"
@@ -134,7 +180,16 @@
     "gym-live",
     "gym-spaces",
     "gym-hyrox",
-    "gym-hyrox-page"
+    "gym-hyrox-page",
+    "gym-classes",
+    "gym-trial",
+    "gym-tour",
+    "gym-coaches",
+    "gym-training",
+    "gym-first",
+    "gym-app",
+    "gym-events",
+    "gym-journal"
   ],
   "hero": {
     "kicker": "Members' training club, Ancoats",
@@ -142,8 +197,8 @@
     "intro": "Strength floor, Hyrox lanes, classes, sauna and cold plunge.",
     "photo": {
       "src": "img/hero.webp",
-      "width": 1100,
-      "height": 1184,
+      "width": 1600,
+      "height": 1343,
       "alt": "A woman with a barbell across her shoulders, seen from behind, in black and white"
     },
     "phonePhoto": {
@@ -175,42 +230,68 @@
         "name": "Hyrox engine",
         "minutes": 50,
         "size": 16,
-        "text": "Running, sled push and pull, wall balls and the rower, in the order the race runs them."
+        "text": "Running, sled push and pull, wall balls and the rower, in the order the race runs them.",
+        "goals": [
+          "hyrox",
+          "engine"
+        ],
+        "level": "all"
       },
       {
         "id": "hyrox-sim",
         "name": "Race simulation",
         "minutes": 75,
         "size": 12,
-        "text": "The eight stations and the runs between them, paced, in the lanes."
+        "text": "The eight stations and the runs between them, paced, in the lanes.",
+        "goals": [
+          "hyrox"
+        ],
+        "level": "some"
       },
       {
         "id": "barbell",
         "name": "Barbell club",
         "minutes": 60,
         "size": 10,
-        "text": "Squat, bench and deadlift, coached, a platform each."
+        "text": "Squat, bench and deadlift, coached, a platform each.",
+        "goals": [
+          "strength"
+        ],
+        "level": "some"
       },
       {
         "id": "ride",
         "name": "Ride",
         "minutes": 45,
         "size": 24,
-        "text": "Intervals on the bike, to music, by the numbers on the screen."
+        "text": "Intervals on the bike, to music, by the numbers on the screen.",
+        "goals": [
+          "engine"
+        ],
+        "level": "all"
       },
       {
         "id": "engine",
         "name": "Engine",
         "minutes": 45,
         "size": 18,
-        "text": "Conditioning on the rower, ski erg and bike: long, steady work."
+        "text": "Conditioning on the rower, ski erg and bike: long, steady work.",
+        "goals": [
+          "engine",
+          "hyrox"
+        ],
+        "level": "all"
       },
       {
         "id": "mobility",
         "name": "Mobility",
         "minutes": 40,
         "size": 14,
-        "text": "Hips, spine and shoulders, slowly, on the mats."
+        "text": "Hips, spine and shoulders, slowly, on the mats.",
+        "goals": [
+          "mobility"
+        ],
+        "level": "all"
       }
     ]
   },
@@ -226,7 +307,7 @@
         {
           "time": "07:15",
           "class": "mobility",
-          "coach": "Mae",
+          "coach": "Owen",
           "room": "The mobility room"
         },
         {
@@ -270,7 +351,7 @@
         {
           "time": "12:30",
           "class": "mobility",
-          "coach": "Mae",
+          "coach": "Owen",
           "room": "The mobility room"
         },
         {
@@ -288,7 +369,7 @@
         {
           "time": "19:30",
           "class": "mobility",
-          "coach": "Mae",
+          "coach": "Owen",
           "room": "The mobility room"
         }
       ],
@@ -334,7 +415,7 @@
         {
           "time": "07:15",
           "class": "mobility",
-          "coach": "Mae",
+          "coach": "Owen",
           "room": "The mobility room"
         },
         {
@@ -390,7 +471,7 @@
         {
           "time": "18:15",
           "class": "mobility",
-          "coach": "Mae",
+          "coach": "Owen",
           "room": "The mobility room"
         }
       ],
@@ -416,7 +497,7 @@
         {
           "time": "11:00",
           "class": "mobility",
-          "coach": "Mae",
+          "coach": "Owen",
           "room": "The mobility room"
         }
       ],
@@ -430,7 +511,7 @@
         {
           "time": "10:30",
           "class": "mobility",
-          "coach": "Mae",
+          "coach": "Owen",
           "room": "The mobility room"
         }
       ]
@@ -708,7 +789,7 @@
         "name": "Guided heat and cold",
         "minutes": 40,
         "size": 8,
-        "with": "Mae",
+        "with": "Owen",
         "days": [
           "mon",
           "wed",
@@ -956,5 +1037,479 @@
       }
     ],
     "note": "A freeze of up to three months a year is free on Club and Off-peak. Personal training is extra and never part of a membership price."
+  },
+  "classFinder": {
+    "title": "Find a class",
+    "intro": "Six classes a week, coached. Choose what you train for.",
+    "goals": [
+      {
+        "id": "strength",
+        "label": "Strength"
+      },
+      {
+        "id": "hyrox",
+        "label": "Hyrox"
+      },
+      {
+        "id": "engine",
+        "label": "Conditioning"
+      },
+      {
+        "id": "mobility",
+        "label": "Mobility"
+      }
+    ],
+    "levels": [
+      {
+        "id": "all",
+        "label": "Anyone"
+      },
+      {
+        "id": "some",
+        "label": "Some experience"
+      }
+    ]
+  },
+  "trialPage": {
+    "title": "A day here, free",
+    "intro": "Before you join, train with us for a day. No card, no follow-up calls.",
+    "photo": {
+      "src": "img/trial.webp",
+      "width": 900,
+      "height": 1125,
+      "alt": "A woman setting up a deadlift against a brick wall, in black and white"
+    },
+    "includes": [
+      "The strength floor and the Hyrox lanes",
+      "One class of your choice",
+      "The sauna, steam room and cold plunge",
+      "A towel and a locker"
+    ],
+    "steps": [
+      {
+        "title": "Ask for your day",
+        "text": "Choose a day below and send it on WhatsApp. We reply the same day with a time."
+      },
+      {
+        "title": "Twenty minutes with a coach",
+        "text": "A walk round the floor and the kit, then your first sets with someone watching."
+      },
+      {
+        "title": "Train, then the heat",
+        "text": "Take the class you chose, or train on your own. Finish in the sauna and the plunge."
+      }
+    ]
+  },
+  "tour": {
+    "title": "The club,|room by room",
+    "intro": "Five rooms, and the bathhouse.",
+    "rooms": [
+      {
+        "id": "rig",
+        "name": "The rig",
+        "photo": {
+          "src": "img/tour-rig.webp",
+          "width": 1600,
+          "height": 1067,
+          "alt": "A steel rig with rings and ropes, air bikes in front, in a dark room"
+        },
+        "text": "Pull-up bars, rings and ropes along one wall, air bikes and wall balls in front. Hyrox engine runs here.",
+        "facts": [
+          "Twelve air bikes, ten rowers, six ski ergs",
+          "Wall balls from 4 to 9 kg",
+          "Ground floor, step-free"
+        ]
+      },
+      {
+        "id": "platforms",
+        "name": "Platform room",
+        "photo": {
+          "src": "img/tour-platforms.webp",
+          "width": 1600,
+          "height": 1067,
+          "alt": "A woman starting a deadlift on a lifting platform, in black and white"
+        },
+        "text": "Eight platforms with racks, bars and calibrated plates. Barbell club, and open lifting the rest of the day.",
+        "facts": [
+          "Eight platforms, eight racks",
+          "Chalk at every platform",
+          "Book a platform in the app at busy times"
+        ]
+      },
+      {
+        "id": "lanes",
+        "name": "Studio two",
+        "photo": {
+          "src": "img/tour-ride.webp",
+          "width": 1600,
+          "height": 1067,
+          "alt": "An air bike on a rubber floor, low light"
+        },
+        "text": "Bikes and ergs for Ride and Engine, lit low, with the numbers on the screen.",
+        "facts": [
+          "Twenty-four bikes",
+          "Shoes with cleats, or trainers: both fit",
+          "First floor, by lift or stairs"
+        ]
+      },
+      {
+        "id": "floor",
+        "name": "The coaching floor",
+        "photo": {
+          "src": "img/tour-rowers.webp",
+          "width": 1600,
+          "height": 1067,
+          "alt": "A coach beside a member on a rower, dumbbells racked behind, in black and white"
+        },
+        "text": "Dumbbells to 50 kg, rowers and benches under the windows. Personal training happens here.",
+        "facts": [
+          "Dumbbells 2 to 50 kg",
+          "Six adjustable benches",
+          "Daylight, first floor"
+        ]
+      },
+      {
+        "id": "changing",
+        "name": "Changing rooms",
+        "photo": {
+          "src": "img/tour-changing.webp",
+          "width": 1600,
+          "height": 1067,
+          "alt": "Wooden benches in front of tall dark lockers"
+        },
+        "text": "Lockers that lock with your phone or a code, showers with towels, hairdryers and a quiet corner.",
+        "facts": [
+          "Towels included",
+          "Twelve showers each side, and a private room",
+          "Step-free, with an accessible shower"
+        ]
+      }
+    ]
+  },
+  "coaches": {
+    "title": "Coaches",
+    "intro": "Four coaches. Each takes their own classes, every week.",
+    "items": [
+      {
+        "id": "ines",
+        "name": "Ines",
+        "photo": {
+          "src": "img/coach-1.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "A woman sitting on the gym floor in front of racked dumbbells"
+        },
+        "role": "Head coach, barbell",
+        "text": "Coaches the squat, bench and deadlift slowly, a platform each, and keeps a log of every lift.",
+        "qualifications": [
+          "Level 3 Diploma in Personal Training",
+          "British Weight Lifting Level 2 Coach"
+        ]
+      },
+      {
+        "id": "dami",
+        "name": "Dami",
+        "photo": {
+          "src": "img/coach-2.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "A man leaning on a rack with a towel over his shoulder, a brick wall behind"
+        },
+        "role": "Hyrox",
+        "text": "Writes the race plan and coaches the lanes. Has raced Hyrox in the Pro division.",
+        "qualifications": [
+          "Level 3 Diploma in Personal Training",
+          "Hyrox Level 1 Coach"
+        ]
+      },
+      {
+        "id": "owen",
+        "name": "Owen",
+        "photo": {
+          "src": "img/coach-3.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "A man in a black top in a sports hall, a whistle at his lips"
+        },
+        "role": "Mobility",
+        "text": "Takes the slow classes: hips, spine and shoulders, so the fast ones hurt less.",
+        "qualifications": [
+          "Level 3 Diploma in Personal Training",
+          "Level 4 Certificate in Strength and Conditioning"
+        ]
+      },
+      {
+        "id": "rhys",
+        "name": "Rhys",
+        "photo": {
+          "src": "img/coach-4.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "A man with his hands on an air bike in a dark room"
+        },
+        "role": "Ride and Engine",
+        "text": "Runs the bike and erg classes by the numbers on the screen, and plays the music too loud.",
+        "qualifications": [
+          "Level 2 Certificate in Instructing Exercise and Fitness",
+          "Level 2 Indoor Cycling"
+        ]
+      }
+    ]
+  },
+  "training": {
+    "title": "Personal training",
+    "intro": "One to one with a Halde coach, on the coaching floor.",
+    "photo": {
+      "src": "img/training.webp",
+      "width": 1600,
+      "height": 1067,
+      "alt": "A coach encouraging a member through a set on the rower, in black and white"
+    },
+    "who": "Open to members and non-members. Every first session starts with a movement check, included in the price.",
+    "packs": [
+      {
+        "id": "one",
+        "name": "A single session",
+        "sessions": 1,
+        "minutes": 60,
+        "price": 65,
+        "mandatoryFees": []
+      },
+      {
+        "id": "six",
+        "name": "Six sessions",
+        "sessions": 6,
+        "minutes": 60,
+        "price": 330,
+        "mandatoryFees": [],
+        "text": "use within eight weeks"
+      },
+      {
+        "id": "twelve",
+        "name": "Twelve sessions",
+        "sessions": 12,
+        "minutes": 60,
+        "price": 600,
+        "mandatoryFees": [],
+        "text": "use within twelve weeks"
+      },
+      {
+        "id": "race",
+        "name": "Hyrox block",
+        "sessions": 8,
+        "minutes": 60,
+        "price": 440,
+        "mandatoryFees": [
+          {
+            "name": "Race assessment",
+            "amount": 40
+          }
+        ],
+        "text": "with Dami, before a race"
+      }
+    ],
+    "notes": [
+      "Cancel up to 24 hours before and the session stays in your pack",
+      "Sessions are 60 minutes, booked with your coach"
+    ],
+    "message": "Hello Halde, I'd like to ask about personal training:"
+  },
+  "firstVisit": {
+    "title": "Your first visit",
+    "intro": "What to bring, and what happens when you walk in.",
+    "photo": {
+      "src": "img/tour-changing.webp",
+      "width": 1600,
+      "height": 1067,
+      "alt": "Wooden benches in front of tall dark lockers"
+    },
+    "bring": [
+      "Trainers for inside",
+      "Water",
+      "Your phone, for the lockers and the app"
+    ],
+    "steps": [
+      {
+        "title": "At the desk",
+        "text": "Give your name. We'll show you the app if you haven't got it."
+      },
+      {
+        "title": "Your locker",
+        "text": "Choose any free one and lock it with your phone. Towels are on the shelf."
+      },
+      {
+        "title": "Twenty minutes with a coach",
+        "text": "Booked for your first visit: the floor, the kit and your first sets."
+      },
+      {
+        "title": "Then it's yours",
+        "text": "Train, take a class, or finish in the sauna and the plunge."
+      }
+    ],
+    "rules": [
+      "Clean trainers on the floor, never outdoor shoes",
+      "A towel on every bench",
+      "Plates back on the rack after your last set",
+      "Phones on silent in Studio two and the bathhouse"
+    ]
+  },
+  "app": {
+    "title": "The app",
+    "intro": "Every class, platform and sauna slot books in the Halde app.",
+    "steps": [
+      {
+        "title": "Get the app",
+        "text": "On the App Store or Google Play. Search for Halde."
+      },
+      {
+        "title": "Sign in",
+        "text": "With the email you joined with. Day pass guests get a link from us."
+      },
+      {
+        "title": "Book",
+        "text": "Classes, platforms at busy times, and the sauna by the half hour."
+      }
+    ],
+    "rules": [
+      {
+        "label": "Opens",
+        "text": "Seven days ahead, at 07:00."
+      },
+      {
+        "label": "Cancelling",
+        "text": "Free up to two hours before. After that, or a no-show, the place counts as used."
+      },
+      {
+        "label": "Waitlist",
+        "text": "Join it in the app. If a place comes up you're booked in and told by notification."
+      },
+      {
+        "label": "Guests",
+        "text": "Book your guest in the app on the day; see bring-a-friend for how often."
+      }
+    ],
+    "stores": [
+      {
+        "name": "App Store",
+        "url": "https://halde.example/app/ios"
+      },
+      {
+        "name": "Google Play",
+        "url": "https://halde.example/app/android"
+      }
+    ]
+  },
+  "events": {
+    "title": "Members'|events",
+    "intro": "Race nights, runs and talks. Members first; some open to guests.",
+    "photo": {
+      "src": "img/coach-4.webp",
+      "width": 800,
+      "height": 1000,
+      "alt": "A man with his hands on an air bike in a dark room"
+    },
+    "items": [
+      {
+        "id": "race-night",
+        "title": "Race simulation night",
+        "date": "2026-11-27",
+        "time": "18:30",
+        "minutes": 120,
+        "text": "The eight Hyrox stations and the runs between them, in heats of eight, timed. Dami sets the pace groups.",
+        "who": "Members and one guest each",
+        "url": "https://halde.example/app/events/race-night"
+      },
+      {
+        "id": "canal-run",
+        "title": "Saturday canal run",
+        "date": "2026-11-28",
+        "time": "08:00",
+        "minutes": 60,
+        "text": "Eight kilometres along the Rochdale Canal and back at an easy pace, then coffee in the club.",
+        "who": "Anyone",
+        "place": "From the front door"
+      },
+      {
+        "id": "sauna-talk",
+        "title": "Heat and cold, explained",
+        "date": "2026-12-03",
+        "time": "19:00",
+        "minutes": 60,
+        "text": "Owen on how long to stay in, when to plunge and when to skip it, with questions after.",
+        "who": "Members",
+        "place": "Studio two"
+      },
+      {
+        "id": "platform-day",
+        "title": "Platform day",
+        "date": "2026-12-12",
+        "time": "10:00",
+        "minutes": 180,
+        "text": "Ines runs a coached session on the squat, bench and deadlift, with a log of your best sets to take away.",
+        "who": "Members, twelve places",
+        "url": "https://halde.example/app/events/platform-day"
+      }
+    ]
+  },
+  "journal": {
+    "title": "Journal",
+    "intro": "Short pieces from the coaches.",
+    "items": [
+      {
+        "slug": "first-hyrox",
+        "title": "Your first Hyrox",
+        "intro": "What race day asks of you, and the three weeks before it.",
+        "date": "2026-10-14",
+        "minutes": 4,
+        "photo": {
+          "src": "img/tour-rig.webp",
+          "width": 1600,
+          "height": 1067,
+          "alt": "A steel rig with rings and ropes, air bikes in front, in a dark room"
+        },
+        "body": [
+          "A Hyrox race is eight kilometres of running, split into eight one-kilometre runs, with a station after each: the ski erg, the sled push, the sled pull, burpee broad jumps, the rower, the farmer's carry, sandbag lunges and wall balls.",
+          "Most first races are lost on the first run. The crowd is loud, the legs are fresh and the pace feels easy. Run it slower than you think you should; the stations will take what you saved.",
+          "In the three weeks before, we keep the volume and drop the intensity in the last one. Two race simulations at most, the last of them ten days out. Sleep matters more than any session in that week.",
+          "On the day, eat two to three hours before your start, warm up on a run rather than on the sled, and walk the transitions once before your heat. Then go and enjoy it."
+        ]
+      },
+      {
+        "slug": "heat-and-cold",
+        "title": "Sauna and cold plunge, the basics",
+        "intro": "How long, in what order, and when to skip it.",
+        "date": "2026-09-30",
+        "minutes": 3,
+        "photo": {
+          "src": "img/steam.webp",
+          "width": 2000,
+          "height": 857,
+          "alt": "Steam rising from the stones of the sauna heater beside a window"
+        },
+        "body": [
+          "Our sauna runs at 85 degrees and the plunge at about 6. We suggest up to fifteen minutes in the heat, then a minute or two in the plunge, then rest until your breathing settles. Two or three rounds is plenty.",
+          "Shower before you go in, sit on a towel and drink water before and after. Leave as soon as you feel dizzy or unwell.",
+          "Skip it if you've been drinking, if you're unwell, or straight after a very hard session when you feel light-headed. If you're pregnant or have a heart condition, ask your GP first."
+        ]
+      },
+      {
+        "slug": "weekly-routine",
+        "title": "Building a weekly routine",
+        "intro": "Three days a week, and what to do on each.",
+        "date": "2026-09-09",
+        "minutes": 3,
+        "photo": {
+          "src": "img/tour-rowers.webp",
+          "width": 1600,
+          "height": 1067,
+          "alt": "A coach beside a member on a rower, dumbbells racked behind, in black and white"
+        },
+        "body": [
+          "Three days a week is enough to get stronger and fitter, if they're the right three. We'd start with one strength day, one conditioning day and one easier day of mobility or a long ride.",
+          "Leave a day between the two hard ones. Barbell club on Tuesday and Engine on Thursday works; both on consecutive days rarely does for long.",
+          "Keep a note of what you lifted and how it felt. After six weeks, look back at it with a coach and change one thing, not five."
+        ]
+      }
+    ]
   }
 }

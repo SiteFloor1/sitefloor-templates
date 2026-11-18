@@ -1,0 +1,25 @@
+/* The club, room by room: a numbered index on the left, the room's photograph large on the right. */
+.gtu { border-top: 0; padding-top: 0; }
+.gtu-in { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); gap: clamp(28px, 4vw, 72px); align-items: start; }
+.gtu-idx { position: sticky; top: calc(var(--nav-h) + 24px); display: flex; flex-direction: column; border-top: 1px solid var(--line); }
+.gtu-idx a { display: flex; align-items: baseline; gap: 14px; min-height: 52px; padding: 12px 0; border: 0; border-bottom: 1px solid var(--line); background: none; color: var(--muted); font-size: clamp(17px, 1.4vw, 20px); font-weight: 300; text-decoration: none; }
+.gtu-idx a:hover, .gtu-idx a[aria-selected="true"] { color: var(--text); }
+.gtu-idx .gtu-no { font-size: 13px; font-variant-numeric: tabular-nums; color: var(--accent); }
+.gtu-r + .gtu-r { margin-top: clamp(56px, 7vw, 104px); }
+[data-ready] .gtu-r[hidden] { display: none; }
+[data-ready] .gtu-r + .gtu-r { margin-top: 0; }
+.gtu-f { margin: 0; }
+.gtu-f img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
+.gtu-w { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 4fr); gap: 16px clamp(24px, 4vw, 64px); margin-top: 24px; }
+.gtu-w h2 { grid-column: 1 / -1; display: flex; align-items: baseline; gap: 16px; font-size: clamp(32px, 3.4vw, 52px); line-height: 1; }
+.gtu-w h2 .gtu-no { font-size: 15px; font-weight: 400; letter-spacing: 0; color: var(--accent); font-variant-numeric: tabular-nums; }
+.gtu-text { color: var(--muted); max-width: 32em; }
+.gtu-facts { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); font-size: 15px; }
+.gtu-facts li { padding: 9px 0; border-bottom: 1px solid var(--line); }
+.gtu-r:focus-visible { outline-offset: 8px; }
+@media (max-width: 900px) {
+  .gtu-in { grid-template-columns: 1fr; }
+  .gtu-idx { position: static; flex-direction: row; flex-wrap: wrap; gap: 0 22px; border-top: 0; }
+  .gtu-idx a { min-height: 44px; border-bottom: 0; font-size: 16px; }
+  .gtu-w { grid-template-columns: 1fr; }
+}

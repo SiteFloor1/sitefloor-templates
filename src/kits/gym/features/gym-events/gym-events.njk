@@ -1,0 +1,26 @@
+{#- Members' events (GYM-9): the club's own list, soonest first. The first is set large beside the photograph, the rest
+    as a ledger. Each has its day, hours and who can come; "Add to calendar" (one .ics file, built with the site) and
+    "Book in the app" or "Ask on WhatsApp". Past events leave the page at the build and, in the browser, on the day. -#}
+{%- set ev = site.events %}{% set list = ev.items | upcomingEvents(build.today) %}
+<section class="gev" data-feature="gym-events" aria-label="{{ ev.title | plain }}"><div class="wrap gev-in">
+  {%- if ev.photo %}<figure class="gev-f"><img src="{{ ev.photo.src | img }}" alt="{{ ev.photo.alt }}" width="{{ ev.photo.width }}" height="{{ ev.photo.height }}" fetchpriority="high" decoding="async"></figure>{% endif %}
+  <div class="gev-w">
+    <ol class="gev-list">
+      {%- for e in list %}
+      <li class="gev-e" data-date="{{ e.date }}">
+        {%- set dw = (e.date | ukDay).split(" ") %}
+        <p class="gev-d"><time datetime="{{ e.date }}T{{ e.time }}"><span>{{ dw[0] }}</span> <span>{{ dw.slice(1).join(" ") }}</span></time></p>
+        <h2>{{ e.title }}</h2>
+        <p class="gev-meta">{{ e | eventHours }}{% if e.place %} · {{ e.place }}{% endif %}{% if e.who %} · {{ e.who }}{% endif %}</p>
+        <p class="gev-text">{{ e.text }}</p>
+        <p class="gev-act">
+          {%- if e.url %}<a class="gy-book" href="{{ e.url }}" target="_blank" rel="noopener">Book in the app</a>
+          {%- else %}<a class="gy-book" href="{{ ('Hello ' + site.business.name + ', about ' + e.title + ' on ' + (e.date | ukDay) + '.') | wa }}" target="_blank" rel="noopener">Ask on WhatsApp</a>{% endif %}
+          <a class="gy-book" href="events/{{ e.id }}.ics" download="{{ e.id }}.ics">Add to calendar</a>
+        </p>
+      </li>
+      {%- endfor %}
+    </ol>
+    <p class="gev-none" data-gev-none{% if list.length %} hidden{% endif %}>Nothing on the calendar just now. New dates go up here first.</p>
+  </div>
+</div></section>

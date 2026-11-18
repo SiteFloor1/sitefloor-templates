@@ -1,4 +1,4 @@
-{#- After dark hero: one black-and-white portrait framed in the middle of the page; the count (gym-count) so large its
+{#- After dark hero: one black-and-white portrait running to the page's right edge; the count (gym-count) so large its
     number crosses the portrait's left edge and turns to negative where it passes over it; under the number, its line,
     one sentence and one button. On a phone the number crosses the portrait's foot instead. Nothing moves. -#}
 {%- set hp = site.hero.photo %}
@@ -12,6 +12,6 @@
   </figure>
   {%- if 'gym-count' | enabled %}{% include "kits/gym/features/gym-count/gym-count.njk" %}
   {%- else %}<div class="gc"><div class="gc-lines"><p class="gc-line">{{ site.hero.intro }}</p></div></div>{% endif %}
-  {%- if 'gym-daypass' | enabled %}<a class="ad-cta" href="#day-pass"{{ 'gym-daypass' | tierAttr | safe }}>Book a free day pass</a>
+  {%- if 'gym-daypass' | enabled %}<a class="ad-cta" href="{{ ('trial' | href) + '#day-pass' if ('gym-trial' | enabled) else '#day-pass' }}"{{ 'gym-daypass' | tierAttr | safe }}>Book a free day pass</a>
   {%- else %}<a class="ad-cta" href="{{ site.messages.general | book }}" target="_blank" rel="noopener">Join in the app</a>{% endif %}
 </section>

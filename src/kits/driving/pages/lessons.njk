@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: lessons
+permalink: lessons.html
+feature: driving-lessons
+eleventyComputed:
+  title: "{{ site.lessonsPage.title | plain }}"
+  description: "Driving lesson prices with {{ site.business.name }}, {{ site.location.locality }}."
+---
+{% include "kits/driving/features/driving-lessons/driving-lessons.njk" %}

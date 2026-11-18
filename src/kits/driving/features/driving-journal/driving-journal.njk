@@ -1,0 +1,12 @@
+{#- Journal: the instructor's own short articles, newest first, each dated. -#}
+{%- set j = site.journal %}{% set ph = { title: j.title, intro: j.intro } %}
+<div data-feature="driving-journal">
+{% include "kits/driving/partials/page-head.njk" %}
+<section class="dv-sec"><div class="wrap">
+  <ul class="dv-articles">
+    {%- for a in j.articles | sort(true, false, "date") %}
+    <li><a href="{{ ('article-' + a.slug) | href }}"><time datetime="{{ a.date }}">{{ a.date | ukDate }}</time><h2>{{ a.title }}</h2><p>{{ a.intro }}</p></a></li>
+    {%- endfor %}
+  </ul>
+</div></section>
+</div>

@@ -1,0 +1,12 @@
+{#- The app and booking: getting the club's app in numbered steps; the booking rules in the club's own words, as a ruled
+    list (label, then the rule); the app's own links. Nothing here books: booking happens in the club's app. -#}
+{%- set a = site.app %}
+<section class="gap" data-feature="gym-app" aria-label="{{ a.title | plain }}"><div class="wrap gap-in">
+  <ol class="gap-steps">{% for s in a.steps %}<li><span class="gap-no" aria-hidden="true">{{ loop.index }}</span><div><h2>{{ s.title }}</h2><p>{{ s.text }}</p></div></li>{% endfor %}</ol>
+  <div class="gap-side">
+    <h2 class="gap-h">The rules</h2>
+    <dl class="gap-rules">{% for r in a.rules %}<div><dt>{{ r.label }}</dt><dd>{{ r.text }}</dd></div>{% endfor %}</dl>
+    <p class="gap-go"><a class="gd-go" href="{{ site.booking.url }}" target="_blank" rel="noopener">Open {{ site.booking.name }}</a></p>
+    {%- if a.stores %}<p class="gap-stores">{% for s in a.stores %}<a class="go" href="{{ s.url }}" target="_blank" rel="noopener">{{ s.name }}</a>{% endfor %}</p>{% endif %}
+  </div>
+</div></section>
