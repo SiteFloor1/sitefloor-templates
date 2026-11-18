@@ -49,7 +49,7 @@ test("choosing a size changes Buy; on the demo the order goes to WhatsApp in the
   await page.goto(srv.base + "/");
   const hero = page.locator(".vr-buy");
   await expect(hero.locator("[data-buy]")).toHaveText("Buy, £95");
-  await hero.getByText("100 ml").click();
+  await hero.getByRole("radio", { name: "100 ml" }).check();
   await expect(hero.locator("[data-buy]")).toHaveText("Buy, £140");
   expect(await waText(hero.locator("[data-buy]"))).toBe("Hello Verrière, I'd like No. 4 Sable, 100 ml (£140).");
   await expect(page.locator("#library .fr-size-p").first()).toContainText("per 10 ml");
@@ -62,7 +62,7 @@ test("the engraving desk draws the words on the glass in the chosen style, withi
   const desk = page.locator("#engraving");
   await desk.getByLabel(/Your words/).fill("Ada Lovelace");
   await expect(desk.locator("[data-engr]")).toHaveText("ADA LOVELACE");
-  await desk.getByText("Initials").click();
+  await desk.getByRole("radio", { name: "Initials" }).check();
   await expect(desk.locator("[data-engr]")).toHaveText("A.L.");
   await expect(desk.locator(".fr-desk-cap")).toHaveText("Preview");
   await expect(desk.getByLabel(/Your words/)).toHaveAttribute("maxlength", "24");
@@ -97,12 +97,12 @@ test("the discovery set fills as it's chosen and sends the choice", async ({ pag
 test("a gift adds up from the house's prices; Let them choose sends the amount and the names", async ({ page }) => {
   const srv = await start(demo);
   await page.goto(srv.base + "/gifts.html");
-  await page.getByLabel("The fragrance").selectOption("ombre");
+  await page.getByLabel("The fragrance", { exact: true }).selectOption("ombre");
   await page.getByLabel(/Engraving, if you'd like it/).fill("For J");
-  await page.getByText(/Wrapped in our paper/).click();
+  await page.getByRole("checkbox", { name: /Wrapped in our paper/ }).check();
   await expect(page.locator("[data-gift-sum]")).toHaveText("No. 6 Ombre, 50 ml, engraved, wrapped: £130");
   const choose = page.locator("#choose");
-  await choose.getByText("£150").click();
+  await choose.getByRole("radio", { name: "£150" }).check();
   await choose.getByLabel("For").fill("Sam");
   await choose.getByLabel("From").fill("Alex");
   await expect(choose.locator("[data-give-go]")).toHaveText("Give £150");

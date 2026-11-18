@@ -40,8 +40,8 @@ export function notesSentence(notes) {
   return notesClauses(notes).map((c) => `${c.lead} ${joinAnd(c.notes)}${c.end}`).join(" ");
 }
 
-/** Every note of a fragrance, top to base. @param {any} f @returns {string[]} */
-export const allNotes = (f) => [...(f.notes?.top ?? []), ...(f.notes?.heart ?? []), ...(f.notes?.base ?? [])];
+/** Every note of a fragrance, top to base (from site.json's tiers, or the flat list the page's script receives). @param {any} f @returns {string[]} */
+export const allNotes = (f) => (Array.isArray(f.notes) ? f.notes : [...(f.notes?.top ?? []), ...(f.notes?.heart ?? []), ...(f.notes?.base ?? [])]);
 
 /** Notes compare without case or extra spaces ("White musk" is "white musk"). @param {string} s */
 export const noteKey = (s) => s.trim().toLowerCase().replace(/\s+/g, " ");

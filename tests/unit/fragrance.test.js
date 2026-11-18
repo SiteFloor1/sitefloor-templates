@@ -41,6 +41,8 @@ test("a tapped note names the other scents that have it, and only the house's", 
   assert.deepEqual(alsoIn(items, "Iris", "sable").map((x) => x.name), ["No. 2 Poudre", "No. 7 Pluie"]);
   assert.equal(alsoInLine(items, "iris", "sable"), "Iris is also in No. 2 Poudre and No. 7 Pluie.");
   assert.equal(alsoInLine(items, "ambrette", "sable"), "Ambrette is only in this one.");
+  // the page's script gets each scent's notes as one flat list (kit.js pageData)
+  assert.equal(alsoInLine(items.map((/** @type {any} */ x) => ({ ...x, notes: [...x.notes.top, ...x.notes.heart, ...x.notes.base] })), "iris", "sable"), "Iris is also in No. 2 Poudre and No. 7 Pluie.");
   assert.equal(alsoInLine(items, "white  musk", "sable"), "White  musk is also in No. 2 Poudre and No. 1 Lin.");
 });
 

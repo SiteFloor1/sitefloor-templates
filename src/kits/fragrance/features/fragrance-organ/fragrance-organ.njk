@@ -5,14 +5,14 @@
 {%- set ph = { title: o.title, intro: o.intro } %}
 {% include "kits/fragrance/partials/page-head.njk" %}
 <section class="fr-organ" data-feature="fragrance-organ" aria-label="{{ o.title | plain }}"><div class="wrap">
-  <ul class="fr-org-grid" role="group" aria-label="Ingredients, choose up to {{ o.max or 3 }}">
+  <div role="group" aria-label="Ingredients, choose up to {{ o.max or 3 }}"><ul class="fr-org-grid">
     {%- for g in o.ingredients %}
     <li><button type="button" class="fr-ing" data-note="{{ g.note }}" aria-pressed="false">
       <img src="{{ g.photo.src | img }}" width="{{ g.photo.width }}" height="{{ g.photo.height }}" alt="{{ g.photo.alt }}" loading="lazy" decoding="async">
       <span class="fr-ing-n">{{ g.note | capitalize }}</span>
     </button></li>
     {%- endfor %}
-  </ul>
+  </ul></div>
   <p class="fr-org-say" data-org-say aria-live="polite" data-js-only>Choose up to {{ o.max or 3 }}.</p>
   <ol class="fr-org-res" data-org-res>
     {%- for x in site.fragrances.items %}

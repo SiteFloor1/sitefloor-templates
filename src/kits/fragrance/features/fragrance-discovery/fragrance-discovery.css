@@ -17,6 +17,6 @@
 .fr-disc-set { list-style: none; margin: 0; padding: 0; display: flex; gap: 10px; }
 .fr-vial { flex: 1; height: 120px; border: 1px solid var(--text); border-radius: 3px 3px 10px 10px; display: flex; align-items: flex-end; justify-content: center; padding: 8px 4px; font-size: 12px; text-align: center; writing-mode: vertical-rl; transform: rotate(180deg); background: linear-gradient(to top, var(--accent-soft) 0, var(--accent-soft) 0) bottom / 100% 0 no-repeat; transition: background-size .4s ease; }
 .fr-vial.on { background-size: 100% 70%; }
-.fr-go[aria-disabled] { opacity: .55; }
+.fr-go[aria-disabled] { background: var(--surface-2); color: var(--text); }
 @media (max-width: 760px) { .fr-disc-in { grid-template-columns: 1fr; } .fr-disc-side { position: static; } .fr-disc-side .fr-go { text-align: center; } }
 @media (prefers-reduced-motion: reduce) { .fr-vial { transition: none; } }
