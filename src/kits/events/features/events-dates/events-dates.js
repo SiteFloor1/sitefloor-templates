@@ -27,6 +27,8 @@ export function init(root, ctx) {
     const el = q("[data-ed-next]"), wrap = q("[data-ed-next-wrap]");
     if (n && el && wrap) { el.textContent = dayMonth(n); wrap.hidden = false; }
   };
+  const opener = q("[data-ed-open]");
+  opener?.addEventListener("click", () => { root.classList.add("ev-open"); opener.setAttribute("aria-expanded", "true"); opener.hidden = true; input.focus(); });
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     await ready;

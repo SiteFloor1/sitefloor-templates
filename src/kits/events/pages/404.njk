@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: "404"
+permalink: 404.html
+title: Page not found
+---
+<section class="ev-page"><div class="wrap">
+{%- set ph = { title: "This page isn't here.", intro: "It may have moved. Everything we do starts on the home page." } %}
+{% include "kits/events/partials/page-head.njk" %}
+<p><a class="ev-btn" href="{{ 'index' | href }}">Home</a></p>
+</div></section>

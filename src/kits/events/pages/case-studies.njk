@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: case-studies
+permalink: case-studies.html
+feature: events-cases
+eleventyComputed:
+  title: "{{ site.cases.title | plain }}"
+  description: "{{ (site.cases.intro or 'Events we designed and produced.') | plain }}"
+---
+{% include "kits/events/features/events-cases/events-cases.njk" %}

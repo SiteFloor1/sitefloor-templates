@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: run-of-the-night
+permalink: run-of-the-night.html
+feature: events-run
+eleventyComputed:
+  title: "{{ site.runOfShow.title | plain }}"
+  description: "A sample run of the night, from load-in to the room handed back."
+---
+{% include "kits/events/features/events-run/events-run.njk" %}

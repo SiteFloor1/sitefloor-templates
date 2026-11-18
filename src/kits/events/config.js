@@ -115,8 +115,7 @@ export function checkEvents(site, err, exists) {
   rooms.forEach((r, i) => { if (visualSrcs.has(r?.photo?.src)) err(`rooms.items[${i}].photo.src`, "a design visual can't be shown as a past room; use a photograph of an event the agency produced"); });
   cases.forEach((c, i) => (c?.photos ?? []).forEach((/** @type {any} */ p, /** @type {number} */ k) => { if (visualSrcs.has(p?.src)) err(`cases.items[${i}].photos[${k}].src`, "a design visual can't be shown in a case study of a past event"); }));
   if (site.look === "doors" && site.hero !== undefined) {
-    onlyKeys(site.hero, ["title", "line", "photo", "credit"], "hero", err);
-    text(err, "hero.title", site.hero.title);
+    onlyKeys(site.hero, ["kicker", "title", "intro", "photo", "credit"], "hero", err);
     photo(err, "hero.photo", site.hero.photo, exists);
   }
 }
@@ -159,7 +158,8 @@ function checkOccasions(O, err, exists) {
   ids(err, "occasions.items", items);
   items.forEach((/** @type {any} */ o, /** @type {number} */ i) => {
     const at = `occasions.items[${i}]`;
-    onlyKeys(o, ["id", "title", "nav", "intro", "body", "photo", "rooms"], at, err);
+    onlyKeys(o, ["id", "title", "nav", "menu", "intro", "body", "photo", "rooms"], at, err);
+    if (o?.menu !== undefined && typeof o.menu !== "boolean") err(`${at}.menu`, "true to list it in the header menu");
     if (RESERVED.includes(o?.id) || /^(article|case|journal|occasion)-/.test(o?.id ?? "")) err(`${at}.id`, `"${o.id}" is the name of another page; choose another`);
     text(err, `${at}.title`, o?.title);
     text(err, `${at}.intro`, o?.intro);

@@ -1,0 +1,18 @@
+---
+layout: core/layouts/base.njk
+feature: events-journal
+pagination:
+  data: site.journal.items
+  size: 1
+  alias: a
+permalink: "article-{{ a.id }}.html"
+eleventyComputed:
+  pageId: "article-{{ a.id }}"
+  title: "{{ a.title | plain }}"
+  description: "{{ a.intro | plain }}"
+---
+<article class="ev-article"><div class="wrap">
+  <p class="ev-back"><a href="{{ 'journal' | href }}">{{ site.journal.title | plain }}</a> · <time datetime="{{ a.date }}">{{ a.date | evLongDate }}</time></p>
+  {%- set ph = { title: a.title, intro: a.intro } %}{% include "kits/events/partials/page-head.njk" %}
+  <div class="ev-prose">{% for p in a.body %}<p>{{ p | markup | safe }}</p>{% endfor %}</div>
+</div></article>

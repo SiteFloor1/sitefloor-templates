@@ -232,3 +232,38 @@ export function roomsFor(rooms, guests, occasion) {
     .filter((r) => (!occasion || r.occasion === occasion) && (!guests || (r.guests >= guests * 0.67 && r.guests <= guests * 1.5)))
     .sort((a, b) => Math.abs(a.guests - guests) - Math.abs(b.guests - guests));
 }
+
+/**
+ * The drawn room as SVG markup (inside an <svg> whose viewBox is `planBox(p)`), the same on first paint and in the
+ * browser: walls, a scale bar, tables and chairs, the dance floor dashed, the bar solid. Units are metres.
+ * @param {ReturnType<typeof drawRoom>} p
+ */
+export function roomSvg(p) {
+  const f = (/** @type {number} */ n) => Math.round(n * 100) / 100;
+  const out = [`<rect class="ev-pl-wall" x="0" y="0" width="${f(p.length)}" height="${f(p.width)}"/>`];
+  if (p.floor) out.push(`<rect class="ev-pl-floor" x="${f(p.floor.x)}" y="${f(p.floor.y)}" width="${p.floor.w}" height="${p.floor.h}"/><text class="ev-pl-lab" x="${f(p.floor.x + p.floor.w / 2)}" y="${f(p.floor.y + p.floor.h / 2)}">Dance floor</text>`);
+  out.push(`<rect class="ev-pl-bar" x="${f(p.bar.x)}" y="${f(p.bar.y)}" width="${f(p.bar.w)}" height="${p.bar.h}"/><text class="ev-pl-lab" x="${f(p.bar.x + p.bar.w / 2)}" y="${f(p.bar.y + p.bar.h + 0.75)}">Bar</text>`);
+  for (const t of p.tables) {
+    if (t.shape === "round") {
+      const cx = t.x + 0.9, cy = t.y + 0.9;
+      out.push(`<circle class="ev-pl-t" cx="${f(cx)}" cy="${f(cy)}" r="0.9"/>`);
+      for (let i = 0; i < t.seats; i++) { const a = (i / 10) * Math.PI * 2; out.push(`<circle class="ev-pl-s" cx="${f(cx + Math.cos(a) * 1.25)}" cy="${f(cy + Math.sin(a) * 1.25)}" r="0.2"/>`); }
+    } else if (t.shape === "high") {
+      out.push(`<circle class="ev-pl-t" cx="${f(t.x + 0.35)}" cy="${f(t.y + 0.35)}" r="0.35"/>`);
+    } else {
+      out.push(`<rect class="ev-pl-t" x="${f(t.x)}" y="${f(t.y)}" width="${f(t.w)}" height="${t.h}"/>`);
+      const side = Math.ceil(t.seats / 2);
+      for (let i = 0; i < side; i++) {
+        const x = t.x + 0.45 + i * 0.6;
+        out.push(`<circle class="ev-pl-s" cx="${f(x)}" cy="${f(t.y - 0.35)}" r="0.2"/>`);
+        if (i < t.seats - side) out.push(`<circle class="ev-pl-s" cx="${f(x)}" cy="${f(t.y + t.h + 0.35)}" r="0.2"/>`);
+      }
+    }
+  }
+  const step = p.length > 40 ? 10 : 5;
+  for (let m = 0; m <= p.length + 0.01; m += step) out.push(`<line class="ev-pl-tick" x1="${m}" y1="${f(p.width + 0.6)}" x2="${m}" y2="${f(p.width + 0.9)}"/><text class="ev-pl-m" x="${m}" y="${f(p.width + 1.7)}">${m === 0 ? "0" : `${m} m`}</text>`);
+  out.push(`<line class="ev-pl-tick" x1="0" y1="${f(p.width + 0.75)}" x2="${f(Math.floor(p.length / step) * step)}" y2="${f(p.width + 0.75)}"/>`);
+  return out.join("");
+}
+/** The viewBox for a drawn room, with room for the bar's label and the scale beneath. @param {{ length: number, width: number }} p */
+export function planBox(p) { return `-0.6 -1.2 ${Math.round((p.length + 1.2) * 100) / 100} ${Math.round((p.width + 3.4) * 100) / 100}`; }

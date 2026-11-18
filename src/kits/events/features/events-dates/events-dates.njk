@@ -2,7 +2,10 @@
     your event). From the agency's sheet: dates they've listed as held or booked; every other date is free. When the
     sheet is out of date the check says so and asks them to message, instead of guessing. -#}
 <div class="ev-dates ev-dates-{{ edMode or 'line' }}" data-feature="events-dates">
-  <p class="ev-next" data-ed-next-wrap hidden><span>Next free {{ "Saturday" if (site.dates.days or ["sat"]) == ["sat"] else "date" }}</span> <b data-ed-next></b></p>
+  {%- set dd = site.dates.days or ["sat"] %}
+  {%- set dd = site.dates.days or ["sat"] %}{% set ddName = ({ mon: "Monday", tue: "Tuesday", wed: "Wednesday", thu: "Thursday", fri: "Friday", sat: "Saturday", sun: "Sunday" })[dd[0]] if dd | length == 1 else "date" %}
+  <p class="ev-next" data-ed-next-wrap hidden><span>Next free {{ ddName }}</span> <b data-ed-next></b></p>
+  {%- if (edMode or 'line') == 'line' %}<button class="ev-check-open" type="button" data-ed-open aria-expanded="false">Is your date free?</button>{% endif %}
   <form class="ev-check" data-ed-form>
     <label for="ed-date-{{ edMode or 'line' }}">Is your date free?</label>
     <span class="ev-check-row"><input id="ed-date-{{ edMode or 'line' }}" type="date" data-ed-date required><button type="submit">Check</button></span>

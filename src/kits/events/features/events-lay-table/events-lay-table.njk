@@ -1,0 +1,22 @@
+{#- Lay the table: one table, one camera, three dressings. Choose one and the picture changes in place; the line says
+    what it is. Always "A design visual". -#}
+{%- set sec = site.sections.layTable %}
+{%- set D = site.layTable.dressings %}
+<section id="lay-the-table" class="ev-lay" data-feature="events-lay-table" aria-label="{{ sec.title | plain }}"{{ "events-lay-table" | tierAttr | safe }}><div class="wrap">
+  {%- include "core/partials/section-head.njk" %}
+  <div class="ev-lay-grid">
+    <div class="ev-lay-frame">
+      {%- for d in D %}
+      <figure class="ev-lay-view" data-el-view="{{ loop.index0 }}"{% if not loop.last %} hidden{% endif %}>
+        {%- set ph = d.photo %}{% set phCls = "ev-lay-img" %}{% set phSizes = "(min-width: 1000px) 66vw, 100vw" %}{% set phLazy = true %}{% include "kits/events/partials/photo.njk" %}
+      </figure>
+      {%- endfor %}
+      <p class="ev-label">A design visual</p>
+    </div>
+    <ol class="ev-lay-pick" role="group" aria-label="Dressings">
+      {%- for d in D %}
+      <li><button type="button" data-el-show="{{ loop.index0 }}" aria-pressed="{{ 'true' if loop.last else 'false' }}"><span class="ev-lay-n">{{ loop.index }}</span><b>{{ d.label }}</b><span>{{ d.line }}</span></button></li>
+      {%- endfor %}
+    </ol>
+  </div>
+</div></section>

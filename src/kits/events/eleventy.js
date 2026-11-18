@@ -1,7 +1,7 @@
 // @ts-check
 /** Events kit additions to the shared Eleventy setup: the home sections, the visuals, dates and the room drawn. */
 import { HOME_PARTS } from "./home.js";
-import { LAYOUTS, drawRoom, roomWords, longDate } from "./lib/events.js";
+import { LAYOUTS, drawRoom, roomWords, longDate, roomSvg, planBox } from "./lib/events.js";
 
 /** @param {any} eleventyConfig */
 export default function eventsKit(eleventyConfig) {
@@ -16,7 +16,7 @@ export default function eventsKit(eleventyConfig) {
     const s = P.start ?? { room: P.rooms[0].id, guests: 120, layout: "long" };
     const room = P.rooms.find((/** @type {any} */ r) => r.id === s.room) ?? P.rooms[0];
     const plan = drawRoom(room, s.guests, s.layout);
-    return { room, plan, words: roomWords(plan, room.name) };
+    return { room, plan, words: roomWords(plan, room.name), svg: roomSvg(plan), box: planBox(plan), start: s };
   });
   eleventyConfig.addFilter("evVenueAreas", (/** @type {any[]} */ items) => {
     /** @type {{ area: string, items: any[] }[]} */ const out = [];
