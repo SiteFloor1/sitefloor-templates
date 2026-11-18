@@ -8,7 +8,8 @@
     <ol class="gev-list">
       {%- for e in list %}
       <li class="gev-e" data-date="{{ e.date }}">
-        <p class="gev-d"><time datetime="{{ e.date }}T{{ e.time }}">{{ e.date | ukDay }}</time></p>
+        {%- set dw = (e.date | ukDay).split(" ") %}
+        <p class="gev-d"><time datetime="{{ e.date }}T{{ e.time }}"><span>{{ dw[0] }}</span> <span>{{ dw.slice(1).join(" ") }}</span></time></p>
         <h2>{{ e.title }}</h2>
         <p class="gev-meta">{{ e | eventHours }}{% if e.place %} · {{ e.place }}{% endif %}{% if e.who %} · {{ e.who }}{% endif %}</p>
         <p class="gev-text">{{ e.text }}</p>

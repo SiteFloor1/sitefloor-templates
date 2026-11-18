@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { timeBand, classWeeks, classMatches, finderCount, coachWeek, coachClasses, packTotal, packWords, upcomingEvents, eventHours, eventIcs } from "../../src/kits/gym/lib/club.js";
+import { timeBand, classWeeks, classMatches, finderCount, coachWeek, coachClasses, packTotal, packWords, upcomingEvents, eventHours, eventIcs, foldLine } from "../../src/kits/gym/lib/club.js";
 import { validateSite } from "../../src/core/lib/config.js";
 import { loadCatalog } from "../../scripts/lib/catalog.js";
 
@@ -91,10 +91,24 @@ test("the club's pages: settings are checked, nothing misspelt slips through", (
   assert.match(errorsFor((s) => { s.classTypes.items[0].goals = ["cardio"]; }), /classTypes\.items\[0\]\.goals/);
   assert.match(errorsFor((s) => { delete s.classTypes.items[0].level; }), /classTypes\.items\[0\]\.level/);
   assert.match(errorsFor((s) => { s.coaches.items[0].name = "Inès"; }), /isn't a coach on the timetable/);
+  assert.match(errorsFor((s) => { for (const day of Object.values(s.timetable.weekly)) for (const x of /** @type {any[]} */ (day)) delete x.coach; }), /coaches: the timetable names no coaches/);
   assert.match(errorsFor((s) => { s.tour.rooms = [s.tour.rooms[0]]; }), /tour\.rooms: two to eight rooms/);
   assert.match(errorsFor((s) => { s.events.items[0].time = "6.30pm"; }), /events\.items\[0\]\.time/);
   assert.match(errorsFor((s) => { s.events.items[0].when = "Friday"; }), /events\.items\[0\]\.when: unknown setting/);
   assert.match(errorsFor((s) => { s.app.stores[0].url = "http://halde.example"; }), /app\.stores\[0\]\.url: a full https/);
   assert.match(errorsFor((s) => { s.journal.items[1].slug = s.journal.items[0].slug; }), /journal\.items\[1\]\.slug: used twice/);
   assert.match(errorsFor((s) => { s.firstVisit.steps = [s.firstVisit.steps[0]]; }), /firstVisit\.steps: two to eight steps/);
+});
+
+test("calendar lines are folded at 75 octets, never inside a character", () => {
+  assert.equal(foldLine("short"), "short");
+  const long = "DESCRIPTION:" + "a".repeat(100);
+  const parts = foldLine(long).split("\r\n");
+  assert.equal(new TextEncoder().encode(parts[0]).length, 75);
+  assert.ok(parts.slice(1).every((p) => p.startsWith(" ") && new TextEncoder().encode(p).length <= 75));
+  assert.equal(parts.map((p, i) => (i ? p.slice(1) : p)).join(""), long);
+  const accents = foldLine("SUMMARY:" + "é".repeat(60)); // two octets each
+  for (const p of accents.split("\r\n")) assert.ok(new TextEncoder().encode(p).length <= 75 && !p.includes("\uFFFD"));
+  const ics = eventIcs({ event: { id: "x", title: "T", date: "2026-12-03", time: "19:00", minutes: 60, text: "A long description ".repeat(10) }, club: "Halde", place: "Halde", tz: "Europe/London", stamp: "s" });
+  for (const line of ics.split("\r\n")) assert.ok(new TextEncoder().encode(line).length <= 75);
 });

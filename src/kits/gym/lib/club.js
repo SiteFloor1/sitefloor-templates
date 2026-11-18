@@ -121,6 +121,23 @@ const icsText = (/** @type {string} */ s) => s.replace(/\\/g, "\\\\").replace(/;
 const icsUtc = (/** @type {number} */ ms) => new Date(ms).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
 
 /**
+ * Folds a content line at 75 octets (RFC 5545, 3.1): the rest continues on the next line after a space. Never splits a
+ * character (UTF-8). @param {string} line
+ */
+export function foldLine(line) {
+  const enc = new TextEncoder();
+  const out = [];
+  let cur = "", size = 0, limit = 75;
+  for (const ch of line) {
+    const n = enc.encode(ch).length;
+    if (size + n > limit) { out.push(cur); cur = ""; size = 0; limit = 74; }
+    cur += ch; size += n;
+  }
+  out.push(cur);
+  return out.join("\r\n ");
+}
+
+/**
  * One event as a calendar file. The time is the club's wall time, converted to UTC (so a clock change can't move it).
  * @param {{ event: ClubEvent, club: string, place: string, tz: string, stamp: string }} o
  */
@@ -132,7 +149,7 @@ export function eventIcs(o) {
   return ["BEGIN:VCALENDAR", "VERSION:2.0", `PRODID:-//Sitefloor//${icsText(o.club)} events//EN`, "CALSCALE:GREGORIAN",
     "BEGIN:VEVENT", `UID:${e.id}-${e.date}@${slug}`, `DTSTAMP:${o.stamp}`, `DTSTART:${icsUtc(start)}`, `DTEND:${icsUtc(start + e.minutes * 60_000)}`,
     `SUMMARY:${icsText(`${e.title} · ${o.club}`)}`, `DESCRIPTION:${icsText(e.text)}`, `LOCATION:${icsText(e.place || o.place)}`, "END:VEVENT",
-    "END:VCALENDAR"].join("\r\n") + "\r\n";
+    "END:VCALENDAR"].map(foldLine).join("\r\n") + "\r\n";
 }
 
 /** Today's weekday key ("tue") for a YYYY-MM-DD. @param {string} ymd */

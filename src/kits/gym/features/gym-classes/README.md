@@ -8,7 +8,8 @@
 
 Three plain choices: what the class is for (the club's own goals), who it suits (the club's own levels) and the time of
 day (before ten, ten to four, after four, from the timetable). The number of classes that fit is set large; each class
-shows every time it runs this week, with its coach, and "Book in the app". Pressing a choice again lets it go.
+shows every time it runs this week, with its coach, and "Book in the app". Pressing a choice again lets it go. Without JavaScript the choices keep their space but stay hidden (they would do
+nothing), and every class shows.
 
 The build writes every class and time, so the page works without JavaScript (everything shows) and nothing moves when
 the script starts. A class that isn't on this week's timetable says so instead of disappearing. The matching rule is

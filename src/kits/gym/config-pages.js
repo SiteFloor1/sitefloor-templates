@@ -132,6 +132,8 @@ function checkCoaches(c, site, err, exists) {
     lines(err, `${at}.qualifications`, x?.qualifications, "the coach's qualifications, as on their certificates");
     if (isStr(x?.name) && onTimetable.size && !onTimetable.has(x.name)) err(`${at}.name`, `"${x.name}" isn't a coach on the timetable; write the name the timetable uses (timetable.weekly[].coach)`);
   });
+  // The coaches page shows each coach's week from the timetable: without coach names there, it would show none.
+  if (!onTimetable.size) err("coaches", "the timetable names no coaches: add \"coach\" to its sessions (timetable.weekly[].coach), the same names as here");
 }
 
 /** The same price rule as memberships. @param {any} p @param {string} at @param {Report} err */
