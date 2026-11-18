@@ -284,7 +284,7 @@ footer p { max-width: 112ch; }
     <div class="rail-h" aria-hidden="true" data-rail-h></div>
     <dl class="now-at">
       <div><dt>The doors</dt><dd data-doors>Open until 11pm</dd></div>
-      <div><dt>The next class</dt><dd data-cls>07:15 Ride<small>Studio two, with Rhys · Book in the app</small></dd></div>
+      <div><dt>The next class</dt><dd data-cls>07:15 Barbell club<small>Platform room, with Ines · Book in the app</small></dd></div>
       <div><dt>Heat and cold</dt><dd data-heat>07:30 Sauna and plunge<small>Eight at a time · Book in the app</small></dd></div>
     </dl>
     <p class="src">Halde's own figures, timetable and slots, from the demo. A client's come from their door count and their booking app.</p>
@@ -312,7 +312,7 @@ footer p { max-width: 112ch; }
         <input id="f-age" type="range" min="0" max="40" step="1" value="4" data-f-range>
         <label class="chk"><input type="checkbox" data-f-broken> The sheet can't be read</label>
       </div>
-      <p class="places"><span>07:15 Ride · Studio two</span><b data-f-places>3 places left</b></p>
+      <p class="places"><span>07:15 Barbell club · Platform room</span><b data-f-places>3 places left</b></p>
     </div>
   </div>
 </div></section>
@@ -538,9 +538,10 @@ footer p { max-width: 112ch; }
     $("[data-doors]").innerHTML = open ? `Open until ${hourWords(CLOSES[day])}` : `Closed<small>Opens ${before ? "at" : "tomorrow at"} ${hourWords(before ? OPENS[day] : OPENS[tomorrow])}</small>`;
     // the next class and the next slot: later today, or the first tomorrow
     const next = (list) => {
-      const on = (d) => list(d).slice().sort((a, b) => a.time < b.time ? -1 : 1);
+      const inHours = (d, t) => { const h = Number(t.slice(0, 2)); return h >= OPENS[d] && h < CLOSES[d]; };
+      const on = (d) => list(d).filter((x) => inHours(d, x.time)).sort((a, b) => a.time < b.time ? -1 : 1);
       const later = on(day).find((x) => Number(x.time.slice(0, 2)) >= hour);
-      return later ? { ...later, when: "" } : on(tomorrow)[0] ? { ...on(tomorrow)[0], when: "Tomorrow " } : null;
+      return later && (open || before) ? { ...later, when: "" } : on(tomorrow)[0] ? { ...on(tomorrow)[0], when: "Tomorrow " } : null;
     };
     const c = next((d) => TT[d] || []);
     $("[data-cls]").innerHTML = c ? `${c.when}${c.time} ${NAMES[c.class]}<small>${c.room}, with ${c.coach} · Book in the app</small>` : "None";
@@ -571,9 +572,14 @@ footer p { max-width: 112ch; }
   // ---- the whole price: the same arithmetic as the kit
   const pounds = (n) => `£${n.toLocaleString("en-GB")}`;
   const pm = $("[data-p-m]"), pt = $("[data-p-t]"), pj = $("[data-p-j]");
-  const whole = (el, lo, hi) => { const n = Math.round(Number(el.value)); return Number.isFinite(n) ? Math.min(hi, Math.max(lo, n)) : lo; };
+  const whole = (el, lo, hi) => { const v = el.value.trim(), n = Number(v); return v !== "" && Number.isInteger(n) && n >= lo && n <= hi ? n : null; };
   function price() {
     const m = whole(pm, 1, 999), t = whole(pt, 0, 24), j = whole(pj, 0, 999);
+    if (m === null || t === null || j === null) {
+      $("[data-p-big]").textContent = "—"; $("[data-p-then]").textContent = "";
+      $("[data-p-fine]").textContent = m === null ? "Type the monthly price in whole pounds, 1 to 999." : t === null ? "Type the minimum term in whole months, 0 to 24 (0 for rolling)." : "Type the joining fee in whole pounds, 0 to 999.";
+      $("[data-p-not]").closest(".not").hidden = true; return;
+    }
     const fee = j ? ", joining fee included" : "", fine = j ? ` · joining fee ${pounds(j)}` : " · no joining fee";
     if (t > 0) { $("[data-p-big]").textContent = `${pounds(m * t + j)} for ${t} months${fee}`; $("[data-p-then]").textContent = ""; $("[data-p-fine]").textContent = `${pounds(m)} a month for ${t} months${fine}`; }
     else { $("[data-p-big]").textContent = `${pounds(m + j)} the first month${fee}`; $("[data-p-then]").textContent = `then ${pounds(m)} a month`; $("[data-p-fine]").textContent = `${pounds(m)} a month, no minimum term${fine}`; }
