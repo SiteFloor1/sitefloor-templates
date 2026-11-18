@@ -1,0 +1,6 @@
+{#- Logbook section opening: the section's name, set large and tight, and its line beneath in the body size; no label
+    above. `sec` = { kicker, title, intro }; the kicker is not shown. -#}
+<div class="lg-sh">
+  <h2 class="lg-sh-t">{{ sec.title | markup | safe }}</h2>
+  {%- if sec.intro %}<p class="lg-sh-i">{{ sec.intro }}</p>{% endif %}
+</div>

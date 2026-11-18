@@ -1,0 +1,25 @@
+{#- Who's been there: the operator's travel experts, each with the places they've travelled in their own words and
+    their direct line if they give one; then every place with who has been, so "has anyone actually been?" has an
+    answer by name. -#}
+{%- set E = site.experts %}
+<section class="te" data-feature="tourism-experts" aria-label="{{ E.title | plain }}"><div class="wrap">
+  {%- set ph = { title: E.title, intro: E.intro } %}{% include "kits/tourism/partials/page-head.njk" %}
+  <ul class="te-people">
+    {%- for p in E.people %}
+    <li>
+      <h2 class="te-name">{{ p.name }}</h2>
+      {%- if p.role %}<p class="te-role">{{ p.role }}</p>{% endif %}
+      <p class="te-line">{{ p.line }}</p>
+      <p class="te-been">Been to {{ p.been | join(", ") }}.</p>
+      {%- if p.phone %}<p class="te-ph"><a href="tel:{{ p.phone | replace(' ', '') }}">{{ p.phone }}</a></p>{% endif %}
+    </li>
+    {%- endfor %}
+  </ul>
+  {%- set places = [] %}{% for p in E.people %}{% for b in p.been %}{% if not (b in places) %}{% set places = (places.push(b), places) %}{% endif %}{% endfor %}{% endfor %}
+  <h2 class="te-sub">Who's been where</h2>
+  <dl class="te-where">
+    {%- for b in places | sort %}
+    <div><dt>{{ b }}</dt><dd>{% set who = [] %}{% for p in E.people %}{% if b in p.been %}{% set who = (who.push(p.name), who) %}{% endif %}{% endfor %}{{ who | join(", ") }}</dd></div>
+    {%- endfor %}
+  </dl>
+</div></section>

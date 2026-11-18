@@ -1,0 +1,14 @@
+{#- Typical weather on a journey page: each place that names its climate data, for the months the operator would go,
+    with the source and period in the caption; never a forecast. Needs `j`. -#}
+{% set wx = [] %}{% for s in j.stops %}{% if s.climate and not (s.climate in wx) %}{% set wx = (wx.push(s.climate), wx) %}{% endif %}{% endfor %}
+  {%- if wx.length %}
+  <section class="lb-wx" aria-labelledby="wx-{{ j.id }}"{{ "tourism-weather" | tierAttr | safe }}>
+    <h2 id="wx-{{ j.id }}">Typical weather</h2>
+    <table>
+      <thead><tr><td></td>{% for m in j.go | sort %}<th scope="col">{{ tourMonths[m - 1].slice(0, 3) }}</th>{% endfor %}</tr></thead>
+      <tbody>{% for k in wx %}{% set t = site.climate | climateAt(k) %}{% set st = null %}{% for s in j.stops %}{% if s.climate == k and not st %}{% set st = s %}{% endif %}{% endfor %}
+        <tr><th scope="row">{{ st.place }}</th>{% for m in j.go | sort %}<td>{{ t[m - 1] }}°</td>{% endfor %}</tr>{% endfor %}</tbody>
+      <caption>Typical daytime highs in °C for the months we'd go, from {{ site.climate.source }} ({{ site.climate.about }}). Not a forecast.</caption>
+    </table>
+  </section>
+  {%- endif %}

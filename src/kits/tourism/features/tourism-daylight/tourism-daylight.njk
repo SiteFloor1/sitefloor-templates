@@ -1,0 +1,13 @@
+{#- Daylight on a journey page: a month to choose, then each place's sunrise, sunset and hours of light (the script
+    works them out). Needs `j`. -#}
+  <section class="lb-day" data-feature="tourism-daylight" data-go="{{ j.go | join(',') }}" aria-labelledby="dl-{{ j.id }}"{{ "tourism-daylight" | tierAttr | safe }}>
+    <h2 id="dl-{{ j.id }}">Daylight</h2>
+    <label class="lb-day-m">Month <select data-dl-month>{% for m in tourMonths %}<option value="{{ loop.index }}">{{ m }}</option>{% endfor %}</select></label>
+    <p class="lb-day-w" data-dl-when></p>
+    <ul>
+      {%- set seen = [] %}{% for s in j.stops %}{% set key = s.lat + ',' + s.lon %}{% if not (key in seen) %}{% set seen = (seen.push(key), seen) %}
+      <li data-dl-stop data-lat="{{ s.lat }}" data-lon="{{ s.lon }}" data-tz="{{ s.tz }}"><b>{{ s.place }}</b> <span data-dl-out></span></li>
+      {%- endif %}{% endfor %}
+    </ul>
+    <p class="lb-day-n">Worked out for the 15th of the month, in local time.</p>
+  </section>
