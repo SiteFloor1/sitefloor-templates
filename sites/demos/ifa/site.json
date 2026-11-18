@@ -1,0 +1,837 @@
+{
+  "schemaVersion": 4,
+  "id": "ifa",
+  "mode": "demo",
+  "plan": "signature",
+  "kit": "ifa",
+  "look": "statement",
+  "url": "https://ifa.demo.sitefloor.com",
+  "indexable": false,
+  "lang": "en-GB",
+  "business": {
+    "name": "Thursby",
+    "schemaType": "FinancialService",
+    "description": "Independent financial advice in the City of London: pensions, retirement income, inheritance tax and protection, with every fee in pounds before you sign.",
+    "sameAs": []
+  },
+  "contact": {
+    "phone": "+44 20 7946 0518",
+    "email": "office@thursby.example",
+    "whatsapp": "447700900518"
+  },
+  "booking": {
+    "provider": "phone"
+  },
+  "location": {
+    "streetAddress": "Wardrobe Place",
+    "locality": "London",
+    "postcode": "EC4V 5AF",
+    "country": "GB",
+    "area": "Off Carter Lane, a short walk from St Paul's station.",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=Wardrobe%20Place%2C%20London"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [
+        [
+          "09:00",
+          "17:30"
+        ]
+      ],
+      "tue": [
+        [
+          "09:00",
+          "17:30"
+        ]
+      ],
+      "wed": [
+        [
+          "09:00",
+          "17:30"
+        ]
+      ],
+      "thu": [
+        [
+          "09:00",
+          "17:30"
+        ]
+      ],
+      "fri": [
+        [
+          "09:00",
+          "17:00"
+        ]
+      ],
+      "sat": [],
+      "sun": []
+    },
+    "exceptions": [
+      {
+        "date": "2026-12-24",
+        "ranges": [
+          [
+            "09:00",
+            "13:00"
+          ]
+        ],
+        "note": "Closing at 1pm"
+      },
+      {
+        "date": "2026-12-29",
+        "ranges": [],
+        "note": "Closed between Christmas and New Year"
+      }
+    ]
+  },
+  "nav": [
+    {
+      "label": "About",
+      "page": "about"
+    },
+    {
+      "label": "Fees",
+      "page": "fees",
+      "feature": "ifa-fees",
+      "fallback": "#services"
+    },
+    {
+      "label": "Advisers",
+      "page": "advisers",
+      "feature": "ifa-advisers-page",
+      "fallback": "#advisers"
+    },
+    {
+      "label": "Services",
+      "page": "services",
+      "feature": "ifa-services-page",
+      "fallback": "#services"
+    },
+    {
+      "label": "Old pensions",
+      "page": "old-pensions",
+      "feature": "ifa-tracing",
+      "fallback": "#services"
+    },
+    {
+      "label": "Guides",
+      "page": "guides",
+      "feature": "ifa-guides",
+      "fallback": "#services"
+    },
+    {
+      "label": "Journal",
+      "page": "insights",
+      "feature": "ifa-journal",
+      "fallback": "#services"
+    }
+  ],
+  "features": [
+    "ifa-fca",
+    "ifa-independence",
+    "ifa-check",
+    "ifa-services",
+    "ifa-advisers",
+    "questions",
+    "visit",
+    "ifa-fees",
+    "ifa-advisers-page",
+    "ifa-meeting",
+    "ifa-upload",
+    "ifa-year",
+    "ifa-services-page",
+    "ifa-statement",
+    "ifa-topics",
+    "ifa-milestones",
+    "ifa-tracing",
+    "ifa-guides",
+    "ifa-journal",
+    "plan-visit",
+    "custom-pages"
+  ],
+  "hero": {
+    "kicker": "Independent financial advisers · City of London",
+    "title": "Every fee, in pounds,|before you sign anything.",
+    "intro": "Independent advice on pensions, retirement income and inheritance, from an office by St Paul's.",
+    "photo": {
+      "src": "img/terrace.webp",
+      "width": 2000,
+      "height": 1000,
+      "alt": "A Georgian terrace in morning sun: brick and white stucco, iron balconies, clipped bay trees",
+      "position": "50% 40%",
+      "credit": "Photograph: AXP Photography, Pexels"
+    },
+    "photoTall": {
+      "src": "img/terrace-phone.webp",
+      "width": 900,
+      "height": 900,
+      "alt": "A Georgian terrace in morning sun: brick and white stucco, iron balconies, clipped bay trees"
+    }
+  },
+  "sections": {
+    "services": {
+      "title": "What we advise on",
+      "intro": "Each service, who it suits, and what to bring to the first meeting."
+    },
+    "advisers": {
+      "title": "Your advisers",
+      "intro": "Each one is on the FCA's register; check them by their reference number."
+    },
+    "questions": {
+      "title": "Questions people ask first"
+    },
+    "visit": {
+      "title": "Find us",
+      "intro": "Wardrobe Place is a quiet square off Carter Lane, a short walk from St Paul's."
+    }
+  },
+  "messages": {
+    "general": "Hello Thursby, I'd like to book a first meeting."
+  },
+  "regulation": {
+    "legalName": "Thursby Financial Planning Ltd",
+    "tradingName": "Thursby",
+    "frn": "000000",
+    "registerUrl": "https://register.fca.org.uk/",
+    "entity": "Thursby Financial Planning Ltd is registered in England and Wales, company number 00000000",
+    "office": "Wardrobe Place, London EC4V 5AF",
+    "unregulated": "The Financial Conduct Authority does not regulate tax planning, wills or trusts on their own; we say so in writing whenever advice falls outside its rules.",
+    "fscs": "If we couldn't meet a claim against us, you may be able to claim from the Financial Services Compensation Scheme (FSCS). Limits apply.",
+    "complaints": {
+      "email": "complaints@thursby.example",
+      "address": "Complaints, Thursby, Wardrobe Place, London EC4V 5AF",
+      "steps": [
+        "Tell us by email, letter or phone; we'll confirm we have it within three working days.",
+        "A director who wasn't involved looks into it and writes to you with our answer.",
+        "If you're not happy with our answer, or eight weeks pass without one, you can ask the Financial Ombudsman Service to look at it."
+      ]
+    }
+  },
+  "independence": {
+    "status": "independent",
+    "line": "Independent advice: we can recommend products from the whole market.",
+    "body": [
+      "We are independent. We consider products from across the market, not from a panel, and no provider pays us to recommend it.",
+      "You pay our fees, set out in pounds before you agree to anything."
+    ]
+  },
+  "check": {
+    "title": "Check it's us",
+    "intro": "Fraudsters copy advisers' names and websites. Here's how to tell a real call or email from us.",
+    "phones": [
+      {
+        "label": "Office",
+        "number": "+44 20 7946 0518"
+      }
+    ],
+    "domains": [
+      "thursby.example"
+    ],
+    "never": [
+      "We will never ask you to move money to a new account by phone or email.",
+      "We will never ask for your passwords or a card PIN.",
+      "We will never press you to decide on the day."
+    ],
+    "callback": "If in doubt, hang up and call us back on the office number above, from another phone if you can."
+  },
+  "advisers": {
+    "items": [
+      {
+        "id": "helen-ashby",
+        "name": "Helen Ashby",
+        "role": "Director and chartered financial planner",
+        "irn": "HXA00000",
+        "letters": "FPFS",
+        "line": "Pensions and retirement income, for twenty years."
+      },
+      {
+        "id": "daniel-okafor",
+        "name": "Daniel Okafor",
+        "role": "Financial planner",
+        "irn": "DXO00000",
+        "letters": "DipPFS",
+        "line": "Inheritance tax and later life."
+      },
+      {
+        "id": "ruth-merriman",
+        "name": "Ruth Merriman",
+        "role": "Mortgage and protection adviser",
+        "irn": "RXM00000",
+        "letters": "CeMAP",
+        "line": "Mortgages and protection, alongside the planners."
+      }
+    ]
+  },
+  "fees": {
+    "intro": "What you pay us, in pounds, before you agree to anything. Our fees are a share of the money we advise on, with a minimum.",
+    "schedule": {
+      "initial": {
+        "rate": 1.5,
+        "min": 1500
+      },
+      "ongoing": {
+        "rate": 0.75
+      }
+    },
+    "example": 250000,
+    "presets": [
+      100000,
+      250000,
+      500000,
+      1000000
+    ],
+    "includes": [
+      "A written recommendation, explained in a meeting",
+      "Setting up what we recommend",
+      "A review each year, and whenever your life changes"
+    ],
+    "paid": "You can pay the initial fee directly, or from the money invested. The ongoing fee is taken monthly from your account, and you can stop it at any time.",
+    "vat": "Advice on investments and pensions isn't usually charged VAT. If a piece of work is, we tell you before we start.",
+    "other": "Platform and fund charges are separate, and you see them in pounds before you decide.",
+    "extras": [
+      {
+        "label": "A one-off review of a single pension",
+        "fee": "£950"
+      },
+      {
+        "label": "Mortgage advice",
+        "fee": "£495, paid on completion"
+      }
+    ]
+  },
+  "meeting": {
+    "title": "Your first meeting",
+    "intro": "An hour, free, at our office or by video. You leave with our fees in writing.",
+    "length": "The first hour is free.",
+    "where": [
+      "At our office, Wardrobe Place, EC4",
+      "By video, if that suits you better"
+    ],
+    "bring": [
+      "Your latest pension statements",
+      "Your State Pension forecast",
+      "Recent bank or savings statements",
+      "Your will, if you have one",
+      "Any policies you already hold",
+      "Your questions, written down"
+    ],
+    "after": "If you'd like to go ahead, we write to you with what we'd do and what it costs, in pounds. Nothing happens until you agree."
+  },
+  "upload": {
+    "url": "https://example.com/thursby-secure-upload",
+    "name": "our secure upload",
+    "line": "Send documents before the meeting through our secure upload, never by plain email."
+  },
+  "year": {
+    "intro": "What happens through the year once you're a client, so nothing comes as a surprise.",
+    "steps": [
+      {
+        "when": "Each year, in the month you choose",
+        "what": "Your review meeting: what's changed, and whether the plan still fits."
+      },
+      {
+        "when": "Two weeks before",
+        "what": "We send your figures and the questions we'll ask."
+      },
+      {
+        "when": "After the meeting",
+        "what": "A written summary of what we agreed, and the fees you paid that year, in pounds."
+      },
+      {
+        "when": "Before 5 April",
+        "what": "A reminder about this tax year's allowances, if they apply to you."
+      }
+    ],
+    "note": "Your review with Thursby",
+    "adviserLeaves": "If your adviser leaves, we introduce your new adviser in person before your next review."
+  },
+  "milestones": {
+    "topic": "pensions"
+  },
+  "tracing": {
+    "title": "Old pensions",
+    "intro": "List the places you've worked, and leave with a tracing list to send or print."
+  },
+  "topics": {
+    "items": [
+      {
+        "id": "pensions",
+        "title": "Pensions and retirement",
+        "intro": "When you can take your pensions, and the ways to take an income from them.",
+        "body": [
+          "Most people can take money from a personal or workplace pension from 55. That age is due to rise to 57 on 6 April 2028.",
+          "Your State Pension age depends on when you were born, and you can check yours on GOV.UK.",
+          "You can usually take a quarter of a pension tax-free, and the rest is taxed as income when you take it. The choices about how you take it are hard to undo, so they're worth understanding first.",
+          "Pension Wise, from the government's MoneyHelper service, offers a free appointment about your options if you're 50 or over."
+        ],
+        "help": [
+          "Find out what all your pensions are worth today, and what they charge",
+          "Work out when you could stop work, and the income you'd have",
+          "Choose how to take an income, and review it each year"
+        ],
+        "regulated": true,
+        "checked": "2026-11-16",
+        "sources": [
+          {
+            "label": "GOV.UK: Increasing normal minimum pension age",
+            "url": "https://www.gov.uk/government/publications/increasing-normal-minimum-pension-age"
+          },
+          {
+            "label": "GOV.UK: State Pension age",
+            "url": "https://www.gov.uk/state-pension-age"
+          },
+          {
+            "label": "Pension Wise",
+            "url": "https://www.moneyhelper.org.uk/en/pensions-and-retirement/pension-wise"
+          },
+          {
+            "label": "MoneyHelper: Pensions and retirement",
+            "url": "https://www.moneyhelper.org.uk/en/pensions-and-retirement"
+          }
+        ]
+      },
+      {
+        "id": "inheritance-tax",
+        "title": "Inheritance tax",
+        "intro": "What your estate might owe, and what changes from April 2027.",
+        "body": [
+          "Inheritance tax is usually charged at 40% on the part of an estate above £325,000. A further £175,000 can apply when a home passes to children or grandchildren.",
+          "Anything left to a husband, wife or civil partner is usually free of inheritance tax, and unused allowances can pass to them.",
+          "From 6 April 2027, most unused pension funds will count as part of an estate for inheritance tax."
+        ],
+        "help": [
+          "Set out what your estate is made of, and what it might owe",
+          "Look at gifts, trusts and how your pensions are left",
+          "Work with your solicitor on your will"
+        ],
+        "regulated": false,
+        "checked": "2026-11-16",
+        "sources": [
+          {
+            "label": "GOV.UK: Inheritance Tax",
+            "url": "https://www.gov.uk/inheritance-tax"
+          }
+        ]
+      },
+      {
+        "id": "protection",
+        "title": "Protection",
+        "intro": "What would happen to your family's money if you couldn't work, or died.",
+        "body": [
+          "Life cover pays a sum if you die during the policy. Income protection pays part of your income if illness or injury stops you working. Critical illness cover pays a sum if you're diagnosed with a condition the policy lists.",
+          "Many employers include some cover, so it's worth knowing what you have before buying more."
+        ],
+        "help": [
+          "Check the cover you already have through work and elsewhere",
+          "Compare policies across the market",
+          "Write policies in trust where that suits you"
+        ],
+        "regulated": true,
+        "checked": "2026-11-16",
+        "sources": [
+          {
+            "label": "MoneyHelper: Insurance",
+            "url": "https://www.moneyhelper.org.uk/en/everyday-money/insurance"
+          }
+        ]
+      },
+      {
+        "id": "mortgages",
+        "title": "Mortgages",
+        "intro": "Buying, remortgaging, and borrowing later in life.",
+        "body": [
+          "Your home may be repossessed if you do not keep up repayments on your mortgage.",
+          "When a fixed rate ends, most mortgages move to the lender's standard variable rate, so it's worth looking at the choices a few months before."
+        ],
+        "help": [
+          "Search the market for a mortgage that suits you",
+          "Plan a remortgage before your fixed rate ends",
+          "Fit borrowing in with your pension and retirement plans"
+        ],
+        "regulated": true,
+        "checked": "2026-11-16",
+        "sources": [
+          {
+            "label": "MoneyHelper: Homes",
+            "url": "https://www.moneyhelper.org.uk/en/homes"
+          }
+        ]
+      },
+      {
+        "id": "business-owners",
+        "title": "Business owners",
+        "intro": "Paying yourself well, and planning for the day you sell.",
+        "body": [
+          "A company can pay into its directors' pensions, and those payments are usually treated as a business expense.",
+          "When you sell a business, Business Asset Disposal Relief can lower the Capital Gains Tax on qualifying gains, up to a lifetime limit."
+        ],
+        "help": [
+          "Plan pension contributions through your company",
+          "Work with your accountant before a sale",
+          "Plan what to do with the money afterwards"
+        ],
+        "regulated": true,
+        "checked": "2026-11-16",
+        "sources": [
+          {
+            "label": "GOV.UK: Business Asset Disposal Relief",
+            "url": "https://www.gov.uk/business-asset-disposal-relief"
+          }
+        ]
+      },
+      {
+        "id": "later-life",
+        "title": "Later life and care",
+        "intro": "Paying for care, and helping a parent with their money.",
+        "body": [
+          "Whether the council helps with care costs depends on the person's needs, income and savings. The rules differ in England, Scotland, Wales and Northern Ireland.",
+          "A lasting power of attorney lets someone you trust make decisions for you if you can't. It has to be made while you still can."
+        ],
+        "help": [
+          "Set out the ways to pay for care, and what each costs",
+          "Help a family member make a lasting power of attorney with their solicitor",
+          "Look after the money once care begins"
+        ],
+        "regulated": true,
+        "checked": "2026-11-16",
+        "sources": [
+          {
+            "label": "MoneyHelper: Paying for care",
+            "url": "https://www.moneyhelper.org.uk/en/family-and-care/long-term-care"
+          },
+          {
+            "label": "GOV.UK: Lasting power of attorney",
+            "url": "https://www.gov.uk/power-of-attorney"
+          }
+        ]
+      }
+    ]
+  },
+  "guides": {
+    "title": "Guides",
+    "intro": "What to do, in order, at the moments that change your money.",
+    "items": [
+      {
+        "id": "retiring",
+        "title": "Retiring in the next five years",
+        "intro": "The steps to take, from five years out to your last day.",
+        "steps": [
+          {
+            "title": "Find every pension",
+            "text": "List each employer and personal pension, and ask each for its current value and charges."
+          },
+          {
+            "title": "Get your State Pension forecast",
+            "text": "Check how much you're due and when on GOV.UK, and whether gaps can be filled."
+          },
+          {
+            "title": "Work out what you'll spend",
+            "text": "A simple monthly budget for the first years of retirement is enough to start."
+          },
+          {
+            "title": "Decide how to take an income",
+            "text": "Take guidance or advice before you take money out; some choices can't be undone."
+          }
+        ],
+        "ready": [
+          "Pension statements",
+          "Your State Pension forecast",
+          "A monthly budget"
+        ],
+        "checked": "2026-11-16",
+        "sources": [
+          {
+            "label": "GOV.UK: State Pension age",
+            "url": "https://www.gov.uk/state-pension-age"
+          },
+          {
+            "label": "Pension Wise",
+            "url": "https://www.moneyhelper.org.uk/en/pensions-and-retirement/pension-wise"
+          }
+        ]
+      },
+      {
+        "id": "inheriting",
+        "title": "Inheriting money",
+        "intro": "What to do in the first months after an inheritance.",
+        "steps": [
+          {
+            "title": "Wait for the estate to settle",
+            "text": "The executors pay any tax and debts first, which can take many months."
+          },
+          {
+            "title": "Keep it safe meanwhile",
+            "text": "An easy-access account covered by the FSCS is a good place while you decide."
+          },
+          {
+            "title": "Think about your own will",
+            "text": "An inheritance can change what you'd want to leave, and to whom."
+          }
+        ],
+        "ready": [
+          "Any letter from the executors",
+          "Your own will"
+        ],
+        "checked": "2026-11-16",
+        "sources": [
+          {
+            "label": "GOV.UK: Inheritance Tax",
+            "url": "https://www.gov.uk/inheritance-tax"
+          },
+          {
+            "label": "GOV.UK: Making a will",
+            "url": "https://www.gov.uk/make-will"
+          }
+        ]
+      },
+      {
+        "id": "parent-care",
+        "title": "When a parent needs care",
+        "intro": "The order to do things in when care is coming.",
+        "steps": [
+          {
+            "title": "Ask for a needs assessment",
+            "text": "The council assesses care needs for free, whoever ends up paying."
+          },
+          {
+            "title": "Check for a lasting power of attorney",
+            "text": "If there isn't one and your parent can still make one, make it now."
+          },
+          {
+            "title": "Work out how care is paid for",
+            "text": "Income, savings and sometimes the home all count; get advice before selling anything."
+          }
+        ],
+        "ready": [
+          "Any care assessment",
+          "Your parent's income and savings",
+          "Any power of attorney"
+        ],
+        "checked": "2026-11-16",
+        "sources": [
+          {
+            "label": "MoneyHelper: Paying for care",
+            "url": "https://www.moneyhelper.org.uk/en/family-and-care/long-term-care"
+          },
+          {
+            "label": "GOV.UK: Lasting power of attorney",
+            "url": "https://www.gov.uk/power-of-attorney"
+          }
+        ]
+      }
+    ]
+  },
+  "journal": {
+    "title": "Journal",
+    "intro": "Short notes from our advisers on rules that have changed.",
+    "items": [
+      {
+        "id": "pensions-iht-2027",
+        "title": "Pensions and inheritance tax from April 2027",
+        "date": "2026-10-14",
+        "summary": "Most unused pensions will count towards an estate. What that means for how you leave yours.",
+        "body": [
+          "From 6 April 2027, most unused pension funds will count towards an estate for inheritance tax.",
+          "If you were planning to leave your pension untouched to pass it on, it's worth looking again at the order you draw on your savings, and at who your pensions go to."
+        ],
+        "author": "Daniel Okafor",
+        "approvedBy": "Helen Ashby",
+        "approvedOn": "2026-10-10"
+      },
+      {
+        "id": "pension-age-57",
+        "title": "The pension age is rising to 57",
+        "date": "2026-09-02",
+        "summary": "From 6 April 2028, most people will have to wait until 57 to take money from a pension.",
+        "body": [
+          "The earliest age most people can take money from a personal or workplace pension rises from 55 to 57 on 6 April 2028.",
+          "Some schemes give members a protected lower age. Ask your scheme whether yours does before you plan around it."
+        ],
+        "author": "Helen Ashby",
+        "approvedBy": "Daniel Okafor",
+        "approvedOn": "2026-08-28"
+      }
+    ]
+  },
+  "questions": [
+    {
+      "topic": "Your first meeting",
+      "q": "Is the first meeting charged?",
+      "a": "No. The first hour is free, and you leave with our fees in writing.",
+      "home": true
+    },
+    {
+      "topic": "Your first meeting",
+      "q": "Do I have to decide anything at the meeting?",
+      "a": "No. We write to you afterwards, and nothing happens until you agree.",
+      "home": true
+    },
+    {
+      "topic": "Fees",
+      "q": "How do you charge?",
+      "a": "1.5% of the money we advise on to begin, at least £1,500, then 0.75% each year. Platform and fund charges are separate.",
+      "home": true
+    },
+    {
+      "topic": "Fees",
+      "q": "Can I stop the ongoing fee?",
+      "a": "Yes, at any time. The ongoing service stops with it."
+    },
+    {
+      "topic": "Working with us",
+      "q": "Are you independent?",
+      "a": "Yes. We can recommend products from across the whole market.",
+      "home": true
+    },
+    {
+      "topic": "Working with us",
+      "q": "How do I know you're regulated?",
+      "a": "Search for our firm reference number on the FCA's Financial Services Register; the link is at the foot of every page."
+    }
+  ],
+  "advice": {
+    "who": "We usually work with people who have £100,000 or more in pensions and savings, or a decision of similar size.",
+    "minimum": "There's no minimum for a first meeting.",
+    "items": [
+      {
+        "id": "retirement",
+        "title": "Pensions and retirement income",
+        "line": "When you can stop work, and how to take an income from what you've saved.",
+        "bring": [
+          "Your latest pension statements",
+          "Your State Pension forecast",
+          "A rough monthly budget"
+        ],
+        "topic": "pensions"
+      },
+      {
+        "id": "iht",
+        "title": "Inheritance tax",
+        "line": "What your estate might owe, and the choices that change it.",
+        "bring": [
+          "Your will, if you have one",
+          "A list of what you own and owe",
+          "Any trust deeds"
+        ],
+        "topic": "inheritance-tax"
+      },
+      {
+        "id": "protection",
+        "title": "Protection",
+        "line": "Life cover, income protection and critical illness cover, checked against what you already have.",
+        "bring": [
+          "Policies you already hold",
+          "Your employer's benefits summary"
+        ],
+        "topic": "protection"
+      },
+      {
+        "id": "mortgages",
+        "title": "Mortgages",
+        "line": "Buying, remortgaging and borrowing into retirement, alongside the rest of your plan.",
+        "bring": [
+          "Three months' payslips or two years' accounts",
+          "Your current mortgage statement"
+        ],
+        "topic": "mortgages"
+      },
+      {
+        "id": "business",
+        "title": "Business owners",
+        "line": "Paying yourself, pensions through the company, and planning a sale.",
+        "bring": [
+          "Your company's latest accounts",
+          "Your shareholding"
+        ],
+        "topic": "business-owners"
+      },
+      {
+        "id": "later-life",
+        "title": "Later life and care",
+        "line": "Paying for care, powers of attorney, and helping a parent with their money.",
+        "bring": [
+          "Any care assessment",
+          "A list of income and savings"
+        ],
+        "topic": "later-life"
+      }
+    ]
+  },
+  "visitInfo": {
+    "kicker": "Before we meet",
+    "title": "Before we meet",
+    "intro": "How to find us by St Paul's, and what to expect when you arrive.",
+    "checked": "2026-11",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "St Paul's station",
+        "origin": "St Paul's station, London",
+        "minutes": 6,
+        "steps": [
+          "Leave the station and walk round the south side of the cathedral",
+          "Take Godliman Street south and turn right into Carter Lane",
+          "Wardrobe Place is the small square on the left; ring at the green door"
+        ]
+      },
+      {
+        "mode": "car",
+        "from": "By taxi",
+        "origin": "Liverpool Street station, London",
+        "minutes": 15,
+        "steps": [
+          "Ask for Wardrobe Place, Carter Lane, EC4",
+          "Tell us when you book and we will meet you at the door"
+        ]
+      }
+    ],
+    "parking": [
+      {
+        "name": "Baynard House car park",
+        "walk": 5,
+        "price": "hourly, set by the car park (demo)",
+        "paid": "always"
+      }
+    ],
+    "access": [
+      {
+        "label": "Step-free from the square to the ground-floor meeting room",
+        "yes": true
+      },
+      {
+        "label": "Accessible toilet on the ground floor",
+        "yes": true
+      }
+    ],
+    "payment": "By bank transfer, invoiced in writing. We never change our bank details by email; call us before paying if anything looks different."
+  },
+  "pages": [
+    {
+      "slug": "about",
+      "title": "About Thursby",
+      "description": "About Thursby, independent financial advisers in the City of London.",
+      "intro": "A small independent firm, owned by the advisers who work in it.",
+      "blocks": [
+        {
+          "type": "text",
+          "heading": "Why we're independent",
+          "body": "We are owned by our directors, not by a bank, an insurer or a network, so we can recommend from the whole market.\n\nEvery client has one adviser who knows their affairs, and a planner who works alongside them."
+        },
+        {
+          "type": "list",
+          "heading": "Who we work with",
+          "items": [
+            "People five to ten years from retiring",
+            "Families thinking about inheritance tax",
+            "Business owners paying themselves through a company",
+            "Adult children helping a parent with care"
+          ]
+        },
+        {
+          "type": "book",
+          "text": "Book a first meeting"
+        }
+      ]
+    }
+  ]
+}

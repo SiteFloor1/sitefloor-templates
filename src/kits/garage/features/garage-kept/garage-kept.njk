@@ -1,0 +1,13 @@
+{#- How cars are kept: the client's photographs of covers, checks and washing, each with one line. -#}
+{%- set sec = site.sections.kept %}
+<section id="kept" class="gk" aria-label="{{ sec.title | plain }}"{{ "garage-kept" | tierAttr | safe }}><div class="wrap gk-in">
+  {%- include "core/partials/section-head.njk" %}
+  <div class="gk-hang">
+    {%- for it in site.kept.items %}
+    <figure class="gk-i">
+      <img src="{{ it.photo.src | img }}" width="{{ it.photo.width }}" height="{{ it.photo.height }}" alt="{{ it.photo.alt }}" loading="lazy" decoding="async"{% if it.photo.focus %} style="object-position: {{ it.photo.focus }}"{% endif %}>
+      <figcaption><b>{{ it.title }}</b> <span>{{ it.text }}</span></figcaption>
+    </figure>
+    {%- endfor %}
+  </div>
+</div></section>

@@ -63,7 +63,7 @@ export const FORWARD = [
 
 /** Fields whose dates are rightly past: when something was written, checked, approved, imported or delivered. */
 export const PAST = [
-  "journal.items[].checked",
+  "journal.items[].checked", "journal.items[].approvedOn", "topics.items[].checked", "guides.items[].checked",
   "journal.items[].date", "journal.items[].sources[].checked", "insights.items[].date", "insights.items[].approvedOn",
   "insights.sample", "guides.items[].date", "guides.items[].reviewed", "events.items[].approvedOn", "films.items[].date",
   "menu.chartChecked", "desserts.chartChecked", "dressCode.checked", "planning.checked", "certificates.landlord.checked",

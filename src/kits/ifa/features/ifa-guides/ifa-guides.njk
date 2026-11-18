@@ -1,0 +1,14 @@
+{#- A life-event guide: the steps in order, what to have ready, dated and sourced. General information, not advice. -#}
+{%- include "kits/ifa/partials/meet-href.njk" %}
+{%- set ph = { title: g.title, intro: g.intro, crumbHref: ('guides' | href), crumbLabel: site.guides.title } %}
+{% include "kits/ifa/partials/page-head.njk" %}
+{%- if g.photo %}<figure class="wrap if-tp-fig"><img src="{{ g.photo.src | img }}" alt="{{ g.photo.alt }}" width="{{ g.photo.width }}" height="{{ g.photo.height }}" decoding="async"{% if g.photo.position %} style="object-position:{{ g.photo.position }}"{% endif %}></figure>{% endif %}
+<section class="if-gd" data-feature="ifa-guides"><div class="wrap if-gd-in">
+  <ol class="if-gd-steps">{% for s in g.steps %}<li><h2>{{ s.title }}</h2><p>{{ s.text }}</p></li>{% endfor %}</ol>
+  <aside class="if-tp-side">
+    <h2>Have these ready</h2>
+    <ul>{% for r in g.ready %}<li>{{ r }}</li>{% endfor %}</ul>
+    <a class="if-btn" href="{{ meetHref }}">Book a first meeting</a>
+    <p class="if-fine">General information, not advice. Checked {{ g.checked | ukDate }}: {% for s in g.sources %}<a href="{{ s.url }}" target="_blank" rel="noopener">{{ s.label }}</a>{% if not loop.last %}, {% endif %}{% endfor %}.</p>
+  </aside>
+</div></section>

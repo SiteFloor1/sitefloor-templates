@@ -1,0 +1,8 @@
+{#- Charging (PARK-15): which bays charge, at what speed, and when a car plugged in is ready, from the client's sheet. -#}
+{%- set sec = site.sections.charging %}
+<section id="charging" class="gc" aria-label="{{ sec.title | plain }}"{{ "garage-charging" | tierAttr | safe }}><div class="wrap gc-in">
+  {%- include "core/partials/section-head.njk" %}
+  <p class="gc-w">{{ site.hall | chargerWords }} {{ site.charging | chargedBy }}</p>
+  <ul class="gc-l">{% for b in site.hall | chargerBays %}<li><b>Bay {{ b.n }}</b> {{ b.charger }} kW{% if b.free %} · free now{% endif %}</li>{% endfor %}</ul>
+  {%- if site.charging.note %}<p class="gc-n">{{ site.charging.note }}</p>{% endif %}
+</div></section>

@@ -1,0 +1,6 @@
+{#- Elsden section opening: the section's name in Cardo, its line beneath; no small label above. `sec` = { kicker,
+    title, intro }; the kicker is not shown. -#}
+<div class="el-sh">
+  <h2 class="el-sh-t">{{ sec.title | markup | safe }}</h2>
+  {%- if sec.intro %}<p class="el-sh-i">{{ sec.intro }}</p>{% endif %}
+</div>

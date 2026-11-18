@@ -1,0 +1,22 @@
+{#- When to go (TOUR-4): the operator's places as rows and the months across, the months they'd choose underlined.
+    With typical weather on, every cell carries that month's typical high from the named source, and the caption
+    names it and its period. The gov.uk advice is linked from the travel-ready checklist, never retold here. -#}
+{%- set W = site.when %}
+{%- set wx = "tourism-weather" | enabled %}
+<section class="tw" data-feature="tourism-when" aria-label="{{ W.title | plain }}"><div class="wrap">
+  {%- set ph = { title: W.title, intro: W.intro } %}{% include "kits/tourism/partials/page-head.njk" %}
+  <div class="tw-scroll">
+    <table class="tw-t">
+      <caption class="tw-cap">Underlined: the months we'd choose.{% if wx %} <span{{ "tourism-weather" | tierAttr | safe }}>Temperatures are typical daytime highs from {{ site.climate.source }} ({{ site.climate.about }}), not a forecast. <a href="{{ site.climate.url }}">About the source</a>.</span>{% endif %}</caption>
+      <thead><tr><td></td>{% for m in tourMonths %}<th scope="col"><abbr title="{{ m }}">{{ m.slice(0, 3) }}</abbr></th>{% endfor %}</tr></thead>
+      <tbody>
+        {%- for p in W.places %}{% set marks = p.go | monthMarks %}{% set t = site.climate | climateAt(p.climate) if wx else null %}
+        <tr>
+          <th scope="row">{% if p.journey and ("tourism-logbook" | enabled) %}<a href="{{ ('journey-' + p.journey) | href }}">{{ p.name }}</a>{% else %}{{ p.name }}{% endif %}</th>
+          {%- for x in marks %}<td class="{{ 'tw-on' if x.on }}"><span>{% if t %}{{ t[loop.index0] }}°{% elif x.on %}✓{% else %}·{% endif %}</span>{% if x.on %}<span class="sr-only"> (we'd go)</span>{% endif %}</td>{% endfor %}
+        </tr>
+        {%- endfor %}
+      </tbody>
+    </table>
+  </div>
+</div></section>

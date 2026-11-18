@@ -1,0 +1,13 @@
+{#- Your car this month (PARK-18): the card the client sends after each check of a stored car, and how to ask for it.
+    A car's own card only ever goes by WhatsApp to its owner: the page shows what the card says, labelled. -#}
+{%- set sec = site.sections.careCard %}
+{%- set C = site.careCard %}
+<section id="care-card" class="gcc" aria-label="{{ sec.title | plain }}"{{ "garage-care-card" | tierAttr | safe }}><div class="wrap gcc-in">
+  {%- include "core/partials/section-head.njk" %}
+  <div class="gcc-card" role="figure" aria-label="An example card">
+    <p class="gcc-h">Your car this month <span>{{ "sample" if site.mode == "demo" else "example" }}</span></p>
+    <p class="gcc-b">{{ C.sample }}</p>
+  </div>
+  <p class="gcc-what">Every {{ C.every }}: {% for c in C.checks %}{{ c | lower if not loop.first else c }}{{ ", " if not loop.last }}{% endfor %}.</p>
+  <a class="go" href="{{ site.business.name | careText | book }}" target="_blank" rel="noopener">Ask for your car’s card</a>
+</div></section>

@@ -1,0 +1,13 @@
+{#- Moving in to your calendar (PARK-12): choose a start date; the client's steps become a calendar file made in the
+    browser (nothing is stored or sent). Without JavaScript the steps are listed, counted from the start. -#}
+{%- set sec = site.sections.moveIn %}
+<section id="moving-in" class="gm" data-feature="garage-move-in" aria-label="{{ sec.title | plain }}"{{ "garage-move-in" | tierAttr | safe }}><div class="wrap gm-in">
+  {%- include "core/partials/section-head.njk" %}
+  <form class="gm-f" data-mi-form>
+    <p><label for="mi-start">Your first day</label> <input id="mi-start" name="start" type="date" required></p>
+    <ol class="gm-steps" data-mi-steps>
+      {%- for s in site.moveIn.steps %}<li><span class="gm-when">{% if s.day == 0 %}The first day{% elif s.day < 0 %}{{ -s.day }} {{ "day" if s.day == -1 else "days" }} before{% else %}{{ s.day }} {{ "day" if s.day == 1 else "days" }} after{% endif %}</span> {{ s.title }}</li>{% endfor %}
+    </ol>
+    <a class="btn" data-mi-ics href="#" download="moving-in.ics" hidden>Add to your calendar</a>
+  </form>
+</div></section>

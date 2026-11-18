@@ -1,0 +1,6 @@
+{#- Statement section opening: the title on the left in the display face, its line on the right, a pewter rule above
+    both, like a heading on a printed report. `sec` = { kicker, title, intro }; the kicker is not shown. -#}
+<div class="st-sh">
+  <h2 class="st-sh-t">{{ sec.title | markup | safe }}</h2>
+  {%- if sec.intro %}<p class="st-sh-i">{{ sec.intro }}</p>{% endif %}
+</div>

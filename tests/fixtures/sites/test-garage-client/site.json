@@ -1,0 +1,566 @@
+{
+  "schemaVersion": 4,
+  "id": "test-garage-client",
+  "mode": "client",
+  "plan": "signature",
+  "kit": "garage",
+  "look": "elsden",
+  "url": "https://test-garage-client.example.co.uk",
+  "indexable": false,
+  "lang": "en-GB",
+  "business": {
+    "name": "Arlo",
+    "schemaType": "ParkingFacility",
+    "description": "Indoor car storage by the month in Leicester. From £150 a month.",
+    "priceRange": "££",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "441164960412",
+    "phone": "+44 116 496 0412",
+    "email": "hello@arlo.example"
+  },
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "location": {
+    "streetAddress": "The Arches, 4 Wharf Street",
+    "locality": "Leicester",
+    "postcode": "LE1 2AT",
+    "country": "GB",
+    "area": "Under the railway arches, the gate at the east end.",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=Wharf%20Street%2C%20Leicester"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [
+        [
+          "08:00",
+          "20:00"
+        ]
+      ],
+      "tue": [
+        [
+          "08:00",
+          "20:00"
+        ]
+      ],
+      "wed": [
+        [
+          "08:00",
+          "20:00"
+        ]
+      ],
+      "thu": [
+        [
+          "08:00",
+          "20:00"
+        ]
+      ],
+      "fri": [
+        [
+          "08:00",
+          "20:00"
+        ]
+      ],
+      "sat": [
+        [
+          "08:00",
+          "20:00"
+        ]
+      ],
+      "sun": [
+        [
+          "08:00",
+          "20:00"
+        ]
+      ]
+    },
+    "exceptions": [
+      {
+        "date": "2026-12-25",
+        "ranges": [],
+        "note": "No viewings on Christmas Day; the hall stays open by fob"
+      }
+    ]
+  },
+  "features": [
+    "garage-spaces",
+    "garage-access",
+    "garage-kept",
+    "garage-move-in",
+    "garage-charging",
+    "garage-security",
+    "garage-night",
+    "garage-laying-up",
+    "garage-fleet",
+    "garage-pick",
+    "garage-care-card",
+    "visit",
+    "plan-visit",
+    "questions",
+    "garage-insurer",
+    "reviews"
+  ],
+  "nav": [
+    {
+      "label": "Arriving at night",
+      "page": "arrive-at-night",
+      "feature": "garage-night"
+    },
+    {
+      "label": "Laying up",
+      "page": "laying-up",
+      "feature": "garage-laying-up"
+    },
+    {
+      "label": "Business",
+      "page": "business",
+      "feature": "garage-fleet"
+    },
+    {
+      "label": "Visit",
+      "page": "visit",
+      "feature": "plan-visit",
+      "fallback": "#visit"
+    }
+  ],
+  "messages": {
+    "general": "Hello Arlo, I have a question about a bay.",
+    "viewing": "Hello Arlo, I’d like to book a viewing of Hall One.",
+    "waitlist": "Hello Arlo, please add me to the waiting list for a bay."
+  },
+  "hero": {
+    "kicker": "No. 1",
+    "title": "The Arches",
+    "where": "Leicester",
+    "medium": "Polished concrete, gallery lighting, fourteen bays, six with chargers",
+    "intro": "Family cars and weekend cars, side by side. Covered or open, charged overnight, swept every morning and watched all night.",
+    "from": "From £240 a month.",
+    "photo": {
+      "src": "img/hall.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "Inside the arches: brick vaults over two rows of cars"
+    }
+  },
+  "sections": {
+    "pick": {
+      "title": "Hall One, drawn to scale",
+      "intro": "Pick your car above and the free bays it fits light up, with the room either side."
+    },
+    "spaces": {
+      "title": "Bays and prices"
+    },
+    "charging": {
+      "title": "Charging"
+    },
+    "security": {
+      "title": "Cameras and the gate"
+    },
+    "kept": {
+      "title": "How cars are kept"
+    },
+    "careCard": {
+      "title": "Your car this month",
+      "intro": "After each check we send the card to your phone."
+    },
+    "access": {
+      "title": "Getting in"
+    },
+    "moveIn": {
+      "title": "Moving in",
+      "intro": "Choose your first day; the steps go straight to your calendar."
+    },
+    "questions": {
+      "title": "Before you take a bay"
+    },
+    "visit": {
+      "title": "Finding the hall"
+    },
+    "reviews": {
+      "title": "What drivers say"
+    }
+  },
+  "hall": {
+    "name": "The Arches",
+    "width": 21.2,
+    "depth": 16.5,
+    "bayDepth": 5.2,
+    "gate": {
+      "y": 8.25,
+      "width": 3.4
+    },
+    "rows": [
+      {
+        "side": "north",
+        "x": 0.88,
+        "bays": [
+          {
+            "n": 1,
+            "width": 2.4,
+            "free": false,
+            "price": 240
+          },
+          {
+            "n": 2,
+            "width": 2.4,
+            "free": false,
+            "price": 240
+          },
+          {
+            "n": 3,
+            "width": 2.6,
+            "free": false,
+            "price": 260,
+            "charger": 7
+          },
+          {
+            "n": 4,
+            "width": 2.4,
+            "free": true,
+            "price": 240
+          },
+          {
+            "n": 5,
+            "width": 2.6,
+            "free": false,
+            "price": 260
+          },
+          {
+            "n": 6,
+            "width": 2.6,
+            "free": false,
+            "price": 260,
+            "charger": 7
+          },
+          {
+            "n": 7,
+            "width": 2.6,
+            "free": true,
+            "price": 260,
+            "charger": 7
+          }
+        ]
+      },
+      {
+        "side": "south",
+        "x": 0.88,
+        "bays": [
+          {
+            "n": 8,
+            "width": 2.4,
+            "free": false,
+            "price": 240
+          },
+          {
+            "n": 9,
+            "width": 2.4,
+            "free": true,
+            "price": 240
+          },
+          {
+            "n": 10,
+            "width": 2.6,
+            "free": false,
+            "price": 260
+          },
+          {
+            "n": 11,
+            "width": 2.6,
+            "free": true,
+            "price": 260,
+            "charger": 7
+          },
+          {
+            "n": 12,
+            "width": 2.6,
+            "free": false,
+            "price": 260,
+            "charger": 7
+          },
+          {
+            "n": 13,
+            "width": 2.4,
+            "free": false,
+            "price": 240
+          },
+          {
+            "n": 14,
+            "width": 2.8,
+            "free": true,
+            "price": 290,
+            "charger": 22
+          }
+        ]
+      }
+    ],
+    "columns": [
+      [
+        5.68,
+        10.94
+      ],
+      [
+        10.78,
+        10.94
+      ],
+      [
+        15.88,
+        10.94
+      ],
+      [
+        5.68,
+        5.56
+      ],
+      [
+        10.78,
+        5.56
+      ],
+      [
+        15.88,
+        5.56
+      ]
+    ]
+  },
+  "charging": {
+    "plugInBy": "22:00",
+    "readyBy": "07:00",
+    "note": "Charging is billed with your bay at the rate on your invoice."
+  },
+  "security": {
+    "recorded": "Recorded and kept for 30 days; never a live feed.",
+    "facts": [
+      "The gate opens by fob at any hour; each fob is logged.",
+      "The hall is alarmed from 11pm to 6am.",
+      "Lights come on with movement, aisle by aisle."
+    ],
+    "cameras": [
+      {
+        "x": 0.35,
+        "y": 11.9,
+        "facing": -31.5
+      },
+      {
+        "x": 10.78,
+        "y": 10.72,
+        "facing": -90
+      },
+      {
+        "x": 10.78,
+        "y": 5.78,
+        "facing": 90
+      },
+      {
+        "x": 20.85,
+        "y": 8.25,
+        "facing": 180
+      }
+    ]
+  },
+  "access": {
+    "facts": [
+      "Open every hour by fob.",
+      "Viewings daily, 8am to 8pm.",
+      "Indoors and dry; covers on request.",
+      "A month’s notice either way."
+    ]
+  },
+  "kept": {
+    "items": [
+      {
+        "title": "Fitted covers",
+        "text": "Breathable, cut to the car, on and off by us.",
+        "photo": {
+          "src": "img/covers.webp",
+          "width": 1400,
+          "height": 893,
+          "alt": "Two cars under pale fitted covers in a bright hall, the nearest an SUV"
+        }
+      },
+      {
+        "title": "The workshop corner",
+        "text": "Battery, tyres and a start, every month.",
+        "photo": {
+          "src": "img/workshop.webp",
+          "width": 900,
+          "height": 829,
+          "alt": "A glazed corner of a car hall with a workbench and tools"
+        }
+      },
+      {
+        "title": "Washed before you collect",
+        "text": "Ask the day before.",
+        "photo": {
+          "src": "img/washed.webp",
+          "width": 1100,
+          "height": 978,
+          "alt": "A clean white car under even light, water beading on the paint"
+        }
+      }
+    ]
+  },
+  "careCard": {
+    "checks": [
+      "Battery",
+      "Tyre pressures",
+      "Cover back on",
+      "Started and moved"
+    ],
+    "every": "month",
+    "sample": "Bay 7. Battery 12.6 V, tyres 2.4 bar all round, started and moved two metres, cover back on. Next check in a month."
+  },
+  "moveIn": {
+    "steps": [
+      {
+        "day": -3,
+        "title": "Send a photo of your driving licence and the car’s V5C"
+      },
+      {
+        "day": -1,
+        "title": "Tell your insurer the car’s new overnight address"
+      },
+      {
+        "day": 0,
+        "title": "Collect your fob at the hall, 8am to 8pm"
+      },
+      {
+        "day": 0,
+        "title": "First month’s payment"
+      },
+      {
+        "day": 28,
+        "title": "Second month’s payment"
+      }
+    ]
+  },
+  "layingUp": {
+    "intro": "Storing a car for the winter, or while you’re away: the checks we make, and the day it comes back.",
+    "every": 30,
+    "visit": "Arlo check: battery, tyres, start and move",
+    "back": "Collect the car: tax and insurance in place first",
+    "links": [
+      {
+        "label": "Make a SORN (GOV.UK)",
+        "url": "https://www.gov.uk/make-a-sorn"
+      },
+      {
+        "label": "Tax your vehicle (GOV.UK)",
+        "url": "https://www.gov.uk/vehicle-tax"
+      }
+    ]
+  },
+  "companies": {
+    "intro": "Bays for company cars and vans, on one monthly invoice.",
+    "sizes": [
+      "One to three vehicles",
+      "Four to ten",
+      "More than ten"
+    ],
+    "access": [
+      "Weekdays, 7am to 7pm",
+      "Every hour"
+    ]
+  },
+  "night": {
+    "intro": "The hall after dark, from the gate to your bay.",
+    "steps": [
+      {
+        "title": "The gate opens to your fob, at any hour.",
+        "text": "Hold the fob to the reader on the left pillar; the gate slides open and closes behind you."
+      },
+      {
+        "title": "The aisle lights come up ahead of you as you drive in.",
+        "text": "Drive slowly down the middle; the bays are numbered on the floor in front of each one."
+      },
+      {
+        "title": "Leave by the side door.",
+        "text": "It opens from inside without a fob and locks behind you."
+      }
+    ]
+  },
+  "visitInfo": {
+    "kicker": "Plan your visit",
+    "title": "Finding the hall",
+    "intro": "Under the railway arches on Wharf Street.",
+    "checked": "2026-11",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "Leicester station",
+        "origin": "Leicester station",
+        "minutes": 12,
+        "steps": [
+          "Leave by the main entrance",
+          "Walk north along Charles Street",
+          "Turn right onto Wharf Street; the arches are on the left"
+        ]
+      }
+    ],
+    "access": [
+      {
+        "label": "Step-free from the mews into the hall",
+        "yes": true
+      },
+      {
+        "label": "A side door that opens from inside without a fob",
+        "yes": true
+      }
+    ],
+    "accessNote": "The aisle is 6 m wide, with room to open doors fully beside a free bay.",
+    "payment": "Card or bank transfer, monthly."
+  },
+  "questions": [
+    {
+      "topic": "Size",
+      "q": "Will my car fit?",
+      "a": "Pick your car at the top of the page: the free bays it fits light up, with the room either side. Bays are 2.4 to 2.8 m wide and 5.2 m deep.",
+      "home": true
+    },
+    {
+      "topic": "Access",
+      "q": "Can I get to my car at night?",
+      "a": "Yes, at any hour, by fob. Viewings are 8am to 8pm.",
+      "home": true
+    },
+    {
+      "topic": "Charging",
+      "q": "Can I charge an electric car?",
+      "a": "Six bays have chargers: five at 7 kW and bay 14 at 22 kW. Plug in by 10pm and it’s charged by 7am.",
+      "home": true
+    },
+    {
+      "topic": "Insurance",
+      "q": "What do I tell my insurer?",
+      "a": "The hall’s address as the car’s overnight address. We can send a letter describing the security if your insurer asks.",
+      "home": true
+    },
+    {
+      "topic": "Terms",
+      "q": "How long do I have to stay?",
+      "a": "Month to month, with a month’s notice either way.",
+      "home": true
+    },
+    {
+      "topic": "Vans",
+      "q": "Do you take vans?",
+      "a": "Not tonight: our bays are 5.2 m deep. Join the waiting list and we’ll tell you when a longer bay is free.",
+      "home": false
+    }
+  ],
+  "insurerLetter": {
+    "file": "img/security-letter.pdf",
+    "label": "Our security, in a letter for your insurer"
+  },
+  "reviews": {
+    "source": "google",
+    "items": [
+      {
+        "text": "Easy to get in at night and the car was charged every morning.",
+        "author": "Dev P.",
+        "rating": 5,
+        "date": "2026-10"
+      }
+    ]
+  }
+}

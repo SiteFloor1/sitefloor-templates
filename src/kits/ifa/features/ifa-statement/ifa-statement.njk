@@ -1,0 +1,23 @@
+{#- Fees in pounds (IFA-6): the firm's published fees as a statement for an amount the visitor types. Painted at build
+    time for the example amount, so it reads right without JavaScript; the script works out any other amount. A broken
+    schedule shows no figure, only the way to the fees page. Arithmetic only: nothing here is a return or a projection. -#}
+{%- set f = site.fees %}
+{%- set s = f | feeStatement %}
+<div class="if-st" data-feature="ifa-statement"{{ "ifa-statement" | tierAttr | safe }} aria-labelledby="if-st-h">
+  <div class="if-st-top">{% include "kits/ifa/features/ifa-statement/mark.njk" %}<p id="if-st-h">Statement of advice fees<br><span>{{ site.regulation.legalName }}</span></p></div>
+  {%- if s.ok %}
+  <p class="if-st-for"><label for="if-st-amt">For advice on</label> <span class="if-st-in">£<input id="if-st-amt" inputmode="numeric" autocomplete="off" value="{{ f.example | gbp | replace('£', '') }}" data-st-amount aria-describedby="if-st-why"></span></p>
+  <div class="if-st-pre if-wait" role="group" aria-label="Try an amount" data-st-presets>{% for a in f.presets %}<button type="button" data-st-pick="{{ a }}" aria-pressed="{{ 'true' if a == f.example else 'false' }}">{{ a | gbp }}</button>{% endfor %}</div>
+  <div class="if-st-lines" aria-live="polite">
+    <p class="if-st-ln"><span>Initial advice, once</span><i aria-hidden="true"></i><b data-st="initial">{{ s.initial }}</b></p>
+    <p class="if-st-ln"><span>Ongoing advice, each year</span><i aria-hidden="true"></i><b data-st="ongoing">{{ s.ongoing }}</b></p>
+    <p class="if-st-ln if-st-sm"><span>which is, each month</span><i aria-hidden="true"></i><b data-st="monthly">{{ s.monthly }}</b></p>
+    <p class="if-st-ln if-st-tot"><span>Your first year</span><i aria-hidden="true"></i><b data-st="firstYear">{{ s.firstYear }}</b></p>
+  </div>
+  <p class="if-st-why" id="if-st-why" data-st-why hidden></p>
+  <p class="if-st-basis">Our published fees: {{ f.schedule.initial | chargeWords }} to begin, then {{ f.schedule.ongoing | chargeWords }} each year. {{ f.other }} {{ fca.risk }}</p>
+  {%- else %}
+  <p class="if-st-basis">Our fees are set out in full, in pounds, on our fees page.</p>
+  {%- endif %}
+  <div class="if-st-go">{% if "ifa-fees" | enabled %}<a class="if-go" href="{{ 'fees' | href }}"{{ "ifa-fees" | tierAttr | safe }}>Every fee explained</a>{% endif %}</div>
+</div>

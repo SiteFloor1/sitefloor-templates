@@ -163,6 +163,18 @@ Taken by Corbel: the blue-hour deep navy ground with warm lit rooms, the blueber
 pale green-white text, Encode Sans Expanded and Encode Sans, the engraved scene keypad and the circuit chart, the house
 at dusk switched by a keypad, and a 3D house lit room by room.
 
+## Financial advisers
+_From `docs/trades/financial-advisers/demo-map.md`._
+
+This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` (generated) before proposing a look.
+
+| Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
+|---|---|---|---|---|---|---|---|
+| Thursby | independent financial advice, `ifa`, `statement` | a private bank's statement: **ivory page, holly-green header band and footer**, one wide photograph of a Georgian terrace in morning sun | the terrace's brick and stucco, graded warm with a holly shadow | holly #1D3A2E for the band, the footer and the one filled button; pewter #B9BCB7 hairlines and the card's inner frame | Frank Ruhl Libre 300 / 400 (500 for the name in spaced capitals and the totals) | "Every fee, in pounds, before you sign anything." beside a statement card overlapping the photograph: dotted leaders, pence, the first year under a double rule | the note: a specimen banknote whose face value is the fee; the eight security features as the site's compliance features |
+
+Taken by Thursby: Frank Ruhl Libre, the holly band with a round seal and spaced capitals, the statement card with dotted
+leaders and a double-ruled total, the Georgian street photograph, "what to bring" beside each service.
+
 ## Florists
 _From `docs/trades/florist/demo-map.md`._
 
@@ -192,6 +204,15 @@ This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` 
 | Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
 |---|---|---|---|---|---|---|---|
 | Verrière | perfume house, `fragrance`, `verriere` (built 17 Nov on `trade/fragrance`) | a perfume house's still life: **warm stone studio**, one bottle large on travertine, the header over the picture, sentence case throughout, one plain footer line | the perfume itself, pale champagne gold | amber #8A5A12, champagne gold #DCA54A on stone #F2EEE8, studio #CDC3B5 | Hina Mincho 400 / SUSE 400 and 500 | the bottle turned by the visitor's hand (36 rendered turntable frames), its notes set as one sentence across the glass at the neck, shoulder and foot | (none yet) |
+
+## Garage and parking rentals
+_From `docs/trades/garage/demo-map.md`._
+
+This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` (generated) before proposing a look.
+
+| Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
+|---|---|---|---|---|---|---|---|
+| Elsden | indoor car storage and monthly parking, `garage`, `elsden` (built 17 Nov on `trade/garage`) | a gallery for cars: **plaster** ground, the hall itself as the work, seen from straight above edge to edge, its label resting on the forecourt like a gallery card; the hall drawn to scale below; how cars are kept hung like a show | a bay leaf (olive) | olive #55613F on plaster #E9E6E0, paper #F7F5F0, ink #1C1B19 | Cardo 400 and 700 / Radio Canada 400 to 600 | pick your car and one that size drives in through the gate and turns into the bay that fits; charging and cameras as layers; the same view after dark with the route to the bay lit | to come with the case study |
 
 ## Grand cafés and tea rooms
 _From `docs/trades/grand-cafe/demo-map.md`._
@@ -382,6 +403,15 @@ This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` 
 | Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
 |---|---|---|---|---|---|---|---|
 | Marlie | whitening and aesthetic dental studio, `smile`, `booth` (built 9 Nov on `trade/teeth`) | young founder-led studio, Instagram-first: **white**, warm black-and-white photographs, espresso band and footer | a lavender sprig | lavender #54449A (soft #C4B9E6) on white #FFFFFF, espresso #211B19 | Reddit Sans 200 / Reddit Sans 300, Brygada 1918 italic for the dentist's voice | a photo-booth strip of four smiles developing frame by frame (flat on desktop, upright and within one screen on a phone) | (to come) |
+
+## Independent tour operators
+_From `docs/trades/tourism/demo-map.md`._
+
+This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` (generated) before proposing a look.
+
+| Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
+|---|---|---|---|---|---|---|---|
+| Larrow | independent tour operator, `tourism`, `logbook` (built 17 Nov on `trade/tourism`) | a traveller's logbook: **cool off-white**, hairline rules, square edges; the stop's photograph large on the left, the entry and stops in the middle, the country drawn full height on the right | Xanthoria lichen on Patagonian granite | lichen #A3561A on off-white #F3F2EF, ink #141516 | Familjen Grotesk 500 / 400 (one family) | the journey of the month, day by day: choose a stop and the route draws itself down the country to it; four journeys beneath as an index | to come with the case study |
 
 ## Wealth managers
 _From `docs/trades/wealth/demo-map.md`._
