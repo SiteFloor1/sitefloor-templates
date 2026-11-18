@@ -687,7 +687,7 @@ Whole site: JS 25.5 KB (9.6 KB gz), CSS 43.4 KB (10 KB gz), fonts 64 KB (Hina Mi
 woff2). HTML gz: home 7.5 KB, other pages 3.9–5.8 KB. `npm run budget` passes.
 
 The turntable: 36 frames shown, 18 files per size (the flacon is the same from the back). Frame 1 is the hero
-picture; the other 17 load after the page, when the browser is idle or on the first touch, so the first screen costs
+picture; the other 17 load only when someone hovers over, touches or tabs to the bottle, so the page costs
 one picture. Desktop 1600×1000 (about 26 KB a frame, 472 KB for 18), large retina screens 2400×1500 through `srcset`
 (about 58 KB a frame, 1,044 KB for 18), phones 780×1120 (about 24 KB a frame, 424 KB for 18). Rendered in Blender
 Cycles at 2400×1500, 56–96 samples, denoised; the frames are laid onto one full plate so the studio never shimmers
