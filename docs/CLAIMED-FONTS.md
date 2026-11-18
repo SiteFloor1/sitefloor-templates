@@ -89,6 +89,7 @@ A case study is a design too: don't reuse these in a new look or another case st
 | Fendle (street-food stalls) | case-studies/fendle | stalls | Gabarito | Labrada | |
 | Fennick & Lowe (tailor) | case-studies/fennick-lowe | tailor | Della Respira | Commissioner | |
 | Grenat (grand café) | case-studies/grenat | grand-cafe | Italiana | EB Garamond | |
+| Halde (gym) | case-studies/halde | gym | Epilogue | Epilogue | |
 | Halvern (letting) | case-studies/halvern | letting | Petrona | Petrona | |
 | Hatheli (mehndi artist) | case-studies/hatheli | mehndi | Rozha One | Source Serif 4 | |
 | Isolde (bridal hair and makeup artist) | case-studies/isolde | bridal-beauty | Libre Bodoni | Faustina | |
