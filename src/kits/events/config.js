@@ -94,7 +94,7 @@ export function checkEvents(site, err, exists) {
   if (site.brief !== undefined) checkBrief(site.brief, err);
   if (site.keyDates !== undefined) checkKeyDates(site.keyDates, err);
   if (site.journal !== undefined) checkJournal(site.journal, err);
-  const sets = site.visuals !== undefined ? checkVisuals(site.visuals, err, exists) : [];
+  if (site.visuals !== undefined) checkVisuals(site.visuals, err, exists);
   if (site.layTable !== undefined) checkLay(site.layTable, err, exists);
   if (site.runOfShow !== undefined) checkRun(site.runOfShow, err);
   const cases = site.cases !== undefined ? checkCases(site.cases, err, exists) : [];

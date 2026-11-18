@@ -25,7 +25,7 @@ export function daysTo(from, to) { return Math.round((Date.parse(`${to}T00:00:00
 export function weekday(ymd) { return WEEKDAYS[new Date(`${ymd}T12:00:00Z`).getUTCDay()]; }
 /** "Saturday 12 June 2027". @param {string} ymd */
 export function longDate(ymd) {
-  return new Intl.DateTimeFormat("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(`${ymd}T12:00:00Z`));
+  return new Intl.DateTimeFormat("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(`${ymd}T12:00:00Z`)).replace(",", "");
 }
 /** "12 June". @param {string} ymd */
 export function dayMonth(ymd) {
@@ -118,7 +118,7 @@ export function keyDates(eventDate, items, today) {
  * @param {string} business @param {{ label: string, date: string }[]} dates @param {string} stamp YYYYMMDDTHHMMSSZ @param {string} host
  */
 export function icsFile(business, dates, stamp, host) {
-  const esc = (/** @type {string} */ s) => s.replace(/\\/g, "\\\\").replace(/;/g, "\;").replace(/,/g, "\\,").replace(/\r?\n/g, "\\n");
+  const esc = (/** @type {string} */ s) => s.replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\r?\n/g, "\\n");
   const fold = (/** @type {string} */ line) => {
     const out = []; let s = line;
     while (new TextEncoder().encode(s).length > 75) {
@@ -150,9 +150,9 @@ export function drawRoom(room, guests, layout) {
   const floor = df ? { x: L - edge - df, y: (W - df) / 2, w: df, h: df } : null;
   const usableL = L - 2 * edge - (df ? df + 1 : 0), usableW = W - 2 * edge;
   /** @type {{ x: number, y: number, w: number, h: number, seats: number, shape: "rect"|"round"|"high" }[]} */ const tables = [];
-  let capacity = 0;
+  let capacity;
   if (layout === "long") {
-    const rows = Math.max(0, Math.floor((usableW - 1.2) / 3) + 1), perSide = Math.max(0, Math.floor(usableL / 0.6));
+    const rows = Math.max(0, Math.floor((usableW - 1.2) / 3) + 1), perSide = Math.max(0, Math.floor((usableL - 0.3) / 0.6));
     capacity = rows * perSide * 2;
     let left = Math.min(guests, capacity);
     const gap = rows > 1 ? (usableW - 1.2) / (rows - 1) : 0;
@@ -191,7 +191,7 @@ export function roomWords(p, roomName) {
     : `${roomName} is too small for this layout.`;
   if (p.layout === "standing") return `${p.guests} standing, ${p.tables.length} high tables and a long bar.`;
   const n = p.tables.length, kind = p.layout === "long" ? "long table" : "round table";
-  return `${p.guests} seated at ${n} ${kind}${n === 1 ? "" : "s"}${p.floor ? `, with a ${p.floor.w} × ${p.floor.h} m dance floor` : ""}.`;
+  return `${p.guests} seated at ${n} ${kind}${n === 1 ? "" : "s"}${p.floor ? `, with a dance floor ${p.floor.w} × ${p.floor.h} m` : ""}.`;
 }
 
 /** A proposal code: 6–12 letters and numbers, read without spaces or dashes, in capitals. @param {any} raw */
@@ -226,7 +226,7 @@ export function proposalFromCsv(csv, code, sets, rooms, today, staleAfterDays) {
   return { ok: true, visuals, room: room || null, layout, date, updated, guests: Number.isInteger(g) && g > 0 && g <= 2000 ? g : 0 };
 }
 
-/** Rooms from the portfolio that suit a number of guests: within a third either way, closest first. @param {any[]} rooms @param {number} guests @param {string} [occasion] */
+/** Rooms from the portfolio that suit a number of guests: from two thirds to half as many again, closest first. @param {any[]} rooms @param {number} guests @param {string} [occasion] */
 export function roomsFor(rooms, guests, occasion) {
   return rooms
     .filter((r) => (!occasion || r.occasion === occasion) && (!guests || (r.guests >= guests * 0.67 && r.guests <= guests * 1.5)))
