@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: coaches
+permalink: coaches.html
+feature: gym-coaches
+eleventyComputed:
+  title: "{{ site.coaches.title | plain }}"
+  description: "The coaches at {{ site.business.name }}, {{ site.location.locality }}: their qualifications and the classes they take."
+---
+{%- set ph = site.coaches %}{% include "kits/gym/partials/page-head.njk" %}
+{% include "kits/gym/features/gym-coaches/gym-coaches.njk" %}

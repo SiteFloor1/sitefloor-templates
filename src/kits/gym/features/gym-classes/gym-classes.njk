@@ -1,0 +1,25 @@
+{#- The class finder (GYM-4): three plain choices (what for, who it suits, time of day), the number of classes that fit
+    set large, then each class with every time it runs this week and "Book in the app". The build writes every class
+    and time; the script only hides what doesn't fit. Without JavaScript every class shows. -#}
+{%- set f = site.classFinder %}{% set rows = site | classWeeks %}
+<section class="gcf" data-feature="gym-classes" aria-label="Find a class"><div class="wrap">
+  <div class="gcf-pick" role="group" aria-label="Choose">
+    <div class="gcf-g"><span class="gcf-l" id="gcf-l-goal">For</span><div role="group" aria-labelledby="gcf-l-goal">{% for g in f.goals %}<button type="button" aria-pressed="false" data-k="goal" data-v="{{ g.id }}">{{ g.label }}</button>{% endfor %}</div></div>
+    <div class="gcf-g"><span class="gcf-l" id="gcf-l-level">Suits</span><div role="group" aria-labelledby="gcf-l-level">{% for l in f.levels %}<button type="button" aria-pressed="false" data-k="level" data-v="{{ l.id }}">{{ l.label }}</button>{% endfor %}</div></div>
+    <div class="gcf-g"><span class="gcf-l" id="gcf-l-band">When</span><div role="group" aria-labelledby="gcf-l-band"><button type="button" aria-pressed="false" data-k="band" data-v="morning">Before ten</button><button type="button" aria-pressed="false" data-k="band" data-v="midday">Ten to four</button><button type="button" aria-pressed="false" data-k="band" data-v="evening">After four</button></div></div>
+  </div>
+  <p class="gcf-n" aria-live="polite" data-gcf-n>{{ rows.length | finderCount }}</p>
+  <ol class="gcf-list">
+    {%- for c in rows %}
+    <li class="gcf-c" data-goals="{{ (c.goals or []) | join(' ') }}" data-level="{{ c.level }}" data-bands="{{ c.bands | join(' ') }}">
+      <div class="gcf-name"><h2>{{ c.name }}</h2><p>{{ c.minutes }} minutes{% if c.size %} · up to {{ c.size }}{% endif %}</p></div>
+      <p class="gcf-text">{{ c.text }}</p>
+      {%- if c.sessions.length %}
+      <ul class="gcf-times" aria-label="This week">{% for s in c.sessions %}<li data-band="{{ s.band }}">{{ s | sessionLabel }}{% if s.coach %}<span> · {{ s.coach }}</span>{% endif %}</li>{% endfor %}</ul>
+      {%- else %}<p class="gcf-times-none">Not on this week's timetable.</p>{% endif %}
+      {%- set bk = "" %}{% include "kits/gym/partials/book.njk" %}
+    </li>
+    {%- endfor %}
+  </ol>
+  {%- if "gym-week" | enabled %}<p class="gcf-more"><a class="go" href="{{ 'timetable' | href }}">The whole week, day by day</a></p>{% endif %}
+</div></section>

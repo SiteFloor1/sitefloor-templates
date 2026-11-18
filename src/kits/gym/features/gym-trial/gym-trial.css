@@ -1,0 +1,20 @@
+/* The free trial page: a tall photograph beside the day, numbered; the request below. */
+.gtr { padding-block: clamp(32px, 4vw, 64px) clamp(56px, 7vw, 112px); }
+.gtr-in { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(32px, 6vw, 112px); align-items: start; }
+.gtr-f { margin: 0; }
+.gtr-f img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+.gtr-w h1 { font-size: clamp(44px, 5.4vw, 88px); line-height: .98; letter-spacing: -.045em; }
+.gtr-i { margin-top: 20px; color: var(--muted); max-width: 30em; font-size: 18px; }
+.gtr-h { font-size: 15px; font-weight: 500; letter-spacing: 0; margin: clamp(36px, 4vw, 56px) 0 12px; }
+.gtr-inc { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.gtr-inc li { padding: 12px 0; border-bottom: 1px solid var(--line); font-size: clamp(18px, 1.5vw, 21px); font-weight: 300; }
+.gtr-steps { list-style: none; margin: 0; padding: 0; }
+.gtr-steps li { display: grid; grid-template-columns: 3.2em minmax(0, 1fr); gap: 0 12px; padding: 16px 0; border-top: 1px solid var(--line); }
+.gtr-no { font-family: var(--font-display); font-weight: 200; font-size: 40px; line-height: .9; color: var(--accent); }
+.gtr-steps h3 { font-size: 17px; font-weight: 500; letter-spacing: -.01em; }
+.gtr-steps p { margin-top: 4px; color: var(--muted); }
+.gtr-go { margin-top: 36px; }
+@media (max-width: 820px) {
+  .gtr-in { grid-template-columns: 1fr; }
+  .gtr-f img { aspect-ratio: 4 / 3; }
+}

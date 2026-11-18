@@ -1,0 +1,13 @@
+{#- Your first visit: what to bring set large, the photograph beside it; then from the front desk to the floor,
+    numbered; the house rules; directions stay on Plan your visit. -#}
+{%- set f = site.firstVisit %}
+<section class="gfv" data-feature="gym-first" aria-label="{{ f.title | plain }}"><div class="wrap">
+  <div class="gfv-top">
+    <div><h2 class="gfv-h">Bring</h2><ul class="gfv-bring">{% for x in f.bring %}<li>{{ x }}</li>{% endfor %}</ul></div>
+    {%- if f.photo %}<figure class="gfv-f"><img src="{{ f.photo.src | img }}" alt="{{ f.photo.alt }}" width="{{ f.photo.width }}" height="{{ f.photo.height }}" decoding="async"></figure>{% endif %}
+  </div>
+  <h2 class="gfv-h">When you arrive</h2>
+  <ol class="gfv-steps">{% for s in f.steps %}<li><span class="gfv-no" aria-hidden="true">{{ loop.index }}</span><h3>{{ s.title }}</h3><p>{{ s.text }}</p></li>{% endfor %}</ol>
+  {%- if f.rules %}<h2 class="gfv-h">House rules</h2><ul class="gfv-rules">{% for r in f.rules %}<li>{{ r }}</li>{% endfor %}</ul>{% endif %}
+  <p class="gfv-more">{% if "plan-visit" | enabled %}<a class="go" href="{{ 'visit' | href }}">Getting here</a>{% endif %}{% if "gym-app" | enabled %}<a class="go" href="{{ 'app' | href }}">Booking in the app</a>{% endif %}</p>
+</div></section>

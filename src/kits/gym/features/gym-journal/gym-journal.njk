@@ -1,0 +1,15 @@
+{#- The journal: the club's short pieces as a ruled index, newest first: title large, one line, reading time. -#}
+{%- set j = site.journal %}
+<section class="gjo" data-feature="gym-journal" aria-label="{{ j.title | plain }}"><div class="wrap">
+  <ol class="gjo-list">
+    {%- for a in j.items | sort(true, false, "date") %}
+    <li class="gjo-a">
+      <a href="{{ ('journal-' + a.slug) | href }}">
+        <span class="gjo-t">{{ a.title }}</span>
+        <span class="gjo-i">{{ a.intro }}</span>
+        <span class="gjo-m">{{ a.minutes }} min</span>
+      </a>
+    </li>
+    {%- endfor %}
+  </ol>
+</div></section>

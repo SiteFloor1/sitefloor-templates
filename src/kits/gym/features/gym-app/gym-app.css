@@ -1,0 +1,19 @@
+/* The app and booking: three large numbered steps on the left; the rules as a ruled list on the right. */
+.gap { border-top: 0; padding-top: 0; }
+.gap-in { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(40px, 6vw, 120px); align-items: start; }
+.gap-steps { list-style: none; margin: 0; padding: 0; }
+.gap-steps li { display: grid; grid-template-columns: clamp(64px, 7vw, 110px) minmax(0, 1fr); gap: 0 16px; padding: 24px 0; border-top: 1px solid var(--line); }
+.gap-no { font-family: var(--font-display); font-weight: 200; font-size: clamp(64px, 7vw, 110px); line-height: .8; letter-spacing: -.06em; }
+.gap-steps h2 { font-size: clamp(22px, 2vw, 28px); line-height: 1.1; }
+.gap-steps p { margin-top: 8px; color: var(--muted); max-width: 28em; }
+.gap-h { font-size: 15px; font-weight: 500; letter-spacing: 0; margin-bottom: 12px; }
+.gap-rules { margin: 0; border-top: 1px solid var(--line); }
+.gap-rules div { display: grid; grid-template-columns: 9em minmax(0, 1fr); gap: 4px 20px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.gap-rules dt { font-weight: 500; font-size: 15px; }
+.gap-rules dd { margin: 0; color: var(--muted); font-size: 15px; }
+.gap-go { margin-top: 32px; }
+.gap-stores { display: flex; flex-wrap: wrap; gap: 4px 28px; margin-top: 16px; }
+@media (max-width: 860px) {
+  .gap-in { grid-template-columns: 1fr; }
+  .gap-rules div { grid-template-columns: 1fr; }
+}

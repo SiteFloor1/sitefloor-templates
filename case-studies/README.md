@@ -44,6 +44,23 @@ chat can reuse the Sitefloor bar, footer and patterns without re-reading a publi
   as three motorway junctions on blue road-sign plates, the speed as the journey time, a live Delivered tonight with the
   demo's figures; night navy, Overpass and Overpass Mono). Media (four clips, posters, stills, four car photos) live in
   the published artifact under `media/`. Clips: Playwright at 390×844, scaled to 780 wide.
+- `fendle/index.html`: the street-food stall case study (pull one: the page reads Fendle's website the way a bubble
+  waffle is eaten, one bubble at a time. The hero is a real waffle in the open iron, full bleed, with fifteen of its
+  bubbles as the kit's fifteen features; tap one and it lifts out of the photograph (the same pixels, clipped, with a
+  shadow), leaves its empty cup behind, and a white card answers with the customer's question and the site's answer,
+  live where the demo is (the next stop and its countdown on London time from Fendle's usual week, the party diary's
+  Saturdays); a strip of the fifteen sits under the photograph for keyboards and phones. The chapters are six bubbles on
+  raspberry, each a giant photographed bubble behind the demo on a phone: where we are, the board, parties, the drop,
+  allergens, where to find us. The plans are Plain, Sauced and Loaded, three real waffles; the speed is "off the iron";
+  the close asks for the stall's week. Iron black, raspberry, crust amber, batter cream; Gabarito and Labrada, the
+  demo's own, self-hosted with size-matched stand-ins). Media (the iron photograph in two crops, six bubble crops, three
+  plan photographs, eight phone stills, a laptop screen, the saved board picture, the fonts) live in `media/` and the
+  published artifact. Phone stills: 390×844 at 2x in full Chrome, en-GB, London time, Saturday 21 November 2026, 15:00.
+  Photographs (Pexels, free licence): the waffle iron, Th2city Santana,
+  https://www.pexels.com/photo/waffle-on-iron-25757603/ (hero, bubbles, Plain); chocolate bubble waffles, Elizabeth
+  Ferreira, https://www.pexels.com/photo/delicious-chocolate-bubble-waffles-in-food-truck-30461190/ (Sauced, cropped
+  above the cones' print); bubble waffles with berries and nuts, Willians Huerta,
+  https://www.pexels.com/photo/bubble-waffles-with-mixed-berries-and-nuts-34926596/ (Loaded).
 - `fennick-lowe/index.html`: the tailor case study (cut to pattern: the page opens on Fennick & Lowe's charcoal flannel
   with a coat's manila pattern pieces laid on it, each piece a page of the site; tap one and a chalk line goes round it
   while that page shows on a phone lying on the cutting table; the pattern ticket lists every piece and the plan it
@@ -55,6 +72,21 @@ chat can reuse the Sitefloor bar, footer and patterns without re-reading a publi
   live in the published artifact under `media/`. Phone clips: CDP screencast at 390×844 and 2x, encoded H.264.
 - `grenat/index.html`: the grand café case study (a three-tier stand: Starter, Plus, Signature as savouries, scones and
   pâtisserie). Media (two phone clips, stills from the demo) live only in the published artifact.
+- `halde/index.html`: the gym case study (the hour: a gym is a different place at 6am and at 6pm, and so is its
+  website. The page opens on the demo's own hero, the club's count so large it crosses the photograph's edge and turns
+  to negative over it, set by a rail of the day's twenty-four hours: each hour a fine rule as tall as the club's usual
+  count, a day switch above it, and beneath it what the site shows a member at that hour (the doors, the next class,
+  the next sauna slot, later today or first tomorrow), all from the demo's own figures and timetable. Pick a shut hour
+  and the photograph dims slowly, the lights off. Chapters each open on one of the club's numbers: 15 minutes (the live
+  count's age limit, with a slider for the sheet's age and a "can't be read" switch), £1,578 (the whole price under
+  the DMCC Act, with a calculator using the kit's own rule), 6 classes (the class finder, film, and the timetable on a
+  laptop), 21 weeks (the race planner, film), 85° (heat and cold, the only colour: the steam band with the figure
+  crossing its foot, the cedar room), 5 rooms (film), 20 pages (a sideways strip of phones). The plans are priced the
+  way Halde prices memberships, the first year's total first; the numbers are four measurements; the close is "your
+  club, by the hour". Halde's black, bone and river stone; Epilogue (the demo's own), self-hosted with size-matched
+  stand-ins). Media (three phone films with posters, fifteen phone stills, the timetable on a laptop, six of the
+  demo's photographs, the fonts) live in `media/` and the published artifact. Phone films: CDP screencast at 390×844
+  and 2x in Chromium with `--lang=en-GB`, H.264; stills and films without the demo ribbon; nothing plays until asked.
 - `halvern/index.html`: the letting agent case study (going up: the page is a ride in the lift of a red-brick mansion
   block, from the street door to the roof, and every floor is a page of Halvern's website; the hero is the lift car,
   mahogany panels and a brass Art Deco floor indicator whose needle swings to the floor you press on the brass call
@@ -118,6 +150,20 @@ chat can reuse the Sitefloor bar, footer and patterns without re-reading a publi
   film with posters, three phone clips with posters, two phone stills) live in the published artifact under `media/`.
   Phone clips: Playwright screenshots at 390×844 and 2x in full Chromium with `--lang=en-GB` (UK date fields), one per
   step and one per typed letter, stitched with ffmpeg (the CDP screencast came out at 1x).
+- `larrow/index.html`: the tour operator case study (twelve gores make a globe: the page opens on a globe-maker's
+  gore sheet, the world cut into twelve 30° gores in Larrow's logbook ink, with each gore holding one month. Tap a
+  month and its gore lights, the journey Larrow would send you on that month is drawn across it as a route with its
+  stops, and an inset gives the photograph, nights, the place's local time (live) and its typical high from the
+  demo's published climate figures; the page opens on this month in London. Chapters follow the gores: the logbook on
+  a laptop (film), the year on a phone (film), local time (three live clocks), journeys and ATOL as given, when to go
+  on a laptop, daylight, the shortlist and who's been there, the trip builder (film), travel-ready and the private
+  trip page (film). The plans are three globes, Pocket, Table and Library; the numbers are "drawn to scale"; the close
+  is "your year, on twelve gores". Ivory ground, logbook ink, one burnt-sienna accent taken from the demo; land from
+  Natural Earth (public domain) projected as interrupted sinusoidal gores; Familjen Grotesk (the demo's own),
+  self-hosted with a size-matched stand-in). Media (four films with posters, six phone stills, the when-to-go table on
+  a laptop, five of the demo's photographs (one in two crops), the fonts) live in `media/` and the published artifact. Sideways strips are keyboard-reachable regions and each film button names its film. Phone films: CDP
+  screencast at 390×844 and 2x in Chromium with `--lang=en-GB`, H.264; stills and films without the demo ribbon;
+  nothing plays until asked.
 - `linnet/index.html`: the cleaning case study (one visit, timed: the page is a fortnightly clean of a two-bedroom home
   with two bathrooms, 2 h 25 from 09:00. The hero is Linnet's room strip, live, under a headline that is the visit's
   length in words ("Two hours, twenty-five minutes."), so changing bedrooms, bathrooms or how often rewrites the

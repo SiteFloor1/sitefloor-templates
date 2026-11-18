@@ -33,6 +33,20 @@ export const features = [
     summary: "Corporate rate (GYM-12): type your company and see its rate as a lawful total, from the club's own list; not listed, ask on WhatsApp." },
   { id: "gym-recovery-page", dir: `${K}/gym-recovery-page`, minPlan: "plus", kits: ["gym"], requires: ["recovery"], needs: ["gym-recovery"], page: "recovery", js: false,
     summary: "The heat and cold page: the rooms, the rules and every slot of the week." },
+  { id: "gym-classes", dir: `${K}/gym-classes`, minPlan: "plus", kits: ["gym"], requires: ["classTypes", "timetable", "classFinder"], page: "classes", js: true,
+    summary: "Class finder (GYM-4): choose what you train for, who it suits and the time of day; the club's own classes that fit, each with every time it runs this week and \"Book in the app\"." },
+  { id: "gym-trial", dir: `${K}/gym-trial`, minPlan: "plus", kits: ["gym"], requires: ["dayPass", "trialPage"], needs: ["gym-daypass"], page: "trial", js: false,
+    summary: "The free trial page (GYM-5): what the day includes, what happens when you arrive, and the day pass request (WhatsApp), so the home page stays short." },
+  { id: "gym-tour", dir: `${K}/gym-tour`, minPlan: "plus", kits: ["gym"], requires: ["tour"], page: "club", js: true,
+    summary: "The club, room by room (GYM-6): a photograph of each room large, with what's in it and the facts people ask (how many, step-free, towels). Choose a room from the list; without JavaScript every room is shown in turn." },
+  { id: "gym-coaches", dir: `${K}/gym-coaches`, minPlan: "plus", kits: ["gym"], requires: ["coaches", "timetable", "classTypes"], page: "coaches", js: false,
+    summary: "The coaches: each coach's photograph, qualifications as on their certificates, and the classes they take this week, read from the timetable." },
+  { id: "gym-training", dir: `${K}/gym-training`, minPlan: "plus", kits: ["gym"], requires: ["training"], page: "training", js: false,
+    summary: "Personal training: who it's for and the club's packs, each a lawful total with every mandatory fee in (the DMCC Act's rule), then the price a session; ask on WhatsApp." },
+  { id: "gym-first", dir: `${K}/gym-first`, minPlan: "plus", kits: ["gym"], requires: ["firstVisit"], page: "first-visit", js: false,
+    summary: "Your first visit: what to bring, what happens from the front desk to the floor, and the house rules. Directions stay on Plan your visit." },
+  { id: "gym-app", dir: `${K}/gym-app`, minPlan: "plus", kits: ["gym"], requires: ["app"], page: "app", js: false,
+    summary: "The app and booking: how to get the club's booking app, the booking rules in the club's words (when bookings open, cancelling, the waitlist) and links straight to it." },
   // Signature
   { id: "gym-live", dir: `${K}/gym-live`, minPlan: "signature", kits: ["gym"], requires: ["busy"], needs: ["gym-count"], js: true,
     summary: "The live count: the door count from the club's sheet in the hero, with its age, while it is under 15 minutes old; older or unreadable, the hero goes back to \"usually\"." },
@@ -42,13 +56,17 @@ export const features = [
     summary: "Hyrox race prep (GYM-8): type the race date (dd/mm/yyyy) and the weeks to it are shared out over the club's phases, each with its dates and the club's own classes; every session goes into the calendar in one file. No results promised." },
   { id: "gym-hyrox-page", dir: `${K}/gym-hyrox-page`, minPlan: "signature", kits: ["gym"], requires: ["hyrox"], needs: ["gym-hyrox"], page: "hyrox", js: false,
     summary: "The Hyrox page: the race-prep planner, what each phase is for and the club's notes on race day." },
+  { id: "gym-events", dir: `${K}/gym-events`, minPlan: "signature", kits: ["gym"], requires: ["events"], page: "events", morePages: ["event-ics"], js: true,
+    summary: "Members' events (GYM-9): the club's own list, soonest first, the next one large; each goes into the calendar as one file (its time right in any time zone) and is booked in the app or asked about on WhatsApp. Past events leave by themselves." },
+  { id: "gym-journal", dir: `${K}/gym-journal`, minPlan: "signature", kits: ["gym"], requires: ["journal"], page: "journal", morePages: ["article"], js: false,
+    summary: "Journal: the club's own short articles (a first Hyrox, sauna and cold plunge, a weekly routine), each on its own page." },
 ];
 
 /**
  * Shared features this trade doesn't offer: free-form pages that escape the price and count checks, before/after work
  * galleries, and the shared price and membership lists (a gym's prices go through clubMemberships, so the mandatory fees
- * are always in the total). Not yet in the gym's look and demo (the second gym pull request adds coaches, reviews,
- * gifts and the photograph sections): team, reviews, vouchers, gallery, photo-band, page-links, seasonal.
+ * are always in the total). The shared team page too: the gym's own coaches page (gym-coaches) reads each coach's
+ * classes from the timetable. Not in this look: reviews, vouchers, gallery, photo-band, page-links, seasonal.
  */
 export const refuses = ["custom-pages", "work", "before-after", "memberships", "price-list", "price-page", "team", "reviews", "vouchers", "gallery", "photo-band", "page-links", "seasonal"];
 

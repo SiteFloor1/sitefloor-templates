@@ -1,0 +1,20 @@
+/* Your first visit: what to bring large beside a photograph, then four steps across, then the rules. */
+.gfv { border-top: 0; padding-top: 0; }
+.gfv-top { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(32px, 5vw, 96px); align-items: end; margin-bottom: clamp(56px, 7vw, 112px); }
+.gfv-h { font-size: 15px; font-weight: 500; letter-spacing: 0; margin-bottom: 14px; }
+.gfv-bring { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.gfv-bring li { padding: 14px 0; border-bottom: 1px solid var(--line); font-size: clamp(24px, 2.6vw, 40px); font-weight: 300; letter-spacing: -.03em; line-height: 1.1; }
+.gfv-f { margin: 0; }
+.gfv-f img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
+.gfv-steps { list-style: none; margin: 0 0 clamp(48px, 6vw, 96px); padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 0 clamp(20px, 3vw, 40px); }
+.gfv-steps li { padding-top: 18px; border-top: 1px solid var(--line-2); }
+.gfv-no { display: block; font-family: var(--font-display); font-weight: 200; font-size: 56px; line-height: .9; color: var(--accent); margin-bottom: 14px; }
+.gfv-steps h3 { font-size: 18px; font-weight: 500; letter-spacing: -.01em; }
+.gfv-steps p { margin-top: 6px; color: var(--muted); font-size: 15px; }
+.gfv-rules { list-style: none; margin: 0; padding: 0; columns: 2; column-gap: clamp(32px, 5vw, 96px); color: var(--muted); }
+.gfv-rules li { break-inside: avoid; padding: 10px 0; border-top: 1px solid var(--line); }
+.gfv-more { display: flex; flex-wrap: wrap; gap: 8px 32px; margin-top: 40px; }
+@media (max-width: 820px) {
+  .gfv-top { grid-template-columns: 1fr; }
+  .gfv-rules { columns: 1; }
+}
