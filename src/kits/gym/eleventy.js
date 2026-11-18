@@ -2,6 +2,7 @@
 /** Gym kit additions to the shared Eleventy setup: the home sections, lawful prices, the count and the week. */
 import { HOME_PARTS, HOSTS } from "./home.js";
 import { priceWords, membershipTotal, usualAt, hourWords, quietWords, weekOf, pounds, busyDay, samplePlan, ukNumeric, shortDate, numberWords } from "./lib/gym.js";
+import { classWeeks, coachClasses, packWords, upcomingEvents, eventHours, eventIcs, sessionLabel, finderCount } from "./lib/club.js";
 import { DAY_NAMES } from "../../core/lib/hours.js";
 import { ukDate } from "../../core/lib/diary.js";
 
@@ -42,4 +43,16 @@ export default function gymKit(eleventyConfig) {
   eleventyConfig.addFilter("shortDate", (/** @type {string} */ d) => shortDate(d));
   eleventyConfig.addFilter("numberWords", (/** @type {number} */ n) => numberWords(n));
   eleventyConfig.addFilter("hourWords", (/** @type {number} */ h) => hourWords(h));
+  // The club's own pages (lib/club.js): the class finder, the coaches' weeks, personal training prices, events.
+  eleventyConfig.addFilter("classWeeks", (/** @type {any} */ site) => classWeeks(site.classTypes.items, site.timetable.weekly));
+  eleventyConfig.addFilter("coachClasses", (/** @type {any} */ site, /** @type {string} */ name) => coachClasses(site.timetable.weekly, name));
+  eleventyConfig.addFilter("sessionLabel", (/** @type {any} */ s) => sessionLabel(s.day, s.time));
+  eleventyConfig.addFilter("finderCount", (/** @type {number} */ n) => finderCount(n));
+  eleventyConfig.addFilter("packWords", (/** @type {any} */ p) => packWords(p));
+  eleventyConfig.addFilter("upcomingEvents", (/** @type {any[]} */ items, /** @type {string} */ today) => upcomingEvents(items, today));
+  eleventyConfig.addFilter("eventHours", (/** @type {any} */ e) => eventHours(e));
+  eleventyConfig.addFilter("eventIcs", (/** @type {any} */ e, /** @type {any} */ site, /** @type {string} */ stamp) => eventIcs({
+    event: e, club: site.business.name, tz: site.hours.timezone, stamp,
+    place: [site.business.name, site.location.streetAddress, site.location.locality, site.location.postcode].filter(Boolean).join(", "),
+  }));
 }

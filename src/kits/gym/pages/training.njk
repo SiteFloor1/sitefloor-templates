@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: training
+permalink: training.html
+feature: gym-training
+eleventyComputed:
+  title: "{{ site.training.title | plain }}"
+  description: "Personal training at {{ site.business.name }}, {{ site.location.locality }}: who it's for and what each pack costs, every fee included."
+---
+{%- set ph = site.training %}{% include "kits/gym/partials/page-head.njk" %}
+{% include "kits/gym/features/gym-training/gym-training.njk" %}

@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: events
+permalink: events.html
+feature: gym-events
+eleventyComputed:
+  title: "{{ site.events.title | plain }}"
+  description: "Members' events at {{ site.business.name }}, {{ site.location.locality }}: what's on, when, and who can come."
+---
+{%- set ph = site.events %}{% include "kits/gym/partials/page-head.njk" %}
+{% include "kits/gym/features/gym-events/gym-events.njk" %}

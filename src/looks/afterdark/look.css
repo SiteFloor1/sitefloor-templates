@@ -1,6 +1,6 @@
 /* =========================================================================
-   Look: After dark. A members' training club after dark. Black ground; one black-and-white portrait framed in the
-   middle of the page; the count so large its number crosses the portrait's edge and turns to negative over it. Heat
+   Look: After dark. A members' training club after dark. Black ground; one black-and-white portrait running to the
+   page's right edge; the count so large its number crosses the portrait's edge and turns to negative over it. Heat
    and cold is the warm second act, in colour. Epilogue alone, light and large; one pale stone for dates and quiet
    marks, taken from a wet river stone. Square edges, no shadows, nothing tied to the scroll.
    Design rounds: sitefloor-internal, docs/trades/gym (design/gym).
@@ -56,17 +56,19 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .ad-menu span { position: static; height: auto; background: none; transition: none; }
 .ad-menu .ad-close, .ad-menu[aria-expanded="true"] .ad-open { display: none; }
 .ad-menu[aria-expanded="true"] .ad-close { display: inline; }
+.ad-menu-all { display: block; order: 3; }
 @media (max-width: 1080px) { .ad-links { display: none; } .ad-join { margin-left: auto; } .ad-menu { display: block; } }
 @media (max-width: 760px) { :root { --nav-h: 64px; } .ad-mark { height: 26px; } }
 .mnav.ad-sheet { top: calc(var(--nav-h) + env(safe-area-inset-top, 0px)); background: var(--bg); }
 .ad-sheet a { font-weight: 300; font-size: 34px; letter-spacing: -.035em; border-bottom-color: var(--line); color: var(--text); }
+@media (min-width: 1081px) { .ad-sheet nav { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: clamp(28px, 4vw, 72px); width: min(1440px, 100%); margin: 0 auto; } .ad-sheet > p { width: min(1440px, 100%); margin-inline: auto; } }
 .ad-sheet p { color: var(--muted); }
 
 /* ---------------------------------------------------------------- the hero: the count crossing the portrait */
 main section.ad-hero { padding-block: 0; border-top: 0; }
-.ad-hero { position: relative; isolation: isolate; display: grid; grid-template-columns: 36% 40% 1fr; grid-template-rows: auto auto 1fr; width: min(1440px, 100% - 2 * var(--pad)); margin: 8px auto 0; min-height: clamp(600px, 84vh, 800px); }
+.ad-hero { position: relative; isolation: isolate; display: grid; grid-template-columns: 36% minmax(0, 1fr); grid-template-rows: auto auto 1fr; margin: 8px 0 0 max(var(--pad), (100% - 1440px) / 2); min-height: clamp(600px, 84vh, 800px); }
 .ad-hero-f { grid-column: 2; grid-row: 1 / -1; margin: 0; overflow: hidden; }
-.ad-hero-f img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 40% 30%; }
+.ad-hero-f img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 45% 30%; }
 .ad-hero .gc { display: contents; }
 .ad-hero .gc-n { position: absolute; z-index: 2; left: calc(36% - .62em); top: 9%; margin: 0; font-weight: 200; font-size: clamp(240px, 29vw, 430px); line-height: .78; letter-spacing: -.07em; color: #fff; mix-blend-mode: difference; pointer-events: none; }
 .ad-hero .gc-lines { grid-column: 1; grid-row: 1; padding: calc(9% + clamp(240px, 29vw, 430px) * .82) 32px 0 0; }
@@ -76,9 +78,9 @@ main section.ad-hero { padding-block: 0; border-top: 0; }
 .ad-cta:hover { background: var(--accent-2); }
 @media (max-width: 820px) {
   .ad-hero { display: block; width: auto; margin: 0; min-height: 0; }
-  .ad-hero-f { height: min(64svh, 560px); }
-  .ad-hero .gc-n { left: 16px; top: calc(min(64svh, 560px) - .5em); font-size: 210px; }
-  .ad-hero .gc-lines { padding: calc(210px * .36 + 12px) var(--pad) 0; }
+  .ad-hero-f { height: min(52svh, 480px); }
+  .ad-hero .gc-n { left: 16px; top: calc(min(52svh, 480px) - .5em); font-size: 170px; }
+  .ad-hero .gc-lines { padding: calc(170px * .36 + 12px) var(--pad) 0; }
   .ad-hero .gc-line { font-size: 22px; max-width: none; }
   .ad-cta { display: none; }
 }

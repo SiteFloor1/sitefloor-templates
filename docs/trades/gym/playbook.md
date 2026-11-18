@@ -54,6 +54,24 @@ crossbar steeper, no dead band between the hero and the Hyrox planner, the race 
   Coaches, Members' events, App and booking, Journal; then the shared team, reviews, vouchers and photograph sections
   (refused in `kit.js` until the look and demo show them).
 
+### Build 2 (17 Nov 2026, branch `trade/gym-2`): the full Halde demo
+The owner's picks on the auditor's two design notes: the hero's photograph now runs to the page's right edge on a
+laptop (no empty right third), and on a phone the count is 170px with a shorter photograph, so the number, its line
+and the button sit on the first screen. Then every page on the approved list (VISION, GYM pages 1–15):
+- **Plus:** class finder (`gym-classes`, GYM-4: what for, who it suits, time of day; the club's own goals and levels on
+  each class), free trial page (`gym-trial`, GYM-5; the day pass moves there from the home page), the club room by
+  room (`gym-tour`, GYM-6), coaches (`gym-coaches`, each coach's week read from the timetable by name; replaces the
+  shared `team`), personal training (`gym-training`: pack totals with every mandatory fee in, the same DMCC rule as
+  memberships, then the price a session rounded down), your first visit (`gym-first`), the app and booking (`gym-app`).
+- **Signature:** members' events (`gym-events`, GYM-9: soonest first, the next one large, one .ics file per event built
+  with the site, its time in UTC; past events leave by themselves) and the journal (`gym-journal`, three pieces).
+- **Header:** the first five pages in the bar, "Menu" opens every page (fifteen on the demo).
+- **Photographs:** free Pexels stock graded black and white to match the hero (credits in the demo's `img/CREDITS.md`).
+- **Still refused:** reviews, vouchers, gallery, photo band, page links, seasonal (not in this look).
+- **Ideas for later (not built):** "your first week" (three classes picked from the timetable for the visitor's free
+  hours, Plus); a coach's next class live on their card; events with places left from the same fresh sheet as classes
+  (Signature); a race-night results board from the club's own sheet (Signature showpiece, only with the club's times).
+
 ### Prices (required before any price is designed; checked 16 Nov 2026)
 The DMCC Act 2024 requires an invitation to purchase to show the total price, including every fee the customer must
 pay. Rules for every gym site, on every page and in the hero:

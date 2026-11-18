@@ -17,12 +17,13 @@ export const HOME_PARTS = {
 
 /**
  * A section that has a page of its own leaves the home page when that page is on (memberships and the guest rules go to
- * the memberships page, the questions and directions to Plan your visit), so the home page stays short. Without the
- * page, it stays on the home page.
+ * the memberships page, the day pass to the free trial page, the questions and directions to Plan your visit), so the
+ * home page stays short. Without the page, it stays on the home page.
  */
 export const HOSTS = {
   "gym-memberships": "gym-membership-page",
   "gym-friend": "gym-membership-page",
+  "gym-daypass": "gym-trial",
   "questions": "plan-visit",
   "visit": "plan-visit",
 };
