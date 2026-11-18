@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: shows
+permalink: shows.html
+feature: ballet-shows
+eleventyComputed:
+  title: "{{ site.showsPage.title | plain }}"
+  description: "Shows and tickets at {{ site.business.name }}, {{ site.location.locality }}: dates, venue, curtain-up and the ticket page."
+---
+{%- set ph = site.showsPage %}
+{% include "kits/ballet/partials/page-head.njk" %}
+{% include "kits/ballet/features/ballet-shows/ballet-shows.njk" %}

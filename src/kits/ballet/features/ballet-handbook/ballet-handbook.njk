@@ -1,0 +1,18 @@
+{#- The parent handbook: a contents list in the margin, then each section in the school's words; a print button; when the
+    school last checked it. Prints cleanly (the look hides the header, footer and phone bar in print). -#}
+{%- set h = site.handbook %}
+<div class="bt-hb" data-feature="ballet-handbook"><div class="wrap bt-hb-in">
+  <nav class="bt-hb-toc" aria-label="In the handbook">
+    <ol>{% for s in h.sections %}<li><a href="#hb-{{ s.id }}">{{ s.title }}</a></li>{% endfor %}</ol>
+    <button type="button" class="rd-link" data-hb-print hidden>Print the handbook</button>
+    <p class="rd-fine">Checked {{ h.updated | monthWords }}</p>
+  </nav>
+  <div class="bt-hb-body">
+    {%- for s in h.sections %}
+    <section id="hb-{{ s.id }}" class="bt-hb-sec">
+      <h2>{{ s.title }}</h2>
+      {%- for para in s.body | paragraphs %}<p>{{ para }}</p>{% endfor %}
+    </section>
+    {%- endfor %}
+  </div>
+</div></div>

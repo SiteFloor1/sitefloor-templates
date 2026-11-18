@@ -16,6 +16,7 @@ export const SCHEMA_TYPES = [
   "LegalService", "FinancialService", "TattooParlor", "PetStore", "MovingCompany", "HousePainter", "RoofingContractor", "Locksmith", "GeneralContractor",
   "Dentist",
   "RealEstateAgent",
+  "DanceSchool",
 ];
 
 /** @param {any} v */

@@ -1,0 +1,9 @@
+/* Catch-ups: the school's rule on the left; the missed class and the other times on the right. */
+.bt-cu-in { display: grid; grid-template-columns: 5fr 7fr; gap: 24px 64px; }
+.bt-cu select { width: 100%; max-width: 28rem; min-height: 48px; padding: 0 12px; border: 1px solid var(--line-2); border-radius: 0; background: var(--surface); color: var(--text); font: inherit; }
+.bt-cu-list { list-style: none; margin: 18px 0 0; padding: 0; border-top: 1px solid var(--line); }
+.bt-cu-list li { display: grid; grid-template-columns: 11rem minmax(0, 1fr) auto; gap: 4px 16px; align-items: baseline; padding-block: 12px; border-bottom: 1px solid var(--line); }
+@media (max-width: 760px) {
+  .bt-cu-in { grid-template-columns: 1fr; }
+  .bt-cu-list li { grid-template-columns: 1fr; }
+}

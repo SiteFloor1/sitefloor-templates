@@ -1,0 +1,7 @@
+/* Classes by age: the age as a large numeral in the left column, the classes beside it, a rule between groups. */
+.bt-cls-group { display: grid; grid-template-columns: minmax(7rem, 3fr) 9fr; gap: 24px; padding-block: 36px; border-top: 1px solid var(--line); }
+.bt-cls-age { margin: 0; color: var(--accent); }
+.bt-cls-one + .bt-cls-one { margin-top: 28px; }
+.bt-cls-one p { margin: 6px 0 0; max-width: 40rem; }
+.bt-cls-when { color: var(--muted); }
+@media (max-width: 760px) { .bt-cls-group { grid-template-columns: 1fr; gap: 8px; } }

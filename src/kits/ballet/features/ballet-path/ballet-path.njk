@@ -1,0 +1,18 @@
+{#- Where she'll go next: the child's age tapped, the classes she'd usually move through, year by year, in a ruled list;
+    the school's own words on moving up beneath. -#}
+{%- set ages = site.classes.items | pathAges %}
+<section class="bt-path" id="next" data-feature="ballet-path"{{ "ballet-path" | tierAttr | safe }}><div class="wrap bt-path-in">
+  <div>
+    <h2 class="bt-path-h">Where she'll go next</h2>
+    <p class="rd-fine">{{ site.path.text }}</p>
+  </div>
+  <div>
+    <p class="bt-q" id="path-q">Her age now</p>
+    <div class="bt-ages" role="group" aria-labelledby="path-q">
+      {%- for a in ages %}<button type="button" data-path-age="{{ a }}" aria-pressed="{{ 'true' if loop.first else 'false' }}">{{ a }}</button>{% endfor %}
+    </div>
+    <ol class="bt-path-list" data-path-list aria-live="polite">
+      {%- for r in site.classes.items | pathFrom(ages[0]) %}<li><span>{{ "Age " + r.from if r.from == r.to else "Ages " + r.from + "–" + r.to }}</span><b>{{ r.cls.name }}</b></li>{% endfor %}
+    </ol>
+  </div>
+</div></section>

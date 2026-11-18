@@ -1,0 +1,30 @@
+{#- The round, general pages (holiday camps, parties, teachers…): after the page head, the page runs in two columns:
+    each text block's heading sits in the left margin with its words beside it; a photograph is a circle in the margin;
+    a list reads as one line of items, each after a small ring; the request closes the page inside a ruled band. -#}
+{%- set ph = { kicker: cp.kicker or "", title: cp.title, intro: cp.intro } %}
+{% include "kits/ballet/partials/page-head.njk" %}
+<div class="rd-gp" data-feature="custom-pages"><div class="wrap">
+  {%- for b in cp.blocks %}
+  {%- if b.type == "text" %}
+  <section class="rd-gp-row rv">
+    <h2 class="rd-gp-m">{{ b.heading or "" }}</h2>
+    <div class="rd-gp-body">{% for para in b.body | paragraphs %}<p>{{ para }}</p>{% endfor %}</div>
+  </section>
+  {%- elif b.type == "photo" %}
+  <figure class="rd-gp-row rd-gp-fig rv">
+    <span class="rd-gp-m rd-round"><img src="{{ b.src | img }}" alt="{{ b.alt }}" loading="lazy" decoding="async"></span>
+    {%- if b.caption %}<figcaption class="rd-gp-body rd-fine">{{ b.caption }}</figcaption>{% endif %}
+  </figure>
+  {%- elif b.type == "list" %}
+  <section class="rd-gp-row rv">
+    <h2 class="rd-gp-m">{{ b.heading or "" }}</h2>
+    <ul class="rd-gp-body rd-gp-items">{% for item in b.items %}<li>{{ item }}</li>{% endfor %}</ul>
+  </section>
+  {%- elif b.type == "book" %}
+  <section class="rd-gp-book rv">
+    <p>{{ b.text }}</p>
+    <a class="rd-solid" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{{ b.label or build.booking.label }}</a>
+  </section>
+  {%- endif %}
+  {%- endfor %}
+</div></div>

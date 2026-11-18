@@ -1,0 +1,7 @@
+{#- An inner page's opening: the page's name, thin and very large, one word of it heavy if the school marks it with
+    *stars*; its line beneath. A small ring of the hero's circle sits beside it. Set `ph` to { kicker, title, intro }. -#}
+<header class="ph rd-ph"><div class="wrap rd-ph-in">
+  <p class="rd-ph-k"><a href="{{ 'index' | href }}">{{ site.business.name }}</a> <span aria-hidden="true">·</span> {{ ph.kicker }}</p>
+  <h1 class="rd-ph-t">{{ ph.title | markup | safe }}</h1>
+  {%- if ph.intro %}<p class="rd-ph-i">{{ ph.intro }}</p>{% endif %}
+</div></header>

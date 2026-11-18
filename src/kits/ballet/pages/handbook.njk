@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: handbook
+permalink: handbook.html
+feature: ballet-handbook
+eleventyComputed:
+  title: "{{ site.handbookPage.title | plain }}"
+  description: "The parent handbook at {{ site.business.name }}: collection, photographs, what to bring, illness and more."
+---
+{%- set ph = site.handbookPage %}
+{% include "kits/ballet/partials/page-head.njk" %}
+{% include "kits/ballet/features/ballet-handbook/ballet-handbook.njk" %}

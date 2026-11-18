@@ -1,0 +1,313 @@
+{
+  "schemaVersion": 4,
+  "id": "ballet",
+  "mode": "demo",
+  "plan": "signature",
+  "kit": "ballet",
+  "look": "round",
+  "url": "https://ballet.demo.sitefloor.com",
+  "indexable": false,
+  "lang": "en-GB",
+  "business": {
+    "name": "Wrenna",
+    "schemaType": "DanceSchool",
+    "description": "Ballet classes for children aged two to eighteen in Richmond: a trial class first, two shows a year.",
+    "priceRange": "££",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "447700900512",
+    "phone": "+44 7700 900512",
+    "email": "hello@wrenna.example"
+  },
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "location": {
+    "streetAddress": "Linden Hall, 4 Coleby Walk",
+    "locality": "Richmond",
+    "postcode": "TW10 6AF",
+    "country": "GB",
+    "area": "A church hall with a sprung floor, five minutes from the station. Parents wait in the foyer.",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=Richmond%20station%2C%20London"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [["16:30", "18:15"]],
+      "tue": [["15:45", "19:00"]],
+      "wed": [["16:00", "17:15"]],
+      "thu": [["16:15", "19:45"]],
+      "fri": [],
+      "sat": [["09:00", "13:00"]],
+      "sun": []
+    },
+    "exceptions": [
+      { "date": "2026-12-25", "ranges": [], "note": "Closed for Christmas" },
+      { "date": "2027-01-01", "ranges": [], "note": "Closed on New Year's Day" }
+    ]
+  },
+  "nav": [
+    { "label": "Classes", "page": "classes", "feature": "ballet-classes" },
+    { "label": "Timetable", "page": "timetable", "feature": "ballet-timetable" },
+    { "label": "Trial class", "page": "trial", "feature": "ballet-trial", "fallback": "#trial" },
+    { "label": "Fees", "page": "fees", "feature": "ballet-fees" },
+    { "label": "Uniform", "page": "uniform", "feature": "ballet-uniform", "fallback": "#uniform" },
+    { "label": "Exams", "page": "exams", "feature": "ballet-exams" },
+    { "label": "Shows", "page": "shows", "feature": "ballet-shows" },
+    { "label": "Show day", "page": "show-day", "feature": "ballet-showday" },
+    { "label": "Handbook", "page": "handbook", "feature": "ballet-handbook" },
+    { "label": "Holiday camps", "page": "camps", "feature": "custom-pages" },
+    { "label": "Parties", "page": "parties", "feature": "custom-pages" },
+    { "label": "Teachers", "page": "teachers", "feature": "custom-pages" },
+    { "label": "The studio", "page": "visit", "feature": "plan-visit", "fallback": "#visit" }
+  ],
+  "features": [
+    "ballet-finder", "ballet-year", "visit", "plan-visit", "questions", "reviews",
+    "ballet-places", "ballet-trial", "ballet-classes", "ballet-timetable", "ballet-catchup", "ballet-fees",
+    "ballet-uniform", "ballet-exams", "custom-pages",
+    "ballet-shows", "ballet-handbook", "ballet-showday", "ballet-path"
+  ],
+  "hero": {
+    "kicker": "Ballet school, Richmond",
+    "title": "Ballet, two *to* eighteen.",
+    "intro": "Ballet classes in Richmond for ages two to eighteen. The first class is a trial.",
+    "question": "How old is your dancer?",
+    "photo": { "src": "img/stage.webp", "width": 1200, "height": 1200, "alt": "A company of young dancers in pale costumes on a dark stage, seen from the audience" }
+  },
+  "sections": {
+    "trial": { "title": "The first class *is a trial.*" },
+    "uniform": { "title": "What to wear, *class by class.*" },
+    "reviews": { "title": "From *our parents.*" },
+    "questions": { "title": "Before *the first class.*" },
+    "visit": { "title": "The *studio.*", "intro": "Linden Hall, five minutes from Richmond station." }
+  },
+  "messages": {
+    "general": "Hello Wrenna, I have a question."
+  },
+  "classes": {
+    "message": "Hello Wrenna,",
+    "note": "Sample timetable for a fictional school.",
+    "items": [
+      { "id": "grown-up", "name": "Ballet with a grown-up", "ages": [2, 2], "level": 0, "minutes": 30, "sessions": [{ "day": "sat", "time": "09:15" }], "text": "Music, marching and pointed toes, with you beside her. Socks are fine." },
+      { "id": "little", "name": "Little ballet", "ages": [3, 4], "level": 1, "minutes": 40, "sessions": [{ "day": "tue", "time": "16:00" }, { "day": "sat", "time": "10:00" }], "text": "The first class on her own: stories, skips and the first positions." },
+      { "id": "one", "name": "Ballet one", "ages": [5, 6], "level": 2, "minutes": 45, "sessions": [{ "day": "wed", "time": "16:15" }, { "day": "sat", "time": "11:00" }], "text": "The barre for the first time, and a dance for the winter showcase." },
+      { "id": "two", "name": "Ballet two", "ages": [7, 8], "level": 3, "minutes": 60, "sessions": [{ "day": "thu", "time": "16:30" }] },
+      { "id": "boys", "name": "Boys' ballet", "ages": [7, 8], "level": 7, "minutes": 45, "sessions": [{ "day": "sat", "time": "12:00" }], "text": "Jumps, turns and strength." },
+      { "id": "three", "name": "Ballet three", "ages": [9, 11], "level": 4, "minutes": 60, "sessions": [{ "day": "mon", "time": "17:00" }] },
+      { "id": "four", "name": "Ballet four", "ages": [12, 14], "level": 5, "minutes": 75, "sessions": [{ "day": "tue", "time": "17:30" }], "text": "Longer barre, centre work and the first steps towards pointe, when her teacher says." },
+      { "id": "senior", "name": "Senior ballet", "ages": [15, 18], "level": 6, "minutes": 90, "sessions": [{ "day": "thu", "time": "18:00" }] }
+    ]
+  },
+  "year": {
+    "note": "Sample dates.",
+    "items": [
+      { "id": "autumn-ends", "date": "2026-12-19", "label": "Autumn term ends", "kind": "term" },
+      { "id": "winter-hol", "date": "2026-12-20", "end": "2027-01-03", "label": "Winter holiday", "kind": "holiday" },
+      { "id": "spring", "date": "2027-01-04", "label": "Spring term begins", "kind": "term" },
+      { "id": "spring-half", "date": "2027-02-15", "end": "2027-02-19", "label": "Half term", "kind": "half-term" },
+      { "id": "spring-ends", "date": "2027-03-27", "label": "Spring term ends", "kind": "term" },
+      { "id": "spring-hol", "date": "2027-03-29", "end": "2027-04-16", "label": "Spring holiday", "kind": "holiday" },
+      { "id": "summer", "date": "2027-04-19", "label": "Summer term begins", "kind": "term" },
+      { "id": "summer-half", "date": "2027-05-31", "end": "2027-06-04", "label": "Half term", "kind": "half-term" },
+      { "id": "summer-ends", "date": "2027-07-17", "label": "Summer term ends", "kind": "term" },
+      { "id": "autumn", "date": "2027-09-06", "label": "Autumn term begins", "kind": "term" }
+    ]
+  },
+  "trial": {
+    "message": "Hello Wrenna,",
+    "photo": { "src": "img/watching.webp", "width": 1000, "height": 1000, "alt": "Three small children in black leotards sit on the stage floor, backs to us, watching the lit stage" },
+    "steps": [
+      { "label": "Before", "text": "Socks or soft shoes, hair tied back. No uniform yet." },
+      { "label": "On the day", "text": "Come in together; the teacher takes the class from there. You can wait in the foyer." },
+      { "label": "Afterwards", "text": "The uniform list for the class, and a place if they loved it." }
+    ],
+    "price": "The trial class is free (sample).",
+    "note": "Sample. Each school writes its own first class."
+  },
+  "trialPage": {
+    "kicker": "Trial class",
+    "title": "The first class *is a trial.*",
+    "intro": "Pick the age and the day; the message to us is written for you."
+  },
+  "classesPage": {
+    "kicker": "Classes",
+    "title": "Every class, *by age.*",
+    "intro": "From two with a grown-up, to eighteen and on pointe."
+  },
+  "timetablePage": {
+    "kicker": "Timetable",
+    "title": "The *week.*",
+    "intro": "Term time only. Missed a class? There is usually another this week."
+  },
+  "places": {
+    "source": "simulated",
+    "message": "Hello Wrenna,"
+  },
+  "catchUp": {
+    "text": "Missed a class through illness or a clash? Come to another at the same level in the same week, if there's room. Ask us first.",
+    "message": "Hello Wrenna,"
+  },
+  "fees": {
+    "items": [
+      { "label": "Ballet with a grown-up", "text": "£84 a term (12 weeks), paid before the first class." },
+      { "label": "Little ballet, Ballet one", "text": "£108 a term." },
+      { "label": "Ballet two to four, Boys' ballet", "text": "£132 a term." },
+      { "label": "Senior ballet", "text": "£156 a term." },
+      { "label": "Brothers and sisters", "text": "10% off the second child's fees." },
+      { "label": "Exams", "text": "The exam fee is set by the exam board; we tell you before the term starts." }
+    ],
+    "terms": [
+      "Fees are for the term, paid by bank transfer before the first class.",
+      "Missed classes can't be refunded, but can be made up in the same week (see the timetable).",
+      "Half a term's notice to leave, by message."
+    ],
+    "note": "Sample fees for a fictional school."
+  },
+  "feesPage": {
+    "kicker": "Fees and terms",
+    "title": "What it *costs.*",
+    "intro": "By the term. No joining fee."
+  },
+  "uniform": {
+    "photo": { "src": "img/shoes.webp", "width": 900, "height": 900, "alt": "A worn pair of pale pink ballet shoes with ribbons on a wooden floor" },
+    "shop": { "label": "Buy it at our dancewear shop", "url": "https://example.com/wrenna-dancewear" },
+    "note": "Sample lists. Each school writes its own.",
+    "sets": [
+      { "id": "little", "name": "Little ballet", "classes": ["grown-up", "little"], "items": [{ "name": "Pale pink leotard, short sleeves" }, { "name": "Pink ballet socks" }, { "name": "Pink leather ballet shoes", "note": "elastic sewn" }, { "name": "Hair in a bun or short ponytail" }] },
+      { "id": "one", "name": "Ballet one", "classes": ["one"], "items": [{ "name": "Lilac leotard, short sleeves" }, { "name": "Pink ballet tights" }, { "name": "Pink leather ballet shoes", "note": "elastic sewn" }, { "name": "Hair in a bun" }] },
+      { "id": "two", "name": "Ballet two to four", "classes": ["two", "three", "four"], "items": [{ "name": "Lavender leotard, cap sleeves" }, { "name": "Pink ballet tights" }, { "name": "Pink canvas split-sole shoes", "note": "ribbons from Ballet three" }, { "name": "Hair in a bun, no clips showing" }] },
+      { "id": "boys", "name": "Boys", "classes": ["boys"], "items": [{ "name": "White T-shirt, fitted" }, { "name": "Black shorts or footless tights" }, { "name": "White socks" }, { "name": "Black or white ballet shoes" }] },
+      { "id": "senior", "name": "Senior ballet", "classes": ["senior"], "items": [{ "name": "Navy leotard, any style" }, { "name": "Pink ballet tights" }, { "name": "Pointe shoes", "note": "once your teacher says" }, { "name": "Hair in a bun" }] }
+    ]
+  },
+  "uniformPage": {
+    "kicker": "Uniform",
+    "title": "What to wear, *class by class.*",
+    "intro": "Nothing is needed for the trial class."
+  },
+  "exams": {
+    "text": "Exams are for dancers who would like them, from Ballet one up. Your teacher will suggest when; nobody has to take one.",
+    "photo": { "src": "img/tying.webp", "width": 900, "height": 900, "alt": "A dancer's hands tying the ribbon of a pointe shoe on a dark stage" },
+    "items": [
+      { "id": "spring-exams", "date": "2027-03-13", "label": "Exam day", "classes": ["one", "two"] },
+      { "id": "summer-exams", "date": "2027-06-19", "label": "Exam day", "classes": ["three", "four", "senior"] }
+    ]
+  },
+  "examsPage": {
+    "kicker": "Exams",
+    "title": "Exams, *if she'd like.*",
+    "intro": "Sample dates for a fictional school."
+  },
+  "shows": {
+    "photo": { "src": "img/wings.webp", "width": 900, "height": 900, "alt": "Romantic tutus and pointe shoes in the wings, just before the stage" },
+    "note": "Sample shows for a fictional school. Tickets are sold on the school's own ticket page.",
+    "items": [
+      { "id": "winter", "name": "Winter showcase", "date": "2026-12-12", "time": "14:00", "venue": "Cambridge Hall Theatre", "address": "Richmond", "running": "About 1 hour 30, with an interval", "filming": "No filming or photographs during the show; a film of every class is sent to parents afterwards.", "text": "Every class dances, from Little ballet to Senior ballet.", "tickets": { "url": "https://example.com/wrenna-tickets", "label": "Tickets" } },
+      { "id": "summer", "name": "Summer show", "date": "2027-07-10", "time": "14:30", "venue": "Cambridge Hall Theatre", "address": "Richmond", "running": "About 2 hours, with an interval", "filming": "No filming during the show.", "tickets": { "url": "https://example.com/wrenna-tickets", "opens": "2027-05-01" } }
+    ]
+  },
+  "showsPage": {
+    "kicker": "Shows",
+    "title": "Two shows a year, *on a real stage.*",
+    "intro": "Every class dances. Tickets on our ticket page."
+  },
+  "handbook": {
+    "updated": "2026-09",
+    "sections": [
+      { "id": "drop-off", "title": "Drop-off and collection", "body": "Please bring dancers to the foyer door no more than ten minutes before class, and collect them from the same door.\n\nIf someone else is collecting, message us before the class." },
+      { "id": "photos", "title": "Photographs and filming", "body": "We never post children's faces without written consent from a parent.\n\nNo filming in class; we film the shows and send them to parents." },
+      { "id": "bring", "title": "What to bring", "body": "A named water bottle, and the uniform for the class. Long hair tied back." },
+      { "id": "illness", "title": "Illness", "body": "If she's unwell, please keep her at home and message us; the class can be made up in the same week." },
+      { "id": "safeguarding", "title": "Safeguarding", "body": "Our safeguarding policy and the name of our safeguarding lead are on the noticeboard in the foyer. Ask us for a copy." }
+    ]
+  },
+  "handbookPage": {
+    "kicker": "Parent handbook",
+    "title": "Everything *for the year.*",
+    "intro": "Sample handbook for a fictional school."
+  },
+  "showDay": {
+    "source": "simulated",
+    "show": "winter",
+    "text": "On show week each class's code is in its WhatsApp group. Type it here for arrival time, stage door, costume, hair and collection.",
+    "message": "Hello Wrenna,",
+    "photo": { "src": "img/stage-empty.webp", "width": 900, "height": 900, "alt": "A dancer rehearsing alone on a large empty stage, seen from behind" }
+  },
+  "showDayPage": {
+    "kicker": "Show day",
+    "title": "Show day, *by code.*",
+    "intro": "The winter showcase."
+  },
+  "path": {
+    "text": "Usually, when her teacher says she's ready. Every dancer moves up in her own time; nobody is held back for an exam."
+  },
+  "reviews": {
+    "source": "sample",
+    "items": [
+      { "text": "She was nervous at the door and didn't look back once. Three terms in, she still talks about the trial.", "author": "Hannah L.", "rating": 5, "date": "2026-10" },
+      { "text": "The timetable and the term dates in my calendar: the first dance school that hasn't needed a spreadsheet.", "author": "Tom R.", "rating": 5, "date": "2026-09" },
+      { "text": "Seeing him on a real stage at the winter showcase. We booked the summer show the same night.", "author": "Priya S.", "rating": 5, "date": "2026-07" }
+    ]
+  },
+  "questions": [
+    { "topic": "Starting", "q": "What age can she start?", "a": "From two, with a grown-up beside her; on her own from three.", "home": true },
+    { "topic": "Starting", "q": "Is there a trial class?", "a": "Yes: the first class is a trial. Pick the age above and message us.", "home": true },
+    { "topic": "Starting", "q": "Are boys welcome?", "a": "Every class is open to everyone, and there's a boys' class on Saturdays.", "home": true },
+    { "topic": "Classes", "q": "Can I watch?", "a": "Parents wait in the foyer. There's a watching week at the end of each term.", "home": true },
+    { "topic": "Classes", "q": "What if we miss a class?", "a": "Come to another at the same level in the same week, if there's room." },
+    { "topic": "Classes", "q": "My child has additional needs. Can she join?", "a": "Please message us: we'll talk it through with you before the trial." },
+    { "topic": "Shows", "q": "Does everyone dance in the shows?", "a": "Yes, every class from Little ballet up, twice a year." }
+  ],
+  "visitInfo": {
+    "kicker": "The studio",
+    "title": "Linden Hall, *Coleby Walk.*",
+    "intro": "Five minutes on foot from Richmond station.",
+    "journeys": [
+      { "mode": "walk", "from": "Richmond station", "origin": "Richmond station, London", "minutes": 5, "steps": ["Leave by the main exit and turn left", "Cross at the lights onto Coleby Walk", "Linden Hall is the red-brick hall on the right"] },
+      { "mode": "car", "from": "Richmond town centre", "origin": "Richmond, London", "minutes": 6, "steps": ["Follow the one-way system towards the station", "Turn into Coleby Walk", "Drop off at the hall gate; no parking on the walk"] }
+    ],
+    "parking": [
+      { "name": "Station car park", "walk": 4, "paid": "always", "price": "pay by app", "note": "The nearest place to wait in a car." }
+    ],
+    "access": [
+      { "label": "Step-free entrance", "yes": true },
+      { "label": "Accessible toilet", "yes": true },
+      { "label": "Changing room", "yes": true }
+    ],
+    "payment": "Fees by bank transfer, termly."
+  },
+  "pages": [
+    {
+      "slug": "camps", "kicker": "Holiday camps", "title": "Holiday *camps.*",
+      "description": "Ballet holiday camps for children at Wrenna, Richmond: three mornings each holiday, sample dates.",
+      "intro": "Three mornings in each holiday, ages 4 to 11.",
+      "blocks": [
+        { "type": "photo", "src": "img/studio.webp", "alt": "A daylit studio with tall windows, pink curtains and a wooden barre" },
+        { "type": "text", "heading": "What happens", "body": "Ballet, a little jazz and a story danced from start to finish, shown to parents on the last morning.\n\nNine till twelve, with a snack break. Bring a packed snack and water." },
+        { "type": "list", "heading": "Each camp", "items": ["Ages 4 to 11, in two groups", "Three mornings, 9am to 12pm", "No experience needed"] },
+        { "type": "book", "text": "Ask for the next camp's dates.", "label": "Message us" }
+      ]
+    },
+    {
+      "slug": "parties", "kicker": "Parties", "title": "Ballet *parties.*",
+      "description": "Ballet birthday parties at Wrenna, Richmond, in the hall or at your home: sample details.",
+      "intro": "An hour of dancing for the birthday child and friends.",
+      "blocks": [
+        { "type": "text", "heading": "How it works", "body": "One of our teachers leads an hour of dance and games for up to fifteen children, aged three to eight.\n\nAt Linden Hall on a Saturday afternoon, or at your home." },
+        { "type": "list", "heading": "What's included", "items": ["A teacher and an assistant", "Music and props", "A dance for the parents at the end"] },
+        { "type": "book", "text": "Tell us the date, the age and how many are coming.", "label": "Ask about a party" }
+      ]
+    },
+    {
+      "slug": "teachers", "kicker": "Teachers", "title": "Who *teaches.*",
+      "description": "The teachers at Wrenna, a ballet school for children in Richmond: sample page for a fictional school.",
+      "intro": "Sample page. A real school names its own teachers and their training.",
+      "blocks": [
+        { "type": "photo", "src": "img/pointe.webp", "alt": "A dancer's feet en pointe in satin pointe shoes" },
+        { "type": "text", "heading": "Our teachers", "body": "Each class has the same teacher all year, so the children know who they'll see at the door.\n\nThe school's own words go here: who teaches which class, their training and how long they've taught." },
+        { "type": "book", "text": "Questions about a class or a teacher?", "label": "Message us" }
+      ]
+    }
+  ]
+}

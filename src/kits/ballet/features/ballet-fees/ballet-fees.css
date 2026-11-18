@@ -1,0 +1,11 @@
+/* Fees: ruled rows, the label on the left; the terms as a numbered list beside them. */
+.bt-fees-in { display: grid; grid-template-columns: 7fr 5fr; gap: 24px 72px; align-items: start; }
+.bt-fees-list { margin: 0; border-top: 1px solid var(--line); }
+.bt-fees-list div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 20px; padding-block: 18px; border-bottom: 1px solid var(--line); }
+.bt-fees-list dd { margin: 0; color: var(--muted); }
+.bt-fees-terms ol { margin: 14px 0 20px; padding-left: 1.2em; }
+.bt-fees-terms li + li { margin-top: 10px; }
+@media (max-width: 760px) {
+  .bt-fees-in { grid-template-columns: 1fr; }
+  .bt-fees-list div { grid-template-columns: 1fr; gap: 4px; }
+}

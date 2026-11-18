@@ -1,0 +1,21 @@
+{#- Show day by code: the school's words, one field for the class's code, and the answer as a ruled list (arrive, stage
+    door, costume, hair, collect, notes). A code, not a password: it keeps the page simple, not secret. -#}
+{%- set d = site.showDay %}
+<div class="bt-sd" data-feature="ballet-showday"><div class="wrap bt-sd-in">
+  <div>
+    <p class="bt-lead">{{ d.text }}</p>
+    {%- if d.photo %}<figure class="rd-round bt-sd-photo rv"><img src="{{ d.photo.src | img }}" alt="{{ d.photo.alt }}" width="{{ d.photo.width }}" height="{{ d.photo.height }}" loading="lazy" decoding="async"></figure>{% endif %}
+  </div>
+  <div>
+    <form class="bt-sd-form" data-sd-form novalidate>
+      <label class="bt-q" for="sd-code">Your class's code</label>
+      <div class="bt-sd-row">
+        <input id="sd-code" name="code" autocomplete="off" autocapitalize="characters" spellcheck="false" required>
+        <button type="submit" class="rd-solid">Show me</button>
+      </div>
+      {%- if site.mode == "demo" %}<p class="rd-fine">Try LB-TUE, B1-WED or SEN-THU (sample codes).</p>{% endif %}
+    </form>
+    <div class="bt-sd-out" data-sd-out aria-live="polite"></div>
+    <noscript><p>This needs JavaScript. The school's message has the same details.</p></noscript>
+  </div>
+</div></div>

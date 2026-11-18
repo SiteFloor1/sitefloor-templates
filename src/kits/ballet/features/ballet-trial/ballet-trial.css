@@ -1,0 +1,17 @@
+/* The trial class: the photograph in a circle on one side, the steps as a ruled list on the other. */
+.bt-trial-in { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 0 24px; align-items: center; }
+.bt-trial-text { grid-column: 1 / 6; grid-row: 1; }
+.bt-trial-photo { grid-column: 7 / 13; grid-row: 1; margin: 0; }
+.bt-steps { list-style: none; margin: 0 0 28px; padding: 0; border-top: 1px solid var(--line); }
+.bt-steps li { display: grid; grid-template-columns: 8rem 1fr; gap: 16px; padding-block: 16px; border-bottom: 1px solid var(--line); }
+.bt-steps b { color: var(--accent); }
+.bt-pickers { display: grid; gap: 8px; margin-bottom: 32px; }
+.bt-days { display: flex; flex-wrap: wrap; gap: 8px 22px; }
+.bt-days button { min-height: 44px; padding: 0; border: 0; border-bottom: 1px solid transparent; background: none; color: var(--muted); font: inherit; cursor: pointer; }
+.bt-days button[aria-pressed="true"] { color: var(--text); border-bottom-color: var(--accent); }
+.bt-chosen { margin: 6px 0 0; }
+@media (max-width: 760px) {
+  .bt-trial-in { display: block; }
+  .bt-trial-photo { margin-bottom: 32px; }
+  .bt-steps li { grid-template-columns: 6.5rem 1fr; }
+}

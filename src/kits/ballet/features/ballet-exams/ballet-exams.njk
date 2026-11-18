@@ -1,0 +1,17 @@
+{#- Exams: the school's words on exams (and the board, only if it names one), each exam date with the classes sitting it,
+    and the dates into the calendar. -#}
+{%- set e = site.exams %}
+<div class="bt-exams" data-feature="ballet-exams"><div class="wrap bt-exams-in">
+  <div class="bt-exams-text">
+    <p class="bt-lead">{{ e.text }}</p>
+    {%- if e.board %}<p class="rd-fine">{{ e.board }}</p>{% endif %}
+    {%- if e.photo %}<figure class="rd-round bt-exams-photo rv"><img src="{{ e.photo.src | img }}" alt="{{ e.photo.alt }}" width="{{ e.photo.width }}" height="{{ e.photo.height }}" loading="lazy" decoding="async"></figure>{% endif %}
+  </div>
+  <div>
+    <ul class="bt-dates">
+      {%- for x in e.items %}<li class="rv"><time datetime="{{ x.date }}">{{ x.date | dateWords("long") }}</time><b>{{ x.label }}</b><span>{{ x.classes | classNames(site.classes.items) }}</span></li>{% endfor %}
+    </ul>
+    <button type="button" class="rd-link" data-ex-ics>Add exam dates to my calendar</button>
+    <p class="rd-fine" data-ex-done hidden aria-live="polite"></p>
+  </div>
+</div></div>
