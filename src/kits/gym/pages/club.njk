@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: club
+permalink: club.html
+feature: gym-tour
+eleventyComputed:
+  title: "{{ site.tour.title | plain }}"
+  description: "Inside {{ site.business.name }}, {{ site.location.locality }}, room by room: what's in each and the facts people ask."
+---
+{%- set ph = site.tour %}{% include "kits/gym/partials/page-head.njk" %}
+{% include "kits/gym/features/gym-tour/gym-tour.njk" %}

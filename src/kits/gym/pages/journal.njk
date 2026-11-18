@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: journal
+permalink: journal.html
+feature: gym-journal
+eleventyComputed:
+  title: "{{ site.journal.title | plain }}"
+  description: "Short pieces from {{ site.business.name }} on training, racing and recovery."
+---
+{%- set ph = site.journal %}{% include "kits/gym/partials/page-head.njk" %}
+{% include "kits/gym/features/gym-journal/gym-journal.njk" %}
