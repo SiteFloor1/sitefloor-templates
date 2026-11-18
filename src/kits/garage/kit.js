@@ -6,6 +6,7 @@
  */
 import { checkGarage } from "./config.js";
 import { CARS, allBays, bayRects, chargedBy } from "./lib/garage.js";
+import { buildNow } from "../../core/lib/build-day.js";
 
 const K = "src/kits/garage/features";
 
@@ -16,8 +17,8 @@ export const features = [
   // access facts, how cars are kept, and moving in to the calendar; Plus: charging and security on the hall's bays,
   // the insurer's letter, arriving at night, laying up and the business enquiry; Signature: the drawn plan with pick
   // your car, and your car this month. The aerial hall (a render of the client's own hall) is a Bespoke add-on.
-  { id: "garage-spaces", section: "spaces", dir: `${K}/garage-spaces`, minPlan: "starter", kits: ["garage"], requires: ["hall"], js: false,
-    summary: "Spaces free and prices (PARK-1): each free bay with its size, charger and monthly price, and the sizes and prices of the bays that are let, from the client's own list." },
+  { id: "garage-spaces", section: "spaces", dir: `${K}/garage-spaces`, minPlan: "starter", kits: ["garage"], requires: ["hall"], optional: ["liveBays"], js: true,
+    summary: "Spaces free and prices (PARK-1): each free bay with its size, charger and monthly price, from the client's own list, or live from their Google Sheet with when it was updated; the picker, the plan and the hall from above follow the same list." },
   { id: "garage-access", section: "access", dir: `${K}/garage-access`, minPlan: "starter", kits: ["garage"], requires: ["access"], js: false,
     summary: "Security and access facts (PARK-2): gate, hours, lighting, covered or open, only as the client states them." },
   { id: "garage-kept", section: "kept", dir: `${K}/garage-kept`, minPlan: "starter", kits: ["garage"], requires: ["kept"], js: false,
@@ -52,29 +53,68 @@ export const refuses = ["team", "gallery", "work", "photo-band", "vouchers"];
 // The insurer's letter is the client's own document; reviews only ever come from the client's own Google reviews.
 export const clientOnly = ["garage-insurer", "reviews"];
 
+/**
+ * Live data: the free bays, from the client's published Google Sheet (simulated on a demo).
+ * @type {import("../../features/registry.js").Provider[]}
+ */
+export const providers = [
+  {
+    key: "liveBays",
+    on: (site, enabled) => enabled.has("garage-spaces") && !!site.liveBays,
+    simulated: (site) => site.liveBays?.source === "simulated",
+    demo: { from: "src/demo/garage-bays-provider.js", name: "simulatedProvider" },
+    live: { from: "src/kits/garage/features/garage-spaces/sheet-provider.js", name: "sheetProvider" },
+  },
+];
+
+/** What this kit adds to the Content-Security-Policy: the published Sheet, when the free bays are read from one. @param {any} site */
+export function csp(site) {
+  return { sheets: site.liveBays?.source === "sheet" };
+}
+
 /** Checks this kit's settings in site.json (runs for every site; it returns early for other kits). */
 export const check = checkGarage;
+
+/** @param {any} a */
+const aerialData = (a) => ({ frame: a.frame, phoneFrame: a.phoneFrame, empty: Object.fromEntries(Object.entries(a.empty).map(([k, v]) => [k, /** @type {any} */ (v).src])) });
+
+/** The live list's settings, and the client's own list with the day the site was built, for when the sheet can't be read. @param {any} site */
+function liveBaysData(site) {
+  const bays = allBays(site.hall);
+  return {
+    csvUrl: site.liveBays.csvUrl ?? null, staleHours: site.liveBays.staleHours ?? 24,
+    known: bays.map((b) => b.n), listed: bays.filter((b) => b.free).map((b) => b.n),
+    listedOn: new Date(buildNow()).toLocaleDateString("en-GB", { day: "numeric", month: "long", timeZone: site.hours?.timezone ?? "Europe/London" }),
+  };
+}
 
 // What this kit's browser scripts read from the page (clientData), only for the features that are on.
 /** @param {any} site */
 export function pageData(site) {
-  const on = (/** @type {string} */ id) => site.features.includes(id);
-  const h = site.hall;
-  const hall = h && (on("garage-pick") || on("garage-aerial") || on("garage-night"))
-    ? { name: h.name, width: h.width, depth: h.depth, bayDepth: h.bayDepth, gate: h.gate, rows: h.rows }
-    : null;
-  const a = site.aerial;
+  const on = (/** @type {string} */ id) => site.features.includes(id), h = site.hall;
+  const live = on("garage-spaces") && !!site.liveBays && !!h;
+  const hall = h && (on("garage-pick") || on("garage-aerial") || on("garage-night") || live)
+    ? { name: h.name, width: h.width, depth: h.depth, bayDepth: h.bayDepth, gate: h.gate, rows: h.rows } : null;
   return {
     hall,
     rects: hall ? bayRects(h) : null,
     cars: hall ? CARS : null,
-    cameras: on("garage-security") && site.security?.cameras ? site.security.cameras : [],
-    chargers: on("garage-charging") && h ? allBays(h).filter((b) => b.charger).map((b) => ({ n: b.n, kw: b.charger })) : [],
-    aerial: on("garage-aerial") ? { frame: a.frame, phoneFrame: a.phoneFrame, cars: a.cars } : null,
-    chargedBy: on("garage-charging") && site.charging ? chargedBy(site.charging) : "",
-    securityNote: on("garage-security") && site.security ? [site.security.recorded, ...site.security.facts].join(" ") : "",
+    ...layerData(site, on),
+    aerial: on("garage-aerial") ? aerialData(site.aerial) : null,
+    liveBays: live ? liveBaysData(site) : null,
     moveIn: on("garage-move-in") ? site.moveIn.steps : null,
     layingUp: on("garage-laying-up") ? { every: site.layingUp.every, visit: site.layingUp.visit, back: site.layingUp.back } : null,
     name: site.business.name,
+  };
+}
+
+/** Charging and cameras, for the layers on the plan and the hall from above. @param {any} site @param {(id: string) => boolean} on */
+function layerData(site, on) {
+  const charging = on("garage-charging") && site.hall && site.charging, security = on("garage-security") && site.security;
+  return {
+    cameras: security && site.security.cameras ? site.security.cameras : [],
+    chargers: charging ? allBays(site.hall).filter((b) => b.charger).map((b) => ({ n: b.n, kw: b.charger })) : [],
+    chargedBy: charging ? chargedBy(site.charging) : "",
+    securityNote: security ? [site.security.recorded, ...site.security.facts].join(" ") : "",
   };
 }

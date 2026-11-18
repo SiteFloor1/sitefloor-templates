@@ -1,6 +1,6 @@
 {#- Elsden bar, phones only: how many bays are free (from the client's list) and WhatsApp. -#}
 {%- set free = site.hall | freeBays if site.hall else [] %}
 <div class="mbar el-bar">
-  <a class="el-bar-free" href="{{ ('index' | href) }}#{{ 'plan' if ('garage-pick' | enabled) else 'spaces' }}">{% if free.length %}{{ free.length }} {{ "bay" if free.length == 1 else "bays" }} free{% else %}Waiting list{% endif %}</a>
+  <a class="el-bar-free" data-free-count href="{{ ('index' | href) }}#{{ 'plan' if ('garage-pick' | enabled) else 'spaces' }}">{% if free.length %}{{ free.length }} {{ "bay" if free.length == 1 else "bays" }} free{% else %}Waiting list{% endif %}</a>
   <a class="el-bar-wa" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{{ "WhatsApp" if build.booking.whatsapp else "Book" }}</a>
 </div>

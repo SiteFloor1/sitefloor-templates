@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Elsden: car storage, by Sitefloor</title>
+<meta name="description" content="Elsden is a car storage hall whose website measures your car against every free bay and lights the one that fits.">
+<meta name="robots" content="noindex">
+<style>
+/* Case study: Elsden (garage kit). Hall One at eye level, from just inside the gate. Pick a car and the bay that
+   fits is lit: each picture is a real render of the hall with that bay's own light on (light adds, so each is the
+   hall's lights plus that bay's). Then the hall drawn to scale (Signature) wiped into the hall rendered from above
+   (Bespoke). Plaster, ink and the hall's warm light; Cardo and Radio Canada (Elsden's own), Manrope for Sitefloor. */
+@font-face { font-family: "Cardo"; font-weight: 400; font-display: swap; src: url("media/fonts/cardo-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Cardo"; font-weight: 400; font-style: italic; font-display: swap; src: url("media/fonts/cardo-latin-400-italic.woff2") format("woff2"); }
+@font-face { font-family: "Cardo"; font-weight: 700; font-display: swap; src: url("media/fonts/cardo-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "Radio Canada"; font-weight: 400; font-display: swap; src: url("media/fonts/radio-canada-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Radio Canada"; font-weight: 500; font-display: swap; src: url("media/fonts/radio-canada-latin-500-normal.woff2") format("woff2"); }
+@font-face { font-family: "Manrope"; font-weight: 600; font-display: swap; src: url("media/fonts/manrope-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "Manrope"; font-weight: 700; font-display: swap; src: url("media/fonts/manrope-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "Cardo Fallback"; src: local("Times New Roman"), local("Liberation Serif"); size-adjust: 105.9%; ascent-override: 93.5%; descent-override: 34.3%; line-gap-override: 0%; }
+@font-face { font-family: "Radio Fallback"; src: local("Arial"), local("Liberation Sans"); size-adjust: 103.3%; ascent-override: 91.4%; descent-override: 24.7%; line-gap-override: 0%; }
+:root {
+  --plaster: #E9E6E0; --paper: #F7F5F0; --ink: #1C1B19; --soft: #5E5B55; --line: #CFCAC0; --warm: #F3D9B1; --night: #0C1018;
+  --display: "Cardo", "Cardo Fallback", Georgia, serif; --body: "Radio Canada", "Radio Fallback", Arial, sans-serif;
+  --sf-paper: #FBFAF7; --sf-ink: #0E0F11; --sf-line: #E4E1DA; --sf-tomato: #E8613C; --brand: "Manrope", Arial, sans-serif;
+  --edge: clamp(20px, 5vw, 72px);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--plaster); color: var(--ink); font: 400 17px/1.6 var(--body); -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+.gut { padding-left: max(var(--edge), env(safe-area-inset-left, 0px)); padding-right: max(var(--edge), env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 1440px; margin: 0 auto; }
+/* Sitefloor bar (shared) */
+.sfbar { position: sticky; top: 0; z-index: 30; background: var(--sf-paper); color: var(--sf-ink); border-bottom: 1px solid var(--sf-line); }
+.sfbar .wrap { display: flex; justify-content: space-between; align-items: center; height: 66px; gap: 16px; }
+.wm { display: inline-flex; align-items: center; font: 700 22px var(--brand); letter-spacing: -.04em; text-decoration: none; color: var(--sf-ink); }
+.sfbar nav { display: flex; gap: 28px; font-family: var(--brand); font-size: 14px; font-weight: 600; }
+.sfbar nav a { text-decoration: none; }
+.sfbar nav a[aria-current] { box-shadow: inset 0 -1.5px 0 var(--sf-ink); }
+.sfbtn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 20px; background: var(--sf-ink); color: var(--sf-paper); font: 700 12px var(--brand); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; }
+
+/* ---------------------------------------------------------------- the hall, at eye level */
+.eye { position: relative; background: var(--night); color: var(--paper); }
+.eye-pic { position: relative; height: min(86vh, 900px); min-height: 520px; overflow: hidden; }
+.eye-pic img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 58%; transition: opacity 1.1s ease; }
+.eye-pic img:not(.on) { opacity: 0; }
+.eye-pic img { transition: opacity 1.1s ease, object-position 1.2s ease; }
+.tag { position: absolute; z-index: 1; transform: translate(-50%, calc(-100% - 14px)); padding: 6px 10px 5px; background: var(--paper); color: var(--ink); font: 700 15px/1 var(--display); white-space: nowrap; opacity: 0; transition: opacity .5s ease .7s; }
+.tag::after { content: ""; position: absolute; left: 50%; top: 100%; width: 1px; height: 14px; background: var(--paper); }
+.tag.on { opacity: 1; }
+.eye-pic::after { content: ""; position: absolute; inset: auto 0 0 0; height: 46%; background: linear-gradient(to top, rgba(12,16,24,.82), rgba(12,16,24,0)); pointer-events: none; }
+.eye-copy { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding-bottom: 40px; }
+.eye-copy .wrap { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 48px; align-items: end; }
+.eye h1 { font: 700 clamp(44px, 6vw, 92px)/.98 var(--display); letter-spacing: -.025em; text-wrap: balance; }
+.eye h1 em { font-weight: 400; font-style: italic; }
+.eye-lede { margin-top: 18px; max-width: 46ch; font-size: 18px; color: rgba(247,245,240,.86); }
+.pick { justify-self: end; width: min(100%, 440px); }
+.pick p.q { font: 400 21px/1.2 var(--display); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.chips button { min-height: 44px; padding: 0 14px; border: 1px solid rgba(247,245,240,.42); background: transparent; color: var(--paper); font: 400 17px var(--display); cursor: pointer; }
+.chips button[aria-pressed="true"] { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.ans { margin-top: 14px; min-height: 3.2em; font-size: 15.5px; color: rgba(247,245,240,.9); }
+.ans b { font-weight: 500; color: var(--warm); }
+.cap { position: absolute; top: 16px; right: 0; left: 0; z-index: 2; }
+.cap .wrap { text-align: right; font: italic 400 14px var(--display); color: rgba(247,245,240,.72); }
+
+/* ---------------------------------------------------------------- drawn, then rendered */
+.wipe-s { padding-top: clamp(80px, 10vw, 140px); }
+.wipe-s .head { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px; align-items: end; }
+.wipe-s h2 { font: 400 clamp(38px, 4.6vw, 66px)/1.02 var(--display); letter-spacing: -.025em; }
+.wipe-s .head p { max-width: 54ch; color: var(--soft); font-size: 18px; }
+.wipe { position: relative; margin-top: 44px; line-height: 0; background: var(--paper); user-select: none; touch-action: pan-y; }
+.wipe img { display: block; width: 100%; height: auto; }
+.wipe .draw { position: absolute; inset: 0; background: var(--paper); clip-path: inset(0 calc(100% - var(--x, 50%)) 0 0); }
+.wipe .draw svg { width: 100%; height: 100%; }
+.wipe .handle { position: absolute; top: 0; bottom: 0; left: var(--x, 50%); width: 0; border-left: 1px solid var(--ink); }
+.wipe input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; }
+.wipe .grip { position: absolute; top: 50%; left: 0; transform: translate(-50%, -50%); width: 46px; height: 46px; border-radius: 50%; background: var(--paper); box-shadow: 0 2px 10px rgba(0,0,0,.25); display: grid; place-items: center; font: 700 15px var(--display); line-height: 1; }
+.wipe-k { display: flex; justify-content: space-between; margin-top: 12px; font-size: 14px; color: var(--soft); }
+.wipe-k b { font-weight: 500; color: var(--ink); }
+footer { margin-top: 120px; padding-top: 32px; padding-bottom: 40px; border-top: 1px solid var(--line); }
+footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; font-size: 13px; color: var(--soft); }
+/* plan drawing tokens */
+.pl-wall { fill: var(--ink); } .pl-cell { fill: none; stroke: var(--ink); stroke-width: .04; } .pl-car { fill: #D6D1C7; }
+.pl-n { font: .5px var(--display); fill: var(--ink); } .pl-col { fill: var(--ink); } .pl-free .pl-cell { fill: #C9CDB8; }
+
+/* ---------------------------------------------------------------- the live list */
+.sec { padding-top: clamp(96px, 11vw, 160px); }
+.sec h2 { font: 400 clamp(38px, 4.6vw, 66px)/1.02 var(--display); letter-spacing: -.025em; }
+.sec .lede { margin-top: 16px; max-width: 54ch; color: var(--soft); font-size: 18px; }
+.live { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(32px, 5vw, 80px); align-items: start; margin-top: 48px; }
+.sheet { overflow-x: auto; background: #fff; border: 1px solid var(--line); font: 400 14px/1 Arial, sans-serif; color: #202124; }
+.sheet-top { display: flex; gap: 10px; align-items: center; padding: 12px 14px; border-bottom: 1px solid var(--line); font-size: 13px; color: #5f6368; }
+.sheet-top i { width: 14px; height: 18px; background: #188038; display: inline-block; }
+.sheet table { width: 100%; border-collapse: collapse; }
+.sheet th, .sheet td { height: 40px; padding: 0 12px; border-right: 1px solid #E2E3E3; border-bottom: 1px solid #E2E3E3; text-align: left; }
+.sheet th { background: #F8F9FA; font-weight: 400; color: #5f6368; }
+.sheet td.n { width: 46px; background: #F8F9FA; color: #5f6368; text-align: center; }
+.sheet button { min-height: 32px; padding: 0 10px; border: 1px solid #DADCE0; border-radius: 12px; background: #E6F4EA; color: #137333; font: inherit; cursor: pointer; }
+.sheet button[data-s="let"] { background: #F1F3F4; color: #3C4043; }
+.sheet-k { margin-top: 10px; font-size: 14px; color: var(--soft); }
+.site { background: var(--paper); border: 1px solid var(--line); padding: 28px; }
+.site .k { font: italic 400 16px var(--display); color: var(--soft); }
+.site .big { margin-top: 6px; font: 700 clamp(44px, 5vw, 64px)/1 var(--display); letter-spacing: -.02em; }
+.site ul { list-style: none; margin-top: 18px; border-top: 1px solid var(--line); }
+.site li { display: flex; justify-content: space-between; padding: 11px 0; border-bottom: 1px solid var(--line); font-size: 16px; }
+.site .upd { margin-top: 16px; font-size: 15px; color: var(--soft); }
+.site .upd.stale { color: var(--ink); }
+.quiet { display: flex; gap: 10px; align-items: center; margin-top: 18px; font-size: 15px; cursor: pointer; }
+.quiet input { width: 20px; height: 20px; accent-color: var(--ink); }
+/* ---------------------------------------------------------------- night */
+.night { margin-top: clamp(96px, 11vw, 160px); background: var(--night); color: var(--paper); padding-top: clamp(72px, 8vw, 120px); padding-bottom: clamp(72px, 8vw, 120px); }
+.night .head { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px; align-items: end; }
+.night h2 { font: 400 clamp(38px, 4.6vw, 66px)/1.02 var(--display); letter-spacing: -.025em; }
+.night .head p { max-width: 54ch; color: rgba(247,245,240,.78); font-size: 18px; }
+.night img { display: block; width: 100%; height: auto; margin-top: 44px; }
+/* ---------------------------------------------------------------- plans and numbers */
+.plans { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 44px; border-top: 1px solid var(--ink); }
+.plans > div { padding: 24px 24px 28px 0; border-right: 1px solid var(--line); }
+.plans > div + div { padding-left: 24px; }
+.plans > div:last-child { border-right: 0; }
+.plans h3 { font: 700 26px/1.1 var(--display); }
+.plans .pr { margin-top: 6px; font-size: 15px; color: var(--soft); }
+.plans ul { margin-top: 16px; padding-left: 18px; font-size: 16px; }
+.plans li + li { margin-top: 6px; }
+.nums { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; margin-top: 44px; }
+.nums b { display: block; font: 700 clamp(40px, 4.4vw, 60px)/1 var(--display); letter-spacing: -.02em; }
+.nums span { display: block; margin-top: 8px; font-size: 15px; color: var(--soft); }
+.close { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 56px; }
+.btn { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 22px; border: 1px solid var(--ink); font: 500 16px var(--body); text-decoration: none; }
+.btn.solid { background: var(--ink); color: var(--paper); }
+@media (max-width: 760px) {
+  .live, .night .head { grid-template-columns: 1fr; gap: 24px; }
+  .plans { grid-template-columns: 1fr; }
+  .plans > div, .plans > div + div { padding: 22px 0; border-right: 0; border-bottom: 1px solid var(--line); }
+  .nums { grid-template-columns: 1fr 1fr; }
+  .night img { margin-left: calc(-1 * var(--edge)); width: calc(100% + 2 * var(--edge)); max-width: none; }
+}
+@media (max-width: 760px) {
+  .sfbar nav { display: none; }
+  .eye-pic { height: 74vh; min-height: 480px; }
+  .eye-pic img { object-position: 38% 60%; }
+  .eye-copy { position: relative; padding-bottom: 36px; background: var(--night); }
+  .eye-copy .wrap { grid-template-columns: 1fr; gap: 26px; }
+  .eye h1 { margin-top: -84px; position: relative; }
+  .pick { justify-self: stretch; }
+  .wipe-s .head { grid-template-columns: 1fr; gap: 16px; }
+  .wipe { overflow: hidden; }
+}
+@media (prefers-reduced-motion: reduce) { .eye-pic img { transition: none; } }
+</style>
+</head>
+<body>
+<div class="sfbar gut"><div class="wrap">
+  <a class="wm" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su" aria-label="Sitefloor home">sitefl<svg width="28" height="14" viewBox="0 0 42 21" aria-hidden="true"><rect x="1.9" y="1.9" width="38.2" height="17.2" rx="8.6" fill="none" stroke="#0E0F11" stroke-width="3.8"/><circle cx="31.5" cy="10.5" r="5.2" fill="#E8613C"/></svg>r</a>
+  <nav aria-label="Main"><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#live">Features</a><a href="#top" aria-current="page">Work</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#pricing">Pricing</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#guides">Guides</a></nav>
+  <a class="sfbtn" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#free"><span>Free mockup</span><span aria-hidden="true">→</span></a>
+</div></div>
+
+<main id="top">
+<section class="eye" aria-labelledby="h1">
+  <div class="eye-pic" id="pic">
+    <img class="on" data-bay="0" src="media/eye-base.webp" alt="Inside Hall One from the gate: a long polished concrete aisle, columns either side, cars under fitted covers, five bays empty" width="1920" height="1080" fetchpriority="high">
+    <img data-bay="4" src="media/eye-bay4.webp" alt="" width="1920" height="1080" loading="lazy">
+    <img data-bay="7" src="media/eye-bay7.webp" alt="" width="1920" height="1080" loading="lazy">
+    <img data-bay="14" src="media/eye-bay14.webp" alt="" width="1920" height="1080" loading="lazy">
+    <span class="tag" id="tag" aria-hidden="true"></span>
+  </div>
+  <div class="cap gut"><div class="wrap">Hall One, rendered from Elsden's plan. Not a photograph.</div></div>
+  <div class="eye-copy gut"><div class="wrap">
+    <div>
+      <h1 id="h1">Your bay, <em>lit before</em> you arrive.</h1>
+      <p class="eye-lede">Elsden lets car storage by the month in Kentish Town. Its website measures your car against every free bay and lights the one that fits.</p>
+    </div>
+    <div class="pick">
+      <p class="q" id="q">Your car</p>
+      <div class="chips" role="group" aria-labelledby="q">
+        <button type="button" data-car="hatch" aria-pressed="false">small hatchback</button><button type="button" data-car="estate" aria-pressed="false">family estate</button><button type="button" data-car="suv" aria-pressed="false">large SUV</button><button type="button" data-car="van" aria-pressed="false">van</button>
+      </div>
+      <p class="ans" id="ans" aria-live="polite">Five bays are free. Pick a car and the lights come on over the one that fits.</p>
+    </div>
+  </div></div>
+</section>
+
+<section class="wipe-s gut" aria-labelledby="h2"><div class="wrap">
+  <div class="head">
+    <h2 id="h2">Drawn to scale, then rendered.</h2>
+    <p>On Signature, Elsden's hall is drawn from its own measurements, every bay where it really is. As a Bespoke add-on, the same plan becomes the hall from above. Drag across to see one become the other.</p>
+  </div>
+  <div class="wipe" id="wipe" style="--x: 50%">
+    <img src="media/aerial-day.webp" alt="Hall One from directly above: polished concrete, two rows of cars under fitted covers, five bays empty" width="2208" height="1158" loading="lazy">
+    <div class="draw" id="draw" aria-hidden="true"></div>
+    <div class="handle" aria-hidden="true"><span class="grip">↔</span></div>
+    <input type="range" min="0" max="100" value="50" aria-label="Drawing or render: drag to compare">
+  </div>
+  <div class="wipe-k"><span><b>Drawn</b> · Signature</span><span><b>Rendered</b> · Bespoke add-on</span></div>
+</div></section>
+
+<section class="sec gut" aria-labelledby="h3"><div class="wrap">
+  <h2 id="h3">The list keeps itself.</h2>
+  <p class="lede">Elsden marks a bay free or let in a Google Sheet. The site reads it every five minutes and says when it last changed. If the sheet goes quiet for a day, the site stops promising and asks you to check.</p>
+  <div class="live">
+    <div>
+      <div class="sheet" aria-label="Elsden's Google Sheet">
+        <div class="sheet-top"><i aria-hidden="true"></i>Elsden bays</div>
+        <table><thead><tr><th class="n"></th><th>bay</th><th>status</th><th>updated_at</th></tr></thead><tbody id="rows"></tbody></table>
+      </div>
+      <p class="sheet-k">Tap a status to change it, as Elsden would on the phone.</p>
+    </div>
+    <div class="site" aria-live="polite">
+      <p class="k">On Elsden's site</p>
+      <p class="big" id="count"></p>
+      <ul id="free"></ul>
+      <p class="upd" id="upd"></p>
+      <label class="quiet"><input type="checkbox" id="quiet"> The sheet hasn't changed for a day</label>
+    </div>
+  </div>
+</div></section>
+
+<section class="night gut" aria-labelledby="h4"><div class="wrap">
+  <div class="head">
+    <h2 id="h4">After dark.</h2>
+    <p>Arriving after hours is the question every storage customer asks. Elsden's night page answers it on the same hall, lit as it is at night: the gate, the walk in, and the bay waiting for you.</p>
+  </div>
+  <picture><source media="(max-width: 760px)" srcset="media/aerial-night-phone.webp" width="1448" height="1158"><img src="media/aerial-night.webp" alt="Hall One from above at night: pools of warm light over each bay, cars under covers, the five free bays empty" width="2208" height="1158" loading="lazy"></picture>
+</div></section>
+
+<section class="sec gut" aria-labelledby="h5"><div class="wrap">
+  <h2 id="h5">Three ways in.</h2>
+  <p class="lede">Each one is a site of your own, with your bays, your prices and your rules.</p>
+  <div class="plans">
+    <div><h3>Starter</h3><p class="pr">£99, then £25 a month</p><ul><li>Home and Plan your visit</li><li>Free bays from your Google Sheet, with the time it changed</li><li>Move-in steps to the customer's calendar</li></ul></div>
+    <div><h3>Plus</h3><p class="pr">£199, then £30 a month</p><ul><li>Up to five pages</li><li>Arrive at night</li><li>Or a laying-up planner, for storage-led halls</li></ul></div>
+    <div><h3>Signature</h3><p class="pr">£349, then £35 a month</p><ul><li>Up to twenty pages</li><li>Your hall drawn to scale from your measurements</li><li>Pick your car and see the bay that fits</li></ul></div>
+    <div><h3>Bespoke add-on</h3><p class="pr">Quoted after a call</p><ul><li>Your hall rendered from above, day and night</li><li>Free bays shown empty, live from the sheet</li></ul></div>
+  </div>
+</div></section>
+
+<section class="sec gut" aria-labelledby="h6"><div class="wrap">
+  <h2 id="h6">Measured on a phone.</h2>
+  <div class="nums">
+    <div><b>99</b><span>Lighthouse performance, on a phone</span></div>
+    <div><b>100</b><span>Accessibility</span></div>
+    <div><b>0</b><span>Layout shift</span></div>
+    <div><b>£0</b><span>Running cost, beyond hosting</span></div>
+  </div>
+  <div class="close">
+    <a class="btn solid" href="https://sitefloor1.github.io/sitefloor-templates/elsden/">See Elsden's site</a>
+    <a class="btn" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#free">Get a free mockup of yours</a>
+  </div>
+</div></section>
+</main>
+
+<footer class="gut"><div class="wrap">
+  <p>Elsden is a fictional car storage hall made to show the Sitefloor garage kit. Its bays, prices, address and number are demo data. Hall One is rendered from its plan (Blender); covered cars and floor texture from Poly Haven (CC0). Lighthouse figures: Elsden's home page, mobile preset.</p>
+  <span>© 2026 Sitefloor</span>
+</div></footer>
+
+<script>
+(() => {
+  // ---------------------------------------------------------------- the same sums as Elsden's site (garage kit, lib/garage.js)
+  const ROWS = [[[1,2.4,0],[2,2.4,0],[3,2.6,0],[4,2.4,1],[5,2.6,0],[6,2.6,0],[7,2.6,1,7]],[[8,2.4,0],[9,2.4,1],[10,2.6,0],[11,2.6,1,7],[12,2.6,0,7],[13,2.4,0],[14,2.8,1,22]]];
+  const CARS = { hatch: ["small hatchback", 4.1, 1.8], estate: ["family estate", 4.8, 1.85], suv: ["large SUV", 4.9, 2.0], van: ["van", 5.4, 2.05] };
+  const DEPTH = 5.2;
+  const pick = ([, L, W]) => ROWS.flat().find(([, w, free]) => free && w - W >= 2 * (W >= 1.95 ? 0.4 : 0.3) - 1e-9 && DEPTH - L >= 0.2 - 1e-9);
+  const ans = document.getElementById("ans"), imgs = [...document.querySelectorAll("#pic img")], pic = document.getElementById("pic"), tag = document.getElementById("tag");
+  // where each free bay's entrance sits in the 1920 × 1080 render (projected from the camera)
+  const AT = { 4: [28.9, 66.3], 7: [38.7, 57.4], 14: [61.2, 57.3] };
+  let lit = 0;
+  const place = () => {
+    const at = AT[lit]; tag.classList.toggle("on", !!at); if (!at) return;
+    const ox = Number(imgs[0].style.objectPosition.split("%")[0] || (window.innerWidth <= 760 ? 38 : 50)) / 100, oy = window.innerWidth <= 760 ? .6 : .58;
+    const cw = pic.clientWidth, ch = pic.clientHeight, k = Math.max(cw / 1920, ch / 1080);
+    tag.style.left = ((cw - 1920 * k) * ox + at[0] / 100 * 1920 * k) + "px";
+    tag.style.top = ((ch - 1080 * k) * oy + at[1] / 100 * 1080 * k) + "px";
+  };
+  addEventListener("resize", place);
+  document.querySelectorAll(".chips button").forEach((b) => b.addEventListener("click", () => {
+    document.querySelectorAll(".chips button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+    const car = CARS[b.dataset.car], bay = pick(car);
+    lit = bay ? bay[0] : 0; tag.textContent = bay ? "Bay " + lit : "";
+    const phone = window.innerWidth <= 760, ox = phone ? (bay ? Math.min(78, Math.max(22, AT[lit][0])) : 38) : 50;
+    imgs.forEach((i) => { i.classList.toggle("on", Number(i.dataset.bay) === lit); i.style.objectPosition = ox + "% " + (window.innerWidth <= 760 ? "60%" : "58%"); });
+    tag.classList.remove("on"); setTimeout(place, matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 1200);
+    ans.innerHTML = bay
+      ? `<b>Bay ${bay[0]}</b> takes your ${car[0]}, with ${Math.round(((bay[1] - car[2]) / 2) * 100 + 1e-6)} cm either side${bay[3] ? `, and a ${bay[3]} kW charger` : ""}. It's the one lit.`
+      : `No free bay takes a ${car[0]} tonight: the bays are 5.2 m deep. The site offers the waiting list instead.`;
+  }));
+  // ---------------------------------------------------------------- the drawn plan, from the same measurements, in the render's frame
+  const H = 16.5, X = -12.5, TOP = 17.3, Wm = 34.5, Hm = 18.1, Y = (y) => TOP - y, P = [];
+  P.push(`<svg viewBox="0 0 ${Wm} ${Hm}" preserveAspectRatio="none"><g transform="translate(${-X} 0)">`);
+  P.push(`<rect class="pl-wall" x="-0.35" y="${Y(H + .35)}" width="21.9" height=".35"/><rect class="pl-wall" x="-0.35" y="${Y(0)}" width="21.9" height=".35"/><rect class="pl-wall" x="21.2" y="${Y(H + .35)}" width=".35" height="${H + .7}"/>`);
+  P.push(`<rect class="pl-wall" x="-0.35" y="${Y(H + .35)}" width=".35" height="${H / 2 - 1.7 + .35}"/><rect class="pl-wall" x="-0.35" y="${Y(H / 2 - 1.7)}" width=".35" height="${H / 2 - 1.7 + .35}"/>`);
+  ROWS.forEach((row, r) => { let x = 0.88; for (const [n, w, free] of row) {
+    const y0 = r ? 0 : H - DEPTH;
+    P.push(`<g class="${free ? "pl-free" : ""}"><rect class="pl-cell" x="${x}" y="${Y(y0 + DEPTH)}" width="${w}" height="${DEPTH}"/>${free ? "" : `<rect class="pl-car" x="${x + w / 2 - .9}" y="${Y(y0 + DEPTH / 2) - 2.3}" width="1.8" height="4.6" rx=".5"/>`}<text class="pl-n" x="${x + w / 2}" y="${r ? Y(DEPTH) - .35 : Y(H - DEPTH) + .75}" text-anchor="middle">${n}</text></g>`);
+    x += w; } });
+  for (const [cx, cy] of [[5.68,10.94],[10.78,10.94],[15.88,10.94],[5.68,5.56],[10.78,5.56],[15.88,5.56]]) P.push(`<rect class="pl-col" x="${cx - .22}" y="${Y(cy) - .22}" width=".44" height=".44"/>`);
+  P.push("</g></svg>");
+  document.getElementById("draw").innerHTML = P.join("");
+  const wipe = document.getElementById("wipe"), range = wipe.querySelector("input");
+  range.addEventListener("input", () => wipe.style.setProperty("--x", range.value + "%"));
+
+  // ---------------------------------------------------------------- the live list: the same reading as the kit (baysFromCsv)
+  const HALL = ROWS.flat().map(([n, w, free, kw]) => ({ n, w, free: !!free, kw, at: Date.now() - (n * 37 % 300 + 40) * 60000 }));
+  const PRICE = { 2.4: 240, 2.6: 260, 2.8: 290 };
+  const hm = (t) => new Date(t).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/London" });
+  const rowsEl = document.getElementById("rows"), quiet = document.getElementById("quiet");
+  const draw = () => {
+    rowsEl.innerHTML = HALL.slice(0, 9).map((b, i) => `<tr><td class="n">${i + 2}</td><td>${b.n}</td><td><button type="button" data-n="${b.n}" data-s="${b.free ? "free" : "let"}" aria-label="Bay ${b.n}: ${b.free ? "free" : "let"}. Change">${b.free ? "free" : "let"}</button></td><td>${new Date(b.at).toISOString().slice(0, 16).replace("T", " ")}</td></tr>`).join("");
+    const free = HALL.filter((b) => b.free), last = Math.max(...HALL.map((b) => b.at));
+    const stale = quiet.checked;
+    document.getElementById("count").textContent = stale ? "Ask us first" : `${free.length} bay${free.length === 1 ? "" : "s"} free`;
+    document.getElementById("free").innerHTML = stale ? "" : free.map((b) => `<li><span>Bay ${b.n} · ${b.w.toFixed(1)} m${b.kw ? ` · ${b.kw} kW` : ""}</span><span>£${PRICE[b.w]} a month</span></li>`).join("");
+    const u = document.getElementById("upd"); u.classList.toggle("stale", stale);
+    u.textContent = stale ? `As listed on ${new Date(last - 864e5).toLocaleDateString("en-GB", { day: "numeric", month: "long" })}. Ask us to confirm before you come.` : `Updated ${hm(last)}`;
+  };
+  rowsEl.addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; const bay = HALL.find((x) => x.n === Number(b.dataset.n)); bay.free = !bay.free; bay.at = Date.now(); draw(); rowsEl.querySelector(`[data-n="${bay.n}"]`).focus(); });
+  quiet.addEventListener("change", draw);
+  draw();
+})();
+</script>
+</body>
+</html>

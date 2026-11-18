@@ -1,4 +1,5 @@
 // @ts-check
+import { parseCsv } from "../../../core/lib/sheet.js";
 /**
  * The garage kit's pure logic (no DOM), shared by the build and the browser: which free bay fits a car, the words for
  * it, the hall's geometry in metres (bays, the route in through the gate, camera coverage), the drawn plan as SVG,
@@ -25,6 +26,53 @@ export const sideGap = (car) => (car.width >= 1.95 ? 0.4 : 0.3);
 /** A car fits a bay with the side room above and 20 cm to spare in length. @param {Car} car @param {Bay} bay @param {number} depth */
 export const fits = (car, bay, depth) => bay.width - car.width >= 2 * sideGap(car) - 1e-9 && depth - car.length >= 0.2 - 1e-9;
 
+/**
+ * The hall with today's free bays from the live list: a bay is free only if the list says so. Without a live list
+ * (null), the hall as the client last listed it.
+ * @param {Hall} hall @param {number[]|null} free
+ * @returns {Hall}
+ */
+export function withFree(hall, free) {
+  if (!free) return hall;
+  const set = new Set(free);
+  return { ...hall, rows: hall.rows.map((r) => ({ ...r, bays: r.bays.map((b) => ({ ...b, free: set.has(b.n) })) })) };
+}
+
+/**
+ * The client's published Google Sheet of bays (PARK-1): one row per bay, `bay`, `status` ("free" or "let") and
+ * `updated_at`. Fails closed: an unknown bay, an unreadable status, no time or a list older than `staleHours`
+ * returns { ok: false }, and the site says when its list was last published instead.
+ * @param {string} csv @param {number[]} known the hall's bay numbers @param {number} nowMs @param {number} staleHours
+ * @param {(text: string) => number} readTime parses an updated_at cell (the shop's time zone), NaN if unsure
+ * @returns {{ ok: true, free: number[], updatedAt: number } | { ok: false }}
+ */
+export function baysFromCsv(csv, known, nowMs, staleHours, readTime) {
+  const rows = parseCsv(csv);
+  if (rows.length < 2) return { ok: false };
+  const head = rows[0].map((h) => h.trim().toLowerCase().replace(/\s+/g, "_"));
+  const iBay = head.indexOf("bay"), iStatus = head.indexOf("status"), iTime = head.indexOf("updated_at");
+  if (iBay < 0 || iStatus < 0 || iTime < 0) return { ok: false };
+  /** @type {number[]} */ const free = [];
+  let updatedAt = 0;
+  for (const r of rows.slice(1)) {
+    const n = Number(String(r[iBay] ?? "").trim()), st = String(r[iStatus] ?? "").trim().toLowerCase(), t = readTime(String(r[iTime] ?? ""));
+    if (!known.includes(n) || !["free", "let"].includes(st) || !Number.isFinite(t)) return { ok: false };
+    if (st === "free") free.push(n);
+    updatedAt = Math.max(updatedAt, t);
+  }
+  if (!updatedAt || nowMs - updatedAt > staleHours * 3_600_000 || updatedAt - nowMs > 10 * 60_000) return { ok: false };
+  return { ok: true, free, updatedAt };
+}
+
+/** "Updated 18:40" today, "Updated yesterday, 18:40", else the date. @param {number} ms @param {number} nowMs @param {string} timeZone */
+export function updatedWords(ms, nowMs, timeZone) {
+  const day = (/** @type {number} */ t) => new Date(t).toLocaleDateString("en-CA", { timeZone });
+  const clock = new Date(ms).toLocaleTimeString("en-GB", { timeZone, hour: "2-digit", minute: "2-digit" });
+  if (day(ms) === day(nowMs)) return `Updated ${clock}`;
+  if (day(ms) === day(nowMs - 86_400_000)) return `Updated yesterday, ${clock}`;
+  return `Updated ${new Date(ms).toLocaleDateString("en-GB", { timeZone, day: "numeric", month: "long" })}, ${clock}`;
+}
+
 /** Every bay in the order the hall lists them. @param {Hall} hall @returns {Bay[]} */
 export const allBays = (hall) => hall.rows.flatMap((r) => r.bays);
 
@@ -34,7 +82,7 @@ export function pickBay(hall, car) {
 }
 
 /** Centimetres either side of the car, rounded. @param {Car} car @param {Bay} bay */
-export const spareCm = (car, bay) => Math.round(((bay.width - car.width) / 2) * 100);
+export const spareCm = (car, bay) => Math.round(((bay.width - car.width) / 2) * 100 + 1e-6); // 47.4999… is 48
 
 /** "£260" @param {number} n */
 export const pounds = (n) => `£${Number.isInteger(n) ? n : n.toFixed(2)}`;
@@ -176,7 +224,7 @@ export function planSvg(hall, opt = {}) {
   for (const b of bays) {
     const q = r[b.n], y = Y(q.y1);
     out.push(`<g class="gp-bay${b.free ? " is-free" : ""}" data-bay="${b.n}"><rect class="gp-cell" x="${q.x0}" y="${y}" width="${b.width}" height="${hall.bayDepth}"/>`
-      + (b.free ? "" : `<rect class="gp-car" x="${(q.cx - 0.9).toFixed(2)}" y="${(Y(q.cy) - 2.3).toFixed(2)}" width="1.8" height="4.6" rx=".5"/>`)
+      + `<rect class="gp-car" x="${(q.cx - 0.9).toFixed(2)}" y="${(Y(q.cy) - 2.3).toFixed(2)}" width="1.8" height="4.6" rx=".5"/>`
       + `<text class="gp-n" x="${q.cx}" y="${(q.north ? y + hall.bayDepth + 0.75 : y - 0.35).toFixed(2)}" text-anchor="middle">${b.n}</text></g>`);
     if (b.charger) {
       const cy = q.north ? Y(hall.depth) + 0.35 : Y(0) - 0.35;
