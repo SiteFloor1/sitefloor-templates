@@ -118,6 +118,20 @@ chat can reuse the Sitefloor bar, footer and patterns without re-reading a publi
   film with posters, three phone clips with posters, two phone stills) live in the published artifact under `media/`.
   Phone clips: Playwright screenshots at 390×844 and 2x in full Chromium with `--lang=en-GB` (UK date fields), one per
   step and one per typed letter, stitched with ffmpeg (the CDP screencast came out at 1x).
+- `larrow/index.html`: the tour operator case study (twelve gores make a globe: the page opens on a globe-maker's
+  gore sheet, the world cut into twelve 30° gores in Larrow's logbook ink, with each gore holding one month. Tap a
+  month and its gore lights, the journey Larrow would send you on that month is drawn across it as a route with its
+  stops, and an inset gives the photograph, nights, the place's local time (live) and its typical high from the
+  demo's published climate figures; the page opens on this month in London. Chapters follow the gores: the logbook on
+  a laptop (film), the year on a phone (film), local time (three live clocks), journeys and ATOL as given, when to go
+  on a laptop, daylight, the shortlist and who's been there, the trip builder (film), travel-ready and the private
+  trip page (film). The plans are three globes, Pocket, Table and Library; the numbers are "drawn to scale"; the close
+  is "your year, on twelve gores". Ivory ground, logbook ink, one burnt-sienna accent taken from the demo; land from
+  Natural Earth (public domain) projected as interrupted sinusoidal gores; Familjen Grotesk (the demo's own),
+  self-hosted with a size-matched stand-in). Media (four films with posters, six phone stills, the when-to-go table on
+  a laptop, five of the demo's photographs (one in two crops), the fonts) live in `media/` and the published artifact. Phone films: CDP
+  screencast at 390×844 and 2x in Chromium with `--lang=en-GB`, H.264; stills and films without the demo ribbon;
+  nothing plays until asked.
 - `linnet/index.html`: the cleaning case study (one visit, timed: the page is a fortnightly clean of a two-bedroom home
   with two bathrooms, 2 h 25 from 09:00. The hero is Linnet's room strip, live, under a headline that is the visit's
   length in words ("Two hours, twenty-five minutes."), so changing bedrooms, bathrooms or how often rewrites the
