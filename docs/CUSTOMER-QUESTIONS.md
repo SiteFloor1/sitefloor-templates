@@ -46,6 +46,7 @@ One file per trade, so trades built in parallel never edit the same lines. A new
 - Electricians: [`docs/trades/electrician/questions.md`](trades/electrician/questions.md)
 - Financial advisers: [`docs/trades/financial-advisers/questions.md`](trades/financial-advisers/questions.md)
 - Florists: [`docs/trades/florist/questions.md`](trades/florist/questions.md)
+- Fragrance houses and perfumers: [`docs/trades/fragrance/questions.md`](trades/fragrance/questions.md)
 - Garage and parking rentals: [`docs/trades/garage/questions.md`](trades/garage/questions.md)
 - Grand cafés and tea rooms: [`docs/trades/grand-cafe/questions.md`](trades/grand-cafe/questions.md)
 - Gyms and health clubs: [`docs/trades/gym/questions.md`](trades/gym/questions.md)

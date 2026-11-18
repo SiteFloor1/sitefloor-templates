@@ -1,0 +1,24 @@
+{#- Let them choose: an amount paid now by the house's own Stripe link, with the card's words; the one who receives it
+    tries samples, then chooses the bottle and the engraving, and sends the code on WhatsApp for the house to check.
+    Nothing here checks or stores a code: the house does, from its Stripe dashboard. -#}
+{%- set c = site.choose %}
+<section id="choose" class="fr-choose" data-feature="fragrance-choose" aria-label="{{ c.title | plain }}"{{ 'fragrance-choose' | tierAttr | safe }}><div class="wrap fr-choose-in">
+  <form class="fr-choose-give" data-give>
+    <h2 class="fr-story-t">{{ c.title }}</h2>
+    {%- if c.intro %}<p class="fr-desk-i">{{ c.intro }}</p>{% endif %}
+    <fieldset class="fr-pick"><legend class="fr-lg">The amount</legend>
+      {%- for a in c.amounts %}<label><input type="radio" name="amount" value="{{ a.amount }}"{% if loop.index == 2 or c.amounts.length == 1 %} checked{% endif %}><span>{{ a.amount | gbp }}</span></label>{% endfor %}
+    </fieldset>
+    <div class="fr-field"><label for="ch-to">For</label><input id="ch-to" name="to" maxlength="40" autocomplete="off"></div>
+    <div class="fr-field"><label for="ch-from">From</label><input id="ch-from" name="from" maxlength="40" autocomplete="name"></div>
+    <a class="fr-go" data-give-go href="{{ c.message | orderText({ name: '' }, { ml: '', price: (c.amounts[1] or c.amounts[0]).amount }, site.business.name) | book }}" target="_blank" rel="noopener">Give it</a>
+    <p class="fr-small">{{ c.terms }}</p>
+  </form>
+  <form class="fr-choose-get" data-get>
+    <h3 class="fr-get-t">{{ c.redeemTitle }}</h3>
+    <div class="fr-field"><label for="ch-code">Your code</label><input id="ch-code" name="code" maxlength="24" autocomplete="off" spellcheck="false"></div>
+    <div class="fr-field"><label for="ch-scent">The fragrance you've chosen</label>
+      <select id="ch-scent" name="scent" class="fr-select">{% for x in site.fragrances.items %}<option value="{{ x.id }}">{{ x.name }}</option>{% endfor %}</select></div>
+    <a class="fr-go" data-get-go href="{{ c.redeemMessage | orderText(site.fragrances.items[0], (site.fragrances.items[0] | defaultSize), site.business.name) | book }}" target="_blank" rel="noopener">Send my choice</a>
+  </form>
+</div></section>

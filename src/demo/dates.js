@@ -52,6 +52,8 @@ export const FORWARD = [
   { kind: "week", paths: ["lightPlanner.date"] },
   { kind: "week", paths: ["vote.closes"] },
   { kind: "week", paths: ["drop.at", "drop.ends"] },
+  // A new fragrance house's launch day (the fragrance kit's launch mode).
+  { kind: "week", paths: ["launch.date"] },
   // One window: order by and collect from move together, by whole years, until the later of them is ahead.
   { kind: "season", list: "advent", keys: ["orderBy", "collectFrom"], name: "name" },
   { kind: "csv-week", path: "events.sample", columns: ["Date"] },

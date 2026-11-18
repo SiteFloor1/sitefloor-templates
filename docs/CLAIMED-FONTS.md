@@ -64,6 +64,7 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 | Cleaning, Plan (A) | trade/cleaning | Anek Latin | Anek Latin |
 | Verge (driving) | trade/driving | Lexend | Lexend |
 | Thursby, The statement (light) | trade/financial-advisers | Frank Ruhl Libre | Frank Ruhl Libre |
+| Fragrance, Verrière (B, round 3) | trade/fragrance | Hina Mincho | SUSE |
 | Garage, Elsden (the gallery) | trade/garage | Cardo | Radio Canada |
 | Halde, chalk (round 1) | trade/gym | Sofia Sans Extra Condensed | Sofia Sans |
 | Halde, After dark (chosen, round 3) | trade/gym | Epilogue | Epilogue |

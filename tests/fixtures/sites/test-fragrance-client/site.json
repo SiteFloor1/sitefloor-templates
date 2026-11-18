@@ -1,0 +1,448 @@
+{
+  "schemaVersion": 4,
+  "id": "test-fragrance-client",
+  "mode": "client",
+  "plan": "plus",
+  "kit": "fragrance",
+  "look": "verriere",
+  "url": "https://ambry-test-perfume.co.uk",
+  "indexable": true,
+  "lang": "en-GB",
+  "business": {
+    "name": "Ambry",
+    "schemaType": "LocalBusiness",
+    "description": "A new perfume house in Bath: three fragrances, out this winter.",
+    "priceRange": "££",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "442079460512",
+    "phone": "+44 20 7946 0512",
+    "email": "hello@ambry-test-perfume.example"
+  },
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "location": {
+    "streetAddress": "4 Abbey Green",
+    "locality": "Bath",
+    "postcode": "BA1 1NW",
+    "country": "GB",
+    "area": "On the corner of Abbey Green, by the plane tree.",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=Abbey%20Green%2C%20Bath"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [],
+      "tue": [
+        [
+          "10:00",
+          "18:00"
+        ]
+      ],
+      "wed": [
+        [
+          "10:00",
+          "18:00"
+        ]
+      ],
+      "thu": [
+        [
+          "10:00",
+          "18:00"
+        ]
+      ],
+      "fri": [
+        [
+          "10:00",
+          "18:00"
+        ]
+      ],
+      "sat": [
+        [
+          "10:00",
+          "17:00"
+        ]
+      ],
+      "sun": []
+    },
+    "exceptions": []
+  },
+  "features": [
+    "fragrance-library",
+    "fragrance-sizes",
+    "fragrance-launch",
+    "fragrance-pages",
+    "fragrance-organ",
+    "fragrance-discovery",
+    "fragrance-gifts",
+    "visit",
+    "plan-visit",
+    "questions",
+    "reviews"
+  ],
+  "nav": [
+    {
+      "label": "Fragrances",
+      "page": "fragrances",
+      "feature": "fragrance-pages",
+      "fallback": "#library"
+    },
+    {
+      "label": "Scent finder",
+      "page": "scent-finder",
+      "feature": "fragrance-organ"
+    },
+    {
+      "label": "Discovery set",
+      "page": "discovery-sets",
+      "feature": "fragrance-discovery"
+    },
+    {
+      "label": "Gifts",
+      "page": "gifts",
+      "feature": "fragrance-gifts"
+    },
+    {
+      "label": "Visit",
+      "page": "visit",
+      "feature": "plan-visit",
+      "fallback": "#visit"
+    }
+  ],
+  "messages": {
+    "general": "Hello Ambry, I have a question."
+  },
+  "hero": {
+    "kicker": "Perfume house, Abbey Green, Bath",
+    "title": "One",
+    "intro": "Fig leaves and warm stone.",
+    "fragrance": "one",
+    "photo": {
+      "src": "img/hero.webp",
+      "width": 1600,
+      "height": 1000,
+      "alt": "The bottle of One on a stone block"
+    },
+    "marks": {
+      "neck": 0.2669,
+      "shoulder": 0.3151,
+      "base": 0.6062,
+      "xl": 0.4018,
+      "xr": 0.5982,
+      "floor": 0.8031
+    }
+  },
+  "sections": {
+    "library": {
+      "title": "The fragrances",
+      "intro": "Three, to begin with."
+    },
+    "launch": {
+      "title": "Before the launch"
+    },
+    "reviews": {
+      "kicker": "Google reviews",
+      "title": "Reviews",
+      "intro": "Copied from Google with the reviewer's name and month."
+    },
+    "questions": {
+      "title": "Before you buy"
+    },
+    "visit": {
+      "title": "Abbey Green"
+    }
+  },
+  "fragrances": {
+    "title": "The fragrances",
+    "intro": "Three fragrances, out this winter.",
+    "message": "Hello {name}, I'd like {fragrance}, {ml} ml ({price}).",
+    "delivery": "Posted in two working days.",
+    "items": [
+      {
+        "id": "one",
+        "name": "One",
+        "line": "Fig leaves and warm stone.",
+        "notes": {
+          "top": [
+            "bergamot"
+          ],
+          "heart": [
+            "fig",
+            "iris"
+          ],
+          "base": [
+            "cedarwood"
+          ]
+        },
+        "photo": {
+          "src": "img/scents/one.webp",
+          "width": 1040,
+          "height": 1300,
+          "alt": "One, the bottle"
+        },
+        "sizes": [
+          {
+            "ml": 30,
+            "price": 65,
+            "payLink": "https://buy.stripe.com/test_one30"
+          },
+          {
+            "ml": 50,
+            "price": 90,
+            "payLink": "https://buy.stripe.com/test_one50"
+          }
+        ],
+        "sample": {
+          "ml": 2,
+          "price": 4,
+          "payLink": "https://buy.stripe.com/test_ones"
+        }
+      },
+      {
+        "id": "two",
+        "name": "Two",
+        "line": "Rose after rain.",
+        "notes": {
+          "top": [
+            "pink pepper"
+          ],
+          "heart": [
+            "rose"
+          ],
+          "base": [
+            "vanilla",
+            "white musk"
+          ]
+        },
+        "photo": {
+          "src": "img/scents/two.webp",
+          "width": 1040,
+          "height": 1300,
+          "alt": "Two, the bottle"
+        },
+        "sizes": [
+          {
+            "ml": 30,
+            "price": 65,
+            "payLink": "https://buy.stripe.com/test_two30"
+          },
+          {
+            "ml": 50,
+            "price": 90,
+            "payLink": "https://buy.stripe.com/test_two50"
+          }
+        ],
+        "sample": {
+          "ml": 2,
+          "price": 4,
+          "payLink": "https://buy.stripe.com/test_twos"
+        }
+      },
+      {
+        "id": "three",
+        "name": "Three",
+        "line": "Smoke and black pepper.",
+        "notes": {
+          "top": [
+            "black pepper"
+          ],
+          "heart": [
+            "incense"
+          ],
+          "base": [
+            "oud",
+            "cedarwood"
+          ]
+        },
+        "photo": {
+          "src": "img/scents/three.webp",
+          "width": 1040,
+          "height": 1300,
+          "alt": "Three, the bottle"
+        },
+        "sizes": [
+          {
+            "ml": 30,
+            "price": 65,
+            "payLink": "https://buy.stripe.com/test_three30"
+          },
+          {
+            "ml": 50,
+            "price": 90,
+            "payLink": "https://buy.stripe.com/test_three50"
+          }
+        ],
+        "sample": {
+          "ml": 2,
+          "price": 4,
+          "payLink": "https://buy.stripe.com/test_threes"
+        }
+      }
+    ]
+  },
+  "engraving": {
+    "title": "Engraving",
+    "price": 12,
+    "maxLetters": 20,
+    "styles": [
+      "caps",
+      "initials"
+    ],
+    "places": [
+      "glass"
+    ],
+    "fragrance": "one",
+    "ml": 50,
+    "message": "Hello {name}, I'd like {fragrance}, {ml} ml, engraved \"{words}\" ({price})."
+  },
+  "organ": {
+    "title": "Scent finder",
+    "intro": "Choose what you love.",
+    "max": 3,
+    "ingredients": [
+      {
+        "note": "fig",
+        "photo": {
+          "src": "img/organ/fig.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "Figs cut open"
+        }
+      },
+      {
+        "note": "rose",
+        "photo": {
+          "src": "img/organ/rose.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "A rose, close"
+        }
+      },
+      {
+        "note": "black pepper",
+        "photo": {
+          "src": "img/organ/black-pepper.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "Black peppercorns"
+        }
+      },
+      {
+        "note": "cedarwood",
+        "photo": {
+          "src": "img/organ/cedarwood.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "Cut logs"
+        }
+      }
+    ]
+  },
+  "discovery": {
+    "title": "Discovery set",
+    "pick": 3,
+    "ml": 2,
+    "price": 10,
+    "terms": "The £10 comes off your first bottle.",
+    "message": "Hello {name}, here is my set: {fragrance}.",
+    "payLink": "https://buy.stripe.com/test_set"
+  },
+  "gifts": {
+    "title": "Gifts",
+    "wrap": {
+      "price": 0,
+      "line": "Wrapped in our paper"
+    },
+    "message": "Hello {name}, I'd like {fragrance}, {ml} ml, {extras}: {price}."
+  },
+  "launch": {
+    "date": "2099-02-01",
+    "newWeeks": 6,
+    "scents": [
+      "one",
+      "two",
+      "three"
+    ],
+    "message": "Hello {name}, please tell me when {fragrance} is out.",
+    "terms": "Pre-orders are posted on the day. Cancel any time before then for a full refund, and you have 14 days after it arrives.",
+    "waitlist": {
+      "formUrl": "https://forms.gle/testAmbryWaitlist"
+    },
+    "preorder": {
+      "one": "https://buy.stripe.com/test_preone"
+    },
+    "story": {
+      "title": "Why Ambry",
+      "text": "Three scents I wanted and couldn't find.",
+      "by": "Ada, who started Ambry"
+    }
+  },
+  "reviews": {
+    "source": "google",
+    "items": [
+      {
+        "text": "Smelled all three at the pop-up and pre-ordered One.",
+        "author": "Nadia K.",
+        "rating": 5,
+        "date": "2026-10"
+      }
+    ]
+  },
+  "questions": [
+    {
+      "topic": "Buying",
+      "q": "When is it out?",
+      "a": "On the launch day; pre-orders are posted that morning.",
+      "home": true
+    },
+    {
+      "topic": "Buying",
+      "q": "Can I return it?",
+      "a": "Within 14 days, unopened.",
+      "home": true
+    }
+  ],
+  "visitInfo": {
+    "kicker": "Plan your visit",
+    "title": "Finding the boutique",
+    "intro": "Halfway down Marylebone Lane, where it bends. Six minutes from Bond Street.",
+    "checked": "2026-11",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "Bond Street station",
+        "origin": "Bond Street station, London",
+        "minutes": 6,
+        "steps": [
+          "Leave by the Oxford Street exit",
+          "Cross Oxford Street into Marylebone Lane",
+          "Follow the lane round the bend; we're on the left"
+        ]
+      },
+      {
+        "mode": "bus",
+        "from": "Buses on Oxford Street",
+        "stop": "Bond Street station",
+        "minutes": 6,
+        "steps": [
+          "Get off at Bond Street station",
+          "Cross into Marylebone Lane"
+        ]
+      }
+    ],
+    "access": [
+      {
+        "label": "Step-free entrance",
+        "yes": true
+      },
+      {
+        "label": "Everything on one floor",
+        "yes": true
+      }
+    ],
+    "accessNote": "One step-free room. Ask and we'll bring the testers to you.",
+    "payment": "Card or Apple Pay."
+  }
+}

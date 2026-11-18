@@ -1,0 +1,12 @@
+{#- The fragrances page: every scent large, with the house's words on its character. -#}
+{%- set f = site.fragrances %}
+{%- set ph = { title: f.title, intro: f.intro } %}
+{% include "kits/fragrance/partials/page-head.njk" %}
+{%- set L = site.launch if ("fragrance-launch" | enabled) else null %}
+{%- set launchNew = L.scents if (L and (L | launchState).isNew) else [] %}
+<section class="fr-lib fr-lib-page" data-feature="fragrance-library" aria-label="{{ f.title | plain }}"><div class="wrap">
+  <ul class="fr-lib-list">
+    {%- for x in f.items %}{% set big = true %}{% include "kits/fragrance/partials/scent.njk" %}{% endfor %}
+  </ul>
+  {%- if f.delivery %}<p class="fr-small">{{ f.delivery }}</p>{% endif %}
+</div></section>
