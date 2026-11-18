@@ -6,4 +6,5 @@
 .dv-ans { min-height: 50px; margin: 14px 0 0; font-size: 17px; line-height: 1.4; }
 .dv-ans b { font-weight: 500; }
 .dv-ans.yes::before { content: "✓ "; color: var(--accent); font-weight: 600; }
-.dv-cover { margin: auto 0 0; color: var(--muted); font-size: 12px; }
+/* three lines kept free, so the list never re-wraps the row when Lexend arrives (it can take one line fewer) */
+.dv-cover { margin: auto 0 0; min-height: calc(3 * 1.55em); color: var(--muted); font-size: 12px; line-height: 1.55; }

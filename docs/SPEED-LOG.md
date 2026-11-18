@@ -564,20 +564,27 @@ _From `docs/trades/driving/speed.md`._
 `npm run budget` passes for both. The first screen's photo is 143 KB (1200 × 800 WebP; trees behind the car keep it heavier than a plain street would); Lexend has a size-matched
 fallback (`src/looks/verge/fonts.css`) so text wraps the same before the font loads.
 
-### Layout shift (home, cold load, fonts loading)
+### Layout shift (home, cold load, CPU 4× slower, fonts held back 600 ms)
 | Date | Viewport | CLS |
 |---|---|---|
-| 2026-11-18 | 1024 | 0.007 |
-| 2026-11-18 | 1280 × 800 | 0.008 |
-| 2026-11-18 | 1350 | 0.001 |
-| 2026-11-18 | 1366 | 0.000 |
-| 2026-11-18 | 1440 | 0.008 |
-| 2026-11-18 | phone (390) | 0.003 |
+| 2026-11-18 | 961 × 800 | 0.014 |
+| 2026-11-18 | 1024 × 768 | 0.000 |
+| 2026-11-18 | 1101 × 800 | 0.000 |
+| 2026-11-18 | 1200 × 800 | 0.000 |
+| 2026-11-18 | 1280 × 900 | 0.004 |
+| 2026-11-18 | 1280 × 800 | 0.000 |
+| 2026-11-18 | 1366 × 768 | 0.000 |
+| 2026-11-18 | 1440 × 900 | 0.000 |
+| 2026-11-18 | 1536 × 864 | 0.000 |
+| 2026-11-18 | 1920 × 1080 | 0.000 |
+| 2026-11-18 | phone (390) | 0.001 |
 
-The earlier 0.17–0.18 at 1280–1366 came from script-only controls (gearbox switch, postcode form, planner) appearing
-after start-up and the second price list being removed. They are now in the page from the first paint; without
-JavaScript a `<noscript>` style shows both price lists and hides the controls. The slots list and the cost figure keep
-their space while loading.
+On desktop the cost card sets the height of the whole card grid. Its parts never change their number of lines with the
+width or the font: the week choices sit in one row, the stepper and "Theory passed" always stack, the answers are sized
+to stay on one line, the cost breakdown keeps room for four lines below 1100 px, and a block's saving sits under its price rather than beside it. Checked with the fallback font
+at 96–108% of its matched width (to stand in for other machines' Arial): every card keeps the same height from 1140 px
+up. Script-only controls are in the page from the first paint; without JavaScript a `<noscript>` style shows both price
+lists and hides the controls.
 
 ## Electricians
 _From `docs/trades/electrician/speed.md`._

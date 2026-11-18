@@ -1,7 +1,7 @@
 /* Next free lessons: three rows, a date large, an outlined "Ask for this" on the right. */
 .dv-slotlist { list-style: none; padding: 0; margin: 0; }
 /* room for three rows from the first paint, so nothing moves when the times arrive */
-.dv-slots[data-state="loading"] .dv-slotlist { min-height: 168px; }
+.dv-slots[data-state="loading"] .dv-slotlist { min-height: 192px; }
 .dv-slotlist li { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--line); }
 .dv-slotlist li:last-child { border-bottom: 0; }
 .dv-slotlist b { display: block; font-weight: 500; font-size: 17px; }
@@ -11,4 +11,5 @@
 .dv-closed { display: none; margin: 0; color: var(--muted); }
 .dv-closed a { color: var(--accent); font-weight: 500; }
 .dv-slots[data-state="closed"] .dv-closed { display: block; }
-.dv-upd { margin: auto 0 0; padding-top: 10px; color: var(--muted); font-size: 12px; }
+/* two lines kept free for "Updated by the instructor …", written once the sheet is read */
+.dv-upd { margin: auto 0 0; padding-top: 10px; min-height: calc(10px + 2 * 1.55em); color: var(--muted); font-size: 12px; line-height: 1.55; }

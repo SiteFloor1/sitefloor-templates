@@ -11,7 +11,9 @@
 .dv-so input { accent-color: var(--accent); }
 .dv-result { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); }
 .dv-big { min-height: 1.1em; margin: 0; font-weight: 400; font-size: 28px; line-height: 1.1; letter-spacing: -.03em; }
-.dv-result small { display: block; min-height: 2.9em; margin-top: 3px; color: var(--muted); font-size: 12px; }
-.dv-foot { margin: auto 0 0; padding-top: 10px; color: var(--muted); font-size: 11px; line-height: 1.45; }
+/* three lines kept free for the date and the cost breakdown, filled in by the script (the breakdown takes three below 1440 px) */
+.dv-result small { display: block; min-height: calc(3 * 1.55em); margin-top: 3px; color: var(--muted); font-size: 12px; line-height: 1.55; }
+/* four lines kept free: the fallback font can need one more than Lexend, and this card sets the hero row's height */
+.dv-foot { margin: auto 0 0; padding-top: 10px; min-height: calc(4 * 1.45em + 10px); color: var(--muted); font-size: 11px; line-height: 1.45; }
 .dv-foot a { color: inherit; }
 @media (prefers-reduced-motion: reduce) { .dv-chips button { transition: none; } }

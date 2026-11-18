@@ -133,11 +133,11 @@ test("no pass-rate claims, guarantees or promises in the instructor's copy", () 
   // DR-01: every phrase the audit found getting through
   for (const claim of ["Pass first time with us!", "Most of our pupils pass first time", "We help you pass first time", "First-time passes every month",
     "100% success rate", "A 100 per cent record", "Pass in 2 weeks", "Pass within two weeks", "Fastest route to your licence", "Pass faster", "Quickest lessons in town",
-    "Our success rate speaks for itself", "Eight in ten pass, 80% of learners pass"]) {
+    "Our success rate speaks for itself", "80% of learners pass", "9 out of 10 pupils pass", "Nine in ten of our learners pass"]) {
     assert.match(errorsFor((s) => { s.hero.intro = claim; }), /hero\.intro.*promise/, claim);
   }
   // plain copy still passes, including an ordinary discount and the gearbox page's own words
-  for (const fine of ["Ten per cent off a block of ten hours.", "Pass in an automatic and you can only drive automatics.", "Pass Plus, six hours.", "Most people learn faster in an automatic."]) {
+  for (const fine of ["Ten per cent off a block of ten hours.", "Pass in an automatic and you can only drive automatics.", "Pass Plus, six hours.", "Most people learn faster in an automatic.", "100% of the price is paid before the first lesson."]) {
     assert.equal(errorsFor((s) => { s.hero.intro = fine; }), "", fine);
   }
   // the reviewer's own words aren't the instructor's claim

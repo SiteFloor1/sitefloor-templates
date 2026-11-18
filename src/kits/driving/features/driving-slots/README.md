@@ -12,6 +12,11 @@ date,time,hours,gearbox,updated_at
 2026-11-19,16:00,2,manual,2026-11-17 08:10
 ```
 
+**For the instructor:** every row is checked on its own. Each row's `updated_at` must be within `staleAfterHours`
+(48 by default), so when you add or confirm a lesson, put the time you did it in that row. Lessons that have passed
+drop off by themselves, but a row you haven't touched in two days hides the whole list until you delete it or update
+its time. The simplest habit: once a day, delete booked lessons and set `updated_at` on the rest to now.
+
 ```json
 "slots": { "title": "Next free lessons", "source": "sheet", "csvUrl": "https://docs.google.com/…output=csv", "message": "Hello, I'd like to book a lesson:" }
 ```

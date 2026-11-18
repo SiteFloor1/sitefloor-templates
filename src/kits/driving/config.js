@@ -26,14 +26,14 @@ const SHEET = /^https:\/\/docs\.google\.com\/spreadsheets\/.+output=csv/;
 
 /**
  * Words an instructor's own copy never uses: pass rates and success rates, "pass first time" and "first-time pass" in any
- * form, guarantees, "100%" or a percentage of pupils or passes, a pass by a deadline ("pass in 2 weeks"), and speed
+ * form, guarantees, a percentage or "9 out of 10" of pupils or passes, a pass by a deadline ("pass in 2 weeks"), and speed
  * claims ("fastest", "quickest", "pass faster"). A pass rate goes only in instructors.passRate, as the client gives it,
  * with its dates.
  */
 const CLAIMS = [
   /\b(?:pass|success)[- ]?rates?\b/i,
-  /\b100\s*(?:%|per\s*cent)/i,
-  /\d\s*(?:%|per\s*cent)[^.!?]{0,30}\b(?:pass|pupils|learners|students|success)/i,
+  /\d\s*(?:%|per\s*cent)[^.!?]{0,30}\b(?:pass|pupils|learners|students|success|record|rate)/i,
+  /\b(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten)\s+(?:out\s+of|in)\s+(?:\d+|ten|every)\b[^.!?]{0,30}\bpass/i,
   /\b(?:pass|success)[^.!?]{0,20}\d\s*(?:%|per\s*cent)/i,
   /\bpass(?:es|ed|ing)?\b[^.!?]{0,30}?\b(?:first|1st)[- ]?time\b/i,
   /\b(?:first|1st)[- ]?time\s+pass(?:es|ed)?\b/i,

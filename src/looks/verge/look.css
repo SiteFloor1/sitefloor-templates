@@ -101,6 +101,19 @@ a { color: inherit; }
 /* phone bar: a floating green pill and a round Chat */
 .mbar.vg-bar { display: none; }
 
+/* desktop: the cost card sets the height of the whole card grid, so nothing in it may change its number of lines
+   with the width or the font before anyone taps. The week choices sit in one row, the stepper and "Theory passed"
+   always stack, and the answers are sized so "12 weeks" and "£1,710" stay on one line at every width (a longer answer
+   after a tap may wrap: a shift after input doesn't count). */
+@media (min-width: 901px) {
+  .vg-cards .dv-chips { display: grid; grid-auto-flow: column; }
+  .vg-cards .dv-chips button { min-width: 0; padding: 0 4px; white-space: nowrap; }
+  .vg-cards .dv-so { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .vg-cards .dv-big { font-size: clamp(22px, 2vw, 28px); }
+}
+@media (min-width: 761px) and (max-width: 900px) { .vg-cards .dv-big { min-height: 2.2em; } }
+/* narrow desktop: the cost breakdown can take four lines in a wider fallback font, so it keeps room for four */
+@media (min-width: 901px) and (max-width: 1100px) { .vg-cards .dv-result small { min-height: calc(4 * 1.55em); } }
 @media (max-width: 1100px) {
   .vg-links a:nth-child(n+5) { display: none; }
 }
