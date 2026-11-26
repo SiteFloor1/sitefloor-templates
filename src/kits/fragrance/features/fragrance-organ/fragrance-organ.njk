@@ -1,0 +1,25 @@
+{#- The organ (FRAG-2): the house's real ingredients in black and white. Choose up to three you love: they turn to
+    colour, and the fragrances that have them rise, most matches first, each with the notes it shares. Only notes the
+    house lists. Without JavaScript every fragrance is listed with its notes. -#}
+{%- set o = site.organ %}
+{%- set ph = { title: o.title, intro: o.intro } %}
+{% include "kits/fragrance/partials/page-head.njk" %}
+<section class="fr-organ" data-feature="fragrance-organ" aria-label="{{ o.title | plain }}"><div class="wrap">
+  <div role="group" aria-label="Ingredients, choose up to {{ o.max or 3 }}"><ul class="fr-org-grid">
+    {%- for g in o.ingredients %}
+    <li><button type="button" class="fr-ing" data-note="{{ g.note }}" aria-pressed="false">
+      <img src="{{ g.photo.src | img }}" width="{{ g.photo.width }}" height="{{ g.photo.height }}" alt="{{ g.photo.alt }}" loading="lazy" decoding="async">
+      <span class="fr-ing-n">{{ g.note | capitalize }}</span>
+    </button></li>
+    {%- endfor %}
+  </ul></div>
+  <p class="fr-org-say" data-org-say aria-live="polite">Choose up to {{ o.max or 3 }}.</p>
+  <ol class="fr-org-res" data-org-res>
+    {%- for x in site.fragrances.items %}
+    <li data-scent-row="{{ x.id }}"><a href="{{ ('fragrances' | href) + '#scent-' + x.id if ('fragrance-pages' | enabled) else ('index' | href) + '#scent-' + x.id }}">
+      <img src="{{ x.photo.src | img }}" width="{{ x.photo.width }}" height="{{ x.photo.height }}" alt="" loading="lazy" decoding="async">
+      <span class="fr-org-n">{{ x.name }}</span><span class="fr-org-m" data-matched>{{ x | allNotes | joinAnd }}</span></a></li>
+    {%- endfor %}
+  </ol>
+  {%- if o.note %}<p class="fr-small">{{ o.note }}</p>{% endif %}
+</div></section>

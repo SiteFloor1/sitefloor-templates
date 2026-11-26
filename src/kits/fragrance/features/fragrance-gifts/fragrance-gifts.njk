@@ -1,0 +1,49 @@
+{#- Gifts, engraving and wrapping (FRAG-4): the bottle and size, the words and the house's letter style, on the glass
+    or the box, wrapping and a card; the total from the house's prices; sent as an order on WhatsApp for the house to
+    confirm (and send its payment link). Without JavaScript the form's first choices are ordered. -#}
+{%- set g = site.gifts %}
+{%- set e = site.engraving %}
+{%- set ph = { title: g.title, intro: g.intro } %}
+{% include "kits/fragrance/partials/page-head.njk" %}
+{%- set styleNames = { caps: "Capitals", lower: "Lower case", initials: "Initials" } %}
+{%- set placeNames = { glass: "On the glass", box: "On the box" } %}
+{#- Before a launch its scents can't be chosen; if no other scent is left, "Tell me on the day" takes the form's place. -#}
+{%- set held = site | heldNow %}
+{%- set LS = site | launchScents %}
+{%- set openItems = site.fragrances.items | without(held) %}
+{%- set x0 = openItems[0] if openItems.length else site.fragrances.items[0] %}
+{%- set allHeld = LS.length and (site.fragrances.items | without(LS) | length) == 0 %}
+<section class="fr-gift" data-feature="fragrance-gifts" aria-label="{{ g.title | plain }}"><div class="wrap{% if allHeld and held.length %} is-before{% endif %}"{% if allHeld %} data-launch-scope{% endif %}>
+  {%- if LS.length %}<span hidden data-feature="fragrance-launch"></span>{% endif %}
+  {%- if allHeld %}
+  {%- set lx = site.fragrances | fragranceById(site.launch.scents[0]) %}
+  <p class="fr-before-only fr-gift-wait">Gifts open on {{ site.launch.date | dayMonth }}. <a class="fr-go" href="{{ site.launch.message | orderText(lx, (lx | defaultSize), site.business.name) | book }}" target="_blank" rel="noopener">Tell me on the day</a></p>
+  {%- endif %}
+  <form class="fr-gift-f{% if allHeld %} fr-open-only{% endif %}" data-gift-form>
+    <div class="fr-field"><label for="gift-scent">The fragrance</label>
+      <select id="gift-scent" name="scent" class="fr-select">{% for x in site.fragrances.items %}<option value="{{ x.id }}"{% if x.id in (site | launchScents) %} data-held{% if x.id in (site | heldNow) %} hidden disabled{% endif %}{% endif %}>{{ x.name }}</option>{% endfor %}</select></div>
+    <fieldset class="fr-pick" data-gift-sizes><legend class="fr-lg">Size</legend>
+      {%- for s in x0.sizes %}<label><input type="radio" name="ml" value="{{ s.ml }}"{% if loop.index == 2 or x0.sizes.length == 1 %} checked{% endif %}><span>{{ s.ml }} ml</span></label>{% endfor %}
+    </fieldset>
+    <div class="fr-field"><label for="gift-words">Engraving, if you'd like it <span data-gift-count>up to {{ e.maxLetters }} letters, {{ e.price | gbp }}</span></label>
+      <input id="gift-words" name="words" maxlength="{{ e.maxLetters }}" autocomplete="off"></div>
+    <fieldset class="fr-pick"><legend class="fr-lg">Letters</legend>
+      {%- for s in e.styles %}<label><input type="radio" name="style" value="{{ s }}"{% if loop.first %} checked{% endif %}><span>{{ styleNames[s] }}</span></label>{% endfor %}
+    </fieldset>
+    {%- if e.places.length > 1 %}
+    <fieldset class="fr-pick"><legend class="fr-lg">Where</legend>
+      {%- for p in e.places %}<label><input type="radio" name="place" value="{{ p }}"{% if loop.first %} checked{% endif %}><span>{{ placeNames[p] }}</span></label>{% endfor %}
+    </fieldset>
+    {%- endif %}
+    {%- if g.wrap %}
+    <label class="fr-check"><input type="checkbox" name="wrap"> <span>{{ g.wrap.line }}{% if g.wrap.price %}, {{ g.wrap.price | gbp }}{% endif %}</span></label>
+    {%- endif %}
+    <div class="fr-field"><label for="gift-card">A line for the card (optional)</label>
+      <textarea id="gift-card" name="card" rows="2" maxlength="160" class="fr-area"></textarea></div>
+    <div class="fr-desk-pay">
+      <p data-gift-sum>{{ x0.name }}</p>
+      <a class="fr-go" data-gift-go href="{{ g.message | orderText(x0, (x0 | defaultSize), site.business.name) | book }}" target="_blank" rel="noopener">Send the order</a>
+    </div>
+    {%- if g.terms %}<p class="fr-small">{{ g.terms }}</p>{% endif %}
+  </form>
+</div></section>

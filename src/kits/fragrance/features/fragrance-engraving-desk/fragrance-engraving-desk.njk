@@ -1,0 +1,34 @@
+{#- The engraving desk: the bottle face on, the words drawn on the glass as they are typed, in the house's letter
+    styles and within its letter limit; marked as a preview. Order goes to the house's Stripe link for the engraved
+    bottle, or on WhatsApp with the words. Without JavaScript the form still sends the order. -#}
+{%- set e = site.engraving %}
+{%- set x = site.fragrances | fragranceById(e.fragrance) %}
+{%- set price = (x | sizeFor(e.ml)).price + e.price %}
+{%- set words0 = "Ottilie · 1 May" if site.mode == "demo" else "" %}
+{%- set styleNames = { caps: "Capitals", lower: "Lower case", initials: "Initials" } %}
+{%- set placeNames = { glass: "On the glass", box: "On the box" } %}
+<section id="engraving" class="fr-desk" data-feature="fragrance-engraving-desk" aria-label="{{ e.title | plain }}"{{ 'fragrance-engraving-desk' | tierAttr | safe }}>
+  <figure class="fr-desk-p" style="--x0: {{ e.area.x0 }}; --x1: {{ e.area.x1 }}; --y0: {{ e.area.y0 }}; --y1: {{ e.area.y1 }}">
+    <img src="{{ e.photo.src | img }}" width="{{ e.photo.width }}" height="{{ e.photo.height }}" alt="{{ e.photo.alt }}" loading="lazy" decoding="async">
+    <span class="fr-engr fr-engr-{{ e.styles[0] }}" data-engr aria-hidden="true">{{ words0 | engraved(e.styles[0], e.maxLetters) }}</span>
+    <figcaption class="fr-desk-cap">Preview</figcaption>
+  </figure>
+  <form class="fr-desk-f" data-desk-form>
+    <h2 class="fr-desk-t">{{ e.title }}</h2>
+    {%- if e.intro %}<p class="fr-desk-i">{{ e.intro }}</p>{% endif %}
+    <div class="fr-field"><label for="engr-words">Your words <span data-engr-count>{{ words0 | length }} of {{ e.maxLetters }}</span></label>
+      <input id="engr-words" name="words" maxlength="{{ e.maxLetters }}" value="{{ words0 }}" autocomplete="off"></div>
+    <fieldset class="fr-pick"><legend class="sr-only">Letters</legend>
+      {%- for s in e.styles %}<label><input type="radio" name="style" value="{{ s }}"{% if loop.first %} checked{% endif %}><span>{{ styleNames[s] }}</span></label>{% endfor %}
+    </fieldset>
+    {%- if e.places.length > 1 %}
+    <fieldset class="fr-pick"><legend class="sr-only">Where</legend>
+      {%- for p in e.places %}<label><input type="radio" name="place" value="{{ p }}"{% if loop.first %} checked{% endif %}><span>{{ placeNames[p] }}</span></label>{% endfor %}
+    </fieldset>
+    {%- endif %}
+    <div class="fr-desk-pay">
+      <p>{{ x.name }}, {{ e.ml }} ml, with engraving{% if e.days %}<small>{{ e.days }}</small>{% endif %}</p>
+      <a class="fr-go" data-desk-go href="{{ e.payLink if e.payLink else (e.message | orderText(x, { ml: e.ml, price: price }, site.business.name) | book) }}" target="_blank" rel="noopener">Order with engraving, {{ price | gbp }}</a>
+    </div>
+  </form>
+</section>

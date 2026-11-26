@@ -1,0 +1,14 @@
+{#- Launch mode in the hero (included by the look): before the house's date, the waiting list and the pre-order take
+    the place of Buy; from the date the page is the shop. `x` is the hero fragrance, `L` site.launch. The state is set
+    at build time and checked again in the browser, so a page built before the day opens on it. -#}
+{%- set s0 = x | defaultSize %}
+{%- set pre = L.preorder[x.id] if L.preorder else null %}
+{%- set waText = L.message | orderText(x, s0, site.business.name) %}
+<div class="fr-wait">
+  {%- if L.waitlist and L.waitlist.formUrl %}
+  <a class="fr-go" href="{{ L.waitlist.formUrl }}" target="_blank" rel="noopener">Join the waiting list</a>
+  {%- else %}
+  <a class="fr-go" href="{{ waText | book }}" target="_blank" rel="noopener">Tell me on the day</a>
+  {%- endif %}
+  <a class="fr-alt" href="{{ pre if pre else (waText | book) }}" target="_blank" rel="noopener">or pre-order, {{ s0.price | gbp }}, posted on {{ L.date | dayMonth }}</a>
+</div>
