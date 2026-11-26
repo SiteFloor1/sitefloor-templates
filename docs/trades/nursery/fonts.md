@@ -7,4 +7,4 @@ Design round 1 (26 Nov 2026): three directions held while the owner chooses. The
 |---|---|---|---|---|
 | Alnwood, The doorstep (A, round 1) | approved | trade/nursery | Spline Sans | Spline Sans |
 | Alnwood, The atelier wall (B, round 1) | approved | trade/nursery | Gentium Book Plus | Gentium Book Plus |
-| Alnwood, Your week (C, round 1) | approved | trade/nursery | Atkinson Hyperlegible Next | Atkinson Hyperlegible Next |
+| Alnwood, Your week (C, round 1) | approved | trade/nursery | Parkinsans | Parkinsans |

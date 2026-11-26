@@ -73,7 +73,7 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 | Taroub | trade/modest | Shippori Mincho | Afacad |
 | Alnwood, The doorstep (A, round 1) | trade/nursery | Spline Sans | Spline Sans |
 | Alnwood, The atelier wall (B, round 1) | trade/nursery | Gentium Book Plus | Gentium Book Plus |
-| Alnwood, Your week (C, round 1) | trade/nursery | Atkinson Hyperlegible Next | Atkinson Hyperlegible Next |
+| Alnwood, Your week (C, round 1) | trade/nursery | Parkinsans | Parkinsans |
 | Trainer, Linen (A) | trade/trainer | Ibarra Real Nova | Ibarra Real Nova |
 | Fendle, Spun (B, round 1, revised) | trade/stalls | Gabarito | Labrada |
 | Tailor, Flannel (A) | trade/tailor | Della Respira | Commissioner |
