@@ -4,9 +4,9 @@
 <figure class="ga" data-feature="garage-aerial" data-img-base="{{ "" | img }}">
   <div class="ga-img"><picture>
     <source media="(max-width: 700px)" srcset="{{ A.dayPhone.src | img }}" width="{{ A.dayPhone.width }}" height="{{ A.dayPhone.height }}">
-    <img src="{{ A.day.src | img }}" width="{{ A.day.width }}" height="{{ A.day.height }}" alt="{{ site.hall.name }} from directly above: the forecourt and gate, then polished concrete under soft light, {{ (site.hall | bays).length }} bays in two rows, some cars under fitted covers" fetchpriority="high" decoding="async">
+    <img src="{{ A.day.src | img }}" width="{{ A.day.width }}" height="{{ A.day.height }}" alt="{{ site.hall.name }} from directly above: the forecourt and gate, then polished concrete under soft light, {{ (site.hall | bays).length }} bays in two rows, cars under fitted covers, the free bays empty" fetchpriority="high" decoding="async">
   </picture>
-  <svg class="ga-ov" data-aerial-ov aria-hidden="true"></svg></div>
+  <svg class="ga-ov" data-aerial-ov data-clip="ga" aria-hidden="true"></svg></div>
   <div class="ga-under">
     <div class="ga-layers" role="group" aria-label="Show on the hall">
       {%- if "garage-charging" | enabled %}<button type="button" data-layer="charge" aria-pressed="false">Charging</button>{% endif %}
