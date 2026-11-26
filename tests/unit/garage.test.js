@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { CARS, fits, pickBay, spareCm, answer, reserveMessage, bayRects, route, along, cone, clockWords, chargedBy, chargerWords, planSvg, addDays, icsFile, moveInEvents, layingUpEvents, fleetMessage, careCardMessage, nightBayLine, withFree, baysFromCsv, updatedWords } from "../../src/kits/garage/lib/garage.js";
+import { CARS, fits, pickBay, spareCm, answer, reserveMessage, bayRects, route, along, cone, clockWords, chargedBy, chargerWords, planSvg, addDays, icsFile, moveInEvents, layingUpEvents, fleetMessage, careCardMessage, nightBayLine, withFree, baysFromCsv, updatedWords, soonLine, nextFit } from "../../src/kits/garage/lib/garage.js";
 import { HOME_PARTS, homeOrderProblem } from "../../src/kits/garage/home.js";
 import { frameMap } from "../../src/kits/garage/features/garage-aerial/map.js";
 import { pageData } from "../../src/kits/garage/kit.js";
@@ -53,7 +53,7 @@ test("the answer names the bay, the room either side and the charger; a van gets
 test("the live list: free bays from the client's sheet, failing closed", () => {
   const known = [1, 2, 3, 4, 7], now = Date.parse("2026-11-18T09:00:00Z"), read = (/** @type {string} */ t) => (/^\d{4}-\d\d-\d\d \d\d:\d\d$/.test(t) ? Date.parse(t.replace(" ", "T") + ":00Z") : NaN);
   const csv = "Bay,Status,Updated at\n1,let,2026-11-18 08:40\n4,free,2026-11-18 08:40\n7,FREE,2026-11-18 08:10\n";
-  assert.deepEqual(baysFromCsv(csv, known, now, 24, read), { ok: true, free: [4, 7], updatedAt: Date.parse("2026-11-18T08:40:00Z") });
+  assert.deepEqual(baysFromCsv(csv, known, now, 24, read), { ok: true, free: [4, 7], updatedAt: Date.parse("2026-11-18T08:40:00Z"), soon: [] });
   assert.equal(baysFromCsv(csv.replace("1,let", "9,let"), known, now, 24, read).ok, false, "a bay the hall doesn't have");
   assert.equal(baysFromCsv(csv.replace("4,free", "4,maybe"), known, now, 24, read).ok, false, "a status it can't read");
   assert.equal(baysFromCsv(csv.replace("2026-11-18 08:40\n4", "soon\n4"), known, now, 24, read).ok, false, "a time it can't read");
@@ -62,6 +62,15 @@ test("the live list: free bays from the client's sheet, failing closed", () => {
   assert.equal(baysFromCsv(csv.replace("4,free,2026-11-18 08:40", "4,free,2026-10-01 08:40"), known, now, 24, read).ok, false, "one old row, even beside fresh ones");
   assert.equal(baysFromCsv(csv.replace("7,FREE,2026-11-18 08:10", "7,FREE,2026-11-19 08:10"), known, now, 24, read).ok, false, "one row dated tomorrow");
   assert.equal(baysFromCsv(csv + "4,let,2026-11-18 08:50\n", known, now, 24, read).ok, false, "a bay listed twice");
+  const soonCsv = "bay,status,updated_at,free_from\n1,let,2026-11-18 08:40,2026-12-06\n2,let,2026-11-18 08:40,2026-11-30\n3,let,2026-11-18 08:40,2026-11-01\n4,free,2026-11-18 08:40,2026-12-01\n7,let,2026-11-18 08:40,\n";
+  const sr = /** @type {any} */ (baysFromCsv(soonCsv, known, now, 24, read));
+  assert.deepEqual(sr.soon, [{ n: 2, from: Date.parse("2026-11-30T09:00:00Z") }, { n: 1, from: Date.parse("2026-12-06T09:00:00Z") }], "let bays coming back, soonest first; a past date and a free bay's date say nothing");
+  assert.equal(baysFromCsv(soonCsv.replace("2026-12-06", "next week"), known, now, 24, read).ok, false, "a free_from it can't read");
+  assert.equal(soonLine(sr.soon, "Europe/London"), "Coming free: bay 2 from 30 November and bay 1 from 6 December.");
+  assert.equal(soonLine([], "Europe/London"), "");
+  assert.deepEqual(nextFit(hall, CARS.hatch, [{ n: 99, from: now }], "Europe/London"), null, "a bay the hall doesn't have");
+  assert.match(answer(CARS.suv, null, 5.2, false, { n: 14, on: "6 December" }).text, /^No free bay takes a large SUV today\. Bay 14 fits it and should be free from 6 December: join the waiting list/);
+  assert.match(reserveMessage("Elsden", CARS.suv, null, false, { n: 14, on: "6 December" }), /waiting list for bay 14 \(free from 6 December\)/);
   const live = withFree(hall, [9]);
   assert.equal(pickBay(live, CARS.hatch)?.n, 9, "bay 4 let today, so the hatchback goes to 9");
   assert.equal(pickBay(live, CARS.estate), null);
