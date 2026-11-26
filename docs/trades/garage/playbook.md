@@ -143,3 +143,7 @@ dimmed; the route is drawn over it and follows the picker.
 ### Running cost
 £0 per client: the client's Sheet and Form, WhatsApp, the client's Stripe Payment Links, calendar files made in the
 browser. The aerial hall adds no running cost: one rendered image per screen size and a car image (see speed.md).
+
+### Coming free (26 Nov 2026)
+An optional `free_from` column in the same sheet: the list names let bays coming back, and the picker offers the first
+returning bay that fits a car no free bay takes, with the waiting list. Starter, with the live list.

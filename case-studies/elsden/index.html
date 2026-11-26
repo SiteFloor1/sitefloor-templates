@@ -45,6 +45,9 @@ a { color: inherit; }
 .eye-pic { position: relative; height: min(86vh, 900px); min-height: 520px; overflow: hidden; }
 .eye-pic img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 58%; transition: opacity 1.1s ease; }
 .eye-pic img:not(.on) { opacity: 0; }
+.eye-pic canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity .4s ease; }
+.eye-pic.gl canvas { opacity: 1; }
+.relight { margin-top: 12px; padding: 0; border: 0; background: none; color: rgba(247,245,240,.72); font: italic 400 15px var(--display); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; min-height: 44px; }
 .eye-pic img { transition: opacity 1.1s ease, object-position 1.2s ease; }
 .tag { position: absolute; z-index: 1; transform: translate(-50%, calc(-100% - 14px)); padding: 6px 10px 5px; background: var(--paper); color: var(--ink); font: 700 15px/1 var(--display); white-space: nowrap; opacity: 0; transition: opacity .5s ease .7s; }
 .tag::after { content: ""; position: absolute; left: 50%; top: 100%; width: 1px; height: 14px; background: var(--paper); }
@@ -94,7 +97,7 @@ footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2
 .sheet-top { display: flex; gap: 10px; align-items: center; padding: 12px 14px; border-bottom: 1px solid var(--line); font-size: 13px; color: #5f6368; }
 .sheet-top i { width: 14px; height: 18px; background: #188038; display: inline-block; }
 .sheet table { width: 100%; border-collapse: collapse; }
-.sheet th, .sheet td { height: 40px; padding: 0 12px; border-right: 1px solid #E2E3E3; border-bottom: 1px solid #E2E3E3; text-align: left; }
+.sheet th, .sheet td { height: 34px; padding: 0 12px; border-right: 1px solid #E2E3E3; border-bottom: 1px solid #E2E3E3; text-align: left; }
 .sheet th { background: #F8F9FA; font-weight: 400; color: #5f6368; }
 .sheet td.n { width: 46px; background: #F8F9FA; color: #5f6368; text-align: center; }
 .sheet button { min-height: 32px; padding: 0 10px; border: 1px solid #DADCE0; border-radius: 12px; background: #E6F4EA; color: #137333; font: inherit; cursor: pointer; }
@@ -137,6 +140,17 @@ footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2
   .nums { grid-template-columns: 1fr 1fr; }
   .night img { margin-left: calc(-1 * var(--edge)); width: calc(100% + 2 * var(--edge)); max-width: none; }
 }
+@media (min-width: 761px) {
+  /* the headline sits on the ceiling, so the floor (where the bays light) stays clear */
+  .eye-copy { top: 0; padding-top: clamp(36px, 6vh, 72px); }
+  .eye-copy .wrap { height: 100%; grid-template-rows: 1fr auto; align-items: start; }
+  .eye-copy .wrap > div:first-child { grid-column: 1; grid-row: 1; }
+  .pick { grid-column: 2; grid-row: 2; align-self: end; }
+  .eye-pic::before { content: ""; position: absolute; z-index: 1; inset: 0 0 auto 0; height: 52%; background: linear-gradient(to bottom, rgba(12,16,24,.78), rgba(12,16,24,.42) 55%, rgba(12,16,24,0)); pointer-events: none; }
+  .eye-pic::after { height: 34%; background: linear-gradient(to top, rgba(12,16,24,.7), rgba(12,16,24,0)); }
+  .cap { top: auto; bottom: 14px; }
+  .cap .wrap { text-align: left; }
+}
 @media (max-width: 760px) {
   .sfbar nav { display: none; }
   .eye-pic { height: 74vh; min-height: 480px; }
@@ -161,10 +175,11 @@ footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2
 <main id="top">
 <section class="eye" aria-labelledby="h1">
   <div class="eye-pic" id="pic">
-    <img class="on" data-bay="0" src="media/eye-base.webp" alt="Inside Hall One from the gate: a long polished concrete aisle, columns either side, cars under fitted covers, five bays empty" width="1920" height="1080" fetchpriority="high">
-    <img data-bay="4" src="media/eye-bay4.webp" alt="" width="1920" height="1080" loading="lazy">
-    <img data-bay="7" src="media/eye-bay7.webp" alt="" width="1920" height="1080" loading="lazy">
-    <img data-bay="14" src="media/eye-bay14.webp" alt="" width="1920" height="1080" loading="lazy">
+    <img class="on" data-bay="0" src="media/eye-dark.webp" alt="Inside Hall One from the gate: a long polished concrete aisle, columns either side, cars under fitted covers, five bays empty" width="1920" height="1080" fetchpriority="high">
+    <img data-bay="4" src="media/eye-lit4.webp" alt="" width="1920" height="1080" loading="lazy">
+    <img data-bay="7" src="media/eye-lit7.webp" alt="" width="1920" height="1080" loading="lazy">
+    <img data-bay="14" src="media/eye-lit14.webp" alt="" width="1920" height="1080" loading="lazy">
+    <canvas id="glc" aria-hidden="true"></canvas>
     <span class="tag" id="tag" aria-hidden="true"></span>
   </div>
   <div class="cap gut"><div class="wrap">Hall One, rendered from Elsden's plan. Not a photograph.</div></div>
@@ -178,7 +193,8 @@ footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2
       <div class="chips" role="group" aria-labelledby="q">
         <button type="button" data-car="hatch" aria-pressed="false">small hatchback</button><button type="button" data-car="estate" aria-pressed="false">family estate</button><button type="button" data-car="suv" aria-pressed="false">large SUV</button><button type="button" data-car="van" aria-pressed="false">van</button>
       </div>
-      <p class="ans" id="ans" aria-live="polite">Five bays are free. Pick a car and the lights come on over the one that fits.</p>
+      <p class="ans" id="ans" aria-live="polite">Five bays are free. Pick a car and the bay that fits lights up.</p>
+      <button type="button" class="relight" id="relight" hidden>Switch the hall on again</button>
     </div>
   </div></div>
 </section>
@@ -199,12 +215,12 @@ footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2
 
 <section class="sec gut" aria-labelledby="h3"><div class="wrap">
   <h2 id="h3">The list keeps itself.</h2>
-  <p class="lede">Elsden marks a bay free or let in a Google Sheet. The site reads it every five minutes and says when it last changed. If the sheet goes quiet for a day, the site stops promising and asks you to check.</p>
+  <p class="lede">Elsden marks a bay free or let in a Google Sheet, with a date when a let bay is coming back. The site reads it every five minutes and says when it last changed. If the sheet goes quiet for a day, the site stops promising and asks you to check.</p>
   <div class="live">
     <div>
       <div class="sheet" aria-label="Elsden's Google Sheet">
         <div class="sheet-top"><i aria-hidden="true"></i>Elsden bays</div>
-        <table><thead><tr><th class="n"></th><th>bay</th><th>status</th><th>updated_at</th></tr></thead><tbody id="rows"></tbody></table>
+        <table><thead><tr><th class="n"></th><th>bay</th><th>status</th><th>updated_at</th><th>free_from</th></tr></thead><tbody id="rows"></tbody></table>
       </div>
       <p class="sheet-k">Tap a status to change it, as Elsden would on the phone.</p>
     </div>
@@ -213,6 +229,7 @@ footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2
       <p class="big" id="count"></p>
       <ul id="free"></ul>
       <p class="upd" id="upd"></p>
+      <p class="upd" id="soon"></p>
       <label class="quiet"><input type="checkbox" id="quiet"> The sheet hasn't changed for a day</label>
     </div>
   </div>
@@ -230,7 +247,7 @@ footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2
   <h2 id="h5">Three ways in.</h2>
   <p class="lede">Each one is a site of your own, with your bays, your prices and your rules.</p>
   <div class="plans">
-    <div><h3>Starter</h3><p class="pr">£99, then £25 a month</p><ul><li>Home and Plan your visit</li><li>Free bays from your Google Sheet, with the time it changed</li><li>Move-in steps to the customer's calendar</li></ul></div>
+    <div><h3>Starter</h3><p class="pr">£99, then £25 a month</p><ul><li>Home and Plan your visit</li><li>Free bays from your Google Sheet, and when let bays come back</li><li>Move-in steps to the customer's calendar</li></ul></div>
     <div><h3>Plus</h3><p class="pr">£199, then £30 a month</p><ul><li>Up to five pages</li><li>Arrive at night</li><li>Or a laying-up planner, for storage-led halls</li></ul></div>
     <div><h3>Signature</h3><p class="pr">£349, then £35 a month</p><ul><li>Up to twenty pages</li><li>Your hall drawn to scale from your measurements</li><li>Pick your car and see the bay that fits</li></ul></div>
     <div><h3>Bespoke add-on</h3><p class="pr">Quoted after a call</p><ul><li>Your hall rendered from above, day and night</li><li>Free bays shown empty, live from the sheet</li></ul></div>
@@ -257,6 +274,7 @@ footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2
   <span>© 2026 Sitefloor</span>
 </div></footer>
 
+<script>window.EYE_SCALES = {"fill": 0.4307, "bays": 0.1394, "run0": 0.0542, "run1": 6.6719, "run2": 0.4121, "run3": 0.2244, "run4": 0.1545, "run5": 0.1752, "bay4": 0.1848, "bay7": 0.1602, "bay14": 0.1659};</script>
 <script>
 (() => {
   // ---------------------------------------------------------------- the same sums as Elsden's site (garage kit, lib/garage.js)
@@ -276,13 +294,85 @@ footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2
     tag.style.top = ((ch - 1080 * k) * oy + at[1] / 100 * 1080 * k) + "px";
   };
   addEventListener("resize", place);
+  // ---------------------------------------------------------------- the hall's lights, switched on run by run
+  // Each light in Hall One was rendered on its own (Blender light groups). Light adds, so the page sums the passes
+  // with a weight per light and tone-maps once: what you see is the render with those lights on, not an effect.
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const gl = (() => {
+    const c = document.getElementById("glc"), g = c.getContext("webgl", { premultipliedAlpha: false, antialias: false });
+    const S = window.EYE_SCALES; if (!g || !S || g.getParameter(g.MAX_TEXTURE_IMAGE_UNITS) < 9) return null;
+    const NAMES = ["fill", "run0", "run1", "run2", "run3", "run4", "run5", "bays", "bay"];
+    const vs = "attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}";
+    const fs = `precision mediump float;uniform sampler2D t[9];uniform float w[9];uniform vec2 sz,off,img;
+      vec3 L(sampler2D s,vec2 u,float k){vec3 c=texture2D(s,u).rgb;return pow(c,vec3(2.2))*k;}
+      void main(){vec2 f=vec2(gl_FragCoord.x,sz.y-gl_FragCoord.y);vec2 u=(f-off)/img;vec3 x=vec3(0.);
+      x+=L(t[0],u,w[0]);x+=L(t[1],u,w[1]);x+=L(t[2],u,w[2]);x+=L(t[3],u,w[3]);x+=L(t[4],u,w[4]);x+=L(t[5],u,w[5]);x+=L(t[6],u,w[6]);x+=L(t[7],u,w[7]);x+=L(t[8],u,w[8]);
+      x*=.9;x=(x*(2.51*x+.03))/(x*(2.43*x+.59)+.14);gl_FragColor=vec4(pow(clamp(x,0.,1.),vec3(1./2.2)),1.);}`;
+    const sh = (type, src) => { const o = g.createShader(type); g.shaderSource(o, src); g.compileShader(o); return o; };
+    const pr = g.createProgram(); g.attachShader(pr, sh(g.VERTEX_SHADER, vs)); g.attachShader(pr, sh(g.FRAGMENT_SHADER, fs)); g.linkProgram(pr);
+    if (!g.getProgramParameter(pr, g.LINK_STATUS)) return null;
+    g.useProgram(pr);
+    g.bindBuffer(g.ARRAY_BUFFER, g.createBuffer()); g.bufferData(g.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), g.STATIC_DRAW);
+    const ap = g.getAttribLocation(pr, "p"); g.enableVertexAttribArray(ap); g.vertexAttribPointer(ap, 2, g.FLOAT, false, 0, 0);
+    g.uniform1iv(g.getUniformLocation(pr, "t"), NAMES.map((_, i) => i));
+    const uw = g.getUniformLocation(pr, "w"), usz = g.getUniformLocation(pr, "sz"), uoff = g.getUniformLocation(pr, "off"), uimg = g.getUniformLocation(pr, "img");
+    const tex = NAMES.map((_, i) => { const t = g.createTexture(); g.activeTexture(g.TEXTURE0 + i); g.bindTexture(g.TEXTURE_2D, t);
+      for (const [k, v] of [[g.TEXTURE_MIN_FILTER, g.LINEAR], [g.TEXTURE_MAG_FILTER, g.LINEAR], [g.TEXTURE_WRAP_S, g.CLAMP_TO_EDGE], [g.TEXTURE_WRAP_T, g.CLAMP_TO_EDGE]]) g.texParameteri(g.TEXTURE_2D, k, v);
+      g.texImage2D(g.TEXTURE_2D, 0, g.RGB, 1, 1, 0, g.RGB, g.UNSIGNED_BYTE, new Uint8Array(3)); return t; });
+    const load = (src) => new Promise((ok, no) => { const im = new Image(); im.decoding = "async"; im.onload = () => ok(im); im.onerror = no; im.src = src; });
+    const put = (i, im) => { g.activeTexture(g.TEXTURE0 + i); g.bindTexture(g.TEXTURE_2D, tex[i]); g.texImage2D(g.TEXTURE_2D, 0, g.RGB, g.RGB, g.UNSIGNED_BYTE, im); };
+    const W = NAMES.map(() => 0), want = NAMES.map(() => 0); let scaleBay = 1, ox = parseFloat(getComputedStyle(imgs[0]).objectPosition) / 100, oxTo = ox, raf = 0, last = 0;
+    const bays = {};
+    const frame = (now) => {
+      const dt = Math.min(64, now - (last || now)); last = now; let moving = false;
+      for (let i = 0; i < W.length; i++) { const d = want[i] - W[i]; if (Math.abs(d) > .002) { W[i] += d * Math.min(1, dt / (i === 8 ? 260 : 120)); moving = true; } else W[i] = want[i]; }
+      if (Math.abs(oxTo - ox) > .0005) { ox += (oxTo - ox) * Math.min(1, dt / 260); moving = true; } else ox = oxTo;
+      const dpr = Math.min(2, devicePixelRatio || 1), cw = c.clientWidth * dpr, ch = c.clientHeight * dpr;
+      if (c.width !== Math.round(cw) || c.height !== Math.round(ch)) { c.width = Math.round(cw); c.height = Math.round(ch); }
+      const k = Math.max(c.width / 1920, c.height / 1080), oy = innerWidth <= 760 ? .6 : .58;
+      g.viewport(0, 0, c.width, c.height); g.uniform2f(usz, c.width, c.height); g.uniform2f(uimg, 1920 * k, 1080 * k);
+      g.uniform2f(uoff, (c.width - 1920 * k) * ox, (c.height - 1080 * k) * oy);
+      g.uniform1fv(uw, W.map((v, i) => v * (i === 8 ? scaleBay : S[NAMES[i]])));
+      g.drawArrays(g.TRIANGLES, 0, 3);
+      raf = moving || flicker ? requestAnimationFrame(frame) : 0;
+    };
+    const kick = () => { if (!raf) { last = 0; raf = requestAnimationFrame(frame); } };
+    let flicker = false;
+    // a strip light striking: a flash, a gap, a stutter, then on
+    const strike = (i, at) => [[0, .9], [70, 0], [150, .55], [190, 0], [330, 1]].forEach(([t, v]) => setTimeout(() => { want[i] = v; W[i] = v; kick(); }, at + t));
+    const api = {
+      async ready() {
+        const ims = await Promise.all(NAMES.slice(0, 8).map((n) => load(`media/eye-${n}.webp`)));
+        ims.forEach((im, i) => put(i, im));
+        want[0] = W[0] = .45; pic.classList.add("gl"); kick();
+      },
+      switchOn() {
+        flicker = true; want[0] = W[0] = .45; for (let i = 1; i <= 7; i++) { want[i] = W[i] = 0; }
+        if (still) { for (let i = 0; i <= 7; i++) want[i] = W[i] = 1; flicker = false; kick(); return; }
+        for (let i = 1; i <= 6; i++) strike(i, 500 + (i - 1) * 430);
+        setTimeout(() => { want[7] = 1; want[0] = 1; kick(); }, 500 + 6 * 430);
+        setTimeout(() => { flicker = false; kick(); }, 500 + 6 * 430 + 600);
+      },
+      async choose(n, oxPct) {
+        oxTo = oxPct / 100; want[8] = 0; kick();
+        if (!n) return;
+        bays[n] ??= load(`media/eye-bay${n}.webp`);
+        const im = await bays[n]; if (lit !== n) return;
+        put(8, im); scaleBay = S["bay" + n] * 2.2; W[8] = 0; want[8] = 1; if (still) W[8] = 1; kick();
+      },
+    };
+    return api;
+  })();
+  if (!gl) imgs[0].src = "media/eye-base.webp";
+  if (gl) gl.ready().then(() => { gl.switchOn(); const r = document.getElementById("relight"); if (r) { r.hidden = false; r.addEventListener("click", () => gl.switchOn()); } }).catch(() => { pic.classList.remove("gl"); imgs[0].src = "media/eye-base.webp"; });
   document.querySelectorAll(".chips button").forEach((b) => b.addEventListener("click", () => {
     document.querySelectorAll(".chips button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
     const car = CARS[b.dataset.car], bay = pick(car);
     lit = bay ? bay[0] : 0; tag.textContent = bay ? "Bay " + lit : "";
     const phone = window.innerWidth <= 760, ox = phone ? (bay ? Math.min(78, Math.max(22, AT[lit][0])) : 38) : 50;
     imgs.forEach((i) => { i.classList.toggle("on", Number(i.dataset.bay) === lit); i.style.objectPosition = ox + "% " + (window.innerWidth <= 760 ? "60%" : "58%"); });
-    tag.classList.remove("on"); setTimeout(place, matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 1200);
+    if (gl) gl.choose(lit, ox);
+    tag.classList.remove("on"); setTimeout(place, still ? 0 : 1200);
     ans.innerHTML = bay
       ? `<b>Bay ${bay[0]}</b> takes your ${car[0]}, with ${Math.round(((bay[1] - car[2]) / 2) * 100 + 1e-6)} cm either side${bay[3] ? `, and a ${bay[3]} kW charger` : ""}. It's the one lit.`
       : `No free bay takes a ${car[0]} tonight: the bays are 5.2 m deep. The site offers the waiting list instead.`;
@@ -303,16 +393,21 @@ footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2
   range.addEventListener("input", () => wipe.style.setProperty("--x", range.value + "%"));
 
   // ---------------------------------------------------------------- the live list: the same reading as the kit (baysFromCsv)
-  const HALL = ROWS.flat().map(([n, w, free, kw]) => ({ n, w, free: !!free, kw, at: Date.now() - (n * 37 % 300 + 40) * 60000 }));
+  const day0 = new Date(); day0.setHours(9, 0, 0, 0);
+  const BACK = { 12: 17, 5: 38 };
+  const HALL = ROWS.flat().map(([n, w, free, kw]) => ({ n, w, free: !!free, kw, at: Date.now() - (n * 37 % 300 + 40) * 60000, back: BACK[n] ? day0.getTime() + BACK[n] * 864e5 : 0 }));
+  const dm = (t) => new Date(t).toLocaleDateString("en-GB", { day: "numeric", month: "long" });
   const PRICE = { 2.4: 240, 2.6: 260, 2.8: 290 };
   const hm = (t) => new Date(t).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/London" });
   const rowsEl = document.getElementById("rows"), quiet = document.getElementById("quiet");
   const draw = () => {
-    rowsEl.innerHTML = HALL.slice(0, 9).map((b, i) => `<tr><td class="n">${i + 2}</td><td>${b.n}</td><td><button type="button" data-n="${b.n}" data-s="${b.free ? "free" : "let"}" aria-label="Bay ${b.n}: ${b.free ? "free" : "let"}. Change">${b.free ? "free" : "let"}</button></td><td>${new Date(b.at).toISOString().slice(0, 16).replace("T", " ")}</td></tr>`).join("");
+    rowsEl.innerHTML = HALL.map((b, i) => `<tr><td class="n">${i + 2}</td><td>${b.n}</td><td><button type="button" data-n="${b.n}" data-s="${b.free ? "free" : "let"}" aria-label="Bay ${b.n}: ${b.free ? "free" : "let"}. Change">${b.free ? "free" : "let"}</button></td><td>${new Date(b.at).toISOString().slice(0, 16).replace("T", " ")}</td><td>${!b.free && b.back ? new Date(b.back).toISOString().slice(0, 10) : ""}</td></tr>`).join("");
     const free = HALL.filter((b) => b.free), last = Math.max(...HALL.map((b) => b.at));
     const stale = quiet.checked;
     document.getElementById("count").textContent = stale ? "Ask us first" : `${free.length} bay${free.length === 1 ? "" : "s"} free`;
     document.getElementById("free").innerHTML = stale ? "" : free.map((b) => `<li><span>Bay ${b.n} · ${b.w.toFixed(1)} m${b.kw ? ` · ${b.kw} kW` : ""}</span><span>£${PRICE[b.w]} a month</span></li>`).join("");
+    const soon = stale ? [] : HALL.filter((b) => !b.free && b.back).sort((a, b) => a.back - b.back).map((b) => `bay ${b.n} from ${dm(b.back)}`);
+    document.getElementById("soon").textContent = soon.length ? `Coming free: ${soon.length > 1 ? soon.slice(0, -1).join(", ") + " and " + soon.at(-1) : soon[0]}.` : "";
     const u = document.getElementById("upd"); u.classList.toggle("stale", stale);
     u.textContent = stale ? "The free bays can't be confirmed right now. Ask us before you come." : `Updated ${hm(last)}`;
   };
