@@ -1,0 +1,16 @@
+{#- The free trial page (GYM-5): the photograph tall on the left; the page's name, what the day includes and what
+    happens, numbered, on the right; then the day pass request itself (gym-daypass). -#}
+{%- set t = site.trialPage %}
+<header class="gtr" data-feature="gym-trial"><div class="wrap gtr-in">
+  {%- if t.photo %}<figure class="gtr-f"><img src="{{ t.photo.src | img }}" alt="{{ t.photo.alt }}" width="{{ t.photo.width }}" height="{{ t.photo.height }}" fetchpriority="high" decoding="async"></figure>{% endif %}
+  <div class="gtr-w">
+    <h1>{{ t.title | markup | safe }}</h1>
+    {%- if t.intro %}<p class="gtr-i">{{ t.intro }}</p>{% endif %}
+    <h2 class="gtr-h">The day includes</h2>
+    <ul class="gtr-inc">{% for x in t.includes %}<li>{{ x }}</li>{% endfor %}</ul>
+    <h2 class="gtr-h">On the day</h2>
+    <ol class="gtr-steps">{% for s in t.steps %}<li><span class="gtr-no" aria-hidden="true">{{ loop.index }}</span><div><h3>{{ s.title }}</h3><p>{{ s.text }}</p></div></li>{% endfor %}</ol>
+    <p class="gtr-go"><a class="gd-go" href="#day-pass">Ask for your day</a></p>
+  </div>
+</div></header>
+{% include "kits/gym/features/gym-daypass/gym-daypass.njk" %}

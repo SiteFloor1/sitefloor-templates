@@ -1,0 +1,12 @@
+{#- Next free lessons (DRIVE-2): the next three from the instructor's sheet, each asked for on WhatsApp. Until the
+    sheet is read (and if it is old or unreadable) there are no times, only a way to ask. -#}
+{%- set s = site.slots %}
+<article class="dv-card dv-slots" id="slots" data-feature="driving-slots" data-state="loading" aria-labelledby="ds-h"{{ 'driving-slots' | tierAttr | safe }}>
+  <button class="dv-mh" type="button" aria-expanded="false" data-dv-open><span>{{ s.title }}</span><em data-ds-first>Ask for times</em></button>
+  <div class="dv-body">
+  <h2 class="dv-ct" id="ds-h">{{ s.title }}{% if site.mode == "demo" %} <span class="dv-tag">Sample</span>{% endif %}</h2>
+  <ul class="dv-slotlist" data-ds-list></ul>
+  <p class="dv-closed" data-ds-closed>{{ s.intro or "Message for the next free times." }} <a href="{{ s.message | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ s.message }}"{% endif %} target="_blank" rel="noopener" data-ds-ask>Ask</a></p>
+  <p class="dv-upd" data-ds-upd></p>
+  </div>
+</article>

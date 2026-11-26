@@ -1,0 +1,24 @@
+{#- The coaches: each coach's photograph, name, role and what they say about how they coach; the classes they take this
+    week, read from the timetable (so it can't drift from it); their qualifications as on their certificates. -#}
+{%- set c = site.coaches %}
+<section class="gco" data-feature="gym-coaches" aria-label="{{ c.title | plain }}"><div class="wrap">
+  <ol class="gco-list">
+    {%- for x in c.items %}{% set takes = site | coachClasses(x.name) %}
+    <li class="gco-c" id="coach-{{ x.id }}">
+      {%- if x.photo %}<figure class="gco-f"><img src="{{ x.photo.src | img }}" alt="{{ x.photo.alt }}" width="{{ x.photo.width }}" height="{{ x.photo.height }}"{% if loop.index > 2 %} loading="lazy"{% endif %} decoding="async"></figure>{% endif %}
+      <div class="gco-w">
+        <h2>{{ x.name }}</h2>
+        <p class="gco-role">{{ x.role }}</p>
+        <p class="gco-text">{{ x.text }}</p>
+        {%- if takes.length %}
+        <h3 class="gco-h">This week</h3>
+        <ul class="gco-takes">{% for t in takes %}{% set cl = site | classOf(t.class) %}<li><span>{{ cl.name }}</span><span class="gco-times">{{ t.times | join(" · ") }}</span></li>{% endfor %}</ul>
+        {%- endif %}
+        <h3 class="gco-h">Qualifications</h3>
+        <ul class="gco-q">{% for q in x.qualifications %}<li>{{ q }}</li>{% endfor %}</ul>
+      </div>
+    </li>
+    {%- endfor %}
+  </ol>
+  {%- if "gym-training" | enabled %}<p class="gco-more"><a class="go" href="{{ 'training' | href }}">Train one to one with a coach</a></p>{% endif %}
+</div></section>

@@ -134,7 +134,11 @@
     "gym-live",
     "gym-spaces",
     "gym-hyrox",
-    "gym-hyrox-page"
+    "gym-hyrox-page",
+    "gym-classes",
+    "gym-training",
+    "gym-first",
+    "gym-app"
   ],
   "hero": {
     "kicker": "Members' training club, Ancoats",
@@ -175,42 +179,66 @@
         "name": "Hyrox engine",
         "minutes": 50,
         "size": 16,
-        "text": "Running, sled push and pull, wall balls and the rower, in the order the race runs them."
+        "text": "Running, sled push and pull, wall balls and the rower, in the order the race runs them.",
+        "goals": [
+          "fitness"
+        ],
+        "level": "all"
       },
       {
         "id": "hyrox-sim",
         "name": "Race simulation",
         "minutes": 75,
         "size": 12,
-        "text": "The eight stations and the runs between them, paced, in the lanes."
+        "text": "The eight stations and the runs between them, paced, in the lanes.",
+        "goals": [
+          "fitness"
+        ],
+        "level": "all"
       },
       {
         "id": "barbell",
         "name": "Barbell club",
         "minutes": 60,
         "size": 10,
-        "text": "Squat, bench and deadlift, coached, a platform each."
+        "text": "Squat, bench and deadlift, coached, a platform each.",
+        "goals": [
+          "strength"
+        ],
+        "level": "all"
       },
       {
         "id": "ride",
         "name": "Ride",
         "minutes": 45,
         "size": 24,
-        "text": "Intervals on the bike, to music, by the numbers on the screen."
+        "text": "Intervals on the bike, to music, by the numbers on the screen.",
+        "goals": [
+          "fitness"
+        ],
+        "level": "all"
       },
       {
         "id": "engine",
         "name": "Engine",
         "minutes": 45,
         "size": 18,
-        "text": "Conditioning on the rower, ski erg and bike: long, steady work."
+        "text": "Conditioning on the rower, ski erg and bike: long, steady work.",
+        "goals": [
+          "fitness"
+        ],
+        "level": "all"
       },
       {
         "id": "mobility",
         "name": "Mobility",
         "minutes": 40,
         "size": 14,
-        "text": "Hips, spine and shoulders, slowly, on the mats."
+        "text": "Hips, spine and shoulders, slowly, on the mats.",
+        "goals": [
+          "fitness"
+        ],
+        "level": "all"
       }
     ]
   },
@@ -951,5 +979,84 @@
       }
     ],
     "note": "A freeze of up to three months a year is free on Club and Off-peak. Personal training is extra and never part of a membership price."
+  },
+  "classFinder": {
+    "title": "Find a class",
+    "goals": [
+      {
+        "id": "strength",
+        "label": "Strength"
+      },
+      {
+        "id": "fitness",
+        "label": "Fitness"
+      }
+    ],
+    "levels": [
+      {
+        "id": "all",
+        "label": "Anyone"
+      },
+      {
+        "id": "some",
+        "label": "Some experience"
+      }
+    ]
+  },
+  "training": {
+    "title": "Personal training",
+    "who": "Members only; the membership is priced on the memberships page.",
+    "packs": [
+      {
+        "id": "five",
+        "name": "Five sessions",
+        "sessions": 5,
+        "minutes": 45,
+        "price": 200,
+        "mandatoryFees": [
+          {
+            "name": "Assessment fee",
+            "amount": 25
+          }
+        ]
+      }
+    ],
+    "message": "Hello, I'd like to ask about personal training:"
+  },
+  "firstVisit": {
+    "title": "Your first visit",
+    "bring": [
+      "Indoor trainers",
+      "A padlock"
+    ],
+    "steps": [
+      {
+        "title": "Reception",
+        "text": "Sign in with your name."
+      },
+      {
+        "title": "Induction",
+        "text": "Thirty minutes with a coach."
+      }
+    ]
+  },
+  "app": {
+    "title": "Booking",
+    "steps": [
+      {
+        "title": "Download",
+        "text": "Search for the club in the Glofox app."
+      },
+      {
+        "title": "Book",
+        "text": "Classes open five days ahead."
+      }
+    ],
+    "rules": [
+      {
+        "label": "Cancelling",
+        "text": "Up to an hour before."
+      }
+    ]
   }
 }

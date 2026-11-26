@@ -11,6 +11,7 @@
  * A misspelt setting is refused, never silently ignored.
  */
 import { isTime } from "../../core/lib/hours.js";
+import { checkGymPages } from "./config-pages.js";
 
 /** @typedef {(path: string, msg: string) => void} Report */
 /** @param {any} v */
@@ -94,6 +95,7 @@ export function checkGym(site, err, exists) {
   if (site.spaces !== undefined) checkSource(site.spaces, "spaces", site.mode, err);
   if (site.hyrox !== undefined) checkHyrox(site.hyrox, classIds, err, exists);
   checkPagesAndCopy(site, err, exists);
+  checkGymPages(site, err, exists);
 }
 
 /** @param {any} b @param {Report} err */
@@ -118,7 +120,7 @@ function checkClassTypes(c, err) {
   if (!items.length) err("classTypes.items", "the club's classes: [{ id, name, minutes, text }]");
   const seen = ids(err, "classTypes.items", items);
   items.forEach((/** @type {any} */ x, /** @type {number} */ i) => {
-    onlyKeys(x, ["id", "name", "minutes", "text", "size"], `classTypes.items[${i}]`, err);
+    onlyKeys(x, ["id", "name", "minutes", "text", "size", "goals", "level"], `classTypes.items[${i}]`, err);
     text(err, `classTypes.items[${i}].name`, x?.name);
     text(err, `classTypes.items[${i}].text`, x?.text);
     if (!Number.isInteger(x?.minutes) || x.minutes < 10 || x.minutes > 180) err(`classTypes.items[${i}].minutes`, "the class's length in minutes, 10 to 180");

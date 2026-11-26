@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fendle · A Sitefloor case study for a street-food stall</title>
+<meta name="description" content="How a Sitefloor site works for a street-food stall: Fendle's website read the way a bubble waffle is eaten, one bubble at a time.">
+<meta name="theme-color" content="#120D0B">
+<link rel="preload" href="media/fonts/gabarito-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+/* Fonts, served with the page (Gabarito and Labrada are Fendle's own; Manrope is Sitefloor's bar), with size-matched stand-ins. */
+@font-face { font-family: "Gabarito"; font-weight: 600; font-display: swap; src: url("media/fonts/gabarito-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "Gabarito"; font-weight: 700; font-display: swap; src: url("media/fonts/gabarito-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "Gabarito"; font-weight: 800; font-display: swap; src: url("media/fonts/gabarito-latin-800-normal.woff2") format("woff2"); }
+@font-face { font-family: "Labrada"; font-weight: 400; font-display: swap; src: url("media/fonts/labrada-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Labrada"; font-weight: 400; font-style: italic; font-display: swap; src: url("media/fonts/labrada-latin-400-italic.woff2") format("woff2"); }
+@font-face { font-family: "Manrope"; font-weight: 600; font-display: swap; src: url("media/fonts/manrope-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "Manrope"; font-weight: 700; font-display: swap; src: url("media/fonts/manrope-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "Gabarito Fallback"; src: local("Arial Bold"), local("Helvetica Bold"), local("Liberation Sans Bold"), local("Arial"); size-adjust: 94%; ascent-override: 98%; descent-override: 26%; }
+@font-face { font-family: "Labrada Fallback"; src: local("Georgia"), local("Times New Roman"), local("Liberation Serif"); size-adjust: 104%; ascent-override: 92%; descent-override: 26%; }
+:root {
+  --rasp: #C9314F; --rasp-deep: #A92440; --ground: #B02844; --ground-deep: #962036; --crust: #E7A452; --batter: #F6E3C4; --cream: #FBF3E6; --iron: #120D0B; --iron-2: #1E1714; --white: #FFFFFF; --soft: #6E665F;
+  --display: "Gabarito", "Gabarito Fallback", system-ui, sans-serif; --body: "Labrada", "Labrada Fallback", Georgia, serif; --brand: "Manrope", system-ui, sans-serif;
+  --sf-paper: #FFFFFF; --sf-ink: #0E0F11; --sf-line: #E4E4E4; --sf-tomato: #E8613C;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 66px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; background: var(--iron); color: var(--white); font: 400 18px/1.5 var(--body); -webkit-font-smoothing: antialiased; }
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+.wrap { max-width: 1440px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 56px); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+:focus-visible { outline: 3px solid var(--crust); outline-offset: 3px; }
+
+/* Sitefloor bar (shared across case studies) */
+.sfbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--sf-paper); color: var(--sf-ink); border-bottom: 1px solid var(--sf-line); }
+.sfbar .wrap { display: flex; justify-content: space-between; align-items: center; height: 66px; gap: 16px; }
+.wm { display: inline-flex; align-items: center; font: 700 22px var(--brand); letter-spacing: -.04em; text-decoration: none; color: var(--sf-ink); }
+.wm svg { margin: 0 1px; }
+.sfbar nav { display: flex; gap: 28px; font: 600 14px var(--brand); }
+.sfbar nav a { text-decoration: none; color: var(--sf-ink); }
+.sfbar nav a[aria-current] { box-shadow: inset 0 -1.5px 0 var(--sf-ink); }
+.sfbtn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 20px; background: var(--sf-ink); color: var(--sf-paper); font: 700 12px var(--brand); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; }
+.sfbtn:hover { background: var(--sf-tomato); }
+@media (max-width: 760px) { .sfbar nav { display: none; } }
+@media (max-width: 420px) { .sfbar .sfbtn { display: none; } }
+
+/* ------------------------------------------------------------------ hero: the iron, one bubble pulled */
+.iron { position: relative; width: 100%; aspect-ratio: 2400 / 1390; max-height: calc(100vh - 66px); overflow: hidden; background: var(--iron); }
+.iron > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 100%; }
+.stage { position: absolute; left: 0; right: 0; bottom: 0; aspect-ratio: 2400 / 1390;
+  --img: url("media/hero-wide.webp"); --cx: 43.75%; --cy: 82.5%; --rx: 4.63%; --ry: 6%; --lx: 82.6%; --ly: 57%; }
+.hollow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse var(--rx) var(--ry) at var(--cx) var(--cy), #1A110D 0 58%, rgba(26,17,13,.92) 74%, rgba(26,17,13,.35) 88%, transparent 94%); }
+.lift { position: absolute; inset: 0; pointer-events: none; filter: drop-shadow(0 26px 22px rgba(0,0,0,.55)) drop-shadow(0 6px 6px rgba(0,0,0,.35)); transform-origin: var(--cx) var(--cy); transform: none; }
+.lift.up { transform: translate(calc(var(--lx) - var(--cx)), calc(var(--ly) - var(--cy))) rotate(-12deg) scale(1.4); transition: transform .55s cubic-bezier(.2, .9, .25, 1.15); }
+.lift i { position: absolute; inset: 0; background: var(--img) center / 100% 100% no-repeat; clip-path: ellipse(var(--rx) var(--ry) at var(--cx) var(--cy)); }
+.bub { position: absolute; width: calc(var(--rx) * 2); height: calc(var(--ry) * 2); transform: translate(-50%, -50%); border: 0; padding: 0; border-radius: 50%; background: none; cursor: pointer; }
+.bub::after { content: ""; position: absolute; inset: 8%; border-radius: 50%; box-shadow: 0 0 0 2px rgba(231,164,82,0); transition: box-shadow .2s; }
+.bub:hover::after, .bub:focus-visible::after { box-shadow: 0 0 0 2px var(--crust); }
+.bub:focus-visible { outline: none; }
+.bub[aria-pressed="true"] { pointer-events: none; }
+.iron.hint .bub::after { animation: ring 2.6s ease-in-out .8s 1; }
+@keyframes ring { 30%, 60% { box-shadow: 0 0 0 2px rgba(231,164,82,.75); } }
+@media (prefers-reduced-motion: reduce) { .lift.up { transition: none; } .iron.hint .bub::after { animation: none; } }
+.head { position: absolute; right: 4.2%; top: 7%; width: 40%; }
+.kick { font: 600 15px var(--display); color: var(--batter); margin: 0 0 18px; }
+.kick span { color: var(--crust); }
+h1 { margin: 0; white-space: nowrap; font: 800 clamp(64px, 9vw, 132px)/.86 var(--display); letter-spacing: -.045em; }
+h1 em { font-style: normal; color: var(--crust); }
+.lede { margin: 22px 0 0; max-width: 34ch; font-size: clamp(19px, 1.7vw, 24px); line-height: 1.35; color: var(--batter); }
+.tap { position: absolute; left: 4.2%; bottom: 5%; margin: 0; font: 600 15px var(--display); color: var(--batter); }
+.hero { position: relative; }
+.ans { position: absolute; right: 4.2%; bottom: calc(5% + 76px); width: min(380px, 27%); background: var(--white); color: var(--iron); padding: 18px 22px 16px; z-index: 2; }
+.ans p { margin: 0; }
+.ans .n { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font: 700 14px/1.2 var(--display); color: var(--rasp); }
+.ans .n b { flex: none; display: grid; place-items: center; width: 36px; height: 24px; border-radius: 50%; background: var(--rasp); color: var(--white); font-size: 12px; }
+.ans .n span:last-child { margin-left: auto; color: var(--soft); font-weight: 600; white-space: nowrap; }
+.ans .q { font: italic 400 17px var(--body); color: var(--soft); }
+.ans .a { margin-top: 6px; font: 800 28px/1.04 var(--display); letter-spacing: -.02em; }
+.ans .c { margin-top: 8px; min-height: 2.5em; font: 700 18px/1.25 var(--display); color: var(--rasp); }
+.ans .row { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 14px; padding-top: 12px; border-top: 1px solid #E8E1DA; font: 600 15px var(--display); }
+.ans .row a { color: var(--iron); text-underline-offset: 4px; }
+.ans .row button { border: 0; background: none; padding: 6px 0; font: inherit; color: var(--rasp); cursor: pointer; }
+
+/* the fifteen, as a strip under the photograph (every screen; the way in without a mouse) */
+.fifteen { background: var(--iron); border-top: 1px solid #2A221E; }
+.fifteen ol { list-style: none; margin: 0; padding: 14px 0; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+.fifteen ol::-webkit-scrollbar { display: none; }
+.fifteen button { flex: none; display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px 0 6px; border: 1px solid #3A302A; border-radius: 22px; background: none; color: var(--batter); font: 600 15px var(--display); cursor: pointer; white-space: nowrap; }
+.fifteen button b { display: grid; place-items: center; width: 32px; height: 22px; border-radius: 50%; background: #3A302A; font-size: 12px; }
+.fifteen button[aria-pressed="true"] { background: var(--batter); color: var(--iron); border-color: var(--batter); }
+.fifteen button[aria-pressed="true"] b { background: var(--rasp); color: var(--white); }
+
+/* ------------------------------------------------------------------ the site, whole */
+.whole { padding: clamp(64px, 8vw, 120px) 0; }
+.whole-h { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(24px, 5vw, 80px); align-items: end; margin-bottom: clamp(32px, 4vw, 56px); }
+.whole h2 { margin: 0; font: 800 clamp(44px, 5.4vw, 80px)/.94 var(--display); letter-spacing: -.04em; }
+.whole p { margin: 0; max-width: 46ch; color: var(--batter); font-size: clamp(18px, 1.4vw, 21px); }
+.laptop { margin: 0; border-radius: 14px; overflow: hidden; box-shadow: 0 0 0 1px #2A221E, 0 50px 100px rgba(0,0,0,.5); }
+
+/* ------------------------------------------------------------------ chapters: one bubble each, on raspberry */
+.ch { background: var(--ground); padding: clamp(64px, 8vw, 128px) 0; border-top: 1px solid var(--ground-deep); overflow: hidden; }
+.ch .wrap { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
+.ch.flip .side { order: -1; }
+.ch.flip .wrap { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+.num { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; font: 700 16px var(--display); color: var(--batter); margin: 0 0 26px; }
+.num b { display: grid; place-items: center; width: 52px; height: 36px; border-radius: 50%; background: var(--batter); color: var(--ground); font-weight: 800; font-size: 17px; }
+.ch h2 { margin: 0; font: 800 clamp(46px, 6.2vw, 96px)/.92 var(--display); letter-spacing: -.04em; }
+.ch .say { margin: 28px 0 0; max-width: 36ch; font-size: clamp(19px, 1.5vw, 23px); line-height: 1.45; }
+.feats { list-style: none; margin: 32px 0 0; padding: 0; display: grid; max-width: 560px; }
+.feats li { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 12px 0; border-bottom: 1px solid rgba(246,227,196,.35); font: 600 18px/1.25 var(--display); }
+.feats li span:last-child { flex: none; font: italic 400 16px var(--body); color: var(--batter); text-align: right; }
+.live { margin: 28px 0 0; display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; padding: 14px 18px; background: var(--iron); font: 700 18px/1.3 var(--display); }
+.live i { font: italic 400 16px var(--body); color: var(--batter); }
+.live b { color: var(--crust); }
+.side { position: relative; justify-self: center; width: min(520px, 100%); aspect-ratio: 1; display: grid; place-items: center; }
+.side .ball { position: absolute; inset: 0; border-radius: 50%; overflow: hidden; box-shadow: 0 30px 60px rgba(80,10,25,.35); }
+.side .ball img { width: 100%; height: 100%; object-fit: cover; }
+.ph { position: relative; width: min(290px, 62%); border-radius: 30px; overflow: hidden; background: var(--white); box-shadow: 0 40px 80px rgba(60,6,20,.45); transform: translate(12%, 4%) rotate(4deg); }
+.ch.flip .ph { transform: translate(-12%, 4%) rotate(-4deg); }
+.ph img { width: 100%; }
+.extra { position: absolute; width: min(200px, 40%); box-shadow: 0 24px 50px rgba(60,6,20,.45); background: var(--white); }
+.extra.board { left: -4%; bottom: -2%; transform: rotate(-7deg); }
+.extra.setup { right: -6%; bottom: -8%; transform: rotate(7deg); border-radius: 20px; overflow: hidden; }
+.extra.posts { right: -6%; bottom: -8%; transform: rotate(6deg); border-radius: 20px; overflow: hidden; }
+.sats { list-style: none; margin: 28px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; max-width: 640px; }
+.sats li { padding: 12px 12px 14px; background: var(--iron); }
+.sats b { display: block; font: 700 17px/1.2 var(--display); }
+.sats span { display: block; margin-top: 6px; font: italic 400 15px/1.3 var(--body); color: var(--batter); }
+.sats li.open span { color: var(--crust); }
+
+/* ------------------------------------------------------------------ plans: plain, sauced, loaded */
+.plans { background: var(--cream); color: var(--iron); padding: clamp(64px, 8vw, 128px) 0; }
+.plans-h { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: clamp(24px, 5vw, 80px); align-items: end; margin-bottom: clamp(32px, 4vw, 56px); }
+.plans h2 { margin: 0; font: 800 clamp(48px, 6.4vw, 100px)/.9 var(--display); letter-spacing: -.045em; }
+.plans h2 span { color: var(--rasp); }
+.plans-h p { margin: 0; max-width: 42ch; font-size: clamp(18px, 1.4vw, 21px); color: #4A423C; }
+.cups { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 2vw, 28px); }
+.cup { display: flex; flex-direction: column; background: var(--white); }
+.cup img { aspect-ratio: 4 / 3; object-fit: cover; width: 100%; }
+.cup-in { display: flex; flex-direction: column; flex: 1; padding: 22px 24px 24px; }
+.cup h3 { margin: 0; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font: 800 36px/1 var(--display); letter-spacing: -.03em; }
+.cup h3 span { font: 600 15px var(--display); color: var(--soft); letter-spacing: 0; }
+.cup .is { margin: 6px 0 0; font: italic 400 17px var(--body); color: var(--soft); }
+.cup ul { list-style: none; margin: 18px 0 22px; padding: 0; }
+.cup li { padding: 9px 0; border-top: 1px solid #EEE6DC; font: 600 16px/1.3 var(--display); }
+.cup li.all { color: var(--rasp); }
+.cup .tot { margin: auto 0 0; display: flex; align-items: baseline; gap: 10px; padding-top: 16px; border-top: 2px solid var(--iron); }
+.cup .tot b { font: 800 40px/1 var(--display); letter-spacing: -.03em; }
+.cup .tot span { font-size: 16px; color: var(--soft); }
+.cup.sig { background: var(--iron); color: var(--white); }
+.cup.sig li { border-color: #2E2622; }
+.cup.sig li.all { color: var(--crust); }
+.cup.sig .is, .cup.sig h3 span, .cup.sig .tot span { color: #B9AEA4; }
+.cup.sig .tot { border-color: var(--crust); }
+.plans-note { margin: 28px 0 0; max-width: 70ch; font-size: 17px; color: #4A423C; }
+
+/* ------------------------------------------------------------------ speed: off the iron */
+.speed { padding: clamp(64px, 8vw, 128px) 0; }
+.speed .wrap { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
+.speed h2 { margin: 0; font: 800 clamp(48px, 6.4vw, 100px)/.9 var(--display); letter-spacing: -.045em; }
+.speed h2 span { color: var(--crust); }
+.speed .say { margin: 26px 0 0; max-width: 40ch; color: var(--batter); font-size: clamp(18px, 1.4vw, 21px); }
+.scores { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.scores div { aspect-ratio: 1.15; display: grid; place-content: center; text-align: center; border-radius: 50%; background: var(--iron-2); box-shadow: inset 0 0 0 2px var(--crust); }
+.scores b { font: 800 clamp(34px, 4vw, 56px)/1 var(--display); color: var(--crust); }
+.scores b.rng { font-size: clamp(24px, 2.6vw, 38px); }
+.scores span { margin-top: 6px; font: 600 14px var(--display); color: var(--batter); }
+.weights { width: 100%; margin-top: 28px; border-collapse: collapse; font: 600 17px var(--display); }
+.weights th, .weights td { padding: 12px 0; border-bottom: 1px solid #2E2622; text-align: left; font-weight: 600; }
+.weights td { text-align: right; color: var(--batter); }
+.weights td span { display: block; font: italic 400 14px var(--body); color: #B9AEA4; }
+.weights .sum th, .weights .sum td { color: var(--crust); font-weight: 800; border-bottom: 2px solid var(--crust); }
+
+/* ------------------------------------------------------------------ close */
+.close { background: var(--ground); padding: clamp(64px, 8vw, 128px) 0; overflow: hidden; }
+.close .wrap { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
+.close h2 { margin: 0; font: 800 clamp(52px, 7vw, 112px)/.9 var(--display); letter-spacing: -.045em; }
+.close h2 span { color: var(--batter); }
+.close p { margin: 26px 0 0; max-width: 40ch; font-size: clamp(18px, 1.4vw, 21px); }
+.acts { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.btn { display: inline-flex; align-items: center; min-height: 52px; padding: 0 24px; background: var(--iron); color: var(--white); font: 700 17px var(--display); text-decoration: none; }
+.btn:hover { background: #000; }
+.btn.line { background: none; box-shadow: inset 0 0 0 2px var(--white); }
+.btn.line:hover { background: var(--ground-deep); }
+.mail { display: inline-block; margin-top: 22px; font: 600 16px var(--display); color: var(--batter); }
+.close .side { width: min(460px, 100%); }
+
+footer { padding: 36px 0 48px; color: #B9AEA4; font-size: 15px; }
+footer .wrap { display: grid; gap: 14px; }
+footer p { margin: 0; max-width: 110ch; }
+footer span { font: 600 14px var(--brand); }
+
+@media (max-width: 1100px) {
+  .head { width: 50%; }
+  .ans { width: min(360px, 36%); }
+}
+@media (max-width: 760px) {
+  html { scroll-padding-top: 56px; }
+  .sfbar .wrap { height: 56px; }
+  .iron { aspect-ratio: 900 / 1293; max-height: none; min-height: 0; }
+  .iron > img { object-position: 50% 50%; }
+  .stage { top: 0; bottom: 0; aspect-ratio: auto; --img: url("media/hero-tall.webp"); --rx: 8.33%; --ry: 4.35%; --lx: 76%; --ly: 47%; }
+  .lift.up { transform: translate(calc(var(--lx) - var(--cx)), calc(var(--ly) - var(--cy))) rotate(-12deg) scale(1.35); }
+  .head { left: 20px; right: 20px; top: 20px; width: auto; }
+  h1 { font-size: 74px; }
+  .kick { font-size: 14px; margin-bottom: 10px; }
+  .lede { font-size: 18px; margin-top: 12px; }
+  .ans { position: relative; right: auto; bottom: auto; width: auto; margin: -72px 16px 0; padding: 16px 18px 14px; }
+  .ans .a { font-size: 25px; } .ans .c { font-size: 17px; }
+  .tap { display: none; }
+  .fifteen { border-top: 0; }
+  .whole-h, .plans-h, .speed .wrap, .close .wrap { grid-template-columns: 1fr; }
+  .ch .wrap, .ch.flip .wrap { grid-template-columns: 1fr; }
+  .ch.flip .side { order: 0; }
+  .side { width: min(340px, 90%); margin-top: 12px; }
+  .ph { width: 56%; border-radius: 22px; }
+  .extra { width: 38%; }
+  .sats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cups { grid-template-columns: 1fr; }
+  .laptop { border-radius: 8px; }
+}
+</style>
+</head>
+<body>
+
+<div class="sfbar"><div class="wrap">
+  <a class="wm" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su" aria-label="Sitefloor home">sitefl<svg width="28" height="14" viewBox="0 0 42 21" aria-hidden="true"><rect x="1.9" y="1.9" width="38.2" height="17.2" rx="8.6" fill="none" stroke="#0E0F11" stroke-width="3.8"/><circle cx="31.5" cy="10.5" r="5.2" fill="#E8613C"/></svg>r</a>
+  <nav aria-label="Main"><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#live">Features</a><a href="#top" aria-current="page">Work</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#pricing">Pricing</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#guides">Guides</a></nav>
+  <a class="sfbtn" href="#mockup"><span>Free mockup</span><span aria-hidden="true">→</span></a>
+</div></div>
+
+<main id="top">
+
+<div class="hero">
+<section class="iron hint" aria-labelledby="h1" data-iron>
+  <img src="media/hero-wide.webp" width="2400" height="1390" alt="A bubble waffle in an open iron at a street-food stall, golden and crisp" fetchpriority="high" data-hero-img>
+  <div class="stage" data-stage>
+    <div class="hollow" aria-hidden="true"></div>
+    <div class="lift" aria-hidden="true" data-lift><i></i></div>
+    <div data-bubs></div>
+  </div>
+  <div class="head">
+    <p class="kick">Fendle <span>·</span> a Sitefloor site for a street-food stall</p>
+    <h1 id="h1">Pull <em>one.</em></h1>
+    <p class="lede">Fendle's website, one bubble at a time.</p>
+  </div>
+  <p class="tap" aria-hidden="true">Tap any bubble</p>
+</section>
+<div class="ans" aria-live="polite" data-ans>
+  <p class="n"><b data-a-num>01</b><span data-a-name>Where we are this week</span><span data-a-tier>Starter</span></p>
+  <p class="q" data-a-q>"Where are you this week?"</p>
+  <p class="a" data-a-a>Wednesday Shoreditch</p>
+  <p class="c" data-a-c>Then Friday Peckham, Saturday Hackney, Sunday Walthamstow</p>
+  <p class="row"><a href="#where" data-a-go>See it on the site</a><button type="button" data-next>Next bubble →</button></p>
+</div>
+<nav class="fifteen" aria-label="The fifteen bubbles"><div class="wrap"><ol data-chips></ol></div></nav>
+</div>
+
+<section class="whole" aria-labelledby="h-whole"><div class="wrap">
+  <div class="whole-h">
+    <h2 id="h-whole">The whole waffle.</h2>
+    <p>Fendle's home page on a laptop on a Saturday afternoon: here now in Hackney, until six. Every bubble below is a part of it, on a phone, where the stall's customers actually are.</p>
+  </div>
+  <figure class="laptop"><img src="media/site-desktop.webp" width="1440" height="900" alt="Fendle's home page on a laptop: Off the iron, here now in Hackney until 18:00, the week's stops as tickets beside a photograph of the waffle iron" loading="lazy"></figure>
+</div></section>
+
+<section class="ch" id="where" aria-labelledby="h-where"><div class="wrap">
+  <div>
+    <p class="num"><b>01</b>Where we are, and when</p>
+    <h2 id="h-where">Asked under every post.</h2>
+    <p class="say">"Where are you today?" The site answers before anyone types it: this week's stops from the stall's own sheet, the next one counting down, and the forecast for its hours.</p>
+    <ul class="feats">
+      <li><span>Where we are this week</span><span>Starter</span></li>
+      <li><span>The next stop, counting down</span><span>Signature</span></li>
+      <li><span>Rain check for the stop's hours</span><span>Add-on</span></li>
+    </ul>
+    <p class="live" aria-live="polite"><i>Right now, from Fendle's usual week:</i> <span data-live-where>Wednesday in Shoreditch</span> <b data-live-count></b></p>
+  </div>
+  <div class="side"><div class="ball"><img src="media/bubble-01.webp" width="900" height="900" alt="" loading="lazy"></div><div class="ph"><img src="media/ph-home.webp" width="780" height="1688" alt="Fendle's home page on a phone: here now in Hackney, until 18:00, dry by the forecast, with the week's stops as tickets" loading="lazy"></div></div>
+</div></section>
+
+<section class="ch flip" id="board" aria-labelledby="h-board"><div class="wrap">
+  <div>
+    <p class="num"><b>02</b>The board</p>
+    <h2 id="h-board">Read it before the queue.</h2>
+    <p class="say">Every item with its price and its allergens. When something sells out, the stall says so from a phone and the board strikes it through. One tap saves today's board as a picture, ready to post.</p>
+    <ul class="feats">
+      <li><span>The menu, with prices and allergens</span><span>Starter</span></li>
+      <li><span>The full menu and party packages, on a page</span><span>Plus</span></li>
+      <li><span>Sold out today</span><span>Signature</span></li>
+      <li><span>The board, saved as a picture</span><span>Signature</span></li>
+    </ul>
+  </div>
+  <div class="side"><div class="ball"><img src="media/bubble-02.webp" width="900" height="900" alt="" loading="lazy"></div><div class="ph"><img src="media/ph-menu.webp" width="780" height="1688" alt="Fendle's board on a phone: bubble waffle £6, Biscoff crunch struck through, sold out today at 13:10, back next stop" loading="lazy"></div><img class="extra board" src="media/board.webp" width="720" height="900" alt="The picture the board saves: Fendle's menu with prices and allergen codes, labelled as a sample menu" loading="lazy"></div>
+</div></section>
+
+<section class="ch" id="party" aria-labelledby="h-party"><div class="wrap">
+  <div>
+    <p class="num"><b>03</b>Parties</p>
+    <h2 id="h-party">Could you come to ours?</h2>
+    <p class="say">Pick the day and the site checks the stall's party diary first: free, one booking already, or already promised. It never says booked. The details then go to WhatsApp, and the venue gets a set-up card it can copy.</p>
+    <ul class="feats">
+      <li><span>Book us for your party</span><span>Plus</span></li>
+      <li><span>Parties and private hire</span><span>Plus</span></li>
+      <li><span>What we need on the day</span><span>Signature</span></li>
+    </ul>
+    <ol class="sats" aria-label="The next four Saturdays in Fendle's demo diary" data-sats></ol>
+  </div>
+  <div class="side"><div class="ball"><img src="media/bubble-03.webp" width="900" height="900" alt="" loading="lazy"></div><div class="ph"><img src="media/ph-book-us.webp" width="780" height="1688" alt="Fendle's book us page on a phone: a Saturday in December chosen, free so far, send the details and we'll confirm" loading="lazy"></div><div class="extra setup"><img src="media/ph-setup.webp" width="780" height="1688" alt="The set-up card: pitch 3 m by 3 m, one 13 A socket within 25 m, our own gazebo, arrive one hour before serving" loading="lazy"></div></div>
+</div></section>
+
+<section class="ch flip" id="drop" aria-labelledby="h-drop"><div class="wrap">
+  <div>
+    <p class="num"><b>04</b>The drop</p>
+    <h2 id="h-drop">One Saturday only.</h2>
+    <p class="say">Specials sell out the day they land. A drop gets its own date on the home page and a "Tell me" that adds people to the stall's WhatsApp list. The latest TikToks sit beside it, as links that open the app, never slow embeds.</p>
+    <ul class="feats">
+      <li><span>The drop alert</span><span>Signature</span></li>
+      <li><span>Latest posts</span><span>Plus</span></li>
+    </ul>
+  </div>
+  <div class="side"><div class="ball"><img src="media/bubble-04.webp" width="900" height="900" alt="" loading="lazy"></div><div class="ph"><img src="media/ph-drop.webp" width="780" height="1688" alt="The drop on Fendle's home page: Pistachio and rose, one Saturday only, at Hackney, with a Tell me button" loading="lazy"></div><div class="extra posts"><img src="media/ph-posts.webp" width="780" height="1688" alt="Fendle's latest TikToks as covers: the pour, slowed down" loading="lazy"></div></div>
+</div></section>
+
+<section class="ch" id="allergens" aria-labelledby="h-allergens"><div class="wrap">
+  <div>
+    <p class="num"><b>05</b>Allergens</p>
+    <h2 id="h-allergens">Is there nut in it?</h2>
+    <p class="say">The fourteen allergens, item by item, the stall's own words on what's shared at the counter, and its food hygiene rating linked to its listing on the Food Standards Agency's site. On the demo, the chart and the rating are labelled samples.</p>
+    <ul class="feats">
+      <li><span>Allergens and food hygiene</span><span>Plus</span></li>
+    </ul>
+    <p class="live"><i>Hazelnut and strawberry:</i> gluten, egg, milk, tree nuts, soya</p>
+  </div>
+  <div class="side"><div class="ball"><img src="media/bubble-05.webp" width="900" height="900" alt="" loading="lazy"></div><div class="ph"><img src="media/ph-allergens.webp" width="780" height="1688" alt="Fendle's allergens page on a phone: a chart of every item against the fourteen allergens, labelled as a sample" loading="lazy"></div></div>
+</div></section>
+
+<section class="ch flip" id="find" aria-labelledby="h-find"><div class="wrap">
+  <div>
+    <p class="num"><b>06</b>Where to find us</p>
+    <h2 id="h-find">Four markets a week.</h2>
+    <p class="say">Every regular market with its days and directions, this week first, and a cancelled market says so. On a stall's own site, the pitch finder adds its photo of the pitch and the line that tells you how to spot it.</p>
+    <ul class="feats">
+      <li><span>Where to find us</span><span>Plus</span></li>
+      <li><span>The pitch finder</span><span>Plus, with the stall's own photo</span></li>
+    </ul>
+  </div>
+  <div class="side"><div class="ball"><img src="media/bubble-06.webp" width="900" height="900" alt="" loading="lazy"></div><div class="ph"><img src="media/ph-find-us.webp" width="780" height="1688" alt="Fendle's where to find us page on a phone: trading now, Saturday at Hackney, here now, then Sunday at Walthamstow" loading="lazy"></div></div>
+</div></section>
+
+<section class="plans" id="plans" aria-labelledby="h-plans"><div class="wrap">
+  <div class="plans-h">
+    <h2 id="h-plans">Plain. Sauced. <span>Loaded.</span></h2>
+    <p>Every Sitefloor plan for a street-food stall, ordered the way the stall's customers order.</p>
+  </div>
+  <div class="cups">
+    <div class="cup">
+      <img src="media/plan-plain.webp" width="960" height="720" alt="A plain bubble waffle in the iron" loading="lazy">
+      <div class="cup-in">
+        <h3>Plain <span>Starter</span></h3>
+        <p class="is">The home page</p>
+        <ul>
+          <li>Where we are this week</li>
+          <li>The menu, with prices and allergens</li>
+          <li>Photographs of the stall</li>
+          <li>Questions answered</li>
+          <li>WhatsApp, one tap away</li>
+        </ul>
+        <p class="tot"><b>£99</b><span>then £25 a month</span></p>
+      </div>
+    </div>
+    <div class="cup">
+      <img src="media/plan-sauced.webp" width="960" height="720" alt="Bubble waffles dipped in chocolate, in brown paper cones" loading="lazy">
+      <div class="cup-in">
+        <h3>Sauced <span>Plus</span></h3>
+        <p class="is">Up to 5 pages</p>
+        <ul>
+          <li class="all">Everything in Plain</li>
+          <li>Latest posts</li>
+          <li>Book us for your party</li>
+          <li>The menu page and party packages</li>
+          <li>Where to find us, and the pitch finder</li>
+          <li>Parties and private hire</li>
+          <li>Allergens and food hygiene</li>
+        </ul>
+        <p class="tot"><b>£199</b><span>then £30 a month</span></p>
+      </div>
+    </div>
+    <div class="cup sig">
+      <img src="media/plan-loaded.webp" width="960" height="720" alt="A bubble waffle loaded with raspberries, blackberries, blueberries, granola and chocolate" loading="lazy">
+      <div class="cup-in">
+        <h3>Loaded <span>Signature</span></h3>
+        <p class="is">Up to 20 pages</p>
+        <ul>
+          <li class="all">Everything in Sauced</li>
+          <li>The next stop, counting down</li>
+          <li>Sold out today</li>
+          <li>The board, saved as a picture</li>
+          <li>What we need on the day</li>
+          <li>The drop alert</li>
+        </ul>
+        <p class="tot"><b>£349</b><span>then £35 a month</span></p>
+      </div>
+    </div>
+  </div>
+  <p class="plans-note">Twelve months minimum. Any feature can be added on its own (the rain check to Sauced or Loaded), and extra pages one at a time. Bespoke sites from £1,399, quoted after a call.</p>
+</div></section>
+
+<section class="speed" id="speed" aria-labelledby="h-speed"><div class="wrap">
+  <div>
+    <h2 id="h-speed">Off the iron in <span>under two seconds.</span></h2>
+    <p class="say">Measured on a phone over a slow connection, the way Google measures it. The photograph, the next stop and the countdown are on screen in under two seconds, and nothing jumps once they are. In a queue, that matters.</p>
+  </div>
+  <div>
+    <div class="scores">
+      <div><b class="rng">99–100</b><span>Performance</span></div>
+      <div><b>100</b><span>Accessibility</span></div>
+      <div><b>100</b><span>Best practices</span></div>
+    </div>
+    <table class="weights">
+      <caption class="sr">What a phone downloads for Fendle's first screen</caption>
+      <tbody>
+        <tr><th scope="row">The page</th><td>6.5 KB</td></tr>
+        <tr><th scope="row">Scripts</th><td>11.2 KB</td></tr>
+        <tr><th scope="row">Styles</th><td>8.7 KB</td></tr>
+        <tr><th scope="row">Fonts, four weights</th><td>78.8 KB</td></tr>
+        <tr><th scope="row">The first photograph</th><td>80.9 KB</td></tr>
+        <tr class="sum"><th scope="row">The first screen</th><td>186.1 KB</td></tr>
+        <tr><th scope="row">The board picture</th><td>0 KB<span>drawn on the phone when someone taps Save</span></td></tr>
+        <tr><th scope="row">Layout shift</th><td>0.002</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div></section>
+
+<section class="close" id="mockup" aria-labelledby="h-cl"><div class="wrap">
+  <div>
+    <h2 id="h-cl">Your stall, <span>one bubble at a time.</span></h2>
+    <p>Send us your week, your menu and a few photographs, and we'll make a free mockup of your home page with your own next stop counting down.</p>
+    <div class="acts">
+      <a class="btn" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#free">Get a free mockup</a>
+      <a class="btn line" href="https://sitefloor1.github.io/sitefloor-templates/stalls/">Try the demo first</a>
+    </div>
+    <span class="mail">hello@sitefloor.com</span>
+  </div>
+  <div class="side"><div class="ball"><img src="media/bubble-01.webp" width="900" height="900" alt="" loading="lazy"></div></div>
+</div></section>
+
+</main>
+
+<footer><div class="wrap">
+  <p>Fendle is a fictional bubble-waffle stall made to show the Sitefloor stalls kit. Its markets, times, menu, prices, allergens, hygiene rating, party diary and drop are demo data, and it links to no real Instagram or TikTok account. Photographs from Pexels: the waffle iron by Th2city Santana, the chocolate waffles by Elizabeth Ferreira, the loaded waffle by Willians Huerta; they show stock scenes, not Fendle's stall. The phone and laptop screens are of the Fendle demo.</p>
+  <span>© 2026 Sitefloor</span>
+</div></footer>
+
+<script>
+(() => {
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // Fendle's usual week, from the demo's settings, worked out on London time.
+  const WEEK = [
+    { d: 3, place: "Shoreditch", open: 720, close: 900 },
+    { d: 5, place: "Peckham", open: 1020, close: 1320 },
+    { d: 6, place: "Hackney", open: 660, close: 1080 },
+    { d: 0, place: "Walthamstow", open: 660, close: 1020 },
+  ];
+  const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const hhmm = (m) => `${String(Math.floor(m / 60)).padStart(2, "0")}:${String(m % 60).padStart(2, "0")}`;
+  const until = (m) => { const d = Math.floor(m / 1440), h = Math.floor((m % 1440) / 60), n = m % 60; return d ? `${d}d ${h}h ${n}m` : h ? `${h}h ${n}m` : `${n}m`; };
+  const london = () => {
+    const p = Object.fromEntries(new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric", hourCycle: "h23", weekday: "short" }).formatToParts(new Date()).map((x) => [x.type, x.value]));
+    return { y: +p.year, mo: +p.month, day: +p.day, wd: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(p.weekday), mins: +p.hour * 60 + +p.minute };
+  };
+  const stops = () => { const n = london(), out = []; for (let k = 0; k < 8; k++) { const wd = (n.wd + k) % 7, s = WEEK.find((x) => x.d === wd); if (!s || (k === 0 && n.mins >= s.close)) continue; out.push({ s, k, here: k === 0 && n.mins >= s.open, mins: k * 1440 + s.open - n.mins }); } return out; };
+  const dayWord = (k, wd) => (k === 0 ? "Today" : k === 1 ? "Tomorrow" : DAYS[wd]);
+  const whereNow = () => { const x = stops()[0]; return x.here ? [`Here now in ${x.s.place}`, `Until ${hhmm(x.s.close)}`] : [`${dayWord(x.k, x.s.d)} in ${x.s.place}`, `Opens in ${until(x.mins)}`]; };
+  const week = () => { const l = stops().slice(0, 4).map((x) => `${x.k === 0 ? "Today" : DAYS[x.s.d]} ${x.s.place}`); return [l[0], `Then ${l.slice(1, -1).join(", ")} and ${l[l.length - 1]}`]; };
+  // The party diary as the demo keeps it: the next two Saturdays promised, the third with one booking, the rest free.
+  const saturdays = () => { const n = london(), base = Date.UTC(n.y, n.mo - 1, n.day), out = []; for (let i = 1; out.length < 4 && i < 40; i++) { const t = new Date(base + i * 864e5); if (t.getUTCDay() === 6) out.push(t); } return out; };
+  const STATE = [["taken", "Already promised. Ask anyway."], ["taken", "Already promised. Ask anyway."], ["few", "One booking already."], ["open", "Free so far."]];
+  const dateWords = (t) => `Saturday ${t.getUTCDate()} ${MONTHS[t.getUTCMonth()]}`;
+
+  // Fifteen bubbles: where each sits in the photograph (the wide crop at 1440 × 834) and what it does.
+  const F = [
+    { at: [630, 680], name: "Where we are this week", tier: "Starter", go: "#where", q: "Where are you this week?", live: week },
+    { at: [518, 628], name: "The menu, with prices and allergens", tier: "Starter", go: "#board", q: "How much is it?", a: "Bubble waffle £6", c: "Biscoff crunch £7.50, candy floss £4. Allergens on every line." },
+    { at: [790, 655], name: "Latest posts", tier: "Plus", go: "#drop", q: "Is it as good as the video?", a: "The last three TikToks", c: "As links that open the app. Never a slow embed." },
+    { at: [672, 612], name: "Book us for your party", tier: "Plus", go: "#party", q: "Could you come to ours?", live: () => [dateWords(saturdays()[3]), "Free so far. Send the details and we'll confirm."] },
+    { at: [408, 578], name: "The pitch finder", tier: "Plus", go: "#find", q: "Which stall is yours?", a: "The stall's own photo", c: "Of its pitch, with how to spot it. On a stall's own site." },
+    { at: [560, 565], name: "The menu page", tier: "Plus", go: "#board", q: "What's a party for 30?", a: "From £280", c: "Every item and both party packages, on one page." },
+    { at: [712, 550], name: "Where to find us", tier: "Plus", go: "#find", q: "Which markets do you do?", a: "Four markets a week", c: "Days, times and directions, this week first." },
+    { at: [820, 600], name: "Parties and private hire", tier: "Plus", go: "#party", q: "What do you bring?", a: "The whole stall, at yours", c: "The irons, the floss machine, gazebo and lights, two of us." },
+    { at: [463, 520], name: "Allergens and food hygiene", tier: "Plus", go: "#allergens", q: "Is there nut in it?", a: "Hazelnut and strawberry", c: "Gluten, egg, milk, tree nuts, soya." },
+    { at: [605, 505], name: "The next stop, counting down", tier: "Signature", go: "#where", q: "Where are you today?", live: whereNow },
+    { at: [752, 492], name: "Sold out today", tier: "Signature", go: "#board", q: "Any Biscoff left?", a: "Sold out today at 13:10", c: "Struck through on the board. Back next stop." },
+    { at: [865, 535], name: "The board, saved as a picture", tier: "Signature", go: "#board", q: "Can I send the menu to the group?", a: "Saved. Post it!", c: "Today's board as a picture, in one tap." },
+    { at: [970, 585], name: "What we need on the day", tier: "Signature", go: "#party", q: "What does the venue need?", a: "3 m × 3 m and a socket", c: "The set-up card, copied for the organiser in one tap." },
+    { at: [940, 635], name: "The drop alert", tier: "Signature", go: "#drop", q: "When's the next special?", a: "Pistachio and rose", c: "One Saturday only. Tell me adds you to the list." },
+    { at: [1010, 520], name: "Rain check", tier: "Add-on", go: "#where", q: "Is it going to rain?", a: "Dry, by the forecast", c: "Or the hour rain is likely. It never cancels a stop." },
+  ];
+  // The photograph in the original's pixels (6720 × 4480), and the two crops the page shows.
+  const orig = ([x, y]) => [x * 2.9986 + 900, y * 2.9976 + 500 + 24];
+  const CROPS = { wide: [900, 500, 4318, 2500], tall: [1700, 0, 2400, 3448] };
+  const pct = ([ox, oy], c) => [((ox - c[0]) / c[2]) * 100, ((oy - c[1]) / c[3]) * 100];
+  const mq = matchMedia("(max-width: 760px)");
+
+  const iron = document.querySelector("[data-iron]");
+  const stage = document.querySelector("[data-stage]");
+  const lift = document.querySelector("[data-lift]");
+  const img = document.querySelector("[data-hero-img]");
+  const A = (k) => document.querySelector(`[data-a-${k}]`);
+  let cur = 0;
+  const two = (i) => String(i + 1).padStart(2, "0");
+
+  const btns = F.map((f, i) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "bub"; b.setAttribute("aria-label", `${two(i)}, ${f.name}`);
+    b.addEventListener("click", () => pick(i)); document.querySelector("[data-bubs]").append(b); return b;
+  });
+  const chips = F.map((f, i) => {
+    const li = document.createElement("li"), b = document.createElement("button");
+    b.type = "button"; b.innerHTML = `<b>${two(i)}</b>`; b.append(f.name);
+    b.addEventListener("click", () => pick(i)); li.append(b); document.querySelector("[data-chips]").append(li); return b;
+  });
+  const crop = () => (mq.matches ? CROPS.tall : CROPS.wide);
+  const setPos = (i) => { const [x, y] = pct(orig(F[i].at), crop()); stage.style.setProperty("--cx", `${x}%`); stage.style.setProperty("--cy", `${y}%`); };
+  const place = () => {
+    img.src = mq.matches ? "media/hero-tall.webp" : "media/hero-wide.webp";
+    F.forEach((f, i) => { const [x, y] = pct(orig(f.at), crop()); btns[i].style.left = `${x}%`; btns[i].style.top = `${y}%`; });
+    setPos(cur);
+  };
+  const fill = (i) => {
+    const f = F[i], [a, c] = f.live ? f.live() : [f.a, f.c];
+    A("num").textContent = two(i); A("name").textContent = f.name; A("tier").textContent = f.tier;
+    A("q").textContent = `"${f.q}"`; A("a").textContent = a; A("c").textContent = c; A("go").href = f.go;
+  };
+  function pick(i, quiet) {
+    cur = i; iron.classList.remove("hint");
+    btns.forEach((b, k) => b.setAttribute("aria-pressed", String(k === i)));
+    chips.forEach((b, k) => b.setAttribute("aria-pressed", String(k === i)));
+    lift.classList.remove("up"); setPos(i);
+    if (reduce || quiet) lift.classList.add("up"); else { void lift.offsetWidth; requestAnimationFrame(() => lift.classList.add("up")); }
+    fill(i);
+    if (!quiet) { const ol = chips[i].closest("ol"), li = chips[i].parentElement; ol.scrollTo({ left: li.offsetLeft - ol.clientWidth / 2 + li.clientWidth / 2, behavior: reduce ? "auto" : "smooth" }); }
+  }
+  document.querySelector("[data-next]").addEventListener("click", () => pick((cur + 1) % F.length));
+  mq.addEventListener("change", place);
+  place(); pick(0, true);
+
+  // The live lines further down.
+  const lw = document.querySelector("[data-live-where]"), lc = document.querySelector("[data-live-count]");
+  const tick = () => { const [a, c] = whereNow(); lw.textContent = a; lc.textContent = c; if (F[cur].live) fill(cur); };
+  tick(); setInterval(tick, 30000);
+  const sats = document.querySelector("[data-sats]");
+  saturdays().forEach((t, i) => { const li = document.createElement("li"); li.className = STATE[i][0]; li.innerHTML = `<b>Sat ${t.getUTCDate()} ${MONTHS[t.getUTCMonth()].slice(0, 3)}</b><span>${STATE[i][1]}</span>`; sats.append(li); });
+})();
+</script>
+</body>
+</html>

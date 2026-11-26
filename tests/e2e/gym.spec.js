@@ -95,3 +95,45 @@ test("the Hyrox plan reads a UK date and refuses the US order", async ({ page })
   await expect(page.locator("[data-gh-cal]")).toHaveClass(/is-off/);
   await srv.close();
 });
+
+test("the class finder narrows the list and says how many fit", async ({ page }) => {
+  const srv = await start(demo);
+  const errors = watchErrors(page);
+  await page.goto(srv.base + "/classes");
+  await expect(page.locator("[data-gcf-n]")).toHaveText("Six classes");
+  await page.getByRole("button", { name: "Strength" }).click();
+  await expect(page.locator("[data-gcf-n]")).toHaveText("One class");
+  await expect(page.locator(".gcf-c:not([hidden]) h2")).toHaveText("Barbell club");
+  await page.getByRole("button", { name: "Strength" }).click(); // pressed again: let go
+  await page.getByRole("button", { name: "Mobility" }).click();
+  await page.getByRole("button", { name: "Before ten" }).click();
+  await expect(page.locator(".gcf-c:not([hidden]) h2")).toHaveText("Mobility");
+  await expect(page.getByRole("button", { name: "Mobility" })).toHaveAttribute("aria-pressed", "true");
+  expect(errors).toEqual([]);
+  await srv.close();
+});
+
+test("the club tour shows one room at a time, chosen from the list or with the arrow keys", async ({ page }) => {
+  const srv = await start(demo);
+  await page.goto(srv.base + "/club");
+  const panels = page.locator('[role="tabpanel"]');
+  await expect(panels.filter({ visible: true })).toHaveCount(1);
+  await page.getByRole("tab", { name: /Changing rooms/ }).click();
+  await expect(page.locator("#gtu-p-changing")).toBeVisible();
+  await page.keyboard.press("ArrowDown");
+  await expect(page.locator("#gtu-p-rig")).toBeVisible();
+  await expect(page.getByRole("tab", { name: /The rig/ })).toBeFocused();
+  await srv.close();
+});
+
+test("personal training prices are pack totals, every fee in; events go into the calendar", async ({ page }) => {
+  const srv = await start(demo);
+  await page.goto(srv.base + "/training");
+  await expect(page.locator(".gpt-total").last()).toHaveText("£480 for eight sessions, race assessment fee included");
+  await page.goto(srv.base + "/events");
+  const first = page.locator(".gev-e").first();
+  await expect(first.locator(".gev-act a").last()).toHaveAttribute("href", /^events\/[a-z-]+\.ics$/);
+  const ics = await page.request.get(srv.base + "/" + await first.locator(".gev-act a").last().getAttribute("href"));
+  expect(await ics.text()).toMatch(/BEGIN:VEVENT[\s\S]*DTSTART:\d{8}T\d{6}Z/);
+  await srv.close();
+});

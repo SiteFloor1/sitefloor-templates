@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: test-centres
+permalink: test-centres.html
+feature: driving-centres
+eleventyComputed:
+  title: "{{ site.centres.title | plain }}"
+  description: "Driving test centres used by {{ site.business.name }}, {{ site.location.locality }}."
+---
+{% include "kits/driving/features/driving-centres/driving-centres.njk" %}

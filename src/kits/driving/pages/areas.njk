@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: areas
+permalink: areas.html
+feature: driving-area-page
+eleventyComputed:
+  title: "{{ site.areaPage.title | plain }}"
+  description: "Areas covered by {{ site.business.name }}, {{ site.location.locality }}."
+---
+{% include "kits/driving/features/driving-area-page/driving-area-page.njk" %}

@@ -1,0 +1,21 @@
+{#- Personal training: the photograph wide, who it's for, then the club's packs as a ledger. Each pack's headline is
+    what the client pays, every mandatory fee in (packWords, DMCC Act 2024), the price a session after it and smaller;
+    "Ask on WhatsApp" carries the pack's name. -#}
+{%- set t = site.training %}
+<section class="gpt" data-feature="gym-training" aria-label="{{ t.title | plain }}"><div class="wrap">
+  {%- if t.photo %}<figure class="gpt-f"><img src="{{ t.photo.src | img }}" alt="{{ t.photo.alt }}" width="{{ t.photo.width }}" height="{{ t.photo.height }}" fetchpriority="high" decoding="async"></figure>{% endif %}
+  <div class="gpt-in">
+    <p class="gpt-who">{{ t.who }}</p>
+    <ol class="gpt-packs">
+      {%- for p in t.packs %}{% set w = p | packWords %}
+      <li class="gpt-p">
+        <div class="gpt-name"><h2>{{ p.name }}</h2><p>{{ p.sessions }} × {{ p.minutes }} minutes{% if p.text %} · {{ p.text }}{% endif %}</p></div>
+        <div class="gpt-price"><p class="gpt-total">{{ w.headline }}</p>{% if w.each %}<p class="gpt-each">{{ w.each }}</p>{% endif %}{% if w.fine %}<p class="gpt-fine">{{ w.fine }}</p>{% endif %}</div>
+        <a class="gpt-ask" href="{{ (t.message + ' ' + p.name + '.') | wa }}" target="_blank" rel="noopener">Ask on WhatsApp</a>
+      </li>
+      {%- endfor %}
+    </ol>
+    {%- if t.notes %}<ul class="gpt-notes">{% for n in t.notes %}<li>{{ n }}</li>{% endfor %}</ul>{% endif %}
+    {%- if "gym-coaches" | enabled %}<p class="gpt-more"><a class="go" href="{{ 'coaches' | href }}">The coaches</a></p>{% endif %}
+  </div>
+</div></section>
