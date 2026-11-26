@@ -6,7 +6,7 @@
    files against Liberation Serif (Times metrics) by average width of running text and hhea ascent and descent
    (18 Nov 2026); see docs/trades/events/speed.md. */
 @font-face { font-family: "Eczar Fallback"; font-weight: 100 449; src: local("Times New Roman"), local("Liberation Serif"); size-adjust: 106.5%; ascent-override: 107.3%; descent-override: 59.5%; line-gap-override: 0%; }
-/* 500 falls back to the serif's regular cut, 600 to its bold, so each gets its own width match (measured over headings,
-   menu and body lines). */
+/* 500 falls back to the serif's regular cut and 600 to its bold cut (named by its own local() names), so each gets its
+   own width match (measured over headings, menu and body lines; 600 against Liberation Serif Bold, 26 Nov 2026). */
 @font-face { font-family: "Eczar Fallback"; font-weight: 450 549; src: local("Times New Roman"), local("Liberation Serif"); size-adjust: 109.7%; ascent-override: 104.2%; descent-override: 57.8%; line-gap-override: 0%; }
-@font-face { font-family: "Eczar Fallback"; font-weight: 550 900; src: local("Times New Roman"), local("Liberation Serif"); size-adjust: 106.1%; ascent-override: 107.8%; descent-override: 59.8%; line-gap-override: 0%; }
+@font-face { font-family: "Eczar Fallback"; font-weight: 550 900; src: local("Times New Roman Bold"), local("TimesNewRomanPS-BoldMT"), local("Liberation Serif Bold"); size-adjust: 106.7%; ascent-override: 107.2%; descent-override: 59.5%; line-gap-override: 0%; }

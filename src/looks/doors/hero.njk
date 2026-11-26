@@ -6,7 +6,7 @@
   <div class="dr-room">
     <picture>
       {%- if H.photo.small %}<source media="(max-width: 700px)" srcset="{{ H.photo.small.src | img }}">{% endif %}
-      <img src="{{ H.photo.src | img }}" width="{{ H.photo.width }}" height="{{ H.photo.height }}" alt="{{ H.photo.alt }}"{% if H.photo.focus %} style="object-position: {{ H.photo.focus }}"{% endif %} fetchpriority="high" decoding="async">
+      <img src="{{ H.photo.src | img }}" width="{{ H.photo.width }}" height="{{ H.photo.height }}" alt="{{ H.photo.alt }}"{% if H.photo.focus %} style="object-position: {{ H.photo.focus }}"{% endif %} fetchpriority="high">
     </picture>
   </div>
   <div class="dr-words">

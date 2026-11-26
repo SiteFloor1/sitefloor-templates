@@ -61,10 +61,14 @@ main > section + section, .questions, .visit, .reviews { border-top: 1px solid v
 /* ---------------------------------------------------------------- hero: the room, lit once */
 .hero.dr-hero { position: relative; padding: 0; border: 0; }
 .dr-room { position: relative; height: 70vh; min-height: 540px; max-height: 900px; overflow: hidden; background: #0d0b08; }
-.dr-room img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; animation: dr-lit 2.8s ease-out both; }
+.dr-room picture { position: absolute; inset: 0; display: block; }
+.dr-room img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; }
+/* The room is lit once: a veil of dark lifts off the photo. The photo itself paints at once (it is the largest paint). */
+.dr-room picture::after { content: ""; position: absolute; inset: 0; background: #0d0b08; opacity: 0; animation: dr-lit 2.8s ease-out; pointer-events: none; }
 .dr-room::before { content: ""; position: absolute; inset: 0 0 auto; height: 150px; background: linear-gradient(rgba(0,0,0,.4), transparent); z-index: 1; }
 .dr-room::after { content: ""; position: absolute; inset: auto 0 0; height: 55%; background: linear-gradient(rgba(25,21,15,0), rgba(25,21,15,.6) 55%, var(--bg)); }
-@keyframes dr-lit { from { filter: brightness(.35); } to { filter: brightness(1); } }
+@keyframes dr-lit { from { opacity: .65; } to { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .dr-room picture::after { animation: none; } }
 .dr-words { position: relative; z-index: 2; margin-top: -118px; padding: 0 var(--gut) 44px; }
 .dr-h1 { margin: 0; font-size: clamp(46px, 9.8vw, 142px); line-height: .92; letter-spacing: -0.03em; }
 .dr-under { display: grid; grid-template-columns: minmax(0, 440px) auto minmax(260px, auto); justify-content: space-between; align-items: end; gap: 28px 48px; margin-top: 30px; }

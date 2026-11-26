@@ -5,9 +5,9 @@ smaller copies; `library-phone.webp` is a 4:5 crop of the library for phones.
 
 | Files | Photographer | Source |
 |---|---|---|
-| library.webp, library-phone.webp | Lucas T Photography | https://unsplash.com/photos/luxurious-ballroom-with-chandeliers-and-white-tables-set-for-event-cWWuX8wCKdA |
+| library.webp, library-800.webp, library-phone.webp | Lucas T Photography | https://unsplash.com/photos/luxurious-ballroom-with-chandeliers-and-white-tables-set-for-event-cWWuX8wCKdA |
 | garden-aisle.webp, garden-aisle-800.webp | Soulseeker - Creative Photography | https://unsplash.com/photos/wedding-archway-with-white-flowers-aRQrz0fclB8 |
-| chandeliers.webp, chandeliers-600.webp | Didi Paul | https://unsplash.com/photos/a-long-table-with-a-chandelier-hanging-from-the-ceiling-xSMR2tM1dmE |
+| chandeliers.webp, chandeliers-800.webp, chandeliers-600.webp | Didi Paul | https://unsplash.com/photos/a-long-table-with-a-chandelier-hanging-from-the-ceiling-xSMR2tM1dmE |
 | delphiniums.webp, delphiniums-600.webp | Liz Morgan | https://unsplash.com/photos/a-long-table-with-white-and-blue-flowers-and-greenery-YKBT8rRAzpU |
 | dahlias.webp, dahlias-800.webp | M F | https://unsplash.com/photos/long-dining-table-with-festive-flowers-fb0_wj2MZk4 |
 | white-night.webp, white-night-800.webp | Jonathan Borba | https://unsplash.com/photos/elegant-table-setting-with-white-flowers-and-candles-2IxNtgbd2R8 |
