@@ -12,13 +12,13 @@
 {%- set pratio = (site.turntable.phoneHeight / site.turntable.phoneWidth) if (tt and site.turntable.phoneSrc) else ((h.phonePhoto.height / h.phonePhoto.width) if h.phonePhoto else (1 / ratio)) %}
 <section class="hero vr-hero{% if ls and ls.state == 'before' and site.mode != 'demo' %} is-before{% endif %}" aria-label="{{ x.name }}" style="--ratio: {{ ratio }}; --pratio: {{ pratio }}; --xl: {{ m.xl }}; --xr: {{ m.xr }}; --floor: {{ m.floor }}"{% if L %} data-feature="fragrance-launch" data-launch-scope{% endif %}>
   <div class="vr-stage">
-    {%- if "fragrance-turntable" | enabled %}{% include "kits/fragrance/features/fragrance-turntable/fragrance-turntable.njk" %}
-    {%- else %}
-    <picture class="vr-still">
+    {#- The still is always there: with the turntable on it sits underneath (the same picture as frame 1, so nothing
+        more downloads), and it is what a demo shows when its plan switch is below Signature. -#}
+    <picture class="vr-still"{% if tt %} aria-hidden="true"{% endif %}>
       {%- if h.phonePhoto %}<source media="(max-width: 760px)" srcset="{{ h.phonePhoto.src | img }}" width="{{ h.phonePhoto.width }}" height="{{ h.phonePhoto.height }}">{% endif %}
-      <img src="{{ h.photo.src | img }}" width="{{ h.photo.width }}" height="{{ h.photo.height }}" alt="{{ h.photo.alt }}" fetchpriority="high" decoding="async">
+      <img src="{{ h.photo.src | img }}"{% if tt and site.turntable.wideSrc %} srcset="{{ site.turntable.src | frame(1) | img }} {{ site.turntable.width }}w, {{ site.turntable.wideSrc | frame(1) | img }} {{ (site.turntable.width * 1.5) | round }}w" sizes="100vw"{% endif %} width="{{ h.photo.width }}" height="{{ h.photo.height }}" alt="{{ '' if tt else h.photo.alt }}"{% if not tt %} fetchpriority="high"{% endif %} decoding="async">
     </picture>
-    {%- endif %}
+    {%- if tt %}{% include "kits/fragrance/features/fragrance-turntable/fragrance-turntable.njk" %}{% endif %}
     {%- if h.credit %}<p class="vr-credit">{{ h.credit }}</p>{% endif %}
   </div>
   <div class="vr-name">
