@@ -119,4 +119,5 @@ A case study is a design too: don't reuse these in a new look or another case st
 | Verrall (nails) | case-studies/verrall | nails | Newsreader | Be Vietnam Pro | |
 | Wenlow (driving instructor) | case-studies/wenlow | driving | Lexend | Lexend | |
 | Wexley (bridal) | case-studies/wexley | bridal | Prata | Libre Franklin | |
+| Wrenna (children's ballet school) | case-studies/wrenna | ballet | Hahmlet | Hahmlet | |
 
