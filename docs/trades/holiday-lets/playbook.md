@@ -1,6 +1,6 @@
 # Holiday-let and Airbnb management: plan
 
-## Holiday-let management (kit `stay`, proposed): plan, 26 Nov 2026 (direction A chosen; round 2: the revised first screen)
+## Holiday-let management (kit `hol`): plan, 26 Nov 2026 (direction A chosen; round 2: the revised first screen)
 
 **Who it's for.** UK companies that run holiday homes and Airbnb listings for their owners: listing, pricing, guests,
 cleaning and linen, upkeep, payouts. Two audiences: **owners first** (the paying customer: "what will it earn, what do
@@ -61,3 +61,25 @@ the south Cornish coast. Sample fee 20% of what guests pay, VAT included, labell
 - Round 2: the estimate stays first, but the figure is part of the composition, not a giant number over the photograph.
 - Round 3: the same composition taken to the new references: photographs of views framed by the home, quieter type and controls, owners spoken to as private clients.
 Screens and comparison: sitefloor-internal, branch `design/holiday-lets`.
+
+## Built (draft PR, 27 Nov 2026)
+
+Kit `hol` (src/kits/hol), look `arch` (src/looks/arch), demo `sites/demos/holiday-lets` (Tressa, Signature, with the
+Starter / Plus / Signature switch), client fixture `tests/fixtures/sites/test-hol-client` (Signature, with owner
+stories and the calendar read from a sheet). Feature ids: HOL-1 `hol-fees`, HOL-2 `hol-rules`, HOL-3 `hol-review`,
+HOL-4 `hol-start`, HOL-5 `hol-turnover`, HOL-6 `hol-estimate`, HOL-7 `hol-homes` (+ `hol-calendar` for free dates on
+Signature), HOL-8 `hol-statement`, HOL-9 `hol-guide`. The 14 pages: home, `owners`, `manage`, `fees`, `review`, `homes`,
+`areas`, `guide-<home>` (unlisted), `care`, `styling`, `onboarding`, `stories` (client only), `journal` (+ articles),
+`rules`.
+
+Decisions made while building, for the owner to see:
+- **The homes is a Plus page** (one of VISION's starred five), with each guest's total and booking link; HOL-7's live free
+  dates are Signature (`hol-calendar`), so the approved split stands.
+- **Fees and Rules are free pages on every plan** (like the letting kit's fees page): the full cost and the law where the
+  home is, before an owner gets in touch. Starter's home page carries a short version of each.
+- **No Plan your visit page.** Owners don't visit an office and guests book through the company's links; the office's
+  hours and address sit on the fees page.
+- **Owner stories are client only.** A demo never invents owner reviews, so the demo leaves that page off.
+- **Free dates come from the company's own Google Sheet** (one row per booked stay), which a company can fill by hand or
+  from each listing's calendar link; a sheet older than a day and a half shows nothing as free.
+- **The guidebook code is not security** and the page says so; the build refuses obvious door codes and passwords.

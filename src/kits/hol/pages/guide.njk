@@ -1,0 +1,17 @@
+---
+layout: core/layouts/base.njk
+feature: hol-guide
+noindex: true
+pagination:
+  data: site.guides.items
+  size: 1
+  alias: g
+permalink: "guide-{{ g.home }}.html"
+eleventyComputed:
+  pageId: "guide-{{ g.home }}"
+  title: "Your guide"
+  description: "The guest guide for your stay."
+---
+{%- set ph = { title: "Your guide", intro: "Everything for your stay, from arriving to leaving." } %}
+{% include "kits/hol/partials/page-head.njk" %}
+<div class="wrap">{% include "kits/hol/features/hol-guide/hol-guide.njk" %}</div>

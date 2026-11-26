@@ -1,0 +1,7 @@
+{#- One journal article: its paragraphs, then its sources and the day its rules were checked. -#}
+<article class="st-plain st-art" data-feature="hol-journal">
+  <p class="st-fine">{{ ar.date | longDate }} · rules checked {{ ar.checked | longDate }}</p>
+  {%- for p in ar.body %}<p>{{ p }}</p>{% endfor %}
+  <section aria-labelledby="st-src-h"><h2 id="st-src-h">Sources</h2><ul class="st-ruled">{% for s in ar.sources %}<li><a href="{{ s.url }}" rel="noopener">{{ s.label }}</a></li>{% endfor %}</ul></section>
+  <p><a class="st-link" href="{{ 'journal' | href }}">{{ site.journal.title }}</a></p>
+</article>

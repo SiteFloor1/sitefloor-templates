@@ -1,0 +1,21 @@
+{#- Arch header: one quiet hairline row. The floret and the company's name on the left, the pages (What it costs
+    always: owners see the fee before anything else), and "Speak to us" as a text link on the right. "Menu" on phones. -#}
+<header class="nav ar-nav">
+<div class="wrap ar-nav-in">
+  <a class="ar-mark" href="{{ 'index' | href }}" aria-label="{{ site.business.name }}, home">
+    {%- if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="{{ site.business.name }}" height="30">{% else %}<span class="ar-floret">{% include "kits/hol/partials/mark.njk" %}</span><b>{{ site.business.name }}</b>{% endif %}</a>
+  <nav class="ar-links" aria-label="Main">
+    {%- for item in site.nav | navItems(pageId) %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>{% endfor %}
+  </nav>
+  <a class="ar-speak" href="{{ site.messages.general | wa }}" data-wa-text="{{ site.messages.general }}" target="_blank" rel="noopener">Speak to us</a>
+  <button class="burger ar-menu" type="button" aria-expanded="false" aria-controls="mnav"><span class="ar-open">Menu</span><span class="ar-close">Close</span></button>
+</div>
+</header>
+<div class="mnav ar-sheet" id="mnav" hidden>
+  <nav aria-label="Pages">
+    <a href="{{ 'index' | href }}"{% if pageId == "index" %} aria-current="page"{% endif %}>{{ site.business.name }}</a>
+    {%- for item in site.nav | navItems(pageId) %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>{% endfor %}
+  </nav>
+  <p class="ar-sheet-now" data-live-status><span class="dot" aria-hidden="true"></span> <span data-status-text>Office hours</span></p>
+  <p class="ar-sheet-a"><a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone | replace('+44 ', '0') }}</a></p>
+</div>

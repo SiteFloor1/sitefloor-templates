@@ -1,0 +1,10 @@
+/* Owner pages share this calm ruled layout: kinds in two columns, then ruled lists. */
+.st-plain { display: grid; gap: 48px; padding-bottom: 80px; max-width: 1000px; }
+.st-plain h2 { font: 500 clamp(20px, 1.6vw, 24px)/1.2 var(--font-display); margin-bottom: 10px; }
+.st-count { font-size: 18px; }
+.st-kinds { list-style: none; padding: 18px 0 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 32px 40px; border-top: 1px solid var(--text); }
+.st-kinds p { color: var(--muted); font-size: 16px; }
+.st-ruled { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--text); }
+.st-ruled li { padding: 11px 0; border-bottom: 1px solid var(--line); font-size: 16px; }
+.st-ruled a { color: var(--accent); }
+@media (max-width: 760px) { .st-kinds { grid-template-columns: 1fr; } }

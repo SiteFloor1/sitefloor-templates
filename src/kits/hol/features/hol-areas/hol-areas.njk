@@ -1,0 +1,4 @@
+{#- Areas (Signature page): where the company works, by town and postcode district, with its notes. -#}
+<div class="st-plain" data-feature="hol-areas">
+  <ul class="st-kinds">{% for a in site.areas.items %}<li><h2>{{ a.name }}</h2><p class="st-dist">{{ a.districts }}</p><p>{{ a.text }}</p></li>{% endfor %}</ul>
+</div>

@@ -1,0 +1,23 @@
+{#- HOL-2 on the home page (Starter): pick where the home is; what applies there, each line linked to the official page
+    with the date it was checked. Without JavaScript the company's own region shows, and the rules page has them all. -#}
+{%- set sec = site.sections.rules %}
+<section class="st-rules" id="rules" data-feature="hol-rules" aria-labelledby="st-rules-h">
+  <div class="wrap st-rules-in">
+    <div>
+      {%- set sec = { title: sec.title, intro: sec.intro, id: "st-rules-h" } %}
+      {% include "core/partials/section-head.njk" %}
+      <div class="st-rg" role="group" aria-label="Where the home is">
+        {%- for rg in holRegions %}<button type="button" data-st-region="{{ rg.id }}" aria-pressed="{{ 'true' if rg.id == site.rules.region else 'false' }}">{{ rg.name }}</button>{% endfor %}
+      </div>
+    </div>
+    <div>
+      {%- for rg in holRegions %}
+      <div class="st-rp" data-st-panel="{{ rg.id }}"{% if rg.id != site.rules.region %} hidden{% endif %}>
+        <h3 class="sr-only">{{ rg.name }}</h3>
+        <ul class="st-rl">{% for x in rg.rules %}{% if x | ruleState(build.today) == "current" %}<li><p>{{ x.text }}</p><p class="st-rl-s"><a href="{{ x.url }}" rel="noopener">{{ x.source }}</a> · checked {{ x.checked | longDate }}</p></li>{% else %}<li><p class="st-rl-s">This line is due a fresh check. <a href="{{ x.url }}" rel="noopener">Read it on {{ x.source }}</a>.</p></li>{% endif %}{% endfor %}</ul>
+      </div>
+      {%- endfor %}
+      <a class="st-link" href="{{ 'rules' | href }}">Every region, in full</a>
+    </div>
+  </div>
+</section>

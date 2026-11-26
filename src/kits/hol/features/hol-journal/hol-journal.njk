@@ -1,0 +1,4 @@
+{#- The journal (Signature page): articles for owners, each dated, with the day its rules were checked. -#}
+<div class="st-plain" data-feature="hol-journal">
+  <ul class="st-ruled st-arts">{% for a in site.journal.items %}<li><a href="{{ a.slug | href }}"><b>{{ a.title }}</b></a><p>{{ a.summary }}</p><p class="st-fine">{{ a.date | longDate }} · rules checked {{ a.checked | longDate }}</p></li>{% endfor %}</ul>
+</div>

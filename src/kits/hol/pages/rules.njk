@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: rules
+permalink: rules.html
+feature: hol-rules
+eleventyComputed:
+  title: "{{ site.sections.rules.title }}"
+  description: "The rules for letting a holiday home in England, London, Scotland and Wales, each linked to the official page with the date it was checked."
+---
+{%- set ph = { title: site.sections.rules.title, intro: "What applies where your home is, each line linked to the official page and dated." } %}
+{% include "kits/hol/partials/page-head.njk" %}
+<div class="wrap">{% include "kits/hol/features/hol-rules/hol-rules-page.njk" %}</div>

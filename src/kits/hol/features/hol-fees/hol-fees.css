@@ -1,0 +1,27 @@
+/* HOL-1: the fee and who does what. Tokens only; the look sets them. */
+.st-fh { padding-block: clamp(56px, 7vw, 96px); }
+.st-fh-in { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; }
+.st-fh-n { margin-top: 18px; font-size: 19px; }
+.st-fh-n b, .st-fees-n b { font: 500 clamp(30px, 2.6vw, 38px)/1 var(--font-display); color: var(--accent); margin-right: 6px; }
+.st-fh-ex { margin-top: 12px; color: var(--muted); font-size: 16px; }
+.st-link { display: inline-block; margin-top: 18px; text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 2px; font-weight: 500; }
+.st-who { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; border-top: 1px solid var(--text); padding-top: 18px; }
+.st-who h2, .st-who h3 { font: 500 17px/1.3 var(--font-body); margin-bottom: 8px; }
+.st-who ul { list-style: none; padding: 0; margin: 0; }
+.st-who li { padding: 7px 0; border-bottom: 1px solid var(--line); font-size: 16px; }
+.st-fees { display: grid; gap: 56px; padding-bottom: 72px; }
+.st-fees h2 { font: 500 clamp(22px, 1.8vw, 26px)/1.2 var(--font-display); margin-bottom: 14px; }
+.st-fees-n { font-size: 18px; max-width: 62ch; }
+.st-sum-t, .st-chg { width: 100%; max-width: 760px; border-collapse: collapse; margin-top: 18px; font-size: 16px; }
+.st-sum-t th, .st-sum-t td, .st-chg th, .st-chg td { text-align: left; padding: 11px 0; border-bottom: 1px solid var(--line); font-weight: 400; vertical-align: top; }
+.st-sum-t td, .st-chg td:last-child { text-align: right; white-space: nowrap; }
+.st-chg thead th { color: var(--muted); font-size: 14px; }
+.st-chg td:nth-child(2) { color: var(--muted); padding-inline: 16px; }
+.st-to th, .st-to td { font-weight: 500; border-bottom: 1px solid var(--text); }
+.st-to td { color: var(--accent); }
+.st-fine { margin-top: 12px; font-size: 14px; color: var(--muted); max-width: 72ch; }
+@media (max-width: 760px) {
+  .st-fh-in { grid-template-columns: 1fr; gap: 32px; }
+  .st-who { grid-template-columns: 1fr; gap: 22px; }
+  .st-chg td:nth-child(2) { padding-inline: 8px; }
+}

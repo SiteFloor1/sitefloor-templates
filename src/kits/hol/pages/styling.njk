@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: styling
+permalink: styling.html
+feature: hol-styling
+eleventyComputed:
+  title: "{{ site.styling.title }}"
+  description: "{{ site.styling.intro }}"
+---
+{%- set ph = { title: site.styling.title, intro: site.styling.intro } %}
+{% include "kits/hol/partials/page-head.njk" %}
+<div class="wrap">{% include "kits/hol/features/hol-styling/hol-styling.njk" %}</div>

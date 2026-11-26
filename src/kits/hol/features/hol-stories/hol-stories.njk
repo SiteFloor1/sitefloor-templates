@@ -1,0 +1,4 @@
+{#- Owner stories (Signature page, client only): real reviews from owners, copied with name, date and source. -#}
+<div class="st-plain" data-feature="hol-stories">
+  <ul class="st-ruled st-quotes">{% for r in site.stories.items %}<li><blockquote><p>{{ r.text }}</p></blockquote><p class="st-fine">{{ r.author }}, {{ r.date | longDate }}, {{ r.source }}</p></li>{% endfor %}</ul>
+</div>

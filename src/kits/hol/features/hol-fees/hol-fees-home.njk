@@ -1,0 +1,18 @@
+{#- HOL-1 on the home page (Starter): the fee as a percentage and in pounds on an example, VAT included, then who does
+    what. The fees page has every other charge. -#}
+{%- set sec = { title: site.sections.fees.title, intro: site.sections.fees.intro, id: "st-fh-h" } %}
+{%- set fx = site.fees.example %}
+<section class="st-fh" id="fees" data-feature="hol-fees" aria-labelledby="st-fh-h">
+  <div class="wrap st-fh-in">
+    <div class="st-fh-fee">
+      {% include "core/partials/section-head.njk" %}
+      <p class="st-fh-n"><b>{{ site.fees.percent }}%</b> of what guests pay, VAT included.</p>
+      <p class="st-fh-ex">On {{ fx | gbp }} of bookings, our fee is {{ fx | feeOn(site.fees.percent) | gbp }}. {{ site.fees.basis }}</p>
+      <a class="st-link" href="{{ 'fees' | href }}">Every charge, in pounds</a>
+    </div>
+    <div class="st-who">
+      <div><h3>We do</h3><ul>{% for x in site.fees.weDo %}<li>{{ x }}</li>{% endfor %}</ul></div>
+      <div><h3>You keep</h3><ul>{% for x in site.fees.youKeep %}<li>{{ x }}</li>{% endfor %}</ul></div>
+    </div>
+  </div>
+</section>

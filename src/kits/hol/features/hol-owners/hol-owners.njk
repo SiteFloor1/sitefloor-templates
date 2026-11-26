@@ -1,0 +1,7 @@
+{#- For owners (Plus): what the company promises its owners, then how we start (HOL-4) and an owner's month (HOL-8). -#}
+<div class="st-owners" data-feature="hol-owners">
+  <ul class="st-prom">{% for p in site.owners.promises %}<li><b>{{ p.title }}</b> {{ p.text }}</li>{% endfor %}</ul>
+  {%- if "hol-statement" | enabled %}{% include "kits/hol/features/hol-statement/hol-statement.njk" %}{% endif %}
+  {%- if "hol-start" | enabled %}{% include "kits/hol/features/hol-start/hol-start.njk" %}{% endif %}
+  <p class="st-owners-go"><a class="st-btn" href="{{ ('review' | href) if ('hol-review' | enabled) else (site.messages.general | wa) }}"{% if not ('hol-review' | enabled) %} target="_blank" rel="noopener"{% endif %}>{{ site.hero.ask }}</a> <a class="st-link" href="{{ 'fees' | href }}">What it costs</a></p>
+</div>

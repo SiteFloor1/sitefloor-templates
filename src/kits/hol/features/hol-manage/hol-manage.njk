@@ -1,0 +1,6 @@
+{#- What we manage (Signature page): the kinds of home the company takes on, how many it looks after, and what it doesn't. -#}
+<div class="st-plain" data-feature="hol-manage">
+  <p class="st-count">We look after {{ site.homes.items | length }} homes{% if site.mode == "demo" %} (sample){% endif %}.</p>
+  <ul class="st-kinds">{% for k in site.manage.kinds %}<li><h2>{{ k.name }}</h2><p>{{ k.text }}</p></li>{% endfor %}</ul>
+  <section aria-labelledby="st-not-h"><h2 id="st-not-h">What we don't take on</h2><ul class="st-ruled">{% for x in site.manage.not %}<li>{{ x }}</li>{% endfor %}</ul></section>
+</div>

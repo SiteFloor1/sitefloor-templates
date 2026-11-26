@@ -1,0 +1,28 @@
+{#- Arch footer: the company, how to reach it, its pages for owners and for guests, and the Sitefloor credit last. -#}
+<footer class="foot ar-foot"><div class="wrap">
+  <div class="ar-foot-in">
+    <p class="ar-foot-n"><span class="ar-floret">{% include "kits/hol/partials/mark.njk" %}</span>{{ site.business.name }}</p>
+    <address>{{ site.location.streetAddress }}<br>{{ site.location.locality }} {{ site.location.postcode }}<br>
+      <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone | replace('+44 ', '0') }}</a>{% if site.contact.email %}<br><a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>{% endif %}<br>
+      <a href="{{ site.messages.general | wa }}" data-wa-text="{{ site.messages.general }}" target="_blank" rel="noopener">Message us on WhatsApp</a></address>
+    <nav class="ar-foot-l" aria-label="Footer">
+      <div><p>Owners</p>
+        {%- if "hol-owners" | enabled %}<a href="{{ 'owners' | href }}">{{ site.owners.title }}</a>{% endif %}
+        {%- if "hol-review" | enabled %}<a href="{{ 'review' | href }}">{{ site.review.title }}</a>{% endif %}
+        <a href="{{ 'fees' | href }}">What it costs</a>
+        {%- if "hol-manage" | enabled %}<a href="{{ 'manage' | href }}">{{ site.manage.title }}</a>{% endif %}
+        {%- if "hol-onboarding" | enabled %}<a href="{{ 'onboarding' | href }}">{{ site.onboarding.title }}</a>{% endif %}
+        {%- if "hol-care" | enabled %}<a href="{{ 'care' | href }}">{{ site.care.title }}</a>{% endif %}
+        {%- if "hol-styling" | enabled %}<a href="{{ 'styling' | href }}">{{ site.styling.title }}</a>{% endif %}
+        {%- if "hol-stories" | enabled %}<a href="{{ 'stories' | href }}">{{ site.stories.title }}</a>{% endif %}</div>
+      <div><p>Staying</p>
+        {%- if "hol-homes" | enabled %}<a href="{{ 'homes' | href }}">{{ site.homes.title }}</a>{% endif %}
+        {%- if "hol-areas" | enabled %}<a href="{{ 'areas' | href }}">{{ site.areas.title }}</a>{% endif %}</div>
+      <div><p>{{ site.business.name }}</p>
+        <a href="{{ 'rules' | href }}">{{ site.sections.rules.title }}</a>
+        {%- if "hol-journal" | enabled %}<a href="{{ 'journal' | href }}">{{ site.journal.title }}</a>{% endif %}
+        <a href="{{ 'privacy' | href }}">Privacy</a></div>
+    </nav>
+  </div>
+  <p class="ar-foot-by"><a class="by" href="https://sitefloor.com" rel="noopener">Website by <b>Sitefloor</b></a></p>
+</div></footer>

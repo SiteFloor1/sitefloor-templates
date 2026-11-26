@@ -1,0 +1,5 @@
+{#- HOL-4, how we start (Plus, on the owners page): the onboarding steps with the company's own timings. -#}
+<section class="st-start" data-feature="hol-start" aria-labelledby="st-start-h">
+  <h2 id="st-start-h">{{ site.start.title }}</h2>
+  <ol class="st-steps">{% for s in site.start.steps %}<li><span class="st-when">{{ s.when }}</span><b>{{ s.title }}</b><p>{{ s.text }}</p></li>{% endfor %}</ol>
+</section>

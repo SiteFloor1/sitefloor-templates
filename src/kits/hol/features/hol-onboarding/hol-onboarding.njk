@@ -1,0 +1,8 @@
+{#- Onboarding (Signature page): the start steps in full, then the papers a holiday let needs before the first guest. -#}
+<div class="st-plain" data-feature="hol-onboarding">
+  <ol class="st-steps">{% for s in site.start.steps %}<li><span class="st-when">{{ s.when }}</span><b>{{ s.title }}</b><p>{{ s.text }}</p></li>{% endfor %}</ol>
+  <section aria-labelledby="st-papers-h"><h2 id="st-papers-h">What you'll need before the first guest</h2>
+    <ul class="st-ruled">{% for p in site.onboarding.papers %}<li>{{ p.text }}{% if p.url %} <a href="{{ p.url }}" rel="noopener">Official page</a>{% endif %}</li>{% endfor %}</ul>
+  </section>
+  <p class="st-fine">Rules where your home is: <a href="{{ 'rules' | href }}">every region, linked and dated</a>.</p>
+</div>

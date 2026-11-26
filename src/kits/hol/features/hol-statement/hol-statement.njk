@@ -1,0 +1,21 @@
+{#- HOL-8, an owner's month (Plus, on the owners page): a sample statement in the company's layout, labelled a sample,
+    its sums checked at build time (config.js). -#}
+{%- set s = site.statement %}
+{%- set fee = s | statementFee(site.fees.percent) %}
+<section class="st-stm" data-feature="hol-statement" aria-labelledby="st-stm-h">
+  <div class="st-stm-intro">
+    <h2 id="st-stm-h">An owner's month</h2>
+    <p>What you receive after each month, here for one home's {{ s.month }}.</p>
+  </div>
+  <article class="st-sheet" aria-label="Sample statement">
+    <header><p class="st-sheet-mark" aria-hidden="true">{% include "kits/hol/partials/mark.njk" %}</p><div><h3>{{ s.home }}</h3><p>{{ s.month }} · sample statement</p></div></header>
+    <table><tbody>
+      <tr><th scope="row">Nights let</th><td>{{ s.nights }}</td></tr>
+      <tr><th scope="row">Guests paid</th><td>{{ s.guests | gbp }}</td></tr>
+      <tr><th scope="row">Our fee, {{ site.fees.percent }}% with VAT</th><td>−{{ fee | gbp }}</td></tr>
+      {%- for c in s.costs %}<tr><th scope="row">{{ c.label }}</th><td>−{{ c.amount | gbp }}</td></tr>{% endfor %}
+      <tr class="st-to"><th scope="row">Paid to you, {{ s.paidOn }}</th><td>{{ s.paid | gbp }}</td></tr>
+    </tbody></table>
+    <p class="st-fine">A sample in our layout{% if site.mode == "demo" %}, for a fictional home{% endif %}. Cleaning and linen are paid by guests, not taken from your share.</p>
+  </article>
+</section>

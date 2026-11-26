@@ -1,0 +1,5 @@
+{#- Arch section opening: one line at 500, its sentence beneath when there is one. No label above. -#}
+<div class="ar-sh">
+  <h2{% if sec.id %} id="{{ sec.id }}"{% endif %}>{{ sec.title }}</h2>
+  {%- if sec.intro %}<p>{{ sec.intro }}</p>{% endif %}
+</div>

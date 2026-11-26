@@ -1,0 +1,25 @@
+{#- Arch hero: one art-directed photograph of a view framed by the home, set inside the margins like a print (a taller
+    crop on phones), never with words over it. Under it, on Signature, the owner's year as one sum (hol-estimate); on
+    other plans, or when the estimate is switched off, the plain question and the way to a review. Then the company's
+    promises to its owners, quietly. -#}
+{%- set h = site.hero %}
+{%- set p = h.photo %}
+{%- set ask = ('review' | href) if ('hol-review' | enabled) else (site.messages.general | wa) %}
+<section class="ar-hero" aria-labelledby="ar-h1">
+  <figure class="ar-print">
+    <picture>
+      <source media="(max-width: 760px)" srcset="{{ p.tall | img }}" width="{{ p.tallWidth }}" height="{{ p.tallHeight }}">
+      <img src="{{ p.src | img }}" width="{{ p.width }}" height="{{ p.height }}" alt="{{ p.alt }}" fetchpriority="high" decoding="async"{% if p.position %} style="object-position: {{ p.position }}"{% endif %}>
+    </picture>
+    <figcaption class="ar-credit">{{ p.credit }}</figcaption>
+  </figure>
+  <div class="wrap ar-below">
+    {%- if "hol-estimate" | enabled %}{% include "kits/hol/features/hol-estimate/hol-estimate.njk" %}{% endif %}
+    <div class="ar-plain"{% if "hol-estimate" | enabled %} data-ar-plain{% endif %}>
+      {%- if "hol-estimate" | enabled %}<p class="ar-h1like" aria-hidden="true">{{ h.title }}</p>{% else %}<h1 id="ar-h1">{{ h.title }}</h1>{% endif %}
+      <div><p class="ar-intro">{{ h.intro }}</p></div>
+    </div>
+    <p class="ar-go"><a href="{{ ask }}"{% if not ('hol-review' | enabled) %} target="_blank" rel="noopener"{% endif %}>{{ h.ask }}</a></p>
+    {%- if h.promises %}<ul class="ar-prom">{% for x in h.promises %}<li><b>{{ x.title }}</b>{{ x.text }}</li>{% endfor %}</ul>{% endif %}
+  </div>
+</section>

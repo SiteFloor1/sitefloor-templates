@@ -1,0 +1,24 @@
+/* HOL-5: a ruled day beside the room. The chosen time opens; the photograph fades (slow, only on a tap). */
+.st-turn { background: var(--surface); padding-block: clamp(56px, 7vw, 96px); }
+.st-turn-in { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 48px; align-items: start; }
+.st-room { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--surface-2); }
+.st-room img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .7s ease; }
+.st-room img.on { opacity: 1; }
+.st-turn h2 { font: 500 clamp(26px, 2.2vw, 32px)/1.1 var(--font-display); letter-spacing: -.01em; }
+.st-turn-lead { margin-top: 10px; color: var(--muted); font-size: 16px; }
+.st-day { list-style: none; padding: 0; margin: 24px 0 0; border-top: 1px solid var(--text); }
+.st-day li { border-bottom: 1px solid var(--line); }
+.st-day button { all: unset; box-sizing: border-box; display: grid; grid-template-columns: 5.2em minmax(0, 1fr); gap: 2px 16px; width: 100%; padding: 14px 0; cursor: pointer; }
+.st-day time { font: 500 18px/1.3 var(--font-display); }
+.st-day b { font-weight: 500; }
+.st-det { grid-column: 2; color: var(--muted); font-size: 15px; }
+.st-turn-js .st-det { display: none; }
+.st-turn-js .st-day button[aria-pressed="true"] { box-shadow: inset 3px 0 0 var(--accent); padding-left: 14px; background: var(--bg); }
+.st-turn-js .st-day button[aria-pressed="true"] time { color: var(--accent); }
+.st-turn-js .st-day button[aria-pressed="true"] .st-det { display: block; }
+.st-day button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.st-turn-note { margin-top: 18px; font-size: 15px; }
+.st-turn-note a { color: var(--accent); }
+.st-credit { margin-top: 14px; font-size: 12px; color: var(--muted); }
+@media (max-width: 760px) { .st-turn-in { grid-template-columns: 1fr; gap: 22px; } .st-turn-in > div:last-child { order: -1; } }
+@media (prefers-reduced-motion: reduce) { .st-room img { transition: none; } }
