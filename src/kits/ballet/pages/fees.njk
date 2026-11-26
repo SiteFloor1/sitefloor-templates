@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: fees
+permalink: fees.html
+feature: ballet-fees
+eleventyComputed:
+  title: "{{ site.feesPage.title | plain }}"
+  description: "Fees and terms at {{ site.business.name }}, {{ site.location.locality }}, in the school's own words."
+---
+{%- set ph = site.feesPage %}
+{% include "kits/ballet/partials/page-head.njk" %}
+{% include "kits/ballet/features/ballet-fees/ballet-fees.njk" %}

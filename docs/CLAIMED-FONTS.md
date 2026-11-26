@@ -52,6 +52,7 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 | nacre | Italiana | Albert Sans |
 | portland | Marcellus | Source Sans 3 |
 | quail | Old Standard TT | Plus Jakarta Sans |
+| round | Hahmlet | Hahmlet |
 | salon | Libre Caslon Display | Libre Caslon Text |
 | tissue (Laleh) | Tenor Sans | Spectral |
 

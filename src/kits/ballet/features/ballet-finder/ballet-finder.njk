@@ -1,0 +1,20 @@
+{#- The class finder, on the first screen: the age groups as large numerals to tap; the answer beneath is the class,
+    its days and times and its length, with "Ask for a trial" ready for WhatsApp. Works without JavaScript for the
+    group shown first (the one with four-year-olds, or the youngest). -#}
+{%- set groups = site.classes.items | ageGroups %}
+{%- set pick = groups | firstGroup %}
+{%- set g0 = groups[pick] %}
+<div class="bt-finder" data-feature="ballet-finder">
+  <p class="bt-q" id="bt-q">{{ site.hero.question or "How old is your dancer?" }}</p>
+  <div class="bt-ages" role="group" aria-labelledby="bt-q">
+    {%- for g in groups %}<button type="button" data-group="{{ loop.index0 }}" aria-pressed="{{ 'true' if loop.index0 == pick else 'false' }}" aria-label="Age {{ g.label }}">{{ g.label }}</button>{% endfor %}
+  </div>
+  <div class="bt-answer" data-bt-answer aria-live="polite">
+    {%- for c in g0.classes %}
+    <p class="bt-class"><b>{{ c.name }}</b> <span>{{ c.sessions | sessionsWords }} · {{ c.minutes | lengthWords }}</span>{% if "ballet-places" | enabled %}{% for s in c.sessions | weekOrder %}<span class="bt-pl" data-pk="{{ c.id | placeKey(s) }}" data-pk-when="{{ s | sessionWords }}"{% if c.sessions.length > 1 %} data-pk-label="{{ s | sessionWords }}"{% endif %} hidden></span>{% endfor %}{% endif %}</p>
+    {%- endfor %}
+  </div>
+  {%- set msg = site.classes.message | trialText(g0.classes[0]) %}
+  <a class="rd-solid bt-ask" data-bt-trial href="{{ msg | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ msg }}"{% endif %} target="_blank" rel="noopener">Ask for a trial</a>
+  {%- if "ballet-places" | enabled %}{% include "kits/ballet/features/ballet-places/ballet-places.njk" %}{% endif %}
+</div>

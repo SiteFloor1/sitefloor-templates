@@ -1,0 +1,17 @@
+{#- The week, day by day: each day's name, then its classes in time order (time, class, ages, length). With places on,
+    each session's places show beside it; with catch-ups on, the catch-up finder follows. -#}
+<div class="bt-tt" data-feature="ballet-timetable"><div class="wrap">
+  {%- for d in site.classes.items | weekRows %}
+  <section class="bt-tt-day rv" aria-labelledby="tt-{{ d.day }}">
+    <h2 id="tt-{{ d.day }}">{{ d.name }}</h2>
+    <ul>
+      {%- for r in d.rows %}
+      <li><time>{{ r.session.time | timeWords }}</time><b>{{ r.cls.name }}</b><span>Ages {{ r.cls.ages | ageLabel }} · {{ r.cls.minutes | lengthWords }}</span>{% if "ballet-places" | enabled %}<span class="bt-pl" data-pk="{{ r.cls.id | placeKey(r.session) }}" data-pk-when="{{ r.session | sessionWords }}" hidden></span>{% endif %}</li>
+      {%- endfor %}
+    </ul>
+  </section>
+  {%- endfor %}
+  {%- if site.classes.note %}<p class="rd-fine">{{ site.classes.note }}</p>{% endif %}
+  {%- if "ballet-places" | enabled %}{% include "kits/ballet/features/ballet-places/ballet-places.njk" %}{% endif %}
+</div></div>
+{%- if "ballet-catchup" | enabled %}{% include "kits/ballet/features/ballet-catchup/ballet-catchup.njk" %}{% endif %}

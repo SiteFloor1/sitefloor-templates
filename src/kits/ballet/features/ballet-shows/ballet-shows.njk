@@ -1,0 +1,26 @@
+{#- Shows and tickets: the photograph in a circle; each show as a block (the date large, the name, curtain-up, venue,
+    running time, filming rule) with the school's own ticket page. "Tickets from …" before they open; "Sold out" only
+    when the school says so. -#}
+{%- set sh = site.shows %}
+<div class="bt-shows" data-feature="ballet-shows"><div class="wrap bt-shows-in">
+  <figure class="rd-round bt-shows-photo rv"><img src="{{ sh.photo.src | img }}" alt="{{ sh.photo.alt }}" width="{{ sh.photo.width }}" height="{{ sh.photo.height }}" loading="lazy" decoding="async"></figure>
+  <div>
+    {%- for s in sh.items %}
+    <article class="bt-show rv" id="show-{{ s.id }}">
+      <p class="bt-show-date"><time datetime="{{ s.date }}">{{ s.date | dateWords("long") }}</time></p>
+      <h2>{{ s.name }}</h2>
+      <dl class="bt-show-facts">
+        <div><dt>Curtain up</dt><dd>{{ s.time | timeWords }}</dd></div>
+        <div><dt>Where</dt><dd>{{ s.venue }}{% if s.address %}, {{ s.address }}{% endif %}</dd></div>
+        {%- if s.running %}<div><dt>Running time</dt><dd>{{ s.running }}</dd></div>{% endif %}
+        <div><dt>Filming</dt><dd>{{ s.filming }}</dd></div>
+      </dl>
+      {%- if s.text %}<p>{{ s.text }}</p>{% endif %}
+      {%- if s.tickets.soldOut %}<p class="bt-sold">Sold out</p>
+      {%- elif s.tickets.opens and s.tickets.opens > build.today %}<p class="bt-soon">Tickets from {{ s.tickets.opens | dateWords("long") }}</p>
+      {%- else %}<a class="rd-solid" href="{{ s.tickets.url }}" target="_blank" rel="noopener">{{ s.tickets.label or "Tickets" }}</a>{% endif %}
+    </article>
+    {%- endfor %}
+    {%- if sh.note %}<p class="rd-fine">{{ sh.note }}</p>{% endif %}
+  </div>
+</div></div>

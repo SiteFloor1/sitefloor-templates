@@ -1,0 +1,13 @@
+/* Shows: the circle on the left, the shows stacked on the right, each with its facts as a ruled list. */
+.bt-shows-in { display: grid; grid-template-columns: 5fr 7fr; gap: 32px 72px; align-items: start; }
+.bt-shows-photo { margin: 0; position: sticky; top: calc(var(--nav-h) + 24px); }
+.bt-show + .bt-show { margin-top: 72px; }
+.bt-show-date { margin: 0; color: var(--accent); }
+.bt-show-facts { margin: 18px 0; border-top: 1px solid var(--line); }
+.bt-show-facts div { display: grid; grid-template-columns: 9rem minmax(0, 1fr); gap: 16px; padding-block: 12px; border-bottom: 1px solid var(--line); }
+.bt-show-facts dt { color: var(--muted); }
+.bt-show-facts dd { margin: 0; }
+@media (max-width: 760px) {
+  .bt-shows-in { grid-template-columns: 1fr; }
+  .bt-shows-photo { position: static; }
+}

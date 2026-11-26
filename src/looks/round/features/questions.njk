@@ -1,0 +1,16 @@
+{#- The round, questions: two columns of questions, each opened by its number inside a small ring in the accent, the
+    answer beneath in the reading weight. The section's line sits across the top; two quiet links close it. -#}
+{%- set sec = site.sections.questions %}
+{%- set qs = site | homeQuestions %}
+<section id="questions" class="rd-qa" data-feature="questions"{{ "questions" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="rd-qa-grid">
+    {%- for item in qs %}
+    <article class="rd-qa-one rv"><span class="rd-qa-n" aria-hidden="true">{{ loop.index }}</span><h3>{{ item.q }}</h3><p>{{ item.a }}</p></article>
+    {%- endfor %}
+  </div>
+  <p class="rd-acts">
+    {%- if "plan-visit" | enabled and pageId != "visit" %}<a class="rd-link" href="{{ 'visit' | href }}"{{ "plan-visit" | tierAttr | safe }}>Every question, and the studio</a>{% endif %}
+    <a class="rd-link" href="{{ site.messages.general | wa }}" data-wa-text="{{ site.messages.general }}" target="_blank" rel="noopener">Ask us anything else</a>
+  </p>
+</div></section>
