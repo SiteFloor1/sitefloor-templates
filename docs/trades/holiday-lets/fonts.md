@@ -5,6 +5,6 @@ Design round 1 (26 Nov 2026): three directions claimed so parallel agents see th
 
 | Look or design | Status | Branch | Display | Body |
 |---|---|---|---|---|
-| Tressa, The estimate (A, round 1, claimed while the owner picks) | approved | trade/holiday-lets | Hubot Sans | Hubot Sans |
+| Tressa, The estimate (A, round 1, claimed while the owner picks) | approved | trade/holiday-lets | Zalando Sans Expanded | Zalando Sans |
 | Tressa, The postcard (B, round 1, claimed while the owner picks) | approved | trade/holiday-lets | Vollkorn | Vollkorn |
 | Tressa, Between guests (C, round 1, claimed while the owner picks) | approved | trade/holiday-lets | Bitter | Anuphan |
