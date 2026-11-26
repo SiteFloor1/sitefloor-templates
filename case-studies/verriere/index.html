@@ -92,7 +92,7 @@ button { cursor: pointer; }
 .label dd b { color: var(--ink); font-weight: 500; }
 .label dd::after { content: ""; display: inline-block; width: 7px; height: 7px; margin: 0 12px 2px; background: var(--gold); border-radius: 50%; }
 .label dd:last-child::after { display: none; }
-@media (max-width: 760px) { .ch-open { grid-template-columns: 1fr; } }
+@media (max-width: 760px) { .ch-open { grid-template-columns: minmax(0, 1fr); } }
 
 /* phones standing on stone */
 .phones { margin-top: clamp(56px, 7vw, 104px); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(14px, 2.4vw, 36px); align-items: start; }
@@ -116,12 +116,13 @@ button { cursor: pointer; }
 .piece.wide .piece-t h3 { grid-row: span 2; }
 .piece.wide .piece-t p { margin-top: 0; }
 @media (max-width: 900px) { .piece.wide .piece-t { display: block; } .piece.wide .piece-t p { margin-top: 18px; } }
-@media (max-width: 900px) { .piece, .piece.flip { grid-template-columns: 1fr; } .piece.flip .piece-t { order: 0; } }
+@media (max-width: 900px) { .piece, .piece.flip { grid-template-columns: minmax(0, 1fr); } .piece.flip .piece-t { order: 0; } }
 
 /* sizes side by side, live */
 .sizes { background: var(--paper); padding: clamp(28px, 4vw, 56px); }
 .sz-row { display: flex; justify-content: center; align-items: end; gap: clamp(10px, 3vw, 40px); }
-.sz { position: relative; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 18px 16px 14px; border: 1px solid transparent; cursor: pointer; min-width: 110px; }
+.sz { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 12px; padding: 18px 8px 14px; border: 1px solid transparent; cursor: pointer; flex: 1 1 0; min-width: 0; max-width: 150px; }
+.sz svg { height: auto; }
 .sz:has(input:checked) { border-color: var(--ink); }
 .sz:has(input:focus-visible) { outline: 2px solid var(--amber); outline-offset: 2px; }
 .sz input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
@@ -340,7 +341,7 @@ footer p { max-width: 112ch; }
     <h2 id="h-c3">and dries down to<span class="rest">…</span></h2>
     <p class="ch-plan"><b>Signature</b><span>£349, then £35 a month. Up to 20 pages, and the pieces a house is remembered by.</span></p>
   </div>
-  <div class="label"><p class="label-h"><span>What it answers</span><span>4 questions</span></p><dl><dt>What does the bottle really look like?</dt><dd><b>The turntable:</b> the bottle turns in the visitor's hand, 36 frames, the house's own turntable photographs. Nothing turns by itself.</dd><dt>What's in it?</dt><dd><b>Notes on the bottle:</b> the sentence set across the glass, top at the neck, heart at the shoulder, base at the foot. Tap a note to see which other scents have it.</dd><dt>Can you put a name on it?</dt><dd><b>The engraving desk:</b> the words on the glass as they're typed, in the house's letters, within its limit.</dd><dt>I don't know what they'd like.</dt><dd><b>Let them choose:</b> give an amount; they try the samples at home, then choose the bottle and the words on it.</dd></dl></div>
+  <div class="label"><p class="label-h"><span>What it answers</span><span>4 questions</span></p><dl><dt>What does the bottle really look like?</dt><dd><b>The turntable:</b> the bottle turns in the visitor's hand: 36 positions from 18 of the house's own turntable photographs. Nothing turns by itself.</dd><dt>What's in it?</dt><dd><b>Notes on the bottle:</b> the sentence set across the glass, top at the neck, heart at the shoulder, base at the foot. Tap a note to see which other scents have it.</dd><dt>Can you put a name on it?</dt><dd><b>The engraving desk:</b> the words on the glass as they're typed, in the house's letters, within its limit.</dd><dt>I don't know what they'd like.</dt><dd><b>Let them choose:</b> give an amount; they try the samples at home, then choose the bottle and the words on it.</dd></dl></div>
 
   <div class="piece flip">
     <div class="piece-t">
@@ -576,9 +577,9 @@ start().catch(() => { hit.hidden = true; $("#hint").hidden = true; });
 
 /* ---------------------------------------------------------------- sizes side by side */
 const SIZES = [{ ml: 30, price: 70 }, { ml: 50, price: 95 }, { ml: 100, price: 140 }];
-const flacon = (k) => { k *= 1.8; const w = 46 * k, h = 70 * k; return `<svg width="${w + 2}" height="${h + 16 * k + 2}" viewBox="-1 -1 ${w + 2} ${h + 16 * k + 2}" aria-hidden="true"><rect x="${w * .3}" y="0" width="${w * .4}" height="${12 * k}" fill="#16130F"/><rect x="${w * .38}" y="${12 * k}" width="${w * .24}" height="${4 * k}" fill="none" stroke="#16130F"/><rect x="0" y="${16 * k}" width="${w}" height="${h}" rx="2" fill="none" stroke="#16130F"/><rect x="${w * .12}" y="${16 * k + h * .34}" width="${w * .76}" height="${h * .52}" fill="#DCA54A" opacity=".55"/></svg>`; };
+const flacon = (k, rel) => { k *= 1.8; const w = 46 * k, h = 70 * k; return `<svg ${rel ? `style="width:${(k / 1.8 * 76).toFixed(1)}%"` : `width="${w + 2}"`} viewBox="-1 -1 ${w + 2} ${h + 16 * k + 2}" aria-hidden="true"><rect x="${w * .3}" y="0" width="${w * .4}" height="${12 * k}" fill="#16130F"/><rect x="${w * .38}" y="${12 * k}" width="${w * .24}" height="${4 * k}" fill="none" stroke="#16130F"/><rect x="0" y="${16 * k}" width="${w}" height="${h}" rx="2" fill="none" stroke="#16130F"/><rect x="${w * .12}" y="${16 * k + h * .34}" width="${w * .76}" height="${h * .52}" fill="#DCA54A" opacity=".55"/></svg>`; };
 const row = $("#sizes .sz-row");
-row.innerHTML = SIZES.map((s) => `<label class="sz"><input type="radio" name="sz" value="${s.ml}"${s.ml === 50 ? " checked" : ""}>${flacon(Math.cbrt(s.ml / 100))}<span class="ml">${s.ml} ml</span><span class="pr">${pounds(s.price)}<small>£${(s.price / s.ml * 10).toFixed(2)} per 10 ml</small></span></label>`).join("");
+row.innerHTML = SIZES.map((s) => `<label class="sz"><input type="radio" name="sz" value="${s.ml}"${s.ml === 50 ? " checked" : ""}>${flacon(Math.cbrt(s.ml / 100), true)}<span class="ml">${s.ml} ml</span><span class="pr">${pounds(s.price)}<small>£${(s.price / s.ml * 10).toFixed(2)} per 10 ml</small></span></label>`).join("");
 row.addEventListener("change", () => { const s = SIZES.find((x) => String(x.ml) === row.querySelector("input:checked").value); $("#sz-go").textContent = `Buy, ${pounds(s.price)}`; });
 // the plans, drawn as the same three sizes
 for (const p of document.querySelectorAll("#plan-row .plan")) p.insertAdjacentHTML("afterbegin", flacon(Math.cbrt(Number(p.dataset.ml) / 100) * 1.25));
