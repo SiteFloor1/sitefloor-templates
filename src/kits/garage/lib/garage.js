@@ -46,15 +46,16 @@ export function withFree(hall, free) {
  * returns { ok: false }, and the site says when its list was last published instead.
  * @param {string} csv @param {number[]} known the hall's bay numbers @param {number} nowMs @param {number} staleHours
  * @param {(text: string) => number} readTime parses an updated_at cell (the shop's time zone), NaN if unsure
- * @returns {{ ok: true, free: number[], updatedAt: number } | { ok: false }}
+ * @returns {{ ok: true, free: number[], updatedAt: number, soon: { n: number, from: number }[] } | { ok: false }}
  */
 export function baysFromCsv(csv, known, nowMs, staleHours, readTime) {
   const rows = parseCsv(csv);
   if (rows.length < 2) return { ok: false };
   const head = rows[0].map((h) => h.trim().toLowerCase().replace(/\s+/g, "_"));
-  const iBay = head.indexOf("bay"), iStatus = head.indexOf("status"), iTime = head.indexOf("updated_at");
+  const iBay = head.indexOf("bay"), iStatus = head.indexOf("status"), iTime = head.indexOf("updated_at"), iFrom = head.indexOf("free_from");
   if (iBay < 0 || iStatus < 0 || iTime < 0) return { ok: false };
   /** @type {number[]} */ const free = [];
+  /** @type {{ n: number, from: number }[]} */ const soon = [];
   const seen = new Set();
   let updatedAt = 0;
   for (const r of rows.slice(1)) {
@@ -64,10 +65,18 @@ export function baysFromCsv(csv, known, nowMs, staleHours, readTime) {
     if (nowMs - t > staleHours * 3_600_000 || t - nowMs > 10 * 60_000) return { ok: false };
     seen.add(n);
     if (st === "free") free.push(n);
+    // a let bay the owner expects back: optional, a date (or date and time) in the free_from column
+    const fromText = iFrom < 0 ? "" : String(r[iFrom] ?? "").trim();
+    if (fromText && st === "let") {
+      const from = readTime(/^\d{4}-\d\d-\d\d$/.test(fromText) ? `${fromText} 09:00` : /^\d{1,2}\/\d{1,2}\/\d{4}$/.test(fromText) ? `${fromText} 09:00` : fromText);
+      if (!Number.isFinite(from)) return { ok: false };
+      if (from > nowMs && from - nowMs <= 180 * 86_400_000) soon.push({ n, from }); // a past date or one over six months out says nothing
+    }
     updatedAt = Math.max(updatedAt, t);
   }
   if (!updatedAt) return { ok: false };
-  return { ok: true, free, updatedAt };
+  soon.sort((a, b) => a.from - b.from || a.n - b.n);
+  return { ok: true, free, updatedAt, soon };
 }
 
 /** "Updated 18:40" today, "Updated yesterday, 18:40", else the date. @param {number} ms @param {number} nowMs @param {string} timeZone */
@@ -96,9 +105,11 @@ export const pounds = (n) => `£${Number.isInteger(n) ? n : n.toFixed(2)}`;
 /**
  * The answer line under the picker.
  * @param {Car} car @param {Bay|null} bay @param {number} depth @param {boolean} [unknown] the live list can't be trusted
+ * @param {{ n: number, on: string }|null} [next] the first let bay that fits and is expected back, with its date in words
  */
-export function answer(car, bay, depth, unknown = false) {
+export function answer(car, bay, depth, unknown = false, next = null) {
   if (unknown) return { bay: null, text: `We can’t confirm a free bay right now. Ask us and we’ll check one for your ${car.name ?? "car"}.` };
+  if (!bay && next) return { bay: null, text: `No free bay takes a ${car.name ?? "car that size"} today. Bay ${next.n} fits it and should be free from ${next.on}: join the waiting list and we’ll message you.` };
   if (!bay) {
     const tooLong = depth - car.length < 0.2;
     return { bay: null, text: `No free bay takes a ${car.name ?? "car that size"} tonight${tooLong ? `: our bays are ${metres(depth)} deep` : ""}. Join the waiting list and we’ll message you when one opens.` };
@@ -117,9 +128,10 @@ export function nightBayLine(car, bay, unknown = false) {
   return `Bay ${bay.n} is lit and waiting${bay.charger ? ", its charger on" : ""}.`;
 }
 
-/** @param {string} shop @param {Car} car @param {Bay|null} bay @param {boolean} [unknown] */
-export function reserveMessage(shop, car, bay, unknown = false) {
+/** @param {string} shop @param {Car} car @param {Bay|null} bay @param {boolean} [unknown] @param {{ n: number, on: string }|null} [next] */
+export function reserveMessage(shop, car, bay, unknown = false, next = null) {
   if (unknown) return `Hello ${shop}, is there a free bay for my ${car.name ?? "car"}?`;
+  if (!bay && next) return `Hello ${shop}, please add me to the waiting list for bay ${next.n} (free from ${next.on}) for my ${car.name ?? "car"}.`;
   return bay
     ? `Hello ${shop}, I’d like to reserve bay ${bay.n} for my ${car.name ?? "car"}.`
     : `Hello ${shop}, please add me to the waiting list for a bay for my ${car.name ?? "car"}.`;
@@ -314,3 +326,22 @@ export function fleetMessage(shop, f) {
 
 /** "Your car this month" (PARK-18): the message asking for a car's card. @param {string} shop @param {number|string} bay */
 export const careCardMessage = (shop, bay) => `Hello ${shop}, could you send this month’s check for the car in bay ${bay}?`;
+
+/**
+ * The first let bay expected back (from the sheet's free_from) that fits the car, with its date in words, or null.
+ * @param {Hall} hall @param {Car} car @param {{ n: number, from: number }[]} soon @param {string} timeZone
+ */
+export function nextFit(hall, car, soon, timeZone) {
+  const s = soon.find((x) => { const b = allBays(hall).find((y) => y.n === x.n); return !!b && fits(car, b, hall.bayDepth); });
+  return s ? { n: s.n, on: dateWords(s.from, timeZone) } : null;
+}
+
+/** "14 December" @param {number} ms @param {string} timeZone */
+export const dateWords = (ms, timeZone) => new Date(ms).toLocaleDateString("en-GB", { timeZone, day: "numeric", month: "long" });
+
+/** "Coming free: bay 12 from 14 December and bay 5 from 2 January." or "". @param {{ n: number, from: number }[]} soon @param {string} timeZone */
+export function soonLine(soon, timeZone) {
+  if (!soon.length) return "";
+  const parts = soon.slice(0, 3).map((s) => `bay ${s.n} from ${dateWords(s.from, timeZone)}`);
+  return `Coming free: ${parts.length > 1 ? `${parts.slice(0, -1).join(", ")} and ${parts.at(-1)}` : parts[0]}.`;
+}
