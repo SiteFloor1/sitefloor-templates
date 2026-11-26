@@ -32,7 +32,7 @@ take (`demo-map.md`), its speed numbers (`speed.md`) and the fonts it claims (`f
 | grand-cafe | Grand cafés and tea rooms | `restaurant` | [questions](grand-cafe/questions.md) · [playbook](grand-cafe/playbook.md) · [demo-map](grand-cafe/demo-map.md) · [speed](grand-cafe/speed.md) · [fonts](grand-cafe/fonts.md) |
 | gym | Gyms and health clubs | `gym` | [questions](gym/questions.md) · [playbook](gym/playbook.md) · [demo-map](gym/demo-map.md) · [speed](gym/speed.md) · [fonts](gym/fonts.md) |
 | hair | Hair salons | `hair` | [questions](hair/questions.md) · [playbook](hair/playbook.md) · [demo-map](hair/demo-map.md) · [speed](hair/speed.md) · [fonts](hair/fonts.md) |
-| holiday-lets | Holiday-let and Airbnb management | — | [questions](holiday-lets/questions.md) · [fonts](holiday-lets/fonts.md) |
+| holiday-lets | Holiday-let and Airbnb management | — | [questions](holiday-lets/questions.md) · [playbook](holiday-lets/playbook.md) · [fonts](holiday-lets/fonts.md) |
 | jeweller | Fine jewellers | `jeweller` | [questions](jeweller/questions.md) · [playbook](jeweller/playbook.md) · [demo-map](jeweller/demo-map.md) · [speed](jeweller/speed.md) · [fonts](jeweller/fonts.md) |
 | landscaping | Garden designers and landscapers | `garden` | [questions](landscaping/questions.md) · [playbook](landscaping/playbook.md) · [demo-map](landscaping/demo-map.md) · [speed](landscaping/speed.md) · [fonts](landscaping/fonts.md) |
 | law | Law firms (private client) | `law` | [questions](law/questions.md) · [playbook](law/playbook.md) · [demo-map](law/demo-map.md) · [speed](law/speed.md) · [fonts](law/fonts.md) |
