@@ -115,5 +115,6 @@ A case study is a design too: don't reuse these in a new look or another case st
 | Varnell (car detailing) | case-studies/varnell | detailing | Michroma | Geist | Geist Mono |
 | Velvet Spoon (dessert shop) | case-studies/velvet-spoon | dessert | Gilda Display | Albert Sans | |
 | Verrall (nails) | case-studies/verrall | nails | Newsreader | Be Vietnam Pro | |
+| Wenlow (driving instructor) | case-studies/wenlow | driving | Lexend | Lexend | |
 | Wexley (bridal) | case-studies/wexley | bridal | Prata | Libre Franklin | |
 
