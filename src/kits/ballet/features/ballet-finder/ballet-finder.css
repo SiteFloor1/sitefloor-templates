@@ -15,3 +15,6 @@
 /* Keep a line for each session's places while the sheet loads, so nothing below moves when they arrive. */
 .bt-class .bt-pl[hidden] { display: block; visibility: hidden; margin-top: 2px; font-size: 15px; }
 .bt-class .bt-pl[hidden]::before { content: "\00a0"; }
+/* Demo plan switcher: on a plan without places left, the finder's places lines go too (they are drawn by script, so
+   the switcher can't mark each one; it marks the places feature). Never present on a client site. */
+.bt-finder:has(.bt-places.tier-off) .bt-pl { display: none !important; }
