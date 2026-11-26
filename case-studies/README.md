@@ -249,7 +249,7 @@ chat can reuse the Sitefloor bar, footer and patterns without re-reading a publi
   `roomWords`) and the demo's own rooms, key dates and diary rule. Maudry's warm dark, parchment and olive, brass as
   hairlines, the card's cream the one light ground; Eczar (the demo's own), self-hosted with the look's size-matched
   stand-ins per weight. Media (the table plan render at three sizes, the three design visuals and three dressings,
-  twelve phone stills, the home page on a laptop, the fonts) live in `media/` and the published artifact. Phone stills:
+  ten phone stills, the home page on a laptop, the fonts) live in `media/` and the published artifact. Phone stills:
   390×844 at 2x in Chromium with `--lang=en-GB`, London time, 26 November 2026, without the demo ribbon. Motion: slow
   fades, only when asked; none under reduced motion.
 - `morrow/index.html`: the coffee house case study (one weekday at the counter, 7:30am to 4pm, a clock column down the
