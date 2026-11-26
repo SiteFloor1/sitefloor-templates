@@ -114,8 +114,9 @@ test("a client's free bays come from their sheet: the picker, the plan and the l
   when = stamp(now - 30 * 3_600_000);
   await page.reload();
   await featuresStarted(page);
-  await expect(page.locator("[data-bays-updated]")).toHaveText(/^As listed on \d{1,2} \w+\. Ask us to confirm before you come\.$/);
-  await expect(page.locator("[data-free-rows] tr")).toHaveCount(5);
+  await expect(page.locator("[data-bays-updated]")).toHaveText("The free bays can't be confirmed right now. Ask us before you come.");
+  await expect(page.locator(".gs-t")).toBeHidden();
+  for (const el of await page.locator("[data-free-count]").all()) await expect(el).toHaveText("Ask us first");
   await srv.close();
 });
 

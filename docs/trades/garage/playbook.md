@@ -135,7 +135,7 @@ dimmed; the route is drawn over it and follows the picker.
 - PARK-1 is live: `liveBays` reads the client's published Google Sheet (bay, status, updated_at) every five minutes
   and shows "Updated 08:40"; the picker, the drawn plan, the hall from above, the night route and the phone bar all
   follow it. It fails closed: an unknown bay, an unreadable row or a list older than a day leaves the client's own
-  list with "As listed on 17 November. Ask us to confirm before you come." The demo simulates its own list.
+  list: the table hides, counts read "Ask us first", and one line asks the customer to check before coming. The demo simulates its own list.
 - Open cars are gone from the hall from above: no free model reached the realism a client's hall needs, so every bay
   is rendered with a car under a fitted cover, and again empty; the site lays the empty bay over each one that's free
   today, so the picture always matches the list. Picking a car now sends a line of light from the gate to the bay.

@@ -53,14 +53,18 @@ export function baysFromCsv(csv, known, nowMs, staleHours, readTime) {
   const iBay = head.indexOf("bay"), iStatus = head.indexOf("status"), iTime = head.indexOf("updated_at");
   if (iBay < 0 || iStatus < 0 || iTime < 0) return { ok: false };
   /** @type {number[]} */ const free = [];
+  const seen = new Set();
   let updatedAt = 0;
   for (const r of rows.slice(1)) {
     const n = Number(String(r[iBay] ?? "").trim()), st = String(r[iStatus] ?? "").trim().toLowerCase(), t = readTime(String(r[iTime] ?? ""));
-    if (!known.includes(n) || !["free", "let"].includes(st) || !Number.isFinite(t)) return { ok: false };
+    if (!known.includes(n) || seen.has(n) || !["free", "let"].includes(st) || !Number.isFinite(t)) return { ok: false };
+    // each row on its own date: one bay updated today doesn't vouch for a bay last touched weeks ago
+    if (nowMs - t > staleHours * 3_600_000 || t - nowMs > 10 * 60_000) return { ok: false };
+    seen.add(n);
     if (st === "free") free.push(n);
     updatedAt = Math.max(updatedAt, t);
   }
-  if (!updatedAt || nowMs - updatedAt > staleHours * 3_600_000 || updatedAt - nowMs > 10 * 60_000) return { ok: false };
+  if (!updatedAt) return { ok: false };
   return { ok: true, free, updatedAt };
 }
 

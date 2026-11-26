@@ -2,8 +2,8 @@
 /**
  * Free bays, live (PARK-1). Loads the client's sheet (a simulation on the demo), redraws the free bays and says when
  * the list was updated, and shares the free bays as "garage-free" so the picker, the plan, the hall from above and
- * the night route all use the same list. If the sheet can't be read or is stale, nothing changes on the page except
- * one honest line: the bays as last published, on the day the site was built.
+ * the night route all use the same list. If the sheet can't be read or is stale, the site stops promising: the free
+ * bays table is hidden, every free count reads "Ask us first", and one line says to confirm before coming.
  */
 import { withFree, allBays, updatedWords, metres, pounds } from "../../lib/garage.js";
 
@@ -14,7 +14,7 @@ export function init(root, ctx) {
   const d = /** @type {any} */ (ctx.data);
   const provider = /** @type {BaysProvider|undefined} */ (ctx.providers.liveBays);
   if (!provider || !d.hall || !d.liveBays) return;
-  const line = root.querySelector("[data-bays-updated]"), body = root.querySelector("[data-free-rows]");
+  const line = root.querySelector("[data-bays-updated]"), body = root.querySelector("[data-free-rows]"), table = body?.closest("table");
   let shown = "";
   const draw = (/** @type {number[]} */ free, /** @type {string} */ words) => {
     const hall = withFree(d.hall, free), bays = allBays(hall).filter((b) => b.free);
@@ -27,7 +27,13 @@ export function init(root, ctx) {
       return tr;
     }));
     document.querySelectorAll("[data-free-count]").forEach((el) => { el.textContent = bays.length ? `${bays.length} ${bays.length === 1 ? "bay" : "bays"} free` : "Waiting list"; });
+    if (table) table.hidden = false;
     if (line) line.textContent = words;
+  };
+  const unsure = () => {
+    if (table) table.hidden = true;
+    document.querySelectorAll("[data-free-count]").forEach((el) => { el.textContent = "Ask us first"; });
+    if (line) line.textContent = "The free bays can't be confirmed right now. Ask us before you come.";
   };
   const load = async () => {
     /** @type {Awaited<ReturnType<BaysProvider["load"]>>} */
@@ -36,7 +42,7 @@ export function init(root, ctx) {
       const key = r.free.join(",");
       draw(r.free, updatedWords(r.updatedAt, Date.now(), d.hours.timezone));
       if (key !== shown) { shown = key; ctx.share("garage-free", r.free); }
-    } else if (line) line.textContent = `As listed on ${d.liveBays.listedOn}. Ask us to confirm before you come.`;
+    } else unsure();
   };
   load();
   setInterval(load, provider.intervalMs);

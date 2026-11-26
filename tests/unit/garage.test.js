@@ -59,6 +59,9 @@ test("the live list: free bays from the client's sheet, failing closed", () => {
   assert.equal(baysFromCsv(csv.replace("2026-11-18 08:40\n4", "soon\n4"), known, now, 24, read).ok, false, "a time it can't read");
   assert.equal(baysFromCsv(csv, known, now + 25 * 3_600_000, 24, read).ok, false, "older than a day");
   assert.equal(baysFromCsv("bay,status\n4,free\n", known, now, 24, read).ok, false, "no updated_at column");
+  assert.equal(baysFromCsv(csv.replace("4,free,2026-11-18 08:40", "4,free,2026-10-01 08:40"), known, now, 24, read).ok, false, "one old row, even beside fresh ones");
+  assert.equal(baysFromCsv(csv.replace("7,FREE,2026-11-18 08:10", "7,FREE,2026-11-19 08:10"), known, now, 24, read).ok, false, "one row dated tomorrow");
+  assert.equal(baysFromCsv(csv + "4,let,2026-11-18 08:50\n", known, now, 24, read).ok, false, "a bay listed twice");
   const live = withFree(hall, [9]);
   assert.equal(pickBay(live, CARS.hatch)?.n, 9, "bay 4 let today, so the hatchback goes to 9");
   assert.equal(pickBay(live, CARS.estate), null);

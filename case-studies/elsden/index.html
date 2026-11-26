@@ -314,7 +314,7 @@ footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2
     document.getElementById("count").textContent = stale ? "Ask us first" : `${free.length} bay${free.length === 1 ? "" : "s"} free`;
     document.getElementById("free").innerHTML = stale ? "" : free.map((b) => `<li><span>Bay ${b.n} · ${b.w.toFixed(1)} m${b.kw ? ` · ${b.kw} kW` : ""}</span><span>£${PRICE[b.w]} a month</span></li>`).join("");
     const u = document.getElementById("upd"); u.classList.toggle("stale", stale);
-    u.textContent = stale ? `As listed on ${new Date(last - 864e5).toLocaleDateString("en-GB", { day: "numeric", month: "long" })}. Ask us to confirm before you come.` : `Updated ${hm(last)}`;
+    u.textContent = stale ? "The free bays can't be confirmed right now. Ask us before you come." : `Updated ${hm(last)}`;
   };
   rowsEl.addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; const bay = HALL.find((x) => x.n === Number(b.dataset.n)); bay.free = !bay.free; bay.at = Date.now(); draw(); rowsEl.querySelector(`[data-n="${bay.n}"]`).focus(); });
   quiet.addEventListener("change", draw);
