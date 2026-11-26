@@ -1,0 +1,17 @@
+{#- Test centres (DRIVE-4): the centres the instructor teaches for, in their words; gov.uk's centre finder for the
+    address and to book. No waiting times or pass rates. -#}
+{%- set c = site.centres %}{% set ph = { title: c.title, intro: c.intro } %}
+<div data-feature="driving-centres">
+{% include "kits/driving/partials/page-head.njk" %}
+<section class="dv-sec"><div class="wrap">
+  {%- if c.sample %}<p class="dv-src"><span class="dv-tag">Sample</span> A demo's list; an instructor lists the centres they teach for.</p>{% endif %}
+  <ul class="dv-centres">
+    {%- for x in c.items %}<li><h2>{{ x.name }}</h2>{% if x.note %}<p>{{ x.note }}</p>{% endif %}</li>{% endfor %}
+  </ul>
+  <ul class="dv-gov">
+    <li><a href="{{ govuk.links.centres.url }}">{{ govuk.links.centres.label }}: addresses and parking</a></li>
+    <li><a href="{{ govuk.links.practical.url }}">{{ govuk.links.practical.label }}</a></li>
+    <li><a href="{{ govuk.links.change.url }}">{{ govuk.links.change.label }}</a></li>
+  </ul>
+</div></section>
+</div>

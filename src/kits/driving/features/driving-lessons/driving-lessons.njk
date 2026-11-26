@@ -1,0 +1,28 @@
+{#- Lessons and prices: manual and automatic side by side, block and course savings worked out, then the instructor's
+    other lessons (blocks), and gov.uk's test fees with the date they were checked. -#}
+{%- set g = site.lessonsPage %}{% set l = site.lessons %}{% set ph = { title: g.title, intro: g.intro, photo: g.photo } %}
+<div data-feature="driving-lessons">
+{% include "kits/driving/partials/page-head.njk" %}
+<section class="dv-sec dv-compare"><div class="wrap">
+  <table class="dv-table"><caption>{{ l.title }}{% if site.mode == "demo" %} <span class="dv-tag">Sample</span>{% endif %}</caption>
+    <thead><tr><th scope="col"></th>{% if l.manual %}<th scope="col">Manual</th>{% endif %}{% if l.automatic %}<th scope="col">Automatic</th>{% endif %}</tr></thead>
+    <tbody>
+      <tr><th scope="row">One hour</th>{% for x in [l.manual, l.automatic] %}{% if x %}<td>{{ x.hour | gbp }}</td>{% endif %}{% endfor %}</tr>
+      <tr><th scope="row">Two hours</th>{% for x in [l.manual, l.automatic] %}{% if x %}<td>{{ x.two | gbp }}</td>{% endif %}{% endfor %}</tr>
+      <tr><th scope="row">Block of {{ (l.manual or l.automatic).block.hours }} hours</th>{% for x in [l.manual, l.automatic] %}{% if x %}{% set s = x | saving("block") %}<td>{{ x.block.price | gbp }}<small>{{ s.perHour | gbp }} an hour{% if s.saving %}, saves {{ s.saving | gbp }}{% endif %}</small></td>{% endif %}{% endfor %}</tr>
+      <tr><th scope="row">Intensive, {{ (l.manual or l.automatic).intensive.hours }} hours</th>{% for x in [l.manual, l.automatic] %}{% if x %}{% set s = x | saving("intensive") %}<td>{{ x.intensive.price | gbp }}<small>{{ x.intensive.over }}{% if s.saving %}, saves {{ s.saving | gbp }}{% endif %}</small></td>{% endif %}{% endfor %}</tr>
+    </tbody>
+  </table>
+  {%- if site.fees %}
+  <table class="dv-table dv-fees"><caption>Test fees, paid to the DVSA</caption>
+    <tbody>
+      <tr><th scope="row">Theory test</th><td>{{ site.fees.theory | gbp }}</td></tr>
+      <tr><th scope="row">Practical test, weekdays</th><td>{{ site.fees.practical | gbp }}</td></tr>
+      <tr><th scope="row">Practical test, evenings, weekends and bank holidays</th><td>{{ site.fees.practicalOutOfHours | gbp }}</td></tr>
+    </tbody>
+  </table>
+  <p class="dv-src">From <a href="{{ site.fees.source }}">gov.uk, driving test costs</a>, checked {{ site.fees.checked | ukDate }}. Paid to the DVSA when you book, not to us.</p>
+  {%- endif %}
+</div></section>
+{% include "kits/driving/partials/guide.njk" %}
+</div>

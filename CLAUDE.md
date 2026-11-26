@@ -54,6 +54,9 @@ Not a template shop: each trade gets its own kit, each design looks unrecognisab
 6. Finish properly: tests, README, the demo's published link (`<base in demo-hosting.json>/<demo folder>/`: GitHub Pages,
    rebuilt every day by `.github/workflows/demos.yml`; never republish a demo by hand), then a short plain-English update for the owner
    (what changed, why, one thing to check) and a short ready-to-send message for the auditor.
+6a. **Owner preview before audit:** that link only works after merge, so when a new demo is built, publish your own build of it
+   (from `dist/`, with its Starter / Plus / Signature switch working) as a private preview page and give the owner the link with
+   the PR. A private preview is not a published demo; the GitHub Pages copy still comes only from main.
 7. Keep usage low: read only the files involved, let CI run the full check (not locally) and summarise, no screenshots unless
    asked (the owner reviews published links), and offer a handover when a chat gets long.
 8. Unclear and costly to get wrong: ask one clear question. Otherwise choose, do it, and say what you chose.

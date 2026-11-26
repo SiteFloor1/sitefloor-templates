@@ -1,0 +1,15 @@
+---
+layout: core/layouts/base.njk
+feature: driving-journal
+pagination:
+  data: site.journal.articles
+  size: 1
+  alias: x
+permalink: "article-{{ x.slug }}.html"
+eleventyComputed:
+  pageId: "article-{{ x.slug }}"
+  title: "{{ x.title }}"
+  description: "{{ x.intro }}"
+---
+{%- set a = x %}
+{% include "kits/driving/features/driving-journal/article.njk" %}

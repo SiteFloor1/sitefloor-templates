@@ -1,0 +1,7 @@
+{#- Book: the next free lessons (when that feature is on), how booking works in the instructor's words, one way to ask. -#}
+{%- set g = site.bookPage %}{% set ph = { title: g.title, intro: g.intro, photo: g.photo } %}
+<div data-feature="driving-book">
+{% include "kits/driving/partials/page-head.njk" %}
+{%- if "driving-slots" | enabled %}<section class="dv-sec dv-bookslots"><div class="wrap dv-two">{% include "kits/driving/features/driving-slots/driving-slots.njk" %}{% if "driving-prices" | enabled %}{% include "kits/driving/features/driving-prices/driving-prices.njk" %}{% endif %}</div></section>{% endif %}
+{% include "kits/driving/partials/guide.njk" %}
+</div>

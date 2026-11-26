@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: progress
+permalink: progress.html
+feature: driving-progress
+noindex: true
+eleventyComputed:
+  title: "{{ site.progress.title | plain }}"
+  description: "Learner progress at {{ site.business.name }}, {{ site.location.locality }}."
+---
+{% include "kits/driving/features/driving-progress/driving-progress.njk" %}

@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: book
+permalink: book.html
+feature: driving-book
+eleventyComputed:
+  title: "{{ site.bookPage.title | plain }}"
+  description: "Book a driving lesson with {{ site.business.name }}, {{ site.location.locality }}."
+---
+{% include "kits/driving/features/driving-book/driving-book.njk" %}

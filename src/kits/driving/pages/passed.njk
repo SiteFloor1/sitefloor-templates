@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: passed
+permalink: passed.html
+feature: driving-passed
+eleventyComputed:
+  title: "{{ site.passed.title | plain }}"
+  description: "Pupils who passed with {{ site.business.name }}, {{ site.location.locality }}."
+---
+{% include "kits/driving/features/driving-passed/driving-passed.njk" %}
