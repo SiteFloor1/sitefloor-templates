@@ -1,0 +1,14 @@
+---
+layout: core/layouts/base.njk
+feature: events-occasions
+pagination:
+  data: site.occasions.items
+  size: 1
+  alias: o
+permalink: "{{ o.id }}.html"
+eleventyComputed:
+  pageId: "{{ o.id }}"
+  title: "{{ o.title | plain }}"
+  description: "{{ o.intro | plain }}"
+---
+{% include "kits/events/features/events-occasions/events-occasions.njk" %}

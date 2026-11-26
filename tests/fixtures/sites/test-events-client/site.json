@@ -1,0 +1,684 @@
+{
+  "schemaVersion": 4,
+  "id": "test-events-client",
+  "mode": "client",
+  "plan": "signature",
+  "kit": "events",
+  "look": "doors",
+  "url": "https://test-events-client.example.co.uk",
+  "indexable": false,
+  "lang": "en-GB",
+  "business": {
+    "name": "Corrin",
+    "schemaType": "LocalBusiness",
+    "description": "Corrin designs dinners and weddings in Bath and the West Country.",
+    "priceRange": "£££",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "441225496072",
+    "phone": "+44 1225 496072",
+    "email": "hello@corrin.example"
+  },
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "location": {
+    "streetAddress": "7 Quiet Street",
+    "locality": "Bath",
+    "postcode": "BA1 2JS",
+    "country": "GB",
+    "area": "A first-floor studio off Milsom Street. By appointment.",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=Quiet%20Street%2C%20Bath"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [
+        [
+          "10:00",
+          "18:00"
+        ]
+      ],
+      "tue": [
+        [
+          "10:00",
+          "18:00"
+        ]
+      ],
+      "wed": [
+        [
+          "10:00",
+          "18:00"
+        ]
+      ],
+      "thu": [
+        [
+          "10:00",
+          "19:00"
+        ]
+      ],
+      "fri": [
+        [
+          "10:00",
+          "17:00"
+        ]
+      ],
+      "sat": [],
+      "sun": []
+    },
+    "exceptions": [
+      {
+        "date": "2026-12-25",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2026-12-26",
+        "ranges": [],
+        "note": "Closed for Boxing Day"
+      },
+      {
+        "date": "2027-01-01",
+        "ranges": [],
+        "note": "Closed for New Year's Day"
+      }
+    ]
+  },
+  "features": [
+    "events-rooms",
+    "events-dates",
+    "events-portfolio",
+    "events-occasions",
+    "events-brief",
+    "events-key-dates",
+    "events-journal",
+    "events-visuals",
+    "events-lay-table",
+    "events-run",
+    "events-cases",
+    "events-venues",
+    "events-room-plan",
+    "events-proposal",
+    "visit",
+    "plan-visit",
+    "questions",
+    "reviews"
+  ],
+  "nav": [
+    {
+      "label": "Rooms",
+      "page": "rooms",
+      "feature": "events-portfolio"
+    },
+    {
+      "label": "Case studies",
+      "page": "case-studies",
+      "feature": "events-cases"
+    },
+    {
+      "label": "Journal",
+      "page": "journal",
+      "feature": "events-journal"
+    }
+  ],
+  "messages": {
+    "general": "Hello Corrin, we're planning an event and would like to talk."
+  },
+  "hero": {
+    "kicker": "Event design, Bath",
+    "title": "The doors open|at seven.",
+    "intro": "Corrin designs dinners and weddings in Bath and the West Country.",
+    "photo": {
+      "src": "img/dahlias.webp",
+      "width": 1600,
+      "height": 1067,
+      "alt": "A candlelit table with dahlias",
+      "small": {
+        "src": "img/dahlias-800.webp",
+        "width": 800
+      }
+    },
+    "credit": "Photographs: our own."
+  },
+  "sections": {
+    "visuals": {
+      "title": "See your room before the day.",
+      "intro": "Before you commit, we show you the room as it will look on the night, drawn for your venue and your number."
+    },
+    "rooms": {
+      "title": "Rooms",
+      "intro": "Rooms we have dressed.",
+      "pageTitle": "Rooms"
+    },
+    "layTable": {
+      "title": "Lay the table.",
+      "intro": "One table, three ways. Choose how far it goes."
+    },
+    "questions": {
+      "title": "Before you ask"
+    },
+    "visit": {
+      "title": "The studio"
+    },
+    "reviews": {
+      "title": "What clients say"
+    }
+  },
+  "rooms": {
+    "items": [
+      {
+        "id": "tulips",
+        "name": "Tulips and crystal",
+        "occasion": "launch",
+        "guests": 40,
+        "where": "A private dining room, Bath",
+        "photo": {
+          "src": "img/tulips.webp",
+          "width": 1200,
+          "height": 1800,
+          "alt": "A dark table with white tulips",
+          "small": {
+            "src": "img/tulips-600.webp",
+            "width": 600
+          }
+        }
+      },
+      {
+        "id": "dahlias",
+        "name": "Dahlias by candlelight",
+        "occasion": "private",
+        "guests": 24,
+        "where": "A townhouse, Bath",
+        "photo": {
+          "src": "img/dahlias.webp",
+          "width": 1600,
+          "height": 1067,
+          "alt": "A candlelit table with dahlias",
+          "small": {
+            "src": "img/dahlias-800.webp",
+            "width": 800
+          }
+        }
+      }
+    ]
+  },
+  "dates": {
+    "source": "sheet",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-events-dates/pub?output=csv",
+    "days": [
+      "fri",
+      "sat"
+    ],
+    "staleAfterDays": 7
+  },
+  "occasions": {
+    "items": [
+      {
+        "id": "weddings",
+        "title": "Weddings",
+        "nav": "Weddings",
+        "intro": "From the first idea to the last guest home.",
+        "rooms": "wedding",
+        "photo": {
+          "src": "img/dahlias.webp",
+          "width": 1600,
+          "height": 1067,
+          "alt": "A candlelit table with dahlias",
+          "small": {
+            "src": "img/dahlias-800.webp",
+            "width": 800
+          }
+        },
+        "body": [
+          "We design the room, then we build it: flowers, linen, furniture, lighting and the people to run the day.",
+          "Most weddings we take on are a year or more away; a smaller day can be quicker. Multi-day weddings, a mehndi, a nikah and a reception, are planned as one."
+        ],
+        "menu": true
+      },
+      {
+        "id": "companies",
+        "title": "Companies",
+        "nav": "Companies",
+        "intro": "Dinners, launches and parties that feel like the brand.",
+        "rooms": "corporate",
+        "photo": {
+          "src": "img/dahlias.webp",
+          "width": 1600,
+          "height": 1067,
+          "alt": "A candlelit table with dahlias",
+          "small": {
+            "src": "img/dahlias-800.webp",
+            "width": 800
+          }
+        },
+        "body": [
+          "Client dinners, summer parties, Christmas, the room for a launch. We work to your brief and your brand book.",
+          "One contact from the first call to the night, and a run of show your team can follow."
+        ],
+        "menu": true
+      },
+      {
+        "id": "private-parties",
+        "title": "Private parties",
+        "nav": "Private parties",
+        "intro": "Birthdays, anniversaries, a dinner at home.",
+        "rooms": "private",
+        "photo": {
+          "src": "img/dahlias.webp",
+          "width": 1600,
+          "height": 1067,
+          "alt": "A candlelit table with dahlias",
+          "small": {
+            "src": "img/dahlias-800.webp",
+            "width": 800
+          }
+        },
+        "body": [
+          "Twenty at a long table or two hundred in a marquee. At home, in a restaurant you love, or somewhere we find for you."
+        ]
+      }
+    ]
+  },
+  "brief": {
+    "title": "Start your event",
+    "intro": "Tell us the occasion, the date and how many. We reply within two working days.",
+    "types": [
+      "Wedding",
+      "Dinner",
+      "Party",
+      "Launch",
+      "Something else"
+    ],
+    "budgets": [
+      "Under £20,000",
+      "£20,000 to £40,000",
+      "£40,000 to £80,000",
+      "£80,000 and over"
+    ],
+    "venueChoices": [
+      "We have a venue",
+      "We're still looking",
+      "Help us find one"
+    ]
+  },
+  "keyDates": {
+    "intro": "Choose a date and we'll work back from it.",
+    "items": [
+      {
+        "label": "First site visit",
+        "weeksBefore": 40
+      },
+      {
+        "label": "Proposal and design visuals",
+        "weeksBefore": 36
+      },
+      {
+        "label": "Tasting",
+        "weeksBefore": 16
+      },
+      {
+        "label": "Flowers confirmed",
+        "weeksBefore": 10
+      },
+      {
+        "label": "Final guest numbers",
+        "weeksBefore": 3
+      },
+      {
+        "label": "Run of the night signed off",
+        "weeksBefore": 1
+      }
+    ]
+  },
+  "journal": {
+    "title": "Journal",
+    "intro": "Notes on planning an event.",
+    "items": [
+      {
+        "id": "a-year-out",
+        "title": "A year out: what to decide first",
+        "date": "2026-10-02",
+        "intro": "Three things fix everything else. Choose them in this order.",
+        "body": [
+          "The date, the number and the room decide almost every other choice. Fix the date first if it matters to you; the number next, because it rules out most rooms; then the room.",
+          "Flowers, tableware and the menu follow from those three. We start design work once they are settled."
+        ]
+      },
+      {
+        "id": "choosing-a-room",
+        "title": "Choosing a room",
+        "date": "2026-09-11",
+        "intro": "Seated, standing and the space between tables.",
+        "body": [
+          "A room's capacity is the venue's to give, and it changes with the layout: long tables seat more than rounds, standing takes more again.",
+          "Ask the venue for its plan with measurements. We draw your layout on it before you sign."
+        ]
+      },
+      {
+        "id": "candles",
+        "title": "Candles, and the rules",
+        "date": "2026-08-20",
+        "intro": "Every venue has its own.",
+        "body": [
+          "Many rooms allow only enclosed flames, some none at all. We ask the venue in writing before we design around candlelight."
+        ]
+      }
+    ]
+  },
+  "visuals": {
+    "home": "bath-dinner",
+    "sets": [
+      {
+        "id": "bath-dinner",
+        "title": "Proposed: a dinner for forty.",
+        "line": "One long table, candles and white flowers.",
+        "views": [
+          {
+            "label": "Down the table",
+            "photo": {
+              "src": "img/library.webp",
+              "width": 2000,
+              "height": 1334,
+              "alt": "Design visual: a long table in a panelled room"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "layTable": {
+    "dressings": [
+      {
+        "label": "Candles",
+        "line": "A sample line.",
+        "photo": {
+          "src": "img/library.webp",
+          "width": 2000,
+          "height": 1334,
+          "alt": "Design visual: the table"
+        }
+      },
+      {
+        "label": "Greenery",
+        "line": "A sample line.",
+        "photo": {
+          "src": "img/library.webp",
+          "width": 2000,
+          "height": 1334,
+          "alt": "Design visual: the table"
+        }
+      },
+      {
+        "label": "Flowers",
+        "line": "A sample line.",
+        "photo": {
+          "src": "img/library.webp",
+          "width": 2000,
+          "height": 1334,
+          "alt": "Design visual: the table"
+        }
+      }
+    ]
+  },
+  "runOfShow": {
+    "title": "The run of the night",
+    "intro": "A dinner for 120, from the first van to the room handed back.",
+    "items": [
+      {
+        "time": "10:00",
+        "what": "Load-in",
+        "detail": "Furniture, linen and lighting arrive; the room is measured against the plan."
+      },
+      {
+        "time": "13:00",
+        "what": "Flowers and tables",
+        "detail": "The florists dress the tables and hang the greenery."
+      },
+      {
+        "time": "16:30",
+        "what": "Light check",
+        "detail": "Candles placed, lighting set for dusk."
+      },
+      {
+        "time": "18:30",
+        "what": "Candles lit"
+      },
+      {
+        "time": "19:00",
+        "what": "Doors open",
+        "detail": "Drinks in the hall."
+      },
+      {
+        "time": "19:45",
+        "what": "Guests seated"
+      },
+      {
+        "time": "22:00",
+        "what": "Tables turned for dancing"
+      },
+      {
+        "time": "00:30",
+        "what": "Carriages"
+      },
+      {
+        "time": "02:00",
+        "what": "Room handed back",
+        "detail": "Flowers go home with guests or to a care home nearby."
+      }
+    ]
+  },
+  "cases": {
+    "title": "Case studies",
+    "items": [
+      {
+        "id": "birthday",
+        "title": "A birthday at home",
+        "occasion": "private",
+        "guests": 24,
+        "when": "October 2026",
+        "line": "Dahlias and candles.",
+        "brief": "Twenty-four friends at one table.",
+        "room": "Two tables joined end to end.",
+        "mood": "Red, orange, candlelight",
+        "photos": [
+          {
+            "src": "img/dahlias.webp",
+            "width": 1600,
+            "height": 1067,
+            "alt": "A candlelit table with dahlias",
+            "small": {
+              "src": "img/dahlias-800.webp",
+              "width": 800
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "venues": {
+    "title": "Venues",
+    "items": [
+      {
+        "name": "The ballroom",
+        "area": "Bath",
+        "kind": "Historic room",
+        "seated": 200,
+        "partner": true,
+        "url": "https://example.org/ballroom"
+      },
+      {
+        "name": "A townhouse",
+        "area": "Bath",
+        "kind": "Private house",
+        "seated": 30
+      }
+    ]
+  },
+  "roomPlan": {
+    "title": "Your room, drawn",
+    "intro": "Choose a room, the number and how they sit.",
+    "start": {
+      "room": "hall",
+      "guests": 120,
+      "layout": "long"
+    },
+    "rooms": [
+      {
+        "id": "hall",
+        "name": "The long hall",
+        "length": 26,
+        "width": 11,
+        "note": "A sample room."
+      },
+      {
+        "id": "library",
+        "name": "The library",
+        "length": 30,
+        "width": 14,
+        "note": "A sample room."
+      },
+      {
+        "id": "townhouse",
+        "name": "The townhouse dining room",
+        "length": 12,
+        "width": 7,
+        "note": "A sample room."
+      }
+    ]
+  },
+  "proposal": {
+    "source": "sheet",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-events-proposals/pub?output=csv",
+    "staleAfterDays": 21
+  },
+  "questions": [
+    {
+      "topic": "Dates",
+      "q": "Are you free on our date?",
+      "a": "Check it on this page: free, on hold for another client, or taken. If it's on hold, ask us and we'll tell you if it comes free.",
+      "home": true
+    },
+    {
+      "topic": "Money",
+      "q": "What does it cost?",
+      "a": "It depends on the number of guests, the room and how far the design goes. Tell us your budget band in the brief and we'll say honestly what it can do.",
+      "home": true
+    },
+    {
+      "topic": "Money",
+      "q": "How do you charge?",
+      "a": "A design fee, then production quoted line by line. A deposit holds your date; the rest follows the schedule in our terms.",
+      "home": true
+    },
+    {
+      "topic": "Design",
+      "q": "Can we see the room before we commit?",
+      "a": "Yes. Every proposal comes with design visuals of your room, a plan drawn for your number and a run of the night.",
+      "home": true
+    },
+    {
+      "topic": "Venues",
+      "q": "Can you work in our venue?",
+      "a": "Almost always. We ask the venue for its plan and rules before we design, and we can help you find a room."
+    },
+    {
+      "topic": "The day",
+      "q": "Who is there on the day?",
+      "a": "Our team from load-in to hand-back, with one person as your contact throughout."
+    }
+  ],
+  "visitInfo": {
+    "kicker": "Plan your visit",
+    "title": "Finding the studio",
+    "intro": "A first-floor studio off Milsom Street. Come by appointment.",
+    "checked": "2026-11",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "Bath Spa station",
+        "origin": "Bath Spa station, Bath",
+        "minutes": 10,
+        "steps": [
+          "Walk up Manvers Street",
+          "Turn left onto Quiet Street"
+        ]
+      }
+    ],
+    "parking": [
+      {
+        "name": "Pay-by-phone bays on the side streets",
+        "walk": 6,
+        "price": "check the signs on the street",
+        "paid": {
+          "mon": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "tue": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "wed": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "thu": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "fri": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ],
+          "sat": [
+            [
+              "08:30",
+              "18:30"
+            ]
+          ]
+        },
+        "note": "Most streets nearby are residents only; read the signs.",
+        "bankHolidays": "sunday"
+      }
+    ],
+    "access": [
+      {
+        "label": "Step-free entrance",
+        "yes": true
+      },
+      {
+        "label": "Accessible toilet",
+        "yes": true
+      }
+    ],
+    "payment": "Bank transfer, once the proposal is agreed."
+  },
+  "reviews": {
+    "source": "google",
+    "items": [
+      {
+        "text": "The room looked exactly like the visuals they sent us.",
+        "author": "Anna W.",
+        "rating": 5,
+        "date": "2026-10"
+      },
+      {
+        "text": "Calm on the day, and every candle lit on time.",
+        "author": "James P.",
+        "rating": 5,
+        "date": "2026-09"
+      }
+    ]
+  }
+}
