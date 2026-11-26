@@ -1,0 +1,7 @@
+/* Each size drawn to scale: a plain flacon whose height follows the cube root of its millilitres. */
+.fr-drawn .fr-size { min-width: 84px; padding-top: 14px; }
+.fr-flacon { display: block; width: calc(30px * var(--s)); height: calc(46px * var(--s)); border: 1px solid var(--text); border-radius: 2px; position: relative; margin-top: 8px; }
+.fr-flacon::before { content: ""; position: absolute; left: 50%; bottom: 100%; width: 34%; height: 18%; transform: translateX(-50%); border: 1px solid var(--text); border-bottom: 0; }
+.fr-flacon::after { content: ""; position: absolute; inset: 38% 14% 14%; background: var(--accent); opacity: .35; }
+.fr-size-p { display: flex; flex-direction: column; align-items: center; font-size: 15px; }
+.fr-size-p small { color: var(--muted); font-size: 13px; }

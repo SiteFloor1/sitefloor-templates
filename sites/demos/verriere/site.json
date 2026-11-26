@@ -1,0 +1,749 @@
+{
+  "schemaVersion": 4,
+  "id": "verriere",
+  "mode": "demo",
+  "plan": "signature",
+  "kit": "fragrance",
+  "look": "verriere",
+  "url": "https://verriere.demo.sitefloor.com",
+  "indexable": false,
+  "lang": "en-GB",
+  "business": {
+    "name": "Verrière",
+    "schemaType": "LocalBusiness",
+    "description": "A perfume house on Marylebone Lane, London: six fragrances, samples, engraving on the bottle. From £70.",
+    "priceRange": "££",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "447700900512",
+    "phone": "+44 7700 900512",
+    "email": "boutique@verriere.example"
+  },
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "location": {
+    "streetAddress": "31 Marylebone Lane",
+    "locality": "London",
+    "postcode": "W1U 2NH",
+    "country": "GB",
+    "area": "Halfway down Marylebone Lane, where it bends. Bond Street station is a six-minute walk.",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=Marylebone%20Lane%2C%20London%20W1U"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [],
+      "tue": [
+        [
+          "11:00",
+          "19:00"
+        ]
+      ],
+      "wed": [
+        [
+          "11:00",
+          "19:00"
+        ]
+      ],
+      "thu": [
+        [
+          "11:00",
+          "20:00"
+        ]
+      ],
+      "fri": [
+        [
+          "11:00",
+          "19:00"
+        ]
+      ],
+      "sat": [
+        [
+          "10:00",
+          "18:00"
+        ]
+      ],
+      "sun": [
+        [
+          "12:00",
+          "17:00"
+        ]
+      ]
+    },
+    "exceptions": [
+      {
+        "date": "2026-12-25",
+        "ranges": [],
+        "note": "Closed for Christmas Day"
+      },
+      {
+        "date": "2026-12-26",
+        "ranges": [],
+        "note": "Closed for Boxing Day"
+      }
+    ]
+  },
+  "features": [
+    "fragrance-library",
+    "fragrance-sizes",
+    "fragrance-launch",
+    "fragrance-pages",
+    "fragrance-organ",
+    "fragrance-discovery",
+    "fragrance-gifts",
+    "fragrance-turntable",
+    "fragrance-notes",
+    "fragrance-engraving-desk",
+    "fragrance-choose",
+    "page-links",
+    "custom-pages",
+    "seasonal",
+    "visit",
+    "plan-visit",
+    "questions"
+  ],
+  "nav": [
+    {
+      "label": "Fragrances",
+      "page": "fragrances",
+      "feature": "fragrance-pages",
+      "fallback": "#library"
+    },
+    {
+      "label": "Scent finder",
+      "page": "scent-finder",
+      "feature": "fragrance-organ"
+    },
+    {
+      "label": "Discovery set",
+      "page": "discovery-sets",
+      "feature": "fragrance-discovery"
+    },
+    {
+      "label": "Gifts",
+      "page": "gifts",
+      "feature": "fragrance-gifts"
+    },
+    {
+      "label": "The boutique",
+      "page": "visit",
+      "feature": "plan-visit",
+      "fallback": "#visit"
+    }
+  ],
+  "messages": {
+    "general": "Hello Verrière, I have a question."
+  },
+  "hero": {
+    "kicker": "Perfume house, Marylebone Lane",
+    "title": "No. 4 Sable",
+    "intro": "Warm sand, iris and a little salt.",
+    "fragrance": "sable",
+    "photo": {
+      "src": "img/turn/d-01.webp",
+      "width": 1600,
+      "height": 1000,
+      "alt": "No. 4 Sable: a clear square flacon with a heavy glass base and a champagne cap, pale gold perfume inside, on a travertine block in warm studio light"
+    },
+    "marks": {
+      "neck": 0.2669,
+      "shoulder": 0.3151,
+      "base": 0.6062,
+      "xl": 0.4018,
+      "xr": 0.5982,
+      "floor": 0.8031
+    }
+  },
+  "turntable": {
+    "frames": 36,
+    "repeat": 18,
+    "src": "img/turn/d-{n}.webp",
+    "wideSrc": "img/turn/w-{n}.webp",
+    "phoneSrc": "img/turn/p-{n}.webp",
+    "width": 1600,
+    "height": 1000,
+    "phoneWidth": 780,
+    "phoneHeight": 1120
+  },
+  "sections": {
+    "library": {
+      "title": "The fragrances",
+      "intro": "Six, made in small batches. Each comes as a sample first, if you like."
+    },
+    "visit": {
+      "title": "Marylebone Lane"
+    },
+    "questions": {
+      "title": "Before you buy"
+    },
+    "launch": {
+      "title": "Before the launch"
+    },
+    "engraving": {
+      "title": "Your words, cut into the glass."
+    },
+    "pageLinks": {
+      "title": "More of Verrière"
+    }
+  },
+  "fragrances": {
+    "title": "The fragrances",
+    "intro": "Six fragrances, each in three sizes and as a sample.",
+    "featured": "sable",
+    "message": "Hello {name}, I'd like {fragrance}, {ml} ml ({price}).",
+    "sampleMessage": "Hello {name}, I'd like a sample of {fragrance} ({price}).",
+    "delivery": "Posted free from £60, in two to three working days. Samples are posted in a card.",
+    "items": [
+      {
+        "id": "sable",
+        "name": "No. 4 Sable",
+        "line": "Warm sand, iris and a little salt.",
+        "character": "Our first. The salt and bergamot come and go in the first hour; then iris, dry and close to the skin, and the warmth of cedar.",
+        "notes": {
+          "top": [
+            "bergamot",
+            "sea salt"
+          ],
+          "heart": [
+            "iris",
+            "ambrette"
+          ],
+          "base": [
+            "cedarwood",
+            "white musk"
+          ]
+        },
+        "photo": {
+          "src": "img/scents/sable.webp",
+          "width": 1040,
+          "height": 1300,
+          "alt": "No. 4 Sable, pale gold, on travertine"
+        },
+        "sizes": [
+          {
+            "ml": 30,
+            "price": 70
+          },
+          {
+            "ml": 50,
+            "price": 95
+          },
+          {
+            "ml": 100,
+            "price": 140
+          }
+        ],
+        "sample": {
+          "ml": 2,
+          "price": 4
+        }
+      },
+      {
+        "id": "poudre",
+        "name": "No. 2 Poudre",
+        "line": "Powder, violet and a soft rose.",
+        "character": "A dressing table in the afternoon: rice powder, violets, a rose that has been in the room for a day.",
+        "notes": {
+          "top": [
+            "pink pepper"
+          ],
+          "heart": [
+            "iris",
+            "rose",
+            "violet"
+          ],
+          "base": [
+            "vanilla",
+            "white musk"
+          ]
+        },
+        "photo": {
+          "src": "img/scents/poudre.webp",
+          "width": 1040,
+          "height": 1300,
+          "alt": "No. 2 Poudre, pale blush, on travertine"
+        },
+        "sizes": [
+          {
+            "ml": 30,
+            "price": 70
+          },
+          {
+            "ml": 50,
+            "price": 95
+          },
+          {
+            "ml": 100,
+            "price": 140
+          }
+        ],
+        "sample": {
+          "ml": 2,
+          "price": 4
+        }
+      },
+      {
+        "id": "verger",
+        "name": "No. 3 Verger",
+        "line": "An orchard after rain.",
+        "character": "Pears not quite ripe, fig leaves torn from the branch, and wet bark.",
+        "notes": {
+          "top": [
+            "bergamot",
+            "pear"
+          ],
+          "heart": [
+            "fig",
+            "jasmine"
+          ],
+          "base": [
+            "cedarwood"
+          ]
+        },
+        "photo": {
+          "src": "img/scents/verger.webp",
+          "width": 1040,
+          "height": 1300,
+          "alt": "No. 3 Verger, pale green-gold, on travertine"
+        },
+        "sizes": [
+          {
+            "ml": 30,
+            "price": 70
+          },
+          {
+            "ml": 50,
+            "price": 95
+          },
+          {
+            "ml": 100,
+            "price": 140
+          }
+        ],
+        "sample": {
+          "ml": 2,
+          "price": 4
+        }
+      },
+      {
+        "id": "ombre",
+        "name": "No. 6 Ombre",
+        "line": "Smoke, rose and dark wood.",
+        "character": "For the evening. Pepper and cardamom, a dark rose, then incense and old wood.",
+        "notes": {
+          "top": [
+            "black pepper",
+            "cardamom"
+          ],
+          "heart": [
+            "rose",
+            "incense"
+          ],
+          "base": [
+            "oud",
+            "cedarwood"
+          ]
+        },
+        "photo": {
+          "src": "img/scents/ombre.webp",
+          "width": 1040,
+          "height": 1300,
+          "alt": "No. 6 Ombre, deep amber, on travertine"
+        },
+        "sizes": [
+          {
+            "ml": 30,
+            "price": 80
+          },
+          {
+            "ml": 50,
+            "price": 110
+          },
+          {
+            "ml": 100,
+            "price": 160
+          }
+        ],
+        "sample": {
+          "ml": 2,
+          "price": 5
+        }
+      },
+      {
+        "id": "pluie",
+        "name": "No. 7 Pluie",
+        "line": "Rain on stone and green leaves.",
+        "character": "Galbanum and violet leaf, the iris of Sable made cooler, and vetiver for the earth.",
+        "notes": {
+          "top": [
+            "galbanum",
+            "sea salt"
+          ],
+          "heart": [
+            "iris",
+            "violet leaf"
+          ],
+          "base": [
+            "vetiver",
+            "moss"
+          ]
+        },
+        "photo": {
+          "src": "img/scents/pluie.webp",
+          "width": 1040,
+          "height": 1300,
+          "alt": "No. 7 Pluie, the palest green, on travertine"
+        },
+        "sizes": [
+          {
+            "ml": 30,
+            "price": 80
+          },
+          {
+            "ml": 50,
+            "price": 110
+          },
+          {
+            "ml": 100,
+            "price": 160
+          }
+        ],
+        "sample": {
+          "ml": 2,
+          "price": 5
+        }
+      },
+      {
+        "id": "lin",
+        "name": "No. 1 Lin",
+        "line": "Clean linen in the sun.",
+        "character": "Lemon and a little pepper, lily of the valley, and the warm white of musk.",
+        "notes": {
+          "top": [
+            "lemon",
+            "black pepper"
+          ],
+          "heart": [
+            "lily of the valley"
+          ],
+          "base": [
+            "white musk",
+            "vetiver"
+          ]
+        },
+        "photo": {
+          "src": "img/scents/lin.webp",
+          "width": 1040,
+          "height": 1300,
+          "alt": "No. 1 Lin, pale straw, on travertine"
+        },
+        "sizes": [
+          {
+            "ml": 30,
+            "price": 70
+          },
+          {
+            "ml": 50,
+            "price": 95
+          },
+          {
+            "ml": 100,
+            "price": 140
+          }
+        ],
+        "sample": {
+          "ml": 2,
+          "price": 4
+        }
+      }
+    ]
+  },
+  "engraving": {
+    "title": "Your words, cut into the glass.",
+    "intro": "Engraved by hand at the boutique.",
+    "price": 15,
+    "maxLetters": 24,
+    "styles": [
+      "caps",
+      "lower",
+      "initials"
+    ],
+    "places": [
+      "glass",
+      "box"
+    ],
+    "fragrance": "sable",
+    "ml": 50,
+    "days": "Ready in two days, or posted on the third.",
+    "message": "Hello {name}, I'd like {fragrance}, {ml} ml, engraved \"{words}\" in {style} on the {place} ({price}).",
+    "photo": {
+      "src": "img/engrave.webp",
+      "width": 1440,
+      "height": 1800,
+      "alt": "No. 4 Sable seen face on, with your words engraved on the glass"
+    },
+    "area": {
+      "x0": 0.3117,
+      "y0": 0.4222,
+      "x1": 0.6883,
+      "y1": 0.7088
+    }
+  },
+  "organ": {
+    "title": "Scent finder",
+    "intro": "Choose up to three things you love. The fragrances that have them rise.",
+    "max": 3,
+    "note": "Only our own notes. Try the sample before the bottle.",
+    "ingredients": [
+      {
+        "note": "iris",
+        "photo": {
+          "src": "img/organ/iris.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "A white and purple bearded iris with raindrops"
+        }
+      },
+      {
+        "note": "rose",
+        "photo": {
+          "src": "img/organ/rose.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "The petals of a red rose, close"
+        }
+      },
+      {
+        "note": "fig",
+        "photo": {
+          "src": "img/organ/fig.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "Fresh figs cut open on a plate"
+        }
+      },
+      {
+        "note": "sea salt",
+        "photo": {
+          "src": "img/organ/sea-salt.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "Coarse sea salt crystals in a glass jar"
+        }
+      },
+      {
+        "note": "vanilla",
+        "photo": {
+          "src": "img/organ/vanilla.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "A bundle of dried vanilla pods tied with string"
+        }
+      },
+      {
+        "note": "cedarwood",
+        "photo": {
+          "src": "img/organ/cedarwood.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "The cut ends of stacked logs"
+        }
+      },
+      {
+        "note": "black pepper",
+        "photo": {
+          "src": "img/organ/black-pepper.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "Dried black peppercorns, close"
+        }
+      }
+    ]
+  },
+  "discovery": {
+    "title": "Discovery set",
+    "intro": "Four samples of your choosing, to wear for a few days each.",
+    "pick": 4,
+    "ml": 2,
+    "price": 16,
+    "terms": "The £16 comes off your first full bottle within three months. Posted in a card, free.",
+    "message": "Hello {name}, I'd like a discovery set ({price}): {fragrance}."
+  },
+  "gifts": {
+    "title": "Gifts",
+    "intro": "Engraved, wrapped and with a card in our hand.",
+    "wrap": {
+      "price": 5,
+      "line": "Wrapped in our paper with a silk ribbon"
+    },
+    "terms": "Engraved bottles can't be returned unless they arrive damaged. Everything else: 14 days.",
+    "message": "Hello {name}, I'd like to order {fragrance}, {ml} ml, {extras}. That comes to {price}."
+  },
+  "choose": {
+    "title": "Let them choose",
+    "intro": "Give an amount. They try our samples at home, then choose the bottle and the words on it.",
+    "amounts": [
+      {
+        "amount": 50
+      },
+      {
+        "amount": 100
+      },
+      {
+        "amount": 150
+      }
+    ],
+    "terms": "Valid for a year. It includes a discovery set of four samples, posted to them with your card.",
+    "message": "Hello {name}, I'd like to give {price} to {to}, from {from}. Please post the samples and the card.",
+    "redeemTitle": "Received one?",
+    "redeemMessage": "Hello {name}, my code is {code}. I've chosen {fragrance}."
+  },
+  "launch": {
+    "date": "2027-02-01",
+    "newWeeks": 8,
+    "scents": [
+      "sable"
+    ],
+    "message": "Hello {name}, please tell me when {fragrance} is out.",
+    "terms": "Pre-orders are posted on the day, free. Cancel any time before then for a full refund, and you have 14 days after it arrives.",
+    "story": {
+      "title": "Why I made it",
+      "text": "I grew up an hour from the sea, and the smell I remember is warm sand in the evening, with salt on my skin.\n\nIt took two years to get the iris right: dry, not sweet.",
+      "by": "Inès, who started Verrière"
+    }
+  },
+  "visitInfo": {
+    "kicker": "Plan your visit",
+    "title": "Finding the boutique",
+    "intro": "Halfway down Marylebone Lane, where it bends. Six minutes from Bond Street.",
+    "checked": "2026-11",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "Bond Street station",
+        "origin": "Bond Street station, London",
+        "minutes": 6,
+        "steps": [
+          "Leave by the Oxford Street exit",
+          "Cross Oxford Street into Marylebone Lane",
+          "Follow the lane round the bend; we're on the left"
+        ]
+      },
+      {
+        "mode": "bus",
+        "from": "Buses on Oxford Street",
+        "stop": "Bond Street station",
+        "minutes": 6,
+        "steps": [
+          "Get off at Bond Street station",
+          "Cross into Marylebone Lane"
+        ]
+      }
+    ],
+    "access": [
+      {
+        "label": "Step-free entrance",
+        "yes": true
+      },
+      {
+        "label": "Everything on one floor",
+        "yes": true
+      }
+    ],
+    "accessNote": "One step-free room. Ask and we'll bring the testers to you.",
+    "payment": "Card or Apple Pay."
+  },
+  "questions": [
+    {
+      "topic": "Buying",
+      "q": "Can I try it first?",
+      "a": "Yes: every fragrance comes as a 2 ml sample, or choose four in a discovery set. The set's price comes off your first bottle.",
+      "home": true
+    },
+    {
+      "topic": "Buying",
+      "q": "How long does delivery take?",
+      "a": "Two to three working days, free from £60. Engraved bottles take two days more.",
+      "home": true
+    },
+    {
+      "topic": "Buying",
+      "q": "Can I return it?",
+      "a": "Within 14 days, unopened. Engraved bottles only if they arrive damaged.",
+      "home": true
+    },
+    {
+      "topic": "Gifts",
+      "q": "Can you write a card?",
+      "a": "Yes, by hand. Tell us the words on the gifts page."
+    },
+    {
+      "topic": "The boutique",
+      "q": "Can I just come in and smell them?",
+      "a": "Of course. Every fragrance is out to try, with blotters and coffee beans."
+    }
+  ],
+  "pageLinks": [
+    {
+      "page": "scent-finder",
+      "image": "img/scents/pluie.webp",
+      "kicker": "Scent finder",
+      "title": "Choose what you love",
+      "cta": "Find yours"
+    },
+    {
+      "page": "discovery-sets",
+      "image": "img/scents/poudre.webp",
+      "kicker": "Discovery set",
+      "title": "Four samples, your choice",
+      "cta": "Choose four"
+    },
+    {
+      "page": "layering",
+      "image": "img/scents/ombre.webp",
+      "kicker": "Layering",
+      "title": "Two at once",
+      "cta": "How to layer"
+    }
+  ],
+  "pages": [
+    {
+      "slug": "layering",
+      "title": "Layering",
+      "description": "Which Verrière fragrances wear well together, and how to put them on.",
+      "intro": "Two of ours, one over the other. Start with the quieter one.",
+      "blocks": [
+        {
+          "type": "text",
+          "heading": "Sable over Lin",
+          "body": "Lin first, on the wrists. Sable once, at the neck. The salt of Sable sits on the clean musk of Lin like warm skin after a swim."
+        },
+        {
+          "type": "text",
+          "heading": "Poudre under Ombre",
+          "body": "For the evening. Poudre first, then Ombre on clothes rather than skin, so the rose and smoke stay apart until later."
+        },
+        {
+          "type": "text",
+          "heading": "How much",
+          "body": "One spray of each. Try the samples together before you buy a second bottle."
+        }
+      ]
+    }
+  ],
+  "seasons": [
+    {
+      "name": "Christmas",
+      "from": "2026-11-30",
+      "to": "2027-01-03",
+      "tint": "festive",
+      "banner": "Engraved gifts posted until 18 December. Closed 25 and 26 December.",
+      "link": {
+        "label": "Gifts",
+        "href": "/gifts"
+      }
+    }
+  ]
+}
