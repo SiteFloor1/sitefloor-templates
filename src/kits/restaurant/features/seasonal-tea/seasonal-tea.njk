@@ -12,7 +12,7 @@
       <h3>{{ s.name }}</h3>
       <p class="st-when">{{ s.from | dayMonth }} to {{ s.to | dayMonth }} · {{ s.price | gbp }} a guest</p>
       <p>{{ s.text }}</p>
-      <a class="st-ask" href="{{ ('Good afternoon, I would like to book ' + s.name + '.') | wa }}" target="_blank" rel="noopener">Ask for a table</a>
+      <a class="st-ask" href="{{ ('Hello, I would like to book ' + s.name + '.') | wa }}" target="_blank" rel="noopener">Ask for a table</a>
     </li>
     {%- endfor %}
   </ul>

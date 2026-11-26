@@ -1,0 +1,20 @@
+{#- Venues (EVT-6): the rooms the agency works in, as they list them, grouped by area: kind, seated and standing as the
+    venue gives them, a line, and "partner" only where the agency has said so. -#}
+{%- set V = site.venues %}
+<section class="ev-venues"><div class="wrap">
+  {%- set ph = { title: V.title, intro: V.intro } %}{% include "kits/events/partials/page-head.njk" %}
+  {%- for g in V.items | evVenueAreas %}
+  <div class="ev-ven-area">
+    <h2>{{ g.area }}</h2>
+    <ul>
+      {%- for v in g.items %}
+      <li><span class="ev-ven-n">{% if v.url %}<a href="{{ v.url }}" rel="noopener" target="_blank">{{ v.name }}</a>{% else %}{{ v.name }}{% endif %}{% if v.partner %} <i>Partner venue</i>{% endif %}</span>
+        <span class="ev-ven-k">{{ v.kind }}</span>
+        <span class="ev-ven-c">{% if v.seated %}{{ v.seated }} seated{% endif %}{% if v.seated and v.standing %} · {% endif %}{% if v.standing %}{{ v.standing }} standing{% endif %}</span>
+        {%- if v.line %}<span class="ev-ven-l">{{ v.line }}</span>{% endif %}</li>
+      {%- endfor %}
+    </ul>
+  </div>
+  {%- endfor %}
+  <p class="ev-ven-note">{{ V.note or "Capacities are the venues' own; each venue's licence and rules decide on the night." }}</p>
+</div></section>

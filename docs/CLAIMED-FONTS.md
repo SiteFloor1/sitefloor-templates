@@ -64,6 +64,7 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 | Isolde, the cover (round 4) | trade/bridal-beauty | Libre Bodoni | Faustina |
 | Cleaning, Plan (A) | trade/cleaning | Anek Latin | Anek Latin |
 | Verge (driving) | trade/driving | Lexend | Lexend |
+| Maudry, The doors | trade/events | Eczar | Eczar |
 | Thursby, The statement (light) | trade/financial-advisers | Frank Ruhl Libre | Frank Ruhl Libre |
 | Fragrance, Verrière (B, round 3) | trade/fragrance | Hina Mincho | SUSE |
 | Garage, Elsden (the gallery) | trade/garage | Cardo | Radio Canada |
