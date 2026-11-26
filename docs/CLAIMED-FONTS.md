@@ -72,9 +72,7 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 | Halvern, The stair (A) | trade/letting | Petrona | Petrona |
 | Taroub | trade/modest | Shippori Mincho | Afacad |
 | Trainer, Linen (A) | trade/trainer | Ibarra Real Nova | Ibarra Real Nova |
-| Sevrell, Turndown (A, round 1) | trade/residences | Imbue | Inria Sans |
-| Sevrell, Blue hour (B, round 1) | trade/residences | Chivo | Chivo |
-| Sevrell, The light (C, round 1) | trade/residences | Piazzolla | Piazzolla |
+| Sevrell, Turndown | trade/residences | Imbue | Inria Sans |
 | Fendle, Spun (B, round 1, revised) | trade/stalls | Gabarito | Labrada |
 | Tailor, Flannel (A) | trade/tailor | Della Respira | Commissioner |
 | Larrow, Logbook look | trade/tourism | Familjen Grotesk | Familjen Grotesk |
