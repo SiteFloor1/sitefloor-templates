@@ -671,6 +671,15 @@ Fallback font size-matched against Liberation Serif: Eczar 400 108.1% (ascent 10
 The client fixture (Signature, sheet sources): JS 10.9 KB gz, CSS 8.8 KB gz. `npm run budget` passes for both.
 To check on the first CI run: phone layout shift and accessibility (the all-sites end-to-end tests) and Lighthouse.
 
+### 26 Nov 2026 — audit B: Lighthouse and layout shift (auditor's runs, Maudry home)
+
+Lighthouse, phone (three runs): performance 99 / 97 / 97, accessibility 100, best practices 100; FCP 1.0–1.2 s, LCP
+2.1–2.6 s, CLS 0.003, TBT up to 40 ms. Desktop: 100 / 100 / 100, LCP 0.6 s, CLS 0. (SEO 69 is the demo's noindex.)
+Layout shift fixes after that audit: the room photos take their height from their width and height attributes again; a
+page title on a wide screen keeps room for two lines, so a different wrap once Eczar arrives moves nothing below it; the
+Eczar fallback is size-matched separately for 500 (the serif's regular) and 600 (its bold). Every page of the demo and
+the client fixture at 360, 1280 and 1440, CPU 4× slower and a slow network: CLS under 0.01, no sideways scroll.
+
 ## Financial advisers
 _From `docs/trades/financial-advisers/speed.md`._
 

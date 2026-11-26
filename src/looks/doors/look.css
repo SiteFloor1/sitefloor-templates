@@ -104,7 +104,7 @@ main > section + section, .questions, .visit, .reviews { border-top: 1px solid v
 .ev-room:nth-child(4n+3) { grid-column: 2 / span 5; }
 .ev-room:nth-child(4n+4) { grid-column: 7 / span 6; margin-top: 120px; }
 .ev-room[hidden] { display: none; }
-.ev-room-img { display: block; width: 100%; height: auto; aspect-ratio: auto; background: var(--surface); }
+.ev-room-img { display: block; width: 100%; height: auto; background: var(--surface); } /* height from its width and height attributes, so the words below never move when it loads */
 .ev-room-txt { display: grid; gap: 4px; justify-items: start; }
 .ev-room-name { margin: 0; font-size: 28px; line-height: 1.15; }
 .ev-room-facts { margin: 0; color: var(--muted); font-size: 15.5px; }
@@ -137,7 +137,7 @@ main > section + section, .questions, .visit, .reviews { border-top: 1px solid v
 
 /* ---------------------------------------------------------------- portfolio, occasions */
 .ev-port-f { display: flex; flex-wrap: wrap; gap: 20px 40px; align-items: end; margin: 0 0 18px; }
-.ev-port-occ { display: flex; gap: 22px; margin: 0; padding: 0; border: 0; }
+.ev-port-occ { display: flex; flex-wrap: wrap; gap: 0 22px; min-width: 0; max-width: 100%; margin: 0; padding: 0; border: 0; }
 .ev-port-occ legend { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
 .ev-port-occ label { position: relative; display: inline-flex; align-items: center; min-height: 44px; color: var(--muted); font-weight: 500; cursor: pointer; border-bottom: 2px solid transparent; }
 .ev-port-occ input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
@@ -301,7 +301,9 @@ main > section + section, .questions, .visit, .reviews { border-top: 1px solid v
   .ev-run-list li { grid-template-columns: 1fr; gap: 6px; }
   .ev-run-list time { font-size: 34px; }
   .ev-ven-area, .ev-ven-area li { grid-template-columns: 1fr; gap: 6px; }
-  .ev-plan-sheet { padding: 12px; overflow-x: auto; }
+  .ev-plan-sheet { padding: 12px; }
+  .ev-plan-scroll { overflow-x: auto; }
+  .ev-plan-scroll:focus-visible { outline: 2px solid var(--muted); outline-offset: 2px; }
   .ev-plan-svg { min-width: 640px; }
   .ev-rule output { font-size: 44px; }
   .ev-send { flex-wrap: wrap; }
@@ -325,3 +327,6 @@ main > section + section, .questions, .visit, .reviews { border-top: 1px solid v
 .dr-direct:hover { color: var(--text); }
 @media (max-width: 1100px) { .dr-direct { display: none; } }
 @media (max-width: 760px) { .dr-bar a.dr-bar-direct { flex: 0 0 auto; padding-inline: 22px; box-shadow: inset 1px 0 0 var(--band-line); font-size: 16px; } }
+/* A page title near the end of its line can wrap differently once Eczar arrives; on wide screens it keeps room for two
+   lines and sits at the foot of it, so nothing below it moves when the font swaps in. */
+@media (min-width: 761px) { .ev-ph-t { display: flex; flex-direction: column; justify-content: flex-end; min-height: 1.9em; } }

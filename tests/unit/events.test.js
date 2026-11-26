@@ -105,6 +105,11 @@ test("proposal codes: cleaned, unknown codes and odd rows refused, stale rows re
   assert.deepEqual(proposalFromCsv(csv, "ODDROW1", ["green-hall"], ["hall"], "2026-11-18", 21), { ok: false, reason: "unreadable" });
   assert.deepEqual(proposalFromCsv(csv, "MAUDRY24", ["green-hall"], ["hall"], "2026-12-30", 21), { ok: false, reason: "stale" });
   assert.deepEqual(proposalFromCsv(csv + "maudry-24,green-hall,hall,40,long,2027-04-03,2026-11-12\n", "MAUDRY24", ["green-hall"], ["hall"], "2026-11-18", 21), { ok: false, reason: "unreadable" });
+  // nothing beyond the known columns: a name added to the sheet would be public
+  assert.deepEqual(proposalFromCsv("code,visuals,room,guests,layout,date,updated,name\nKESTLE01,green-hall,hall,40,long,2027-03-13,2026-11-10,Amy Smith\n", "KESTLE01", ["green-hall"], ["hall"], "2026-11-18", 21), { ok: false, reason: "unreadable" });
+  assert.deepEqual(proposalFromCsv("code,visuals,room,guests,layout,date,updated\nKESTLE01,green-hall,hall,40,long,2027-03-13,2026-11-10,Amy Smith\n", "KESTLE01", ["green-hall"], ["hall"], "2026-11-18", 21), { ok: false, reason: "unreadable" });
+  assert.equal(proposalFromCsv("code,visuals,room,guests,layout,date,updated,notes\nKESTLE01,green-hall,hall,40,long,2027-03-13,2026-11-10,\n", "KESTLE01", ["green-hall"], ["hall"], "2026-11-18", 21).ok, true);
+  assert.deepEqual(proposalFromCsv("code,visuals,room,guests,layout,date,updated\nKESTLE01,green-hall,hall,about 40,long,2027-03-13,2026-11-10\n", "KESTLE01", ["green-hall"], ["hall"], "2026-11-18", 21), { ok: false, reason: "unreadable" });
   const noGuests = proposalFromCsv("code,visuals,room,guests,layout,date,updated\nKESTLE01,green-hall,hall,,long,13/03/2027,10/11/2026\n", "KESTLE01", ["green-hall"], ["hall"], "2026-11-18", 21);
   assert.ok(noGuests.ok && noGuests.guests === 0 && noGuests.date === "2027-03-13");
 });

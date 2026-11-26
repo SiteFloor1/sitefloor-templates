@@ -221,6 +221,9 @@ export function cleanCode(raw) {
   return /^[A-Z0-9]{6,12}$/.test(c) ? c : "";
 }
 
+/** The only columns a proposal sheet may fill. */
+export const PROPOSAL_COLUMNS = ["code", "visuals", "date", "updated", "room", "layout", "guests"];
+
 /**
  * The agency's proposals sheet, published as CSV: `code, visuals, room, guests, layout, date, updated`. Nothing
  * personal by design: a code is not a password. Fails closed on an unknown code, a visual set or room the site doesn't
@@ -233,6 +236,10 @@ export function proposalFromCsv(csv, code, sets, rooms, today, staleAfterDays) {
   const head = rows[0].map((h) => h.trim().toLowerCase());
   const at = (/** @type {string} */ k) => head.indexOf(k);
   if (["code", "visuals", "date", "updated"].some((k) => at(k) < 0)) return { ok: false, reason: "unreadable" };
+  // The published sheet can be read by anyone holding its link, so it may hold nothing beyond these columns (no names,
+  // no notes): any filled cell in another column refuses the whole sheet.
+  const extra = head.map((h, i) => (PROPOSAL_COLUMNS.includes(h) ? -1 : i)).filter((i) => i >= 0);
+  if (rows.slice(1).some((r) => r.slice(head.length).some((c) => String(c ?? "").trim()) || extra.some((i) => String(r[i] ?? "").trim()))) return { ok: false, reason: "unreadable" };
   const matches = rows.slice(1).filter((r) => cleanCode(r[at("code")]) === code);
   if (matches.length > 1) return { ok: false, reason: "unreadable" }; // one code, one proposal: never guess which row
   const row = matches[0];
@@ -245,8 +252,9 @@ export function proposalFromCsv(csv, code, sets, rooms, today, staleAfterDays) {
   const age = daysTo(updated, today);
   if (age < 0) return { ok: false, reason: "unreadable" };
   if (age > staleAfterDays) return { ok: false, reason: "stale" };
-  const g = Number(cell("guests"));
-  return { ok: true, visuals, room: room || null, layout, date, updated, guests: Number.isInteger(g) && g > 0 && g <= 2000 ? g : 0 };
+  const gText = cell("guests"), g = Number(gText);
+  if (gText && !(Number.isInteger(g) && g > 0 && g <= 2000)) return { ok: false, reason: "unreadable" };
+  return { ok: true, visuals, room: room || null, layout, date, updated, guests: gText ? g : 0 };
 }
 
 /** Rooms from the portfolio that suit a number of guests: from two thirds to half as many again, closest first. @param {any[]} rooms @param {number} guests @param {string} [occasion] */

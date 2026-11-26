@@ -10,7 +10,7 @@
     <div class="ev-plan-lay" role="group" aria-label="Layout">{% for l in evLayouts %}<button type="button" data-rp-layout="{{ l.id }}" aria-pressed="{{ 'true' if l.id == D.start.layout else 'false' }}">{{ l.label }}</button>{% endfor %}</div>
   </form>
   <figure class="ev-plan-sheet">
-    <svg class="ev-plan-svg" data-rp-svg viewBox="{{ D.box }}" role="img" aria-labelledby="rp-words">{{ D.svg | safe }}</svg>
+    <div class="ev-plan-scroll" tabindex="0" role="region" aria-label="The plan, to scale (scrolls sideways on a phone)"><svg class="ev-plan-svg" data-rp-svg viewBox="{{ D.box }}" role="img" aria-labelledby="rp-words">{{ D.svg | safe }}</svg></div>
     <figcaption><span id="rp-words" data-rp-words>{{ D.words }}</span> <span class="ev-plan-g">A guide: the venue's own capacity and rules decide.</span>{% if D.room.note %} <span data-rp-note>{{ D.room.note }}</span>{% endif %}</figcaption>
   </figure>
 </div></section>
