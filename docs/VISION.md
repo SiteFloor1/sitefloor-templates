@@ -35,7 +35,7 @@ misses the brief, however tidy it is. Full history and notes: sitefloor-internal
 | Pop-up shop | Veuve Clicquot, Clive Christian, Oribe |  |
 | Wedding stalls (food, drink, entertainment) | Quirky Group, Slush Candy Pop, Raffles, La Gelatiera |  |
 | Property rentals | Sorteria(?), Raffles, The Chancery Rosewood | Luxury residences, hotel-grade: not a high-street letting agent. 3D (e.g. the building with available homes lit) is welcome as an illustration. |
-| Holiday-let / Airbnb management | Airbnb, Maison Freya, Malo, GuestReady |  |
+| Holiday-let / Airbnb management | Frank Porter, The Plum Guide, Le Collectionist, onefinestay | True luxury: art-directed interiors and views, concierge-level calm, owners treated as private clients. |
 | Wealth management | UBS, Goldman Sachs, J.P. Morgan, Rothschild & Co | FCA financial-promotion rules apply. |
 | Financial advisers | Schroders, Coutts | FCA financial-promotion rules apply. |
 | Tourism | Scott Dunn, Audley Travel |  |

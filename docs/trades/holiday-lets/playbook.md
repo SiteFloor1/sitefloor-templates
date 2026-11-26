@@ -6,7 +6,7 @@
 cleaning and linen, upkeep, payouts. Two audiences: **owners first** (the paying customer: "what will it earn, what do
 you do, what does it cost?") and **guests** (booking a stay). Questions: [questions.md](questions.md).
 
-**References (VISION):** Airbnb, Maison Freya (the owner will confirm which business), GuestReady. "Malo" is left out because it could not be confirmed.
+**References (VISION):** Frank Porter (owner-first, fees shown upfront), The Plum Guide (every home tested before it is listed), Le Collectionist (villas with concierge), onefinestay (hotel-grade service in private homes). True luxury: art-directed interiors and views, concierge-level calm, owners treated as private clients.
 
 ### Features (approved 26 Nov 2026, VISION row `HOL`)
 
@@ -59,4 +59,5 @@ the south Cornish coast. Sample fee 20% of what guests pay, VAT included, labell
 - Round 1: three directions. The owner chose **A, The estimate**, with the changeover (HOL-5) drawn in A's look and the
   sample statement (HOL-8) on the For owners page, also in A's look.
 - Round 2: the estimate stays first, but the figure is part of the composition, not a giant number over the photograph.
+- Round 3: the same composition taken to the new references: photographs of views framed by the home, quieter type and controls, owners spoken to as private clients.
 Screens and comparison: sitefloor-internal, branch `design/holiday-lets`.
