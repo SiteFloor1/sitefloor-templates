@@ -39,10 +39,12 @@ export function init(root, ctx) {
     const room = /** @type {HTMLAnchorElement|null} */ (q("[data-pr-room]"));
     if (room) {
       room.hidden = !r.room;
-      if (r.room) room.href = `${room.href.split("#")[0]}#${new URLSearchParams({ room: r.room, guests: String(r.guests || 100), layout: r.layout })}`;
+      if (r.room) room.href = `${room.href.split("#")[0]}#${new URLSearchParams({ room: r.room, ...(r.guests ? { guests: String(r.guests) } : {}), layout: r.layout })}`;
     }
     set("[data-pr-upd]", `Updated ${dayMonth(r.updated)}.`);
   };
+  // a message left from a mistyped code must not block the next try
+  input.addEventListener("input", () => input.setCustomValidity(""));
   form.addEventListener("submit", (e) => { e.preventDefault(); open(input.value); });
   q("[data-pr-try]")?.addEventListener("click", () => open(data.proposal.example ?? ""));
   if (location.hash.length > 1) open(decodeURIComponent(location.hash.slice(1)));

@@ -23,6 +23,15 @@ test("the first screen shows the next free Saturday, and the date check answers 
   await srv.close();
 });
 
+test("the brief leaves out the occasion and venue until they're chosen", async ({ page }) => {
+  const srv = await start(demo);
+  await page.goto(srv.base + "/start.html");
+  const text = await waText(page.locator("[data-eb-wa]"));
+  expect(text).toContain("we're planning an event.");
+  expect(text).not.toContain("Venue");
+  await srv.close();
+});
+
 test("the brief carries the date checked on the same page and only what was chosen", async ({ page }) => {
   const srv = await start(demo);
   await page.goto(srv.base + "/start.html");
@@ -35,6 +44,7 @@ test("the brief carries the date checked on the same page and only what was chos
   expect(text).toContain("Date: Saturday 20 March 2027");
   expect(text).toContain("Guests: about 80");
   expect(text).not.toContain("Budget");
+  expect(text).not.toContain("Venue");
   await expect(page.locator("[data-ek-list] li").first()).toBeVisible();
   await srv.close();
 });
@@ -89,9 +99,13 @@ test("a client's proposal comes from their sheet; an unknown code says so; the c
   await page.fill("[data-pr-code]", "nothere1");
   await page.locator("[data-pr-form] button[type=submit]").click();
   await expect(page.locator("[data-pr-off]")).toBeVisible();
+  await page.fill("[data-pr-code]", "abc");
+  await page.locator("[data-pr-form] button[type=submit]").click();
+  await expect(page.locator("[data-pr-out]")).toBeHidden();
   await page.fill("[data-pr-code]", "corrin-01");
   await page.locator("[data-pr-form] button[type=submit]").click();
   await expect(page.locator("[data-pr-out]")).toBeVisible();
   await expect(page.locator("[data-pr-meta]")).toContainText("Saturday 15 May 2027 · 40 guests · long tables");
+  expect(await page.locator("[data-pr-room]").getAttribute("href")).toMatch(/#room=hall&guests=40&layout=long$/);
   await srv.close();
 });

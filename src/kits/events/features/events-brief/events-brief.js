@@ -20,8 +20,8 @@ export function init(root, ctx) {
   const draw = () => {
     const g = Number.parseInt(field("guests")?.value ?? "", 10);
     const b = {
-      type: field("type")?.value, date: field("date")?.value || undefined, flexible: field("flexible")?.checked,
-      guests: Number.isInteger(g) ? g : undefined, budget: field("budget")?.value || undefined, venue: field("venue")?.value,
+      type: field("type")?.value || undefined, date: field("date")?.value || undefined, flexible: field("flexible")?.checked,
+      guests: Number.isInteger(g) ? g : undefined, budget: field("budget")?.value || undefined, venue: field("venue")?.value || undefined,
       name: field("name")?.value, note: field("note")?.value,
     };
     const text = briefMessage(data.name, b);

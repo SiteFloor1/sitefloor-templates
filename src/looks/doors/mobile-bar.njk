@@ -1,5 +1,6 @@
-{#- The doors bar, phones only: one full-width bar in the deep green, "Begin a brief" (or Message us without the brief). -#}
+{#- The doors bar, phones only: a full-width bar in the deep green, "Begin a brief" with WhatsApp (or the booking link)
+    beside it after a hairline; without the brief, the one booking link. -#}
 <nav class="mbar dr-bar" aria-label="Contact us">
-  {%- if "events-brief" | enabled %}<a href="{{ 'start' | href }}">Begin a brief</a>
+  {%- if "events-brief" | enabled %}<a href="{{ 'start' | href }}">Begin a brief</a><a class="dr-bar-direct" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{{ "WhatsApp" if build.booking.whatsapp else build.booking.label }}</a>
   {%- else %}<a href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{{ "Message us on WhatsApp" if build.booking.whatsapp else build.booking.label }}</a>{% endif %}
 </nav>

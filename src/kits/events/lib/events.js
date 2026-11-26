@@ -48,10 +48,14 @@ export function datesFromCsv(csv, today, staleAfterDays) {
   /** @type {Record<string, "held"|"booked">} */ const taken = {};
   let updated = "";
   for (const r of rows.slice(1)) {
-    const u = (r[at("updated")] ?? "").trim();
-    if (realDate(u) && u > updated) updated = u;
-    const d = (r[at("date")] ?? "").trim(), s = (r[at("status")] ?? "").trim().toLowerCase();
-    if (!realDate(d)) continue;
+    if (r.every((c) => !String(c ?? "").trim())) continue;
+    const uText = (r[at("updated")] ?? "").trim();
+    const u = sheetDay(uText);
+    if (uText && !u) return { ok: false, reason: "unreadable" };
+    if (u > updated) updated = u;
+    const d = sheetDay(r[at("date")] ?? ""), s = (r[at("status")] ?? "").trim().toLowerCase();
+    // A row we can't read is never taken as free: the whole sheet is refused and the visitor is asked to message.
+    if (!d || !STATUSES.includes(s)) return { ok: false, reason: "unreadable" };
     if (s === "held" || s === "booked") taken[d] = s === "booked" || taken[d] === "booked" ? "booked" : "held";
   }
   if (!updated) return { ok: false, reason: "unreadable" };
@@ -59,6 +63,23 @@ export function datesFromCsv(csv, today, staleAfterDays) {
   if (age < 0) return { ok: false, reason: "unreadable" };
   if (age > staleAfterDays) return { ok: false, reason: "stale" };
   return { ok: true, taken, updated };
+}
+/** The statuses a dates sheet may use. */
+export const STATUSES = ["held", "booked", "free"];
+
+/**
+ * A day as a sheet writes it: 2027-06-12, or the UK form 12/06/2027 (Google Sheets' default for a UK sheet), with or
+ * without a time after it. "" when it isn't a real day.
+ * @param {string} text
+ */
+export function sheetDay(text) {
+  const s = String(text).trim();
+  let m = /^(\d{4})-(\d{2})-(\d{2})(?:[ T][\d:.]+Z?)?$/.exec(s);
+  if (m) return realDate(`${m[1]}-${m[2]}-${m[3]}`) ? `${m[1]}-${m[2]}-${m[3]}` : "";
+  m = /^(\d{1,2})\/(\d{1,2})\/(\d{4})(?: [\d:]+)?$/.exec(s);
+  if (!m) return "";
+  const ymd = `${m[3]}-${m[2].padStart(2, "0")}-${m[1].padStart(2, "0")}`;
+  return realDate(ymd) ? ymd : "";
 }
 
 /** @param {Record<string, string>} taken @param {string} ymd @returns {"free"|"held"|"booked"} */
@@ -212,10 +233,12 @@ export function proposalFromCsv(csv, code, sets, rooms, today, staleAfterDays) {
   const head = rows[0].map((h) => h.trim().toLowerCase());
   const at = (/** @type {string} */ k) => head.indexOf(k);
   if (["code", "visuals", "date", "updated"].some((k) => at(k) < 0)) return { ok: false, reason: "unreadable" };
-  const row = rows.slice(1).find((r) => cleanCode(r[at("code")]) === code);
+  const matches = rows.slice(1).filter((r) => cleanCode(r[at("code")]) === code);
+  if (matches.length > 1) return { ok: false, reason: "unreadable" }; // one code, one proposal: never guess which row
+  const row = matches[0];
   if (!row) return { ok: false, reason: "unknown" };
   const cell = (/** @type {string} */ k) => (at(k) >= 0 ? (row[at(k)] ?? "").trim() : "");
-  const visuals = cell("visuals"), date = cell("date"), updated = cell("updated"), room = cell("room"), layout = cell("layout") || "long";
+  const visuals = cell("visuals"), date = sheetDay(cell("date")), updated = sheetDay(cell("updated")), room = cell("room"), layout = cell("layout") || "long";
   if (!sets.includes(visuals) || !realDate(date) || !realDate(updated)) return { ok: false, reason: "unreadable" };
   if (room && !rooms.includes(room)) return { ok: false, reason: "unreadable" };
   if (!(layout in LAYOUTS)) return { ok: false, reason: "unreadable" };

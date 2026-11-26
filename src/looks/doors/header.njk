@@ -11,6 +11,8 @@
     {%- if "events-occasions" | enabled %}{% for o in site.occasions.items %}{% if o.menu %}<a href="{{ o.id | href }}"{{ "events-occasions" | tierAttr | safe }}{% if o.id == pageId %} aria-current="page"{% endif %}>{{ o.nav or o.title }}</a>{% endif %}{% endfor %}{% endif %}
     {%- for item in items %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>{% endfor %}
   </nav>
+  {%- set bp = site.booking.provider %}
+  <a class="dr-direct" href="{{ site.messages.general | book }}"{% if bp == "whatsapp" %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{{ "WhatsApp" if bp == "whatsapp" else ("Call" if bp == "phone" else "Book") }}</a>
   <a class="dr-enq" href="{{ start }}"{% if not ("events-brief" | enabled) %}{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener"{% endif %}>Enquire</a>
   <button class="burger dr-burger" type="button" aria-expanded="false" aria-controls="mnav">Menu</button>
 </header>

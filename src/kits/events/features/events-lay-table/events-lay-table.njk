@@ -13,7 +13,7 @@
       {%- endfor %}
       <p class="ev-label">A design visual</p>
     </div>
-    <ol class="ev-lay-pick" role="group" aria-label="Dressings">
+    <ol class="ev-lay-pick" aria-label="Dressings">
       {%- for d in D %}
       <li><button type="button" data-el-show="{{ loop.index0 }}" aria-pressed="{{ 'true' if loop.last else 'false' }}"><span class="ev-lay-n">{{ loop.index }}</span><b>{{ d.label }}</b><span>{{ d.line }}</span></button></li>
       {%- endfor %}

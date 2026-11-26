@@ -8,7 +8,7 @@
   <div class="ev-brief-grid">
   <form class="ev-form" data-eb-form novalidate>
     <label class="ev-f"><span>Occasion</span>
-      <select name="type" data-eb="type">{% for t in B.types %}<option>{{ t }}</option>{% endfor %}</select></label>
+      <select name="type" data-eb="type"><option value="">Choose…</option>{% for t in B.types %}<option>{{ t }}</option>{% endfor %}</select></label>
     <div class="ev-f-row">
       <label class="ev-f"><span>Date</span><input type="date" name="date" data-eb="date"></label>
       <label class="ev-f ev-f-tick"><input type="checkbox" name="flexible" data-eb="flexible"> <span>We could move it</span></label>
@@ -18,7 +18,7 @@
     {%- if B.budgets %}<label class="ev-f"><span>Budget</span>
       <select name="budget" data-eb="budget"><option value="">Rather not say</option>{% for b in B.budgets %}<option>{{ b }}</option>{% endfor %}</select></label>{% endif %}
     <label class="ev-f"><span>Venue</span>
-      <select name="venue" data-eb="venue">{% for v in (B.venueChoices or ["We have a venue", "We're still looking", "Help us find one"]) %}<option>{{ v }}</option>{% endfor %}</select></label>
+      <select name="venue" data-eb="venue"><option value="">Choose…</option>{% for v in (B.venueChoices or ["We have a venue", "We're still looking", "Help us find one"]) %}<option>{{ v }}</option>{% endfor %}</select></label>
     <label class="ev-f"><span>Your name</span><input name="name" autocomplete="name" maxlength="80" data-eb="name"></label>
     <label class="ev-f"><span>Anything else</span><textarea name="note" rows="3" maxlength="400" data-eb="note"></textarea></label>
     <p class="ev-send">

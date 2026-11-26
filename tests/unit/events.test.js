@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import {
-  realDate, addDays, weekday, datesFromCsv, statusOf, nextFree, dateWords, briefMessage, keyDates, icsFile,
+  sheetDay, realDate, addDays, weekday, datesFromCsv, statusOf, nextFree, dateWords, briefMessage, keyDates, icsFile,
   drawRoom, roomWords, cleanCode, proposalFromCsv, roomsFor,
 } from "../../src/kits/events/lib/events.js";
 import { HOME_PARTS } from "../../src/kits/events/home.js";
@@ -31,8 +31,8 @@ test("dates: real calendar days only, weekdays in UTC", () => {
   assert.equal(weekday("2026-12-12"), "sat");
 });
 
-test("the dates sheet: held and booked; anything else is free; fails closed when stale or unreadable", () => {
-  const csv = "date,status,updated\n2026-12-12,held,2026-11-16\n2026-12-19,booked,\n2026-12-26,maybe,\n";
+test("the dates sheet: held, booked or free; anything else refuses the sheet; fails closed when stale or unreadable", () => {
+  const csv = "date,status,updated\n2026-12-12,held,2026-11-16\n2026-12-19,booked,\n2026-12-26,free,\n";
   const r = datesFromCsv(csv, "2026-11-18", 7);
   assert.ok(r.ok);
   if (!r.ok) return;
@@ -44,13 +44,28 @@ test("the dates sheet: held and booked; anything else is free; fails closed when
   assert.deepEqual(datesFromCsv(csv, "2026-12-01", 7), { ok: false, reason: "stale" });
   assert.deepEqual(datesFromCsv(csv, "2026-11-10", 7), { ok: false, reason: "unreadable" });
   assert.deepEqual(datesFromCsv("date,status\n2026-12-12,held", "2026-11-18", 7), { ok: false, reason: "unreadable" });
+  // a row it can't read refuses the whole sheet, never reads as free
+  assert.deepEqual(datesFromCsv("date,status,updated\n2027-06-12,Confirmed,2026-11-17\n", "2026-11-18", 7), { ok: false, reason: "unreadable" });
+  assert.deepEqual(datesFromCsv("date,status,updated\n12th June,booked,2026-11-17\n", "2026-11-18", 7), { ok: false, reason: "unreadable" });
+  assert.deepEqual(datesFromCsv("date,status,updated\n2027-06-12,booked,yesterday\n", "2026-11-18", 7), { ok: false, reason: "unreadable" });
+  const uk = datesFromCsv("date,status,updated\n12/06/2027,Booked,17/11/2026 09:30:00\n,,\n19/06/2027,free,\n", "2026-11-18", 7);
+  assert.deepEqual(uk, { ok: true, taken: { "2027-06-12": "booked" }, updated: "2026-11-17" });
   assert.match(dateWords("held", "2026-12-12"), /^Saturday 12 December 2026 is on hold/);
+});
+
+test("sheet days: ISO and UK forms, real days only", () => {
+  assert.equal(sheetDay("2027-06-12"), "2027-06-12");
+  assert.equal(sheetDay("12/06/2027"), "2027-06-12");
+  assert.equal(sheetDay("2/6/2027 14:05:00"), "2027-06-02");
+  assert.equal(sheetDay("31/02/2027"), "");
+  assert.equal(sheetDay("06-12-2027"), "");
 });
 
 test("the brief carries only what was chosen", () => {
   const m = briefMessage("Maudry", { type: "Launch", date: "2027-03-20", flexible: true, guests: 80, budget: "", name: " Sam " });
   assert.equal(m, "Hello Maudry, we're planning a launch.\nDate: Saturday 20 March 2027 (we could move it)\nGuests: about 80\nFrom Sam");
   assert.match(briefMessage("Maudry", { type: "Engagement party" }), /an engagement party\.\nDate: not fixed yet$/);
+  assert.equal(briefMessage("Maudry", {}), "Hello Maudry, we're planning an event.\nDate: not fixed yet");
 });
 
 test("key dates work back from the day and drop those already past; the calendar file escapes and folds", () => {
@@ -89,6 +104,9 @@ test("proposal codes: cleaned, unknown codes and odd rows refused, stale rows re
   assert.deepEqual(proposalFromCsv(csv, "NOTHERE1", ["green-hall"], ["hall"], "2026-11-18", 21), { ok: false, reason: "unknown" });
   assert.deepEqual(proposalFromCsv(csv, "ODDROW1", ["green-hall"], ["hall"], "2026-11-18", 21), { ok: false, reason: "unreadable" });
   assert.deepEqual(proposalFromCsv(csv, "MAUDRY24", ["green-hall"], ["hall"], "2026-12-30", 21), { ok: false, reason: "stale" });
+  assert.deepEqual(proposalFromCsv(csv + "maudry-24,green-hall,hall,40,long,2027-04-03,2026-11-12\n", "MAUDRY24", ["green-hall"], ["hall"], "2026-11-18", 21), { ok: false, reason: "unreadable" });
+  const noGuests = proposalFromCsv("code,visuals,room,guests,layout,date,updated\nKESTLE01,green-hall,hall,,long,13/03/2027,10/11/2026\n", "KESTLE01", ["green-hall"], ["hall"], "2026-11-18", 21);
+  assert.ok(noGuests.ok && noGuests.guests === 0 && noGuests.date === "2027-03-13");
 });
 
 test("rooms for your number: near it, closest first", () => {
@@ -102,4 +120,10 @@ test("settings checks: design visuals can't reuse a room's photo, and venues can
   assert.match(errorsFor((s) => { s.venues.items[0].partner = "yes"; }), /partner/);
   assert.match(errorsFor((s) => { s.layTable.dressings.pop(); }), /layTable/);
   assert.match(errorsFor((s) => { s.rooms.items[0].occasion = "gala"; }), /occasion/);
+});
+
+test("a filled-in client template passes the kit's own checks", () => {
+  const t = JSON.parse(readFileSync("src/kits/events/client-template.json", "utf8"));
+  const errs = validateSite(t, { catalog }).join("\n");
+  assert.doesNotMatch(errs, /unknown setting/);
 });
