@@ -73,6 +73,7 @@ export function checkGarage(site, err, exists) {
   if (site.night !== undefined) checkNight(site.night, err, exists);
   if (site.insurerLetter !== undefined) checkLetter(site, err, exists);
   if (site.aerial !== undefined) checkAerial(site, err, exists);
+  if (site.liveBays !== undefined) checkLiveBays(site, err);
   if (features.includes("garage-aerial") && !features.includes("garage-pick")) err("features", "garage-aerial needs garage-pick (the picker drives the car in)");
 }
 
@@ -222,23 +223,38 @@ function checkSecurity(site, err) {
   });
 }
 
+/** @param {any} site @param {Report} err */
+function checkLiveBays(site, err) {
+  const L = site.liveBays;
+  if (!section(err, "liveBays", L, ["source", "csvUrl", "staleHours"])) return;
+  if (L.source === "simulated") { if (site.mode !== "demo") err("liveBays.source", "simulated free bays are for demos; a client's come from their sheet"); return; }
+  if (L.source !== "sheet") { err("liveBays.source", '"sheet" (the client\'s published Google Sheet)'); return; }
+  if (!/^https:\/\/docs\.google\.com\/spreadsheets\/d\/e\/[\w-]+\/pub\?([\w=&-]*&)?output=csv/.test(L.csvUrl ?? "")) err("liveBays.csvUrl", "the sheet's published CSV link (File → Share → Publish to web → CSV)");
+  if (L.staleHours !== undefined && !isNum(L.staleHours, 1, 168)) err("liveBays.staleHours", "hours after which the list is too old to show as today's, 1 to 168");
+}
+
 /** @param {any} site @param {Report} err @param {Exists} exists */
 function checkAerial(site, err, exists) {
   const a = site.aerial;
-  if (!section(err, "aerial", a, ["day", "night", "dayPhone", "nightPhone", "cars", "frame", "phoneFrame"])) return;
-  for (const k of ["day", "night", "dayPhone", "nightPhone"]) {
-    const p = a[k];
-    if (!isObj(p)) { err(`aerial.${k}`, "{ src, width, height }"); continue; }
-    onlyKeys(p, ["src", "width", "height"], `aerial.${k}`, err);
-    file(err, `aerial.${k}.src`, p.src, exists);
-    if (!Number.isInteger(p.width) || !Number.isInteger(p.height)) err(`aerial.${k}`, "width and height in pixels");
-  }
-  if (!isObj(a.cars)) err("aerial.cars", "{ hatch, estate, suv }: a top-down render of each, 5.6 × 2.6 m, front to the right");
-  else for (const k of ["hatch", "estate", "suv"]) file(err, `aerial.cars.${k}`, a.cars[k], exists);
-  // Where the render's frame sits in hall metres: the desktop render's left edge and top edge, and its width; the
-  // phone render (turned so the gate is at the bottom) its top edge in x and its left edge in y, and its height.
+  if (!section(err, "aerial", a, ["day", "night", "dayPhone", "nightPhone", "empty", "frame", "phoneFrame"])) return;
+  renders(a, a, "aerial.", err, exists);
+  if (!isObj(a.empty)) err("aerial.empty", "the same four renders with every bay empty: { day, night, dayPhone, nightPhone }");
+  else { onlyKeys(a.empty, ["day", "night", "dayPhone", "nightPhone"], "aerial.empty", err); renders(a, a.empty, "aerial.empty.", err, exists); }
   checkFrames(a, err);
   if (!isObj(site.hall)) err("aerial", "needs hall: the render is drawn from the plan");
+}
+
+/** The four renders (day, night, desktop and phone); the empty-hall set must match the full set's sizes.
+ * @param {any} a @param {any} set @param {string} at @param {Report} err @param {Exists} exists */
+function renders(a, set, at, err, exists) {
+  for (const k of ["day", "night", "dayPhone", "nightPhone"]) {
+    const p = set?.[k];
+    if (!isObj(p)) { err(`${at}${k}`, "{ src, width, height }"); continue; }
+    onlyKeys(p, ["src", "width", "height"], `${at}${k}`, err);
+    file(err, `${at}${k}.src`, p.src, exists);
+    if (!Number.isInteger(p.width) || !Number.isInteger(p.height)) err(`${at}${k}`, "width and height in pixels");
+    else if (set !== a && isObj(a[k]) && (p.width !== a[k].width || p.height !== a[k].height)) err(`${at}${k}`, `must be the same size as aerial.${k} (the same hall, every bay empty)`);
+  }
 }
 
 /** Where each render sits in hall metres, and that it has the render's shape. @param {any} a @param {Report} err */
