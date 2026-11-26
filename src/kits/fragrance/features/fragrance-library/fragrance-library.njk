@@ -1,0 +1,14 @@
+{#- The fragrances (FRAG-1): every scent of the house with its photograph, line, notes, sizes, prices and sample.
+    With the fragrances page on, the home page keeps to the first three and opens the page for the rest. -#}
+{%- set sec = site.sections.library %}
+{%- set onPage = "fragrance-pages" | enabled %}
+{%- set L = site.launch if ("fragrance-launch" | enabled) else null %}
+{%- set launchNew = L.scents if (L and (L | launchState).isNew) else [] %}
+<section id="library" class="fr-lib" data-feature="fragrance-library" aria-label="{{ sec.title | plain }}"{{ 'fragrance-library' | tierAttr | safe }}><div class="wrap">
+  {%- include "core/partials/section-head.njk" %}
+  <ul class="fr-lib-list">
+    {%- for x in site.fragrances.items %}{% if not onPage or loop.index <= 3 %}{% set big = false %}{% include "kits/fragrance/partials/scent.njk" %}{% endif %}{% endfor %}
+  </ul>
+  {%- if onPage and site.fragrances.items.length > 3 %}<p class="fr-more"><a href="{{ 'fragrances' | href }}">All {{ site.fragrances.items.length }} fragrances</a></p>{% endif %}
+  {%- if site.fragrances.delivery %}<p class="fr-small">{{ site.fragrances.delivery }}</p>{% endif %}
+</div></section>

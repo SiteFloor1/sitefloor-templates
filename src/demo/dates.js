@@ -52,6 +52,8 @@ export const FORWARD = [
   { kind: "week", paths: ["lightPlanner.date"] },
   { kind: "week", paths: ["vote.closes"] },
   { kind: "week", paths: ["drop.at", "drop.ends"] },
+  // A new fragrance house's launch day (the fragrance kit's launch mode).
+  { kind: "week", paths: ["launch.date"] },
   // A dance school's year: terms, half terms, shows (and when their tickets open) and exams move together.
   { kind: "week", paths: ["year.items[].date", "year.items[].end", "shows.items[].date", "shows.items[].tickets.opens", "exams.items[].date"] },
   // One window: order by and collect from move together, by whole years, until the later of them is ahead.

@@ -1,0 +1,13 @@
+{#- One fragrance in the library: its photograph, name, the house's line, its notes as one sentence, then sizes and
+    buying. `x` is the fragrance; `big` lays it out for the fragrances page. -#}
+{%- set isNew = x.isNew or (launchNew and x.id in launchNew) %}
+<li class="fr-scent{% if big %} fr-scent-big{% endif %}" id="scent-{{ x.id }}">
+  <figure class="fr-scent-p"><img src="{{ x.photo.src | img }}" width="{{ x.photo.width }}" height="{{ x.photo.height }}" alt="{{ x.photo.alt }}" loading="lazy" decoding="async"></figure>
+  <div class="fr-scent-t">
+    <h3 class="fr-scent-n">{{ x.name }}{% if isNew %} <span class="fr-new">New</span>{% endif %}</h3>
+    <p class="fr-scent-l">{{ x.line }}</p>
+    {%- if x.notes %}<p class="fr-scent-notes">{{ x.notes | notesSentence }}</p>{% endif %}
+    {%- if big and x.character %}<p class="fr-scent-c">{{ x.character }}</p>{% endif %}
+    {%- include "kits/fragrance/partials/buy.njk" %}
+  </div>
+</li>

@@ -1,0 +1,10 @@
+{#- Verrière phone bar: two halves. Ask us on WhatsApp on the left; on the left half's partner, Buy for the hero
+    fragrance's middle size (or, before a launch, the waiting list). -#}
+{%- set askText = site.messages.general %}
+{%- set x = site.fragrances | fragranceById(site.hero.fragrance) %}
+{%- set s0 = x | defaultSize %}
+<div class="mbar vr-bar" data-launch-scope>
+  <a class="vr-bar-ask" href="{{ askText | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ askText }}"{% endif %} target="_blank" rel="noopener">Ask us</a>
+  <a class="vr-bar-buy fr-open-only" href="{{ s0.payLink if s0.payLink else (site.fragrances.message | orderText(x, s0, site.business.name) | book) }}" target="_blank" rel="noopener">Buy {{ x.name }}, {{ s0.price | gbp }}</a>
+  {%- if "fragrance-launch" | enabled %}<a class="vr-bar-buy fr-before-only" href="{{ site.launch.message | orderText(x, s0, site.business.name) | book }}" target="_blank" rel="noopener">Tell me on the day</a>{% endif %}
+</div>

@@ -1,0 +1,10 @@
+{#- Verrière footer: one plain line. Where the boutique is and whether it's open on the left, the pages and the
+    credit on the right. -#}
+<footer class="foot vr-foot"><div class="vr-foot-in">
+  <p class="vr-foot-where">{{ site.business.name }}, {{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}. <span data-live-status><span class="dot" aria-hidden="true"></span> <span data-status-text>Opening hours</span></span></p>
+  <nav class="vr-foot-links" aria-label="Footer">
+    {%- for item in site.nav | navItems(pageId) %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}>{{ item.label }}</a>{% endfor %}
+    <a href="{{ 'privacy' | href }}">Privacy</a>
+    <a class="by" href="https://sitefloor.com" rel="noopener">Website by Sitefloor</a>
+  </nav>
+</div></footer>

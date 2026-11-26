@@ -1,0 +1,15 @@
+{#- Notes on the bottle (FRAG-5): the notes as one sentence, each clause set at its height on the bottle (top at the
+    neck, heart at the shoulder, base at the foot), with a fine rule pointing to the glass. Every note is a button:
+    tap one to read which other scents in the house have it. `x` is the fragrance, `m` the bottle's marks on the
+    hero picture. On a phone the clauses stack under the name and still read as one sentence. -#}
+{%- set clauses = x.notes | notesClauses %}
+{%- set ys = { top: m.neck, heart: (m.shoulder + m.base) / 2, base: m.base - 0.02 } %}
+{%- set sides = { top: "r", heart: "l", base: "r" } %}
+<div class="fr-notes" data-feature="fragrance-notes" data-fragrance="{{ x.id }}" aria-label="What it smells of"{{ 'fragrance-notes' | tierAttr | safe }}>
+  {%- for c in clauses %}
+  <p class="fr-clause fr-{{ sides[c.tier] }}" data-tier="{{ c.tier }}" style="--y: {{ ys[c.tier] }}">
+    <span class="fr-rule" aria-hidden="true"></span>
+    <span class="fr-clause-t">{{ c.lead if loop.first else c.lead }} {% for n in c.notes %}<button type="button" class="fr-note" aria-pressed="false" aria-describedby="also-{{ c.tier }}">{{ n }}</button>{% if not loop.last %}{{ " and " if loop.revindex0 == 1 else ", " }}{% endif %}{% endfor %}{{ c.end }}<span class="fr-also" id="also-{{ c.tier }}" aria-live="polite"></span></span>
+  </p>
+  {%- endfor %}
+</div>
