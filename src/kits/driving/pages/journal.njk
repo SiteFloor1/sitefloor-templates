@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: journal
+permalink: journal.html
+feature: driving-journal
+eleventyComputed:
+  title: "{{ site.journal.title | plain }}"
+  description: "The journal of {{ site.business.name }}, {{ site.location.locality }}."
+---
+{% include "kits/driving/features/driving-journal/driving-journal.njk" %}

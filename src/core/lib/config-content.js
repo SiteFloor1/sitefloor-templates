@@ -17,6 +17,7 @@ export const SCHEMA_TYPES = [
   "Dentist",
   "RealEstateAgent",
   "DanceSchool",
+  "DrivingSchool",
 ];
 
 /** @param {any} v */

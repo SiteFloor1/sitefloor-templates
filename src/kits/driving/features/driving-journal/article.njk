@@ -1,0 +1,9 @@
+{#- One journal article: dated, the instructor's paragraphs, gov.uk links where a rule is mentioned. Set `a`. -#}
+{%- set ph = { title: a.title, intro: a.intro, photo: a.photo } %}
+{% include "kits/driving/partials/page-head.njk" %}
+<article class="dv-sec dv-article"><div class="wrap">
+  <p class="dv-src"><time datetime="{{ a.date }}">{{ a.date | ukDate }}</time></p>
+  {%- for para in a.body %}<p>{{ para }}</p>{% endfor %}
+  {%- if a.links %}<ul class="dv-gov">{% for l in a.links %}<li><a href="{{ l.url }}">{{ l.label }}</a></li>{% endfor %}</ul>{% endif %}
+  <p><a class="dv-btn" href="{{ 'journal' | href }}">All articles</a></p>
+</div></article>

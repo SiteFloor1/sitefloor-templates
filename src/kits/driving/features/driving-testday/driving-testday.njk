@@ -1,0 +1,16 @@
+{#- Test day, in order: the five parts of the practical test and what to bring, in gov.uk's terms, linked to gov.uk;
+    then the three gov.uk links every learner needs. -#}
+{%- set t = site.testDay %}{% set td = govuk.testDay %}
+<section class="dv-sec dv-testday" id="test-day" data-feature="driving-testday" aria-labelledby="dt-h"{{ 'driving-testday' | tierAttr | safe }}><div class="wrap">
+  <div class="dv-sh"><h2 id="dt-h">{{ t.title }}</h2>{% if t.intro %}<p>{{ t.intro }}</p>{% endif %}</div>
+  <ol class="dv-steps">
+    {%- for s in td.steps %}<li><b>{{ s.name }}</b><p>{{ s.text }}</p></li>{% endfor %}
+  </ol>
+  <div class="dv-tdfoot">
+    <p><b>Bring:</b> {{ td.bring | join("; ") }}. The test takes {{ td.minutes }}.</p>
+    <p class="dv-src">From <a href="{{ td.source }}">gov.uk, what happens during the test</a>, checked {{ govuk.checked | ukDate }}.</p>
+    <ul class="dv-gov">
+      {%- for k in ["provisional", "theory", "practical"] %}<li><a href="{{ govuk.links[k].url }}">{{ govuk.links[k].label }}</a></li>{% endfor %}
+    </ul>
+  </div>
+</div></section>

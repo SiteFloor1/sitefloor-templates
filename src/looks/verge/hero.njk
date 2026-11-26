@@ -1,0 +1,17 @@
+{#- Verge hero: the first screen answers. Left, the headline, one line and the links learners ask for, with a clean car
+    on a local street under them. Right, the answer cards that are on: prices, do you cover me, next free lessons,
+    when could I pass. With fewer cards the grid closes up; on a phone the cards become rows that open in place. -#}
+{%- set cards = [] %}{% for id in ["driving-prices", "driving-areas", "driving-slots", "driving-pass"] %}{% if id | enabled %}{% set cards = cards.concat([id]) %}{% endif %}{% endfor %}
+<section class="vg-hero" aria-labelledby="vg-h"><div class="wrap vg-hero-in n{{ cards.length }}">
+  <div class="vg-intro">
+    <h1 id="vg-h">{{ site.hero.title | replace("|", " ") }}</h1>
+    {%- if site.hero.intro %}<p class="vg-sub">{{ site.hero.intro }}</p>{% endif %}
+    {%- set links = [] %}{% for l in site.hero.links or [] %}{% if not l.feature or (l.feature | enabled) %}{% set links = links.concat([l]) %}{% endif %}{% endfor %}
+    {%- if links.length %}<ul class="vg-links-list">{% for l in links %}<li><a href="{{ l.href if l.href else (l.page | href) }}"{{ l.feature | tierAttr | safe }}>{{ l.label }}</a></li>{% endfor %}</ul>{% endif %}
+    {%- set p = site.hero.photo %}
+    <figure class="vg-photo"><img src="{{ p.src | img }}" alt="{{ p.alt }}" width="{{ p.width }}" height="{{ p.height }}"{% if p.focus %} style="object-position:{{ p.focus }}"{% endif %} fetchpriority="high" decoding="async">{% if p.credit %}<figcaption>{{ p.credit }}</figcaption>{% endif %}</figure>
+  </div>
+  <div class="vg-cards">
+    {%- for id in cards %}{% include "kits/driving/features/" + id + "/" + id + ".njk" %}{% endfor %}
+  </div>
+</div></section>

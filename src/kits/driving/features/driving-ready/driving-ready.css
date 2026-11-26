@@ -1,0 +1,16 @@
+/* Ready to Pass?: the five points as white rows with a Yes / Not yet switch; the verdict beside them. */
+.dv-ready-in { display: grid; grid-template-columns: 4fr 7fr; gap: 16px 48px; align-items: start; }
+.dv-verdict { min-height: 3em; margin: 18px 0 8px; font-size: 20px; line-height: 1.35; }
+.dv-checks { list-style: none; counter-reset: dr; display: grid; gap: 8px; padding: 0; margin: 0; }
+.dv-checks li { counter-increment: dr; display: grid; grid-template-columns: 32px 1fr auto; align-items: center; gap: 12px; padding: 14px 18px; border-radius: var(--radius); background: var(--paper); }
+.dv-checks li::before { content: counter(dr); color: var(--accent); font-weight: 500; font-size: 18px; }
+.dv-checks p { margin: 0; font-size: 17px; }
+.dv-checks li[data-a="yes"]::before { content: "✓"; }
+.dv-yn { display: inline-flex; padding: 3px; border-radius: 999px; background: var(--bg); }
+.dv-yn button { height: 32px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; color: var(--muted); font: 400 13px var(--font-body); cursor: pointer; }
+.dv-yn button[aria-pressed="true"] { background: var(--text); color: var(--paper); }
+@media (max-width: 900px) {
+  .dv-ready-in { grid-template-columns: 1fr; }
+  .dv-checks li { grid-template-columns: 26px 1fr; }
+  .dv-yn { grid-column: 2; justify-self: start; }
+}

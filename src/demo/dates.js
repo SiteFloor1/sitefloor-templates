@@ -70,6 +70,7 @@ export const PAST = [
   "fleet.imported", "hire.driverForm.checkCode.checked", "retreats.items[].placesChecked", "passport.sample[][]",
   "drop.archive[].opens",
   "handbook.updated",
+  "journal.articles[].date", "fees.checked",
 ];
 
 /** Strings that contain a date without being one. */

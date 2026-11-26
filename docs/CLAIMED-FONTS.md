@@ -63,6 +63,7 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 | Skin, Clémence (round 6) | trade/beauty | Antic Didone | Baskervville |
 | Isolde, the cover (round 4) | trade/bridal-beauty | Libre Bodoni | Faustina |
 | Cleaning, Plan (A) | trade/cleaning | Anek Latin | Anek Latin |
+| Verge (driving) | trade/driving | Lexend | Lexend |
 | Thursby, The statement (light) | trade/financial-advisers | Frank Ruhl Libre | Frank Ruhl Libre |
 | Garage, Elsden (the gallery) | trade/garage | Cardo | Radio Canada |
 | Halde, chalk (round 1) | trade/gym | Sofia Sans Extra Condensed | Sofia Sans |
@@ -90,6 +91,7 @@ A case study is a design too: don't reuse these in a new look or another case st
 | Fendle (street-food stalls) | case-studies/fendle | stalls | Gabarito | Labrada | |
 | Fennick & Lowe (tailor) | case-studies/fennick-lowe | tailor | Della Respira | Commissioner | |
 | Grenat (grand café) | case-studies/grenat | grand-cafe | Italiana | EB Garamond | |
+| Halde (gym) | case-studies/halde | gym | Epilogue | Epilogue | |
 | Halvern (letting) | case-studies/halvern | letting | Petrona | Petrona | |
 | Hatheli (mehndi artist) | case-studies/hatheli | mehndi | Rozha One | Source Serif 4 | |
 | Isolde (bridal hair and makeup artist) | case-studies/isolde | bridal-beauty | Libre Bodoni | Faustina | |

@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: instructors
+permalink: instructors.html
+feature: driving-instructors
+eleventyComputed:
+  title: "{{ site.instructors.title | plain }}"
+  description: "The instructors at {{ site.business.name }}, {{ site.location.locality }}."
+---
+{% include "kits/driving/features/driving-instructors/driving-instructors.njk" %}

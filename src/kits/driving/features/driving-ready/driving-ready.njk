@@ -1,0 +1,14 @@
+{#- Ready to Pass? (DRIVE-3): the DVSA's own five points, answered Yes or Not yet, with a verdict in a sentence. The
+    points are printed, so the checklist reads without JavaScript. -#}
+{%- set r = site.ready %}
+<section class="dv-sec dv-ready" id="ready" data-feature="driving-ready" aria-labelledby="dr-h"{{ 'driving-ready' | tierAttr | safe }}><div class="wrap dv-ready-in">
+  <div class="dv-sh"><h2 id="dr-h">{{ r.title }}</h2>{% if r.intro %}<p>{{ r.intro }}</p>{% endif %}
+    <p class="dv-verdict" data-dr-verdict aria-live="polite"></p>
+    <p class="dv-src">The DVSA's own checklist, from <a href="{{ govuk.ready.source }}">gov.uk/ready-to-pass</a>.</p>
+  </div>
+  <ol class="dv-checks">
+    {%- for q in govuk.ready.points %}
+    <li><p>{{ q }}</p><span class="dv-yn" role="group" aria-label="{{ q }}" data-js-only><button type="button" aria-pressed="false" data-dr="yes">Yes</button><button type="button" aria-pressed="false" data-dr="no">Not yet</button></span></li>
+    {%- endfor %}
+  </ol>
+</div></section>
