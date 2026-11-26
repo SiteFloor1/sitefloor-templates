@@ -52,6 +52,7 @@ One file per trade, so trades built in parallel never edit the same lines. A new
 - Grand cafés and tea rooms: [`docs/trades/grand-cafe/questions.md`](trades/grand-cafe/questions.md)
 - Gyms and health clubs: [`docs/trades/gym/questions.md`](trades/gym/questions.md)
 - Hair salons: [`docs/trades/hair/questions.md`](trades/hair/questions.md)
+- Holiday-let and Airbnb management: [`docs/trades/holiday-lets/questions.md`](trades/holiday-lets/questions.md)
 - Fine jewellers: [`docs/trades/jeweller/questions.md`](trades/jeweller/questions.md)
 - Garden designers and landscapers: [`docs/trades/landscaping/questions.md`](trades/landscaping/questions.md)
 - Law firms (private client): [`docs/trades/law/questions.md`](trades/law/questions.md)
