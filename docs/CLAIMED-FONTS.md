@@ -73,8 +73,6 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 | Taroub | trade/modest | Shippori Mincho | Afacad |
 | Trainer, Linen (A) | trade/trainer | Ibarra Real Nova | Ibarra Real Nova |
 | Chalden, The bottle (A, round 1) | trade/pop-up | Bona Nova | Inclusive Sans |
-| Chalden, The cellar (B, round 1) | trade/pop-up | Work Sans | Work Sans |
-| Chalden, The tour (C, round 1) | trade/pop-up | Besley | Atkinson Hyperlegible Next |
 | Fendle, Spun (B, round 1, revised) | trade/stalls | Gabarito | Labrada |
 | Tailor, Flannel (A) | trade/tailor | Della Respira | Commissioner |
 | Larrow, Logbook look | trade/tourism | Familjen Grotesk | Familjen Grotesk |
