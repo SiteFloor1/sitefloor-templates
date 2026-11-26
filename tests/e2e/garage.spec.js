@@ -92,6 +92,23 @@ test("free bays are live: the demo's list says when it was updated, and the bar 
   await featuresStarted(page);
   await expect(page.locator("[data-bays-updated]")).toHaveText(/^Updated \d\d:\d\d$/);
   await expect(page.locator("[data-free-rows] tr")).toHaveCount(5);
+  await expect(page.locator("[data-bays-soon]")).toHaveText(/^Coming free: bay 12 from \d{1,2} \w+ and bay 5 from \d{1,2} \w+\.$/);
+  await srv.close();
+});
+
+test("a let bay the owner expects back: the list says when, and the picker offers it to a car no free bay takes", async ({ page }) => {
+  const srv = await start(client);
+  const fmt = (/** @type {Intl.DateTimeFormatOptions} */ o, /** @type {number} */ ms) => new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/London", ...o }).format(ms).replace(",", "");
+  const now = new Date(OPEN_TIME).getTime(), when = fmt({ year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }, now - 20 * 60_000);
+  const back = fmt({ year: "numeric", month: "2-digit", day: "2-digit" }, now + 10 * 86_400_000), on = new Date(now + 10 * 86_400_000).toLocaleDateString("en-GB", { timeZone: "Europe/London", day: "numeric", month: "long" });
+  await page.route("https://docs.google.com/**", (r) => r.fulfill({ contentType: "text/csv", body: `bay,status,updated_at,free_from\n4,let,${when},\n9,free,${when},\n7,let,${when},\n14,let,${when},${back}\n` }));
+  await page.goto(srv.base + "/");
+  await featuresStarted(page);
+  await expect(page.locator("[data-bays-soon]")).toHaveText(`Coming free: bay 14 from ${on}.`);
+  const card = page.locator(".el-card");
+  await card.getByRole("button", { name: "large SUV" }).click();
+  await expect(card.locator("[data-pick-answer]")).toHaveText(`No free bay takes a large SUV today. Bay 14 fits it and should be free from ${on}: join the waiting list and we’ll message you.`);
+  await expect(card.locator("[data-pick-reserve]")).toHaveText("Join the waiting list");
   await srv.close();
 });
 
@@ -122,6 +139,7 @@ test("a client's free bays come from their sheet: the picker, the plan and the l
   await expect(card.locator("[data-pick-reserve]")).toHaveText("Ask us");
   await expect(page.locator("#plan .is-free")).toHaveCount(0);
   await expect(page.locator("#plan .is-best")).toHaveCount(0);
+  await expect(page.locator("[data-bays-soon]")).toBeEmpty();
   await srv.close();
 });
 
