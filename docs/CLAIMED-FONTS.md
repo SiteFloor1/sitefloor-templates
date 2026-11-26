@@ -62,6 +62,9 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 |---|---|---|---|
 | Skin, Clémence (round 6) | trade/beauty | Antic Didone | Baskervville |
 | Isolde, the cover (round 4) | trade/bridal-beauty | Libre Bodoni | Faustina |
+| Kerrow, A. The reel (round 1) | trade/car-film | Anybody | Anybody |
+| Kerrow, B. The light (round 1) | trade/car-film | Trirong | Sarabun |
+| Kerrow, C. The frame (round 1) | trade/car-film | Wix Madefor Display | Wix Madefor Text |
 | Cleaning, Plan (A) | trade/cleaning | Anek Latin | Anek Latin |
 | Verge (driving) | trade/driving | Lexend | Lexend |
 | Thursby, The statement (light) | trade/financial-advisers | Frank Ruhl Libre | Frank Ruhl Libre |

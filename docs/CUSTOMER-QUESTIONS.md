@@ -37,6 +37,7 @@ One file per trade, so trades built in parallel never edit the same lines. A new
 - Bridal hair and makeup artists: [`docs/trades/bridal-beauty/questions.md`](trades/bridal-beauty/questions.md)
 - Cafés: [`docs/trades/cafe/questions.md`](trades/cafe/questions.md)
 - Celebration cake designers: [`docs/trades/cakes/questions.md`](trades/cakes/questions.md)
+- Car videographers and photographers: [`docs/trades/car-film/questions.md`](trades/car-film/questions.md)
 - Car hire: [`docs/trades/car-hire/questions.md`](trades/car-hire/questions.md)
 - Car studios (tint, wrap, PPF, detailing): [`docs/trades/car-studio/questions.md`](trades/car-studio/questions.md)
 - Domestic and commercial cleaning: [`docs/trades/cleaning/questions.md`](trades/cleaning/questions.md)
