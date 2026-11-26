@@ -185,6 +185,7 @@ button { cursor: pointer; }
 .boards { background: var(--house); color: var(--on-house); padding-top: clamp(56px, 6vw, 96px); padding-bottom: clamp(48px, 5vw, 80px); }
 .line { display: flex; justify-content: safe center; gap: clamp(20px, 3.4vw, 56px); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 0 var(--edge) 8px; margin: 0 calc(-1 * var(--edge)); }
 .line::-webkit-scrollbar { display: none; }
+.line:focus-visible, .scroll-x:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
 .line figure { flex: 0 0 clamp(200px, 17vw, 280px); scroll-snap-align: center; position: relative; padding-bottom: 54px; }
 .line figure::before { content: ""; position: absolute; left: -30%; right: -30%; bottom: 0; height: 120px; background: radial-gradient(ellipse 50% 42% at 50% 60%, rgba(var(--glow), .30), rgba(var(--glow), 0) 72%); z-index: 0; }
 .line figure::after { content: ""; position: absolute; left: 50%; top: -60px; width: 70%; height: calc(100% + 20px); transform: translateX(-50%); background: linear-gradient(rgba(var(--glow), 0), rgba(var(--glow), .06) 60%, rgba(var(--glow), 0)); clip-path: polygon(38% 0, 62% 0, 100% 100%, 0 100%); z-index: 0; pointer-events: none; }
@@ -384,7 +385,7 @@ footer p { max-width: 112ch; }
   </ul>
 </div></section>
 <section class="boards gut" aria-label="Act one on a phone"><div class="wrap">
-  <div class="line">
+  <div class="line" tabindex="0" role="region" aria-label="Act one screens, scroll sideways">
     <figure><div class="phone"><img src="media/ph-index.webp" width="780" height="1688" alt="Wrenna's home page on a phone: ballet, two to eighteen, and the ages to tap" loading="lazy" decoding="async"></div><figcaption><b>The finder</b>Opens on three to four</figcaption></figure>
     <figure><div class="phone"><img src="media/ph-index-56.webp" width="780" height="1688" alt="The finder with five to six tapped: Ballet one, Wednesdays 4.15pm or Saturdays 11.00am, 45 minutes" loading="lazy" decoding="async"></div><figcaption><b>Five to six, tapped</b>Ballet one, two times a week</figcaption></figure>
     <figure><div class="phone"><img src="media/ph-visit.webp" width="780" height="1688" alt="Plan your visit: Linden Hall, Coleby Walk, inside a circle with the journeys from the station set round it" loading="lazy" decoding="async"></div><figcaption><b>Plan your visit</b>The hall, and the way there</figcaption></figure>
@@ -412,7 +413,7 @@ footer p { max-width: 112ch; }
   </ul>
 </div></section>
 <section class="boards gut" aria-label="Act two on a phone"><div class="wrap">
-  <div class="line">
+  <div class="line" tabindex="0" role="region" aria-label="Act two screens, scroll sideways">
     <figure><div class="phone"><img src="media/ph-trial.webp" width="780" height="1688" alt="The trial page: the first class is a trial, with three children seen from behind watching a lit stage" loading="lazy" decoding="async"></div><figcaption><b>The trial</b>Age and day picked, message written</figcaption></figure>
     <figure><div class="phone"><img src="media/ph-timetable.webp" width="780" height="1688" alt="The timetable: the week, day by day, with places left under each class" loading="lazy" decoding="async"></div><figcaption><b>The week</b>Term time only</figcaption></figure>
     <figure><div class="phone"><img src="media/ph-fees.webp" width="780" height="1688" alt="Fees and terms: by the term, no joining fee, each class's price" loading="lazy" decoding="async"></div><figcaption><b>What it costs</b>By the term</figcaption></figure>
@@ -428,7 +429,7 @@ footer p { max-width: 112ch; }
     <p>If nobody has touched it for a week, the site shows no number at all. A parent never sees "2 places left" that went a month ago.</p>
   </div>
   <div>
-    <div class="scroll-x"><table class="grid" aria-label="The school's places sheet, sample rows">
+    <div class="scroll-x" tabindex="0" role="region" aria-label="The places sheet, scroll sideways"><table class="grid" aria-label="The school's places sheet, sample rows">
       <thead><tr><th scope="col">class</th><th scope="col">day</th><th scope="col">time</th><th scope="col">places</th><th scope="col">updated_at</th></tr></thead>
       <tbody data-rows></tbody>
     </table></div>
@@ -492,7 +493,7 @@ footer p { max-width: 112ch; }
   <ol class="runs" data-runs aria-live="polite"></ol>
 </div></section>
 <section class="boards gut" aria-label="Act three on a phone"><div class="wrap">
-  <div class="line">
+  <div class="line" tabindex="0" role="region" aria-label="Act three screens, scroll sideways">
     <figure><div class="phone"><img src="media/ph-shows.webp" width="780" height="1688" alt="Shows: two shows a year, on a real stage, with tutus in the wings" loading="lazy" decoding="async"></div><figcaption><b>Shows</b>Tickets on the school's own page</figcaption></figure>
     <figure><div class="phone"><img src="media/ph-show-day-2.webp" width="780" height="1688" alt="Show day with the code LB-TUE typed: Little ballet's arrival, stage door, costume, hair and collection" loading="lazy" decoding="async"></div><figcaption><b>Show day</b>LB-TUE, typed</figcaption></figure>
     <figure><div class="phone"><img src="media/ph-handbook.webp" width="780" height="1688" alt="The parent handbook: drop-off, photographs, what to bring, illness and safeguarding" loading="lazy" decoding="async"></div><figcaption><b>The handbook</b>Everything for the year</figcaption></figure>
@@ -606,7 +607,7 @@ footer p { max-width: 112ch; }
     if (!code) { call.innerHTML = `<p class="no">Try one of the sample codes.</p>`; return; }
     const row = D.showDay.find((r) => r.code === code);
     call.innerHTML = row ? `<h4>${esc(row.class)}</h4><p class="fine">${esc(D.show.name)} · ${esc(D.show.running)}</p><dl style="margin-top:16px">${LABELS.filter(([k]) => row[k]).map(([k, l]) => `<div><dt>${l}</dt><dd>${esc(row[k])}</dd></div>`).join("")}</dl><p class="fine" style="margin-top:12px">Sample show day, from the Wrenna demo.</p>`
-      : `<p class="no">No up-to-date details for the code ${esc(code)}.</p>`;
+      : `<p class="no">No up-to-date details for the code ${esc(input.value.trim().toUpperCase())}.</p>`;
   };
   form.addEventListener("submit", (e) => { e.preventDefault(); lookup(); });
   form.querySelectorAll("[data-code]").forEach((b) => b.addEventListener("click", () => { input.value = b.dataset.code; lookup(); }));
