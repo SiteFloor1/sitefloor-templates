@@ -117,6 +117,11 @@ test("a client's free bays come from their sheet: the picker, the plan and the l
   await expect(page.locator("[data-bays-updated]")).toHaveText("The free bays can't be confirmed right now. Ask us before you come.");
   await expect(page.locator(".gs-t")).toBeHidden();
   for (const el of await page.locator("[data-free-count]").all()) await expect(el).toHaveText("Ask us first");
+  await card.getByRole("button", { name: "small hatchback" }).click();
+  await expect(card.locator("[data-pick-answer]")).toHaveText("We can’t confirm a free bay right now. Ask us and we’ll check one for your small hatchback.");
+  await expect(card.locator("[data-pick-reserve]")).toHaveText("Ask us");
+  await expect(page.locator("#plan .is-free")).toHaveCount(0);
+  await expect(page.locator("#plan .is-best")).toHaveCount(0);
   await srv.close();
 });
 

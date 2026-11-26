@@ -19,7 +19,7 @@ export function init(root, ctx) {
   const base = root.querySelector("[data-img-base]")?.getAttribute("data-img-base") ?? "";
   const draw = () => {
     const car = CARS[/** @type {keyof typeof CARS} */ (key)], b = pickBay(hall, car);
-    root.querySelectorAll("[data-night-bay]").forEach((el) => { el.textContent = nightBayLine(car, b); });
+    root.querySelectorAll("[data-night-bay]").forEach((el) => { el.textContent = nightBayLine(car, b, hall.unknown); });
     const forLine = root.querySelector("[data-night-for]");
     if (forLine?.firstChild) forLine.firstChild.textContent = `For a ${car.name}. `;
     root.querySelectorAll("[data-night-link]").forEach((a) => { const u = new URL(/** @type {HTMLAnchorElement} */ (a).href); u.searchParams.set("car", key); /** @type {HTMLAnchorElement} */ (a).href = u.href; });

@@ -16,9 +16,9 @@ export function init(root, ctx) {
     const ans = root.querySelector("[data-pick-answer]"), go = /** @type {HTMLAnchorElement|null} */ (root.querySelector("[data-pick-reserve]"));
     const buttons = [...root.querySelectorAll("[data-car]")];
     const say = (/** @type {string} */ key) => {
-      const car = carOf(key), b = pickBay(hall, car), a = answer(car, b, hall.bayDepth);
+      const car = carOf(key), b = pickBay(hall, car), a = answer(car, b, hall.bayDepth, hall.unknown);
       if (ans) ans.textContent = a.text;
-      if (go) { go.href = ctx.bookHref(reserveMessage(d.name, car, b)); go.textContent = b ? `Reserve bay ${b.n}` : "Join the waiting list"; }
+      if (go) { go.href = ctx.bookHref(reserveMessage(d.name, car, b, hall.unknown)); go.textContent = hall.unknown ? "Ask us" : b ? `Reserve bay ${b.n}` : "Join the waiting list"; }
       buttons.forEach((x) => x.setAttribute("aria-pressed", String(x.getAttribute("data-car") === key)));
     };
     buttons.forEach((btn) => btn.addEventListener("click", () => { key = btn.getAttribute("data-car") ?? "estate"; say(key); ctx.share("garage-car", key); }));

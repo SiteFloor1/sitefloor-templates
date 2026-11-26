@@ -66,6 +66,13 @@ test("the live list: free bays from the client's sheet, failing closed", () => {
   assert.equal(pickBay(live, CARS.hatch)?.n, 9, "bay 4 let today, so the hatchback goes to 9");
   assert.equal(pickBay(live, CARS.estate), null);
   assert.equal(withFree(hall, null), hall);
+  const unsure = withFree(hall, "unknown");
+  assert.equal(unsure.unknown, true);
+  assert.equal(pickBay(unsure, CARS.hatch), null, "an unconfirmed list frees no bay");
+  assert.match(answer(CARS.hatch, null, 5.2, true).text, /^We can’t confirm a free bay right now\. Ask us/);
+  assert.doesNotMatch(answer(CARS.hatch, null, 5.2, true).text, /Free now|waiting list/);
+  assert.match(nightBayLine(CARS.hatch, null, true), /can’t confirm/);
+  assert.match(reserveMessage("Elsden", CARS.hatch, null, true), /is there a free bay/);
   assert.equal(updatedWords(Date.parse("2026-11-18T08:40:00Z"), now, "Europe/London"), "Updated 08:40");
   assert.equal(updatedWords(Date.parse("2026-11-17T18:05:00Z"), now, "Europe/London"), "Updated yesterday, 18:05");
 });

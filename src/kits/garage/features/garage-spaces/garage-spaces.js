@@ -3,7 +3,8 @@
  * Free bays, live (PARK-1). Loads the client's sheet (a simulation on the demo), redraws the free bays and says when
  * the list was updated, and shares the free bays as "garage-free" so the picker, the plan, the hall from above and
  * the night route all use the same list. If the sheet can't be read or is stale, the site stops promising: the free
- * bays table is hidden, every free count reads "Ask us first", and one line says to confirm before coming.
+ * bays table is hidden, every free count reads "Ask us first", one line says to confirm before coming, and "unknown" is
+ * shared, so the picker, the plan, the hall from above and the night route light no bay and promise none.
  */
 import { withFree, allBays, updatedWords, metres, pounds } from "../../lib/garage.js";
 
@@ -31,6 +32,7 @@ export function init(root, ctx) {
     if (line) line.textContent = words;
   };
   const unsure = () => {
+    if (shown !== "unknown") { shown = "unknown"; ctx.share("garage-free", "unknown"); }
     if (table) table.hidden = true;
     document.querySelectorAll("[data-free-count]").forEach((el) => { el.textContent = "Ask us first"; });
     if (line) line.textContent = "The free bays can't be confirmed right now. Ask us before you come.";
