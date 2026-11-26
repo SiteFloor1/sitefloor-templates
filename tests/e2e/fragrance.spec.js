@@ -154,6 +154,7 @@ test("before a launch, the discovery set and gifts leave out the launch scents; 
   await page.goto(srv.base + "/gifts.html");
   await expect(page.locator("[data-gift-form]")).toBeVisible();
   await expect(page.locator("#gift-scent option:enabled")).toHaveCount(3);
+  await expect(page.locator("#gift-scent")).toHaveValue("one"); // a scent is chosen, matching the order message
   await srv.close();
 });
 
