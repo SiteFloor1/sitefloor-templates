@@ -1,0 +1,6 @@
+{#- The round, section opening: one sentence, hairline weight, with the words the school marks *like this* heavy.
+    Its intro beneath. No label above it. `sec` = { kicker, title, intro }; the kicker is not shown. -#}
+<div class="rd-sh rv">
+  <h2 class="rd-sh-t">{{ sec.title | markup | safe }}</h2>
+  {%- if sec.intro %}<p class="rd-sh-i">{{ sec.intro }}</p>{% endif %}
+</div>

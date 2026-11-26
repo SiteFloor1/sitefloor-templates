@@ -4,7 +4,7 @@
 // nothing jumps while pages start; and a client's site without the aerial render shows its own photograph and the
 // insurer's letter.
 import AxeBuilder from "@axe-core/playwright";
-import { test, expect, site, start, featuresStarted } from "./helpers.js";
+import { test, expect, site, start, featuresStarted, OPEN_TIME } from "./helpers.js";
 
 const demo = site("demos/elsden");
 const client = site("_fixtures/test-garage-client");
@@ -19,8 +19,10 @@ test("the hall from above: the estate is parked in bay 7 with reduced motion, an
   await expect(card.locator("h1")).toHaveText("Hall One");
   await expect(card.locator("[data-pick-answer]")).toHaveText("Bay 7 takes it, with 38 cm either side. Free now, with a 7 kW charger.");
   await expect(page.locator(".ga .ga-cap")).toHaveText("Rendered from our plan. Not a photograph.");
-  await expect(page.locator("[data-aerial-ov] image")).toHaveAttribute("href", /img\/car-estate\.png$/);
+  await expect(page.locator("[data-aerial-ov] .ga-free image")).toHaveAttribute("href", /img\/hall-day-empty\.webp$/);
+  await expect(page.locator("[data-aerial-ov] .ga-free clipPath rect")).toHaveCount(5);
   await expect(page.locator("[data-aerial-ov] .ga-glow.on rect")).toHaveCount(1);
+  await expect(page.locator("[data-aerial-ov] .ga-trail")).toHaveAttribute("d", /^M/);
   await expect(page.locator('#plan [data-bay="7"]')).toHaveClass(/is-best/);
   await card.getByRole("button", { name: "large SUV" }).click();
   await expect(card.locator("[data-pick-answer]")).toHaveText("Bay 14 takes it, with 40 cm either side. Free now, with a 22 kW charger.");
@@ -28,7 +30,6 @@ test("the hall from above: the estate is parked in bay 7 with reduced motion, an
   expect(await waText(card.locator("[data-pick-reserve]"))).toBe("Hello Elsden, I’d like to reserve bay 14 for my large SUV.");
   await expect(page.locator('#plan [data-bay="14"]')).toHaveClass(/is-best/);
   await expect(page.locator('#plan [data-bay="7"]')).toHaveClass(/is-tight/);
-  await expect(page.locator("[data-aerial-ov] image")).toHaveAttribute("href", /img\/car-suv\.png$/);
   await expect(page.locator("#night [data-night-bay]")).toHaveText("Bay 14 is lit and waiting, its charger on.");
   await expect(page.locator("#night [data-night-link]")).toHaveAttribute("href", /arrive-at-night\?car=suv$/);
   await card.getByRole("button", { name: "small hatchback" }).click();
@@ -69,20 +70,58 @@ test("on a phone the drawn plan scrolls sideways and can be reached from the key
   }
 });
 
-test("the drive-in plays once when the hall comes into view, and again on a pick", async ({ page }) => {
+test("the light runs in once when the hall comes into view, and again on a pick", async ({ page }) => {
   const srv = await start(demo);
   await page.goto(srv.base + "/");
   await featuresStarted(page);
-  const car = page.locator("[data-aerial-ov] > g").last();
-  await expect(car).toHaveAttribute("opacity", "1", { timeout: 4000 });
-  const at = () => car.getAttribute("transform");
-  const first = await at();
-  await page.waitForTimeout(600);
-  expect(await at()).not.toBe(first);
-  await expect(page.locator("[data-aerial-ov] .ga-glow.on rect")).toHaveCount(1, { timeout: 9000 });
+  const head = page.locator("[data-aerial-ov] .ga-head");
+  await expect.poll(async () => Number(await head.getAttribute("opacity") ?? 0), { timeout: 4000 }).toBeGreaterThan(0);
+  const first = await head.getAttribute("cx");
+  await page.waitForTimeout(500);
+  expect(await head.getAttribute("cx")).not.toBe(first);
+  await expect(page.locator("[data-aerial-ov] .ga-glow.on rect")).toHaveCount(1, { timeout: 8000 });
   await page.locator(".el-card").getByRole("button", { name: "small hatchback" }).click();
   await expect(page.locator("[data-aerial-ov] .ga-glow.on rect")).toHaveCount(0);
-  await expect(page.locator("[data-aerial-ov] image")).toHaveAttribute("href", /car-hatch/);
+  await expect(page.locator("[data-aerial-ov] .ga-glow.on rect")).toHaveCount(1, { timeout: 8000 });
+  await srv.close();
+});
+
+test("free bays are live: the demo's list says when it was updated, and the bar counts them", async ({ page }) => {
+  const srv = await start(demo);
+  await page.goto(srv.base + "/");
+  await featuresStarted(page);
+  await expect(page.locator("[data-bays-updated]")).toHaveText(/^Updated \d\d:\d\d$/);
+  await expect(page.locator("[data-free-rows] tr")).toHaveCount(5);
+  await srv.close();
+});
+
+test("a client's free bays come from their sheet: the picker, the plan and the list follow it; a stale sheet says so", async ({ page }) => {
+  const srv = await start(client);
+  const stamp = (/** @type {number} */ ms) => new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/London", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).format(ms).replace(",", "");
+  const now = new Date(OPEN_TIME).getTime(); // the page's clock is fixed at OPEN_TIME
+  let when = stamp(now - 20 * 60_000);
+  await page.route("https://docs.google.com/**", (r) => r.fulfill({ contentType: "text/csv", body: `bay,status,updated_at\n4,let,${when}\n9,free,${when}\n7,let,${when}\n14,free,${when}\n` }));
+  await page.goto(srv.base + "/");
+  await featuresStarted(page);
+  await expect(page.locator("[data-bays-updated]")).toHaveText(/^Updated \d\d:\d\d$/);
+  await expect(page.locator("[data-free-rows] tr")).toHaveCount(2);
+  const card = page.locator(".el-card");
+  await card.getByRole("button", { name: "small hatchback" }).click();
+  await expect(card.locator("[data-pick-answer]")).toHaveText("Bay 9 takes it, with 30 cm either side. Free now.");
+  await card.getByRole("button", { name: "family estate" }).click();
+  await expect(card.locator("[data-pick-answer]")).toHaveText("Bay 14 takes it, with 48 cm either side. Free now, with a 22 kW charger.");
+  await expect(page.locator('#plan [data-bay="7"]')).not.toHaveClass(/is-free/);
+  when = stamp(now - 30 * 3_600_000);
+  await page.reload();
+  await featuresStarted(page);
+  await expect(page.locator("[data-bays-updated]")).toHaveText("The free bays can't be confirmed right now. Ask us before you come.");
+  await expect(page.locator(".gs-t")).toBeHidden();
+  for (const el of await page.locator("[data-free-count]").all()) await expect(el).toHaveText("Ask us first");
+  await card.getByRole("button", { name: "small hatchback" }).click();
+  await expect(card.locator("[data-pick-answer]")).toHaveText("We can’t confirm a free bay right now. Ask us and we’ll check one for your small hatchback.");
+  await expect(card.locator("[data-pick-reserve]")).toHaveText("Ask us");
+  await expect(page.locator("#plan .is-free")).toHaveCount(0);
+  await expect(page.locator("#plan .is-best")).toHaveCount(0);
   await srv.close();
 });
 

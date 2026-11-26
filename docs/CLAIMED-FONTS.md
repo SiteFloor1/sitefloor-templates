@@ -52,6 +52,7 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 | nacre | Italiana | Albert Sans |
 | portland | Marcellus | Source Sans 3 |
 | quail | Old Standard TT | Plus Jakarta Sans |
+| round | Hahmlet | Hahmlet |
 | salon | Libre Caslon Display | Libre Caslon Text |
 | tissue (Laleh) | Tenor Sans | Spectral |
 
@@ -88,6 +89,7 @@ A case study is a design too: don't reuse these in a new look or another case st
 | Clémence (skin clinic) | case-studies/clemence | beauty | Antic Didone | Baskervville | |
 | Corbel (electrician) | case-studies/corbel | electrician | Encode Sans Expanded | Encode Sans | |
 | Datum Hire (car hire) | case-studies/datum-hire | car-hire | Overpass | Overpass | Overpass Mono |
+| Elsden (car storage) | case-studies/elsden | garage | Cardo | Radio Canada | |
 | Fendle (street-food stalls) | case-studies/fendle | stalls | Gabarito | Labrada | |
 | Fennick & Lowe (tailor) | case-studies/fennick-lowe | tailor | Della Respira | Commissioner | |
 | Grenat (grand café) | case-studies/grenat | grand-cafe | Italiana | EB Garamond | |
@@ -116,5 +118,6 @@ A case study is a design too: don't reuse these in a new look or another case st
 | Varnell (car detailing) | case-studies/varnell | detailing | Michroma | Geist | Geist Mono |
 | Velvet Spoon (dessert shop) | case-studies/velvet-spoon | dessert | Gilda Display | Albert Sans | |
 | Verrall (nails) | case-studies/verrall | nails | Newsreader | Be Vietnam Pro | |
+| Wenlow (driving instructor) | case-studies/wenlow | driving | Lexend | Lexend | |
 | Wexley (bridal) | case-studies/wexley | bridal | Prata | Libre Franklin | |
 

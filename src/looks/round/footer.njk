@@ -1,0 +1,24 @@
+{#- The round, footer: the emblem's two rings with the school's name and address set round them (drawn, so also written
+    out beside it); the week's hours and the pages in two columns; the Sitefloor credit last. -#}
+<footer class="foot rd-foot"><div class="wrap rd-foot-in">
+  <svg class="rd-foot-ring" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+    <defs><path id="rd-foot-path" d="M150,150 m-118,0 a118,118 0 1,1 236,0 a118,118 0 1,1 -236,0"/></defs>
+    <circle cx="150" cy="150" r="140" fill="none" stroke="currentColor" class="rd-ring-a"/>
+    <circle cx="150" cy="150" r="98" fill="none" stroke="currentColor" stroke-width=".8"/>
+    <text class="rd-foot-arc"><textPath href="#rd-foot-path">{{ site.business.name }} · {{ site.location.streetAddress }} · {{ site.location.locality }} · {{ site.location.postcode }} ·</textPath></text>
+    <path d="M128 136l10 30 12-20 12 20 10-30" fill="none" stroke="currentColor" stroke-width="2"/>
+  </svg>
+  <div class="rd-foot-cols">
+    <address class="rd-foot-a"><b>{{ site.business.name }}</b><br>{{ site.location.streetAddress }}<br>{{ site.location.locality }} {{ site.location.postcode }}<br>
+      <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a>{% if site.contact.email %}<br><a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>{% endif %}</address>
+    <ul class="rd-foot-hours" aria-label="Studio hours">
+      {%- for row in site.hours | hoursRows %}<li data-day="{{ row.dayIndex }}"><span>{{ row.day }}</span> {{ row.label }}</li>{% endfor %}
+    </ul>
+    <nav class="rd-foot-links" aria-label="Footer">
+      <a href="{{ 'index' | href }}">Home</a>
+      {%- for item in site.nav | navItems(pageId) %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}>{{ item.label }}</a>{% endfor %}
+      <a href="{{ 'privacy' | href }}">Privacy</a>
+    </nav>
+  </div>
+  <p class="rd-foot-by"><a class="by" href="https://sitefloor.com" rel="noopener">Website by <b>Sitefloor</b></a></p>
+</div></footer>

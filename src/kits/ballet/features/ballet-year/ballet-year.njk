@@ -1,0 +1,9 @@
+{#- The year, under the finder: the next date named, and every date in one calendar file. The dates themselves run
+    round the hero's photograph (the look draws the ring from the same list). -#}
+{%- set ring = site | yearRing(build.today) %}
+{%- set nx = ring | nextItem(build.today) %}
+<div class="bt-year" data-feature="ballet-year">
+  {%- if nx %}<p class="bt-next"><span>Next</span> <b data-bt-next>{{ nx.label }}, {{ nx.date | dateWords("long") }}</b></p>{% endif %}
+  <button type="button" class="rd-link bt-ics" data-bt-ics>Add the year to my calendar</button>
+  <p class="bt-done" data-bt-done hidden aria-live="polite"></p>
+</div>

@@ -44,6 +44,16 @@ chat can reuse the Sitefloor bar, footer and patterns without re-reading a publi
   as three motorway junctions on blue road-sign plates, the speed as the journey time, a live Delivered tonight with the
   demo's figures; night navy, Overpass and Overpass Mono). Media (four clips, posters, stills, four car photos) live in
   the published artifact under `media/`. Clips: Playwright at 390×844, scaled to 780 wide.
+- `elsden/index.html`: the car storage case study (Hall One at eye level, from just inside the gate. The hall's lights
+  are low; pick a car and the lights come up and the floor outline of the free bay that fits glows, with a tag on the
+  bay, using the same fit rule as the kit's `pickBay`. Each lit state is a render of the hall with that bay's own light
+  group on (Blender light groups, summed and tone-mapped once per state), crossfaded. Then the hall drawn to scale
+  from the demo's measurements wiped into the hall rendered from above, bay for bay; the live list (a Google Sheet you
+  can change, beside the free-bays line it feeds, and what the site says when the sheet goes quiet); the hall at night
+  from above; the plans; the numbers. Plaster, ink, night navy, one warm light; Cardo and Radio Canada (Elsden's own),
+  self-hosted with size-matched stand-ins). Media (the four eye-level stills, the day and night aerials, a phone crop
+  of the night aerial) live in the published artifact under `media/`; the fonts in `media/fonts/`. Nothing moves until
+  asked; reduced motion skips the crossfade.
 - `fendle/index.html`: the street-food stall case study (pull one: the page reads Fendle's website the way a bubble
   waffle is eaten, one bubble at a time. The hero is a real waffle in the open iron, full bleed, with fifteen of its
   bubbles as the kit's fifteen features; tap one and it lifts out of the photograph (the same pixels, clipped, with a
@@ -327,6 +337,22 @@ chat can reuse the Sitefloor bar, footer and patterns without re-reading a publi
   through a nail; the speed is drying time; a live bridal planner counts back from one wedding date; lacquer white,
   Newsreader and Be Vietnam Pro). Media (six phone clips with posters, three hands and their masks, stills) live in the
   published artifact under `media/`. Clips: CDP screencast at 390×844 and 2x, each starting already on its subject.
+- `wenlow/index.html`: the driving instructor case study (from L to P: a learner's whole run, from the first question
+  to the day the plates come off, read in the order of the practical test itself. The hero is one learner plate, large,
+  beside Wenlow's own "when could I pass?" card, live with the demo's prices and gov.uk's fees (manual or automatic,
+  lessons a week, hours so far, theory passed); at 45 hours, the DVSA's average, the plate turns over to a green P, and
+  it can be turned by hand. Then the home page on a laptop, and three chapters named for the test: Tell me (Starter:
+  prices, do you cover me with a live postcode check from the demo's districts, test day in order), Show me (Plus: the
+  next free lessons, live, worked out from today with the message each one writes; Ready to Pass?; eleven pages in a
+  sideways strip) and Independent driving (Signature, on Wenlow's dark band: the progress card on film, the cost to
+  pass, the journal; the Passed page named as client-only). The plans are the same home page at each plan, switched in
+  place; the speed is drawn as the Highway Code draws stopping distances, in 10 KB blocks; the close is "your pupils,
+  from L to P". Wenlow's own ground, white cards, beech green and Lexend 300/400/500 (the demo's own), self-hosted with
+  the look's size-matched stand-in; the plate's red L is the one other colour). Media (one phone film with its poster,
+  eighteen phone stills, the home page on a laptop at each plan, the demo's car photograph, the fonts) live in `media/`
+  and the published artifact. Phone stills and film: 390×844 at 2x in full Chrome, en-GB, London time, Thursday
+  26 November 2026, 10:30; film by CDP screencast, H.264; stills and film without the demo ribbon; nothing plays until
+  asked. Photograph (Pexels, free licence): the red Corsa, Mike Bird, https://www.pexels.com/photo/red-opel-corsa-18305912/.
 - `wexley/index.html`: the bridal case study (a gown's fittings: the first appointment, first fitting and final
   fitting are Starter, Plus and Signature; a fitting card of the salon's facts; a live gown diary; a pale pearl-oyster
   ground with a champagne accent). Media (three clips, stills, mirror panes) live in the published

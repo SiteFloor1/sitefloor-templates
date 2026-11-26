@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { CARS, fits, pickBay, spareCm, answer, reserveMessage, bayRects, route, along, cone, clockWords, chargedBy, chargerWords, planSvg, addDays, icsFile, moveInEvents, layingUpEvents, fleetMessage, careCardMessage, nightBayLine } from "../../src/kits/garage/lib/garage.js";
+import { CARS, fits, pickBay, spareCm, answer, reserveMessage, bayRects, route, along, cone, clockWords, chargedBy, chargerWords, planSvg, addDays, icsFile, moveInEvents, layingUpEvents, fleetMessage, careCardMessage, nightBayLine, withFree, baysFromCsv, updatedWords } from "../../src/kits/garage/lib/garage.js";
 import { HOME_PARTS, homeOrderProblem } from "../../src/kits/garage/home.js";
 import { frameMap } from "../../src/kits/garage/features/garage-aerial/map.js";
 import { pageData } from "../../src/kits/garage/kit.js";
@@ -48,6 +48,33 @@ test("the answer names the bay, the room either side and the charger; a van gets
   assert.match(answer(CARS.van, null, 5.2).text, /^No free bay takes a van tonight: our bays are 5\.2 m deep\. Join the waiting list/);
   assert.equal(reserveMessage("Elsden", CARS.estate, { n: 7, width: 2.6 }), "Hello Elsden, I’d like to reserve bay 7 for my family estate.");
   assert.match(reserveMessage("Elsden", CARS.van, null), /waiting list/);
+});
+
+test("the live list: free bays from the client's sheet, failing closed", () => {
+  const known = [1, 2, 3, 4, 7], now = Date.parse("2026-11-18T09:00:00Z"), read = (/** @type {string} */ t) => (/^\d{4}-\d\d-\d\d \d\d:\d\d$/.test(t) ? Date.parse(t.replace(" ", "T") + ":00Z") : NaN);
+  const csv = "Bay,Status,Updated at\n1,let,2026-11-18 08:40\n4,free,2026-11-18 08:40\n7,FREE,2026-11-18 08:10\n";
+  assert.deepEqual(baysFromCsv(csv, known, now, 24, read), { ok: true, free: [4, 7], updatedAt: Date.parse("2026-11-18T08:40:00Z") });
+  assert.equal(baysFromCsv(csv.replace("1,let", "9,let"), known, now, 24, read).ok, false, "a bay the hall doesn't have");
+  assert.equal(baysFromCsv(csv.replace("4,free", "4,maybe"), known, now, 24, read).ok, false, "a status it can't read");
+  assert.equal(baysFromCsv(csv.replace("2026-11-18 08:40\n4", "soon\n4"), known, now, 24, read).ok, false, "a time it can't read");
+  assert.equal(baysFromCsv(csv, known, now + 25 * 3_600_000, 24, read).ok, false, "older than a day");
+  assert.equal(baysFromCsv("bay,status\n4,free\n", known, now, 24, read).ok, false, "no updated_at column");
+  assert.equal(baysFromCsv(csv.replace("4,free,2026-11-18 08:40", "4,free,2026-10-01 08:40"), known, now, 24, read).ok, false, "one old row, even beside fresh ones");
+  assert.equal(baysFromCsv(csv.replace("7,FREE,2026-11-18 08:10", "7,FREE,2026-11-19 08:10"), known, now, 24, read).ok, false, "one row dated tomorrow");
+  assert.equal(baysFromCsv(csv + "4,let,2026-11-18 08:50\n", known, now, 24, read).ok, false, "a bay listed twice");
+  const live = withFree(hall, [9]);
+  assert.equal(pickBay(live, CARS.hatch)?.n, 9, "bay 4 let today, so the hatchback goes to 9");
+  assert.equal(pickBay(live, CARS.estate), null);
+  assert.equal(withFree(hall, null), hall);
+  const unsure = withFree(hall, "unknown");
+  assert.equal(unsure.unknown, true);
+  assert.equal(pickBay(unsure, CARS.hatch), null, "an unconfirmed list frees no bay");
+  assert.match(answer(CARS.hatch, null, 5.2, true).text, /^We can’t confirm a free bay right now\. Ask us/);
+  assert.doesNotMatch(answer(CARS.hatch, null, 5.2, true).text, /Free now|waiting list/);
+  assert.match(nightBayLine(CARS.hatch, null, true), /can’t confirm/);
+  assert.match(reserveMessage("Elsden", CARS.hatch, null, true), /is there a free bay/);
+  assert.equal(updatedWords(Date.parse("2026-11-18T08:40:00Z"), now, "Europe/London"), "Updated 08:40");
+  assert.equal(updatedWords(Date.parse("2026-11-17T18:05:00Z"), now, "Europe/London"), "Updated yesterday, 18:05");
 });
 
 test("arriving at night names the charger only when the bay has one, and the car when there's no bay", () => {
@@ -139,6 +166,10 @@ test("the checks refuse what would mislead or can't be drawn", () => {
   assert.match(errorsFor((s) => { s.layingUp.links[0].url = "https://example.com/sorn"; }), /GOV\.UK page/);
   assert.match(errorsFor((s) => { s.insurerLetter = { file: "img/x.pdf", label: "Letter" }; }), /client sites only/);
   assert.match(errorsFor((s) => { s.aerial.frame.width = 30; }), /doesn't match the render's shape/);
+  assert.match(errorsFor((s) => { s.aerial.empty.day.width = 2000; }), /same size as aerial\.day/);
+  assert.match(errorsFor((s) => { delete s.aerial.empty; }), /every bay empty/);
+  assert.match(errorsFor((s) => { s.liveBays = { source: "sheet", csvUrl: "https://example.com/bays.csv" }; }), /published CSV link/);
+  assert.match(errorsFor((s) => { s.liveBays = { source: "simulated" }; }, client), /simulated free bays are for demos/);
   assert.match(errorsFor((s) => { s.features = s.features.filter((/** @type {string} */ f) => f !== "garage-pick"); }), /garage-aerial needs garage-pick/);
   assert.match(errorsFor((s) => { s.charging.readyBy = "7am"; }), /charging\.readyBy: a time/);
   assert.match(errorsFor((s) => { delete s.hero.photo; s.features = s.features.filter((/** @type {string} */ f) => f !== "garage-aerial"); }), /hero\.photo/);
@@ -148,10 +179,17 @@ test("the checks refuse what would mislead or can't be drawn", () => {
 test("page data carries only what the features that are on need", () => {
   const starter = structuredClone(client);
   starter.plan = "starter";
+  delete starter.liveBays;
   starter.features = ["garage-spaces", "garage-access", "garage-kept", "garage-move-in", "visit", "plan-visit", "questions"];
   const d = pageData(starter);
   assert.equal(d.hall, null);
   assert.deepEqual(d.cameras, []);
   assert.equal(d.aerial, null);
   assert.ok(Array.isArray(d.moveIn));
+  assert.equal(d.liveBays, null);
+  starter.liveBays = client.liveBays;
+  const live = pageData(starter);
+  assert.ok(live.hall, "the live list needs the hall's bays");
+  assert.deepEqual(live.liveBays.listed, [4, 7, 9, 11, 14]);
+  assert.equal(live.liveBays.staleHours, 24);
 });

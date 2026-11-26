@@ -1,0 +1,16 @@
+/* Self-hosted Hahmlet (variable weight, latin subset, woff2 only). No requests to Google; font-display: swap so text
+   shows immediately. One family for everything: hairline (200) for what is said large, 360 for reading, 560 to 700
+   for the words that carry weight. */
+@font-face { font-family: "Hahmlet"; font-style: normal; font-weight: 100 900; font-display: swap; src: url("../../../node_modules/@fontsource-variable/hahmlet/files/hahmlet-latin-wght-normal.woff2") format("woff2-variations"), url("../../../node_modules/@fontsource-variable/hahmlet/files/hahmlet-latin-wght-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+/* Size-matched stand-ins while Hahmlet loads, so text wraps the same before and after (the page's weights fall in
+   these bands: 200, 250, 300, 360, 420, 520, 560, 640, 700). Measured 18 Nov 2026 in Chrome, laid out in the page (not on a canvas), against
+   Liberation Serif (regular below 600, bold from 600), averaged over five set lines; the bold band over the bold words
+   of every heading; hhea ascent 1160 and descent 288
+   per 1000, divided by each band's size adjustment. Numbers in docs/trades/ballet/speed.md. */
+@font-face { font-family: "Hahmlet Fallback"; font-weight: 100 229; src: local("Times New Roman"), local("Liberation Serif"); size-adjust: 119.2%; ascent-override: 97.3%; descent-override: 24.2%; line-gap-override: 0%; }
+@font-face { font-family: "Hahmlet Fallback"; font-weight: 230 329; src: local("Times New Roman"), local("Liberation Serif"); size-adjust: 119.9%; ascent-override: 96.7%; descent-override: 24.0%; line-gap-override: 0%; }
+@font-face { font-family: "Hahmlet Fallback"; font-weight: 330 389; src: local("Times New Roman"), local("Liberation Serif"); size-adjust: 122.0%; ascent-override: 95.1%; descent-override: 23.6%; line-gap-override: 0%; }
+@font-face { font-family: "Hahmlet Fallback"; font-weight: 390 469; src: local("Times New Roman"), local("Liberation Serif"); size-adjust: 121.1%; ascent-override: 95.8%; descent-override: 23.8%; line-gap-override: 0%; }
+@font-face { font-family: "Hahmlet Fallback"; font-weight: 470 539; src: local("Times New Roman"), local("Liberation Serif"); size-adjust: 122.5%; ascent-override: 94.7%; descent-override: 23.5%; line-gap-override: 0%; }
+@font-face { font-family: "Hahmlet Fallback"; font-weight: 540 599; src: local("Times New Roman"), local("Liberation Serif"); size-adjust: 123.2%; ascent-override: 94.2%; descent-override: 23.4%; line-gap-override: 0%; }
+@font-face { font-family: "Hahmlet Fallback"; font-weight: 600 900; src: local("Times New Roman Bold"), local("TimesNewRomanPS-BoldMT"), local("Liberation Serif Bold"), local("LiberationSerif-Bold"); size-adjust: 119.8%; ascent-override: 96.8%; descent-override: 24.0%; line-gap-override: 0%; }

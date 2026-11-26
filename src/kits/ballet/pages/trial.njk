@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: trial
+permalink: trial.html
+feature: ballet-trial
+eleventyComputed:
+  title: "{{ site.trialPage.title | plain }}"
+  description: "A trial ballet class at {{ site.business.name }}, {{ site.location.locality }}: what to bring, what happens, and how to ask for one."
+---
+{%- set ph = site.trialPage %}
+{% include "kits/ballet/partials/page-head.njk" %}
+{%- set trialPage = true %}{% include "kits/ballet/features/ballet-trial/ballet-trial.njk" %}

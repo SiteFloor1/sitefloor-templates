@@ -1,0 +1,13 @@
+{#- Fees and terms, in the school's own words: each fee as a ruled row (what, then the school's line), the terms as a
+    numbered list, and a note. -#}
+{%- set f = site.fees %}
+<div class="bt-fees" data-feature="ballet-fees"><div class="wrap bt-fees-in">
+  <dl class="bt-fees-list">
+    {%- for x in f.items %}<div class="rv"><dt>{{ x.label }}</dt><dd>{{ x.text }}</dd></div>{% endfor %}
+  </dl>
+  <section class="bt-fees-terms" aria-labelledby="terms-h">
+    <h2 id="terms-h">Terms</h2>
+    <ol>{% for t in f.terms %}<li>{{ t }}</li>{% endfor %}</ol>
+    {%- if f.note %}<p class="rd-fine">{{ f.note }}</p>{% endif %}
+  </section>
+</div></div>
