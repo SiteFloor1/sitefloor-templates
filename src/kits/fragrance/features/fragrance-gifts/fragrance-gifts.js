@@ -29,5 +29,6 @@ export function init(root, ctx) {
   };
   form.addEventListener("input", render);
   form.addEventListener("change", render);
+  document.addEventListener("fr-launch", () => { shown = ""; render(); });
   render();
 }

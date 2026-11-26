@@ -136,3 +136,24 @@ test("the demo shows the page before launch on request; a new house's site is be
   await expect(page.locator("text=Fictional business")).toHaveCount(0);
   await srv.close();
 });
+
+test("before a launch, the discovery set and gifts leave out the launch scents; on the day they come back", async ({ page }) => {
+  const srv = await start(client); // all three of this house's scents are launch scents, out on 1 Feb 2099
+  await page.goto(srv.base + "/discovery-sets.html");
+  await expect(page.locator(".fr-disc-o:visible")).toHaveCount(0);
+  await expect(page.locator("[data-disc-go]")).toBeHidden();
+  await expect(page.locator('a[href*="buy.stripe.com"]:visible')).toHaveCount(0);
+  await expect(page.locator(".fr-disc-side .fr-before-only.fr-go")).toHaveText("Tell me on the day");
+  await page.goto(srv.base + "/gifts.html");
+  await expect(page.locator("[data-gift-form]")).toBeHidden();
+  await expect(page.locator(".fr-gift-wait")).toContainText("Gifts open on 1 February");
+  await page.clock.setFixedTime(new Date("2099-02-01T09:00:00Z"));
+  await page.goto(srv.base + "/discovery-sets.html");
+  await expect(page.locator(".fr-disc-o:visible")).toHaveCount(3);
+  await expect(page.locator("[data-disc-go]")).toHaveAttribute("href", "https://buy.stripe.com/test_set");
+  await page.goto(srv.base + "/gifts.html");
+  await expect(page.locator("[data-gift-form]")).toBeVisible();
+  await expect(page.locator("#gift-scent option:enabled")).toHaveCount(3);
+  await srv.close();
+});
+

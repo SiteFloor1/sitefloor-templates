@@ -12,7 +12,7 @@ export function init(root, ctx) {
   const boxes = /** @type {HTMLInputElement[]} */ ([...form.querySelectorAll("input[name=pick]")]);
   const render = () => {
     const ids = boxes.filter((b) => b.checked).map((b) => b.value);
-    for (const b of boxes) b.disabled = !b.checked && ids.length >= d.pick;
+    for (const b of boxes) b.disabled = !!b.closest("[data-held]")?.hasAttribute("hidden") || (!b.checked && ids.length >= d.pick);
     const names = ids.map((id) => data.fragrances.find((/** @type {any} */ f) => f.id === id)?.name ?? id);
     count.textContent = ids.length < d.pick ? `${ids.length} of ${d.pick} chosen` : `Your ${d.pick}, ready`;
     [...set.children].forEach((li, i) => { li.textContent = names[i] ?? ""; li.classList.toggle("on", i < names.length); });
@@ -21,5 +21,6 @@ export function init(root, ctx) {
     go.toggleAttribute("aria-disabled", ids.length < d.pick);
   };
   form.addEventListener("change", render);
+  document.addEventListener("fr-launch", render);
   render();
 }

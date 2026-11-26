@@ -7,11 +7,21 @@
 {% include "kits/fragrance/partials/page-head.njk" %}
 {%- set styleNames = { caps: "Capitals", lower: "Lower case", initials: "Initials" } %}
 {%- set placeNames = { glass: "On the glass", box: "On the box" } %}
-{%- set x0 = site.fragrances.items[0] %}
-<section class="fr-gift" data-feature="fragrance-gifts" aria-label="{{ g.title | plain }}"><div class="wrap">
-  <form class="fr-gift-f" data-gift-form>
+{#- Before a launch its scents can't be chosen; if no other scent is left, "Tell me on the day" takes the form's place. -#}
+{%- set held = site | heldNow %}
+{%- set LS = site | launchScents %}
+{%- set openItems = site.fragrances.items | without(held) %}
+{%- set x0 = openItems[0] if openItems.length else site.fragrances.items[0] %}
+{%- set allHeld = LS.length and (site.fragrances.items | without(LS) | length) == 0 %}
+<section class="fr-gift" data-feature="fragrance-gifts" aria-label="{{ g.title | plain }}"><div class="wrap{% if allHeld and held.length %} is-before{% endif %}"{% if allHeld %} data-launch-scope{% endif %}>
+  {%- if LS.length %}<span hidden data-feature="fragrance-launch"></span>{% endif %}
+  {%- if allHeld %}
+  {%- set lx = site.fragrances | fragranceById(site.launch.scents[0]) %}
+  <p class="fr-before-only fr-gift-wait">Gifts open on {{ site.launch.date | dayMonth }}. <a class="fr-go" href="{{ site.launch.message | orderText(lx, (lx | defaultSize), site.business.name) | book }}" target="_blank" rel="noopener">Tell me on the day</a></p>
+  {%- endif %}
+  <form class="fr-gift-f{% if allHeld %} fr-open-only{% endif %}" data-gift-form>
     <div class="fr-field"><label for="gift-scent">The fragrance</label>
-      <select id="gift-scent" name="scent" class="fr-select">{% for x in site.fragrances.items %}<option value="{{ x.id }}">{{ x.name }}</option>{% endfor %}</select></div>
+      <select id="gift-scent" name="scent" class="fr-select">{% for x in site.fragrances.items %}<option value="{{ x.id }}"{% if x.id in (site | launchScents) %} data-held{% if x.id in (site | heldNow) %} hidden disabled{% endif %}{% endif %}>{{ x.name }}</option>{% endfor %}</select></div>
     <fieldset class="fr-pick" data-gift-sizes><legend class="fr-lg">Size</legend>
       {%- for s in x0.sizes %}<label><input type="radio" name="ml" value="{{ s.ml }}"{% if loop.index == 2 or x0.sizes.length == 1 %} checked{% endif %}><span>{{ s.ml }} ml</span></label>{% endfor %}
     </fieldset>

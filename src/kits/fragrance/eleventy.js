@@ -23,6 +23,11 @@ export default function fragranceKit(eleventyConfig) {
   // Launch mode at build time; the page checks again in the browser, so a site built before the day still opens on it.
   eleventyConfig.addFilter("launchState", (/** @type {any} */ l) => launchState(l, ukToday()));
   eleventyConfig.addFilter("sizeFor", (/** @type {any} */ x, /** @type {number} */ ml) => x.sizes.find((/** @type {any} */ s) => s.ml === ml) ?? x.sizes[0]);
+  // The launch scents held back today: a client site before its launch day (a demo opens as the shop). The page checks
+  // again in the browser (fragrance-launch.js), so a site built before the day opens right on it.
+  eleventyConfig.addFilter("heldNow", (/** @type {any} */ site) => (site.launch && site.features.includes("fragrance-launch") && site.mode !== "demo" && launchState(site.launch, ukToday()).state === "before" ? site.launch.scents : []));
+  eleventyConfig.addFilter("without", (/** @type {any[]} */ items, /** @type {string[]} */ ids) => items.filter((x) => !ids.includes(x.id)));
+  eleventyConfig.addFilter("launchScents", (/** @type {any} */ site) => (site.launch && site.features.includes("fragrance-launch") ? site.launch.scents : []));
   eleventyConfig.addFilter("defaultSize", (/** @type {any} */ x) => x.sizes[Math.min(1, x.sizes.length - 1)]);
   eleventyConfig.addFilter("orderText", (/** @type {string} */ t, /** @type {any} */ x, /** @type {any} */ s, /** @type {string} */ name) => fill(t, { name, fragrance: x.name, ml: s.ml, price: pounds(s.price) }));
   eleventyConfig.addFilter("frame", (/** @type {string} */ pattern, /** @type {number} */ n) => pattern.replace("{n}", String(n).padStart(2, "0")));

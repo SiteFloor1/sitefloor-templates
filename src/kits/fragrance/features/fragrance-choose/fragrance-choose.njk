@@ -18,7 +18,7 @@
     <h3 class="fr-get-t">{{ c.redeemTitle }}</h3>
     <div class="fr-field"><label for="ch-code">Your code</label><input id="ch-code" name="code" maxlength="24" autocomplete="off" spellcheck="false"></div>
     <div class="fr-field"><label for="ch-scent">The fragrance you've chosen</label>
-      <select id="ch-scent" name="scent" class="fr-select">{% for x in site.fragrances.items %}<option value="{{ x.id }}">{{ x.name }}</option>{% endfor %}</select></div>
+      <select id="ch-scent" name="scent" class="fr-select">{% for x in site.fragrances.items %}<option value="{{ x.id }}"{% if x.id in (site | launchScents) %} data-held{% if x.id in (site | heldNow) %} hidden disabled{% endif %}{% endif %}>{{ x.name }}</option>{% endfor %}</select></div>
     <a class="fr-go" data-get-go href="{{ c.redeemMessage | orderText(site.fragrances.items[0], (site.fragrances.items[0] | defaultSize), site.business.name) | book }}" target="_blank" rel="noopener">Send my choice</a>
   </form>
 </div></section>
