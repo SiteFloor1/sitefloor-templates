@@ -1,0 +1,20 @@
+{#- Classes by age: each age group as a large numeral in the margin, its classes beside it with days, times, length and
+    the school's line about them. "Where she'll go next" follows when it's on. -#}
+<div class="bt-cls" data-feature="ballet-classes"><div class="wrap">
+  {%- for g in site.classes.items | ageGroups %}
+  <section class="bt-cls-group rv" aria-label="Age {{ g.label }}">
+    <p class="bt-cls-age" aria-hidden="true">{{ g.label }}</p>
+    <div>
+      {%- for c in g.classes %}
+      <article class="bt-cls-one">
+        <h2>{{ c.name }}</h2>
+        <p class="bt-cls-when">{{ c.sessions | sessionsWords }} · {{ c.minutes | lengthWords }}</p>
+        {%- if c.text %}<p>{{ c.text }}</p>{% endif %}
+      </article>
+      {%- endfor %}
+    </div>
+  </section>
+  {%- endfor %}
+  {%- if site.classes.note %}<p class="rd-fine">{{ site.classes.note }}</p>{% endif %}
+</div></div>
+{%- if "ballet-path" | enabled %}{% include "kits/ballet/features/ballet-path/ballet-path.njk" %}{% endif %}

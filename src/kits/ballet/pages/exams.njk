@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: exams
+permalink: exams.html
+feature: ballet-exams
+eleventyComputed:
+  title: "{{ site.examsPage.title | plain }}"
+  description: "Ballet exams at {{ site.business.name }}, {{ site.location.locality }}: who sits them and when."
+---
+{%- set ph = site.examsPage %}
+{% include "kits/ballet/partials/page-head.njk" %}
+{% include "kits/ballet/features/ballet-exams/ballet-exams.njk" %}

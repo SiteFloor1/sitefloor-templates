@@ -27,4 +27,9 @@ Lighthouse 12.8.2 (the audit of 17 Nov 2026), Chromium, local server, home page,
 | Phone (mobile preset) | 99–100 | 100 | 100 | 1.2–1.7 s | 1.6–1.8 s (the aerial render) | 0–20 ms | 0 |
 | Desktop | 100 | 100 | 100 | 0.4 s | 0.4 s | 0 ms | 0.001 |
 
-SEO 69 only because every demo is noindex. Page weight 206 KB in all; the largest file is `car-estate.png` (58 KB).
+SEO 69 only because every demo is noindex.
+
+Covered hall and live list (18 Nov 2026): the car images are gone. Each aerial view now has an `-empty` twin (desktop
+day 44 KB + 34 KB, phone day 27 KB + 18 KB), drawn only over the free bays; `garage-spaces.js` and the Sheet reader
+add about 2 KB. `npm run budget` passes. The Lighthouse figures above were measured before this change; CI re-runs
+the layout-shift tests.

@@ -1,4 +1,5 @@
 // @ts-check
+import { parseCsv } from "../../../core/lib/sheet.js";
 /**
  * The garage kit's pure logic (no DOM), shared by the build and the browser: which free bay fits a car, the words for
  * it, the hall's geometry in metres (bays, the route in through the gate, camera coverage), the drawn plan as SVG,
@@ -16,7 +17,7 @@ export const CARS = {
 
 /** @typedef {{ n: number, width: number, free?: boolean, price?: number, charger?: number }} Bay */
 /** @typedef {{ side: "north"|"south", x: number, bays: Bay[] }} Row */
-/** @typedef {{ name: string, width: number, depth: number, bayDepth: number, gate: { y: number, width: number }, rows: Row[], columns?: number[][] }} Hall */
+/** @typedef {{ name: string, width: number, depth: number, bayDepth: number, gate: { y: number, width: number }, rows: Row[], columns?: number[][], unknown?: boolean }} Hall */
 /** @typedef {{ name?: string, length: number, width: number }} Car */
 
 /** Room each side a car needs to open its doors: 30 cm, or 40 cm for a car 1.95 m wide or more. @param {Car} car */
@@ -24,6 +25,59 @@ export const sideGap = (car) => (car.width >= 1.95 ? 0.4 : 0.3);
 
 /** A car fits a bay with the side room above and 20 cm to spare in length. @param {Car} car @param {Bay} bay @param {number} depth */
 export const fits = (car, bay, depth) => bay.width - car.width >= 2 * sideGap(car) - 1e-9 && depth - car.length >= 0.2 - 1e-9;
+
+/**
+ * The hall with today's free bays from the live list: a bay is free only if the list says so. Without a live list
+ * (null), the hall as the client last listed it. When the live list can't be trusted ("unknown"), no bay is free
+ * and the hall is marked unknown, so nothing promises a bay.
+ * @param {Hall} hall @param {number[]|null|"unknown"} free
+ * @returns {Hall}
+ */
+export function withFree(hall, free) {
+  if (!free) return hall;
+  if (free === "unknown") return { ...hall, unknown: true, rows: hall.rows.map((r) => ({ ...r, bays: r.bays.map((b) => ({ ...b, free: false })) })) };
+  const set = new Set(free);
+  return { ...hall, rows: hall.rows.map((r) => ({ ...r, bays: r.bays.map((b) => ({ ...b, free: set.has(b.n) })) })) };
+}
+
+/**
+ * The client's published Google Sheet of bays (PARK-1): one row per bay, `bay`, `status` ("free" or "let") and
+ * `updated_at`. Fails closed: an unknown bay, an unreadable status, no time or a list older than `staleHours`
+ * returns { ok: false }, and the site says when its list was last published instead.
+ * @param {string} csv @param {number[]} known the hall's bay numbers @param {number} nowMs @param {number} staleHours
+ * @param {(text: string) => number} readTime parses an updated_at cell (the shop's time zone), NaN if unsure
+ * @returns {{ ok: true, free: number[], updatedAt: number } | { ok: false }}
+ */
+export function baysFromCsv(csv, known, nowMs, staleHours, readTime) {
+  const rows = parseCsv(csv);
+  if (rows.length < 2) return { ok: false };
+  const head = rows[0].map((h) => h.trim().toLowerCase().replace(/\s+/g, "_"));
+  const iBay = head.indexOf("bay"), iStatus = head.indexOf("status"), iTime = head.indexOf("updated_at");
+  if (iBay < 0 || iStatus < 0 || iTime < 0) return { ok: false };
+  /** @type {number[]} */ const free = [];
+  const seen = new Set();
+  let updatedAt = 0;
+  for (const r of rows.slice(1)) {
+    const n = Number(String(r[iBay] ?? "").trim()), st = String(r[iStatus] ?? "").trim().toLowerCase(), t = readTime(String(r[iTime] ?? ""));
+    if (!known.includes(n) || seen.has(n) || !["free", "let"].includes(st) || !Number.isFinite(t)) return { ok: false };
+    // each row on its own date: one bay updated today doesn't vouch for a bay last touched weeks ago
+    if (nowMs - t > staleHours * 3_600_000 || t - nowMs > 10 * 60_000) return { ok: false };
+    seen.add(n);
+    if (st === "free") free.push(n);
+    updatedAt = Math.max(updatedAt, t);
+  }
+  if (!updatedAt) return { ok: false };
+  return { ok: true, free, updatedAt };
+}
+
+/** "Updated 18:40" today, "Updated yesterday, 18:40", else the date. @param {number} ms @param {number} nowMs @param {string} timeZone */
+export function updatedWords(ms, nowMs, timeZone) {
+  const day = (/** @type {number} */ t) => new Date(t).toLocaleDateString("en-CA", { timeZone });
+  const clock = new Date(ms).toLocaleTimeString("en-GB", { timeZone, hour: "2-digit", minute: "2-digit" });
+  if (day(ms) === day(nowMs)) return `Updated ${clock}`;
+  if (day(ms) === day(nowMs - 86_400_000)) return `Updated yesterday, ${clock}`;
+  return `Updated ${new Date(ms).toLocaleDateString("en-GB", { timeZone, day: "numeric", month: "long" })}, ${clock}`;
+}
 
 /** Every bay in the order the hall lists them. @param {Hall} hall @returns {Bay[]} */
 export const allBays = (hall) => hall.rows.flatMap((r) => r.bays);
@@ -34,16 +88,17 @@ export function pickBay(hall, car) {
 }
 
 /** Centimetres either side of the car, rounded. @param {Car} car @param {Bay} bay */
-export const spareCm = (car, bay) => Math.round(((bay.width - car.width) / 2) * 100);
+export const spareCm = (car, bay) => Math.round(((bay.width - car.width) / 2) * 100 + 1e-6); // 47.4999… is 48
 
 /** "£260" @param {number} n */
 export const pounds = (n) => `£${Number.isInteger(n) ? n : n.toFixed(2)}`;
 
 /**
  * The answer line under the picker.
- * @param {Car} car @param {Bay|null} bay @param {number} depth
+ * @param {Car} car @param {Bay|null} bay @param {number} depth @param {boolean} [unknown] the live list can't be trusted
  */
-export function answer(car, bay, depth) {
+export function answer(car, bay, depth, unknown = false) {
+  if (unknown) return { bay: null, text: `We can’t confirm a free bay right now. Ask us and we’ll check one for your ${car.name ?? "car"}.` };
   if (!bay) {
     const tooLong = depth - car.length < 0.2;
     return { bay: null, text: `No free bay takes a ${car.name ?? "car that size"} tonight${tooLong ? `: our bays are ${metres(depth)} deep` : ""}. Join the waiting list and we’ll message you when one opens.` };
@@ -55,14 +110,16 @@ export function answer(car, bay, depth) {
 /** "5.2 m" @param {number} m */
 export const metres = (m) => `${Number(m.toFixed(2))} m`;
 
-/** Arriving at night: the line for the visitor's bay, with the charger only if the bay has one. @param {Car} car @param {Bay|null} bay */
-export function nightBayLine(car, bay) {
+/** Arriving at night: the line for the visitor's bay, with the charger only if the bay has one. @param {Car} car @param {Bay|null} bay @param {boolean} [unknown] */
+export function nightBayLine(car, bay, unknown = false) {
+  if (unknown) return "We can’t confirm a free bay right now: ask us before you come.";
   if (!bay) return `No free bay takes a ${car.name ?? "car that size"} tonight: join the waiting list.`;
   return `Bay ${bay.n} is lit and waiting${bay.charger ? ", its charger on" : ""}.`;
 }
 
-/** @param {string} shop @param {Car} car @param {Bay|null} bay */
-export function reserveMessage(shop, car, bay) {
+/** @param {string} shop @param {Car} car @param {Bay|null} bay @param {boolean} [unknown] */
+export function reserveMessage(shop, car, bay, unknown = false) {
+  if (unknown) return `Hello ${shop}, is there a free bay for my ${car.name ?? "car"}?`;
   return bay
     ? `Hello ${shop}, I’d like to reserve bay ${bay.n} for my ${car.name ?? "car"}.`
     : `Hello ${shop}, please add me to the waiting list for a bay for my ${car.name ?? "car"}.`;
@@ -176,7 +233,7 @@ export function planSvg(hall, opt = {}) {
   for (const b of bays) {
     const q = r[b.n], y = Y(q.y1);
     out.push(`<g class="gp-bay${b.free ? " is-free" : ""}" data-bay="${b.n}"><rect class="gp-cell" x="${q.x0}" y="${y}" width="${b.width}" height="${hall.bayDepth}"/>`
-      + (b.free ? "" : `<rect class="gp-car" x="${(q.cx - 0.9).toFixed(2)}" y="${(Y(q.cy) - 2.3).toFixed(2)}" width="1.8" height="4.6" rx=".5"/>`)
+      + `<rect class="gp-car" x="${(q.cx - 0.9).toFixed(2)}" y="${(Y(q.cy) - 2.3).toFixed(2)}" width="1.8" height="4.6" rx=".5"/>`
       + `<text class="gp-n" x="${q.cx}" y="${(q.north ? y + hall.bayDepth + 0.75 : y - 0.35).toFixed(2)}" text-anchor="middle">${b.n}</text></g>`);
     if (b.charger) {
       const cy = q.north ? Y(hall.depth) + 0.35 : Y(0) - 0.35;

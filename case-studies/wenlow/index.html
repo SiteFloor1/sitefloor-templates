@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wenlow Case Study</title>
+<meta name="description" content="Wenlow, a website for a driving school, from L to P: the price, whether we come to you, the next free lesson and when you could pass, answered before the first lesson.">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="icon" href="data:,">
+<link rel="preload" href="media/fonts/lexend-latin-300-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="media/fonts/lexend-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+/* Layout: from L to P. A learner's whole run, from the first question to the day the L plates come off, read as the
+   questions the practical test itself is built on. The hero is one learner plate, large, beside Wenlow's own "when
+   could I pass?" card, live with the demo's prices and gov.uk's fees: add your hours so far and at 45 the plate turns
+   over to a green P. Then the test's own order: "Tell me" (the three questions every plan answers), "Show me" (the Plus
+   pages, with the next free lessons live), "Independent driving" (Signature, on Wenlow's dark band: the learner's
+   card on film, the journal). The plans are the same home page at each plan; the speed is drawn as the Highway Code
+   draws stopping distances, in blocks; the close is "your pupils, from L to P".
+   Ground, cards and type are Wenlow's own (pale road-grey ground, white cards, beech green, Lexend 300/400/500,
+   self-hosted with size-matched stand-ins); the plate is the one object, white with a red L that becomes a green P.
+   Manrope for Sitefloor. Motion: none, except the plate turning over (once, when you reach 45 hours or press it) and
+   the answers redrawing; under reduced motion it changes without turning. The film plays only when asked. */
+@font-face { font-family: "Lexend"; font-weight: 300; font-display: swap; src: url("media/fonts/lexend-latin-300-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Lexend"; font-weight: 400; font-display: swap; src: url("media/fonts/lexend-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Lexend"; font-weight: 500; font-display: swap; src: url("media/fonts/lexend-latin-500-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Lexend Fallback"; font-weight: 100 349; src: local("Arial"), local("Liberation Sans"); size-adjust: 104.9%; ascent-override: 95.3%; descent-override: 23.8%; line-gap-override: 0%; }
+@font-face { font-family: "Lexend Fallback"; font-weight: 350 449; src: local("Arial"), local("Liberation Sans"); size-adjust: 107.7%; ascent-override: 92.9%; descent-override: 23.2%; line-gap-override: 0%; }
+@font-face { font-family: "Lexend Fallback"; font-weight: 450 900; src: local("Arial"), local("Liberation Sans"); size-adjust: 110.2%; ascent-override: 90.7%; descent-override: 22.7%; line-gap-override: 0%; }
+@font-face { font-family: "Manrope"; font-weight: 600; font-display: swap; src: url("media/fonts/manrope-latin-600-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Manrope"; font-weight: 700; font-display: swap; src: url("media/fonts/manrope-latin-700-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+:root {
+  --bg: #F1F2EF; --surface: #E8EAE5; --paper: #FFFFFF; --text: #14161A; --muted: #5E636B;
+  --line: #E2E4E0; --line-2: #C9CDC5;
+  --green: #327524; --green-2: #275C1C; --green-soft: #E6F1E1;
+  --band: #14161A; --on-band: #F1F2EF; --band-muted: #A9AEA5; --band-line: rgba(241,242,239,.16);
+  --red: #D21F26;
+  --sf-paper: #FBFAF7; --sf-ink: #0E0F11; --sf-tomato: #E8613C; --sf-line: rgba(14,15,17,.12);
+  --font: "Lexend", "Lexend Fallback", Arial, sans-serif;
+  --brand: "Manrope", Arial, sans-serif;
+  --edge: clamp(16px, 4vw, 56px);
+  --r: 18px;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; background: var(--bg); }
+body { margin: 0; background: var(--bg); color: var(--text); font: 400 17px/1.55 var(--font); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img, video, svg { display: block; max-width: 100%; }
+a { color: inherit; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+h1, h2, h3, p, figure, ul, ol, dl, dd { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+h1, h2, h3 { font-weight: 300; letter-spacing: -.03em; text-wrap: balance; }
+button, input { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
+.gut { padding-left: max(var(--edge), env(safe-area-inset-left, 0px)); padding-right: max(var(--edge), env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 1320px; margin: 0 auto; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.mut { color: var(--muted); }
+
+/* ------------------------------------------------------------------ Sitefloor bar (shared) */
+.sfbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--sf-paper); color: var(--sf-ink); border-bottom: 1px solid var(--sf-line); }
+.sfbar .wrap { display: flex; justify-content: space-between; align-items: center; height: 66px; gap: 16px; max-width: 1440px; }
+.wm { display: inline-flex; align-items: center; font: 700 22px var(--brand); letter-spacing: -.04em; text-decoration: none; color: var(--sf-ink); }
+.wm svg { margin: 0 1px; transform: translateY(1px); }
+.sfbar nav { display: flex; gap: 28px; font-family: var(--brand); font-size: 14px; font-weight: 600; }
+.sfbar nav a { text-decoration: none; color: var(--sf-ink); }
+.sfbar nav a[aria-current] { box-shadow: inset 0 -1.5px 0 var(--sf-ink); }
+.sfbtn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 20px; background: var(--sf-ink); color: var(--sf-paper); font: 700 12px var(--brand); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; }
+.sfbtn:hover { background: var(--sf-tomato); }
+.sfbar :focus-visible { outline-color: var(--sf-ink); }
+@media (max-width: 760px) { .sfbar nav { display: none; } }
+@media (max-width: 420px) { .sfbar .sfbtn { display: none; } }
+
+/* ------------------------------------------------------------------ shared pieces in Wenlow's own manner */
+.card { background: var(--paper); border-radius: var(--r); }
+.chip { display: inline-flex; align-items: center; min-height: 26px; padding: 0 10px; border-radius: 99px; background: var(--surface); font-size: 12px; font-weight: 500; color: var(--muted); white-space: nowrap; }
+.chip.g { background: var(--green-soft); color: var(--green-2); }
+.seg { display: inline-grid; grid-auto-flow: column; padding: 3px; border-radius: 99px; background: var(--surface); }
+.seg button { min-height: 34px; padding: 0 14px; border: 0; border-radius: 99px; background: none; font-size: 13px; cursor: pointer; color: var(--muted); white-space: nowrap; }
+.seg button[aria-pressed="true"] { background: var(--text); color: var(--paper); }
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 24px; border-radius: 99px; background: var(--green); color: #fff; font-weight: 500; text-decoration: none; border: 0; cursor: pointer; }
+.btn:hover { background: var(--green-2); }
+
+/* ------------------------------------------------------------------ the hero: the plate and the card */
+.hero { padding-top: clamp(28px, 5vw, 72px); padding-bottom: clamp(40px, 6vw, 88px); }
+.hero .wrap { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1fr); grid-template-areas: "plate head" "plate card"; gap: clamp(24px, 3vw, 40px) clamp(32px, 5vw, 88px); align-items: start; }
+.hero-head { grid-area: head; }
+.hero .pp { grid-area: card; }
+.plate-stage { grid-area: plate; align-self: center; }
+.kick { font-size: 15px; color: var(--muted); }
+.kick b { font-weight: 500; color: var(--text); }
+.hero h1 { margin-top: 12px; font-size: clamp(56px, 7.6vw, 120px); line-height: .92; letter-spacing: -.05em; }
+.hero h1 em { font-style: normal; color: var(--green); }
+.hero .lede { margin-top: 18px; max-width: 34ch; font-size: clamp(18px, 1.6vw, 22px); font-weight: 300; line-height: 1.4; }
+
+.plate-stage { display: flex; flex-direction: column; align-items: flex-start; gap: clamp(20px, 2.6vw, 36px); }
+.plate { position: relative; width: min(100%, 560px); aspect-ratio: 1; perspective: 1400px; border: 0; padding: 0; background: none; cursor: pointer; flex: none; }
+.plate-in { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform 900ms cubic-bezier(.3, .9, .3, 1); transform: rotateX(4deg) rotateY(-10deg); }
+.plate[data-side="p"] .plate-in { transform: rotateX(4deg) rotateY(170deg); }
+.face { position: absolute; inset: 0; border-radius: 10%; background: #fff; backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  box-shadow: 0 1px 0 rgba(20,22,26,.06), 0 18px 40px -18px rgba(20,22,26,.45), inset 0 0 0 1px rgba(20,22,26,.08); display: grid; place-items: center; }
+.face svg { width: 78%; height: 78%; }
+.face.back { transform: rotateY(180deg); }
+.plate-note { max-width: 34ch; font-size: 15px; color: var(--muted); }
+.plate-note b { display: block; font-size: clamp(26px, 2.6vw, 36px); font-weight: 300; letter-spacing: -.03em; color: var(--text); line-height: 1.1; margin-bottom: 4px; }
+.meter { margin-top: 14px; height: 6px; width: 100%; max-width: 320px; border-radius: 99px; background: var(--surface); overflow: hidden; }
+.meter i { display: block; height: 100%; width: 0; background: var(--green); border-radius: 99px; transition: width 400ms ease; }
+
+.pp { padding: clamp(20px, 2.4vw, 32px); box-shadow: 0 24px 60px -40px rgba(20,22,26,.35); }
+.pp-h { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.pp-h h2 { font-size: clamp(22px, 2vw, 28px); font-weight: 400; letter-spacing: -.02em; }
+.pp-row { margin-top: 18px; }
+.pp-lbl { display: block; font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+.pp-two { display: flex; flex-wrap: wrap; gap: 18px 28px; align-items: center; margin-top: 18px; }
+.step { display: inline-flex; align-items: center; gap: 10px; font-size: 14px; }
+.step button { width: 36px; height: 36px; border-radius: 99px; border: 1px solid var(--line-2); background: var(--paper); cursor: pointer; font-size: 18px; line-height: 1; }
+.step output { min-width: 2ch; text-align: center; font-weight: 500; }
+.tick { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer; }
+.tick input { width: 18px; height: 18px; accent-color: var(--green); margin: 0; }
+.pp-res { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 22px; padding-top: 20px; border-top: 1px solid var(--line); }
+.pp-big { font-size: clamp(36px, 4vw, 56px); font-weight: 300; letter-spacing: -.04em; line-height: 1; min-height: 1em; white-space: nowrap; }
+.pp-res small { display: block; margin-top: 8px; font-size: 13px; line-height: 1.45; color: var(--muted); min-height: 2.9em; }
+.pp-foot { margin-top: 18px; font-size: 12px; line-height: 1.5; color: var(--muted); }
+@media (max-width: 960px) { .hero .wrap { grid-template-columns: minmax(0, 1fr); grid-template-areas: "head" "plate" "card"; } .plate { width: min(72vw, 420px); } }
+@media (max-width: 420px) { .pp-big { font-size: 34px; } .seg button { padding: 0 11px; } }
+
+/* ------------------------------------------------------------------ the site on a laptop */
+.screen { padding-bottom: clamp(56px, 8vw, 120px); }
+.laptop { border-radius: 14px; overflow: hidden; background: var(--paper); box-shadow: 0 1px 0 rgba(20,22,26,.06), 0 40px 80px -48px rgba(20,22,26,.45); border: 8px solid var(--text); }
+.laptop img { width: 100%; height: auto; aspect-ratio: 1800 / 1125; }
+.screen-cap { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-top: 18px; font-size: 15px; color: var(--muted); }
+.screen-cap b { font-weight: 500; color: var(--text); }
+
+/* ------------------------------------------------------------------ chapters: tell me, show me */
+.ch { padding-top: clamp(56px, 8vw, 120px); padding-bottom: clamp(56px, 8vw, 120px); border-top: 1px solid var(--line-2); }
+.ch-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px 48px; align-items: end; margin-bottom: clamp(32px, 5vw, 64px); }
+.ch-head h2 { font-size: clamp(44px, 7vw, 104px); line-height: .95; letter-spacing: -.045em; }
+.ch-head p { max-width: 46ch; font-size: 17px; color: var(--muted); }
+.ch-head p b { font-weight: 500; color: var(--text); }
+@media (max-width: 760px) { .ch-head { grid-template-columns: 1fr; } }
+
+.qs { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
+.q { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(20px, 4vw, 56px); padding: clamp(20px, 3vw, 44px); align-items: center; }
+.q-w { display: flex; flex-direction: column; gap: 16px; align-self: stretch; }
+.q-n { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.q h3 { font-size: clamp(32px, 4.2vw, 60px); line-height: 1; letter-spacing: -.04em; }
+.q p { max-width: 44ch; color: var(--muted); }
+.q p b { font-weight: 500; color: var(--text); }
+.q-w .grow { flex: 1; }
+.phone { justify-self: center; width: min(100%, 320px); border-radius: 34px; overflow: hidden; border: 7px solid var(--text); background: var(--bg); }
+.phone img, .phone video { width: 100%; height: auto; aspect-ratio: 780 / 1688; }
+.phone.crop img { aspect-ratio: 780 / 1240; object-fit: cover; object-position: top; }
+@media (max-width: 760px) { .q { grid-template-columns: minmax(0, 1fr); } .phone { width: min(100%, 280px); } }
+
+/* live: do you cover me? */
+.cov { padding: clamp(18px, 2.4vw, 28px); background: var(--bg); border-radius: 14px; width: 100%; }
+.cov form { display: flex; gap: 8px; }
+.cov input { flex: 1; min-width: 0; min-height: 50px; padding: 0 16px; border-radius: 12px; border: 1px solid var(--line-2); background: var(--paper); font-size: 17px; text-transform: uppercase; }
+.cov input::placeholder { text-transform: none; color: var(--muted); }
+.cov form button { min-height: 50px; padding: 0 20px; border-radius: 12px; border: 0; background: var(--text); color: #fff; cursor: pointer; font-weight: 500; }
+.cov-a { margin-top: 14px; min-height: 3.1em; font-size: 17px; line-height: 1.45; }
+.cov-a b { font-weight: 500; }
+.cov-a .y { color: var(--green-2); }
+.cov-list { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 6px; }
+.cov-list button { min-height: 32px; padding: 0 12px; border-radius: 99px; border: 1px solid var(--line-2); background: var(--paper); font-size: 13px; cursor: pointer; }
+
+/* live: next free lessons */
+.slots { width: 100%; }
+.slot { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.slot:first-child { padding-top: 0; }
+.slot b { display: block; font-size: 20px; font-weight: 400; letter-spacing: -.01em; }
+.slot span { font-size: 14px; color: var(--muted); }
+.slot button { min-height: 40px; padding: 0 16px; border-radius: 99px; border: 1.5px solid var(--green); background: var(--paper); color: var(--green-2); font-weight: 500; font-size: 14px; cursor: pointer; white-space: nowrap; }
+.slot button[aria-pressed="true"] { background: var(--green); color: #fff; }
+.msg { margin-top: 16px; min-height: 5.4em; padding: 14px 16px; border-radius: 16px 16px 16px 4px; background: var(--green-soft); font-size: 15px; line-height: 1.45; color: var(--green-2); }
+.msg small { display: block; margin-top: 6px; font-size: 12px; color: var(--muted); }
+.slots-up { margin-top: 12px; font-size: 13px; color: var(--muted); }
+
+/* the pages, sideways */
+.strip { display: grid; grid-auto-flow: column; grid-auto-columns: clamp(180px, 20vw, 240px); gap: 16px; overflow-x: auto; padding: 4px 4px 18px; scroll-snap-type: x proximity; scrollbar-width: thin; }
+.strip figure { scroll-snap-align: start; }
+.strip img { width: 100%; height: auto; aspect-ratio: 780 / 1688; border-radius: 22px; border: 5px solid var(--text); background: var(--bg); }
+.strip figcaption { margin-top: 10px; font-size: 14px; line-height: 1.35; color: var(--muted); }
+.strip figcaption b { display: block; font-weight: 500; color: var(--text); }
+.strip:focus-visible { outline-offset: 6px; }
+.strip-note { margin-top: 18px; font-size: 15px; color: var(--muted); max-width: 72ch; }
+
+/* ------------------------------------------------------------------ independent driving: Signature, on the band */
+.band { background: var(--band); color: var(--on-band); border-top: 0; }
+.band .ch-head p { color: var(--band-muted); }
+.band .ch-head p b { color: var(--on-band); }
+.band .q { background: rgba(241,242,239,.05); border: 1px solid var(--band-line); }
+.band .q p { color: var(--band-muted); }
+.band .q p b { color: var(--on-band); }
+.band .chip { background: rgba(241,242,239,.1); color: var(--on-band); }
+.band .chip.g { background: var(--green); color: #fff; }
+.band .phone { border-color: #2A2D33; }
+.band :focus-visible { outline-color: var(--on-band); }
+.film { position: relative; }
+.play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px; border-radius: 99px; border: 0; background: var(--on-band); color: var(--band); font-weight: 500; font-size: 14px; cursor: pointer; white-space: nowrap; }
+.play svg { width: 12px; height: 12px; }
+.passed { margin-top: 16px; padding: clamp(20px, 3vw, 36px); border-radius: var(--r); border: 1px dashed var(--band-line); display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 20px 28px; align-items: center; }
+.passed .mini { width: 72px; aspect-ratio: 1; border-radius: 10%; background: #fff; display: grid; place-items: center; }
+.passed .mini svg { width: 78%; }
+.passed h3 { font-size: clamp(24px, 2.6vw, 34px); letter-spacing: -.03em; }
+.passed p { margin-top: 6px; color: var(--band-muted); max-width: 70ch; }
+
+/* ------------------------------------------------------------------ plans: one home page, three plans */
+.plans-tabs { display: flex; flex-wrap: wrap; gap: 16px 24px; align-items: center; justify-content: space-between; margin-bottom: 22px; }
+.plans-tabs .seg button { min-height: 44px; padding: 0 22px; font-size: 15px; }
+.plan-price { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.plan-price b { font-size: clamp(30px, 3.4vw, 46px); font-weight: 300; letter-spacing: -.04em; }
+.plan-price span { color: var(--muted); }
+.plan-body { display: grid; grid-template-columns: minmax(0, 2.1fr) minmax(0, 1fr); gap: clamp(20px, 3vw, 44px); align-items: start; }
+.plan-shot { position: relative; }
+.plan-shot img { position: absolute; inset: 0; opacity: 0; transition: opacity 300ms ease; }
+.plan-shot img:first-child { position: relative; }
+.plan-shot img[data-on] { opacity: 1; }
+.plan-list { padding: clamp(20px, 2.4vw, 32px); }
+.plan-list h3 { font-size: 22px; font-weight: 400; letter-spacing: -.02em; }
+.plan-list .fine { margin-top: 6px; font-size: 14px; color: var(--muted); }
+.plan-list ul { margin-top: 18px; display: grid; gap: 10px; font-size: 15px; }
+.plan-list li { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 10px; }
+.plan-list li::before { content: ""; width: 10px; height: 10px; margin-top: .5em; border-radius: 99px; background: var(--green); }
+.plan-list [data-plan-panel] { min-height: 21em; }
+.plans-note { margin-top: 22px; font-size: 15px; color: var(--muted); max-width: 90ch; }
+@media (max-width: 900px) { .plan-body { grid-template-columns: 1fr; } .plan-list [data-plan-panel] { min-height: 0; } }
+
+/* ------------------------------------------------------------------ speed: stopping distances */
+.stop { display: grid; gap: 22px; }
+.stop-row { display: grid; grid-template-columns: minmax(160px, 15rem) minmax(0, 1fr); gap: 8px 24px; align-items: center; }
+.stop-row dt { font-size: 15px; color: var(--muted); }
+.stop-row dt b { display: block; font-size: 22px; font-weight: 400; color: var(--text); letter-spacing: -.02em; }
+.blocks { height: 34px; width: calc(var(--n) / 150 * 100%); min-width: 6px;
+  background: repeating-linear-gradient(90deg, var(--green) 0 calc(100% / var(--n) * 10 - 3px), transparent calc(100% / var(--n) * 10 - 3px) calc(100% / var(--n) * 10)); border-radius: 4px; }
+.blocks.ink { background: repeating-linear-gradient(90deg, var(--text) 0 calc(100% / var(--n) * 10 - 3px), transparent calc(100% / var(--n) * 10 - 3px) calc(100% / var(--n) * 10)); }
+.stop-key { margin-top: 26px; display: flex; gap: 10px; align-items: center; font-size: 14px; color: var(--muted); }
+.stop-key i { display: inline-block; width: 26px; height: 14px; border-radius: 3px; background: var(--green); }
+.calm { margin-top: clamp(40px, 6vw, 72px); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.calm .card { padding: clamp(20px, 2.4vw, 32px); }
+.calm b { display: block; font-size: clamp(44px, 5.4vw, 76px); font-weight: 300; letter-spacing: -.05em; line-height: 1; }
+.calm p { margin-top: 12px; font-size: 15px; color: var(--muted); }
+@media (max-width: 760px) { .stop-row { grid-template-columns: 1fr; } .calm { grid-template-columns: 1fr; } }
+
+/* ------------------------------------------------------------------ close */
+.close { padding-top: clamp(56px, 8vw, 120px); padding-bottom: clamp(56px, 8vw, 120px); border-top: 1px solid var(--line-2); }
+.close .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(28px, 5vw, 72px); align-items: center; }
+.close h2 { font-size: clamp(48px, 7.4vw, 112px); line-height: .94; letter-spacing: -.05em; }
+.close p { margin-top: 22px; max-width: 44ch; font-size: 18px; color: var(--muted); }
+.acts { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: center; }
+.acts a:not(.btn) { font-weight: 500; }
+.mail { display: block; margin-top: 22px; font-size: 15px; color: var(--muted); }
+.close figure { position: relative; }
+.close figure img { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; object-position: 55% 74%; border-radius: var(--r); }
+@media (max-width: 860px) { .close .wrap { grid-template-columns: 1fr; } }
+
+footer { padding-top: 32px; padding-bottom: 40px; border-top: 1px solid var(--line-2); }
+footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; font-size: 13px; color: var(--muted); max-width: 1440px; }
+footer p { max-width: 112ch; }
+@media (max-width: 640px) { footer .wrap { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } .plate-in, .meter i, .plan-shot img { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="L" viewBox="0 0 100 100"><rect x="26" y="12" width="17" height="76" fill="#D21F26"/><rect x="26" y="71" width="50" height="17" fill="#D21F26"/></symbol>
+  <symbol id="P" viewBox="0 0 100 100"><path fill="#327524" d="M26 12h26a24 24 0 0 1 0 48H43v28H26Zm17 16v16h9a8 8 0 0 0 0-16Z"/></symbol>
+</svg>
+
+<div class="sfbar gut"><div class="wrap">
+  <a class="wm" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su" aria-label="Sitefloor home">sitefl<svg width="28" height="14" viewBox="0 0 42 21" aria-hidden="true"><rect x="1.9" y="1.9" width="38.2" height="17.2" rx="8.6" fill="none" stroke="#0E0F11" stroke-width="3.8"/><circle cx="31.5" cy="10.5" r="5.2" fill="#E8613C"/></svg>r</a>
+  <nav aria-label="Main"><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#live">Features</a><a href="#top" aria-current="page">Work</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#pricing">Pricing</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#guides">Guides</a></nav>
+  <a class="sfbtn" href="#mockup"><span>Free mockup</span><span aria-hidden="true">→</span></a>
+</div></div>
+
+<main id="top">
+
+<!-- ================================================================ from L to P -->
+<section class="hero gut" aria-labelledby="h-top"><div class="wrap">
+  <div class="hero-head">
+    <p class="kick"><b>Wenlow</b> · driving lessons, East London</p>
+    <h1 id="h-top">From L to <em>P</em>.</h1>
+    <p class="lede">Every question a learner asks, answered by the website before the first lesson.</p>
+  </div>
+  <div class="plate-stage">
+      <button class="plate" type="button" data-plate data-side="l" aria-label="Turn the plate over">
+        <span class="plate-in"><span class="face"><svg aria-hidden="true"><use href="#L"/></svg></span><span class="face back"><svg aria-hidden="true"><use href="#P"/></svg></span></span>
+      </button>
+      <p class="plate-note" aria-live="polite"><b data-plate-h>0 of 45 hours</b><span data-plate-t>The DVSA's average before the test. At 45, the L comes off.</span>
+        <span class="meter" aria-hidden="true"><i data-meter></i></span></p>
+    </div>
+  <div class="card pp" aria-labelledby="h-pp">
+    <div class="pp-h"><h2 id="h-pp">When could I pass?</h2><span class="chip g">Live</span></div>
+    <div class="pp-row"><span class="pp-lbl" id="pp-g">Car</span>
+      <div class="seg" role="group" aria-labelledby="pp-g"><button type="button" data-gear="manual" aria-pressed="true">Manual</button><button type="button" data-gear="automatic" aria-pressed="false">Automatic</button></div></div>
+    <div class="pp-row"><span class="pp-lbl" id="pp-w">Two-hour lessons a week</span>
+      <div class="seg" role="group" aria-labelledby="pp-w"><button type="button" data-per="2" aria-pressed="false">One</button><button type="button" data-per="4" aria-pressed="true">Two</button><button type="button" data-per="6" aria-pressed="false">Three</button><button type="button" data-per="intensive" aria-pressed="false">Intensive</button></div></div>
+    <div class="pp-two">
+      <span class="step"><span id="pp-so">Hours so far</span><button type="button" data-minus aria-label="Five hours fewer">−</button><output data-so aria-labelledby="pp-so" aria-live="polite">0</output><button type="button" data-plus aria-label="Five hours more">+</button></span>
+      <label class="tick"><input type="checkbox" data-theory> Theory passed</label>
+    </div>
+    <div class="pp-res" aria-live="polite">
+      <div><p class="pp-big" data-when>12 weeks</p><small data-date>test-ready around 18 February</small></div>
+      <div><p class="pp-big" data-cost>£1,710</p><small data-line>45 hours at £36 + test £62 + theory £23, rounded</small></div>
+    </div>
+    <p class="pp-foot">An estimate from DVSA averages and Wenlow's prices, not a promise: your instructor says when you're ready. Test fees from <a href="https://www.gov.uk/driving-test-cost">gov.uk</a>, checked 16 November 2026: £62 on a weekday, £75 evenings, weekends and bank holidays; theory £23.</p>
+  </div>
+</div></section>
+
+<!-- ================================================================ the site -->
+<section class="screen gut" aria-label="Wenlow's home page"><div class="wrap">
+  <div class="laptop"><img src="media/lt-signature.webp" width="1800" height="1125" alt="Wenlow's home page on a laptop: the headline beside four cards, prices, do you cover me, next free lessons and when could I pass, above a photograph of a red Corsa at the roadside" loading="lazy" decoding="async"></div>
+  <p class="screen-cap"><span><b>The first screen.</b> Four answers before anyone scrolls: the price, whether we come to you, the next free lesson and when you could pass.</span><a href="https://sitefloor1.github.io/sitefloor-templates/driving/">Open the demo</a></p>
+</div></section>
+
+<!-- ================================================================ tell me -->
+<section class="ch gut" aria-labelledby="h-tell"><div class="wrap">
+  <div class="ch-head">
+    <h2 id="h-tell">Tell me.</h2>
+    <p>Before you drive, the examiner asks a tell me question. Learners ask theirs before they book. <b>These three answers come on every plan, Starter included.</b></p>
+  </div>
+  <div class="qs">
+    <article class="card q" aria-labelledby="h-t1">
+      <div class="q-w"><div class="q-n"><span class="chip">Tell me 1</span><span class="chip g">Starter</span></div>
+        <h3 id="h-t1">“How much is a lesson?”</h3>
+        <p>Manual and automatic, side by side. <b>A block of ten saves £20</b>: the site works the saving out from the instructor's own prices.</p></div>
+      <figure class="phone crop"><img src="media/ph-prices.webp" width="780" height="1688" alt="Wenlow's prices on a phone: one hour £38, two hours £76, a block of 10 hours £360 with save £20, intensive 30 hours £1,110" loading="lazy" decoding="async"></figure>
+    </article>
+
+    <article class="card q" aria-labelledby="h-t2">
+      <div class="q-w"><div class="q-n"><span class="chip">Tell me 2</span><span class="chip g">Starter</span></div>
+        <h3 id="h-t2">“Do you come to me?”</h3>
+        <p>A postcode, and a straight answer from the instructor's own list of districts. Try one.</p>
+        <div class="cov" data-cov>
+          <form data-cov-form><label class="sr" for="cov-in">Your postcode</label><input id="cov-in" data-cov-in autocomplete="postal-code" placeholder="Your postcode" maxlength="9"><button type="submit">Check</button></form>
+          <p class="cov-a" data-cov-a aria-live="polite">Wenlow covers eight districts, east of the City and over the river.</p>
+          <div class="cov-list" role="group" aria-label="Try a district"><button type="button" data-try="E14 6PU">E14 6PU</button><button type="button" data-try="SE10 9NN">SE10 9NN</button><button type="button" data-try="E15 1DB">E15 1DB</button></div>
+        </div></div>
+      <figure class="phone crop"><img src="media/ph-cover.webp" width="780" height="1688" alt="Do you cover me? on a phone, with E14 6PU typed and the answer: yes, E14, Poplar, Limehouse and Canary Wharf" loading="lazy" decoding="async"></figure>
+    </article>
+
+    <article class="card q" aria-labelledby="h-t3">
+      <div class="q-w"><div class="q-n"><span class="chip">Tell me 3</span><span class="chip g">Starter</span></div>
+        <h3 id="h-t3">“What happens on the day?”</h3>
+        <p>The practical test in gov.uk's order: the eyesight check, show me and tell me, general driving, a reversing exercise, independent driving. <b>Each step in a line, with gov.uk linked for the detail.</b></p></div>
+      <figure class="phone crop"><img src="media/ph-testday.webp" width="780" height="1688" alt="Test day, in order, on a phone: eyesight check, show me tell me, general driving, a reversing exercise, independent driving" loading="lazy" decoding="async"></figure>
+    </article>
+  </div>
+</div></section>
+
+<!-- ================================================================ show me -->
+<section class="ch gut" aria-labelledby="h-show"><div class="wrap">
+  <div class="ch-head">
+    <h2 id="h-show">Show me.</h2>
+    <p>The show me question comes while you're driving. <b>Plus shows the week's free lessons, the DVSA's own readiness check and up to five pages.</b></p>
+  </div>
+  <div class="qs">
+    <article class="card q" aria-labelledby="h-s1">
+      <div class="q-w"><div class="q-n"><span class="chip">Show me 1</span><span class="chip g">Plus</span></div>
+        <h3 id="h-s1">“A free lesson this week.”</h3>
+        <p>The instructor keeps a Google Sheet of free times; the site shows the next three, drops any that have passed and <b>hides the list if the sheet goes stale</b>. One tap writes the message.</p>
+        <div class="slots" data-slots>
+          <ul data-slot-list aria-label="Next free lessons"></ul>
+          <p class="msg" data-msg aria-live="polite">Tap a lesson to see the message it writes.<small>On Wenlow's site it opens in WhatsApp, ready to send.</small></p>
+          <p class="slots-up" data-slots-up></p>
+        </div></div>
+      <figure class="phone crop"><img src="media/ph-slots.webp" width="780" height="1688" alt="Next free lessons on a phone: three lessons, each with Ask for this" loading="lazy" decoding="async"></figure>
+    </article>
+
+    <article class="card q" aria-labelledby="h-s2">
+      <div class="q-w"><div class="q-n"><span class="chip">Show me 2</span><span class="chip g">Plus</span></div>
+        <h3 id="h-s2">“Am I ready to book?”</h3>
+        <p>Ready to Pass?, the DVSA's own five points, answered yes or not yet. Not yet tells you what the next lessons are for. <b>The wording is gov.uk's, with the link.</b></p></div>
+      <figure class="phone crop"><img src="media/ph-ready.webp" width="780" height="1688" alt="Ready to Pass? on a phone: the DVSA's five points, each with yes and not yet" loading="lazy" decoding="async"></figure>
+    </article>
+  </div>
+
+  <div class="strip" tabindex="0" role="region" aria-label="Wenlow's pages on a phone (scroll sideways)" style="margin-top:48px">
+    <figure><img src="media/ph-lessons.webp" width="780" height="1688" alt="Lessons and prices" loading="lazy" decoding="async"><figcaption><b>Lessons and prices</b>every lesson, both gearboxes</figcaption></figure>
+    <figure><img src="media/ph-areas.webp" width="780" height="1688" alt="Areas we cover" loading="lazy" decoding="async"><figcaption><b>Areas</b>district by district</figcaption></figure>
+    <figure><img src="media/ph-book.webp" width="780" height="1688" alt="Book a lesson" loading="lazy" decoding="async"><figcaption><b>Book</b>a free time, or a message</figcaption></figure>
+    <figure><img src="media/ph-test-centres.webp" width="780" height="1688" alt="Test centres" loading="lazy" decoding="async"><figcaption><b>Test centres</b>what each one is like</figcaption></figure>
+    <figure><img src="media/ph-parents.webp" width="780" height="1688" alt="For parents" loading="lazy" decoding="async"><figcaption><b>For parents</b>paying, practice, insurance</figcaption></figure>
+    <figure><img src="media/ph-automatic-or-manual.webp" width="780" height="1688" alt="Automatic or manual" loading="lazy" decoding="async"><figcaption><b>Automatic or manual</b>the licence you get</figcaption></figure>
+    <figure><img src="media/ph-intensive.webp" width="780" height="1688" alt="Intensive courses" loading="lazy" decoding="async"><figcaption><b>Intensive courses</b>who they suit</figcaption></figure>
+    <figure><img src="media/ph-theory.webp" width="780" height="1688" alt="Theory test help" loading="lazy" decoding="async"><figcaption><b>Theory test</b>what comes first</figcaption></figure>
+    <figure><img src="media/ph-pass-plus.webp" width="780" height="1688" alt="Pass Plus and motorway lessons" loading="lazy" decoding="async"><figcaption><b>Pass Plus</b>and motorway lessons</figcaption></figure>
+    <figure><img src="media/ph-refresher.webp" width="780" height="1688" alt="Refresher lessons" loading="lazy" decoding="async"><figcaption><b>Refresher lessons</b>for nervous drivers</figcaption></figure>
+    <figure><img src="media/ph-instructors.webp" width="780" height="1688" alt="Instructors" loading="lazy" decoding="async"><figcaption><b>Instructors</b>approved or trainee, said plainly</figcaption></figure>
+  </div>
+  <p class="strip-note">Plus has up to five of these pages; Signature has them all. An instructor's badge number and pass rate appear only when the instructor gives them, a pass rate with its dates; the site refuses "pass first time", "guaranteed" and "fastest" in anything the school writes.</p>
+</div></section>
+
+<!-- ================================================================ independent driving -->
+<section class="ch band gut" aria-labelledby="h-ind"><div class="wrap">
+  <div class="ch-head">
+    <h2 id="h-ind">Independent driving.</h2>
+    <p>About twenty minutes on your own, following a sat nav or the signs. <b>Signature adds the parts a learner comes back to between lessons.</b></p>
+  </div>
+  <div class="qs">
+    <article class="q" aria-labelledby="h-i1" style="border-radius:var(--r)">
+      <div class="q-w"><div class="q-n"><span class="chip">Independent 1</span><span class="chip g">Signature</span></div>
+        <h3 id="h-i1">“How am I doing?”</h3>
+        <p>Every skill at the DVSA's five levels, the last lesson and what to practise, from the instructor's sheet after each lesson. <b>A learner opens it with a code; no name is ever on the sheet</b>, and a sheet with a name on it shows nothing.</p>
+        <span class="grow"></span>
+        <p>Try it in the demo with the code <b>WNL4821</b>.</p></div>
+      <figure class="phone film" data-film><video muted playsinline preload="none" poster="media/progress-poster.webp" width="780" height="1688" aria-label="Film of the progress page on a phone: the code WNL4821 typed, and the learner's card opening"><source src="media/progress.mp4" type="video/mp4"></video>
+        <button class="play" type="button" data-play aria-label="Play the film of the progress card"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg><span>Play</span></button></figure>
+    </article>
+
+    <article class="q" aria-labelledby="h-i2" style="border-radius:var(--r)">
+      <div class="q-w"><div class="q-n"><span class="chip">Independent 2</span><span class="chip g">Signature</span></div>
+        <h3 id="h-i2">“When could I pass, and what will it cost?”</h3>
+        <p>The card at the top of this page, on the home page. Weeks to test-ready at the hours a week you choose, and the cost from the school's own block or intensive price plus gov.uk's fees, <b>rounded and labelled an estimate</b>. If the fees go six months without a check, they drop out with a note.</p>
+        <span class="grow"></span>
+        <p><a href="#h-pp">Back to the card</a></p></div>
+      <figure class="phone crop"><img src="media/ph-pass.webp" width="780" height="1688" alt="When could I pass? on a phone: 12 weeks, test-ready around 18 February, and £1,710" loading="lazy" decoding="async"></figure>
+    </article>
+
+    <article class="q" aria-labelledby="h-i3" style="border-radius:var(--r)">
+      <div class="q-w"><div class="q-n"><span class="chip">Independent 3</span><span class="chip g">Signature</span></div>
+        <h3 id="h-i3">“Mirror, signal, then what?”</h3>
+        <p>A journal of short notes from the instructor: the fault they see most, the hour before a test. The kind of page people find from a search and keep.</p></div>
+      <figure class="phone crop"><img src="media/ph-article-mirror-checks.webp" width="780" height="1688" alt="A journal note on a phone: Mirror, signal, then what?" loading="lazy" decoding="async"></figure>
+    </article>
+  </div>
+  <div class="passed">
+    <span class="mini" aria-hidden="true"><svg><use href="#P"/></svg></span>
+    <div><h3>And the day the plates come off.</h3>
+      <p>A Passed page, with your pupils' own photographs from test day. It needs real ones, so it's on client sites only and the demo leaves it off.</p></div>
+  </div>
+</div></section>
+
+<!-- ================================================================ plans -->
+<section class="ch gut" id="plans" aria-labelledby="h-plans"><div class="wrap">
+  <div class="ch-head">
+    <h2 id="h-plans">Three plans.</h2>
+    <p>The same first screen at each plan. <b>Pick one.</b></p>
+  </div>
+  <div class="plans-tabs">
+    <div class="seg" role="group" aria-label="Plan"><button type="button" data-pick="starter" aria-pressed="false">Starter</button><button type="button" data-pick="plus" aria-pressed="false">Plus</button><button type="button" data-pick="signature" aria-pressed="true">Signature</button></div>
+    <p class="plan-price" aria-live="polite"><b data-price>£349 set-up</b><span data-month>then £35 a month</span></p>
+  </div>
+  <div class="plan-body">
+    <div class="laptop plan-shot">
+      <img src="media/lt-starter.webp" width="1800" height="1125" alt="The home page on Starter: prices and do you cover me beside the headline, the photograph below" loading="lazy" decoding="async" data-shot="starter">
+      <img src="media/lt-plus.webp" width="1800" height="1125" alt="The home page on Plus: next free lessons added beside the photograph" loading="lazy" decoding="async" data-shot="plus">
+      <img src="media/lt-signature.webp" width="1800" height="1125" alt="The home page on Signature: when could I pass, with the cost, added as the fourth card" loading="lazy" decoding="async" data-shot="signature" data-on>
+    </div>
+    <div class="card plan-list">
+      <div data-plan-panel="starter" hidden><h3>Starter</h3><p class="fine">£99 set-up, then £25 a month. 12 months, then month to month.</p>
+        <ul><li>Home and Plan your visit</li><li>Prices, manual and automatic, with block savings</li><li>Do you cover me?, by postcode</li><li>Test day, in gov.uk's order</li><li>Book a lesson and Chat at the foot of every phone screen</li></ul></div>
+      <div data-plan-panel="plus" hidden><h3>Plus</h3><p class="fine">£199 set-up, then £30 a month. 12 months, then month to month.</p>
+        <ul><li>Everything in Starter</li><li>Next free lessons, from your Google Sheet</li><li>Ready to Pass?, the DVSA's five points</li><li>Up to five pages, from: lessons, areas, booking, test centres, parents, automatic or manual, intensive, theory, Pass Plus, refreshers, instructors</li><li>A Passed page, with your pupils' photographs</li></ul></div>
+      <div data-plan-panel="signature"><h3>Signature</h3><p class="fine">£349 set-up, then £35 a month. 12 months, then month to month.</p>
+        <ul><li>Everything in Plus, up to twenty pages</li><li>When could I pass?, with the cost to pass</li><li>Each learner's progress card, by code</li><li>The journal</li></ul></div>
+    </div>
+  </div>
+  <p class="plans-note">Any feature can be added to any plan on its own, and extra pages one at a time. Bespoke sites start from £1,399, quoted after a call. Your prices, areas, free times and pupils' photographs are always your own; we never write them for you.</p>
+</div></section>
+
+<!-- ================================================================ stopping distances -->
+<section class="ch gut" aria-labelledby="h-speed"><div class="wrap">
+  <div class="ch-head">
+    <h2 id="h-speed">Stopping distances.</h2>
+    <p>Drawn the way the Highway Code draws them, in blocks. <b>What the demo asks a phone to fetch</b>, measured on 17 November 2026.</p>
+  </div>
+  <dl class="stop">
+    <div class="stop-row"><dt><b>13.3 KB</b>script for the whole site, compressed</dt><dd class="blocks" style="--n:13.3"></dd></div>
+    <div class="stop-row"><dt><b>10.3 KB</b>styles, compressed</dt><dd class="blocks" style="--n:10.3"></dd></div>
+    <div class="stop-row"><dt><b>8.7 KB</b>the home page itself, compressed</dt><dd class="blocks" style="--n:8.7"></dd></div>
+    <div class="stop-row"><dt><b>43 KB</b>one typeface, three weights, self-hosted</dt><dd class="blocks" style="--n:43"></dd></div>
+    <div class="stop-row"><dt><b>143.1 KB</b>the photograph on the first screen</dt><dd class="blocks ink" style="--n:143.1"></dd></div>
+  </dl>
+  <p class="stop-key"><i aria-hidden="true"></i>Each block is 10 KB.</p>
+  <div class="calm">
+    <div class="card"><b>0.004</b><p>how far the home page moves while it loads on a 1280-pixel laptop; 0.001 on a phone. Our limit is 0.02.</p></div>
+    <div class="card"><b>0</b><p>requests to anyone else's servers. Nothing to track a learner, nothing to slow the page.</p></div>
+    <div class="card"><b>18</b><p>pages on the Signature demo, the guides for parents, theory and test centres included.</p></div>
+  </div>
+</div></section>
+
+<!-- ================================================================ your pupils -->
+<section class="close gut" id="mockup" aria-labelledby="h-close"><div class="wrap">
+  <div>
+    <h2 id="h-close">Your pupils, from L to P.</h2>
+    <p>Send us your prices, the postcodes you cover and how pupils book. We'll make a free mockup of your home page with your own prices on it.</p>
+    <div class="acts">
+      <a class="btn" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#free">Get a free mockup</a>
+      <a href="https://sitefloor1.github.io/sitefloor-templates/driving/">Try the demo first</a>
+    </div>
+    <span class="mail">hello@sitefloor.com</span>
+  </div>
+  <figure><img src="media/car.webp" width="1200" height="800" alt="A red Vauxhall Corsa parked at the roadside under two trees" loading="lazy" decoding="async"></figure>
+</div></section>
+
+</main>
+
+<footer class="gut"><div class="wrap">
+  <p>Wenlow is a fictional driving school made to show the Sitefloor driving instructor kit. Its address, phone number, instructors, prices, areas, test centres, journal, free lessons and learner card are demo data; the free lessons and the learner card are simulated. Test fees, the 45-hour average, Ready to Pass? and the test-day order are the DVSA's, from gov.uk, checked 16 November 2026; nothing here is a promise of a pass. Photograph: Mike Bird (Pexels), free licence. The film and screens are of the Wenlow demo; its photographs are credited there.</p>
+  <span>© 2026 Sitefloor</span>
+</div></footer>
+
+<script>
+(() => {
+  "use strict";
+  // Wenlow's own figures, from the demo's site.json, and the kit's own rules (src/kits/driving/lib/driving.js).
+  const LESSONS = {
+    manual: { block: { hours: 10, price: 360 }, intensive: { hours: 30, price: 1110, over: "over one to two weeks" } },
+    automatic: { block: { hours: 10, price: 390 }, intensive: { hours: 30, price: 1200, over: "over one to two weeks" } },
+  };
+  const FEES = { practical: 62, theory: 23 };
+  const AVERAGE = 45;
+  const DISTRICTS = [["E1", "Whitechapel and Stepney"], ["E1W", "Wapping"], ["E2", "Bethnal Green"], ["E3", "Bow"],
+    ["E14", "Poplar, Limehouse and Canary Wharf"], ["E16", "Canning Town and Royal Docks"], ["SE8", "Deptford"], ["SE10", "Greenwich"]];
+  // the demo's free lessons: [weekday (0 = Sunday), start, hours, gearbox]
+  const FREE = [[4, "16:00", 2, "manual"], [6, "09:00", 2, "automatic"], [1, "18:00", 2, "manual"], [3, "07:00", 1, "manual"]];
+  const MESSAGE = "Hello, I'd like to book this lesson:";
+
+  const pounds = (n) => `£${Math.round(n).toLocaleString("en-GB")}`;
+  const roundTen = (n) => Math.round(n / 10) * 10;
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const london = () => {
+    const p = Object.fromEntries(new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).formatToParts(new Date()).map((x) => [x.type, x.value]));
+    return { date: `${p.year}-${p.month}-${p.day}`, minutes: Number(p.hour) * 60 + Number(p.minute) };
+  };
+  const addDays = (ymd, n) => new Date(Date.parse(`${ymd}T12:00:00Z`) + n * 864e5).toISOString().slice(0, 10);
+  const dayMonth = (ymd, o) => new Date(`${ymd}T12:00:00Z`).toLocaleDateString("en-GB", { timeZone: "UTC", ...o });
+
+  // ---------------------------------------------------------------- when could I pass? and the plate
+  const plate = $("[data-plate]");
+  let gear = "manual", per = "4", soFar = 0, turned = false;
+  const paint = () => {
+    const g = LESSONS[gear], intensive = per === "intensive", left = Math.max(0, AVERAGE - soFar);
+    $("[data-so]").textContent = String(soFar);
+    $("[data-meter]").style.width = `${(soFar / AVERAGE) * 100}%`;
+    $("[data-plate-h]").textContent = left ? `${soFar} of 45 hours` : "45 of 45 hours";
+    $("[data-plate-t]").textContent = left ? "The DVSA's average before the test. At 45, the L comes off." : "The L comes off. Time for a mock test.";
+    const side = left ? (turned ? "p" : "l") : "p";
+    plate.dataset.side = side;
+    plate.setAttribute("aria-label", !left ? "Start again from the L" : side === "p" ? "Turn the plate back to the L" : "Turn the plate over");
+    if (!left) {
+      $("[data-when]").textContent = "Nearly there"; $("[data-date]").textContent = "Ask for a mock test";
+      $("[data-cost]").textContent = pounds(FEES.practical); $("[data-line]").textContent = "the practical test";
+      return;
+    }
+    const rate = intensive ? g.intensive.price / g.intensive.hours : g.block.price / g.block.hours;
+    const theory = $("[data-theory]").checked ? 0 : FEES.theory;
+    const total = roundTen(left * rate + FEES.practical + theory);
+    if (intensive) {
+      $("[data-when]").textContent = left <= g.intensive.hours ? "One course" : `${Math.ceil(left / g.intensive.hours)} courses`;
+      $("[data-date]").textContent = `${g.intensive.over}; dates agreed with you`;
+    } else {
+      const weeks = Math.max(1, Math.ceil(left / Number(per)));
+      $("[data-when]").textContent = `${weeks} ${weeks === 1 ? "week" : "weeks"}`;
+      $("[data-date]").textContent = `test-ready around ${dayMonth(addDays(london().date, weeks * 7), { day: "numeric", month: "long" })}`;
+    }
+    $("[data-cost]").textContent = pounds(total);
+    $("[data-line]").textContent = `${left} hours at ${pounds(rate)} + test ${pounds(FEES.practical)}${theory ? ` + theory ${pounds(theory)}` : ""}, rounded`;
+  };
+  $$("[data-gear]").forEach((b) => b.addEventListener("click", () => { gear = b.dataset.gear; $$("[data-gear]").forEach((x) => x.setAttribute("aria-pressed", String(x === b))); paint(); }));
+  $$("[data-per]").forEach((b) => b.addEventListener("click", () => { per = b.dataset.per; $$("[data-per]").forEach((x) => x.setAttribute("aria-pressed", String(x === b))); paint(); }));
+  $("[data-minus]").addEventListener("click", () => { soFar = Math.max(0, soFar - 5); paint(); });
+  $("[data-plus]").addEventListener("click", () => { soFar = Math.min(AVERAGE, soFar + 5); paint(); });
+  $("[data-theory]").addEventListener("change", paint);
+  plate.addEventListener("click", () => { if (soFar >= AVERAGE) { soFar = 0; turned = false; } else turned = !turned; paint(); });
+  paint();
+
+  // ---------------------------------------------------------------- do you cover me?
+  const districtOf = (pc) => {
+    const s = String(pc ?? "").toUpperCase().replace(/\s+/g, "");
+    const full = s.match(/^([A-Z]{1,2}\d[A-Z\d]?)(\d[A-Z]{2})$/);
+    if (full) return full[1];
+    return /^[A-Z]{1,2}\d[A-Z\d]?$/.test(s) ? s : null;
+  };
+  const covA = $("[data-cov-a]"), covIn = $("[data-cov-in]");
+  const check = () => {
+    const d = districtOf(covIn.value);
+    if (!d) { covA.textContent = "That doesn't look like a postcode. Try E14 6PU, or just E14."; return; }
+    const hit = DISTRICTS.find(([k]) => k === d);
+    covA.innerHTML = hit ? `<b class="y">Yes, ${d}.</b> ${hit[1]}: picked up from home, school, college or work.`
+      : `<b>${d} isn't on the list.</b> Message us and we'll say honestly if we can reach you.`;
+  };
+  $("[data-cov-form]").addEventListener("submit", (e) => { e.preventDefault(); check(); });
+  $$("[data-try]").forEach((b) => b.addEventListener("click", () => { covIn.value = b.dataset.try; check(); }));
+
+  // ---------------------------------------------------------------- next free lessons, worked out from today
+  const clock = (mins) => { const h = Math.floor(mins / 60) % 24, m = mins % 60; return `${((h + 11) % 12) + 1}${m ? `:${String(m).padStart(2, "0")}` : ""}${h < 12 ? "am" : "pm"}`; };
+  const span = (start, hours) => { const [h, m] = start.split(":").map(Number), a = h * 60 + m, b = a + hours * 60, ca = clock(a), cb = clock(b); return ca.slice(-2) === cb.slice(-2) ? `${ca.slice(0, -2)}–${cb}` : `${ca}–${cb}`; };
+  const today = london();
+  const dow = new Date(`${today.date}T12:00:00Z`).getUTCDay();
+  const slots = FREE.map((f) => ({ date: addDays(today.date, ((f[0] - dow + 7) % 7) || 7), time: f[1], hours: f[2], gearbox: f[3] }))
+    .sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time)).slice(0, 3);
+  const list = $("[data-slot-list]"), msg = $("[data-msg]");
+  slots.forEach((s) => {
+    const when = `${dayMonth(s.date, { weekday: "short", day: "numeric", month: "short" })}, ${span(s.time, s.hours)}`;
+    const li = document.createElement("li"); li.className = "slot";
+    li.innerHTML = `<div><b>${dayMonth(s.date, { weekday: "short", day: "numeric", month: "short" })}</b><span>${span(s.time, s.hours)} · ${s.gearbox}</span></div><button type="button" aria-pressed="false" aria-label="Ask for this: ${when}, ${s.gearbox}">Ask for this</button>`;
+    const b = li.querySelector("button");
+    b.addEventListener("click", () => {
+      $$("button", list).forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+      msg.innerHTML = `${MESSAGE} ${when} (${s.gearbox}).<small>Opens in WhatsApp on Wenlow's site, ready to send.</small>`;
+    });
+    list.append(li);
+  });
+  $("[data-slots-up]").textContent = `Worked out from today, ${dayMonth(today.date, { weekday: "long", day: "numeric", month: "long" })}, from the demo's usual free times.`;
+
+  // ---------------------------------------------------------------- the film, only when asked
+  $$("[data-film]").forEach((f) => {
+    const v = $("video", f), b = $("[data-play]", f);
+    b.addEventListener("click", () => {
+      if (v.paused) { v.play(); b.querySelector("span").textContent = "Pause"; b.setAttribute("aria-label", "Pause the film of the progress card"); }
+      else { v.pause(); b.querySelector("span").textContent = "Play"; b.setAttribute("aria-label", "Play the film of the progress card"); }
+    });
+    v.addEventListener("ended", () => { b.querySelector("span").textContent = "Play again"; b.setAttribute("aria-label", "Play the film of the progress card again"); });
+  });
+
+  // ---------------------------------------------------------------- plans
+  const PLANS = { starter: ["£99 set-up", "then £25 a month"], plus: ["£199 set-up", "then £30 a month"], signature: ["£349 set-up", "then £35 a month"] };
+  $$("[data-pick]").forEach((b) => b.addEventListener("click", () => {
+    const k = b.dataset.pick;
+    $$("[data-pick]").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+    $$("[data-shot]").forEach((i) => i.toggleAttribute("data-on", i.dataset.shot === k));
+    $$("[data-plan-panel]").forEach((p) => { p.hidden = p.dataset.planPanel !== k; });
+    $("[data-price]").textContent = PLANS[k][0]; $("[data-month]").textContent = PLANS[k][1];
+  }));
+})();
+</script>
+</body>
+</html>

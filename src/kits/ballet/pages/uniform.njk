@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: uniform
+permalink: uniform.html
+feature: ballet-uniform
+eleventyComputed:
+  title: "{{ site.uniformPage.title | plain }}"
+  description: "What to wear for each ballet class at {{ site.business.name }}, and where to buy it."
+---
+{%- set ph = site.uniformPage %}
+{% include "kits/ballet/partials/page-head.njk" %}
+{%- set uniformPage = true %}{% include "kits/ballet/features/ballet-uniform/ballet-uniform.njk" %}

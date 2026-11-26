@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: show-day
+permalink: show-day.html
+feature: ballet-showday
+eleventyComputed:
+  title: "{{ site.showDayPage.title | plain }}"
+  description: "Show day at {{ site.business.name }}: arrival, stage door, costume, hair and collection for your child's class, by its code."
+---
+{%- set ph = site.showDayPage %}
+{% include "kits/ballet/partials/page-head.njk" %}
+{% include "kits/ballet/features/ballet-showday/ballet-showday.njk" %}

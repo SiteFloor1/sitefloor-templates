@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: classes
+permalink: classes.html
+feature: ballet-classes
+eleventyComputed:
+  title: "{{ site.classesPage.title | plain }}"
+  description: "Ballet classes by age at {{ site.business.name }}, {{ site.location.locality }}: every class from the youngest up, with its days, times and length."
+---
+{%- set ph = site.classesPage %}
+{% include "kits/ballet/partials/page-head.njk" %}
+{% include "kits/ballet/features/ballet-classes/ballet-classes.njk" %}

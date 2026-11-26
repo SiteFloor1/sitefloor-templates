@@ -1,0 +1,26 @@
+{#- The round, hero: on the left the line (hairline, one word heavy), the class finder and the year's next date; at the
+    foot of the column every page as a quiet index. On the right the stage inside a great circle that runs off the page,
+    and round it, still, the school's year set like the frieze round the Royal Albert Hall. -#}
+{%- set h = site.hero %}
+<section class="hero rd-hero" aria-labelledby="rd-h1">
+  <div class="rd-lead">
+    <h1 id="rd-h1" class="rd-h1">{{ h.title | markup | safe }}</h1>
+    {%- if "ballet-finder" | enabled %}{% include "kits/ballet/features/ballet-finder/ballet-finder.njk" %}{% endif %}
+    {%- if "ballet-year" | enabled %}{% include "kits/ballet/features/ballet-year/ballet-year.njk" %}{% endif %}
+    {%- if site.mode == "demo" %}<p class="rd-fine">Fictional school. Classes, times and every date on the ring are samples.</p>{% endif %}
+    <nav class="rd-index" aria-label="Pages">
+      {%- for item in site.nav | navItems(pageId) %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}>{{ item.label }}</a>{% endfor %}
+    </nav>
+  </div>
+  <div class="rd-dome">
+    <img class="rd-dome-img" src="{{ h.photo.src | img }}" alt="{{ h.photo.alt }}" width="{{ h.photo.width }}" height="{{ h.photo.height }}" fetchpriority="high" decoding="async">
+    <svg class="rd-dome-ring" viewBox="0 0 1000 1000" aria-hidden="true" focusable="false">
+      <defs><path id="rd-ring" d="M500,500 m-462,0 a462,462 0 1,1 924,0 a462,462 0 1,1 -924,0"/></defs>
+      <circle cx="500" cy="500" r="430" fill="none" stroke="currentColor"/>
+      <circle cx="500" cy="500" r="490" fill="none" stroke="currentColor" class="rd-ring-faint"/>
+      {%- if "ballet-year" | enabled %}
+      <text class="rd-frieze"><textPath href="#rd-ring">{% for x in (site | yearRing(build.today)).slice(0, 10) %}<tspan class="rd-fd">{{ x.date | dateWords("short") }}</tspan>&#8194;<tspan>{{ x.label | lower }}</tspan>&#8195;·&#8195;{% endfor %}</textPath></text>
+      {%- endif %}
+    </svg>
+  </div>
+</section>

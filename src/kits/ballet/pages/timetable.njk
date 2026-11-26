@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: timetable
+permalink: timetable.html
+feature: ballet-timetable
+eleventyComputed:
+  title: "{{ site.timetablePage.title | plain }}"
+  description: "The week's ballet classes at {{ site.business.name }}, {{ site.location.locality }}, day by day."
+---
+{%- set ph = site.timetablePage %}
+{% include "kits/ballet/partials/page-head.njk" %}
+{% include "kits/ballet/features/ballet-timetable/ballet-timetable.njk" %}

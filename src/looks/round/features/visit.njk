@@ -1,0 +1,18 @@
+{#- The round, the studio (home): the address set inside a circle, with the way to it; beside it the opening line and
+    whether the studio is open now; under both, the week as one strip of seven days, today marked. -#}
+{%- set sec = { title: site.sections.visit.title, intro: site.sections.visit.intro } %}
+<section id="visit" class="rd-v" data-feature="visit"><div class="wrap">
+  <div class="rd-v-top">
+    <div class="rd-disc rv">
+      <address>{{ site.location.streetAddress }}<br>{{ site.location.locality }}<br><b>{{ site.location.postcode }}</b></address>
+      <a class="rd-link" href="{{ site.location | directions }}" target="_blank" rel="noopener">Directions</a>
+    </div>
+    <div class="rd-v-say">
+      {% include "core/partials/section-head.njk" %}
+      <p class="rd-now" data-live-status><span class="dot" aria-hidden="true"></span><span data-status-text>Studio hours</span></p>
+      <p class="rd-fine" data-status-detail></p>
+      {%- if site.location.area %}<p class="rd-v-area">{{ site.location.area }}</p>{% endif %}
+    </div>
+  </div>
+  {% include "looks/round/partials/week.njk" %}
+</div></section>

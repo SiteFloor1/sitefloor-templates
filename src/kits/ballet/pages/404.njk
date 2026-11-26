@@ -1,0 +1,9 @@
+---
+layout: core/layouts/base.njk
+pageId: "404"
+permalink: 404.html
+title: Page not found
+---
+{%- set ph = { kicker: "Not found", title: "This page *isn't here.*", intro: "It may have moved. The classes, the timetable and the year's dates are on the home page." } %}
+{% include "kits/ballet/partials/page-head.njk" %}
+<p class="wrap rd-back"><a class="rd-link" href="{{ 'index' | href }}">Back to the home page</a></p>
