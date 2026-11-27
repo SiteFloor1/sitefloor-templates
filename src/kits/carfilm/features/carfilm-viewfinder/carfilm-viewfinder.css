@@ -1,0 +1,7 @@
+/* The monitor: the film fills the stage; the frame sits centred at the first format's shape (--r) by CSS alone, so the
+   first paint is right without script and nothing moves when the script starts. The look sets the colours. */
+.cf-stage { position: relative; overflow: hidden; }
+.cf-film { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+/* --s is the stage's own shape (width ÷ height, set by the look): the frame is 88% of whichever side binds first. */
+.cf-frame { position: absolute; inset: 0; margin: auto; width: min(88%, calc(88% * var(--r, 2.39) / var(--s, 2.15))); height: auto; aspect-ratio: var(--r, 2.39); box-shadow: 0 0 0 1px var(--guide), 0 0 0 200vmax var(--shade); }
+.cf-frame u, .cf-frame i, .cf-frame s { position: absolute; pointer-events: none; }

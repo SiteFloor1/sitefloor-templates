@@ -1,0 +1,7 @@
+{#- The listing shot set: the studio's standard photographs for a car on sale, in order, with the size they arrive in. -#}
+{%- set L = site.listingSet %}{% set fm = site.formats | formatById(L.format) %}
+<section class="cf-sec cf-ls" id="listing" data-feature="carfilm-listing" aria-labelledby="ls-h"{{ "carfilm-listing" | tierAttr | safe }}><div class="wrap cf-ls-in">
+  <div><h2 id="ls-h" class="cf-h2">{{ L.title }}</h2><p class="cf-intro">{{ L.intro }}</p>
+    <p class="cf-ls-size"><span class="cf-k">Delivered</span> <b>{{ fm.ratio }} · {{ fm.size }}</b></p></div>
+  <ol class="cf-ls-list">{% for x in L.items %}<li><span class="cf-num">{{ loop.index if loop.index > 9 else "0" + loop.index }}</span>{{ x }}</li>{% endfor %}</ol>
+</div></section>

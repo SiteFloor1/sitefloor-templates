@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: showreel
+permalink: showreel.html
+feature: carfilm-showreel
+eleventyComputed:
+  title: "Showreel"
+  description: "Car films by {{ site.business.name }}: rolling shots, details and the last hour of light."
+---
+{%- set ph = { title: "Showreel", intro: "Every film, with its runtime." } %}{% set phMark = 2 %}{% include "kits/carfilm/partials/page-head.njk" %}
+{% include "kits/carfilm/features/carfilm-showreel/carfilm-showreel.njk" %}

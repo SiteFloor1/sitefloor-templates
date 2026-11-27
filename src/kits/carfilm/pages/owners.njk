@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: owners
+permalink: owners.html
+feature: carfilm-guides
+eleventyComputed:
+  title: "{{ site.guides.owners.title | plain }}"
+  description: "{{ site.guides.owners.description }}"
+---
+{%- set G = site.guides.owners %}{% set ph = G %}{% set phMark = 7 %}{% include "kits/carfilm/partials/page-head.njk" %}
+{% include "kits/carfilm/features/carfilm-guides/carfilm-guides.njk" %}
+{%- if "carfilm-book" | enabled %}<p class="wrap cf-more"><a class="cf-link" href="{{ 'book' | href }}">Book a shoot</a></p>{% endif %}

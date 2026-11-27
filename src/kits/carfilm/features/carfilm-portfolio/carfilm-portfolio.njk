@@ -1,0 +1,17 @@
+{#- The work by car: the studio's groups as a row of buttons (makes on a client site), then every photograph large. -#}
+{%- set P = site.portfolio %}
+<div class="wrap cf-pf" data-feature="carfilm-portfolio">
+  <div class="cf-pf-f" role="group" aria-label="Show">
+    <button type="button" data-group="" aria-pressed="true">All</button>
+    {%- for g in P.groups %}<button type="button" data-group="{{ g.id }}" aria-pressed="false">{{ g.label }}</button>{% endfor %}
+  </div>
+  <ul class="cf-pf-grid" aria-live="polite">
+    {%- for x in P.items %}
+    <li data-in="{{ x.group }}" class="{{ 'cf-wide' if x.width > x.height * 1.3 else 'cf-tall' }}"><figure>
+      <img src="{{ x.src | img }}" alt="{{ x.alt }}" width="{{ x.width }}" height="{{ x.height }}"{% if loop.index > 2 %} loading="lazy"{% endif %} decoding="async">
+      <figcaption>{{ P | groupLabel(x.group) }}{% if x.caption %} · {{ x.caption }}{% endif %}</figcaption>
+    </figure></li>
+    {%- endfor %}
+  </ul>
+  {%- if P.note %}<p class="cf-note">{{ P.note }}</p>{% endif %}
+</div>

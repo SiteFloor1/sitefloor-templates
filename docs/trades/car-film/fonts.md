@@ -5,5 +5,5 @@ Martian Mono is for the viewfinder readout and the timecode section markers only
 
 | Look or design | Status | Branch | Display | Body |
 |---|---|---|---|---|
-| Kerrow, The viewfinder (round 2) | approved | trade/car-film | Trirong | Wix Madefor Text |
-| Kerrow, The viewfinder: readout and timecodes | approved | trade/car-film | Martian Mono | Martian Mono |
+| Kerrow, Viewfinder (`viewfinder` look) | built | trade/car-film | Trirong | Wix Madefor Text |
+| Kerrow, Viewfinder: readout and timecodes | built | trade/car-film | Martian Mono | Martian Mono |

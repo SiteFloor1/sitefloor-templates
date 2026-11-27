@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: portfolio
+permalink: portfolio.html
+feature: carfilm-portfolio
+eleventyComputed:
+  title: "{{ site.portfolio.title | plain }}"
+  description: "Car photographs by {{ site.business.name }}, by kind of car."
+---
+{%- set ph = { title: site.portfolio.title, intro: site.portfolio.intro } %}{% set phMark = 4 %}{% include "kits/carfilm/partials/page-head.njk" %}
+{% include "kits/carfilm/features/carfilm-portfolio/carfilm-portfolio.njk" %}

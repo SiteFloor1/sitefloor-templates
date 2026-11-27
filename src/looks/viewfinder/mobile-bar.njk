@@ -1,0 +1,6 @@
+{#- Viewfinder phone bar: tonight's light on the left (to the roads, or the planner on Signature), Book on the right. -#}
+{%- set askText = site.book.message if (site.book and ("carfilm-book" | enabled)) else site.messages.general %}
+<div class="mbar cf-mbar">
+  {%- if "carfilm-planner" | enabled %}<a class="cf-mb-l" href="{{ 'golden-hour' | href }}"{{ "carfilm-planner" | tierAttr | safe }}>Golden hour</a>{% elif "carfilm-locations" | enabled %}<a class="cf-mb-l" href="{{ 'index' | href }}#roads"{{ "carfilm-locations" | tierAttr | safe }}>Tonight's light</a>{% else %}<a class="cf-mb-l" href="{{ 'index' | href }}#packages">Packages</a>{% endif %}
+  <a class="cf-mb-r" href="{{ askText | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ askText }}"{% endif %} target="_blank" rel="noopener">Book a shoot</a>
+</div>

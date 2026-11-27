@@ -44,6 +44,8 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 | foreshore | Mona Sans | Mona Sans |
 | Hair, Length | Darker Grotesque | Public Sans |
 | handover | Castoro | Kumbh Sans |
+| Kerrow, Viewfinder (`viewfinder` look) | Trirong | Wix Madefor Text |
+| Kerrow, Viewfinder: readout and timecodes | Martian Mono | Martian Mono |
 | loupe | Rozha One | Source Serif 4 |
 | mackerel | Funnel Display | Sora |
 | maison | Cormorant Garamond | Jost |
@@ -62,8 +64,6 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 |---|---|---|---|
 | Skin, Clémence (round 6) | trade/beauty | Antic Didone | Baskervville |
 | Isolde, the cover (round 4) | trade/bridal-beauty | Libre Bodoni | Faustina |
-| Kerrow, The viewfinder (round 2) | trade/car-film | Trirong | Wix Madefor Text |
-| Kerrow, The viewfinder: readout and timecodes | trade/car-film | Martian Mono | Martian Mono |
 | Cleaning, Plan (A) | trade/cleaning | Anek Latin | Anek Latin |
 | Verge (driving) | trade/driving | Lexend | Lexend |
 | Maudry, The doors | trade/events | Eczar | Eczar |

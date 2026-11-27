@@ -1,0 +1,5 @@
+{#- The viewfinder's format switch (Signature): each shape the studio delivers; pressing one snaps the frame to it. -#}
+{%- set vf = site.formats.items | selectattr("viewfinder") %}
+<div class="cf-fmt" role="group" aria-label="Frame" data-feature="carfilm-formats"{{ "carfilm-formats" | tierAttr | safe }}>
+  {%- for f in vf %}<button type="button" data-fmt="{{ f.id }}" data-r="{{ f.ratio | ratio }}" aria-pressed="{{ 'true' if loop.first else 'false' }}" aria-label="{{ f.name }}, {{ f.ratio }}">{{ f.ratio if f.id != "listing" else "Listing " + f.ratio }}</button>{% endfor %}
+</div>

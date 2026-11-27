@@ -1,0 +1,14 @@
+{#- Package rows: name, what's in it, the whole price, and a message to ask. `pk` = the packages to show (default all). -#}
+{%- set rows = pk or site.packages.items %}
+<ol class="cf-pk-list">
+  {%- for p in rows %}
+  <li class="cf-pk-row" id="pk-{{ p.id }}">
+    <h3 class="cf-pk-n">{{ p.name }}</h3>
+    <ul class="cf-pk-inc">{% for x in p.includes %}<li>{{ x }}</li>{% endfor %}</ul>
+    <p class="cf-pk-p">{{ p.price | gbp }}</p>
+    {%- set ask = "Hello " + site.business.name + ", I'd like to book " + p.name + ". The car: " %}
+    <a class="cf-btn cf-btn-line" href="{{ ask | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ ask }}"{% endif %} target="_blank" rel="noopener">Ask about a date</a>
+  </li>
+  {%- endfor %}
+</ol>
+<p class="cf-note">{{ site.packages.note }}</p>

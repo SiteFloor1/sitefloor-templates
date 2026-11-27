@@ -1,0 +1,19 @@
+{#- Viewfinder header: the crop-corner emblem and the name in Trirong on the left, the pages in sentence case, and
+    "Book a shoot" (WhatsApp) as the one solid button. On a phone: the name, "Menu" and "Book". -#}
+{%- set items = site.nav | navItems(pageId) %}
+{%- set askText = site.book.message if (site.book and ("carfilm-book" | enabled)) else site.messages.general %}
+<header class="nav cf-nav"><div class="wrap cf-nav-in">
+  <a class="cf-word" href="{{ 'index' | href }}">{% if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="{{ site.business.name }}" height="30">{% else %}<svg width="26" height="26" viewBox="0 0 28 28" aria-hidden="true"><path d="M2 8V2h6M20 2h6v6M26 20v6h-6M8 26H2v-6" class="cf-em-c"/><path d="M10 8v12M10 14l8-6M12.8 12 18 20" class="cf-em-k"/></svg>{{ site.business.name }}{% endif %}</a>
+  <nav class="cf-links" aria-label="Main">
+    {%- for item in items %}{% if item.page != "book" %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>{% endif %}{% endfor %}
+  </nav>
+  <a class="cf-book" href="{{ askText | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ askText }}"{% endif %} target="_blank" rel="noopener">Book a shoot</a>
+  <button class="burger cf-menu" type="button" aria-expanded="false" aria-controls="mnav"><span class="cf-open">Menu</span><span class="cf-close">Close</span></button>
+</div></header>
+<div class="mnav cf-sheet" id="mnav" hidden>
+  <nav aria-label="Pages">
+    <a href="{{ 'index' | href }}"{% if pageId == "index" %} aria-current="page"{% endif %}>Home</a>
+    {%- for item in items %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>{% endfor %}
+  </nav>
+  <p class="cf-sheet-now" data-live-status><span class="dot" aria-hidden="true"></span> <span data-status-text>Opening hours</span></p>
+</div>

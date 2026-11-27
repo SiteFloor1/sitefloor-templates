@@ -1,0 +1,20 @@
+{#- The showreel on the home page: each film as a still with its runtime, what kind of shot it is and the car. Tap to
+    play it where it is (muted, with the player's own controls). -#}
+{%- set sec = site.sections.reel %}
+<section id="reel" class="cf-sec cf-reel" data-feature="carfilm-reel" aria-labelledby="reel-h"><div class="wrap">
+  {%- set secId = "reel-h" %}{% include "core/partials/section-head.njk" %}
+  <ul class="cf-reel-list">
+    {%- for r in site.reel.items %}
+    <li class="cf-reel-i">
+      <button class="cf-reel-play" type="button" data-play="{{ r.src | img }}" aria-label="Play {{ r.title }}, {{ r.seconds | runtime }}">
+        <img src="{{ r.poster | img }}" alt="" width="{{ r.width }}" height="{{ r.height }}" loading="lazy" decoding="async">
+        <span class="cf-rt">{{ r.seconds | runtime }}</span>
+      </button>
+      <p class="cf-reel-t">{{ r.title }}</p>
+      <p class="cf-reel-m">{{ r.kind }} · {{ r.car }}</p>
+    </li>
+    {%- endfor %}
+  </ul>
+  {%- if site.reel.note %}<p class="cf-note">{{ site.reel.note }}</p>{% endif %}
+  {%- if "carfilm-showreel" | enabled %}<p class="cf-more"><a class="cf-link" href="{{ 'showreel' | href }}"{{ "carfilm-showreel" | tierAttr | safe }}>Every film</a></p>{% endif %}
+</div></section>

@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: rolling-shots
+permalink: rolling-shots.html
+feature: carfilm-guides
+eleventyComputed:
+  title: "{{ site.guides.rolling.title | plain }}"
+  description: "{{ site.guides.rolling.description }}"
+---
+{%- set G = site.guides.rolling %}{% set ph = G %}{% set phMark = 8 %}{% include "kits/carfilm/partials/page-head.njk" %}
+{% include "kits/carfilm/features/carfilm-guides/carfilm-guides.njk" %}
+{%- if "carfilm-book" | enabled %}<p class="wrap cf-more"><a class="cf-link" href="{{ 'book' | href }}">Book a shoot</a></p>{% endif %}

@@ -1,0 +1,22 @@
+{#- The viewfinder: the studio's own film seen through a camera monitor. Frame lines, corner marks, a rule-of-thirds
+    grid and a centre mark over the picture; outside the frame, shaded. Under it, the monitor's readout: the clip's real
+    timecode and a pause, tonight's light on the studio's road (carfilm-tonight) and, on Signature, the format switch
+    (carfilm-formats). The frame is placed by CSS at the first format's shape, so the first paint needs no script. -#}
+{%- set f = site.hero.film %}
+{%- set first = (site.formats.items | selectattr("viewfinder") | first) if site.formats else null %}
+<section class="cf-mon" data-feature="carfilm-viewfinder" aria-label="Viewfinder">
+  <div class="cf-stage" data-stage style="--r:{{ (first.ratio if first else '2.39:1') | ratio }}">
+    <video class="cf-film" data-film data-src="{{ f.src | img }}"{% if f.smallSrc %} data-small="{{ f.smallSrc | img }}"{% endif %} poster="{{ f.poster | img }}" width="{{ f.width }}" height="{{ f.height }}" muted loop playsinline preload="none" aria-label="{{ f.label }}"></video>
+    <div class="cf-frame" data-frame role="img" aria-label="Frame guide{% if 'carfilm-formats' | enabled %}: drag it, or use the arrow keys, to reframe{% endif %}"{% if 'carfilm-formats' | enabled %} tabindex="0"{% endif %}>
+      <i class="cf-c1"></i><i class="cf-c2"></i><i class="cf-c3"></i><i class="cf-c4"></i>
+      <u class="cf-v1"></u><u class="cf-v2"></u><u class="cf-g1"></u><u class="cf-g2"></u><s class="cf-x"></s>
+    </div>
+  </div>
+  <div class="cf-bar">
+    <p class="cf-tc"><span>TC</span><b data-tc>00:00:00:00</b>
+      <button class="cf-pp" type="button" data-motion-pause hidden aria-label="Pause the moving background"><span data-motion-label class="cf-sr">Pause</span><svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path class="cf-pp-pause" d="M2 1h2v8H2zM6 1h2v8H6z"/><path class="cf-pp-play" d="M2 1l7 4-7 4z"/></svg></button>
+    </p>
+    {%- if "carfilm-tonight" | enabled %}{% include "kits/carfilm/features/carfilm-tonight/carfilm-tonight.njk" %}{% endif %}
+    {%- if "carfilm-formats" | enabled %}{% include "kits/carfilm/features/carfilm-formats/carfilm-formats.njk" %}{% endif %}
+  </div>
+</section>

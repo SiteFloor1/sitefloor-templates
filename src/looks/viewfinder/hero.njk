@@ -1,0 +1,7 @@
+{#- Viewfinder hero: the headline and one line above the monitor (never over the picture), then the monitor itself
+    (carfilm-viewfinder: the film, the frame guides and the readout). -#}
+<div class="cf-top wrap">
+  <h1 class="cf-h1">{{ site.hero.title | markup | safe }}</h1>
+  <p class="cf-lede">{{ site.hero.intro }}</p>
+</div>
+{% include "kits/carfilm/features/carfilm-viewfinder/carfilm-viewfinder.njk" %}

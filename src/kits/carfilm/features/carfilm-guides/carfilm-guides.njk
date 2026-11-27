@@ -1,0 +1,8 @@
+{#- A guide page's body: the studio's sections (a heading and a few lines each) beside its photograph. Set `G` to the
+    guide first (site.guides.<key>). Locations, deliveries and questions add their own parts after (pages/*.njk). -#}
+{%- if G.sections %}
+<div class="wrap cf-story{% if G.photo %} cf-story-ph{% endif %}">
+  {%- if G.photo %}<figure class="cf-story-f"><img src="{{ G.photo.src | img }}" alt="{{ G.photo.alt }}" width="{{ G.photo.width }}" height="{{ G.photo.height }}" decoding="async"></figure>{% endif %}
+  <div class="cf-story-t">{% for s in G.sections %}<section class="cf-story-s"><h2 class="cf-h3">{{ s.heading }}</h2><p>{{ s.body }}</p></section>{% endfor %}</div>
+</div>
+{%- endif %}

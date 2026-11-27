@@ -1,0 +1,16 @@
+---
+layout: core/layouts/base.njk
+pageId: deliveries
+permalink: deliveries.html
+feature: carfilm-guides
+eleventyComputed:
+  title: "{{ site.guides.deliveries.title | plain }}"
+  description: "{{ site.guides.deliveries.description }}"
+---
+{%- set G = site.guides.deliveries %}{% set ph = G %}{% set phMark = 14 %}{% include "kits/carfilm/partials/page-head.njk" %}
+<div class="wrap cf-dv">
+  <ul class="cf-dv-list">{% for f in site.formats.items %}<li><span class="cf-dv-shape" style="--r:{{ f.ratio | ratio }}" aria-hidden="true"></span><b>{{ f.name }}</b><span class="cf-sz">{{ f.ratio }} · {{ f.size }}</span><p>{{ f.use }}</p></li>{% endfor %}</ul>
+  {%- if site.formats.note %}<p class="cf-note">{{ site.formats.note }}</p>{% endif %}
+</div>
+{% include "kits/carfilm/features/carfilm-guides/carfilm-guides.njk" %}
+{%- if "carfilm-packages-page" | enabled %}<p class="wrap cf-more"><a class="cf-link" href="{{ 'packages' | href }}#dates">When each package arrives</a></p>{% endif %}
