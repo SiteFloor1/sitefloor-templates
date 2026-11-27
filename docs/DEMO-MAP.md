@@ -181,6 +181,15 @@ Taken by Corbel: the blue-hour deep navy ground with warm lit rooms, the blueber
 pale green-white text, Encode Sans Expanded and Encode Sans, the engraved scene keypad and the circuit chart, the house
 at dusk switched by a keypad, and a 3D house lit room by room.
 
+## Event designers and producers
+_From `docs/trades/events/demo-map.md`._
+
+This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` (generated) before proposing a look.
+
+| Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
+|---|---|---|---|---|---|---|---|
+| Maudry | event design and production, `events`, `doors` (built 18 Nov on `trade/events`) | a panelled room at night: **warm dark** #19150F, candlelit | an olive leaf on a candlelit table | olive green #4E6E58 on warm dark, parchment text #EDE3D0, brass #9C8257 for hairlines | Eczar / Eczar | the room on the night full screen, one-colour headline, the next free Saturday beside it; design visuals of the client's room before the day | (to come) |
+
 ## Financial advisers
 _From `docs/trades/financial-advisers/demo-map.md`._
 

@@ -1,0 +1,25 @@
+{#- See your room before the day: one set of the agency's design visuals (up to four views of one proposed room), the
+    first large, the others a click away. Every view carries "A design visual": a proposal, never a past event.
+    `evSetId` picks the set (the proposal page); otherwise the home set. -#}
+{%- set sec = site.sections.visuals %}
+{%- set S = site.visuals | evSet(evSetId or site.visuals.home) %}
+<section id="visuals" class="ev-vis" data-feature="events-visuals"{% if evSetId %} data-ev-set="{{ S.id }}"{% endif %} aria-label="{{ sec.title | plain }}"{{ "events-visuals" | tierAttr | safe }}><div class="wrap">
+  {%- if not evSetId %}{% include "core/partials/section-head.njk" %}{% endif %}
+  <div class="ev-vis-frame">
+    {%- for v in S.views %}
+    <figure class="ev-vis-view" data-ev-view="{{ loop.index0 }}"{% if not loop.first %} hidden{% endif %}>
+      {%- set ph = v.photo %}{% set phCls = "ev-vis-img" %}{% set phSizes = "(min-width: 1200px) 1200px, 100vw" %}{% set phLazy = true %}{% include "kits/events/partials/photo.njk" %}
+    </figure>
+    {%- endfor %}
+    <p class="ev-label">A design visual</p>
+  </div>
+  <div class="ev-vis-foot">
+    {%- if S.views | length > 1 %}
+    <div class="ev-vis-views" role="group" aria-label="Views of the room">
+      {%- for v in S.views %}<button type="button" data-ev-show="{{ loop.index0 }}" aria-pressed="{{ 'true' if loop.first else 'false' }}">{{ v.label }}</button>{% endfor %}
+    </div>
+    {%- endif %}
+    <p class="ev-vis-line"><b>{{ S.title }}</b> {{ S.line }}</p>
+  </div>
+  {%- if site.visuals.credit %}<p class="ev-vis-cr">{{ site.visuals.credit }}</p>{% endif %}
+</div></section>

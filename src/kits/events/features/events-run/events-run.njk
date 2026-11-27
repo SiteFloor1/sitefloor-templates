@@ -1,0 +1,12 @@
+{#- The sample run of the night (EVT-4): set as a printed running order, the time large and the line beside it.
+    Always labelled a sample: a real one is written for the venue. -#}
+{%- set R = site.runOfShow %}
+<section class="ev-run"><div class="wrap">
+  {%- set ph = { title: R.title, intro: R.intro } %}{% include "kits/events/partials/page-head.njk" %}
+  <p class="ev-run-note">{{ R.note or "A sample. Yours is written for your venue, your guests and your night." }}</p>
+  <ol class="ev-run-list">
+    {%- for x in R.items %}
+    <li><time>{{ x.time }}</time><div><b>{{ x.what }}</b>{% if x.detail %}<span>{{ x.detail }}</span>{% endif %}</div></li>
+    {%- endfor %}
+  </ol>
+</div></section>

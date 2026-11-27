@@ -1,0 +1,20 @@
+{#- The rooms (EVT-1): the agency's own photographs of rooms on the night, large, each with the occasion, how many it
+    held and where, and "Ask about a room like this" on WhatsApp naming it. With the portfolio on, a link to every room. -#}
+{%- set sec = site.sections.rooms %}
+<section id="rooms" class="ev-rooms" aria-label="{{ sec.title | plain }}"><div class="wrap">
+  {%- include "core/partials/section-head.njk" %}
+  <ul class="ev-rooms-list">
+    {%- for r in site.rooms.items %}{% if loop.index <= (sec.show or 4) %}
+    <li class="ev-room" id="room-{{ r.id }}">
+      {%- set ph = r.photo %}{% set phCls = "ev-room-img" %}{% set phSizes = "(min-width: 900px) 60vw, 100vw" %}{% set phLazy = true %}{% include "kits/events/partials/photo.njk" %}
+      <div class="ev-room-txt">
+        <h3 class="ev-room-name">{{ r.name }}</h3>
+        <p class="ev-room-facts">{{ r.guests }} guests · {{ r.where }}</p>
+        {%- if r.line %}<p class="ev-room-line">{{ r.line }}</p>{% endif %}
+        <a class="ev-ask" href="{{ (r | evAsk(site.business.name)) | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ r | evAsk(site.business.name) }}"{% endif %} target="_blank" rel="noopener">Ask about a room like this</a>
+      </div>
+    </li>
+    {%- endif %}{% endfor %}
+  </ul>
+  {%- if "events-portfolio" | enabled %}<p class="ev-more"><a href="{{ 'rooms' | href }}"{{ "events-portfolio" | tierAttr | safe }}>Every room</a></p>{% endif %}
+</div></section>
