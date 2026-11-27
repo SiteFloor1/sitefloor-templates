@@ -99,6 +99,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .door-foot { position: absolute; left: 0; right: 0; bottom: 0; display: flex; justify-content: space-between; align-items: end; gap: 24px; padding-bottom: 22px; font-size: 14px; color: var(--muted); }
 .door-foot b { font-weight: 500; color: var(--text); }
 /* the answer: your table, in the room beyond the plan */
+.guests-p { display: none; }
 .seat { position: absolute; left: 49%; right: var(--edge); top: 50%; transform: translateY(-50%); max-width: 520px; opacity: 0; visibility: hidden; transition: opacity .9s ease, visibility 0s linear .9s; }
 .seat.on { opacity: 1; visibility: visible; transition: opacity .9s ease; }
 .seat-in { padding: 30px 32px 30px; background: rgba(20,16,11,.82); border: 1px solid var(--hair); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
@@ -143,8 +144,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .phone.lower { margin-top: clamp(30px, 5vw, 80px); }
 
 /* a laptop on the desk (the demo's home, desktop) */
-.desk { margin-top: clamp(40px, 6vw, 80px); display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: 32px 56px; align-items: center; }
-.lap { position: relative; padding: 14px 14px 0; background: #0b0a08; border: 1px solid var(--line-2); border-radius: 14px 14px 0 0; }
+.desk { margin-top: clamp(40px, 6vw, 80px); display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); overflow-x: clip; gap: 32px 56px; align-items: center; }
+.lap { position: relative; max-width: 100%; min-width: 0; padding: 14px 14px 0; background: #0b0a08; border: 1px solid var(--line-2); border-radius: 14px 14px 0 0; }
 .lap img { width: 100%; height: auto; aspect-ratio: 1440 / 900; }
 .lap::after { content: ""; position: absolute; left: -6%; right: -6%; bottom: -16px; height: 16px; background: linear-gradient(#2c2820, #14120e); border-radius: 0 0 12px 12px; }
 @media (max-width: 860px) { .desk { grid-template-columns: minmax(0, 1fr); } }
@@ -256,6 +257,14 @@ footer { padding-top: 32px; padding-bottom: 40px; border-top: 1px solid var(--li
 footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; font-size: 13px; color: var(--faint); max-width: 1440px; }
 footer p { max-width: 112ch; }
 @media (max-width: 640px) { footer .wrap { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 399px) {
+  .card .guests { display: none; }
+  .card-in { justify-content: center; }
+  .card h1 { font-size: 13cqw; }
+  .card-sub { font-size: 5.4cqw; }
+  .guests-p { display: grid; padding: 16px var(--edge) 20px; background: var(--card); color: var(--card-ink); }
+  .guests-p button { font-size: 17px; min-height: 46px; padding: 6px 0; }
+}
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
 </style>
 </head>
@@ -287,6 +296,7 @@ footer p { max-width: 112ch; }
     </div></div>
     </div>
     <p class="seat-hint" aria-hidden="true">Everyone who comes to the site has a seat.<span>Find your name on the plan.</span></p>
+    <ul class="guests guests-p" data-guests-p aria-label="The guests"></ul>
     <div class="seat" data-seat aria-live="polite"><div class="seat-in" data-seat-in></div></div>
     <div class="door-foot gut"><span><b>Maudry</b> · Event design and production, London. A fictional studio.</span><span>The room is a render.</span></div>
   </div>
@@ -557,7 +567,7 @@ footer p { max-width: 112ch; }
     { who: "The couple who said yes", table: "Five", page: "Your proposal", go: "#proposal", say: () => "A private page opened with a code: their room, their date, their visuals. No names on it." },
     { who: "The launch for eighty", table: "Six", page: "Rooms for your number", go: "#dinner", say: () => "Every room the studio has dressed, the ones near eighty first." },
   ];
-  const door = $("[data-door]"), lists = [$("[data-guests]")], seat = $("[data-seat]"), seatIn = $("[data-seat-in]");
+  const door = $("[data-door]"), lists = [$("[data-guests]"), $("[data-guests-p]")], seat = $("[data-seat]"), seatIn = $("[data-seat-in]");
   const choose = (i) => {
     const g = GUESTS[i];
     lists.forEach((l) => $$("button", l).forEach((b, j) => b.setAttribute("aria-pressed", String(i === j))));
