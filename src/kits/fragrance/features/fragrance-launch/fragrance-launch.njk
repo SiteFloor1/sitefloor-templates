@@ -1,0 +1,16 @@
+{#- Launch mode's section on the home page: the founder's note in their own words and, before the day, the pre-order
+    terms (when it ships, what happens if they cancel). -#}
+{%- set L = site.launch %}
+{%- set ls = L | launchState %}
+{%- if L.story or ls.state == "before" %}
+<section id="launch" class="fr-launch{% if ls.state == 'before' and site.mode != 'demo' %} is-before{% endif %}" data-launch-scope aria-label="{{ L.story.title if L.story else 'Before the launch' }}"{{ 'fragrance-launch' | tierAttr | safe }}><div class="wrap fr-launch-in">
+  {%- if L.story %}
+  <div class="fr-story">
+    <h2 class="fr-story-t">{{ L.story.title }}</h2>
+    {%- for p in L.story.text | paragraphs %}<p>{{ p }}</p>{% endfor %}
+    <p class="fr-story-by">{{ L.story.by }}</p>
+  </div>
+  {%- endif %}
+  <p class="fr-launch-terms fr-before-only">{{ L.terms }}</p>
+</div></section>
+{%- endif %}

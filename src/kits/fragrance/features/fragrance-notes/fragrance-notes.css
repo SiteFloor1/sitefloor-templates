@@ -1,0 +1,20 @@
+/* The notes as one sentence across the bottle. Placed by the look on the hero picture: each clause carries its height
+   (--y, a fraction of the picture) and sits left or right of the bottle (--xl, --xr from the hero). */
+.fr-notes { position: absolute; inset: 0; pointer-events: none; z-index: 3; }
+.fr-clause { position: absolute; top: calc(var(--y) * 100%); margin: 0; display: flex; align-items: flex-start; gap: 16px; transform: translateY(-.62em); pointer-events: auto; font-size: clamp(21px, 1.95vw, 28px); }
+.fr-clause.fr-l { left: var(--pad); right: calc(100% - var(--xl) * 100% + 18px); }
+.fr-clause.fr-r { left: calc(var(--xr) * 100% + 18px); right: var(--pad); }
+.fr-clause.fr-l .fr-rule { order: 2; }
+.fr-rule { flex: 1; min-width: 32px; height: 1px; margin-top: .66em; background: var(--text); opacity: .5; }
+.fr-clause-t { font: 400 1em/1.25 var(--font-display); max-width: 13em; }
+.fr-note { font: inherit; color: inherit; background: none; border: 0; padding: 0 0 1px; border-bottom: 1px solid var(--line-2); cursor: pointer; }
+.fr-note:hover { border-bottom-color: var(--text); }
+.fr-note[aria-pressed="true"] { color: var(--accent); border-bottom-color: var(--accent); }
+.fr-also { display: block; font: 400 .64em/1.4 var(--font-display); margin-top: 8px; }
+.fr-also:empty { display: none; }
+@media (max-width: 760px) {
+  .fr-notes { position: static; padding: 22px var(--pad) 0; display: flex; flex-direction: column; gap: 8px; }
+  .fr-clause, .fr-clause.fr-l, .fr-clause.fr-r { position: static; transform: none; font-size: 23px; }
+  .fr-rule { display: none; }
+  .fr-clause-t { max-width: none; }
+}

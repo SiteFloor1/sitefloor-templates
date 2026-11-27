@@ -1,0 +1,27 @@
+{#- The doors header: the flame and the name (the agency's logo, else the name set in the display type), the pages on
+    the right with "Enquire" underlined in the accent; on the home page it lies over the room photograph. On a phone:
+    the flame and name, Enquire and Menu; the sheet lists the pages and the open status. -#}
+{%- set items = site.nav | navItems(pageId) %}
+{%- set start = ('start' | href) if ("events-brief" | enabled) else (site.messages.general | book) %}
+<header class="nav dr-nav{% if pageId == 'index' %} dr-over{% endif %}">
+  <a class="dr-mark" href="{{ 'index' | href }}" aria-label="{{ site.business.name }}, home">
+    <svg class="dr-flame" viewBox="0 0 18 30" aria-hidden="true" focusable="false"><path d="M9 1C5 8 3 12 3 16.5A6 6 0 0 0 15 16.5C15 12 13 8 9 1Z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M9 11c-1.6 2.6-2.4 4.3-2.4 6a2.4 2.4 0 0 0 4.8 0c0-1.7-.8-3.4-2.4-6Z" fill="currentColor"/><path d="M9 23v6" stroke="currentColor" stroke-width="1.2"/></svg>
+    {%- if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="" height="28">{% else %}<span class="dr-name">{{ site.business.name }}</span>{% endif %}</a>
+  <nav class="dr-menu" aria-label="Main">
+    {%- if "events-occasions" | enabled %}{% for o in site.occasions.items %}{% if o.menu %}<a href="{{ o.id | href }}"{{ "events-occasions" | tierAttr | safe }}{% if o.id == pageId %} aria-current="page"{% endif %}>{{ o.nav or o.title }}</a>{% endif %}{% endfor %}{% endif %}
+    {%- for item in items %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>{% endfor %}
+  </nav>
+  {%- set bp = site.booking.provider %}
+  <a class="dr-direct" href="{{ site.messages.general | book }}"{% if bp == "whatsapp" %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{{ "WhatsApp" if bp == "whatsapp" else ("Call" if bp == "phone" else "Book") }}</a>
+  <a class="dr-enq" href="{{ start }}"{% if not ("events-brief" | enabled) %}{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener"{% endif %}>Enquire</a>
+  <button class="burger dr-burger" type="button" aria-expanded="false" aria-controls="mnav">Menu</button>
+</header>
+<div class="mnav dr-sheet" id="mnav" hidden>
+  <nav aria-label="Pages">
+    <a href="{{ 'index' | href }}"{% if pageId == "index" %} aria-current="page"{% endif %}>Home</a>
+    {%- if "events-occasions" | enabled %}{% for o in site.occasions.items %}{% if o.menu %}<a href="{{ o.id | href }}"{{ "events-occasions" | tierAttr | safe }}>{{ o.nav or o.title }}</a>{% endif %}{% endfor %}{% endif %}
+    {%- for item in items %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>{% endfor %}
+    {%- if "events-proposal" | enabled %}<a href="{{ 'your-proposal' | href }}"{{ "events-proposal" | tierAttr | safe }}>Your proposal</a>{% endif %}
+  </nav>
+  <p class="dr-sheet-now" data-live-status><span class="dot" aria-hidden="true"></span> <span data-status-text>Opening hours</span></p>
+</div>
