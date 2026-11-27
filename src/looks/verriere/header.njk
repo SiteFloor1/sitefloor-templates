@@ -1,0 +1,20 @@
+{#- Verrière header: over the studio picture. The house's name in Hina Mincho on the left, the pages in sentence case
+    beside it, and "Ask us" (WhatsApp) on the right. On a phone: the name, "Menu" and "Ask us"; the phone bar keeps
+    Buy and Ask in reach. -#}
+{%- set items = site.nav | navItems(pageId) %}
+{%- set askText = site.messages.general %}
+<header class="nav vr-nav{% if pageId == 'index' %} vr-over{% endif %}"><div class="vr-nav-in">
+  <a class="vr-word" href="{{ 'index' | href }}">{% if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="{{ site.business.name }}" height="30">{% else %}{{ site.business.name }}{% endif %}</a>
+  <nav class="vr-links" aria-label="Main">
+    {%- for item in items %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>{% endfor %}
+  </nav>
+  <a class="vr-ask" href="{{ askText | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ askText }}"{% endif %} target="_blank" rel="noopener">Ask us</a>
+  <button class="burger vr-menu" type="button" aria-expanded="false" aria-controls="mnav"><span class="vr-open">Menu</span><span class="vr-close">Close</span></button>
+</div></header>
+<div class="mnav vr-sheet" id="mnav" hidden>
+  <nav aria-label="Pages">
+    <a href="{{ 'index' | href }}"{% if pageId == "index" %} aria-current="page"{% endif %}>Home</a>
+    {%- for item in items %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>{% endfor %}
+  </nav>
+  <p class="vr-sheet-now" data-live-status><span class="dot" aria-hidden="true"></span> <span data-status-text>Opening hours</span></p>
+</div>

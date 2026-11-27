@@ -1,0 +1,24 @@
+{#- The doors footer: the flame and name, one line, where the studio is and how to reach it, the week's hours, the
+    pages, the photo credits, then the Sitefloor credit. Same warm ground, a hairline above. -#}
+<footer class="foot dr-foot"><div class="dr-foot-in">
+  <div class="dr-foot-a">
+    <p class="dr-foot-mark">{{ site.business.name }}</p>
+    <p>{{ site.hero.kicker }}</p>
+  </div>
+  <address class="dr-foot-b">{{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}<br>
+    <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a>{% if site.contact.email %}<br><a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>{% endif %}</address>
+  <ul class="dr-foot-hours" aria-label="Opening hours">
+    {%- for row in site.hours | hoursRows %}<li data-day="{{ row.dayIndex }}"><span>{{ row.day }}</span> {{ row.label }}</li>{% endfor %}
+  </ul>
+  <nav class="dr-foot-links" aria-label="Footer">
+    <a href="{{ 'index' | href }}">Home</a>
+    {%- set inNav = [] %}{% for item in site.nav | navItems(pageId) %}{% if item.page %}{% set inNav = (inNav.push(item.page), inNav) %}{% endif %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}>{{ item.label }}</a>{% endfor %}
+    {%- if "events-occasions" | enabled %}{% for o in site.occasions.items %}{% if not (o.id in inNav) %}<a href="{{ o.id | href }}"{{ "events-occasions" | tierAttr | safe }}>{{ o.nav or o.title }}</a>{% endif %}{% endfor %}{% endif %}
+    {%- for x in [["events-portfolio","rooms","Rooms"],["events-cases","case-studies","Case studies"],["events-venues","venues","Venues"],["events-room-plan","your-room","Your room, drawn"],["events-run","run-of-the-night","The run of the night"],["events-journal","journal","Journal"],["events-brief","start","Start your event"]] %}{% if (x[0] | enabled) and not (x[1] in inNav) %}<a href="{{ x[1] | href }}"{{ x[0] | tierAttr | safe }}>{{ x[2] }}</a>{% endif %}{% endfor %}
+    {%- if "events-proposal" | enabled %}<a href="{{ 'your-proposal' | href }}"{{ "events-proposal" | tierAttr | safe }}>Your proposal</a>{% endif %}
+    {%- if "custom-pages" | enabled %}{% for pg in site.pages %}<a href="{{ pg.slug | href }}"{{ "custom-pages" | tierAttr | safe }}>{{ pg.title }}</a>{% endfor %}{% endif %}
+    <a href="{{ 'privacy' | href }}">Privacy</a>
+  </nav>
+  {%- if site.hero.credit %}<p class="dr-foot-cr">{{ site.hero.credit }}</p>{% endif %}
+  <p class="dr-foot-by"><a class="by" href="https://sitefloor.com" rel="noopener">Website by <b>Sitefloor</b></a></p>
+</div></footer>

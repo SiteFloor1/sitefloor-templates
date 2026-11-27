@@ -1,0 +1,2 @@
+{#- One photograph: `ph` = { src, width, height, alt, focus?, small? }; `phCls` its class; `phLazy` false for the first screen. -#}
+<img class="{{ phCls }}" src="{{ ph.src | img }}"{% if ph.small %} srcset="{{ ph.small.src | img }} {{ ph.small.width }}w, {{ ph.src | img }} {{ ph.width }}w" sizes="{{ phSizes or '100vw' }}"{% endif %} width="{{ ph.width }}" height="{{ ph.height }}" alt="{{ ph.alt }}"{% if ph.focus %} style="object-position: {{ ph.focus }}"{% endif %}{% if phLazy !== false %} loading="lazy"{% else %} fetchpriority="high"{% endif %} decoding="async">

@@ -658,6 +658,38 @@ Blue hour now lays out every shared feature its demo uses (visit, Plan your visi
 links, questions, seasonal, About, vouchers). Demo: JS 16.0 KB gz, CSS 16.5 KB gz (was 14.4), fonts 92.7 KB, on tap
 180.9 KB gz; client fixture JS 9.7 KB gz, CSS 11.9 KB gz. `npm run budget` passes.
 
+## Event designers and producers
+_From `docs/trades/events/speed.md`._
+
+### 18 Nov 2026 — events kit: The doors look, Maudry demo
+
+Whole site: JS 11.5 KB gz, CSS 9.9 KB gz, fonts 43.4 KB (Eczar 400/500/600; latin woff2). HTML gz: home 7.2 KB,
+rooms 5.8 KB, start 5 KB, your proposal 4.8 KB. Images counted: home 1,183 KB in all, 355 KB on the first screen (the
+library hero, 2000×1334 WebP at 240 KB; phones get a 780 px 4:5 crop at 80 KB; everything below is lazy); rooms
+1,683 KB (240 KB first). Design visuals and Lay the table: 1440×900 WebP, 38–85 KB each (dark renders compress well).
+Fallback font: see the 26 Nov entry (the 18 Nov figures were replaced).
+The client fixture (Signature, sheet sources): JS 10.9 KB gz, CSS 8.8 KB gz. `npm run budget` passes for both.
+To check on the first CI run: phone layout shift and accessibility (the all-sites end-to-end tests) and Lighthouse.
+
+### 26 Nov 2026 — layout shift fixes, hero paint, fallback per weight; Lighthouse
+
+Lighthouse 12, Maudry home, our own runs on a local build (Chromium 145, simulated throttling, phone preset):
+performance 97 / 97 / 96, accessibility 100, best practices 100; FCP 1.2 s, LCP 2.6 s, CLS 0–0.001, TBT 20–80 ms.
+Desktop preset: 99 / 100 / 100, LCP 0.8 s, CLS 0.003. With devtools throttling (measured, not simulated) the phone
+run is 98 with LCP 2.1 s and a render delay of 43 ms. (The auditor's re-check on 26 Nov measured 94 and LCP 3.1 s
+before these changes; the figures that stood here before were not the auditor's and are withdrawn.)
+What changed: the hero no longer fades its own image in (a veil over the photo lifts instead, so the photo paints at
+once) and drops `decoding="async"`; the phone hero is a 740 px crop at 79 KB (was 900 px at 115 KB); the library and
+chandeliers room cards get 800 px copies, so a phone no longer fetches their 2000 px files. What's left of the simulated
+LCP is bandwidth shared with the fonts and the first room photos below the hero (lazy, but inside the browser's
+loading distance).
+Layout shift: room photos take their height from their width and height attributes; a page title on a wide screen
+keeps room for two lines. Every page of the demo and the client fixture at 360, 1280 and 1440, CPU 4× slower: CLS
+0.003 or less, the visit page 0.011–0.014 (auditor), no sideways scroll.
+Eczar fallback, size-matched per weight: 400 against Liberation Serif / Times New Roman at 106.5% (ascent 107.3%,
+descent 59.5%), 500 against the same regular cut at 109.7% (104.2%, 57.8%), 600 against Liberation Serif Bold /
+Times New Roman Bold at 106.7% (107.2%, 59.5%), measured over running text in the browser.
+
 ## Financial advisers
 _From `docs/trades/financial-advisers/speed.md`._
 
@@ -715,6 +747,29 @@ Lighthouse mobile, Laleh home, served locally, three runs: 100, 100, 100; access
 feed and contrast fixes on the unchosen range and budgets); FCP 1.1 s; LCP 1.5–1.7 s; TBT 10–40 ms; CLS 0 (the
 same-day line keeps two lines on a phone so the script's rewrite moves nothing; the range switch is drawn from the
 first paint). axe and the phone layout-shift test pass on every page, open and closed. Budget passes.
+
+## Fragrance houses and perfumers
+_From `docs/trades/fragrance/speed.md`._
+
+### 17 Nov 2026 — fragrance kit: Verrière look and demo
+
+Whole site: JS 25.5 KB (9.6 KB gz), CSS 43.4 KB (10 KB gz), fonts 64 KB (Hina Mincho 400, SUSE 400 and 500; latin
+woff2). HTML gz: home 7.5 KB, other pages 3.9–5.8 KB. `npm run budget` passes.
+
+The turntable: 36 frames shown, 18 files per size (the flacon is the same from the back). Frame 1 is the hero
+picture; the other 17 load only when someone hovers over, touches or tabs to the bottle, so the page costs
+one picture. Desktop 1600×1000 (about 26 KB a frame, 472 KB for 18), large retina screens 2400×1500 through `srcset`
+(about 58 KB a frame, 1,044 KB for 18), phones 780×1120 (about 24 KB a frame, 424 KB for 18). Rendered in Blender
+Cycles at 2400×1500, 56–96 samples, denoised; the frames are laid onto one full plate so the studio never shimmers
+between frames.
+
+Fallback fonts size-matched from the font files against Liberation Serif and Sans on the hero's own words: Hina
+Mincho 92.2% (ascent 125.8%, descent 31.2%), SUSE 97.7% (100.3%, 28.7%). On desktop the stage takes the picture's own
+shape, so the name, notes and Buy are placed by CSS on the bottle's marks; nothing moves when the script or fonts
+arrive.
+
+Lighthouse, Verrière home, from `npm run serve`: mobile performance 100, accessibility 100, LCP 1.1 s, TBT 50 ms,
+layout shift 0; desktop performance 100, accessibility 100, LCP 0.4 s, layout shift 0.
 
 ## Garage and parking rentals
 _From `docs/trades/garage/speed.md`._

@@ -1,0 +1,22 @@
+/* Discovery sets: the fragrances to choose from beside the set, drawn as a row of vials that fill as they're chosen. */
+.fr-disc { padding-block: 0 clamp(64px, 9vw, 128px); }
+.fr-disc-in { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: clamp(32px, 5vw, 72px); align-items: start; }
+.fr-disc fieldset { border: 0; padding: 0; margin: 0; }
+.fr-disc-lg { font: 400 24px/1.3 var(--font-display); margin-bottom: 16px; }
+.fr-disc-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.fr-disc-o { position: relative; display: grid; grid-template-columns: 64px 1fr; gap: 16px; align-items: center; padding: 8px; border: 1px solid var(--line); cursor: pointer; }
+.fr-disc-o:has(input:checked) { border-color: var(--text); }
+.fr-disc-o:has(input:disabled) { opacity: .5; cursor: default; }
+.fr-disc-o:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+.fr-disc-o input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: inherit; }
+.fr-disc-o img { width: 64px; height: 80px; object-fit: cover; }
+.fr-disc-o b { display: block; font: 400 22px/1.15 var(--font-display); }
+.fr-disc-o small { color: var(--muted); font-size: 15px; }
+.fr-disc-side { position: sticky; top: 96px; display: flex; flex-direction: column; gap: 16px; }
+.fr-disc-count { font: 400 26px/1.2 var(--font-display); margin: 0; }
+.fr-disc-set { list-style: none; margin: 0; padding: 0; display: flex; gap: 10px; }
+.fr-vial { flex: 1; height: 120px; border: 1px solid var(--text); border-radius: 3px 3px 10px 10px; display: flex; align-items: flex-end; justify-content: center; padding: 8px 4px; font-size: 12px; text-align: center; writing-mode: vertical-rl; transform: rotate(180deg); background: linear-gradient(to top, var(--accent-soft) 0, var(--accent-soft) 0) bottom / 100% 0 no-repeat; transition: background-size .4s ease; }
+.fr-vial.on { background-size: 100% 70%; }
+.fr-go[aria-disabled] { background: var(--surface-2); color: var(--text); }
+@media (max-width: 760px) { .fr-disc-in { grid-template-columns: 1fr; } .fr-disc-side { position: static; } .fr-disc-side .fr-go { text-align: center; } }
+@media (prefers-reduced-motion: reduce) { .fr-vial { transition: none; } }

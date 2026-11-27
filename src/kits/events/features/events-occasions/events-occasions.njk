@@ -1,0 +1,15 @@
+{#- One occasion or service: its photograph, the agency's words, the rooms that match (with the rooms on) and a way in. `o` is the item. -#}
+<article class="ev-occ">
+  <div class="ev-occ-top">
+    {%- set ph = o.photo %}{% set phCls = "ev-occ-img" %}{% set phLazy = false %}{% include "kits/events/partials/photo.njk" %}
+  </div>
+  <div class="wrap">
+    {%- set ph = { title: o.title, intro: o.intro } %}{% include "kits/events/partials/page-head.njk" %}
+    <div class="ev-prose">{% for p in o.body %}<p>{{ p | markup | safe }}</p>{% endfor %}</div>
+    {%- if o.rooms and ("events-rooms" | enabled) %}{% set mine = site.rooms.items | evRoomsOf(o.rooms) %}{% if mine | length %}
+    <ul class="ev-occ-rooms">
+      {%- for r in mine %}{% if loop.index <= 3 %}<li>{% set ph = r.photo %}{% set phCls = "ev-occ-room" %}{% set phSizes = "(min-width: 900px) 33vw, 100vw" %}{% set phLazy = true %}{% include "kits/events/partials/photo.njk" %}<p>{{ r.name }} · {{ r.guests }} guests</p></li>{% endif %}{% endfor %}
+    </ul>{% endif %}{% endif %}
+    <p class="ev-occ-go">{% if "events-brief" | enabled %}<a class="ev-btn" href="{{ 'start' | href }}"{{ "events-brief" | tierAttr | safe }}>Begin a brief</a>{% else %}<a class="ev-btn" href="{{ site.messages.general | book }}" target="_blank" rel="noopener">Message us</a>{% endif %}</p>
+  </div>
+</article>
