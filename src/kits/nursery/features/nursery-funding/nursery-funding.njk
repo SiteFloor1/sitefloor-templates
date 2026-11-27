@@ -1,0 +1,20 @@
+{#- Fees and funding (page): every rate and extra, the funded hours in the nursery's words, and when funding can start
+    (the child's date of birth in; gov.uk's "term after" rule out). The week tool follows when it is on. -#}
+<div class="nu-fp" data-feature="nursery-funding"><div class="wrap">
+  <div class="nu-fees-in">
+    {% include "kits/nursery/features/nursery-fees/rates.njk" %}
+    {% include "kits/nursery/features/nursery-fees/funding.njk" %}
+  </div>
+  <section class="nu-start" aria-labelledby="nu-start-h">
+    <h2 id="nu-start-h">When can funding start?</h2>
+    <p>Funded hours start from the term after a child reaches the age: from 1 January, 1 April or 1 September.</p>
+    <form class="nu-start-form" data-nu-start novalidate>
+      <label for="nu-dob">Child's date of birth</label>
+      <input id="nu-dob" type="date" required data-nu-dob>
+      <button class="cp-solid" type="submit">Work it out</button>
+    </form>
+    <dl class="nu-kv nu-start-out" data-nu-start-out aria-live="polite" hidden></dl>
+    <p class="nu-fine">From gov.uk's rules, checked {{ site.funding.checked | nDate("month") }}. A family applies on gov.uk for a code before the term starts. <a href="https://www.gov.uk/free-childcare-if-working" rel="noopener">Apply on gov.uk</a>.</p>
+  </section>
+</div></div>
+{%- if "nursery-week" | enabled %}{% include "kits/nursery/features/nursery-week/nursery-week.njk" %}{% endif %}

@@ -1,0 +1,19 @@
+{#- The work: the children's work hung as an exhibition; each piece large with its caption card (number, title, room,
+    area of learning, a line). Pieces alternate between full width and pairs. -#}
+<div class="nu-show" data-feature="nursery-work"><div class="wrap">
+  <ol class="nu-show-list">
+    {%- for x in site.work.items %}
+    <li class="nu-show-one{% if loop.index0 % 3 == 0 %} is-wide{% endif %}">
+      <img src="{{ x.photo.src | img }}" alt="{{ x.photo.alt }}" width="{{ x.photo.width }}" height="{{ x.photo.height }}" loading="lazy" decoding="async">
+      <div class="nu-label nu-show-cap">
+        <p class="nu-no">No. {{ loop.index }}</p>
+        <h2 class="nu-title">{{ x.title }}</h2>
+        <dl class="nu-kv"><dt>Room</dt><dd>{{ x.room }}</dd><dt>Learning</dt><dd>{{ x.area }}</dd></dl>
+        {%- if x.text %}<p class="nu-note">{{ x.text }}</p>{% endif %}
+      </div>
+    </li>
+    {%- endfor %}
+  </ol>
+  {%- if site.work.note %}<p class="nu-fine">{{ site.work.note }}</p>{% endif %}
+  {%- if site.mode == "demo" %}<p class="nu-fine">Sample captions for a fictional nursery.</p>{% endif %}
+</div></div>

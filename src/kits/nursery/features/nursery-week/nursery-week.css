@@ -1,0 +1,32 @@
+/* What a week costs: ruled rows of controls; the bill as a caption card. Days: full is filled, a half day half-filled. */
+.nu-week-in { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 56px; align-items: start; }
+.nu-row { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 24px; padding: 20px 0; border-bottom: 1px solid var(--line); }
+.nu-row:first-child { border-top: 1px solid var(--text); }
+.nu-k { color: var(--muted); padding-top: 8px; margin: 0; }
+.nu-opts { display: flex; flex-wrap: wrap; gap: 8px; }
+.nu-opt { border: 1px solid var(--text); background: transparent; color: var(--text); padding: 10px 14px; font: inherit; text-align: left; line-height: 1.2; cursor: pointer; min-height: 46px; }
+.nu-opt small { display: block; font-size: 13px; color: var(--muted); font-style: italic; }
+.nu-opt[aria-pressed="true"] { background: var(--text); color: var(--bg); }
+.nu-opt[aria-pressed="true"] small { color: var(--on-band-muted); }
+.nu-opt:disabled { opacity: .35; cursor: not-allowed; }
+.nu-days { display: grid; grid-template-columns: repeat(5, minmax(0, 92px)); gap: 8px; }
+.nu-day { border: 1px solid var(--text); background: transparent; color: var(--text); aspect-ratio: 1; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; padding: 9px 10px; font: inherit; cursor: pointer; }
+.nu-day span { font-size: 13px; font-style: italic; color: var(--muted); }
+.nu-day[data-s="full"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.nu-day[data-s="full"] span { color: var(--on-accent); }
+.nu-day[data-s="am"], .nu-day[data-s="pm"] { background: linear-gradient(to bottom, var(--accent) 50%, transparent 50%); border-color: var(--accent); color: var(--on-accent); }
+.nu-day[data-s="pm"] { background: linear-gradient(to top, var(--accent) 50%, transparent 50%); color: var(--text); }
+.nu-day[data-s="am"] span { color: var(--text); }
+.nu-day[data-s="pm"] span { color: var(--on-accent); }
+.nu-bill { background: var(--surface); border-top: 3px solid var(--accent); padding: 26px 28px 24px; }
+.nu-total { font-family: var(--font-display); font-size: 92px; line-height: 1; letter-spacing: -.03em; margin: 6px 0 14px; white-space: nowrap; }
+.nu-total small { font-size: 20px; letter-spacing: 0; color: var(--muted); font-style: italic; }
+.nu-bill dd { text-align: right; white-space: nowrap; }
+.nu-opt-line { color: var(--muted); font-style: italic; font-size: 15px; }
+@media (max-width: 760px) {
+  .nu-week-in { grid-template-columns: 1fr; gap: 28px; }
+  .nu-row { grid-template-columns: 1fr; gap: 10px; }
+  .nu-k { padding-top: 0; }
+  .nu-days { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .nu-total { font-size: 68px; }
+}

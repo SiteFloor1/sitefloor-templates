@@ -1,0 +1,18 @@
+{#- The atelier wall, the nursery (home): the address on a caption card, whether it's open now, the area in a line, and
+    the week as a ruled list beside. -#}
+{%- set sec = { title: site.sections.visit.title, intro: site.sections.visit.intro } %}
+<section id="visit" class="cp-v" data-feature="visit"><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="cp-v-in">
+    <div class="cp-card">
+      <address>{{ site.location.streetAddress }}<br>{{ site.location.locality }}<br><b>{{ site.location.postcode }}</b></address>
+      <p class="cp-now" data-live-status><span class="dot" aria-hidden="true"></span><span data-status-text>Opening hours</span></p>
+      <p class="nu-fine" data-status-detail></p>
+      <a class="cp-link" href="{{ site.location | directions }}" target="_blank" rel="noopener">Directions</a>
+    </div>
+    <div>
+      {%- if site.location.area %}<p class="cp-v-area">{{ site.location.area }}</p>{% endif %}
+      {% include "looks/caption/partials/week.njk" %}
+    </div>
+  </div>
+</div></section>

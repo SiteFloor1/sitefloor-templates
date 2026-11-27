@@ -1,0 +1,12 @@
+{#- Term dates and closures: what's ahead as a list of works (date large, what it is beside), past dates hidden by
+    themselves (built ahead of the day, checked again in the browser); every date in one calendar file. -#}
+<div class="nu-terms" data-feature="nursery-terms"><div class="wrap">
+  <ol class="nu-term-list" data-nu-terms>
+    {%- for x in site.terms.items | nUpcoming(build.today) %}
+    <li data-end="{{ x.end or x.date }}" data-kind="{{ x.kind }}"><span class="nu-term-d">{{ x.date | nDate }}{% if x.end and x.end != x.date %} to {{ x.end | nDate }}{% endif %}</span><span class="nu-term-l">{{ x.label }}</span><span class="nu-term-k">{{ {"term": "Term", "closed": "Closed", "open-day": "Open day"}[x.kind] }}</span></li>
+    {%- endfor %}
+  </ol>
+  <p><button class="cp-solid" type="button" data-nu-ics hidden>Add every date to your calendar</button></p>
+  {%- if site.terms.note %}<p class="nu-fine">{{ site.terms.note }}</p>{% endif %}
+  {%- if site.mode == "demo" %}<p class="nu-fine">Sample dates for a fictional nursery.</p>{% endif %}
+</div></div>

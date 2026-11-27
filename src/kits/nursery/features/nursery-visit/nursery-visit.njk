@@ -1,0 +1,19 @@
+{#- Book a visit: the next visit times as a list of works (date large, time and note beside, "Choose"), the child's age,
+    and the request on WhatsApp. On the visit page it follows the nursery's own words about visits. -#}
+{%- set sec = site.sections.visitRequest %}
+{%- set slots = site | nSlots(build.today) %}
+<section id="look-round" class="nu-visit" data-feature="nursery-visit"{{ "nursery-visit" | tierAttr | safe }}><div class="wrap nu-visit-in">
+  <div>
+    {%- if pageId != "look-round" %}{% include "core/partials/section-head.njk" %}{% elif site.visit.text %}<p class="nu-visit-text">{{ site.visit.text }}</p>{% endif %}
+    {%- if site.visit.minutes %}<p class="nu-fine">A visit takes about {{ site.visit.minutes }} minutes.</p>{% endif %}
+    <div class="nu-slots" role="group" aria-label="Visit times" data-nu-slots>
+      {%- for s in slots %}<button class="nu-slot" type="button" aria-pressed="{{ 'true' if loop.first else 'false' }}" data-date="{{ s.date }}" data-time="{{ s.time }}"><span class="nu-slot-d">{{ s.date | nDate }}</span><span class="nu-slot-t">{{ s.time | nTime }}{% if s.note %} · {{ s.note }}{% endif %}</span><span class="nu-slot-p">{{ "Chosen" if loop.first else "Choose" }}</span></button>{% endfor %}
+    </div>
+    <p class="nu-visit-age"><label for="nu-visit-age">Your child's age</label>
+      <select id="nu-visit-age" data-nu-visit-age>{% for b in site.rooms.picker %}<option>{{ b.label }}</option>{% endfor %}<option>Not born yet</option></select></p>
+    {%- set first = slots[0] %}
+    {%- set msg = site.visit.message + (" could we visit on " + (first.date | nDate("long")) + " at " + (first.time | nTime) + "? My child is " + site.rooms.picker[0].label + "." if first else " could we arrange a visit?") %}
+    <a class="cp-solid" href="{{ msg | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ msg }}"{% endif %} target="_blank" rel="noopener" data-nu-visit-send>Ask for this visit on WhatsApp</a>
+    {%- if site.mode == "demo" %}<p class="nu-fine">Sample visit times. A nursery sets its own.</p>{% endif %}
+  </div>
+</div></section>

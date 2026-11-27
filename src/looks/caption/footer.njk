@@ -1,0 +1,20 @@
+{#- The atelier wall, footer: set like the last wall label of a show. The pebble and the name, the address and
+    contacts; the week's hours; every page; the Sitefloor credit last. -#}
+<footer class="foot cp-foot"><div class="wrap">
+  <div class="cp-foot-cols">
+    <div class="cp-foot-a">
+      <p class="cp-foot-name"><svg viewBox="0 0 34 26" aria-hidden="true" focusable="false"><path d="M4 15C2 8 9 2 18 2s15 5 13 12-9 10-15 10S6 22 4 15z" class="cp-pebble"/><path d="M12 17c2-5 6-8 11-9" class="cp-stroke"/></svg> {{ site.business.name }}</p>
+      <address>{{ site.location.streetAddress }}<br>{{ site.location.locality }} {{ site.location.postcode }}<br>
+        <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a>{% if site.contact.email %}<br><a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>{% endif %}</address>
+    </div>
+    <ul class="cp-foot-hours" aria-label="Opening hours">
+      {%- for row in site.hours | hoursRows %}<li data-day="{{ row.dayIndex }}"><span>{{ row.day }}</span> {{ row.label }}</li>{% endfor %}
+    </ul>
+    <nav class="cp-foot-links" aria-label="Footer">
+      <a href="{{ 'index' | href }}">Home</a>
+      {%- for item in site.nav | navItems(pageId) %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}>{{ item.label }}</a>{% endfor %}
+      <a href="{{ 'privacy' | href }}">Privacy</a>
+    </nav>
+  </div>
+  <p class="cp-foot-by"><a class="by" href="https://sitefloor.com" rel="noopener">Website by <b>Sitefloor</b></a></p>
+</div></footer>

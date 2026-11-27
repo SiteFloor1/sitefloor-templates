@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: look-round
+permalink: look-round.html
+feature: nursery-visit
+eleventyComputed:
+  title: "{{ site.visitPage.title | plain }}"
+  description: "Book a visit to {{ site.business.name }}, {{ site.location.locality }}: the next visit times, and a request on WhatsApp."
+---
+{%- set ph = site.visitPage %}
+{% include "kits/nursery/partials/page-head.njk" %}
+{% include "kits/nursery/features/nursery-visit/nursery-visit.njk" %}

@@ -355,6 +355,15 @@ This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` 
 |---|---|---|---|---|---|---|---|
 | Verrall | nail salon, new `nails`, `quail` (built 29 Oct on `trade/nail-salon`) | hand and nail atelier in **daylight on warm egg-tan stone**, one deep umber band | a quail's egg | the polish itself (Book is a chip in the chosen shade); sea-green #2F5A57 for links only, on egg tan #D7CABA | Old Standard TT / Plus Jakarta Sans | one line over the hand; the shade card overlapping the photo like a jewellery tag; a rail of flat swatches that show on the hand | the swatch fan: a fan of the house shades paints a real hand live; chapters as full-bleed fields of one shade, numbered like the bottle; plans as three coats (base coat, colour, top coat); speed as drying time ([case study](../../../case-studies/verrall/index.html)) |
 
+## Day nurseries and pre-schools
+_From `docs/trades/nursery/demo-map.md`._
+
+This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` (generated) before proposing a look.
+
+| Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
+|---|---|---|---|---|---|---|---|
+| Alnwood ([demo](https://sitefloor1.github.io/sitefloor-templates/nursery/)) | day nursery, new `nursery`, `caption` (built 27 Nov on `trade/nursery`) | **an atelier wall hung like an exhibition**: gallery stone, the children's work full width one piece at a time, a museum caption card beside it; children never identifiable | a rosehip in autumn | rosehip #A3402A on stone #ECE9E3, ink #23211E | Gentium Book Plus alone (roman, italic, bold) | the children's work as the first screen, with a caption card naming the piece, the room and the area of learning; today's notice and places by room just below | not yet |
+
 ## Personal trainers and small gyms
 _From `docs/trades/personal-trainer/demo-map.md`._
 

@@ -1,0 +1,12 @@
+/* The work on the walls: one piece at a time in the frame; the caption card sits in the look's place for it. */
+.nu-frame { position: relative; overflow: hidden; background: var(--surface-2); }
+.nu-piece { display: block; width: 100%; height: 100%; object-fit: cover; }
+.nu-piece[hidden] { display: none; }
+.nu-label { background: var(--surface); }
+.nu-kv { display: grid; grid-template-columns: auto 1fr; gap: 4px 16px; }
+.nu-kv dt { color: var(--muted); }
+.nu-kv dd { margin: 0; }
+.nu-steps { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.nu-arrows { display: flex; gap: 8px; }
+.nu-sq { width: 46px; height: 46px; border: 1px solid var(--text); background: transparent; color: var(--text); font-size: 20px; cursor: pointer; }
+.nu-sq:hover { background: var(--text); color: var(--bg); }

@@ -1,0 +1,24 @@
+/* Places, room by room: a list of works, one room a line. The chosen room carries the accent rule. */
+.nu-works { border-top: 1px solid var(--text); }
+.nu-work { display: grid; grid-template-columns: 96px minmax(0, 220px) minmax(0, 1fr) auto; min-width: 0; gap: 28px; align-items: center; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.nu-work img { width: 96px; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+.nu-work.is-on { background: var(--surface); box-shadow: inset 3px 0 0 var(--accent); padding-left: 16px; padding-right: 16px; margin: 0 -16px; }
+.nu-months { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.nu-months[hidden] { display: none; }
+.nu-months > div { border-left: 1px solid var(--line); padding: 2px 12px; color: var(--muted); font-size: 14px; }
+.nu-months b { display: block; color: var(--text); font-weight: 400; font-size: 18px; white-space: nowrap; }
+.nu-months [data-state="free"] b { color: var(--accent); font-weight: 700; }
+.nu-ages { display: flex; border: 1px solid var(--text); }
+.nu-ages button { flex: 1 1 auto; border: 0; border-right: 1px solid var(--text); background: transparent; color: var(--text); padding: 12px 16px; font: inherit; cursor: pointer; white-space: nowrap; min-height: 46px; }
+.nu-ages button:last-child { border-right: 0; }
+.nu-ages button[aria-pressed="true"] { background: var(--text); color: var(--bg); }
+.nu-answer em { color: var(--accent); }
+@media (max-width: 760px) {
+  .nu-work { grid-template-columns: 72px minmax(0, 1fr); gap: 8px 14px; }
+  .nu-work img { width: 72px; grid-row: 1 / 3; }
+  .nu-work .nu-months { grid-column: 2; grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 6px; }
+  .nu-work .nu-ask { grid-column: 2; }
+  .nu-months > div { padding: 0 8px; }
+  .nu-work.is-on { margin: 0 -10px; padding: 14px 10px; }
+  .nu-ages button { padding: 12px 4px; min-width: 0; }
+}

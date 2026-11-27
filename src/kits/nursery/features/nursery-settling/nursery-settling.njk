@@ -1,0 +1,15 @@
+{#- Settling in: the nursery's words, a start date, and its sessions dated on the next open weekdays (closures skipped);
+    into the calendar, or sent to the nursery. Without JavaScript the sessions are listed without dates. -#}
+<div class="nu-settle" data-feature="nursery-settling"><div class="wrap nu-settle-in">
+  <div>
+    <p class="nu-settle-text">{{ site.settling.text }}</p>
+    <p class="nu-settle-q"><label for="nu-start">First day</label> <input id="nu-start" type="date" data-nu-start-day></p>
+  </div>
+  <div>
+    <ol class="nu-sessions" data-nu-sessions>
+      {%- for s in site.settling.steps %}<li><span class="nu-ses-d" data-nu-ses-date>Day {{ loop.index }}</span><span class="nu-ses-l">{{ s.label }}</span><span class="nu-ses-t">{{ s.from | nTime }} to {{ s.to | nTime }}{% if s.withParent %} · with you{% endif %}</span>{% if s.note %}<span class="nu-fine">{{ s.note }}</span>{% endif %}</li>{% endfor %}
+    </ol>
+    <p class="nu-settle-acts" data-nu-settle-acts hidden><button class="cp-solid" type="button" data-nu-settle-ics>Add to your calendar</button> <a class="cp-link" href="{{ site.settling.message | book }}" target="_blank" rel="noopener" data-nu-settle-send>Send these dates to {{ site.business.name }}</a></p>
+    {%- if site.mode == "demo" %}<p class="nu-fine">Sample sessions for a fictional nursery. A nursery sets its own steps.</p>{% endif %}
+  </div>
+</div></div>

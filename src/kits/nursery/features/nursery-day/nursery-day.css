@@ -1,0 +1,13 @@
+/* A day with us: a row of moments (a scroller on a phone); the moment under way in the accent. */
+.nu-moments { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; }
+.nu-moment img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+.nu-moment-t { display: flex; gap: 10px; align-items: baseline; margin: 12px 0 2px; }
+.nu-moment-t time { font-family: var(--font-display); font-size: 34px; line-height: 1; }
+.nu-moment { position: relative; }
+.nu-now { position: absolute; top: 10px; left: 10px; background: var(--surface); color: var(--accent); font-style: italic; padding: 3px 10px; font-size: 15px; }
+.nu-now[hidden] { display: none; }
+.nu-moment.is-now time { color: var(--accent); }
+@media (max-width: 760px) {
+  .nu-moments { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 72%; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 6px; }
+  .nu-moment { scroll-snap-align: start; min-width: 0; }
+}

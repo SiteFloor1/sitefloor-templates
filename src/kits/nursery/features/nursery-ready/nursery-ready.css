@@ -1,0 +1,8 @@
+/* Getting ready: the lists side by side, the questions numbered beneath; print keeps only the lists. */
+.nu-pack { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 32px; border-top: 1px solid var(--text); padding-top: 24px; }
+.nu-pack h2 { font-style: italic; font-weight: 400; font-size: 26px; }
+.nu-pack ul { padding-left: 18px; }
+.nu-askq { margin-top: 64px; max-width: 760px; }
+.nu-askq li { padding: 6px 0; }
+.nu-print-p [hidden] { display: none; }
+@media print { .nav, .mbar, .foot, .nu-print-p { display: none !important; } body { background: var(--surface); } }

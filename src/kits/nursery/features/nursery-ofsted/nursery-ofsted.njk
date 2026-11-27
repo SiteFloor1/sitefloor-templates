@@ -1,0 +1,21 @@
+{#- Ofsted and policies: the report as a caption card (the outcome in the report's words, the date, the link to Ofsted's
+    site), the nursery's own words beside, then each policy as a fold-out. -#}
+{%- set o = site.ofsted %}
+<div class="nu-ofsted" data-feature="nursery-ofsted"><div class="wrap">
+  <div class="nu-ofsted-in">
+    <aside class="nu-report">
+      <p class="nu-no">Ofsted</p>
+      <p class="nu-outcome">{{ o.outcome }}</p>
+      <dl class="nu-kv"><dt>Inspected</dt><dd>{{ o.inspected | nDate("month") }}</dd>{% if o.urn %}<dt>Reference</dt><dd>{{ o.urn }}</dd>{% endif %}</dl>
+      <a class="cp-solid" href="{{ o.reportUrl }}" rel="noopener">Read the report on Ofsted's website</a>
+      {%- if site.mode == "demo" %}<p class="nu-fine">A fictional nursery: the outcome and link are placeholders. A real site shows the nursery's own report.</p>{% endif %}
+    </aside>
+    {%- if o.text %}<p class="nu-ofsted-text">{{ o.text }}</p>{% endif %}
+  </div>
+  {%- if o.policies %}
+  <section class="nu-policies" aria-labelledby="nu-pol-h">
+    <h2 id="nu-pol-h">Policies</h2>
+    {%- for p in o.policies %}<details><summary>{{ p.label }}</summary>{% for para in p.text | paragraphs %}<p>{{ para }}</p>{% endfor %}</details>{% endfor %}
+  </section>
+  {%- endif %}
+</div></div>

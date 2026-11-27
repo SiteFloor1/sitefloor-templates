@@ -1,0 +1,42 @@
+{#- What a week costs: age, days and funded hours on the left in ruled rows; the monthly fee on a caption card on the
+    right, every line shown. Funded hours come off as gov.uk sets them; extras stay optional. Without JavaScript the card
+    shows the example week below and the controls do nothing. -#}
+{%- set sec = site.sections.week %}
+{%- set w = site | nWeekStart %}
+<section id="week" class="nu-week" data-feature="nursery-week"{{ "nursery-week" | tierAttr | safe }}><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="nu-week-in">
+    <div class="nu-week-ctl">
+      <div class="nu-row"><p class="nu-k" id="nu-wa">Age</p>
+        <div class="nu-opts" role="group" aria-labelledby="nu-wa" data-nu-bands>
+          {%- for b in ["Under 9 months", "9 months to 2", "2", "3 and 4"] %}<button class="nu-opt" type="button" data-band="{{ loop.index0 }}" aria-pressed="{{ 'true' if loop.index0 == w.band else 'false' }}">{{ b }}</button>{% endfor %}
+        </div></div>
+      <div class="nu-row"><p class="nu-k" id="nu-wd">Days</p>
+        <div><div class="nu-days" role="group" aria-labelledby="nu-wd" data-nu-days>
+          {%- for d in w.days %}<button class="nu-day" type="button" data-i="{{ loop.index0 }}" data-s="{{ d.s }}" aria-label="{{ d.name }}: {{ d.word | lower }}">{{ d.short }}<span>{{ d.word }}</span></button>{% endfor %}
+        </div>
+        <p class="nu-hint">Tap a day to change it: {% for k, s in site.fees.sessions %}{{ s.label | lower }} {{ s.from | nTime }} to {{ s.to | nTime }}{% if not loop.last %}, {% endif %}{% endfor %}.</p></div></div>
+      <div class="nu-row"><p class="nu-k" id="nu-wf">Funded hours</p>
+        <div><div class="nu-opts" role="group" aria-labelledby="nu-wf" data-nu-funds>
+          <button class="nu-opt" type="button" data-f="0" aria-pressed="{{ 'true' if w.funded == 0 else 'false' }}">None</button>
+          <button class="nu-opt" type="button" data-f="15" aria-pressed="{{ 'true' if w.funded == 15 else 'false' }}">15 hours<small>Every 3 and 4 year old; some 2 year olds</small></button>
+          <button class="nu-opt" type="button" data-f="30" aria-pressed="{{ 'true' if w.funded == 30 else 'false' }}">30 hours<small>Eligible working families, from 9 months</small></button>
+        </div>
+        <p class="nu-gov">gov.uk decides who is eligible; this only does the sums. <a href="https://www.gov.uk/free-childcare-if-working" rel="noopener">Check on gov.uk</a>. Rules checked {{ site.funding.checked | nDate("month") }}.</p></div></div>
+    </div>
+    <aside class="nu-bill" aria-live="polite" aria-label="Your monthly fee">
+      <p class="nu-no">You pay</p>
+      <p class="nu-total"><span data-nu-total>{{ w.cost.month | nPounds }}</span> <small>a month</small></p>
+      <dl class="nu-kv" data-nu-sum>
+        <dt>Booked</dt><dd>{{ w.words.booked }} hours a week</dd>
+        <dt>Funded, free</dt><dd>{{ w.words.funded }} hours a week</dd>
+        <dt>Paid, {{ site.fees.rate | nPounds }} an hour</dt><dd>{{ w.words.paid }} hours a week</dd>
+        <dt>{{ site.fees.weeksOpen }} weeks a year</dt><dd>in 12 equal months</dd>
+      </dl>
+      <p class="nu-opt-line" data-nu-optional>{{ w.optional }}</p>
+      {%- if not site.funding.stretched %}<p class="nu-fine">Funded hours are used in term time only; the year's fees are split into 12 equal months.</p>{% endif %}
+      <a class="cp-solid" href="{{ w.message | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ w.message }}"{% endif %} target="_blank" rel="noopener" data-nu-quote>Ask {{ site.business.name }} to check this</a>
+      {%- if site.mode == "demo" %}<p class="nu-fine">Sample rates for a fictional nursery.</p>{% endif %}
+    </aside>
+  </div>
+</div></section>

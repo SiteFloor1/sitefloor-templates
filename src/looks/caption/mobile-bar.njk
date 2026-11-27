@@ -1,0 +1,11 @@
+{#- The atelier wall, phone bar: on the left the next place for the age picked (or "Places, room by room"), on the right
+    "Come and look round" in the accent, a WhatsApp request. -#}
+{%- set lookMsg = "Hello " + site.business.name + ", could we come and look round?" %}
+<nav class="mbar cp-bar" aria-label="Quick links">
+  {%- if "nursery-places" | enabled %}
+  <a class="cp-bar-a" href="{{ 'index' | href }}#places" data-nu-bar-next><span>Next place</span><b data-nu-bar-text>Places, room by room</b></a>
+  {%- else %}
+  <a class="cp-bar-a" href="{{ ('visit' | href) if ('plan-visit' | enabled) else ('index' | href) + '#visit' }}"><span>{{ site.location.locality }}</span><b>Finding us</b></a>
+  {%- endif %}
+  <a class="cp-bar-b" href="{{ lookMsg | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ lookMsg }}"{% endif %} target="_blank" rel="noopener">Come and look round</a>
+</nav>

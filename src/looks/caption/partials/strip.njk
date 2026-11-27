@@ -1,0 +1,13 @@
+{#- The label strip: the pebble and the name; the main pages; "Come and look round", a WhatsApp message asking for a
+    visit; the menu button for a phone. Used under the work on the home page and at the top of inner pages. -#}
+{%- set lookMsg = "Hello " + site.business.name + ", could we come and look round?" %}
+<div class="cp-strip">
+  <a class="cp-brand" href="{{ 'index' | href }}" aria-label="{{ site.business.name }}, home">
+    {%- if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="{{ site.business.name }}" height="30">
+    {%- else %}<svg viewBox="0 0 34 26" aria-hidden="true" focusable="false"><path d="M4 15C2 8 9 2 18 2s15 5 13 12-9 10-15 10S6 22 4 15z" class="cp-pebble"/><path d="M12 17c2-5 6-8 11-9" class="cp-stroke"/></svg><span>{{ site.business.name }}</span>{% endif %}</a>
+  <nav class="cp-links" aria-label="Main">
+    {%- for item in (site.nav | navItems(pageId)).slice(0, 4) %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>{% endfor %}
+    <a class="cp-visit" href="{{ lookMsg | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ lookMsg }}"{% endif %} target="_blank" rel="noopener">Come and look round</a>
+  </nav>
+  <button class="burger cp-menu" type="button" aria-expanded="false" aria-controls="mnav"><span class="cp-open">Menu</span><span class="cp-close">Close</span></button>
+</div>

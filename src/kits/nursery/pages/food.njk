@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: food
+permalink: food.html
+feature: nursery-menu
+eleventyComputed:
+  title: "{{ site.foodPage.title | plain }}"
+  description: "Food at {{ site.business.name }}, {{ site.location.locality }}: this week's menu and the nursery's allergy statement."
+---
+{%- set ph = site.foodPage %}
+{% include "kits/nursery/partials/page-head.njk" %}
+{% include "kits/nursery/features/nursery-menu/nursery-menu.njk" %}

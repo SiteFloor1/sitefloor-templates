@@ -1,0 +1,6 @@
+{#- The atelier wall, section opening: one sentence in the roman, large; its line beneath in the muted ink. No label
+    above it, nothing in italic or the accent. `sec` = { kicker, title, intro }; the kicker is not shown. -#}
+<div class="cp-sh">
+  <h2 class="cp-sh-t">{{ sec.title | plain }}</h2>
+  {%- if sec.intro %}<p class="cp-sh-i">{{ sec.intro }}</p>{% endif %}
+</div>

@@ -1,0 +1,11 @@
+/* The work: an exhibition, a wide piece then a pair; each caption card overlaps its photograph's foot. */
+.nu-show-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 56px 40px; }
+.nu-show-one.is-wide { grid-column: 1 / -1; }
+.nu-show-one img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+.nu-show-one.is-wide img { aspect-ratio: 16 / 9; }
+.nu-show-cap { position: relative; margin: -48px 0 0 auto; width: min(420px, 92%); border-top: 3px solid var(--accent); padding: 20px 22px; }
+@media (max-width: 760px) { .nu-show-list { grid-template-columns: 1fr; gap: 40px; } }
+.nu-show-cap { background: var(--surface); }
+.nu-show-cap .nu-kv { display: grid; grid-template-columns: auto 1fr; gap: 4px 16px; }
+.nu-show-cap .nu-kv dt { color: var(--muted); }
+.nu-show-cap .nu-kv dd { margin: 0; }
