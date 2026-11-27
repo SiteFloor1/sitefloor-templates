@@ -1,0 +1,14 @@
+{#- Past pop-ups: every stop whose last day has gone, latest first, with the brand's own photograph. Every stop is in
+    the page; the build day's view is shown first and the script settles it for the visitor's day. -#}
+{%- set T = site | popTour %}
+<section class="pps" data-feature="popup-past" aria-label="Past pop-ups"><div class="wrap">
+  <ul class="pps-list" data-past-list>
+    {%- for s in T %}{% set ended = (s | popState(site)).kind == "ended" %}
+    <li class="pps-item" data-past="{{ s.id }}"{% if not ended %} hidden{% endif %}>
+      {%- if s.photo %}<img src="{{ s.photo.src | img }}" alt="{{ s.photo.alt }}" width="{{ s.photo.width }}" height="{{ s.photo.height }}" loading="lazy" decoding="async">{% endif %}
+      <h2>{{ s.city }}</h2><p>{{ s.place }}, {{ s.area }}</p><p class="pps-d">{{ s.start | longDate }} to {{ s.end | longDate }}</p>{% if s.note %}<p>{{ s.note }}</p>{% endif %}
+    </li>
+    {%- endfor %}
+  </ul>
+  <p class="pps-none" data-past-none{% if (site | popEnded).length %} hidden{% endif %}>Our first pop-up is the one on now.</p>
+</div></section>

@@ -1,0 +1,19 @@
+{#- Capsule header: the bottle-neck monogram and the name; a few words of navigation; Book a time in ink. Menu opens
+    every page on a chalk sheet. -#}
+<header class="nav cp-nav"><div class="cp-nav-in">
+  <a class="cp-mark" href="{{ 'index' | href }}" aria-label="{{ site.business.name }}, home">{% if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="{{ site.business.name }}" height="34">{% else %}<span class="cp-mono" aria-hidden="true">{{ site.business.name[0] }}</span><span>{{ site.business.name }}</span>{% endif %}</a>
+  <nav class="cp-links" aria-label="Main">
+    {%- for item in site.nav | navItems(pageId) %}{% if loop.index <= 4 %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>{% endif %}{% endfor %}
+  </nav>
+  <a class="cp-book" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{{ "WhatsApp" if build.booking.whatsapp else "Book a time" }}</a>
+  <button class="burger cp-menu" type="button" aria-expanded="false" aria-controls="mnav"><span class="cp-open">Menu</span><span class="cp-close">Close</span></button>
+</div></header>
+<div class="mnav cp-sheet" id="mnav" hidden><div class="wrap cp-sheet-in">
+  <nav aria-label="Pages">
+    <a href="{{ 'index' | href }}"{% if pageId == "index" %} aria-current="page"{% endif %}>Home</a>
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+  </nav>
+  <p class="cp-sheet-book"><a href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{{ "WhatsApp us" if build.booking.whatsapp else build.booking.label }}</a></p>
+</div></div>

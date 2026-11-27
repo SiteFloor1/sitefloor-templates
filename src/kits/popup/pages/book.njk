@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: book
+permalink: book.html
+feature: popup-slots
+eleventyComputed:
+  title: "{{ site.slots.title | plain }}"
+  description: "Book a time at the {{ site.business.name }} pop-up."
+---
+{%- set ph = { title: site.slots.title, intro: site.slots.intro } %}
+{% include "kits/popup/partials/page-head.njk" %}
+{%- set slotsFull = true %}{% include "kits/popup/features/popup-slots/popup-slots.njk" %}
