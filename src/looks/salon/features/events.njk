@@ -18,7 +18,7 @@
         <p class="sa-when">{{ e.start | t12 }}{% if e.end %} until {{ e.end | t12 }}{% endif %} · {% if e.price %}{{ e.price | gbp }} a guest{% else %}no charge{% endif %}</p>
         <p>{{ e.text }}</p>
         <p class="sa-ev-cta">
-          {%- if e.book %}<a class="sa-send" href="{{ ('Good afternoon, I would like to book for ' + e.title + ' on ' + (e.date | eventDate) + '.') | wa }}" target="_blank" rel="noopener">Reserve</a>{% endif %}
+          {%- if e.book %}<a class="sa-send" href="{{ ('Hello, I would like to book for ' + e.title + ' on ' + (e.date | eventDate) + '.') | wa }}" target="_blank" rel="noopener">Reserve</a>{% endif %}
           <button type="button" class="sa-link" data-ev-ics="{{ e.id }}" data-js-only>Add to calendar</button>
         </p>
       </div>

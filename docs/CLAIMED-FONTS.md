@@ -66,7 +66,9 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 | Kerrow, The viewfinder: readout and timecodes | trade/car-film | Martian Mono | Martian Mono |
 | Cleaning, Plan (A) | trade/cleaning | Anek Latin | Anek Latin |
 | Verge (driving) | trade/driving | Lexend | Lexend |
+| Maudry, The doors | trade/events | Eczar | Eczar |
 | Thursby, The statement (light) | trade/financial-advisers | Frank Ruhl Libre | Frank Ruhl Libre |
+| Fragrance, Verrière (B, round 3) | trade/fragrance | Hina Mincho | SUSE |
 | Garage, Elsden (the gallery) | trade/garage | Cardo | Radio Canada |
 | Halde, chalk (round 1) | trade/gym | Sofia Sans Extra Condensed | Sofia Sans |
 | Halde, After dark (chosen, round 3) | trade/gym | Epilogue | Epilogue |
@@ -119,6 +121,8 @@ A case study is a design too: don't reuse these in a new look or another case st
 | Varnell (car detailing) | case-studies/varnell | detailing | Michroma | Geist | Geist Mono |
 | Velvet Spoon (dessert shop) | case-studies/velvet-spoon | dessert | Gilda Display | Albert Sans | |
 | Verrall (nails) | case-studies/verrall | nails | Newsreader | Be Vietnam Pro | |
+| Verrière (perfume house) | case-studies/verriere | fragrance | Hina Mincho | SUSE | |
 | Wenlow (driving instructor) | case-studies/wenlow | driving | Lexend | Lexend | |
 | Wexley (bridal) | case-studies/wexley | bridal | Prata | Libre Franklin | |
+| Wrenna (children's ballet school) | case-studies/wrenna | ballet | Hahmlet | Hahmlet | |
 

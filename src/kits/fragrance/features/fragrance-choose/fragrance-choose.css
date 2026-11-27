@@ -1,0 +1,7 @@
+/* Let them choose: the giving form and the receiving form side by side, the second quieter. */
+.fr-choose { padding-block: clamp(56px, 8vw, 112px); border-top: 1px solid var(--line); }
+.fr-choose-in { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
+.fr-choose form { display: flex; flex-direction: column; gap: 22px; }
+.fr-choose-get { padding: clamp(20px, 3vw, 36px); background: var(--surface); }
+.fr-get-t { font: 400 26px/1.2 var(--font-display); margin: 0; }
+@media (max-width: 760px) { .fr-choose-in { grid-template-columns: 1fr; } .fr-choose .fr-go { text-align: center; } }

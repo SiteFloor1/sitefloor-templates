@@ -1,0 +1,12 @@
+{#- Case studies (EVT-5): each event as one large photograph, its title, the occasion and number, and the line. -#}
+{%- set C = site.cases %}
+<section class="ev-cases"><div class="wrap">
+  {%- set ph = { title: C.title, intro: C.intro } %}{% include "kits/events/partials/page-head.njk" %}
+  <ul class="ev-cases-list">
+    {%- for c in C.items %}
+    <li><a href="{{ ('case-' + c.id) | href }}">
+      {%- set ph = c.photos[0] %}{% set phCls = "ev-case-img" %}{% set phSizes = "(min-width: 900px) 50vw, 100vw" %}{% set phLazy = not loop.first %}{% include "kits/events/partials/photo.njk" %}
+      <span class="ev-case-t">{{ c.title }}</span><span class="ev-case-m">{{ c.guests }} guests · {{ c.when }}</span><span class="ev-case-l">{{ c.line }}</span></a></li>
+    {%- endfor %}
+  </ul>
+</div></section>

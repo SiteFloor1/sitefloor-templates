@@ -1,0 +1,10 @@
+---
+layout: core/layouts/base.njk
+pageId: venues
+permalink: venues.html
+feature: events-venues
+eleventyComputed:
+  title: "{{ site.venues.title | plain }}"
+  description: "{{ (site.venues.intro or 'The rooms we work in.') | plain }}"
+---
+{% include "kits/events/features/events-venues/events-venues.njk" %}

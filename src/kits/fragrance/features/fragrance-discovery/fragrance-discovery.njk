@@ -1,0 +1,37 @@
+{#- Discovery sets (FRAG-3): choose the house's number of samples; the set shows as it fills; pay by the house's own
+    Stripe link and send the choice on WhatsApp, or order the set on WhatsApp. The terms in the house's words. -#}
+{%- set d = site.discovery %}
+{#- Before a launch, its scents are left out of the set; if too few remain to fill it, "Tell me on the day" takes the
+    order button's place. -#}
+{%- set held = site | heldNow %}
+{%- set LS = site | launchScents %}
+{%- set openCount = site.fragrances.items | without(LS) | length %}
+{%- set short = LS.length and openCount < d.pick %}
+{%- set ph = { title: d.title, intro: d.intro } %}
+{% include "kits/fragrance/partials/page-head.njk" %}
+<section class="fr-disc" data-feature="fragrance-discovery" aria-label="{{ d.title | plain }}"><div class="wrap fr-disc-in">
+  <form class="fr-disc-f" data-disc-form>
+    <fieldset><legend class="fr-disc-lg">Choose {{ d.pick }}, {{ d.ml }} ml each</legend>
+      <ul class="fr-disc-list">
+        {%- for x in site.fragrances.items %}
+        <li{% if x.id in LS %} data-held{% if x.id in held %} hidden{% endif %}{% endif %}><label class="fr-disc-o"><input type="checkbox" name="pick" value="{{ x.id }}"{% if x.id in held %} disabled{% endif %}>
+          <img src="{{ x.photo.src | img }}" width="{{ x.photo.width }}" height="{{ x.photo.height }}" alt="" loading="lazy" decoding="async">
+          <span><b>{{ x.name }}</b><small>{{ x.line }}</small></span></label></li>
+        {%- endfor %}
+      </ul>
+    </fieldset>
+  </form>
+  {%- if LS.length %}<span hidden data-feature="fragrance-launch"></span>{% endif %}
+  <aside class="fr-disc-side{% if short and held.length %} is-before{% endif %}"{% if short %} data-launch-scope{% endif %}>
+    <p class="fr-disc-count" data-disc-count aria-live="polite">0 of {{ d.pick }} chosen</p>
+    <ol class="fr-disc-set" data-disc-set aria-label="Your set">{% for i in range(0, d.pick) %}<li class="fr-vial"></li>{% endfor %}</ol>
+    <a class="fr-go{% if short %} fr-open-only{% endif %}" data-disc-go href="{{ d.payLink if d.payLink else (d.message | orderText({ name: '' }, { ml: d.ml, price: d.price }, site.business.name) | book) }}" target="_blank" rel="noopener">Order the set, {{ d.price | gbp }}</a>
+    {%- if short %}
+    {%- set lx = site.fragrances | fragranceById(site.launch.scents[0]) %}
+    <a class="fr-go fr-before-only" href="{{ site.launch.message | orderText(lx, (lx | defaultSize), site.business.name) | book }}" target="_blank" rel="noopener">Tell me on the day</a>
+    <span class="fr-alt fr-before-only">Sets open on {{ site.launch.date | dayMonth }}</span>
+    {%- endif %}
+    <a class="fr-alt{% if short %} fr-open-only{% endif %}" data-disc-send href="{{ d.message | orderText({ name: '' }, { ml: d.ml, price: d.price }, site.business.name) | book }}" target="_blank" rel="noopener"{% if not d.payLink %} hidden{% endif %}>then send us your choice on WhatsApp</a>
+    <p class="fr-small">{{ d.terms }}</p>
+  </aside>
+</div></section>
