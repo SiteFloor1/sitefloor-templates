@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: arriving
+permalink: arriving.html
+feature: residences-arriving
+eleventyComputed:
+  title: "Arriving"
+  description: "Getting to {{ site.business.name }}, late arrivals and the concierge."
+---
+{%- set ph = { title: "Arriving", intro: site.arriving.intro } %}
+{% include "kits/residences/partials/page-head.njk" %}
+<div class="wrap">{% include "kits/residences/features/residences-arriving/residences-arriving.njk" %}</div>

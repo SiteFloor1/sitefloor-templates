@@ -1,0 +1,5 @@
+{#- One area's page: its photograph and the operator's notes. -#}
+<div class="rar">
+  <figure><img src="{{ ar.photo.src | img }}" width="{{ ar.photo.width }}" height="{{ ar.photo.height }}" alt="{{ ar.photo.alt }}" decoding="async"><figcaption>{{ ar.photo.credit }}</figcaption></figure>
+  <dl>{% for n in ar.notes %}<dt>{{ n.label }}</dt><dd>{{ n.text }}</dd>{% endfor %}</dl>
+</div>

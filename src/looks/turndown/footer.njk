@@ -1,0 +1,32 @@
+{#- Turndown footer: the monogram and name centred like the letterhead, the address and how to reach the concierge,
+    the pages, the redress line every page carries (a legal duty for letting work), and the Sitefloor credit last. -#}
+{%- set r = site.schemes %}
+<footer class="foot td-foot"><div class="wrap">
+  <p class="td-foot-n">{{ site.business.name }}</p>
+  <div class="td-foot-in">
+    <address>{{ site.location.streetAddress }}<br>{{ site.location.locality }} {{ site.location.postcode }}<br>
+      <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone | replace('+44 ', '0') }}</a>{% if site.contact.email %}<br><a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>{% endif %}<br>
+      <a href="{{ site.messages.general | wa }}" data-wa-text="{{ site.messages.general }}" target="_blank" rel="noopener">Message the concierge</a></address>
+    <nav aria-label="Footer">
+      <a href="{{ 'index' | href }}">Homes free now</a>
+      {%- if "residences-list" | enabled %}<a href="{{ 'residences' | href }}">Residences</a>{% endif %}
+      {%- if "residences-short" | enabled %}<a href="{{ 'short-lets' | href }}">Short lets</a>{% endif %}
+      {%- if "residences-long" | enabled %}<a href="{{ 'long-lets' | href }}">Long lets</a>{% endif %}
+      {%- if "residences-serviced" | enabled %}<a href="{{ 'serviced' | href }}">What serviced means</a>{% endif %}
+      {%- if "residences-arriving" | enabled %}<a href="{{ 'arriving' | href }}">Arriving</a>{% endif %}
+      {%- if "residences-concierge" | enabled %}<a href="{{ 'concierge' | href }}">Concierge</a>{% endif %}
+      {%- if "residences-areas" | enabled %}<a href="{{ 'areas' | href }}">Areas</a>{% endif %}
+      {%- if "residences-map" | enabled %}<a href="{{ 'neighbourhood' | href }}">Neighbourhood</a>{% endif %}
+      {%- if "residences-corporate" | enabled %}<a href="{{ 'corporate' | href }}">Corporate relocations</a>{% endif %}
+      {%- if "residences-owners" | enabled %}<a href="{{ 'landlords' | href }}">For landlords</a>{% endif %}
+      {%- if "residences-journal" | enabled %}<a href="{{ 'journal' | href }}">Journal</a>{% endif %}
+      {%- if "residences-about" | enabled %}<a href="{{ 'about' | href }}">About</a>{% endif %}
+      <a href="{{ 'viewing' | href }}">Book a viewing</a>
+      {%- if "plan-visit" | enabled %}<a href="{{ 'visit' | href }}">{{ site.visitInfo.title | plain }}</a>{% endif %}
+      <a href="{{ 'fees' | href }}">Fees and terms</a>
+      <a href="{{ 'privacy' | href }}">Privacy</a>
+    </nav>
+  </div>
+  <p class="td-foot-s">{{ r.redress.name }}, member {{ r.redress.member }}{{ site.mode | demoTag }}{% if r.cmp %} · Client money protected by {{ r.cmp.name }}, {{ r.cmp.member }}{{ site.mode | demoTag }}{% endif %} · <a href="{{ 'fees' | href }}">Fees and terms</a></p>
+  <p class="td-foot-by"><a class="by" href="https://sitefloor.com" rel="noopener">Website by <b>Sitefloor</b></a></p>
+</div></footer>

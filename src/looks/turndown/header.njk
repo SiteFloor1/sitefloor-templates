@@ -1,0 +1,25 @@
+{#- Turndown header: a centred letterhead (key-fob monogram, the name, one line under it) with the pages split either
+    side and Reserve on the right (WhatsApp). On phones the name sits left and "Menu" opens the same pages, Fees among
+    them. -#}
+{%- set items = site.nav | navItems(pageId) %}
+{%- set half = ((items | length) / 2) | round(0, "ceil") %}
+<header class="nav td-nav">
+<div class="wrap td-nav-in">
+  <nav class="td-l" aria-label="Main">{% for item in items %}{% if loop.index0 < half %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>{% endif %}{% endfor %}</nav>
+  <a class="td-mark" href="{{ 'index' | href }}" aria-label="{{ site.business.name }}, home">
+    <svg viewBox="0 0 30 46" aria-hidden="true"><rect x="1" y="1" width="28" height="44" rx="14" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="15" cy="8" r="2.2" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M19.2 20.4c-.8-1.4-2.3-2.1-4.2-2.1-2.4 0-4 1.4-4 3.2 0 4.2 8.4 2.7 8.4 7 0 1.9-1.8 3.3-4.3 3.3-2 0-3.6-.8-4.5-2.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    {%- if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="{{ site.business.name }}" height="40">{% else %}<b>{{ site.business.name }}</b>{% endif %}
+    <span>{{ site.hero.kicker }}</span></a>
+  <nav class="td-r" aria-label="More">{% for item in items %}{% if loop.index0 >= half %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>{% endif %}{% endfor %}
+    <a class="td-res" href="{{ site.messages.general | wa }}" data-wa-text="{{ site.messages.general }}" target="_blank" rel="noopener">Reserve</a></nav>
+  <button class="burger td-menu" type="button" aria-expanded="false" aria-controls="mnav"><span class="td-open">Menu</span><span class="td-close">Close</span></button>
+</div>
+</header>
+<div class="mnav td-sheet" id="mnav" hidden>
+  <nav aria-label="Pages">
+    <a href="{{ 'index' | href }}"{% if pageId == "index" %} aria-current="page"{% endif %}>{{ site.business.name }}</a>
+    {%- for item in items %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>{% endfor %}
+  </nav>
+  <p class="td-sheet-now" data-live-status><span class="dot" aria-hidden="true"></span> <span data-status-text>Concierge</span></p>
+  <p class="td-sheet-addr">{{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}</p>
+</div>

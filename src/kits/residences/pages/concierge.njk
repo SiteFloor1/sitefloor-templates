@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: concierge
+permalink: concierge.html
+feature: residences-concierge
+eleventyComputed:
+  title: "Concierge"
+  description: "What the concierge at {{ site.business.name }} can arrange before you arrive."
+---
+{%- set ph = { title: "Concierge", intro: site.concierge.intro } %}
+{% include "kits/residences/partials/page-head.njk" %}
+<div class="wrap">{% include "kits/residences/features/residences-concierge/residences-concierge.njk" %}</div>

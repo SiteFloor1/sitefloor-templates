@@ -1,0 +1,15 @@
+{#- Corporate relocations (Signature): the operator's terms for companies and a relocation request as one message. -#}
+{%- set c = site.corporate %}
+<div class="rt" data-feature="residences-corporate">
+  <div class="rt-p">{% for p in c.points %}<section><h2>{{ p.title }}</h2><p>{{ p.text }}</p></section>{% endfor %}</div>
+  <form class="rco" novalidate>
+    <h2>A relocation request</h2>
+    <div class="rco-g">
+      <label>Company <input type="text" autocomplete="organization" data-rco-co></label>
+      <label>People <select data-rco-n><option>1</option><option>2</option><option>3 or 4</option><option>5 or more</option></select></label>
+      <label>From <input type="date" data-rco-from></label>
+      <label>For about <select data-rco-len><option>a few weeks</option><option>one to three months</option><option>longer, on a tenancy</option></select></label>
+    </div>
+    <a class="rv-go" data-rco-go href="{{ c.message | wa }}" data-wa-text="{{ c.message }}" target="_blank" rel="noopener">Write the request</a>
+  </form>
+</div>

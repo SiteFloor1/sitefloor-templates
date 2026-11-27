@@ -1,0 +1,585 @@
+{
+  "schemaVersion": 4,
+  "id": "test-residences-client",
+  "mode": "client",
+  "plan": "signature",
+  "kit": "residences",
+  "look": "turndown",
+  "url": "https://carrow-residences-test.co.uk",
+  "indexable": false,
+  "lang": "en-GB",
+  "business": {
+    "name": "Carrow Test Residences",
+    "schemaType": "RealEstateAgent",
+    "description": "Furnished residences let by the night or on a rolling tenancy (a test fixture).",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "441134960627",
+    "phone": "+44 113 496 0627",
+    "email": "stay@carrow.example"
+  },
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "location": {
+    "streetAddress": "Weymouth Street",
+    "locality": "London",
+    "postcode": "W1G 7BA",
+    "country": "GB",
+    "area": "Between Marylebone High Street and Regent's Park.",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=Weymouth%20Street%2C%20London%20W1G"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [
+        [
+          "07:00",
+          "23:59"
+        ]
+      ],
+      "tue": [
+        [
+          "07:00",
+          "23:59"
+        ]
+      ],
+      "wed": [
+        [
+          "07:00",
+          "23:59"
+        ]
+      ],
+      "thu": [
+        [
+          "07:00",
+          "23:59"
+        ]
+      ],
+      "fri": [
+        [
+          "07:00",
+          "23:59"
+        ]
+      ],
+      "sat": [
+        [
+          "07:00",
+          "23:59"
+        ]
+      ],
+      "sun": [
+        [
+          "07:00",
+          "23:59"
+        ]
+      ]
+    },
+    "exceptions": []
+  },
+  "nav": [
+    {
+      "label": "Residences",
+      "page": "residences",
+      "feature": "residences-list",
+      "fallback": "#homes"
+    },
+    {
+      "label": "Stays and lets",
+      "page": "serviced",
+      "feature": "residences-serviced"
+    },
+    {
+      "label": "Marylebone",
+      "page": "neighbourhood",
+      "feature": "residences-map"
+    },
+    {
+      "label": "Fees",
+      "page": "fees",
+      "feature": "residences-fees"
+    }
+  ],
+  "features": [
+    "residences-fees",
+    "residences-homes",
+    "residences-viewing",
+    "residences-list",
+    "residences-quiet",
+    "residences-quote",
+    "residences-short",
+    "residences-long",
+    "residences-serviced",
+    "residences-arriving",
+    "residences-stay",
+    "residences-sun",
+    "residences-map",
+    "residences-corporate",
+    "residences-owners",
+    "residences-journal",
+    "visit",
+    "plan-visit",
+    "questions",
+    "residences-plans",
+    "residences-tour"
+  ],
+  "hero": {
+    "kicker": "Residences, Marylebone",
+    "title": "Four homes, one address",
+    "intro": "Four furnished homes in one Marylebone building, by the night or on a rolling tenancy, with a concierge downstairs.",
+    "photo": {
+      "src": "img/hero.webp",
+      "width": 1200,
+      "height": 502,
+      "alt": "A lamplit bedroom suite with a king bed, armchairs and tall curtained windows",
+      "credit": "Antonio Araujo, Unsplash",
+      "tall": "img/hero-tall.webp",
+      "tallWidth": 600,
+      "tallHeight": 750,
+      "position": "70% 60%"
+    }
+  },
+  "sections": {
+    "homes": {
+      "title": "one address.",
+      "intro": "Each is kept like a suite: made up daily on short stays, weekly on long lets, with the concierge downstairs until midnight."
+    },
+    "questions": {
+      "title": "Before you book",
+      "intro": "What people ask us first."
+    },
+    "visit": {
+      "title": "Finding us"
+    }
+  },
+  "messages": {
+    "general": "Hello Carrow, I'd like to ask about a stay."
+  },
+  "homes": {
+    "source": "sheet",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/TEST/pub?output=csv",
+    "staleAfterHours": 36,
+    "ask": "Hello Carrow, I'd like to ask about",
+    "photos": {
+      "4W": {
+        "src": "img/home.webp",
+        "width": 800,
+        "height": 533,
+        "alt": "A drawing room in evening light",
+        "credit": "Dynamic Hong Kong, Unsplash"
+      },
+      "5E": {
+        "src": "img/home.webp",
+        "width": 800,
+        "height": 533,
+        "alt": "A drawing room in evening light",
+        "credit": "Dynamic Hong Kong, Unsplash"
+      }
+    },
+    "plans": {
+      "4W": {
+        "src": "img/plan.webp",
+        "width": 800,
+        "height": 600,
+        "alt": "Floor plan of Four West",
+        "credit": "Carrow"
+      }
+    },
+    "tours": {
+      "4W": "https://my.matterport.com/show/?m=TESTtour01"
+    }
+  },
+  "stay": {
+    "stops": [
+      3,
+      7,
+      14,
+      30,
+      60,
+      89
+    ],
+    "start": 2,
+    "home": "4W"
+  },
+  "light": {
+    "place": {
+      "lat": 51.5205,
+      "lng": -0.1485
+    }
+  },
+  "fees": {
+    "intro": "What a stay costs and includes, what a tenancy may charge, and who handles a complaint.",
+    "stays": [
+      {
+        "title": "In every nightly rate",
+        "text": "Daily housekeeping, fresh linen and towels, the concierge, bills and Wi-Fi, service and VAT."
+      },
+      {
+        "title": "Once per stay",
+        "text": "A final clean, charged once and already in every total we show."
+      }
+    ],
+    "charges": [
+      {
+        "name": "Nightly rate",
+        "price": "From £495 a night",
+        "note": "Service and VAT included"
+      },
+      {
+        "name": "Final clean",
+        "price": "£160 to £380 a stay",
+        "note": "By home; included in every total shown"
+      },
+      {
+        "name": "Card or booking fee",
+        "price": "None"
+      }
+    ],
+    "cancellation": "Cancel up to 14 days before arrival for a full refund; after that, the first three nights are kept.",
+    "tenancy": [
+      "The first month's rent, paid once the tenancy is signed.",
+      "A holding deposit of up to one week's rent, taken off the first rent or the deposit.",
+      "A deposit of up to five weeks' rent (six weeks from £50,000 a year), protected in a government-approved scheme.",
+      "Bills, council tax and Wi-Fi are added to the rent only where the tenancy says so."
+    ]
+  },
+  "schemes": {
+    "redress": {
+      "name": "Property Redress Scheme",
+      "member": "PRS012345",
+      "url": "https://www.theprs.co.uk"
+    },
+    "cmp": {
+      "name": "Client Money Protect",
+      "member": "CMP012345",
+      "url": "https://www.clientmoneyprotect.co.uk"
+    },
+    "deposits": "Every tenancy deposit is protected in a government-approved scheme within 30 days."
+  },
+  "viewing": {
+    "intro": "In person, or on a video call from wherever you are. We'll walk you through the home and the building.",
+    "message": "Hello Carrow, I'd like to book a viewing.",
+    "kinds": [
+      "In person",
+      "On a video call"
+    ]
+  },
+  "shortLets": {
+    "intro": "By the night, from three nights to just under three months: kept like a hotel suite, priced with everything in.",
+    "points": [
+      {
+        "title": "Everything in the price",
+        "text": "The nightly rate holds service and VAT; the final clean is added once and shown in the total before you ask."
+      },
+      {
+        "title": "Made up every day",
+        "text": "Housekeeping daily, linen and towels changed, the kitchen restocked with the basics."
+      },
+      {
+        "title": "Arrive at any hour",
+        "text": "The concierge is in until midnight; after that, a night porter lets you in."
+      }
+    ],
+    "terms": [
+      "A three-night minimum (four for the Penthouse).",
+      "Half the stay is paid to confirm, the rest a week before you arrive, by our own payment link.",
+      "Cancel up to 14 days before arrival for a full refund."
+    ]
+  },
+  "longLets": {
+    "intro": "From six months or more, on a rolling tenancy: the same building, priced by the month.",
+    "points": [
+      {
+        "title": "Rolling, with no end date",
+        "text": "Stay as long as you like and give two months' notice when you go."
+      },
+      {
+        "title": "Furnished and looked after",
+        "text": "Housekeeping weekly, the concierge every day, repairs handled by the building."
+      },
+      {
+        "title": "Nothing added",
+        "text": "Rent, a holding deposit and a protected deposit: nothing else can be charged on a tenancy."
+      }
+    ]
+  },
+  "serviced": {
+    "intro": "What each length of stay includes, side by side.",
+    "columns": [
+      "By the night",
+      "Long let"
+    ],
+    "rows": [
+      {
+        "item": "Housekeeping",
+        "values": [
+          "Daily",
+          "Weekly"
+        ]
+      },
+      {
+        "item": "Linen and towels",
+        "values": [
+          "Changed daily",
+          "Changed weekly"
+        ]
+      },
+      {
+        "item": "Concierge",
+        "values": [
+          "07:00 to midnight",
+          "07:00 to midnight"
+        ]
+      },
+      {
+        "item": "Bills and Wi-Fi",
+        "values": [
+          "Included",
+          "Included up to a fair-use limit"
+        ]
+      },
+      {
+        "item": "Council tax",
+        "values": [
+          "Included",
+          "Paid by you"
+        ]
+      },
+      {
+        "item": "Arrival",
+        "values": [
+          "Met by the concierge",
+          "Met by the concierge, with an inventory"
+        ]
+      }
+    ]
+  },
+  "arriving": {
+    "intro": "From the street to your door, at any hour.",
+    "hours": "07:00 to midnight, every day; a night porter after that.",
+    "steps": [
+      {
+        "title": "Come to the front door on Weymouth Street",
+        "text": "The door between the two bay trees; ring and the concierge will open it."
+      },
+      {
+        "title": "Meet the concierge",
+        "text": "They take your bags, check you in and walk you up."
+      },
+      {
+        "title": "Your keys",
+        "text": "Two keys and a fob, handed over at your door. The concierge sends any codes on the day."
+      }
+    ],
+    "late": "Arriving after midnight? Tell us your flight or train and the night porter will wait up."
+  },
+  "neighbourhood": {
+    "intro": "What's a short walk from the door. Times marked \"about\" are estimated from the distance.",
+    "centre": {
+      "lat": 51.5205,
+      "lng": -0.1485,
+      "label": "Carrow"
+    },
+    "ring": 15,
+    "checked": "2026-11",
+    "places": [
+      {
+        "name": "Regent's Park",
+        "kind": "Park",
+        "lat": 51.5248,
+        "lng": -0.1497
+      },
+      {
+        "name": "Marylebone High Street",
+        "kind": "Shops",
+        "lat": 51.5199,
+        "lng": -0.1515
+      },
+      {
+        "name": "Regent's Park station",
+        "kind": "Bakerloo line",
+        "lat": 51.5234,
+        "lng": -0.1466
+      },
+      {
+        "name": "Great Portland Street station",
+        "kind": "Circle, Hammersmith & City and Metropolitan lines",
+        "lat": 51.5238,
+        "lng": -0.1439
+      },
+      {
+        "name": "Baker Street station",
+        "kind": "Five Underground lines",
+        "lat": 51.5226,
+        "lng": -0.1571
+      },
+      {
+        "name": "Wigmore Hall",
+        "kind": "Concerts",
+        "lat": 51.517,
+        "lng": -0.1495
+      },
+      {
+        "name": "Paddington Street Gardens",
+        "kind": "Garden",
+        "lat": 51.5208,
+        "lng": -0.1546
+      },
+      {
+        "name": "Oxford Circus",
+        "kind": "Shops and the Central line",
+        "lat": 51.5152,
+        "lng": -0.1419
+      }
+    ]
+  },
+  "corporate": {
+    "intro": "Homes for people moving to London for work, invoiced to the company.",
+    "points": [
+      {
+        "title": "Invoiced to the company",
+        "text": "One invoice a month, with VAT shown, to your company's accounts team."
+      },
+      {
+        "title": "Ready on the day",
+        "text": "Furnished, stocked and made up, with the concierge to meet whoever arrives."
+      },
+      {
+        "title": "Short or long",
+        "text": "By the night while they settle in, or a tenancy once they stay."
+      }
+    ],
+    "message": "Hello Carrow, I'd like to ask about a relocation."
+  },
+  "owners": {
+    "intro": "We also look after a few homes for other owners in Marylebone.",
+    "services": [
+      {
+        "name": "Let and managed by the night",
+        "fee": "20% of each stay's rate, with VAT",
+        "includes": [
+          "Listing and pricing",
+          "Guests met and looked after",
+          "Housekeeping and linen"
+        ]
+      },
+      {
+        "name": "Let on a tenancy",
+        "fee": "12% of the rent, with VAT",
+        "includes": [
+          "Finding and referencing a tenant",
+          "The tenancy and the deposit's protection",
+          "Repairs and inspections"
+        ]
+      }
+    ]
+  },
+  "journal": {
+    "intro": "Notes on moving to and living in London.",
+    "items": [
+      {
+        "slug": "renting-in-england-as-a-newcomer",
+        "title": "Renting in England as a newcomer",
+        "summary": "What a tenancy is now, what you can be asked to pay, and what to have ready.",
+        "date": "2026-11-20",
+        "checked": "2026-11-26",
+        "body": [
+          "Since 1 May 2026 a new tenancy in England is an assured periodic tenancy: it rolls on, month to month, with no end date, and you give notice when you want to leave.",
+          "On a tenancy, a landlord or agent can only ask for the payments the Tenant Fees Act permits: the rent, a holding deposit of up to a week's rent, and a refundable deposit (five weeks' rent, or six from £50,000 a year).",
+          "Have your passport or visa ready for a Right to Rent check, and proof of income or a guarantor if you are new to the UK."
+        ],
+        "sources": [
+          {
+            "label": "Renters' Rights Act overview for tenants (GOV.UK)",
+            "url": "https://www.gov.uk/guidance/renters-rights-act-overview-for-tenants"
+          },
+          {
+            "label": "Tenant Fees Act 2019 guidance (GOV.UK)",
+            "url": "https://www.gov.uk/government/publications/tenant-fees-act-amended-by-the-renters-rights-act-2025/tenant-fees-act-2019-statutory-guidance-for-enforcement-authorities"
+          }
+        ]
+      },
+      {
+        "slug": "a-first-week-in-marylebone",
+        "title": "A first week in Marylebone",
+        "summary": "Where to shop, walk and eat while you settle in.",
+        "date": "2026-11-12",
+        "body": [
+          "Start with the park: the Outer Circle is a good morning walk, and the rose garden is ten minutes from the door.",
+          "The High Street has what you need for the week, and the Sunday market behind it is worth an early visit."
+        ]
+      }
+    ]
+  },
+  "visitInfo": {
+    "kicker": "Finding us",
+    "title": "Finding Carrow",
+    "intro": "Where the front door is, and how to get here.",
+    "checked": "2026-11",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "Regent's Park station",
+        "origin": "Regent's Park station, London",
+        "minutes": 5,
+        "steps": [
+          "Leave the station onto Marylebone Road and cross at the lights",
+          "Walk down Park Crescent and turn right into Weymouth Street",
+          "The front door is between the two bay trees"
+        ]
+      },
+      {
+        "mode": "walk",
+        "from": "Baker Street station",
+        "origin": "Baker Street station, London",
+        "minutes": 11,
+        "steps": [
+          "Leave by the Marylebone Road exit and walk east",
+          "Turn right down Marylebone High Street, then left into Weymouth Street"
+        ]
+      }
+    ],
+    "parking": [
+      {
+        "name": "Pay-by-phone bays on Weymouth Street",
+        "walk": 1,
+        "price": "hourly, set by the council (demo)",
+        "paid": "always"
+      }
+    ],
+    "access": [
+      {
+        "label": "Step-free from the street to the lift",
+        "yes": true
+      },
+      {
+        "label": "Lift to every floor",
+        "yes": true
+      }
+    ],
+    "payment": "Stays are paid by our own payment link; rent by bank transfer. We never change our bank details by email; call us before paying if anything looks different."
+  },
+  "questions": [
+    {
+      "topic": "Staying",
+      "q": "Is the price I see the price I pay?",
+      "a": "Yes. Every total includes the nightly rate with service and VAT and the final clean. Nothing is added at the end."
+    },
+    {
+      "topic": "Staying",
+      "q": "Can I stay longer than three months?",
+      "a": "Yes, on a rolling tenancy priced by the month. Slide the stay bar to Long let to see the rent and the deposit."
+    },
+    {
+      "topic": "Staying",
+      "q": "Can I arrive late at night?",
+      "a": "Yes. The concierge is in until midnight and a night porter after that; tell us your flight or train."
+    },
+    {
+      "topic": "Staying",
+      "q": "Is it quiet?",
+      "a": "Each home's details say which side it faces, its glazing, cooling and blinds."
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: short-lets
+permalink: short-lets.html
+feature: residences-short
+eleventyComputed:
+  title: "Short lets"
+  description: "Staying at {{ site.business.name }} by the night: what is included, and the terms."
+---
+{%- set ph = { title: "Short lets", intro: site.shortLets.intro } %}
+{% include "kits/residences/partials/page-head.njk" %}
+<div class="wrap">{% include "kits/residences/features/residences-short/residences-short.njk" %}</div>

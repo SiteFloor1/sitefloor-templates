@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: corporate
+permalink: corporate.html
+feature: residences-corporate
+eleventyComputed:
+  title: "Corporate relocations"
+  description: "Homes at {{ site.business.name }} for people moving to London for work."
+---
+{%- set ph = { title: "Corporate relocations", intro: site.corporate.intro } %}
+{% include "kits/residences/partials/page-head.njk" %}
+<div class="wrap">{% include "kits/residences/features/residences-corporate/residences-corporate.njk" %}</div>
