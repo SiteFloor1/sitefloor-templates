@@ -12,12 +12,12 @@ import { bankHolidays, regionFromPostcode } from "../../../core/lib/bank-holiday
 export const LIGHT = { goldTop: 6, sunset: -0.833, goldBottom: -4, blueBottom: -6 };
 
 const DAY = 86_400_000;
-const ymdFmt = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/London", year: "numeric", month: "2-digit", day: "2-digit" });
+const ymdFmt = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", year: "numeric", month: "2-digit", day: "2-digit" });
 const hmFmt = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", hour: "2-digit", minute: "2-digit", hourCycle: "h23" });
 const hourFmt = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", hour: "2-digit", hourCycle: "h23" });
 
 /** The UK calendar date of a moment. @param {number} ms */
-export const ukYmd = (ms) => ymdFmt.format(ms);
+export const ukYmd = (ms) => { const p = Object.fromEntries(ymdFmt.formatToParts(ms).map((x) => [x.type, x.value])); return `${p.year}-${p.month}-${p.day}`; };
 /** The UK clock time of a moment, "16:04"; a dash when there is none. @param {number|null} ms */
 export const ukHm = (ms) => (ms === null ? "–" : hmFmt.format(ms));
 
@@ -178,7 +178,10 @@ export function fill(t, v) {
   return t.replace(/\{(\w+)\}/g, (m, k) => (k in v ? v[k] : m));
 }
 
-/** A UK date in words, "Fri 27 Nov". @param {string} ymd */
+const WD = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+/** A UK date in words, "Fri 27 Nov", built from fixed parts (browsers' date formats differ: some add a comma). @param {string} ymd */
 export function shortDay(ymd) {
-  return new Intl.DateTimeFormat("en-GB", { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" }).format(Date.parse(`${ymd}T12:00:00Z`));
+  const d = new Date(`${ymd}T12:00:00Z`);
+  return `${WD[d.getUTCDay()]} ${d.getUTCDate()} ${MON[d.getUTCMonth()]}`;
 }
