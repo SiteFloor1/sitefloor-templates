@@ -338,6 +338,22 @@ chat can reuse the Sitefloor bar, footer and patterns without re-reading a publi
   through a nail; the speed is drying time; a live bridal planner counts back from one wedding date; lacquer white,
   Newsreader and Be Vietnam Pro). Media (six phone clips with posters, three hands and their masks, stills) live in the
   published artifact under `media/`. Clips: CDP screencast at 390×844 and 2x, each starting already on its subject.
+- `verriere/index.html`: the perfume house case study (the house's notes seen through its own bottle). The page
+  opens on No. 4 Sable's notes sentence set large in Hina Mincho, with the rendered bottle standing in front of it;
+  drag the bottle (or use the arrow keys) and the words bend through the glass as they would through the real one.
+  The bottle is three rendered passes (where each pixel of the glass looks through to, the glass's colour, the light
+  on it) composited over the live text in WebGL, with a processor fallback. Then the notes sentence as three
+  chapters: It opens on… (Starter), settles into… (Plus), and dries down to… (Signature), each with its cast list
+  (the customer's question, what answers it) and phone stills. Live: sizes side by side drawn by cube root, launch
+  mode before and on the day, the scent finder with Verrière's six fragrances, the turntable (18 frames, loaded on
+  first reach), the engraving desk. Then what the kit won't say (claims it refuses), the plans as three flacons
+  drawn to scale, the numbers, and the close. Verrière's stone and ink, the champagne-gold accent; Hina Mincho and
+  SUSE (the demo's own), self-hosted with size-matched stand-ins. Media (glass passes, turntable frames, the engraving
+  photograph, ingredient and scent photographs, eleven phone stills, the home page on a laptop, the fonts) live in
+  `media/` and the published artifact. Phone stills: 390×844 at 2x in Chrome, en-GB, London time, 26 November 2026,
+  without the demo ribbon; chapter one's at the Starter plan. Motion: only what the visitor moves. Photographs
+  (Unsplash, free licence): Laura Ockel, CHUTTERSNAP, Ioana Cristiana, Zoshua Colah, sidath vimukthi, Andrik
+  Langfield, Mo Farhan Badar. The bottle renders are Sitefloor's own.
 - `wenlow/index.html`: the driving instructor case study (from L to P: a learner's whole run, from the first question
   to the day the plates come off, read in the order of the practical test itself. The hero is one learner plate, large,
   beside Wenlow's own "when could I pass?" card, live with the demo's prices and gov.uk's fees (manual or automatic,
@@ -358,6 +374,26 @@ chat can reuse the Sitefloor bar, footer and patterns without re-reading a publi
   fitting are Starter, Plus and Signature; a fitting card of the salon's facts; a live gown diary; a pale pearl-oyster
   ground with a champagne accent). Media (three clips, stills, mirror panes) live in the published
   artifact under `media/`.
+- `wrenna/index.html`: the children's ballet school case study (curtain up: the school's website seen the way its
+  parents see the year, from the house on show day. The page opens on the closed house curtain, a real velvet curtain
+  full bleed, with the parent's first question on it ("How old is your dancer?") and the finder's seven age groups
+  along the stage edge as footlights; tap one and the curtain flies straight up, as a house curtain does, onto
+  Wrenna's stage, with the class, its days, times and length, places left and the trial message, all from the demo's
+  timetable and simulated places in the kit's own wording (`ageGroups`, `sessionsWords`, `lengthWords`, `placesWords`,
+  `trialText`). Then the programme in three acts, each opening on the curtain's hem leaving the stage: Act one, The
+  first class (Starter), Act two, The term (Plus), Act three, Show day (Signature), each with its cast list (the
+  parent's question ...... what answers it) and its phones standing in pools of light on a dark stage. Live: the
+  places sheet beside what the finder shows, with "last changed" this morning, three days ago or last month (older
+  than a week: no number at all) and places you can change; show day by code with the demo's three sample codes; where
+  she'll go next (`pathFrom`). The interval is the plans as three tickets laid on the curtain (Stalls, Circle, Box);
+  curtain call is the numbers; the close brings the curtain down. Wrenna's ivory and ink, the horse-chestnut accent,
+  the curtain's velvet as the one other colour, footlight warmth only as light; Hahmlet (the demo's own), self-hosted
+  with the look's size-matched stand-ins). Media (the curtain, its hem, the demo's stage widened onto black, the
+  rehearsal photograph, twelve phone stills, the home page on a laptop, the fonts) live in `media/` and the published
+  artifact. Phone stills: 390×844 at 2x in Chrome, en-GB, London time, 26 November 2026, without the demo ribbon; Act
+  one's at the Starter plan. Motion: only the curtain, when asked; under reduced motion it fades. Photograph
+  (Unsplash, free licence): red pleated stage curtain, team voyas,
+  https://unsplash.com/photos/red-pleated-stage-curtain-bvHWrljtz8U.
 
 Every case study must look unrecognisably different from the others, keep the same Sitefloor bar and footer, and never
 show how we built anything (CLAUDE.md rule 11a).

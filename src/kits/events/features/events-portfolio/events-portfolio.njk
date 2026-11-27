@@ -1,0 +1,27 @@
+{#- The portfolio, with rooms for your number: every room large; choose the occasion and how many guests and the rooms
+    within a third of that number come first, closest first; says so when none is near. -#}
+<section class="ev-port" data-feature="events-portfolio"><div class="wrap">
+  {%- set ph = { title: site.sections.rooms.pageTitle or "Rooms", intro: site.sections.rooms.pageIntro } %}{% include "kits/events/partials/page-head.njk" %}
+  <form class="ev-port-f" data-ep-form>
+    <fieldset class="ev-port-occ"><legend>Occasion</legend>
+      <label><input type="radio" name="occ" value="" checked> All</label>
+      {%- for o in [["wedding","Weddings"],["corporate","Companies"],["private","Private"],["launch","Launches"]] %}{% if (site.rooms.items | evRoomsOf(o[0])) | length %}
+      <label><input type="radio" name="occ" value="{{ o[0] }}"> {{ o[1] }}</label>{% endif %}{% endfor %}
+    </fieldset>
+    <label class="ev-port-n">Guests <input type="number" inputmode="numeric" min="2" max="3000" step="1" data-ep-guests placeholder="Any"></label>
+  </form>
+  <p class="ev-port-found" data-ep-found aria-live="polite">{{ site.rooms.items | length }} rooms.</p>
+  <ul class="ev-port-list" data-ep-list>
+    {%- for r in site.rooms.items %}
+    <li class="ev-room" data-ep-room="{{ r.id }}">
+      {%- set ph = r.photo %}{% set phCls = "ev-room-img" %}{% set phSizes = "(min-width: 900px) 50vw, 100vw" %}{% set phLazy = not loop.first %}{% include "kits/events/partials/photo.njk" %}
+      <div class="ev-room-txt">
+        <h2 class="ev-room-name">{{ r.name }}</h2>
+        <p class="ev-room-facts">{{ r.guests }} guests · {{ r.where }}</p>
+        {%- if r.line %}<p class="ev-room-line">{{ r.line }}</p>{% endif %}
+        <a class="ev-ask" href="{{ (r | evAsk(site.business.name)) | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ r | evAsk(site.business.name) }}"{% endif %} target="_blank" rel="noopener">Ask about a room like this</a>
+      </div>
+    </li>
+    {%- endfor %}
+  </ul>
+</div></section>

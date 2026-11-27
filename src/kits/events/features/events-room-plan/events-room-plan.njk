@@ -1,0 +1,16 @@
+{#- Your room, drawn (EVT-7): choose a room from the agency's list, slide the guests and choose long tables, rounds or
+    standing; the plan redraws to scale with chairs, dance floor and bar, and says when it won't fit. A guide: the
+    venue's own capacity and rules decide. Opens from a link as #room=<id>&guests=<n>&layout=<long|round|standing>. -#}
+{%- set P = site.roomPlan %}{% set D = P | evDraw %}
+<section class="ev-plan" data-feature="events-room-plan"><div class="wrap">
+  {%- set ph = { title: P.title, intro: P.intro } %}{% include "kits/events/partials/page-head.njk" %}
+  <form class="ev-plan-ctl" data-rp-form>
+    <label class="ev-f"><span>Room</span><select data-rp-room>{% for r in P.rooms %}<option value="{{ r.id }}"{% if r.id == D.room.id %} selected{% endif %}>{{ r.name }} ({{ r.length }} × {{ r.width }} m)</option>{% endfor %}</select></label>
+    <label class="ev-rule"><span><output data-rp-n>{{ D.start.guests }}</output> guests</span><input type="range" min="10" max="400" step="10" value="{{ D.start.guests }}" data-rp-guests aria-label="Guests"></label>
+    <div class="ev-plan-lay" role="group" aria-label="Layout">{% for l in evLayouts %}<button type="button" data-rp-layout="{{ l.id }}" aria-pressed="{{ 'true' if l.id == D.start.layout else 'false' }}">{{ l.label }}</button>{% endfor %}</div>
+  </form>
+  <figure class="ev-plan-sheet">
+    <div class="ev-plan-scroll" tabindex="0" role="region" aria-label="The plan, to scale (scrolls sideways on a phone)"><svg class="ev-plan-svg" data-rp-svg viewBox="{{ D.box }}" role="img" aria-labelledby="rp-words">{{ D.svg | safe }}</svg></div>
+    <figcaption><span id="rp-words" data-rp-words>{{ D.words }}</span> <span class="ev-plan-g">A guide: the venue's own capacity and rules decide.</span>{% if D.room.note %} <span data-rp-note>{{ D.room.note }}</span>{% endif %}</figcaption>
+  </figure>
+</div></section>

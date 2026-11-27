@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wrenna Case Study</title>
+<meta name="description" content="Wrenna, a website for a children's ballet school: which class, when, what to wear, what it costs and where to be on show day, answered before the first class.">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="icon" href="data:,">
+<link rel="preload" href="media/fonts/hahmlet-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="media/curtain-1200.webp" as="image" media="(max-width: 900px)">
+<link rel="preload" href="media/curtain.webp" as="image" media="(min-width: 901px)">
+<style>
+/* Layout: curtain up. A ballet school's website seen the way its parents see the school's year: from the house, on show
+   day. The page opens on the closed house curtain (a real velvet curtain, full bleed) with the parent's first question
+   on it, and the class finder's ages along the stage edge as footlights; tap an age and the curtain flies, straight up
+   as a house curtain does, onto Wrenna's stage, with the class, its days and times, places left and the trial message
+   from the demo's own timetable and the kit's own wording. Then the programme: three acts (Starter, Plus, Signature),
+   each opening on the curtain's hem as it leaves the stage, each with its cast list (the parent's question, and the
+   page that answers it, with dotted leaders) and its phones standing in pools of light on a dark stage. Live: the
+   finder (hero), the places sheet and what the site says when it goes stale (Act two), show day by code and where she
+   goes next (Act three). The interval is the plans, as three tickets laid on the curtain. Curtain call is the numbers;
+   the close brings the curtain down again.
+   Wrenna's own ivory and ink, the horse-chestnut accent, and the curtain's velvet as the one other colour; footlight
+   warmth only as light. Hahmlet (the demo's own; hairline against heavy), self-hosted with the look's size-matched
+   stand-ins; Manrope for Sitefloor. Motion: only the curtain, when asked (1.9 s, as a flown curtain rises); nothing
+   tied to the scroll; under reduced motion the curtain fades instead. */
+@font-face { font-family: "Hahmlet"; font-style: normal; font-weight: 100 900; font-display: swap; src: url("media/fonts/hahmlet-latin-wght-normal.woff2") format("woff2-variations"), url("media/fonts/hahmlet-latin-wght-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Hahmlet Fallback"; font-weight: 100 229; src: local("Times New Roman"), local("Liberation Serif"); size-adjust: 119.2%; ascent-override: 97.3%; descent-override: 24.2%; line-gap-override: 0%; }
+@font-face { font-family: "Hahmlet Fallback"; font-weight: 230 329; src: local("Times New Roman"), local("Liberation Serif"); size-adjust: 119.9%; ascent-override: 96.7%; descent-override: 24.0%; line-gap-override: 0%; }
+@font-face { font-family: "Hahmlet Fallback"; font-weight: 330 389; src: local("Times New Roman"), local("Liberation Serif"); size-adjust: 122.0%; ascent-override: 95.1%; descent-override: 23.6%; line-gap-override: 0%; }
+@font-face { font-family: "Hahmlet Fallback"; font-weight: 390 469; src: local("Times New Roman"), local("Liberation Serif"); size-adjust: 121.1%; ascent-override: 95.8%; descent-override: 23.8%; line-gap-override: 0%; }
+@font-face { font-family: "Hahmlet Fallback"; font-weight: 470 539; src: local("Times New Roman"), local("Liberation Serif"); size-adjust: 122.5%; ascent-override: 94.7%; descent-override: 23.5%; line-gap-override: 0%; }
+@font-face { font-family: "Hahmlet Fallback"; font-weight: 540 599; src: local("Times New Roman"), local("Liberation Serif"); size-adjust: 123.2%; ascent-override: 94.2%; descent-override: 23.4%; line-gap-override: 0%; }
+@font-face { font-family: "Hahmlet Fallback"; font-weight: 600 900; src: local("Times New Roman Bold"), local("TimesNewRomanPS-BoldMT"), local("Liberation Serif Bold"), local("LiberationSerif-Bold"); size-adjust: 119.8%; ascent-override: 96.8%; descent-override: 24.0%; line-gap-override: 0%; }
+@font-face { font-family: "Manrope"; font-weight: 600; font-display: swap; src: url("media/fonts/manrope-latin-600-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Manrope"; font-weight: 700; font-display: swap; src: url("media/fonts/manrope-latin-700-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+:root {
+  --ivory: #F4F0E8; --paper: #FBF9F4; --ink: #1B1613; --muted: #5F564E; --line: rgba(27,22,19,.16); --line-2: rgba(27,22,19,.34);
+  --chestnut: #7B3A1E; --velvet: #8E1B2C;
+  --house: #0E0A09; --on-house: #F4F0E8; --house-muted: #B9AEA2; --house-line: rgba(244,240,232,.16);
+  --glow: 243, 217, 164;
+  --sf-paper: #FBFAF7; --sf-ink: #0E0F11; --sf-tomato: #E8613C; --sf-line: rgba(14,15,17,.12);
+  --font: "Hahmlet", "Hahmlet Fallback", Georgia, serif;
+  --brand: "Manrope", Arial, sans-serif;
+  --edge: clamp(18px, 4vw, 56px);
+  --bar: 66px;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; background: var(--ivory); }
+body { margin: 0; background: var(--ivory); color: var(--ink); font: 360 18px/1.6 var(--font); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+h1, h2, h3, p, figure, ul, ol, dl, dd, dt { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+h1, h2, h3 { font-weight: 200; letter-spacing: -.035em; line-height: 1; }
+h1 b, h2 b, h3 b { font-weight: 700; letter-spacing: -.04em; display: block; }
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--chestnut); outline-offset: 3px; }
+.gut { padding-left: max(var(--edge), env(safe-area-inset-left, 0px)); padding-right: max(var(--edge), env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 1360px; margin: 0 auto; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.fine { font-size: 14px; line-height: 1.5; color: var(--muted); }
+
+/* ------------------------------------------------------------------ Sitefloor bar (shared) */
+.sfbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--sf-paper); color: var(--sf-ink); border-bottom: 1px solid var(--sf-line); }
+.sfbar .wrap { display: flex; justify-content: space-between; align-items: center; height: var(--bar); gap: 16px; max-width: 1440px; }
+.wm { display: inline-flex; align-items: center; font: 700 22px var(--brand); letter-spacing: -.04em; text-decoration: none; color: var(--sf-ink); }
+.wm svg { margin: 0 1px; transform: translateY(1px); }
+.sfbar nav { display: flex; gap: 28px; font-family: var(--brand); font-size: 14px; font-weight: 600; }
+.sfbar nav a { text-decoration: none; color: var(--sf-ink); }
+.sfbar nav a[aria-current] { box-shadow: inset 0 -1.5px 0 var(--sf-ink); }
+.sfbtn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 20px; background: var(--sf-ink); color: var(--sf-paper); font: 700 12px var(--brand); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; }
+.sfbtn:hover { background: var(--sf-tomato); }
+.sfbar :focus-visible { outline-color: var(--sf-ink); }
+@media (max-width: 760px) { .sfbar nav { display: none; } }
+@media (max-width: 420px) { .sfbar .sfbtn { display: none; } }
+
+/* ------------------------------------------------------------------ the house: curtain, stage, footlights */
+.house { position: relative; height: clamp(600px, calc(100svh - var(--bar)), 980px); background: var(--house); color: var(--on-house); overflow: hidden; isolation: isolate; }
+.scene { position: absolute; inset: 0 0 var(--lip) 0; }
+.house { --lip: 132px; }
+.scene > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%; }
+.scene::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(14,10,9,.82) 0%, rgba(14,10,9,.35) 38%, rgba(14,10,9,0) 60%), linear-gradient(0deg, rgba(14,10,9,.7), rgba(14,10,9,0) 40%); }
+.answer { position: absolute; z-index: 2; left: max(var(--edge), env(safe-area-inset-left, 0px)); bottom: clamp(24px, 5vh, 56px); width: min(560px, calc(100% - 2 * var(--edge))); opacity: 0; transition: opacity .6s ease .9s; }
+.house.up .answer { opacity: 1; }
+.answer .for { font-size: 14px; letter-spacing: .02em; color: var(--house-muted); }
+.answer .cls + .cls { margin-top: 22px; padding-top: 20px; border-top: 1px solid var(--house-line); }
+.answer h2 { font-size: clamp(44px, 6.4vw, 96px); margin: 6px 0 12px; }
+.answer .when { font-size: 17px; }
+.answer .pl { margin-top: 6px; font-size: 15px; color: rgb(var(--glow)); }
+.answer .pl span { display: block; }
+.answer .ask { margin-top: 22px; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 18px; }
+.answer .wa { display: inline-flex; align-items: center; min-height: 46px; padding: 0 22px; border: 1px solid var(--on-house); font-size: 15px; font-weight: 560; letter-spacing: .01em; text-decoration: none; }
+.answer .wa:hover { background: var(--on-house); color: var(--house); }
+.answer q { font-size: 14px; color: var(--house-muted); quotes: "\201C" "\201D"; max-width: 34ch; }
+
+.curtain { position: absolute; inset: 0 0 var(--lip) 0; z-index: 4; transform: translateY(0); transition: transform 1.9s cubic-bezier(.62, 0, .22, 1); will-change: transform; }
+.curtain::after { content: ""; position: absolute; left: 0; right: 0; bottom: -26px; height: 26px; background: linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,0)); }
+.curtain picture, .curtain img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 100%; }
+.curtain .on { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; text-align: center; padding: 0 var(--edge) 4vh; }
+.curtain .on::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse 46% 38% at 50% 50%, rgba(14,10,9,.46), rgba(14,10,9,0) 70%); pointer-events: none; }
+.emblem { position: relative; width: 74px; height: 74px; margin-bottom: 28px; }
+.kick { position: relative; font-size: 15px; letter-spacing: .14em; text-transform: uppercase; color: rgba(244,240,232,.82); font-weight: 420; }
+.curtain h1 { position: relative; margin-top: 18px; font-size: clamp(54px, 9.4vw, 168px); max-width: 9em; text-shadow: 0 2px 30px rgba(20,4,8,.45); }
+.house.up .curtain { transform: translateY(calc(-100% - 40px)); }
+
+.lip { position: absolute; left: 0; right: 0; bottom: 0; height: var(--lip); z-index: 5; background: linear-gradient(#17100D, var(--house)); border-top: 1px solid rgba(var(--glow), .22); display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px 36px; }
+.lip .q { font-size: 15px; color: var(--house-muted); max-width: 15ch; line-height: 1.35; }
+.lights { display: flex; justify-content: space-between; gap: 4px; max-width: 900px; width: 100%; justify-self: center; }
+.lights button { position: relative; flex: 1 1 auto; min-width: 40px; white-space: nowrap; min-height: 76px; padding: 0 0 18px; background: none; border: 0; color: var(--on-house); font-size: clamp(22px, 2.6vw, 38px); font-weight: 200; letter-spacing: -.03em; line-height: 1; }
+.lights button::after { content: ""; position: absolute; left: 50%; bottom: 6px; width: 34px; height: 8px; margin-left: -17px; border-radius: 50%; background: radial-gradient(ellipse at 50% 100%, rgba(var(--glow), .55), rgba(var(--glow), 0) 70%); transition: opacity .4s; opacity: .45; }
+.lights button::before { content: ""; position: absolute; left: 50%; bottom: -60px; width: 180px; height: 120px; margin-left: -90px; background: radial-gradient(ellipse at 50% 100%, rgba(var(--glow), .5), rgba(var(--glow), 0) 62%); opacity: 0; transition: opacity .5s; pointer-events: none; }
+.lights button:hover::after { opacity: .9; }
+.lights button[aria-pressed="true"] { font-weight: 700; }
+.lights button[aria-pressed="true"]::after { opacity: 1; }
+.lights button[aria-pressed="true"]::before { opacity: 1; }
+.down { justify-self: end; min-height: 44px; padding: 0 2px; background: none; border: 0; border-bottom: 1px solid currentColor; font-size: 14px; color: var(--house-muted); visibility: hidden; }
+.house.up .down { visibility: visible; }
+.down:hover { color: var(--on-house); }
+@media (max-width: 900px) {
+  .house { --lip: 150px; }
+  .lip { grid-template-columns: 1fr auto; grid-template-rows: auto auto; align-content: center; gap: 4px 12px; }
+  .lip .q { max-width: none; grid-column: 1; grid-row: 1; }
+  .down { grid-column: 2; grid-row: 1; }
+  .lights { grid-column: 1 / -1; grid-row: 2; }
+  .lights { gap: 0; } .lights button { min-height: 64px; font-size: clamp(19px, 5.6vw, 26px); letter-spacing: -.05em; }
+  .scene::after { background: linear-gradient(0deg, rgba(14,10,9,.92) 0%, rgba(14,10,9,.7) 42%, rgba(14,10,9,0) 72%); }
+  .scene > img { object-position: 50% 30%; }
+  .answer { bottom: 22px; }
+  .answer h2 { font-size: clamp(40px, 12vw, 64px); }
+  .answer q { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .curtain { transition: opacity .8s ease, visibility 0s linear .8s; }
+  .house.up .curtain { transform: none; opacity: 0; visibility: hidden; }
+  .answer { transition-delay: .2s; }
+}
+
+/* ------------------------------------------------------------------ the overture */
+.overture { padding-top: clamp(80px, 11vw, 160px); padding-bottom: clamp(64px, 8vw, 120px); }
+.ov { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: 40px clamp(32px, 6vw, 96px); align-items: end; }
+.ov h2 { font-size: clamp(46px, 7.4vw, 124px); max-width: 9.4em; }
+.ov p + p { margin-top: 16px; }
+.ov .demo { display: inline-block; margin-top: 22px; color: var(--chestnut); font-weight: 560; }
+.laptop { margin-top: clamp(56px, 7vw, 104px); }
+.laptop .lid { padding: 14px 14px 0; border-radius: 18px 18px 0 0; background: #191411; box-shadow: 0 30px 80px -30px rgba(27,22,19,.5); }
+.laptop .lid img { width: 100%; height: auto; border-radius: 4px 4px 0 0; }
+.laptop .base { height: 16px; margin: 0 -3%; border-radius: 0 0 14px 14px; background: linear-gradient(#cfc7bb, #a79e92); }
+.laptop figcaption { margin-top: 16px; }
+@media (max-width: 860px) { .ov { grid-template-columns: minmax(0, 1fr); } }
+
+/* ------------------------------------------------------------------ act openers: the hem leaving the stage */
+.act { position: relative; background: var(--house); color: var(--on-house); padding-top: clamp(120px, 14vw, 210px); padding-bottom: clamp(56px, 6vw, 88px); overflow: hidden; }
+.act .hem { position: absolute; top: 0; left: 0; width: 100%; height: clamp(54px, 7vw, 100px); object-fit: cover; object-position: 50% 100%; }
+.act .hem-shadow { position: absolute; top: clamp(54px, 7vw, 100px); left: 0; right: 0; height: 60px; background: linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,0)); }
+.act .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 24px 40px; }
+.act .n { font-size: 15px; letter-spacing: .14em; text-transform: uppercase; color: var(--house-muted); margin-bottom: 18px; }
+.act h2 { font-size: clamp(60px, 11vw, 196px); }
+.act .plan { text-align: right; font-size: 15px; color: var(--house-muted); }
+.act .plan b { display: block; font-size: clamp(24px, 2.4vw, 34px); font-weight: 200; color: var(--on-house); letter-spacing: -.02em; margin-bottom: 4px; }
+@media (max-width: 700px) { .act .wrap { grid-template-columns: minmax(0, 1fr); } .act .plan { text-align: left; } }
+
+/* ------------------------------------------------------------------ cast list: the parent's question ..... the page that answers it */
+.cast { padding-top: clamp(64px, 8vw, 120px); padding-bottom: clamp(64px, 8vw, 120px); }
+.cast .wrap { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 8fr); gap: 32px clamp(32px, 6vw, 96px); }
+.cast .lede { font-size: 20px; line-height: 1.5; max-width: 22ch; }
+.cast .lede small { display: block; margin-top: 14px; font-size: 14px; color: var(--muted); }
+.roles li { display: grid; grid-template-columns: auto 1fr auto; align-items: baseline; gap: 12px; padding: 16px 0; border-top: 1px solid var(--line); }
+.roles li:last-child { border-bottom: 1px solid var(--line); }
+.roles .r { font-size: clamp(20px, 2.1vw, 28px); font-weight: 250; letter-spacing: -.02em; }
+.roles .dots { border-bottom: 1px dotted var(--line-2); transform: translateY(-6px); min-width: 24px; }
+.roles .by { font-weight: 560; font-size: 16px; text-align: right; }
+@media (max-width: 860px) {
+  .cast .wrap { grid-template-columns: minmax(0, 1fr); }
+  .roles li { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+  .roles .dots { display: none; }
+  .roles .by { text-align: left; color: var(--chestnut); font-size: 15px; }
+}
+
+/* ------------------------------------------------------------------ the stage: phones in pools of light */
+.boards { background: var(--house); color: var(--on-house); padding-top: clamp(56px, 6vw, 96px); padding-bottom: clamp(48px, 5vw, 80px); }
+.line { display: flex; justify-content: safe center; gap: clamp(20px, 3.4vw, 56px); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 0 var(--edge) 8px; margin: 0 calc(-1 * var(--edge)); }
+.line::-webkit-scrollbar { display: none; }
+.line:focus-visible, .scroll-x:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+.line figure { flex: 0 0 clamp(200px, 17vw, 280px); scroll-snap-align: center; position: relative; padding-bottom: 54px; }
+.line figure::before { content: ""; position: absolute; left: -30%; right: -30%; bottom: 0; height: 120px; background: radial-gradient(ellipse 50% 42% at 50% 60%, rgba(var(--glow), .30), rgba(var(--glow), 0) 72%); z-index: 0; }
+.line figure::after { content: ""; position: absolute; left: 50%; top: -60px; width: 70%; height: calc(100% + 20px); transform: translateX(-50%); background: linear-gradient(rgba(var(--glow), 0), rgba(var(--glow), .06) 60%, rgba(var(--glow), 0)); clip-path: polygon(38% 0, 62% 0, 100% 100%, 0 100%); z-index: 0; pointer-events: none; }
+.phone { position: relative; z-index: 1; border-radius: 34px; padding: 9px; background: #050404; box-shadow: 0 0 0 1px rgba(244,240,232,.14), 0 40px 60px -30px rgba(0,0,0,.9); }
+.phone img { width: 100%; height: auto; aspect-ratio: 390 / 844; border-radius: 26px; }
+.line figcaption { position: relative; z-index: 1; margin-top: 22px; text-align: center; font-size: 15px; color: var(--house-muted); line-height: 1.4; }
+.line figcaption b { display: block; color: var(--on-house); font-weight: 560; font-size: 16px; }
+@media (max-width: 1100px) { .line { justify-content: flex-start; } }
+.boards .swipe { display: none; text-align: center; margin-top: 10px; font-size: 13px; color: var(--house-muted); }
+@media (max-width: 1100px) { .boards .swipe { display: block; } }
+
+/* ------------------------------------------------------------------ the sheet, live (Act two) */
+.sheet { padding-top: clamp(72px, 9vw, 132px); padding-bottom: clamp(72px, 9vw, 132px); }
+.sheet .wrap { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 40px clamp(32px, 6vw, 96px); }
+.sheet h3, .sd h3, .next h3 { font-size: clamp(40px, 5.2vw, 82px); }
+.sheet .intro p, .sd .intro p, .next .intro p { margin-top: 20px; max-width: 34ch; }
+.grid { width: 100%; border-collapse: collapse; font-size: 15px; background: var(--paper); box-shadow: 0 0 0 1px var(--line); }
+.grid th, .grid td { border: 1px solid var(--line); padding: 10px 12px; text-align: left; font-weight: 360; white-space: nowrap; }
+.grid thead th { background: #ECE6DA; font-size: 13px; letter-spacing: .02em; color: var(--muted); }
+.grid tr.on td { background: #F6EBDD; }
+.grid button { min-height: 32px; padding: 0 10px; border: 1px solid var(--line-2); background: #fff; font-size: 14px; border-radius: 3px; }
+.age { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; margin-top: 26px; }
+.age .k { font-size: 14px; color: var(--muted); }
+.seg { display: inline-flex; border: 1px solid var(--line-2); }
+.seg button { min-height: 44px; padding: 0 16px; background: none; border: 0; font-size: 15px; }
+.seg button + button { border-left: 1px solid var(--line-2); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--ivory); }
+.says { margin-top: 30px; padding: 26px 28px; background: var(--paper); border-left: 3px solid var(--chestnut); min-height: 168px; }
+.says .k { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.says .cls { margin-top: 8px; font-size: 24px; font-weight: 560; letter-spacing: -.02em; }
+.says .val { margin-top: 4px; font-size: 18px; color: var(--chestnut); min-height: 1.6em; }
+.says .val.none { color: var(--muted); font-style: normal; }
+.says .why { margin-top: 10px; font-size: 15px; color: var(--muted); max-width: 52ch; }
+.scroll-x { overflow-x: auto; }
+@media (max-width: 960px) { .sheet .wrap { grid-template-columns: minmax(0, 1fr); } }
+
+/* ------------------------------------------------------------------ the interval: tickets on the curtain */
+.interval { position: relative; color: var(--on-house); padding-top: clamp(80px, 10vw, 150px); padding-bottom: clamp(80px, 10vw, 150px); overflow: hidden; isolation: isolate; background: #3a0a12; }
+.interval > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+.interval::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 60% at 50% 45%, rgba(14,10,9,.25), rgba(14,10,9,.62)); z-index: -1; }
+.interval .head { text-align: center; }
+.interval .n { font-size: 15px; letter-spacing: .14em; text-transform: uppercase; color: rgba(244,240,232,.8); }
+.interval h2 { margin-top: 16px; font-size: clamp(60px, 10vw, 170px); text-shadow: 0 2px 30px rgba(20,4,8,.45); }
+.interval .head p { margin: 20px auto 0; max-width: 40ch; color: rgba(244,240,232,.88); }
+.tickets { margin-top: clamp(48px, 6vw, 88px); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2vw, 28px); align-items: start; }
+.ticket { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 66px; background: var(--ivory); color: var(--ink); box-shadow: 0 30px 60px -28px rgba(0,0,0,.75); }
+.ticket:nth-child(2) { transform: translateY(18px) rotate(.6deg); }
+.ticket:nth-child(3) { transform: translateY(36px) rotate(-.5deg); }
+.ticket .main { padding: 26px 26px 28px; }
+.ticket .sec { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--chestnut); font-weight: 560; }
+.ticket h3 { margin-top: 10px; font-size: clamp(44px, 4.4vw, 70px); }
+.ticket .price { margin-top: 14px; font-size: 18px; }
+.ticket .price b { font-weight: 700; font-size: 26px; letter-spacing: -.02em; }
+.ticket ul { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 15px; line-height: 1.45; }
+.ticket li + li { margin-top: 8px; }
+.ticket .stub { border-left: 2px dashed var(--line-2); display: grid; place-items: center; }
+.ticket .stub span { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+.interval .small { margin-top: clamp(64px, 6vw, 96px); text-align: center; font-size: 15px; color: rgba(244,240,232,.86); }
+@media (max-width: 960px) {
+  .tickets { grid-template-columns: minmax(0, 1fr); max-width: 520px; margin-left: auto; margin-right: auto; }
+  .ticket:nth-child(2), .ticket:nth-child(3) { transform: none; }
+}
+
+/* ------------------------------------------------------------------ show day, live (Act three) */
+.sd { padding-top: clamp(72px, 9vw, 132px); padding-bottom: clamp(56px, 6vw, 96px); }
+.sd .wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 40px clamp(32px, 6vw, 96px); }
+.sd figure { margin-top: 40px; width: min(100%, 420px); aspect-ratio: 1; border-radius: 50%; overflow: hidden; }
+.sd figure img { width: 100%; height: 100%; object-fit: cover; }
+.form label { display: block; font-size: 15px; color: var(--muted); margin-bottom: 10px; }
+.form .row { display: flex; gap: 10px; }
+.form input { flex: 1; min-width: 0; min-height: 56px; padding: 0 18px; border: 1px solid var(--line-2); background: var(--paper); font-size: 22px; letter-spacing: .06em; text-transform: uppercase; border-radius: 0; }
+.solid { min-height: 56px; padding: 0 24px; border: 0; background: var(--ink); color: var(--ivory); font-size: 16px; font-weight: 560; }
+.solid:hover { background: var(--chestnut); }
+.codes { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin-top: 14px; font-size: 14px; color: var(--muted); }
+.codes button { min-height: 40px; padding: 0 14px; border: 1px solid var(--line-2); background: none; font-size: 14px; letter-spacing: .06em; }
+.call { margin-top: 30px; min-height: 380px; }
+.call h4 { margin: 0 0 6px; font-size: 26px; font-weight: 560; letter-spacing: -.02em; }
+.call dl div { display: grid; grid-template-columns: 8.5em minmax(0, 1fr); gap: 16px; padding: 13px 0; border-top: 1px solid var(--line); }
+.call dl div:last-child { border-bottom: 1px solid var(--line); }
+.call dt { color: var(--muted); font-size: 15px; }
+.call .no { color: var(--muted); }
+@media (max-width: 960px) { .sd .wrap { grid-template-columns: minmax(0, 1fr); } .sd figure { width: min(100%, 300px); } }
+
+/* ------------------------------------------------------------------ where she goes next */
+.next { padding-top: clamp(56px, 6vw, 96px); padding-bottom: clamp(72px, 9vw, 132px); border-top: 1px solid var(--line); }
+.next .wrap { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 40px clamp(32px, 6vw, 96px); }
+.runs { margin-top: 28px; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); border-top: 1px solid var(--ink); }
+.runs li { padding: 14px 10px 0 0; border-right: 1px solid var(--line); min-height: 132px; }
+.runs li:last-child { border-right: 0; }
+.runs .a { font-size: clamp(26px, 3vw, 44px); font-weight: 200; letter-spacing: -.03em; line-height: 1; }
+.runs .c { margin-top: 10px; font-size: 15px; font-weight: 560; line-height: 1.3; }
+.runs li:first-child .a { font-weight: 700; color: var(--chestnut); }
+@media (max-width: 700px) {
+  .next .wrap { grid-template-columns: minmax(0, 1fr); }
+  .runs { grid-auto-flow: row; grid-auto-columns: auto; border-top: 0; }
+  .runs li { display: grid; grid-template-columns: 4.2em 1fr; align-items: baseline; min-height: 0; padding: 12px 0; border-right: 0; border-top: 1px solid var(--line); }
+  .runs .c { margin: 0; }
+}
+
+/* ------------------------------------------------------------------ curtain call: the numbers */
+.callout { background: var(--house); color: var(--on-house); padding-top: clamp(88px, 11vw, 160px); padding-bottom: clamp(88px, 11vw, 160px); }
+.callout .head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: end; }
+.callout h2 { font-size: clamp(60px, 10vw, 170px); }
+.callout .head p { color: var(--house-muted); max-width: 40ch; justify-self: end; }
+.bows { margin-top: clamp(56px, 7vw, 104px); display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.bows li { position: relative; padding: 0 14px 0 0; }
+.bows li::after { content: ""; position: absolute; left: -10%; right: 10%; bottom: -46px; height: 70px; background: radial-gradient(ellipse 50% 40% at 50% 50%, rgba(var(--glow), .22), rgba(var(--glow), 0) 72%); pointer-events: none; }
+.bows b { display: block; font-size: clamp(40px, 5vw, 80px); font-weight: 200; letter-spacing: -.04em; line-height: 1; }
+.bows b small { font-size: .42em; letter-spacing: 0; margin-left: 3px; }
+.bows span { display: block; margin-top: 14px; font-size: 15px; line-height: 1.4; color: var(--house-muted); max-width: 18ch; }
+@media (max-width: 1000px) { .bows { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 72px; } }
+@media (max-width: 620px) { .callout .head { grid-template-columns: minmax(0, 1fr); } .callout .head p { justify-self: start; } .bows { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* ------------------------------------------------------------------ the close: the curtain comes down */
+.close { position: relative; color: var(--on-house); min-height: min(88svh, 860px); display: grid; place-items: center; text-align: center; overflow: hidden; isolation: isolate; background: #3a0a12; padding-top: 96px; padding-bottom: 96px; }
+.close > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 100%; z-index: -2; }
+.close::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse 52% 46% at 50% 50%, rgba(14,10,9,.5), rgba(14,10,9,.08) 75%); z-index: -1; }
+.close h2 { font-size: clamp(56px, 9vw, 150px); text-shadow: 0 2px 30px rgba(20,4,8,.45); }
+.close p { margin: 24px auto 0; max-width: 40ch; color: rgba(244,240,232,.9); }
+.close .acts { margin-top: 34px; display: flex; flex-wrap: wrap; gap: 14px 24px; justify-content: center; align-items: center; }
+.close .btn { display: inline-flex; align-items: center; min-height: 54px; padding: 0 28px; background: var(--ivory); color: var(--ink); font-weight: 560; text-decoration: none; }
+.close .btn:hover { background: #fff; }
+.close .mail { display: block; margin-top: 24px; font-size: 15px; color: rgba(244,240,232,.75); }
+.close :focus-visible { outline-color: var(--ivory); }
+
+footer { padding-top: 32px; padding-bottom: 40px; border-top: 1px solid var(--line-2); }
+footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; font-size: 13px; color: var(--muted); max-width: 1440px; }
+footer p { max-width: 112ch; }
+@media (max-width: 640px) { footer .wrap { grid-template-columns: minmax(0, 1fr); } }
+</style>
+</head>
+<body>
+
+<div class="sfbar gut"><div class="wrap">
+  <a class="wm" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su" aria-label="Sitefloor home">sitefl<svg width="28" height="14" viewBox="0 0 42 21" aria-hidden="true"><rect x="1.9" y="1.9" width="38.2" height="17.2" rx="8.6" fill="none" stroke="#0E0F11" stroke-width="3.8"/><circle cx="31.5" cy="10.5" r="5.2" fill="#E8613C"/></svg>r</a>
+  <nav aria-label="Main"><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#live">Features</a><a href="#top" aria-current="page">Work</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#pricing">Pricing</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#guides">Guides</a></nav>
+  <a class="sfbtn" href="#mockup"><span>Free mockup</span><span aria-hidden="true">→</span></a>
+</div></div>
+
+<main id="top">
+
+<!-- ================================================================ the house -->
+<section class="house" data-house aria-labelledby="h-top">
+  <div class="scene">
+    <img src="media/stage-wide.webp" width="2134" height="1200" alt="Wrenna's dancers on a dark stage, small and far away, seen from the audience" fetchpriority="low" decoding="async">
+    <div class="answer" data-answer aria-live="polite"></div>
+  </div>
+  <div class="curtain" data-curtain>
+    <picture><source media="(max-width: 900px)" srcset="media/curtain-1200.webp"><img src="media/curtain.webp" width="2400" height="1432" alt="" fetchpriority="high"></picture>
+    <div class="on">
+      <svg class="emblem" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="29" fill="none" stroke="#F4F0E8" stroke-opacity=".9" stroke-width="1.4"/><circle cx="32" cy="32" r="21" fill="none" stroke="#F4F0E8" stroke-opacity=".9" stroke-width="1"/><path d="M22 26l5 14 5-9 5 9 5-14" fill="none" stroke="#F4F0E8" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      <p class="kick">Wrenna · a ballet school in Richmond</p>
+      <h1 id="h-top">How old is <b>your dancer?</b></h1>
+    </div>
+  </div>
+  <div class="lip gut">
+    <p class="q" id="q-age">Tap an age. The curtain goes up.</p>
+    <div class="lights" role="group" aria-labelledby="q-age" data-lights></div>
+    <button class="down" type="button" data-down>Curtain down</button>
+  </div>
+</section>
+
+<!-- ================================================================ the overture -->
+<section class="overture gut" aria-labelledby="h-ov"><div class="wrap">
+  <div class="ov">
+    <h2 id="h-ov">The whole year, <b>before the first class.</b></h2>
+    <div>
+      <p>Which class, which day, what she wears, what a term costs, when half term is, and where to be on show day. A parent asks all of it before she's danced a step. Wrenna's website answers every one, on the phone in her hand.</p>
+      <p>The places left and the show-day details come from a sheet the school already keeps, so the site stays right without anyone touching it.</p>
+      <a class="demo" href="https://sitefloor1.github.io/sitefloor-templates/ballet/">Open the Wrenna demo</a>
+    </div>
+  </div>
+  <figure class="laptop">
+    <div class="lid"><img src="media/lt-home.webp" width="1440" height="900" alt="Wrenna's home page on a laptop: the stage photograph inside a great circle, the year's dates set round it, and the ages to tap beside it" loading="lazy" decoding="async"></div>
+    <div class="base" aria-hidden="true"></div>
+    <figcaption class="fine">The home page. The ring round the stage is the school's year, from the next show to the summer term's end. It doesn't move.</figcaption>
+  </figure>
+</div></section>
+
+<!-- ================================================================ act one -->
+<header class="act gut" aria-labelledby="h-a1">
+  <img class="hem" src="media/hem.webp" width="2400" height="264" alt="" loading="lazy" decoding="async"><div class="hem-shadow" aria-hidden="true"></div>
+  <div class="wrap">
+    <div><p class="n">Act one</p><h2 id="h-a1">The first <b>class.</b></h2></div>
+    <p class="plan"><b>Starter</b>The home page and Plan your visit</p>
+  </div>
+</header>
+<section class="cast gut" aria-label="Act one, in order of appearance"><div class="wrap">
+  <p class="lede">In order of appearance: what a parent asks, and what answers it.<small>Every plan has these.</small></p>
+  <ul class="roles">
+    <li><span class="r">Which class is hers?</span><i class="dots"></i><span class="by">Her age, tapped, on the first screen</span></li>
+    <li><span class="r">How long is it?</span><i class="dots"></i><span class="by">Days, times and length, beside it</span></li>
+    <li><span class="r">When's half term?</span><i class="dots"></i><span class="by">The year, round the stage</span></li>
+    <li><span class="r">Can I have the dates?</span><i class="dots"></i><span class="by">One calendar file, every date</span></li>
+    <li><span class="r">Where is it, and how do we get there?</span><i class="dots"></i><span class="by">Plan your visit</span></li>
+    <li><span class="r">Are you there today?</span><i class="dots"></i><span class="by">The week, with today marked</span></li>
+  </ul>
+</div></section>
+<section class="boards gut" aria-label="Act one on a phone"><div class="wrap">
+  <div class="line" tabindex="0" role="region" aria-label="Act one screens, scroll sideways">
+    <figure><div class="phone"><img src="media/ph-index.webp" width="780" height="1688" alt="Wrenna's home page on a phone: ballet, two to eighteen, and the ages to tap" loading="lazy" decoding="async"></div><figcaption><b>The finder</b>Opens on three to four</figcaption></figure>
+    <figure><div class="phone"><img src="media/ph-index-56.webp" width="780" height="1688" alt="The finder with five to six tapped: Ballet one, Wednesdays 4.15pm or Saturdays 11.00am, 45 minutes" loading="lazy" decoding="async"></div><figcaption><b>Five to six, tapped</b>Ballet one, two times a week</figcaption></figure>
+    <figure><div class="phone"><img src="media/ph-visit.webp" width="780" height="1688" alt="Plan your visit: Linden Hall, Coleby Walk, inside a circle with the journeys from the station set round it" loading="lazy" decoding="async"></div><figcaption><b>Plan your visit</b>The hall, and the way there</figcaption></figure>
+  </div>
+  <p class="swipe">Swipe for more</p>
+</div></section>
+
+<!-- ================================================================ act two -->
+<header class="act gut" aria-labelledby="h-a2">
+  <img class="hem" src="media/hem.webp" width="2400" height="264" alt="" loading="lazy" decoding="async"><div class="hem-shadow" aria-hidden="true"></div>
+  <div class="wrap">
+    <div><p class="n">Act two</p><h2 id="h-a2">The <b>term.</b></h2></div>
+    <p class="plan"><b>Plus</b>Up to five pages</p>
+  </div>
+</header>
+<section class="cast gut" aria-label="Act two, in order of appearance"><div class="wrap">
+  <p class="lede">Once she's started, the questions change.<small>Plus adds these pages.</small></p>
+  <ul class="roles">
+    <li><span class="r">Can she try it first?</span><i class="dots"></i><span class="by">The trial, its message written</span></li>
+    <li><span class="r">What does a term cost?</span><i class="dots"></i><span class="by">Fees and terms</span></li>
+    <li><span class="r">What does she wear?</span><i class="dots"></i><span class="by">Uniform, class by class</span></li>
+    <li><span class="r">She missed Tuesday. Can she come Saturday?</span><i class="dots"></i><span class="by">Catch-up, the same week</span></li>
+    <li><span class="r">Does she have to take exams?</span><i class="dots"></i><span class="by">Exams, only if she'd like</span></li>
+    <li><span class="r">Every class, every day?</span><i class="dots"></i><span class="by">Classes and the timetable</span></li>
+  </ul>
+</div></section>
+<section class="boards gut" aria-label="Act two on a phone"><div class="wrap">
+  <div class="line" tabindex="0" role="region" aria-label="Act two screens, scroll sideways">
+    <figure><div class="phone"><img src="media/ph-trial.webp" width="780" height="1688" alt="The trial page: the first class is a trial, with three children seen from behind watching a lit stage" loading="lazy" decoding="async"></div><figcaption><b>The trial</b>Age and day picked, message written</figcaption></figure>
+    <figure><div class="phone"><img src="media/ph-timetable.webp" width="780" height="1688" alt="The timetable: the week, day by day, with places left under each class" loading="lazy" decoding="async"></div><figcaption><b>The week</b>Term time only</figcaption></figure>
+    <figure><div class="phone"><img src="media/ph-fees.webp" width="780" height="1688" alt="Fees and terms: by the term, no joining fee, each class's price" loading="lazy" decoding="async"></div><figcaption><b>What it costs</b>By the term</figcaption></figure>
+    <figure><div class="phone"><img src="media/ph-uniform.webp" width="780" height="1688" alt="Uniform: what to wear, class by class, with a worn pair of ballet shoes in a circle" loading="lazy" decoding="async"></div><figcaption><b>What to wear</b>Class by class</figcaption></figure>
+    <figure><div class="phone"><img src="media/ph-exams.webp" width="780" height="1688" alt="Exams: for dancers who would like them, with a tutu in a circle" loading="lazy" decoding="async"></div><figcaption><b>Exams</b>If she'd like</figcaption></figure>
+  </div>
+  <p class="swipe">Swipe for more</p>
+</div></section>
+<section class="sheet gut" aria-labelledby="h-sheet"><div class="wrap">
+  <div class="intro">
+    <h3 id="h-sheet">Places, <b>from the sheet.</b></h3>
+    <p>The school keeps one Google Sheet: a row for each class and time, the places left, and the day it was last changed. The site reads it every time a parent looks.</p>
+    <p>If nobody has touched it for a week, the site shows no number at all. A parent never sees "2 places left" that went a month ago.</p>
+  </div>
+  <div>
+    <div class="scroll-x" tabindex="0" role="region" aria-label="The places sheet, scroll sideways"><table class="grid" aria-label="The school's places sheet, sample rows">
+      <thead><tr><th scope="col">class</th><th scope="col">day</th><th scope="col">time</th><th scope="col">places</th><th scope="col">updated_at</th></tr></thead>
+      <tbody data-rows></tbody>
+    </table></div>
+    <p class="fine" style="margin-top:10px">Sample rows from the Wrenna demo. Tap a row to read it; tap its places to change them.</p>
+    <div class="age"><span class="k" id="k-upd">Last changed</span><div class="seg" role="group" aria-labelledby="k-upd" data-upd></div></div>
+    <div class="says" aria-live="polite" data-says></div>
+  </div>
+</div></section>
+
+<!-- ================================================================ the interval -->
+<section class="interval gut" aria-labelledby="h-int">
+  <img src="media/curtain.webp" width="2400" height="1432" alt="" loading="lazy" decoding="async">
+  <div class="wrap">
+    <div class="head">
+      <p class="n">Interval</p>
+      <h2 id="h-int">Three <b>seats.</b></h2>
+      <p>Each plan is one price to make the site and one a month to keep it. Pick a seat; move up when you like.</p>
+    </div>
+    <div class="tickets">
+      <article class="ticket"><div class="main"><p class="sec">Stalls</p><h3>Starter</h3><p class="price"><b>£99</b> + £25 a month</p>
+        <ul><li>The home page and Plan your visit</li><li>The finder, her age tapped</li><li>The year round the stage, in one calendar file</li></ul></div><div class="stub" aria-hidden="true"><span>Admit one school</span></div></article>
+      <article class="ticket"><div class="main"><p class="sec">Circle</p><h3>Plus</h3><p class="price"><b>£199</b> + £30 a month</p>
+        <ul><li>Up to five pages</li><li>Trial, classes, timetable, fees, uniform, exams</li><li>Places left, from the school's sheet</li><li>Catch-up in the same week</li></ul></div><div class="stub" aria-hidden="true"><span>Admit one school</span></div></article>
+      <article class="ticket"><div class="main"><p class="sec">Box</p><h3>Signature</h3><p class="price"><b>£349</b> + £35 a month</p>
+        <ul><li>Up to twenty pages</li><li>Show day by code</li><li>Shows and tickets, the parent handbook</li><li>Where she'll go next</li></ul></div><div class="stub" aria-hidden="true"><span>Admit one school</span></div></article>
+    </div>
+    <p class="small">Twelve months, then month to month. Any feature can be added on its own; extra pages one at a time.</p>
+  </div>
+</section>
+
+<!-- ================================================================ act three -->
+<header class="act gut" aria-labelledby="h-a3">
+  <img class="hem" src="media/hem.webp" width="2400" height="264" alt="" loading="lazy" decoding="async"><div class="hem-shadow" aria-hidden="true"></div>
+  <div class="wrap">
+    <div><p class="n">Act three</p><h2 id="h-a3">Show <b>day.</b></h2></div>
+    <p class="plan"><b>Signature</b>Up to twenty pages</p>
+  </div>
+</header>
+<section class="sd gut" aria-labelledby="h-sd"><div class="wrap">
+  <div class="intro">
+    <h3 id="h-sd">Her call time, <b>by code.</b></h3>
+    <p>On show week each class's code goes into its WhatsApp group. A parent types it and gets the day in order: when to arrive, which door, the costume, the hair and when to collect.</p>
+    <p>The school fills one row a class in the same sheet. A row older than two weeks is never shown.</p>
+    <figure><img src="media/stage-empty.webp" width="900" height="900" alt="A dancer rehearsing alone on a large empty stage, seen from behind" loading="lazy" decoding="async"></figure>
+  </div>
+  <div>
+    <form class="form" data-sd-form novalidate>
+      <label for="sd-code">Your class's code</label>
+      <div class="row"><input id="sd-code" name="code" autocomplete="off" autocapitalize="characters" spellcheck="false"><button type="submit" class="solid">Show me</button></div>
+      <div class="codes"><span>Sample codes:</span><button type="button" data-code="LB-TUE">LB-TUE</button><button type="button" data-code="B1-WED">B1-WED</button><button type="button" data-code="SEN-THU">SEN-THU</button></div>
+    </form>
+    <div class="call" data-call aria-live="polite"></div>
+  </div>
+</div></section>
+<section class="next gut" aria-labelledby="h-next"><div class="wrap">
+  <div class="intro">
+    <h3 id="h-next">Where she'll <b>go next.</b></h3>
+    <p>The classes a dancer usually moves through, year by year, from the age she is now. Every dancer moves up in her own time.</p>
+    <div class="age"><span class="k" id="k-now">She's</span><div class="seg" role="group" aria-labelledby="k-now" data-now></div></div>
+  </div>
+  <ol class="runs" data-runs aria-live="polite"></ol>
+</div></section>
+<section class="boards gut" aria-label="Act three on a phone"><div class="wrap">
+  <div class="line" tabindex="0" role="region" aria-label="Act three screens, scroll sideways">
+    <figure><div class="phone"><img src="media/ph-shows.webp" width="780" height="1688" alt="Shows: two shows a year, on a real stage, with tutus in the wings" loading="lazy" decoding="async"></div><figcaption><b>Shows</b>Tickets on the school's own page</figcaption></figure>
+    <figure><div class="phone"><img src="media/ph-show-day-2.webp" width="780" height="1688" alt="Show day with the code LB-TUE typed: Little ballet's arrival, stage door, costume, hair and collection" loading="lazy" decoding="async"></div><figcaption><b>Show day</b>LB-TUE, typed</figcaption></figure>
+    <figure><div class="phone"><img src="media/ph-handbook.webp" width="780" height="1688" alt="The parent handbook: drop-off, photographs, what to bring, illness and safeguarding" loading="lazy" decoding="async"></div><figcaption><b>The handbook</b>Everything for the year</figcaption></figure>
+  </div>
+  <p class="swipe">Swipe for more</p>
+</div></section>
+
+<!-- ================================================================ curtain call -->
+<section class="callout gut" aria-labelledby="h-call"><div class="wrap">
+  <div class="head">
+    <h2 id="h-call">Curtain <b>call.</b></h2>
+    <p>On a phone, on the home page. Measured on Lighthouse's slowed-down mobile, three runs, and with the typeface held back.</p>
+  </div>
+  <ul class="bows">
+    <li><b>100</b><span>Lighthouse performance, every run</span></li>
+    <li><b>1.7<small>s</small></b><span>until the stage photograph is shown</span></li>
+    <li><b>7.7<small>KB</small></b><span>the home page itself, compressed</span></li>
+    <li><b>10.5<small>KB</small></b><span>script for the whole site</span></li>
+    <li><b>45<small>KB</small></b><span>one typeface, every weight</span></li>
+    <li><b>0.02</b><span>the most any page may move while it loads; none does</span></li>
+  </ul>
+</div></section>
+
+<!-- ================================================================ the close: curtain down -->
+<section class="close gut" id="mockup" aria-labelledby="h-close">
+  <img src="media/curtain.webp" width="2400" height="1432" alt="" loading="lazy" decoding="async">
+  <div class="wrap">
+    <h2 id="h-close">Your school, <b>curtain up.</b></h2>
+    <p>Send us your timetable, your fees and the date of your next show. We'll make a free mockup of your home page with your own classes on it.</p>
+    <div class="acts"><a class="btn" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#free">Get a free mockup</a><a href="https://sitefloor1.github.io/sitefloor-templates/ballet/">Try the demo first</a></div>
+    <span class="mail">hello@sitefloor.com</span>
+  </div>
+</section>
+
+</main>
+
+<footer class="gut"><div class="wrap">
+  <p>Wrenna is a fictional ballet school made to show the Sitefloor ballet kit. Its address, phone number, classes, times, fees, places, show-day codes and dates are demo data; places left and show day are simulated. Children appear only from behind, or small and far away on a stage; a real school uses its own photographs, with consent. Curtain photograph: team voyas (Unsplash), free licence. The screens are of the Wrenna demo; its photographs (Kazuo ota, Haley Parson, Leila de Haan, Andrey K, Unsplash) are credited there.</p>
+  <span>© 2026 Sitefloor</span>
+</div></footer>
+
+<script>
+(() => {
+  "use strict";
+  // Wrenna's own classes, places and show-day rows, from the demo's site.json and simulated providers, worded by the
+  // kit's own rules (src/kits/ballet/lib/ballet.js: ageGroups, sessionsWords, lengthWords, placesWords, trialText,
+  // pathFrom, normaliseCode).
+  const D = {"groups":[{"label":"2","classes":[{"name":"Ballet with a grown-up","when":"Saturdays 9.15am","len":"30 minutes","places":[["Saturday 9.15am","3 places left"]],"msg":"Hello Wrenna, could my child (age 2) try Ballet with a grown-up?"}]},{"label":"3–4","classes":[{"name":"Little ballet","when":"Tuesdays 4.00pm or Saturdays 10.00am","len":"40 minutes","places":[["Tuesday 4.00pm","2 places left"],["Saturday 10.00am","Full: join the list"]],"msg":"Hello Wrenna, could my child (age 3 to 4) try Little ballet?"}]},{"label":"5–6","classes":[{"name":"Ballet one","when":"Wednesdays 4.15pm or Saturdays 11.00am","len":"45 minutes","places":[["Wednesday 4.15pm","4 places left"],["Saturday 11.00am","1 place left"]],"msg":"Hello Wrenna, could my child (age 5 to 6) try Ballet one?"}]},{"label":"7–8","classes":[{"name":"Ballet two","when":"Thursdays 4.30pm","len":"1 hour","places":[["Thursday 4.30pm","5 places left"]],"msg":"Hello Wrenna, could my child (age 7 to 8) try Ballet two?"},{"name":"Boys' ballet","when":"Saturdays 12.00pm","len":"45 minutes","places":[["Saturday 12.00pm","6 places left"]],"msg":"Hello Wrenna, could my child (age 7 to 8) try Boys' ballet?"}]},{"label":"9–11","classes":[{"name":"Ballet three","when":"Mondays 5.00pm","len":"1 hour","places":[["Monday 5.00pm","3 places left"]],"msg":"Hello Wrenna, could my child (age 9 to 11) try Ballet three?"}]},{"label":"12–14","classes":[{"name":"Ballet four","when":"Tuesdays 5.30pm","len":"1 hour 15","places":[["Tuesday 5.30pm","2 places left"]],"msg":"Hello Wrenna, could my child (age 12 to 14) try Ballet four?"}]},{"label":"15–18","classes":[{"name":"Senior ballet","when":"Thursdays 6.00pm","len":"1 hour 30","places":[["Thursday 6.00pm","4 places left"]],"msg":"Hello Wrenna, could my child (age 15 to 18) try Senior ballet?"}]}],"showDay":[{"code":"LB-TUE","class":"Little ballet (Tuesday)","arrive":"1.15pm","door":"Stage door, round the side of the theatre","costume":"Pink tutu and headband (we bring them)","hair":"Low bun, no clips showing","collect":"4.30pm from the foyer","notes":"Pink ballet socks and a bottle of water, named."},{"code":"B1-WED","class":"Ballet one (Wednesday)","arrive":"12.45pm","door":"Stage door, round the side of the theatre","costume":"Lilac dress (we bring it)","hair":"High bun, hairnet","collect":"4.30pm from the foyer","notes":""},{"code":"SEN-THU","class":"Senior ballet (Thursday)","arrive":"11.30am","door":"Stage door","costume":"Own pointe shoes; costumes in dressing room 2","hair":"Classical bun, stage make-up","collect":"After the bows, about 5.15pm","notes":"Seniors stay for both performances."}],"path":[{"age":3,"runs":[["3–4","Little ballet"],["5–6","Ballet one"],["7–8","Ballet two"],["9–11","Ballet three"],["12–14","Ballet four"],["15–18","Senior ballet"]]},{"age":5,"runs":[["5–6","Ballet one"],["7–8","Ballet two"],["9–11","Ballet three"],["12–14","Ballet four"],["15–18","Senior ballet"]]},{"age":7,"runs":[["7–8","Ballet two"],["9–11","Ballet three"],["12–14","Ballet four"],["15–18","Senior ballet"]]},{"age":9,"runs":[["9–11","Ballet three"],["12–14","Ballet four"],["15–18","Senior ballet"]]}],"show":{"name":"Winter showcase","running":"About 1 hour 30, with an interval"}};
+  const $ = (s, r = document) => r.querySelector(s);
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const WA = "447700900512";
+
+  // ---- the house: footlights, curtain, answer
+  const house = $("[data-house]"), lights = $("[data-lights]"), answer = $("[data-answer]");
+  const show = (i) => {
+    const g = D.groups[i];
+    answer.innerHTML = `<p class="for">For ${esc(g.label)}</p>` + g.classes.map((c) => `<div class="cls"><h2>${esc(c.name)}</h2>
+      <p class="when">${esc(c.when)} · ${esc(c.len)}</p>
+      <p class="pl">${c.places.filter((p) => p[1]).map((p) => `<span>${esc(p[0])}: ${esc(p[1])}</span>`).join("")}</p></div>`).join("") +
+      `<div class="ask"><a class="wa" href="https://wa.me/${WA}?text=${encodeURIComponent(g.classes[0].msg)}" target="_blank" rel="noopener">Ask for a trial</a><q>${esc(g.classes[0].msg)}</q></div>
+      <p class="fine" style="color:var(--house-muted);margin-top:14px">Sample classes and places, from the Wrenna demo.</p>`;
+  };
+  D.groups.forEach((g, i) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.textContent = g.label; b.setAttribute("aria-pressed", "false"); b.setAttribute("aria-label", `Age ${g.label}`);
+    b.addEventListener("click", () => {
+      lights.querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+      show(i); house.classList.add("up");
+    });
+    lights.append(b);
+  });
+  $("[data-down]").addEventListener("click", () => {
+    house.classList.remove("up");
+    lights.querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", "false"));
+  });
+
+  // ---- the places sheet (Act two)
+  const ROWS = [["little", "Little ballet", "tue", "16:00", 2], ["little", "Little ballet", "sat", "10:00", "full"], ["one", "Ballet one", "wed", "16:15", 4], ["one", "Ballet one", "sat", "11:00", 1], ["two", "Ballet two", "thu", "16:30", 5]];
+  const DAY = { mon: "Monday", tue: "Tuesday", wed: "Wednesday", thu: "Thursday", fri: "Friday", sat: "Saturday", sun: "Sunday" };
+  const tw = (t) => { const [h, m] = t.split(":").map(Number); return `${h % 12 || 12}.${String(m).padStart(2, "0")}${h < 12 ? "am" : "pm"}`; };
+  const words = (v) => v === "full" ? "Full: join the list" : `${v} place${v === 1 ? "" : "s"} left`;
+  const CYCLE = [5, 4, 3, 2, 1, "full"];
+  const UPD = [["This morning", 0], ["Three days ago", 3], ["Last month", 30]];
+  const STALE = 7;
+  let pick = 0, upd = 0;
+  const stamp = (days) => { const d = new Date(Date.now() - days * 864e5); d.setHours(days ? 18 : 8, days ? 40 : 5, 0, 0); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")} ${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`; };
+  const tbody = $("[data-rows]"), says = $("[data-says]"), updEl = $("[data-upd]");
+  const drawSheet = () => {
+    const days = UPD[upd][1];
+    tbody.innerHTML = ROWS.map((r, i) => `<tr class="${i === pick ? "on" : ""}" data-i="${i}"><td>${r[0]}</td><td>${r[2]}</td><td>${r[3]}</td><td><button type="button" data-cyc="${i}" aria-label="Places for ${esc(r[1])}, ${DAY[r[2]]} ${tw(r[3])}: ${r[4]}. Change">${r[4]}</button></td><td>${stamp(days)}</td></tr>`).join("");
+    const r = ROWS[pick], fresh = days < STALE;
+    says.innerHTML = `<p class="k">What the finder shows</p><p class="cls">${esc(r[1])}, ${DAY[r[2]]} ${tw(r[3])}</p>` +
+      (fresh ? `<p class="val">${esc(words(r[4]))}</p><p class="why">${r[4] === "full" ? "Full links to a message asking to join the waiting list." : "Straight from the row, changed " + (days ? "three days ago." : "this morning.")}</p>`
+        : `<p class="val none">Nothing at all.</p><p class="why">The row is older than a week, so the site leaves the number out. The class and its times still show; the places come back as soon as the school touches the sheet.</p>`);
+  };
+  UPD.forEach(([label], i) => { const b = document.createElement("button"); b.type = "button"; b.textContent = label; b.setAttribute("aria-pressed", String(i === upd));
+    b.addEventListener("click", () => { upd = i; updEl.querySelectorAll("button").forEach((x, j) => x.setAttribute("aria-pressed", String(j === i))); drawSheet(); }); updEl.append(b); });
+  tbody.addEventListener("click", (e) => {
+    const c = e.target.closest("[data-cyc]");
+    if (c) { const i = +c.dataset.cyc; const r = ROWS[i]; r[4] = CYCLE[(CYCLE.indexOf(r[4]) + 1) % CYCLE.length]; pick = i; drawSheet(); $(`[data-cyc="${i}"]`)?.focus(); return; }
+    const tr = e.target.closest("tr[data-i]"); if (tr) { pick = +tr.dataset.i; drawSheet(); }
+  });
+  drawSheet();
+
+  // ---- show day by code (Act three)
+  const form = $("[data-sd-form]"), input = $("#sd-code"), call = $("[data-call]");
+  const norm = (s) => s.trim().toUpperCase().replace(/[\s_]+/g, "-").replace(/[^A-Z0-9-]/g, "");
+  const LABELS = [["arrive", "Arrive"], ["door", "Stage door"], ["costume", "Costume"], ["hair", "Hair"], ["collect", "Collect"], ["notes", "Notes"]];
+  const lookup = () => {
+    const code = norm(input.value);
+    if (!code) { call.innerHTML = `<p class="no">Try one of the sample codes.</p>`; return; }
+    const row = D.showDay.find((r) => r.code === code);
+    call.innerHTML = row ? `<h4>${esc(row.class)}</h4><p class="fine">${esc(D.show.name)} · ${esc(D.show.running)}</p><dl style="margin-top:16px">${LABELS.filter(([k]) => row[k]).map(([k, l]) => `<div><dt>${l}</dt><dd>${esc(row[k])}</dd></div>`).join("")}</dl><p class="fine" style="margin-top:12px">Sample show day, from the Wrenna demo.</p>`
+      : `<p class="no">No up-to-date details for the code ${esc(input.value.trim().toUpperCase())}.</p>`;
+  };
+  form.addEventListener("submit", (e) => { e.preventDefault(); lookup(); });
+  form.querySelectorAll("[data-code]").forEach((b) => b.addEventListener("click", () => { input.value = b.dataset.code; lookup(); }));
+  input.value = "LB-TUE"; lookup();
+
+  // ---- where she'll go next
+  const now = $("[data-now]"), runs = $("[data-runs]");
+  const drawRuns = (i) => { runs.innerHTML = D.path[i].runs.map(([a, c]) => `<li><p class="a">${esc(a)}</p><p class="c">${esc(c)}</p></li>`).join(""); };
+  D.path.forEach((p, i) => { const b = document.createElement("button"); b.type = "button"; b.textContent = String(p.age); b.setAttribute("aria-pressed", String(i === 0)); b.setAttribute("aria-label", `${p.age} years old`);
+    b.addEventListener("click", () => { now.querySelectorAll("button").forEach((x, j) => x.setAttribute("aria-pressed", String(j === i))); drawRuns(i); }); now.append(b); });
+  drawRuns(0);
+})();
+</script>
+</body>
+</html>

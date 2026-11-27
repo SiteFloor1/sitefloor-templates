@@ -1,0 +1,9 @@
+---
+layout: core/layouts/base.njk
+pageId: "404"
+permalink: 404.html
+title: Page not found
+---
+{%- set ph = { title: "This page isn't here.", intro: "It may have moved. Every fragrance, its sizes and prices are on the home page." } %}
+{% include "kits/fragrance/partials/page-head.njk" %}
+<p class="wrap fr-back"><a class="fr-go" href="{{ 'index' | href }}">Back to {{ site.business.name }}</a></p>

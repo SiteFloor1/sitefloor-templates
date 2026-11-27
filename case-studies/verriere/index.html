@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Verrière Case Study</title>
+<meta name="description" content="Verrière, a perfume house on Marylebone Lane, and the website Sitefloor's fragrance kit makes for it.">
+<meta name="robots" content="noindex">
+<link rel="preload" href="media/fonts/hina-mincho-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face { font-family: "Hina Mincho"; font-style: normal; font-weight: 400; font-display: swap; src: url("media/fonts/hina-mincho-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "SUSE"; font-style: normal; font-weight: 400; font-display: swap; src: url("media/fonts/suse-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "SUSE"; font-style: normal; font-weight: 500; font-display: swap; src: url("media/fonts/suse-latin-500-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Hina Fallback"; src: local("Times New Roman"), local("Liberation Serif"); size-adjust: 92.2%; ascent-override: 125.8%; descent-override: 31.2%; line-gap-override: 0%; }
+@font-face { font-family: "SUSE Fallback"; src: local("Arial"), local("Liberation Sans"); size-adjust: 97.7%; ascent-override: 100.3%; descent-override: 28.7%; line-gap-override: 0%; }
+@font-face { font-family: "Manrope"; font-weight: 600; font-display: swap; src: url("media/fonts/manrope-latin-600-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Manrope"; font-weight: 700; font-display: swap; src: url("media/fonts/manrope-latin-700-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+:root {
+  --stone: #F2EEE8; --paper: #F7F4EF; --studio: #CDC3B5; --ink: #16130F; --muted: #5C554C; --line: rgba(22,19,15,.14); --line-2: rgba(22,19,15,.3);
+  --amber: #8A5A12; --gold: #DCA54A; --gold-soft: rgba(220,165,74,.18);
+  --sf-paper: #FBFAF7; --sf-ink: #0E0F11; --sf-tomato: #E8613C; --sf-line: rgba(14,15,17,.12);
+  --display: "Hina Mincho", "Hina Fallback", "Times New Roman", serif;
+  --text: "SUSE", "SUSE Fallback", Arial, sans-serif;
+  --brand: "Manrope", Arial, sans-serif;
+  --edge: clamp(18px, 4vw, 60px);
+  --bar: 66px;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; background: var(--stone); }
+body { margin: 0; background: var(--stone); color: var(--ink); font: 400 17px/1.55 var(--text); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img, svg, canvas { display: block; max-width: 100%; }
+img { height: auto; }
+a { color: inherit; text-underline-offset: 5px; text-decoration-thickness: 1px; }
+h1, h2, h3, p, figure, ul, ol, dl, dd, dt { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+h1, h2, h3 { font: 400 1em/1 var(--display); letter-spacing: -.02em; }
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+.gut { padding-left: var(--edge); padding-right: var(--edge); }
+.wrap { max-width: 1440px; margin: 0 auto; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Sitefloor's bar */
+.sfbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--sf-paper); color: var(--sf-ink); border-bottom: 1px solid var(--sf-line); }
+.sfbar .wrap { display: flex; justify-content: space-between; align-items: center; height: var(--bar); gap: 16px; }
+.wm { display: inline-flex; align-items: center; font: 700 22px/1 var(--brand); letter-spacing: -.03em; text-decoration: none; color: var(--sf-ink); }
+.wm svg { margin: 0 1px; }
+.sfbar nav { display: flex; gap: 28px; font-family: var(--brand); font-size: 14px; font-weight: 600; }
+.sfbar nav a { text-decoration: none; color: var(--sf-ink); }
+.sfbar nav a[aria-current] { box-shadow: inset 0 -1.5px 0 var(--sf-ink); }
+.sfbtn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 20px; background: var(--sf-ink); color: var(--sf-paper); font: 700 12px var(--brand); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; }
+.sfbtn:hover { background: var(--sf-tomato); }
+.sfbar :focus-visible { outline-color: var(--sf-ink); }
+@media (max-width: 760px) { .sfbar nav { display: none; } }
+@media (max-width: 420px) { .sfbar .sfbtn { display: none; } }
+
+/* ------------------------------------------------ the words, seen through the glass */
+.glass { position: relative; height: calc(100svh - var(--bar)); min-height: 620px; max-height: 1080px; overflow: hidden; background: var(--stone); touch-action: pan-y; }
+.glass canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.glass canvas.flat { z-index: 0; } .glass #gl { z-index: 1; } .bottle-hit { z-index: 2; } .glass-foot { z-index: 3; }
+.glass .words { position: absolute; inset: 0; }
+.bottle-hit { position: absolute; cursor: grab; touch-action: none; border-radius: 4px; }
+.bottle-hit.is-dragging { cursor: grabbing; }
+.bottle-hit:focus-visible { outline: 1px solid var(--amber); outline-offset: 6px; }
+.glass-foot { position: absolute; left: 0; right: 0; bottom: 0; display: flex; justify-content: space-between; align-items: end; gap: 24px; padding: 0 var(--edge) 26px; pointer-events: none; }
+.glass-foot h1 { font-size: clamp(44px, 6vw, 92px); line-height: .9; letter-spacing: -.03em; pointer-events: auto; }
+.glass-foot p { font-size: 15px; max-width: 36ch; text-align: right; color: var(--muted); pointer-events: auto; }
+.glass-foot p b { font-weight: 500; color: var(--ink); }
+.glass-foot .hint { display: block; margin-top: 6px; color: var(--amber); }
+@media (max-width: 760px) {
+  .glass { height: calc(100svh - var(--bar)); min-height: 560px; }
+  .glass-foot { flex-direction: column; align-items: start; gap: 8px; padding-bottom: 20px; }
+  .glass-foot p { text-align: left; font-size: 14px; }
+}
+
+/* ------------------------------------------------ chapters */
+.ch { padding-top: clamp(96px, 14vw, 200px); }
+.ch-open { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: clamp(24px, 5vw, 80px); align-items: end; }
+.ch-open h2 { font-size: clamp(64px, 11vw, 176px); line-height: .86; letter-spacing: -.035em; }
+.ch-open h2 .rest { color: var(--muted); }
+.ch-plan { font-size: 15px; border-top: 1px solid var(--ink); padding-top: 14px; display: grid; gap: 6px; }
+.ch-plan b { font: 400 28px/1.1 var(--display); letter-spacing: -.01em; }
+.ch-plan span { color: var(--muted); }
+.label { margin-top: clamp(48px, 6vw, 88px); margin-left: auto; max-width: 820px; border: 1px solid var(--ink); padding: 18px clamp(18px, 2.4vw, 30px) 24px; }
+.label-h { display: flex; justify-content: space-between; gap: 16px; font-size: 13px; color: var(--muted); border-bottom: 1px solid var(--ink); padding-bottom: 10px; margin-bottom: 16px; }
+.label dl { font-size: 16px; line-height: 1.7; color: var(--muted); }
+.label dt, .label dd { display: inline; margin: 0; }
+.label dt { margin-right: .35em; }
+.label dt { font: 400 clamp(20px, 1.9vw, 25px)/1.3 var(--display); color: var(--ink); letter-spacing: -.01em; }
+.label dd b { color: var(--ink); font-weight: 500; }
+.label dd::after { content: ""; display: inline-block; width: 7px; height: 7px; margin: 0 12px 2px; background: var(--gold); border-radius: 50%; }
+.label dd:last-child::after { display: none; }
+@media (max-width: 760px) { .ch-open { grid-template-columns: minmax(0, 1fr); } }
+
+/* phones standing on stone */
+.phones { margin-top: clamp(56px, 7vw, 104px); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(14px, 2.4vw, 36px); align-items: start; }
+.phone { margin: 0; }
+.phone .scr { aspect-ratio: 390 / 844; overflow: hidden; border-radius: 22px; background: var(--paper); box-shadow: 0 0 0 1px rgba(22,19,15,.12), 0 30px 50px -34px rgba(22,19,15,.45); }
+.phone .scr img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.phone figcaption { margin-top: 14px; font-size: 14px; color: var(--muted); max-width: 30ch; }
+.phone figcaption b { display: block; color: var(--ink); font-weight: 500; font-size: 15px; }
+.phones .lift { margin-top: clamp(40px, 6vw, 96px); }
+@media (max-width: 900px) { .phones { grid-template-columns: repeat(2, minmax(0, 1fr)); } .phones .lift { margin-top: 0; } }
+
+/* a working piece of the demo */
+.piece { margin-top: clamp(72px, 9vw, 136px); display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(28px, 5vw, 88px); align-items: center; }
+.piece.flip { grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); }
+.piece.flip .piece-t { order: 2; }
+.piece-t h3 { font-size: clamp(34px, 3.6vw, 54px); line-height: 1.02; letter-spacing: -.02em; }
+.piece-t p { margin-top: 18px; color: var(--muted); max-width: 40ch; }
+.piece-t .from { margin-top: 22px; font-size: 14px; color: var(--muted); }
+.piece.wide { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+.piece.wide .piece-t { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 0 clamp(28px, 5vw, 88px); align-items: end; }
+.piece.wide .piece-t h3 { grid-row: span 2; }
+.piece.wide .piece-t p { margin-top: 0; }
+@media (max-width: 900px) { .piece.wide .piece-t { display: block; } .piece.wide .piece-t p { margin-top: 18px; } }
+@media (max-width: 900px) { .piece, .piece.flip { grid-template-columns: minmax(0, 1fr); } .piece.flip .piece-t { order: 0; } }
+
+/* sizes side by side, live */
+.sizes { background: var(--paper); padding: clamp(28px, 4vw, 56px); }
+.sz-row { display: flex; justify-content: center; align-items: end; gap: clamp(10px, 3vw, 40px); }
+.sz { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 12px; padding: 18px 8px 14px; border: 1px solid transparent; cursor: pointer; flex: 1 1 0; min-width: 0; max-width: 150px; }
+.sz svg { height: auto; }
+.sz:has(input:checked) { border-color: var(--ink); }
+.sz:has(input:focus-visible) { outline: 2px solid var(--amber); outline-offset: 2px; }
+.sz input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+.sz svg { overflow: visible; }
+.sz .ml { font: 400 24px/1 var(--display); }
+.sz .pr { font-size: 15px; text-align: center; }
+.sz .pr small { display: block; color: var(--muted); font-size: 13px; }
+.sz-buy { margin-top: 28px; display: flex; justify-content: center; align-items: center; gap: 22px; flex-wrap: wrap; }
+.go { display: inline-block; background: var(--ink); color: var(--stone); padding: 15px 24px; font-weight: 500; text-decoration: none; border: 0; }
+.alt { color: var(--ink); }
+
+/* launch: the same phone, before and on the day */
+.launch { position: relative; max-width: 430px; margin-left: auto; margin-right: auto; }
+.launch .phone { position: relative; }
+.launch .scr { position: relative; }
+.launch .scr img { position: absolute; inset: 0; transition: opacity .5s ease; }
+.launch .scr img.off { opacity: 0; }
+.switch { margin-top: 22px; display: flex; justify-content: center; gap: 4px; font-size: 15px; }
+.switch button { background: none; border: 1px solid transparent; padding: 9px 14px; }
+.switch button[aria-pressed="true"] { border-color: var(--ink); }
+
+/* the organ, live */
+.organ { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(20px, 3vw, 44px); align-items: start; }
+.ing { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 10px; }
+.ing button { padding: 0; border: 0; background: var(--paper); text-align: left; }
+.ing img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; filter: grayscale(1) contrast(1.05); transition: filter .5s ease; }
+.ing button[aria-pressed="true"] img { filter: none; }
+.ing .n { display: block; padding: 8px 2px 4px; font: 400 19px/1.2 var(--display); }
+.ing button[aria-pressed="true"] .n { color: var(--amber); }
+.ing.full button[aria-pressed="false"] { opacity: .45; }
+.res-say { font: 400 clamp(22px, 2vw, 28px)/1.25 var(--display); min-height: 2.5em; }
+.res { margin-top: 14px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px 24px; }
+@media (max-width: 640px) { .res { grid-template-columns: minmax(0, 1fr); } }
+.res li { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 14px; align-items: center; border-top: 1px solid var(--line); padding-top: 8px; }
+.res img { width: 56px; height: 70px; object-fit: cover; }
+.res b { display: block; font: 400 22px/1.1 var(--display); font-weight: 400; }
+.res span { color: var(--muted); font-size: 14px; }
+@media (max-width: 900px) { .ing { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .ing { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* the turntable, live */
+.turn { position: relative; aspect-ratio: 16 / 10; background: var(--studio); cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none; overflow: hidden; }
+.turn.is-dragging { cursor: grabbing; }
+.turn img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.turn .deg { position: absolute; right: 18px; bottom: 14px; font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.turn:focus-visible { outline: 2px solid var(--amber); outline-offset: -6px; }
+
+/* the engraving desk, live */
+.desk { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 4fr); gap: clamp(20px, 3vw, 44px); align-items: center; }
+.desk figure { position: relative; background: var(--studio); container-type: inline-size; }
+.desk figure img { width: 100%; height: auto; }
+.engr { position: absolute; left: 31.17%; width: 37.66%; top: 42.22%; height: 17.2%; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 3%; overflow-wrap: anywhere; color: rgba(255,255,255,.9); text-shadow: 0 0 1px rgba(255,255,255,.9), 0 1px 0 rgba(22,19,15,.16); mix-blend-mode: screen; pointer-events: none; }
+.engr.caps { font: 400 2.3cqi/1.2 var(--display); letter-spacing: .24em; }
+.engr.lower { font: 400 3.2cqi/1.2 var(--text); letter-spacing: .04em; }
+.engr.initials { font: 400 6.8cqi/1 var(--display); letter-spacing: .06em; }
+.desk figcaption { position: absolute; left: 16px; top: 14px; font-size: 13px; }
+.desk-f { display: grid; gap: 20px; }
+.desk-f label { display: flex; justify-content: space-between; font-size: 15px; margin-bottom: 6px; }
+.desk-f label span { color: var(--muted); }
+.desk-f input[type="text"] { width: 100%; background: none; border: 0; border-bottom: 1px solid var(--ink); padding: 6px 0 10px; font: 400 clamp(24px, 2.4vw, 32px)/1.1 var(--display); outline: none; }
+.desk-f input[type="text"]:focus-visible { border-bottom-width: 2px; }
+.pick { display: flex; gap: 6px; flex-wrap: wrap; border: 0; padding: 0; margin: 0; }
+.pick label { position: relative; display: block; margin: 0; }
+.pick input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+.pick span { display: block; padding: 9px 15px; border: 1px solid var(--line-2); font-size: 15px; }
+.pick input:checked + span { background: var(--ink); color: var(--stone); border-color: var(--ink); }
+.pick input:focus-visible + span { outline: 2px solid var(--amber); outline-offset: 2px; }
+@media (max-width: 900px) { .desk { grid-template-columns: 1fr; } }
+
+.laptop { margin-top: clamp(72px, 9vw, 136px); }
+.laptop .scr { border-radius: 10px 10px 0 0; overflow: hidden; box-shadow: 0 0 0 1px rgba(22,19,15,.14); }
+.laptop .base { height: 14px; margin: 0 -3%; background: linear-gradient(#DAD3C8, #C4BCAF); border-radius: 0 0 14px 14px; }
+.laptop figcaption { margin-top: 16px; font-size: 14px; color: var(--muted); }
+
+/* what it won't say */
+.wont { padding-top: clamp(96px, 14vw, 200px); }
+.wont-in { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(28px, 5vw, 88px); align-items: start; }
+.wont h2 { font-size: clamp(48px, 6vw, 92px); line-height: .95; letter-spacing: -.03em; }
+.wont p { margin-top: 22px; color: var(--muted); max-width: 44ch; }
+.struck { border-top: 1px solid var(--line-2); }
+.struck li { display: flex; justify-content: space-between; gap: 18px; align-items: baseline; padding: 14px 0 16px; border-bottom: 1px solid var(--line); }
+.struck s { font: 400 clamp(24px, 2.6vw, 38px)/1.15 var(--display); text-decoration-thickness: 1px; text-decoration-color: var(--ink); color: var(--muted); }
+.struck span { font-size: 14px; color: var(--muted); text-align: right; flex: 0 0 auto; max-width: 22ch; }
+@media (max-width: 900px) { .wont-in { grid-template-columns: 1fr; } }
+
+/* the plans, as three sizes */
+.plans { padding-top: clamp(96px, 14vw, 200px); }
+.plans h2 { font-size: clamp(48px, 6vw, 92px); line-height: .95; letter-spacing: -.03em; }
+.plan-row { margin-top: clamp(48px, 6vw, 88px); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 3vw, 48px); align-items: start; }
+.plan { display: grid; grid-template-rows: 200px auto auto auto; gap: 14px; }
+.plan svg { align-self: end; margin-bottom: 8px; }
+@media (max-width: 760px) { .plan { grid-template-rows: auto; } }
+.plan h3 { font-size: clamp(30px, 3vw, 44px); }
+.plan .price { font-size: 16px; }
+.plan .price b { font-weight: 500; }
+.plan p { color: var(--muted); font-size: 15px; max-width: 34ch; }
+.plan-foot { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--line-2); display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; font-size: 15px; color: var(--muted); }
+.plan-foot b { color: var(--ink); font-weight: 500; }
+@media (max-width: 760px) { .plan-row { grid-template-columns: 1fr; } }
+
+/* numbers */
+.dry { padding-top: clamp(96px, 14vw, 200px); }
+.dry h2 { font-size: clamp(48px, 6vw, 92px); line-height: .95; letter-spacing: -.03em; }
+.dry dl { margin-top: clamp(40px, 5vw, 72px); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--ink); }
+.dry dl > div { padding: 18px 18px 0 0; }
+.dry dt { font: 400 clamp(48px, 6vw, 96px)/1 var(--display); letter-spacing: -.03em; }
+.dry dd { margin-top: 12px; color: var(--muted); font-size: 15px; max-width: 26ch; }
+@media (max-width: 900px) { .dry dl { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 28px; } }
+
+/* close */
+.close { margin-top: clamp(96px, 14vw, 200px); background: var(--studio); position: relative; overflow: hidden; }
+.close-in { padding-top: clamp(80px, 10vw, 150px); padding-bottom: clamp(80px, 10vw, 150px); }
+.close h2 { font-size: clamp(56px, 8vw, 128px); line-height: .9; letter-spacing: -.035em; }
+.close p { margin-top: 22px; max-width: 40ch; }
+.close .acts { margin-top: 28px; display: flex; gap: 22px; align-items: center; flex-wrap: wrap; }
+.close .mail { display: block; margin-top: 20px; font-size: 14px; color: var(--ink); }
+
+footer { margin-top: 0; padding-top: 32px; padding-bottom: 40px; border-top: 1px solid var(--line-2); }
+footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; font-size: 13px; color: var(--muted); }
+footer p { max-width: 112ch; }
+@media (max-width: 640px) { footer .wrap { grid-template-columns: minmax(0, 1fr); } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="sfbar gut"><div class="wrap">
+  <a class="wm" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su" aria-label="Sitefloor home">sitefl<svg width="28" height="14" viewBox="0 0 42 21" aria-hidden="true"><rect x="1.9" y="1.9" width="38.2" height="17.2" rx="8.6" fill="none" stroke="#0E0F11" stroke-width="3.8"/><circle cx="31.5" cy="10.5" r="5.2" fill="#E8613C"/></svg>r</a>
+  <nav aria-label="Main"><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#live">Features</a><a href="#top" aria-current="page">Work</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#pricing">Pricing</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#guides">Guides</a></nav>
+  <a class="sfbtn" href="#mockup"><span>Free mockup</span><span aria-hidden="true">→</span></a>
+</div></div>
+
+<main id="top">
+
+<!-- ================================================================ through the glass -->
+<section class="glass" id="glass" aria-labelledby="h-v">
+  <p class="sr-only">It opens on bergamot and sea salt, settles into iris and ambrette, and dries down to cedarwood and white musk.</p>
+  <canvas id="gl" aria-hidden="true"></canvas>
+  <div class="bottle-hit" id="hit" tabindex="0" role="slider" aria-label="Move the bottle across the words" aria-valuemin="0" aria-valuemax="100" aria-valuenow="62" aria-valuetext="Over the words"></div>
+  <div class="glass-foot">
+    <h1 id="h-v">Verrière</h1>
+    <p>A perfume house on Marylebone Lane. <b>Its website, made with Sitefloor's fragrance kit.</b> <span class="hint" id="hint">Move the bottle across its notes.</span></p>
+  </div>
+</section>
+
+<!-- ================================================================ it opens on: Starter -->
+<section class="ch gut" aria-labelledby="h-c1"><div class="wrap">
+  <div class="ch-open">
+    <h2 id="h-c1">It opens on<span class="rest">…</span></h2>
+    <p class="ch-plan"><b>Starter</b><span>£99, then £25 a month. The home page and Plan your visit.</span></p>
+  </div>
+  <div class="label"><p class="label-h"><span>What it answers</span><span>5 questions</span></p><dl><dt>What does it smell of?</dt><dd>Every fragrance with its notes as one sentence, top to base, and a line in the house's own words.</dd><dt>Which size should I buy?</dt><dd><b>Sizes side by side:</b> each bottle drawn to scale, with the price for every 10 ml worked out from the house's own prices.</dd><dt>Can I try it first?</dt><dd>A sample on every fragrance, bought with the house's own payment link or ordered on WhatsApp.</dd><dt>When is it out?</dt><dd><b>Launch mode,</b> for a new house: before the day, a waiting list and pre-orders; on the day, the shop, by itself.</dd><dt>Is the boutique open now?</dt><dd>Plan your visit: today's hours, the walk from Bond Street, step-free entry.</dd></dl></div>
+
+  <div class="piece">
+    <div class="piece-t">
+      <h3>Three sizes, drawn to scale.</h3>
+      <p>A bottle twice the volume is not twice the height. Each one here is drawn by the cube root of what it holds, so 100 ml looks like 100 ml. Choose one.</p>
+      <p class="from">Working, with No. 4 Sable's prices.</p>
+    </div>
+    <div class="sizes" id="sizes">
+      <div class="sz-row" role="radiogroup" aria-label="Size of No. 4 Sable"></div>
+      <div class="sz-buy"><span class="go" id="sz-go">Buy, £95</span><span class="alt">or try a sample, £4</span></div>
+    </div>
+  </div>
+
+  <div class="piece flip">
+    <div class="piece-t">
+      <h3>The day before, and the day.</h3>
+      <p>For a new house, the same page waits: when it's out, a waiting list, a pre-order and the founder's note. Nothing can be bought early, anywhere on the site. On the morning it opens as the shop, with no one touching it.</p>
+    </div>
+    <div class="launch">
+      <figure class="phone"><div class="scr"><img id="ln-open" src="media/ph-notes.webp" width="780" height="1688" alt="Verrière's home page on a phone, on sale: sizes and Buy, £95" loading="lazy" decoding="async"><img id="ln-before" class="off" src="media/ph-launch.webp" width="780" height="1688" alt="The same page before launch: out on 1 February, Tell me on the day, or pre-order" loading="lazy" decoding="async"></div></figure>
+      <div class="switch" role="group" aria-label="Show the page"><button type="button" data-ln="before" aria-pressed="false">Before launch</button><button type="button" data-ln="open" aria-pressed="true">On the day</button></div>
+    </div>
+  </div>
+
+  <div class="phones">
+    <figure class="phone"><div class="scr"><img src="media/ph-home-starter.webp" width="780" height="1688" alt="Verrière's home page on a phone, the Starter plan" loading="lazy" decoding="async"></div><figcaption><b>The home page</b>The bottle, the name, the line.</figcaption></figure>
+    <figure class="phone lift"><div class="scr"><img src="media/ph-sizes.webp" width="780" height="1688" alt="A fragrance with its notes and three sizes drawn to scale" loading="lazy" decoding="async"></div><figcaption><b>The fragrances</b>Notes, sizes, the price per 10 ml.</figcaption></figure>
+    <figure class="phone"><div class="scr"><img src="media/ph-launch.webp" width="780" height="1688" alt="Before launch: Tell me on the day" loading="lazy" decoding="async"></div><figcaption><b>Before launch</b>The waiting list and the pre-order.</figcaption></figure>
+    <figure class="phone lift"><div class="scr"><img src="media/ph-visit.webp" width="780" height="1688" alt="Plan your visit: opening hours and the walk from Bond Street" loading="lazy" decoding="async"></div><figcaption><b>Plan your visit</b>Today's hours, and how to find it.</figcaption></figure>
+  </div>
+</div></section>
+
+<!-- ================================================================ settles into: Plus -->
+<section class="ch gut" aria-labelledby="h-c2"><div class="wrap">
+  <div class="ch-open">
+    <h2 id="h-c2">settles into<span class="rest">…</span></h2>
+    <p class="ch-plan"><b>Plus</b><span>£199, then £30 a month. Up to five pages.</span></p>
+  </div>
+  <div class="label"><p class="label-h"><span>What it answers</span><span>4 questions</span></p><dl><dt>I love iris. Which one is mine?</dt><dd><b>The scent finder:</b> the house's real ingredients in black and white. Choose up to three; the fragrances that have them rise.</dd><dt>Can I try a few at home?</dt><dd><b>A discovery set:</b> four samples of your choosing, the £16 taken off the first bottle.</dd><dt>It's a present.</dt><dd><b>Gifts:</b> engraving, wrapping and a card, the total worked out, the order sent on WhatsApp.</dd><dt>Show me all of them.</dt><dd>The fragrances page: every scent large, with the house's words on its character.</dd></dl></div>
+
+  <div class="piece wide">
+    <div class="piece-t">
+      <h3>Choose what you love.</h3>
+      <p>Only notes the house lists, matched exactly: pink pepper is not black pepper. Never "you'll love it".</p>
+      <p class="from">Working, with Verrière's six fragrances.</p>
+    </div>
+    <div class="organ" id="organ">
+      <div class="ing" role="group" aria-label="Ingredients, choose up to three"></div>
+      <div><p class="res-say" id="say" aria-live="polite">Choose up to three.</p><ol class="res" id="res"></ol></div>
+    </div>
+  </div>
+
+  <div class="phones">
+    <figure class="phone"><div class="scr"><img src="media/ph-fragrances.webp" width="780" height="1688" alt="The fragrances page on a phone" loading="lazy" decoding="async"></div><figcaption><b>The fragrances</b>Every scent, large.</figcaption></figure>
+    <figure class="phone lift"><div class="scr"><img src="media/ph-finder.webp" width="780" height="1688" alt="The scent finder with sea salt and iris chosen, three fragrances listed" loading="lazy" decoding="async"></div><figcaption><b>Scent finder</b>Iris and sea salt: three of six.</figcaption></figure>
+    <figure class="phone"><div class="scr"><img src="media/ph-discovery.webp" width="780" height="1688" alt="A discovery set of four samples, ready to order" loading="lazy" decoding="async"></div><figcaption><b>Discovery set</b>Four vials, filled as they're chosen.</figcaption></figure>
+    <figure class="phone lift"><div class="scr"><img src="media/ph-gifts.webp" width="780" height="1688" alt="The gift order: No. 6 Ombre, 50 ml, engraved" loading="lazy" decoding="async"></div><figcaption><b>Gifts</b>Engraved, wrapped, added up.</figcaption></figure>
+  </div>
+</div></section>
+
+<!-- ================================================================ and dries down to: Signature -->
+<section class="ch gut" aria-labelledby="h-c3"><div class="wrap">
+  <div class="ch-open">
+    <h2 id="h-c3">and dries down to<span class="rest">…</span></h2>
+    <p class="ch-plan"><b>Signature</b><span>£349, then £35 a month. Up to 20 pages, and the pieces a house is remembered by.</span></p>
+  </div>
+  <div class="label"><p class="label-h"><span>What it answers</span><span>4 questions</span></p><dl><dt>What does the bottle really look like?</dt><dd><b>The turntable:</b> the bottle turns in the visitor's hand: 36 positions from 18 of the house's own turntable photographs. Nothing turns by itself.</dd><dt>What's in it?</dt><dd><b>Notes on the bottle:</b> the sentence set across the glass, top at the neck, heart at the shoulder, base at the foot. Tap a note to see which other scents have it.</dd><dt>Can you put a name on it?</dt><dd><b>The engraving desk:</b> the words on the glass as they're typed, in the house's letters, within its limit.</dd><dt>I don't know what they'd like.</dt><dd><b>Let them choose:</b> give an amount; they try the samples at home, then choose the bottle and the words on it.</dd></dl></div>
+
+  <div class="piece flip">
+    <div class="piece-t">
+      <h3>Turn it by hand.</h3>
+      <p>Drag, or use the arrow keys. The first picture is all a visitor downloads; the rest wait until someone reaches for the bottle.</p>
+    </div>
+    <div class="turn" id="turn" tabindex="0" role="slider" aria-label="Turn the bottle" aria-valuemin="0" aria-valuemax="350" aria-valuenow="0" aria-valuetext="Front">
+      <img id="turn-img" src="media/turn/01.webp" width="1600" height="1000" alt="No. 4 Sable on travertine, turned by dragging" loading="lazy" decoding="async" draggable="false">
+      <span class="deg" id="deg" aria-hidden="true">0°</span>
+    </div>
+  </div>
+
+  <div class="piece">
+    <div class="piece-t">
+      <h3>Your words, cut into the glass.</h3>
+      <p>Capitals, lower case or initials, on the glass or the box. It says it's a preview, because it is.</p>
+    </div>
+    <form class="desk" id="desk" onsubmit="return false">
+      <figure><img src="media/engrave.webp" width="1080" height="1350" alt="No. 4 Sable face on, with your words engraved on the glass" loading="lazy" decoding="async"><span class="engr caps" id="engr" aria-hidden="true">OTTILIE · 1 MAY</span><figcaption>Preview</figcaption></figure>
+      <div class="desk-f">
+        <div><label for="w">Your words <span id="wc">15 of 24</span></label><input type="text" id="w" maxlength="24" value="Ottilie · 1 May" autocomplete="off" spellcheck="false"></div>
+        <fieldset class="pick"><legend class="sr-only">Letters</legend>
+          <label><input type="radio" name="st" value="caps" checked><span>Capitals</span></label><label><input type="radio" name="st" value="lower"><span>Lower case</span></label><label><input type="radio" name="st" value="initials"><span>Initials</span></label>
+        </fieldset>
+        <p class="go" style="justify-self:start">Order with engraving, £110</p>
+      </div>
+    </form>
+  </div>
+
+  <figure class="laptop"><div class="scr"><img src="media/lt-home.webp" width="1440" height="900" alt="Verrière's home page on a laptop: the bottle on travertine, its notes set across the glass, sizes and Buy beneath" loading="lazy" decoding="async"></div><div class="base" aria-hidden="true"></div><figcaption>On a laptop, the notes stand beside the glass at the heights they describe.</figcaption></figure>
+
+  <div class="phones">
+    <figure class="phone"><div class="scr"><img src="media/ph-notes.webp" width="780" height="1688" alt="The notes as one sentence; iris tapped: also in No. 2 Poudre and No. 7 Pluie" loading="lazy" decoding="async"></div><figcaption><b>Notes on the bottle</b>Iris: also in Poudre and Pluie.</figcaption></figure>
+    <figure class="phone lift"><div class="scr"><img src="media/ph-engraving.webp" width="780" height="1688" alt="The engraving desk on a phone" loading="lazy" decoding="async"></div><figcaption><b>The engraving desk</b>On the glass, as typed.</figcaption></figure>
+    <figure class="phone"><div class="scr"><img src="media/ph-choose.webp" width="780" height="1688" alt="Let them choose: an amount, for, from" loading="lazy" decoding="async"></div><figcaption><b>Let them choose</b>£50, £100 or £150, with the samples.</figcaption></figure>
+    <figure class="phone lift"><div class="scr"><img src="media/ph-home.webp" width="780" height="1688" alt="The home page on a phone, the Signature plan, with the turntable" loading="lazy" decoding="async"></div><figcaption><b>The turntable</b>Drag the bottle, on a phone too.</figcaption></figure>
+  </div>
+</div></section>
+
+<!-- ================================================================ what it won't say -->
+<section class="wont gut" aria-labelledby="h-w"><div class="wrap wont-in">
+  <div>
+    <h2 id="h-w">What it won't say.</h2>
+    <p>A fragrance is sold on its notes and its character, in the house's own words. The kit refuses claims about how long a scent lasts, comparisons with other brands and invented scarcity, wherever they're typed: a fragrance, a question, a page.</p>
+  </div>
+  <ul class="struck">
+    <li><s>Long-lasting, 12 hours on skin</s><span>How long it lasts</span></li>
+    <li><s>Smells like a famous one</s><span>Another brand's name</span></li>
+    <li><s>A dupe of the classic</s><span>Another brand's name</span></li>
+    <li><s>A compliment magnet</s><span>A promise about other people</span></li>
+    <li><s>Only 3 left</s><span>Scarcity it can't show</span></li>
+  </ul>
+</div></section>
+
+<!-- ================================================================ the plans, as three sizes -->
+<section class="plans gut" id="plans" aria-labelledby="h-p"><div class="wrap">
+  <h2 id="h-p">Three sizes.</h2>
+  <div class="plan-row" id="plan-row">
+    <div class="plan" data-ml="30"><h3>Starter</h3><p class="price"><b>£99</b>, then £25 a month</p><p>The home page and Plan your visit: the fragrances, sizes side by side, samples, launch mode.</p></div>
+    <div class="plan" data-ml="50"><h3>Plus</h3><p class="price"><b>£199</b>, then £30 a month</p><p>Up to five pages: the fragrances, the scent finder, discovery sets, gifts.</p></div>
+    <div class="plan" data-ml="100"><h3>Signature</h3><p class="price"><b>£349</b>, then £35 a month</p><p>Up to 20 pages, the turntable, the notes on the bottle, the engraving desk, Let them choose.</p></div>
+  </div>
+  <div class="plan-foot"><p><b>Bespoke, from £1,399.</b> Your own bottle rendered and turned by hand, for a house without turntable photographs.</p><p>12 months, then month to month.</p></div>
+</div></section>
+
+<!-- ================================================================ numbers -->
+<section class="dry gut" aria-labelledby="h-d"><div class="wrap">
+  <h2 id="h-d">The dry-down.</h2>
+  <dl>
+    <div><dt>100</dt><dd>Lighthouse speed on a phone, and 100 for accessibility.</dd></div>
+    <div><dt>1.1 s</dt><dd>Until the bottle is on a phone's screen.</dd></div>
+    <div><dt>0</dt><dd>Things that move as the page loads.</dd></div>
+    <div><dt>1</dt><dd>Picture for the first screen. The turntable's other frames load when someone reaches for the bottle.</dd></div>
+  </dl>
+</div></section>
+
+<!-- ================================================================ close -->
+<section class="close gut" id="mockup" aria-labelledby="h-close"><div class="wrap close-in">
+  <div>
+    <h2 id="h-close">Your house, in glass.</h2>
+    <p>Send us your fragrances, their notes, sizes and prices, and one photograph of your bottle. We'll make a free mockup of your home page with your own scents on it.</p>
+    <div class="acts"><a class="go" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#free">Get a free mockup</a><a href="https://sitefloor1.github.io/sitefloor-templates/verriere/">Try the demo first</a></div>
+    <span class="mail">hello@sitefloor.com</span>
+  </div>
+</div></section>
+
+</main>
+
+<footer class="gut"><div class="wrap">
+  <p>Verrière is a fictional perfume house made to show the Sitefloor fragrance kit. Its address, phone number, fragrances, notes, prices and dates are demo data. The bottle, its perfume and the travertine are renders, not a real product; a real house uses its own turntable photographs. Ingredient photographs (Unsplash, free licence): Laura Ockel, CHUTTERSNAP, Ioana Cristiana, Zoshua Colah, sidath vimukthi, Andrik Langfield, Mo Farhan Badar.</p>
+  <span>© 2026 Sitefloor</span>
+</div></footer>
+
+<script>
+(() => {
+"use strict";
+const $ = (s, r = document) => r.querySelector(s);
+const pounds = (n) => Number.isInteger(n) ? `£${n}` : `£${n.toFixed(2)}`;
+const joinAnd = (l) => l.length <= 1 ? l.join("") : `${l.slice(0, -1).join(", ")} and ${l[l.length - 1]}`;
+
+/* ---------------------------------------------------------------- the words, seen through the glass
+   The bottle is three rendered pictures: where each of its pixels looks through to on the page behind (a refraction
+   map), how much of that page comes through and in what colour, and the light on the glass. Put together over any
+   page, they give what this glass would show of it. Here the page is Verrière's notes. */
+const glass = $("#glass"), cv = $("#gl"), hit = $("#hit");
+const WORDS = "It opens on bergamot and sea salt, settles into iris and ambrette, and dries down to cedarwood and white musk.";
+const BOX = { w: 1040, h: 1560 };   // the passes' size
+const RANGE = [-0.15, 1.3];          // the map's span, in the pass's own width and height
+let words = document.createElement("canvas"), dpr = 1, W = 0, H = 0, bw = 0, bh = 0, bx = 0, by = 0, ready = false, draw = () => {};
+let fontReady = false;
+
+function layout() {
+  dpr = Math.min(window.devicePixelRatio || 1, 2);
+  W = glass.clientWidth; H = glass.clientHeight;
+  cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+  bh = Math.min(H * 0.98, 1100); bw = bh * BOX.w / BOX.h;
+  if (bw > W * 0.92) { bw = W * 0.92; bh = bw * BOX.h / BOX.w; }
+  const t = Number(hit.getAttribute("aria-valuenow")) / 100;
+  setX(t, false);
+  paintWords();
+}
+function paintWords() {
+  words.width = cv.width; words.height = cv.height;
+  const c = words.getContext("2d");
+  c.fillStyle = "#F2EEE8"; c.fillRect(0, 0, words.width, words.height);
+  const pad = Math.max(18, Math.min(W * 0.04, 60)) * dpr, maxW = words.width - pad * 2, foot = (W < 760 ? 150 : 128) * dpr, maxH = words.height - pad - foot;
+  let size = Math.round(maxH / 3), lines = [];
+  const fam = fontReady ? '"Hina Mincho"' : '"Hina Fallback", "Times New Roman", serif';
+  for (; size > 20; size -= 2) {
+    c.font = `400 ${size}px ${fam}`;
+    lines = []; let line = "";
+    for (const w of WORDS.split(" ")) { const tr = line ? line + " " + w : w; if (c.measureText(tr).width > maxW && line) { lines.push(line); line = w; } else line = tr; }
+    lines.push(line);
+    if (lines.length * size * 1.0 <= maxH) break;
+  }
+  c.fillStyle = "#16130F"; c.textBaseline = "alphabetic";
+  lines.forEach((l, i) => c.fillText(l, pad, pad * 0.6 + size * (0.86 + i * 1.0)));
+  draw();
+}
+function setX(t, user) {
+  t = Math.min(1, Math.max(0, t));
+  bx = (W - bw) * t; by = (H - bh) * 0.32;
+  if (W < 760) by = (H - bh) * 0.12;
+  Object.assign(hit.style, { left: `${bx + bw * 0.12}px`, top: `${by + bh * 0.16}px`, width: `${bw * 0.76}px`, height: `${bh * 0.68}px` });
+  hit.setAttribute("aria-valuenow", String(Math.round(t * 100)));
+  draw();
+}
+
+function loadImg(src) { return new Promise((ok, no) => { const i = new Image(); i.decoding = "async"; i.onload = () => ok(i); i.onerror = no; i.src = src; }); }
+
+async function start() {
+  const [st, tint, hl] = await Promise.all(["media/glass-map.png", "media/glass-tint.webp", "media/glass-light.webp"].map(loadImg));
+  const gl = cv.getContext("webgl2", { premultipliedAlpha: false, antialias: false });
+  if (gl) startGL(gl, st, tint, hl); else startCPU(st, tint, hl);
+  ready = true; layout();
+}
+
+function startGL(gl, st, tint, hl) {
+  const vs = `#version 300 es
+  in vec2 p; out vec2 uv; void main() { uv = p * .5 + .5; uv.y = 1. - uv.y; gl_Position = vec4(p, 0, 1); }`;
+  const fs = `#version 300 es
+  precision highp float; in vec2 uv; out vec4 o;
+  uniform sampler2D page, st, tint, hl; uniform vec4 box; uniform vec2 range; uniform ivec2 stSize;
+  vec3 lin(vec3 c) { return mix(c / 12.92, pow((c + .055) / 1.055, vec3(2.4)), step(.04045, c)); }
+  vec3 srgb(vec3 c) { c = clamp(c, 0., 1.); return mix(c * 12.92, 1.055 * pow(c, vec3(1. / 2.4)) - .055, step(.0031308, c)); }
+  void main() {
+    vec3 pg = lin(texture(page, uv).rgb);
+    vec2 q = (uv - box.xy) / box.zw;
+    if (q.x < 0. || q.y < 0. || q.x > 1. || q.y > 1.) { o = vec4(srgb(pg), 1); return; }
+    // the map: 12 bits across, 12 bits down, packed in three bytes
+    vec3 m = texelFetch(st, ivec2(q * vec2(stSize)), 0).rgb * 255.;
+    float u = (m.r * 16. + floor(m.g / 16.)) / 4095., v = (mod(m.g, 16.) * 256. + m.b) / 4095.;
+    vec2 s = range.x + vec2(u, v) * (range.y - range.x);
+    vec3 through = lin(texture(page, box.xy + s * box.zw).rgb);
+    vec3 t = lin(texture(tint, q).rgb), h = lin(texture(hl, q).rgb);
+    o = vec4(srgb(h + t * through), 1);
+  }`;
+  const sh = (t, s) => { const x = gl.createShader(t); gl.shaderSource(x, s); gl.compileShader(x); if (!gl.getShaderParameter(x, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(x)); return x; };
+  const pr = gl.createProgram(); gl.attachShader(pr, sh(gl.VERTEX_SHADER, vs)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, fs)); gl.linkProgram(pr); gl.useProgram(pr);
+  const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(pr, "p"); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+  gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false); gl.pixelStorei(gl.UNPACK_COLORSPACE_CONVERSION_WEBGL, gl.NONE);
+  const tex = (unit, img, filter) => { const t = gl.createTexture(); gl.activeTexture(gl.TEXTURE0 + unit); gl.bindTexture(gl.TEXTURE_2D, t);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, filter); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, filter);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    if (img) gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img); return t; };
+  const pageTex = tex(0, null, gl.LINEAR); tex(1, st, gl.NEAREST); tex(2, tint, gl.LINEAR); tex(3, hl, gl.LINEAR);
+  ["page", "st", "tint", "hl"].forEach((n, i) => gl.uniform1i(gl.getUniformLocation(pr, n), i));
+  gl.uniform2f(gl.getUniformLocation(pr, "range"), RANGE[0], RANGE[1]); gl.uniform2i(gl.getUniformLocation(pr, "stSize"), st.naturalWidth, st.naturalHeight);
+  const uBox = gl.getUniformLocation(pr, "box");
+  let pageStamp = null, raf = 0;
+  draw = () => { if (raf) return; raf = requestAnimationFrame(() => { raf = 0;
+    if (pageStamp !== words) { gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, pageTex); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, words); pageStamp = words; }
+    gl.viewport(0, 0, cv.width, cv.height); gl.uniform4f(uBox, bx / W, by / H, bw / W, bh / H); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4); }); };
+  const repaint = paintWords; paintWords = () => { pageStamp = null; repaint(); };
+}
+
+function startCPU(st, tint, hl) {
+  // Without WebGL the same sum, worked out on the processor once the bottle stops.
+  const read = (img) => { const c = document.createElement("canvas"); c.width = img.naturalWidth; c.height = img.naturalHeight; const x = c.getContext("2d", { willReadFrequently: true }); x.drawImage(img, 0, 0); return x.getImageData(0, 0, c.width, c.height).data; };
+  const S = read(st), T = read(tint), L = read(hl), sw = st.naturalWidth, sh = st.naturalHeight;
+  const lin = new Float32Array(256).map((_, i) => { const c = i / 255; return c <= .04045 ? c / 12.92 : ((c + .055) / 1.055) ** 2.4; });
+  const enc = (x) => Math.round(255 * (x <= .0031308 ? 12.92 * x : 1.055 * Math.min(1, x) ** (1 / 2.4) - .055));
+  const ctx = cv.getContext("2d"); let t = 0;
+  draw = () => { clearTimeout(t); t = setTimeout(() => {
+    ctx.drawImage(words, 0, 0);
+    const X = Math.round(bx * dpr), Y = Math.round(by * dpr), w = Math.round(bw * dpr), h = Math.round(bh * dpr);
+    const P = words.getContext("2d").getImageData(0, 0, words.width, words.height).data, PW = words.width, PH = words.height;
+    const out = ctx.getImageData(Math.max(0, X), Math.max(0, Y), Math.min(w, PW - Math.max(0, X)), Math.min(h, PH - Math.max(0, Y))), O = out.data;
+    for (let y = 0; y < out.height; y++) for (let x = 0; x < out.width; x++) {
+      const qx = (x + Math.max(0, X) - X) / w, qy = (y + Math.max(0, Y) - Y) / h, si = ((qy * sh | 0) * sw + (qx * sw | 0)) * 4;
+      const u = (S[si] * 16 + (S[si + 1] >> 4)) / 4095, v = ((S[si + 1] & 15) * 256 + S[si + 2]) / 4095;
+      const px = Math.min(PW - 1, Math.max(0, Math.round(X + (RANGE[0] + u * (RANGE[1] - RANGE[0])) * w))), py = Math.min(PH - 1, Math.max(0, Math.round(Y + (RANGE[0] + v * (RANGE[1] - RANGE[0])) * h)));
+      const pi = (py * PW + px) * 4, oi = (y * out.width + x) * 4;
+      for (let k = 0; k < 3; k++) O[oi + k] = enc(lin[L[si + k]] + lin[T[si + k]] * lin[P[pi + k]]);
+    }
+    ctx.putImageData(out, Math.max(0, X), Math.max(0, Y));
+  }, 40); };
+}
+
+// Dragging, and the arrow keys.
+let x0 = null, t0 = 0;
+hit.addEventListener("pointerdown", (e) => { x0 = e.clientX; t0 = Number(hit.getAttribute("aria-valuenow")) / 100; hit.setPointerCapture(e.pointerId); hit.classList.add("is-dragging"); });
+hit.addEventListener("pointermove", (e) => { if (x0 === null) return; setX(t0 + (e.clientX - x0) / Math.max(1, W - bw), true); });
+const end = () => { x0 = null; hit.classList.remove("is-dragging"); };
+hit.addEventListener("pointerup", end); hit.addEventListener("pointercancel", end);
+hit.addEventListener("keydown", (e) => { const d = { ArrowRight: .04, ArrowLeft: -.04, Home: -1, End: 1 }[e.key]; if (d === undefined) return; e.preventDefault(); setX(Number(hit.getAttribute("aria-valuenow")) / 100 + d, true); });
+new ResizeObserver(() => layout()).observe(glass);
+document.fonts.load('400 40px "Hina Mincho"').then(() => { fontReady = true; paintWords(); });
+// The words show at once, flat; the glass joins them when its pictures arrive.
+words.className = "flat"; words.setAttribute("aria-hidden", "true"); glass.insertBefore(words, cv); layout();
+start().catch(() => { hit.hidden = true; $("#hint").hidden = true; });
+
+/* ---------------------------------------------------------------- sizes side by side */
+const SIZES = [{ ml: 30, price: 70 }, { ml: 50, price: 95 }, { ml: 100, price: 140 }];
+const flacon = (k, rel) => { k *= 1.8; const w = 46 * k, h = 70 * k; return `<svg ${rel ? `style="width:${(k / 1.8 * 76).toFixed(1)}%"` : `width="${w + 2}"`} viewBox="-1 -1 ${w + 2} ${h + 16 * k + 2}" aria-hidden="true"><rect x="${w * .3}" y="0" width="${w * .4}" height="${12 * k}" fill="#16130F"/><rect x="${w * .38}" y="${12 * k}" width="${w * .24}" height="${4 * k}" fill="none" stroke="#16130F"/><rect x="0" y="${16 * k}" width="${w}" height="${h}" rx="2" fill="none" stroke="#16130F"/><rect x="${w * .12}" y="${16 * k + h * .34}" width="${w * .76}" height="${h * .52}" fill="#DCA54A" opacity=".55"/></svg>`; };
+const row = $("#sizes .sz-row");
+row.innerHTML = SIZES.map((s) => `<label class="sz"><input type="radio" name="sz" value="${s.ml}"${s.ml === 50 ? " checked" : ""}>${flacon(Math.cbrt(s.ml / 100), true)}<span class="ml">${s.ml} ml</span><span class="pr">${pounds(s.price)}<small>£${(s.price / s.ml * 10).toFixed(2)} per 10 ml</small></span></label>`).join("");
+row.addEventListener("change", () => { const s = SIZES.find((x) => String(x.ml) === row.querySelector("input:checked").value); $("#sz-go").textContent = `Buy, ${pounds(s.price)}`; });
+// the plans, drawn as the same three sizes
+for (const p of document.querySelectorAll("#plan-row .plan")) p.insertAdjacentHTML("afterbegin", flacon(Math.cbrt(Number(p.dataset.ml) / 100) * 1.25));
+
+/* ---------------------------------------------------------------- launch */
+for (const b of document.querySelectorAll("[data-ln]")) b.addEventListener("click", () => {
+  const before = b.dataset.ln === "before";
+  for (const x of document.querySelectorAll("[data-ln]")) x.setAttribute("aria-pressed", String(x === b));
+  $("#ln-before").classList.toggle("off", !before); $("#ln-open").classList.toggle("off", before);
+});
+
+/* ---------------------------------------------------------------- the organ, with Verrière's six */
+const SCENTS = [
+  { id: "sable", name: "No. 4 Sable", notes: ["bergamot", "sea salt", "iris", "ambrette", "cedarwood", "white musk"] },
+  { id: "poudre", name: "No. 2 Poudre", notes: ["pink pepper", "iris", "rose", "violet", "vanilla", "white musk"] },
+  { id: "verger", name: "No. 3 Verger", notes: ["bergamot", "pear", "fig", "jasmine", "cedarwood"] },
+  { id: "ombre", name: "No. 6 Ombre", notes: ["black pepper", "cardamom", "rose", "incense", "oud", "cedarwood"] },
+  { id: "pluie", name: "No. 7 Pluie", notes: ["galbanum", "sea salt", "iris", "violet leaf", "vetiver", "moss"] },
+  { id: "lin", name: "No. 1 Lin", notes: ["lemon", "black pepper", "lily of the valley", "white musk", "vetiver"] },
+];
+const ING = [["iris", "A white and purple bearded iris"], ["rose", "The petals of a red rose"], ["fig", "Fresh figs cut open"], ["sea salt", "Coarse sea salt crystals"], ["vanilla", "Dried vanilla pods tied with string"], ["cedarwood", "The cut ends of stacked logs"], ["black pepper", "Dried black peppercorns"]];
+const grid = $("#organ .ing"), say = $("#say"), res = $("#res");
+grid.innerHTML = ING.map(([n, alt]) => `<button type="button" aria-pressed="false" data-note="${n}"><img src="media/ing-${n.replace(" ", "-")}.webp" width="480" height="600" alt="${alt}" loading="lazy" decoding="async"><span class="n">${n[0].toUpperCase() + n.slice(1)}</span></button>`).join("");
+let picked = [];
+const organ = () => {
+  for (const b of grid.querySelectorAll("button")) b.setAttribute("aria-pressed", String(picked.includes(b.dataset.note)));
+  grid.classList.toggle("full", picked.length >= 3);
+  const m = SCENTS.map((s, i) => ({ s, i, has: s.notes.filter((n) => picked.includes(n)) })).filter((x) => x.has.length).sort((a, b) => b.has.length - a.has.length || a.i - b.i);
+  say.textContent = !picked.length ? "Choose up to three." : m.length ? `${m.length === 1 ? "One fragrance has" : `${m.length} fragrances have`} ${picked.length === 1 ? "it" : "them"}${m.length > 1 ? ", most first" : ""}.` : "None of ours has that one yet.";
+  res.innerHTML = m.map(({ s, has }) => `<li><img src="media/sc-${s.id}.webp" width="240" height="300" alt="" loading="lazy" decoding="async"><p><b>${s.name}</b><span>Has ${joinAnd(has)}</span></p></li>`).join("");
+};
+grid.addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; const n = b.dataset.note; if (picked.includes(n)) picked = picked.filter((x) => x !== n); else if (picked.length < 3) picked = [...picked, n]; organ(); });
+organ();
+
+/* ---------------------------------------------------------------- the turntable */
+const turn = $("#turn"), timg = $("#turn-img"), deg = $("#deg"); let cur = 0, loaded = false;
+const frame = (n) => `media/turn/${String(((n % 18) + 18) % 18 + 1).padStart(2, "0")}.webp`;
+const preload = () => { if (loaded) return; loaded = true; for (let i = 1; i < 18; i++) { const im = new Image(); im.src = frame(i); } };
+const show = (n) => { cur = ((n % 36) + 36) % 36; timg.src = frame(cur); deg.textContent = `${cur * 10}°`; turn.setAttribute("aria-valuenow", String(cur * 10)); turn.setAttribute("aria-valuetext", cur ? `Turned ${cur * 10} degrees` : "Front"); };
+let tx = null, tf = 0;
+turn.addEventListener("pointerenter", preload, { once: true }); turn.addEventListener("focus", preload, { once: true });
+turn.addEventListener("pointerdown", (e) => { preload(); tx = e.clientX; tf = cur; turn.setPointerCapture(e.pointerId); turn.classList.add("is-dragging"); });
+turn.addEventListener("pointermove", (e) => { if (tx === null) return; const n = tf - Math.round((e.clientX - tx) / Math.max(8, turn.clientWidth / 90)); if (n !== cur) show(n); });
+const tend = () => { tx = null; turn.classList.remove("is-dragging"); }; turn.addEventListener("pointerup", tend); turn.addEventListener("pointercancel", tend);
+turn.addEventListener("keydown", (e) => { const d = { ArrowRight: 1, ArrowLeft: -1 }[e.key]; if (d === undefined) return; e.preventDefault(); preload(); show(cur + d); });
+
+/* ---------------------------------------------------------------- the engraving desk */
+const desk = $("#desk"), engr = $("#engr"), wc = $("#wc");
+const initials = (s) => { const w = s.split(/[\s·,.\-/]+/).filter((x) => /^\p{L}/u.test(x)).slice(0, 3); return w.length ? w.map((x) => x[0].toUpperCase()).join(".") + "." : ""; };
+const engrave = () => { const fd = new FormData(desk), w = String($("#w").value).slice(0, 24), st = String(fd.get("st"));
+  engr.textContent = st === "initials" ? initials(w) : st === "caps" ? w.toUpperCase() : w; engr.className = `engr ${st}`; wc.textContent = `${w.length} of 24`; };
+desk.addEventListener("input", engrave); desk.addEventListener("change", engrave); engrave();
+})();
+</script>
+</body>
+</html>

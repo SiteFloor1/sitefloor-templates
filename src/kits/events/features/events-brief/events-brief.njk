@@ -1,0 +1,35 @@
+{#- Start your event (EVT-2): a short form that becomes one tidy message. Occasion, date (or "not fixed"), guests,
+    the agency's own budget bands, the venue, a name and a note. With the date check on, the chosen date is checked as
+    they pick it; with key dates on, their milestones follow. Nothing is sent from the page: WhatsApp or email opens with the
+    message written. -#}
+{%- set B = site.brief %}
+<section class="ev-brief" data-feature="events-brief"><div class="wrap">
+  {%- set ph = { title: B.title, intro: B.intro } %}{% include "kits/events/partials/page-head.njk" %}
+  <div class="ev-brief-grid">
+  <form class="ev-form" data-eb-form novalidate>
+    <label class="ev-f"><span>Occasion</span>
+      <select name="type" data-eb="type"><option value="">Choose…</option>{% for t in B.types %}<option>{{ t }}</option>{% endfor %}</select></label>
+    <div class="ev-f-row">
+      <label class="ev-f"><span>Date</span><input type="date" name="date" data-eb="date"></label>
+      <label class="ev-f ev-f-tick"><input type="checkbox" name="flexible" data-eb="flexible"> <span>We could move it</span></label>
+    </div>
+    {%- if "events-dates" | enabled %}<p class="ev-f-note" data-eb-date-note aria-live="polite"></p>{% endif %}
+    <label class="ev-f"><span>Guests</span><input type="number" name="guests" inputmode="numeric" min="2" max="3000" data-eb="guests"></label>
+    {%- if B.budgets %}<label class="ev-f"><span>Budget</span>
+      <select name="budget" data-eb="budget"><option value="">Rather not say</option>{% for b in B.budgets %}<option>{{ b }}</option>{% endfor %}</select></label>{% endif %}
+    <label class="ev-f"><span>Venue</span>
+      <select name="venue" data-eb="venue"><option value="">Choose…</option>{% for v in (B.venueChoices or ["We have a venue", "We're still looking", "Help us find one"]) %}<option>{{ v }}</option>{% endfor %}</select></label>
+    <label class="ev-f"><span>Your name</span><input name="name" autocomplete="name" maxlength="80" data-eb="name"></label>
+    <label class="ev-f"><span>Anything else</span><textarea name="note" rows="3" maxlength="400" data-eb="note"></textarea></label>
+    <p class="ev-send">
+      <a class="ev-btn" data-eb-wa href="{{ site.messages.general | wa }}" target="_blank" rel="noopener">Send on WhatsApp</a>
+      <a class="ev-alt" data-eb-mail href="mailto:{{ B.email or site.contact.email }}">or by email</a>
+    </p>
+    <p class="ev-f-small">Opens WhatsApp or your email with this written for you. Nothing is sent until you press send there.</p>
+  </form>
+  <div class="ev-brief-side">
+    <p class="ev-brief-say" data-eb-preview></p>
+    {%- if "events-key-dates" | enabled %}{% include "kits/events/features/events-key-dates/events-key-dates.njk" %}{% endif %}
+  </div>
+  </div>
+</div></section>

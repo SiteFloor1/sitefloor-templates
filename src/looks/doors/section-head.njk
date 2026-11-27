@@ -1,0 +1,6 @@
+{#- The doors section opening: the section's name very large on the left, its line on the right at reading size; no
+    label above. `sec` = { kicker, title, intro }; the kicker is not shown. -#}
+<div class="dr-sh">
+  <h2 class="dr-sh-t">{{ sec.title | markup | safe }}</h2>
+  {%- if sec.intro %}<p class="dr-sh-i">{{ sec.intro }}</p>{% endif %}
+</div>

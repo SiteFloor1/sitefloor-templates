@@ -181,6 +181,15 @@ Taken by Corbel: the blue-hour deep navy ground with warm lit rooms, the blueber
 pale green-white text, Encode Sans Expanded and Encode Sans, the engraved scene keypad and the circuit chart, the house
 at dusk switched by a keypad, and a 3D house lit room by room.
 
+## Event designers and producers
+_From `docs/trades/events/demo-map.md`._
+
+This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` (generated) before proposing a look.
+
+| Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
+|---|---|---|---|---|---|---|---|
+| Maudry | event design and production, `events`, `doors` (built 18 Nov on `trade/events`) | a panelled room at night: **warm dark** #19150F, candlelit | an olive leaf on a candlelit table | olive green #4E6E58 on warm dark, parchment text #EDE3D0, brass #9C8257 for hairlines | Eczar / Eczar | the room on the night full screen, one-colour headline, the next free Saturday beside it; design visuals of the client's room before the day | (to come) |
+
 ## Financial advisers
 _From `docs/trades/financial-advisers/demo-map.md`._
 
@@ -213,6 +222,15 @@ two), the drop as one post with a countdown, "Ask for this one" in italic under 
 with Spectral, the pearl pin (wordmark, Pinned flag, holding each card), one satin-ribbon divider, the handwritten-style
 card, the warm white page with a peony-petal accent on text and lines only. Design record:
 [`sitefloor-internal/docs/design/laleh.md`](https://github.com/SiteFloor1/sitefloor-internal/blob/main/docs/design/laleh.md).
+
+## Fragrance houses and perfumers
+_From `docs/trades/fragrance/demo-map.md`._
+
+This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` (generated) before proposing a look.
+
+| Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
+|---|---|---|---|---|---|---|---|
+| Verrière | perfume house, `fragrance`, `verriere` (built 17 Nov on `trade/fragrance`) | a perfume house's still life: **warm stone studio**, one bottle large on travertine, the header over the picture, sentence case throughout, one plain footer line | the perfume itself, pale champagne gold | amber #8A5A12, champagne gold #DCA54A on stone #F2EEE8, studio #CDC3B5 | Hina Mincho 400 / SUSE 400 and 500 | the bottle turned by the visitor's hand (36 rendered turntable frames), its notes set as one sentence across the glass at the neck, shoulder and foot | (none yet) |
 
 ## Garage and parking rentals
 _From `docs/trades/garage/demo-map.md`._
