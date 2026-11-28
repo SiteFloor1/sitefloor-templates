@@ -116,6 +116,7 @@ A case study is a design too: don't reuse these in a new look or another case st
 | Pellow & Garth (construction) | case-studies/pellow-garth | construction | Big Shoulders Stencil Display | Kumbh Sans | |
 | Saffron & Ash (restaurant) | case-studies/saffron-and-ash | restaurant | Instrument Serif | Instrument Sans | |
 | Selwyn Orr (hair salon) | case-studies/selwyn-orr | hair | Darker Grotesque | Public Sans | |
+| Sevrell (residences) | case-studies/sevrell | residences | Imbue | Inria Sans | |
 | Taroub (modest fashion) | case-studies/taroub | modest | Shippori Mincho | Afacad | |
 | Thursby (financial advisers) | case-studies/thursby | financial-advisers | Frank Ruhl Libre | Frank Ruhl Libre | |
 | Tollgarth (garden design) | case-studies/tollgarth | landscaping | Cinzel | Alegreya | |
