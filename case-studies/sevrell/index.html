@@ -1,0 +1,667 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sevrell Case Study</title>
+<meta name="description" content="Sevrell, a website for a residence run like a hotel: every price the whole price, a long let priced by the month, when the sun reaches each home, answered before anyone asks.">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="icon" href="data:,">
+<link rel="preload" href="media/fonts/imbue-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="media/turndown-phone.webp" as="image" media="(max-width: 760px)">
+<link rel="preload" href="media/turndown.webp" as="image" media="(min-width: 761px)">
+<style>
+/* Layout: the turndown. A residence's website read as the hour a suite is made ready for the night. The page opens on
+   the pillow, seen from above: turned-down linen, a fig-green chocolate and the card the housekeeper leaves, its words
+   worked out live by the demo's own rules for today (a render, labelled; the card's face is blank in the picture and
+   the page prints on it). Choose a home and a stay and the card reprints. Then the rest of the turndown, one ritual to
+   a part of the site: the bill, folded inside (the stay priced, every fee in it, the sum shown; a long let by the
+   month, with its GOV.UK sources), the curtains (when the sun reaches each home's windows, for any day), the night
+   porter (the sheet late: nothing shown as free), the morning (the walk and the concierge's message), the house
+   (every page and the question it answers), three cards on three pillows (the plans) and lights out (the numbers).
+   Live pieces use the kit's rules and words unchanged (src/kits/residences/lib: quote, headline, sunWindow, walk,
+   layout; RULES) and the demo's own sample homes, places and wording.
+   Sevrell's ivory, ink and fig-leaf green; one night band for the porter. Imbue and Inria Sans (the demo's own),
+   self-hosted with the look's size-matched stand-ins; Manrope for Sitefloor. Motion: the card's words cross-fade when
+   they change; nothing tied to the scroll; under reduced motion, none. */
+@font-face { font-family: "Imbue"; font-weight: 500; font-display: swap; src: url("media/fonts/imbue-latin-500-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Imbue"; font-weight: 600; font-display: swap; src: url("media/fonts/imbue-latin-600-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Inria Sans"; font-weight: 400; font-display: swap; src: url("media/fonts/inria-sans-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Inria Sans"; font-weight: 700; font-display: swap; src: url("media/fonts/inria-sans-latin-700-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Imbue Fallback"; font-weight: 100 549; src: local("Times New Roman"), local("Liberation Serif"), local("Times"); size-adjust: 74.3%; ascent-override: 127.8%; descent-override: 33.6%; line-gap-override: 0%; }
+@font-face { font-family: "Imbue Fallback"; font-weight: 550 900; src: local("Times New Roman"), local("Liberation Serif"), local("Times"); size-adjust: 78.2%; ascent-override: 121.5%; descent-override: 32%; line-gap-override: 0%; }
+@font-face { font-family: "Inria Sans Fallback"; font-weight: 100 549; src: local("Arial"), local("Liberation Sans"), local("Helvetica"); size-adjust: 94.1%; ascent-override: 103.7%; descent-override: 23.7%; line-gap-override: 0%; }
+@font-face { font-family: "Inria Sans Fallback"; font-weight: 550 900; src: local("Arial Bold"), local("Liberation Sans Bold"), local("Helvetica Bold"); size-adjust: 90.2%; ascent-override: 108.2%; descent-override: 24.7%; line-gap-override: 0%; }
+@font-face { font-family: "Manrope"; font-weight: 600; font-display: swap; src: url("media/fonts/manrope-latin-600-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Manrope"; font-weight: 700; font-display: swap; src: url("media/fonts/manrope-latin-700-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+:root {
+  --bg: #F6F3EC; --bg-2: #EEE9DF; --linen: #E4DDD0; --text: #1D1C19; --muted: #615C54; --faint: #807A70;
+  --fig: #3F5236; --fig-deep: #2D3B26; --fig-soft: #C9D1BF;
+  --night: #16150F; --night-2: #201E17; --night-text: #EEE8DC; --night-muted: #B9B1A2;
+  --line: rgba(29,28,25,.13); --line-2: rgba(29,28,25,.28); --nline: rgba(238,232,220,.16);
+  --card: #F1ECE1; --card-ink: #22201B;
+  --sf-paper: #FBFAF7; --sf-ink: #0E0F11; --sf-tomato: #E8613C; --sf-line: rgba(14,15,17,.12);
+  --display: "Imbue", "Imbue Fallback", "Didot", Georgia, serif;
+  --font: "Inria Sans", "Inria Sans Fallback", Arial, sans-serif;
+  --brand: "Manrope", Arial, sans-serif;
+  --edge: clamp(18px, 4vw, 56px);
+  --bar: 66px;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; background: var(--bg); }
+body { margin: 0; background: var(--bg); color: var(--text); font: 400 18px/1.6 var(--font); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-underline-offset: 5px; text-decoration-thickness: 1px; text-decoration-color: var(--line-2); }
+a:hover { text-decoration-color: currentColor; }
+h1, h2, h3, p, figure, ul, ol, dl, dd, dt { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+h1, h2, h3 { font-family: var(--display); font-weight: 500; line-height: .98; text-wrap: balance; }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--fig); outline-offset: 3px; }
+.gut { padding-left: max(var(--edge), env(safe-area-inset-left, 0px)); padding-right: max(var(--edge), env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 1360px; margin: 0 auto; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.fine { font-size: 14px; line-height: 1.5; color: var(--faint); }
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 50px; padding: 0 26px; border: 0; background: var(--fig); color: var(--bg); font-weight: 700; text-decoration: none; transition: background .5s; }
+.btn:hover { background: var(--fig-deep); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips button { min-height: 44px; padding: 0 16px; border: 1px solid var(--line-2); background: transparent; font-size: 16px; transition: background .4s, color .4s, border-color .4s; }
+.chips button[aria-pressed="true"] { background: var(--text); color: var(--bg); border-color: var(--text); }
+.night .chips button { border-color: var(--nline); }
+.night .chips button[aria-pressed="true"] { background: var(--night-text); color: var(--night); border-color: var(--night-text); }
+
+/* ------------------------------------------------------------------ Sitefloor bar (shared) */
+.sfbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--sf-paper); color: var(--sf-ink); border-bottom: 1px solid var(--sf-line); }
+.sfbar .wrap { display: flex; justify-content: space-between; align-items: center; height: var(--bar); gap: 16px; max-width: 1440px; }
+.wm { display: inline-flex; align-items: center; font: 700 22px var(--brand); letter-spacing: -.04em; text-decoration: none; color: var(--sf-ink); }
+.wm svg { margin: 0 1px; transform: translateY(1px); }
+.sfbar nav { display: flex; gap: 28px; font-family: var(--brand); font-size: 14px; font-weight: 600; }
+.sfbar nav a { text-decoration: none; color: var(--sf-ink); }
+.sfbar nav a[aria-current] { box-shadow: inset 0 -1.5px 0 var(--sf-ink); }
+.sfbtn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 20px; background: var(--sf-ink); color: var(--sf-paper); font: 700 14px var(--brand); text-decoration: none; }
+.sfbar :focus-visible { outline-color: var(--sf-ink); }
+@media (max-width: 760px) { .sfbar nav { display: none; } }
+@media (max-width: 420px) { .sfbar .sfbtn { display: none; } }
+
+/* ------------------------------------------------------------------ the pillow: the turndown, from above */
+.pillow { position: relative; background: var(--linen); overflow: hidden; }
+.pillow-pic { position: relative; aspect-ratio: 16 / 9; max-height: calc(100vh - var(--bar)); margin: 0 auto; }
+.pillow-pic img { width: 100%; height: 100%; object-fit: cover; }
+.card { position: absolute; left: 0; top: 0; width: 320px; height: 451px; transform-origin: 0 0; color: var(--card-ink); padding: 34px 30px 28px; display: flex; flex-direction: column; pointer-events: none; }
+.card .mono { width: 16px; height: 25px; color: var(--fig); }
+.card .hello { font: 600 40px/1 var(--display); margin-top: 16px; }
+.card .lines { margin-top: 18px; font-size: 16.5px; line-height: 1.45; transition: opacity .6s ease; }
+.card .lines.out { opacity: 0; }
+.card .lines p + p { margin-top: 10px; }
+.card .lines b { font: 600 25px/1.05 var(--display); display: block; }
+.card .sign { margin-top: auto; font-size: 12.5px; color: #6c665b; }
+.pillow-note { position: absolute; left: var(--edge); bottom: 16px; font-size: 13px; color: #4f4a42; }
+.choose { padding-top: 26px; padding-bottom: 6px; }
+.choose .wrap { display: flex; flex-wrap: wrap; gap: 14px 34px; align-items: center; }
+.choose span { font-size: 15px; color: var(--muted); }
+.intro { padding-top: clamp(56px, 7vw, 100px); padding-bottom: clamp(70px, 9vw, 130px); }
+.intro .wrap { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(30px, 5vw, 80px); align-items: end; }
+.intro h1 { font: 600 clamp(84px, 13vw, 200px)/.82 var(--display); letter-spacing: -.01em; }
+.intro p { font-size: clamp(19px, 1.6vw, 23px); max-width: 32ch; }
+.intro .acts { display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: center; margin-top: 26px; }
+
+/* ------------------------------------------------------------------ the parts of the turndown */
+.part { padding-top: clamp(80px, 10vw, 150px); padding-bottom: clamp(80px, 10vw, 150px); border-top: 1px solid var(--line); }
+.part-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 5vw, 80px); align-items: end; margin-bottom: clamp(36px, 5vw, 64px); }
+.part-head h2 { font-size: clamp(48px, 6.6vw, 104px); max-width: 11ch; }
+.part-head p { max-width: 42ch; color: var(--muted); }
+.duo { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(30px, 5vw, 80px); align-items: start; }
+.stills { display: flex; gap: 18px; justify-content: center; }
+.stills figure { flex: 0 1 260px; min-width: 0; }
+.stills img { width: 100%; height: auto; box-shadow: 0 30px 60px -42px rgba(29, 24, 16, .5); }
+.stills figcaption { font-size: 13px; color: var(--faint); margin-top: 10px; }
+
+/* the bill */
+.bill { background: var(--card); padding: clamp(26px, 3.4vw, 46px); position: relative; }
+.bill::before, .bill::after { content: ""; position: absolute; left: 0; right: 0; height: 1px; background: var(--fig); }
+.bill::before { top: 7px; } .bill::after { top: 11px; }
+.bill label { display: block; font-size: 15px; color: var(--muted); margin: 10px 0 12px; }
+.bill input[type="range"] { width: 100%; accent-color: var(--fig); height: 30px; }
+.ticks { display: flex; justify-content: space-between; font-size: 13px; color: var(--faint); }
+.ticks span:last-child { color: var(--text); }
+.sum { margin-top: 28px; border-top: 1px solid var(--line); padding-top: 20px; }
+.sum .row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; padding: 7px 0; font-size: 17px; }
+.sum .row span:last-child { text-align: right; white-space: nowrap; }
+.sum .total { border-top: 1px solid var(--text); margin-top: 8px; padding-top: 14px; }
+.sum .total span:last-child { font: 600 54px/1 var(--display); }
+.sum .total span:first-child { align-self: end; }
+.sum .note { font-size: 14px; color: var(--muted); margin-top: 14px; max-width: 58ch; }
+.bill .chips { margin-bottom: 6px; }
+
+/* the curtains */
+.days { display: grid; gap: 18px; }
+.day { display: grid; grid-template-columns: 11em minmax(0, 1fr) 8.5em; gap: 20px; align-items: center; }
+.day b { font: 600 26px/1.05 var(--display); }
+.day small { display: block; font-size: 13px; color: var(--faint); }
+.strip { position: relative; height: 46px; background: linear-gradient(90deg, #26302A 0, #3A4038 22%, #D9D2C3 36%, #EDE7DA 50%, #D9D2C3 64%, #3A4038 78%, #26302A 100%); overflow: hidden; }
+.strip .lit { position: absolute; top: 0; bottom: 0; background: repeating-linear-gradient(90deg, #E9C67C 0 2px, #F3D899 2px 4px); box-shadow: inset 0 0 0 1px rgba(160,110,30,.25); transition: left .8s ease, width .8s ease; }
+.strip .dark { position: absolute; top: 0; bottom: 0; background: rgba(18,17,13,.82); transition: left .8s ease, width .8s ease; }
+.strip i { position: absolute; top: 0; bottom: 0; width: 1px; background: rgba(29,28,25,.18); }
+.hours { display: grid; grid-template-columns: 11em minmax(0, 1fr) 8.5em; gap: 20px; font-size: 12px; color: var(--faint); }
+.hours div { display: flex; justify-content: space-between; }
+.when { font-size: 17px; text-align: right; white-space: nowrap; }
+.curtain-chips { margin-bottom: 26px; }
+
+/* the night porter */
+.night { background: var(--night); color: var(--night-text); border-top: 0; }
+.night .part-head p, .night .fine { color: var(--night-muted); }
+.porter { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(30px, 5vw, 80px); align-items: start; }
+.board { background: var(--night-2); padding: clamp(22px, 3vw, 38px); min-height: 410px; }
+.board .chips { margin-bottom: 26px; }
+.board ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; transition: opacity .6s; }
+.board li { border-top: 1px solid var(--nline); padding-top: 12px; }
+.board li b { font: 600 26px/1.05 var(--display); display: block; }
+.board li span { font-size: 15px; color: var(--night-muted); }
+.board .closed { font-size: 19px; max-width: 34ch; line-height: 1.5; }
+.board .closed a { color: var(--night-text); }
+.board .stamp { font-size: 13px; color: var(--night-muted); margin-top: 22px; }
+
+/* the morning: the walk and the concierge */
+.morning { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(30px, 5vw, 80px); align-items: start; }
+.map svg { width: 100%; height: auto; }
+.map .ring { fill: none; stroke: var(--line-2); }
+.map .rl { fill: var(--faint); font: 12px var(--font); }
+.map .home { fill: var(--fig); }
+.map .hl { fill: var(--text); font: 700 14px var(--font); }
+.map .p circle { fill: var(--bg); stroke: var(--text); stroke-width: 1.2; transition: fill .4s; }
+.map .p text { fill: var(--text); font: 700 12px var(--font); pointer-events: none; }
+.map .p.on circle { fill: var(--fig); stroke: var(--fig); }
+.map .p.on text { fill: var(--bg); }
+.places { margin-top: 18px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 24px; }
+.places button { display: grid; grid-template-columns: 2em minmax(0, 1fr); text-align: left; gap: 2px 8px; padding: 9px 0; border: 0; border-top: 1px solid var(--line); background: none; font-size: 15px; min-height: 44px; }
+.places button span:first-child { font-weight: 700; grid-row: span 2; }
+.places button small { color: var(--faint); font-size: 13px; }
+.places button[aria-pressed="true"] { color: var(--fig); }
+.desk { background: var(--card); padding: clamp(24px, 3vw, 40px); }
+.desk h3 { font-size: 40px; }
+.desk ul { margin-top: 18px; border-top: 1px solid var(--line); }
+.desk li label { display: flex; justify-content: space-between; align-items: center; gap: 14px; padding: 13px 0; border-bottom: 1px solid var(--line); cursor: pointer; font-size: 17px; min-height: 48px; }
+.desk input { width: 22px; height: 22px; accent-color: var(--fig); }
+.msg { margin-top: 22px; background: #DCF8C6; color: #111; padding: 14px 16px 22px; font-size: 15.5px; line-height: 1.45; position: relative; max-width: 440px; margin-left: auto; box-shadow: 0 1px 1px rgba(0,0,0,.08); }
+.msg time { position: absolute; right: 12px; bottom: 6px; font-size: 11px; color: #667; }
+.msg-k { font-size: 13px; color: var(--faint); margin-top: 22px; text-align: right; }
+
+/* the house: every page and the question it answers */
+.house { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 clamp(20px, 3vw, 44px); }
+.house a { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 14px; padding: 18px 0; border-top: 1px solid var(--line); text-decoration: none; min-height: 44px; }
+.house a span { font: 600 25px/1.1 var(--display); }
+.house a small { grid-column: 1 / -1; color: var(--muted); font-size: 15px; }
+.house a em { font-style: normal; font-size: 13px; color: var(--fig); align-self: center; }
+.house a:hover span { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; }
+
+/* three cards on three pillows: the plans */
+.laptops { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; margin-bottom: 30px; }
+.laptops img { width: 100%; height: auto; border: 1px solid var(--line); }
+.plans { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; align-items: end; }
+.plan { background: var(--card); padding: 30px 28px 28px; position: relative; display: flex; flex-direction: column; box-shadow: 0 30px 50px -44px rgba(29,24,16,.6); }
+.plan::before { content: ""; position: absolute; left: 0; right: 0; top: 6px; height: 1px; background: var(--fig); box-shadow: 0 4px 0 var(--fig); }
+.plan:nth-child(1) { min-height: 380px; } .plan:nth-child(2) { min-height: 450px; } .plan:nth-child(3) { min-height: 540px; }
+.plan h3 { font-size: 42px; margin-top: 10px; }
+.plan .price { font: 600 30px/1.1 var(--display); margin-top: 10px; }
+.plan .price small { font: 400 15px var(--font); color: var(--muted); }
+.plan ul { margin-top: 18px; font-size: 16px; }
+.plan li { padding: 6px 0; border-top: 1px solid var(--line); }
+.plan .pages { margin-top: auto; padding-top: 18px; font-size: 14px; color: var(--muted); }
+
+/* lights out: the numbers */
+.out { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 clamp(20px, 3vw, 44px); }
+.out div { border-top: 1px solid var(--line); padding: 22px 0 30px; }
+.out b { display: block; font: 600 clamp(56px, 7vw, 104px)/.9 var(--display); }
+.out span { display: block; margin-top: 12px; color: var(--muted); max-width: 30ch; font-size: 16px; }
+
+/* close */
+.close { position: relative; min-height: 78vh; display: grid; align-items: end; overflow: hidden; background: var(--night); color: var(--night-text); }
+.close > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .55; }
+.close::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(22,21,15,.96) 10%, rgba(22,21,15,.6) 55%, rgba(22,21,15,.2)); }
+.close .wrap { position: relative; z-index: 1; width: 100%; padding: 140px 0 clamp(54px, 7vw, 96px); }
+.close h2 { font-size: clamp(56px, 8.4vw, 132px); max-width: 11ch; }
+.close p { margin-top: 22px; max-width: 50ch; color: var(--night-muted); }
+.close .acts { display: flex; flex-wrap: wrap; gap: 18px 30px; align-items: center; margin-top: 30px; }
+.close .btn { background: var(--night-text); color: var(--night); }
+.close .mail { display: block; margin-top: 22px; font-size: 15px; color: var(--night-muted); }
+footer { padding-top: 32px; padding-bottom: 40px; background: var(--night); color: var(--night-muted); }
+footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; font-size: 13px; max-width: 1440px; }
+footer p { max-width: 112ch; }
+
+@media (max-width: 960px) {
+  .part-head, .duo, .porter, .morning, .intro .wrap { grid-template-columns: minmax(0, 1fr); }
+  .house, .out { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .laptops { grid-template-columns: minmax(0, 1fr); }
+  .laptops img:not(:last-child) { display: none; }
+  .plans { grid-template-columns: minmax(0, 1fr); }
+  .plan:nth-child(n) { min-height: 0; }
+}
+@media (max-width: 760px) {
+  .pillow-pic { aspect-ratio: 4 / 5; max-height: none; }
+  .card { padding: 30px 26px 24px; }
+  .day, .hours { grid-template-columns: minmax(0, 1fr) auto; }
+  .day .strip, .hours > div:nth-child(2) { grid-column: 1 / -1; grid-row: 2; }
+  .hours > div:first-child, .hours > div:last-child { display: none; }
+  .board ul { grid-template-columns: minmax(0, 1fr); }
+  .places { grid-template-columns: minmax(0, 1fr); }
+  .house, .out { grid-template-columns: minmax(0, 1fr); }
+  .stills figure:nth-child(n+3) { display: none; }
+  footer .wrap { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="sfbar gut"><div class="wrap">
+  <a class="wm" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su" aria-label="Sitefloor home">sitefl<svg width="28" height="14" viewBox="0 0 42 21" aria-hidden="true"><rect x="1.9" y="1.9" width="38.2" height="17.2" rx="8.6" fill="none" stroke="#0E0F11" stroke-width="3.8"/><circle cx="31.5" cy="10.5" r="5.2" fill="#E8613C"/></svg>r</a>
+  <nav aria-label="Main"><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#live">Features</a><a href="#top" aria-current="page">Work</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#pricing">Pricing</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#guides">Guides</a></nav>
+  <a class="sfbtn" href="#mockup"><span>Free mockup</span><span aria-hidden="true">→</span></a>
+</div></div>
+
+<main id="top">
+
+<!-- ================================================================ the pillow -->
+<section class="pillow" aria-label="The turndown card">
+  <div class="pillow-pic" data-pic>
+    <picture>
+      <source media="(max-width: 760px)" srcset="media/turndown-phone.webp" width="1080" height="1350">
+      <img src="media/turndown.webp" width="2000" height="1125" alt="From above: turned-down ivory linen in lamplight, a cream card on the sheet and a chocolate in green foil beside it" fetchpriority="high" decoding="async">
+    </picture>
+    <div class="card" data-card aria-live="polite">
+      <svg class="mono" viewBox="0 0 30 46" aria-hidden="true"><rect x="1" y="1" width="28" height="44" rx="14" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="15" cy="8" r="2.2" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M19.2 20.4c-.8-1.4-2.3-2.1-4.2-2.1-2.4 0-4 1.4-4 3.2 0 4.2 8.4 2.7 8.4 7 0 1.9-1.8 3.3-4.3 3.3-2 0-3.6-.8-4.5-2.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <p class="hello">Good evening.</p>
+      <div class="lines" data-lines><p>Four West is free.</p></div>
+      <p class="sign">Sevrell, Weymouth Street</p>
+    </div>
+    <p class="pillow-note">A render. The card's words are worked out now, by the demo's own rules, for today.</p>
+  </div>
+</section>
+<div class="choose gut"><div class="wrap">
+  <div class="chips" role="group" aria-label="Which home" data-pick-home></div>
+  <div class="chips" role="group" aria-label="How long" data-pick-stay></div>
+</div></div>
+
+<section class="intro gut" aria-labelledby="h-top">
+  <div class="wrap">
+    <h1 id="h-top">Sevrell</h1>
+    <div>
+      <p>A website for a residence run like a hotel. Every price is the whole price, before anyone asks.</p>
+      <div class="acts"><a class="btn" href="https://sitefloor1.github.io/sitefloor-templates/residences/">Open the demo</a><a href="#mockup">Get a free mockup</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ the bill -->
+<section class="part gut" id="bill" aria-labelledby="h-bill">
+  <div class="wrap">
+    <div class="part-head"><h2 id="h-bill">The bill, folded inside.</h2><p>Three nights to a long let, one figure with everything in it, and the sum shown. Nothing is added at the end.</p></div>
+    <div class="duo">
+      <div class="bill">
+        <div class="chips" role="group" aria-label="Which home" data-bill-home></div>
+        <label for="bill-len">Length of stay: <b data-bill-lenv>14 nights</b></label>
+        <input id="bill-len" type="range" min="0" max="6" step="1" value="2" data-bill-len>
+        <div class="ticks" aria-hidden="true"><span>3</span><span>7</span><span>14</span><span>30</span><span>60</span><span>89 nights</span><span>Long let</span></div>
+        <div class="sum" data-bill-sum aria-live="polite"></div>
+      </div>
+      <div class="stills">
+        <figure><img src="media/ph-home.webp" width="780" height="1688" alt="The Sevrell home page on a phone: the suite photograph and the stay bar at 14 nights, £9,180" loading="lazy" decoding="async"><figcaption>14 nights, on the home page</figcaption></figure>
+        <figure><img src="media/ph-long.webp" width="780" height="1688" alt="The stay bar on a phone at Long let: £7,950 a month, with the tenancy wording and its GOV.UK links" loading="lazy" decoding="async"><figcaption>A long let, by the month</figcaption></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ the curtains -->
+<section class="part gut" id="curtains" aria-labelledby="h-curtains">
+  <div class="wrap">
+    <div class="part-head"><h2 id="h-curtains">The curtains.</h2><p>When the sun reaches each home's windows, worked out for the day from the sun's position over Marylebone and the way the windows face. No shade counted.</p></div>
+    <div class="chips curtain-chips" role="group" aria-label="Which day" data-pick-day></div>
+    <div class="days" data-days aria-live="polite"></div>
+    <div class="hours" aria-hidden="true"><div></div><div><span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span><span>24:00</span></div><div></div></div>
+  </div>
+</section>
+
+<!-- ================================================================ the night porter -->
+<section class="part night gut" id="porter" aria-labelledby="h-porter">
+  <div class="wrap">
+    <div class="part-head"><h2 id="h-porter">The night porter.</h2><p>Every row of the residence's sheet is checked by its own date. If one is late, nothing is shown as free and the page says to ask.</p></div>
+    <div class="porter">
+      <div class="board">
+        <div class="chips" role="group" aria-label="The sheet" data-pick-sheet></div>
+        <div data-board aria-live="polite"></div>
+      </div>
+      <div class="stills">
+        <figure><img src="media/ph-stale.webp" width="780" height="1688" alt="The Sevrell home page on a phone with a late sheet: no homes listed, and a line asking visitors to message or call" loading="lazy" decoding="async"><figcaption>The demo, with its sheet three days old</figcaption></figure>
+        <figure><img src="media/ph-fees.webp" width="780" height="1688" alt="The Fees and terms page on a phone" loading="lazy" decoding="async"><figcaption>Fees and terms, on every plan</figcaption></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ the morning -->
+<section class="part gut" id="morning" aria-labelledby="h-morning">
+  <div class="wrap">
+    <div class="part-head"><h2 id="h-morning">In the morning.</h2><p>The walk from the door, on rings of minutes, and a message to the concierge that writes itself.</p></div>
+    <div class="morning">
+      <div class="map">
+        <svg viewBox="0 0 560 560" role="img" aria-labelledby="map-t" data-map><title id="map-t">Places near Sevrell, on rings of walking time</title></svg>
+        <div class="places" data-places></div>
+        <p class="fine" style="margin-top:14px">Times marked "about" are estimated from the distance, as the demo does: straight line, allowing for streets.</p>
+      </div>
+      <div class="desk">
+        <h3>Before you arrive</h3>
+        <ul data-desk></ul>
+        <div class="msg" data-msg aria-live="polite"><span data-msg-text></span><time data-msg-time></time></div>
+        <p class="msg-k">As the concierge receives it, on WhatsApp.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ the house -->
+<section class="part gut" id="house" aria-labelledby="h-house">
+  <div class="wrap">
+    <div class="part-head"><h2 id="h-house">The whole house.</h2><p>Twenty-three pages in all. These are the ones a guest or a tenant reads before getting in touch, each the answer to one question.</p></div>
+    <div class="house" data-house></div>
+  </div>
+</section>
+
+<!-- ================================================================ the plans -->
+<section class="part gut" id="plans" aria-labelledby="h-plans">
+  <div class="wrap">
+    <div class="part-head"><h2 id="h-plans">Three cards, three pillows.</h2><p>The same design on every plan. Each card says what it adds.</p></div>
+    <div class="laptops">
+      <img src="media/lt-starter.webp" width="1440" height="900" alt="The Sevrell home page on Starter: the letterhead and the suite photograph, without the stay bar" loading="lazy" decoding="async">
+      <img src="media/lt-plus.webp" width="1440" height="900" alt="The Sevrell home page on Plus" loading="lazy" decoding="async">
+      <img src="media/lt-signature.webp" width="1440" height="900" alt="The Sevrell home page on Signature, with the stay bar docked under the photograph" loading="lazy" decoding="async">
+    </div>
+    <div class="plans">
+      <article class="plan"><h3>Starter</h3><p class="price">£99 <small>then £25 a month</small></p>
+        <ul><li>Your name as the letterhead, over your own suite</li><li>Today's free homes from your own sheet, each with its date and its price, all in</li><li>A viewing, in person or on a video call</li><li>Fees and terms, with your redress scheme</li></ul>
+        <p class="pages">Home, Book a viewing, Fees and terms, Finding us</p></article>
+      <article class="plan"><h3>Plus</h3><p class="price">£199 <small>then £30 a month</small></p>
+        <ul><li>Everything on Starter</li><li>Residences, filtered by stay, bedrooms and date</li><li>Quiet notes on every home</li><li>Send this quote</li><li>Short lets, long lets, what serviced means, arriving, areas, about</li><li>Your own floor plans</li></ul>
+        <p class="pages">Up to five pages, including home</p></article>
+      <article class="plan"><h3>Signature</h3><p class="price">£349 <small>then £35 a month</small></p>
+        <ul><li>Everything on Plus</li><li>The stay bar: a few nights to a long let, every fee in the total</li><li>The sun on each home's windows</li><li>The neighbourhood, on rings of minutes</li><li>The concierge, before you arrive</li><li>Corporate relocations, landlords, the journal</li><li>Your own 3D tour</li></ul>
+        <p class="pages">Up to twenty pages</p></article>
+    </div>
+    <p class="fine" style="margin-top:18px">Every plan: a 12-month minimum, then month to month. Any feature can be added to any plan on its own.</p>
+  </div>
+</section>
+
+<!-- ================================================================ lights out -->
+<section class="part gut" id="numbers" aria-labelledby="h-numbers">
+  <div class="wrap">
+    <div class="part-head"><h2 id="h-numbers">Lights out.</h2><p>Measured on the demo.</p></div>
+    <div class="out">
+      <div><b>23</b><span>pages on Signature, each answering one question</span></div>
+      <div><b>£0</b><span>a month to run, beyond hosting and the domain: the homes come from the residence's own Google Sheet</span></div>
+      <div><b>15 KB</b><span>of JavaScript for the whole site, compressed</span></div>
+      <div><b>0.00003</b><span>layout shift on a phone while the home page loads</span></div>
+      <div><b>4</b><span>rules the site states, each linked to GOV.UK with the day it was checked</span></div>
+      <div><b>36 h</b><span>before a sheet that hasn't been touched hides every home</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ close -->
+<section class="close gut" id="mockup" aria-labelledby="h-close">
+  <img src="media/turndown-close.webp" width="1600" height="900" alt="" loading="lazy" decoding="async">
+  <div class="wrap">
+    <h2 id="h-close">Your building, made up for the night.</h2>
+    <p>Send us three photographs of your homes and the rates you charge. We'll make a free mockup of your home page, with your own suite on it.</p>
+    <div class="acts"><a class="btn" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#free">Get a free mockup</a><a href="https://sitefloor1.github.io/sitefloor-templates/residences/">Try the demo first</a></div>
+    <span class="mail">hello@sitefloor.com</span>
+  </div>
+</section>
+
+</main>
+
+<footer class="gut"><div class="wrap">
+  <p>Sevrell is a fictional residence made to show the Sitefloor residences kit. Its address, phone number, homes, prices, dates, services and the bearings of its windows are demo data; its homes sheet is simulated. The turndown on this page is a render, not a photograph. The screens are of the Sevrell demo; its photographs (Antonio Araujo, Dynamic Hong Kong, Bilal Mansuri, Vincent Yap, Daniel Stiel, Alex Wicks, Nisha Gurung, Neon Wang, Jennifer Latuperisa-Andresen, Unsplash) are credited in the demo. Tenancy rules: GOV.UK, checked 26 November 2026.</p>
+  <span>© 2026 Sitefloor</span>
+</div></footer>
+
+<script>
+(() => {
+  "use strict";
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const TZ = "Europe/London";
+  const DEMO = "https://sitefloor1.github.io/sitefloor-templates/residences/";
+
+  // ---- the kit's own rules and words (src/kits/residences/lib), unchanged
+  const RULES = {
+    checked: "2026-11-26",
+    rolling: { url: "https://www.gov.uk/guidance/renters-rights-act-overview-for-tenants" },
+    fees: { url: "https://www.gov.uk/government/publications/tenant-fees-act-amended-by-the-renters-rights-act-2025/tenant-fees-act-2019-statutory-guidance-for-enforcement-authorities", holdingWeeks: 1, depositWeeksBelow: 5, depositWeeksFrom: 6, depositThreshold: 50000 },
+    assuredLimit: 100000,
+  };
+  const ukDay = (ymd) => new Date(`${ymd}T12:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+  const pounds = (n) => `£${Math.round(n).toLocaleString("en-GB")}`;
+  function quote(h, stay) {
+    if (stay === "long") {
+      if (!h.long) return { kind: "none", why: "no-long" };
+      const year = h.rent * 12;
+      if (year > RULES.assuredLimit) return { kind: "none", why: "above-limit" };
+      const weekly = year / 52;
+      const depositWeeks = year >= RULES.fees.depositThreshold ? RULES.fees.depositWeeksFrom : RULES.fees.depositWeeksBelow;
+      return { kind: "long", rent: h.rent, weekly, holding: Math.floor(weekly * RULES.fees.holdingWeeks), deposit: Math.floor(weekly * depositWeeks), depositWeeks };
+    }
+    if (!h.short) return { kind: "none", why: "no-short" };
+    if (stay < h.minNights) return { kind: "none", why: "too-short" };
+    const total = h.night * stay + h.clean;
+    return { kind: "short", nights: stay, total, perNight: total / stay };
+  }
+  const noneText = (why, h) => why === "no-short" ? `${h.name} is let on a tenancy only.` : why === "no-long" ? `${h.name} is let by the night only.` : why === "too-short" ? `${h.name} has a ${h.minNights}-night minimum.` : "Ask us for the terms: at this rent it isn't an assured tenancy.";
+  const RAD = Math.PI / 180;
+  function solarAngles(ms, lat, lng) {
+    const jd = ms / 86400000 + 2440587.5, t = (jd - 2451545) / 36525;
+    const l0 = (280.46646 + t * (36000.76983 + t * 0.0003032)) % 360, m = 357.52911 + t * (35999.05029 - 0.0001537 * t);
+    const e = 0.016708634 - t * (0.000042037 + 0.0000001267 * t);
+    const c = Math.sin(m * RAD) * (1.914602 - t * (0.004817 + 0.000014 * t)) + Math.sin(2 * m * RAD) * (0.019993 - 0.000101 * t) + Math.sin(3 * m * RAD) * 0.000289;
+    const omega = 125.04 - 1934.136 * t, lambda = l0 + c - 0.00569 - 0.00478 * Math.sin(omega * RAD);
+    const eps0 = 23 + (26 + (21.448 - t * (46.815 + t * (0.00059 - t * 0.001813))) / 60) / 60, eps = eps0 + 0.00256 * Math.cos(omega * RAD);
+    const decl = Math.asin(Math.sin(eps * RAD) * Math.sin(lambda * RAD)), y = Math.tan((eps / 2) * RAD) ** 2;
+    const eqTime = 4 / RAD * (y * Math.sin(2 * l0 * RAD) - 2 * e * Math.sin(m * RAD) + 4 * e * y * Math.sin(m * RAD) * Math.cos(2 * l0 * RAD) - 0.5 * y * y * Math.sin(4 * l0 * RAD) - 1.25 * e * e * Math.sin(2 * m * RAD));
+    const d = new Date(ms), minutes = d.getUTCHours() * 60 + d.getUTCMinutes() + d.getUTCSeconds() / 60;
+    const trueSolar = (((minutes + eqTime + 4 * lng) % 1440) + 1440) % 1440;
+    const hourAngle = trueSolar / 4 < 0 ? trueSolar / 4 + 180 : trueSolar / 4 - 180;
+    const cosZen = Math.sin(lat * RAD) * Math.sin(decl) + Math.cos(lat * RAD) * Math.cos(decl) * Math.cos(hourAngle * RAD);
+    const zenith = Math.acos(Math.min(1, Math.max(-1, cosZen))), elevation = 90 - zenith / RAD;
+    const az = Math.acos(Math.min(1, Math.max(-1, (Math.sin(lat * RAD) * Math.cos(zenith) - Math.sin(decl)) / (Math.cos(lat * RAD) * Math.sin(zenith)))));
+    return { elevation, azimuth: hourAngle > 0 ? (az / RAD + 180) % 360 : (540 - az / RAD) % 360 };
+  }
+  // wall time in London to UTC (as src/core/lib/hours.js wallTimeToUtc)
+  function londonMidnight(ymd) {
+    const guess = Date.parse(`${ymd}T00:00:00Z`);
+    const p = Object.fromEntries(new Intl.DateTimeFormat("en-GB", { timeZone: TZ, hourCycle: "h23", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" }).formatToParts(guess).map((x) => [x.type, x.value]));
+    const asLocal = Date.parse(`${p.year}-${p.month}-${p.day}T${p.hour}:${p.minute}:00Z`);
+    return guess - (asLocal - guess);
+  }
+  const hm = (m) => `${String(Math.floor(m / 60)).padStart(2, "0")}:${String(m % 60).padStart(2, "0")}`;
+  const apart = (a, b) => Math.abs(((a - b + 540) % 360) - 180);
+  function sunWindow(faces, ymd, place) {
+    if (!faces.length) return null;
+    const start = londonMidnight(ymd); let on = -1, off = -1;
+    for (let m = 0; m < 1440; m += 5) { const s = solarAngles(start + m * 60000, place.lat, place.lng); if (s.elevation > 3 && faces.some((f) => apart(s.azimuth, f) < 80)) { if (on < 0) on = m; off = m; } }
+    return on < 0 ? null : { on, off };
+  }
+  function daylight(ymd, place) {
+    const start = londonMidnight(ymd); let up = -1, down = -1;
+    for (let m = 0; m < 1440; m += 5) { if (solarAngles(start + m * 60000, place.lat, place.lng).elevation > 0) { if (up < 0) up = m; down = m; } }
+    return { up, down };
+  }
+  const WALK = 80, DETOUR = 1.3;
+  const offset = (c, p) => ({ x: (p.lng - c.lng) * Math.cos(c.lat * RAD) * 111320, y: (p.lat - c.lat) * 110540 });
+  const walk = (c, p) => { const { x, y } = offset(c, p); return { minutes: Math.max(1, Math.ceil((Math.hypot(x, y) * DETOUR) / WALK)), about: true }; };
+  const layout = (c, places, size, ring) => { const half = size / 2, scale = (half * 0.92) / ((ring * WALK) / DETOUR); return places.map((p) => { const { x, y } = offset(c, p); return { ...p, ...walk(c, p), cx: Math.round(half + x * scale), cy: Math.round(half - y * scale) }; }); };
+
+  // ---- the demo's own sample homes, places and words (sites/demos/residences, src/demo/residences-provider.js)
+  const ymdLondon = (ms) => new Intl.DateTimeFormat("en-CA", { timeZone: TZ, year: "numeric", month: "2-digit", day: "2-digit" }).format(ms);
+  const NOW = Date.now(), TODAY = ymdLondon(NOW), D = 86400000;
+  const HOMES = [
+    { ref: "4W", name: "Four West", beds: 2, m2: 112, from: ymdLondon(NOW + 8 * D), short: true, long: true, night: 640, clean: 220, minNights: 3, rent: 7950, faces: [270] },
+    { ref: "5E", name: "Five East", beds: 2, m2: 118, from: "now", short: true, long: true, night: 690, clean: 220, minNights: 3, rent: 8300, faces: [135, 225] },
+    { ref: "2E", name: "Two East", beds: 1, m2: 64, from: "now", short: true, long: true, night: 495, clean: 160, minNights: 3, rent: 6450, faces: [90] },
+    { ref: "PH", name: "The Penthouse", beds: 3, m2: 214, from: ymdLondon(NOW + 16 * D), short: true, long: false, night: 1450, clean: 380, minNights: 4, rent: 0, faces: [90, 180, 270] },
+  ];
+  const PLACE = { lat: 51.5205, lng: -0.1485 };
+  const freeText = (from) => from === "now" ? "Free now" : `Free from ${new Date(`${from}T12:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "long", timeZone: "UTC" })}`;
+  const NUM = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen"];
+  const nightsWords = (n) => `${NUM[n] ?? n} nights`;
+  const tomorrow = ymdLondon(NOW + D);
+
+  // ---- the card on the pillow
+  const card = $("[data-card]"), pic = $("[data-pic]"), lines = $("[data-lines]");
+  const CORNERS = {
+    desk: [[0.58972, 0.36], [0.75777, 0.3914], [0.73286, 0.81277], [0.56481, 0.78137]],
+    phone: [[0.27648, 0.28104], [0.63826, 0.31146], [0.58463, 0.71966], [0.22285, 0.68924]],
+  };
+  // the card's 320 × 451 face mapped onto the card in the picture (a homography as a CSS matrix3d)
+  function fit() {
+    const set = matchMedia("(max-width: 760px)").matches ? CORNERS.phone : CORNERS.desk;
+    const W = pic.clientWidth, H = pic.clientHeight, w = 320, h = 451;
+    const img = $("img", pic); const nat = matchMedia("(max-width: 760px)").matches ? [1080, 1350] : [2000, 1125];
+    // object-fit: cover: the picture's scale and offset in its box
+    const s = Math.max(W / nat[0], H / nat[1]), ox = (W - nat[0] * s) / 2, oy = (H - nat[1] * s) / 2;
+    const q = set.map(([x, y]) => [ox + x * nat[0] * s, oy + y * nat[1] * s]);
+    const [[x0, y0], [x1, y1], [x2, y2], [x3, y3]] = q;
+    const dx1 = x1 - x2, dx2 = x3 - x2, dy1 = y1 - y2, dy2 = y3 - y2, sx = x0 - x1 + x2 - x3, sy = y0 - y1 + y2 - y3;
+    const den = dx1 * dy2 - dx2 * dy1, g = (sx * dy2 - dx2 * sy) / den, hh = (dx1 * sy - sx * dy1) / den;
+    const a = x1 - x0 + g * x1, b = x3 - x0 + hh * x3, c = x0, d = y1 - y0 + g * y1, e = y3 - y0 + hh * y3, f = y0;
+    const m = [a / w, d / w, 0, g / w, b / h, e / h, 0, hh / h, 0, 0, 1, 0, c, f, 0, 1];
+    card.style.transform = `matrix3d(${m.join(",")})`;
+    void img;
+  }
+  let pick = { ref: "4W", stay: 14 };
+  function cardWords() {
+    const h = HOMES.find((x) => x.ref === pick.ref);
+    const out = [`<p>${esc(h.name)} is ${h.from === "now" ? "free tonight" : `free from ${esc(freeText(h.from).replace("Free from ", ""))}`}.</p>`];
+    const q = quote(h, pick.stay);
+    if (q.kind === "short") out.push(`<p><b>${pounds(q.total)}</b>${esc(nightsWords(q.nights))}, everything in.</p>`);
+    else if (q.kind === "long") out.push(`<p><b>${pounds(q.rent)} a month</b>a rolling tenancy, rent only.</p>`);
+    else out.push(`<p>${esc(noneText(q.why, h))}</p>`);
+    const w = sunWindow(h.faces, tomorrow, PLACE);
+    out.push(`<p>${w ? `Sun on its windows tomorrow, ${hm(w.on)} to ${hm(w.off)}.` : "No direct sun on its windows tomorrow."}</p>`);
+    return out.join("");
+  }
+  let swap = 0;
+  function drawCard() { lines.classList.add("out"); clearTimeout(swap); swap = setTimeout(() => { lines.innerHTML = cardWords(); lines.classList.remove("out"); }, 300); }
+  const chip = (label, on) => `<button type="button" aria-pressed="${on}">${esc(label)}</button>`;
+  function chipsGroup(el, items, current, onPick) {
+    el.innerHTML = items.map((it) => chip(it.label, it.value === current)).join("");
+    $$("button", el).forEach((b, i) => b.addEventListener("click", () => { $$("button", el).forEach((x, j) => x.setAttribute("aria-pressed", String(i === j))); onPick(items[i].value); }));
+  }
+  chipsGroup($("[data-pick-home]"), HOMES.map((h) => ({ label: h.name, value: h.ref })), pick.ref, (v) => { pick.ref = v; drawCard(); });
+  chipsGroup($("[data-pick-stay]"), [3, 7, 14, 30, "long"].map((n) => ({ label: n === "long" ? "Long let" : `${n} nights`, value: n })), pick.stay, (v) => { pick.stay = v; drawCard(); });
+  lines.innerHTML = cardWords();
+  fit(); addEventListener("resize", fit); $("img", pic).addEventListener("load", fit);
+
+  // ---- the bill
+  const STOPS = [3, 7, 14, 30, 60, 89, "long"];
+  let billRef = "4W";
+  const len = $("[data-bill-len]"), sum = $("[data-bill-sum]");
+  const gov = (url) => `<a href="${url}" rel="noopener" target="_blank">GOV.UK</a>, checked ${ukDay(RULES.checked)}`;
+  function drawBill() {
+    const h = HOMES.find((x) => x.ref === billRef), stay = STOPS[+len.value], q = quote(h, stay);
+    $("[data-bill-lenv]").textContent = stay === "long" ? "Long let" : `${stay} nights`;
+    if (q.kind === "short") sum.innerHTML = `<div class="row"><span>${q.nights} nights at ${pounds(h.night)}, service and VAT in it</span><span>${pounds(h.night * q.nights)}</span></div><div class="row"><span>The final clean, once</span><span>${pounds(h.clean)}</span></div><div class="row total"><span>${esc(h.name)}, ${q.nights} nights</span><span>${pounds(q.total)}</span></div><p class="note">${pounds(Math.ceil(q.perNight))} a night, all in. Sample figures from the demo.</p>`;
+    else if (q.kind === "long") sum.innerHTML = `<div class="row"><span>Holding deposit, at most one week</span><span>${pounds(q.holding)}</span></div><div class="row"><span>Refundable deposit, at most ${q.depositWeeks} weeks</span><span>${pounds(q.deposit)}</span></div><div class="row total"><span>${esc(h.name)}, rent</span><span>${pounds(q.rent)} a month</span></div><p class="note">A rolling tenancy with no end date, so it's priced by the month (${gov(RULES.rolling.url)}). Only the payments the Tenant Fees Act permits can be charged (${gov(RULES.fees.url)}).</p>`;
+    else sum.innerHTML = `<div class="row total"><span>${esc(noneText(q.why, h))}</span><span></span></div>`;
+  }
+  chipsGroup($("[data-bill-home]"), HOMES.map((h) => ({ label: h.name, value: h.ref })), billRef, (v) => { billRef = v; drawBill(); });
+  len.addEventListener("input", drawBill); drawBill();
+
+  // ---- the curtains
+  const year = Number(TODAY.slice(0, 4));
+  const DAYS = [{ label: "Today", value: TODAY }, { label: "21 June", value: `${year}-06-21` }, { label: "21 December", value: `${year}-12-21` }];
+  let day = TODAY;
+  function drawDays() {
+    const dl = daylight(day, PLACE), pc = (m) => `${(m / 1440 * 100).toFixed(2)}%`;
+    $("[data-days]").innerHTML = HOMES.map((h) => {
+      const w = sunWindow(h.faces, day, PLACE);
+      const faces = h.faces.map((f) => ({ 90: "east", 135: "south-east", 180: "south", 225: "south-west", 270: "west" }[f])).join(", ");
+      return `<div class="day"><div><b>${esc(h.name)}</b><small>Windows face ${faces}</small></div>
+        <div class="strip" role="img" aria-label="${esc(h.name)}: ${w ? `sun on the windows from ${hm(w.on)} to ${hm(w.off)}` : "no direct sun"}">
+          ${[6, 12, 18].map((x) => `<i style="left:${x / 24 * 100}%"></i>`).join("")}
+          <span class="dark" style="left:0;width:${pc(dl.up)}"></span><span class="dark" style="left:${pc(dl.down)};width:${pc(1440 - dl.down)}"></span>
+          ${w ? `<span class="lit" style="left:${pc(w.on)};width:${pc(w.off - w.on)}"></span>` : ""}</div>
+        <p class="when">${w ? `${hm(w.on)} to ${hm(w.off)}` : "No direct sun"}</p></div>`;
+    }).join("");
+  }
+  chipsGroup($("[data-pick-day]"), DAYS, day, (v) => { day = v; drawDays(); }); drawDays();
+
+  // ---- the night porter
+  const board = $("[data-board]");
+  const stampText = (ms) => new Intl.DateTimeFormat("en-GB", { timeZone: TZ, weekday: "long", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).format(ms);
+  function morningStamp() { const t = londonMidnight(TODAY) + (9 * 60 + 15) * 60000; return t <= NOW ? t : londonMidnight(ymdLondon(NOW - D)) + (17 * 60 + 40) * 60000; }
+  function drawBoard(late) {
+    if (!late) board.innerHTML = `<ul>${HOMES.map((h) => `<li><b>${esc(h.name)}</b><span>${esc(freeText(h.from))} · ${h.beds} bedroom${h.beds > 1 ? "s" : ""} · ${h.m2} m²</span></li>`).join("")}</ul><p class="stamp">Every row updated ${esc(stampText(morningStamp()))}.</p>`;
+    else board.innerHTML = `<p class="closed">For today's homes, <a href="${DEMO}#stale">ask us on WhatsApp</a> or call 020 7946 0627.</p><p class="stamp">One row last updated ${esc(stampText(londonMidnight(ymdLondon(NOW - 3 * D)) + (17 * 60 + 40) * 60000))}: more than 36 hours ago, so nothing is shown as free.</p>`;
+  }
+  chipsGroup($("[data-pick-sheet]"), [{ label: "This morning's sheet", value: false }, { label: "A sheet three days old", value: true }], false, drawBoard); drawBoard(false);
+
+  // ---- the morning: the walk and the concierge
+  const CENTRE = { lat: 51.5205, lng: -0.1485 };
+  const PLACES = [
+    { name: "Regent's Park", kind: "Park", lat: 51.5248, lng: -0.1497 },
+    { name: "Marylebone High Street", kind: "Shops", lat: 51.5199, lng: -0.1515 },
+    { name: "Regent's Park station", kind: "Bakerloo line", lat: 51.5234, lng: -0.1466 },
+    { name: "Great Portland Street station", kind: "Three Underground lines", lat: 51.5238, lng: -0.1439 },
+    { name: "Baker Street station", kind: "Five Underground lines", lat: 51.5226, lng: -0.1571 },
+    { name: "Wigmore Hall", kind: "Concerts", lat: 51.5170, lng: -0.1495 },
+    { name: "Paddington Street Gardens", kind: "Garden", lat: 51.5208, lng: -0.1546 },
+    { name: "Oxford Circus", kind: "Shops and the Central line", lat: 51.5152, lng: -0.1419 },
+  ];
+  const pts = layout(CENTRE, PLACES, 560, 15);
+  $("[data-map]").insertAdjacentHTML("beforeend", [5, 10, 15].map((m) => { const r = Math.round(280 * 0.92 * m / 15); return `<circle class="ring" cx="280" cy="280" r="${r}"/><text class="rl" x="280" y="${280 - r + 16}" text-anchor="middle">${m} min</text>`; }).join("")
+    + `<circle class="home" cx="280" cy="280" r="9"/><text class="hl" x="280" y="306" text-anchor="middle">Sevrell</text>`
+    + pts.map((p, i) => `<g class="p" data-i="${i}"><circle cx="${p.cx}" cy="${p.cy}" r="14"/><text x="${p.cx}" y="${p.cy + 4}" text-anchor="middle">${i + 1}</text></g>`).join(""));
+  $("[data-places]").innerHTML = pts.map((p, i) => `<button type="button" aria-pressed="false" data-i="${i}"><span>${i + 1}</span><span>${esc(p.name)}</span><small>${esc(p.kind)} · about ${p.minutes} minute${p.minutes === 1 ? "" : "s"}' walk</small></button>`).join("");
+  $$("[data-places] button").forEach((b) => b.addEventListener("click", () => {
+    const on = b.getAttribute("aria-pressed") !== "true";
+    $$("[data-places] button").forEach((x) => x.setAttribute("aria-pressed", "false")); $$("[data-map] .p").forEach((g) => g.classList.remove("on"));
+    if (on) { b.setAttribute("aria-pressed", "true"); $(`[data-map] .p[data-i="${b.dataset.i}"]`).classList.add("on"); }
+  }));
+  const SERVICES = ["A car from the airport", "The fridge stocked", "A cot and a high chair", "A table for the first night", "Flowers in the drawing room"];
+  $("[data-desk]").innerHTML = SERVICES.map((s, i) => `<li><label><span>${esc(s)}</span><input type="checkbox" value="${esc(s.toLowerCase())}"${i < 2 ? " checked" : ""}></label></li>`).join("");
+  const arrive = ymdLondon(NOW + 8 * D);
+  function drawMsg() {
+    const picks = $$("[data-desk] input:checked").map((i) => i.value);
+    const list = picks.length > 1 ? `${picks.slice(0, -1).join(", ")} and ${picks.at(-1)}` : picks[0] ?? "";
+    const when = new Date(`${arrive}T12:00:00Z`).toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", timeZone: "UTC" });
+    $("[data-msg-text]").textContent = `Hello Sevrell concierge. I arrive on ${when} around 18:30.${list ? ` Could you arrange ${list}?` : ""} Thank you.`;
+    $("[data-msg-time]").textContent = new Intl.DateTimeFormat("en-GB", { timeZone: TZ, hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).format(NOW);
+  }
+  $("[data-desk]").addEventListener("change", drawMsg); drawMsg();
+
+  // ---- the house: every page and the question it answers
+  const PAGES = [
+    ["Home", "", "Which homes are free, and what will I pay, all in?", "Starter"],
+    ["Book a viewing", "viewing.html", "Can I see it first, in person or on a call?", "Starter"],
+    ["Fees and terms", "fees.html", "What's included, and who handles a complaint?", "Starter"],
+    ["Finding us", "visit.html", "Where's the front door?", "Starter"],
+    ["Residences", "residences.html", "Which homes suit my dates and my family?", "Plus"],
+    ["Short lets", "short-lets.html", "How does a stay by the night work?", "Plus"],
+    ["Long lets", "long-lets.html", "What can I be asked to pay on a tenancy?", "Plus"],
+    ["What serviced means", "serviced.html", "How often is it cleaned, and what's in the price?", "Plus"],
+    ["Arriving", "arriving.html", "What happens if I land at midnight?", "Plus"],
+    ["Areas", "areas.html", "What's Marylebone like to live in?", "Plus"],
+    ["About", "about.html", "Who runs the building?", "Plus"],
+    ["Concierge", "concierge.html", "Can someone stock the fridge before I land?", "Signature"],
+    ["Neighbourhood", "neighbourhood.html", "How far is the Tube, the park, a supermarket?", "Signature"],
+    ["Corporate relocations", "corporate.html", "Can my company pay?", "Signature"],
+    ["For landlords", "landlords.html", "What would you charge to look after my flat?", "Signature"],
+    ["Journal", "journal.html", "What should I know about renting in England?", "Signature"],
+  ];
+  $("[data-house]").innerHTML = PAGES.map(([t, href, q, plan]) => `<a href="${DEMO}${href}"><span>${esc(t)}</span><em>${plan}</em><small>${esc(q)}</small></a>`).join("");
+})();
+</script>
+</body>
+</html>
