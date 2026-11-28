@@ -90,3 +90,10 @@ test("invalid times are rejected", () => {
   assert.throws(() => toMinutes("24:00"));
   assert.throws(() => toMinutes("9:00"));
 });
+
+test("statusLabel gives the date, not a weekday, when the next opening is a week or more away", async () => {
+  const { statusLabel } = await import("../../src/core/lib/hours.js");
+  const now = { date: "2027-07-01", weekday: 4, minutes: 14 * 60 };
+  assert.equal(statusLabel({ open: false, closesAt: null, nextOpen: { date: "2027-07-10", weekday: 6, minutes: 11 * 60 }, note: null }, now), "Closed · opens 10 July at 11am");
+  assert.equal(statusLabel({ open: false, closesAt: null, nextOpen: { date: "2027-07-07", weekday: 3, minutes: 11 * 60 }, note: null }, now), "Closed · opens Wednesday at 11am");
+});

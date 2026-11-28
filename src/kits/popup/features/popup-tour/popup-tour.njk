@@ -1,0 +1,26 @@
+{#- The tour: every stop as a ticket and on the map, each with its own live state; choose one for its line and actions.
+    First painted for the build day; the script works the states out for the visitor's day. -#}
+{%- set T = site | popTour %}
+<section class="ptr" data-feature="popup-tour" aria-label="Tour dates"><div class="wrap ptr-in">
+  <ul class="ptr-tickets" data-tour-list>
+    {%- for s in T %}{% set st = s | popState(site) %}
+    <li><button type="button" class="ptr-t is-{{ st.kind }}" data-tour="{{ s.id }}" aria-pressed="{{ 'true' if loop.first else 'false' }}">
+      <b>{{ s.city }}</b><span class="ptr-d">{{ s.start | shortDate }} to {{ s.end | shortDate }}</span><span class="ptr-s" data-tour-state>{{ s | popStateWords(site) }}</span>
+    </button></li>
+    {%- endfor %}
+  </ul>
+  <figure class="ptr-map">
+    <svg viewBox="{{ gbMap.viewBox }}" role="img" aria-label="Map of Britain with the tour's stops">
+      <path class="ptr-land" d="{{ gbMap.path }}"/>
+      {%- for s in T %}{% set p = s | popProject %}<rect class="ptr-pin is-{{ (s | popState(site)).kind }}" data-pin="{{ s.id }}" x="{{ p.x - 8 }}" y="{{ p.y - 8 }}" width="16" height="16"/>{% endfor %}
+    </svg>
+    <figcaption class="sr-only">Map outline from Natural Earth.</figcaption>
+  </figure>
+  <div class="ptr-detail" data-tour-detail aria-live="polite"></div>
+  <template data-tour-actions>
+    <a class="btn" data-act="book" href="{{ ('book' | href) if 'popup-slots' | enabled else (site.messages.general | book) }}">Book a time</a>
+    <a class="btn" data-act="wait" href="{{ ('waitlist' | href) if 'popup-waitlist' | enabled else (site.messages.general | wa) }}">Tell me when it opens</a>
+    <a class="btn ghost" data-act="past" href="{{ ('past' | href) if 'popup-past' | enabled else '#' }}">See how it looked</a>
+    <button class="btn ghost" type="button" data-act="ics">Add to calendar</button>
+  </template>
+</div></section>

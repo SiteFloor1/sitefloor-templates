@@ -1,0 +1,9 @@
+{#- Press: only the brand's own, each with a link. Client-only: demos never carry invented press. -#}
+{%- set X = site.press %}
+<section class="pxl" data-feature="popup-press" aria-label="{{ X.title | plain }}"><div class="wrap">
+  <ul class="pxl-list">
+    {%- for x in X.items %}
+    <li><p class="pxl-k">{{ x.outlet }} · {{ x.date | longDate }}</p><h2><a href="{{ x.url }}" target="_blank" rel="noopener">{{ x.title }}</a></h2></li>
+    {%- endfor %}
+  </ul>
+</div></section>

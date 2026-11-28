@@ -391,6 +391,15 @@ This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` 
 |---|---|---|---|---|---|---|---|
 | Ottoline | reformer Pilates, new `pilates`, `dune` (built 30 Oct on `trade/pilates`) | morning sun in a plaster-and-arches studio: **bone and sand, light, warm** | a sun-baked dune | dune shadow #8A5D40 on bone #F4E8D8, crest #FBF4EA for cards and the bar | Noto Serif Display (light, italic) / Red Hat Text | one reformer photograph with today's next four classes along its foot, each drawn as the room's six reformers | (to come) |
 
+## Pop-up shops and brand experiences
+_From `docs/trades/pop-up/demo-map.md`._
+
+This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` (generated) before proposing a look.
+
+| Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
+|---|---|---|---|---|---|---|---|
+| Chalden | English sparkling-wine house's pop-up, `popup`, `capsule` | a brand launch in a railway arch, **chalk and ink, a printed invitation** | a ripe quince | quince #C08A1E on chalk #F3F1EC (text #7E5A0E) | Bona Nova / Inclusive Sans | the product lit in a tall dark slab beside a double-ruled invitation card: the dates, the place, the days left and whether it's open now | the invitation (one card per plan) |
+
 ## Luxury residences and hotel-grade rentals
 _From `docs/trades/residences/demo-map.md`._
 

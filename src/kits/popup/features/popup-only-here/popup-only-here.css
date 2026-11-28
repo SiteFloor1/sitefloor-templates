@@ -1,0 +1,8 @@
+/* Only here (popup-only-here). */
+.poh-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s3, 40px) var(--s2, 24px); }
+.poh-item img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; }
+.poh-p { display: flex; gap: 12px; align-items: baseline; }
+.poh-out { color: var(--accent-2); }
+.poh-item.is-out .poh-price { text-decoration: line-through; color: var(--muted); }
+.poh-state { color: var(--muted); min-height: 1.6em; margin: 0 0 var(--s2, 24px); }
+@media (max-width: 760px) { .poh-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 12px; } }

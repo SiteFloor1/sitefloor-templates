@@ -1,0 +1,10 @@
+{#- Bring us to your city: a city, sent to the brand's own form or as a WhatsApp message. No counts. -#}
+{%- set C = site.city %}
+<form class="pct" data-feature="popup-city" data-city-form{{ "popup-city" | tierAttr | safe }}>
+  <h3 class="pct-t">{{ C.title }}</h3>
+  {%- if C.formUrl %}
+  <p class="pct-acts"><a class="btn ghost" href="{{ C.formUrl }}" target="_blank" rel="noopener">Ask on our form</a></p>
+  {%- else %}
+  <p class="pct-row"><label for="pct-city" class="sr-only">Your city</label><input id="pct-city" name="city" required maxlength="40" autocomplete="address-level2" placeholder="Your city"><button class="btn ghost" type="submit">Ask on WhatsApp</button></p>
+  {%- endif %}
+</form>

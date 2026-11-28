@@ -1,0 +1,14 @@
+{#- Capsule footer: the responsible-drinking line (alcohol brands), the pages, how to reach the brand, the photo
+    credits and the Sitefloor credit, on one hairline. -#}
+<footer class="foot cp-foot"><div class="wrap">
+  {%- if site.alcohol %}<p class="cp-foot-drink">{{ site.alcohol.line }} <a href="{{ site.alcohol.href }}" rel="noopener" target="_blank">drinkaware.co.uk</a></p>{% endif %}
+  <div class="cp-foot-in">
+    <nav class="cp-foot-links" aria-label="Footer">
+      <a href="{{ 'index' | href }}">Home</a>
+      {%- for item in site.nav | navItems(pageId) %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}>{{ item.label }}</a>{% endfor %}
+      <a href="{{ 'privacy' | href }}">Privacy</a>
+    </nav>
+    <p class="cp-foot-c"><span data-live-status><span data-status-text>Opening hours</span></span><br><a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>{% if site.contact.phone %}<br><a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone }}</a>{% endif %}</p>
+  </div>
+  <p class="cp-foot-by"><a class="by" href="https://sitefloor.com" rel="noopener">Website by Sitefloor</a></p>
+</div></footer>
