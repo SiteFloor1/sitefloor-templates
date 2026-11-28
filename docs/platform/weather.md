@@ -14,9 +14,9 @@ A kit lists the places its forecast features read in `kit.js` → `weather(site)
 kit adds: no CSP change (the page only calls its own site), and the privacy page says where forecasts come from.
 
 **No visitor's browser calls MET.** On a client site the browser asks the site's own `/weather`. The function keeps
-MET's answer in Cloudflare's cache until MET's `Expires` (1 minute to 1 hour), so one call to MET serves every visitor
+MET's answer in Cloudflare's cache until MET's `Expires` (at least 1 minute), so one call to MET serves every visitor
 of that site in that data centre; a refresh asks with `If-Modified-Since`. When MET can't be reached, the last answer
-(kept 6 hours) is served; past that, the page shows no forecast. The cache does nothing on `*.pages.dev` previews (each
+(kept 6 hours) is served and MET is asked at most once a minute; past that, the page shows no forecast. The cache does nothing on `*.pages.dev` previews (each
 visit there asks MET), which is fine at preview traffic.
 
 **Demos** (GitHub Pages runs no functions) show the copy the daily rebuild fetched, labelled "fetched 04:23 today".

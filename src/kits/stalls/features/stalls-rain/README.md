@@ -7,7 +7,7 @@
 | Config | `rain` { `source`: "forecast" }; `lat` and `lon` on each market in `stops.places` |
 
 On the day of a stop, and the day before, one line under the next stop: "Rain forecast from 15:00." (the first hour
-in the stop's hours with 0.2 mm or more), or "Dry, by the forecast.", followed by the credit the licence asks for:
+in the stop's hours with 0.1 mm or more, light rain as MET's Yr app counts it), or "Dry, by the forecast.", followed by the credit the licence asks for:
 "MET Norway (CC BY 4.0), updated 08:00." (both linked). From MET Norway's forecast through the shared weather function
 (`src/core/js/weather.js`, `functions/weather.js`): the visitor's browser only calls the site's own `/weather`. A demo
 reads the copy its daily rebuild fetched, and says "fetched 04:23 today" instead.

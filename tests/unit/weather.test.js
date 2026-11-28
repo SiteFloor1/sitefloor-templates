@@ -82,6 +82,9 @@ test("/weather: a refresh asks If-Modified-Since; MET down serves the kept answe
   const kept = await e.ask("?place=kirkgate");
   assert.equal(kept.status, 200);
   assert.equal(kept.headers.get("cache-control"), "public, max-age=60");
+  const calls = e.calls.length;
+  assert.equal((await e.ask("?place=kirkgate")).status, 200);
+  assert.equal(e.calls.length, calls, "while MET is down it is asked at most once a minute");
   e.store.clear();
   assert.equal((await e.ask("?place=kirkgate")).status, 503);
 });
@@ -93,7 +96,7 @@ test("/weather answers only for the site's own places", async () => {
   assert.equal((await e.ask("")).status, 400);
   assert.equal(e.calls.length, 0);
   assert.equal(ttlFrom(null, NOW), 60);
-  assert.equal(ttlFrom("Sat, 28 Nov 2026 12:00:00 GMT", NOW), 3600);
+  assert.equal(ttlFrom("Sat, 28 Nov 2026 12:00:00 GMT", NOW), 10800, "no cap: never before MET's Expires");
 });
 
 test("the build writes a client's places, and a demo's forecast only when asked to fetch", async () => {
