@@ -28,10 +28,7 @@
       <p class="nu-no">You pay</p>
       <p class="nu-total"><span data-nu-total>{{ w.cost.month | nPounds }}</span> <small>a month</small></p>
       <dl class="nu-kv" data-nu-sum>
-        <dt>Booked</dt><dd>{{ w.words.booked }} hours a week</dd>
-        <dt>Funded, free</dt><dd>{{ w.words.funded }} hours a week</dd>
-        <dt>Paid, {{ site.fees.rate | nPounds }} an hour</dt><dd>{{ w.words.paid }} hours a week</dd>
-        <dt>{{ site.fees.weeksOpen }} weeks a year</dt><dd>in 12 equal months</dd>
+        {%- for r in w.rows %}<dt>{{ r[0] }}</dt><dd>{{ r[1] }}</dd>{% endfor %}
       </dl>
       <p class="nu-opt-line" data-nu-optional>{{ w.optional }}</p>
       {%- if not site.funding.stretched %}<p class="nu-fine">Funded hours are used in term time only; the year's fees are split into 12 equal months.</p>{% endif %}

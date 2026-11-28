@@ -82,6 +82,13 @@ test("the week's fees take funded hours off as gov.uk sets them, spread over the
   const c = weekCost(FEES, ["am", "off", "off", "off", "off"], 30);
   assert.equal(c.funded, 5);
   assert.equal(c.month, 0);
+  // Term time only (NU-01): up to the funded hours off in each of 38 weeks, the other 13 weeks paid in full.
+  const t = weekCost({ ...FEES, stretched: false }, ["full", "full", "off", "full", "off"], 30);
+  assert.equal(t.termOnly, true);
+  assert.equal(t.funded, 30);
+  assert.equal(t.fullWeeks, 13);
+  assert.equal(pounds(weekCost({ rate: 9.5, weeksOpen: 51, sessions: { x: { hours: 25 } }, stretched: false }, ["x"], 30).month), "£257.29");
+  assert.equal(pounds(weekCost({ rate: 9.5, weeksOpen: 51, sessions: { x: { hours: 25 } } }, ["x"], 30).month), "£106.88");
   assert.equal(pounds(1413.13), "£1,413.13");
   assert.equal(pounds(1413), "£1,413");
   assert.deepEqual(FUNDING_BY_BAND[0], [0]);
@@ -97,8 +104,12 @@ test("funding starts the term after the age is reached (gov.uk)", () => {
   assert.equal(ageDate("2026-05-31", 9), "2027-03-01"); // no 31 February: the 1st after
   assert.equal(ageDate("2024-02-29", 36), "2027-03-01");
   const f = fundingStart("2026-05-14", "2026-11-26");
-  assert.deepEqual(f, { working: { date: "2027-04-01", started: false }, universal: { date: "2029-09-01", started: false } });
+  assert.deepEqual(f, { working: { date: "2027-04-01", started: false, before: false }, universal: { date: "2029-09-01", started: false, before: false } });
   assert.equal(fundingStart("2020-01-01", "2026-11-26"), null); // school age
+  // A start worked out before the working families' hours existed (April 2024) carries no "since" date (NU-03).
+  const old = fundingStart("2021-12-01", "2026-11-26");
+  assert.equal(old?.working.before, true);
+  assert.equal(fundingStart("2026-05-14", "2026-11-26")?.working.before, false);
   assert.equal(fundingStart("not a date", "2026-11-26"), null);
 });
 

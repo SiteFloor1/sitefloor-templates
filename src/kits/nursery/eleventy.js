@@ -1,8 +1,8 @@
 // @ts-check
 /** Nursery kit additions to the shared Eleventy setup: home sections, and the words for dates, times, months and fees. */
 import { HOME_PARTS } from "./home.js";
-import { dateWords, timeWords, monthsAhead, monthWords, pounds, upcoming, visitSlots, closedDays, weekCost, hoursWords, DAY_NAMES } from "./lib/nursery.js";
-import { weekQuote, weekOptional } from "./features/nursery-week/week-words.js";
+import { dateWords, timeWords, monthsAhead, monthWords, pounds, upcoming, visitSlots, closedDays, weekCost, DAY_NAMES } from "./lib/nursery.js";
+import { weekQuote, weekOptional, weekRows } from "./features/nursery-week/week-words.js";
 
 const PER = { hour: "an hour", session: "a session", day: "a day", week: "a week", month: "a month", "one-off": "once" };
 
@@ -23,13 +23,13 @@ export default function nurseryKit(eleventyConfig) {
   // The week tool's example, as first built: nine months to two, three full days, 30 funded hours.
   eleventyConfig.addFilter("nWeekStart", (/** @type {any} */ site) => {
     const days = ["full", "full", "off", "full", "off"];
-    const f = { ...site.fees, message: site.week.message };
+    const f = { ...site.fees, stretched: site.funding.stretched, message: site.week.message };
     const cost = weekCost(f, days, 30);
     const names = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
     return {
       band: 1, funded: 30, cost,
       days: days.map((s, i) => ({ s, short: names[i].slice(0, 3), name: names[i], word: s === "off" ? "Off" : site.fees.sessions[s].label })),
-      words: { booked: hoursWords(cost.booked), funded: hoursWords(cost.funded), paid: hoursWords(cost.paid) },
+      rows: weekRows(cost, f),
       optional: weekOptional(site.fees.extras ?? [], cost.daysOn),
       message: weekQuote(f, days, 30, cost.month),
     };

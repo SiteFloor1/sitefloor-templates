@@ -3,8 +3,8 @@
  * What a week costs: the age band decides which funded hours are open (gov.uk), each day cycles through the nursery's
  * sessions, and the card shows the month with every line. The quote goes to WhatsApp for the nursery to check.
  */
-import { weekCost, hoursWords, pounds, FUNDING_BY_BAND, DAY_NAMES } from "../../lib/nursery.js";
-import { weekQuote, weekOptional, SESSION_ORDER } from "./week-words.js";
+import { weekCost, pounds, FUNDING_BY_BAND, DAY_NAMES } from "../../lib/nursery.js";
+import { weekQuote, weekRows, weekOptional, SESSION_ORDER } from "./week-words.js";
 
 /** @type {import("../../../../core/js/core.js").FeatureInit} */
 export function init(root, ctx) {
@@ -41,8 +41,7 @@ export function init(root, ctx) {
     if (total) total.textContent = pounds(c.month);
     const sum = root.querySelector("[data-nu-sum]");
     if (sum) {
-      const rows = [["Booked", `${hoursWords(c.booked)} hours a week`], ["Funded, free", `${hoursWords(c.funded)} hours a week`],
-        [`Paid, ${pounds(cfg.rate)} an hour`, `${hoursWords(c.paid)} hours a week`], [`${cfg.weeksOpen} weeks a year`, "in 12 equal months"]];
+      const rows = weekRows(c, cfg);
       sum.replaceChildren(...rows.flatMap(([k, v]) => [Object.assign(document.createElement("dt"), { textContent: k }), Object.assign(document.createElement("dd"), { textContent: v })]));
     }
     const opt = root.querySelector("[data-nu-optional]");

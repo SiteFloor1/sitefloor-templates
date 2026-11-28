@@ -155,15 +155,22 @@ export const FUNDED_WEEKS = 38;
 export const FUNDING_BY_BAND = /** @type {Record<number, number[]>} */ ({ 0: [0], 1: [0, 30], 2: [0, 15, 30], 3: [15, 30] });
 
 /**
- * @typedef {{ rate: number, weeksOpen: number, sessions: Record<string, { hours: number }> }} FeeSettings
+ * What a week costs. Stretched (the default): the year's funded hours (38 × funded) spread evenly over the weeks open.
+ * Term time only (`stretched: false`): up to `funded` hours off in each of 38 weeks, every other week paid in full.
+ * Either way the year's fees are split into 12 equal months. `funded` and `paid` are a week's hours (term weeks when
+ * term time only); `fullWeeks` is how many weeks are paid in full (0 when stretched).
+ * @typedef {{ rate: number, weeksOpen: number, sessions: Record<string, { hours: number }>, stretched?: boolean }} FeeSettings
  * @param {FeeSettings} f @param {string[]} days each a session id from f.sessions, or "off" @param {number} funded 0, 15 or 30
  */
 export function weekCost(f, days, funded) {
   const booked = days.reduce((a, s) => a + (s === "off" ? 0 : f.sessions[s]?.hours ?? 0), 0);
-  const fundedWeek = Math.min(booked, (funded * FUNDED_WEEKS) / f.weeksOpen);
+  const termOnly = f.stretched === false;
+  const fundedWeek = termOnly ? Math.min(booked, funded) : Math.min(booked, (funded * FUNDED_WEEKS) / f.weeksOpen);
   const paid = booked - fundedWeek;
-  const month = Math.round(((paid * f.rate * f.weeksOpen) / 12) * 100) / 100;
-  return { booked, funded: fundedWeek, paid, month, daysOn: days.filter((s) => s !== "off").length };
+  const fundedWeeks = termOnly ? Math.min(FUNDED_WEEKS, f.weeksOpen) : f.weeksOpen;
+  const yearPaid = booked * f.weeksOpen - fundedWeek * fundedWeeks;
+  const month = Math.round(((yearPaid * f.rate) / 12) * 100) / 100;
+  return { booked, funded: fundedWeek, paid, month, termOnly, fullWeeks: termOnly ? f.weeksOpen - fundedWeeks : 0, daysOn: days.filter((s) => s !== "off").length };
 }
 
 /** Hours to two places, without trailing zeros: 22.35, 30, 7.65. @param {number} n */
@@ -211,10 +218,14 @@ export function fundingStart(dob, todayYmd) {
   const school = ageDate(dob, 60);
   if (todayYmd >= school) return null;
   return {
-    working: { date: working, started: todayYmd >= working },
-    universal: { date: universal, started: todayYmd >= universal },
+    working: { date: working, started: todayYmd >= working, before: working < WORKING_FROM },
+    universal: { date: universal, started: todayYmd >= universal, before: false },
   };
 }
+
+/** The working families' hours for under-3s began on 1 April 2024 (two year olds; nine months from 1 September 2024,
+ * gov.uk): a start worked out before then is said as "open now" with no date. */
+const WORKING_FROM = "2024-04-01";
 
 /** @param {string} a @param {string} b */
 const daysBetweenYmd = (a, b) => Math.round((Date.parse(`${b}T12:00:00Z`) - Date.parse(`${a}T12:00:00Z`)) / DAY);
