@@ -36,7 +36,7 @@
 @font-face { font-family: "Manrope"; font-weight: 700; font-display: swap; src: url("media/fonts/manrope-latin-700-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 
 :root {
-  --bg: #F6F3EC; --bg-2: #EEE9DF; --linen: #E4DDD0; --text: #1D1C19; --muted: #615C54; --faint: #807A70;
+  --bg: #F6F3EC; --bg-2: #EEE9DF; --linen: #E4DDD0; --text: #1D1C19; --muted: #615C54; --faint: #6B655B;
   --fig: #3F5236; --fig-deep: #2D3B26; --fig-soft: #C9D1BF;
   --night: #16150F; --night-2: #201E17; --night-text: #EEE8DC; --night-muted: #B9B1A2;
   --line: rgba(29,28,25,.13); --line-2: rgba(29,28,25,.28); --nline: rgba(238,232,220,.16);
@@ -88,7 +88,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 /* ------------------------------------------------------------------ the pillow: the turndown, from above */
 .pillow { position: relative; background: var(--linen); overflow: hidden; }
 .pillow-pic { position: relative; aspect-ratio: 16 / 9; max-height: calc(100vh - var(--bar)); margin: 0 auto; }
-.pillow-pic img { width: 100%; height: 100%; object-fit: cover; }
+.pillow-pic img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; max-width: none; }
 .card { position: absolute; left: 0; top: 0; width: 320px; height: 451px; transform-origin: 0 0; color: var(--card-ink); padding: 34px 30px 28px; display: flex; flex-direction: column; pointer-events: none; }
 .card .mono { width: 16px; height: 25px; color: var(--fig); }
 .card .hello { font: 600 40px/1 var(--display); margin-top: 16px; }
@@ -241,6 +241,7 @@ footer p { max-width: 112ch; }
 @media (max-width: 760px) {
   .pillow-pic { aspect-ratio: 4 / 5; max-height: none; }
   .card { padding: 30px 26px 24px; }
+  .pillow-note { position: static; padding: 12px var(--edge) 0; background: var(--bg); color: var(--muted); }
   .day, .hours { grid-template-columns: minmax(0, 1fr) auto; }
   .day .strip, .hours > div:nth-child(2) { grid-column: 1 / -1; grid-row: 2; }
   .hours > div:first-child, .hours > div:last-child { display: none; }
@@ -272,12 +273,12 @@ footer p { max-width: 112ch; }
     </picture>
     <div class="card" data-card aria-live="polite">
       <svg class="mono" viewBox="0 0 30 46" aria-hidden="true"><rect x="1" y="1" width="28" height="44" rx="14" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="15" cy="8" r="2.2" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M19.2 20.4c-.8-1.4-2.3-2.1-4.2-2.1-2.4 0-4 1.4-4 3.2 0 4.2 8.4 2.7 8.4 7 0 1.9-1.8 3.3-4.3 3.3-2 0-3.6-.8-4.5-2.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-      <p class="hello">Good evening.</p>
+      <p class="hello" data-hello>Good evening.</p>
       <div class="lines" data-lines><p>Four West is free.</p></div>
       <p class="sign">Sevrell, Weymouth Street</p>
     </div>
-    <p class="pillow-note">A render. The card's words are worked out now, by the demo's own rules, for today.</p>
   </div>
+  <p class="pillow-note">A render. The card's words are worked out now, by the demo's own rules, for today.</p>
 </section>
 <div class="choose gut"><div class="wrap">
   <div class="chips" role="group" aria-label="Which home" data-pick-home></div>
@@ -529,7 +530,13 @@ footer p { max-width: 112ch; }
     const W = pic.clientWidth, H = pic.clientHeight, w = 320, h = 451;
     const img = $("img", pic); const nat = matchMedia("(max-width: 760px)").matches ? [1080, 1350] : [2000, 1125];
     // object-fit: cover: the picture's scale and offset in its box
-    const s = Math.max(W / nat[0], H / nat[1]), ox = (W - nat[0] * s) / 2, oy = (H - nat[1] * s) / 2;
+    // on a phone the picture is shown closer, so the card is large enough to read
+    const phone = matchMedia("(max-width: 760px)").matches, Z = phone ? 1.85 : 1;
+    const s = Math.max(W / nat[0], H / nat[1]) * Z;
+    const cx = set.reduce((t, p) => t + p[0], 0) / 4 * nat[0] * s, cy = set.reduce((t, p) => t + p[1], 0) / 4 * nat[1] * s;
+    const ox = phone ? Math.min(0, Math.max(W - nat[0] * s, W / 2 - cx)) : (W - nat[0] * s) / 2;
+    const oy = phone ? Math.min(0, Math.max(H - nat[1] * s, H / 2 - cy)) : (H - nat[1] * s) / 2;
+    Object.assign(img.style, { width: `${nat[0] * s}px`, height: `${nat[1] * s}px`, left: `${ox}px`, top: `${oy}px` });
     const q = set.map(([x, y]) => [ox + x * nat[0] * s, oy + y * nat[1] * s]);
     const [[x0, y0], [x1, y1], [x2, y2], [x3, y3]] = q;
     const dx1 = x1 - x2, dx2 = x3 - x2, dy1 = y1 - y2, dy2 = y3 - y2, sx = x0 - x1 + x2 - x3, sy = y0 - y1 + y2 - y3;
@@ -548,7 +555,7 @@ footer p { max-width: 112ch; }
     else if (q.kind === "long") out.push(`<p><b>${pounds(q.rent)} a month</b>a rolling tenancy, rent only.</p>`);
     else out.push(`<p>${esc(noneText(q.why, h))}</p>`);
     const w = sunWindow(h.faces, tomorrow, PLACE);
-    out.push(`<p>${w ? `Sun on its windows tomorrow, ${hm(w.on)} to ${hm(w.off)}.` : "No direct sun on its windows tomorrow."}</p>`);
+    out.push(`<p>${w ? `Sun on its windows tomorrow, ${hm(w.on)} to ${hm(w.off)} (no shade counted).` : "No direct sun on its windows tomorrow."}</p>`);
     return out.join("");
   }
   let swap = 0;
@@ -561,6 +568,8 @@ footer p { max-width: 112ch; }
   chipsGroup($("[data-pick-home]"), HOMES.map((h) => ({ label: h.name, value: h.ref })), pick.ref, (v) => { pick.ref = v; drawCard(); });
   chipsGroup($("[data-pick-stay]"), [3, 7, 14, 30, "long"].map((n) => ({ label: n === "long" ? "Long let" : `${n} nights`, value: n })), pick.stay, (v) => { pick.stay = v; drawCard(); });
   lines.innerHTML = cardWords();
+  const hour = Number(new Intl.DateTimeFormat("en-GB", { timeZone: TZ, hour: "2-digit", hourCycle: "h23" }).format(NOW));
+  $("[data-hello]").textContent = hour >= 5 && hour < 12 ? "Good morning." : hour >= 12 && hour < 18 ? "Good afternoon." : "Good evening.";
   fit(); addEventListener("resize", fit); $("img", pic).addEventListener("load", fit);
 
   // ---- the bill
