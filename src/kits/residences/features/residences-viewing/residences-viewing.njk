@@ -1,0 +1,13 @@
+{#- Book a viewing (every plan): in person or on a video call, a home, a day and a time of day; it writes the WhatsApp
+    message. The site sends and keeps nothing. -#}
+{%- set v = site.viewing %}
+<form class="rv-f" data-feature="residences-viewing" novalidate>
+  <fieldset class="rv-k"><legend>How</legend>{% for k in v.kinds %}<label><input type="radio" name="rv-kind" value="{{ k }}"{% if loop.first %} checked{% endif %}> {{ k }}</label>{% endfor %}</fieldset>
+  <div class="rv-g">
+    <label>Home <select data-rv-home><option value="">Any free home</option></select></label>
+    <label>Day <input type="date" data-rv-day></label>
+    <label>Time <select data-rv-time><option>Morning</option><option selected>Afternoon</option><option>Early evening</option></select></label>
+  </div>
+  <a class="rv-go" data-rv-go href="{{ v.message | wa }}" data-wa-text="{{ v.message }}" target="_blank" rel="noopener">Write the message</a>
+  <p class="rv-fine">Opens WhatsApp with your message written; we reply to confirm a time. Nothing is sent or kept by this page.</p>
+</form>

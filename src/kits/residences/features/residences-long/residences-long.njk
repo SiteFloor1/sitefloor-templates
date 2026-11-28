@@ -1,0 +1,12 @@
+{#- Long lets (Plus): a rolling tenancy priced by the month. Type a monthly rent to see the most the holding deposit
+    and the deposit can be (Tenant Fees Act); above the assured-tenancy limit it works nothing out. -#}
+{%- set l = site.longLets %}
+<div class="rt" data-feature="residences-long">
+  <div class="rt-p">{% for p in l.points %}<section><h2>{{ p.title }}</h2><p>{{ p.text }}</p></section>{% endfor %}</div>
+  <section class="rt-terms">
+    <h2>What you pay before you move in</h2>
+    <p>A tenancy is rolling, with no end date, so it is priced by the month {% set rule = rules.rolling %}{% include "kits/residences/partials/rule.njk" %}. Only the payments the Tenant Fees Act permits can be charged {% set rule = rules.fees %}{% include "kits/residences/partials/rule.njk" %}.</p>
+    <form class="rlg" novalidate><label>Monthly rent, £ <input type="number" inputmode="numeric" min="1" step="1" value="{{ l.example or 7950 }}" data-rlg-rent></label></form>
+    <dl class="rlg-out" data-rlg-out aria-live="polite"></dl>
+  </section>
+</div>

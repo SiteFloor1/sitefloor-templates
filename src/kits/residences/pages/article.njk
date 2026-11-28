@@ -1,0 +1,16 @@
+---
+layout: core/layouts/base.njk
+feature: residences-journal
+pagination:
+  data: site.journal.items
+  size: 1
+  alias: art
+permalink: "{{ art.slug }}.html"
+eleventyComputed:
+  pageId: "{{ art.slug }}"
+  title: "{{ art.title }}"
+  description: "{{ art.summary }}"
+---
+{%- set ph = { title: art.title, intro: art.summary } %}
+{% include "kits/residences/partials/page-head.njk" %}
+<div class="wrap">{% include "kits/residences/features/residences-journal/residences-article.njk" %}</div>

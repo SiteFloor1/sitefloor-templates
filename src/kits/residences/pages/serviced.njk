@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: serviced
+permalink: serviced.html
+feature: residences-serviced
+eleventyComputed:
+  title: "What serviced means"
+  description: "What each length of stay at {{ site.business.name }} includes, side by side."
+---
+{%- set ph = { title: "What serviced means", intro: site.serviced.intro } %}
+{% include "kits/residences/partials/page-head.njk" %}
+<div class="wrap">{% include "kits/residences/features/residences-serviced/residences-serviced.njk" %}</div>

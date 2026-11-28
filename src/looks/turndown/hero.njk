@@ -1,0 +1,17 @@
+{#- Turndown hero: one wide cinema-band photograph of a suite inset in the ivory page (a 4:5 crop on phones), credited
+    on the picture, with the stay bar docked across its foot on Signature (residences-stay). On Starter and Plus the
+    band stands alone and the homes follow. -#}
+{%- set h = site.hero %}
+{%- set p = h.photo %}
+<section class="td-hero" aria-label="{{ h.title | plain }}">
+  <h1 class="sr-only">{{ h.title | plain }}</h1>
+  <div class="td-band">
+    <picture>
+      {%- if p.tall %}<source media="(max-width: 820px)" srcset="{{ p.tall | img }}" width="{{ p.tallWidth }}" height="{{ p.tallHeight }}">{% endif %}
+      <img src="{{ p.src | img }}" width="{{ p.width }}" height="{{ p.height }}" alt="{{ p.alt }}" fetchpriority="high" decoding="async"{% if p.position %} style="object-position: {{ p.position }}"{% endif %}>
+    </picture>
+    <span class="td-credit">{{ p.credit }}</span>
+  </div>
+  {%- if "residences-stay" | enabled %}<div class="td-dock">{% include "kits/residences/features/residences-stay/residences-stay.njk" %}</div>
+  {%- else %}<p class="td-intro wrap">{{ h.intro }}</p>{% endif %}
+</section>

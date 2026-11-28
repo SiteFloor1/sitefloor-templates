@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: journal
+permalink: journal.html
+feature: residences-journal
+eleventyComputed:
+  title: "Journal"
+  description: "Notes from {{ site.business.name }} on moving to and living in London."
+---
+{%- set ph = { title: "Journal", intro: site.journal.intro } %}
+{% include "kits/residences/partials/page-head.njk" %}
+<div class="wrap">{% include "kits/residences/features/residences-journal/residences-journal.njk" %}</div>

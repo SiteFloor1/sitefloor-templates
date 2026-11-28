@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: about
+permalink: about.html
+feature: residences-about
+eleventyComputed:
+  title: "About"
+  description: "{{ site.business.name }}: the building and how it is run."
+---
+{%- set ph = { title: "About", intro: site.about.intro } %}
+{% include "kits/residences/partials/page-head.njk" %}
+<div class="wrap">{% include "kits/residences/features/residences-about/residences-about.njk" %}</div>

@@ -75,6 +75,7 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 | Taroub | trade/modest | Shippori Mincho | Afacad |
 | Alnwood, The atelier wall | trade/nursery | Gentium Book Plus | Gentium Book Plus |
 | Trainer, Linen (A) | trade/trainer | Ibarra Real Nova | Ibarra Real Nova |
+| Sevrell, Turndown | trade/residences | Imbue | Inria Sans |
 | Fendle, Spun (B, round 1, revised) | trade/stalls | Gabarito | Labrada |
 | Tailor, Flannel (A) | trade/tailor | Della Respira | Commissioner |
 | Larrow, Logbook look | trade/tourism | Familjen Grotesk | Familjen Grotesk |
@@ -108,12 +109,14 @@ A case study is a design too: don't reuse these in a new look or another case st
 | Marese (lingerie) | case-studies/marese | lingerie | Fraunces | Red Hat Text | |
 | Marlie (teeth whitening) | case-studies/marlie | teeth | Reddit Sans | Reddit Sans | Reddit Mono, Brygada 1918 |
 | Marrick (personal trainer) | case-studies/marrick | personal-trainer | Ibarra Real Nova | Ibarra Real Nova | |
+| Maudry (event designer) | case-studies/maudry | events | Eczar | Eczar | |
 | Morrow (café) | case-studies/morrow | cafe | Gloock | Onest | |
 | Ottoline (pilates) | case-studies/ottoline | pilates | Noto Serif Display | Red Hat Text | |
 | Pastillage (celebration cakes) | case-studies/pastillage | cakes | Chonburi | Golos Text | |
 | Pellow & Garth (construction) | case-studies/pellow-garth | construction | Big Shoulders Stencil Display | Kumbh Sans | |
 | Saffron & Ash (restaurant) | case-studies/saffron-and-ash | restaurant | Instrument Serif | Instrument Sans | |
 | Selwyn Orr (hair salon) | case-studies/selwyn-orr | hair | Darker Grotesque | Public Sans | |
+| Sevrell (residences) | case-studies/sevrell | residences | Imbue | Inria Sans | |
 | Taroub (modest fashion) | case-studies/taroub | modest | Shippori Mincho | Afacad | |
 | Thursby (financial advisers) | case-studies/thursby | financial-advisers | Frank Ruhl Libre | Frank Ruhl Libre | |
 | Tollgarth (garden design) | case-studies/tollgarth | landscaping | Cinzel | Alegreya | |
