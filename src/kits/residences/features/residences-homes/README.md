@@ -18,7 +18,9 @@ the stay with every mandatory fee in it, the tenancy terms with their GOV.UK sou
 One row per home, columns in `src/kits/residences/lib/homes.js`. `status` is `free`, `booked` or `let`; only `free`
 rows show. A home is shown only with whole-pound prices for the stays it offers (`night`, `clean`, `min_nights` for
 short stays; `rent_pcm` for a tenancy), a readable `free_from` ("now" or YYYY-MM-DD) and its size. `updated_at` as
-`2026-11-26 09:15` (UK time) or ISO.
+`2026-11-26 09:15` (UK time) or ISO. **Every row's `updated_at` must stay within `staleAfterHours`, let and booked
+homes included**, or the whole list hides: refresh every row daily (a sheet formula such as `=NOW()` copied as a
+value each morning, or the operator's daily check), not only the free homes.
 
 ## Prices
 The nightly rate already holds service and VAT, and the cleaning charge is added once per stay, so every figure is a
