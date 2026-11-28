@@ -13,8 +13,8 @@ import { parseCsv, parseSheetTime } from "../../../core/lib/sheet.js";
 /** A first night or leaving day: 2026-11-27 or 27/11/2026 (how UK Google Sheets publish dates); anything else is null. @param {string} text */
 export function sheetDate(text) {
   const s = text.trim();
-  let m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s);
-  const [y, mo, d] = m ? [m[1], m[2], m[3]] : (m = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(s)) ? [m[3], m[2], m[1]] : [];
+  const iso = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s), uk = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(s);
+  const [y, mo, d] = iso ? [iso[1], iso[2], iso[3]] : uk ? [uk[3], uk[2], uk[1]] : [];
   if (!y) return null;
   const ymd = `${y}-${String(mo).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
   const t = new Date(`${ymd}T12:00:00Z`);

@@ -17,8 +17,8 @@
     {%- if "hol-estimate" | enabled %}{% include "kits/hol/features/hol-estimate/hol-estimate.njk" %}{% endif %}
     <div class="ar-plain"{% if "hol-estimate" | enabled %} data-ar-plain{% endif %}>
       {#- with the estimate on, this heading is hidden (display: none) unless the demo's plan switch hides the estimate,
-          so there is always exactly one h1 in the accessibility tree -#}
-      {%- if "hol-estimate" | enabled %}<h1 class="ar-h1like">{{ h.title }}</h1>{% else %}<h1 id="ar-h1">{{ h.title }}</h1>{% endif %}
+          so there is always exactly one main heading in the accessibility tree (and one h1 in the page) -#}
+      {%- if "hol-estimate" | enabled %}<p class="ar-h1like" role="heading" aria-level="1">{{ h.title }}</p>{% else %}<h1 id="ar-h1">{{ h.title }}</h1>{% endif %}
       <div><p class="ar-intro">{{ h.intro }}</p></div>
     </div>
     <p class="ar-go"><a href="{{ ask }}"{% if not ('hol-review' | enabled) %} target="_blank" rel="noopener"{% endif %}>{{ h.ask }}</a></p>
