@@ -1,6 +1,6 @@
 # Tailors: speed
 
-## 4 Nov 2026 — tailor kit: Flannel look, Fennick & Lowe demo (Signature)
+## 4 Nov 2026 — tailor kit: Flannel look, Ostley demo (Signature)
 
 Whole site: JS 12.4 KB gz, CSS 10.7 KB gz, fonts 70.1 KB (Della Respira 400, Commissioner 300/400/500; latin woff2).
 HTML gz: home 7.3 KB, cloth 5.0 KB, lexicon 4.8 KB, Plan your visit 6.1 KB. Home images: 349 KB on the first screen
@@ -11,7 +11,7 @@ Fallback fonts size-matched from the font files against Liberation Serif / Sans:
 descent 28%), Commissioner 300 100.6%, 400 101.1%, 500 101.8%.
 The client fixture (Signature, sheet-backed commission): JS 9.1 KB gz, CSS 8.4 KB gz.
 
-Lighthouse mobile, Fennick & Lowe home, three runs from a fresh server (the first cold): 99, 93, 93; accessibility 100;
+Lighthouse mobile, Ostley home, three runs from a fresh server (the first cold): 99, 93, 93; accessibility 100;
 FCP 0.8 s; LCP 2.0–3.2 s (the cut photograph: discoverable, fetchpriority high, no lazy load); TBT 50–80 ms; layout
 shift 0. Phone layout shift test (360, 390, 412 px, open and closed): under 0.1 on every run.
 

@@ -90,11 +90,11 @@ A case study is a design too: don't reuse these in a new look or another case st
 | Aldous Marr (jeweller) | case-studies/aldous-marr | jeweller | Italiana | Albert Sans | Pinyon Script |
 | Calder Wyke (law firm) | case-studies/calder-wyke | law | Literata | Geologica | |
 | Clémence (skin clinic) | case-studies/clemence | beauty | Antic Didone | Baskervville | |
-| Corbel (electrician) | case-studies/corbel | electrician | Encode Sans Expanded | Encode Sans | |
+| Larrick (electrician) | case-studies/corbel | electrician | Encode Sans Expanded | Encode Sans | |
 | Datum Hire (car hire) | case-studies/datum-hire | car-hire | Overpass | Overpass | Overpass Mono |
 | Elsden (car storage) | case-studies/elsden | garage | Cardo | Radio Canada | |
 | Fendle (street-food stalls) | case-studies/fendle | stalls | Gabarito | Labrada | |
-| Fennick & Lowe (tailor) | case-studies/fennick-lowe | tailor | Della Respira | Commissioner | |
+| Ostley (tailor) | case-studies/fennick-lowe | tailor | Della Respira | Commissioner | |
 | Grenat (grand café) | case-studies/grenat | grand-cafe | Italiana | EB Garamond | |
 | Halde (gym) | case-studies/halde | gym | Epilogue | Epilogue | |
 | Halvern (letting) | case-studies/halvern | letting | Petrona | Petrona | |
@@ -113,8 +113,8 @@ A case study is a design too: don't reuse these in a new look or another case st
 | Morrow (café) | case-studies/morrow | cafe | Gloock | Onest | |
 | Ottoline (pilates) | case-studies/ottoline | pilates | Noto Serif Display | Red Hat Text | |
 | Pastillage (celebration cakes) | case-studies/pastillage | cakes | Chonburi | Golos Text | |
-| Pellow & Garth (construction) | case-studies/pellow-garth | construction | Big Shoulders Stencil Display | Kumbh Sans | |
-| Saffron & Ash (restaurant) | case-studies/saffron-and-ash | restaurant | Instrument Serif | Instrument Sans | |
+| Tolven (construction) | case-studies/pellow-garth | construction | Big Shoulders Stencil Display | Kumbh Sans | |
+| Saffra (restaurant) | case-studies/saffron-and-ash | restaurant | Instrument Serif | Instrument Sans | |
 | Selwyn Orr (hair salon) | case-studies/selwyn-orr | hair | Darker Grotesque | Public Sans | |
 | Sevrell (residences) | case-studies/sevrell | residences | Imbue | Inria Sans | |
 | Taroub (modest fashion) | case-studies/taroub | modest | Shippori Mincho | Afacad | |

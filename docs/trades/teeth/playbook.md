@@ -135,12 +135,12 @@ reduced motion.
 ### Difference check against every demo and case study (main and open branches)
 - **Hero:** no existing hero is an input (date), a time picker, or a list used as navigation. Closest: Ottoline (live
   classes along a photo's foot) and Swift Cuts (queue ticket) are live data, not inputs. B's black door is a framed
-  photo, not full-bleed; Pellow & Garth and Calder Wyke show houses, but as a full hero photo and a library beside a
+  photo, not full-bleed; Tolven and Calder Wyke show houses, but as a full hero photo and a library beside a
   carved sentence. No demo opens with a full-bleed photo or film here.
 - **Header:** none uses a plain text link as the main call (A, B, C); Calder Wyke and Lyall Harrow use buttons.
 - **Section intros:** no "small label + big two-line heading"; A and C put the section name in a left column, B as a
   single italic word. Different from each other in rhythm (table / letter / register).
-- **Ground:** white (shared with Wexley, Lyall Harrow), ivory (Larchmere, Fennick & Lowe), near-black (Fade District,
+- **Ground:** white (shared with Wexley, Lyall Harrow), ivory (Larchmere, Ostley), near-black (Fade District,
   Isotach, Varnell): neutral grounds are allowed to repeat (golden rule 4); layout, type and hero differ.
 - **Accent:** olive, fig and lemon are not on the taken list (closest: pistachio, peony, gold/saffron; all clearly
   different in hue or value).

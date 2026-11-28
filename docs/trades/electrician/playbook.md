@@ -2,7 +2,7 @@
 
 What to build for this trade (kit `electrician`). The ground rules and the steps for a new kit: [`docs/TRADE-PLAYBOOK.md`](../../TRADE-PLAYBOOK.md).
 
-## Electrician and smart-home installer (new `electrician` kit, look `bluehour`, demo Corbel Light & Power) — built 2 Nov 2026
+## Electrician and smart-home installer (new `electrician` kit, look `bluehour`, demo Larrick) — built 2 Nov 2026
 - **Design process:** three mockups, direction A (Blue hour) approved with changes; the contract is
   `sitefloor-internal/docs/design/electrician.md`. Handover: `sitefloor-internal/docs/HANDOVER-ELECTRICIAN.md`.
 - **Starter:** the circuit chart of services with registers (each linked to its public register), the call-out line,

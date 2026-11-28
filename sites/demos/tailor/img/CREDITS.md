@@ -1,4 +1,4 @@
-# Photo credits: Fennick & Lowe (tailor demo)
+# Photo credits: Ostley (tailor demo)
 
 All from Unsplash under the Unsplash Licence (https://unsplash.com/license), cropped and given one light house grade
 (ink-to-ivory split tone, 10–14%, so wood, cloth and skin stay true). Checked 4 Nov 2026: none is used by any other

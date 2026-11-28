@@ -10,7 +10,7 @@ each look's `look.json`, `look.css` and README on `main`, 28 Oct 2026.
 ## What is taken (don't reuse), up to 3 Nov 2026
 From then on each trade lists what its demos take in its own section below.
 
-- **Grounds and moods:** near-black warm (Fade District); dark bottle green candlelit (Saffron & Ash); roasted-cocoa
+- **Grounds and moods:** near-black warm (Fade District); dark bottle green candlelit (Saffra); roasted-cocoa
   dark (Velvet Spoon); cool basalt grey, photograph-led (Isotach); pink-silver pearl daylight (Aldous Marr); warm cream with gilt and a candlelit evening (Grenat); warm paper (Swift Cuts); oat daylight
   (Morrow); cool white studio cyclorama (Apex Studio); pure white and ivory daylight salon (Wexley); bone-and-sand morning sun (Ottoline); mid-light Portland stone with sepia photographs (Calder Wyke); warm egg-tan stone in daylight with one umber band (Verrall). The owner calls Grenat and Velvet Spoon the "dark, warm luxury"
   pair: no new demo may feel like them.
@@ -133,9 +133,9 @@ This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` 
 
 | Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
 |---|---|---|---|---|---|---|---|
-| Pellow & Garth | builder (extensions, basements, renovations, new builds, listed), `construction`, `handover` (built 4 Nov 2026 on `trade/construction`) | the calm of a finished house: **neutral limewash** #F7F5F0, the photographs carry the colour | a duck's egg | duck egg #A9CBC1 as fills only (the key tag, the ground line, the chosen control), its shade #3E6B62 for links, umber #2A241D text | Castoro / Kumbh Sans | a photograph of a finished garden wing that becomes a 3D extension on your kind of house when tapped, with its size worked out; a site-code key strip under it | (to come) |
+| Tolven | builder (extensions, basements, renovations, new builds, listed), `construction`, `handover` (built 4 Nov 2026 on `trade/construction`) | the calm of a finished house: **neutral limewash** #F7F5F0, the photographs carry the colour | a duck's egg | duck egg #A9CBC1 as fills only (the key tag, the ground line, the chosen control), its shade #3E6B62 for links, umber #2A241D text | Castoro / Kumbh Sans | a photograph of a finished garden wing that becomes a 3D extension on your kind of house when tapped, with its size worked out; a site-code key strip under it | (to come) |
 
-Taken by Pellow & Garth: the photo that becomes a 3D house, the key tag and the site-code strip, the planning limits and the sun drawn on the 3D, the building section
+Taken by Tolven: the photo that becomes a 3D house, the key tag and the site-code strip, the planning limits and the sun drawn on the 3D, the building section
 (finished room above a ground line, the work below), duck egg as a fill, Castoro and Kumbh Sans.
 
 ## Dessert shops and chocolatiers
@@ -175,9 +175,9 @@ This trade's demos and what they take. Compare a new look against every trade's 
 
 | Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
 |---|---|---|---|---|---|---|---|
-| Corbel Light & Power | electrician / smart home, `electrician`, `bluehour` (built 2 Nov on `trade/electrician`) | a London house at **blue hour**: navy dusk outside, warm rooms within, calm and engineered | a blueberry | bloom #B3BFE6 on blueberry #1C2B43, text the pale green-white flesh #E9ECDC, quiet text dusty violet #A4A8CE | Encode Sans Expanded (hairline headings, engraved capitals) / Encode Sans | the house at dusk, full width, changed by a real scene keypad (Evening, Cinema, Away); on Signature a full-width 3D house that lights up room by room | (to come) |
+| Larrick | electrician / smart home, `electrician`, `bluehour` (built 2 Nov on `trade/electrician`) | a London house at **blue hour**: navy dusk outside, warm rooms within, calm and engineered | a blueberry | bloom #B3BFE6 on blueberry #1C2B43, text the pale green-white flesh #E9ECDC, quiet text dusty violet #A4A8CE | Encode Sans Expanded (hairline headings, engraved capitals) / Encode Sans | the house at dusk, full width, changed by a real scene keypad (Evening, Cinema, Away); on Signature a full-width 3D house that lights up room by room | (to come) |
 
-Taken by Corbel: the blue-hour deep navy ground with warm lit rooms, the blueberry bloom accent #B3BFE6 and the
+Taken by Larrick: the blue-hour deep navy ground with warm lit rooms, the blueberry bloom accent #B3BFE6 and the
 pale green-white text, Encode Sans Expanded and Encode Sans, the engraved scene keypad and the circuit chart, the house
 at dusk switched by a keypad, and a 3D house lit room by room.
 
@@ -418,7 +418,7 @@ This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` 
 
 | Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
 |---|---|---|---|---|---|---|---|
-| Saffron & Ash | restaurant, `restaurant`, `maison` | always dark bottle green, candlelit, warm | a grill at night | saffron #E0A03A on #0C1311 | Cormorant Garamond / Jost | the closed Menu Book on the table over a blurred fire loop | a ten-course tasting menu |
+| Saffra | restaurant, `restaurant`, `maison` | always dark bottle green, candlelit, warm | a grill at night | saffron #E0A03A on #0C1311 | Cormorant Garamond / Jost | the closed Menu Book on the table over a blurred fire loop | a ten-course tasting menu |
 | (Carte, no demo of its own) | restaurant, `carte` | printed menu card on a celadon wall | celadon and paprika | paprika #A3341A | Bodoni Moda / Schibsted Grotesk | the menu card itself | — |
 
 ## Street-food and dessert stalls (markets, pop-ups and parties)
@@ -437,9 +437,9 @@ This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` 
 
 | Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
 |---|---|---|---|---|---|---|---|
-| Fennick & Lowe | bespoke tailor, `tailor`, `flannel` (built 4 Nov on `trade/tailor`) | a cutting room in daylight: **ivory and ink**, photographs carry the colour (wood, tweed, camel, cloth) | a wood pigeon (accent and photo grade) | pigeon breast #8F4B58 (stitch, hairlines, chosen cloth; soft #C4848F for the spine's stitch) on ivory #F3F2EE, ink #191817 | Della Respira (never below 28px) / Commissioner | the cut on the board edge to edge with the coat on its stand laid over its corner; the cloth book opened, each weave full screen | (to come) |
+| Ostley | bespoke tailor, `tailor`, `flannel` (built 4 Nov on `trade/tailor`) | a cutting room in daylight: **ivory and ink**, photographs carry the colour (wood, tweed, camel, cloth) | a wood pigeon (accent and photo grade) | pigeon breast #8F4B58 (stitch, hairlines, chosen cloth; soft #C4848F for the spine's stitch) on ivory #F3F2EE, ink #191817 | Della Respira (never below 28px) / Commissioner | the cut on the board edge to edge with the coat on its stand laid over its corner; the cloth book opened, each weave full screen | (to come) |
 
-Taken by Fennick & Lowe: the cloth book on a spine with pinked lengths, the weave full screen, two photographs laid one
+Taken by Ostley: the cloth book on a spine with pinked lengths, the weave full screen, two photographs laid one
 over the other in the hero, the commission as stage photographs on one rule, the ink footer with the name large.
 
 ## Teeth whitening and aesthetic dentistry

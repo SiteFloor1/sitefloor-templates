@@ -3,7 +3,7 @@
  * DEMO ONLY. A simulated sheet for the restaurant kit's demos. With rows in the site's `tonight.demo` (the café
  * demo: trays coming out at set times, a sold-out bake, staff's word on the queue, the regulars' board), those
  * rows, each dated "at" a time today or "ago" minutes before now; rows timed later than now don't show yet, as
- * on a real sheet. Without them, Saffron & Ash's: two specials and one sold-out dish updated this morning, and
+ * on a real sheet. Without them, Saffra's: two specials and one sold-out dish updated this morning, and
  * walk-in tables that change through the evening. Never bundled into client sites.
  */
 import { tonightFromCsv } from "../kits/restaurant/lib/tonight.js";

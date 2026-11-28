@@ -4,7 +4,7 @@ What to build for this trade (kit `restaurant`). The ground rules and the steps 
 
 ## The plan (from the original trade list)
 
-2. RESTAURANTS AND CAFÉS. Built 27 Oct 2026: kit `restaurant`, look `carte`, demo "Saffron & Ash" (fictional
+2. RESTAURANTS AND CAFÉS. Built 27 Oct 2026: kit `restaurant`, look `carte`, demo "Saffra" (fictional
    charcoal grill, Northern Quarter, Manchester). Plan split agreed with the owner (be generous below Signature):
    - Starter: `menu` (the sitting on now, diet filters, the 14 allergens on every dish, kitchen-closes line),
      `specials` (today's specials and sold-out from a Sheet), `table-request` (WhatsApp), `delivery` (app links).

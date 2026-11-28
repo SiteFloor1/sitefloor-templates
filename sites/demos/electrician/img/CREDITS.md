@@ -1,8 +1,8 @@
-# Photo credits (Corbel Light & Power demo)
+# Photo credits (Larrick demo)
 
 Free stock under the Pexels Licence (https://www.pexels.com/license/) or the Unsplash Licence
 (https://unsplash.com/license), cropped and given one blue-hour grade (saturation down a little, shadows lifted to the
-page's blue, the lamps left warm). The houses and rooms are not Corbel's work; the demo says so. A client's site uses
+page's blue, the lamps left warm). The houses and rooms are not Larrick's work; the demo says so. A client's site uses
 its own photographs of finished jobs.
 
 | File | Photo page | Photographer |

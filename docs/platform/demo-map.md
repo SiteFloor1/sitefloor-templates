@@ -9,7 +9,7 @@ each look's `look.json`, `look.css` and README on `main`, 28 Oct 2026.
 ## What is taken (don't reuse), up to 3 Nov 2026
 From then on each trade lists what its demos take in its own section below.
 
-- **Grounds and moods:** near-black warm (Fade District); dark bottle green candlelit (Saffron & Ash); roasted-cocoa
+- **Grounds and moods:** near-black warm (Fade District); dark bottle green candlelit (Saffra); roasted-cocoa
   dark (Velvet Spoon); cool basalt grey, photograph-led (Isotach); pink-silver pearl daylight (Aldous Marr); warm cream with gilt and a candlelit evening (Grenat); warm paper (Swift Cuts); oat daylight
   (Morrow); cool white studio cyclorama (Apex Studio); pure white and ivory daylight salon (Wexley); bone-and-sand morning sun (Ottoline); mid-light Portland stone with sepia photographs (Calder Wyke); warm egg-tan stone in daylight with one umber band (Verrall). The owner calls Grenat and Velvet Spoon the "dark, warm luxury"
   pair: no new demo may feel like them.

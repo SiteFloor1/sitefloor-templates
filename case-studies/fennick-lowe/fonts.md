@@ -5,4 +5,4 @@ Read from the page's own font settings (`index.html`); Manrope is Sitefloor's ba
 
 | Case study | Source | Trade | Display | Body | Other |
 |---|---|---|---|---|---|
-| Fennick & Lowe (tailor) | case-studies/fennick-lowe | tailor | Della Respira | Commissioner |  |
+| Ostley (tailor) | case-studies/fennick-lowe | tailor | Della Respira | Commissioner |  |

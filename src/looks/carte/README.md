@@ -1,6 +1,6 @@
 # Look: Carte
 
-A printed menu card for restaurants and cafés. Demo: Saffron & Ash (`sites/demos/restaurant`). Used by the restaurant kit.
+A printed menu card for restaurants and cafés. Demo: Saffra (`sites/demos/restaurant`). Used by the restaurant kit.
 
 | | Carte | Studio | Noir | Street |
 |---|---|---|---|---|

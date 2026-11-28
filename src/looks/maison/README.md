@@ -1,6 +1,6 @@
 # Look: Maison
 
-The restaurant after dark, for high-end and evening-led restaurants. Demo: Saffron & Ash (`sites/demos/restaurant`). Used by the restaurant kit.
+The restaurant after dark, for high-end and evening-led restaurants. Demo: Saffra (`sites/demos/restaurant`). Used by the restaurant kit.
 
 | | Maison | Carte | Studio | Noir | Street |
 |---|---|---|---|---|---|

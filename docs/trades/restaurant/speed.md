@@ -2,7 +2,7 @@
 
 ## 27 Oct 2026 — Restaurant kit and the Carte look
 
-New kit `restaurant`, look `carte`, demo `demos/restaurant` (Saffron & Ash, Manchester) and client fixture
+New kit `restaurant`, look `carte`, demo `demos/restaurant` (Saffra, Manchester) and client fixture
 `test-restaurant-client` (Starter with the live board and The Table as add-ons, live sheet, own accent and type).
 Budget, restaurant demo (Signature): JS 18.9 KB gz, CSS 13.9 KB gz, fonts 78.7 KB (Bodoni Moda 400 and 400 italic,
 Schibsted Grotesk 400 and 600), home page HTML 19.8 KB gz, home images 625 KB of 800 (only the first plate of The

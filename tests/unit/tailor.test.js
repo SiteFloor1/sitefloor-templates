@@ -35,8 +35,8 @@ test("the cloth book: seasons in words, all-year cloths under every season", () 
 test("prices are the house's or none; messages never say booked", () => {
   assert.equal(fromPrice(4800), "From £4,800");
   assert.equal(fromPrice(null), "");
-  const text = appointmentText("Hello Fennick & Lowe.", { garments: ["Overcoat", "Trousers"], when: "A Saturday", wedding: "2027-06-12" });
-  assert.equal(text, "Hello Fennick & Lowe.\nI'm thinking of: Overcoat, Trousers.\nBest for me: A Saturday.\nIt's for a wedding on Saturday 12 June 2027.");
+  const text = appointmentText("Hello Ostley.", { garments: ["Overcoat", "Trousers"], when: "A Saturday", wedding: "2027-06-12" });
+  assert.equal(text, "Hello Ostley.\nI'm thinking of: Overcoat, Trousers.\nBest for me: A Saturday.\nIt's for a wedding on Saturday 12 June 2027.");
   assert.doesNotMatch(text, /booked|confirmed/i);
   assert.equal(appointmentText("Hello.", { garments: [], when: "" }), "Hello.");
   assert.match(swatchText("Hello.", { name: "Midnight", cloth: "Worsted" }), /swatch of Midnight \(worsted\)/);
@@ -53,14 +53,14 @@ test("trunk-show dates read in UK order across months and years; finished ones d
 });
 
 test("calendar files: a trunk show runs all day across its days; a fitting is at its hour in UTC", () => {
-  const t = travelIcs({ id: "leeds", city: "Leeds", venue: "A room, near the station", from: "2027-02-11", to: "2027-02-12" }, "Fennick & Lowe", "20261104T120000Z");
+  const t = travelIcs({ id: "leeds", city: "Leeds", venue: "A room, near the station", from: "2027-02-11", to: "2027-02-12" }, "Ostley", "20261104T120000Z");
   assert.match(t, /DTSTART;VALUE=DATE:20270211\r\nDTEND;VALUE=DATE:20270213/);
   assert.match(t, /LOCATION:A room\\, near the station/);
   // 11:00 in London on 12 November is 11:00 UTC; in June it is 10:00 UTC
   const ms = Date.parse("2026-11-12T11:00:00Z");
-  const f = fittingIcs({ code: "FL4K7M2Q", startMs: ms, minutes: 45, title: "Forward fitting", place: "3 Pellow Yard", house: "Fennick & Lowe" }, "20261104T120000Z");
+  const f = fittingIcs({ code: "FL4K7M2Q", startMs: ms, minutes: 45, title: "Forward fitting", place: "3 Pellow Yard", house: "Ostley" }, "20261104T120000Z");
   assert.match(f, /DTSTART:20261112T110000Z\r\nDTEND:20261112T114500Z/);
-  assert.match(f, /SUMMARY:Forward fitting · Fennick & Lowe/);
+  assert.match(f, /SUMMARY:Forward fitting · Ostley/);
   assert.equal(fittingWhen(Date.parse("2027-06-10T10:00:00Z"), "Europe/London"), "Thursday 10 June 2027, 11:00");
 });
 
@@ -178,9 +178,9 @@ test("the fitting reminder sounds at the house's time the evening before, throug
   assert.equal(new Date(eveningBefore(Date.parse("2026-03-30T09:00:00Z"), "18:00", "Europe/London")).toISOString(), "2026-03-29T17:00:00.000Z");
   assert.equal(allDayTrigger("18:00"), "TRIGGER:-PT6H");
   assert.equal(allDayTrigger("19:30"), "TRIGGER:-PT4H30M");
-  const ics = fittingIcs({ code: "FL4K7M2Q", startMs: Date.parse("2026-11-12T11:00:00Z"), minutes: 60, title: "Forward fitting", place: "3 Pellow Yard", house: "Fennick & Lowe",
+  const ics = fittingIcs({ code: "FL4K7M2Q", startMs: Date.parse("2026-11-12T11:00:00Z"), minutes: 60, title: "Forward fitting", place: "3 Pellow Yard", house: "Ostley",
     reminder: { atMs: Date.parse("2026-11-11T18:00:00Z"), items: ["your order card"] } }, "20261104T120000Z");
-  assert.match(ics, /BEGIN:VALARM\r\nACTION:DISPLAY\r\nTRIGGER;VALUE=DATE-TIME:20261111T180000Z\r\nDESCRIPTION:Forward fitting at Fennick & Lowe tomorrow\. Bring your order card\.\r\nEND:VALARM\r\nEND:VEVENT/);
+  assert.match(ics, /BEGIN:VALARM\r\nACTION:DISPLAY\r\nTRIGGER;VALUE=DATE-TIME:20261111T180000Z\r\nDESCRIPTION:Forward fitting at Ostley tomorrow\. Bring your order card\.\r\nEND:VALARM\r\nEND:VEVENT/);
   assert.doesNotMatch(fittingIcs({ code: "X1234567", startMs: 0, minutes: 60, title: "T", place: "P", house: "H" }, "S"), /VALARM/);
 });
 
@@ -189,11 +189,11 @@ test("the wedding party's calendar file: the alarm only on the fittings the hous
     { id: "start", label: "First appointment", date: "2027-02-20", past: false },
     { id: "baste", label: "Baste fitting", date: "2027-03-20", past: false },
     { id: "forward", label: "Forward fitting", date: "2027-05-01", past: false },
-  ], salon: "Fennick & Lowe", place: "P", stamp: "S", title: "wedding party" });
-  const ics = withReminders(plain, ["baste", "forward"], { at: "18:00", items: ["your order card"] }, "Fennick & Lowe");
+  ], salon: "Ostley", place: "P", stamp: "S", title: "wedding party" });
+  const ics = withReminders(plain, ["baste", "forward"], { at: "18:00", items: ["your order card"] }, "Ostley");
   const events = ics.split("BEGIN:VEVENT").slice(1);
   assert.deepEqual(events.map((e) => e.includes("BEGIN:VALARM")), [false, true, true, false]);
-  assert.match(events[1], /DESCRIPTION:Baste fitting at Fennick & Lowe tomorrow\. Bring your order card\./);
+  assert.match(events[1], /DESCRIPTION:Baste fitting at Ostley tomorrow\. Bring your order card\./);
   assert.match(events[1], /TRIGGER:-PT6H/);
 });
 

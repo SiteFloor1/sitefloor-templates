@@ -2,7 +2,7 @@
 
 What this trade's customers ask before they get in touch (kit `electrician`). How to read it and the questions every trade gets: [`docs/CUSTOMER-QUESTIONS.md`](../../CUSTOMER-QUESTIONS.md).
 
-## Electrician (electrician kit, look `bluehour`, demo Corbel Light & Power)
+## Electrician (electrician kit, look `bluehour`, demo Larrick)
 | Question | Answered by |
 |---|---|
 | Are you registered (NICEIC / NAPIT)? Can I check? | `registers`: only the client's schemes, each linked to its public register (validated by host) |

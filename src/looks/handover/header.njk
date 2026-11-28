@@ -1,9 +1,9 @@
-{#- Handover header: the name as a wordmark (an ampersand in italic), then the site code with its key tag, the
+{#- Handover header: the name as a wordmark (an ampersand in italic, or the `mark` line in italic after a one-word name), then the site code with its key tag, the
     telephone number, and "Menu", which opens every page on any screen. Quiet, so the house underneath leads. -#}
 {%- set nm = site.business.name.split(" & ") %}
 <header class="nav hv-nav"><div class="wrap hv-nav-in">
   <a class="hv-mark" href="{{ 'index' | href }}" aria-label="{{ site.business.name }}, home">
-    {%- if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="{{ site.business.name }}" height="28">{% elif nm.length == 2 %}{{ nm[0] }} <i>&amp;</i> {{ nm[1] }}{% else %}{{ site.business.name }}{% endif %}</a>
+    {%- if site.brand and site.brand.logo %}<img src="{{ site.brand.logo | img }}" alt="{{ site.business.name }}" height="28">{% elif site.mark %}{{ site.mark.word }} <i>{{ site.mark.line }}</i>{% elif nm.length == 2 %}{{ nm[0] }} <i>&amp;</i> {{ nm[1] }}{% else %}{{ site.business.name }}{% endif %}</a>
   <div class="hv-nav-r">
     {%- if "site-progress" | enabled %}<a class="hv-code" href="{{ 'your-build' | href }}"{{ 'site-progress' | tierAttr | safe }}><span class="bd-tag" aria-hidden="true"></span>Site code</a>{% endif %}
     <a class="hv-tel" href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone | replace('+44 ', '0') }}</a>

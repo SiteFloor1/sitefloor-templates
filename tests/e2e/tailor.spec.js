@@ -102,10 +102,10 @@ test.describe("your commission, by code", () => {
     expect(download.suggestedFilename()).toBe("fitting-FL4K7M2Q.ics");
     const ics = readFileSync(await download.path(), "utf8");
     expect(ics).toContain("DTSTART:20261022T100000Z"); // 11:00 in London (BST)
-    expect(ics).toContain("SUMMARY:Forward fitting · Fennick & Lowe");
+    expect(ics).toContain("SUMMARY:Forward fitting · Ostley");
     // the evening-before reminder: 18:00 BST on Wednesday 21 October
     expect(ics).toContain("TRIGGER;VALUE=DATE-TIME:20261021T170000Z");
-    expect(ics).toContain("DESCRIPTION:Forward fitting at Fennick & Lowe tomorrow. Bring the shoes and shirt you'll wear with it and your order card.");
+    expect(ics).toContain("DESCRIPTION:Forward fitting at Ostley tomorrow. Bring the shoes and shirt you'll wear with it and your order card.");
     await expect(page.locator("[data-cm-remind]")).toBeVisible();
     await page.click("[data-cm-cloth]");
     await expect(page.locator("[data-cb-name]")).toHaveText("Tobacco herringbone");
