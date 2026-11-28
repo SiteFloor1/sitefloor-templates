@@ -125,12 +125,11 @@ test("a format's size must be its shape, and the viewfinder needs two to five of
   assert.match(errorsFor((s) => { for (const f of s.formats.items) f.viewfinder = false; s.formats.items[0].viewfinder = true; }), /2–5 formats/);
 });
 
-test("roads, films, the forecast and the shot list are checked", () => {
+test("roads, films and the shot list are checked", () => {
   assert.match(errorsFor((s) => { s.roads.items[0].lat = 40.4; }), /in the UK/);
   assert.match(errorsFor((s) => { s.roads.default = "nowhere"; }), /opens on/);
   assert.match(errorsFor((s) => { s.hero.film.fps = 29; }), /frame rate/);
   assert.match(errorsFor((s) => { s.reel.items[0].seconds = 0; }), /length in seconds/);
-  assert.match(errorsFor((s) => { s.forecast.source = "open-meteo"; }), /met-norway/);
   assert.match(errorsFor((s) => { s.shotList.message = "My list"; }), /\{shots\}/);
   assert.match(errorsFor((s) => { s.guides.dealers.description = "x".repeat(161); }), /160 characters/);
   assert.match(errorsFor((s) => { s.roads.colour = "red"; }), /unknown setting/);

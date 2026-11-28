@@ -8,4 +8,4 @@
 
 Any of the studio's roads and any date: golden hour, sunset and blue hour, calculated, and the day drawn as a band of
 light (night, blue hour, golden hour, low sun, day: the look's colours). Hold this light sends it on WhatsApp. Shares
-the plan with the forecast and the share card.
+the plan with the share card.

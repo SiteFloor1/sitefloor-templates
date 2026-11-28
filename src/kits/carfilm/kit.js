@@ -40,8 +40,6 @@ export const features = [
     summary: "Delivery formats (CVID-7): the viewfinder's format switch snaps the frame to each shape the studio delivers (cinema, 16:9, vertical, listing), drag to reframe; the Deliveries page lists every size and where it goes." },
   { id: "carfilm-planner", dir: `${D}/carfilm-planner`, minPlan: "signature", kits: K, requires: ["planner", "roads"], page: "golden-hour", js: true,
     summary: "Golden-hour planner (CVID-5): any of the studio's roads and any date give golden hour, sunset and blue hour, calculated, with the day's light drawn to scale; held on WhatsApp." },
-  { id: "carfilm-forecast", dir: `${D}/carfilm-forecast`, minPlan: "signature", kits: K, requires: ["forecast"], needs: ["carfilm-planner"], js: true,
-    summary: "Shoot-day cloud forecast (CVID-11): within nine days, the cloud cover forecast for the golden hour on that road, from MET Norway's free forecast, named as a forecast with its source and time. Nothing shown when it can't be read." },
   { id: "carfilm-share", dir: `${D}/carfilm-share`, minPlan: "signature", kits: K, requires: [], needs: ["carfilm-planner"], js: true,
     summary: "Share card (CVID-12): the planned road, date and golden hour on one picture with the studio's frame, to share or save." },
   { id: "carfilm-guides", dir: `${D}/carfilm-guides`, minPlan: "signature", kits: K, requires: ["guides"], page: "dealers",
@@ -69,13 +67,12 @@ export function pageData(site) {
       formats: on("carfilm-formats") ? site.formats.items.filter((/** @type {any} */ f) => f.viewfinder).map((/** @type {any} */ f) => ({ id: f.id, ratio: f.ratio })) : null,
       shots: on("carfilm-shotlist") ? site.shotList.message : null,
       planner: on("carfilm-planner") ? site.planner.message : null,
-      forecast: on("carfilm-forecast"),
       turnaround: on("carfilm-turnaround") ? { workdays: site.turnaround.workdays, postcode: site.location.postcode, packages: site.packages.items.map((/** @type {any} */ p) => ({ id: p.id, photosDays: p.photosDays ?? null, filmDays: p.filmDays ?? null })) } : null,
     },
   };
 }
 
-/** The cloud forecast is read from MET Norway's free Locationforecast (no key, no cookies). @param {any} site @returns {import("../../features/registry.js").KitCsp} */
-export function csp(site) {
-  return { sheets: false, connect: site.features?.includes("carfilm-forecast") ? ["https://api.met.no"] : [] };
+/** Nothing beyond the site itself: the forecast (switched off for now) will come from the shared weather function. @param {any} _site @returns {import("../../features/registry.js").KitCsp} */
+export function csp(_site) {
+  return { sheets: false, connect: [] }; // the forecast will come from the site's own /weather, never api.met.no
 }

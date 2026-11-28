@@ -2,7 +2,7 @@
 /**
  * Validation for the carfilm kit (car videographers and photographers): the hero film, the roads for the light, the
  * delivery formats, packages, the showreel, the portfolio, booking and the shot list, turnaround, the listing set, the
- * planner, the forecast and the guide pages. Every price, timing, size and road is the studio's own; the checks make
+ * planner and the guide pages. Every price, timing, size and road is the studio's own; the checks make
  * sure it's complete and can't mislead (a price is the whole price, a format's size matches its shape).
  */
 import { ratioOf } from "./lib/carfilm.js";
@@ -214,13 +214,6 @@ function checkPlanner(site, err, _exists, _on) {
   for (const k of ["title", "intro", "message"]) text(err, `planner.${k}`, site.planner?.[k]);
 }
 
-/** @param {any} site @param {Report} err @param {Exists} _exists @param {(id: string) => boolean} _on */
-function checkForecast(site, err, _exists, _on) {
-  if (site.forecast === undefined) return;
-  onlyKeys(site.forecast, ["source"], "forecast", err);
-  if (site.forecast?.source !== "met-norway") err("forecast.source", '"met-norway": MET Norway\'s free Locationforecast (commercial use allowed, credited on the page)');
-}
-
 /** @param {any} site @param {Report} err @param {Exists} exists @param {(id: string) => boolean} on */
 function checkGuides(site, err, exists, on) {
   if (site.guides === undefined) return;
@@ -252,7 +245,6 @@ export function checkCarFilm(site, err, exists) {
   checkTurnaround(site, err, exists, on);
   checkListing(site, err, exists, on, formats);
   checkPlanner(site, err, exists, on);
-  checkForecast(site, err, exists, on);
   checkGuides(site, err, exists, on);
   if (on("carfilm-tonight") && !roads.size) err("roads", "tonight's light needs at least one road");
 }

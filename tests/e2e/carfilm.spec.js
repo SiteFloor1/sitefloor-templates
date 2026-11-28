@@ -1,6 +1,6 @@
 // Carfilm kit and the Viewfinder look, as a client uses them: the viewfinder's guides and readout (tonight's light on
 // the studio's road, calculated), the format switch snapping the frame, the roads list choosing the readout's road,
-// delivery dates, the shot list on WhatsApp, the planner with its cloud forecast (and no line when the forecast fails),
+// delivery dates, the shot list on WhatsApp, the planner (its cloud forecast is switched off until the shared weather function lands),
 // the share card, the work by car, and a Plus client without the Signature showpieces.
 import { test, expect, site, start, OPEN_TIME } from "./helpers.js";
 import { evening, eveningLine, dayLight, deliveryDate, shortDay } from "../../src/kits/carfilm/lib/carfilm.js";
@@ -83,31 +83,20 @@ test("the shot list goes to the studio with the shots chosen", async ({ page }) 
   await srv.close();
 });
 
-test("the planner gives the light for a road and date, and the forecast line appears only when it can be read", async ({ page }) => {
-  let ok = true;
-  await page.route("https://api.met.no/**", (route) => {
-    if (!ok) return route.abort();
-    const l = dayLight("2026-10-21", BOX_HILL.lat, BOX_HILL.lon), mid = ((l.goldPmStart ?? 0) + (l.goldPmEnd ?? 0)) / 2;
-    const hour = new Date(Math.round(mid / 3_600_000) * 3_600_000).toISOString().replace(".000", "");
-    return route.fulfill({ json: { properties: { meta: { updated_at: "2026-10-19T08:00:00Z" }, timeseries: [{ time: hour, data: { instant: { details: { cloud_area_fraction: 22 } } } }] } } });
-  });
+test("the planner gives the light for a road and date, with no forecast line while the forecast is switched off", async ({ page }) => {
+  const met = [];
+  page.on("request", (r) => { if (/met\.no/.test(r.url())) met.push(r.url()); });
   const srv = await start(demo);
   await page.goto(srv.base + "/golden-hour");
   await page.locator("[data-pl-date]").fill("2026-10-21");
   await expect(page.locator("[data-pl-gold]")).toHaveText(eveningLine(dayLight("2026-10-21", BOX_HILL.lat, BOX_HILL.lon)).gold);
-  await expect(page.locator("[data-forecast]")).toHaveText(/^Forecast at golden hour: mostly clear, 22% cloud\. MET Norway \(CC BY 4\.0\), updated \d\d:\d\d\.$/);
-  await expect(page.locator("[data-forecast] a")).toHaveCount(2);
   expect(await waText(page.locator("[data-pl-hold]"))).toContain("Box Hill, Zig Zag Road on Wed 21 Oct");
-  ok = false;
-  await page.locator("[data-pl-road]").selectOption("cheddar");
-  await expect(page.locator("[data-forecast]")).toBeHidden();
-  await page.locator("[data-pl-date]").fill("2026-11-30");
-  await expect(page.locator("[data-forecast]")).toBeHidden(); // beyond nine days: no forecast is asked for
+  await expect(page.locator("[data-forecast]")).toHaveCount(0);
+  expect(met, "no browser calls MET Norway").toEqual([]);
   await srv.close();
 });
 
 test("the share card is saved as a picture of the plan", async ({ page }) => {
-  await page.route("https://api.met.no/**", (route) => route.abort());
   const srv = await start(demo);
   await page.goto(srv.base + "/golden-hour");
   const [dl] = await Promise.all([page.waitForEvent("download"), page.getByRole("button", { name: "Share this plan" }).click()]);

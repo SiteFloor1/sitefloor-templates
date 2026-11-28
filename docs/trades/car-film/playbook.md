@@ -20,7 +20,8 @@ switch that snaps the frame to each shape the studio delivers. Every number on i
 - Prices are whole prices (CMA): the note says what each includes; "from" is refused; no price shows "Ask for a quote".
 - Light is calculated (NOAA equations, `src/core/lib/sun.js`), never weather. The forecast is MET Norway's
   Locationforecast (free, commercial use allowed with credit), named a forecast with its source and time, and hidden
-  when it can't be read. Open-Meteo's free tier is non-commercial, so it isn't used.
+  when it can't be read. Open-Meteo's free tier is non-commercial, so it isn't used. Switched off in the first
+  release: it returns through the shared weather function (the site's own `/weather`), so no browser calls MET.
 - No permissions, licences (drone, insurance) or laws are claimed: those answers are the studio's own words.
 - Demo footage and photographs are free stock (Mixkit, Unsplash), credited, plates and badges blurred, no real
   dealerships, and the demo groups the work by kind of car, never by brand.

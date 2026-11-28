@@ -1,7 +1,7 @@
 // @ts-check
 /**
  * The planner: road and date → golden hour, sunset, blue hour (lib/carfilm.js) and the day as a band of light. Shares
- * the plan ("plan": { road, light }) for the forecast and the share card; the Hold button sends it on WhatsApp.
+ * the plan ("plan": { road, light }) for the share card; the Hold button sends it on WhatsApp.
  */
 import { dayLight, eveningLine, shortDay, ukYmd, ukMidnight, fill, LIGHT } from "../../lib/carfilm.js";
 import { solarAngles } from "../../../../core/lib/sun.js";

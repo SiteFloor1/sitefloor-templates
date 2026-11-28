@@ -382,8 +382,8 @@ only when played (`preload="none"`). The frame guides are placed by CSS at the f
 own proportions, so nothing moves when the script starts; the readout is rendered with the build day's light.
 
 The sun maths runs in the browser: a minute-by-minute scan of the day (about 1,440 sun positions) per road shown,
-well under 10 ms on a phone. The cloud forecast is one request per road and hour to MET Norway, only on the planner
-page and only for dates within nine days.
+well under 10 ms on a phone. The cloud forecast is switched off until the shared weather function lands (then one request to the site's own
+`/weather`, only on the planner page and only for dates within nine days).
 
 Fallback fonts size-matched from the font files against Liberation Serif, Sans and Mono on the home page's own words:
 Trirong 120.1% (ascent 99.9%, descent 44.5%), Wix Madefor Text 103.5% (97.4%, 24.3%), Martian Mono 116.6% (85.7%, 17.1%).
