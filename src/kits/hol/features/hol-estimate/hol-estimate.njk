@@ -1,0 +1,23 @@
+{#- HOL-6, what could it earn? (Signature, under the hero photograph): one sum, guests pay − our fee = to you, from the
+    company's own last-year figures for the most common size of home, worked out at build time so it reads the same
+    without JavaScript. Bedrooms and own weeks change it. The basis and range sit on the line below. -#}
+{%- set e = site | firstEstimate %}
+<div class="st-est" data-feature="hol-estimate"{{ "hol-estimate" | tierAttr | safe }}>
+  <div class="st-ask">
+    <h1 id="ar-h1">{{ site.hero.title }}</h1>
+    <form class="st-ctl" onsubmit="return false">
+      <fieldset><legend>Bedrooms</legend><div class="st-seg">{% for s in site.estimate.sizes %}<label><input type="radio" name="beds" value="{{ s.beds }}"{% if s.beds == e.beds %} checked{% endif %}><span>{{ s.beds }}</span></label>{% endfor %}</div></fieldset>
+      <fieldset><legend>Your own stays</legend><div class="st-seg">{% for w in [0, 2, 4] %}<label><input type="radio" name="own" value="{{ w }}"{% if w == 0 %} checked{% endif %}><span>{{ "None" if w == 0 else (w + " weeks") }}</span></label>{% endfor %}</div></fieldset>
+    </form>
+  </div>
+  <div class="st-sumwrap">
+    <div class="st-terms" aria-live="polite">
+      <div class="st-term"><b data-se="guests">{{ e.guests | gbp }}</b><span data-se="gl">guests pay: {{ e.nights }} nights at {{ e.night | gbp }} on average</span></div>
+      <div class="st-op" aria-hidden="true">−</div>
+      <div class="st-term"><b data-se="fee">{{ e.fee | gbp }}</b><span>our fee, {{ site.fees.percent }}% with VAT</span></div>
+      <div class="st-op" aria-hidden="true">=</div>
+      <div class="st-term st-you"><b data-se="you">{{ e.toYou | gbp }}</b><span>to you, a year</span></div>
+    </div>
+    <p class="st-basis"><span data-se="basis">{{ e.basis }}</span> Before your running costs and tax; guests pay for cleaning.{% if site.mode == "demo" %} Sample figures.{% endif %}{% if site.estimate.london %} <a href="{{ londonRule.url }}" rel="noopener">{{ londonRule.source }}</a>, checked {{ londonRule.checkedText }}.{% endif %}</p>
+  </div>
+</div>

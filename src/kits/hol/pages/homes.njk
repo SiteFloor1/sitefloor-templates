@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: homes
+permalink: homes.html
+feature: hol-homes
+eleventyComputed:
+  title: "{{ site.homes.title }}"
+  description: "{{ site.homes.intro }}"
+---
+{%- set ph = { title: site.homes.title, intro: site.homes.intro } %}
+{% include "kits/hol/partials/page-head.njk" %}
+<div class="wrap">{% include "kits/hol/features/hol-homes/hol-homes.njk" %}</div>

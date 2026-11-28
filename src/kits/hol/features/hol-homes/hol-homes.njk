@@ -1,0 +1,16 @@
+{#- HOL-7, The homes (Plus page): every home, its guest total with every fee and its booking link; on Signature, its
+    next free dates from the company's sheet (hol-calendar). -#}
+{%- set full = true %}
+<div class="st-homes-page" data-feature="hol-homes">
+  <div class="st-homes-grid st-all">{% for hm in site.homes.items %}<article class="st-home">
+  <img src="{{ hm.photo.src | img }}" width="{{ hm.photo.width }}" height="{{ hm.photo.height }}" alt="{{ hm.photo.alt }}" loading="lazy" decoding="async">
+  <{{ "h2" if full else "h3" }} class="st-home-n">{{ hm.name }}</{{ "h2" if full else "h3" }}>
+  <p>{{ hm.town }} · sleeps {{ hm.sleeps }} · {{ hm.bedrooms }} bedroom{% if hm.bedrooms != 1 %}s{% endif %}</p>
+  <p class="st-price"><b>{{ hm.stay.total | gbp }}</b> for {{ hm.stay.nights }} nights {{ hm.stay.when }}, every fee included</p>
+  {%- if full %}<p class="st-line">{{ hm.line }}</p>{% endif %}
+  {%- if full and ("hol-calendar" | enabled) %}<p class="st-free" data-sc-free="{{ hm.id }}"{{ "hol-calendar" | tierAttr | safe }} hidden></p>{% endif %}
+  {%- if full %}{% if hm.book %}<a class="st-link" href="{{ hm.book }}" rel="noopener">Book {{ hm.name }}</a>{% else %}{% set bm = "Hello " + site.business.name + ", I'd like to book " + hm.name + "." %}<a class="st-link" href="{{ bm | wa }}" data-wa-text="{{ bm }}" target="_blank" rel="noopener">Book {{ hm.name }}</a>{% endif %}{% endif %}
+</article>{% endfor %}</div>
+  {%- if "hol-calendar" | enabled %}{% include "kits/hol/features/hol-calendar/hol-calendar.njk" %}{% endif %}
+  <p class="st-credit">Photographs: {% for hm in site.homes.items %}{{ hm.photo.credit }}{% if not loop.last %}, {% endif %}{% endfor %}{% if site.mode == "demo" %}. Sample homes and prices.{% endif %}</p>
+</div>

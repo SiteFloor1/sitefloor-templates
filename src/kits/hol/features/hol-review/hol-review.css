@@ -1,0 +1,13 @@
+/* HOL-3: a calm two-column form; one dark button. */
+.st-rev { max-width: 880px; padding-bottom: 80px; }
+.st-rev-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 28px; border-top: 1px solid var(--text); padding-top: 22px; }
+.st-rev label > span, .st-rev legend { display: block; font-size: 14px; color: var(--muted); margin-bottom: 6px; }
+.st-rev input:not([type=radio]), .st-rev select, .st-rev textarea { width: 100%; font-size: 16px; padding: 11px 12px; border: 1px solid var(--line-2); background: var(--bg); border-radius: 0; }
+.st-rev [aria-invalid="true"] { border-color: var(--accent); }
+.st-rev fieldset { border: 0; padding: 0; margin: 0; grid-row: span 2; }
+.st-radio { display: flex; gap: 10px; align-items: center; padding: 6px 0; font-size: 16px; }
+.st-radio input { accent-color: var(--accent); width: 18px; height: 18px; }
+.st-wide { grid-column: 1 / -1; }
+.st-rev-go { margin-top: 24px; }
+.st-rev .st-btn { font-size: 16px; }
+@media (max-width: 760px) { .st-rev-grid { grid-template-columns: 1fr; } .st-rev fieldset { grid-row: auto; } }

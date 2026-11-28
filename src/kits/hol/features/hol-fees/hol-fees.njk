@@ -1,0 +1,28 @@
+{#- HOL-1, the fees page (free on every plan): the fee, VAT included, worked on an example; every other charge once,
+    in pounds with VAT (or "none"); who does what; the notice to leave; then the office's hours and address. -#}
+{%- set fx = site.fees.example %}
+<div class="st-fees" data-feature="hol-fees">
+  <section class="st-fees-head" aria-labelledby="st-fee-h">
+    <h2 id="st-fee-h">Our fee</h2>
+    <p class="st-fees-n"><b>{{ site.fees.percent }}%</b> of what guests pay, VAT included. {{ site.fees.basis }}</p>
+    <table class="st-sum-t"><caption class="sr-only">Our fee on an example</caption><tbody>
+      <tr><th scope="row">Guests pay</th><td>{{ fx | gbp }}</td></tr>
+      <tr><th scope="row">Our fee, {{ site.fees.percent }}% with VAT</th><td>−{{ fx | feeOn(site.fees.percent) | gbp }}</td></tr>
+      <tr class="st-to"><th scope="row">To you</th><td>{{ (fx - (fx | feeOn(site.fees.percent))) | gbp }}</td></tr>
+    </tbody></table>
+    <p class="st-fine">An example, not an estimate. Before your own running costs and tax.</p>
+  </section>
+  <section aria-labelledby="st-chg-h">
+    <h2 id="st-chg-h">Every other charge</h2>
+    <table class="st-chg"><caption class="sr-only">Other charges, with VAT</caption>
+      <thead><tr><th scope="col">Charge</th><th scope="col">When</th><th scope="col">With VAT</th></tr></thead>
+      <tbody>{% for c in site.fees.charges %}<tr><th scope="row">{{ c.name }}</th><td>{{ c.when }}</td><td>{% if c.amount %}{{ c.amount | gbp }}{% else %}None{% endif %}</td></tr>{% endfor %}</tbody>
+    </table>
+    <p class="st-fine">{{ site.fees.notice }}</p>
+  </section>
+  <section class="st-who" aria-label="Who does what">
+    <div><h2>We do</h2><ul>{% for x in site.fees.weDo %}<li>{{ x }}</li>{% endfor %}</ul></div>
+    <div><h2>You keep</h2><ul>{% for x in site.fees.youKeep %}<li>{{ x }}</li>{% endfor %}</ul></div>
+  </section>
+  {%- if "visit" | enabled %}{% include "features/visit/visit.njk" %}{% endif %}
+</div>

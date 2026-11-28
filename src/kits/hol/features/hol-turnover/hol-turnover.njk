@@ -1,0 +1,19 @@
+{#- HOL-5, between guests (Plus, on the home page): the room on the left, a ruled day on the right. Choosing a time
+    opens its line and changes the photograph. Without JavaScript every line shows and the first photograph stays. -#}
+{%- set t = site.turnover %}
+<section class="st-turn" id="turnover" data-feature="hol-turnover"{{ "hol-turnover" | tierAttr | safe }} aria-labelledby="st-turn-h">
+  <div class="wrap st-turn-in">
+    <div class="st-room">
+      {%- for s in t.steps %}<img src="{{ s.photo.src | img }}" width="{{ s.photo.width }}" height="{{ s.photo.height }}" alt="{{ s.photo.alt }}" loading="lazy" decoding="async"{% if loop.first %} class="on"{% endif %} data-st-photo>{% endfor %}
+    </div>
+    <div>
+      <h2 id="st-turn-h">{{ t.title }}</h2>
+      <p class="st-turn-lead">{{ t.intro }}</p>
+      <ol class="st-day">
+        {%- for s in t.steps %}<li><button type="button" aria-pressed="{{ 'true' if loop.first else 'false' }}" data-st-step="{{ loop.index0 }}"><time>{{ s.time }}</time><b>{{ s.title }}</b><span class="st-det">{{ s.detail }}</span></button></li>{% endfor %}
+      </ol>
+      <p class="st-turn-note">{{ t.note }}{% if "hol-care" | enabled %} <a href="{{ 'care' | href }}"{{ "hol-care" | tierAttr | safe }}>Cleaning and linen</a>{% endif %}</p>
+    </div>
+  </div>
+  <p class="wrap st-credit">Photographs: {% for s in t.steps %}{{ s.photo.credit }}{% if not loop.last %}, {% endif %}{% endfor %}</p>
+</section>

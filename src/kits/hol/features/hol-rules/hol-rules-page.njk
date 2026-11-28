@@ -1,0 +1,10 @@
+{#- HOL-2, the rules page (free on every plan): every region in full, dated, linked. -#}
+<div class="st-rules-page" data-feature="hol-rules">
+  {%- for rg in holRegions %}
+  <section class="st-rp-full" aria-labelledby="st-r-{{ rg.id }}">
+    <h2 id="st-r-{{ rg.id }}">{{ rg.name }}</h2>
+    <ul class="st-rl">{% for x in rg.rules %}{% if x | ruleState(build.today) == "current" %}<li data-checked="{{ x.checked }}"><p>{{ x.text }}</p><p class="st-rl-s"><a href="{{ x.url }}" rel="noopener" data-source="{{ x.source }}">{{ x.source }}</a> · checked {{ x.checked | longDate }}</p></li>{% else %}<li><p class="st-rl-s">This line is due a fresh check. <a href="{{ x.url }}" rel="noopener">Read it on {{ x.source }}</a>.</p></li>{% endif %}{% endfor %}</ul>
+  </section>
+  {%- endfor %}
+  <p class="st-fine">We link to the official page for every rule rather than explain it, and check each one again every six months. This is not legal advice.</p>
+</div>

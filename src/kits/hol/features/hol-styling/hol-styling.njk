@@ -1,0 +1,6 @@
+{#- Interior styling (Signature page): what the company does to ready a home for guests, and its fee with VAT. -#}
+<div class="st-plain st-styl" data-feature="hol-styling">
+  <figure><img src="{{ site.styling.photo.src | img }}" width="{{ site.styling.photo.width }}" height="{{ site.styling.photo.height }}" alt="{{ site.styling.photo.alt }}" loading="lazy" decoding="async"><figcaption class="st-credit">{{ site.styling.photo.credit }}</figcaption></figure>
+  <ul class="st-kinds">{% for k in site.styling.items %}<li><h2>{{ k.title }}</h2><p>{{ k.text }}</p></li>{% endfor %}</ul>
+  <p class="st-count">{{ site.styling.fee }}</p>
+</div>

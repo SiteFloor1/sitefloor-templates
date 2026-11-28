@@ -1,0 +1,15 @@
+{#- HOL-3, ask for a revenue review (Plus page): a short form that writes one WhatsApp message to the company. Nothing
+    is sent or kept by the site. Without JavaScript, the button opens WhatsApp with the company's opening line. -#}
+{%- set r = site.review %}
+<form class="st-rev" data-feature="hol-review" onsubmit="return false" novalidate>
+  <div class="st-rev-grid">
+    <label><span>Where is the home?</span><input name="where" autocomplete="address-level2" placeholder="Town or postcode district"></label>
+    <label><span>Bedrooms</span><select name="beds">{% for n in [1, 2, 3, 4, 5, 6] %}<option{% if n == 3 %} selected{% endif %}>{{ n }}{% if n == 6 %} or more{% endif %}</option>{% endfor %}</select></label>
+    <label><span>Sleeps</span><input name="sleeps" inputmode="numeric" maxlength="2"></label>
+    <fieldset><legend>How it's let now</legend>{% for x in r.now %}<label class="st-radio"><input type="radio" name="now" value="{{ x }}"{% if loop.first %} checked{% endif %}><span>{{ x }}</span></label>{% endfor %}</fieldset>
+    <label><span>When you'd like to start</span><input name="when" placeholder="e.g. before Easter"></label>
+    <label class="st-wide"><span>Anything else</span><textarea name="note" rows="3"></textarea></label>
+  </div>
+  <p class="st-rev-go"><a class="st-btn" data-sr-send href="{{ r.message | wa }}" target="_blank" rel="noopener">Send on WhatsApp</a></p>
+  <p class="st-fine">This opens WhatsApp with your answers written out; you send it. The site keeps nothing. We reply with a visit date, then a written review with our figures.</p>
+</form>

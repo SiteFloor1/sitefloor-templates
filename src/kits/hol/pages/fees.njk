@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: fees
+permalink: fees.html
+feature: hol-fees
+eleventyComputed:
+  title: "What it costs"
+  description: "{{ site.business.name }}'s fee, {{ site.fees.percent }}% of what guests pay with VAT included, every other charge in pounds, and who does what."
+---
+{%- set ph = { title: "What it costs", intro: "One fee, VAT included, and every other charge in pounds. Nothing else is added." } %}
+{% include "kits/hol/partials/page-head.njk" %}
+<div class="wrap">{% include "kits/hol/features/hol-fees/hol-fees.njk" %}</div>

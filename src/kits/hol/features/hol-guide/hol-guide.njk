@@ -1,0 +1,24 @@
+{#- HOL-9, a guest guidebook (Signature, unlisted, one page per home): opened with the code from the booking message.
+    It keeps the page out of casual reach; it is not security. Door codes and passwords never go in it. -#}
+{%- set hm = site.homes | homeById(g.home) %}
+<div class="st-guide" data-feature="hol-guide" data-home="{{ g.home }}">
+  <form class="st-code" data-sg-form data-js-only>
+    <label><span>The code from your booking message</span><input name="code" autocomplete="off" autocapitalize="characters" spellcheck="false"></label>
+    <button class="st-btn" type="submit">Open the guide</button>
+    <p class="st-fine" data-sg-wrong hidden>That code doesn't match this home. It's in the message we sent with your booking.</p>
+  </form>
+  <p class="st-fine" data-no-js>This guide opens with the code from your booking message, in a browser with JavaScript on. Or message us and we'll send it.</p>
+  <div class="st-plain" data-sg-body hidden>
+    <p class="st-count">{{ hm.name }}, {{ hm.town }}</p>
+    <ul class="st-kinds">
+      <li><h2>Arriving</h2><p>{{ g.arrival }}</p></li>
+      <li><h2>Wi-Fi</h2><p>{{ g.wifi }}</p></li>
+      <li><h2>Heating and hot water</h2><p>{{ g.heating }}</p></li>
+      <li><h2>Bins</h2><p>{{ g.bins }}</p></li>
+    </ul>
+    <section aria-labelledby="st-near-h"><h2 id="st-near-h">Nearby</h2><ul class="st-ruled">{% for x in g.near %}<li>{{ x }}</li>{% endfor %}</ul></section>
+    <section aria-labelledby="st-walk-h"><h2 id="st-walk-h">Walks we like</h2><ul class="st-ruled">{% for x in g.walks %}<li>{{ x }}</li>{% endfor %}</ul></section>
+    <section aria-labelledby="st-leave-h"><h2 id="st-leave-h">Leaving</h2><p>{{ g.leaving }}</p></section>
+    <p class="st-fine">Anything wrong? <a href="{{ site.messages.general | wa }}" target="_blank" rel="noopener">Message us on WhatsApp</a>{% if site.contact.phone %} or call {{ site.contact.phone | replace('+44 ', '0') }}{% endif %}.</p>
+  </div>
+</div>

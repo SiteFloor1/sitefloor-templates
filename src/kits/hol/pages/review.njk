@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: review
+permalink: review.html
+feature: hol-review
+eleventyComputed:
+  title: "{{ site.review.title }}"
+  description: "{{ site.review.intro }}"
+---
+{%- set ph = { title: site.review.title, intro: site.review.intro } %}
+{% include "kits/hol/partials/page-head.njk" %}
+<div class="wrap">{% include "kits/hol/features/hol-review/hol-review.njk" %}</div>

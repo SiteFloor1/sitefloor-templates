@@ -1,0 +1,25 @@
+/* HOL-7: the homes large; the first wide, the others tall; the price is the guest's total. */
+.st-homes { padding-block: clamp(56px, 7vw, 96px); }
+.st-homes-head { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; margin-bottom: 28px; }
+.st-homes-head h2 { font: 500 clamp(26px, 2.2vw, 32px)/1.1 var(--font-display); letter-spacing: -.01em; }
+.st-homes-head .st-link { margin-top: 0; }
+.st-homes-grid { display: grid; grid-template-columns: 1.55fr 1fr 1fr; gap: 20px; align-items: end; }
+.st-home img { width: 100%; height: min(58vh, 540px); object-fit: cover; background: var(--surface); }
+.st-home-n { margin-top: 16px; font: 500 19px/1.2 var(--font-display); }
+.st-home p { font-size: 15px; color: var(--muted); }
+.st-price b { color: var(--text); font-weight: 500; }
+.st-line { margin-top: 6px; }
+.st-free { margin-top: 6px; color: var(--text) !important; }
+.st-free[hidden] { display: none; }
+.st-home .st-link { margin-top: 10px; font-size: 15px; }
+.st-all { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; row-gap: 48px; }
+.st-all .st-home img { height: auto; aspect-ratio: 4 / 5; }
+.st-homes-page { padding-bottom: 80px; }
+@media (max-width: 760px) {
+  .st-homes-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+  .st-homes-grid > :first-child { grid-column: 1 / -1; }
+  .st-home img { height: 230px; }
+  .st-home-n { font-size: 17px; }
+  .st-all { grid-template-columns: 1fr; }
+  .st-all .st-home img { height: auto; }
+}

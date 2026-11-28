@@ -70,6 +70,7 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 | Garage, Elsden (the gallery) | trade/garage | Cardo | Radio Canada |
 | Halde, chalk (round 1) | trade/gym | Sofia Sans Extra Condensed | Sofia Sans |
 | Halde, After dark (chosen, round 3) | trade/gym | Epilogue | Epilogue |
+| Tressa, The estimate (A) | trade/holiday-lets | Zalando Sans Expanded | Zalando Sans |
 | Landscaping, Almanac | trade/landscaping | Alegreya | Alegreya |
 | Halvern, The stair (A) | trade/letting | Petrona | Petrona |
 | Taroub | trade/modest | Shippori Mincho | Afacad |

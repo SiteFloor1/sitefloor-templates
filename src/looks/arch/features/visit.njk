@@ -1,0 +1,13 @@
+{#- Arch office: the address and the week's hours as a ruled list, the live status above. On the fees page, last:
+    who the company is and where to find it. -#}
+<section id="visit" class="ar-visit" data-feature="visit" aria-labelledby="ar-visit-h">
+  <h2 id="ar-visit-h">{{ site.sections.visit.title }}</h2>
+  <div class="ar-visit-in">
+    <address>{{ site.location.streetAddress }}<br>{{ site.location.locality }} {{ site.location.postcode }}{% if site.location.area %}<br><span>{{ site.location.area }}</span>{% endif %}<br><a href="{{ site.location.directionsUrl }}" rel="noopener">Directions</a></address>
+    <div data-hours>
+      <p class="ar-visit-now" data-live-status><span class="dot" aria-hidden="true"></span> <span data-status-text>Office hours</span></p>
+      <p class="ar-visit-fine" data-status-detail></p>
+      <table class="ar-hrs"><caption class="sr-only">Office hours</caption><tbody>{% for row in site.hours | hoursRows %}<tr data-day="{{ row.dayIndex }}"><th scope="row">{{ row.day }}</th><td>{{ row.label }}</td></tr>{% endfor %}</tbody></table>
+    </div>
+  </div>
+</section>

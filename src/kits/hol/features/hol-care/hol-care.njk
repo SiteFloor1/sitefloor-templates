@@ -1,0 +1,7 @@
+{#- Cleaning and linen (Signature page): the changeover in full, the linen and what's restocked. -#}
+<div class="st-plain" data-feature="hol-care">
+  <ol class="st-steps">{% for s in site.turnover.steps %}<li><span class="st-when">{{ s.time }}</span><b>{{ s.title }}</b><p>{{ s.detail }}</p></li>{% endfor %}</ol>
+  <section aria-labelledby="st-linen-h"><h2 id="st-linen-h">The linen</h2><ul class="st-ruled">{% for x in site.care.linen %}<li>{{ x }}</li>{% endfor %}</ul></section>
+  <section aria-labelledby="st-restock-h"><h2 id="st-restock-h">Restocked every time</h2><ul class="st-ruled">{% for x in site.care.restock %}<li>{{ x }}</li>{% endfor %}</ul></section>
+  <p class="st-fine">{{ site.turnover.note }}</p>
+</div>
