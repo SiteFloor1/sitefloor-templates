@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chalden Case Study</title>
+<meta name="description" content="Chalden, a website for a pop-up that lasts nineteen days: it knows which one it's on, whether the door is open, how long the queue is and where the pop-up goes next.">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="icon" href="data:,">
+<link rel="preload" href="media/fonts/bona-nova-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="media/hero-small.webp" as="image" media="(max-width: 760px)">
+<link rel="preload" href="media/hero.webp" as="image" media="(min-width: 761px)">
+<style>
+/* Layout: the run. A pop-up's website read across the nineteen days it lasts. The page opens on Chalden's own first
+   screen, the lit bottle and the double-ruled invitation, and six moments from the life of the pop-up beneath the card:
+   choose one and the card, and the phone bar's open-or-closed line, are worked out again for that moment by the kit's
+   own rules (src/kits/popup/lib: runLine, stateWords, currentStop, entryTimes; core statusLabel) on the demo's own
+   stops and hours. Then the run in order, one part of the site to each stretch of it: weeks before (the countdown and
+   the list), the door (the walk), inside (the rooms, live), a time and someone to bring (the day strip and the
+   invitation card, drawn live), at the bar (only here, the queue), after (the tour, past pop-ups, your city), every
+   page, three invitations (the plans) and the small print (the numbers).
+   Chalden's chalk, ink and quince; one ink band for "after". Bona Nova and Inclusive Sans (the demo's own), self-hosted
+   with the look's size-matched stand-ins; Manrope for Sitefloor. Motion: the card's words cross-fade when they change;
+   nothing tied to the scroll; under reduced motion, none. */
+@font-face { font-family: "Bona Nova"; font-weight: 400; font-display: swap; src: url("media/fonts/bona-nova-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Inclusive Sans"; font-weight: 400; font-display: swap; src: url("media/fonts/inclusive-sans-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Bona Nova Fallback"; src: local("Georgia"), local("Times New Roman"), local("Liberation Serif"); size-adjust: 108.2%; ascent-override: 86.1%; descent-override: 24.8%; line-gap-override: 0%; }
+@font-face { font-family: "Inclusive Sans Fallback"; src: local("Arial"), local("Helvetica"), local("Liberation Sans"); size-adjust: 106.1%; ascent-override: 89.5%; descent-override: 23.6%; line-gap-override: 0%; }
+:root {
+  --sf-paper: #FBFAF7; --sf-ink: #0E0F11; --sf-tomato: #E8613C; --sf-line: rgba(14,15,17,.12);
+  --chalk: #F3F1EC; --chalk-2: #E9E5DC; --ink: #17150F; --muted: #6A6458; --line: #D8D2C6; --line-2: #BDB5A6;
+  --quince: #C08A1E; --quince-ink: #7E5A0E; --slab: #2A1D0C; --night: #17150F; --night-muted: #BDB5A6;
+  --brand: "Manrope", Arial, sans-serif;
+  --display: "Bona Nova", "Bona Nova Fallback", Georgia, serif;
+  --body: "Inclusive Sans", "Inclusive Sans Fallback", Arial, sans-serif;
+  --bar: 66px; --edge: clamp(16px, 2.8vw, 40px);
+}
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; min-width: 0; }
+html { background: var(--chalk); -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--bar) + 12px); }
+body { background: var(--chalk); color: var(--ink); font: 400 17px/1.55 var(--body); -webkit-font-smoothing: antialiased; overflow-x: clip; }
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--quince-ink); outline-offset: 3px; }
+h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -.01em; text-wrap: balance; }
+.gut { padding-left: max(var(--edge), env(safe-area-inset-left, 0px)); padding-right: max(var(--edge), env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 1360px; margin: 0 auto; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ------------------------------------------------------------------ Sitefloor's bar */
+.sfbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--sf-paper); color: var(--sf-ink); border-bottom: 1px solid var(--sf-line); }
+.sfbar .wrap { display: flex; justify-content: space-between; align-items: center; height: var(--bar); gap: 16px; max-width: 1440px; }
+.wm { display: inline-flex; align-items: center; font: 700 22px var(--brand); letter-spacing: -.04em; text-decoration: none; color: var(--sf-ink); }
+.wm svg { margin: 0 1px; transform: translateY(1px); }
+.sfbar nav { display: flex; gap: 28px; font-family: var(--brand); font-size: 14px; font-weight: 600; }
+.sfbar nav a { text-decoration: none; color: var(--sf-ink); }
+.sfbar nav a[aria-current] { box-shadow: inset 0 -1.5px 0 var(--sf-ink); }
+.sfbtn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 20px; background: var(--sf-ink); color: var(--sf-paper); font: 700 14px var(--brand); text-decoration: none; }
+.sfbar :focus-visible { outline-color: var(--sf-ink); }
+@media (max-width: 760px) { .sfbar nav { display: none; } }
+@media (max-width: 420px) { .sfbar .sfbtn { display: none; } }
+
+/* ------------------------------------------------------------------ the first screen: the bottle, the card, six moments */
+.run { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 40px; height: calc(100svh - var(--bar)); min-height: 680px; max-height: 960px; padding-top: var(--edge); padding-bottom: var(--edge); }
+.slab { position: relative; overflow: hidden; background: var(--slab); }
+.slab img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 46%; }
+.side { display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: 14px; }
+.inv { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 26px 28px; border: 1px solid var(--ink); outline: 1px solid var(--ink); outline-offset: -9px; min-height: 0; }
+.mono { position: relative; display: inline-grid; place-items: center; width: 40px; height: 56px; border: 1px solid var(--ink); border-radius: 20px 20px 5px 5px; font: 400 26px/1 var(--display); padding-top: 8px; margin-bottom: 18px; }
+.mono::before { content: ""; position: absolute; top: 10px; left: 8px; right: 8px; height: 4px; background: var(--quince); }
+.inv .lede { font: 400 22px/1.2 var(--display); color: var(--muted); }
+.inv .dates { font: 400 clamp(56px, 5.6vw, 84px)/.95 var(--display); margin: 18px 0 4px; white-space: nowrap; }
+.inv .dates span { display: block; }
+.inv .dates .to { font-size: 26px; line-height: 1; color: var(--quince-ink); margin: 14px 0; }
+.inv .place { font: 400 24px/1.3 var(--display); margin-top: 18px; }
+.inv .left { font-size: 16px; color: var(--muted); margin-top: 2px; }
+.inv .now { margin-top: 22px; font-size: 18px; color: var(--quince-ink); min-height: 1.6em; }
+.inv .queue { font-size: 15px; color: var(--muted); min-height: 1.5em; margin-top: 4px; }
+.inv .when-is { margin-top: 22px; font-size: 13px; color: var(--muted); }
+.fade { transition: opacity .45s ease; }
+.fade.out { opacity: 0; }
+.moments { margin-top: 12px; }
+.bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--night); color: var(--chalk); padding: 12px 12px 12px 18px; font-size: 14px; }
+.bar b { font-weight: 400; color: var(--night-muted); margin-right: 8px; }
+.bar span.pill { flex: none; background: var(--quince); color: var(--ink); padding: 10px 16px; font-size: 14px; }
+.moments { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
+.moments button { text-align: left; padding: 10px 8px 10px; border-top: 2px solid var(--line-2); font-size: 14px; line-height: 1.3; color: var(--muted); min-height: 64px; }
+.moments button b { display: block; font: 400 17px/1.15 var(--display); color: var(--ink); margin-bottom: 3px; }
+.moments button[aria-pressed="true"] { border-color: var(--quince); color: var(--quince-ink); }
+.moments button:hover b { text-decoration: underline; text-underline-offset: 4px; }
+.run-h { grid-column: 1 / -1; display: none; }
+
+/* ------------------------------------------------------------------ intro */
+.intro { padding-top: clamp(64px, 8vw, 120px); padding-bottom: clamp(64px, 8vw, 120px); text-align: center; }
+.intro h1 { font-size: clamp(54px, 8vw, 120px); line-height: .95; }
+.intro p { font: 400 clamp(20px, 1.8vw, 26px)/1.4 var(--display); max-width: 30ch; margin: 28px auto 0; }
+.intro .acts { display: flex; flex-wrap: wrap; gap: 14px 26px; justify-content: center; align-items: center; margin-top: 34px; }
+.btn { display: inline-flex; align-items: center; min-height: 50px; padding: 0 24px; background: var(--ink); color: var(--chalk); text-decoration: none; font-size: 15px; border-radius: 2px; }
+.btn.ghost { background: none; color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.txt { font-size: 15px; text-underline-offset: 4px; }
+
+/* ------------------------------------------------------------------ the parts of the run */
+.part { padding-top: clamp(64px, 8vw, 112px); padding-bottom: clamp(64px, 8vw, 112px); border-top: 1px solid var(--line); }
+.part-head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 40px; align-items: end; margin-bottom: clamp(36px, 4vw, 60px); }
+.part-head h2 { font-size: clamp(44px, 5.6vw, 84px); line-height: .98; }
+.part-head p { font-size: 18px; color: var(--muted); max-width: 34ch; }
+.day { margin-bottom: 18px; color: var(--quince-ink); }
+.day b { display: block; font: 400 clamp(88px, 11vw, 168px)/.8 var(--display); letter-spacing: -.03em; }
+.day span { display: block; font: 400 20px/1.2 var(--display); margin-top: 8px; }
+.phones { display: grid; grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr)); gap: clamp(14px, 2vw, 28px); align-items: start; }
+.phones figure { margin: 0; }
+.phones img { width: 100%; border-radius: 22px; box-shadow: 0 0 0 1px var(--line), 0 24px 48px -28px rgba(23,21,15,.45); background: var(--chalk-2); }
+.phones figcaption { font-size: 15px; color: var(--muted); margin-top: 14px; max-width: 34ch; }
+.phones figcaption b { display: block; font: 400 22px/1.2 var(--display); color: var(--ink); margin-bottom: 4px; }
+.phones.trio { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr) minmax(0, 1fr); align-items: end; }
+.split { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(28px, 4vw, 64px); align-items: start; }
+.prose p { font-size: 18px; max-width: 38ch; }
+.prose p + p { margin-top: 14px; }
+.prose .small { font-size: 15px; color: var(--muted); }
+
+/* the rooms, live */
+.rooms { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; list-style: none; padding: 0; text-align: center; }
+.rooms button { display: block; width: 100%; text-align: center; }
+.rooms img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; opacity: .55; transition: opacity .6s ease; }
+.rooms button[aria-pressed="true"] img { opacity: 1; }
+.rooms b { display: block; font: 400 30px/1.1 var(--display); margin-top: 16px; }
+.rooms small { display: block; font-size: 15px; color: var(--muted); margin-top: 4px; }
+.rooms button[aria-pressed="true"] small { color: var(--quince-ink); }
+.room-line { text-align: center; font: 400 24px/1.4 var(--display); max-width: 30ch; margin: 30px auto 0; min-height: 2.8em; }
+.total { text-align: center; font-size: 15px; color: var(--muted); margin-top: 6px; }
+
+/* a time and someone to bring, live */
+.book { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(28px, 4vw, 64px); align-items: start; }
+.days { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 6px; }
+.days button { flex: 0 0 62px; padding: 10px 0; text-align: center; color: var(--muted); font-size: 14px; border-bottom: 2px solid transparent; }
+.days button b { display: block; font: 400 30px/1 var(--display); color: var(--ink); margin-top: 4px; }
+.days button[aria-pressed="true"] { border-color: var(--quince); }
+.days button[aria-pressed="true"] b { color: var(--quince-ink); }
+.days button:disabled { opacity: .35; cursor: default; }
+.times { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-top: 22px; }
+.times button { padding: 14px 0; box-shadow: inset 0 0 0 1px var(--line-2); border-radius: 2px; font-size: 16px; }
+.times button[aria-pressed="true"] { box-shadow: inset 0 0 0 2px var(--ink); }
+.times p { grid-column: 1 / -1; color: var(--muted); }
+.card-out { text-align: center; }
+.card-out canvas { width: min(100%, 380px); height: auto; aspect-ratio: 4 / 5; box-shadow: 0 0 0 1px var(--line), 0 30px 60px -36px rgba(23,21,15,.5); background: var(--chalk); margin: 0 auto; display: block; }
+.card-out p { font-size: 15px; color: var(--muted); margin-top: 14px; }
+
+/* after: the ink band */
+.after { background: var(--night); color: var(--chalk); border-top: 0; }
+.after .part-head p, .after .phones figcaption { color: var(--night-muted); }
+.after .phones figcaption b { color: var(--chalk); }
+.after .day { color: var(--quince); }
+.after .phones img { box-shadow: 0 0 0 1px rgba(243,241,236,.14); }
+
+/* every page */
+.pages { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 40px; border-top: 1px solid var(--line); }
+.pages li { padding: 18px 0; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 2.2em minmax(0, 1fr); gap: 2px 10px; }
+.pages i { font: 400 22px/1.2 var(--display); font-style: normal; color: var(--quince-ink); grid-row: span 2; }
+.pages a, .pages .pn { font: 400 22px/1.2 var(--display); text-decoration: none; }
+.pages a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.pages span { font-size: 15px; color: var(--muted); }
+
+/* three invitations */
+.laptops { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-bottom: 28px; }
+.laptops img { width: 100%; box-shadow: 0 0 0 1px var(--line); }
+.plans { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.plan { border: 1px solid var(--ink); outline: 1px solid var(--ink); outline-offset: -7px; padding: 34px 28px 28px; text-align: center; display: flex; flex-direction: column; }
+.plan h3 { font-size: 40px; line-height: 1; }
+.plan .price { font: 400 22px/1.3 var(--display); margin-top: 10px; }
+.plan .price small { display: block; font: 400 15px/1.4 var(--body); color: var(--muted); }
+.plan ul { list-style: none; padding: 0; margin: 22px 0 0; text-align: left; border-top: 1px solid var(--line); }
+.plan li { padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+.plan .pages-n { margin-top: auto; padding-top: 18px; font-size: 14px; color: var(--quince-ink); }
+.fine { font-size: 14px; color: var(--muted); margin-top: 18px; }
+
+/* the small print */
+.out { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); }
+.out div { padding: 26px 24px 26px 0; border-bottom: 1px solid var(--line); }
+.out b { display: block; font: 400 clamp(54px, 5.4vw, 80px)/1 var(--display); }
+.out span { display: block; font-size: 15px; color: var(--muted); margin-top: 10px; max-width: 30ch; }
+
+/* close */
+.close { position: relative; overflow: hidden; background: var(--night); color: var(--chalk); padding-top: clamp(90px, 12vw, 180px); padding-bottom: clamp(90px, 12vw, 180px); text-align: center; }
+.close img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .42; }
+.close .wrap { position: relative; }
+.close h2 { font-size: clamp(54px, 8vw, 124px); line-height: .95; }
+.close p { font-size: 19px; max-width: 40ch; margin: 22px auto 0; color: #EFEBE2; }
+.close .acts { display: flex; flex-wrap: wrap; gap: 14px 26px; justify-content: center; align-items: center; margin-top: 32px; }
+.close .btn { background: var(--quince); color: var(--ink); }
+.close .txt { color: var(--chalk); }
+.close .mail { display: block; margin-top: 22px; font-size: 14px; color: #D8D2C6; }
+
+footer { padding-top: 32px; padding-bottom: 40px; background: var(--night); color: var(--night-muted); border-top: 1px solid rgba(243,241,236,.12); }
+footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; font-size: 13px; max-width: 1440px; }
+footer p { max-width: 112ch; }
+
+@media (max-width: 1100px) {
+  .moments { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .pages { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 860px) {
+  .run { grid-template-columns: minmax(0, 1fr); gap: 12px; padding-top: 12px; min-height: 0; height: auto; max-height: none; }
+  .slab { min-height: 0; height: 470px; }
+  .inv { min-height: 0; padding: 32px 18px; }
+  .inv .mono { display: none; }
+  .inv .dates { font-size: 52px; margin: 14px 0 4px; }
+  .inv .dates .to { font-size: 20px; margin: 8px 0; }
+  .moments { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .part-head, .split, .book { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .phones { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .phones.one { grid-template-columns: minmax(0, 1fr); max-width: 360px; }
+  .rooms { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 12px; }
+  .rooms li { flex: 0 0 78%; scroll-snap-align: center; }
+  .room-line { font-size: 20px; }
+  .times { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .laptops, .plans, .out { grid-template-columns: minmax(0, 1fr); }
+  .pages { grid-template-columns: minmax(0, 1fr); }
+  footer .wrap { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) { .fade, .rooms img { transition: none; } }
+</style>
+</head>
+<body>
+
+<div class="sfbar gut"><div class="wrap">
+  <a class="wm" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su" aria-label="Sitefloor home">sitefl<svg width="28" height="14" viewBox="0 0 42 21" aria-hidden="true"><rect x="1.9" y="1.9" width="38.2" height="17.2" rx="8.6" fill="none" stroke="#0E0F11" stroke-width="3.8"/><circle cx="31.5" cy="10.5" r="5.2" fill="#E8613C"/></svg>r</a>
+  <nav aria-label="Main"><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#live">Features</a><a href="#top" aria-current="page">Work</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#pricing">Pricing</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#guides">Guides</a></nav>
+  <a class="sfbtn" href="#mockup"><span>Free mockup</span><span aria-hidden="true">→</span></a>
+</div></div>
+
+<main id="top">
+
+<!-- ================================================================ the run -->
+<section class="run gut" aria-label="Chalden's first screen, at six moments of its run">
+  <figure class="slab"><picture><source media="(max-width: 760px)" srcset="media/hero-small.webp"><img src="media/hero.webp" width="1000" height="1960" alt="A bottle of sparkling wine lit from behind, glowing gold" fetchpriority="high"></picture></figure>
+  <div class="side">
+    <div class="inv" aria-live="polite">
+      <span class="mono" aria-hidden="true">C</span>
+      <p class="lede">Cuvée No. 3, poured here first</p>
+      <div class="fade" data-card>
+        <p class="dates"><span data-start>22 Nov</span><span class="to">to</span><span data-end>11 Dec</span></p>
+        <p class="place" data-place>Arch 14, Druid Street, London</p>
+        <p class="left" data-left>On now, 13 days left</p>
+        <p class="now" data-now>Open now, until 9pm</p>
+        <p class="queue" data-queue></p>
+      </div>
+      <p class="when-is" data-when-is></p>
+    </div>
+    <div>
+      <p class="bar" aria-label="The phone bar at that moment"><span><b>Every page</b><span data-bar>Open now · closes 9pm</span></span><span class="pill">Book a time</span></p>
+      <div class="moments" role="group" aria-label="A moment in the run" data-moments></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ intro -->
+<section class="intro gut" aria-labelledby="h-top">
+  <div class="wrap">
+    <h1 id="h-top">Nineteen days.<br>The site knows each one.</h1>
+    <p>Chalden, an English sparkling-wine house, takes a railway arch by London Bridge, then tours. Its site opens, closes, counts down and moves on by itself.</p>
+    <div class="acts"><a class="btn" href="https://sitefloor1.github.io/sitefloor-templates/chalden/">Open the demo</a><a class="txt" href="#mockup">Get a free mockup</a></div>
+  </div>
+</section>
+
+<!-- ================================================================ weeks before -->
+<section class="part gut" id="before" aria-labelledby="h-before">
+  <div class="wrap">
+    <div class="part-head"><div><p class="day"><b>−10</b><span>ten days before it opens</span></p><h2 id="h-before">Days until it opens, and a place on the list.</h2></div><p>The count comes from the brand's own dates. The list is the brand's own form or WhatsApp. Nobody sees how many are waiting.</p></div>
+    <div class="phones" style="--n:3">
+      <figure><img src="media/ph-waitlist.webp" width="780" height="1688" alt="The waitlist page on a phone: 44 days until Manchester, Join the list on WhatsApp" loading="lazy" decoding="async"><figcaption><b>The countdown</b>The next city, its arch and its first day, and Add the opening to calendar.</figcaption></figure>
+      <figure><img src="media/ph-whatson.webp" width="780" height="1688" alt="What's on: an evening tasting with its date, times and total price" loading="lazy" decoding="async"><figcaption><b>What's on</b>The evenings in the arch, each with its day, times and the price in full. Past ones go by themselves.</figcaption></figure>
+      <figure><img src="media/ph-visit.webp" width="780" height="1688" alt="The visit page: Druid Street, the walk from London Bridge and today's hours" loading="lazy" decoding="async"><figcaption><b>The door</b>Six minutes from London Bridge, the arch with the gold capsule on the door, step-free.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ inside -->
+<section class="part gut" id="inside" aria-labelledby="h-inside">
+  <div class="wrap">
+    <div class="part-head"><div><p class="day"><b>1</b><span>the first day</span></p><h2 id="h-inside">Three rooms, forty-five minutes.</h2></div><p>How long a visit takes is the question a post never answers. Choose a room.</p></div>
+    <ul class="rooms" data-rooms></ul>
+    <p class="room-line" data-room-line aria-live="polite"></p>
+    <p class="total">Every room and its minutes are the brand's own.</p>
+  </div>
+</section>
+
+<!-- ================================================================ a time -->
+<section class="part gut" id="time" aria-labelledby="h-time">
+  <div class="wrap">
+    <div class="part-head"><div><p class="day"><b>7</b><span>a Saturday afternoon</span></p><h2 id="h-time">A time, and someone to bring.</h2></div><p>Each time goes to the brand's own booking page. Pick one and the invitation is drawn on the phone, to send to a friend.</p></div>
+    <div class="book">
+      <div>
+        <div class="days" role="group" aria-label="Day" data-days></div>
+        <div class="times" data-times aria-live="polite"></div>
+        <p class="fine">It never says booked or few left: only the booking page knows.</p>
+      </div>
+      <div class="card-out">
+        <canvas width="1080" height="1350" data-invite role="img" aria-label="The invitation card for the chosen time"></canvas>
+        <p>Not a ticket: everyone books their own time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ at the bar -->
+<section class="part gut" id="bar" aria-labelledby="h-bar">
+  <div class="wrap">
+    <div class="part-head"><div><p class="day"><b>12</b><span>any evening</span></p><h2 id="h-bar">What's left, and how long the queue is.</h2></div><p>Both come from the brand's own sheets, kept by the staff on a phone. An old sheet shows nothing at all rather than a guess.</p></div>
+    <div class="phones trio" style="--n:3">
+      <figure><img src="media/ph-card.webp" width="780" height="1688" alt="The invitation card with Open now, until 9pm and Queue about 20 minutes" loading="lazy" decoding="async"><figcaption><b>The queue now</b>"Queue about 20 minutes", with the time it was set. Gone after half an hour without an update.</figcaption></figure>
+      <figure><img src="media/ph-only.webp" width="780" height="1688" alt="Only here: three pieces sold only at the pop-up, with prices" loading="lazy" decoding="async"><figcaption><b>Only here</b>The pieces sold only in the arch, each at its full price. Sold out only when the sheet says so.</figcaption></figure>
+      <figure><img src="media/ph-rooms.webp" width="780" height="1688" alt="The rooms on the home page: the racks, ten minutes" loading="lazy" decoding="async"><figcaption><b>On the home page</b>The rooms sit straight after the invitation, then the times.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ after -->
+<section class="part after gut" id="after" aria-labelledby="h-after">
+  <div class="wrap">
+    <div class="part-head"><div><p class="day"><b>+1</b><span>the morning after the last day</span></p><h2 id="h-after">The arch closes. The site moves north.</h2></div><p>After the last day, no page says open. The home page turns to the next city, and the tour gives every stop its own state.</p></div>
+    <div class="phones" style="--n:3">
+      <figure><img src="media/ph-tour.webp" width="780" height="1688" alt="Tour dates: London on now, Manchester and Edinburgh opening, Bath ended" loading="lazy" decoding="async"><figcaption><b>The tour</b>On now, opens in so many days, ended: each stop as a ticket and on a map of Britain.</figcaption></figure>
+      <figure><img src="media/ph-past.webp" width="780" height="1688" alt="Past pop-ups: Bath, Walcot Street, with its dates" loading="lazy" decoding="async"><figcaption><b>Past pop-ups</b>Where it has been, with the brand's own photographs.</figcaption></figure>
+      <figure><img src="media/ph-invite.webp" width="780" height="1688" alt="The invitation card drawn on a phone, with Send on WhatsApp" loading="lazy" decoding="async"><figcaption><b>Your city</b>Ask for the pop-up to come to you: a city, sent to the brand's own form. No counts.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ every page -->
+<section class="part gut" id="pages" aria-labelledby="h-pages">
+  <div class="wrap">
+    <div class="part-head"><div><h2 id="h-pages">Twelve pages, twelve questions.</h2></div><p>Each page answers one thing people ask before they go. Every link opens the demo.</p></div>
+    <ol class="pages" data-pages></ol>
+  </div>
+</section>
+
+<!-- ================================================================ three invitations -->
+<section class="part gut" id="plans" aria-labelledby="h-plans">
+  <div class="wrap">
+    <div class="part-head"><div><h2 id="h-plans">Three invitations.</h2></div><p>The same design on every plan. Each card says what it adds.</p></div>
+    <div class="laptops">
+      <img src="media/lt-starter.webp" width="1440" height="900" alt="The Chalden home page on Starter: the bottle and the invitation card" loading="lazy" decoding="async">
+      <img src="media/lt-plus.webp" width="1440" height="900" alt="The experience page on Plus: the rooms, large, with their minutes" loading="lazy" decoding="async">
+      <img src="media/lt-signature.webp" width="1440" height="900" alt="The tour page on Signature: the stops as tickets and on a map of Britain" loading="lazy" decoding="async">
+    </div>
+    <div class="plans">
+      <article class="plan"><h3>Starter</h3><p class="price">£99 <small>then £25 a month</small></p>
+        <ul><li>Your product, lit, beside the invitation</li><li>Your dates, your place and the days left</li><li>Open now, or when it opens, from your own hours</li><li>Directions and Add to calendar</li><li>Plan your visit</li></ul>
+        <p class="pages-n">Home and Plan your visit</p></article>
+      <article class="plan"><h3>Plus</h3><p class="price">£199 <small>then £30 a month</small></p>
+        <ul><li>Everything on Starter</li><li>The rooms, and how long a visit takes</li><li>The countdown and your waitlist</li><li>Your Instagram</li><li>What's on, only here, private hire and groups</li></ul>
+        <p class="pages-n">Up to five pages, including home</p></article>
+      <article class="plan"><h3>Signature</h3><p class="price">£349 <small>then £35 a month</small></p>
+        <ul><li>Everything on Plus</li><li>Timed entry to your booking page</li><li>The invitation, to send a friend</li><li>The queue now, from your door</li><li>The tour, past pop-ups, your city</li><li>Your press and collaborations</li></ul>
+        <p class="pages-n">Up to twenty pages</p></article>
+    </div>
+    <p class="fine">Every plan: a 12-month minimum, then month to month. Any feature can be added to any plan on its own.</p>
+  </div>
+</section>
+
+<!-- ================================================================ the small print -->
+<section class="part gut" id="numbers" aria-labelledby="h-numbers">
+  <div class="wrap">
+    <div class="part-head"><div><h2 id="h-numbers">The small print.</h2></div><p>Measured on the demo.</p></div>
+    <div class="out">
+      <div><b>12</b><span>pages on Signature, each answering one question</span></div>
+      <div><b>£0</b><span>a month to run, beyond hosting and the domain: dates, stock and the queue come from the brand's own sheets</span></div>
+      <div><b>13 KB</b><span>of JavaScript for the whole site, compressed</span></div>
+      <div><b>100</b><span>Lighthouse performance on a phone, three runs out of three</span></div>
+      <div><b>0.002</b><span>layout shift on a phone while the home page loads</span></div>
+      <div><b>30 min</b><span>before a queue reading nobody has updated disappears</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ close -->
+<section class="close gut" id="mockup" aria-labelledby="h-close">
+  <img src="media/coupe.webp" width="900" height="1200" alt="" loading="lazy" decoding="async">
+  <div class="wrap">
+    <h2 id="h-close">Your opening, on time.</h2>
+    <p>Send us your dates, your place and one photograph of what you're launching. We'll make a free mockup of your home page, with your own invitation on it.</p>
+    <div class="acts"><a class="btn" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#free">Get a free mockup</a><a class="txt" href="https://sitefloor1.github.io/sitefloor-templates/chalden/">Try the demo first</a></div>
+    <span class="mail">hello@sitefloor.com</span>
+  </div>
+</section>
+
+</main>
+
+<footer class="gut"><div class="wrap">
+  <p>Chalden is a fictional sparkling-wine house made to show the Sitefloor pop-up kit. Its address, phone number, stops, dates, hours, rooms, events, pieces and prices are demo data; its stock and queue sheets are simulated. The moments on this page are worked out from today. The screens are of the Chalden demo; its photographs (Marco Palumbo, Aleksey Cherenkevich, Joao Vitor Marcilio, Roland Telegdi, Mads Eneqvist, Viktor Talashuk, Martin Gleizes, Unsplash) are credited in the demo. Please drink responsibly: drinkaware.co.uk.</p>
+  <span>© 2026 Sitefloor</span>
+</div></footer>
+
+<script>
+{
+/* The kit's own rules (src/kits/popup/lib/popup.js and core statusLabel), on the demo's own stops and hours. */
+const DAY = 864e5, MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"], WD = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+const HOURS = [[12*60,18*60], null, [12*60,20*60], [12*60,20*60], [12*60,20*60], [11*60,21*60], [11*60,21*60]]; // Sunday first; Monday closed
+const utc = (d) => Date.parse(d + "T12:00:00Z");
+const add = (d, n) => new Date(utc(d) + n * DAY).toISOString().slice(0, 10);
+const diff = (a, b) => Math.round((utc(b) - utc(a)) / DAY);
+const wday = (d) => new Date(utc(d)).getUTCDay();
+const long = (d) => { const x = new Date(utc(d)); return x.getUTCDate() + " " + MONTHS[x.getUTCMonth()]; };
+const short = (d) => long(d).replace(/ (\w{3})\w*/, " $1");
+const t12 = (m) => { const h = Math.floor(m / 60), mm = m % 60; return ((h + 11) % 12 + 1) + (mm ? ":" + String(mm).padStart(2, "0") : "") + (h >= 12 ? "pm" : "am"); };
+const p = Object.fromEntries(new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", year: "numeric", month: "2-digit", day: "2-digit" }).formatToParts(new Date()).map((x) => [x.type, x.value]));
+const TODAY = `${p.year}-${p.month}-${p.day}`;
+const STOPS = [
+  { id: "london", city: "London", place: "Arch 14, Druid Street", area: "London", start: add(TODAY, -6), end: add(TODAY, 13) },
+  { id: "manchester", city: "Manchester", place: "Hatch, Oxford Road", area: "Manchester", start: add(TODAY, 44), end: add(TODAY, 65) },
+  { id: "edinburgh", city: "Edinburgh", place: "Market Street vaults", area: "Edinburgh", start: add(TODAY, 72), end: add(TODAY, 93) },
+  { id: "bath", city: "Bath", place: "Walcot Street", area: "Bath", start: add(TODAY, -61), end: add(TODAY, -40) },
+];
+const L = STOPS[0];
+const state = (s, d) => d < s.start ? { kind: "soon", days: diff(d, s.start) } : d > s.end ? { kind: "ended", days: diff(s.end, d) } : { kind: "on", days: diff(d, s.end) };
+const current = (d) => STOPS.find((s) => state(s, d).kind === "on") ?? STOPS.filter((s) => s.start > d).sort((a, b) => a.start.localeCompare(b.start))[0];
+const ranges = (s, d) => (d < s.start || d > s.end || !HOURS[wday(d)]) ? [] : [HOURS[wday(d)]];
+const anyRanges = (d) => STOPS.flatMap((s) => ranges(s, d)).slice(0, 1);
+const words = (st, s) => st.kind === "on" ? (st.days === 0 ? "On now, last day today" : `On now, ${st.days} ${st.days === 1 ? "day" : "days"} left`) : st.kind === "soon" ? (st.days === 1 ? "Opens tomorrow" : `Opens in ${st.days} days`) : `Ended ${long(s.end)}`;
+function runLine(s, d, m) {
+  const st = state(s, d);
+  if (st.kind === "ended") return `Ended ${long(s.end)}`;
+  if (st.kind === "soon") return `Opens ${long(s.start)}`;
+  for (const [a, b] of ranges(s, d)) { if (m < a) return `Opens at ${t12(a)} today`; if (m < b) return `Open now, until ${t12(b)}`; }
+  for (let k = 1; k <= 14; k++) { const x = add(d, k), r = ranges(s, x)[0]; if (r) return `Closed now. Opens ${k === 1 ? "tomorrow" : WD[wday(x)]} at ${t12(r[0])}`; }
+  return "Closed now. That was the last day";
+}
+function barLine(d, m) { // core statusLabel on hours that only count the stops' days
+  const r = anyRanges(d)[0];
+  if (r && m >= r[0] && m < r[1]) return `Open now · closes ${t12(r[1])}`;
+  for (let k = 0; k <= 14; k++) {
+    const x = add(d, k), q = anyRanges(x)[0];
+    if (q && (k > 0 || m < q[0])) { const when = k === 0 ? "today" : k === 1 ? "tomorrow" : k >= 7 ? long(x) : WD[wday(x)]; return `Closed · opens ${when} at ${t12(q[0])}`; }
+  }
+  return "Closed";
+}
+const firstOn = (from, day) => { for (let d = from; d <= L.end; d = add(d, 1)) if (wday(d) === day) return d; return L.end; };
+const sat = firstOn(add(L.start, 1), 6), mon = firstOn(L.start, 1);
+const MOMENTS = [
+  { name: "Ten days before", d: add(L.start, -10), m: 11 * 60 },
+  { name: "Opening day, 2pm", d: L.start, m: 14 * 60 },
+  { name: "A Saturday, 2:30pm", d: sat, m: 14 * 60 + 30, queue: "Queue about 20 minutes (at 2:20pm)" },
+  { name: "A Monday", d: mon, m: 13 * 60 },
+  { name: "The last day, 5pm", d: L.end, m: 17 * 60 },
+  { name: "The morning after", d: add(L.end, 1), m: 10 * 60 },
+];
+const $ = (q) => document.querySelector(q);
+const card = $("[data-card]"), rm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+function show(i) {
+  const M = MOMENTS[i], s = current(M.d);
+  document.querySelectorAll("[data-moments] button").forEach((b, k) => b.setAttribute("aria-pressed", String(k === i)));
+  const paint = () => {
+    $("[data-start]").textContent = short(s.start); $("[data-end]").textContent = short(s.end);
+    $("[data-place]").textContent = `${s.place}, ${s.area}`;
+    $("[data-left]").textContent = words(state(s, M.d), s);
+    $("[data-now]").textContent = runLine(s, M.d, M.m);
+    $("[data-queue]").textContent = M.queue ?? "";
+    $("[data-bar]").textContent = barLine(M.d, M.m);
+    $("[data-when-is]").textContent = `${WD[wday(M.d)]} ${long(M.d)}, ${t12(M.m)}`;
+    card.classList.remove("out");
+  };
+  if (rm) paint(); else { card.classList.add("out"); setTimeout(paint, 220); }
+}
+// The page opens on today, at the hour it is in London.
+const hm = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).format(new Date()).split(":").map(Number);
+MOMENTS.unshift({ name: "Right now", d: TODAY, m: hm[0] * 60 + hm[1] });
+const mbox = $("[data-moments]");
+MOMENTS.forEach((M, i) => { const b = document.createElement("button"); b.type = "button"; const n = document.createElement("b"); n.textContent = M.name; b.append(n, short(M.d)); b.addEventListener("click", () => show(i)); mbox.append(b); });
+show(0);
+
+/* The rooms, as the demo has them. */
+const ROOMS = [
+  { name: "The racks", min: 10, img: "media/room-racks.webp", alt: "Bottles laid on their sides, row on row, in a rack", line: "The last three harvests, laid down along the arch." },
+  { name: "The vault", min: 15, img: "media/room-vault.webp", alt: "A dark stone cellar with bottles along one wall", line: "Where the new cuvée rests, under a single lamp." },
+  { name: "The pour", min: 20, img: "media/room-pour.webp", alt: "Sparkling wine poured from a bottle into glasses", line: "Three glasses at the bar, £18. No time needed for this part." },
+];
+const rl = $("[data-rooms]"), line = $("[data-room-line]");
+const pick = (i) => { rl.querySelectorAll("button").forEach((b, k) => b.setAttribute("aria-pressed", String(k === i))); line.textContent = ROOMS[i].line; };
+ROOMS.forEach((r, i) => { const li = document.createElement("li"); li.innerHTML = `<button type="button"><img width="900" height="1200" loading="lazy" decoding="async"><b></b><small></small></button>`; const b = li.firstChild; b.querySelector("img").src = r.img; b.querySelector("img").alt = r.alt; b.querySelector("b").textContent = r.name; b.querySelector("small").textContent = r.min + " min"; b.addEventListener("click", () => pick(i)); rl.append(li); });
+pick(0);
+
+/* A time, and the invitation: the demo's days and times, drawn as the demo draws them. */
+const daysEl = $("[data-days]"), timesEl = $("[data-times]"), cv = $("[data-invite]");
+const runDays = []; for (let d = TODAY > L.start ? TODAY : L.start; d <= L.end; d = add(d, 1)) runDays.push(d);
+function draw(d, m) {
+  const g = cv.getContext("2d"); if (!g) return;
+  const disp = '"Bona Nova", Georgia, serif', body = '"Inclusive Sans", Arial, sans-serif';
+  g.fillStyle = "#F3F1EC"; g.fillRect(0, 0, 1080, 1350);
+  g.strokeStyle = "#17150F"; g.lineWidth = 2; g.strokeRect(60, 60, 960, 1230); g.strokeRect(84, 84, 912, 1182);
+  g.textAlign = "center";
+  const ln = (t, y, f, c) => { g.font = f; g.fillStyle = c; g.fillText(t, 540, y, 900); };
+  ln("Chalden", 300, `400 72px ${disp}`, "#17150F");
+  ln("You're invited", 400, `400 40px ${disp}`, "#6A6458");
+  ln(`${WD[wday(d)]} ${long(d)}`, 600, `400 76px ${disp}`, "#17150F");
+  ln(t12(m), 720, `400 120px ${disp}`, "#7E5A0E");
+  ln("Arch 14, Druid Street", 880, `400 46px ${disp}`, "#17150F");
+  ln("London SE1 2HQ", 944, `400 34px ${body}`, "#6A6458");
+  ln("Not a ticket: everyone books their own time.", 1180, `400 30px ${body}`, "#6A6458");
+}
+function day(d) {
+  daysEl.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.d === d)));
+  const r = ranges(L, d)[0]; timesEl.replaceChildren();
+  if (!r) { const p = document.createElement("p"); p.textContent = "Closed on Mondays."; timesEl.append(p); return; }
+  const list = []; for (let t = r[0]; t <= r[1] - 60; t += 30) list.push(t);
+  list.forEach((t, k) => { const b = document.createElement("button"); b.type = "button"; b.textContent = t12(t); b.addEventListener("click", () => { timesEl.querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === b))); draw(d, t); }); timesEl.append(b); if (k === 7) b.click(); });
+}
+runDays.forEach((d) => { const b = document.createElement("button"); b.type = "button"; b.dataset.d = d; b.disabled = !ranges(L, d).length; b.append(WD[wday(d)].slice(0, 3)); const x = document.createElement("b"); x.textContent = new Date(utc(d)).getUTCDate(); b.append(x); b.addEventListener("click", () => day(d)); daysEl.append(b); });
+const firstDay = runDays.find((d) => ranges(L, d).length) ?? runDays[0];
+document.fonts?.ready.then(() => day(firstDay)); day(firstDay);
+
+/* Every page, and the question it answers. */
+const DEMO = "https://sitefloor1.github.io/sitefloor-templates/chalden/";
+const PAGES = [["Home", "", "Is it on now, and until when?"], ["What's on", "whats-on", "Is there an evening worth coming for?"], ["Visit", "visit", "Which door, and how do I get there?"], ["Book a time", "book", "Can I come at 3:30 on Saturday?"], ["Waitlist", "waitlist", "When is the next one?"], ["The experience", "experience", "What's inside, and how long does it take?"], ["Tour dates", "tour", "Is it coming to my city?"], ["Press", "", "Who has written about it? (only the brand's own)"], ["Collaborations", "", "Who has it made things with? (only the brand's own)"], ["Past pop-ups", "past", "Where has it been?"], ["Only here", "only-here", "What can I buy only in the arch?"], ["Private hire and groups", "private-hire", "Can we have it to ourselves?"]];
+const pl = $("[data-pages]");
+PAGES.forEach(([n, slug, q], i) => { const li = document.createElement("li"); const k = document.createElement("i"); k.textContent = i + 1; const s = document.createElement("span"); s.textContent = q; let a;
+  if (slug || n === "Home") { a = document.createElement("a"); a.href = DEMO + slug; } else { a = document.createElement("b"); a.className = "pn"; }
+  a.textContent = n;
+  li.append(k, a, s); pl.append(li); });
+}
+</script>
+</body>
+</html>
