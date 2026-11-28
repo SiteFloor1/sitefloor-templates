@@ -11,11 +11,11 @@ export function init(root, ctx) {
   const today = ctx.now().date;
   for (const li of /** @type {HTMLElement[]} */ ([...root.querySelectorAll("li[data-checked]")])) {
     if (rulesState({ checked: li.dataset.checked ?? "" }, today) === "current") continue;
-    const a = li.querySelector("a[data-src]");
+    const a = li.querySelector("a[data-source]");
     if (!a) continue;
     const p = document.createElement("p"); p.className = "st-rl-s";
     const link = document.createElement("a"); link.href = a.getAttribute("href") ?? ""; link.rel = "noopener";
-    link.textContent = `Read it on ${a.getAttribute("data-src")}`;
+    link.textContent = `Read it on ${a.getAttribute("data-source")}`;
     p.append("This line is due a fresh check. ", link, ".");
     li.replaceChildren(p); li.removeAttribute("data-checked");
   }
