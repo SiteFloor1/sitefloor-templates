@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: only-here
+permalink: only-here.html
+feature: popup-only-here
+eleventyComputed:
+  title: "{{ site.onlyHere.title | plain }}"
+  description: "Sold only at the {{ site.business.name }} pop-up, with prices."
+---
+{%- set ph = { title: site.onlyHere.title, intro: site.onlyHere.intro } %}
+{% include "kits/popup/partials/page-head.njk" %}
+{% include "kits/popup/features/popup-only-here/popup-only-here.njk" %}

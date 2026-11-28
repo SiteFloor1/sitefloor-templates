@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: private-hire
+permalink: private-hire.html
+feature: popup-hire
+eleventyComputed:
+  title: "{{ site.hirePage.title | plain }}"
+  description: "Private hire and group visits at the {{ site.business.name }} pop-up."
+---
+{%- set ph = { title: site.hirePage.title, intro: site.hirePage.intro } %}
+{% include "kits/popup/partials/page-head.njk" %}
+{% include "kits/popup/features/popup-hire/popup-hire.njk" %}

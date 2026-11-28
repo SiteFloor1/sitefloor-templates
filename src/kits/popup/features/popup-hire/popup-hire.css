@@ -1,0 +1,8 @@
+/* Private hire and groups (popup-hire). */
+.phi-in { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: var(--s3, 48px); align-items: start; }
+.phi-photo img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+.phi-pk { list-style: none; padding: 0; margin: var(--s2, 24px) 0; border-top: 1px solid var(--line); }
+.phi-pk li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.phi-pk span { grid-column: 1; color: var(--muted); }
+.phi-pk em { grid-column: 2; grid-row: 1; font-style: normal; white-space: nowrap; }
+@media (max-width: 760px) { .phi-in { grid-template-columns: minmax(0, 1fr); } }

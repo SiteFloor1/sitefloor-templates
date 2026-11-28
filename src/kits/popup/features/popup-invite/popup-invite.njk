@@ -1,0 +1,7 @@
+{#- The invitation: after a time is chosen, a card to save and a WhatsApp message to send. Not a ticket, and says so. -#}
+<div class="pin" data-feature="popup-invite" hidden{{ "popup-invite" | tierAttr | safe }}>
+  <h3 class="pin-t">{{ site.invite.title }}</h3>
+  <canvas class="pin-card" width="1080" height="1350" data-invite-card aria-label="The invitation card" role="img"></canvas>
+  <p class="pin-acts"><a class="btn" href="#" data-invite-wa target="_blank" rel="noopener">Send on WhatsApp</a><a class="btn ghost" href="#" data-invite-save download="invitation.png">Save the card</a></p>
+  <p class="pin-note">Not a ticket: everyone books their own time.</p>
+</div>

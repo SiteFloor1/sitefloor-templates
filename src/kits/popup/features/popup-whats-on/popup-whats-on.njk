@@ -1,0 +1,18 @@
+{#- What's on: the dated programme, soonest first; past ones drop off (at build, and again in the browser). -#}
+{%- set items = site.programme.items | popUpcoming(site) %}
+<section class="pwo" data-feature="popup-whats-on" aria-label="{{ site.programme.title | plain }}"><div class="wrap">
+  <ol class="pwo-list" data-wo-list>
+    {%- for e in items %}
+    <li class="pwo-item" data-wo="{{ e.id }}">
+      <p class="pwo-date"><b>{{ e.date | dayOfMonth }}</b><span>{{ e.date | popShortDay }} · {{ e.date | popMonth }}</span></p>
+      <div class="pwo-t">
+        <h2>{{ e.title }}</h2>
+        <p class="pwo-when">{{ e.from | time12 }} to {{ e.to | time12 }}{% if e.price !== undefined %} · {{ "Free" if e.price == 0 else e.price | gbp }}{% endif %}</p>
+        <p>{{ e.line }}</p>
+        {%- if e.bookUrl %}<p><a class="btn ghost" href="{{ e.bookUrl }}" target="_blank" rel="noopener">Book</a></p>{% endif %}
+      </div>
+    </li>
+    {%- endfor %}
+  </ol>
+  <p class="pwo-empty" data-wo-empty{% if items.length %} hidden{% endif %}>{{ site.programme.empty }}</p>
+</div></section>

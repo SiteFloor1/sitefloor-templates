@@ -1,0 +1,17 @@
+{#- The run: the dates, the place, the days left and whether to go now. First painted for the build day; the script works
+    it out again for the visitor's day and time (and a demo's dates, which are days from today). -#}
+{%- set s = site | popCurrent %}
+{%- if s %}{% set st = s | popState(site) %}
+<div class="pr" data-feature="popup-run" data-stop="{{ s.id }}">
+  {%- if site.popup.line %}<p class="pr-lede">{{ site.popup.line }}</p>{% endif %}
+  <p class="pr-dates"><span data-run-start>{{ s.start | shortDate }}</span><span class="pr-to">to</span><span data-run-end>{{ s.end | shortDate }}</span></p>
+  <p class="pr-place"><span data-run-place>{{ s.place }}, {{ s.area }}</span><small data-run-left>{{ s | popStateWords(site) }}</small></p>
+  <p class="pr-now" data-run-line aria-live="polite">{{ s | popLine(site) }}</p>
+  {%- if "popup-line" | enabled %}{% include "kits/popup/features/popup-line/popup-line.njk" %}{% endif %}
+  <div class="pr-acts">
+    {%- if "popup-slots" | enabled %}<a class="btn" href="{{ '#slots' if pageId == 'index' else ('book' | href) }}"{{ "popup-slots" | tierAttr | safe }}>Book a time</a>{% endif %}
+    <a class="btn ghost" href="{{ s | popMaps }}" target="_blank" rel="noopener" data-run-map>Directions</a>
+    <button class="btn ghost" type="button" data-run-ics>Add to calendar</button>
+  </div>
+</div>
+{%- endif %}

@@ -75,6 +75,7 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 | Halvern, The stair (A) | trade/letting | Petrona | Petrona |
 | Taroub | trade/modest | Shippori Mincho | Afacad |
 | Trainer, Linen (A) | trade/trainer | Ibarra Real Nova | Ibarra Real Nova |
+| Chalden, The bottle (A, round 1) | trade/pop-up | Bona Nova | Inclusive Sans |
 | Sevrell, Turndown | trade/residences | Imbue | Inria Sans |
 | Fendle, Spun (B, round 1, revised) | trade/stalls | Gabarito | Labrada |
 | Tailor, Flannel (A) | trade/tailor | Della Respira | Commissioner |
@@ -116,6 +117,7 @@ A case study is a design too: don't reuse these in a new look or another case st
 | Pellow & Garth (construction) | case-studies/pellow-garth | construction | Big Shoulders Stencil Display | Kumbh Sans | |
 | Saffron & Ash (restaurant) | case-studies/saffron-and-ash | restaurant | Instrument Serif | Instrument Sans | |
 | Selwyn Orr (hair salon) | case-studies/selwyn-orr | hair | Darker Grotesque | Public Sans | |
+| Sevrell (residences) | case-studies/sevrell | residences | Imbue | Inria Sans | |
 | Taroub (modest fashion) | case-studies/taroub | modest | Shippori Mincho | Afacad | |
 | Thursby (financial advisers) | case-studies/thursby | financial-advisers | Frank Ruhl Libre | Frank Ruhl Libre | |
 | Tollgarth (garden design) | case-studies/tollgarth | landscaping | Cinzel | Alegreya | |

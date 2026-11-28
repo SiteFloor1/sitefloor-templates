@@ -189,6 +189,8 @@ export function statusLabel(s, now) {
   if (s.open && s.closesAt !== null) return `Open now · closes ${formatTime12(s.closesAt)}`;
   if (!s.nextOpen) return "Closed";
   const dayDiff = Math.round((Date.parse(s.nextOpen.date) - Date.parse(now.date)) / 86400000);
+  // A week or more away (a closure, or a pop-up between stops), the weekday alone would read as this week: give the date.
+  if (dayDiff >= 7) return `Closed · opens ${Number(s.nextOpen.date.slice(8, 10))} ${["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][Number(s.nextOpen.date.slice(5, 7)) - 1]} at ${formatTime12(s.nextOpen.minutes)}`;
   const when = dayDiff === 0 ? "today" : dayDiff === 1 ? "tomorrow" : DAY_NAMES[s.nextOpen.weekday];
   return `Closed · opens ${when} at ${formatTime12(s.nextOpen.minutes)}`;
 }

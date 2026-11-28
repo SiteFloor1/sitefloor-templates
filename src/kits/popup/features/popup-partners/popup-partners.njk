@@ -1,0 +1,9 @@
+{#- Partners: only the brand's own, each with a link. Client-only: demos never carry invented partners. -#}
+{%- set X = site.partners %}
+<section class="pxl" data-feature="popup-partners" aria-label="{{ X.title | plain }}"><div class="wrap">
+  <ul class="pxl-list">
+    {%- for x in X.items %}
+    <li><h2><a href="{{ x.url }}" target="_blank" rel="noopener">{{ x.name }}</a></h2><p>{{ x.line }}</p></li>
+    {%- endfor %}
+  </ul>
+</div></section>
