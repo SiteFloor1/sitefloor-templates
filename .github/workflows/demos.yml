@@ -44,6 +44,8 @@ jobs:
           cache: npm
       - run: npm ci
       - run: node scripts/pages.js --out _site
+        env:
+          SITEFLOOR_WEATHER: fetch # demos get MET Norway's forecast fetched now (scripts/lib/weather.js)
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site

@@ -10,6 +10,7 @@ import { pathToFileURL } from "node:url";
 import Eleventy from "@11ty/eleventy";
 import { FEATURES, KITS, forKit, getFeature, planRank } from "../../src/features/registry.js";
 import { localBusinessJsonLd, safeJson } from "../../src/core/lib/seo.js";
+import { weatherPlaces } from "../../src/core/lib/met.js";
 import { waUrl } from "../../src/core/lib/whatsapp.js";
 import { bookingHref, bookingLabel, bookingOf } from "../../src/core/lib/booking.js";
 import { inlineMarkup, plainText, monthYear, mapsSearchUrl } from "../../src/core/lib/text.js";
@@ -101,6 +102,7 @@ function addData(cfg, site, o) {
     seasonIndex: site.features.includes("seasonal") ? activeSeason(site.seasons, o.today) : -1,
     seasonTint: site.features.includes("seasonal") ? site.seasons[activeSeason(site.seasons, o.today)]?.tint ?? "" : "",
     ...(kitOf(site)?.buildData?.(site) ?? {}),
+    weather: weatherPlaces(site, kitOf(site)).length > 0, // the privacy page says where forecasts come from
     booking: { provider: bookingOf(site.booking).provider, label: bookingLabel(site.booking), whatsapp: bookingOf(site.booking).provider === "whatsapp" },
   });
   cfg.addGlobalData("jsonLd", safeJson(localBusinessJsonLd(site, site.photoBand ? `${site.url}/${site.photoBand.src}` : undefined)));

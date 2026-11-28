@@ -50,7 +50,7 @@ misses the brief, however tidy it is. Full history and notes: sitefloor-internal
 Codes are how the owner refers to them (e.g. "CLEAN-7"). S = Starter, P = Plus, Sig = Signature. Every site also gets Plan your
 visit, open now, WhatsApp, reviews and the Instagram feed. Agents still pitch their own ideas on top.
 All use the free tools only (Sheet/Form, WhatsApp, Behold, the client's Stripe links and booking app, .ics,
-free data such as Open-Meteo and computed sunrise/sunset). Never invent figures; regulated trades follow their rules.
+free data such as MET Norway's forecast (through the shared weather function) and computed sunrise/sunset). Never invent figures; regulated trades follow their rules.
 **3D rule:** allowed where it genuinely explains the service and is done to a flagship level (as Apex's
 three.js Showroom): picture first, 3D loads on tap, real lighting and materials, licensed or procedural models,
 reduced-motion and no-WebGL fallbacks, inside the speed budget. Never decorative 3D (no stacked cupcakes, fake cakes).

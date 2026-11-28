@@ -3,6 +3,11 @@
 Each site is its own Cloudflare Pages project, connected to this repository.
 Nothing depends on anyone's laptop: Cloudflare builds from GitHub.
 
+## Weather function
+Sites with a forecast (the stall's rain check, the car-film cloud forecast) answer `/weather` from `functions/weather.js`.
+Cloudflare Pages deploys the repository's `functions/` folder with every project automatically: nothing to set up, no
+key, £0. Only `/weather` runs the function; every other page is served as a file. See `docs/platform/weather.md`.
+
 ## How a change reaches a live site
 ```
 pull request ──► GitHub Actions: npm run check (all tests, all sites)

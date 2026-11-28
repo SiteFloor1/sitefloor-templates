@@ -128,6 +128,8 @@ const SHARED = [
  * @property {string[]} [settings] top-level site.json keys this trade's sites may carry that no feature lists (checked in
  *   its config.js); with its features' `requires` and `optional`, the only trade keys config.js accepts
  * @property {string[]} [sharedAssets] folders in src/core/assets this trade's sites draw from (e.g. "cars"), copied to img/<name>/
+ * @property {(site: any) => import("../core/lib/met.js").WeatherPlace[]} [weather] the places its forecast features read
+ *   (src/core/lib/met.js): a client's /weather answers only for these; a demo's build fetches them
  * @property {(site: any) => KitCsp} [csp] what it adds to the site's Content-Security-Policy (src/core/lib/seo.js)
  * @property {{ find: (site: any, id: string) => unknown, hint: string }} [savingsItem] what a savings example
  *   (loyalty card) compares against when the trade sells something other than services, e.g. a dish

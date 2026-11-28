@@ -104,4 +104,9 @@ Without the nightly run it is about 1,000 a month; daily it would be about 2,100
 The suite keeps growing (2,711 browser tests on 9 Nov), so a full run will cost more than 49 as kits are added. A shared-code PR
 still costs about 49 per full run, so a week with several shared changes adds roughly 100–150 each.
 
+## Weather (shared, 28 Nov)
+`src/core/js/weather.js` adds under 1 KB gz to a page with a forecast line, and replaces the stall's own provider. The
+forecast is one request per place per visit to the site's own `/weather` (a cached answer from the edge, no third-party
+connection), only when a forecast line can show. See `docs/platform/weather.md`.
+
 <!-- trades -->
