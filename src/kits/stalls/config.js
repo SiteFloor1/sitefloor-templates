@@ -91,8 +91,7 @@ export function checkStalls(site, err, exists) {
   if (site.soldOut !== undefined) { onlyKeys(site.soldOut, ["source", "csvUrl"], "soldOut", err); source(err, "soldOut", site.soldOut, site.mode); }
   if (site.rain !== undefined) {
     onlyKeys(site.rain, ["source"], "rain", err);
-    if (!["forecast", "simulated"].includes(site.rain?.source)) err("rain.source", 'must be "forecast" (or "simulated" on demo sites)');
-    if (site.rain?.source === "simulated" && site.mode !== "demo") err("rain.source", 'simulated data is only allowed on demo sites; use "forecast"');
+    if (site.rain?.source !== "forecast") err("rain.source", 'must be "forecast": MET Norway\'s forecast through the shared weather function (demos too: their copy is fetched at build time)');
     if (features.includes("stalls-rain") && !(site.stops?.places ?? []).some((/** @type {any} */ p) => isNum(p?.lat, 49, 61) && isNum(p?.lon, -9, 2.5))) err("stops.places", "the rain check needs lat and lon on each market it forecasts");
   }
   if (site.setup !== undefined) checkSetup(site.setup, err);

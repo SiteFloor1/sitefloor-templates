@@ -35,7 +35,7 @@ export const features = [
   { id: "stalls-allergens", dir: `${K}/stalls-allergens`, minPlan: "plus", kits: ["stalls"], requires: ["allergensPage"], needs: ["stalls-menu"], page: "allergens", js: false,
     summary: "Allergens and food hygiene page: the full allergen chart for every item, how the stall handles cross-contact in its own words, and its food hygiene rating linked to the Food Standards Agency." },
   { id: "stalls-rain", dir: `${K}/stalls-rain`, minPlan: "plus", kits: ["stalls"], requires: ["rain"], needs: ["stalls-where"], js: true,
-    summary: "Rain check (sold as an add-on): on a stop's day, the free Open-Meteo forecast for that market (\"Rain likely from 15:00, by the forecast\"). Only the stall's sheet ever cancels a stop." },
+    summary: "Rain check (sold as an add-on): on a stop's day, MET Norway's forecast for that market, through the shared weather function (\"Rain forecast from 15:00\"). Only the stall's sheet ever cancels a stop." },
   { id: "stalls-next", dir: `${K}/stalls-next`, minPlan: "signature", kits: ["stalls"], requires: ["stops"], needs: ["stalls-where"], js: true,
     summary: "The next stop, in the hero: where and when, with a countdown that ticks once a minute (\"Opens in 1d 10h 52m\"), or \"Here now\" and the closing time; Directions and Add to calendar. Worked out from the same sheet." },
   { id: "stalls-sold-out", dir: `${K}/stalls-sold-out`, minPlan: "signature", kits: ["stalls"], requires: ["soldOut"], needs: ["stalls-menu"], js: true,
@@ -79,8 +79,8 @@ export function pageData(site) {
 }
 
 /**
- * Live data: simulated on a demo (src/demo), the stall's own published Google Sheets otherwise, and the free
- * Open-Meteo forecast for the rain check.
+ * Live data: simulated on a demo (src/demo), the stall's own published Google Sheets otherwise. The rain check's
+ * forecast comes from the shared weather function (src/core/js/weather.js), with the markets listed in `weather`.
  * @type {import("../../features/registry.js").Provider[]}
  */
 export const providers = [
@@ -105,21 +105,19 @@ export const providers = [
     demo: { from: "src/demo/stalls-party-provider.js", name: "simulatedPartyDates" },
     live: { from: "src/kits/stalls/features/stalls-book/sheet-provider.js", name: "sheetPartyDates" },
   },
-  {
-    key: "stallsRain",
-    on: (site, enabled) => enabled.has("stalls-rain"),
-    simulated: (site) => site.rain?.source === "simulated",
-    demo: { from: "src/demo/stalls-rain-provider.js", name: "simulatedRain" },
-    live: { from: "src/kits/stalls/features/stalls-rain/forecast-provider.js", name: "forecastRain" },
-  },
 ];
 
-/** What this kit adds to the security policy: the stall's published Google Sheets, and Open-Meteo for the rain check. @param {any} site */
+/** The markets the rain check reads MET Norway's forecast for (src/core/lib/met.js). @param {any} site */
+export function weather(site) {
+  if (!(site.features ?? []).includes("stalls-rain")) return [];
+  return (site.stops?.places ?? []).filter((/** @type {any} */ p) => typeof p.lat === "number" && typeof p.lon === "number").map((/** @type {any} */ p) => ({ id: p.id, lat: p.lat, lon: p.lon }));
+}
+
+/** What this kit adds to the security policy: the stall's published Google Sheets (the forecast is the site's own /weather). @param {any} site */
 export function csp(site) {
   const f = site.features ?? [];
   const sheets = (f.includes("stalls-where") && site.stops?.source === "sheet")
     || (f.includes("stalls-sold-out") && site.soldOut?.source === "sheet")
     || (f.includes("stalls-book") && site.party?.source === "sheet");
-  const rain = f.includes("stalls-rain") && site.rain?.source === "forecast";
-  return { sheets, connect: rain ? ["https://api.open-meteo.com"] : [] };
+  return { sheets, connect: [] };
 }

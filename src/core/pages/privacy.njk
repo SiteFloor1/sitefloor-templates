@@ -33,6 +33,9 @@ description: How this website handles your information.
   {%- if site.kit == "wear" and ((site.stock and site.stock.source == "sheet") or (site.dropQueue and site.dropQueue.source == "sheet" and "drop-queue" | enabled)) %}
   <p>What's left in each size{% if site.dropQueue and site.dropQueue.source == "sheet" and "drop-queue" | enabled %}, and the queue number on drop day,{% endif %} is loaded from a Google Sheet, so your browser contacts Google, which receives your IP address. It receives nothing else from this site.</p>
   {%- endif %}
+  {%- if build.weather %}
+  <p>Weather forecasts on this site come from MET Norway, the Norwegian Meteorological Institute. This website fetches them itself, so your browser doesn't contact MET Norway.</p>
+  {%- endif %}
   {%- if site.kit == "wear" and site.weather and site.mode != "demo" and "wear-today" | enabled %}
   <p>Today's weather on the home page is loaded from Open-Meteo, a weather service, so your browser contacts Open-Meteo, which receives your IP address. It receives nothing else from this site.</p>
   {%- endif %}

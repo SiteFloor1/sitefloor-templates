@@ -12,7 +12,7 @@ TikTok; the site's job is the question those posts can't answer: **where are you
   parties and allergens pages.
 - **Signature:** next-stop countdown (`stalls-next`), sold out today (`stalls-sold-out`), the board saved as a picture
   (`stalls-board`), set-up card (`stalls-setup`), drop alert (`stalls-drop`).
-- **Add-on:** rain check (`stalls-rain`, Open-Meteo forecast for the next stop).
+- **Add-on:** rain check (`stalls-rain`, MET Norway forecast for the next stop, through the shared weather function).
 
 ## Rules for this trade
 

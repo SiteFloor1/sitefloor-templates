@@ -259,13 +259,14 @@ export function partyText(opening, d) {
 export const setupText = (business, rows) => [`${business}: what we need on the day`, ...rows.map((r) => `${r.label}: ${r.value}`)].join("\n");
 
 /**
- * Rain on a stop's hours from an hourly forecast ({ time: "2026-11-21T14:00", p: 70 }[]). Never cancels anything.
- * @param {{ time: string, p: number }[]} hours @param {Stop} s
+ * Rain on a stop's hours from MET Norway's hourly forecast, in local time ({ time: "2026-11-21T14:00", mm: 0.4 }[]):
+ * an hour with 0.2 mm or more (light rain, the least MET reports as wet) is rain. Never cancels anything.
+ * @param {{ time: string, mm: number }[]} hours @param {Stop} s
  */
 export function rainWords(hours, s) {
   const inHours = hours.filter((h) => h.time.slice(0, 10) === s.date && minutesOf(h.time.slice(11, 16)) >= minutesOf(s.open) - 60 && minutesOf(h.time.slice(11, 16)) < minutesOf(s.close));
   if (!inHours.length) return "";
-  const wet = inHours.find((h) => h.p >= 60);
-  if (wet) return `Rain likely from ${wet.time.slice(11, 16)}, by the forecast.`;
+  const wet = inHours.find((h) => h.mm >= 0.2);
+  if (wet) return `Rain forecast from ${wet.time.slice(11, 16)}.`;
   return "Dry, by the forecast.";
 }

@@ -120,8 +120,8 @@ test("a stop as a calendar file keeps the stall's own clock and escapes its word
 
 test("the rain check reads the stop's hours only and never cancels", () => {
   const s = { date: SAT, place: "hackney", open: "11:00", close: "18:00" };
-  const hours = (/** @type {number} */ from) => Array.from({ length: 24 }, (_, h) => ({ time: `${SAT}T${String(h).padStart(2, "0")}:00`, p: h >= from ? 80 : 10 }));
-  assert.equal(rainWords(hours(15), s), "Rain likely from 15:00, by the forecast.");
+  const hours = (/** @type {number} */ from) => Array.from({ length: 24 }, (_, h) => ({ time: `${SAT}T${String(h).padStart(2, "0")}:00`, mm: h >= from ? 0.6 : 0.1 }));
+  assert.equal(rainWords(hours(15), s), "Rain forecast from 15:00.");
   assert.equal(rainWords(hours(19), s), "Dry, by the forecast.");
   assert.equal(rainWords(hours(15), { ...s, date: addDays(SAT, 3) }), "");
 });

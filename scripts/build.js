@@ -33,6 +33,7 @@ import { bundleAssets } from "./lib/bundle.js";
 import { renderPages } from "./lib/render.js";
 import { verifyOutput } from "./lib/verify.js";
 import { rollDemoDates } from "../src/demo/dates.js";
+import { writeWeather } from "./lib/weather.js";
 import { FEATURES, KITS } from "../src/features/registry.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -90,6 +91,8 @@ export async function buildSite(siteDir, o) {
   // A trade's own build step (e.g. the restaurant's printed menu, made from site.json).
   const kitBuild = path.join(ROOT, "src", "kits", site.kit, "build.js");
   if (existsSync(kitBuild)) await (await import(pathToFileURL(kitBuild).href)).afterBuild({ site, outDir: o.outDir, root: ROOT, look: loadCatalog(ROOT).looks[site.look] });
+  // The forecast's places (client: what its /weather answers for) or the demo's copy fetched now (scripts/lib/weather.js).
+  await writeWeather(site, KITS.find((k) => k.id === site.kit), o.outDir);
   const favicon = path.join(ROOT, "src", "looks", site.look, "favicon.svg");
   if (existsSync(favicon)) await cp(favicon, path.join(o.outDir, "favicon.svg"));
   // Pages in folders too (a fleet's /fleet/<class> and /cars/<car>), so every generated page is checked and listed.

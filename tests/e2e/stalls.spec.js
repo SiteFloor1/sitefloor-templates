@@ -108,7 +108,7 @@ test("the party check answers from the diary, never says booked, and fills the W
 
 test("the client's sheets fail closed: the usual week, marked, and the stall's own line", async ({ page }) => {
   await page.route("https://docs.google.com/**", (r) => r.abort());
-  await page.route("https://api.open-meteo.com/**", (r) => r.abort());
+  await page.route("**/weather?place=*", (r) => r.abort());
   const srv = await start(client);
   const errors = watchErrors(page);
   await page.goto(srv.base + "/");
@@ -132,8 +132,11 @@ test("the client's own sheet and forecast: this week's stops, sold out, rain, an
       : "date,status,updated_at\n2026-11-07,taken,2026-10-22 08:00";
     return r.fulfill({ status: 200, contentType: "text/csv", body });
   });
-  await page.route("https://api.open-meteo.com/**", (r) => r.fulfill({ status: 200, contentType: "application/json",
-    body: JSON.stringify({ hourly: { time: Array.from({ length: 24 }, (_, h) => `2026-10-24T${String(h).padStart(2, "0")}:00`), precipitation_probability: Array.from({ length: 24 }, (_, h) => (h >= 15 ? 75 : 5)) } }) }));
+  /** @type {string[]} */ const asked = [];
+  page.on("request", (r) => asked.push(r.url()));
+  // The site's own /weather (the shared function): 24 hours in UTC; 14:00 UTC is 15:00 in Leeds in October.
+  await page.route("**/weather?place=*", (r) => r.fulfill({ json: { updated: "2026-10-24T09:00:00Z", fetched: "2026-10-24T09:05:00Z",
+    hours: Array.from({ length: 24 }, (_, h) => ({ time: `2026-10-24T${String(h).padStart(2, "0")}:00:00Z`, cloud: 80, rain: h >= 14 ? 0.8 : 0 })) } }));
   const srv = await start(client);
   const errors = watchErrors(page);
   await page.goto(srv.base + "/");
@@ -143,7 +146,11 @@ test("the client's own sheet and forecast: this week's stops, sold out, rain, an
   await expect(page.locator(".sp-hero .st-stop.off")).toContainText("Cancelled");
   await expect(page.locator("[data-item='matcha']")).toHaveClass(/out/);
   await expect(page.locator("[data-item='berry']")).not.toHaveClass(/out/);
-  await expect(page.locator("[data-feature='stalls-rain']")).toHaveText("Rain likely from 15:00, by the forecast.");
+  const rain = page.locator("[data-feature='stalls-rain']");
+  await expect(rain).toHaveText("Rain forecast from 15:00. MET Norway (CC BY 4.0), updated 10:00.");
+  await expect(rain.getByRole("link", { name: "MET Norway" })).toHaveAttribute("href", "https://www.met.no/en");
+  await expect(rain.getByRole("link", { name: "CC BY 4.0" })).toHaveAttribute("href", "https://creativecommons.org/licenses/by/4.0/");
+  expect(asked.filter((u) => /met\.no|open-meteo/.test(u)), "the browser never calls a weather service").toEqual([]);
   await page.goto(srv.base + "/find-us");
   await expect(page.locator(".st-pitch figcaption")).toHaveText("Look for the pink awning by the clock.");
   expect(errors).toEqual([]);
