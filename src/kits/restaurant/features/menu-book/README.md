@@ -12,7 +12,7 @@ menu can use that instead: `menuBook.pages`, one picture per page.
 
 ```json
 "menuBook": {
-  "cover": { "title": "Saffron & Ash", "subtitle": "Charcoal grill · Manchester" },
+  "cover": { "title": "Saffra", "subtitle": "Charcoal grill · Manchester" },
   "pages": [{ "src": "img/menu-1.webp", "width": 1240, "height": 1754, "alt": "Page 1 of the menu: starters" }]
 }
 ```

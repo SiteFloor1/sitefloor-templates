@@ -1,4 +1,4 @@
-# Photo credits (Pellow & Garth, construction demo)
+# Photo credits (Tolven, construction demo)
 
 Free licences (Unsplash Licence or Pexels Licence), cropped and given the Handover grade (saturation 0.85, 18% toward umber
 shadows and a shell-white highlight; sitefloor-internal/docs/design/construction.md). A fictional builder: no photograph shows its work.

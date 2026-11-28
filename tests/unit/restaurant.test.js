@@ -185,10 +185,10 @@ test("table requests: times inside the sitting, the message says it's a request"
 test("events: upcoming only, in order; calendar times in UTC across the clock change", () => {
   const items = [{ id: "b", title: "B", date: "2026-11-05", start: "18:00", text: "x" }, { id: "a", title: "A", date: "2026-10-20", start: "18:00", text: "x" }, { id: "c", title: "C", date: "2026-10-30", start: "19:00", end: "22:30", text: "x" }];
   assert.deepEqual(upcoming(items, "2026-10-27").map((e) => e.id), ["c", "b"]);
-  const ics = eventIcs({ event: items[2], place: "41 Tib Street", business: "Saffron & Ash", timeZone: "Europe/London", stamp: new Date("2026-10-27T10:00:00Z") });
+  const ics = eventIcs({ event: items[2], place: "41 Tib Street", business: "Saffra", timeZone: "Europe/London", stamp: new Date("2026-10-27T10:00:00Z") });
   assert.match(ics, /DTSTART:20261030T190000Z/, "30 Oct is GMT: 7pm is 19:00 UTC");
   assert.match(ics, /DTEND:20261030T223000Z/);
-  assert.match(ics, /SUMMARY:C at Saffron & Ash/);
+  assert.match(ics, /SUMMARY:C at Saffra/);
   const summer = eventIcs({ event: { id: "s", title: "S", date: "2027-06-10", start: "19:00", text: "x" }, place: "p", business: "b", timeZone: "Europe/London", stamp: new Date() });
   assert.match(summer, /DTSTART:20270610T180000Z/, "June is BST: 7pm is 18:00 UTC");
   assert.match(summer, /DTEND:20270610T200000Z/, "no end time: two hours");

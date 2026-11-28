@@ -6,5 +6,5 @@ at the build and in the browser. With none announced, one line and a WhatsApp li
 
 ```json
 "travelsPage": { "kicker": "Trunk shows", "title": "Where we'll be", "intro": "…" },
-"travels": { "message": "Hello Fennick & Lowe.", "items": [{ "id": "edinburgh-nov", "city": "Edinburgh", "venue": "…", "from": "2026-11-19", "to": "2026-11-21", "text": "…" }] }
+"travels": { "message": "Hello Ostley.", "items": [{ "id": "edinburgh-nov", "city": "Edinburgh", "venue": "…", "from": "2026-11-19", "to": "2026-11-21", "text": "…" }] }
 ```

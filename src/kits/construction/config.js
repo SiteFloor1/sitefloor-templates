@@ -76,6 +76,7 @@ export function checkConstruction(site, err, exists) {
   const demo = site.mode === "demo";
 
   checkHero(site.hero, err, exists);
+  if (site.mark !== undefined) { onlyKeys(site.mark, ["word", "line"], "mark", err); text(err, "mark.word", site.mark?.word); text(err, "mark.line", site.mark?.line); }
   const types = site.buildTypes !== undefined ? checkTypes(site.buildTypes, on("service-pages"), err, exists) : new Set();
 
   if (site.projects !== undefined) checkProjects(site, types, err, exists, on("projects-map"));

@@ -1,4 +1,4 @@
-# Photo credits: Saffron & Ash demo
+# Photo credits: Saffra demo
 
 Every photo is from Unsplash, free to use under the Unsplash License (https://unsplash.com/license), checked
 27 October 2026; none is an Unsplash+ photo. They are stock photos of other restaurants' food and rooms, used to show

@@ -112,7 +112,7 @@ export function eveningBefore(startMs, at, timeZone) {
 
 /**
  * A calendar alarm (VALARM): the calendar itself shows it, nothing is sent from the site.
- * @param {string} trigger a full TRIGGER line @param {string} what e.g. "Baste fitting at Fennick & Lowe tomorrow." @param {string[]} items
+ * @param {string} trigger a full TRIGGER line @param {string} what e.g. "Baste fitting at Ostley tomorrow." @param {string[]} items
  */
 export function alarmLines(trigger, what, items) {
   return ["BEGIN:VALARM", "ACTION:DISPLAY", trigger, `DESCRIPTION:${icsText([what, bringLine(items)].filter(Boolean).join(" "))}`, "END:VALARM"];

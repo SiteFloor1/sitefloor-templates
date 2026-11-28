@@ -2,7 +2,7 @@
     credit last. -#}
 {%- set nm = site.business.name.split(" & ") %}
 <footer class="foot hv-foot"><div class="wrap hv-foot-in">
-  <p class="hv-foot-name">{% if nm.length == 2 %}{{ nm[0] }} <i>&amp;</i> {{ nm[1] }}{% else %}{{ site.business.name }}{% endif %}</p>
+  <p class="hv-foot-name">{% if site.mark %}{{ site.mark.word }} <i>{{ site.mark.line }}</i>{% elif nm.length == 2 %}{{ nm[0] }} <i>&amp;</i> {{ nm[1] }}{% else %}{{ site.business.name }}{% endif %}</p>
   <address class="hv-foot-a">{{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}<br>
     <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone | replace('+44 ', '0') }}</a>{% if site.contact.email %} · <a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>{% endif %} · <a href="{{ site.messages.general | wa }}" data-wa-text="{{ site.messages.general }}" target="_blank" rel="noopener">WhatsApp</a></address>
   <nav class="hv-foot-links" aria-label="Footer">

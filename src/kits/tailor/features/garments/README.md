@@ -6,7 +6,7 @@ JavaScript the button is a plain WhatsApp link with the opening line.
 
 ```json
 "garments": {
-  "message": "Hello Fennick & Lowe, I'd like a first appointment.",
+  "message": "Hello Ostley, I'd like a first appointment.",
   "items": [{ "id": "suit", "name": "Two-piece suit", "from": 4600, "text": "Coat and trousers" }],
   "times": ["A weekday morning", "A Saturday"],
   "note": "Prices are the house's own; include VAT."

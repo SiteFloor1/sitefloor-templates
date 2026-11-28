@@ -1,6 +1,6 @@
 # Look: Blue hour (electrician kit)
 
-A finished house just after sunset. Demo: **Corbel Light & Power** (`sites/demos/electrician`). The design contract,
+A finished house just after sunset. Demo: **Larrick** (`sites/demos/electrician`). The design contract,
 references and the comparison with every other look are in `sitefloor-internal/docs/design/electrician.md`.
 
 - **Palette from a blueberry:** the skin's deep blue `#1C2B43` is the page (clearly blue, never black), its shadowed

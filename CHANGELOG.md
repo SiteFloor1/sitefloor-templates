@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased (demo names: one word each)
+- Four demos renamed to one word: restaurant **Saffra** (was Saffron & Ash), construction **Tolven** (was Pellow & Garth),
+  electrician **Larrick** (was Corbel Light & Power), tailor **Ostley** (was Fennick & Lowe). Demo and case-study
+  folder URLs are unchanged.
+- Handover look: an optional `mark` (`word`, `line`) draws a one-word name with its line in italic (the place the
+  italic ampersand had); Blue hour's `mark.line` is now the trade. The electrician check for a left-over demo name
+  looks for "Larrick".
+
 ## Unreleased (car hire: hire kit, Datum look, Datum Hire demo)
 - **Plans, every kit:** a generated collection (a fleet with its class and car pages; later a jeweller's pieces, a bridal
   shop's gowns) counts as ONE page; unlisted utility pages are free like Plan your visit. The build lists, checks and

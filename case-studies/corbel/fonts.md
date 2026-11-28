@@ -5,4 +5,4 @@ Read from the page's own font settings (`index.html`); Manrope is Sitefloor's ba
 
 | Case study | Source | Trade | Display | Body | Other |
 |---|---|---|---|---|---|
-| Corbel (electrician) | case-studies/corbel | electrician | Encode Sans Expanded | Encode Sans |  |
+| Larrick (electrician) | case-studies/corbel | electrician | Encode Sans Expanded | Encode Sans |  |
