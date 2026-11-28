@@ -7,11 +7,11 @@ import { rollDemoDates } from "../../src/demo/dates.js";
 const SITE = {
   mode: "demo",
   schoolTerms: { items: [
-    { id: "michaelmas", name: "Michaelmas Term", starts: "2025-09-03", halfTermFrom: "2025-10-17", halfTermTo: "2025-11-02", exeatFrom: "2025-11-28", exeatTo: "2025-12-01", carols: "2025-12-11", ends: "2025-12-12" },
-    { id: "lent", name: "Lent Term", starts: "2026-01-07", halfTermFrom: "2026-02-13", halfTermTo: "2026-02-22", ends: "2026-03-27" },
+    { id: "michaelmas", name: "Michaelmas Term", starts: "2025-09-03", halfTermFrom: "2025-10-17", halfTermTo: "2025-11-02", exeatFrom: "2025-10-03", exeatTo: "2025-10-06", openMorning: "2025-11-15", carols: "2025-12-11", ends: "2025-12-12" },
+    { id: "lent", name: "Lent Term", starts: "2026-01-07", halfTermFrom: "2026-02-13", halfTermTo: "2026-02-22", openMorning: "2026-03-14", ends: "2026-03-27" },
     { id: "summer-term", name: "Summer Term", starts: "2026-04-22", halfTermFrom: "2026-05-22", halfTermTo: "2026-05-31", ends: "2026-07-03" },
   ] },
-  openDays: { items: [{ id: "open-morning", date: "2025-11-15" }, { id: "taster", date: "2026-01-24" }] },
+  openDays: { items: [{ id: "sixth-form-evening", date: "2026-01-17" }, { id: "taster", date: "2026-01-24" }] },
   fees: { checked: "2025-11-01" },
 };
 const wd = (/** @type {string} */ d) => new Date(`${d}T00:00:00Z`).getUTCDay();
@@ -40,5 +40,6 @@ test("every day for two years: terms end today or later, keep weekdays, gaps and
       }
     });
     for (const o of r.openDays.items) { assert.ok(o.date >= on); assert.equal(wd(o.date), 6, `${on} ${o.id} not a Saturday`); }
+    for (const t of r.schoolTerms.items) if (t.openMorning) assert.equal(wd(t.openMorning), 6, `${on} ${t.id} open morning not a Saturday`);
   }
 });

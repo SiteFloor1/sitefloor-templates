@@ -59,8 +59,8 @@ export const FORWARD = [
   // An independent school's terms (Mercombe, the school kit): each term is one window, moved by whole years until it
   // ends today or later, so the term card shows the current term with its start rightly behind today. Every date in a
   // term moves by the same days and keeps its weekday (pulled back to the start's weekday). Ids avoid "summer", a preset.
-  { kind: "season", list: "schoolTerms.items", keys: ["starts", "halfTermFrom", "halfTermTo", "exeatFrom", "exeatTo", "carols", "ends"], name: "id", sameWeekday: "starts" },
-  // A school's open mornings, taster days and private-visit days: one-off dates, moved together by weeks (Saturdays stay Saturdays).
+  { kind: "season", list: "schoolTerms.items", keys: ["starts", "halfTermFrom", "halfTermTo", "exeatFrom", "exeatTo", "openMorning", "carols", "ends"], name: "id", sameWeekday: "starts" },
+  // A school's one-off visit dates outside a term's own open morning (a Sixth Form evening, a taster day): moved together by weeks.
   { kind: "week", paths: ["openDays.items[].date"] },
   // One window: order by and collect from move together, by whole years, until the later of them is ahead.
   { kind: "season", list: "advent", keys: ["orderBy", "collectFrom"], name: "name" },
