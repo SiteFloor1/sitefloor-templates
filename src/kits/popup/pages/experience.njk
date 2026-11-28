@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: experience
+permalink: experience.html
+feature: popup-experience
+eleventyComputed:
+  title: "{{ site.experiencePage.title | plain }}"
+  description: "{{ site.business.name }}: the pop-up room by room, and how long a visit takes."
+---
+{%- set ph = { title: site.experiencePage.title, intro: site.experiencePage.intro } %}
+{% include "kits/popup/partials/page-head.njk" %}
+{% include "kits/popup/features/popup-experience/popup-experience.njk" %}

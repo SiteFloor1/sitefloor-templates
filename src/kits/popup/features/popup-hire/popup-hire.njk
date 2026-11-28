@@ -1,0 +1,12 @@
+{#- Private hire and groups: the brand's own words and prices, and a pre-filled enquiry. -#}
+{%- set H = site.hirePage %}
+<section class="phi" data-feature="popup-hire" aria-label="Private hire"><div class="wrap phi-in">
+  <figure class="phi-photo"><img src="{{ H.photo.src | img }}" alt="{{ H.photo.alt }}" width="{{ H.photo.width }}" height="{{ H.photo.height }}" decoding="async"{% if H.photo.focus %} style="object-position: {{ H.photo.focus }}"{% endif %}></figure>
+  <div class="phi-t">
+    {%- for b in H.blocks %}<h2>{{ b.heading }}</h2><p>{{ b.text }}</p>{% endfor %}
+    {%- if H.packages %}
+    <ul class="phi-pk">{% for p in H.packages %}<li><b>{{ p.name }}</b><span>{{ p.line }}</span>{% if p.price !== undefined %}<em>{{ p.price | gbp }}</em>{% endif %}</li>{% endfor %}</ul>
+    {%- endif %}
+    <p><a class="btn" href="{{ H.message | wa }}" data-wa-text="{{ H.message }}" target="_blank" rel="noopener">Ask about a date</a></p>
+  </div>
+</div></section>

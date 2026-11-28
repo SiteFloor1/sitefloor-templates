@@ -1,0 +1,17 @@
+{#- Capsule visit: the address set like the foot of an invitation, centred, then the week's hours in one quiet row. -#}
+{%- set sec = { title: site.sections.visit.title, intro: site.sections.visit.intro } %}
+<section id="visit" class="cp-v" data-feature="visit" aria-labelledby="cp-v-h"><div class="wrap">
+  {%- set secId = "cp-v-h" %}{% include "core/partials/section-head.njk" %}
+  <address class="cp-v-addr">{{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}</address>
+  {%- if site.location.area %}<p class="cp-v-area">{{ site.location.area }}</p>{% endif %}
+  <p class="cp-v-acts"><a class="btn ghost" href="{{ site.location | directions }}" target="_blank" rel="noopener">Directions</a></p>
+  <div data-hours>
+    <p class="cp-v-now" data-live-status><span data-status-text>Opening hours</span></p>
+    <table class="cp-v-days">
+      <caption class="sr-only">Opening hours during the pop-up</caption>
+      <tbody>{% for row in site.hours | hoursRows %}<tr data-day="{{ row.dayIndex }}"><th scope="row">{{ row.day | truncate(3, true, "") }}</th><td>{{ row.label }}</td></tr>{% endfor %}</tbody>
+    </table>
+    {%- set upcoming = site.hours | upcomingExceptions(build.today) %}
+    {%- if upcoming.length %}<ul class="cp-v-ex">{% for ex in upcoming %}<li>{{ ex.dateLabel }}: {{ ex.note or ex.label }}</li>{% endfor %}</ul>{% endif %}
+  </div>
+</div></section>

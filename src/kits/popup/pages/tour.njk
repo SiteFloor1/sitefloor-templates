@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: tour
+permalink: tour.html
+feature: popup-tour
+eleventyComputed:
+  title: "{{ site.tourPage.title | plain }}"
+  description: "Where the {{ site.business.name }} pop-up is now and where it goes next."
+---
+{%- set ph = { title: site.tourPage.title, intro: site.tourPage.intro } %}
+{% include "kits/popup/partials/page-head.njk" %}
+{% include "kits/popup/features/popup-tour/popup-tour.njk" %}

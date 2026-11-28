@@ -1,0 +1,17 @@
+{#- Only here: the pieces sold only at the pop-up, each with its total price. "Sold out" comes only from the brand's
+    own stock sheet; an old sheet marks nothing either way. -#}
+{%- set O = site.onlyHere %}
+<section class="poh" data-feature="popup-only-here" aria-label="{{ O.title | plain }}"><div class="wrap">
+  <p class="poh-state" data-stock-state aria-live="polite"></p>
+  <ul class="poh-list">
+    {%- for x in O.items %}
+    <li class="poh-item" data-piece="{{ x.id }}">
+      <img src="{{ x.photo.src | img }}" alt="{{ x.photo.alt }}" width="{{ x.photo.width }}" height="{{ x.photo.height }}" loading="{{ 'eager' if loop.index <= 2 else 'lazy' }}" decoding="async"{% if x.photo.focus %} style="object-position: {{ x.photo.focus }}"{% endif %}>
+      <h2 class="poh-n">{{ x.name }}</h2>
+      <p class="poh-l">{{ x.line }}</p>
+      <p class="poh-p"><span class="poh-price">{{ x.price | gbp }}</span><span class="poh-out" data-sold-out hidden>Sold out</span></p>
+      <p><a class="poh-ask" href="{{ O.message | replace('{piece}', x.name) | wa }}" data-wa-text="{{ O.message | replace('{piece}', x.name) }}" target="_blank" rel="noopener">Ask about it</a></p>
+    </li>
+    {%- endfor %}
+  </ul>
+</div></section>

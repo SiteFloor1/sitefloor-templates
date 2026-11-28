@@ -1,0 +1,6 @@
+{#- Capsule section opening: one centred line in Bona Nova, no label above it; the intro beneath.
+    `sec` = { title, intro }; `secId` gives the heading its id when a section is labelled by it. -#}
+<div class="cp-sh">
+  <h2 class="cp-sh-t"{% if secId %} id="{{ secId }}"{% endif %}>{{ sec.title | markup | safe }}</h2>
+  {%- if sec.intro %}<p class="cp-sh-i">{{ sec.intro }}</p>{% endif %}
+</div>

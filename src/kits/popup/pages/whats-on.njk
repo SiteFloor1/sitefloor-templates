@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: whats-on
+permalink: whats-on.html
+feature: popup-whats-on
+eleventyComputed:
+  title: "{{ site.programme.title | plain }}"
+  description: "What's on at the {{ site.business.name }} pop-up: dates, times and prices."
+---
+{%- set ph = { title: site.programme.title, intro: site.programme.intro } %}
+{% include "kits/popup/partials/page-head.njk" %}
+{% include "kits/popup/features/popup-whats-on/popup-whats-on.njk" %}

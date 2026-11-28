@@ -1,0 +1,5 @@
+{#- Capsule phone bar: ink, today's line on the left, Book a time in quince on the right. -#}
+<div class="mbar cp-bar">
+  <p class="cp-bar-now" data-live-status><span data-status-text>Opening hours</span></p>
+  <a class="cp-bar-book" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{{ "WhatsApp" if build.booking.whatsapp else "Book a time" }}</a>
+</div>
