@@ -1,11 +1,13 @@
 {#- Residences (Plus): every free home, filtered by stay, bedrooms and the date needed. Cards open their detail. -#}
-<div class="rl rl-wait" data-feature="residences-list"{{ "residences-list" | tierAttr | safe }}>
+<div class="rl" data-feature="residences-list"{{ "residences-list" | tierAttr | safe }}>
   <form class="rl-f" aria-label="Filter the homes" novalidate>
     <label>Stay <select data-rl-stay><option value="">Any</option><option value="short">By the night</option><option value="long">Long let</option></select></label>
     <label>Bedrooms <select data-rl-beds><option value="0">Any</option><option value="1">1 or more</option><option value="2">2 or more</option><option value="3">3 or more</option></select></label>
     <label>Needed from <input type="date" data-rl-from></label>
   </form>
-  <p class="rl-n" data-rl-n aria-live="polite">For today's homes, <a href="{{ site.messages.general | wa }}" data-wa-text="{{ site.messages.general }}" target="_blank" rel="noopener">ask us on WhatsApp</a>.</p>
+  <div class="rl-body">
+  <p class="rl-n" data-rl-n aria-live="polite">For today's homes, <a href="{{ site.messages.general | wa }}" data-wa-text="{{ site.messages.general }}" target="_blank" rel="noopener">ask us on WhatsApp</a> or call <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone | replace('+44 ', '0') }}</a>.</p>
   <ul class="rh-list" data-rl-list></ul>
+  </div>
   <dialog class="rh-d" data-rl-dialog data-quote-href="{{ 'quote' | href }}"></dialog>
 </div>

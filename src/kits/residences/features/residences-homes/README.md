@@ -26,5 +26,6 @@ total (CMA: no drip pricing). A long let is a rolling tenancy, priced by the mon
 from the rent (Tenant Fees Act), and above £100,000 a year nothing is worked out (not an assured tenancy).
 
 ## Fails closed
-A sheet that can't be read in 6 seconds, has no readable `updated_at`, or is older than `staleAfterHours` lists
-nothing and says to ask. On the demo, add `#stale` to the address to see it.
+A sheet that can't be read in 6 seconds lists nothing and says to ask, and so does one where any row's own
+`updated_at` is unreadable, more than an hour ahead or older than `staleAfterHours` (each row is judged by its own
+date, so an old "free" row can't ride on a fresh one). On the demo, add `#stale` to the address to see it.

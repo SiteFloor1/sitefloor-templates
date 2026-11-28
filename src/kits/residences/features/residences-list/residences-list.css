@@ -3,6 +3,6 @@
 .rl-f { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; max-width: 760px; margin-bottom: 18px; }
 .rl-f label { display: grid; gap: 6px; font-size: 14px; color: var(--muted); }
 .rl-f select, .rl-f input { font: inherit; font-size: 17px; color: var(--text); padding: 8px 0; min-height: 44px; border: 0; border-bottom: 1px solid var(--line); background: transparent; }
-.rl-wait .rh-list { min-height: 100vh; } /* keeps the footer still until the sheet has filled the list */
+.rl-body { min-height: min(100vh, 860px); } /* the same height loading, filled or unavailable, so the footer never moves */
 .rl-n { color: var(--muted); font-size: 14px; margin: 0 0 24px; }
 @media (max-width: 640px) { .rl-f { grid-template-columns: 1fr 1fr; } .rl .rh-list { display: grid; grid-template-columns: 1fr; margin: 0; padding: 0; } }

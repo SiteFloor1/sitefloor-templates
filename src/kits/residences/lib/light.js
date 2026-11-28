@@ -32,5 +32,8 @@ export function sunWindow(faces, ymd, place, timeZone) {
   return on < 0 ? null : { on: formatTime24(on), off: formatTime24(off) };
 }
 
-/** "Sun on the windows today, 12:30 to 15:25". @param {{ on: string, off: string } | null} w */
+/** "Sun on the windows today, 12:30 to 15:25" (the detail adds the full caveat). @param {{ on: string, off: string } | null} w */
 export const sunText = (w) => (w ? `Sun on the windows today, ${w.on} to ${w.off}` : "No direct sun on the windows today");
+
+/** The list's shorter line, with its caveat. @param {{ on: string, off: string } | null} w */
+export const sunListText = (w) => `${sunText(w)} (no shade counted)`;

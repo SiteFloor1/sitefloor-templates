@@ -12,6 +12,8 @@ Liberation Sans 94.1% (103.7%, 23.7%), 700 against Liberation Sans Bold 90.2% (1
 
 Layout shift while loading (PerformanceObserver, fonts delayed 600 ms): home 0.00003 at 412 px and 0.003 at 1440 px;
 Residences 0.00005 at 412 px (the list keeps its place until the sheet has filled it; it was 0.228 before) and 0.010
-at 1440 px; Fees 0. Home page at 412 × 915: 4.1 phone screens including the footer and the demo bar.
+at 1440 px; Fees 0. Re-measured 28 Nov 2026 after the audit: the client's Residences page with its sheet failing
+0 at 360 px, 0.011 at 1280 px and 0.009 at 1440 px (the list area keeps one height loading, filled or
+unavailable; it was up to 0.341). Home page at 412 × 915: 4.1 phone screens including the footer and the demo bar.
 
 Lighthouse was not run for this build; run it on the published demo and add the numbers here.

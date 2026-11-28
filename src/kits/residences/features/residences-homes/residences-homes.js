@@ -26,7 +26,7 @@ export function init(root, ctx) {
     state = s;
     if (!s.ok) { root.classList.add("rh-stale"); return; }
     if (count) count.textContent = countWords(s.homes.length);
-    upd.textContent = `${updatedText(s.updatedAt, Date.now(), ctx.data.hours.timezone)}.${ctx.data.mode === "demo" ? " Sample homes and figures." : ""}`;
+    upd.textContent = `${updatedText(s.updatedAt, Date.now(), ctx.data.hours.timezone)}.${ctx.data.mode === "demo" ? " Sample homes and prices." : ""}`;
     draw();
     ctx.share("residences-homes", s);
   });

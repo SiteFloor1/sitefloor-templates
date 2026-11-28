@@ -37,10 +37,13 @@ export function homesFromCsv(csv, now, timeZone, cfg) {
   const head = rows[0].map((h) => h.trim().toLowerCase());
   const col = (/** @type {string[]} */ r, /** @type {string} */ k) => (r[head.indexOf(k)] ?? "").trim();
   if (COLUMNS.some((c) => !head.includes(c))) return { ok: false, reason: "unreadable" };
-  const stamps = rows.slice(1).map((r) => parseSheetTime(col(r, "updated_at"), timeZone)).filter((t) => !Number.isNaN(t));
-  if (!stamps.length) return { ok: false, reason: "unreadable" };
-  const updatedAt = Math.max(...stamps);
-  if (now - updatedAt > (cfg.staleAfterHours ?? 36) * 3_600_000 || updatedAt - now > 3_600_000) return { ok: false, reason: "stale" };
+  // Every row is judged by its own updated_at: one unreadable, future or stale row fails the whole sheet, so an old
+  // "free" row can never ride on a fresh one.
+  const limit = (cfg.staleAfterHours ?? 36) * 3_600_000;
+  const stamps = rows.slice(1).map((r) => parseSheetTime(col(r, "updated_at"), timeZone));
+  if (!stamps.length || stamps.some((t) => Number.isNaN(t))) return { ok: false, reason: "unreadable" };
+  if (stamps.some((t) => now - t > limit || t - now > 3_600_000)) return { ok: false, reason: "stale" };
+  const updatedAt = Math.min(...stamps);
   /** @type {Home[]} */
   const homes = [];
   for (const r of rows.slice(1)) {

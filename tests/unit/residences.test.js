@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { homesFromCsv, COLUMNS } from "../../src/kits/residences/lib/homes.js";
 import { quote, headline, pounds } from "../../src/kits/residences/lib/stay.js";
-import { sunWindow } from "../../src/kits/residences/lib/light.js";
+import { sunWindow, sunListText } from "../../src/kits/residences/lib/light.js";
 import { walk, layout } from "../../src/kits/residences/lib/map.js";
 import { arrivalIcs } from "../../src/kits/residences/lib/arrival.js";
 import { RULES } from "../../src/kits/residences/lib/rules.js";
@@ -26,6 +26,18 @@ test("residences sheet: fails closed when stale, unreadable or missing a column"
   assert.deepEqual(homesFromCsv(csv({ ...base, updated_at: "2026-11-24 09:15" }), NOW, TZ, {}), { ok: false, reason: "stale" });
   assert.deepEqual(homesFromCsv(csv({ ...base, updated_at: "11/26/2026 09:15" }), NOW, TZ, {}), { ok: false, reason: "unreadable" });
   assert.deepEqual(homesFromCsv("ref,name\n1,x", NOW, TZ, {}), { ok: false, reason: "unreadable" });
+});
+
+test("residences sheet: every row is judged by its own date, so an old free row can't ride on a fresh one", () => {
+  // RS-01: "free" eight weeks ago beside a row updated this morning
+  assert.deepEqual(homesFromCsv(csv({ ...base, ref: "OLD", updated_at: "2026-10-01 09:00" }, { ...base, ref: "NEW", status: "let" }), NOW, TZ, {}), { ok: false, reason: "stale" });
+  // a row whose stamp can't be read, beside a fresh one
+  assert.deepEqual(homesFromCsv(csv({ ...base, ref: "BAD", updated_at: "yesterday?" }, { ...base, ref: "NEW" }), NOW, TZ, {}), { ok: false, reason: "unreadable" });
+  // a row stamped in the future
+  assert.deepEqual(homesFromCsv(csv({ ...base, updated_at: "2026-11-26 15:30" }, { ...base, ref: "NEW" }), NOW, TZ, {}), { ok: false, reason: "stale" });
+  // all fresh: the page says the oldest row's time
+  const r = homesFromCsv(csv({ ...base, updated_at: "2026-11-25 17:40" }, { ...base, ref: "NEW" }), NOW, TZ, {});
+  assert.equal(r.ok && r.updatedAt, Date.parse("2026-11-25T17:40:00Z"));
 });
 
 test("residences sheet: a home missing a price or with an unreadable date is never shown as free", () => {
@@ -63,6 +75,7 @@ test("sun on the windows: west windows get the afternoon, east the morning, none
   assert.ok(west && west.on > "11:00" && west.off < "16:30", JSON.stringify(west));
   assert.ok(east && east.on < "09:00" && east.off < "13:00", JSON.stringify(east));
   assert.equal(sunWindow([], "2026-11-26", place, TZ), null);
+  assert.equal(sunListText({ on: "12:30", off: "15:25" }), "Sun on the windows today, 12:30 to 15:25 (no shade counted)");
   const summer = sunWindow([270], "2026-06-21", place, TZ);
   assert.ok(summer && summer.off > "20:00", JSON.stringify(summer));
 });

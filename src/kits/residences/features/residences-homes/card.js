@@ -5,7 +5,7 @@
  */
 import { quote, headline, pounds, noneText } from "../../lib/stay.js";
 import { freeText, sqft, askText } from "../../lib/homes.js";
-import { sunWindow, sunText } from "../../lib/light.js";
+import { sunWindow, sunText, sunListText } from "../../lib/light.js";
 import { RULES, ukDay } from "../../lib/rules.js";
 
 /** @typedef {import("../../lib/homes.js").Home} Home */
@@ -23,7 +23,7 @@ const link = (href, text) => { const a = /** @type {HTMLAnchorElement} */ (el("a
 export function priceText(h, stay) {
   if (stay === null) {
     const hl = headline(h);
-    if (hl.night) return `From ${pounds(hl.night.perNight)} a night, all in`;
+    if (hl.night) return `${pounds(hl.night.perNight)} a night for ${hl.night.nights} nights, all in`;
     if (hl.month) return `${pounds(hl.month)} a month`;
     return "Ask for the terms";
   }
@@ -33,11 +33,12 @@ export function priceText(h, stay) {
   return q.why === "no-short" ? "Long lets only" : q.why === "no-long" ? "Nightly only" : q.why === "too-short" ? `${h.minNights}-night minimum` : "Ask for the terms";
 }
 
-/** The sun line for a home today, when the feature is on and the home's bearings are known. @param {Home} h @param {Ctx} ctx */
-export function sunLine(h, ctx) {
+/** The sun line for a home today, when the feature is on and the home's bearings are known. @param {Home} h @param {Ctx} ctx @param {boolean} [list] the card's line, with its short caveat */
+export function sunLine(h, ctx, list = false) {
   const light = /** @type {any} */ (ctx.data).light;
   if (!light || !h.faces.length) return null;
-  return sunText(sunWindow(h.faces, ctx.now().date, light.place, ctx.data.hours.timezone));
+  const w = sunWindow(h.faces, ctx.now().date, light.place, ctx.data.hours.timezone);
+  return list ? sunListText(w) : sunText(w);
 }
 
 /** @param {Home} h @param {Ctx} ctx @param {Stay} stay @param {(h: Home) => void} open */
@@ -59,7 +60,7 @@ export function card(h, ctx, stay, open) {
   const meta = el("span", "rh-meta");
   meta.append(el("span", "", `${h.beds ? plural(h.beds, "bedroom") : "Studio"} · ${h.m2} m²`), el("span", "rh-price", priceText(h, stay)));
   b.append(meta, el("span", "rh-free", freeText(h.from)));
-  const sun = sunLine(h, ctx);
+  const sun = sunLine(h, ctx, true);
   if (sun) b.append(el("span", "rh-sun", sun));
   b.addEventListener("click", () => open(h));
   li.append(b);

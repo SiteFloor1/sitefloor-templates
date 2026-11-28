@@ -50,7 +50,7 @@ test("the stay bar: every fee in the total, a long let priced by the month, the 
   for (const a of await note.locator("a").all()) await expect(a).toHaveAttribute("href", /^https:\/\/www\.gov\.uk\//);
   await expect(page.locator(".rh-card", { hasText: "The Penthouse" }).locator(".rh-price")).toHaveText("Nightly only");
   expect(await waText(bar.locator("[data-rs-go]"))).toContain("Four West (4W), on a long let.");
-  await expect(page.locator(".rh-card").first().locator(".rh-sun")).toHaveText(/^Sun on the windows today, \d\d:\d\d to \d\d:\d\d$/);
+  await expect(page.locator(".rh-card").first().locator(".rh-sun")).toHaveText(/^Sun on the windows today, \d\d:\d\d to \d\d:\d\d \(no shade counted\)$/);
   expect(errors).toEqual([]);
   await srv.close();
 });
@@ -105,6 +105,26 @@ test("a stale sheet lists nothing and disables the stay bar: the page says to as
   await expect(page.locator(".rh-card")).toHaveCount(0);
   await expect(page.locator("[data-rh-updated]")).toContainText("ask us on WhatsApp");
   await srv.close();
+});
+
+test("Long lets fits a phone, the Serviced table is reachable by keyboard, and a failed sheet doesn't move Residences", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 700 });
+  const srv = await start(demo);
+  await page.goto(srv.base + "/long-lets.html");
+  await page.locator("[data-rlg-rent]").fill("7950");
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(320);
+  await page.goto(srv.base + "/serviced.html");
+  await expect(page.locator(".rsv-scroll")).toHaveAttribute("tabindex", "0");
+  await srv.close();
+  const cs = await start(client);
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.route("https://docs.google.com/**", (r) => r.abort());
+  await page.addInitScript(() => { /** @type {any} */ (window).__cls = 0; new PerformanceObserver((l) => { for (const e of /** @type {any[]} */ (l.getEntries())) if (!e.hadRecentInput) /** @type {any} */ (window).__cls += e.value; }).observe({ type: "layout-shift", buffered: true }); });
+  await page.goto(cs.base + "/residences.html");
+  await featuresStarted(page);
+  await page.waitForTimeout(500);
+  expect(await page.evaluate(() => /** @type {any} */ (window).__cls)).toBeLessThan(0.02);
+  await cs.close();
 });
 
 test("a client's own sheet: shown when fresh, nothing when old or unreadable; its floor plan and 3D tour", async ({ page }) => {
