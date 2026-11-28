@@ -7,6 +7,6 @@ for a measurement; the house matches the code to the pattern it holds. The Send 
 one (8–12 letters and numbers, as the commission tracker uses). Without JavaScript the slip is a plain WhatsApp link.
 
 ```json
-"reorder": { "kicker", "title": "From your pattern", "intro", "message": "Hello Fennick & Lowe.",
+"reorder": { "kicker", "title": "From your pattern", "intro", "message": "Hello Ostley.",
   "note": "We keep your pattern at the house; this site keeps nothing.", "photo": { "src", "width", "height", "alt" } }
 ```

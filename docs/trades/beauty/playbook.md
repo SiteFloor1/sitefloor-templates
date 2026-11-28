@@ -111,7 +111,7 @@ no hero is a sentence with choosable words (Pastillage asks one question beside 
 message below a photo strip); no hero is a calendar of dates (Tollgarth shows twelve plant photographs as months,
 Ottoline today's classes). None uses a "photo left, tool right" hero (Atelier's), a full-bleed photograph, a stacked
 three-line headline, a small label + big two-line heading or tiny spaced capitals. Grounds: porcelain, white and
-limestone repeat neutral grounds others use (allowed); blue tansy is deeper and greener than Corbel's blueberry and
+limestone repeat neutral grounds others use (allowed); blue tansy is deeper and greener than Larrick's blueberry and
 far from Swift's enamel blue; kelp olive is browner and more yellow than Selwyn Orr's rosemary; rose clay is pinker and
 quieter than Hatheli's stain orange and Laleh's peony. Fonts: all six unclaimed on main and every open branch
 (fetched 15 Nov 2026).

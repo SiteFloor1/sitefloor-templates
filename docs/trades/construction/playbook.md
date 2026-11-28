@@ -2,7 +2,7 @@
 
 What to build for this trade (kit `construction`). The ground rules and the steps for a new kit: [`docs/TRADE-PLAYBOOK.md`](../../TRADE-PLAYBOOK.md).
 
-## High-end builders (kit `construction`, look `handover`, demo Pellow & Garth) — built 4 Nov 2026
+## High-end builders (kit `construction`, look `handover`, demo Tolven) — built 4 Nov 2026
 - **Design process:** three directions, Handover chosen and revised once (neutral ground, the visualiser as the
   first-screen wow, how a build runs as a section through a house); mini design system and references in
   `sitefloor-internal/docs/design/construction.md`. Handover `sitefloor-internal/docs/HANDOVER-CONSTRUCTION.md`.

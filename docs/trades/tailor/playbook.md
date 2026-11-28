@@ -6,7 +6,7 @@ What to build for this trade (kit `tailor`). The ground rules and the steps for 
 - Customer: someone commissioning a first bespoke suit or coat (often for a wedding or a new role), or a returning
   client between fittings. The site's job: get the first-appointment request with the garments in mind, and keep
   returning clients informed without a phone call.
-- Demo brand **Fennick & Lowe** (fictional; searched, no tailor uses it), a yard off Savile Row, by appointment. Owner
+- Demo brand **Ostley** (fictional; searched, no tailor uses it), a yard off Savile Row, by appointment. Owner
   chose direction A, Flannel, then the cutting-room revision (4 Nov). Look `flannel`, demo `sites/demos/tailor`, design
   notes `sitefloor-internal/docs/design/tailor.md`.
 - **Starter:** `garments` (what the house makes with "from" prices; request sheet on WhatsApp), `the-process` (the

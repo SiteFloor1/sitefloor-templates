@@ -7,7 +7,7 @@ card on WhatsApp" sends the choices as text plus a link that opens the same card
 `#`; nothing is stored). "Print or save as PDF" prints only the card, to bring to the first appointment.
 
 ```json
-"spec": { "kicker", "title", "intro", "message": "Hello Fennick & Lowe.", "note": "Bring this to your first appointment…",
+"spec": { "kicker", "title", "intro", "message": "Hello Ostley.", "note": "Bring this to your first appointment…",
   "groups": [{ "id": "lapel", "name": "Lapel", "options": [{ "id": "peak", "label": "Peak", "text": "…", "photo": { "src", "width", "height", "alt" } }] }] }
 ```
 2–6 groups of 2–5 options. Photographs: details the house has made, 4:5. A group can carry `"for": ["shirt"]` (ids

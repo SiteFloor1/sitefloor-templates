@@ -1,6 +1,6 @@
 # Case study source: fennick-lowe
 
-- `fennick-lowe/index.html`: the tailor case study (cut to pattern: the page opens on Fennick & Lowe's charcoal flannel
+- `fennick-lowe/index.html`: the tailor case study (cut to pattern: the page opens on Ostley's charcoal flannel
   with a coat's manila pattern pieces laid on it, each piece a page of the site; tap one and a chalk line goes round it
   while that page shows on a phone lying on the cutting table; the pattern ticket lists every piece and the plan it
   comes on; chapters per piece (the cloth book and swatch set, the commission by code, the wedding party planner, from

@@ -34,7 +34,7 @@ rate (P), added to `docs/VISION.md`, tiers confirmed.
 
 ### Round 3 (16 Nov 2026): direction C, After dark, chosen
 Owner's fixes: a real wordmark (the H's crossbar drawn as the slope a halde is); the count crossing the photograph's
-edge so it can't be mistaken for Varnell's or Corbel's bottom-left headline; first screen cut to the count line, one
+edge so it can't be mistaken for Varnell's or Larrick's bottom-left headline; first screen cut to the count line, one
 sentence and one button; B's bathhouse (steam, the cedar sauna, half-hour slots) becomes the recovery section below the
 Hyrox planner, in Epilogue and C's black-and-white grade.
 

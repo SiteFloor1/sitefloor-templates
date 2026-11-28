@@ -5,4 +5,4 @@ Read from the page's own font settings (`index.html`); Manrope is Sitefloor's ba
 
 | Case study | Source | Trade | Display | Body | Other |
 |---|---|---|---|---|---|
-| Pellow & Garth (construction) | case-studies/pellow-garth | construction | Big Shoulders Stencil Display | Kumbh Sans | |
+| Tolven (construction) | case-studies/pellow-garth | construction | Big Shoulders Stencil Display | Kumbh Sans | |

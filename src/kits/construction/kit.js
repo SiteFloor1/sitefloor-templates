@@ -81,6 +81,9 @@ export const refuses = ["gallery", "work", "photo-band", "team", "vouchers"];
 /** Checks this kit's settings in site.json (runs for every site; it returns early for other kits). */
 export const check = checkConstruction;
 
+/** Top-level site.json keys no feature lists: a one-word name with its line in italic in the header and footer (checked in config.js). */
+export const settings = ["mark"];
+
 /** Config the construction kit's scripts need, only for the features that are on. @param {any} site */
 export function pageData(site) {
   const on = (/** @type {string} */ id) => site.features.includes(id);

@@ -185,7 +185,7 @@ test("the programme is arithmetic on the builder's own stage lengths", async () 
   assert.equal(programme([{ id: "a", name: "x", weeks: /** @type {any} */ (undefined) }], "2027-03-01"), null);
   assert.equal(monthSpan("2027-04-26", "2027-06-07"), "Apr–Jun 2027");
   assert.equal(monthSpan("2026-12-20", "2027-02-01"), "Dec 2026–Feb 2027");
-  const ics = programmeIcs(p, "Pellow & Garth", new Date("2026-11-04T10:00:00Z"));
+  const ics = programmeIcs(p, "Tolven", new Date("2026-11-04T10:00:00Z"));
   assert.match(ics, /SUMMARY:Structure starts \(estimate\)/);
   assert.match(ics, /DTSTART;VALUE=DATE:20270315/);
 });

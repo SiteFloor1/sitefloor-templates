@@ -99,7 +99,7 @@ test("the next inspection: the date on the report, else the client's interval; o
 });
 
 test("the inspection reminder is a valid calendar file in UTC, weeks before the due date at 10am UK time", () => {
-  const ics = inspectionIcs({ due: "2031-07-14", weeksBefore: 6, business: "Corbel Light & Power", phone: "+44 7700 900137", place: "2 Ashgrove Yard, London", code: "HX7Q2M", timeZone: "Europe/London", stamp: new Date("2026-11-02T10:00:00Z") });
+  const ics = inspectionIcs({ due: "2031-07-14", weeksBefore: 6, business: "Larrick", phone: "+44 7700 900137", place: "2 Ashgrove Yard, London", code: "HX7Q2M", timeZone: "Europe/London", stamp: new Date("2026-11-02T10:00:00Z") });
   assert.match(ics, /^BEGIN:VCALENDAR\r\n/);
   assert.match(ics, /DTSTART:20310602T090000Z/, "2 June 2031 10:00 BST is 09:00 UTC");
   for (const line of ics.split("\r\n")) assert.ok(new TextEncoder().encode(line).length <= 75, `line too long: ${line}`);
@@ -107,7 +107,7 @@ test("the inspection reminder is a valid calendar file in UTC, weeks before the 
 
 test("settings are the client's own and can't mislead", () => {
   assert.match(errorsFor((s) => { s.ev.colour = "red"; }), /ev\.colour: unknown setting/);
-  assert.match(errorsFor((s) => { s.registers[0].url = "https://corbel.example/our-badges"; }), /public register/);
+  assert.match(errorsFor((s) => { s.registers[0].url = "https://larrick.example/our-badges"; }), /public register/);
   assert.match(errorsFor((s) => { s.registers[0].scheme = "best-electricians"; }), /registers\[0\]\.scheme/);
   assert.match(errorsFor((s) => { s.faultGuide.cases[0].tell.push("Reset the switch on the board."); }), /repair instruction/);
   for (const line of ["Swap the fuse in the plug for a 13 A one.", "Push the trip switch back up.", "Switch the breaker back on.", "Take the cover off the board.", "Try putting the switch back to ON.", "Tighten the loose terminal."]) {
@@ -128,7 +128,7 @@ test("settings are the client's own and can't mislead", () => {
 });
 
 test("a client site never still names the demo business", () => {
-  assert.match(errorsFor((s) => { s.ev.message = "Hello Corbel, about a car charger."; }, client), /ev\.message: still names the demo business/);
+  assert.match(errorsFor((s) => { s.ev.message = "Hello Larrick, about a car charger."; }, client), /ev\.message: still names the demo business/);
   assert.deepEqual(validateSite(client, { catalog }), []);
 });
 

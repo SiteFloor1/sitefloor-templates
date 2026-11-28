@@ -196,12 +196,12 @@ function checkFaultGuide(g, err) {
 }
 
 /** The demo's business name. A client's site set up from the demo or a README must never still greet it. */
-const DEMO_NAME = /\bCorbel\b/;
+const DEMO_NAME = /\bLarrick\b/;
 /** @param {any} site @param {Report} err */
 function demoNameLeft(site, err) {
   /** @param {any} v @param {string} path */
   const walk = (v, path) => {
-    if (typeof v === "string") { if (DEMO_NAME.test(v)) err(path, "still names the demo business (Corbel); use the client's own name"); }
+    if (typeof v === "string") { if (DEMO_NAME.test(v)) err(path, "still names the demo business (Larrick); use the client's own name"); }
     else if (Array.isArray(v)) v.forEach((x, i) => walk(x, `${path}[${i}]`));
     else if (v && typeof v === "object") for (const [k, x] of Object.entries(v)) walk(x, path ? `${path}.${k}` : k);
   };

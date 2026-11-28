@@ -7,7 +7,7 @@ JavaScript each length links to its weave photograph. On phones the book scrolls
 
 ```json
 "cloths": {
-  "message": "Hello Fennick & Lowe.",
+  "message": "Hello Ostley.",
   "note": "Demo cloths…",
   "items": [{ "id": "midnight", "name": "Midnight", "cloth": "Worsted", "weight": 260, "seasons": ["all-year"], "drop": 0.86,
     "length": { "src", "width", "height", "alt" }, "weave": { "src", "width", "height" }, "weavePhone": { "src", "width", "height" } }]

@@ -29,12 +29,12 @@ chat can reuse the Sitefloor bar, footer and patterns without re-reading a publi
   roman only). Media (three phone clips with posters, three phone stills, two laptop screens, three of the demo's
   photographs, the fonts) live in `media/` and the published artifact. Phone clips: CDP screencast at 390×844 and 2x
   in Chromium with `--lang=en-GB`, H.264; stills without the demo bar; nothing plays until asked.
-- `corbel/index.html`: the electrician case study (the lighting plan of a website: the page opens dark on Corbel's
+- `corbel/index.html`: the electrician case study (the lighting plan of a website: the page opens dark on Larrick's
   house at dusk with one rotary dimmer, and the dial lights the photograph and every light drawn further down; a
   reflected ceiling plan where each room is a page of the site and each light, L01 to L17, a feature, its symbol the
   plan it comes on (downlight Starter, luminaire Plus, pendant Signature); the chapters are the schedule of fittings;
   a live fault guide and a live whole-house estimate from the demo's figures; the plans are three positions on the
-  dial, Low, Evening, Full; the speed is "from the switch to the light"; drafting film with Corbel's blue as the ink
+  dial, Low, Evening, Full; the speed is "from the switch to the light"; drafting film with Larrick's blue as the ink
   and the light the one warm colour; Encode Sans Expanded and Encode Sans). Media (two phone clips, the house in 3D
   and the charger in 3D as 960×540 clips, posters, five phone stills, the demo's hero and garden-room photographs)
   live in the published artifact under `media/`. Phone clips: CDP screencast at 390×844 and 2x; 3D clips: one
@@ -72,7 +72,7 @@ chat can reuse the Sitefloor bar, footer and patterns without re-reading a publi
   Ferreira, https://www.pexels.com/photo/delicious-chocolate-bubble-waffles-in-food-truck-30461190/ (Sauced, cropped
   above the cones' print); bubble waffles with berries and nuts, Willians Huerta,
   https://www.pexels.com/photo/bubble-waffles-with-mixed-berries-and-nuts-34926596/ (Loaded).
-- `fennick-lowe/index.html`: the tailor case study (cut to pattern: the page opens on Fennick & Lowe's charcoal flannel
+- `fennick-lowe/index.html`: the tailor case study (cut to pattern: the page opens on Ostley's charcoal flannel
   with a coat's manila pattern pieces laid on it, each piece a page of the site; tap one and a chalk line goes round it
   while that page shows on a phone lying on the cutting table; the pattern ticket lists every piece and the plan it
   comes on; chapters per piece (the cloth book and swatch set, the commission by code, the wedding party planner, from
