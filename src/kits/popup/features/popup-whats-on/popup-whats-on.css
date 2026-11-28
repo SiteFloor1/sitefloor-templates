@@ -1,0 +1,7 @@
+/* What's on (popup-whats-on). */
+.pwo-list { list-style: none; margin: 0; padding: 0; }
+.pwo-item { display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: var(--s2, 24px); padding: var(--s2, 24px) 0; border-top: 1px solid var(--line); }
+.pwo-date b { display: block; color: var(--accent-2); }
+.pwo-date span { color: var(--muted); }
+.pwo-when { color: var(--muted); }
+@media (max-width: 760px) { .pwo-item { grid-template-columns: 72px minmax(0, 1fr); } }

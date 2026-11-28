@@ -1,0 +1,13 @@
+{#- The experience page: every room in order, large, with its minutes and the brand's own words. -#}
+{%- set R = site.rooms.items %}
+<section class="pex" aria-label="The rooms"><div class="wrap">
+  <ol class="pex-list">
+    {%- for r in R %}
+    <li class="pex-room">
+      <img src="{{ r.photo.src | img }}" alt="{{ r.photo.alt }}" width="{{ r.photo.width }}" height="{{ r.photo.height }}" loading="{{ 'eager' if loop.first else 'lazy' }}" decoding="async"{% if r.photo.focus %} style="object-position: {{ r.photo.focus }}"{% endif %}>
+      <div class="pex-t"><h2>{{ r.name }}</h2><p class="pex-min">{{ r.minutes }} minutes</p><p>{{ r.line }}</p></div>
+    </li>
+    {%- endfor %}
+  </ol>
+  <p class="pex-total">{{ R | visitMinutes }} minutes, door to door.{% if site.experiencePage.closing %} {{ site.experiencePage.closing }}{% endif %}</p>
+</div></section>

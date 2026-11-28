@@ -1,0 +1,18 @@
+{#- The rooms: each room of the experience with its minutes, and the whole visit; choose one to bring it forward. -#}
+{%- set sec = site.sections.rooms %}{% set R = site.rooms.items %}
+<section id="rooms" class="prm" data-feature="popup-rooms" aria-labelledby="prm-h"{{ "popup-rooms" | tierAttr | safe }}>
+  <div class="wrap">
+    <h2 class="prm-t" id="prm-h">{{ sec.title | markup | safe }}<span class="prm-sub">{{ R | visitMinutes }} minutes, door to door</span></h2>
+    <ul class="prm-row" tabindex="0" aria-label="The rooms">
+      {%- for r in R %}
+      <li><button class="prm-room" type="button" data-room="{{ loop.index0 }}" aria-pressed="{{ 'true' if loop.first else 'false' }}">
+        <img src="{{ r.photo.src | img }}" alt="{{ r.photo.alt }}" width="{{ r.photo.width }}" height="{{ r.photo.height }}" loading="lazy" decoding="async"{% if r.photo.focus %} style="object-position: {{ r.photo.focus }}"{% endif %}>
+        <b>{{ r.name }}</b><small>{{ r.minutes }} min</small>
+      </button></li>
+      {%- endfor %}
+    </ul>
+    <p class="prm-line" data-room-line aria-live="polite">{{ R[0].line }}</p>
+    <template data-room-lines>{% for r in R %}<span>{{ r.line }}</span>{% endfor %}</template>
+    {%- if "popup-experience" | enabled %}<p class="prm-more"><a href="{{ 'experience' | href }}"{{ "popup-experience" | tierAttr | safe }}>The experience, room by room</a></p>{% endif %}
+  </div>
+</section>

@@ -1,0 +1,205 @@
+/* =========================================================================
+   Look: Capsule. A brand's pop-up as a printed invitation. Chalk page, ink words; the product, lit, stands in a tall
+   dark slab on the left of the first screen, and beside it a double-ruled card holds the dates, the place and one live
+   line on whether to go. The one colour of our own is a ripe quince (the capsule bar on the monogram, the chosen day,
+   the live line). Bona Nova for display, Inclusive Sans for reading. One hero idea: the invitation. Motion: a room's
+   photograph comes forward slowly when chosen; nothing is tied to the scroll. Design notes:
+   sitefloor-internal/docs/trades/pop-up/directions.md.
+   ========================================================================= */
+:root {
+  --bg: #F3F1EC; --surface: #E9E5DC; --surface-2: #DFDAD0; --paper: #FBFAF7;
+  --text: #17150F; --muted: #6A6458; --dim: #6A6458;
+  --accent: #C08A1E; --accent-2: #7E5A0E; --on-accent: #17150F; --accent-soft: #F1E5C9;
+  --line: #D8D2C6; --line-2: #BDB5A6;
+  --band: #17150F; --on-band: #F3F1EC; --on-band-muted: #BDB5A6;
+  --ink-dark: #17150F; --ink-light: #F3F1EC;
+  --ok: #4F6B3A; --busy: #A8641A; --closed: #8A8274;
+  --font-display: "Bona Nova", "Bona Nova Fallback", Georgia, serif;
+  --font-body: "Inclusive Sans", "Inclusive Sans Fallback", Arial, sans-serif;
+  --on-photo: #F3F1EC;
+  --button: var(--text); --button-hover: color-mix(in srgb, var(--text) 82%, var(--accent)); --on-button: var(--bg);
+  --photo-scrim: rgba(23,21,15,.55); --shadow: rgba(23,21,15,.16);
+  --season-bg: #17150F; --season-fg: #F3F1EC;
+  --pad: max(16px, env(safe-area-inset-left, 0px));
+  --gut: clamp(16px, 2.8vw, 40px);
+  --s1: 12px; --s2: 24px; --s3: 40px; --s4: clamp(64px, 8vw, 104px);
+  --nav-h: 86px;
+  color-scheme: light;
+}
+html { background: var(--bg); }
+body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 17px; line-height: 1.55; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 400; letter-spacing: -.01em; text-wrap: balance; margin: 0; }
+::selection { background: var(--accent-soft); color: var(--text); }
+.wrap { width: min(1360px, 100% - 2 * var(--gut)); margin-inline: auto; }
+main section { padding-block: var(--s4) 0; }
+main > :last-child { padding-bottom: var(--s4); }
+:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 3px; }
+img { height: auto; max-width: 100%; }
+a { color: inherit; }
+
+/* ---------------------------------------------------------------- buttons: ink, square, quiet */
+.btn { min-height: 50px; padding: 0 24px; border-radius: 2px; font-family: var(--font-body); font-weight: 400; font-size: 15px; background: var(--button); color: var(--on-button); }
+.btn:hover { background: var(--button-hover); color: var(--on-button); }
+.btn.ghost { background: none; color: var(--text); box-shadow: inset 0 0 0 1px var(--text); }
+.btn.ghost:hover { box-shadow: inset 0 0 0 2px var(--text); }
+
+/* ---------------------------------------------------------------- the monogram: a C in a bottle neck, a quince capsule */
+.cp-mono { position: relative; display: inline-grid; place-items: center; width: 30px; height: 42px; border: 1px solid var(--text); border-radius: 15px 15px 4px 4px; font-family: var(--font-display); font-size: 19px; line-height: 1; padding-top: 6px; }
+.cp-mono::before { content: ""; position: absolute; top: 7px; left: 5px; right: 5px; height: 3px; background: var(--accent); }
+.cp-mono-lg { width: 44px; height: 62px; border-radius: 22px 22px 5px 5px; font-size: 28px; margin-bottom: 26px; }
+.cp-mono-lg::before { top: 10px; left: 8px; right: 8px; height: 4px; }
+
+/* ---------------------------------------------------------------- header and the menu sheet */
+.nav.cp-nav { position: relative; z-index: 30; background: var(--bg); }
+.cp-nav-in { display: flex; align-items: center; gap: 30px; height: var(--nav-h); padding-inline: var(--gut); }
+.cp-mark { display: inline-flex; align-items: center; gap: 12px; font-family: var(--font-display); font-size: 27px; text-decoration: none; margin-right: auto; }
+.cp-links { display: flex; gap: 28px; }
+.cp-links a { font-size: 15px; text-decoration: none; }
+.cp-links a:hover, .cp-links a[aria-current="page"] { text-decoration: underline; text-underline-offset: 5px; }
+.cp-book { display: inline-flex; align-items: center; min-height: 42px; padding: 0 18px; background: var(--text); color: var(--bg); font-size: 15px; text-decoration: none; border-radius: 2px; }
+.burger.cp-menu { display: none; min-height: 44px; padding: 0; border: 0; background: none; font: inherit; font-size: 15px; color: var(--text); cursor: pointer; }
+.cp-menu .cp-close, .cp-menu[aria-expanded="true"] .cp-open { display: none; }
+.cp-menu[aria-expanded="true"] .cp-close { display: inline; }
+.mnav.cp-sheet { position: fixed; inset: 0; z-index: 25; background: var(--bg); padding-top: calc(var(--nav-h) + 16px); overflow-y: auto; }
+.cp-sheet nav { display: flex; flex-direction: column; }
+.cp-sheet nav a { font-family: var(--font-display); font-size: clamp(34px, 6vw, 56px); line-height: 1.2; text-decoration: none; }
+.cp-sheet nav a[aria-current="page"] { color: var(--accent-2); }
+.cp-sheet-book a { font-size: 18px; }
+@media (max-width: 980px) { .cp-links { display: none; } .burger.cp-menu { display: block; } }
+@media (max-width: 760px) { .cp-nav-in { gap: 16px; height: 72px; } .cp-mark { font-size: 24px; } .cp-book { display: none; } }
+
+/* ---------------------------------------------------------------- hero: the slab and the invitation */
+.hero.cp-hero { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 40px; height: calc(100svh - var(--nav-h)); min-height: 640px; max-height: 900px; padding: 0 var(--gut) var(--gut); }
+.cp-slab { margin: 0; overflow: hidden; background: #2A1D0C; }
+.cp-slab img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 46%; }
+.cp-card { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; border: 1px solid var(--text); outline: 1px solid var(--text); outline-offset: -9px; }
+.cp-card .pr-lede { font-family: var(--font-display); font-size: 22px; color: var(--muted); margin: 0; }
+.cp-card .pr-dates { font-family: var(--font-display); font-size: clamp(64px, 6.7vw, 96px); line-height: .95; margin: 26px 0 8px; white-space: nowrap; }
+.cp-card .pr-to { font-size: 26px; line-height: 1; color: var(--accent-2); margin: 14px 0; }
+.cp-card .pr-place { font-family: var(--font-display); font-size: 24px; line-height: 1.3; margin: 20px 0 0; }
+.cp-card .pr-place small { font-family: var(--font-body); font-size: 16px; color: var(--muted); margin-top: 2px; }
+.cp-card .pr-now { margin: 22px 0 0; font-size: 17px; color: var(--accent-2); }
+.cp-card .pr-queue { margin: 6px 0 0; font-size: 15px; }
+.cp-card .pr-acts { margin-top: 24px; }
+@media (max-width: 760px) {
+  .hero.cp-hero { display: block; height: auto; max-height: none; min-height: 0; padding: 0 12px; }
+  .cp-slab { height: 470px; }
+  .cp-card { margin-top: 12px; padding: 32px 20px; }
+  .cp-mono-lg { display: none; }
+  .cp-card .pr-dates { font-size: 52px; margin: 16px 0 4px; }
+  .cp-card .pr-to { font-size: 20px; margin: 8px 0; }
+  .cp-card .pr-acts .btn { flex: 1 1 100%; justify-content: center; }
+}
+
+/* ---------------------------------------------------------------- section openings and inner pages */
+.cp-sh { text-align: center; margin-bottom: 48px; }
+.cp-sh-t { font-size: clamp(40px, 4.6vw, 64px); line-height: 1; }
+.cp-sh-i { color: var(--muted); margin: 14px auto 0; max-width: 36em; }
+.ph.pp-ph { padding: 56px 0 var(--s3); text-align: center; border-bottom: 1px solid var(--line); margin-bottom: 0; }
+.pp-ph-t { font-size: clamp(48px, 6vw, 84px); line-height: 1; }
+.pp-ph-i { color: var(--muted); font-size: 19px; margin: 16px auto 0; max-width: 34em; }
+.pp-back { padding-block: 40px; }
+
+/* ---------------------------------------------------------------- the rooms */
+.prm { border-top: 1px solid var(--line); margin-inline: var(--gut); padding-top: 88px !important; }
+.prm-t { font-size: clamp(42px, 4.6vw, 64px); line-height: 1; }
+.prm-sub { font-size: clamp(20px, 1.9vw, 26px); color: var(--muted); margin-top: 14px; }
+.prm-row { margin-top: 52px; gap: 28px; }
+.prm-room b { font-family: var(--font-display); font-weight: 400; font-size: 30px; line-height: 1.1; margin-top: 18px; }
+.prm-room small { font-size: 15px; color: var(--muted); margin-top: 4px; }
+.prm-line { font-family: var(--font-display); font-size: 22px; line-height: 1.4; max-width: 30em; margin-top: 32px; min-height: 2.8em; }
+.prm-more { margin-top: 8px; }
+@media (max-width: 760px) { .prm { margin-inline: 0; padding-top: 56px !important; } .prm-row { margin-top: 32px; } .prm-line { font-size: 19px; } }
+
+/* ---------------------------------------------------------------- timed entry */
+.psl > .wrap { border-top: 1px solid var(--line); padding-top: 0; }
+.psl-in { gap: 72px; }
+.psl-body { padding: 64px 0; }
+.psl-t { font-size: clamp(42px, 4.6vw, 64px); line-height: 1; margin-bottom: 12px; }
+.psl-i { color: var(--muted); margin: 0; }
+.psl-days { margin: 40px 0 28px; }
+.psl-day { font-size: 14px; }
+.psl-day b { font-family: var(--font-display); font-weight: 400; font-size: 30px; line-height: 1; margin-top: 4px; }
+.psl-times a { font-size: 16px; border-radius: 2px; }
+.psl-note { margin-top: 24px; font-size: 14px; }
+.psl-full .psl-body { padding-top: 0; }
+@media (max-width: 760px) { .psl > .wrap { border: 0; } .psl-body { padding: 40px 0 0; } .psl-photo { margin: 32px -12px 0; } }
+
+/* ---------------------------------------------------------------- the opening countdown and waitlist */
+.pwl > .wrap { border-top: 1px solid var(--line); padding-top: 64px; }
+.pwl-count { font-family: var(--font-display); font-size: clamp(140px, 15vw, 220px); width: 1.3em; text-align: right; font-variant-numeric: tabular-nums; }
+.pwl-t { font-size: clamp(32px, 3.4vw, 44px); line-height: 1.05; margin-top: 10px; }
+.pwl-i { color: var(--muted); max-width: 30em; }
+.pct-t { font-size: 26px; margin-bottom: 14px; }
+
+/* ---------------------------------------------------------------- inner page parts */
+.pex-room h2 { font-size: clamp(36px, 3.6vw, 52px); }
+.pex-total { font-family: var(--font-display); font-size: 26px; }
+.pwo-date b { font-family: var(--font-display); font-weight: 400; font-size: 56px; line-height: 1; }
+.pwo-t h2 { font-size: 34px; }
+.poh-n { font-size: 28px; margin-top: 16px; }
+.poh-l { color: var(--muted); margin: 6px 0; }
+.poh-price { font-family: var(--font-display); font-size: 24px; }
+.poh-ask { font-size: 15px; }
+.phi-t h2 { font-size: 34px; margin-top: 28px; }
+.phi-t h2:first-child { margin-top: 0; }
+.phi-pk b { font-family: var(--font-display); font-weight: 400; font-size: 22px; }
+.phi-pk em { font-family: var(--font-display); font-size: 22px; }
+.ptr-t b { font-size: clamp(22px, 6vw, 36px); line-height: 1.05; }
+.ptr-t .ptr-d { font-family: var(--font-display); font-size: 18px; }
+.ptr-detail { font-size: 17px; }
+.pps-item h2, .pxl-list h2 { font-size: 30px; margin-top: 14px; }
+.pxl-list h2 a { text-decoration: none; }
+
+/* ---------------------------------------------------------------- footer and the phone bar */
+.foot.cp-foot { margin-top: var(--s4); padding: 36px 0 40px; border-top: 1px solid var(--line); background: var(--bg); color: var(--muted); font-size: 14px; }
+.cp-foot-drink { margin: 0 0 22px; color: var(--text); }
+.cp-foot-drink a { color: var(--text); }
+.cp-foot-in { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; }
+.cp-foot-links { display: flex; flex-wrap: wrap; gap: 8px 22px; }
+.cp-foot-links a, .cp-foot-c a { text-decoration: none; color: var(--text); }
+.cp-foot-c { margin: 0; text-align: right; }
+.cp-foot-by { margin: 28px 0 0; }
+.cp-foot-by a { text-decoration: none; }
+.mbar.cp-bar { display: none; }
+@media (max-width: 760px) {
+  .mbar.cp-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; height: calc(68px + env(safe-area-inset-bottom, 0px)); box-sizing: border-box; position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0px)) 18px; background: var(--band); color: var(--on-band); }
+  .cp-bar-now { margin: 0; font-size: 14px; line-height: 1.3; flex: 1 1 auto; min-width: 0; height: 2.6em; display: flex; align-items: center; overflow: hidden; }
+  .cp-bar-book { flex: 0 0 auto; display: inline-flex; align-items: center; min-height: 46px; padding: 0 18px; background: var(--accent); color: var(--on-accent); text-decoration: none; font-size: 15px; white-space: nowrap; border-radius: 2px; }
+  .foot.cp-foot { padding-bottom: 96px; }
+  .cp-foot-c { text-align: left; }
+}
+
+/* ---------------------------------------------------------------- questions and the address */
+.cp-qa > .wrap, .cp-v > .wrap { border-top: 1px solid var(--line); padding-top: 72px; }
+.cp-qa-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 56px; margin: 0; }
+.cp-qa-list dt { font-family: var(--font-display); font-size: 24px; line-height: 1.2; }
+.cp-qa-list dd { margin: 8px 0 0; color: var(--muted); }
+.cp-qa-acts { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 40px; }
+.cp-v { text-align: center; }
+.cp-v-addr { font-style: normal; font-family: var(--font-display); font-size: clamp(24px, 2.4vw, 32px); }
+.cp-v-area { color: var(--muted); max-width: 34em; margin: 10px auto 0; }
+.cp-v-acts { margin-top: 22px; }
+.cp-v-now { margin: 40px 0 16px; color: var(--accent-2); }
+.cp-v-days { margin: 0 auto; border-collapse: collapse; }
+.cp-v-days tbody { display: flex; flex-wrap: wrap; justify-content: center; }
+.cp-v-days tr { display: flex; flex-direction: column; padding: 10px 16px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.cp-v-days th { font-family: var(--font-display); font-weight: 400; font-size: 20px; color: var(--text); }
+.cp-v-days td { font-size: 14px; color: var(--muted); }
+.cp-v-days tr.today { border-bottom: 2px solid var(--accent); }
+.cp-v-days tr.today th { color: var(--accent-2); }
+.cp-v-ex { list-style: none; padding: 0; margin: 16px 0 0; color: var(--muted); font-size: 14px; }
+@media (max-width: 760px) {
+  .cp-qa-list { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .cp-v-days tbody { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ---------------------------------------------------------------- Plan your visit, in this look's voice: no capitals */
+.kick, .pv-board-head, .pv-how, .pv-topic h3, .pv-board-head * { text-transform: none; letter-spacing: normal; font-weight: 400; }
+.kick { font-size: 15px; color: var(--muted); }
+.pv-how, .pv-topic h3 { font-family: var(--font-display); font-size: 20px; color: var(--text); }
+.phero h1 { font-weight: 400; letter-spacing: -.01em; }
+.today-tag, .tag-today { text-transform: none; letter-spacing: normal; }
+.pv-board-head, .pv-board-head * { color: var(--accent-2); }
+.pv-from em, .pv-leave-list b, .pv-what .mi-ico, .pv-from .mi-ico { color: var(--accent-2); }
+@media (max-width: 760px) { .pwl-count { width: auto; text-align: left; } }

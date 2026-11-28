@@ -1,0 +1,13 @@
+{#- Capsule hero: the product, lit, in a tall dark slab on the left; beside it the invitation card, double ruled, with
+    the monogram, the dates, the place and the run's live line (popup-run). -#}
+{%- set h = site.hero %}{% set ph = h.photo %}
+<section class="hero cp-hero" aria-labelledby="cp-h1">
+  <figure class="cp-slab">
+    <picture>{% if ph.small %}<source media="(max-width: 760px)" srcset="{{ ph.small.src | img }}">{% endif %}<img src="{{ ph.src | img }}" alt="{{ ph.alt }}" width="{{ ph.width }}" height="{{ ph.height }}" fetchpriority="high" decoding="async"{% if ph.focus %} style="object-position: {{ ph.focus }}"{% endif %}></picture>
+  </figure>
+  <div class="cp-card">
+    <span class="cp-mono cp-mono-lg" aria-hidden="true">{{ (site.brand.monogram if site.brand and site.brand.monogram else site.business.name[0]) }}</span>
+    <h1 class="sr-only" id="cp-h1">{{ h.title | plain }}</h1>
+    {%- include "kits/popup/features/popup-run/popup-run.njk" %}
+  </div>
+</section>

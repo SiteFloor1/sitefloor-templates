@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: press
+permalink: press.html
+feature: popup-press
+eleventyComputed:
+  title: "{{ site.press.title | plain }}"
+  description: "{{ site.business.name }} in the press."
+---
+{%- set ph = { title: site.press.title, intro: site.press.intro } %}
+{% include "kits/popup/partials/page-head.njk" %}
+{% include "kits/popup/features/popup-press/popup-press.njk" %}

@@ -1,0 +1,8 @@
+/* The experience page (popup-experience). */
+.pex-list { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--s4, 96px); }
+.pex-room { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: var(--s3, 40px); align-items: center; }
+.pex-room:nth-child(even) img { order: 2; }
+.pex-room img { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; display: block; }
+.pex-min { color: var(--accent-2); }
+.pex-total { text-align: center; margin-top: var(--s4, 96px); }
+@media (max-width: 760px) { .pex-room { grid-template-columns: 1fr; } .pex-room:nth-child(even) img { order: 0; } }
