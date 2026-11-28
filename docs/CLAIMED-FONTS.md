@@ -75,9 +75,7 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 | Taroub | trade/modest | Shippori Mincho | Afacad |
 | Trainer, Linen (A) | trade/trainer | Ibarra Real Nova | Ibarra Real Nova |
 | Sevrell, Turndown | trade/residences | Imbue | Inria Sans |
-| Mercombe, The year line (A, round 1) | trade/schools | Vollkorn | Vollkorn |
-| Mercombe, The term card (B, round 1) | trade/schools | IM Fell English | Gelasio |
-| Mercombe, The route (C, round 1) | trade/schools | Barlow Condensed | Barlow |
+| Mercombe, The year line (A, chosen round 1) | trade/schools | Vollkorn | Vollkorn |
 | Fendle, Spun (B, round 1, revised) | trade/stalls | Gabarito | Labrada |
 | Tailor, Flannel (A) | trade/tailor | Della Respira | Commissioner |
 | Larrow, Logbook look | trade/tourism | Familjen Grotesk | Familjen Grotesk |
