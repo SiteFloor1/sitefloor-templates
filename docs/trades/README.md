@@ -46,6 +46,7 @@ take (`demo-map.md`), its speed numbers (`speed.md`) and the fonts it claims (`f
 | pilates | Reformer Pilates studios | `pilates` | [questions](pilates/questions.md) · [playbook](pilates/playbook.md) · [demo-map](pilates/demo-map.md) · [speed](pilates/speed.md) · [fonts](pilates/fonts.md) |
 | residences | Luxury residences and hotel-grade rentals | `residences` | [questions](residences/questions.md) · [playbook](residences/playbook.md) · [demo-map](residences/demo-map.md) · [speed](residences/speed.md) · [fonts](residences/fonts.md) |
 | restaurant | Restaurants | `restaurant` | [questions](restaurant/questions.md) · [playbook](restaurant/playbook.md) · [demo-map](restaurant/demo-map.md) · [speed](restaurant/speed.md) · [fonts](restaurant/fonts.md) |
+| schools | Independent schools (prep and senior) | `school` | [questions](schools/questions.md) · [playbook](schools/playbook.md) · [fonts](schools/fonts.md) |
 | sneaker-cleaner | Sneaker and crep cleaners | — | [playbook](sneaker-cleaner/playbook.md) |
 | stalls | Street-food and dessert stalls (markets, pop-ups and parties) | `stalls` | [questions](stalls/questions.md) · [playbook](stalls/playbook.md) · [demo-map](stalls/demo-map.md) · [speed](stalls/speed.md) · [fonts](stalls/fonts.md) |
 | tailor | Tailors | `tailor` | [questions](tailor/questions.md) · [playbook](tailor/playbook.md) · [demo-map](tailor/demo-map.md) · [speed](tailor/speed.md) · [fonts](tailor/fonts.md) |

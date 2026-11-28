@@ -66,6 +66,7 @@ One file per trade, so trades built in parallel never edit the same lines. A new
 - Reformer Pilates studios: [`docs/trades/pilates/questions.md`](trades/pilates/questions.md)
 - Luxury residences and hotel-grade rentals: [`docs/trades/residences/questions.md`](trades/residences/questions.md)
 - Restaurants: [`docs/trades/restaurant/questions.md`](trades/restaurant/questions.md)
+- Independent schools (prep and senior): [`docs/trades/schools/questions.md`](trades/schools/questions.md)
 - Street-food and dessert stalls (markets, pop-ups and parties): [`docs/trades/stalls/questions.md`](trades/stalls/questions.md)
 - Tailors: [`docs/trades/tailor/questions.md`](trades/tailor/questions.md)
 - Teeth whitening and aesthetic dentistry: [`docs/trades/teeth/questions.md`](trades/teeth/questions.md)
