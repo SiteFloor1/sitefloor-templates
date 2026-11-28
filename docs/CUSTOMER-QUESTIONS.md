@@ -65,6 +65,7 @@ One file per trade, so trades built in parallel never edit the same lines. A new
 - Nail, lash and beauty salons: [`docs/trades/nails/questions.md`](trades/nails/questions.md)
 - Personal trainers and small gyms: [`docs/trades/personal-trainer/questions.md`](trades/personal-trainer/questions.md)
 - Reformer Pilates studios: [`docs/trades/pilates/questions.md`](trades/pilates/questions.md)
+- Luxury residences and hotel-grade rentals: [`docs/trades/residences/questions.md`](trades/residences/questions.md)
 - Restaurants: [`docs/trades/restaurant/questions.md`](trades/restaurant/questions.md)
 - Street-food and dessert stalls (markets, pop-ups and parties): [`docs/trades/stalls/questions.md`](trades/stalls/questions.md)
 - Tailors: [`docs/trades/tailor/questions.md`](trades/tailor/questions.md)

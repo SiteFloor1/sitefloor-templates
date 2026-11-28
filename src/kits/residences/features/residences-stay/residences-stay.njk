@@ -1,0 +1,12 @@
+{#- The stay bar (Signature): pick a home and a length, from a few nights to a long let. The total holds every
+    mandatory fee; a long let is priced by the month, with the Tenant Fees Act deposits and the GOV.UK sources. The
+    homes list re-prices to the same stay ("residences-stay"). Without JavaScript or with a stale sheet it says to ask. -#}
+{%- set st = site.stay %}
+<form class="rs" data-feature="residences-stay"{{ "residences-stay" | tierAttr | safe }} data-stops="{{ st.stops | join(',') }}" data-start="{{ st.start }}" data-home="{{ st.home }}" aria-label="Your stay" novalidate>
+  <div class="rs-f"><label for="rs-home">Residence</label><select id="rs-home" data-rs-home disabled><option>…</option></select></div>
+  <div class="rs-f rs-len"><label for="rs-len">Length of stay: <b data-rs-lenv>{{ st.stops[st.start] if st.start < st.stops.length else "Long let" }}{% if st.start < st.stops.length %} nights{% endif %}</b></label>
+    <input id="rs-len" type="range" min="0" max="{{ st.stops.length }}" step="1" value="{{ st.start }}" data-rs-len disabled>
+    <div class="rs-ticks" aria-hidden="true">{% for n in st.stops %}<span>{{ n }}{% if loop.last %} nights{% endif %}</span>{% endfor %}<span>Long let</span></div></div>
+  <div class="rs-price" data-rs-price aria-live="polite"><p class="rs-note">For prices today, <a href="{{ site.messages.general | wa }}" data-wa-text="{{ site.messages.general }}" target="_blank" rel="noopener">ask us on WhatsApp</a>.</p></div>
+  <a class="rs-go" data-rs-go href="{{ site.messages.general | wa }}" data-wa-text="{{ site.messages.general }}" target="_blank" rel="noopener">Reserve</a>
+</form>

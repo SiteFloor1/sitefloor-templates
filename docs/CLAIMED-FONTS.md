@@ -75,6 +75,7 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 | Halvern, The stair (A) | trade/letting | Petrona | Petrona |
 | Taroub | trade/modest | Shippori Mincho | Afacad |
 | Trainer, Linen (A) | trade/trainer | Ibarra Real Nova | Ibarra Real Nova |
+| Sevrell, Turndown | trade/residences | Imbue | Inria Sans |
 | Fendle, Spun (B, round 1, revised) | trade/stalls | Gabarito | Labrada |
 | Tailor, Flannel (A) | trade/tailor | Della Respira | Commissioner |
 | Larrow, Logbook look | trade/tourism | Familjen Grotesk | Familjen Grotesk |
@@ -108,6 +109,7 @@ A case study is a design too: don't reuse these in a new look or another case st
 | Marese (lingerie) | case-studies/marese | lingerie | Fraunces | Red Hat Text | |
 | Marlie (teeth whitening) | case-studies/marlie | teeth | Reddit Sans | Reddit Sans | Reddit Mono, Brygada 1918 |
 | Marrick (personal trainer) | case-studies/marrick | personal-trainer | Ibarra Real Nova | Ibarra Real Nova | |
+| Maudry (event designer) | case-studies/maudry | events | Eczar | Eczar | |
 | Morrow (café) | case-studies/morrow | cafe | Gloock | Onest | |
 | Ottoline (pilates) | case-studies/ottoline | pilates | Noto Serif Display | Red Hat Text | |
 | Pastillage (celebration cakes) | case-studies/pastillage | cakes | Chonburi | Golos Text | |

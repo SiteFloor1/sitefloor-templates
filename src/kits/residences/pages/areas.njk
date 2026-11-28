@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: areas
+permalink: areas.html
+feature: residences-areas
+eleventyComputed:
+  title: "Areas"
+  description: "The neighbourhoods around {{ site.business.name }}."
+---
+{%- set ph = { title: "Areas", intro: site.areas.intro } %}
+{% include "kits/residences/partials/page-head.njk" %}
+<div class="wrap">{% include "kits/residences/features/residences-areas/residences-areas.njk" %}</div>

@@ -1,0 +1,26 @@
+{#- Fees and terms (every plan): the operator's own short-stay charges and terms, the tenancy rules each linked to
+    GOV.UK with the date checked, and the redress scheme. Headline prices elsewhere already hold every mandatory fee. -#}
+{%- set f = site.fees %}{%- set r = site.schemes %}
+<div class="rf" data-feature="residences-fees">
+  <section class="rf-s" aria-labelledby="rf-short">
+    <h2 id="rf-short">Short stays</h2>
+    <dl class="rf-dl">{% for s in f.stays %}<dt>{{ s.title }}</dt><dd>{{ s.text }}</dd>{% endfor %}</dl>
+    <table class="rf-t"><caption class="sr-only">Charges on a short stay</caption>
+      <thead><tr><th scope="col">Charge</th><th scope="col">Price</th></tr></thead>
+      <tbody>{% for c in f.charges %}<tr><th scope="row">{{ c.name }}{% if c.note %}<small>{{ c.note }}</small>{% endif %}</th><td>{{ c.price }}</td></tr>{% endfor %}</tbody>
+    </table>
+    <p>{{ f.cancellation }}</p>
+    <p class="rf-fine">Every price on this site already includes every mandatory charge {% set rule = rules.prices %}{% include "kits/residences/partials/rule.njk" %}.{{ site.mode | sampleTag }}</p>
+  </section>
+  <section class="rf-s" aria-labelledby="rf-long">
+    <h2 id="rf-long">Long lets</h2>
+    <p>A long let is a rolling tenancy with no end date, so it is priced by the month {% set rule = rules.rolling %}{% include "kits/residences/partials/rule.njk" %}. Only the payments the Tenant Fees Act permits can be charged {% set rule = rules.fees %}{% include "kits/residences/partials/rule.njk" %}.</p>
+    <ul class="rf-ul">{% for l in f.tenancy %}<li>{{ l }}</li>{% endfor %}</ul>
+  </section>
+  <section class="rf-s" aria-labelledby="rf-prot">
+    <h2 id="rf-prot">Complaints and protection</h2>
+    <p>We are members of <a href="{{ r.redress.url }}" rel="noopener" target="_blank">{{ r.redress.name }}</a>, number {{ r.redress.member }}{{ site.mode | demoTag }}: if we can't settle a complaint with you, you can take it to them. Letting agents and property managers in England must belong to an approved redress scheme {% set rule = rules.redress %}{% include "kits/residences/partials/rule.njk" %}.</p>
+    {%- if r.cmp %}<p>Client money is protected by <a href="{{ r.cmp.url }}" rel="noopener" target="_blank">{{ r.cmp.name }}</a>, number {{ r.cmp.member }}{{ site.mode | demoTag }}.</p>{% endif %}
+    <p>{{ r.deposits }}</p>
+  </section>
+</div>

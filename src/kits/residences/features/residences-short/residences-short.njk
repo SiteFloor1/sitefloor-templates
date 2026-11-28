@@ -1,0 +1,7 @@
+{#- Short lets (Plus): how a stay by the night works, what's included and the booking terms, in the operator's words. -#}
+{%- set s = site.shortLets %}
+<div class="rt" data-feature="residences-short">
+  <div class="rt-p">{% for p in s.points %}<section><h2>{{ p.title }}</h2><p>{{ p.text }}</p></section>{% endfor %}</div>
+  <section class="rt-terms"><h2>The terms</h2><ul>{% for t in s.terms %}<li>{{ t }}</li>{% endfor %}</ul>
+    <p class="rt-fine">Prices include every mandatory charge. <a href="{{ 'fees' | href }}">Fees and terms</a>{% if "residences-list" | enabled %} · <a href="{{ 'residences' | href }}">Homes free by the night</a>{% endif %}</p></section>
+</div>

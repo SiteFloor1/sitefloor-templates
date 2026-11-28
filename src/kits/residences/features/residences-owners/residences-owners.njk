@@ -1,0 +1,5 @@
+{#- For landlords (Signature): each service the operator offers other owners, what it includes and its fee with VAT. -#}
+<div class="rt" data-feature="residences-owners">
+  <div class="rt-p">{% for s in site.owners.services %}<section class="ro"><h2>{{ s.name }}</h2><p class="ro-fee">{{ s.fee }}</p><ul>{% for i in s.includes %}<li>{{ i }}</li>{% endfor %}</ul></section>{% endfor %}</div>
+  <p class="rt-fine">Fees include VAT. <a href="{{ 'fees' | href }}">Fees and terms</a>, with our redress scheme.{{ site.mode | sampleTag }}</p>
+</div>

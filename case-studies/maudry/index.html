@@ -1,0 +1,682 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Maudry Case Study</title>
+<meta name="description" content="Maudry, a website for an event designer: is our date free, will the room take our number, what will it look like on the night, answered before the first call.">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="icon" href="data:,">
+<link rel="preload" href="media/fonts/eczar-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="media/plan-phone.webp" as="image" media="(max-width: 760px)">
+<link rel="preload" href="media/plan-1600.webp" as="image" media="(min-width: 761px)">
+<style>
+/* Layout: the table plan. An event designer's website read as one evening in the room it designed. The page opens at
+   the door, on the table plan standing on its easel (a render of the room, the easel lit by its own picture light), and
+   the plan's guests are the people who come to the site: find yours, and the plan tells you your table, the page that
+   answers you. Then the evening, by the clock, as the demo's own run of the night: 19:00 the doors (the first screen
+   and "Is your date free?", live), 19:40 the room before anyone's in it (the design visuals and Lay the table, live),
+   20:15 dinner for 120 (the room drawn for a number, live), 21:30 the brief (live, with the key dates worked back),
+   22:30 the proposal, 23:15 the tables (the plans as a table for two, a table for five and a table for twenty, a seat
+   for each page), midnight the carriages (the numbers). Live pieces use the kit's own rules and words
+   (src/kits/events/lib/events.js: nextFree, statusOf, dateWords, briefMessage, keyDates, drawRoom, roomWords) and the
+   demo's own rooms, key dates and brief.
+   Maudry's warm dark, parchment and olive; brass only as hairlines; the plan's cream card the one light ground. Eczar
+   (the demo's own), self-hosted with the look's size-matched stand-ins; Manrope for Sitefloor. Motion: slow fades,
+   only when asked; nothing tied to the scroll; under reduced motion, none. */
+@font-face { font-family: "Eczar"; font-weight: 400; font-display: swap; src: url("media/fonts/eczar-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Eczar"; font-weight: 500; font-display: swap; src: url("media/fonts/eczar-latin-500-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Eczar"; font-weight: 600; font-display: swap; src: url("media/fonts/eczar-latin-600-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Eczar Fallback"; font-weight: 100 449; src: local("Times New Roman"), local("Liberation Serif"); size-adjust: 106.5%; ascent-override: 107.3%; descent-override: 59.5%; line-gap-override: 0%; }
+@font-face { font-family: "Eczar Fallback"; font-weight: 450 549; src: local("Times New Roman"), local("Liberation Serif"); size-adjust: 109.7%; ascent-override: 104.2%; descent-override: 57.8%; line-gap-override: 0%; }
+@font-face { font-family: "Eczar Fallback"; font-weight: 550 900; src: local("Times New Roman Bold"), local("TimesNewRomanPS-BoldMT"), local("Liberation Serif Bold"); size-adjust: 106.7%; ascent-override: 107.2%; descent-override: 59.5%; line-gap-override: 0%; }
+@font-face { font-family: "Manrope"; font-weight: 600; font-display: swap; src: url("media/fonts/manrope-latin-600-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Manrope"; font-weight: 700; font-display: swap; src: url("media/fonts/manrope-latin-700-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+:root {
+  --bg: #19150F; --bg-2: #221D15; --bg-3: #2B2419; --text: #EDE3D0; --muted: #CDBFA6; --faint: #A3967F;
+  --olive: #4E6E58; --olive-deep: #33473A; --leaf: #8FB596; --brass: #9C8257;
+  --line: rgba(237,227,208,.14); --line-2: rgba(237,227,208,.28); --hair: rgba(156,130,87,.55);
+  --card: #E9E0CD; --card-ink: #2A231A; --card-muted: #6B5E4A;
+  --sf-paper: #FBFAF7; --sf-ink: #0E0F11; --sf-tomato: #E8613C; --sf-line: rgba(14,15,17,.12);
+  --font: "Eczar", "Eczar Fallback", Georgia, serif;
+  --brand: "Manrope", Arial, sans-serif;
+  --edge: clamp(18px, 4vw, 56px);
+  --bar: 66px;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; background: var(--bg); }
+body { margin: 0; background: var(--bg); color: var(--text); font: 400 18px/1.6 var(--font); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-underline-offset: 5px; text-decoration-thickness: 1px; text-decoration-color: var(--line-2); }
+a:hover { text-decoration-color: currentColor; }
+h1, h2, h3, p, figure, ul, ol, dl, dd, dt { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+h1, h2, h3 { font-weight: 500; letter-spacing: -.025em; line-height: 1; text-wrap: balance; }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--leaf); outline-offset: 3px; }
+.gut { padding-left: max(var(--edge), env(safe-area-inset-left, 0px)); padding-right: max(var(--edge), env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 1360px; margin: 0 auto; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.fine { font-size: 14px; line-height: 1.5; color: var(--faint); }
+
+/* ------------------------------------------------------------------ Sitefloor bar (shared) */
+.sfbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--sf-paper); color: var(--sf-ink); border-bottom: 1px solid var(--sf-line); }
+.sfbar .wrap { display: flex; justify-content: space-between; align-items: center; height: var(--bar); gap: 16px; max-width: 1440px; }
+.wm { display: inline-flex; align-items: center; font: 700 22px var(--brand); letter-spacing: -.04em; text-decoration: none; color: var(--sf-ink); }
+.wm svg { margin: 0 1px; transform: translateY(1px); }
+.sfbar nav { display: flex; gap: 28px; font-family: var(--brand); font-size: 14px; font-weight: 600; }
+.sfbar nav a { text-decoration: none; color: var(--sf-ink); }
+.sfbar nav a[aria-current] { box-shadow: inset 0 -1.5px 0 var(--sf-ink); }
+.sfbtn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 20px; background: var(--sf-ink); color: var(--sf-paper); font: 700 12px var(--brand); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; }
+.sfbtn:hover { background: var(--sf-tomato); }
+.sfbar :focus-visible { outline-color: var(--sf-ink); }
+@media (max-width: 760px) { .sfbar nav { display: none; } }
+@media (max-width: 420px) { .sfbar .sfbtn { display: none; } }
+
+/* ------------------------------------------------------------------ the door: the table plan on its easel */
+.door { position: relative; background: #0c0a07; }
+.door-pic { position: relative; container-type: inline-size; }
+.door-frame { position: relative; }
+.door-frame > picture, .door-frame > picture img { display: block; width: 100%; height: auto; }
+.door-frame > picture img { aspect-ratio: 1920 / 1080; }
+/* the card, placed over the rendered card from its corners in the render, printed onto it (multiply) */
+.card { position: absolute; left: calc(var(--x0) * 100%); top: calc(var(--y0) * 100%); width: calc((var(--x1) - var(--x0)) * 100%); height: calc((var(--y1) - var(--y0)) * 100%);
+  container-type: inline-size; color: var(--card-ink); mix-blend-mode: multiply; }
+.card-in { display: flex; flex-direction: column; height: 100%; padding: 10cqw 9cqw 8cqw; }
+.card { --x0: .1497; --x1: .4019; --y0: .2373; --y1: .8593; }
+.cardmark { width: 34cqw; height: auto; margin: 0 auto; color: var(--card-ink); }
+.card-rule { height: 1px; margin: 5cqw 0 4cqw; background: currentColor; opacity: .5; }
+.card h1 { font-size: 10.6cqw; font-weight: 500; text-align: center; letter-spacing: -.01em; line-height: 1.05; }
+.card-sub { margin-top: 2cqw; text-align: center; font-size: 4.2cqw; color: var(--card-muted); }
+.guests { margin-top: auto; padding-top: 6cqw; display: grid; gap: 0; }
+.guests button { display: grid; grid-template-columns: auto minmax(2ch, 1fr) auto; align-items: baseline; gap: 1.6cqw; width: 100%; min-height: max(30px, 9.5cqw); padding: 1cqw 0; border: 0; background: none; text-align: left; font-size: 4.9cqw; line-height: 1.25; color: var(--card-ink); }
+.guests .dots { border-bottom: 1.5px dotted currentColor; opacity: .45; transform: translateY(-.35em); }
+.guests .tb { font-weight: 600; font-variant-numeric: lining-nums; }
+.guests button[aria-pressed="true"] { text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 4px; }
+.guests button:focus-visible { outline: 2px solid var(--card-ink); outline-offset: 2px; mix-blend-mode: normal; }
+.door-foot { position: absolute; left: 0; right: 0; bottom: 0; display: flex; justify-content: space-between; align-items: end; gap: 24px; padding-bottom: 22px; font-size: 14px; color: var(--muted); }
+.door-foot b { font-weight: 500; color: var(--text); }
+/* the answer: your table, in the room beyond the plan */
+.guests-p { display: none; }
+.seat { position: absolute; left: 49%; right: var(--edge); top: 50%; transform: translateY(-50%); max-width: 520px; opacity: 0; visibility: hidden; transition: opacity .9s ease, visibility 0s linear .9s; }
+.seat.on { opacity: 1; visibility: visible; transition: opacity .9s ease; }
+.seat-in { padding: 30px 32px 30px; background: rgba(20,16,11,.82); border: 1px solid var(--hair); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.seat .t { font-size: 15px; color: var(--muted); }
+.seat h2 { margin: 6px 0 12px; font-size: clamp(34px, 3.6vw, 54px); }
+.seat p.say { color: var(--text); }
+.seat .go { display: inline-block; margin-top: 18px; font-weight: 500; text-decoration: underline; text-decoration-color: var(--leaf); }
+.seat-hint { position: absolute; left: 49%; top: 50%; transform: translateY(-50%); max-width: 380px; padding: 26px 30px; background: radial-gradient(closest-side, rgba(12,10,7,.7), rgba(12,10,7,0)); text-shadow: 0 1px 18px rgba(0,0,0,.9); font-size: clamp(28px, 2.6vw, 40px); line-height: 1.1; letter-spacing: -.02em; font-weight: 500; transition: opacity .6s; }
+.seat-hint span { display: block; margin-top: 12px; font-size: 16px; letter-spacing: 0; font-weight: 400; color: var(--muted); }
+.door.chosen .seat-hint { opacity: 0; }
+@media (max-width: 760px) {
+  .door-frame > picture img { aspect-ratio: 900 / 1400; }
+  .card { --x0: .2092; --x1: .7921; --y0: .2209; --y1: .7406; }
+  .card-in { padding: 8cqw 7.5cqw 5cqw; }
+  .cardmark { width: 30cqw; }
+  .card-rule { margin: 4cqw 0 3.5cqw; }
+  .guests { padding-top: 4cqw; }
+  .guests button { font-size: 5.7cqw; min-height: 13.6cqw; padding: .6cqw 0; }
+  .seat-hint { display: none; }
+  .seat { position: static; transform: none; max-width: none; opacity: 1; visibility: visible; margin: 0; }
+  .seat:not(.on) { display: none; }
+  .seat-in { border: 0; border-top: 1px solid var(--hair); background: var(--bg-2); padding: 26px var(--edge) 30px; }
+  .door-foot { position: static; padding-top: 18px; flex-direction: column; align-items: start; gap: 6px; }
+}
+
+/* ------------------------------------------------------------------ the evening, by the clock */
+.hour { padding-top: clamp(80px, 11vw, 150px); }
+.hour + .hour { border-top: 1px solid var(--line); }
+.clock { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 20px 48px; align-items: end; }
+.clock time { display: block; font-size: clamp(64px, 12vw, 176px); font-weight: 600; line-height: .86; letter-spacing: -.045em; font-variant-numeric: lining-nums tabular-nums; color: var(--text); }
+.clock h2 { font-size: clamp(30px, 3.6vw, 52px); margin-bottom: 14px; }
+.clock p { max-width: 56ch; color: var(--muted); }
+.clock .tier { display: inline-block; margin-bottom: 16px; padding: 4px 10px; border: 1px solid var(--hair); font-size: 13px; letter-spacing: .04em; color: var(--muted); }
+@media (max-width: 860px) { .clock { grid-template-columns: minmax(0, 1fr); } }
+
+/* phones standing in candlelight */
+.phones { display: flex; gap: clamp(14px, 2.4vw, 34px); margin-top: clamp(40px, 5vw, 64px); align-items: flex-start; overflow-x: auto; scrollbar-width: none; padding-bottom: 10px; }
+.phones::-webkit-scrollbar { display: none; }
+.phone { flex: 0 0 auto; width: clamp(210px, 23vw, 320px); }
+.phone img { width: 100%; height: auto; aspect-ratio: 780 / 1688; border-radius: 26px; border: 1px solid var(--line-2); box-shadow: 0 30px 60px -30px rgba(0,0,0,.8), 0 0 80px -10px rgba(214,160,88,.12); }
+.phone figcaption { margin-top: 14px; font-size: 14px; color: var(--muted); max-width: 30ch; }
+.phone.lower { margin-top: clamp(30px, 5vw, 80px); }
+
+/* a laptop on the desk (the demo's home, desktop) */
+.desk { margin-top: clamp(40px, 6vw, 80px); display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); overflow-x: clip; gap: 32px 56px; align-items: center; }
+.lap { position: relative; max-width: 100%; min-width: 0; padding: 14px 14px 0; background: #0b0a08; border: 1px solid var(--line-2); border-radius: 14px 14px 0 0; }
+.lap img { width: 100%; height: auto; aspect-ratio: 1440 / 900; }
+.lap::after { content: ""; position: absolute; left: -6%; right: -6%; bottom: -16px; height: 16px; background: linear-gradient(#2c2820, #14120e); border-radius: 0 0 12px 12px; }
+@media (max-width: 860px) { .desk { grid-template-columns: minmax(0, 1fr); } }
+
+/* live pieces sit on a slightly lifted ground, ruled in brass */
+.live { margin-top: clamp(40px, 5vw, 64px); padding: clamp(24px, 3vw, 40px); background: var(--bg-2); border: 1px solid var(--line); }
+.live-k { font-size: 14px; color: var(--muted); }
+.live-k b { font-weight: 500; color: var(--leaf); }
+.field { display: grid; gap: 6px; }
+.field span { font-size: 14px; color: var(--muted); }
+.field select, .field input { width: 100%; min-width: 0; }
+.datebox .field input { width: auto; }
+.plan > div, .brief > *, .datebox > div { min-width: 0; }
+input[type="date"], input[type="number"], select { min-height: 48px; padding: 0 14px; border: 1px solid var(--line-2); border-radius: 0; background: var(--bg); color: var(--text); font: inherit; font-size: 17px; }
+input[type="range"] { width: 100%; accent-color: var(--olive); }
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 24px; border: 0; background: var(--olive-deep); color: var(--text); font-weight: 500; text-decoration: none; transition: background .5s; }
+.btn:hover { background: var(--olive); }
+.pick { display: flex; flex-wrap: wrap; gap: 6px 28px; }
+.pick button { min-height: 44px; padding: 0; border: 0; background: none; font-size: 17px; color: var(--muted); box-shadow: inset 0 -1px 0 transparent; transition: color .4s, box-shadow .4s; }
+.pick button[aria-pressed="true"] { color: var(--text); box-shadow: inset 0 -1.5px 0 var(--leaf); }
+
+/* 19:00 the date */
+.datebox { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 28px 56px; align-items: start; }
+.datebox .next { font-size: 15px; color: var(--muted); }
+.datebox .next b { display: block; margin-top: 2px; font-size: clamp(34px, 4vw, 56px); font-weight: 600; letter-spacing: -.03em; line-height: 1.05; color: var(--text); }
+.datebox form { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; margin-top: 8px; }
+.answer-line { margin-top: 18px; font-size: clamp(20px, 2vw, 26px); line-height: 1.3; min-height: 2.6em; }
+.answer-line.free { color: var(--leaf); }
+@media (max-width: 860px) { .datebox { grid-template-columns: minmax(0, 1fr); } }
+
+/* 19:40 the room before anyone's in it */
+.vis { margin-top: clamp(40px, 5vw, 64px); }
+.vis-frame { position: relative; background: #000; aspect-ratio: 1440 / 900; overflow: hidden; }
+.vis-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.2s ease; }
+.vis-frame img.on { opacity: 1; }
+.label { position: absolute; z-index: 2; left: 18px; top: 16px; padding: 7px 12px; background: rgba(25,21,15,.86); font-size: 14px; font-weight: 500; }
+.vis-bar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px 32px; align-items: baseline; margin-top: 18px; }
+.vis-bar p { max-width: 60ch; color: var(--muted); font-size: 16px; }
+.lay { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 32px 56px; margin-top: clamp(60px, 8vw, 110px); align-items: start; }
+.lay h3 { font-size: clamp(28px, 3vw, 42px); margin-bottom: 14px; }
+.lay > div > p { color: var(--muted); }
+.dress { margin-top: 26px; display: grid; }
+.dress button { display: grid; grid-template-columns: 2.2em minmax(0, 1fr); gap: 0 10px; padding: 16px 0; border: 0; border-top: 1px solid var(--line); background: none; text-align: left; color: var(--muted); transition: color .4s; }
+.dress button:last-child { border-bottom: 1px solid var(--line); }
+.dress button b { font-size: 22px; font-weight: 500; color: inherit; }
+.dress button .n { font-size: 26px; font-weight: 600; color: var(--faint); grid-row: span 2; line-height: 1.1; }
+.dress button small { grid-column: 2; font-size: 15px; }
+.dress button[aria-pressed="true"] { color: var(--text); }
+.dress button[aria-pressed="true"] .n { color: var(--leaf); }
+@media (max-width: 860px) { .lay { grid-template-columns: minmax(0, 1fr); } .lay .vis-frame { order: -1; } }
+
+/* 20:15 dinner for 120: the room drawn */
+.plan { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 32px 56px; align-items: start; }
+.plan .num { display: flex; align-items: baseline; gap: 10px; margin-top: 18px; }
+.plan .num output { font-size: 64px; font-weight: 600; letter-spacing: -.04em; line-height: 1; }
+.plan .num span { color: var(--muted); }
+.plan .pick { margin-top: 18px; }
+.plan-draw { position: relative; }
+.plan-scroll { overflow-x: auto; }
+.plan-draw svg { width: 100%; min-width: 560px; height: auto; }
+.plan-words { margin-top: 16px; font-size: 20px; line-height: 1.4; }
+.plan-words.no { color: var(--muted); }
+@media (max-width: 860px) { .plan { grid-template-columns: minmax(0, 1fr); } }
+
+/* 21:30 the brief */
+.brief { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 32px 56px; align-items: start; }
+.brief form { display: grid; gap: 18px; }
+.brief .row2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; }
+.msg { position: relative; padding: 24px 26px; background: #DCF8C6; color: #1d2a1f; font: 400 16px/1.5 -apple-system, "Segoe UI", Roboto, Arial, sans-serif; border-radius: 10px 10px 2px 10px; max-width: 460px; margin-left: auto; white-space: pre-line; box-shadow: 0 18px 40px -20px rgba(0,0,0,.7); }
+.msg-k { margin: 0 0 10px auto; max-width: 460px; font-size: 14px; color: var(--muted); text-align: right; }
+.keys { margin-top: 34px; }
+.keys li { display: grid; grid-template-columns: 9.5em minmax(0, 1fr); gap: 16px; padding: 11px 0; border-top: 1px solid var(--line); }
+.keys li:last-child { border-bottom: 1px solid var(--line); }
+.keys time { font-weight: 500; }
+.keys li span { color: var(--muted); }
+@media (max-width: 860px) { .brief { grid-template-columns: minmax(0, 1fr); } .msg, .msg-k { margin-left: 0; text-align: left; } }
+
+/* 23:15 the tables: a table for two, five and twenty */
+.tables { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 4fr) minmax(0, 6fr); gap: 40px; margin-top: clamp(50px, 6vw, 80px); align-items: end; }
+.tbl svg { width: 100%; height: auto; overflow: visible; }
+.tbl svg text { font: 500 12.5px var(--font); fill: var(--muted); }
+.tbl svg .cloth { fill: var(--bg-3); stroke: var(--hair); stroke-width: 1; }
+.tbl svg .chair { fill: var(--bg); stroke: var(--line-2); stroke-width: 1; }
+.tbl svg .ph { fill: var(--leaf); }
+.tbl h3 { margin-top: 26px; font-size: 30px; }
+.tbl .price { margin-top: 6px; font-size: 18px; }
+.tbl .price span { color: var(--muted); }
+.tbl p.what { margin-top: 10px; font-size: 16px; color: var(--muted); max-width: 46ch; }
+@media (max-width: 980px) { .tables { grid-template-columns: minmax(0, 1fr); gap: 64px; } .tbl svg { max-width: 560px; } }
+
+/* midnight: carriages */
+.nums { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; margin-top: clamp(40px, 5vw, 64px); border-top: 1px solid var(--hair); }
+.nums div { padding: 24px 24px 26px 0; border-bottom: 1px solid var(--line); }
+.nums b { display: block; font-size: clamp(44px, 5vw, 76px); font-weight: 600; line-height: 1; letter-spacing: -.04em; }
+.nums span { display: block; margin-top: 10px; font-size: 15px; color: var(--muted); max-width: 22ch; }
+@media (max-width: 860px) { .nums { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* the close: the room, at the end of the night */
+.close { position: relative; margin-top: clamp(90px, 12vw, 170px); min-height: 70vh; display: grid; align-items: end; overflow: hidden; }
+.close > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.close::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(25,21,15,.96) 10%, rgba(25,21,15,.55) 50%, rgba(25,21,15,.25)); }
+.close .wrap { position: relative; z-index: 1; width: 100%; padding: 120px 0 clamp(50px, 7vw, 90px); }
+.close h2 { font-size: clamp(48px, 7.4vw, 112px); max-width: 12ch; letter-spacing: -.035em; line-height: .95; }
+.close p { margin-top: 22px; max-width: 52ch; color: var(--muted); }
+.close .acts { display: flex; flex-wrap: wrap; gap: 18px 30px; align-items: center; margin-top: 30px; }
+.close .mail { display: block; margin-top: 22px; font-size: 15px; color: var(--muted); }
+
+footer { padding-top: 32px; padding-bottom: 40px; border-top: 1px solid var(--line); }
+footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; font-size: 13px; color: var(--faint); max-width: 1440px; }
+footer p { max-width: 112ch; }
+@media (max-width: 640px) { footer .wrap { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 399px) {
+  .card .guests { display: none; }
+  .card-in { justify-content: center; }
+  .card h1 { font-size: 13cqw; }
+  .card-sub { font-size: 5.4cqw; }
+  .guests-p { display: grid; padding: 16px var(--edge) 20px; background: var(--card); color: var(--card-ink); }
+  .guests-p button { font-size: 17px; min-height: 46px; padding: 6px 0; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="sfbar gut"><div class="wrap">
+  <a class="wm" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su" aria-label="Sitefloor home">sitefl<svg width="28" height="14" viewBox="0 0 42 21" aria-hidden="true"><rect x="1.9" y="1.9" width="38.2" height="17.2" rx="8.6" fill="none" stroke="#0E0F11" stroke-width="3.8"/><circle cx="31.5" cy="10.5" r="5.2" fill="#E8613C"/></svg>r</a>
+  <nav aria-label="Main"><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#live">Features</a><a href="#top" aria-current="page">Work</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#pricing">Pricing</a><a href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#guides">Guides</a></nav>
+  <a class="sfbtn" href="#mockup"><span>Free mockup</span><span aria-hidden="true">→</span></a>
+</div></div>
+
+<main id="top">
+
+<!-- ================================================================ the door -->
+<section class="door" data-door aria-label="The table plan">
+  <div class="door-pic">
+    <div class="door-frame">
+    <picture>
+      <source media="(max-width: 760px)" srcset="media/plan-phone.webp">
+      <source media="(max-width: 1700px)" srcset="media/plan-1600.webp">
+      <img src="media/plan.webp" width="1920" height="1080" alt="A table plan on a brass easel at the door of a panelled hall laid for dinner, a long table of candles and greenery beyond. A render.">
+    </picture>
+    <div class="card"><div class="card-in">
+      <svg class="cardmark" viewBox="0 0 3129 1096" aria-hidden="true"><path fill="currentColor" d="M649 303 321 868H289L209 303Q97 835 97.0 842.5Q97 850 108 850H152L149 868H0L3 850H49Q62 850 65 835Q185 267 185.0 261.5Q185 256 174 256H130L133 238H269L344 774L653 238H789L786 256H741Q728 256 724 270Q711 333 678 490Q604 833 604.0 841.5Q604 850 615 850H659L656 868H472L475 850H521Q534 850 537 835Z M1142 852Q1161 852 1183.0 826.5Q1205 801 1221 754L1237 758Q1194 880 1125 880Q1063 880 1063 805Q1063 790 1068 757H1063Q1001 880 919 880Q872 880 840.5 838.5Q809 797 809.0 736.5Q809 676 825.0 624.0Q841 572 870.0 526.5Q899 481 947.0 452.5Q995 424 1052 424Q1126 424 1169 487L1200 433L1214 443Q1179 547 1148.0 666.0Q1117 785 1117.0 818.5Q1117 852 1142 852ZM943 850Q985 850 1028 785Q1077 710 1119 540Q1128 500 1133 482Q1098 448 1052.5 448.0Q1007 448 971.5 479.0Q936 510 916 557Q875 653 875 738Q875 794 893.5 822.0Q912 850 943 850Z M1580 805Q1580 790 1585 757H1580Q1516 880 1432 880Q1342 880 1342 780Q1342 715 1388 539L1406 470L1342 475L1341 458Q1410 449 1470 433L1484 443Q1400 704 1400.0 777.0Q1400 850 1455 850Q1501 850 1545.5 782.5Q1590 715 1619 601L1653 470L1589 475L1588 458Q1657 449 1717 433L1731 443Q1696 547 1665.0 666.0Q1634 785 1634.0 818.5Q1634 852 1659 852Q1678 852 1700.0 826.5Q1722 801 1738 754L1754 758Q1711 880 1642 880Q1580 880 1580 805Z M2134 819Q2134 852 2159 852Q2178 852 2200.0 826.5Q2222 801 2238 754L2254 758Q2211 880 2142 880Q2080 880 2080.0 801.5Q2080 723 2211 248L2147 253L2146 236Q2215 227 2275 211L2289 221Q2247 344 2190.5 554.5Q2134 765 2134 819ZM2090 757H2080Q2018 880 1936 880Q1889 880 1857.5 838.5Q1826 797 1826.0 736.5Q1826 676 1842.0 624.0Q1858 572 1887.0 526.5Q1916 481 1964.0 452.5Q2012 424 2062 424Q2158 424 2198 508L2184 526Q2137 448 2067 448Q2024 448 1988.5 479.0Q1953 510 1933 557Q1892 653 1892 738Q1892 794 1910.5 822.0Q1929 850 1960 850Q2003 850 2048.0 777.5Q2093 705 2128 570Z M2493 433 2507 443Q2459 553 2423 696H2431L2447 652Q2494 524 2540.0 474.0Q2586 424 2620.0 424.0Q2654 424 2670.5 446.0Q2687 468 2687.0 503.0Q2687 538 2674.0 564.0Q2661 590 2636.5 590.0Q2612 590 2596 574Q2606 561 2615.0 536.0Q2624 511 2624 492Q2624 463 2600 463Q2575 463 2538 512Q2457 618 2401 868L2331 874L2429 470L2365 475L2364 458Q2433 449 2493 433Z M2996 445Q3021 424 3042 424Q3081 424 3081.0 534.0Q3081 644 3057.0 735.5Q3033 827 2994.5 891.0Q2956 955 2907 1002Q2812 1096 2714 1096Q2664 1096 2638.5 1073.0Q2613 1050 2613.0 1019.0Q2613 988 2625.5 963.0Q2638 938 2663.0 938.0Q2688 938 2704 952Q2675 989 2675 1020Q2675 1070 2728 1070Q2763 1070 2809.0 1044.5Q2855 1019 2902.0 972.5Q2949 926 2988.5 848.0Q3028 770 3044 679Q3011 766 2955.5 823.0Q2900 880 2828 880Q2791 880 2768.5 854.5Q2746 829 2746.0 785.0Q2746 741 2779.5 631.0Q2813 521 2813.0 486.5Q2813 452 2787 452Q2768 452 2747.0 477.5Q2726 503 2713 550L2696 546Q2733 424 2803 424Q2868 424 2868 494Q2868 522 2837.0 633.0Q2806 744 2806 779Q2806 847 2857 847Q2921 847 2984.5 753.5Q3048 660 3048.0 578.5Q3048 497 2996 445Z"/></svg>
+      <div class="card-rule" aria-hidden="true"></div>
+      <h1>Find your table</h1>
+      <p class="card-sub">A website for an event designer</p>
+      <ul class="guests" data-guests></ul>
+    </div></div>
+    </div>
+    <p class="seat-hint" aria-hidden="true">Everyone who comes to the site has a seat.<span>Find your name on the plan.</span></p>
+    <ul class="guests guests-p" data-guests-p aria-label="The guests"></ul>
+    <div class="seat" data-seat aria-live="polite"><div class="seat-in" data-seat-in></div></div>
+    <div class="door-foot gut"><span><b>Maudry</b> · Event design and production, London. A fictional studio.</span><span>The room is a render.</span></div>
+  </div>
+</section>
+
+<!-- ================================================================ 19:00 the doors -->
+<section class="hour gut" id="doors" aria-labelledby="h-doors"><div class="wrap">
+  <div class="clock">
+    <time datetime="19:00">19:00</time>
+    <div><span class="tier">Starter</span><h2 id="h-doors">The doors</h2>
+    <p>The first screen is the room on the night. Beside it, the next free Saturday, from a sheet the studio keeps on a phone, and the one question every couple asks first.</p></div>
+  </div>
+  <div class="desk">
+    <div class="lap"><img src="media/lt-home.webp" width="1440" height="900" alt="Maudry's home page on a laptop: a panelled library laid for dinner, “The doors open at seven.”, and the next free Saturday." loading="lazy" decoding="async"></div>
+    <figure class="phone"><img src="media/ph-date.webp" width="780" height="1688" alt="Maudry on a phone: the next free Saturday and “Is your date free?” answered." loading="lazy" decoding="async"><figcaption>Held, booked or free, in plain words. If the sheet goes a week without an update, the site stops guessing and asks them to message.</figcaption></figure>
+  </div>
+  <div class="live datebox">
+    <div>
+      <p class="live-k"><b>Try it.</b> A sample diary, worked out from today.</p>
+      <p class="next" style="margin-top:22px">Next free Saturday <b data-next></b></p>
+    </div>
+    <div>
+      <form data-date-form>
+        <label class="field"><span>Is your date free?</span><input type="date" data-date required></label>
+        <button class="btn" type="submit">Check</button>
+      </form>
+      <p class="answer-line" data-date-out aria-live="polite"></p>
+    </div>
+  </div>
+</div></section>
+
+<!-- ================================================================ 19:40 the room before anyone's in it -->
+<section class="hour gut" id="before" aria-labelledby="h-before"><div class="wrap">
+  <div class="clock">
+    <time datetime="19:40">19:40</time>
+    <div><span class="tier">Signature</span><h2 id="h-before">The room, before anyone's in it</h2>
+    <p>Before a couple signs, the studio shows them their room as it will look on the night: one room, three places to stand. Every picture says what it is.</p></div>
+  </div>
+  <div class="vis">
+    <div class="vis-frame" data-vis>
+      <p class="label">A design visual</p>
+      <img class="on" src="media/visual-door.webp" width="1440" height="900" alt="Design visual: the panelled hall from the door, one long table under hanging greenery and glass candles." loading="lazy" decoding="async">
+      <img src="media/visual-end.webp" width="1440" height="900" alt="Design visual: down the length of the long table, tapers and greenery to the far wall." loading="lazy" decoding="async">
+      <img src="media/visual-seat.webp" width="1440" height="900" alt="Design visual: from a seat, the runner of olive, eucalyptus and smilax, candles at three heights." loading="lazy" decoding="async">
+    </div>
+    <div class="vis-bar">
+      <div class="pick" data-vis-pick role="group" aria-label="Where to stand">
+        <button type="button" aria-pressed="true">From the door</button><button type="button" aria-pressed="false">Down the table</button><button type="button" aria-pressed="false">From your seat</button>
+      </div>
+      <p>On the site, a couple opens these on their own proposal page, with a code. Nothing about them is stored.</p>
+    </div>
+  </div>
+  <div class="lay">
+    <div>
+      <h3>Lay the table</h3>
+      <p>One table, one camera, three ways. Choose how far it goes.</p>
+      <div class="dress" data-dress role="group" aria-label="Dressings">
+        <button type="button" aria-pressed="true"><span class="n">1</span><b>Candlelight</b><small>Tapers at three heights, votives, brass.</small></button>
+        <button type="button" aria-pressed="false"><span class="n">2</span><b>With greenery</b><small>Olive, eucalyptus and smilax, spilling over the edges.</small></button>
+        <button type="button" aria-pressed="false"><span class="n">3</span><b>With flowers</b><small>A few garden roses, gathered in clusters.</small></button>
+      </div>
+    </div>
+    <div class="vis-frame" data-lay>
+      <p class="label">A design visual</p>
+      <img class="on" src="media/lay-candle.webp" width="1440" height="900" alt="Design visual: the table in candlelight only." loading="lazy" decoding="async">
+      <img src="media/lay-green.webp" width="1440" height="900" alt="Design visual: the same table under a deep runner of greenery." loading="lazy" decoding="async">
+      <img src="media/lay-full.webp" width="1440" height="900" alt="Design visual: the same table with garden roses gathered in clusters." loading="lazy" decoding="async">
+    </div>
+  </div>
+</div></section>
+
+<!-- ================================================================ 20:15 dinner for 120 -->
+<section class="hour gut" id="dinner" aria-labelledby="h-dinner"><div class="wrap">
+  <div class="clock">
+    <time datetime="20:15">20:15</time>
+    <div><span class="tier">Signature</span><h2 id="h-dinner">Dinner for <span data-dinner-n>120</span></h2>
+    <p>Will the room take our number? The site draws it: tables, the dance floor, the bar, to scale, and says plainly when it won't fit.</p></div>
+  </div>
+  <div class="live plan">
+    <div>
+      <label class="field"><span>Room</span><select data-room></select></label>
+      <div class="num"><output data-guests-out>120</output><span>guests</span></div>
+      <label class="sr" for="guests-range">Guests</label>
+      <input id="guests-range" type="range" min="10" max="400" step="10" value="120" data-guests-range>
+      <div class="pick" data-layout role="group" aria-label="How they sit">
+        <button type="button" aria-pressed="true" data-v="long">Long tables</button><button type="button" aria-pressed="false" data-v="round">Round tables</button><button type="button" aria-pressed="false" data-v="standing">Standing</button>
+      </div>
+    </div>
+    <div class="plan-draw">
+      <div class="plan-scroll" tabindex="0" role="region" aria-label="The room, to scale"><div data-plan-svg></div></div>
+      <p class="plan-words" data-plan-words aria-live="polite"></p>
+      <p class="fine" style="margin-top:8px">A guide: the venue's own capacity and rules decide. Sample rooms from the demo.</p>
+    </div>
+  </div>
+  <div class="phones" tabindex="0" role="region" aria-label="Screens from the Maudry demo">
+    <figure class="phone"><img src="media/ph-room.webp" width="780" height="1688" alt="“Your room, drawn” on a phone: 120 seated at three long tables, with a dance floor." loading="lazy" decoding="async"><figcaption>Your room, drawn.</figcaption></figure>
+    <figure class="phone lower"><img src="media/ph-rooms.webp" width="780" height="1688" alt="The rooms page on a phone, filtered by occasion and number of guests." loading="lazy" decoding="async"><figcaption>Every room the studio has dressed, by occasion and by number.</figcaption></figure>
+    <figure class="phone"><img src="media/ph-venues.webp" width="780" height="1688" alt="The venues page on a phone: rooms the studio works in, by area, seated and standing." loading="lazy" decoding="async"><figcaption>The venues, as the studio lists them.</figcaption></figure>
+  </div>
+</div></section>
+
+<!-- ================================================================ 21:30 the brief -->
+<section class="hour gut" id="brief" aria-labelledby="h-brief"><div class="wrap">
+  <div class="clock">
+    <time datetime="21:30">21:30</time>
+    <div><span class="tier">Plus</span><h2 id="h-brief">The brief</h2>
+    <p>The occasion, the date, the number. It arrives on WhatsApp with only what they chose, and the planning works back from the day.</p></div>
+  </div>
+  <div class="live brief">
+    <form data-brief>
+      <label class="field"><span>Occasion</span><select data-b="type"><option value="">Choose…</option><option>Wedding</option><option>Dinner</option><option>Party</option><option>Launch</option><option>Something else</option></select></label>
+      <div class="row2">
+        <label class="field"><span>Date</span><input type="date" data-b="date"></label>
+        <label class="field"><span>Guests</span><input type="number" min="1" max="2000" inputmode="numeric" data-b="guests"></label>
+      </div>
+      <label class="field"><span>Budget</span><select data-b="budget"><option value="">Rather not say</option><option>Under £20,000</option><option>£20,000 to £40,000</option><option>£40,000 to £80,000</option><option>£80,000 and over</option></select></label>
+    </form>
+    <div>
+      <p class="msg-k">What Maudry receives</p>
+      <p class="msg" data-msg></p>
+      <ol class="keys" data-keys aria-label="Key dates"></ol>
+    </div>
+  </div>
+  <div class="phones" tabindex="0" role="region" aria-label="Screens from the Maudry demo">
+    <figure class="phone"><img src="media/ph-brief.webp" width="780" height="1688" alt="Start your event on a phone: occasion, date and guests, with the date checked on the same page." loading="lazy" decoding="async"><figcaption>The date is checked on the same page.</figcaption></figure>
+    <figure class="phone lower"><img src="media/ph-keydates.webp" width="780" height="1688" alt="Key dates on a phone, worked back from the date, with “Add them to your calendar”." loading="lazy" decoding="async"><figcaption>Key dates, straight into their calendar.</figcaption></figure>
+    <figure class="phone"><img src="media/ph-weddings.webp" width="780" height="1688" alt="The weddings page on a phone, a table of white flowers and greenery." loading="lazy" decoding="async"><figcaption>A page for each occasion.</figcaption></figure>
+  </div>
+</div></section>
+
+<!-- ================================================================ 22:30 the proposal -->
+<section class="hour gut" id="proposal" aria-labelledby="h-proposal"><div class="wrap">
+  <div class="clock">
+    <time datetime="22:30">22:30</time>
+    <div><span class="tier">Signature</span><h2 id="h-proposal">The proposal</h2>
+    <p>A private page, opened with a code the studio sends: their room, their date, their number, and the visuals made for them. No names on it. Then the night itself, hour by hour.</p></div>
+  </div>
+  <div class="phones" tabindex="0" role="region" aria-label="Screens from the Maudry demo">
+    <figure class="phone"><img src="media/ph-proposal.webp" width="780" height="1688" alt="Your proposal on a phone: days to go, the date, the number, and a design visual of the room." loading="lazy" decoding="async"><figcaption>Opened with a code.</figcaption></figure>
+    <figure class="phone lower"><img src="media/ph-visuals.webp" width="780" height="1688" alt="See your room before the day on a phone, labelled a design visual." loading="lazy" decoding="async"><figcaption>See your room before the day.</figcaption></figure>
+    <figure class="phone"><img src="media/ph-run.webp" width="780" height="1688" alt="The run of the night on a phone: load-in at 10:00, flowers and tables at 13:00, light check at 16:30." loading="lazy" decoding="async"><figcaption>The run of the night.</figcaption></figure>
+  </div>
+</div></section>
+
+<!-- ================================================================ 23:15 the tables -->
+<section class="hour gut" id="tables" aria-labelledby="h-tables"><div class="wrap">
+  <div class="clock">
+    <time datetime="23:15">23:15</time>
+    <div><h2 id="h-tables">The tables</h2>
+    <p>Three plans, laid as three tables. Each seat is a page of the site.</p></div>
+  </div>
+  <div class="tables" data-tables></div>
+</div></section>
+
+<!-- ================================================================ 00:00 carriages -->
+<section class="hour gut" id="carriages" aria-labelledby="h-carriages"><div class="wrap">
+  <div class="clock">
+    <time datetime="00:00">00:00</time>
+    <div><h2 id="h-carriages">Carriages</h2>
+    <p>Measured on the Maudry demo's home page, on a phone.</p></div>
+  </div>
+  <div class="nums">
+    <div><b>1.2 s</b><span>to the first words, on a mid-range phone</span></div>
+    <div><b>97</b><span>Lighthouse performance on a phone; 99 on a laptop</span></div>
+    <div><b>100</b><span>accessibility</span></div>
+    <div><b>0.003</b><span>layout shift at most: nothing moves as it loads</span></div>
+  </div>
+</div></section>
+
+<!-- ================================================================ close -->
+<section class="close gut" id="mockup" aria-labelledby="h-close">
+  <img src="media/visual-end.webp" width="1440" height="900" alt="" loading="lazy" decoding="async">
+  <div class="wrap">
+    <h2 id="h-close">Your room, on the night.</h2>
+    <p>Send us three rooms you've dressed and the dates you're already holding. We'll make a free mockup of your home page with your own rooms on it.</p>
+    <div class="acts"><a class="btn" href="https://claude.ai/artifact/MpMWwNkkrqdjdh8h1kt9su#free">Get a free mockup</a><a href="https://sitefloor1.github.io/sitefloor-templates/maudry/">Try the demo first</a></div>
+    <span class="mail">hello@sitefloor.com</span>
+  </div>
+</section>
+
+</main>
+
+<footer class="gut"><div class="wrap">
+  <p>Maudry is a fictional event studio made to show the Sitefloor events kit. Its address, phone number, rooms, numbers, venues, dates, codes and key dates are demo data; the diary and the proposal are simulated. The room on this page and every design visual are renders, never photographs of a real event. The screens are of the Maudry demo; its photographs (Lucas T Photography, Soulseeker, Didi Paul, Liz Morgan, M F, Jonathan Borba, Richard Sosa, Wedding Dreamz, Razan El Hout, Unsplash) are credited there.</p>
+  <span>© 2026 Sitefloor</span>
+</div></footer>
+
+<script>
+(() => {
+  "use strict";
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const WA = "442079460733";
+
+  // ---- the kit's own rules and words (src/kits/events/lib/events.js), unchanged
+  const DAY = 86400000, WEEKDAYS = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+  const addDays = (ymd, n) => new Date(Date.parse(`${ymd}T00:00:00Z`) + n * DAY).toISOString().slice(0, 10);
+  const weekday = (ymd) => WEEKDAYS[new Date(`${ymd}T12:00:00Z`).getUTCDay()];
+  const realDate = (s) => { if (!/^\d{4}-\d{2}-\d{2}$/.test(String(s))) return false; const d = new Date(`${s}T00:00:00Z`); return !Number.isNaN(d.getTime()) && d.toISOString().slice(0, 10) === s; };
+  const longDate = (ymd) => new Intl.DateTimeFormat("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(`${ymd}T12:00:00Z`)).replace(",", "");
+  const dayMonth = (ymd) => new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", timeZone: "UTC" }).format(new Date(`${ymd}T12:00:00Z`));
+  const nextFree = (taken, today, days, lead) => { for (let i = lead; i < lead + 366; i++) { const d = addDays(today, i); if (days.includes(weekday(d)) && !taken[d]) return d; } return null; };
+  const dateWords = (s, ymd) => { const d = longDate(ymd); if (s === "free") return `${d} is free.`; if (s === "held") return `${d} is on hold for another client. Ask us and we'll tell you if it comes free.`; return `${d} is taken.`; };
+  const aOrAn = (w) => `${/^[aeiou]/.test(w) ? "an" : "a"} ${w}`;
+  const briefMessage = (business, b) => {
+    const lines = [`Hello ${business}, we're planning ${b.type ? aOrAn(b.type.toLowerCase()) : "an event"}.`];
+    if (b.date && realDate(b.date)) lines.push(`Date: ${longDate(b.date)}${b.flexible ? " (we could move it)" : ""}`); else lines.push("Date: not fixed yet");
+    if (Number.isInteger(b.guests) && b.guests > 0) lines.push(`Guests: about ${b.guests}`);
+    if (b.budget) lines.push(`Budget: ${b.budget}`);
+    return lines.join("\n");
+  };
+  const keyDates = (eventDate, items, today) => items.map((k) => ({ label: k.label, date: addDays(eventDate, -7 * k.weeksBefore) })).filter((k) => k.date >= today).sort((a, b) => (a.date < b.date ? -1 : 1));
+  function drawRoom(room, guests, layout) {
+    const L = room.length, W = room.width, edge = 1;
+    const df = layout === "standing" ? 0 : L >= 24 && W >= 10 ? 8 : L >= 16 && W >= 8 ? 6 : 0;
+    const floor = df ? { x: L - edge - df, y: (W - df) / 2, w: df, h: df } : null;
+    const usableL = L - 2 * edge - (df ? df + 1 : 0), usableW = W - 2 * edge;
+    const tables = []; let capacity;
+    if (layout === "long") {
+      const rows = Math.max(0, Math.floor((usableW - 1.2) / 3) + 1), perSide = Math.max(0, Math.floor((usableL - 0.3) / 0.6));
+      capacity = rows * perSide * 2; let left = Math.min(guests, capacity); const gap = rows > 1 ? (usableW - 1.2) / (rows - 1) : 0;
+      for (let r = 0; r < rows && left > 0; r++) { const seats = Math.min(left, perSide * 2); left -= seats; const len = Math.ceil(seats / 2) * 0.6 + 0.3;
+        tables.push({ x: edge + (usableL - len) / 2, y: edge + (rows > 1 ? r * gap : (usableW - 1.2) / 2), w: len, h: 1.2, seats, shape: "rect" }); }
+    } else if (layout === "round") {
+      const cols = Math.max(0, Math.floor(usableL / 3.2)), rows = Math.max(0, Math.floor(usableW / 3.2));
+      capacity = cols * rows * 10; let left = Math.min(guests, capacity);
+      const ox = edge + (usableL - cols * 3.2) / 2, oy = edge + (usableW - rows * 3.2) / 2;
+      for (let r = 0; r < rows && left > 0; r++) for (let c = 0; c < cols && left > 0; c++) { const seats = Math.min(10, left); left -= seats; tables.push({ x: ox + c * 3.2 + 0.7, y: oy + r * 3.2 + 0.7, w: 1.8, h: 1.8, seats, shape: "round" }); }
+    } else {
+      capacity = Math.floor((usableL * usableW) / 0.8); const n = Math.ceil(Math.min(guests, capacity) / 12);
+      const cols = Math.max(1, Math.ceil(Math.sqrt((n * usableL) / usableW))), rows = Math.ceil(n / cols);
+      for (let k = 0; k < n; k++) { const c = k % cols, r = Math.floor(k / cols); tables.push({ x: edge + ((c + 0.5) * usableL) / cols - 0.35, y: edge + ((r + 0.5) * usableW) / rows - 0.35, w: 0.7, h: 0.7, seats: 0, shape: "high" }); }
+    }
+    const fits = guests <= capacity;
+    const bar = layout === "standing" ? { x: L - edge - 6, y: edge - 0.5, w: 6, h: 0.8 } : { x: edge, y: W - edge + 0.1, w: Math.min(6, L / 3), h: 0.7 };
+    return { length: L, width: W, guests, layout, fits, capacity, tables, floor, bar };
+  }
+  function roomWords(p, roomName) {
+    if (!p.fits) return p.capacity > 0 ? `${roomName} takes about ${p.capacity} ${p.layout === "standing" ? "standing" : "seated"} this way. Try another layout, or ask us about a larger room.` : `${roomName} is too small for this layout.`;
+    if (p.layout === "standing") return `${p.guests} standing, ${p.tables.length} high tables and a long bar.`;
+    const n = p.tables.length, kind = p.layout === "long" ? "long table" : "round table";
+    return `${p.guests} seated at ${n} ${kind}${n === 1 ? "" : "s"}${p.floor ? `, with a dance floor ${p.floor.w} × ${p.floor.h} m` : ""}.`;
+  }
+
+  // ---- the demo's own data (sites/demos/maudry/site.json)
+  const ROOMS = [{ id: "hall", name: "The long hall", length: 26, width: 11 }, { id: "library", name: "The library", length: 30, width: 14 }, { id: "townhouse", name: "The townhouse dining room", length: 12, width: 7 }];
+  const KEYS = [{ label: "First site visit", weeksBefore: 40 }, { label: "Proposal and design visuals", weeksBefore: 36 }, { label: "Tasting", weeksBefore: 16 }, { label: "Flowers confirmed", weeksBefore: 10 }, { label: "Final guest numbers", weeksBefore: 3 }, { label: "Run of the night signed off", weeksBefore: 1 }];
+  const now = new Date(), today = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate())).toISOString().slice(0, 10);
+  // the demo's sample diary (src/demo/event-dates-provider.js), worked out from today
+  const taken = {};
+  for (let i = 0; i < 540; i++) {
+    const d = addDays(today, i), w = weekday(d), m = Number(d.slice(5, 7)), day = Number(d.slice(8, 10));
+    const h = (day * 7 + m * 13 + Number(d.slice(2, 4))) % 10, summer = m >= 5 && m <= 9;
+    if (w === "sat") { if (i < 21) taken[d] = "booked"; else if (h < (summer ? 5 : 3)) taken[d] = "booked"; else if (h < (summer ? 7 : 4)) taken[d] = "held"; }
+    else if (w === "fri" && h < 2) taken[d] = h === 0 ? "held" : "booked";
+    else if (w === "thu" && h === 0) taken[d] = "booked";
+  }
+  const statusOf = (ymd) => taken[ymd] ?? "free";
+  const nf = nextFree(taken, today, ["sat"], 14);
+
+  // ---- the door: the table plan
+  const GUESTS = [
+    { who: "The couple, a year out", table: "One", page: "Is your date free?", go: "#doors", say: () => nf ? `The next free Saturday is ${dayMonth(nf)}. Type any date and the site says held, booked or free.` : "Type any date and the site says held, booked or free." },
+    { who: "The events lead, December", table: "Two", page: "The brief", go: "#brief", say: () => "The occasion, the date and the number in one WhatsApp message, and the key dates worked back from the day, into their calendar." },
+    { who: "The venue manager", table: "Three", page: "Your room, drawn", go: "#dinner", say: () => "The room to scale for the number: tables, the dance floor and the bar, and a plain answer when it won't fit." },
+    { who: "The couple, two months out", table: "Four", page: "Lay the table", go: "#before", say: () => "One table, three ways, from the same chair: candlelight, greenery, then flowers." },
+    { who: "The couple who said yes", table: "Five", page: "Your proposal", go: "#proposal", say: () => "A private page opened with a code: their room, their date, their visuals. No names on it." },
+    { who: "The launch for eighty", table: "Six", page: "Rooms for your number", go: "#dinner", say: () => "Every room the studio has dressed, the ones near eighty first." },
+  ];
+  const door = $("[data-door]"), lists = [$("[data-guests]"), $("[data-guests-p]")], seat = $("[data-seat]"), seatIn = $("[data-seat-in]");
+  const choose = (i) => {
+    const g = GUESTS[i];
+    lists.forEach((l) => $$("button", l).forEach((b, j) => b.setAttribute("aria-pressed", String(i === j))));
+    seatIn.innerHTML = `<p class="t">${esc(g.who)} · Table ${esc(g.table.toLowerCase())}</p><h2>${esc(g.page)}</h2><p class="say">${esc(g.say())}</p><a class="go" href="${g.go}">Take your seat</a>`;
+    seat.classList.add("on"); door.classList.add("chosen");
+  };
+  lists.forEach((l) => GUESTS.forEach((g, i) => {
+    const li = document.createElement("li");
+    li.innerHTML = `<button type="button" aria-pressed="false"><span>${esc(g.who)}</span><span class="dots" aria-hidden="true"></span><span class="tb">${esc(g.table)}</span></button>`;
+    li.firstElementChild.addEventListener("click", () => choose(i));
+    l.append(li);
+  }));
+
+  // ---- 19:00 the date
+  $("[data-next]").textContent = nf ? dayMonth(nf) : "Ask us";
+  const dIn = $("[data-date]"), dOut = $("[data-date-out]");
+  dIn.min = today;
+  $("[data-date-form]").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const v = dIn.value; if (!realDate(v)) return;
+    if (v < today) { dOut.textContent = "That date has passed."; dOut.className = "answer-line"; return; }
+    const s = statusOf(v); dOut.textContent = dateWords(s, v); dOut.className = "answer-line" + (s === "free" ? " free" : "");
+  });
+
+  // ---- 19:40 views and dressings
+  const swap = (frameSel, pickSel, btnSel) => {
+    const imgs = $$("img", $(frameSel)), btns = $$(btnSel, $(pickSel));
+    btns.forEach((b, i) => b.addEventListener("click", () => { btns.forEach((x, j) => x.setAttribute("aria-pressed", String(i === j))); imgs.forEach((im, j) => { if (j === i) { im.loading = "eager"; } im.classList.toggle("on", j === i); }); }));
+  };
+  swap("[data-vis]", "[data-vis-pick]", "button");
+  swap("[data-lay]", "[data-dress]", "button");
+
+  // ---- 20:15 the room drawn
+  const sel = $("[data-room]"), range = $("[data-guests-range]"), out = $("[data-guests-out]"), svgBox = $("[data-plan-svg]"), words = $("[data-plan-words]"), dn = $("[data-dinner-n]");
+  ROOMS.forEach((r) => sel.add(new Option(`${r.name} (${r.length} × ${r.width} m)`, r.id)));
+  let layout = "long";
+  const draw = () => {
+    const room = ROOMS.find((r) => r.id === sel.value) ?? ROOMS[0], n = Number(range.value);
+    out.textContent = String(n); dn.textContent = String(n);
+    const p = drawRoom(room, n, layout), S = 30, pad = 14, W = room.length * S + pad * 2, H = room.width * S + pad * 2 + 26;
+    const X = (m) => pad + m * S, Y = (m) => pad + m * S;
+    let g = `<rect x="${X(0)}" y="${Y(0)}" width="${room.length * S}" height="${room.width * S}" fill="none" stroke="#9C8257" stroke-width="1.5"/>`;
+    if (p.floor) g += `<rect x="${X(p.floor.x)}" y="${Y(p.floor.y)}" width="${p.floor.w * S}" height="${p.floor.h * S}" fill="rgba(143,181,150,.12)" stroke="rgba(143,181,150,.5)" stroke-dasharray="4 4"/><text x="${X(p.floor.x + p.floor.w / 2)}" y="${Y(p.floor.y + p.floor.h / 2) + 5}" text-anchor="middle" fill="#8FB596" font-size="14">Dance floor</text>`;
+    g += `<rect x="${X(p.bar.x)}" y="${Y(p.bar.y)}" width="${p.bar.w * S}" height="${p.bar.h * S}" fill="#4E6E58"/><text x="${X(p.bar.x + p.bar.w / 2)}" y="${Y(p.bar.y + p.bar.h / 2) + 5}" text-anchor="middle" fill="#EDE3D0" font-size="13">Bar</text>`;
+    for (const t of p.tables) {
+      if (t.shape === "rect") {
+        g += `<rect x="${X(t.x)}" y="${Y(t.y)}" width="${t.w * S}" height="${t.h * S}" fill="#2B2419" stroke="#EDE3D0" stroke-opacity=".6"/>`;
+        const side = Math.ceil(t.seats / 2);
+        for (let k = 0; k < t.seats; k++) { const top = k < side, idx = top ? k : k - side; g += `<circle cx="${X(t.x + 0.3 + idx * 0.6)}" cy="${top ? Y(t.y) - 6 : Y(t.y + t.h) + 6}" r="4.2" fill="none" stroke="#CDBFA6" stroke-opacity=".8"/>`; }
+      } else if (t.shape === "round") {
+        const cx = X(t.x + 0.9), cy = Y(t.y + 0.9), r = 0.9 * S;
+        g += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="#2B2419" stroke="#EDE3D0" stroke-opacity=".6"/>`;
+        for (let k = 0; k < t.seats; k++) { const a = (k / 10) * Math.PI * 2; g += `<circle cx="${cx + Math.cos(a) * (r + 8)}" cy="${cy + Math.sin(a) * (r + 8)}" r="4.2" fill="none" stroke="#CDBFA6" stroke-opacity=".8"/>`; }
+      } else {
+        g += `<circle cx="${X(t.x + 0.35)}" cy="${Y(t.y + 0.35)}" r="${0.35 * S}" fill="#2B2419" stroke="#EDE3D0" stroke-opacity=".6"/>`;
+      }
+    }
+    for (let m = 0; m <= 10; m += 5) g += `<line x1="${X(m)}" x2="${X(m)}" y1="${H - 18}" y2="${H - 12}" stroke="#A3967F"/><text x="${X(m)}" y="${H - 1}" text-anchor="middle" fill="#A3967F" font-size="12">${m} m</text>`;
+    svgBox.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(roomWords(p, room.name))}" font-family="Eczar, Georgia, serif">${g}</svg>`;
+    words.textContent = roomWords(p, room.name); words.classList.toggle("no", !p.fits);
+  };
+  sel.addEventListener("change", draw); range.addEventListener("input", draw);
+  $$("[data-layout] button").forEach((b) => b.addEventListener("click", () => { layout = b.dataset.v; $$("[data-layout] button").forEach((x) => x.setAttribute("aria-pressed", String(x === b))); draw(); }));
+  draw();
+
+  // ---- 21:30 the brief and the key dates
+  const bf = $("[data-brief]"), msg = $("[data-msg]"), keys = $("[data-keys]");
+  const bDate = $("[data-b='date']"); bDate.min = today;
+  const write = () => {
+    const v = (k) => $(`[data-b='${k}']`, bf).value;
+    const guests = Number.parseInt(v("guests"), 10);
+    msg.textContent = briefMessage("Maudry", { type: v("type") || undefined, date: v("date"), guests: Number.isInteger(guests) ? guests : undefined, budget: v("budget") || undefined });
+    const d = v("date");
+    keys.innerHTML = realDate(d) && d > today
+      ? keyDates(d, KEYS, today).map((k) => `<li><time datetime="${k.date}">${esc(dayMonth(k.date))}</time><span>${esc(k.label)}</span></li>`).join("") + `<li><time datetime="${d}">${esc(dayMonth(d))}</time><span>The night</span></li>`
+      : `<li><span style="grid-column:1/-1">Choose a date and the key dates work back from it.</span></li>`;
+  };
+  bf.addEventListener("input", write); bf.addEventListener("change", write);
+  write();
+
+  // ---- 23:15 the tables: a seat for each page
+  const PLANS = [
+    { name: "A table for two", plan: "Starter", price: "£99", month: "+ £25 a month", what: "The home page and Plan your visit: the room on the night, the next free Saturday, the rooms dressed and every question answered.", pages: ["Home", "Plan your visit"] },
+    { name: "A table for five", plan: "Plus", price: "£199", month: "+ £30 a month", what: "Up to five pages: every room by occasion and number, a page for each occasion, the brief with the key dates, and a journal.", pages: ["Home", "Rooms", "Weddings", "Start your event", "Journal"] },
+    { name: "A table for twenty", plan: "Signature", price: "£349", month: "+ £35 a month", what: "Up to twenty pages, with the showpieces: the room before the day, lay the table, the room drawn, the private proposal and the run of the night.", pages: ["Home", "Rooms", "Weddings", "Companies", "Private parties", "Launches", "Design and styling", "Production", "Destination", "Start your event", "Journal", "Run of the night", "Case studies", "Venues", "Your room", "Your proposal", "The studio", "Plan your visit", "A year out", "Candles"] },
+  ];
+  const tableSvg = (pages) => {
+    const n = pages.length;
+    if (n <= 2) { // a round table for two
+      return `<svg viewBox="-150 -110 300 220" aria-hidden="true"><circle class="cloth" r="58"/><circle class="ph" r="3" cx="0" cy="-34"/><circle class="ph" r="3" cx="0" cy="34"/>
+        <rect class="chair" x="-18" y="-96" width="36" height="22" rx="4"/><rect class="chair" x="-18" y="74" width="36" height="22" rx="4"/>
+        <text x="30" y="-80">${esc(pages[0])}</text><text x="30" y="92">${esc(pages[1])}</text></svg>`;
+    }
+    if (n <= 5) { // a round table for five
+      let s = `<svg viewBox="-190 -150 380 300" aria-hidden="true"><circle class="cloth" r="72"/>`;
+      pages.forEach((p, i) => { const a = -Math.PI / 2 + (i / n) * Math.PI * 2, cx = Math.cos(a) * 98, cy = Math.sin(a) * 98, tx = Math.cos(a) * 130, ty = Math.sin(a) * 130;
+        s += `<rect class="chair" x="${cx - 16}" y="${cy - 11}" width="32" height="22" rx="4" transform="rotate(${(a * 180) / Math.PI + 90} ${cx} ${cy})"/><circle class="ph" r="3" cx="${Math.cos(a) * 52}" cy="${Math.sin(a) * 52}"/><text x="${tx}" y="${ty + 4}" text-anchor="${Math.abs(Math.cos(a)) < 0.3 ? "middle" : Math.cos(a) > 0 ? "start" : "end"}">${esc(p)}</text>`; });
+      return s + `</svg>`;
+    }
+    // a long table for twenty, ten a side
+    const side = Math.ceil(n / 2), w = side * 52;
+    let s = `<svg viewBox="-60 -160 ${w + 150} 320" aria-hidden="true"><rect class="cloth" x="0" y="-26" width="${w}" height="52"/>`;
+    pages.forEach((p, i) => { const top = i < side, k = top ? i : i - side, x = 26 + k * 52;
+      s += `<rect class="chair" x="${x - 15}" y="${top ? -52 : 30}" width="30" height="22" rx="4"/><circle class="ph" r="3" cx="${x}" cy="${top ? -14 : 14}"/>`;
+      s += top ? `<text transform="translate(${x + 4} -60) rotate(-58)">${esc(p)}</text>` : `<text transform="translate(${x - 4} 62) rotate(-58)" text-anchor="end">${esc(p)}</text>`; });
+    return s + `</svg>`;
+  };
+  $("[data-tables]").innerHTML = PLANS.map((p) => `<div class="tbl">${tableSvg(p.pages)}<h3>${esc(p.name)}</h3><p class="price">${esc(p.plan)} · ${esc(p.price)} <span>${esc(p.month)}</span></p><p class="what">${esc(p.what)}</p></div>`).join("");
+})();
+</script>
+</body>
+</html>

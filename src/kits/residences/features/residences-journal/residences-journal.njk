@@ -1,0 +1,4 @@
+{#- Journal (Signature): the operator's own articles, newest first, each dated. -#}
+<ul class="rj" data-feature="residences-journal">
+  {%- for a in site.journal.items %}<li><a href="{{ a.slug | href }}"><time datetime="{{ a.date }}">{{ a.date | ukDay }}</time><span class="rj-t">{{ a.title }}</span><span class="rj-s">{{ a.summary }}</span></a></li>{% endfor %}
+</ul>

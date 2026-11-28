@@ -1,0 +1,14 @@
+{#- Concierge, before you arrive (Signature): tick what you'd like waiting and give a day and time; it writes the
+    WhatsApp message. Only what the operator lists; prices come from the concierge's reply. -#}
+{%- set c = site.concierge %}
+<div class="rc" data-feature="residences-concierge">
+  <figure><img src="{{ (c.photo.small or c.photo.src) | img }}" width="{{ c.photo.width }}" height="{{ c.photo.height }}" alt="{{ c.photo.alt }}" loading="lazy" decoding="async"><figcaption>{{ c.photo.credit }}</figcaption></figure>
+  <form class="rc-f" novalidate>
+    <h2>Before you arrive</h2>
+    <p>Tell the concierge what you'd like waiting. They reply on WhatsApp with anything that has a price. {{ c.hours }}</p>
+    <ul>{% for s in c.services %}<li><label><span>{{ s.label }}{% if s.note %}<small>{{ s.note }}</small>{% endif %}</span><input type="checkbox" value="{{ s.label | lower }}"></label></li>{% endfor %}</ul>
+    <div class="rc-w"><label>Arriving <input type="date" data-rc-day></label><label>Around <input type="time" value="18:30" data-rc-time></label></div>
+    <a class="rc-go" data-rc-go href="{{ c.message | wa }}" data-wa-text="{{ c.message }}" target="_blank" rel="noopener">Send to the concierge</a>
+    <p class="rc-fine">Opens WhatsApp with your message written.{% if site.mode == "demo" %} Sample services.{% endif %}</p>
+  </form>
+</div>

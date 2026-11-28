@@ -45,6 +45,7 @@ take (`demo-map.md`), its speed numbers (`speed.md`) and the fonts it claims (`f
 | nails | Nail, lash and beauty salons | `nails` | [questions](nails/questions.md) · [playbook](nails/playbook.md) · [demo-map](nails/demo-map.md) · [speed](nails/speed.md) · [fonts](nails/fonts.md) |
 | personal-trainer | Personal trainers and small gyms | `trainer` | [questions](personal-trainer/questions.md) · [playbook](personal-trainer/playbook.md) · [demo-map](personal-trainer/demo-map.md) · [speed](personal-trainer/speed.md) · [fonts](personal-trainer/fonts.md) |
 | pilates | Reformer Pilates studios | `pilates` | [questions](pilates/questions.md) · [playbook](pilates/playbook.md) · [demo-map](pilates/demo-map.md) · [speed](pilates/speed.md) · [fonts](pilates/fonts.md) |
+| residences | Luxury residences and hotel-grade rentals | `residences` | [questions](residences/questions.md) · [playbook](residences/playbook.md) · [demo-map](residences/demo-map.md) · [speed](residences/speed.md) · [fonts](residences/fonts.md) |
 | restaurant | Restaurants | `restaurant` | [questions](restaurant/questions.md) · [playbook](restaurant/playbook.md) · [demo-map](restaurant/demo-map.md) · [speed](restaurant/speed.md) · [fonts](restaurant/fonts.md) |
 | sneaker-cleaner | Sneaker and crep cleaners | — | [playbook](sneaker-cleaner/playbook.md) |
 | stalls | Street-food and dessert stalls (markets, pop-ups and parties) | `stalls` | [questions](stalls/questions.md) · [playbook](stalls/playbook.md) · [demo-map](stalls/demo-map.md) · [speed](stalls/speed.md) · [fonts](stalls/fonts.md) |

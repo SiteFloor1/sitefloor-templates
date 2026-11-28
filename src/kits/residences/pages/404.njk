@@ -1,0 +1,9 @@
+---
+layout: core/layouts/base.njk
+pageId: "404"
+permalink: 404.html
+title: Page not found
+---
+{%- set ph = { title: "This page isn't here.", intro: "It may have moved. Today's homes and our fees and terms are a tap away." } %}
+{% include "kits/residences/partials/page-head.njk" %}
+<p class="wrap rp-back"><a href="{{ 'index' | href }}">Back to {{ site.business.name }}</a> · <a href="{{ 'fees' | href }}">Fees and terms</a></p>
