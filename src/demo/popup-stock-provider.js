@@ -11,7 +11,7 @@ export const simulatedStock = {
   async load(ctx) {
     const now = zonedNow(new Date(), ctx.data.hours.timezone);
     const items = /** @type {any} */ (ctx.data).stock?.ids ?? [];
-    const rows = ["id,sold_out,updated_at", ...items.map((/** @type {string} */ id, /** @type {number} */ i) => `${id},${i === items.length - 1 ? "yes" : "no"},${now.date} 09:05`)];
-    return stockFromCsv(rows.join("\n"), Date.parse(`${now.date}T12:00:00Z`), 3);
+    const rows = ["id,sold_out,updated_at", ...items.map((/** @type {string} */ id, /** @type {number} */ i) => `${id},${i === items.length - 1 ? "yes" : "no"},${now.date} ${now.minutes >= 9 * 60 + 5 ? "09:05" : "00:05"}`)];
+    return stockFromCsv(rows.join("\n"), Date.now(), items, 3, ctx.data.hours.timezone);
   },
 };

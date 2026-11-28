@@ -65,7 +65,31 @@ test("after the run the site never says open, and points to the next stop", asyn
   await featuresStarted(page);
   await expect(page.locator("[data-run-line]")).toHaveText("Opens 10 July");
   await expect(page.locator("[data-run-place]")).toHaveText("The Corn Exchange, Leeds");
-  await expect(page.locator(".cp-bar [data-status-text]")).toHaveText("Closed");
+  await expect(page.locator(".cp-bar [data-status-text]")).toHaveText("Closed · opens 10 July at 11am");
+  await srv.close();
+});
+
+test("before, between and after the stops, no page says open: the visit page, the phone bar and the footer", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  // Friday 2pm: 28 May (before London), 2 July (between London and Leeds), 6 August (after Leeds).
+  for (const when of ["2027-05-28T13:00:00Z", "2027-07-02T13:00:00Z", "2027-08-06T13:00:00Z"]) {
+    await page.clock.setFixedTime(new Date(when));
+    const srv = await start(client);
+    for (const path of ["/visit", "/tour", "/book", "/whats-on"]) {
+      await page.goto(srv.base + path);
+      await featuresStarted(page);
+      const labels = await page.locator("[data-status-text]").allTextContents();
+      expect(labels.length, `${when} ${path}`).toBeGreaterThan(0);
+      for (const t of labels) expect(t, `${when} ${path}`).not.toMatch(/open now|closes/i);
+    }
+    await srv.close();
+  }
+  // And during the run the visit page says open.
+  await page.clock.setFixedTime(THU_AFTERNOON);
+  const srv = await start(client);
+  await page.goto(srv.base + "/visit");
+  await featuresStarted(page);
+  await expect(page.locator(".cp-bar [data-status-text]")).toHaveText(/open/i);
   await srv.close();
 });
 

@@ -11,7 +11,7 @@ export const sheetStock = {
     try {
       const res = await fetch(cfg.csvUrl, { signal: controller.signal, cache: "no-store", credentials: "omit" });
       if (!res.ok) return { ok: false };
-      return stockFromCsv(await res.text(), Date.now(), cfg.staleAfterDays ?? 3);
+      return stockFromCsv(await res.text(), Date.now(), cfg.ids, cfg.staleAfterDays ?? 3, /** @type {any} */ (ctx.data).hours.timezone);
     } catch {
       return { ok: false };
     } finally {

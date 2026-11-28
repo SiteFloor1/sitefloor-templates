@@ -6,6 +6,7 @@
  * registers itself".
  */
 import { checkPopup } from "./config.js";
+import { runHours } from "./lib/popup.js";
 
 const K = "src/kits/popup/features";
 
@@ -63,6 +64,8 @@ export const check = checkPopup;
 export function pageData(site) {
   const on = (/** @type {string} */ id) => site.features.includes(id);
   return {
+    // Every page's open/closed status only counts the stops' own days (lib/popup.js runHours).
+    hours: runHours(site),
     popup: { stops: site.popup.stops },
     slots: on("popup-slots") ? { every: site.slots.every ?? 30, lastBefore: site.slots.lastBefore ?? 60, url: site.slots.url } : null,
     stock: on("popup-only-here") ? { source: site.onlyHere.stock.source, csvUrl: site.onlyHere.stock.csvUrl, staleAfterDays: site.onlyHere.stock.staleAfterDays ?? 3, ids: site.onlyHere.items.map((/** @type {any} */ x) => x.id) } : null,

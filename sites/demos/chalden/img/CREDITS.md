@@ -12,5 +12,5 @@ brand's site uses its own photographs and film.
 | room-vault.webp | Roland Telegdi | https://images.unsplash.com/photo-1633119985201-7fb2c6eb1aec |
 | room-pour.webp | Mads Eneqvist | https://images.unsplash.com/photo-1623428454697-08da4a100602 |
 | piece-blanc.webp | Viktor Talashuk | https://images.unsplash.com/photo-1598866971869-22782ffd918e |
-| bath.webp | Martin Gleizes | https://images.unsplash.com/photo-1793638453404-ddd8a4fa2f7e |
+| bath.webp (the glasses only, cropped below the bottle) | Martin Gleizes | https://images.unsplash.com/photo-1793638453404-ddd8a4fa2f7e |
 | hire.webp | Joao Vitor Marcilio | https://images.unsplash.com/photo-1765850257541-b70e125323d3 |

@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import {
   addDays, daysBetween, resolveStops, stopState, currentStop, nextOpening, tourOrder, runLine, isOpen, entryTimes, runDays,
-  slotHref, stopIcs, stockFromCsv, lineFromCsv, lineWords, stateWords, visitMinutes, csvRows, project, inviteText, shortDate,
+  slotHref, stopIcs, stockFromCsv, runHours, lineFromCsv, lineWords, stateWords, visitMinutes, csvRows, project, inviteText, shortDate,
 } from "../../src/kits/popup/lib/popup.js";
 import { HOME_PARTS, homeOrderProblem } from "../../src/kits/popup/home.js";
 import { validateSite } from "../../src/core/lib/config.js";
@@ -83,21 +83,42 @@ test("the calendar file: the whole run as all-day dates, or one time", () => {
   assert.match(stopIcs(london, "Ostrow", 0, { date: "2027-06-10", minutes: 930 }), /DTSTART;TZID=Europe\/London:20270610T153000/);
 });
 
-test("the stock sheet fails closed: old, empty or the wrong columns marks nothing", () => {
-  const now = Date.parse("2027-06-10T12:00:00Z");
-  assert.deepEqual(stockFromCsv("id,sold_out,updated_at\ncuvee,yes,2027-06-10 09:00\nblanc,no,2027-06-10 09:00", now), { ok: true, soldOut: ["cuvee"] });
-  assert.deepEqual(stockFromCsv("id,sold_out,updated_at\ncuvee,yes,2027-06-01 09:00", now), { ok: false });
-  assert.deepEqual(stockFromCsv("name,price\nx,1", now), { ok: false });
-  assert.deepEqual(stockFromCsv("", now), { ok: false });
+test("the stock sheet fails closed: old, empty, unknown values or pieces, or future rows mark nothing", () => {
+  const now = Date.parse("2027-06-10T12:00:00Z"), ids = ["cuvee", "blanc"], head = "id,sold_out,updated_at\n";
+  assert.deepEqual(stockFromCsv(`${head}cuvee,yes,2027-06-10 09:00\nblanc,no,2027-06-10 09:00`, now, ids), { ok: true, soldOut: ["cuvee"] });
+  assert.deepEqual(stockFromCsv(`${head}cuvee,Sold out,10/06/2027 09:00:00\nblanc,,2027-06-10 09:00`, now, ids), { ok: true, soldOut: ["cuvee"] });
+  assert.deepEqual(stockFromCsv(`${head}cuvee,yes,2027-06-01 09:00`, now, ids), { ok: false }); // old
+  for (const v of ["gone", "SOLD", "Sold out!", "maybe"]) assert.deepEqual(stockFromCsv(`${head}cuvee,${v},2027-06-10 09:00`, now, ids), { ok: false }, v);
+  assert.deepEqual(stockFromCsv(`${head}rosee,yes,2027-06-10 09:00`, now, ids), { ok: false }); // a piece the site doesn't have
+  assert.deepEqual(stockFromCsv(`${head}cuvee,no,2027-06-10 09:00\nblanc,no,2027-12-30 09:00`, now, ids), { ok: false }); // a future row
+  assert.deepEqual(stockFromCsv(`${head}cuvee,yes,soon`, now, ids), { ok: false });
+  assert.deepEqual(stockFromCsv("name,price\nx,1", now, ids), { ok: false });
+  assert.deepEqual(stockFromCsv("", now, ids), { ok: false });
 });
 
-test("the queue: the newest fresh row, hidden after 30 minutes", () => {
-  const now = Date.parse("2027-06-10T14:20:00Z");
-  assert.deepEqual(lineFromCsv("minutes,updated_at\n5,2027-06-10 13:00\n20,2027-06-10 14:05", now), { ok: true, minutes: 20, at: "14:05" });
-  assert.deepEqual(lineFromCsv("minutes,updated_at\n20,2027-06-10 12:00", now), { ok: false });
-  assert.deepEqual(lineFromCsv("minutes,updated_at\nlots,2027-06-10 14:05", now), { ok: false });
-  assert.equal(lineWords(20, "14:05"), "Queue about 20 minutes (at 2:05pm)");
-  assert.equal(lineWords(0, "14:05"), "No queue right now (at 2:05pm)");
+test("the queue: the last row, in UK time, hidden after 30 minutes and whenever the last row can't be read", () => {
+  // 10 June 2027 is in British Summer Time: 14:20 in London is 13:20 UTC.
+  const now = Date.parse("2027-06-10T13:20:00Z"), q = (/** @type {string} */ rows) => lineFromCsv(`minutes,updated_at\n${rows}`, now);
+  assert.deepEqual(q("5,2027-06-10 13:00\n20,2027-06-10 14:05"), { ok: true, minutes: 20, at: 14 * 60 + 5 });
+  assert.deepEqual(q("20,10/06/2027 14:05:00"), { ok: true, minutes: 20, at: 14 * 60 + 5 }); // a Google Form's timestamp
+  assert.deepEqual(q("20,2027-06-10 13:49"), { ok: false }); // 31 minutes old
+  assert.deepEqual(q("20,2027-06-10 13:51"), { ok: true, minutes: 20, at: 13 * 60 + 51 }); // 29 minutes old
+  assert.deepEqual(q("5,2027-06-10 14:10\nabout 20,2027-06-10 14:15"), { ok: false }); // the newest can't be read: no older fallback
+  assert.deepEqual(q("20,2027-06-10 15:30"), { ok: false }); // in the future
+  // In winter, London is UTC: 12 December 14:20 is 14:20 UTC.
+  assert.deepEqual(lineFromCsv("minutes,updated_at\n5,2027-12-12 13:49", Date.parse("2027-12-12T14:20:00Z")), { ok: false });
+  assert.equal(lineWords(20, 14 * 60 + 5), "Queue about 20 minutes (at 2:05pm)");
+  assert.equal(lineWords(0, 14 * 60 + 5), "No queue right now (at 2:05pm)");
+});
+
+test("every page's hours count only the stops' days; a demo keeps its usual week", () => {
+  const h = runHours(client);
+  assert.deepEqual(Object.values(h.weekly).flat(), []);
+  assert.equal(h.exceptions.find((/** @type {any} */ e) => e.date === "2027-06-10").ranges[0][0], "12:00"); // a Thursday in London
+  assert.equal(h.exceptions.find((/** @type {any} */ e) => e.date === "2027-06-20").note, "Closing early for a private event");
+  assert.equal(h.exceptions.some((/** @type {any} */ e) => e.date === "2027-07-01"), false); // between stops: closed
+  assert.equal(runHours(demo), demo.hours);
+  assert.equal(isOpen(h, london, at("2027-06-10", "14:00")), true);
 });
 
 test("small helpers", () => {

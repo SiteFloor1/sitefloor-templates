@@ -11,7 +11,7 @@ export const sheetLine = {
     try {
       const res = await fetch(cfg.csvUrl, { signal: controller.signal, cache: "no-store", credentials: "omit" });
       if (!res.ok) return { ok: false };
-      return lineFromCsv(await res.text(), Date.now(), cfg.staleAfterMinutes ?? 30);
+      return lineFromCsv(await res.text(), Date.now(), cfg.staleAfterMinutes ?? 30, /** @type {any} */ (ctx.data).hours.timezone);
     } catch {
       return { ok: false };
     } finally {

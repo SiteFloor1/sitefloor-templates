@@ -1,13 +1,10 @@
 // @ts-check
 /**
  * The run: works out the brand's stop for the visitor's day, fills the dates, the days left and the live line, keeps
- * the line current every minute, and makes the calendar file on the click. Outside the run the shop is closed whatever
- * its usual week says, so the header's open/closed chip is told so too.
+ * the line current every minute, and makes the calendar file on the click. (Every page's open/closed chip already
+ * counts only the stops' days: kit.js pageData, lib/popup.js runHours.)
  */
 import { resolveStops, currentStop, runLine, stopState, stateWords, shortDate, stopIcs, slug, mapsHref } from "../../lib/popup.js";
-import { openStatus, statusLabel } from "../../../../core/lib/hours.js";
-
-const CLOSED = { sun: [], mon: [], tue: [], wed: [], thu: [], fri: [], sat: [] };
 
 /** @param {string} name @param {string} body */
 export function download(name, body) {
@@ -33,19 +30,7 @@ export function init(root, ctx) {
   const map = /** @type {HTMLAnchorElement|null} */ (root.querySelector("[data-run-map]"));
   if (map) map.href = mapsHref(s);
 
-  const paint = () => {
-    const now = ctx.now();
-    set("[data-run-line]", runLine(data.hours, s, now));
-    if (stopState(s, now.date).kind !== "on" && data.hours.weekly !== CLOSED) {
-      data.hours = { ...data.hours, weekly: CLOSED, exceptions: [] };
-      const label = statusLabel(openStatus(data.hours, now), now);
-      for (const el of document.querySelectorAll("[data-live-status]")) {
-        el.classList.add("is-closed");
-        const t = el.querySelector("[data-status-text]");
-        if (t) t.textContent = label;
-      }
-    }
-  };
+  const paint = () => set("[data-run-line]", runLine(data.hours, s, ctx.now()));
   paint();
   ctx.everyMinute(paint);
   root.querySelector("[data-run-ics]")?.addEventListener("click", () => download(`${slug(data.name)}-${s.id}.ics`, stopIcs(s, data.name, Date.now())));

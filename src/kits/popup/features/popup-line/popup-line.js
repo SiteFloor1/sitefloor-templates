@@ -2,7 +2,7 @@
 /** The queue now: reads the brand's sheet (or the demo's simulation) every five minutes; shown only while the pop-up is open and the row is fresh. */
 import { resolveStops, currentStop, isOpen, lineWords } from "../../lib/popup.js";
 
-/** @typedef {{ load: (ctx: import("../../../../core/js/core.js").Ctx) => Promise<{ ok: true, minutes: number, at: string } | { ok: false }> }} LineProvider */
+/** @typedef {{ load: (ctx: import("../../../../core/js/core.js").Ctx) => Promise<{ ok: true, minutes: number, at: number } | { ok: false }> }} LineProvider */
 
 /** @type {import("../../../../core/js/core.js").FeatureInit} */
 export function init(root, ctx) {
