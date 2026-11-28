@@ -41,6 +41,7 @@ One file per trade, so trades built in parallel never edit the same lines. A new
 - Car studios (tint, wrap, PPF, detailing): [`docs/trades/car-studio/questions.md`](trades/car-studio/questions.md)
 - Domestic and commercial cleaning: [`docs/trades/cleaning/questions.md`](trades/cleaning/questions.md)
 - Construction and building firms: [`docs/trades/construction/questions.md`](trades/construction/questions.md)
+- Corporate and B2B firms (engineering, IT services, logistics, consultancy): [`docs/trades/corporate/questions.md`](trades/corporate/questions.md)
 - Dessert shops and chocolatiers: [`docs/trades/dessert/questions.md`](trades/dessert/questions.md)
 - Car detailing: [`docs/trades/detailing/questions.md`](trades/detailing/questions.md)
 - Driving instructors: [`docs/trades/driving/questions.md`](trades/driving/questions.md)

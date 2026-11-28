@@ -63,6 +63,9 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 | Skin, Clémence (round 6) | trade/beauty | Antic Didone | Baskervville |
 | Isolde, the cover (round 4) | trade/bridal-beauty | Libre Bodoni | Faustina |
 | Cleaning, Plan (A) | trade/cleaning | Anek Latin | Anek Latin |
+| Corporate, Gauge (A, round 1) | trade/corporate | Barlow | Barlow |
+| Corporate, First shift (B, round 1) | trade/corporate | IBM Plex Sans Condensed | IBM Plex Sans |
+| Corporate, Title block (C, round 1) | trade/corporate | B612 | B612 |
 | Verge (driving) | trade/driving | Lexend | Lexend |
 | Maudry, The doors | trade/events | Eczar | Eczar |
 | Thursby, The statement (light) | trade/financial-advisers | Frank Ruhl Libre | Frank Ruhl Libre |
