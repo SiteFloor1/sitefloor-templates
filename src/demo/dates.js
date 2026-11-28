@@ -56,6 +56,12 @@ export const FORWARD = [
   { kind: "week", paths: ["launch.date"] },
   // A dance school's year: terms, half terms, shows (and when their tickets open) and exams move together.
   { kind: "week", paths: ["year.items[].date", "year.items[].end", "shows.items[].date", "shows.items[].tickets.opens", "exams.items[].date"] },
+  // An independent school's terms (Mercombe, the school kit): each term is one window, moved by whole years until it
+  // ends today or later, so the term card shows the current term with its start rightly behind today. Every date in a
+  // term moves by the same days and keeps its weekday (pulled back to the start's weekday). Ids avoid "summer", a preset.
+  { kind: "season", list: "schoolTerms.items", keys: ["starts", "halfTermFrom", "halfTermTo", "exeatFrom", "exeatTo", "carols", "ends"], name: "id", sameWeekday: "starts" },
+  // A school's open mornings, taster days and private-visit days: one-off dates, moved together by weeks (Saturdays stay Saturdays).
+  { kind: "week", paths: ["openDays.items[].date"] },
   // One window: order by and collect from move together, by whole years, until the later of them is ahead.
   { kind: "season", list: "advent", keys: ["orderBy", "collectFrom"], name: "name" },
   { kind: "csv-week", path: "events.sample", columns: ["Date"] },
@@ -73,6 +79,7 @@ export const PAST = [
   "drop.archive[].opens",
   "handbook.updated",
   "journal.articles[].date", "fees.checked",
+  "inspection.published", "inspection.checked", "coaches.checked",
 ];
 
 /** Strings that contain a date without being one. */
@@ -213,6 +220,10 @@ function rollWindow(item, rule, today) {
   let moved = nextOccasion(keys.map((key) => item[key]), name, today);
   const anchor = rule.sameWeekday ? keys.indexOf(rule.sameWeekday) : -1;
   if (rule.sameWeekday && anchor >= 0) {
+    // Every date moves by the anchor's shift, so gaps survive a year that crosses 29 February.
+    const from = item[rule.sameWeekday];
+    const keepGaps = (/** @type {string[]} */ ds) => keys.map((key) => addDays(item[key], daysBetween(from, ds[anchor])));
+    moved = keepGaps(moved);
     // The nearest earlier day (or the same) on the original weekday: a delivery is never moved past the occasion.
     const want = new Date(ms(day(item[rule.sameWeekday]))).getUTCDay();
     const pull = (/** @type {string[]} */ ds) => {
@@ -221,7 +232,7 @@ function rollWindow(item, rule, today) {
     };
     moved = pull(moved);
     // Pulled back behind today (the occasion is days away): take its next occurrence instead.
-    for (let n = 0; n < 3 && latest(moved) < today; n++) moved = pull(nextOccasion(moved, name, today));
+    for (let n = 0; n < 3 && latest(moved) < today; n++) moved = pull(keepGaps(nextOccasion(moved, name, today)));
   }
   keys.forEach((key, i) => { item[key] = moved[i]; });
 }
