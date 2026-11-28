@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: packages
+permalink: packages.html
+feature: carfilm-packages-page
+eleventyComputed:
+  title: "Packages"
+  description: "{{ site.business.name }} packages for owners and dealers, each at one price with everything included, and when each arrives."
+---
+{%- set ph = { title: "Packages", intro: site.sections.packages.intro } %}{% set phMark = 3 %}{% include "kits/carfilm/partials/page-head.njk" %}
+{% include "kits/carfilm/features/carfilm-packages-page/carfilm-packages-page.njk" %}

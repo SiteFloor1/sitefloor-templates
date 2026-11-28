@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: book
+permalink: book.html
+feature: carfilm-book
+eleventyComputed:
+  title: "{{ site.book.title | plain }}"
+  description: "Book a car shoot with {{ site.business.name }}: the car, the date, the road, and the shots you want."
+---
+{%- set ph = { title: site.book.title, intro: site.book.intro } %}{% set phMark = 5 %}{% include "kits/carfilm/partials/page-head.njk" %}
+{% include "kits/carfilm/features/carfilm-book/carfilm-book.njk" %}

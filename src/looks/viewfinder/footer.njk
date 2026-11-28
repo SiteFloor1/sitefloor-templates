@@ -1,0 +1,13 @@
+{#- Viewfinder footer: every page in one list (the guides on Signature), where to meet and whether we're in, then the
+    credit. -#}
+{%- set guides = [["dealers", "For dealers"], ["owners", "For owners"], ["rolling-shots", "Rolling shots"], ["locations", "Locations"], ["social-media-packs", "Social media packs"], ["behind-the-shoot", "Behind the shoot"], ["deliveries", "Deliveries"], ["questions", "Questions"]] %}
+<footer class="foot cf-foot"><div class="wrap cf-foot-in">
+  <p class="cf-foot-w"><b>{{ site.business.name }}</b> {{ site.location.streetAddress }}, {{ site.location.locality }} {{ site.location.postcode }}. By appointment. <span data-live-status><span class="dot" aria-hidden="true"></span> <span data-status-text>Opening hours</span></span></p>
+  <nav class="cf-foot-l" aria-label="Footer">
+    {%- for item in site.nav | navItems(pageId) %}<a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}>{{ item.label }}</a>{% endfor %}
+    {%- if "carfilm-guides" | enabled %}{% for g in guides %}{% if g[0] != "dealers" %}<a href="{{ g[0] | href }}"{{ "carfilm-guides" | tierAttr | safe }}>{{ g[1] }}</a>{% endif %}{% endfor %}{% endif %}
+    {%- if "plan-visit" | enabled %}<a href="{{ 'visit' | href }}">Meet us</a>{% endif %}
+    <a href="{{ 'privacy' | href }}">Privacy</a>
+    <a class="by" href="https://sitefloor.com" rel="noopener">Website by Sitefloor</a>
+  </nav>
+</div></footer>

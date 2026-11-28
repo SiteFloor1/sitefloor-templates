@@ -1,0 +1,6 @@
+{#- An inner page's opening: its timecode marker beside the name, set large, and one line beneath. Set `ph` to
+    { title, intro } and `phMark` to the page's number first. The marker is camera language, allowed here only. -#}
+<header class="cf-ph"><div class="wrap cf-ph-in">
+  <span class="cf-mark" aria-hidden="true">{{ (phMark or 1) | mark }}</span>
+  <div><h1 class="cf-ph-t">{{ ph.title | markup | safe }}</h1>{% if ph.intro %}<p class="cf-ph-i">{{ ph.intro }}</p>{% endif %}</div>
+</div></header>

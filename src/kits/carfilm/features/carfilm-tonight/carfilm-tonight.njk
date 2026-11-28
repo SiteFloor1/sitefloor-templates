@@ -1,0 +1,14 @@
+{#- Tonight's light in the monitor's readout: the road (the studio's roads to choose from), then golden hour, sunset and
+    blue hour, worked out for the build day so the page reads right at once; the script works it out again for the
+    visitor's own day, and moves to tomorrow once tonight's light has gone. -#}
+{%- set road = site.roads | roadById(site.roads.default) %}
+{%- set t = road | tonightAt %}
+<div class="cf-read" data-feature="carfilm-tonight">
+  <label class="cf-road">{% if site.roads.items.length > 1 %}<span class="cf-sr">Road</span><select data-road>{% for r in site.roads.items %}<option value="{{ r.id }}"{% if r.id == road.id %} selected{% endif %}>{{ r.name }}</option>{% endfor %}</select>{% else %}<span class="cf-road-1">{{ road.name }}</span>{% endif %}</label>
+  <p class="cf-vals" aria-live="polite" data-light>
+    <span><span class="cf-k" data-when>{{ "Tonight" if t.when == "tonight" else "Tomorrow" }}</span><b data-day>{{ t.day }}</b></span>
+    <span class="cf-gold"><span class="cf-k" data-gold-k>{{ "Low sun all day" if t.low else "Golden hour" }}</span><b data-gold>{{ t.gold }}</b></span>
+    <span><span class="cf-k">Sunset</span><b data-sunset>{{ t.sunset }}</b></span>
+    <span><span class="cf-k">Blue hour</span><b data-blue>{{ t.blue }}</b></span>
+  </p>
+</div>

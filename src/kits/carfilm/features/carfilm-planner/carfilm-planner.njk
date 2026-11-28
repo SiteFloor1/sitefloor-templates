@@ -1,0 +1,21 @@
+{#- The golden-hour planner: a road and a date give golden hour, sunset and blue hour, calculated; the day drawn as a
+    band of light (night, blue, golden, day). Opens on the studio's road, today, as worked out at build time; the script
+    takes over for the visitor's day. The share card (carfilm-share) sits beneath. -#}
+{%- set P = site.planner %}{% set road = site.roads | roadById(site.roads.default) %}{% set t = road | tonightAt %}
+<div class="wrap cf-pl" data-feature="carfilm-planner">
+  <form class="cf-pl-form" onsubmit="return false">
+    <label class="cf-field" for="pl-road"><span class="cf-k">Road</span><select id="pl-road" data-pl-road>{% for r in site.roads.items %}<option value="{{ r.id }}"{% if r.id == road.id %} selected{% endif %}>{{ r.name }}, {{ r.area }}</option>{% endfor %}</select></label>
+    <label class="cf-field" for="pl-date"><span class="cf-k">Date</span><input id="pl-date" type="date" data-pl-date></label>
+  </form>
+  <div class="cf-pl-out" aria-live="polite">
+    <p class="cf-pl-k" data-pl-k>{{ "Low sun all day" if t.low else "Golden hour" }}</p>
+    <p class="cf-pl-gold" data-pl-gold>{{ t.gold }}</p>
+    <p class="cf-pl-sub"><span data-pl-day>{{ t.day }}</span>. Sunset <b data-pl-sunset>{{ t.sunset }}</b>, blue hour <b data-pl-blue>{{ t.blue }}</b>.</p>
+  </div>
+  <div class="cf-band" aria-hidden="true"><canvas width="1200" height="40" data-pl-band></canvas><span class="cf-band-h"><span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span><span>24:00</span></span></div>
+  <div class="cf-pl-act">
+    <a class="cf-btn" data-pl-hold href="#" target="_blank" rel="noopener">Hold this light</a>
+    {%- if "carfilm-share" | enabled %}{% include "kits/carfilm/features/carfilm-share/carfilm-share.njk" %}{% endif %}
+  </div>
+  <p class="cf-note">Worked out from the sun's position for that road and date, in UK time. Golden hour is the sun between 6° above and 4° below the horizon; blue hour from 4° to 6° below.{% if "carfilm-forecast" | enabled %} The cloud line is a forecast, not a promise.{% endif %}</p>
+</div>

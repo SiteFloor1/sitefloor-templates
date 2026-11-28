@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: behind-the-shoot
+permalink: behind-the-shoot.html
+feature: carfilm-guides
+eleventyComputed:
+  title: "{{ site.guides.behind.title | plain }}"
+  description: "{{ site.guides.behind.description }}"
+---
+{%- set G = site.guides.behind %}{% set ph = G %}{% set phMark = 12 %}{% include "kits/carfilm/partials/page-head.njk" %}
+{% include "kits/carfilm/features/carfilm-guides/carfilm-guides.njk" %}
+{%- if "carfilm-book" | enabled %}<p class="wrap cf-more"><a class="cf-link" href="{{ 'book' | href }}">Book a shoot</a></p>{% endif %}

@@ -1,0 +1,15 @@
+{#- The location guide on the home page: the studio's roads with tonight's golden hour and sunset on each (build day;
+    the script works it out for the visitor's day). Tap a road to see it in the viewfinder's readout. -#}
+{%- set sec = site.sections.locations %}
+<section id="roads" class="cf-sec cf-roads" data-feature="carfilm-locations" aria-labelledby="roads-h"{{ "carfilm-locations" | tierAttr | safe }}><div class="wrap cf-roads-in">
+  <div>{%- set secId = "roads-h" %}{% include "core/partials/section-head.njk" %}</div>
+  <ul class="cf-road-list">
+    {%- for r in site.roads.items %}{% set t = r | tonightAt %}
+    <li><button type="button" class="cf-road-b" data-road-id="{{ r.id }}" aria-pressed="{{ 'true' if r.id == site.roads.default else 'false' }}">
+      <span class="cf-road-n">{{ r.name }}</span><span class="cf-road-a">{{ r.area }}</span>
+      <span class="cf-road-t"><b data-t-gold>{{ t.gold }}</b><small>sunset <span data-t-sunset>{{ t.sunset }}</span></small></span>
+    </button></li>
+    {%- endfor %}
+  </ul>
+  {%- if site.roads.note %}<p class="cf-note cf-roads-note">{{ site.roads.note }}</p>{% endif %}
+</div></section>

@@ -44,6 +44,8 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 | foreshore | Mona Sans | Mona Sans |
 | Hair, Length | Darker Grotesque | Public Sans |
 | handover | Castoro | Kumbh Sans |
+| Kerrow, Viewfinder (`viewfinder` look) | Trirong | Wix Madefor Text |
+| Kerrow, Viewfinder: readout and timecodes | Martian Mono | Martian Mono |
 | loupe | Rozha One | Source Serif 4 |
 | mackerel | Funnel Display | Sora |
 | maison | Cormorant Garamond | Jost |

@@ -1,0 +1,11 @@
+{#- The showreel page: every film large, one after another, with its runtime, the kind of shot and the car. The film
+    loads only when played (preload none). -#}
+<div class="wrap cf-sr-page">
+  {%- for r in site.reel.items %}
+  <figure class="cf-film-i">
+    <video src="{{ r.src | img }}" poster="{{ r.poster | img }}" width="{{ r.width }}" height="{{ r.height }}" controls muted playsinline preload="none" aria-label="{{ r.title }}"></video>
+    <figcaption><span class="cf-rt">{{ r.seconds | runtime }}</span><b>{{ r.title }}</b><span>{{ r.kind }} · {{ r.car }}</span></figcaption>
+  </figure>
+  {%- endfor %}
+  {%- if site.reel.note %}<p class="cf-note">{{ site.reel.note }}</p>{% endif %}
+</div>

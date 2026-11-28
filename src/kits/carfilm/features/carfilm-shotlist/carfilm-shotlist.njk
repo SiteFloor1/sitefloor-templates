@@ -1,0 +1,14 @@
+{#- The shot list builder: tap the shots that matter; the list goes to the studio on WhatsApp. -#}
+{%- set S = site.shotList %}
+<section class="cf-sec cf-sl" id="shots" data-feature="carfilm-shotlist" aria-labelledby="sl-h"{{ "carfilm-shotlist" | tierAttr | safe }}><div class="wrap">
+  <div class="cf-sl-head"><h2 id="sl-h" class="cf-h2">{{ S.title }}</h2><p class="cf-intro">{{ S.intro }}</p></div>
+  <ul class="cf-sl-grid">
+    {%- for x in S.items %}
+    <li><button type="button" class="cf-shot" data-shot="{{ x.label }}" aria-pressed="{{ 'true' if x.on else 'false' }}">
+      <img src="{{ x.photo.src | img }}" alt="" width="{{ x.photo.width }}" height="{{ x.photo.height }}" loading="lazy" decoding="async">
+      <span class="cf-shot-l">{{ x.label }}</span>
+    </button></li>
+    {%- endfor %}
+  </ul>
+  <div class="cf-sl-sum"><p data-sl-count aria-live="polite"></p><a class="cf-btn" data-sl-send href="{{ S.message | book }}" target="_blank" rel="noopener">Send the shot list</a></div>
+</div></section>

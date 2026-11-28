@@ -1,0 +1,7 @@
+{#- Book a shoot: how it works in the studio's three steps, the message, then the shot list (Plus). -#}
+{%- set B = site.book %}
+<div class="wrap cf-bk">
+  <ol class="cf-bk-steps">{% for s in B.steps %}<li><span class="cf-num">{{ loop.index if loop.index > 9 else "0" + loop.index }}</span><h2 class="cf-bk-h">{{ s.heading }}</h2><p>{{ s.body }}</p></li>{% endfor %}</ol>
+  <p class="cf-bk-go"><a class="cf-btn" href="{{ B.message | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ B.message }}"{% endif %} target="_blank" rel="noopener">Message us to book</a></p>
+</div>
+{%- if "carfilm-shotlist" | enabled %}{% include "kits/carfilm/features/carfilm-shotlist/carfilm-shotlist.njk" %}{% endif %}

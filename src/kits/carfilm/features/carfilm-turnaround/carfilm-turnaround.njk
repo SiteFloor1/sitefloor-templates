@@ -1,0 +1,13 @@
+{#- Delivery dates: a shoot date in, the day each package's photographs and film arrive, in the studio's working days
+    without UK bank holidays (worked out in the browser). An estimate, and it says so. -#}
+<section class="cf-sec cf-ta" id="dates" data-feature="carfilm-turnaround" aria-labelledby="ta-h"{{ "carfilm-turnaround" | tierAttr | safe }}><div class="wrap cf-ta-in">
+  <div><h2 id="ta-h" class="cf-h2">When it arrives</h2>
+    <label class="cf-field" for="ta-date"><span class="cf-k">Shoot date</span><input id="ta-date" type="date" data-ta-date min="{{ '' | today }}"></label></div>
+  <table class="cf-ta-t">
+    <thead><tr><th scope="col">Package</th><th scope="col">Photographs</th><th scope="col">Film</th></tr></thead>
+    <tbody>{% for p in site.packages.items %}<tr data-ta="{{ p.id }}"><th scope="row">{{ p.name }}</th>
+      <td><span class="cf-ta-n">{% if p.photosDays %}{{ p.photosDays }} working days{% else %}–{% endif %}</span> <b data-ta-photos></b></td>
+      <td><span class="cf-ta-n">{% if p.filmDays %}{{ p.filmDays }} working days{% else %}–{% endif %}</span> <b data-ta-film></b></td></tr>{% endfor %}</tbody>
+  </table>
+  <p class="cf-note">{{ site.turnaround.note }}</p>
+</div></section>

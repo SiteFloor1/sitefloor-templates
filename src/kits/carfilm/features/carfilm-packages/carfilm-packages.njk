@@ -1,0 +1,8 @@
+{#- Packages: what each includes and its one price, every mandatory fee inside it (the note says what). On the home
+    page, all of them; the packages page splits owners and dealers. Set `pk` to a list first, or it uses them all. -#}
+{%- set sec = site.sections.packages %}
+<section id="packages" class="cf-sec cf-pk" data-feature="carfilm-packages" aria-labelledby="pk-h"><div class="wrap">
+  {%- set secId = "pk-h" %}{% include "core/partials/section-head.njk" %}
+  {% include "kits/carfilm/partials/package-rows.njk" %}
+  {%- if "carfilm-packages-page" | enabled %}<p class="cf-more"><a class="cf-link" href="{{ 'packages' | href }}"{{ "carfilm-packages-page" | tierAttr | safe }}>Packages and delivery dates</a></p>{% endif %}
+</div></section>

@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: questions
+permalink: questions.html
+feature: carfilm-guides
+eleventyComputed:
+  title: "{{ site.guides.questions.title | plain }}"
+  description: "{{ site.guides.questions.description }}"
+---
+{%- set G = site.guides.questions %}{% set ph = G %}{% set phMark = 13 %}{% include "kits/carfilm/partials/page-head.njk" %}
+<div class="wrap cf-faq">{% for t in site.questions | byTopic %}<section class="cf-faq-s" aria-labelledby="faq-{{ loop.index }}"><h2 id="faq-{{ loop.index }}" class="cf-h3">{{ t.topic }}</h2>{% for q in t.items %}<details class="cf-qa"><summary>{{ q.q }}</summary><p>{{ q.a }}</p></details>{% endfor %}</section>{% endfor %}</div>
+<p class="wrap cf-more"><a class="cf-link" href="{{ site.messages.general | wa }}" data-wa-text="{{ site.messages.general }}" target="_blank" rel="noopener">Ask us something else</a></p>

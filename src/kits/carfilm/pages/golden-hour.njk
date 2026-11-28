@@ -1,0 +1,11 @@
+---
+layout: core/layouts/base.njk
+pageId: golden-hour
+permalink: golden-hour.html
+feature: carfilm-planner
+eleventyComputed:
+  title: "{{ site.planner.title | plain }}"
+  description: "Golden hour, sunset and blue hour on any of our roads and dates, worked out from the sun."
+---
+{%- set ph = { title: site.planner.title, intro: site.planner.intro } %}{% set phMark = 11 %}{% include "kits/carfilm/partials/page-head.njk" %}
+{% include "kits/carfilm/features/carfilm-planner/carfilm-planner.njk" %}

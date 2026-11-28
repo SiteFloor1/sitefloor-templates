@@ -1,0 +1,9 @@
+{#- The packages page: for owners, then for dealers; the listing set (Plus) and the delivery dates (Plus) after. -#}
+{%- set owners = site.packages.items | forWho("owners") %}
+{%- set dealers = site.packages.items | forWho("dealers") %}
+<div class="wrap cf-pkp">
+  {%- if owners.length %}<section class="cf-pkp-s" aria-labelledby="pk-own"><h2 id="pk-own" class="cf-h2">For owners</h2>{% set pk = owners %}{% include "kits/carfilm/partials/package-rows.njk" %}</section>{% endif %}
+  {%- if dealers.length %}<section class="cf-pkp-s" aria-labelledby="pk-dl"><h2 id="pk-dl" class="cf-h2">For dealers</h2>{% set pk = dealers %}{% include "kits/carfilm/partials/package-rows.njk" %}</section>{% endif %}
+</div>
+{%- if "carfilm-turnaround" | enabled %}{% include "kits/carfilm/features/carfilm-turnaround/carfilm-turnaround.njk" %}{% endif %}
+{%- if "carfilm-listing" | enabled %}{% include "kits/carfilm/features/carfilm-listing/carfilm-listing.njk" %}{% endif %}

@@ -1,0 +1,836 @@
+{
+  "schemaVersion": 4,
+  "id": "kerrow",
+  "mode": "demo",
+  "plan": "signature",
+  "kit": "carfilm",
+  "look": "viewfinder",
+  "url": "https://kerrow.example",
+  "indexable": false,
+  "lang": "en-GB",
+  "business": {
+    "name": "Kerrow",
+    "schemaType": "ProfessionalService",
+    "description": "Car films and photographs from London, shot moving and timed to the last hour of light. For owners and dealers.",
+    "priceRange": "£££",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "447700900734",
+    "phone": "+44 7700 900734",
+    "email": "studio@kerrow.example"
+  },
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "location": {
+    "streetAddress": "Unit 2, 9 Mast Yard",
+    "locality": "London",
+    "postcode": "E14 3QT",
+    "country": "GB",
+    "area": "A yard off Westferry Road on the Isle of Dogs. We meet here by appointment; shoots happen on the road.",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=Westferry%20Road%2C%20London%20E14"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [
+        [
+          "10:00",
+          "18:00"
+        ]
+      ],
+      "tue": [
+        [
+          "10:00",
+          "18:00"
+        ]
+      ],
+      "wed": [
+        [
+          "10:00",
+          "18:00"
+        ]
+      ],
+      "thu": [
+        [
+          "10:00",
+          "18:00"
+        ]
+      ],
+      "fri": [
+        [
+          "10:00",
+          "18:00"
+        ]
+      ],
+      "sat": [],
+      "sun": []
+    },
+    "exceptions": [
+      {
+        "date": "2026-12-24",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2026-12-31",
+        "ranges": [],
+        "note": "Closed for New Year"
+      }
+    ]
+  },
+  "nav": [
+    {
+      "label": "Showreel",
+      "page": "showreel",
+      "feature": "carfilm-showreel",
+      "fallback": "#reel"
+    },
+    {
+      "label": "Packages",
+      "page": "packages",
+      "feature": "carfilm-packages-page",
+      "fallback": "#packages"
+    },
+    {
+      "label": "By car",
+      "page": "portfolio",
+      "feature": "carfilm-portfolio"
+    },
+    {
+      "label": "Golden hour",
+      "page": "golden-hour",
+      "feature": "carfilm-planner"
+    },
+    {
+      "label": "Dealers",
+      "page": "dealers",
+      "feature": "carfilm-guides"
+    },
+    {
+      "label": "Book a shoot",
+      "page": "book",
+      "feature": "carfilm-book",
+      "fallback": "#visit"
+    }
+  ],
+  "features": [
+    "carfilm-viewfinder",
+    "carfilm-tonight",
+    "carfilm-reel",
+    "carfilm-packages",
+    "carfilm-locations",
+    "carfilm-showreel",
+    "carfilm-packages-page",
+    "carfilm-listing",
+    "carfilm-turnaround",
+    "carfilm-portfolio",
+    "carfilm-book",
+    "carfilm-shotlist",
+    "carfilm-formats",
+    "carfilm-planner",
+    "carfilm-share",
+    "carfilm-guides",
+    "questions",
+    "visit",
+    "plan-visit"
+  ],
+  "messages": {
+    "general": "Hello Kerrow, I have a question about a shoot."
+  },
+  "hero": {
+    "kicker": "Car films and photographs, London",
+    "title": "Shot in the last hour of light.",
+    "intro": "Car films and photographs, timed to the sun, framed for wherever they'll be seen.",
+    "film": {
+      "src": "img/film/drive.mp4",
+      "smallSrc": "img/film/drive-sm.mp4",
+      "poster": "img/film/drive-poster.webp",
+      "width": 1600,
+      "height": 900,
+      "fps": 25,
+      "label": "Rolling shot: following a dark red roadster round a curving road in evening light. No sound."
+    }
+  },
+  "sections": {
+    "reel": {
+      "title": "Showreel"
+    },
+    "locations": {
+      "title": "Tonight, on the roads we know"
+    },
+    "packages": {
+      "title": "Packages",
+      "intro": "One price each, everything in it."
+    },
+    "questions": {
+      "title": "Before you book"
+    },
+    "visit": {
+      "title": "Meet us"
+    }
+  },
+  "roads": {
+    "default": "box-hill",
+    "items": [
+      {
+        "id": "box-hill",
+        "name": "Box Hill, Zig Zag Road",
+        "area": "Surrey",
+        "lat": 51.2557,
+        "lon": -0.3075
+      },
+      {
+        "id": "cheddar",
+        "name": "Cheddar Gorge",
+        "area": "Somerset",
+        "lat": 51.283,
+        "lon": -2.764
+      },
+      {
+        "id": "snake-pass",
+        "name": "Snake Pass",
+        "area": "Derbyshire",
+        "lat": 53.433,
+        "lon": -1.867
+      },
+      {
+        "id": "black-mountain",
+        "name": "Black Mountain Pass",
+        "area": "Carmarthenshire",
+        "lat": 51.858,
+        "lon": -3.79
+      },
+      {
+        "id": "hardknott",
+        "name": "Hardknott Pass",
+        "area": "Cumbria",
+        "lat": 54.403,
+        "lon": -3.205
+      },
+      {
+        "id": "bealach",
+        "name": "Bealach na Bà",
+        "area": "Wester Ross",
+        "lat": 57.418,
+        "lon": -5.711
+      },
+      {
+        "id": "canary-wharf",
+        "name": "Canary Wharf",
+        "area": "London",
+        "lat": 51.5054,
+        "lon": -0.0235
+      }
+    ],
+    "note": "Public roads. We choose the stretch and the time with you, and film only where it is safe and allowed."
+  },
+  "formats": {
+    "items": [
+      {
+        "id": "cinema",
+        "name": "Cinema",
+        "ratio": "2.39:1",
+        "size": "3840 × 1608",
+        "use": "The film, on a big screen or YouTube",
+        "viewfinder": true
+      },
+      {
+        "id": "wide",
+        "name": "Wide",
+        "ratio": "16:9",
+        "size": "3840 × 2160",
+        "use": "YouTube, your website, a showroom screen",
+        "viewfinder": true
+      },
+      {
+        "id": "vertical",
+        "name": "Vertical",
+        "ratio": "9:16",
+        "size": "1080 × 1920",
+        "use": "Reels, TikTok, Shorts and Stories",
+        "viewfinder": true
+      },
+      {
+        "id": "listing",
+        "name": "Listing",
+        "ratio": "4:3",
+        "size": "2400 × 1800",
+        "use": "A sale listing's photographs",
+        "viewfinder": true
+      },
+      {
+        "id": "feed",
+        "name": "Feed",
+        "ratio": "4:5",
+        "size": "1080 × 1350",
+        "use": "Instagram and Facebook posts"
+      }
+    ],
+    "note": "Photographs come as full-size JPEGs and in each size above; films as MP4 files."
+  },
+  "packages": {
+    "note": "Sample prices for this demo. Each includes travel within 40 miles of E14, the edit, licensed music and VAT.",
+    "items": [
+      {
+        "id": "drive",
+        "name": "The drive",
+        "for": "owners",
+        "price": 650,
+        "includes": [
+          "Two hours on one road",
+          "25 graded photographs",
+          "A 60-second film and a vertical cut"
+        ],
+        "photosDays": 5,
+        "filmDays": 10
+      },
+      {
+        "id": "evening",
+        "name": "The evening",
+        "for": "owners",
+        "price": 1150,
+        "includes": [
+          "Golden hour to blue hour, rolling shots",
+          "40 graded photographs",
+          "A two-minute film and three vertical cuts"
+        ],
+        "photosDays": 5,
+        "filmDays": 10
+      },
+      {
+        "id": "dealer-day",
+        "name": "Dealer day",
+        "for": "dealers",
+        "price": 2400,
+        "includes": [
+          "A full day at your site",
+          "The listing set for up to six cars",
+          "One hero film and social cuts"
+        ],
+        "photosDays": 2,
+        "filmDays": 10
+      }
+    ]
+  },
+  "reel": {
+    "items": [
+      {
+        "id": "evening-run",
+        "title": "Evening run",
+        "kind": "Rolling shot",
+        "car": "Roadster",
+        "seconds": 6,
+        "src": "img/film/drive.mp4",
+        "poster": "img/reel/drive.webp",
+        "width": 960,
+        "height": 540
+      },
+      {
+        "id": "paint",
+        "title": "Paint and tail light",
+        "kind": "Detail",
+        "car": "Roadster",
+        "seconds": 6,
+        "src": "img/reel/paint.mp4",
+        "poster": "img/reel/paint.webp",
+        "width": 960,
+        "height": 540
+      },
+      {
+        "id": "wheel",
+        "title": "Wheel, car park",
+        "kind": "Detail",
+        "car": "Roadster",
+        "seconds": 6,
+        "src": "img/reel/wheel.mp4",
+        "poster": "img/reel/wheel.webp",
+        "width": 960,
+        "height": 540
+      },
+      {
+        "id": "bonnet",
+        "title": "Bonnet in the sun",
+        "kind": "Static",
+        "car": "Coupé",
+        "seconds": 6,
+        "src": "img/reel/bonnet.mp4",
+        "poster": "img/reel/bonnet.webp",
+        "width": 960,
+        "height": 540
+      }
+    ],
+    "note": "Demo films: stock footage, slowed and cut. A studio's own films replace them."
+  },
+  "portfolio": {
+    "title": "The work, by car",
+    "intro": "Choose a kind of car.",
+    "groups": [
+      {
+        "id": "coupe",
+        "label": "Coupés"
+      },
+      {
+        "id": "saloon",
+        "label": "Saloons"
+      },
+      {
+        "id": "classic",
+        "label": "Classics"
+      },
+      {
+        "id": "detail",
+        "label": "Details"
+      }
+    ],
+    "items": [
+      {
+        "src": "img/work/coast-coupe.webp",
+        "width": 1600,
+        "height": 853,
+        "alt": "A coupé from behind on a winding coast road at dusk, tail lights lit",
+        "group": "coupe",
+        "caption": "Coast road, dusk"
+      },
+      {
+        "src": "img/work/white-coupe.webp",
+        "width": 1600,
+        "height": 1100,
+        "alt": "A white coupé from behind on an empty road at sunset",
+        "group": "coupe",
+        "caption": "Hill road, sunset"
+      },
+      {
+        "src": "img/work/matte-coupe.webp",
+        "width": 1600,
+        "height": 800,
+        "alt": "A matte grey coupé driving past trees, the background blurred by speed",
+        "group": "coupe",
+        "caption": "Rolling, afternoon"
+      },
+      {
+        "src": "img/work/farm-lane.webp",
+        "width": 1000,
+        "height": 1170,
+        "alt": "A muscle car from behind on a farm lane in low orange sun",
+        "group": "coupe",
+        "caption": "Farm lane, low sun"
+      },
+      {
+        "src": "img/work/classic-saloon.webp",
+        "width": 1600,
+        "height": 1000,
+        "alt": "A dark classic saloon driving towards the camera at dusk, headlights on",
+        "group": "classic",
+        "caption": "Rolling, dusk"
+      },
+      {
+        "src": "img/work/classic-saloon-tall.webp",
+        "width": 1000,
+        "height": 1230,
+        "alt": "The same classic saloon on an open road in the last light",
+        "group": "classic",
+        "caption": "Open road"
+      },
+      {
+        "src": "img/work/seafront-gt.webp",
+        "width": 1600,
+        "height": 800,
+        "alt": "A silver grand tourer on a seafront road with the sun low behind",
+        "group": "saloon",
+        "caption": "Seafront, sunset"
+      },
+      {
+        "src": "img/work/rooftop-saloon.webp",
+        "width": 1000,
+        "height": 1050,
+        "alt": "A dark electric saloon on an empty rooftop car park at sunset",
+        "group": "saloon",
+        "caption": "Rooftop, sunset"
+      },
+      {
+        "src": "img/work/headlight.webp",
+        "width": 1000,
+        "height": 1050,
+        "alt": "A dark saloon's headlight glowing against an orange sky",
+        "group": "detail",
+        "caption": "Lamps on"
+      },
+      {
+        "src": "img/work/blue-paint.webp",
+        "width": 1000,
+        "height": 1244,
+        "alt": "Glossy blue paint reflecting the sky along a car's shoulder line",
+        "group": "detail",
+        "caption": "Paint"
+      }
+    ],
+    "note": "Demo photographs from Unsplash; plates and badges blurred."
+  },
+  "book": {
+    "title": "Book a shoot",
+    "intro": "Tell us the car, the date and the road. We reply the same day.",
+    "message": "Hello Kerrow, I'd like to book a shoot. The car: \nThe date: \nThe road: ",
+    "steps": [
+      {
+        "heading": "Tell us about the car",
+        "body": "Make, colour, and anything we should know: a fresh detail, a wrap, a plate you'd like hidden."
+      },
+      {
+        "heading": "We choose the road and the time",
+        "body": "We pick a stretch with you and set the start by the sun on the day."
+      },
+      {
+        "heading": "We confirm by message",
+        "body": "The time, the meeting point and what to bring. If the weather turns, we move the date."
+      }
+    ]
+  },
+  "shotList": {
+    "title": "Plan the shots",
+    "intro": "Pick what matters on your car. The list comes to us before the day.",
+    "message": "Hello Kerrow, here's my shot list:\n{shots}\nThe car: ",
+    "items": [
+      {
+        "id": "rolling-front",
+        "label": "Rolling, front three-quarter",
+        "photo": {
+          "src": "img/shots/profile.webp",
+          "width": 700,
+          "height": 735
+        },
+        "on": true
+      },
+      {
+        "id": "lamps",
+        "label": "Lamps lit",
+        "photo": {
+          "src": "img/shots/lamps.webp",
+          "width": 700,
+          "height": 547
+        },
+        "on": true
+      },
+      {
+        "id": "wheels",
+        "label": "Wheels turning",
+        "photo": {
+          "src": "img/shots/wheels.webp",
+          "width": 600,
+          "height": 664
+        }
+      },
+      {
+        "id": "glass",
+        "label": "Glass and cabin",
+        "photo": {
+          "src": "img/shots/glass.webp",
+          "width": 700,
+          "height": 525
+        }
+      },
+      {
+        "id": "bonnet",
+        "label": "Reflections on the bonnet",
+        "photo": {
+          "src": "img/shots/bonnet.webp",
+          "width": 700,
+          "height": 467
+        }
+      },
+      {
+        "id": "road",
+        "label": "Empty road, for titles",
+        "photo": {
+          "src": "img/shots/road.webp",
+          "width": 700,
+          "height": 766
+        },
+        "on": true
+      }
+    ]
+  },
+  "turnaround": {
+    "workdays": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri"
+    ],
+    "note": "Working days, not counting bank holidays. An estimate; we confirm it when we book."
+  },
+  "listingSet": {
+    "title": "The listing set",
+    "intro": "The same twelve photographs for every car, in the same light, so a forecourt reads as one.",
+    "items": [
+      "Front three-quarter",
+      "Side profile",
+      "Rear three-quarter",
+      "Front",
+      "Rear",
+      "Dashboard",
+      "Front seats",
+      "Rear seats",
+      "Boot",
+      "Wheel",
+      "Engine bay",
+      "Mileage on the clock"
+    ],
+    "format": "listing"
+  },
+  "planner": {
+    "title": "Golden hour, any road, any date",
+    "intro": "Choose a road and a date. The times are worked out from the sun's position there.",
+    "message": "Hello Kerrow, I'd like to shoot at {road} on {date}. Golden hour {gold}, sunset {sunset}. The car: "
+  },
+  "guides": {
+    "dealers": {
+      "title": "For dealers and brands",
+      "description": "Car photographs and films for dealers: the listing set, hero films and social cuts, from Kerrow in London.",
+      "intro": "Stock that looks like it belongs to one showroom.",
+      "photo": {
+        "src": "img/work/seafront-gt.webp",
+        "width": 1600,
+        "height": 800,
+        "alt": "A silver grand tourer on a seafront road with the sun low behind"
+      },
+      "sections": [
+        {
+          "heading": "The listing set",
+          "body": "Twelve photographs per car, the same angles and light every time, sized for your listings and your website."
+        },
+        {
+          "heading": "Hero films",
+          "body": "One car, one road, the last hour of light: a film for the launch and the cuts for social."
+        },
+        {
+          "heading": "Usage",
+          "body": "Tell us where the work will run, including paid ads, and we'll put it in the quote."
+        }
+      ]
+    },
+    "owners": {
+      "title": "For owners",
+      "description": "Films and photographs of your own car, from Kerrow in London: a new car, a restoration, a build or a sale.",
+      "intro": "A new car, a restoration, a build, or a sale.",
+      "photo": {
+        "src": "img/work/classic-saloon-tall.webp",
+        "width": 1000,
+        "height": 1230,
+        "alt": "A classic saloon on an open road in the last light"
+      },
+      "sections": [
+        {
+          "heading": "What to bring",
+          "body": "The car, clean, with a full tank. We'll tell you the meeting point and the time."
+        },
+        {
+          "heading": "Selling it",
+          "body": "Ask for the listing set: the photographs buyers look for, sized for the sale sites."
+        },
+        {
+          "heading": "Your plate",
+          "body": "We can blur it in every photograph and film. Just say."
+        }
+      ]
+    },
+    "rolling": {
+      "title": "Rolling shots",
+      "description": "How Kerrow films a car moving: a second car, a quiet road, the right light.",
+      "intro": "Your car moving, filmed from ours.",
+      "photo": {
+        "src": "img/work/matte-coupe.webp",
+        "width": 1600,
+        "height": 800,
+        "alt": "A matte grey coupé driving past trees, the background blurred by speed"
+      },
+      "sections": [
+        {
+          "heading": "How it works",
+          "body": "You drive. We film from a second car alongside or ahead, on a quiet stretch we've chosen together."
+        },
+        {
+          "heading": "Speed",
+          "body": "Slower than you'd think. The blur comes from the shutter, not the speedometer."
+        },
+        {
+          "heading": "Safety",
+          "body": "We stop if the road gets busy or the weather turns. Nobody hangs out of a window."
+        }
+      ]
+    },
+    "social": {
+      "title": "Social media packs",
+      "description": "Vertical cuts and photographs sized for Reels, TikTok, Shorts and posts, from Kerrow.",
+      "intro": "Cuts and frames sized for every feed.",
+      "sections": [
+        {
+          "heading": "Vertical cuts",
+          "body": "Short films at 9:16 for Reels, TikTok and Shorts, cut from the same shoot."
+        },
+        {
+          "heading": "Feed photographs",
+          "body": "4:5 and square crops, framed for each format rather than squeezed."
+        },
+        {
+          "heading": "Captions",
+          "body": "Bring your own words, or ask us for a line per post."
+        }
+      ]
+    },
+    "behind": {
+      "title": "Behind the shoot",
+      "description": "What a Kerrow shoot looks like on the day, from the meeting point to the last frame.",
+      "intro": "What happens on the day.",
+      "photo": {
+        "src": "img/work/farm-lane.webp",
+        "width": 1000,
+        "height": 1170,
+        "alt": "A muscle car from behind on a farm lane in low orange sun"
+      },
+      "sections": [
+        {
+          "heading": "Before the light",
+          "body": "We meet an hour before golden hour, walk the road and set the static shots."
+        },
+        {
+          "heading": "In the light",
+          "body": "Rolling shots first, while the sun is low. Then the details as it sets."
+        },
+        {
+          "heading": "After",
+          "body": "Blue hour for lamps and reflections. Then we grade, cut and send."
+        }
+      ]
+    },
+    "deliveries": {
+      "title": "Deliveries",
+      "description": "Every format Kerrow delivers, its size and where it's used, and when each package arrives.",
+      "intro": "Every file, its size and where it goes.",
+      "sections": [
+        {
+          "heading": "How it arrives",
+          "body": "A private download link, kept for 90 days. Back it up when it lands."
+        }
+      ]
+    },
+    "locations": {
+      "title": "Locations",
+      "description": "The roads Kerrow films on, with tonight's golden hour on each, worked out from the sun.",
+      "intro": "Roads we know, and tonight's light on each.",
+      "sections": [
+        {
+          "heading": "Your road",
+          "body": "Have a road in mind? Send it. If it's quiet and safe, we'll film it."
+        }
+      ]
+    },
+    "questions": {
+      "title": "Questions",
+      "description": "Answers to what owners and dealers ask Kerrow before a shoot: weather, plates, drones, music and more.",
+      "intro": "What people ask before a shoot."
+    }
+  },
+  "questions": [
+    {
+      "topic": "Booking",
+      "q": "How far ahead should I book?",
+      "a": "Two to three weeks for a weekday, longer for weekends in summer.",
+      "home": true
+    },
+    {
+      "topic": "Booking",
+      "q": "What if it rains?",
+      "a": "We move the date, at no charge, as long as we decide by midday on the day.",
+      "home": true
+    },
+    {
+      "topic": "The day",
+      "q": "How long does a shoot take?",
+      "a": "Two hours for The drive, about three for The evening. A dealer day is a full day.",
+      "home": true
+    },
+    {
+      "topic": "The day",
+      "q": "Do I need to clean the car first?",
+      "a": "Yes, and the cleaner the better: paint shows everything in low light."
+    },
+    {
+      "topic": "The day",
+      "q": "Can you hide my number plate?",
+      "a": "Yes. We blur it in every photograph and film. Just say when you book."
+    },
+    {
+      "topic": "The day",
+      "q": "Do you fly a drone?",
+      "a": "Only where the rules and the place allow it, and only in calm weather, so we never promise it."
+    },
+    {
+      "topic": "Afterwards",
+      "q": "Can I post the film with music?",
+      "a": "Yes. We use licensed music, cleared for social media."
+    },
+    {
+      "topic": "Afterwards",
+      "q": "Can our dealership use the work in ads?",
+      "a": "Tell us where it will run and we'll include that use in the quote."
+    },
+    {
+      "topic": "Afterwards",
+      "q": "How soon do I get it?",
+      "a": "Photographs in five working days, films in ten. Pick a date on the packages page to see yours."
+    }
+  ],
+  "visitInfo": {
+    "kicker": "Meet us",
+    "title": "Mast Yard",
+    "intro": "Off Westferry Road on the Isle of Dogs. We meet here by appointment; the shoot is on the road.",
+    "checked": "2026-11",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "Mudchute DLR",
+        "origin": "Mudchute DLR station, London",
+        "minutes": 9,
+        "steps": [
+          "Leave towards Westferry Road",
+          "Turn left on Westferry Road",
+          "Mast Yard is the second gate on the right; we're Unit 2"
+        ]
+      },
+      {
+        "mode": "bus",
+        "from": "Buses D7 and 135",
+        "stop": "Westferry Road / Ferry Street",
+        "minutes": 4,
+        "steps": [
+          "Get off at Ferry Street",
+          "Walk back sixty metres to the yard gate"
+        ]
+      }
+    ],
+    "parking": [
+      {
+        "name": "Space for your car in the yard",
+        "walk": 0,
+        "price": "free for clients, by appointment",
+        "note": "Tell us your plate the day before.",
+        "paid": "never"
+      }
+    ],
+    "access": [
+      {
+        "label": "Step-free entrance",
+        "yes": true
+      },
+      {
+        "label": "Ground-floor studio",
+        "yes": true
+      }
+    ],
+    "accessNote": "The studio is on the ground floor.",
+    "payment": "Bank transfer or card, by the link we send with the booking."
+  }
+}

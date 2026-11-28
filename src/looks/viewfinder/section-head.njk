@@ -1,0 +1,6 @@
+{#- Viewfinder section opening: the section's timecode marker beside its name, then one line. The marker counts the
+    site's sections from hour one (01:00:12:00…). No small label above. `sec` = { title, intro }; `secId` optional. -#}
+<div class="cf-sh rv">
+  <span class="cf-mark" aria-hidden="true">{{ site.sections | secNumber(sec.title) | mark }}</span>
+  <div><h2 class="cf-h2"{% if secId %} id="{{ secId }}"{% endif %}>{{ sec.title | markup | safe }}</h2>{% if sec.intro %}<p class="cf-intro">{{ sec.intro }}</p>{% endif %}</div>
+</div>
