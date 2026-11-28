@@ -75,6 +75,7 @@ own demo's fonts (its trade's), so Ottoline and Aldous Marr need no entry. Never
 | Taroub | trade/modest | Shippori Mincho | Afacad |
 | Alnwood, The atelier wall | trade/nursery | Gentium Book Plus | Gentium Book Plus |
 | Trainer, Linen (A) | trade/trainer | Ibarra Real Nova | Ibarra Real Nova |
+| Chalden, The bottle (A, round 1) | trade/pop-up | Bona Nova | Inclusive Sans |
 | Sevrell, Turndown | trade/residences | Imbue | Inria Sans |
 | Fendle, Spun (B, round 1, revised) | trade/stalls | Gabarito | Labrada |
 | Tailor, Flannel (A) | trade/tailor | Della Respira | Commissioner |

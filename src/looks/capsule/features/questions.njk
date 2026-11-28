@@ -1,0 +1,8 @@
+{#- Capsule questions: a centred line, then the questions two to a row, each answer beneath in the reading face. -#}
+{%- set sec = site.sections.questions %}
+{%- set qs = site | homeQuestions %}
+<section id="questions" class="cp-qa" data-feature="questions" aria-labelledby="cp-qa-h"{{ "questions" | tierAttr | safe }}><div class="wrap">
+  {%- set secId = "cp-qa-h" %}{% include "core/partials/section-head.njk" %}
+  <dl class="cp-qa-list">{% for item in qs %}<div><dt>{{ item.q }}</dt><dd>{{ item.a }}</dd></div>{% endfor %}</dl>
+  <p class="cp-qa-acts">{% if "plan-visit" | enabled %}<a class="btn ghost" href="{{ 'visit' | href }}">Plan your visit</a>{% endif %}<a class="btn ghost" href="{{ site.messages.general | wa }}" data-wa-text="{{ site.messages.general }}" target="_blank" rel="noopener">Ask us anything else</a></p>
+</div></section>

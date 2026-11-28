@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: waitlist
+permalink: waitlist.html
+feature: popup-waitlist
+eleventyComputed:
+  title: "{{ site.waitlist.title | plain }}"
+  description: "Be the first to know when {{ site.business.name }} opens next, and ask for your city."
+---
+{%- set ph = { title: site.waitlist.title, intro: site.waitlist.intro } %}
+{% include "kits/popup/partials/page-head.njk" %}
+{%- set waitFull = true %}{% include "kits/popup/features/popup-waitlist/popup-waitlist.njk" %}

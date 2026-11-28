@@ -45,6 +45,7 @@ take (`demo-map.md`), its speed numbers (`speed.md`) and the fonts it claims (`f
 | nursery | Day nurseries and pre-schools | `nursery` | [questions](nursery/questions.md) · [playbook](nursery/playbook.md) · [demo-map](nursery/demo-map.md) · [speed](nursery/speed.md) · [fonts](nursery/fonts.md) |
 | personal-trainer | Personal trainers and small gyms | `trainer` | [questions](personal-trainer/questions.md) · [playbook](personal-trainer/playbook.md) · [demo-map](personal-trainer/demo-map.md) · [speed](personal-trainer/speed.md) · [fonts](personal-trainer/fonts.md) |
 | pilates | Reformer Pilates studios | `pilates` | [questions](pilates/questions.md) · [playbook](pilates/playbook.md) · [demo-map](pilates/demo-map.md) · [speed](pilates/speed.md) · [fonts](pilates/fonts.md) |
+| pop-up | Pop-up shops and brand experiences | `popup` | [questions](pop-up/questions.md) · [playbook](pop-up/playbook.md) · [demo-map](pop-up/demo-map.md) · [speed](pop-up/speed.md) · [fonts](pop-up/fonts.md) |
 | residences | Luxury residences and hotel-grade rentals | `residences` | [questions](residences/questions.md) · [playbook](residences/playbook.md) · [demo-map](residences/demo-map.md) · [speed](residences/speed.md) · [fonts](residences/fonts.md) |
 | restaurant | Restaurants | `restaurant` | [questions](restaurant/questions.md) · [playbook](restaurant/playbook.md) · [demo-map](restaurant/demo-map.md) · [speed](restaurant/speed.md) · [fonts](restaurant/fonts.md) |
 | sneaker-cleaner | Sneaker and crep cleaners | — | [playbook](sneaker-cleaner/playbook.md) |

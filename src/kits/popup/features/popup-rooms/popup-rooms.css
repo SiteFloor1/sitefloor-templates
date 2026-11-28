@@ -1,0 +1,15 @@
+/* The rooms (popup-rooms). Tokens only; the look sets type and spacing. */
+.prm { text-align: center; }
+.prm-sub { display: block; }
+.prm-row { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(var(--rooms, 3), minmax(0, 1fr)); gap: var(--s2, 24px); align-items: start; }
+.prm-room { display: block; width: 100%; background: none; border: 0; padding: 0; color: inherit; cursor: pointer; text-align: center; font: inherit; }
+.prm-room img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; opacity: .55; transition: opacity .6s ease; }
+.prm-room[aria-pressed="true"] img { opacity: 1; }
+.prm-room b, .prm-room small { display: block; }
+.prm-room[aria-pressed="true"] small { color: var(--accent-2); }
+.prm-line { margin-left: auto; margin-right: auto; }
+@media (max-width: 760px) {
+  .prm-row { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 12px; }
+  .prm-row li { flex: 0 0 78%; scroll-snap-align: center; min-width: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .prm-room img { transition: none; } }

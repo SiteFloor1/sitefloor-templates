@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: collaborations
+permalink: collaborations.html
+feature: popup-partners
+eleventyComputed:
+  title: "{{ site.partners.title | plain }}"
+  description: "Who {{ site.business.name }} has made things with."
+---
+{%- set ph = { title: site.partners.title, intro: site.partners.intro } %}
+{% include "kits/popup/partials/page-head.njk" %}
+{% include "kits/popup/features/popup-partners/popup-partners.njk" %}

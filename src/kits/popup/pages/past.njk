@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: past
+permalink: past.html
+feature: popup-past
+eleventyComputed:
+  title: "{{ site.pastPage.title | plain }}"
+  description: "Every {{ site.business.name }} pop-up so far."
+---
+{%- set ph = { title: site.pastPage.title, intro: site.pastPage.intro } %}
+{% include "kits/popup/partials/page-head.njk" %}
+{% include "kits/popup/features/popup-past/popup-past.njk" %}

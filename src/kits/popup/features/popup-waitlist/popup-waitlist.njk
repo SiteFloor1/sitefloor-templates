@@ -1,0 +1,19 @@
+{#- The opening countdown and waitlist: the days until the next opening, from the brand's dates, and a way onto the
+    brand's own list. Never a count of people waiting. -#}
+{%- set W = site.waitlist %}{% set nx = site | popNext %}
+<section id="waitlist" class="pwl{% if waitFull %} pwl-full{% endif %}" data-feature="popup-waitlist" aria-labelledby="pwl-h"{{ "popup-waitlist" | tierAttr | safe }}>
+  <div class="wrap pwl-in">
+    <p class="pwl-count" data-wait-count aria-hidden="true"{% if not nx %} hidden{% endif %}>{% if nx %}{{ (nx | popState(site)).days }}{% endif %}</p>
+    <div class="pwl-body">
+      <h2 class="pwl-t" id="pwl-h" data-wait-head>{% if nx %}{{ "Tomorrow in " + nx.city if (nx | popState(site)).days == 1 else "days until " + nx.city }}{% else %}{{ W.title }}{% endif %}</h2>
+      <p class="pwl-i"><span data-wait-where>{% if nx %}{{ nx.place }}, from {{ nx.start | longDate }}.{% endif %}</span>{% if W.intro %} {{ W.intro }}{% endif %}</p>
+      <p class="pwl-acts">
+        {%- if W.formUrl %}<a class="btn" href="{{ W.formUrl }}" target="_blank" rel="noopener">Join the list</a>
+        {%- else %}<a class="btn" href="{{ W.message | wa }}" data-wa-text="{{ W.message }}" target="_blank" rel="noopener">Join the list on WhatsApp</a>{% endif %}
+        {%- if nx %}<button class="btn ghost" type="button" data-wait-ics>Add the opening to calendar</button>{% endif %}
+      </p>
+      {%- if W.done %}<p class="pwl-done">{{ W.done }}</p>{% endif %}
+    </div>
+    {%- if "popup-city" | enabled %}{% include "kits/popup/features/popup-city/popup-city.njk" %}{% endif %}
+  </div>
+</section>

@@ -1,0 +1,22 @@
+{#- Timed entry: the days left in the run, then the times for the chosen day; each time opens the brand's booking page.
+    First painted for the build day; the script works it out for the visitor's day and drops times already gone. -#}
+{%- set s = site | popCurrent %}{% set sec = site.slots %}
+{%- if s %}{% set days = s | popRunDays(site) %}{% set first = (days | selectattr("open") | first) %}
+<section id="slots" class="psl{% if slotsFull %} psl-full{% endif %}" data-feature="popup-slots" aria-labelledby="psl-h"{{ "popup-slots" | tierAttr | safe }}>
+  <div class="wrap psl-in">
+    {%- if sec.photo %}<figure class="psl-photo"><img src="{{ sec.photo.src | img }}" alt="{{ sec.photo.alt }}" width="{{ sec.photo.width }}" height="{{ sec.photo.height }}" loading="lazy" decoding="async"></figure>{% endif %}
+    <div class="psl-body">
+      {%- if not slotsFull %}<h2 class="psl-t" id="psl-h">{{ sec.title | markup | safe }}</h2>{% else %}<h2 class="sr-only" id="psl-h">{{ sec.title | plain }}</h2>{% endif %}
+      {%- if sec.intro %}<p class="psl-i">{{ sec.intro }}</p>{% endif %}
+      <div class="psl-days" role="group" aria-label="Day" tabindex="0" data-slot-days>
+        {%- for d in days %}<button type="button" class="psl-day" data-day="{{ d.date }}" aria-pressed="{{ 'true' if first and d.date == first.date else 'false' }}"{% if not d.open %} disabled{% endif %}>{{ d.date | popShortDay }}<b>{{ d.date | dayOfMonth }}</b></button>{% endfor %}
+      </div>
+      <div class="psl-times" data-slot-times aria-live="polite">
+        {%- if first %}{% for t in (first.date | popTimes(s, site)) %}<a href="{{ site.slots.url | replace('{date}', first.date) | replace('{time}', t | hhmm) }}" target="_blank" rel="noopener" data-time="{{ t }}">{{ t | time12 }}</a>{% endfor %}{% endif %}
+      </div>
+      {%- if sec.note %}<p class="psl-note">{{ sec.note }}</p>{% endif %}
+      {%- if "popup-invite" | enabled %}{% include "kits/popup/features/popup-invite/popup-invite.njk" %}{% endif %}
+    </div>
+  </div>
+</section>
+{%- endif %}
