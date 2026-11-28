@@ -1,0 +1,479 @@
+{
+  "schemaVersion": 4,
+  "id": "test-nursery-client",
+  "mode": "client",
+  "plan": "plus",
+  "kit": "nursery",
+  "look": "caption",
+  "url": "https://test-nursery.co.uk",
+  "indexable": true,
+  "lang": "en-GB",
+  "business": {
+    "name": "Test Nursery",
+    "schemaType": "ChildCare",
+    "description": "A test day nursery for the kit's client checks.",
+    "priceRange": "££",
+    "sameAs": []
+  },
+  "contact": {
+    "whatsapp": "442079460614",
+    "phone": "+44 20 7946 0614",
+    "email": "hello@testnursery.example"
+  },
+  "booking": {
+    "provider": "whatsapp"
+  },
+  "location": {
+    "streetAddress": "1 Test Road",
+    "locality": "Testham",
+    "postcode": "E17 9ZZ",
+    "country": "GB",
+    "area": "A test building with a garden.",
+    "directionsUrl": "https://www.google.com/maps/search/?api=1&query=Walthamstow%2C%20London"
+  },
+  "hours": {
+    "timezone": "Europe/London",
+    "weekly": {
+      "mon": [
+        [
+          "08:00",
+          "18:00"
+        ]
+      ],
+      "tue": [
+        [
+          "08:00",
+          "18:00"
+        ]
+      ],
+      "wed": [
+        [
+          "08:00",
+          "18:00"
+        ]
+      ],
+      "thu": [
+        [
+          "08:00",
+          "18:00"
+        ]
+      ],
+      "fri": [
+        [
+          "08:00",
+          "18:00"
+        ]
+      ],
+      "sat": [],
+      "sun": []
+    },
+    "exceptions": [
+      {
+        "date": "2026-12-25",
+        "ranges": [],
+        "note": "Closed for Christmas"
+      },
+      {
+        "date": "2027-01-01",
+        "ranges": [],
+        "note": "Closed on New Year's Day"
+      }
+    ]
+  },
+  "nav": [
+    {
+      "label": "Rooms",
+      "page": "rooms",
+      "feature": "nursery-rooms",
+      "fallback": "#places"
+    },
+    {
+      "label": "Fees and funding",
+      "page": "fees",
+      "feature": "nursery-funding",
+      "fallback": "#fees"
+    },
+    {
+      "label": "Book a visit",
+      "page": "look-round",
+      "feature": "nursery-visit"
+    },
+    {
+      "label": "A day with us",
+      "page": "day",
+      "feature": "nursery-day"
+    },
+    {
+      "label": "Plan your visit",
+      "page": "visit",
+      "feature": "plan-visit",
+      "fallback": "#visit"
+    }
+  ],
+  "features": [
+    "nursery-wall",
+    "nursery-today",
+    "nursery-places",
+    "nursery-fees",
+    "visit",
+    "plan-visit",
+    "questions",
+    "nursery-rooms",
+    "nursery-funding",
+    "nursery-visit",
+    "nursery-day"
+  ],
+  "hero": {
+    "kicker": "Day nursery, Testham",
+    "title": "The work is on the walls.",
+    "intro": "A day nursery for three months to school age, with a garden off every room.",
+    "photo": {
+      "src": "img/skies.webp",
+      "width": 1800,
+      "height": 1200,
+      "alt": "A wall of children's watercolour skies, rainbows and suns"
+    },
+    "exhibits": [
+      {
+        "photo": {
+          "src": "img/skies.webp",
+          "width": 1800,
+          "height": 1200,
+          "alt": "A wall of children's watercolour skies, rainbows and suns"
+        },
+        "title": "A sky a day, for a fortnight",
+        "room": "Orchard, 3 to school",
+        "area": "Expressive arts and design"
+      },
+      {
+        "photo": {
+          "src": "img/stones.webp",
+          "width": 1800,
+          "height": 1200,
+          "alt": "Stones painted with felt pens on a wooden table, small hands at work"
+        },
+        "title": "Stones, sorted three ways",
+        "room": "Orchard, 3 to school",
+        "area": "Mathematics",
+        "text": "By size, then colour, then counted."
+      }
+    ]
+  },
+  "rooms": {
+    "message": "Hello Test Nursery,",
+    "items": [
+      {
+        "id": "garden",
+        "name": "Garden room",
+        "ages": "3 months to 2",
+        "photo": {
+          "src": "img/room-garden.webp",
+          "width": 900,
+          "height": 1125,
+          "alt": "Pastel wooden shape puzzles on a pale floor"
+        },
+        "text": "Low windows onto the lawn, a sleep room next door, and the same faces every day.",
+        "ratio": "One adult to every three children"
+      },
+      {
+        "id": "workshop",
+        "name": "Workshop",
+        "ages": "2 to 3",
+        "photo": {
+          "src": "img/room-workshop.webp",
+          "width": 900,
+          "height": 1125,
+          "alt": "A felt-lined basket of painted wooden blocks"
+        },
+        "text": "Sand, water, clay and blocks, and a door straight onto the mud kitchen.",
+        "ratio": "One adult to every three children"
+      },
+      {
+        "id": "orchard",
+        "name": "Orchard",
+        "ages": "3 to school",
+        "photo": {
+          "src": "img/room-orchard.webp",
+          "width": 900,
+          "height": 1125,
+          "alt": "Seedlings going into a raised bed beside a green watering can"
+        },
+        "text": "The oldest room: the vegetable beds, the book corner and getting ready for school.",
+        "ratio": "One adult to every three children"
+      }
+    ],
+    "picker": [
+      {
+        "label": "Under 1",
+        "room": "garden"
+      },
+      {
+        "label": "1",
+        "room": "garden"
+      },
+      {
+        "label": "2",
+        "room": "workshop"
+      },
+      {
+        "label": "3",
+        "room": "orchard"
+      },
+      {
+        "label": "4",
+        "room": "orchard"
+      }
+    ]
+  },
+  "fees": {
+    "rate": 9.5,
+    "weeksOpen": 51,
+    "sessions": {
+      "full": {
+        "label": "Full day",
+        "from": "08:00",
+        "to": "18:00",
+        "hours": 10
+      },
+      "am": {
+        "label": "Morning",
+        "from": "08:00",
+        "to": "13:00",
+        "hours": 5
+      }
+    },
+    "items": [
+      {
+        "label": "Full day, 8am to 6pm",
+        "price": 95,
+        "per": "day"
+      },
+      {
+        "label": "Morning, 8am to 1pm",
+        "price": 47.5,
+        "per": "session"
+      },
+      {
+        "label": "Extra hour",
+        "price": 9.5,
+        "per": "hour"
+      }
+    ],
+    "includes": "care, learning, nappies, wipes, sun cream and outings. There is no registration fee or deposit.",
+    "extras": [
+      {
+        "label": "Lunch and snacks",
+        "price": 5.5,
+        "per": "day",
+        "optional": true,
+        "instead": "You can send a packed lunch instead."
+      }
+    ]
+  },
+  "funding": {
+    "checked": "2026-11-26",
+    "stretched": true,
+    "text": "We offer the 15 and 30 funded hours, stretched across the 51 weeks we're open. Funded hours are free: nothing else is ever a condition of them."
+  },
+  "visit": {
+    "message": "Hello Test Nursery,",
+    "minutes": 40,
+    "text": "Every visit is with the room your child would join, at a time the children are busy. Bring your child along.",
+    "times": [
+      {
+        "day": "tue",
+        "time": "10:00"
+      },
+      {
+        "day": "thu",
+        "time": "16:30"
+      },
+      {
+        "day": "sat",
+        "time": "10:00",
+        "week": "first",
+        "note": "Open morning"
+      }
+    ]
+  },
+  "questions": [
+    {
+      "topic": "Starting",
+      "q": "From what age do you take children?",
+      "a": "From three months to school age, in three rooms.",
+      "home": true
+    },
+    {
+      "topic": "Starting",
+      "q": "Is there a waiting list?",
+      "a": "Yes, for months when a room is full. Pick your child's age above to see the next place.",
+      "home": true
+    },
+    {
+      "topic": "Fees",
+      "q": "Do you offer the funded hours?",
+      "a": "Yes, the 15 and 30 hours, stretched across the year. Nothing extra is a condition of them.",
+      "home": true
+    },
+    {
+      "topic": "Day to day",
+      "q": "Will my child go outside every day?",
+      "a": "Yes, every room, every day, in all weathers. We keep spare waterproofs.",
+      "home": true
+    },
+    {
+      "topic": "Day to day",
+      "q": "Can I bring a packed lunch?",
+      "a": "Yes. Lunch is optional; many families send their own."
+    },
+    {
+      "topic": "Day to day",
+      "q": "What if my child has additional needs?",
+      "a": "Please message us before a visit: we'll talk it through with you."
+    }
+  ],
+  "visitInfo": {
+    "kicker": "Plan your visit",
+    "title": "1 Test Road.",
+    "intro": "Ten minutes on foot from Walthamstow Central.",
+    "journeys": [
+      {
+        "mode": "walk",
+        "from": "Walthamstow Central",
+        "origin": "Walthamstow Central station, London",
+        "minutes": 10,
+        "steps": [
+          "Leave by the Hoe Street exit and turn right",
+          "Turn left onto Ferrier Lane by the church",
+          "The Lodge is the brick house behind the green gate"
+        ]
+      },
+      {
+        "mode": "bus",
+        "from": "The 34 bus",
+        "origin": "Walthamstow, London",
+        "minutes": 3,
+        "stop": "Ferrier Lane",
+        "steps": [
+          "Get off at Ferrier Lane",
+          "Walk back past the church",
+          "The green gate on the left"
+        ]
+      }
+    ],
+    "parking": [
+      {
+        "name": "Drop-off bays on Ferrier Lane",
+        "walk": 1,
+        "paid": "never",
+        "note": "Ten minutes at drop-off and collection."
+      }
+    ],
+    "access": [
+      {
+        "label": "Step-free entrance",
+        "yes": true
+      },
+      {
+        "label": "Buggy storage",
+        "yes": true
+      },
+      {
+        "label": "Accessible toilet",
+        "yes": true
+      }
+    ],
+    "payment": "Monthly by bank transfer; Tax-Free Childcare and childcare vouchers welcome.",
+    "checked": "2026-11"
+  },
+  "messages": {
+    "general": "Hello Test Nursery, I have a question."
+  },
+  "places": {
+    "source": "sheet",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/TEST/pub?output=csv"
+  },
+  "today": {
+    "source": "sheet",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/TEST2/pub?output=csv"
+  },
+  "sections": {
+    "places": {
+      "title": "Places, room by room.",
+      "intro": "Every room opens onto the garden. Six months ahead, kept up to date by the nursery."
+    },
+    "fees": {
+      "title": "Fees.",
+      "intro": "Every price includes everything you have to pay."
+    },
+    "visitRequest": {
+      "title": "Come and look round.",
+      "intro": "Forty minutes, with the room your child would join. Bring them along."
+    },
+    "questions": {
+      "title": "What parents ask."
+    },
+    "visit": {
+      "title": "The Lodge, Ferrier Lane.",
+      "intro": "Ten minutes on foot from Walthamstow Central."
+    }
+  },
+  "roomsPage": {
+    "kicker": "Rooms",
+    "title": "Rooms by age.",
+    "intro": "Three rooms, each with its own door to the garden."
+  },
+  "feesPage": {
+    "kicker": "Fees and funding",
+    "title": "Fees and funding.",
+    "intro": "Every rate, what it includes, and the funded hours worked out."
+  },
+  "visitPage": {
+    "kicker": "Book a visit",
+    "title": "Come and look round.",
+    "intro": "Forty minutes, with the room your child would join."
+  },
+  "dayPage": {
+    "kicker": "A day with us",
+    "title": "A day with us.",
+    "intro": "From coats on pegs to home time, in the nursery's own hours."
+  },
+  "day": {
+    "closes": "18:00",
+    "moments": [
+      {
+        "time": "08:00",
+        "title": "Coats on pegs",
+        "text": "Wellies by the door, a hello from their key person.",
+        "photo": {
+          "src": "img/day-0800.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "Small wellies, a spade and a yellow scale by the garden door"
+        }
+      },
+      {
+        "time": "09:30",
+        "title": "Work at the tables",
+        "text": "Stones, paint, clay: each room sets out the morning's work.",
+        "photo": {
+          "src": "img/day-0930.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "Stones and felt pens on a wooden table, small hands at work"
+        }
+      },
+      {
+        "time": "11:00",
+        "title": "The garden",
+        "text": "Outside whatever the weather: the beds, the mud kitchen, the lawn.",
+        "photo": {
+          "src": "img/day-1100.webp",
+          "width": 800,
+          "height": 1000,
+          "alt": "Three children seen from behind, holding hands on a wide lawn"
+        }
+      }
+    ]
+  }
+}

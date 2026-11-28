@@ -1,0 +1,10 @@
+{#- Fees (home): the rates and extras beside the funded hours. Links on to the fees page when it is on. -#}
+{%- set sec = site.sections.fees %}
+<section id="fees" class="nu-fees" data-feature="nursery-fees"><div class="wrap">
+  {% include "core/partials/section-head.njk" %}
+  <div class="nu-fees-in">
+    {% include "kits/nursery/features/nursery-fees/rates.njk" %}
+    {% include "kits/nursery/features/nursery-fees/funding.njk" %}
+  </div>
+  {%- if "nursery-funding" | enabled and pageId != "fees" %}<p class="nu-more"><a class="cp-link" href="{{ 'fees' | href }}"{{ "nursery-funding" | tierAttr | safe }}>Fees and funding in full, and when funding can start</a></p>{% endif %}
+</div></section>

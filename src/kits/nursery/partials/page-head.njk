@@ -1,0 +1,7 @@
+{#- An inner page's opening, like a gallery label: the nursery's name and the page's kicker on one line under a rule,
+    the title large in the roman, its line beneath. Set `ph` to { kicker, title, intro }. -#}
+<header class="ph cp-ph"><div class="wrap">
+  <p class="cp-ph-k"><a href="{{ 'index' | href }}">{{ site.business.name }}</a>{% if ph.kicker %} <span aria-hidden="true">/</span> {{ ph.kicker }}{% endif %}</p>
+  <h1 class="cp-ph-t">{{ ph.title | markup | safe }}</h1>
+  {%- if ph.intro %}<p class="cp-ph-i">{{ ph.intro }}</p>{% endif %}
+</div></header>

@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: fees
+permalink: fees.html
+feature: nursery-funding
+eleventyComputed:
+  title: "{{ site.feesPage.title | plain }}"
+  description: "Fees and funded hours at {{ site.business.name }}, {{ site.location.locality }}: every rate, the optional extras, and when funding can start."
+---
+{%- set ph = site.feesPage %}
+{% include "kits/nursery/partials/page-head.njk" %}
+{% include "kits/nursery/features/nursery-funding/nursery-funding.njk" %}

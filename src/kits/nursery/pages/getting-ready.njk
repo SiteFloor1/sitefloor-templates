@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: getting-ready
+permalink: getting-ready.html
+feature: nursery-ready
+eleventyComputed:
+  title: "{{ site.readyPage.title | plain }}"
+  description: "Getting ready for {{ site.business.name }}: what to pack, room by room, and what to ask on a visit."
+---
+{%- set ph = site.readyPage %}
+{% include "kits/nursery/partials/page-head.njk" %}
+{% include "kits/nursery/features/nursery-ready/nursery-ready.njk" %}

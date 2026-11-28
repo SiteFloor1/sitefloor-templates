@@ -1,0 +1,31 @@
+{#- Places, room by room: the age buttons and their answer, then every room as a line in a list of works: its photo,
+    name and ages, six months of places, and a question to the nursery. Months are filled in from the nursery's sheet;
+    until then (or if it can't be read) each room offers "Ask about a place" and no number. -#}
+{%- set sec = site.sections.places %}
+{%- set months = build.today | nMonths(site.places.months or 6) %}
+<section id="places" class="nu-places" data-feature="nursery-places"><div class="wrap">
+  <div class="nu-places-head">
+    {% include "core/partials/section-head.njk" %}
+    <div class="nu-ages-box">
+      <p class="nu-ages-lab" id="nu-age-lab">Your child's age</p>
+      <div class="nu-ages" role="group" aria-labelledby="nu-age-lab">
+        {%- for b in site.rooms.picker %}<button type="button" data-nu-age="{{ b.room }}" aria-pressed="{{ 'true' if loop.first else 'false' }}">{{ b.label }}</button>{% endfor %}
+      </div>
+    </div>
+  </div>
+  {%- for r in site.rooms.items %}{% if r.id == site.rooms.picker[0].room %}<p class="nu-answer" data-nu-answer aria-live="polite">{{ r.name }}, {{ r.ages }}.</p>{% endif %}{% endfor %}
+  <div class="nu-works">
+    {%- for r in site.rooms.items %}
+    <article class="nu-work{% if r.id == site.rooms.picker[0].room %} is-on{% endif %}" data-nu-room="{{ r.id }}">
+      <img src="{{ r.photo.src | img }}" alt="{{ r.photo.alt }}" width="{{ r.photo.width }}" height="{{ r.photo.height }}" loading="lazy" decoding="async">
+      <div class="nu-work-n"><h3>{{ r.name }}</h3><p>{{ r.ages }}</p></div>
+      <div class="nu-months" data-nu-months hidden>
+        {%- for ym in months %}<div data-nu-month="{{ r.id }}|{{ ym }}"><span>{{ ym | nMonth }}</span><b></b></div>{% endfor %}
+      </div>
+      <a class="nu-ask" href="{{ (site.rooms.message + ' is there a place in the ' + r.name + ' (' + r.ages + ')?') | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.rooms.message }} is there a place in the {{ r.name }} ({{ r.ages }})?"{% endif %} target="_blank" rel="noopener" data-nu-ask>Ask about a place</a>
+    </article>
+    {%- endfor %}
+  </div>
+  {%- if site.mode == "demo" %}<p class="nu-fine">Sample places. A nursery updates them in one Google Sheet.</p>
+  {%- elif site.rooms.note %}<p class="nu-fine">{{ site.rooms.note }}</p>{% endif %}
+</div></section>

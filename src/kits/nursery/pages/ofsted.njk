@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: ofsted
+permalink: ofsted.html
+feature: nursery-ofsted
+eleventyComputed:
+  title: "{{ site.ofstedPage.title | plain }}"
+  description: "Ofsted and policies at {{ site.business.name }}, {{ site.location.locality }}: the latest report, linked, and the nursery's policies."
+---
+{%- set ph = site.ofstedPage %}
+{% include "kits/nursery/partials/page-head.njk" %}
+{% include "kits/nursery/features/nursery-ofsted/nursery-ofsted.njk" %}

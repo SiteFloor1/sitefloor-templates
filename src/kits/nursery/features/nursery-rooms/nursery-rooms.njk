@@ -1,0 +1,17 @@
+{#- Rooms by age: each room as a wall label beside its photograph: name, ages, what it's like and its ratio in the
+    nursery's own words. Rooms alternate sides. -#}
+<div class="nu-rooms" data-feature="nursery-rooms"><div class="wrap">
+  {%- for r in site.rooms.items %}
+  <article class="nu-room" id="room-{{ r.id }}">
+    <img src="{{ r.photo.src | img }}" alt="{{ r.photo.alt }}" width="{{ r.photo.width }}" height="{{ r.photo.height }}" loading="{{ 'eager' if loop.first else 'lazy' }}" decoding="async">
+    <div class="nu-room-l">
+      <h2>{{ r.name }}</h2>
+      <p class="nu-room-a">{{ r.ages }}</p>
+      {%- if r.text %}<p>{{ r.text }}</p>{% endif %}
+      {%- if r.ratio %}<dl class="nu-kv"><dt>Ratio</dt><dd>{{ r.ratio }}</dd></dl>{% endif %}
+      {%- if "nursery-places" | enabled %}<a class="cp-link" href="{{ 'index' | href }}#places">Places in the {{ r.name }}</a>{% endif %}
+    </div>
+  </article>
+  {%- endfor %}
+  {%- if site.mode == "demo" %}<p class="nu-fine">Sample rooms and ratios for a fictional nursery. A real site states its own.</p>{% endif %}
+</div></div>

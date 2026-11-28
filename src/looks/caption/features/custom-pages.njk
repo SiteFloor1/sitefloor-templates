@@ -1,0 +1,20 @@
+{#- The atelier wall, general pages (learning, the garden, the team, the journal): after the page head, each text block
+    is a heading in the italic with its words beside; a photo runs large with an italic caption; a list is ruled; the
+    request closes the page on a caption card. -#}
+{%- set ph = { kicker: cp.kicker or "", title: cp.title, intro: cp.intro } %}
+{% include "kits/nursery/partials/page-head.njk" %}
+<div class="cp-gp" data-feature="custom-pages"><div class="wrap">
+  {%- for b in cp.blocks %}
+  {%- if b.type == "text" %}
+  <section class="cp-gp-row"><h2>{{ b.heading or "" }}</h2><div>{% for para in b.body | paragraphs %}<p>{{ para }}</p>{% endfor %}</div></section>
+  {%- elif b.type == "photo" %}
+  <figure class="cp-gp-fig"><img src="{{ b.src | img }}" alt="{{ b.alt }}" loading="lazy" decoding="async">{% if b.caption %}<figcaption>{{ b.caption }}</figcaption>{% endif %}</figure>
+  {%- elif b.type == "list" %}
+  <section class="cp-gp-row"><h2>{{ b.heading or "" }}</h2><ul class="cp-gp-list">{% for item in b.items %}<li>{{ item }}</li>{% endfor %}</ul></section>
+  {%- elif b.type == "book" %}
+  <section class="cp-card cp-gp-book"><p>{{ b.text }}</p>
+    <a class="cp-solid" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{{ b.label or build.booking.label }}</a></section>
+  {%- endif %}
+  {%- endfor %}
+  {%- if site.mode == "demo" %}<p class="nu-fine">Sample words for a fictional nursery.</p>{% endif %}
+</div></div>

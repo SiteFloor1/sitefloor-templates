@@ -1,0 +1,8 @@
+/* Term dates: a ruled list, date large; closures marked in the accent. */
+.nu-term-list { list-style: none; padding: 0; margin: 0 0 28px; border-top: 1px solid var(--text); max-width: 900px; }
+.nu-term-list li { display: grid; grid-template-columns: minmax(0, 260px) minmax(0, 1fr) auto; gap: 20px; align-items: baseline; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.nu-term-list li[hidden] { display: none; }
+.nu-term-d { font-family: var(--font-display); font-size: 24px; }
+.nu-term-k { color: var(--muted); font-style: italic; }
+.nu-term-list [data-kind="closed"] .nu-term-k { color: var(--accent); }
+@media (max-width: 760px) { .nu-term-list li { grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; } .nu-term-l { grid-column: 1; } .nu-term-k { grid-row: 1; grid-column: 2; } }

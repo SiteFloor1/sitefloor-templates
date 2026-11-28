@@ -1,0 +1,15 @@
+{#- The atelier wall, hero: the children's work full width, one piece at a time; under it the label strip (name and
+    pages, like a museum label under the work), the line large in the roman, and the caption card overlapping the
+    work's foot. Today's notice, when there is one, sits above the line. -#}
+{%- set h = site.hero %}
+<section class="hero cp-hero" aria-labelledby="cp-h1">
+  {%- if "nursery-wall" | enabled %}{% include "kits/nursery/features/nursery-wall/nursery-wall.njk" %}
+  {%- else %}<div class="nu-wall"><div class="nu-frame"><img class="nu-piece is-on" src="{{ h.photo.src | img }}" alt="{{ h.photo.alt }}" width="{{ h.photo.width }}" height="{{ h.photo.height }}" fetchpriority="high" decoding="async"></div></div>{% endif %}
+  <div class="wrap cp-under">
+    <header class="nav cp-top">{% include "looks/caption/partials/strip.njk" %}</header>
+    {%- if "nursery-today" | enabled %}{% include "kits/nursery/features/nursery-today/nursery-today.njk" %}{% endif %}
+    <h1 id="cp-h1" class="cp-h1">{{ h.title | plain }}</h1>
+    {%- if h.intro %}<p class="cp-intro">{{ h.intro }}</p>{% endif %}
+    {%- if site.mode == "demo" %}<p class="nu-fine cp-fict">A fictional nursery. Captions, rooms, places and fees are samples.</p>{% endif %}
+  </div>
+</section>

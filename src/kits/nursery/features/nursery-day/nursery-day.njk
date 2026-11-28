@@ -1,0 +1,16 @@
+{#- A day with us: the day in photographs, each moment's time large over its photo, title and line; on a weekday the
+    moment under way says "Around now". -#}
+<div class="nu-dayline" data-feature="nursery-day"><div class="wrap">
+  <ol class="nu-moments" tabindex="0" aria-label="The day, moment by moment">
+    {%- for m in site.day.moments %}
+    <li class="nu-moment" data-nu-moment="{{ loop.index0 }}">
+      <img src="{{ m.photo.src | img }}" alt="{{ m.photo.alt }}" width="{{ m.photo.width }}" height="{{ m.photo.height }}" loading="lazy" decoding="async">
+      <p class="nu-moment-t"><time>{{ m.time | nTime }}</time><span class="nu-now" hidden>Around now</span></p>
+      <h2>{{ m.title }}</h2>
+      <p>{{ m.text }}</p>
+    </li>
+    {%- endfor %}
+  </ol>
+  {%- if site.day.note %}<p class="nu-fine">{{ site.day.note }}</p>{% endif %}
+  {%- if site.mode == "demo" %}<p class="nu-fine">A sample day. A nursery's own timings go here.</p>{% endif %}
+</div></div>

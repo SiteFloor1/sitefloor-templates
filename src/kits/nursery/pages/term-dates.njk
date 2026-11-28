@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: term-dates
+permalink: term-dates.html
+feature: nursery-terms
+eleventyComputed:
+  title: "{{ site.termsPage.title | plain }}"
+  description: "Term dates and closures at {{ site.business.name }}, {{ site.location.locality }}, in one calendar file."
+---
+{%- set ph = site.termsPage %}
+{% include "kits/nursery/partials/page-head.njk" %}
+{% include "kits/nursery/features/nursery-terms/nursery-terms.njk" %}

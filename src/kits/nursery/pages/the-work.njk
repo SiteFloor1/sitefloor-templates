@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: the-work
+permalink: the-work.html
+feature: nursery-work
+eleventyComputed:
+  title: "{{ site.workPage.title | plain }}"
+  description: "The children's work at {{ site.business.name }}, {{ site.location.locality }}, with what each piece was about."
+---
+{%- set ph = site.workPage %}
+{% include "kits/nursery/partials/page-head.njk" %}
+{% include "kits/nursery/features/nursery-work/nursery-work.njk" %}

@@ -1,0 +1,19 @@
+{#- The atelier wall, header. On the home page the name and menu sit under the work, like a museum label (the hero
+    draws them); on inner pages this strip opens the page: the pebble and the name on the left, the pages on the right,
+    "Come and look round" in the accent. The menu button opens every page on a phone. -#}
+{%- if pageId != "index" %}
+<header class="nav cp-nav"><div class="wrap">{% include "looks/caption/partials/strip.njk" %}</div></header>
+{%- endif %}
+<div class="mnav cp-sheet" id="mnav" hidden><div class="wrap cp-sheet-in">
+  <nav aria-label="Pages">
+    <a href="{{ 'index' | href }}"{% if pageId == "index" %} aria-current="page"{% endif %}>Home</a>
+    {%- for item in site.nav | navItems(pageId) %}
+    <a href="{{ item.url }}"{{ item.feature | tierAttr | safe }}{% if item.page and item.page == pageId %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+  </nav>
+  <div class="cp-sheet-side">
+    <p class="cp-now" data-live-status><span class="dot" aria-hidden="true"></span> <span data-status-text>Opening hours</span></p>
+    <address>{{ site.location.streetAddress }}<br>{{ site.location.locality }} {{ site.location.postcode }}</address>
+    <a class="cp-link" href="{{ site.messages.general | book }}"{% if build.booking.whatsapp %} data-wa-text="{{ site.messages.general }}"{% endif %} target="_blank" rel="noopener">{{ "WhatsApp the nursery" if build.booking.whatsapp else build.booking.label }}</a>
+  </div>
+</div></div>

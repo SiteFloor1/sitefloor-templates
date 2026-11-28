@@ -1,0 +1,17 @@
+{#- The nursery's rates (each includes everything compulsory: CMA), what every price includes, and the optional
+    extras, each named as optional with what a family can do instead. Shared by the home section and the fees page. -#}
+{%- set f = site.fees %}
+<div class="nu-rates">
+  <dl class="nu-rate-list">
+    {%- for x in f.items %}<div><dt>{{ x.label }}</dt><dd><b>{{ x.price | nPounds }}</b> {{ x.per | nPer }}</dd></div>{% endfor %}
+  </dl>
+  <p class="nu-includes">Every price includes {{ f.includes }}</p>
+  {%- if f.extras and f.extras.length %}
+  <div class="nu-extras">
+    <h3>Optional, never a condition of a place or of funded hours</h3>
+    <ul>{% for x in f.extras %}<li><span>{{ x.label }}</span> <b>{{ x.price | nPounds }}</b> {{ x.per | nPer }}{% if x.instead %}<br><span class="nu-fine">{{ x.instead }}</span>{% endif %}</li>{% endfor %}</ul>
+  </div>
+  {%- endif %}
+  {%- if f.note %}<p class="nu-fine">{{ f.note }}</p>{% endif %}
+  {%- if site.mode == "demo" %}<p class="nu-fine">Sample rates for a fictional nursery.</p>{% endif %}
+</div>

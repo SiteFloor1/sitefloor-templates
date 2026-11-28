@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: day
+permalink: day.html
+feature: nursery-day
+eleventyComputed:
+  title: "{{ site.dayPage.title | plain }}"
+  description: "A day at {{ site.business.name }}, {{ site.location.locality }}: arrival, the garden, lunch, rest and home time."
+---
+{%- set ph = site.dayPage %}
+{% include "kits/nursery/partials/page-head.njk" %}
+{% include "kits/nursery/features/nursery-day/nursery-day.njk" %}

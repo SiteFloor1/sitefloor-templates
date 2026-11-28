@@ -1,0 +1,10 @@
+/* Settling in: the nursery's words and the first day on the left; the sessions as a ruled list on the right. */
+.nu-settle-in { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; align-items: start; }
+.nu-settle-q input { font: inherit; font-size: 17px; padding: 10px 12px; min-height: 46px; border: 1px solid var(--text); background: var(--surface); color: var(--text); }
+.nu-sessions { list-style: none; padding: 0; margin: 0 0 24px; border-top: 1px solid var(--text); }
+.nu-sessions li { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 2px 20px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.nu-ses-d { font-family: var(--font-display); font-size: 24px; grid-row: 1 / 3; }
+.nu-ses-l { font-style: italic; }
+.nu-ses-t { color: var(--muted); }
+.nu-settle-acts[hidden] { display: none; }
+@media (max-width: 760px) { .nu-settle-in { grid-template-columns: 1fr; gap: 24px; } .nu-sessions li { grid-template-columns: 1fr; } .nu-ses-d { grid-row: auto; } }

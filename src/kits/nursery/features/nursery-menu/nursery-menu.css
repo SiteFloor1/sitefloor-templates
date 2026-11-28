@@ -1,0 +1,14 @@
+/* Food and menus: a ruled table; on a phone each day becomes a block with its meals labelled. */
+.nu-menu-in { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: 48px; align-items: start; }
+.nu-menu-t { width: 100%; border-collapse: collapse; border-top: 1px solid var(--text); }
+.nu-menu-t th, .nu-menu-t td { text-align: left; vertical-align: top; padding: 14px 12px 14px 0; border-bottom: 1px solid var(--line); }
+.nu-menu-t thead th { color: var(--muted); font-weight: 400; }
+.nu-menu-t tbody th { font-style: italic; font-weight: 400; white-space: nowrap; }
+.nu-allergy { background: var(--surface); border-top: 3px solid var(--accent); padding: 22px 24px; }
+@media (max-width: 760px) {
+  .nu-menu-in { grid-template-columns: 1fr; gap: 28px; }
+  .nu-menu-t thead { display: none; }
+  .nu-menu-t tr { display: grid; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .nu-menu-t th, .nu-menu-t td { border: 0; padding: 2px 0; }
+  .nu-menu-t td::before { content: attr(data-l) ": "; color: var(--muted); }
+}

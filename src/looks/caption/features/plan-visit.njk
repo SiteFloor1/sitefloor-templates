@@ -1,0 +1,79 @@
+{#- The atelier wall, Plan your visit: the address on a caption card with whether it's open now and the journeys in
+    one line; then the journeys side by side, the leave-by helper, parking, access and paying in three columns, the week,
+    and the questions grouped by topic. Works without JavaScript. -#}
+{%- set v = site.visitInfo %}
+{%- set journeys = v.journeys or [] %}
+{%- set parking = v.parking or [] %}
+{%- set ph = { kicker: v.kicker, title: v.title, intro: v.intro } %}
+{% include "kits/nursery/partials/page-head.njk" %}
+<div class="cp-pv" data-feature="plan-visit">
+  <section class="cp-pv-top wrap" aria-label="The nursery">
+    <div class="cp-card">
+      <address>{{ site.location.streetAddress }}<br>{{ site.location.locality }}<br><b>{{ site.location.postcode }}</b></address>
+      <p class="cp-now" data-live-status><span class="dot" aria-hidden="true"></span><span data-status-text>Opening hours below</span></p>
+    </div>
+    <p class="cp-pv-glance">
+      {%- for j in journeys %}<span>{{ j.from }}: <b>{{ j | boardTime }}</b></span>{% endfor %}
+      {%- for c in parking %}<span>{{ c.name }}: <b data-parking="{{ loop.index0 }}">{% if c.walk is defined %}{{ c.walk }} min walk{% endif %}</b></span>{% endfor %}
+    </p>
+    {%- if site.mode == "demo" %}<p class="nu-fine">Example journeys and parking for a fictional nursery.</p>
+    {%- elif v.checked %}<p class="nu-fine">Journey times, parking and access checked with {{ site.business.name }} in {{ v.checked | checkedText }}. Driving times are outside rush hour.</p>{% endif %}
+  </section>
+
+  {%- if journeys.length %}
+  <section class="cp-pv-ways wrap" aria-labelledby="pv-j-h">
+    <h2 class="cp-pv-h" id="pv-j-h">Getting here</h2>
+    <div class="cp-pv-cols">
+      {%- for j in journeys %}
+      <article class="cp-pv-way" data-pv-panel>
+        <h3>{{ j.from }}</h3>
+        <p class="nu-fine">{% if (j.mode | modeWords).about %}About {% endif %}{{ j.minutes }} min {{ (j.mode | modeWords).verb }}{% if j.stop %}, get off at {{ j.stop }}{% endif %}</p>
+        <ol>{% for step in j.steps %}<li>{{ step }}</li>{% endfor %}<li><b>{{ site.business.name }}</b>, {{ site.location.streetAddress }}</li></ol>
+        <a class="cp-link" href="{{ j | directionsFor }}" target="_blank" rel="noopener">In Google Maps</a>
+      </article>
+      {%- endfor %}
+    </div>
+    <div class="cp-pv-leave" data-pv-leave hidden>
+      <label for="pv-appt">Drop-off at</label>
+      <input type="time" id="pv-appt" step="900" data-pv-appt>
+      <ul data-pv-leave-list aria-live="polite"></ul>
+    </div>
+  </section>
+  {%- endif %}
+
+  {%- if parking.length or v.access or v.payment %}
+  <section class="cp-pv-facts wrap" aria-label="Parking, access and paying">
+    {%- if parking.length %}
+    <div class="rv"><h2 class="cp-pv-h3">Parking</h2>
+      {%- for c in parking %}<p><b>{{ c.name }}</b><span data-parking-card="{{ loop.index0 }}" hidden></span><br>{{ c | parkingSummary }}{% if c.walk is defined %} · {{ c.walk }} min walk{% endif %}{% if c.price %} · {{ c.price }}{% endif %}{% if c.note %}<br><span class="nu-fine">{{ c.note }}</span>{% endif %}</p>{% endfor %}
+    </div>
+    {%- endif %}
+    {%- if v.access %}
+    <div class="rv"><h2 class="cp-pv-h3">Access</h2>
+      <ul class="cp-pv-access">{% for a in v.access %}<li data-yes="{{ 'yes' if a.yes else 'no' }}">{{ a.label }}<span class="sr-only">: {{ "yes" if a.yes else "no" }}</span></li>{% endfor %}</ul>
+      {%- if v.accessNote %}<p class="nu-fine">{{ v.accessNote }}</p>{% endif %}
+    </div>
+    {%- endif %}
+    {%- if v.payment %}<div class="rv"><h2 class="cp-pv-h3">Paying</h2><p>{{ v.payment }}</p></div>{% endif %}
+  </section>
+  {%- endif %}
+
+  <section class="cp-pv-week wrap" aria-labelledby="pv-w-h">
+    <h2 class="cp-pv-h" id="pv-w-h">Opening hours</h2>
+    <p class="nu-fine" data-status-detail></p>
+    {% include "looks/caption/partials/week.njk" %}
+  </section>
+
+  {%- set groups = site | questionTopics %}
+  {%- if groups.length %}
+  <section class="cp-pv-qs wrap" id="questions" aria-labelledby="pv-q-h">
+    <h2 class="cp-pv-h" id="pv-q-h">What parents ask</h2>
+    {%- for g in groups %}
+    <div class="cp-pv-topic">
+      <h3>{{ g.topic }}</h3>
+      <dl>{% for item in g.items %}<dt>{{ item.q }}</dt><dd>{{ item.a }}</dd>{% endfor %}</dl>
+    </div>
+    {%- endfor %}
+  </section>
+  {%- endif %}
+</div>

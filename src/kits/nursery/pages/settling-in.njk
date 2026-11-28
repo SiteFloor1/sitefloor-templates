@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: settling-in
+permalink: settling-in.html
+feature: nursery-settling
+eleventyComputed:
+  title: "{{ site.settlingPage.title | plain }}"
+  description: "Settling in at {{ site.business.name }}: the nursery's sessions, dated from your start day."
+---
+{%- set ph = site.settlingPage %}
+{% include "kits/nursery/partials/page-head.njk" %}
+{% include "kits/nursery/features/nursery-settling/nursery-settling.njk" %}

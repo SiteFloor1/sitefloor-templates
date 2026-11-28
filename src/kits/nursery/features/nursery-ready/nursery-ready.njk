@@ -1,0 +1,14 @@
+{#- Getting ready: what to pack, room by room (a list per room), then the questions worth asking on a visit. Prints on
+    one or two pages. -#}
+<div class="nu-ready" data-feature="nursery-ready"><div class="wrap">
+  <div class="nu-pack">
+    {%- for p in site.ready.pack %}
+    <section class="nu-pack-one"><h2>{{ p.room | nRoom(site.rooms.items) }}</h2><ul>{% for t in p.items %}<li>{{ t }}</li>{% endfor %}</ul></section>
+    {%- endfor %}
+  </div>
+  <section class="nu-askq" aria-labelledby="nu-askq-h">
+    <h2 id="nu-askq-h">Worth asking on a visit</h2>
+    <ol>{% for q in site.ready.questions %}<li>{{ q }}</li>{% endfor %}</ol>
+  </section>
+  <p class="nu-print-p"><button class="cp-link" type="button" data-nu-print hidden>Print this page</button></p>
+</div></div>

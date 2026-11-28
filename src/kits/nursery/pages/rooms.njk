@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: rooms
+permalink: rooms.html
+feature: nursery-rooms
+eleventyComputed:
+  title: "{{ site.roomsPage.title | plain }}"
+  description: "Rooms by age at {{ site.business.name }}, {{ site.location.locality }}: each room, its ages and its ratio, in the nursery's words."
+---
+{%- set ph = site.roomsPage %}
+{% include "kits/nursery/partials/page-head.njk" %}
+{% include "kits/nursery/features/nursery-rooms/nursery-rooms.njk" %}

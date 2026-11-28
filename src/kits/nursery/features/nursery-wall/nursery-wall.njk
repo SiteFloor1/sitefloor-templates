@@ -1,0 +1,26 @@
+{#- The work on the walls (first screen): every piece in the frame, the first shown; the caption card says what it is,
+    the room, the area of learning; two arrows step through them. Without JavaScript the first piece and its caption stay. -#}
+{%- set ex = site.hero.exhibits %}
+<div class="nu-wall" data-feature="nursery-wall">
+  <div class="nu-frame">
+    {%- for x in ex %}
+    <img class="nu-piece{% if loop.first %} is-on{% endif %}" src="{{ x.photo.src | img }}" alt="{{ x.photo.alt }}" width="{{ x.photo.width }}" height="{{ x.photo.height }}"{% if loop.first %} fetchpriority="high"{% else %} loading="lazy"{% endif %} decoding="async" data-nu-piece="{{ loop.index0 }}"{% if not loop.first %} hidden{% endif %}>
+    {%- endfor %}
+  </div>
+  <aside class="nu-label" aria-label="About this piece" aria-live="polite">
+    {%- for x in ex %}
+    <div class="nu-label-one" data-nu-cap="{{ loop.index0 }}"{% if not loop.first %} hidden{% endif %}>
+      <p class="nu-no">No. {{ loop.index }} of {{ ex.length }}</p>
+      <h2 class="nu-title">{{ x.title }}</h2>
+      <dl class="nu-kv"><dt>Room</dt><dd>{{ x.room }}</dd><dt>Learning</dt><dd>{{ x.area }}</dd></dl>
+      {%- if x.text %}<p class="nu-note">{{ x.text }}</p>{% endif %}
+    </div>
+    {%- endfor %}
+    {%- if ex.length > 1 %}
+    <div class="nu-steps">
+      {%- if site.mode == "demo" %}<p class="nu-fine">Sample captions</p>{% else %}<span></span>{% endif %}
+      <div class="nu-arrows"><button class="nu-sq" type="button" data-nu-prev aria-label="Previous piece">←</button><button class="nu-sq" type="button" data-nu-next-piece aria-label="Next piece">→</button></div>
+    </div>
+    {%- elif site.mode == "demo" %}<p class="nu-fine">Sample caption</p>{% endif %}
+  </aside>
+</div>

@@ -1,0 +1,10 @@
+{#- Food and menus: the week as a table (a list of days on a phone), and the nursery's own allergy statement beside. -#}
+<div class="nu-menu" data-feature="nursery-menu"><div class="wrap nu-menu-in">
+  <table class="nu-menu-t">
+    <caption class="sr-only">This week's menu</caption>
+    <thead><tr><th scope="col">Day</th>{% if site.menu.days[0].breakfast %}<th scope="col">Breakfast</th>{% endif %}<th scope="col">Lunch</th>{% if site.menu.days[0].tea %}<th scope="col">Tea</th>{% endif %}</tr></thead>
+    <tbody>{% for d in site.menu.days %}<tr><th scope="row">{{ d.day | nDay }}</th>{% if site.menu.days[0].breakfast %}<td data-l="Breakfast">{{ d.breakfast }}</td>{% endif %}<td data-l="Lunch">{{ d.lunch }}</td>{% if site.menu.days[0].tea %}<td data-l="Tea">{{ d.tea }}</td>{% endif %}</tr>{% endfor %}</tbody>
+  </table>
+  <aside class="nu-allergy"><h2>Allergies and diets</h2><p>{{ site.menu.allergens }}</p>{% if site.menu.note %}<p class="nu-fine">{{ site.menu.note }}</p>{% endif %}
+    {%- if site.mode == "demo" %}<p class="nu-fine">A sample menu and statement for a fictional nursery.</p>{% endif %}</aside>
+</div></div>
