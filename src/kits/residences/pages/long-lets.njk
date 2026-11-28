@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: long-lets
+permalink: long-lets.html
+feature: residences-long
+eleventyComputed:
+  title: "Long lets"
+  description: "A rolling tenancy at {{ site.business.name }}: priced by the month, with only the payments the law permits."
+---
+{%- set ph = { title: "Long lets", intro: site.longLets.intro } %}
+{% include "kits/residences/partials/page-head.njk" %}
+<div class="wrap">{% include "kits/residences/features/residences-long/residences-long.njk" %}</div>

@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: fees
+permalink: fees.html
+feature: residences-fees
+eleventyComputed:
+  title: "Fees and terms"
+  description: "What a stay at {{ site.business.name }} costs and includes, what a tenancy may charge, and the scheme that handles complaints."
+---
+{%- set ph = { title: "Fees and terms", intro: site.fees.intro } %}
+{% include "kits/residences/partials/page-head.njk" %}
+<div class="wrap">{% include "kits/residences/features/residences-fees/residences-fees.njk" %}</div>

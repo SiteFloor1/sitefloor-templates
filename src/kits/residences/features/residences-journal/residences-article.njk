@@ -1,0 +1,6 @@
+{#- One article: its date, the day its rules were checked, the paragraphs and its sources. -#}
+<article class="rja">
+  <p class="rja-m"><time datetime="{{ art.date }}">{{ art.date | ukDay }}</time>{% if art.checked %} · rules checked {{ art.checked | ukDay }}{% endif %}{{ site.mode | sampleTag }}</p>
+  {%- for p in art.body %}<p>{{ p }}</p>{% endfor %}
+  {%- if art.sources %}<p class="rja-src">Sources: {% for s in art.sources %}<a href="{{ s.url }}" rel="noopener" target="_blank">{{ s.label }}</a>{% if not loop.last %} · {% endif %}{% endfor %}</p>{% endif %}
+</article>

@@ -1,0 +1,133 @@
+/* =========================================================================
+   Look: Turndown. A residence shown like a grand hotel's letterhead. An ivory page; fig-leaf green (a fig leaf) is
+   the accent, on the button, the slider and the double piping line (embroidered hotel linen) that is the one motif.
+   Imbue, a tall condensed Didone, for the name, headings and prices; Inria Sans for the rest. The first screen is the
+   centred letterhead, one wide cinema-band photograph of a suite, and the stay bar docked over its foot. One hero
+   idea; everything else is a quiet tool. Square edges, slow fades, nothing tied to the scroll. Design:
+   sitefloor-internal/docs/trades/residences/directions.md (round 1, direction A, approved 26 Nov 2026).
+   ========================================================================= */
+:root {
+  --bg: #F6F3EC; --surface: #ECE7DC; --surface-2: #E2DBCD;
+  --text: #1D1C19; --muted: #66615A; --dim: #66615A;
+  --accent: #3F5236; --accent-2: #33442C; --on-accent: #F6F3EC; --accent-soft: #C9D1BF;
+  --line: #DCD5C7; --line-2: #CDC4B3;
+  --ok: #3F5236; --busy: #8A5A1E; --closed: #66615A;
+  --font-display: "Imbue", "Imbue Fallback", "Didot", Georgia, serif;
+  --font-body: "Inria Sans", "Inria Sans Fallback", Arial, sans-serif;
+  --on-photo: #FFFFFF; --photo-scrim: rgba(29, 28, 25, .55); --shadow: rgba(29, 24, 16, .22);
+  --season-bg: #1D1C19; --season-fg: #F6F3EC;
+  --m: clamp(20px, 3.9vw, 56px);
+  --pad: max(20px, env(safe-area-inset-left, 0px));
+  --nav-h: 150px; --bar-h: 58px;
+  color-scheme: light;
+}
+html { background: var(--bg); }
+body { background: var(--bg); color: var(--text); font: 400 17px/1.55 var(--font-body); -webkit-font-smoothing: antialiased; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 500; text-wrap: balance; }
+.wrap { width: min(1328px, 100% - 2 * var(--m)); }
+
+/* header: the letterhead */
+.td-nav { position: relative; background: var(--bg); border: 0; backdrop-filter: none; -webkit-backdrop-filter: none; }
+.td-nav-in { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 26px 0 30px; }
+.td-l, .td-r { display: flex; gap: 30px; font-size: 16px; flex-wrap: wrap; }
+.td-r { justify-content: flex-end; align-items: center; }
+.td-l a, .td-r a { text-decoration: none; }
+.td-l a[aria-current="page"], .td-r a[aria-current="page"] { text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 6px; }
+.td-res { border-bottom: 1px solid var(--text); }
+.td-mark { display: flex; flex-direction: column; align-items: center; gap: 10px; text-decoration: none; color: var(--accent); }
+.td-mark svg { width: 26px; height: 40px; }
+.td-mark b { font: 600 64px/.85 var(--font-display); color: var(--text); }
+.td-mark span { font-size: 14px; color: var(--muted); }
+.td-menu { display: none; width: auto; height: 44px; padding: 0 2px; border-bottom: 1px solid var(--text); font-size: 16px; }
+.td-menu span { position: static; height: auto; background: none; transform: none; }
+.td-close, .td-menu[aria-expanded="true"] .td-open { display: none; }
+.td-menu[aria-expanded="true"] .td-close { display: inline; }
+.td-sheet { top: 84px; background: var(--bg); padding: 20px var(--pad) 120px; }
+.td-sheet nav { display: grid; gap: 14px; font: 500 30px/1.1 var(--font-display); }
+.td-sheet nav a { text-decoration: none; }
+.td-sheet-now, .td-sheet-addr { margin-top: 18px; font-size: 15px; color: var(--muted); }
+.td-sheet-addr { margin-top: 4px; }
+.td-sheet .dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--closed); }
+.td-sheet [data-state="open"] .dot { background: var(--ok); }
+
+/* hero: the cinema band and the docked stay bar */
+.td-hero { padding: 0 0 8px; }
+.td-band { position: relative; margin: 0 var(--m); aspect-ratio: 2.39 / 1; overflow: hidden; background: var(--surface-2); }
+.td-band img { width: 100%; height: 100%; object-fit: cover; display: block; animation: td-in 1.4s ease both; }
+@keyframes td-in { from { opacity: 0; } to { opacity: 1; } }
+.td-credit { position: absolute; left: 24px; bottom: 96px; color: var(--on-photo); font-size: 13px; text-shadow: 0 1px 8px var(--shadow); }
+.td-hero:not(:has(.td-dock)) .td-credit { bottom: 16px; }
+.td-dock { position: relative; z-index: 2; margin: -72px calc(var(--m) + 48px) 0; box-shadow: 0 30px 60px -40px var(--shadow); }
+.td-dock .rs { position: relative; }
+.td-dock .rs::before, .td-dock .rs::after { content: ""; position: absolute; left: 0; right: 0; height: 1px; background: var(--accent); }
+.td-dock .rs::before { top: 6px; } .td-dock .rs::after { top: 10px; }
+.td-intro { margin-top: 28px; font-size: 19px; max-width: 46ch; color: var(--muted); }
+
+/* sections */
+.td-sh { display: flex; justify-content: space-between; align-items: end; gap: 40px; margin-bottom: 40px; }
+.td-sh h2 { margin: 0; font-size: clamp(40px, 5.2vw, 76px); line-height: 1; max-width: 13ch; }
+.td-sh p { margin: 0; max-width: 34ch; color: var(--muted); }
+.rh-head h2 { font-weight: 500; }
+.rp-ph { padding: 40px 0 40px; border-top: 1px solid var(--line); }
+.rp-ph h1 { margin: 0; font-size: clamp(48px, 6.4vw, 96px); line-height: .95; }
+.rp-ph p { margin: 16px 0 0; max-width: 52ch; font-size: 19px; color: var(--muted); }
+
+/* shared sections in this look's voice */
+.sec-questions { padding: 88px 0 96px; border-top: 1px solid var(--line); }
+.qs-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 56px; }
+.qs-grid .td-sh { display: block; }
+.qs-grid .td-sh p { margin-top: 16px; }
+.qa { border-top: 1px solid var(--line); padding: 16px 0; }
+.qa summary { cursor: pointer; font: 600 24px/1.2 var(--font-display); list-style: none; }
+.qa summary::-webkit-details-marker { display: none; }
+.qa p { color: var(--muted); margin: 10px 0 0; max-width: 60ch; }
+.btn { display: inline-flex; align-items: center; gap: 8px; min-height: 50px; padding: 0 22px; background: var(--accent); color: var(--on-accent); border: 1px solid var(--accent); border-radius: 0; text-decoration: none; font-weight: 700; }
+.btn.ghost { background: transparent; color: var(--text); border-color: var(--text); }
+.qs-more { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+
+/* footer: the letterhead again, quietly */
+.td-foot { border-top: 1px solid var(--line); padding: 56px 0 120px; background: var(--bg); }
+.td-foot-n { font: 600 44px/1 var(--font-display); text-align: center; margin: 0 0 32px; }
+.td-foot-in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 40px; }
+.td-foot address { font-style: normal; color: var(--muted); }
+.td-foot nav { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px 24px; }
+.td-foot a { text-decoration: none; }
+.td-foot nav a:hover, .td-foot address a:hover { text-decoration: underline; }
+.td-foot-s { position: relative; margin: 40px 0 0; padding-top: 18px; font-size: 13px; color: var(--muted); }
+.td-foot-s::before, .td-foot-s::after { content: ""; position: absolute; left: 0; right: 0; height: 1px; background: var(--accent); }
+.td-foot-s::before { top: 0; } .td-foot-s::after { top: 4px; }
+.td-foot-by { margin: 14px 0 0; font-size: 13px; }
+
+/* phone bar */
+.td-bar { display: none; }
+
+@media (max-width: 900px) {
+  :root { --nav-h: 84px; }
+  .td-nav-in { grid-template-columns: 1fr auto; padding: 18px 0 20px; }
+  .td-l, .td-r { display: none; }
+  .td-mark { flex-direction: row; align-items: center; gap: 12px; }
+  .td-mark b { font-size: 40px; }
+  .td-mark span { display: none; }
+  .td-mark svg { width: 20px; height: 31px; }
+  .td-menu { display: block; }
+  .td-band { margin: 0; aspect-ratio: 4 / 5; }
+  .td-credit { left: var(--pad); bottom: 124px; font-size: 12px; }
+  .td-dock { margin: -110px 14px 0; }
+  .td-sh { display: block; }
+  .td-sh p { margin-top: 14px; }
+  .qs-grid { grid-template-columns: 1fr; gap: 24px; }
+  .td-foot-in { grid-template-columns: 1fr; }
+  .td-foot nav { grid-template-columns: 1fr 1fr; }
+  .td-bar { display: grid; grid-template-columns: 1fr 2fr; position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; height: calc(var(--bar-h) + env(safe-area-inset-bottom, 0px)); padding-bottom: env(safe-area-inset-bottom, 0px); background: var(--bg); border-top: 1px solid var(--accent); box-shadow: 0 -3px 0 -2px var(--accent) inset; }
+  .td-bar a { display: flex; align-items: center; justify-content: center; text-decoration: none; font-weight: 700; }
+  .td-bar-go { background: var(--accent); color: var(--on-accent); }
+  body { padding-bottom: var(--bar-h); }
+}
+@media (prefers-reduced-motion: reduce) { .td-band img { animation: none; } }
+
+/* shared Plan your visit and hours in this look's voice: no label above a heading, no tracked capitals */
+.kick { display: none; }
+.pv-how, .pv-topic h3, .where-k, .pv-from em small, .hrs tr.today th::after { text-transform: none; letter-spacing: 0; font-size: 14px; font-weight: 700; }
+.pv-topic h3 { font: 600 24px/1.2 var(--font-display); }
+.td-foot address { line-height: 1.6; }
+.td-foot address a, .td-foot nav a, .td-foot-s a, .rp-back a { display: inline-block; min-height: 24px; line-height: 24px; }

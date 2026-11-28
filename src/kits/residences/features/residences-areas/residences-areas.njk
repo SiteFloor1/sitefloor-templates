@@ -1,0 +1,6 @@
+{#- Areas (Plus): a card per neighbourhood, each with its own page. -#}
+<ul class="ra" data-feature="residences-areas">
+  {%- for a in site.areas.items %}
+  <li><a href="{{ a.slug | href }}"><img src="{{ (a.photo.small or a.photo.src) | img }}" width="{{ a.photo.width }}" height="{{ a.photo.height }}" alt="{{ a.photo.alt }}" loading="lazy" decoding="async"><span class="ra-n">{{ a.name }}</span><span class="ra-l">{{ a.line }}</span></a></li>
+  {%- endfor %}
+</ul>

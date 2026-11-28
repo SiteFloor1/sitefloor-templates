@@ -1,0 +1,16 @@
+{#- Arriving (Plus): the steps from the street to the door, the concierge's hours, late arrivals, and the arrival as a
+    calendar file. No door codes or key details: the concierge sends those. -#}
+{%- set a = site.arriving %}
+<div class="ra2" data-feature="residences-arriving">
+  <ol class="ra2-s">{% for s in a.steps %}<li><h2>{{ s.title }}</h2><p>{{ s.text }}</p></li>{% endfor %}</ol>
+  <aside class="ra2-side">
+    {%- if a.photo %}<figure><img src="{{ (a.photo.small or a.photo.src) | img }}" width="{{ a.photo.width }}" height="{{ a.photo.height }}" alt="{{ a.photo.alt }}" loading="lazy" decoding="async"><figcaption>{{ a.photo.credit }}</figcaption></figure>{% endif %}
+    <p><b>Concierge:</b> {{ a.hours }}</p>
+    <p>{{ a.late }}</p>
+    <form class="ra2-f" novalidate>
+      <label>Arriving <input type="date" data-ra2-day></label>
+      <label>Around <input type="time" value="18:30" data-ra2-time></label>
+      <a class="ra2-go" data-ra2-go href="#" download="arrival.ics">Add to my calendar</a>
+    </form>
+  </aside>
+</div>

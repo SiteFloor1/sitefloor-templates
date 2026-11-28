@@ -1,0 +1,6 @@
+{#- About (Plus): the building and how it's run, in the operator's own words and photograph. -#}
+{%- set a = site.about %}
+<div class="rab" data-feature="residences-about">
+  <figure><img src="{{ a.photo.src | img }}" width="{{ a.photo.width }}" height="{{ a.photo.height }}" alt="{{ a.photo.alt }}" decoding="async"><figcaption>{{ a.photo.credit }}</figcaption></figure>
+  <div>{% for p in a.paragraphs %}<p>{{ p }}</p>{% endfor %}</div>
+</div>

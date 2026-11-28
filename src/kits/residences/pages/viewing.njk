@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: viewing
+permalink: viewing.html
+feature: residences-viewing
+eleventyComputed:
+  title: "Book a viewing"
+  description: "See a home at {{ site.business.name }} in person or on a video call."
+---
+{%- set ph = { title: "Book a viewing", intro: site.viewing.intro } %}
+{% include "kits/residences/partials/page-head.njk" %}
+<div class="wrap">{% include "kits/residences/features/residences-viewing/residences-viewing.njk" %}</div>

@@ -188,7 +188,7 @@ This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` 
 
 | Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
 |---|---|---|---|---|---|---|---|
-| Maudry | event design and production, `events`, `doors` (built 18 Nov on `trade/events`) | a panelled room at night: **warm dark** #19150F, candlelit | an olive leaf on a candlelit table | olive green #4E6E58 on warm dark, parchment text #EDE3D0, brass #9C8257 for hairlines | Eczar / Eczar | the room on the night full screen, one-colour headline, the next free Saturday beside it; design visuals of the client's room before the day | (to come) |
+| Maudry | event design and production, `events`, `doors` (built 18 Nov on `trade/events`) | a panelled room at night: **warm dark** #19150F, candlelit | an olive leaf on a candlelit table | olive green #4E6E58 on warm dark, parchment text #EDE3D0, brass #9C8257 for hairlines | Eczar / Eczar | the room on the night full screen, one-colour headline, the next free Saturday beside it; design visuals of the client's room before the day | the table plan at the door; the evening by the clock |
 
 ## Financial advisers
 _From `docs/trades/financial-advisers/demo-map.md`._
@@ -399,6 +399,17 @@ This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` 
 | Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
 |---|---|---|---|---|---|---|---|
 | Chalden | English sparkling-wine house's pop-up, `popup`, `capsule` | a brand launch in a railway arch, **chalk and ink, a printed invitation** | a ripe quince | quince #C08A1E on chalk #F3F1EC (text #7E5A0E) | Bona Nova / Inclusive Sans | the product lit in a tall dark slab beside a double-ruled invitation card: the dates, the place, the days left and whether it's open now | the invitation (one card per plan) |
+
+## Luxury residences and hotel-grade rentals
+_From `docs/trades/residences/demo-map.md`._
+
+This trade's demos and what they take. Read every trade's in `docs/DEMO-MAP.md` (generated) before proposing a look.
+
+| Demo | Trade, kit, look | Ground and feel | Palette from | Signature colour | Display / body type | Hero idea | Case-study metaphor |
+|---|---|---|---|---|---|---|---|
+| Sevrell | luxury residences and hotel-grade rentals, `residences`, `turndown` | a grand hotel's letterhead: **ivory page**, centred key-fob monogram and name, a double piping line like embroidered linen | a fig leaf (accent); warm lamplight grade | fig-leaf green #3F5236 for the button, the slider and the piping | Imbue 500–600 / Inria Sans 400–700 | one 2.39:1 cinema-band photograph of a suite with the stay bar docked across its foot: a few nights to a long let, every fee in the total, the homes below re-priced to the same stay | not yet written |
+
+Taken by Sevrell: Imbue, Inria Sans, fig-leaf green, the centred letterhead, the docked stay bar, the sun on the windows.
 
 ## Restaurants
 _From `docs/trades/restaurant/demo-map.md`._

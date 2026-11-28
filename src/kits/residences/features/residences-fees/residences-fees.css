@@ -1,0 +1,14 @@
+/* Fees and terms. */
+.rf { display: grid; gap: 56px; padding: 8px 0 96px; max-width: 860px; }
+.rf-s h2 { font-family: var(--font-display); font-weight: 500; font-size: clamp(30px, 3.4vw, 44px); line-height: 1.05; margin: 0 0 18px; }
+.rf-s p, .rf-ul { max-width: 68ch; }
+.rf-s a { color: inherit; }
+.rf-dl { display: grid; grid-template-columns: minmax(0, 14em) minmax(0, 1fr); gap: 10px 28px; margin: 0 0 24px; }
+.rf-dl dt { font-weight: 700; }
+.rf-t { width: 100%; border-collapse: collapse; margin: 0 0 18px; }
+.rf-t th, .rf-t td { text-align: left; padding: 12px 0; border-top: 1px solid var(--line); vertical-align: top; }
+.rf-t td { text-align: right; white-space: nowrap; }
+.rf-t thead th { color: var(--muted); font-weight: 400; font-size: 14px; }
+.rf-t small { display: block; color: var(--muted); font-weight: 400; font-size: 13px; }
+.rf-fine { color: var(--muted); font-size: 14px; }
+@media (max-width: 640px) { .rf-dl { grid-template-columns: 1fr; gap: 2px; } .rf-dl dd { margin-bottom: 12px; } }

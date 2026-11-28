@@ -1,0 +1,48 @@
+/* Free now and free from: cards and the home's detail. Tokens only; the look sets the character. */
+.rh { padding: 96px 0 80px; }
+.rh-head { display: flex; justify-content: space-between; align-items: end; gap: 40px; margin-bottom: 24px; }
+.rh-head h2 { margin: 0; font-family: var(--font-display); font-weight: 500; font-size: clamp(40px, 5.2vw, 76px); line-height: 1; max-width: 13ch; }
+.rh-head p { margin: 0; max-width: 34ch; color: var(--muted); }
+.rh-upd { color: var(--muted); font-size: 14px; margin: 0 0 28px; }
+.rh-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+.rh-open { display: flex; flex-direction: column; width: 100%; padding: 0; border: 0; background: none; text-align: left; cursor: pointer; color: inherit; font: inherit; }
+.rh-ph { display: block; aspect-ratio: 4 / 5; overflow: hidden; background: var(--surface); }
+.rh-ph img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s ease; }
+.rh-open:hover .rh-ph img { transform: scale(1.03); }
+.rh-name { font-family: var(--font-display); font-weight: 600; font-size: 30px; line-height: 1.1; margin-top: 18px; }
+.rh-meta { display: flex; justify-content: space-between; gap: 16px; color: var(--muted); font-size: 15px; margin-top: 4px; }
+.rh-price { color: var(--text); text-align: right; white-space: nowrap; }
+.rh-free { font-size: 15px; margin-top: 2px; }
+.rh-sun { display: flex; align-items: center; gap: 8px; font-size: 15px; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line); }
+.rh-sun::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); flex: none; }
+.rh-stale .rh-list { display: none; }
+.rh-d { width: min(760px, calc(100% - 24px)); max-height: calc(100% - 24px); padding: 0; border: 0; background: var(--bg); color: var(--text); overflow: auto; }
+.rh-d::backdrop { background: var(--photo-scrim); }
+.rh-d-ph { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; }
+.rh-d-credit { margin: 6px 24px 0; font-size: 12px; color: var(--muted); }
+.rh-d-in { padding: 16px 32px 30px; }
+.rh-d-name { font-family: var(--font-display); font-weight: 600; font-size: 44px; line-height: 1; margin: 0 0 8px; }
+.rh-d-spec { color: var(--muted); margin: 0 0 18px; }
+.rh-d-money { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; border-top: 1px solid var(--line); padding-top: 16px; }
+.rh-d-money b { font-family: var(--font-display); font-weight: 600; font-size: 38px; line-height: 1; }
+.rh-d-money small { display: block; color: var(--muted); font-size: 13px; line-height: 1.45; margin-top: 8px; }
+.rh-d-quiet { display: grid; grid-template-columns: auto 1fr; gap: 4px 18px; margin: 18px 0 0; font-size: 15px; }
+.rh-d-quiet dt { color: var(--muted); }
+.rh-d-sun, .rh-d-upd { font-size: 13px; color: var(--muted); margin: 16px 0 0; }
+.rh-d-h { font-weight: 700; margin: 18px 0 8px; }
+.rh-d-plan { width: 100%; height: auto; background: var(--surface); }
+.rh-d-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.rh-d-row a, .rh-d-row button { min-height: 48px; padding: 0 22px; display: inline-flex; align-items: center; border: 1px solid var(--text); background: none; color: inherit; text-decoration: none; font-weight: 700; cursor: pointer; }
+.rh-d-row .rh-d-ask { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.rh-d-frame { width: 100%; aspect-ratio: 16 / 10; border: 0; }
+@media (max-width: 820px) {
+  .rh { padding: 72px 0 56px; }
+  .rh-head { display: block; }
+  .rh-head p { margin-top: 14px; }
+  .rh-list { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; margin: 0 calc(-1 * var(--pad)); padding: 0 var(--pad); scroll-padding: 0 var(--pad); }
+  .rh-list > li { flex: 0 0 80%; scroll-snap-align: start; min-width: 0; }
+  .rh-meta { flex-direction: column; gap: 0; }
+  .rh-price { text-align: left; }
+  .rh-d-in { padding: 14px 20px 24px; }
+  .rh-d-name { font-size: 34px; }
+}

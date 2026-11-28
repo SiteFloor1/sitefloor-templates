@@ -1,0 +1,22 @@
+/* The stay bar: a form docked under the hero photograph. Tokens only; the look places and dresses it. */
+.rs { display: grid; grid-template-columns: 1.1fr 1.6fr 1.4fr auto; gap: 36px; align-items: end; padding: 30px 36px 32px; background: var(--bg); color: var(--text); }
+.rs label { display: block; font-size: 14px; color: var(--muted); margin-bottom: 10px; }
+.rs select { width: 100%; font: inherit; font-size: 19px; padding: 6px 0 8px; border: 0; border-bottom: 1px solid var(--line); background: transparent; color: inherit; }
+.rs input[type="range"] { width: 100%; accent-color: var(--accent); height: 28px; }
+.rs-ticks { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); }
+.rs-ticks span:last-child { color: var(--text); }
+.rs-price { transition: opacity .5s ease; min-height: 84px; }
+.rs-price.rs-out { opacity: 0; }
+.rs-price b { display: block; font-family: var(--font-display); font-weight: 600; font-size: 52px; line-height: 1; }
+.rs-price b.rs-none { font-size: 22px; line-height: 1.2; }
+.rs-unit { font-family: var(--font-body); font-weight: 400; font-size: 15px; }
+.rs-price small { display: block; font-size: 12px; color: var(--muted); margin-top: 6px; }
+.rs-note { font-size: 14px; color: var(--muted); margin: 8px 0 0; max-width: 40ch; }
+.rs-note a { color: inherit; }
+.rs-go { display: inline-flex; align-items: center; justify-content: center; min-height: 54px; padding: 0 30px; background: var(--accent); color: var(--on-accent); font-weight: 700; text-decoration: none; white-space: nowrap; }
+.rs-stale .rs-len, .rs-stale .rs-f:first-child { opacity: .4; }
+@media (max-width: 820px) {
+  .rs { grid-template-columns: 1fr; gap: 22px; padding: 26px 22px 24px; }
+  .rs-price b { font-size: 44px; }
+  .rs-go { width: 100%; }
+}
