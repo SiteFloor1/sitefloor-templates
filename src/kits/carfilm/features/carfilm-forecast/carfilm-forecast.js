@@ -32,7 +32,12 @@ export function init(root, ctx) {
     if (mine !== ask) return;
     const c = cloudAtGolden(json, p.light, Date.now());
     if (!c) return;
-    line.textContent = `Forecast at golden hour: ${cloudWords(c.cloud)}, ${c.cloud}% cloud. MET Norway, updated ${ukHm(c.updated)}.`;
+    const link = (/** @type {string} */ href, /** @type {string} */ words) => Object.assign(document.createElement("a"), { href, textContent: words, rel: "noopener" });
+    line.replaceChildren(
+      `Forecast at golden hour: ${cloudWords(c.cloud)}, ${c.cloud}% cloud. `,
+      link("https://www.met.no/en", "MET Norway"), " (",
+      link("https://creativecommons.org/licenses/by/4.0/", "CC BY 4.0"), `), updated ${ukHm(c.updated)}.`,
+    );
     line.hidden = false;
   });
 }

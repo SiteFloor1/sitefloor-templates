@@ -148,7 +148,7 @@ export function ratioOf(s) {
 export function cloudAtGolden(json, l, nowMs) {
   const series = json?.properties?.timeseries;
   const updated = Date.parse(json?.properties?.meta?.updated_at ?? "");
-  if (!Array.isArray(series) || !Number.isFinite(updated) || nowMs - updated > 12 * 3_600_000) return null;
+  if (!Array.isArray(series) || !Number.isFinite(updated) || updated > nowMs + 600_000 || nowMs - updated > 12 * 3_600_000) return null;
   if (l.goldPmStart === null || l.goldPmEnd === null) return null;
   const best = nearestHour(series, (l.goldPmStart + l.goldPmEnd) / 2);
   return best ? { ...best, updated } : null;

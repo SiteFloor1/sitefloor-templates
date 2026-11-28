@@ -115,6 +115,8 @@ function checkPackages(site, err, _exists, _on) {
   if (site.packages === undefined) return;
   onlyKeys(site.packages, ["note", "items"], "packages", err);
   text(err, "packages.note", site.packages?.note);
+  const FROM = /\bfrom\s*£|starting (at|from)/i;
+  if (isStr(site.packages?.note) && FROM.test(site.packages.note)) err("packages.note", "no \"from £\" or \"starting at\": each headline price is the whole price");
   if (isStr(site.packages?.note) && !/includ/i.test(site.packages.note)) err("packages.note", "say what every price includes (travel, the edit, VAT…): the headline price is the whole price");
   const items = list(err, "packages.items", site.packages?.items, 1, 8);
   ids(err, "packages.items", items);
@@ -124,7 +126,10 @@ function checkPackages(site, err, _exists, _on) {
     text(err, `${at}.name`, p?.name);
     if (!["owners", "dealers", "both"].includes(p?.for)) err(`${at}.for`, '"owners", "dealers" or "both"');
     if (!(p?.price === null || (Number.isInteger(p?.price) && p.price > 0 && p.price < 100000))) err(`${at}.price`, "the whole price in pounds, every mandatory fee included; null shows \"Ask for a quote\"");
-    list(err, `${at}.includes`, p?.includes, 1, 6).forEach((x, j) => text(err, `${at}.includes[${j}]`, x));
+    list(err, `${at}.includes`, p?.includes, 1, 6).forEach((x, j) => {
+      text(err, `${at}.includes[${j}]`, x);
+      if (isStr(x) && FROM.test(x)) err(`${at}.includes[${j}]`, "no \"from £\" or \"starting at\": the price is the whole price");
+    });
     for (const k of ["photosDays", "filmDays"]) if (p?.[k] !== undefined && p[k] !== null && !(Number.isInteger(p[k]) && p[k] >= 1 && p[k] <= 60)) err(`${at}.${k}`, "working days after the shoot, 1–60 (or null)");
   });
 }

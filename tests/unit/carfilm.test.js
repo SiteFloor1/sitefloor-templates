@@ -100,6 +100,7 @@ test("the cloud forecast is read only when it is fresh and reaches golden hour",
   assert.deepEqual(cloudAtGolden(ok, l, now)?.cloud, 18);
   assert.equal(cloudAtGolden(reply("2026-11-26T08:00:00Z", ok.properties.timeseries), l, now), null, "a day-old forecast is not used");
   assert.equal(cloudAtGolden(reply("2026-11-27T08:10:00Z", [{ time: "2026-11-27T06:00:00Z", data: { instant: { details: { cloud_area_fraction: 5 } } } }]), l, now), null, "nothing near golden hour");
+  assert.equal(cloudAtGolden(reply("2026-11-27T20:00:00Z", ok.properties.timeseries), l, now), null, "an update time in the future is not trusted");
   assert.equal(cloudAtGolden(null, l, now), null);
   assert.equal(cloudAtGolden({ properties: {} }, l, now), null);
   assert.deepEqual([0, 30, 50, 80, 100].map(cloudWords), ["clear", "mostly clear", "partly cloudy", "mostly cloudy", "overcast"]);
@@ -113,6 +114,8 @@ test("messages fill only the gaps they name", () => {
 test("a price is the whole price, and says what it includes", () => {
   assert.match(errorsFor((s) => { s.packages.items[0].price = "from 650"; }), /whole price/);
   assert.match(errorsFor((s) => { s.packages.note = "Sample prices."; }), /what every price includes/);
+  assert.match(errorsFor((s) => { s.packages.note = "Includes travel. Prices from £650."; }), /from £/);
+  assert.match(errorsFor((s) => { s.packages.items[0].includes[0] = "Starting at two hours"; }), /starting at/);
   assert.equal(errorsFor((s) => { s.packages.items[0].price = null; }), "");
 });
 

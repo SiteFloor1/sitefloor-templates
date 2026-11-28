@@ -30,11 +30,11 @@ body { background: var(--bg); color: var(--text); font: 400 16px/1.55 var(--font
 a { color: inherit; }
 :focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 3px; }
 .cf-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-.cf-note { font-size: 13px; color: var(--dim); max-width: 70ch; margin: 14px 0 0; }
+.cf-note { font-size: 13px; color: var(--dim); max-width: 44.8em; margin: 14px 0 0; }
 .cf-k { color: var(--muted); }
 .cf-h2 { font: 500 clamp(32px, 3.4vw, 46px)/1.06 var(--font-display); letter-spacing: -.02em; margin: 0; }
 .cf-h3 { font: 500 24px/1.2 var(--font-display); margin: 0 0 8px; }
-.cf-intro { color: var(--muted); font-size: 17px; margin: 10px 0 0; max-width: 46ch; }
+.cf-intro { color: var(--muted); font-size: 17px; margin: 10px 0 0; max-width: 29.4em; }
 .cf-btn { display: inline-flex; align-items: center; min-height: 46px; padding: 0 20px; border-radius: var(--radius); background: var(--text); color: var(--paper); text-decoration: none; font-weight: 600; border: 1px solid var(--text); cursor: pointer; font-family: var(--font-body); font-size: 15px; }
 .cf-btn:hover { background: var(--accent-ink); border-color: var(--accent-ink); }
 .cf-btn-line { background: transparent; color: var(--text); }
@@ -71,7 +71,7 @@ a { color: inherit; }
 /* Hero: headline above, the monitor below */
 .cf-top { display: flex; justify-content: space-between; align-items: end; gap: 32px; padding-top: 6px; padding-bottom: 18px; }
 .cf-h1 { font: 500 clamp(36px, 3.6vw, 52px)/1.04 var(--font-display); letter-spacing: -.02em; margin: 0; }
-.cf-lede { margin: 0; color: var(--muted); max-width: 36ch; text-align: right; }
+.cf-lede { margin: 0; color: var(--muted); max-width: 23.0em; text-align: right; }
 .cf-mon { margin-inline: auto; max-width: calc(1440px - 2 * var(--pad)); width: calc(100% - 2 * var(--pad)); }
 .cf-stage { position: relative; overflow: hidden; aspect-ratio: 2.15; background: var(--mon); touch-action: none; }
 .cf-film { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 55%; display: block; }
@@ -105,7 +105,7 @@ a { color: inherit; }
 .cf-pp .cf-pp-play, :root[data-motion="paused"] .cf-pp .cf-pp-pause { display: none; }
 :root[data-motion="paused"] .cf-pp .cf-pp-play { display: inline; }
 .cf-road { position: relative; display: flex; align-items: center; }
-.cf-road select { appearance: none; background: transparent; border: 0; color: var(--mon-ink); font: 400 12px/1 var(--font-cam); padding: 12px 22px 12px 0; cursor: pointer; max-width: 28ch; }
+.cf-road select { appearance: none; background: transparent; border: 0; color: var(--mon-ink); font: 400 12px/1 var(--font-cam); padding: 12px 22px 12px 0; cursor: pointer; max-width: 19.6em; }
 .cf-road select option { color: var(--text); background: var(--paper); }
 .cf-road::after { content: ""; position: absolute; right: 4px; top: 50%; width: 6px; height: 6px; border: solid var(--mon-soft); border-width: 0 1.5px 1.5px 0; transform: translateY(-70%) rotate(45deg); pointer-events: none; }
 .cf-vals { display: flex; flex-wrap: wrap; gap: 6px 20px; margin: 0; white-space: nowrap; }
@@ -150,8 +150,8 @@ a { color: inherit; }
 /* Inner pages */
 .cf-ph { padding-block: clamp(36px, 5vw, 72px) clamp(24px, 3vw, 44px); }
 .cf-ph-in { display: flex; gap: 24px; align-items: flex-start; }
-.cf-ph-t { font: 500 clamp(40px, 5vw, 72px)/1.02 var(--font-display); letter-spacing: -.025em; margin: 0; }
-.cf-ph-i { color: var(--muted); font-size: 18px; margin: 12px 0 0; max-width: 48ch; }
+.cf-ph-t { font: 500 clamp(40px, 5vw, 72px)/1.02 var(--font-display); letter-spacing: -.025em; margin: 0; max-width: 11em; text-wrap: balance; }
+.cf-ph-i { color: var(--muted); font-size: 18px; margin: 12px 0 0; max-width: 30.7em; }
 .cf-sr-page { display: grid; gap: 48px; padding-bottom: 72px; }
 .cf-film-i { margin: 0; }
 .cf-film-i video { width: 100%; height: auto; aspect-ratio: 16 / 9; background: var(--mon); display: block; border-radius: var(--radius); }
@@ -216,7 +216,7 @@ a { color: inherit; }
 .cf-story-ph { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); align-items: start; }
 .cf-story-f { margin: 0; } .cf-story-f img { width: 100%; height: auto; display: block; border-radius: var(--radius); }
 .cf-story-t { display: grid; gap: 28px; align-content: start; }
-.cf-story-s p { margin: 0; color: var(--muted); font-size: 17px; max-width: 52ch; }
+.cf-story-s p { margin: 0; color: var(--muted); font-size: 17px; max-width: 33.3em; }
 .cf-loc { padding-bottom: 40px; overflow-x: auto; }
 .cf-loc-t { width: 100%; border-collapse: collapse; min-width: 640px; }
 .cf-loc-t th, .cf-loc-t td { text-align: left; padding: 14px 16px 14px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
@@ -228,7 +228,7 @@ a { color: inherit; }
 .cf-qa, .qa { border-bottom: 1px solid var(--line); padding: 4px 0; }
 .cf-qa summary, .qa summary { cursor: pointer; padding: 14px 0; font: 500 19px/1.3 var(--font-display); list-style: none; }
 .cf-qa summary::-webkit-details-marker, .qa summary::-webkit-details-marker { display: none; }
-.cf-qa p, .qa p { margin: 0 0 16px; color: var(--muted); max-width: 64ch; }
+.cf-qa p, .qa p { margin: 0 0 16px; color: var(--muted); max-width: 41.0em; }
 .cf-dv { padding-bottom: 40px; }
 .cf-dv-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 24px; align-items: end; }
 .cf-dv-shape { display: block; height: 120px; aspect-ratio: var(--r); max-width: 100%; border: 1.5px solid var(--text); margin-bottom: 14px; border-radius: 2px; }
@@ -318,3 +318,14 @@ a { color: inherit; }
 /* Apricot is a fill colour; where shared parts set text in the accent, use the darker apricot that passes contrast. */
 .pv-from em, .pv-val, .lp-row em { color: var(--accent-ink); }
 .crumb a { text-decoration: underline; text-underline-offset: 3px; }
+
+/* Widths in em, never ch: ch is the width of the font's "0", so it changes when the real font replaces its fallback
+   and reflows the text (audit CF-02). Core's ch widths in this look, converted at Wix Madefor Text's 0 (0.64em). */
+.phero p { max-width: 33.3em; }
+.sh p { max-width: 28.2em; }
+.qa p, .cf-qa p { max-width: 38.4em; }
+.pv-steps li { max-width: 38.4em; }
+/* A phone number or email never splits across lines (better to read, and the line breaks match before and after the
+   fonts load: audit CF-02). */
+a[href^="tel:"], a[href^="mailto:"] { white-space: nowrap; }
+.prose p a[href^="mailto:"], .prose p a[href^="tel:"] { display: block; width: fit-content; }

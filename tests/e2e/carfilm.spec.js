@@ -95,7 +95,8 @@ test("the planner gives the light for a road and date, and the forecast line app
   await page.goto(srv.base + "/golden-hour");
   await page.locator("[data-pl-date]").fill("2026-10-21");
   await expect(page.locator("[data-pl-gold]")).toHaveText(eveningLine(dayLight("2026-10-21", BOX_HILL.lat, BOX_HILL.lon)).gold);
-  await expect(page.locator("[data-forecast]")).toHaveText(/^Forecast at golden hour: mostly clear, 22% cloud\. MET Norway, updated \d\d:\d\d\.$/);
+  await expect(page.locator("[data-forecast]")).toHaveText(/^Forecast at golden hour: mostly clear, 22% cloud\. MET Norway \(CC BY 4\.0\), updated \d\d:\d\d\.$/);
+  await expect(page.locator("[data-forecast] a")).toHaveCount(2);
   expect(await waText(page.locator("[data-pl-hold]"))).toContain("Box Hill, Zig Zag Road on Wed 21 Oct");
   ok = false;
   await page.locator("[data-pl-road]").selectOption("cheddar");

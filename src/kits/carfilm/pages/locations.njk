@@ -8,7 +8,7 @@ eleventyComputed:
   description: "{{ site.guides.locations.description }}"
 ---
 {%- set G = site.guides.locations %}{% set ph = G %}{% set phMark = 9 %}{% include "kits/carfilm/partials/page-head.njk" %}
-<div class="wrap cf-loc">
+<div class="wrap cf-loc" tabindex="0" role="region" aria-label="Tonight's light on every road (scrolls sideways)">
   <table class="cf-loc-t">
     <thead><tr><th scope="col">Road</th><th scope="col">Tonight</th>{% for s in (site.roads.items[0] | roadSeasons) %}<th scope="col">{{ s.label }}</th>{% endfor %}</tr></thead>
     <tbody>{% for r in site.roads.items %}{% set t = r | tonightAt %}<tr><th scope="row"><b>{{ r.name }}</b><span>{{ r.area }}</span></th><td><b>{{ t.gold }}</b><span>{{ "low sun all day" if t.low else "golden hour" }}, sunset {{ t.sunset }}</span></td>{% for s in (r | roadSeasons) %}<td><b>{{ s.gold }}</b><span>{{ s.day }}, sunset {{ s.sunset }}</span></td>{% endfor %}</tr>{% endfor %}</tbody>
