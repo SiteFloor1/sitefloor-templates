@@ -3,7 +3,7 @@
  * HOL-7 on Signature: each home's next free dates, from the company's sheet of booked stays. A stale or unreadable
  * sheet shows nothing as free and says so.
  */
-import { isStale, freeRuns, runText } from "../../lib/calendar.js";
+import { isStale, freeRuns, runText, updatedWord } from "../../lib/calendar.js";
 
 /** @type {import("../../../../core/js/core.js").FeatureInit} */
 export async function init(root, ctx) {
@@ -19,7 +19,5 @@ export async function init(root, ctx) {
     el.textContent = runs.length ? `Next free: ${runs.map(runText).join(", ")}` : "Booked for the next twelve weeks";
     el.hidden = false;
   }
-  const tz = ctx.data.hours.timezone;
-  const day = (/** @type {number} */ ms) => new Intl.DateTimeFormat("en-CA", { timeZone: tz }).format(ms);
-  root.textContent = `Free dates from our bookings sheet, updated ${day(r.updated ?? 0) === today ? "today" : "yesterday"}.`;
+  root.textContent = `Free dates from our bookings sheet, updated ${updatedWord(r.updated ?? 0, today, ctx.data.hours.timezone)}.`;
 }

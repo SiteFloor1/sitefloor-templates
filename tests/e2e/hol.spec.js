@@ -48,7 +48,9 @@ test("on Plus the estimate is gone and the plain question asks for a review", as
   await expect(page.locator(".st-est")).toBeHidden();
   await expect(page.locator(".ar-plain")).toBeVisible();
   await expect(page.locator(".ar-go a")).toHaveAttribute("href", /review/);
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("What could your home earn with us?");
   await page.click('[data-demo-ribbon] [data-tier-pick="starter"]');
+  await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
   await expect(page.locator("#turnover")).toBeHidden();
   await expect(page.locator("#fees")).toBeVisible();
   await expect(page.locator("#rules")).toBeVisible();
@@ -135,4 +137,16 @@ test("the client fixture: owner stories real and dated, booking through the list
   expect(await waText(page.locator(".st-home .st-link").nth(1))).toBe("Hello Harlyn, I'd like to book The Loft.");
   await expect(page.locator("body")).not.toContainText("Sample homes and prices");
   await srv.close();
+});
+
+test("no page scrolls sideways on a 320 px phone", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 720 });
+  for (const s of [demo, client]) {
+    const srv = await start(s);
+    for (const path of ["/", "/privacy", "/rules", "/homes", "/fees"]) {
+      await page.goto(srv.base + path);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth), path).toBeLessThanOrEqual(0);
+    }
+    await srv.close();
+  }
 });

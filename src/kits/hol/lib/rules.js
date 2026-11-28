@@ -41,7 +41,7 @@ export const longDate = (ymd) => new Date(`${ymd}T12:00:00Z`).toLocaleDateString
 
 /**
  * Whether a rule can still be shown as current on a given day: "current" up to six months after it was checked,
- * then "check" (the site shows only the official link). @param {Rule} rule @param {string} today YYYY-MM-DD
+ * then "check" (the site shows only the official link). @param {{ checked: string }} rule @param {string} today YYYY-MM-DD
  */
 export function rulesState(rule, today) {
   const c = new Date(`${rule.checked}T12:00:00Z`);

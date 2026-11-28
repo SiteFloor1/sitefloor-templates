@@ -11,7 +11,7 @@ import { loadCatalog } from "../../scripts/lib/catalog.js";
 import { estimate, figuresProblems, LONDON_NIGHTS } from "../../src/kits/hol/lib/estimate.js";
 import { pounds, feeOn } from "../../src/kits/hol/lib/money.js";
 import { REGIONS, rulesState, rulesProblems } from "../../src/kits/hol/lib/rules.js";
-import { staysFromCsv, isStale, freeRuns, runText, isBooked } from "../../src/kits/hol/lib/calendar.js";
+import { staysFromCsv, isStale, freeRuns, runText, isBooked, sheetDate, updatedWord } from "../../src/kits/hol/lib/calendar.js";
 import { reviewText, statementProblems, turnoverProblems, turnoverHours, codeHash, tidyCode } from "../../src/kits/hol/lib/owners.js";
 import { HOME_PARTS, homeOrderProblem } from "../../src/kits/hol/home.js";
 import { pageData, csp } from "../../src/kits/hol/kit.js";
@@ -68,16 +68,45 @@ test("every rule links to an official page with the date it was checked, and goe
   assert.match(REGIONS.find((x) => x.id === "london")?.rules[0].text ?? "", /90 nights a year without planning permission/);
 });
 
-test("the booked-stays sheet: rows read, newest update kept, stale or empty fails closed", () => {
-  const csv = "home,from,to,updated_at\nglass,2026-12-01,2026-12-05,2026-11-26T08:40:00Z\nglass,bad,2026-12-09,2026-11-26T08:40:00Z\nglass,2026-12-10,2026-12-08,2026-11-25T08:40:00Z";
-  const r = staysFromCsv(csv);
-  assert.equal(r.stays.length, 1);
+const SHEET = { homes: ["glass", "quay"], timeZone: "Europe/London", now: Date.parse("2026-11-27T10:00:00Z") };
+
+test("the booked-stays sheet: rows read, UK dates and capitals accepted, newest update kept, stale fails closed", () => {
+  const csv = "home,from,to,updated_at\nglass,2026-12-01,2026-12-05,2026-11-26T08:40:00Z\nQuay,27/11/2026,20/12/2026,25/11/2026 23:30:00\n,,,";
+  const r = staysFromCsv(csv, SHEET);
+  assert.equal(r.problem, null);
+  assert.deepEqual(r.stays.map((x) => [x.home, x.from, x.to]), [["glass", "2026-12-01", "2026-12-05"], ["quay", "2026-11-27", "2026-12-20"]]);
   assert.equal(r.updated, Date.parse("2026-11-26T08:40:00Z"));
   assert.equal(isStale(r.updated, Date.parse("2026-11-27T20:00:00Z"), 36), false);
   assert.equal(isStale(r.updated, Date.parse("2026-11-27T20:41:00Z"), 36), true);
-  assert.equal(isStale(staysFromCsv("nothing,here").updated, Date.now()), true);
   assert.equal(isBooked(r.stays, "glass", "2026-12-04"), true);
   assert.equal(isBooked(r.stays, "glass", "2026-12-05"), false, "the leaving day is free for the next guest");
+  assert.equal(isBooked(r.stays, "quay", "2026-12-19"), true);
+});
+
+test("the booked-stays sheet refuses itself on any row it can't read with certainty", () => {
+  const head = "home,from,to,updated_at\nglass,2026-12-01,2026-12-05,2026-11-26T08:40:00Z\n";
+  const bad = {
+    "unreadable date": "quay,12/27/2026,2026-12-30,2026-11-26T08:40:00Z",
+    "unknown home": "barn,2026-12-01,2026-12-05,2026-11-26T08:40:00Z",
+    "leaves before it starts": "quay,2026-12-10,2026-12-08,2026-11-26T08:40:00Z",
+    "unreadable updated_at": "quay,2026-12-10,2026-12-12,last week",
+    "updated_at in the future": "quay,2026-12-10,2026-12-12,01/03/2027 09:00",
+  };
+  for (const [why, row] of Object.entries(bad)) {
+    const r = staysFromCsv(head + row, SHEET);
+    assert.match(r.problem ?? "", new RegExp(why), why);
+    assert.deepEqual([r.stays, r.updated], [[], null]);
+    assert.equal(isStale(r.updated, SHEET.now), true, `${why} fails closed`);
+  }
+  assert.equal(staysFromCsv("nothing,here", SHEET).updated, null);
+  assert.equal(sheetDate("31/02/2026"), null);
+  assert.equal(sheetDate("3/1/2027"), "2027-01-03");
+});
+
+test("updated today, yesterday, or on the date", () => {
+  assert.equal(updatedWord(Date.parse("2026-11-27T08:40:00Z"), "2026-11-27", "Europe/London"), "today");
+  assert.equal(updatedWord(Date.parse("2026-11-26T17:40:00Z"), "2026-11-27", "Europe/London"), "yesterday");
+  assert.equal(updatedWord(Date.parse("2026-11-25T23:30:00Z"), "2026-11-27", "Europe/London"), "on 25 Nov");
 });
 
 test("free runs: three nights or more, the leaving day free, worded as dates", () => {
@@ -85,15 +114,18 @@ test("free runs: three nights or more, the leaving day free, worded as dates", (
   const runs = freeRuns(stays, "a", "2026-11-28", { weeks: 4 });
   assert.deepEqual(runs.map((x) => [x.from, x.to, x.nights]), [["2026-11-28", "2026-12-01", 3], ["2026-12-20", "2026-12-26", 6]]);
   assert.equal(runText(runs[0]), "28 Nov to 1 Dec");
+  assert.equal(runText(runs[1]), "from 20 Dec", "a run still free at the window's end isn't shown as ending there");
   assert.equal(runText({ from: "2026-12-13", to: "2026-12-20" }), "13 to 20 Dec");
 });
 
 test("the demo sheet is fresh in the morning and three days old with #stale", () => {
   const now = Date.parse("2026-11-26T10:00:00Z");
-  const fresh = staysFromCsv(demoStaysCsv(now, "Europe/London"));
+  const o = { homes: ["glasshouse", "window-seat", "terrace", "deck"], timeZone: "Europe/London", now };
+  const fresh = staysFromCsv(demoStaysCsv(now, "Europe/London"), o);
+  assert.equal(fresh.problem, null);
   assert.equal(isStale(fresh.updated, now), false);
   assert.ok(fresh.stays.length > 10);
-  assert.equal(isStale(staysFromCsv(demoStaysCsv(now, "Europe/London", true)).updated, now), true);
+  assert.equal(isStale(staysFromCsv(demoStaysCsv(now, "Europe/London", true), o).updated, now), true);
 });
 
 test("the review request is one message in the owner's words", () => {

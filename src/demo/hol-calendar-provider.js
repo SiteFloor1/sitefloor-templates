@@ -37,7 +37,8 @@ export function demoStaysCsv(now, tz, stale = false) {
 export const simulatedStays = {
   /** @param {import("../core/js/core.js").Ctx} ctx */
   async load(ctx) {
-    const csv = demoStaysCsv(Date.now(), ctx.data.hours.timezone, location.hash === "#stale");
-    return { ok: true, ...staysFromCsv(csv) };
+    const now = Date.now(), timeZone = ctx.data.hours.timezone;
+    const csv = demoStaysCsv(now, timeZone, location.hash === "#stale");
+    return { ok: true, ...staysFromCsv(csv, { homes: /** @type {any} */ (ctx.data).calendar.homes, timeZone, now }) };
   },
 };

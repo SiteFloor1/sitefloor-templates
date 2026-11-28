@@ -13,7 +13,7 @@ export const sheetStays = {
     try {
       const res = await fetch(cfg.csvUrl, { signal: controller.signal, cache: "no-store", credentials: "omit" });
       if (!res.ok) return { ok: false, stays: [], updated: null };
-      return { ok: true, ...staysFromCsv(await res.text()) };
+      return { ok: true, ...staysFromCsv(await res.text(), { homes: cfg.homes, timeZone: ctx.data.hours.timezone, now: Date.now() }) };
     } catch {
       return { ok: false, stays: [], updated: null };
     } finally {
