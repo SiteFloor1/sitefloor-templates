@@ -1,0 +1,12 @@
+/* Book a viewing. */
+.rv-f { max-width: 760px; padding: 8px 0 96px; display: grid; gap: 26px; }
+.rv-k { border: 0; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.rv-k legend { font-size: 14px; color: var(--muted); margin-bottom: 8px; }
+.rv-k label { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 18px; border: 1px solid var(--line); cursor: pointer; }
+.rv-k input { accent-color: var(--accent); }
+.rv-g { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.rv-g label { display: grid; gap: 6px; font-size: 14px; color: var(--muted); }
+.rv-g select, .rv-g input { font: inherit; font-size: 17px; color: var(--text); padding: 8px 0; border: 0; border-bottom: 1px solid var(--line); background: transparent; min-height: 44px; }
+.rv-go { justify-self: start; display: inline-flex; align-items: center; min-height: 54px; padding: 0 30px; background: var(--accent); color: var(--on-accent); font-weight: 700; text-decoration: none; }
+.rv-fine { font-size: 13px; color: var(--muted); margin: 0; }
+@media (max-width: 640px) { .rv-g { grid-template-columns: 1fr; } .rv-go { justify-self: stretch; justify-content: center; } }

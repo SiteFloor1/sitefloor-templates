@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: landlords
+permalink: landlords.html
+feature: residences-owners
+eleventyComputed:
+  title: "For landlords"
+  description: "What {{ site.business.name }} does for other owners, and its fees with VAT."
+---
+{%- set ph = { title: "For landlords", intro: site.owners.intro } %}
+{% include "kits/residences/partials/page-head.njk" %}
+<div class="wrap">{% include "kits/residences/features/residences-owners/residences-owners.njk" %}</div>

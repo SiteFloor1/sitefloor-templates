@@ -1,0 +1,9 @@
+{#- What "serviced" means (Plus): each length of stay's inclusions side by side, in the operator's words. -#}
+{%- set s = site.serviced %}
+<div class="rsv" data-feature="residences-serviced">
+  <div class="rsv-scroll" tabindex="0" role="region" aria-label="What each length of stay includes (scrolls sideways)"><table class="rsv-t">
+    <thead><tr><th scope="col"><span class="sr-only">Included</span></th>{% for c in s.columns %}<th scope="col">{{ c }}</th>{% endfor %}</tr></thead>
+    <tbody>{% for r in s.rows %}<tr><th scope="row">{{ r.item }}</th>{% for v in r.values %}<td>{{ v }}</td>{% endfor %}</tr>{% endfor %}</tbody>
+  </table></div>
+  <p class="rt-fine">Prices for each stay, with every mandatory charge, are on <a href="{{ 'fees' | href }}">Fees and terms</a>.</p>
+</div>

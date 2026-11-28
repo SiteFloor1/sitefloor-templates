@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: residences
+permalink: residences.html
+feature: residences-list
+eleventyComputed:
+  title: "Residences"
+  description: "Every home free at {{ site.business.name }}, by stay, size and the date you need it."
+---
+{%- set ph = { title: "Residences", intro: "Every home free now or soon. Prices include every mandatory fee." } %}
+{% include "kits/residences/partials/page-head.njk" %}
+<div class="wrap">{% include "kits/residences/features/residences-list/residences-list.njk" %}</div>

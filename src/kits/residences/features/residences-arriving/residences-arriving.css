@@ -1,0 +1,14 @@
+/* Arriving. */
+.ra2 { padding: 8px 0 96px; display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 56px; align-items: start; }
+.ra2-s { margin: 0; padding: 0; list-style: none; counter-reset: s; }
+.ra2-s li { counter-increment: s; position: relative; padding: 0 0 26px 56px; border-left: 1px solid var(--line); margin-left: 16px; }
+.ra2-s li::before { content: counter(s); position: absolute; left: -17px; top: -2px; width: 34px; height: 34px; border-radius: 50%; background: var(--bg); border: 1px solid var(--line); display: grid; place-items: center; font-family: var(--font-display); font-weight: 600; }
+.ra2-s h2 { font-family: var(--font-display); font-weight: 500; font-size: 26px; margin: 0 0 6px; }
+.ra2-s p { margin: 0; color: var(--muted); }
+.ra2-side figure img { width: 100%; height: auto; display: block; }
+.ra2-side figcaption { font-size: 12px; color: var(--muted); margin-top: 6px; }
+.ra2-f { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 20px; }
+.ra2-f label { display: grid; gap: 6px; font-size: 14px; color: var(--muted); }
+.ra2-f input { font: inherit; font-size: 17px; color: var(--text); border: 0; border-bottom: 1px solid var(--line); background: transparent; min-height: 44px; }
+.ra2-go { grid-column: 1 / -1; display: inline-flex; justify-content: center; align-items: center; min-height: 52px; background: var(--accent); color: var(--on-accent); font-weight: 700; text-decoration: none; }
+@media (max-width: 820px) { .ra2 { grid-template-columns: 1fr; } }

@@ -1,0 +1,12 @@
+/* Journal and an article. */
+.rj { list-style: none; margin: 0; padding: 8px 0 96px; max-width: 860px; }
+.rj li { border-top: 1px solid var(--line); }
+.rj a { display: grid; grid-template-columns: 12em minmax(0, 1fr); gap: 4px 28px; padding: 20px 0; text-decoration: none; color: inherit; }
+.rj time { color: var(--muted); font-size: 14px; grid-row: span 2; }
+.rj-t { font-family: var(--font-display); font-weight: 600; font-size: 28px; line-height: 1.1; }
+.rj-s { color: var(--muted); }
+.rja { max-width: 68ch; padding: 8px 0 96px; font-size: 18px; }
+.rja-m { color: var(--muted); font-size: 14px; }
+.rja-src { font-size: 14px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 14px; }
+.rja-src a { color: inherit; }
+@media (max-width: 640px) { .rj a { grid-template-columns: 1fr; } .rj time { grid-row: auto; } }

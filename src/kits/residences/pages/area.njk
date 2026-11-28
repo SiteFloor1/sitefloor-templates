@@ -1,0 +1,16 @@
+---
+layout: core/layouts/base.njk
+feature: residences-areas
+pagination:
+  data: site.areas.items
+  size: 1
+  alias: ar
+permalink: "{{ ar.slug }}.html"
+eleventyComputed:
+  pageId: "{{ ar.slug }}"
+  title: "{{ ar.name }}"
+  description: "{{ ar.line }}"
+---
+{%- set ph = { title: ar.name, intro: ar.line } %}
+{% include "kits/residences/partials/page-head.njk" %}
+<div class="wrap">{% include "kits/residences/features/residences-areas/residences-area.njk" %}</div>

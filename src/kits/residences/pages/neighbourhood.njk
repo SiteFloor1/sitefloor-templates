@@ -1,0 +1,12 @@
+---
+layout: core/layouts/base.njk
+pageId: neighbourhood
+permalink: neighbourhood.html
+feature: residences-map
+eleventyComputed:
+  title: "Neighbourhood"
+  description: "What is a short walk from {{ site.business.name }}."
+---
+{%- set ph = { title: "Neighbourhood", intro: site.neighbourhood.intro } %}
+{% include "kits/residences/partials/page-head.njk" %}
+<div class="wrap">{% include "kits/residences/features/residences-map/residences-map.njk" %}</div>

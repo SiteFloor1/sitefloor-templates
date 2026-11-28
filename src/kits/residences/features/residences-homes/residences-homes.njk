@@ -1,0 +1,16 @@
+{#- Free now and free from (every plan): the operator's free homes from its sheet, as cards; each opens its detail in
+    a dialog. Without JavaScript, or when the sheet is stale, nothing is listed as free and the line says to ask. -#}
+{%- set sec = site.sections.homes or {} %}
+<section class="rh" id="homes" data-feature="residences-homes"{{ "residences-homes" | tierAttr | safe }}{% if rhLimit %} data-limit="{{ rhLimit }}"{% endif %} aria-labelledby="rh-h">
+  <div class="wrap">
+  {%- if not rhNoHead %}
+  <div class="rh-head">
+    <h2 id="rh-h"><span data-rh-count></span>{{ sec.title or "free now" }}</h2>
+    {%- if sec.intro %}<p>{{ sec.intro }}</p>{% endif %}
+  </div>
+  {%- else %}<h2 id="rh-h" class="sr-only">{{ sec.title or "Free now" }}</h2>{% endif %}
+  <p class="rh-upd" data-rh-updated>For today's homes, <a href="{{ site.messages.general | wa }}" data-wa-text="{{ site.messages.general }}" target="_blank" rel="noopener">ask us on WhatsApp</a> or call <a href="tel:{{ site.contact.phone | replace(' ', '') }}">{{ site.contact.phone | replace('+44 ', '0') }}</a>.</p>
+  <ul class="rh-list" data-rh-list></ul>
+  <dialog class="rh-d" data-rh-dialog data-quote-href="{{ 'quote' | href }}"></dialog>
+  </div>
+</section>
